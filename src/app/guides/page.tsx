@@ -315,7 +315,7 @@ export default function GuidesPage() {
                 <div className="space-y-2">
                   <div className="text-sm font-medium">3. Import & use</div>
                   <div className="bg-muted p-2 rounded text-xs font-mono">
-                    import {"{ Button }"} from '@/components/ui/button'
+                    import {"{ Button }"} from &apos;@/components/ui/button&apos;
                   </div>
                 </div>
               </CardContent>

@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
-import { Play, RotateCcw, Zap, ArrowRight } from "lucide-react"
+import { Play, RotateCcw, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -25,10 +25,10 @@ const principles = [
 ]
 
 const easings = [
-  { name: "Linear", value: [0, 0, 1, 1], description: "Constant speed throughout" },
-  { name: "Ease out", value: [0, 0, 0.2, 1], description: "Fast start, slow finish" },
-  { name: "Ease in", value: [0.4, 0, 1, 1], description: "Slow start, fast finish" },
-  { name: "Ease in out", value: [0.4, 0, 0.2, 1], description: "Slow start and finish" },
+  { name: "Linear", value: [0, 0, 1, 1] as const, description: "Constant speed throughout" },
+  { name: "Ease out", value: [0, 0, 0.2, 1] as const, description: "Fast start, slow finish" },
+  { name: "Ease in", value: [0.4, 0, 1, 1] as const, description: "Slow start, fast finish" },
+  { name: "Ease in out", value: [0.4, 0, 0.2, 1] as const, description: "Slow start and finish" },
 ]
 
 function AnimationDemo({ title, children }: { title: string; children: React.ReactNode }) {
@@ -361,7 +361,7 @@ export default function MotionPage() {
                   </li>
                   <li className="flex items-start space-x-2">
                     <span className="text-primary mt-1">•</span>
-                    <span>Ensure animations don't interfere with content reading</span>
+                    <span>Ensure animations don&apos;t interfere with content reading</span>
                   </li>
                 </ul>
               </CardContent>

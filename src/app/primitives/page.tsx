@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 
-function CodeBlock({ code, language = "tsx" }: { code: string; language?: string }) {
+function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
@@ -319,7 +319,7 @@ export function SwitchDemo() {
           <div className="grid md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Do's</CardTitle>
+                <CardTitle>Do&apos;s</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-start space-x-2">
@@ -343,24 +343,24 @@ export function SwitchDemo() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Don'ts</CardTitle>
+                <CardTitle>Don&apos;ts</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-start space-x-2">
                   <span className="text-destructive mt-1">✗</span>
-                  <span className="text-sm">Don't modify component internals directly</span>
+                  <span className="text-sm">Don&apos;t modify component internals directly</span>
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="text-destructive mt-1">✗</span>
-                  <span className="text-sm">Don't use multiple primary buttons in the same context</span>
+                  <span className="text-sm">Don&apos;t use multiple primary buttons in the same context</span>
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="text-destructive mt-1">✗</span>
-                  <span className="text-sm">Don't create custom variations without design approval</span>
+                  <span className="text-sm">Don&apos;t create custom variations without design approval</span>
                 </div>
                 <div className="flex items-start space-x-2">
                   <span className="text-destructive mt-1">✗</span>
-                  <span className="text-sm">Don't override accessibility attributes</span>
+                  <span className="text-sm">Don&apos;t override accessibility attributes</span>
                 </div>
               </CardContent>
             </Card>

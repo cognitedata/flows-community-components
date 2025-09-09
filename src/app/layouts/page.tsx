@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { Monitor, Tablet, Smartphone, Maximize2, Grid, Layout, Columns } from "lucide-react"
+import { Monitor, Tablet, Smartphone, Grid, Layout, Columns } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 

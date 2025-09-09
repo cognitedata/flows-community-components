@@ -147,7 +147,7 @@ export default function Home() {
         <motion.section variants={itemVariants} className="space-y-8">
           <h2 className="text-3xl font-bold text-center">Explore the System</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <motion.div
                 key={feature.title}
                 variants={itemVariants}
@@ -198,7 +198,7 @@ export default function Home() {
         <motion.section variants={itemVariants} className="text-center space-y-6 py-16">
           <h2 className="text-4xl font-bold">Ready to get started?</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Whether you're a designer or developer, our guides will help you implement 
+            Whether you&apos;re a designer or developer, our guides will help you implement 
             our design system in your next project.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
