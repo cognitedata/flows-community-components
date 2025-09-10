@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
@@ -60,10 +61,14 @@ export function Navigation() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80">
-              <Zap className="h-4 w-4 text-primary-foreground" />
-            </div>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image 
+              src="/logo.png" 
+              alt="Kora Logo" 
+              width={32} 
+              height={32} 
+              className="h-8 w-8 object-contain"
+            />
             <span className="text-lg font-bold">Kora</span>
           </Link>
 

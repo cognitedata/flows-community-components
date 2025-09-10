@@ -3,10 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3000",
+    "dev": "next dev --port 3000",
+    "dev:safe": "./scripts/dev-safe.sh",
+    "dev:turbo": "next dev --turbopack --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "rm -rf .next && rm -rf node_modules/.cache",
+    "clean:dev": "npm run clean && npm run dev",
+    "reset": "npm run clean && npm install && npm run dev"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

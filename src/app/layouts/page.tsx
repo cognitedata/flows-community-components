@@ -114,13 +114,14 @@ function LayoutPattern({ pattern }: { pattern: typeof layoutPatterns[0] }) {
 
 export default function LayoutsPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-16"
-      >
+    <div className="px-3 py-16">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-16 text-center"
+        >
         {/* Header */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-6xl font-bold">Layout patterns</h1>
@@ -429,6 +430,7 @@ export default function LayoutsPage() {
           </div>
         </section>
       </motion.div>
+      </div>
     </div>
   )
 }

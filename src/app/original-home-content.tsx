@@ -68,13 +68,14 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-16">
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="space-y-16"
-      >
+    <div className="px-3 py-16">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="space-y-16 text-center"
+        >
         {/* Hero Section */}
         <motion.section variants={itemVariants} className="text-center space-y-6">
           <div className="space-y-4">
@@ -223,6 +224,7 @@ export default function Home() {
         </div>
         </motion.section>
       </motion.div>
+      </div>
     </div>
   )
 }

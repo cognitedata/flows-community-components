@@ -20,25 +20,29 @@ export function SectionLayout({ children, className }: SectionLayoutProps) {
   // Don't show side navigation if there are no items
   if (sideNavItems.length === 0) {
     return (
-      <div className={cn("container mx-auto px-4 py-8", className)}>
-        {children}
+      <div className="px-3 py-8">
+        <div className={cn("max-w-4xl mx-auto", className)}>
+          {children}
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="py-8">
       <div className="flex gap-8">
         {/* Side Navigation */}
-        <aside className="w-64 flex-shrink-0">
+        <aside className="w-64 flex-shrink-0 pl-3">
           <div className="sticky top-24">
             <SideNavigation items={sideNavItems} />
           </div>
         </aside>
 
         {/* Main Content */}
-        <main className={cn("flex-1 min-w-0", className)}>
-          {children}
+        <main className={cn("flex-1 min-w-0 pr-3", className)}>
+          <div className="max-w-4xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>
