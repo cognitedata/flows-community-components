@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
 import { ArrowLeft, Copy, ExternalLink, Loader2, Mail } from "lucide-react"
+import { ComponentTabSwitcher } from "@/components/component-tab-switcher"
 
 interface ComponentPageProps {
   params: Promise<{
@@ -81,6 +82,11 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     // Import all the components we need for MDX rendering
     Button,
     Badge,
+    Separator,
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
     // Add other components as needed
   }
 
@@ -133,23 +139,12 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           )}
         </div>
 
-        {/* Enhanced Content with Tabs */}
-        <Tabs defaultValue="preview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
-          </TabsList>
-
-          {/* Preview Tab */}
-          <TabsContent value="preview" className="space-y-8">
-            {/* Interactive Demo Section */}
+        {/* Enhanced Content with Custom Tab Switcher */}
+        <ComponentTabSwitcher 
+          previewContent={
+            <div className="space-y-8">
+            {/* Component-specific interactive demos */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">Interactive Demo</h2>
-              <p className="text-muted-foreground">
-                Interactive examples and functionality for {doc.meta.component}.
-              </p>
-              
-              {/* Component-specific interactive demos */}
               {slug === 'button' && (
                 <div className="space-y-6">
                   <div className="p-6 border rounded-lg bg-muted/20">
@@ -302,27 +297,27 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                       <div className="border rounded p-4 bg-background">
                         <div className="text-center font-medium mb-4">December 2024</div>
                         <div className="grid grid-cols-7 gap-1 text-sm">
-                          <div className="p-2 text-center text-muted-foreground">S</div>
-                          <div className="p-2 text-center text-muted-foreground">M</div>
-                          <div className="p-2 text-center text-muted-foreground">T</div>
-                          <div className="p-2 text-center text-muted-foreground">W</div>
-                          <div className="p-2 text-center text-muted-foreground">T</div>
-                          <div className="p-2 text-center text-muted-foreground">F</div>
-                          <div className="p-2 text-center text-muted-foreground">S</div>
-                          <div className="p-2 text-center">1</div>
-                          <div className="p-2 text-center">2</div>
-                          <div className="p-2 text-center">3</div>
-                          <div className="p-2 text-center">4</div>
-                          <div className="p-2 text-center">5</div>
-                          <div className="p-2 text-center">6</div>
-                          <div className="p-2 text-center">7</div>
-                          <div className="p-2 text-center">8</div>
-                          <div className="p-2 text-center">9</div>
-                          <div className="p-2 text-center bg-primary text-primary-foreground rounded">10</div>
-                          <div className="p-2 text-center">11</div>
-                          <div className="p-2 text-center">12</div>
-                          <div className="p-2 text-center">13</div>
-                          <div className="p-2 text-center">14</div>
+                          <div key="sun" className="p-2 text-center text-muted-foreground">S</div>
+                          <div key="mon" className="p-2 text-center text-muted-foreground">M</div>
+                          <div key="tue" className="p-2 text-center text-muted-foreground">T</div>
+                          <div key="wed" className="p-2 text-center text-muted-foreground">W</div>
+                          <div key="thu" className="p-2 text-center text-muted-foreground">T</div>
+                          <div key="fri" className="p-2 text-center text-muted-foreground">F</div>
+                          <div key="sat" className="p-2 text-center text-muted-foreground">S</div>
+                          <div key="day-1" className="p-2 text-center">1</div>
+                          <div key="day-2" className="p-2 text-center">2</div>
+                          <div key="day-3" className="p-2 text-center">3</div>
+                          <div key="day-4" className="p-2 text-center">4</div>
+                          <div key="day-5" className="p-2 text-center">5</div>
+                          <div key="day-6" className="p-2 text-center">6</div>
+                          <div key="day-7" className="p-2 text-center">7</div>
+                          <div key="day-8" className="p-2 text-center">8</div>
+                          <div key="day-9" className="p-2 text-center">9</div>
+                          <div key="day-10" className="p-2 text-center bg-primary text-primary-foreground rounded">10</div>
+                          <div key="day-11" className="p-2 text-center">11</div>
+                          <div key="day-12" className="p-2 text-center">12</div>
+                          <div key="day-13" className="p-2 text-center">13</div>
+                          <div key="day-14" className="p-2 text-center">14</div>
                         </div>
                       </div>
                     </div>
@@ -652,13 +647,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               )}
             </div>
 
-            {/* Variants Section */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">Variants & Examples</h2>
-              <div className="prose prose-gray dark:prose-invert max-w-none">
-                <MDXRemote source={doc.content} components={mdxComponents} />
-              </div>
-            </div>
 
             {/* Guidelines Placeholder */}
             <div className="space-y-4">
@@ -682,21 +670,22 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 </div>
               </div>
             </div>
-          </TabsContent>
-
-          {/* Code Tab */}
-          <TabsContent value="code" className="space-y-6">
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">Implementation</h2>
-              <p className="text-muted-foreground">
-                Code examples and implementation details for {doc.meta.component}.
-              </p>
-              <div className="prose prose-gray dark:prose-invert max-w-none">
-                <MDXRemote source={doc.content} components={mdxComponents} />
+          </div>
+          }
+          codeContent={
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h2 className="text-2xl font-semibold">Implementation</h2>
+                <p className="text-muted-foreground">
+                  Code examples and implementation details for {doc.meta.component}.
+                </p>
+                <div className="prose prose-gray dark:prose-invert max-w-none">
+                  <MDXRemote source={doc.content} components={mdxComponents} />
+                </div>
               </div>
             </div>
-          </TabsContent>
-        </Tabs>
+          }
+        />
 
         {/* Footer */}
         <div className="border-t pt-8 mt-12">

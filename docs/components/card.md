@@ -275,7 +275,7 @@ Cards follow a consistent layout structure:
 
 ## Styling
 
-- Cards have a rounded border with subtle shadow
+- Cards have a rounded border
 - Consistent padding and spacing between sections
 - Responsive design that works on all screen sizes
 - Supports both light and dark themes
