@@ -11,13 +11,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Zap, Sun, Moon, Contrast } from "lucide-react"
 
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/tokens", label: "Tokens" },
-  { href: "/motion", label: "Motion" },
+  { href: "/overview", label: "Overview" },
   { href: "/primitives", label: "Primitives" },
-  { href: "/layouts", label: "Layouts" },
-  { href: "/docs", label: "Docs" },
-  { href: "/guides", label: "Guides" },
+  { href: "/blocks", label: "Blocks" },
+  { href: "/sandbox", label: "Sandbox" },
 ]
 
 function ThemeToggleGroup() {
