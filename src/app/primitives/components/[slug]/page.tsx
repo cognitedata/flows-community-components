@@ -10,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Link from "next/link"
 import { ArrowLeft, Copy, ExternalLink, Loader2, Mail } from "lucide-react"
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher"
+import { MarkdownCopyBlock } from "@/components/markdown-copy-block"
+import { CodeCopyButton } from "@/components/code-copy-button"
 
 interface ComponentPageProps {
   params: Promise<{
@@ -121,22 +123,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             </div>
           </div>
           
-          {/* LLM Usage */}
-          {doc.meta.llm_usage && (
-            <div className="bg-muted/50 border border-muted-foreground/20 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
-                  <span className="text-xs font-mono text-primary">AI</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-sm mb-1">LLM Usage Guide</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {doc.meta.llm_usage}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Enhanced Content with Custom Tab Switcher */}
@@ -596,8 +582,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                           placeholder="Enter your message..."
                           rows={3}
                         />
-                      </div>
-                      <div>
+                </div>
+                <div>
                         <label className="text-sm font-medium">Disabled Textarea</label>
                         <textarea 
                           className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1 opacity-50" 
@@ -663,9 +649,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 <div className="space-y-3">
                   <h3 className="font-semibold text-red-700 dark:text-red-400">Don&apos;t</h3>
                   <div className="p-4 rounded-lg border bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-800">
-                    <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground">
                       Guidelines for what to avoid with {doc.meta.component} will be added here.
-                    </p>
+                  </p>
                   </div>
                 </div>
               </div>
@@ -675,15 +661,393 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           codeContent={
             <div className="space-y-6">
               <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">Implementation</h2>
                 <p className="text-muted-foreground">
                   Code examples and implementation details for {doc.meta.component}.
                 </p>
-                <div className="prose prose-gray dark:prose-invert max-w-none">
-                  <MDXRemote source={doc.content} components={mdxComponents} />
-                </div>
+                
+                {/* Component Variants Code Examples */}
+                {slug === 'button' && (
+                  <div className="space-y-4">
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Default Button</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Button } from "@/components/ui/button"
+
+export function ButtonDemo() {
+  return <Button>Button</Button>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Button } from "@/components/ui/button"
+
+export function ButtonDemo() {
+  return <Button>Button</Button>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Secondary Button</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Button } from "@/components/ui/button"
+
+export function ButtonSecondary() {
+  return <Button variant="secondary">Secondary</Button>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Button } from "@/components/ui/button"
+
+export function ButtonSecondary() {
+  return <Button variant="secondary">Secondary</Button>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Outline Button</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Button } from "@/components/ui/button"
+
+export function ButtonOutline() {
+  return <Button variant="outline">Outline</Button>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Button } from "@/components/ui/button"
+
+export function ButtonOutline() {
+  return <Button variant="outline">Outline</Button>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Ghost Button</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Button } from "@/components/ui/button"
+
+export function ButtonGhost() {
+  return <Button variant="ghost">Ghost</Button>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Button } from "@/components/ui/button"
+
+export function ButtonGhost() {
+  return <Button variant="ghost">Ghost</Button>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Destructive Button</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Button } from "@/components/ui/button"
+
+export function ButtonDestructive() {
+  return <Button variant="destructive">Destructive</Button>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Button } from "@/components/ui/button"
+
+export function ButtonDestructive() {
+  return <Button variant="destructive">Destructive</Button>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {slug === 'badge' && (
+                  <div className="space-y-4">
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Default Badge</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Badge } from "@/components/ui/badge"
+
+export function BadgeDemo() {
+  return <Badge>Badge</Badge>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Badge } from "@/components/ui/badge"
+
+export function BadgeDemo() {
+  return <Badge>Badge</Badge>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Secondary Badge</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Badge } from "@/components/ui/badge"
+
+export function BadgeSecondary() {
+  return <Badge variant="secondary">Secondary</Badge>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Badge } from "@/components/ui/badge"
+
+export function BadgeSecondary() {
+  return <Badge variant="secondary">Secondary</Badge>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Outline Badge</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Badge } from "@/components/ui/badge"
+
+export function BadgeOutline() {
+  return <Badge variant="outline">Outline</Badge>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Badge } from "@/components/ui/badge"
+
+export function BadgeOutline() {
+  return <Badge variant="outline">Outline</Badge>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Destructive Badge</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Badge } from "@/components/ui/badge"
+
+export function BadgeDestructive() {
+  return <Badge variant="destructive">Destructive</Badge>
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Badge } from "@/components/ui/badge"
+
+export function BadgeDestructive() {
+  return <Badge variant="destructive">Destructive</Badge>
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {slug === 'card' && (
+                  <div className="space-y-4">
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Basic Card</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+export function CardDemo() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+        <CardDescription>Card Description</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Card Content</p>
+      </CardContent>
+    </Card>
+  )
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+export function CardDemo() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+        <CardDescription>Card Description</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>Card Content</p>
+      </CardContent>
+    </Card>
+  )
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Card with Footer</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+
+export function CardWithFooter() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p>Card content</p>
+      </CardContent>
+      <CardFooter>
+        <Button>Action</Button>
+      </CardFooter>
+    </Card>
+  )
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+
+export function CardWithFooter() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p>Card content</p>
+      </CardContent>
+      <CardFooter>
+        <Button>Action</Button>
+      </CardFooter>
+    </Card>
+  )
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {slug === 'input' && (
+                  <div className="space-y-4">
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Basic Input</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Input } from "@/components/ui/input"
+
+export function InputDemo() {
+  return <Input placeholder="Email" />
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Input } from "@/components/ui/input"
+
+export function InputDemo() {
+  return <Input placeholder="Email" />
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Input with Label</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+export function InputWithLabel() {
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+    </div>
+  )
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+export function InputWithLabel() {
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="email">Email</Label>
+      <Input type="email" id="email" placeholder="Email" />
+    </div>
+  )
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Disabled Input</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { Input } from "@/components/ui/input"
+
+export function InputDisabled() {
+  return <Input disabled placeholder="Email" />
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { Input } from "@/components/ui/input"
+
+export function InputDisabled() {
+  return <Input disabled placeholder="Email" />
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Default fallback for other components */}
+                {!['button', 'badge', 'card', 'input'].includes(slug) && (
+                  <div className="space-y-4">
+                    
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Basic Usage</h4>
+                      <div className="relative">
+                        <CodeCopyButton code={`import { ${doc.meta.component} } from "@/components/ui/${slug}"
+
+export function ${doc.meta.component}Demo() {
+  return <${doc.meta.component} />
+}`} />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import { ${doc.meta.component} } from "@/components/ui/${slug}"
+
+export function ${doc.meta.component}Demo() {
+  return <${doc.meta.component} />
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+          }
+          markdownContent={
+            <MarkdownCopyBlock content={doc.content} />
           }
         />
 

@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button"
 interface TabSwitcherProps {
   previewContent: React.ReactNode
   codeContent: React.ReactNode
+  markdownContent: React.ReactNode
 }
 
-export function ComponentTabSwitcher({ previewContent, codeContent }: TabSwitcherProps) {
-  const [activeTab, setActiveTab] = useState<'preview' | 'code'>('preview')
+export function ComponentTabSwitcher({ previewContent, codeContent, markdownContent }: TabSwitcherProps) {
+  const [activeTab, setActiveTab] = useState<'preview' | 'code' | 'markdown'>('preview')
 
   return (
     <div className="space-y-6">
@@ -29,11 +30,19 @@ export function ComponentTabSwitcher({ previewContent, codeContent }: TabSwitche
         >
           Code
         </Button>
+        <Button 
+          variant={activeTab === 'markdown' ? 'default' : 'ghost'}
+          size="sm"
+          onClick={() => setActiveTab('markdown')}
+        >
+          Markdown
+        </Button>
       </div>
 
       {/* Content */}
       {activeTab === 'preview' && previewContent}
       {activeTab === 'code' && codeContent}
+      {activeTab === 'markdown' && markdownContent}
     </div>
   )
 }
