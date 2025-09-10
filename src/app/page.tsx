@@ -53,6 +53,12 @@ const features = [
     href: "/layouts",
   },
   {
+    icon: Code2,
+    title: "Component docs",
+    description: "Comprehensive documentation with live examples and code snippets",
+    href: "/docs",
+  },
+  {
     icon: BookOpen,
     title: "Getting started",
     description: "Guides for designers and developers",

@@ -16,6 +16,7 @@ const navItems = [
   { href: "/motion", label: "Motion" },
   { href: "/primitives", label: "Primitives" },
   { href: "/layouts", label: "Layouts" },
+  { href: "/docs", label: "Docs" },
   { href: "/guides", label: "Guides" },
 ]
 
