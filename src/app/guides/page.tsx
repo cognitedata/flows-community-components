@@ -12,10 +12,14 @@ import {
   Lightbulb,
   Rocket,
   Book,
-  Terminal
+  Terminal,
+  Puzzle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CodeCopyButton } from "@/components/code-copy-button"
+import Link from "next/link"
 
 const designerSteps = [
   {
@@ -47,27 +51,58 @@ const designerSteps = [
 const developerSteps = [
   {
     title: "Install dependencies",
-    description: "Set up your project with our component library and design tokens",
+    description: "Set up Tailwind CSS, Radix UI components, and required dependencies for Kora",
     icon: Terminal,
-    action: "View installation",
+    action: "View documentation",
+    code: "npm install tailwindcss postcss autoprefixer @radix-ui/react-icons lucide-react class-variance-authority tailwind-merge clsx next-themes",
+    info: "Install all required packages for Kora UI components and theming"
   },
   {
-    title: "Configure theme",
-    description: "Set up dark/light mode and customize the theme to match your brand",
+    title: "Setup Tailwind configuration",
+    description: "Initialize Tailwind and configure it with Kora design tokens and CSS variables",
     icon: Palette,
-    action: "Setup guide",
+    action: "View theming guide",
+    code: [
+      {
+        label: "Initialize Tailwind",
+        command: "npx tailwindcss init -p"
+      },
+      {
+        label: "Add base styles to globals.css",
+        command: "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n/* Add Kora CSS variables here */"
+      }
+    ],
+    info: "Visit the theming page for complete Tailwind config with Kora design tokens and CSS variables"
   },
   {
-    title: "Import components",
-    description: "Learn how to import and use components in your React application",
+    title: "Setup React theme provider",
+    description: "Configure Next.js app layout to support dark/light mode theme switching",
     icon: Code,
-    action: "Code examples",
+    action: "View theme setup",
+    code: [
+      {
+        label: "Add ThemeProvider to layout.tsx",
+        command: `import { ThemeProvider } from "next-themes"\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang="en">\n      <body>\n        <ThemeProvider attribute="class">\n          {children}\n        </ThemeProvider>\n      </body>\n    </html>\n  )\n}`
+      }
+    ],
+    info: "Enable seamless dark/light mode switching across your entire application"
   },
   {
-    title: "Build & deploy",
-    description: "Best practices for production builds and deployment",
-    icon: Rocket,
-    action: "Deploy guide",
+    title: "Import & use components",
+    description: "Copy components and start building with Kora UI",
+    icon: Puzzle,
+    action: "View components",
+    code: [
+      {
+        label: "Copy components to your project",
+        command: "Copy from /src/components/ui/ to your project"
+      },
+      {
+        label: "Import and use (example)",
+        command: `import { Button } from "@/components/ui/button"\n\nexport default function MyPage() {\n  return <Button>Hello Kora!</Button>\n}`
+      }
+    ],
+    info: "All components are ready to use with TypeScript support and theming"
   },
 ]
 
@@ -98,14 +133,21 @@ const resources = [
   },
 ]
 
+interface StepType {
+  title: string
+  description: string
+  icon: any
+  action: string
+  code?: string | { label?: string; command: string }[]
+  info?: string
+}
+
 function StepCard({ 
   step, 
-  index, 
-  completed = false 
+  index
 }: { 
-  step: typeof designerSteps[0]
+  step: StepType
   index: number
-  completed?: boolean 
 }) {
   return (
     <motion.div
@@ -113,36 +155,97 @@ function StepCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className={`relative ${completed ? 'ring-2 ring-primary' : ''}`}>
-        <CardHeader>
-          <div className="flex items-start justify-between">
-            <div className="flex items-center space-x-3">
-              <div className={`p-2 rounded-lg ${completed ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                {completed ? (
-                  <CheckCircle className="h-5 w-5" />
-                ) : (
-                  <step.icon className="h-5 w-5" />
-                )}
+      <Card className="relative w-full h-full flex flex-col">
+        <CardHeader className="pb-3">
+          <div className="flex items-start space-x-3">
+            <div className="p-2 rounded-lg bg-muted">
+              <step.icon className="h-5 w-5" />
+            </div>
+            <div className="text-left">
+              <div className="mb-2">
+                <Badge variant="outline" className="text-xs">
+                  Step {index + 1}
+                </Badge>
               </div>
-              <div>
-                <CardTitle className="text-lg">{step.title}</CardTitle>
-                <CardDescription>{step.description}</CardDescription>
-              </div>
+              <CardTitle className="text-lg text-left">{step.title}</CardTitle>
+              <CardDescription className="text-left">{step.description}</CardDescription>
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <Button 
-            variant={completed ? "default" : "outline"} 
-            className="w-full"
-            disabled={completed}
-          >
-            {completed ? "Completed" : step.action}
-          </Button>
+        <CardContent className="flex-1 flex flex-col space-y-3">
+          <div className="flex-1 space-y-3">
+            {/* Developer step code blocks */}
+            {step.code && (
+              <div className="space-y-2">
+                {Array.isArray(step.code) ? (
+                  step.code.map((codeBlock, idx) => (
+                    <div key={idx} className="space-y-1 text-left">
+                      {codeBlock.label && (
+                        <div className="text-xs font-medium text-muted-foreground text-left">{codeBlock.label}</div>
+                      )}
+                      <div className="relative bg-muted p-3 pr-12 rounded text-xs font-mono overflow-x-auto text-left">
+                        <CodeCopyButton code={codeBlock.command} />
+                        {codeBlock.command}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="relative bg-muted p-3 pr-12 rounded text-xs font-mono overflow-x-auto text-left">
+                    <CodeCopyButton code={step.code} />
+                    {step.code}
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {/* Developer step additional info */}
+            {step.info && (
+              <p className="text-xs text-muted-foreground text-left">{step.info}</p>
+            )}
+
+            {/* Designer step placeholder content - ensures consistent height */}
+            {!step.code && !step.info && (
+              <div className="space-y-2">
+                <div className="bg-muted/50 p-3 rounded text-xs text-muted-foreground text-left">
+                  Content placeholder - will be updated with specific designer guidance
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Button aligned to bottom */}
+          <div className="mt-auto pt-2">
+            {step.action === "View theming guide" ? (
+              <Link href="/primitives/theming" className="w-full">
+                <Button variant="outline" className="w-full">
+                  {step.action}
+                </Button>
+              </Link>
+            ) : step.action === "View components" ? (
+              <Link href="/primitives/components/button" className="w-full">
+                <Button variant="outline" className="w-full">
+                  {step.action}
+                </Button>
+              </Link>
+            ) : step.action === "View documentation" ? (
+              <Button variant="outline" className="w-full" asChild>
+                <a href="https://tailwindcss.com/docs/installation" target="_blank" rel="noopener noreferrer">
+                  {step.action}
+                </a>
+              </Button>
+            ) : step.action === "View theme setup" ? (
+              <Button variant="outline" className="w-full" asChild>
+                <a href="https://github.com/pacocoursey/next-themes#readme" target="_blank" rel="noopener noreferrer">
+                  {step.action}
+                </a>
+              </Button>
+            ) : (
+              <Button variant="outline" className="w-full">
+                {step.action}
+              </Button>
+            )}
+          </div>
         </CardContent>
-        <div className="absolute top-4 right-4 text-sm text-muted-foreground">
-          {index + 1}
-        </div>
       </Card>
     </motion.div>
   )
@@ -150,17 +253,8 @@ function StepCard({
 
 export default function GuidesPage() {
   const [activeGuide, setActiveGuide] = useState<"designer" | "developer">("designer")
-  const [completedSteps, setCompletedSteps] = useState<number[]>([])
 
-  const toggleStep = (index: number) => {
-    setCompletedSteps(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    )
-  }
-
-  const currentSteps = activeGuide === "designer" ? designerSteps : developerSteps
+  const currentSteps: StepType[] = activeGuide === "designer" ? designerSteps : developerSteps
 
   return (
     <div className="px-3 py-16">
@@ -203,19 +297,10 @@ export default function GuidesPage() {
             </div>
           </div>
 
-          {/* Progress Indicator */}
+          {/* Step Count */}
           <div className="text-center">
             <div className="inline-flex items-center space-x-2 text-sm text-muted-foreground">
-              <span>Progress:</span>
-              <div className="w-32 h-2 bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-primary"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${(completedSteps.length / currentSteps.length) * 100}%` }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-              <span>{completedSteps.length}/{currentSteps.length}</span>
+              <span>{currentSteps.length} steps to get started</span>
             </div>
           </div>
         </section>
@@ -234,95 +319,18 @@ export default function GuidesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 md:auto-rows-fr">
             {currentSteps.map((step, index) => (
-              <div key={step.title} onClick={() => toggleStep(index)}>
+              <div key={step.title} className="flex">
                 <StepCard 
                   step={step} 
-                  index={index} 
-                  completed={completedSteps.includes(index)}
+                  index={index}
                 />
               </div>
             ))}
           </div>
         </section>
 
-        {/* Quick Start */}
-        <section className="space-y-8">
-          <div className="text-center space-y-2">
-            <h2 className="text-3xl font-bold">Quick start</h2>
-            <p className="text-muted-foreground">
-              Get up and running quickly with these essential commands and downloads
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Palette className="h-5 w-5" />
-                  <span>For designers</span>
-                </CardTitle>
-                <CardDescription>
-                  Download and set up the Figma design system
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="text-sm font-medium">1. Download Figma library</div>
-                  <Button className="w-full">
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Figma file
-                  </Button>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium">2. Enable as team library</div>
-                  <p className="text-xs text-muted-foreground">
-                    Go to Assets → Team library → Enable for your team
-                  </p>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium">3. Start designing</div>
-                  <p className="text-xs text-muted-foreground">
-                    Use components from the Assets panel in your designs
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Code className="h-5 w-5" />
-                  <span>For developers</span>
-                </CardTitle>
-                <CardDescription>
-                  Install and configure the component library
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="text-sm font-medium">1. Install dependencies</div>
-                  <div className="bg-muted p-2 rounded text-xs font-mono">
-                    npm install next-themes @radix-ui/react-*
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium">2. Add components</div>
-                  <div className="bg-muted p-2 rounded text-xs font-mono">
-                    npx shadcn@latest add button card input
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-sm font-medium">3. Import & use</div>
-                  <div className="bg-muted p-2 rounded text-xs font-mono">
-                    import {"{ Button }"} from &apos;@/components/ui/button&apos;
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
 
         {/* Resources */}
         <section className="space-y-8">
