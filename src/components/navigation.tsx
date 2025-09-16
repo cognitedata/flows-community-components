@@ -15,7 +15,6 @@ const navItems = [
   { href: "/overview", label: "Overview" },
   { href: "/primitives", label: "Primitives" },
   { href: "/blocks", label: "Blocks" },
-  { href: "/use-cases", label: "Use cases" },
   { href: "/sandbox", label: "Sandbox" },
 ]
 

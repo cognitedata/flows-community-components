@@ -3,10 +3,16 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { 
   Send, 
   Bot, 
@@ -15,10 +21,13 @@ import {
   ThumbsUp, 
   ThumbsDown,
   MoreHorizontal,
-  Sparkles,
   Code,
   RefreshCw,
-  MessageSquare
+  MessageSquare,
+  ChevronDown,
+  Edit,
+  Share,
+  Trash2
 } from "lucide-react"
 
 interface Message {
@@ -40,12 +49,6 @@ const initialMessages: Message[] = [
   }
 ]
 
-const exampleQuestions = [
-  "Create a responsive card component",
-  "Explain React hooks",
-  "Design a login form",
-  "Help with CSS animations"
-]
 
 function TypingIndicator() {
   return (
@@ -252,10 +255,6 @@ export default function AgentChatBlock() {
     ))
   }
 
-  const handleExampleQuestion = (question: string) => {
-    setInput(question)
-  }
-
   const clearChat = () => {
     setMessages(initialMessages)
     setIsTyping(false)
@@ -286,21 +285,34 @@ export default function AgentChatBlock() {
       </div>
 
       {/* Interactive Demo */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="max-w-4xl mx-auto">
         {/* Chat Interface */}
-        <div className="lg:col-span-2">
-          <Card className="h-[600px] flex flex-col">
-            <CardHeader className="border-b">
+        <div>
+          <Card className="h-[600px] flex flex-col bg-zinc-800 rounded-lg py-0">
+            <CardHeader className="border-b p-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Sparkles className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">AI Assistant</CardTitle>
-                    <p className="text-sm text-muted-foreground">Always ready to help</p>
-                  </div>
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="flex items-center gap-2 p-2 h-auto">
+                      <span className="text-lg font-semibold">Pump 4B troubleshooting</span>
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem>
+                      <Edit className="h-4 w-4 mr-2" />
+                      Rename
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Share className="h-4 w-4 mr-2" />
+                      Share
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="text-destructive">
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Button variant="ghost" size="sm" onClick={clearChat}>
                   <RefreshCw className="h-4 w-4" />
                 </Button>
@@ -309,7 +321,7 @@ export default function AgentChatBlock() {
             
             <CardContent className="flex-1 flex flex-col p-0">
               {/* Messages */}
-              <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+              <ScrollArea className="flex-1 p-3" ref={scrollAreaRef}>
                 <div className="space-y-4">
                   <AnimatePresence>
                     {messages.map((message) => (
@@ -326,7 +338,7 @@ export default function AgentChatBlock() {
               </ScrollArea>
 
               {/* Input */}
-              <div className="p-4 border-t">
+              <div className="p-3 border-t">
                 <div className="flex gap-2">
                   <Input
                     value={input}
@@ -335,61 +347,9 @@ export default function AgentChatBlock() {
                     placeholder="Ask me anything..."
                     className="flex-1"
                   />
-                  <Button onClick={handleSendMessage} disabled={!input.trim()}>
+                  <Button variant="default" onClick={handleSendMessage} disabled={!input.trim()}>
                     <Send className="h-4 w-4" />
                   </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Features Panel */}
-        <div className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Try These Examples</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {exampleQuestions.map((question, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="sm"
-                  className="w-full justify-start text-left h-auto py-2 px-3"
-                  onClick={() => handleExampleQuestion(question)}
-                >
-                  {question}
-                </Button>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Features</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="text-sm">Real-time typing indicators</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="text-sm">Message reactions & feedback</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="text-sm">Code syntax highlighting</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="text-sm">Smooth animations</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="text-sm">Copy to clipboard</span>
                 </div>
               </div>
             </CardContent>
