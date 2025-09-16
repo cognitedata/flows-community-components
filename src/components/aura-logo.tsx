@@ -1,50 +1,15 @@
-"use client"
-
-import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
-
 interface AuraLogoProps {
   className?: string
   size?: number
 }
 
 export function AuraLogo({ className = "", size = 32 }: AuraLogoProps) {
-  const { theme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Default to light theme colors if not mounted or theme is undefined
-  const getColors = () => {
-    if (!mounted) {
-      return {
-        background: "var(--aurora-lime-50)",
-        center: "var(--aurora-lime-600)"
-      }
-    }
-
-    switch (theme) {
-      case "dark":
-        return {
-          background: "var(--aurora-lime-300)",
-          center: "var(--aurora-lime-950)"
-        }
-      case "contrast":
-        return {
-          background: "var(--aurora-lime-300)",
-          center: "var(--aurora-lime-950)"
-        }
-      default: // light
-        return {
-          background: "var(--aurora-lime-50)",
-          center: "var(--aurora-lime-600)"
-        }
-    }
+  // Use consistent colors regardless of theme mode
+  // Using dark/high contrast theme colors for all modes
+  const colors = {
+    background: "var(--aurora-lime-300)",
+    center: "var(--aurora-lime-950)"
   }
-
-  const colors = getColors()
 
   return (
     <svg 

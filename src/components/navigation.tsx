@@ -15,6 +15,7 @@ const navItems = [
   { href: "/overview", label: "Overview" },
   { href: "/primitives", label: "Primitives" },
   { href: "/blocks", label: "Blocks" },
+  { href: "/use-cases", label: "Use cases" },
   { href: "/sandbox", label: "Sandbox" },
 ]
 
@@ -68,32 +69,37 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="relative">
-                <span
-                  className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
-                    pathname === item.href
-                      ? "text-primary"
-                      : "text-muted-foreground"
+            {navItems.map((item) => {
+              // Check if current pathname starts with the nav item href (for sub-routes)
+              const isActive = pathname.startsWith(item.href) && pathname !== "/"
+              
+              return (
+                <Link key={item.href} href={item.href} className="relative">
+                  <span
+                    className={cn(
+                      "text-sm font-medium transition-colors hover:text-primary",
+                      isActive
+                        ? "text-primary"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {item.label}
+                  </span>
+                  {isActive && (
+                    <motion.div
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                      layoutId="activeTab"
+                      initial={false}
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 30,
+                      }}
+                    />
                   )}
-                >
-                  {item.label}
-                </span>
-                {pathname === item.href && (
-                  <motion.div
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                    layoutId="activeTab"
-                    initial={false}
-                    transition={{
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </Link>
-            ))}
+                </Link>
+              )
+            })}
           </nav>
         </div>
 
@@ -110,20 +116,24 @@ export function Navigation() {
             </SheetTrigger>
             <SheetContent side="right" className="w-80">
               <div className="flex flex-col space-y-4 mt-8">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "text-lg font-medium transition-colors hover:text-primary",
-                      pathname === item.href
-                        ? "text-primary"
-                        : "text-muted-foreground"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {navItems.map((item) => {
+                  const isActive = pathname.startsWith(item.href) && pathname !== "/"
+                  
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        isActive
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                })}
                 <div className="pt-4 border-t">
                   <div className="text-sm font-medium mb-2">Theme</div>
                   <ThemeToggleGroup />

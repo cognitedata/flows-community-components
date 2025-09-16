@@ -30,11 +30,12 @@ const primitivesNavigation: NavigationItem[] = [
     label: "Styling & assets",
     isSubsection: true,
     children: [
-      { href: "/primitives/theming", label: "Theming" },
       { href: "/primitives/colors", label: "Colors" },
-      { href: "/primitives/motion-design", label: "Motion design" },
-      { href: "/primitives/illustrations", label: "Illustrations" },
       { href: "/primitives/icons", label: "Icons" },
+      { href: "/primitives/illustrations", label: "Illustrations" },
+      { href: "/primitives/layouts", label: "Layouts" },
+      { href: "/primitives/motion-design", label: "Motion design" },
+      { href: "/primitives/theming", label: "Theming" },
     ]
   },
   {
@@ -71,7 +72,19 @@ const primitivesNavigation: NavigationItem[] = [
 ]
 
 const blocksNavigation: NavigationItem[] = [
-  { href: "/blocks", label: "Layouts" },
+  { href: "/blocks", label: "About" },
+  {
+    href: "#",
+    label: "Blocks",
+    isSubsection: true,
+    children: [
+      { href: "/blocks/agent-chat", label: "Agent chat" },
+      { href: "/blocks/canvas", label: "Canvas" },
+      { href: "/blocks/commenting", label: "Commenting" },
+      { href: "/blocks/dashboards", label: "Dashboards" },
+      { href: "/blocks/shift-handover", label: "Shift handover" },
+    ]
+  }
 ]
 
 const sandboxNavigation: NavigationItem[] = [
