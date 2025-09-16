@@ -31,6 +31,7 @@ const primitivesNavigation: NavigationItem[] = [
     isSubsection: true,
     children: [
       { href: "/primitives/theming", label: "Theming" },
+      { href: "/primitives/colors", label: "Colors" },
       { href: "/primitives/motion-design", label: "Motion design" },
       { href: "/primitives/illustrations", label: "Illustrations" },
       { href: "/primitives/icons", label: "Icons" },

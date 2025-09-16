@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Design system guidelines",
-  description: "Interactive brand guidelines and design system documentation",
+  title: "Aura Design System",
+  description: "Interactive brand guidelines and design system documentation for Aura UI",
 };
 
 export default function RootLayout({

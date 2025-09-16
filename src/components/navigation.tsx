@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { motion } from "framer-motion"
@@ -10,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Zap, Sun, Moon, Contrast } from "lucide-react"
+import { AuraLogo } from "@/components/aura-logo"
 
 const navItems = [
   { href: "/overview", label: "Overview" },
@@ -62,14 +62,8 @@ export function Navigation() {
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
           <Link href="/" className="flex items-center space-x-3">
-            <Image 
-              src="/logo.png" 
-              alt="Kora Logo" 
-              width={32} 
-              height={32} 
-              className="h-8 w-8 object-contain"
-            />
-            <span className="text-lg font-bold">Kora</span>
+            <AuraLogo size={32} />
+            <span className="text-lg font-bold lowercase" style={{ fontFamily: "'Nova Mono', monospace" }}>aura</span>
           </Link>
 
           {/* Desktop Navigation */}

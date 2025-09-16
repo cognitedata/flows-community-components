@@ -51,15 +51,15 @@ const designerSteps = [
 const developerSteps = [
   {
     title: "Install dependencies",
-    description: "Set up Tailwind CSS, Radix UI components, and required dependencies for Kora",
+    description: "Set up Tailwind CSS, Radix UI components, and required dependencies for Aura",
     icon: Terminal,
     action: "View documentation",
     code: "npm install tailwindcss postcss autoprefixer @radix-ui/react-icons lucide-react class-variance-authority tailwind-merge clsx next-themes",
-    info: "Install all required packages for Kora UI components and theming"
+    info: "Install all required packages for Aura UI components and theming"
   },
   {
     title: "Setup Tailwind configuration",
-    description: "Initialize Tailwind and configure it with Kora design tokens and CSS variables",
+    description: "Initialize Tailwind and configure it with Aura design tokens and CSS variables",
     icon: Palette,
     action: "View theming guide",
     code: [
@@ -69,10 +69,10 @@ const developerSteps = [
       },
       {
         label: "Add base styles to globals.css",
-        command: "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n/* Add Kora CSS variables here */"
+        command: "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n/* Add Aura CSS variables here */"
       }
     ],
-    info: "Visit the theming page for complete Tailwind config with Kora design tokens and CSS variables"
+    info: "Visit the theming page for complete Tailwind config with Aura design tokens and CSS variables"
   },
   {
     title: "Setup React theme provider",
@@ -89,7 +89,7 @@ const developerSteps = [
   },
   {
     title: "Import & use components",
-    description: "Copy components and start building with Kora UI",
+    description: "Copy components and start building with Aura UI",
     icon: Puzzle,
     action: "View components",
     code: [
@@ -99,7 +99,7 @@ const developerSteps = [
       },
       {
         label: "Import and use (example)",
-        command: `import { Button } from "@/components/ui/button"\n\nexport default function MyPage() {\n  return <Button>Hello Kora!</Button>\n}`
+        command: `import { Button } from "@/components/ui/button"\n\nexport default function MyPage() {\n  return <Button>Hello Aura!</Button>\n}`
       }
     ],
     info: "All components are ready to use with TypeScript support and theming"

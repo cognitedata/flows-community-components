@@ -26,7 +26,7 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
     <div className="space-y-6">
       <div className="space-y-4">
         <p className="text-muted-foreground">
-          Share the markdown with AI assistants to explain Kora UI concepts and APIs.
+          Share the markdown with AI assistants to explain Aura UI concepts and APIs.
         </p>
         <div className="relative bg-muted/50 rounded-lg p-4">
           {/* Copy Button with Tooltip */}
