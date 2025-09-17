@@ -7,6 +7,7 @@ import { ArrowRight, Palette, Zap, Code, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { AuraLogo } from "@/components/aura-logo"
 import PrismaticBurst from "@/components/PrismaticBurst"
+import { GlowingEffect } from "@/components/ui/glowing-effect"
 
 
 export default function HomePage() {
@@ -73,7 +74,16 @@ export default function HomePage() {
 
           {/* Feature Grid */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
-            <Card className="border-2 hover:border-primary/50 transition-colors">
+            <Card className="relative border-2 hover:border-primary/50 transition-colors overflow-hidden">
+              <GlowingEffect
+                spread={60}
+                glow={false}
+                disabled={false}
+                proximity={80}
+                inactiveZone={0.2}
+                borderWidth={2}
+                variant="default"
+              />
               <CardHeader>
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Palette className="h-6 w-6 text-primary" />
@@ -88,7 +98,16 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:border-primary/50 transition-colors">
+            <Card className="relative border-2 hover:border-primary/50 transition-colors overflow-hidden">
+              <GlowingEffect
+                spread={60}
+                glow={false}
+                disabled={false}
+                proximity={80}
+                inactiveZone={0.2}
+                borderWidth={2}
+                variant="default"
+              />
               <CardHeader>
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Code className="h-6 w-6 text-primary" />
@@ -103,7 +122,16 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-2 hover:border-primary/50 transition-colors">
+            <Card className="relative border-2 hover:border-primary/50 transition-colors overflow-hidden">
+              <GlowingEffect
+                spread={60}
+                glow={false}
+                disabled={false}
+                proximity={80}
+                inactiveZone={0.2}
+                borderWidth={2}
+                variant="default"
+              />
               <CardHeader>
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Sparkles className="h-6 w-6 text-primary" />
