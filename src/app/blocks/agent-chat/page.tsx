@@ -16,7 +16,6 @@ import {
 import { 
   Send, 
   Bot, 
-  User, 
   Copy, 
   ThumbsUp, 
   ThumbsDown,
@@ -92,26 +91,39 @@ function MessageBubble({ message, onReact }: { message: Message; onReact: (messa
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
+      initial={{ 
+        opacity: 0, 
+        y: 20,
+        scale: 0.95
+      }}
+      animate={{ 
+        opacity: 1, 
+        y: 0,
+        scale: 1
+      }}
+      exit={{ 
+        opacity: 0, 
+        y: -10,
+        scale: 0.95
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 500,
+        damping: 30,
+        duration: 0.4
+      }}
       className={`flex gap-3 items-start ${
         message.role === "user" ? "justify-end" : "justify-start"
       }`}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
-      {message.role === "assistant" && (
-        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-          <Bot className="h-4 w-4 text-primary" />
-        </div>
-      )}
       
       <div className={`max-w-[80%] ${
         message.role === "user" 
-          ? "bg-primary text-primary-foreground" 
-          : "bg-muted"
-      } rounded-lg p-3 relative group`}>
+          ? "bg-zinc-800 text-zinc-100" 
+          : ""
+      } ${message.role === "user" ? "rounded-sm" : "rounded-lg"} p-3 relative group`}>
         <div className="whitespace-pre-wrap text-sm">
           {message.isCode ? (
             <div className="bg-background/10 rounded p-2 font-mono text-xs">
@@ -124,6 +136,7 @@ function MessageBubble({ message, onReact }: { message: Message; onReact: (messa
           ) : (
             message.content
           )}
+          
         </div>
         
         {/* Message Actions */}
@@ -188,11 +201,247 @@ function MessageBubble({ message, onReact }: { message: Message; onReact: (messa
       </div>
 
       {message.role === "user" && (
-        <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-          <User className="h-4 w-4" />
+        <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0">
+          <img 
+            src="/user-avatar.png" 
+            alt="User Avatar" 
+            className="w-full h-full object-cover"
+          />
         </div>
       )}
     </motion.div>
+  )
+}
+
+// Time Series Card Component
+function TimeSeriesCard() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, duration: 0.4 }}
+      className="mt-3"
+    >
+      <Card className="bg-zinc-800/50 border-zinc-700">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            <h4 className="text-sm font-medium">Pump 4B vibration trend</h4>
+            <span className="text-xs text-muted-foreground ml-auto">Last 24 hours</span>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <div className="space-y-3">
+            {/* Animated Area Chart */}
+            <div className="h-32 bg-zinc-900/50 rounded-lg border border-zinc-700 relative overflow-hidden">
+              <svg className="w-full h-full" viewBox="0 0 400 128">
+                <defs>
+                  <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="rgb(239 68 68)" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="rgb(239 68 68)" stopOpacity="0.1" />
+                  </linearGradient>
+                </defs>
+                
+                {/* Grid lines */}
+                {[25, 50, 75, 100].map((y) => (
+                  <line
+                    key={y}
+                    x1="0"
+                    y1={y}
+                    x2="400"
+                    y2={y}
+                    stroke="rgb(63 63 70)"
+                    strokeWidth="0.5"
+                    opacity="0.3"
+                  />
+                ))}
+                
+                {/* Animated area chart */}
+                <motion.path
+                  d="M 0 100 L 57 85 L 114 68 L 171 50 L 228 15 L 285 35 L 342 55 L 400 75 L 400 128 L 0 128 Z"
+                  fill="url(#areaGradient)"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                />
+                
+                {/* Animated line */}
+                <motion.path
+                  d="M 0 100 L 57 85 L 114 68 L 171 50 L 228 15 L 285 35 L 342 55 L 400 75"
+                  fill="none"
+                  stroke="rgb(239 68 68)"
+                  strokeWidth="2"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                />
+                
+                {/* Animated data points */}
+                {[
+                  { x: 0, y: 100, value: 3.2 },
+                  { x: 57, y: 85, value: 4.1 },
+                  { x: 114, y: 68, value: 6.8 },
+                  { x: 171, y: 50, value: 8.2 },
+                  { x: 228, y: 15, value: 12.4 },
+                  { x: 285, y: 35, value: 9.1 },
+                  { x: 342, y: 55, value: 7.3 },
+                  { x: 400, y: 75, value: 5.9 }
+                ].map((point, i) => (
+                  <motion.circle
+                    key={i}
+                    cx={point.x}
+                    cy={point.y}
+                    r="3"
+                    fill="rgb(239 68 68)"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.8 + i * 0.1 }}
+                  />
+                ))}
+              </svg>
+              
+              <div className="absolute top-2 left-2 text-xs text-muted-foreground">
+                mm/s
+              </div>
+              <div className="absolute bottom-2 right-2 text-xs text-red-400 font-medium">
+                Peak: 12.4 mm/s
+              </div>
+            </div>
+            
+            {/* Key metrics */}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-zinc-900/50 rounded p-2">
+                <div className="text-lg font-semibold text-red-400">12.4</div>
+                <div className="text-xs text-muted-foreground">Peak mm/s</div>
+              </div>
+              <div className="bg-zinc-900/50 rounded p-2">
+                <div className="text-lg font-semibold text-yellow-400">8.2</div>
+                <div className="text-xs text-muted-foreground">Avg mm/s</div>
+              </div>
+              <div className="bg-zinc-900/50 rounded p-2">
+                <div className="text-lg font-semibold text-green-400">&lt;6.0</div>
+                <div className="text-xs text-muted-foreground">Normal</div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+}
+
+// Work Order Card Component
+function WorkOrderCard() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.8, duration: 0.4 }}
+      className="mt-3"
+    >
+      <Card className="bg-zinc-800/50 border-zinc-700">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+            <h4 className="text-sm font-medium">Recommended work order</h4>
+            <span className="text-xs bg-orange-500/20 text-orange-400 px-2 py-1 rounded-full ml-auto">
+              High priority
+            </span>
+          </div>
+        </CardHeader>
+        <CardContent className="pt-0">
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="text-muted-foreground">Asset:</span>
+                <div className="font-medium">Pump 4B - bearing assembly</div>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Due by:</span>
+                <div className="font-medium text-orange-400">48 hours</div>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Type:</span>
+                <div className="font-medium">Preventive maintenance</div>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Estimated time:</span>
+                <div className="font-medium">4-6 hours</div>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <span className="text-sm text-muted-foreground">Tasks:</span>
+              <div className="space-y-1.5">
+                {[
+                  "Inspect bearing housing for wear",
+                  "Replace bearing assembly",
+                  "Check alignment and balance",
+                  "Update vibration baseline"
+                ].map((task, i) => (
+                  <div key={i} className="flex items-center gap-2 text-sm">
+                    <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full"></div>
+                    <span>{task}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex gap-2 pt-2">
+              <Button size="sm" className="bg-orange-600 hover:bg-orange-700">
+                Create work order
+              </Button>
+              <Button size="sm" variant="outline">
+                Schedule later
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+}
+
+// Typing animation component
+function TypingAnimation({ 
+  text, 
+  onComplete, 
+  speed = 80,
+  className = "" 
+}: { 
+  text: string; 
+  onComplete?: () => void; 
+  speed?: number;
+  className?: string;
+}) {
+  const [displayedText, setDisplayedText] = useState("")
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timer = setTimeout(() => {
+        setDisplayedText(prev => prev + text[currentIndex])
+        setCurrentIndex(prev => prev + 1)
+      }, speed)
+      return () => clearTimeout(timer)
+    } else if (onComplete) {
+      onComplete()
+    }
+  }, [currentIndex, text, speed, onComplete])
+
+  return (
+    <span className={className}>
+      {displayedText}
+      {currentIndex < text.length && (
+        <motion.span
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ duration: 0.8, repeat: Infinity }}
+          className="inline-block"
+        >
+          |
+        </motion.span>
+      )}
+    </span>
   )
 }
 
@@ -200,13 +449,70 @@ export default function AgentChatBlock() {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [input, setInput] = useState("")
   const [isTyping, setIsTyping] = useState(false)
+  const [isDemoMode, setIsDemoMode] = useState(false)
+  const [demoStep, setDemoStep] = useState(0)
+  const [showTypingDemo, setShowTypingDemo] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
+
+  const demoMessage = "There is abnormal vibration levels on Pump 4B. Show me the trend for the last 24 hours."
 
   useEffect(() => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
     }
   }, [messages, isTyping])
+
+  // Auto-start demo after component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      startDemo()
+    }, 2000) // Start demo after 2 seconds
+    return () => clearTimeout(timer)
+  }, [])
+
+  const startDemo = () => {
+    setIsDemoMode(true)
+    setShowTypingDemo(true)
+    setDemoStep(1)
+  }
+
+  const handleTypingComplete = () => {
+    setShowTypingDemo(false)
+    setInput(demoMessage)
+    // Simulate enter key press after typing completes
+    setTimeout(() => {
+      handleDemoSendMessage()
+    }, 500)
+  }
+
+  const handleDemoSendMessage = () => {
+    if (!demoMessage.trim()) return
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: "user",
+      content: demoMessage.trim(),
+      timestamp: new Date()
+    }
+
+    setMessages(prev => [...prev, userMessage])
+    setInput("")
+    setIsTyping(true)
+    setDemoStep(2)
+
+    // Simulate AI response
+    setTimeout(() => {
+      setIsTyping(false)
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "I can see the vibration data for Pump 4B over the last 24 hours. The levels have indeed been abnormal, particularly between 2-4 AM and 10-12 PM. Here's what I found:\n\n• Average vibration: 8.2 mm/s (Normal: <6.0 mm/s)\n• Peak vibration: 12.4 mm/s at 3:15 AM\n• Pattern suggests bearing wear\n\nI recommend scheduling maintenance within the next 48 hours to prevent potential failure.",
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, aiMessage])
+      setDemoStep(3)
+    }, 2000)
+  }
 
   const handleSendMessage = async () => {
     if (!input.trim()) return
@@ -258,6 +564,16 @@ export default function AgentChatBlock() {
   const clearChat = () => {
     setMessages(initialMessages)
     setIsTyping(false)
+    setIsDemoMode(false)
+    setDemoStep(0)
+    setShowTypingDemo(false)
+  }
+
+  const restartDemo = () => {
+    clearChat()
+    setTimeout(() => {
+      startDemo()
+    }, 500)
   }
 
   return (
@@ -288,8 +604,8 @@ export default function AgentChatBlock() {
       <div className="max-w-4xl mx-auto">
         {/* Chat Interface */}
         <div>
-          <Card className="h-[600px] flex flex-col bg-zinc-800 rounded-lg py-0">
-            <CardHeader className="border-b p-3">
+          <Card className="h-[600px] flex flex-col rounded-lg py-0" style={{ backgroundColor: '#18181b' }}>
+            <CardHeader className="border-b border-zinc-800 p-3">
               <div className="flex items-center justify-between">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -313,15 +629,20 @@ export default function AgentChatBlock() {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <Button variant="ghost" size="sm" onClick={clearChat}>
-                  <RefreshCw className="h-4 w-4" />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={restartDemo} title="Restart Demo">
+                    <MessageSquare className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={clearChat} title="Clear Chat">
+                    <RefreshCw className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </CardHeader>
             
             <CardContent className="flex-1 flex flex-col p-0">
               {/* Messages */}
-              <ScrollArea className="flex-1 p-3" ref={scrollAreaRef}>
+              <ScrollArea className="flex-1 p-3 max-h-full overflow-y-auto" ref={scrollAreaRef}>
                 <div className="space-y-4">
                   <AnimatePresence>
                     {messages.map((message) => (
@@ -333,21 +654,46 @@ export default function AgentChatBlock() {
                     ))}
                   </AnimatePresence>
                   
+                  {/* Show cards after vibration response */}
+                  {messages.some(msg => msg.role === "assistant" && msg.content.includes("vibration")) && (
+                    <div className="space-y-3 mt-4">
+                      <TimeSeriesCard />
+                      <WorkOrderCard />
+                    </div>
+                  )}
+                  
                   {isTyping && <TypingIndicator />}
                 </div>
               </ScrollArea>
 
               {/* Input */}
-              <div className="p-3 border-t">
+              <div className="p-3 border-t border-zinc-800">
                 <div className="flex gap-2">
-                  <Input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                    placeholder="Ask me anything..."
-                    className="flex-1"
-                  />
-                  <Button variant="default" onClick={handleSendMessage} disabled={!input.trim()}>
+                  <div className="flex-1 relative">
+                    <Input
+                      value={isDemoMode && showTypingDemo ? "" : input}
+                      onChange={(e) => !isDemoMode && setInput(e.target.value)}
+                      onKeyPress={(e) => !isDemoMode && e.key === "Enter" && handleSendMessage()}
+                      placeholder={isDemoMode && showTypingDemo ? "" : "Ask me anything..."}
+                      className="flex-1"
+                      disabled={isDemoMode}
+                    />
+                    {isDemoMode && showTypingDemo && (
+                      <div className="absolute inset-0 flex items-center px-3 pointer-events-none">
+                        <TypingAnimation
+                          text={demoMessage}
+                          onComplete={handleTypingComplete}
+                          speed={60}
+                          className="text-foreground"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <Button 
+                    variant="default" 
+                    onClick={handleSendMessage} 
+                    disabled={!input.trim() || isDemoMode}
+                  >
                     <Send className="h-4 w-4" />
                   </Button>
                 </div>

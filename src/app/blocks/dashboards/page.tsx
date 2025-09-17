@@ -1,272 +1,392 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { 
-  BarChart3, 
-  TrendingUp, 
-  TrendingDown, 
-  Users, 
-  DollarSign,
-  Activity,
-  ArrowUpRight,
-  ArrowDownRight,
-  RefreshCw,
-  Filter,
-  Calendar,
-  Download
-} from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart } from "recharts"
+import { BarChart3, TrendingUp, Thermometer } from "lucide-react"
 
-interface MetricData {
-  label: string
-  value: number
-  change: number
-  trend: "up" | "down"
-  icon: React.ElementType
-  color: string
-}
-
-interface ChartData {
-  label: string
-  value: number
-  color: string
-}
-
-const initialMetrics: MetricData[] = [
-  {
-    label: "Total Revenue",
-    value: 45231,
-    change: 12.5,
-    trend: "up",
-    icon: DollarSign,
-    color: "text-green-500"
-  },
-  {
-    label: "Active Users",
-    value: 2847,
-    change: -2.3,
-    trend: "down",
-    icon: Users,
-    color: "text-blue-500"
-  },
-  {
-    label: "Conversion Rate",
-    value: 3.2,
-    change: 8.1,
-    trend: "up",
-    icon: TrendingUp,
-    color: "text-purple-500"
-  },
-  {
-    label: "System Health",
-    value: 99.8,
-    change: 0.1,
-    trend: "up",
-    icon: Activity,
-    color: "text-emerald-500"
+// Generate 3 months of equipment uptime/downtime data with proper stacking
+const generateEquipmentData = () => {
+  const data = []
+  const today = new Date()
+  const totalDays = 90 // 3 months (90 days)
+  
+  // Base patterns for more realistic variation over 3 months
+  const maintenanceEvents = [7, 21, 35, 49, 63, 77] // Monthly maintenance cycles
+  const incidentEvents = [12, 28, 44, 58, 72, 85] // Random incidents
+  
+  for (let i = totalDays - 1; i >= 0; i--) {
+    const date = new Date(today)
+    date.setDate(date.getDate() - i)
+    const dayIndex = totalDays - 1 - i
+    
+    let uptimePercent = 82 // Higher base for less dramatic variation
+    
+    // Add moderate daily variation
+    uptimePercent += Math.sin(dayIndex * 0.3) * 8  // Primary wave
+    uptimePercent += Math.sin(dayIndex * 0.6) * 5  // Secondary wave
+    uptimePercent += (Math.random() - 0.5) * 6     // Moderate random variation
+    
+    // Planned maintenance events (moderate drops)
+    if (maintenanceEvents.includes(dayIndex)) {
+      uptimePercent -= 15 + Math.random() * 10 // 15-25% drop
+    }
+    
+    // Unplanned incidents (significant but not extreme drops)
+    if (incidentEvents.includes(dayIndex)) {
+      uptimePercent -= 20 + Math.random() * 15 // 20-35% drop
+    }
+    
+    // Weekend effect (moderate impact)
+    const dayOfWeek = date.getDay()
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      uptimePercent -= 4 + Math.random() * 4
+    }
+    
+    // Create some random "good days" for peaks
+    if (Math.random() < 0.15 && !maintenanceEvents.includes(dayIndex) && !incidentEvents.includes(dayIndex)) {
+      uptimePercent += 6 + Math.random() * 8 // Moderate boost for "good days"
+    }
+    
+    // Ensure realistic bounds with moderate range
+    uptimePercent = Math.max(55, Math.min(97, uptimePercent))
+    const downtimePercent = 100 - uptimePercent
+    
+    // For stacked area chart, we need cumulative values
+    // Bottom area (downtime) goes from 0 to downtimePercent
+    // Top area (uptime) goes from downtimePercent to 100
+    data.push({
+      date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      downtime: Math.round(downtimePercent * 10) / 10,
+      uptime: Math.round(uptimePercent * 10) / 10,
+      // Store original percentages for tooltip
+      uptimePercent: Math.round(uptimePercent * 10) / 10,
+      downtimePercent: Math.round(downtimePercent * 10) / 10,
+    })
   }
-]
+  
+  return data
+}
 
-const chartData: ChartData[] = [
-  { label: "Jan", value: 65, color: "bg-primary" },
-  { label: "Feb", value: 78, color: "bg-primary" },
-  { label: "Mar", value: 90, color: "bg-primary" },
-  { label: "Apr", value: 81, color: "bg-primary" },
-  { label: "May", value: 95, color: "bg-primary" },
-  { label: "Jun", value: 87, color: "bg-primary" },
-]
+const chartData = generateEquipmentData()
 
-function AnimatedMetricCard({ metric, index }: { metric: MetricData; index: number }) {
-  const [displayValue, setDisplayValue] = useState(0)
+// Generate 24 hours of temperature sensor data (sampled every 5 minutes)
+const generateTemperatureData = () => {
+  const data = []
+  const now = new Date()
+  const samplesPerHour = 12 // Every 5 minutes
+  const totalSamples = 24 * samplesPerHour // 288 samples over 24 hours
+  
+  for (let i = totalSamples - 1; i >= 0; i--) {
+    const time = new Date(now.getTime() - (i * 5 * 60 * 1000)) // 5 minutes ago
+    
+    // Base temperature around 75°C with realistic industrial variations
+    let temperature = 75
+    
+    // Daily heating cycle (machines get warmer during day shift)
+    const hour = time.getHours()
+    if (hour >= 6 && hour <= 18) {
+      temperature += 5 + Math.sin((hour - 6) / 12 * Math.PI) * 8
+    }
+    
+    // Add process variations
+    temperature += Math.sin(i * 0.1) * 3 // Slow oscillation
+    temperature += Math.sin(i * 0.05) * 2 // Even slower trend
+    temperature += (Math.random() - 0.5) * 4 // Random sensor noise
+    
+    // Occasional temperature spikes (equipment events)
+    if (Math.random() < 0.02) { // 2% chance
+      temperature += 10 + Math.random() * 15
+    }
+    
+    // Ensure realistic industrial temperature range
+    temperature = Math.max(60, Math.min(110, temperature))
+    
+    data.push({
+      time: time.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      }),
+      temperature: Math.round(temperature * 10) / 10,
+      timestamp: time.getTime()
+    })
+  }
+  
+  return data
+}
+
+const temperatureData = generateTemperatureData()
+
+const chartConfig = {
+  uptime: {
+    label: "Uptime",
+    color: "hsl(var(--chart-1))",
+  },
+  downtime: {
+    label: "Downtime", 
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig
+
+const temperatureChartConfig = {
+  temperature: {
+    label: "Temperature",
+    color: "hsl(var(--chart-3))",
+  },
+} satisfies ChartConfig
+
+function EquipmentUptimeChart() {
+  const [animationKey, setAnimationKey] = useState(0)
   
   useEffect(() => {
+    // Trigger animation on mount
     const timer = setTimeout(() => {
-      const increment = metric.value / 30
-      const interval = setInterval(() => {
-        setDisplayValue(prev => {
-          const next = prev + increment
-          if (next >= metric.value) {
-            clearInterval(interval)
-            return metric.value
-          }
-          return next
-        })
-      }, 50)
-      
-      return () => clearInterval(interval)
-    }, index * 200)
+      setAnimationKey(1)
+    }, 100)
     
     return () => clearTimeout(timer)
-  }, [metric.value, index])
-
-  const formatValue = (value: number) => {
-    if (metric.label.includes("Revenue")) {
-      return `$${Math.round(value).toLocaleString()}`
-    } else if (metric.label.includes("Rate") || metric.label.includes("Health")) {
-      return `${value.toFixed(1)}%`
-    }
-    return Math.round(value).toLocaleString()
-  }
+  }, [])
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-    >
-      <Card className="hover:shadow-lg transition-shadow duration-200">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-muted-foreground">
-            {metric.label}
-          </CardTitle>
-          <metric.icon className={`h-4 w-4 ${metric.color}`} />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold mb-1">
-            {formatValue(displayValue)}
-          </div>
-          <div className="flex items-center text-xs">
-            {metric.trend === "up" ? (
-              <ArrowUpRight className="h-3 w-3 text-green-500 mr-1" />
-            ) : (
-              <ArrowDownRight className="h-3 w-3 text-red-500 mr-1" />
-            )}
-            <span className={metric.trend === "up" ? "text-green-500" : "text-red-500"}>
-              {Math.abs(metric.change)}%
-            </span>
-            <span className="text-muted-foreground ml-1">from last month</span>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
+    <Card className="w-full rounded-[4px]">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <BarChart3 className="h-5 w-5" />
+          Equipment uptime analysis
+        </CardTitle>
+        <CardDescription>
+          Showing equipment uptime vs downtime for the past 3 months
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="px-0 pb-6">
+        <ChartContainer config={chartConfig} className="h-[300px] w-full">
+          <AreaChart
+            key={animationKey}
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 0,
+              right: 24,
+              top: 12,
+              bottom: 12,
+            }}
+          >
+            <defs>
+              <linearGradient id="fillUptime" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="hsl(239 84% 67%)"
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="hsl(239 84% 67%)"
+                  stopOpacity={0.1}
+                />
+              </linearGradient>
+              <linearGradient id="fillDowntime" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="hsl(239 84% 85%)"
+                  stopOpacity={0.9}
+                />
+                <stop
+                  offset="95%"
+                  stopColor="hsl(239 84% 85%)"
+                  stopOpacity={0.2}
+                />
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value}
+              interval={Math.floor(chartData.length / 8)} // Show ~8 ticks across 3 months
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              domain={[0, 100]}
+              tickFormatter={(value) => `${value}%`}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dot" />}
+            />
+            <Area
+              dataKey="downtime"
+              type="natural"
+              fill="url(#fillDowntime)"
+              fillOpacity={0.7}
+              stroke="hsl(239 84% 85%)"
+              strokeWidth={2}
+              stackId="a"
+              animationBegin={0}
+              animationDuration={2000}
+            />
+            <Area
+              dataKey="uptime"
+              type="natural"
+              fill="url(#fillUptime)"
+              fillOpacity={0.8}
+              stroke="hsl(239 84% 50%)"
+              strokeWidth={2}
+              stackId="a"
+              animationBegin={200}
+              animationDuration={2000}
+            />
+          </AreaChart>
+        </ChartContainer>
+        <div className="flex items-center gap-2 text-sm mt-4 px-6">
+          <TrendingUp className="h-4 w-4 text-emerald-500" />
+          <span className="text-muted-foreground">
+            Average uptime: {(chartData.reduce((sum, item) => sum + item.uptimePercent, 0) / chartData.length).toFixed(1)}% over 3 months
+          </span>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 
-function AnimatedChart({ data }: { data: ChartData[] }) {
-  const [animatedData, setAnimatedData] = useState(data.map(d => ({ ...d, value: 0 })))
+function TemperatureSensorChart() {
+  const [animationKey, setAnimationKey] = useState(0)
+  const [currentData, setCurrentData] = useState(temperatureData)
   
   useEffect(() => {
+    // Trigger animation on mount
     const timer = setTimeout(() => {
-      setAnimatedData(data)
-    }, 500)
+      setAnimationKey(1)
+    }, 100)
+    
     return () => clearTimeout(timer)
-  }, [data])
+  }, [])
 
-  const maxValue = Math.max(...data.map(d => d.value))
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Revenue Trend</h3>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            <Filter className="h-3 w-3 mr-1" />
-            Filter
-          </Button>
-          <Button variant="outline" size="sm">
-            <Calendar className="h-3 w-3 mr-1" />
-            6M
-          </Button>
-        </div>
-      </div>
-      
-      <div className="h-64 flex items-end justify-between gap-4 p-4 bg-muted/30 rounded-lg">
-        {animatedData.map((item, index) => (
-          <div key={item.label} className="flex flex-col items-center flex-1">
-            <motion.div
-              initial={{ height: 0 }}
-              animate={{ height: `${(item.value / maxValue) * 200}px` }}
-              transition={{ duration: 1, delay: index * 0.1, ease: "easeOut" }}
-              className="w-full bg-primary rounded-t-md min-h-[4px] relative group"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 + 0.8 }}
-                className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <div className="bg-foreground text-background text-xs px-2 py-1 rounded">
-                  {item.value}%
-                </div>
-              </motion.div>
-            </motion.div>
-            <motion.span 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.1 + 0.5 }}
-              className="text-xs text-muted-foreground mt-2"
-            >
-              {item.label}
-            </motion.span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function RealtimeActivity() {
-  const [activities, setActivities] = useState([
-    "New user registration",
-    "Payment processed",
-    "Feature activated",
-  ])
-
+  // Simulate real-time data updates
   useEffect(() => {
     const interval = setInterval(() => {
-      const newActivities = [
-        "New user registration",
-        "Payment processed", 
-        "Feature activated",
-        "Support ticket created",
-        "API call completed",
-        "Data backup finished",
-        "System health check",
-        "User login detected"
-      ]
-      
-      const randomActivity = newActivities[Math.floor(Math.random() * newActivities.length)]
-      setActivities(prev => [randomActivity, ...prev.slice(0, 4)])
-    }, 3000)
+      setCurrentData(prevData => {
+        const newData = [...prevData]
+        const lastTime = new Date(newData[newData.length - 1].timestamp + 5 * 60 * 1000)
+        
+        // Generate new temperature reading
+        let newTemp = newData[newData.length - 1].temperature
+        newTemp += (Math.random() - 0.5) * 3 // Small variation
+        newTemp = Math.max(60, Math.min(110, newTemp))
+        
+        // Remove oldest data point and add new one
+        newData.shift()
+        newData.push({
+          time: lastTime.toLocaleTimeString('en-US', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: false 
+          }),
+          temperature: Math.round(newTemp * 10) / 10,
+          timestamp: lastTime.getTime()
+        })
+        
+        return newData
+      })
+    }, 3000) // Update every 3 seconds for demo
 
     return () => clearInterval(interval)
   }, [])
 
+  const currentTemp = currentData[currentData.length - 1]?.temperature || 0
+  const avgTemp = currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length
+
   return (
-    <Card>
+    <Card className="w-full rounded-[4px]">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">Live Activity</CardTitle>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-xs text-muted-foreground">Live</span>
-          </div>
-        </div>
+        <CardTitle className="flex items-center gap-2">
+          <Thermometer className="h-5 w-5" />
+          Industrial sensor monitoring
+        </CardTitle>
+        <CardDescription>
+          Real-time temperature readings from Machine Unit #3 - last 24 hours
+        </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3">
-          <AnimatePresence>
-            {activities.map((activity, index) => (
-              <motion.div
-                key={`${activity}-${index}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.3 }}
-                className="flex items-center gap-3 p-2 rounded-lg bg-muted/50"
-              >
-                <div className="w-2 h-2 bg-primary rounded-full" />
-                <span className="text-sm flex-1">{activity}</span>
-                <span className="text-xs text-muted-foreground">
-                  {index === 0 ? "now" : `${index}m ago`}
-                </span>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+        <ChartContainer config={temperatureChartConfig}>
+          <LineChart
+            key={animationKey}
+            accessibilityLayer
+            data={currentData}
+            margin={{
+              left: 12,
+              right: 12,
+              top: 12,
+              bottom: 12,
+            }}
+          >
+            <defs>
+              <linearGradient id="temperatureGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="hsl(217 91% 60%)" /> {/* Blue */}
+                <stop offset="100%" stopColor="hsl(173 58% 39%)" /> {/* Teal */}
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="time"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              interval="preserveStartEnd"
+              tickFormatter={(value) => {
+                // Show only hour for cleaner display
+                const [hour] = value.split(':')
+                return `${hour}:00`
+              }}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              domain={['dataMin - 5', 'dataMax + 5']}
+              tickFormatter={(value) => `${value}°C`}
+            />
+            <ChartTooltip
+              cursor={{ stroke: 'hsl(173 58% 39%)', strokeWidth: 1 }}
+              content={<ChartTooltipContent 
+                indicator="dot"
+                labelFormatter={(value) => `Time: ${value}`}
+                formatter={(value) => [`${value}°C`, 'Temperature']}
+              />}
+            />
+            <Line
+              dataKey="temperature"
+              type="monotone"
+              stroke="url(#temperatureGradient)"
+              strokeWidth={3}
+              dot={false}
+              activeDot={{ r: 6, stroke: "hsl(173 58% 39%)", strokeWidth: 2 }}
+              animationBegin={0}
+              animationDuration={2000}
+            />
+          </LineChart>
+        </ChartContainer>
+        <div className="flex items-center justify-between text-sm mt-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-teal-500"></div>
+              <span className="text-muted-foreground">
+                Current: {currentTemp}°C
+              </span>
+            </div>
+            <span className="text-muted-foreground">
+              24h Average: {avgTemp.toFixed(1)}°C
+            </span>
+          </div>
+          <span className="text-xs text-muted-foreground">
+            Updates every 5 minutes
+          </span>
         </div>
       </CardContent>
     </Card>
@@ -274,22 +394,6 @@ function RealtimeActivity() {
 }
 
 export default function DashboardsBlock() {
-  const [metrics, setMetrics] = useState(initialMetrics)
-  const [isRefreshing, setIsRefreshing] = useState(false)
-
-  const refreshData = () => {
-    setIsRefreshing(true)
-    
-    setTimeout(() => {
-      setMetrics(prev => prev.map(metric => ({
-        ...metric,
-        value: metric.value * (0.95 + Math.random() * 0.1),
-        change: (Math.random() - 0.5) * 20
-      })))
-      setIsRefreshing(false)
-    }, 1500)
-  }
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -301,119 +405,35 @@ export default function DashboardsBlock() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Dashboards</h1>
             <p className="text-lg text-muted-foreground">
-              Interactive data visualization with real-time updates and smooth animations
+              Modern data visualization cards with animations and interactive elements
             </p>
           </div>
         </div>
         
         <div className="flex items-center gap-4">
+          <Badge variant="secondary">Animated counters</Badge>
+          <Badge variant="secondary">Progress indicators</Badge>
           <Badge variant="secondary">Real-time data</Badge>
-          <Badge variant="secondary">Animated charts</Badge>
-          <Badge variant="secondary">Live updates</Badge>
-          <Badge variant="secondary">Interactive filters</Badge>
+          <Badge variant="secondary">Interactive charts</Badge>
         </div>
       </div>
 
-      {/* Dashboard Controls */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <h2 className="text-xl font-semibold">Analytics Overview</h2>
-          <Badge variant="outline">Last 30 days</Badge>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            <Download className="h-4 w-4 mr-2" />
-            Export
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={refreshData}
-            disabled={isRefreshing}
-          >
-            <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
-            Refresh
-          </Button>
-        </div>
-      </div>
+      {/* Equipment Uptime Chart */}
+      <EquipmentUptimeChart />
 
-      {/* Metrics Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {metrics.map((metric, index) => (
-          <AnimatedMetricCard key={metric.label} metric={metric} index={index} />
-        ))}
-      </div>
-
-      {/* Charts and Activity */}
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <Card className="p-6">
-            <AnimatedChart data={chartData} />
-          </Card>
-        </div>
-        
+      {/* Charts Grid */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <TemperatureSensorChart />
         <div className="space-y-4">
-          <RealtimeActivity />
-          
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">System Status</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>API Response Time</span>
-                  <span>245ms</span>
-                </div>
-                <Progress value={85} className="h-2" />
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Database Performance</span>
-                  <span>92%</span>
-                </div>
-                <Progress value={92} className="h-2" />
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Server Uptime</span>
-                  <span>99.9%</span>
-                </div>
-                <Progress value={99.9} className="h-2" />
-              </div>
-            </CardContent>
-          </Card>
+          {/* Additional medium-width charts can go here */}
         </div>
       </div>
 
-      {/* Features Section */}
-      <Card className="p-6">
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Interactive Features</h3>
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="space-y-2">
-              <h4 className="font-medium">Animated Counters</h4>
-              <p className="text-sm text-muted-foreground">
-                Numbers animate smoothly when data updates, providing visual feedback for changes.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-medium">Real-time Activity</h4>
-              <p className="text-sm text-muted-foreground">
-                Live activity feed with smooth entry/exit animations and automatic updates.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-medium">Interactive Charts</h4>
-              <p className="text-sm text-muted-foreground">
-                Hover effects, smooth bar animations, and responsive design for all screen sizes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Card>
+      {/* Data Cards Grid */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {/* Cards will be added here */}
+      </div>
+
     </div>
   )
 }
