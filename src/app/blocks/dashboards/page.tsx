@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart } from "recharts"
-import { BarChart3, TrendingUp, Thermometer } from "lucide-react"
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieChart, Cell } from "recharts"
+import { BarChart3, TrendingUp, Thermometer, Shield } from "lucide-react"
 
 // Generate 3 months of equipment uptime/downtime data with proper stacking
 const generateEquipmentData = () => {
@@ -72,12 +72,12 @@ const generateEquipmentData = () => {
 
 const chartData = generateEquipmentData()
 
-// Generate 24 hours of temperature sensor data (sampled every 5 minutes)
+// Generate 4 hours of temperature sensor data (sampled every 5 minutes)
 const generateTemperatureData = () => {
   const data = []
   const now = new Date()
   const samplesPerHour = 12 // Every 5 minutes
-  const totalSamples = 24 * samplesPerHour // 288 samples over 24 hours
+  const totalSamples = 4 * samplesPerHour // 48 samples over 4 hours
   
   for (let i = totalSamples - 1; i >= 0; i--) {
     const time = new Date(now.getTime() - (i * 5 * 60 * 1000)) // 5 minutes ago
@@ -91,14 +91,14 @@ const generateTemperatureData = () => {
       temperature += 5 + Math.sin((hour - 6) / 12 * Math.PI) * 8
     }
     
-    // Add process variations
-    temperature += Math.sin(i * 0.1) * 3 // Slow oscillation
-    temperature += Math.sin(i * 0.05) * 2 // Even slower trend
-    temperature += (Math.random() - 0.5) * 4 // Random sensor noise
+    // Add process variations (reduced)
+    temperature += Math.sin(i * 0.1) * 2 // Slow oscillation (reduced from 3 to 2)
+    temperature += Math.sin(i * 0.05) * 1.5 // Even slower trend (reduced from 2 to 1.5)
+    temperature += (Math.random() - 0.5) * 2 // Random sensor noise (reduced from 4 to 2)
     
-    // Occasional temperature spikes (equipment events)
-    if (Math.random() < 0.02) { // 2% chance
-      temperature += 10 + Math.random() * 15
+    // Occasional temperature spikes (equipment events) - reduced frequency and magnitude
+    if (Math.random() < 0.01) { // 1% chance (reduced from 2%)
+      temperature += 5 + Math.random() * 8 // Smaller spikes (reduced from 10-25 to 5-13)
     }
     
     // Ensure realistic industrial temperature range
@@ -135,6 +135,46 @@ const temperatureChartConfig = {
   temperature: {
     label: "Temperature",
     color: "hsl(var(--chart-3))",
+  },
+} satisfies ChartConfig
+
+// Asset health status data
+const assetHealthData = [
+  {
+    name: "Healthy",
+    value: 67,
+    count: 134,
+    color: "hsl(142 76% 26%)", // Dark green
+    hoverColor: "hsl(142 76% 36%)", // Brighter green on hover
+  },
+  {
+    name: "Warning", 
+    value: 23,
+    count: 46,
+    color: "hsl(45 93% 35%)", // Dark yellow/amber
+    hoverColor: "hsl(45 93% 47%)", // Brighter yellow on hover
+  },
+  {
+    name: "Critical",
+    value: 10,
+    count: 20,
+    color: "hsl(0 84% 45%)", // Dark red
+    hoverColor: "hsl(0 84% 60%)", // Brighter red on hover
+  },
+]
+
+const assetHealthConfig = {
+  healthy: {
+    label: "Healthy",
+    color: "hsl(142 76% 26%)",
+  },
+  warning: {
+    label: "Warning",
+    color: "hsl(45 93% 35%)",
+  },
+  critical: {
+    label: "Critical", 
+    color: "hsl(0 84% 45%)",
   },
 } satisfies ChartConfig
 
@@ -310,7 +350,7 @@ function TemperatureSensorChart() {
           Industrial sensor monitoring
         </CardTitle>
         <CardDescription>
-          Real-time temperature readings from Machine Unit #3 - last 24 hours
+          Real-time temperature readings from Machine Unit #3 - last 4 hours
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -326,23 +366,20 @@ function TemperatureSensorChart() {
               bottom: 12,
             }}
           >
-            <defs>
-              <linearGradient id="temperatureGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="hsl(217 91% 60%)" /> {/* Blue */}
-                <stop offset="100%" stopColor="hsl(173 58% 39%)" /> {/* Teal */}
-              </linearGradient>
-            </defs>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="time"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              interval="preserveStartEnd"
+              interval={5} // Show every 6th tick (30 minutes)
               tickFormatter={(value) => {
-                // Show only hour for cleaner display
-                const [hour] = value.split(':')
-                return `${hour}:00`
+                // Only show times that end in :00 or :30
+                const [hour, minute] = value.split(':')
+                if (minute === '00' || minute === '30') {
+                  return `${hour}:${minute}`
+                }
+                return ''
               }}
             />
             <YAxis
@@ -353,7 +390,7 @@ function TemperatureSensorChart() {
               tickFormatter={(value) => `${value}°C`}
             />
             <ChartTooltip
-              cursor={{ stroke: 'hsl(173 58% 39%)', strokeWidth: 1 }}
+              cursor={{ stroke: 'hsl(239 84% 67%)', strokeWidth: 1 }}
               content={<ChartTooltipContent 
                 indicator="dot"
                 labelFormatter={(value) => `Time: ${value}`}
@@ -363,10 +400,10 @@ function TemperatureSensorChart() {
             <Line
               dataKey="temperature"
               type="monotone"
-              stroke="url(#temperatureGradient)"
+              stroke="hsl(239 84% 67%)" // Indigo 500
               strokeWidth={3}
               dot={false}
-              activeDot={{ r: 6, stroke: "hsl(173 58% 39%)", strokeWidth: 2 }}
+              activeDot={{ r: 6, stroke: "hsl(239 84% 67%)", strokeWidth: 2 }}
               animationBegin={0}
               animationDuration={2000}
             />
@@ -375,18 +412,169 @@ function TemperatureSensorChart() {
         <div className="flex items-center justify-between text-sm mt-4">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-teal-500"></div>
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'hsl(239 84% 67%)' }}></div>
               <span className="text-muted-foreground">
                 Current: {currentTemp}°C
               </span>
             </div>
             <span className="text-muted-foreground">
-              24h Average: {avgTemp.toFixed(1)}°C
+              4h Average: {avgTemp.toFixed(1)}°C
             </span>
           </div>
           <span className="text-xs text-muted-foreground">
             Updates every 5 minutes
           </span>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function AssetHealthChart() {
+  const [animationKey, setAnimationKey] = useState(0)
+  const [hoveredIndex, setHoveredIndex] = useState(-1)
+  
+  useEffect(() => {
+    // Trigger animation on mount
+    const timer = setTimeout(() => {
+      setAnimationKey(1)
+    }, 100)
+    
+    return () => clearTimeout(timer)
+  }, [])
+
+  const totalAssets = assetHealthData.reduce((sum, item) => sum + item.count, 0)
+
+  const renderCustomLabel = (entry: { value: number }) => {
+    return `${entry.value}%`
+  }
+
+  return (
+    <Card className="w-full rounded-[4px] aspect-square">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Shield className="h-5 w-5" />
+          Asset health status
+        </CardTitle>
+        <CardDescription>
+          Plant-wide equipment health overview
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="pb-0">
+        <ChartContainer config={assetHealthConfig} className="h-[250px]">
+          <PieChart key={animationKey}>
+            <defs>
+              <linearGradient id="healthyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(142 76% 36%)" stopOpacity={1} />
+                <stop offset="100%" stopColor="hsl(142 76% 26%)" stopOpacity={1} />
+              </linearGradient>
+              <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(45 93% 47%)" stopOpacity={1} />
+                <stop offset="100%" stopColor="hsl(45 93% 35%)" stopOpacity={1} />
+              </linearGradient>
+              <linearGradient id="criticalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(0 84% 60%)" stopOpacity={1} />
+                <stop offset="100%" stopColor="hsl(0 84% 45%)" stopOpacity={1} />
+              </linearGradient>
+              <linearGradient id="healthyHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(142 76% 46%)" stopOpacity={1} />
+                <stop offset="100%" stopColor="hsl(142 76% 36%)" stopOpacity={1} />
+              </linearGradient>
+              <linearGradient id="warningHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(45 93% 57%)" stopOpacity={1} />
+                <stop offset="100%" stopColor="hsl(45 93% 47%)" stopOpacity={1} />
+              </linearGradient>
+              <linearGradient id="criticalHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="hsl(0 84% 70%)" stopOpacity={1} />
+                <stop offset="100%" stopColor="hsl(0 84% 60%)" stopOpacity={1} />
+              </linearGradient>
+            </defs>
+            <Pie
+              data={assetHealthData}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={renderCustomLabel}
+              outerRadius={80}
+              innerRadius={40}
+              fill="#8884d8"
+              dataKey="value"
+              animationBegin={0}
+              animationDuration={1500}
+              onMouseEnter={(_, index) => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(-1)}
+            >
+              {assetHealthData.map((entry, index) => {
+                const getGradientId = (entryName: string, isHovered: boolean) => {
+                  const gradientMap = {
+                    'Healthy': isHovered ? 'healthyHoverGradient' : 'healthyGradient',
+                    'Warning': isHovered ? 'warningHoverGradient' : 'warningGradient',
+                    'Critical': isHovered ? 'criticalHoverGradient' : 'criticalGradient'
+                  }
+                  return `url(#${gradientMap[entryName as keyof typeof gradientMap]})`
+                }
+                
+                return (
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={getGradientId(entry.name, hoveredIndex === index)}
+                    style={{
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                  />
+                )
+              })}
+            </Pie>
+            <ChartTooltip
+              content={({ active, payload }) => {
+                if (active && payload && payload.length) {
+                  const data = payload[0].payload
+                  return (
+                    <div className="rounded-lg border bg-background p-2 shadow-md">
+                      <div className="grid gap-2">
+                        <div className="flex items-center gap-2">
+                          <div 
+                            className="h-2.5 w-2.5 rounded-full" 
+                            style={{ backgroundColor: data.color }}
+                          />
+                          <span className="font-medium">{data.name}</span>
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {data.count} assets ({data.value}%)
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                return null
+              }}
+            />
+          </PieChart>
+        </ChartContainer>
+        
+        {/* Legend */}
+        <div className="mt-4 space-y-2">
+          {assetHealthData.map((item) => (
+            <div key={item.name} className="flex items-center justify-between text-sm">
+              <div className="flex items-center gap-2">
+                <div 
+                  className="w-3 h-3 rounded-full"
+                  style={{ backgroundColor: item.color }}
+                />
+                <span>{item.name}</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <span>{item.count}</span>
+                <span className="text-xs">({item.value}%)</span>
+              </div>
+            </div>
+          ))}
+          <div className="border-t pt-2 mt-2">
+            <div className="flex justify-between text-sm font-medium">
+              <span>Total assets</span>
+              <span>{totalAssets}</span>
+            </div>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -424,9 +612,7 @@ export default function DashboardsBlock() {
       {/* Charts Grid */}
       <div className="grid gap-6 lg:grid-cols-2">
         <TemperatureSensorChart />
-        <div className="space-y-4">
-          {/* Additional medium-width charts can go here */}
-        </div>
+        <AssetHealthChart />
       </div>
 
       {/* Data Cards Grid */}
