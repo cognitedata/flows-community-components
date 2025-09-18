@@ -458,9 +458,12 @@ export default function AgentChatBlock() {
 
   useEffect(() => {
     if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
+      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]')
+      if (scrollContainer) {
+        scrollContainer.scrollTop = scrollContainer.scrollHeight
+      }
     }
-  }, [messages, isTyping])
+  }, [messages, isTyping, demoStep])
 
   // Auto-start demo after component mounts
   useEffect(() => {
@@ -497,8 +500,12 @@ export default function AgentChatBlock() {
 
     setMessages(prev => [...prev, userMessage])
     setInput("")
-    setIsTyping(true)
     setDemoStep(2)
+
+    // Add 500ms delay before showing thinking indicator
+    setTimeout(() => {
+      setIsTyping(true)
+    }, 500)
 
     // Simulate AI response
     setTimeout(() => {
@@ -526,7 +533,11 @@ export default function AgentChatBlock() {
 
     setMessages(prev => [...prev, userMessage])
     setInput("")
-    setIsTyping(true)
+
+    // Add 500ms delay before showing thinking indicator
+    setTimeout(() => {
+      setIsTyping(true)
+    }, 500)
 
     // Simulate AI response
     setTimeout(() => {
@@ -592,114 +603,119 @@ export default function AgentChatBlock() {
           </div>
         </div>
         
-        <div className="flex items-center gap-4">
-          <Badge variant="secondary">Real-time messaging</Badge>
-          <Badge variant="secondary">Typing indicators</Badge>
-          <Badge variant="secondary">Message reactions</Badge>
-          <Badge variant="secondary">Code highlighting</Badge>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Badge variant="secondary">Real-time messaging</Badge>
+            <Badge variant="secondary">Typing indicators</Badge>
+            <Badge variant="secondary">Message reactions</Badge>
+            <Badge variant="secondary">Code highlighting</Badge>
+          </div>
+          <Button variant="outline" onClick={restartDemo} className="flex items-center gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Replay
+          </Button>
         </div>
       </div>
 
       {/* Interactive Demo */}
       <div className="max-w-4xl mx-auto">
         {/* Chat Interface */}
-        <div>
-          <Card className="h-[600px] flex flex-col rounded-lg py-0" style={{ backgroundColor: '#18181b' }}>
-            <CardHeader className="border-b border-zinc-800 p-3">
-              <div className="flex items-center justify-between">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center gap-2 p-2 h-auto">
-                      <span className="text-lg font-semibold">Pump 4B troubleshooting</span>
-                      <ChevronDown className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start">
-                    <DropdownMenuItem>
-                      <Edit className="h-4 w-4 mr-2" />
-                      Rename
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Share className="h-4 w-4 mr-2" />
-                      Share
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="text-destructive">
-                      <Trash2 className="h-4 w-4 mr-2" />
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm" onClick={restartDemo} title="Restart Demo">
-                    <MessageSquare className="h-4 w-4" />
+        <div className="h-[600px] flex flex-col rounded-lg overflow-hidden border border-zinc-700" style={{ backgroundColor: '#18181b' }}>
+          {/* Header */}
+          <div className="border-b border-zinc-800 p-3 flex-shrink-0">
+            <div className="flex items-center justify-between">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-2 p-2 h-auto">
+                    <span className="text-lg font-semibold">Pump 4B troubleshooting</span>
+                    <ChevronDown className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={clearChat} title="Clear Chat">
-                    <RefreshCw className="h-4 w-4" />
-                  </Button>
-                </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  <DropdownMenuItem>
+                    <Edit className="h-4 w-4 mr-2" />
+                    Rename
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Share className="h-4 w-4 mr-2" />
+                    Share
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-destructive">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" onClick={restartDemo} title="Restart Demo">
+                  <MessageSquare className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost" size="sm" onClick={clearChat} title="Clear Chat">
+                  <RefreshCw className="h-4 w-4" />
+                </Button>
               </div>
-            </CardHeader>
-            
-            <CardContent className="flex-1 flex flex-col p-0">
-              {/* Messages */}
-              <ScrollArea className="flex-1 p-3 max-h-full overflow-y-auto" ref={scrollAreaRef}>
-                <div className="space-y-4">
-                  <AnimatePresence>
-                    {messages.map((message) => (
-                      <MessageBubble 
-                        key={message.id} 
-                        message={message} 
-                        onReact={handleReaction}
-                      />
-                    ))}
-                  </AnimatePresence>
-                  
-                  {/* Show cards after vibration response */}
-                  {messages.some(msg => msg.role === "assistant" && msg.content.includes("vibration")) && (
-                    <div className="space-y-3 mt-4">
-                      <TimeSeriesCard />
-                      <WorkOrderCard />
-                    </div>
-                  )}
-                  
-                  {isTyping && <TypingIndicator />}
-                </div>
-              </ScrollArea>
-
-              {/* Input */}
-              <div className="p-3 border-t border-zinc-800">
-                <div className="flex gap-2">
-                  <div className="flex-1 relative">
-                    <Input
-                      value={isDemoMode && showTypingDemo ? "" : input}
-                      onChange={(e) => !isDemoMode && setInput(e.target.value)}
-                      onKeyPress={(e) => !isDemoMode && e.key === "Enter" && handleSendMessage()}
-                      placeholder={isDemoMode && showTypingDemo ? "" : "Ask me anything..."}
-                      className="flex-1"
-                      disabled={isDemoMode}
+            </div>
+          </div>
+          
+          {/* Messages Area */}
+          <div className="flex-1 min-h-0">
+            <ScrollArea className="h-full p-3" ref={scrollAreaRef}>
+              <div className="space-y-4">
+                <AnimatePresence>
+                  {messages.map((message) => (
+                    <MessageBubble 
+                      key={message.id} 
+                      message={message} 
+                      onReact={handleReaction}
                     />
-                    {isDemoMode && showTypingDemo && (
-                      <div className="absolute inset-0 flex items-center px-3 pointer-events-none">
-                        <TypingAnimation
-                          text={demoMessage}
-                          onComplete={handleTypingComplete}
-                          speed={60}
-                          className="text-foreground"
-                        />
-                      </div>
-                    )}
+                  ))}
+                </AnimatePresence>
+                
+                {/* Show cards after vibration response */}
+                {messages.some(msg => msg.role === "assistant" && msg.content.includes("vibration")) && (
+                  <div className="space-y-3 mt-4">
+                    <TimeSeriesCard />
+                    <WorkOrderCard />
                   </div>
-                  <Button 
-                    variant="default" 
-                    onClick={handleSendMessage} 
-                    disabled={!input.trim() || isDemoMode}
-                  >
-                    <Send className="h-4 w-4" />
-                  </Button>
-                </div>
+                )}
+                
+                {isTyping && <TypingIndicator />}
               </div>
-            </CardContent>
-          </Card>
+            </ScrollArea>
+          </div>
+
+          {/* Input Area */}
+          <div className="p-3 border-t border-zinc-800 flex-shrink-0">
+            <div className="flex gap-2">
+              <div className="flex-1 relative">
+                <Input
+                  value={isDemoMode && showTypingDemo ? "" : input}
+                  onChange={(e) => !isDemoMode && setInput(e.target.value)}
+                  onKeyPress={(e) => !isDemoMode && e.key === "Enter" && handleSendMessage()}
+                  placeholder={isDemoMode && showTypingDemo ? "" : "Ask me anything..."}
+                  className="flex-1"
+                  disabled={isDemoMode}
+                />
+                {isDemoMode && showTypingDemo && (
+                  <div className="absolute inset-0 flex items-center px-3 pointer-events-none">
+                    <TypingAnimation
+                      text={demoMessage}
+                      onComplete={handleTypingComplete}
+                      speed={60}
+                      className="text-foreground"
+                    />
+                  </div>
+                )}
+              </div>
+              <Button 
+                variant="default" 
+                onClick={handleSendMessage} 
+                disabled={!input.trim() || isDemoMode}
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
