@@ -55,32 +55,27 @@ function TypingIndicator() {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 justify-start"
     >
-      <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-        <Bot className="h-4 w-4 text-primary" />
-      </div>
-      <div className="bg-muted rounded-lg px-4 py-2">
-        <div className="flex items-center gap-1">
-          <div className="flex space-x-1">
-            <motion.div 
-              className="w-2 h-2 bg-current rounded-full"
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
-            />
-            <motion.div 
-              className="w-2 h-2 bg-current rounded-full"
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-            />
-            <motion.div 
-              className="w-2 h-2 bg-current rounded-full"
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
-            />
-          </div>
-          <span className="text-xs text-muted-foreground ml-2">AI is thinking...</span>
+      <div className="flex items-center gap-2 px-2 py-1">
+        <div className="flex space-x-1">
+          <motion.div 
+            className="w-2 h-2 bg-muted-foreground rounded-full"
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
+          />
+          <motion.div 
+            className="w-2 h-2 bg-muted-foreground rounded-full"
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+          />
+          <motion.div 
+            className="w-2 h-2 bg-muted-foreground rounded-full"
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
+          />
         </div>
+        <span className="text-xs text-muted-foreground">AI is thinking...</span>
       </div>
     </motion.div>
   )
@@ -460,7 +455,41 @@ export default function AgentChatBlock() {
     if (scrollAreaRef.current) {
       const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]')
       if (scrollContainer) {
-        scrollContainer.scrollTop = scrollContainer.scrollHeight
+        // Add a small delay to allow content to render before scrolling
+        setTimeout(() => {
+          // Custom smooth scroll with bounce effect
+          const targetScrollTop = scrollContainer.scrollHeight
+          const startScrollTop = scrollContainer.scrollTop
+          const distance = targetScrollTop - startScrollTop
+          const duration = 2000 // Much slower scroll duration (2.5x slower)
+          const startTime = performance.now()
+
+          const animateScroll = (currentTime: number) => {
+            const elapsed = currentTime - startTime
+            const progress = Math.min(elapsed / duration, 1)
+            
+            // Easing function with softer bounce at the end
+            let easeProgress: number
+            if (progress < 0.95) {
+              // Smooth ease out for most of the animation
+              easeProgress = 1 - Math.pow(1 - progress / 0.95, 3)
+            } else {
+              // Softer, gentler bounce effect at the end
+              const bounceProgress = (progress - 0.95) / 0.05
+              const bounce = Math.sin(bounceProgress * Math.PI * 1.5) * 0.008 * (1 - bounceProgress)
+              easeProgress = 1 + bounce
+            }
+            
+            const currentScrollTop = startScrollTop + (distance * easeProgress)
+            scrollContainer.scrollTop = currentScrollTop
+            
+            if (progress < 1) {
+              requestAnimationFrame(animateScroll)
+            }
+          }
+          
+          requestAnimationFrame(animateScroll)
+        }, 150)
       }
     }
   }, [messages, isTyping, demoStep])
@@ -517,7 +546,11 @@ export default function AgentChatBlock() {
         timestamp: new Date()
       }
       setMessages(prev => [...prev, aiMessage])
-      setDemoStep(3)
+      
+      // Show cards immediately after the message
+      setTimeout(() => {
+        setDemoStep(3)
+      }, 100)
     }, 2000)
   }
 

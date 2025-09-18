@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieChart, Cell } from "recharts"
-import { BarChart3, TrendingUp, Thermometer, Shield } from "lucide-react"
+import { BarChart3, TrendingUp, Thermometer, Shield, RefreshCw } from "lucide-react"
 
 // Generate 3 months of equipment uptime/downtime data with proper stacking
 const generateEquipmentData = () => {
@@ -582,6 +583,12 @@ function AssetHealthChart() {
 }
 
 export default function DashboardsBlock() {
+  const [replayKey, setReplayKey] = useState(0)
+
+  const restartDashboard = () => {
+    setReplayKey(prev => prev + 1)
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -598,21 +605,27 @@ export default function DashboardsBlock() {
           </div>
         </div>
         
-        <div className="flex items-center gap-4">
-          <Badge variant="secondary">Animated counters</Badge>
-          <Badge variant="secondary">Progress indicators</Badge>
-          <Badge variant="secondary">Real-time data</Badge>
-          <Badge variant="secondary">Interactive charts</Badge>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Badge variant="secondary">Animated counters</Badge>
+            <Badge variant="secondary">Progress indicators</Badge>
+            <Badge variant="secondary">Real-time data</Badge>
+            <Badge variant="secondary">Interactive charts</Badge>
+          </div>
+          <Button variant="outline" onClick={restartDashboard} className="flex items-center gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Replay
+          </Button>
         </div>
       </div>
 
       {/* Equipment Uptime Chart */}
-      <EquipmentUptimeChart />
+      <EquipmentUptimeChart key={`equipment-${replayKey}`} />
 
       {/* Charts Grid */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <TemperatureSensorChart />
-        <AssetHealthChart />
+        <TemperatureSensorChart key={`temperature-${replayKey}`} />
+        <AssetHealthChart key={`health-${replayKey}`} />
       </div>
 
       {/* Data Cards Grid */}
