@@ -483,7 +483,7 @@ export default function ThemingPage() {
   // Force re-render when theme changes
   useEffect(() => {
     // Force a reflow to ensure CSS variables are applied
-    const preview = document.querySelector('.theme-preview')
+    const preview = document.querySelector('.theme-preview') as HTMLElement | null
     if (preview) {
       preview.style.opacity = '0.999'
       setTimeout(() => {
@@ -1229,7 +1229,7 @@ export default function ThemingPage() {
                           <h4 className="font-medium">CSS Variables</h4>
                           <p className="text-sm text-muted-foreground">Copy these CSS custom properties to your stylesheet</p>
                         </div>
-                        <CodeCopyButton text={generateCSSVariables(theme)} />
+                        <CodeCopyButton code={generateCSSVariables(theme)} />
                       </div>
                       <div className="relative">
                         <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto">
@@ -1244,7 +1244,7 @@ export default function ThemingPage() {
                           <h4 className="font-medium">Tailwind Configuration</h4>
                           <p className="text-sm text-muted-foreground">Replace your tailwind.config.js with this configuration</p>
                         </div>
-                        <CodeCopyButton text={generateTailwindConfig(theme)} />
+                        <CodeCopyButton code={generateTailwindConfig(theme)} />
                       </div>
                       <div className="relative">
                         <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto">
@@ -1259,7 +1259,7 @@ export default function ThemingPage() {
                           <h4 className="font-medium">globals.css</h4>
                           <p className="text-sm text-muted-foreground">Complete CSS file with Tailwind and theme variables</p>
                         </div>
-                        <CodeCopyButton text={generateGlobalCSS(theme)} />
+                        <CodeCopyButton code={generateGlobalCSS(theme)} />
                       </div>
                       <div className="relative">
                         <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto">
@@ -1274,7 +1274,7 @@ export default function ThemingPage() {
                           <h4 className="font-medium">Theme Provider</h4>
                           <p className="text-sm text-muted-foreground">React component for dark/light mode support</p>
                         </div>
-                        <CodeCopyButton text={generateThemeProvider()} />
+                        <CodeCopyButton code={generateThemeProvider()} />
                       </div>
                       <div className="relative">
                         <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto">
@@ -1289,7 +1289,7 @@ export default function ThemingPage() {
                           <h4 className="font-medium">Installation Guide</h4>
                           <p className="text-sm text-muted-foreground">Step-by-step instructions to integrate your theme</p>
                         </div>
-                        <CodeCopyButton text={generateInstallGuide()} />
+                        <CodeCopyButton code={generateInstallGuide()} />
                       </div>
                       <div className="relative">
                         <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto whitespace-pre-wrap">
