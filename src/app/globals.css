@@ -333,72 +333,110 @@
   --fuchsia-900: #701a75;
   --fuchsia-950: #4a044e;
   
-  /* Semantic color mappings using our new color system */
-  --background: #ffffff;
-  --foreground: var(--slate-900);
-  --card: #ffffff;
-  --card-foreground: var(--slate-900);
-  --popover: #ffffff;
-  --popover-foreground: var(--slate-900);
-  --primary: #171717;
-  --primary-foreground: #ffffff;
-  --secondary: var(--slate-100);
-  --secondary-foreground: var(--slate-900);
-  --muted: var(--slate-100);
-  --muted-foreground: var(--slate-500);
-  --accent: var(--slate-100);
-  --accent-foreground: var(--slate-900);
-  --destructive: #ef4444;
-  --border: var(--slate-200);
-  --input: var(--slate-200);
-  --ring: #171717;
-  --chart-1: #171717;
-  --chart-2: var(--neon-500);
-  --chart-3: var(--slate-500);
-  --chart-4: var(--onyx-500);
-  --chart-5: var(--blue-300);
-  --sidebar: #ffffff;
-  --sidebar-foreground: var(--slate-900);
-  --sidebar-primary: #171717;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: var(--slate-100);
-  --sidebar-accent-foreground: var(--slate-900);
-  --sidebar-border: var(--slate-200);
-  --sidebar-ring: #171717;
+  /* Namespaces-linked base colors (from shadcn-color + Namespaces JSON) */
+  /* Glacier */
+  --ns-glacier-50: rgb(254, 254, 255);
+  --ns-glacier-100: rgb(245, 250, 255);
+  --ns-glacier-200: rgb(227, 244, 255);
+  --ns-glacier-300: rgb(205, 236, 251);
+  --ns-glacier-500: rgb(120, 167, 203);
+  --ns-glacier-700: rgb(46, 71, 107);
+  --ns-glacier-800: rgb(27, 37, 54);
+  --ns-glacier-900: rgb(22, 26, 41);
+  --ns-glacier-950: rgb(12, 15, 23);
+  /* Aurora */
+  --ns-aurora-200: rgb(221, 252, 186);
+  --ns-aurora-500: rgb(169, 248, 83);
+  /* Slate */
+  --ns-slate-50: rgb(248, 250, 252);
+  --ns-slate-200: rgb(226, 232, 240);
+  --ns-slate-400: rgb(148, 163, 184);
+  --ns-slate-600: rgb(71, 85, 105);
+  --ns-slate-800: rgb(30, 41, 59);
+  /* Rose */
+  --ns-rose-100: rgb(255, 228, 230);
+  --ns-rose-300: rgb(253, 164, 175);
+  --ns-rose-800: rgb(159, 18, 57);
+  --ns-rose-950: rgb(76, 5, 25);
+  /* Navy */
+  --ns-navy-950: rgb(0, 5, 22);
+  /* Other charts */
+  --ns-indigo-400: rgb(129, 140, 248);
+  --ns-yellow-300: rgb(253, 224, 71);
+  --ns-purple-500: rgb(168, 85, 247);
+  --ns-emerald-400: rgb(52, 211, 153);
+  --ns-cyan-500: rgb(6, 182, 212);
+
+  /* Semantic color mappings (Light mode) using Namespaces links */
+  --background: var(--ns-glacier-50);
+  --foreground: var(--ns-glacier-950);
+  --card: var(--ns-glacier-100);
+  --card-foreground: var(--ns-glacier-950);
+  --popover: var(--ns-glacier-100);
+  --popover-foreground: var(--ns-navy-950);
+  --primary: var(--ns-glacier-700);
+  --primary-foreground: var(--ns-aurora-500);
+  --secondary: var(--ns-glacier-300);
+  --secondary-foreground: var(--ns-glacier-800);
+  --muted: var(--ns-glacier-200);
+  --muted-foreground: var(--ns-slate-600);
+  --accent: var(--ns-glacier-200);
+  --accent-foreground: var(--ns-glacier-800);
+  --destructive: var(--ns-rose-100);
+  --destructive-foreground: var(--ns-rose-800);
+  --border: var(--ns-slate-200);
+  --input: var(--ns-slate-200);
+  --ring: var(--ns-glacier-500);
+  /* Charts */
+  --chart-1: rgb(152, 223, 75); /* aurora/600 */
+  --chart-2: var(--ns-yellow-300);
+  --chart-3: var(--ns-purple-500);
+  --chart-4: var(--ns-emerald-400);
+  --chart-5: var(--ns-cyan-500);
+  /* Sidebar */
+  --sidebar: var(--ns-glacier-50);
+  --sidebar-foreground: var(--ns-glacier-950);
+  --sidebar-primary: var(--ns-glacier-700);
+  --sidebar-primary-foreground: var(--ns-aurora-500);
+  --sidebar-accent: var(--ns-glacier-200);
+  --sidebar-accent-foreground: var(--ns-glacier-800);
+  --sidebar-border: var(--ns-slate-200);
+  --sidebar-ring: var(--ns-glacier-500);
 }
 
 .dark {
-  --background: var(--zinc-900);
-  --foreground: var(--slate-50);
-  --card: var(--zinc-800);
-  --card-foreground: var(--slate-50);
-  --popover: var(--zinc-800);
-  --popover-foreground: var(--slate-50);
-  --primary: #EBFF00;
-  --primary-foreground: var(--slate-900);
-  --secondary: var(--zinc-700);
-  --secondary-foreground: var(--slate-50);
-  --muted: var(--zinc-700);
-  --muted-foreground: var(--slate-400);
-  --accent: var(--zinc-700);
-  --accent-foreground: var(--slate-50);
-  --destructive: #ef4444;
-  --border: var(--zinc-700);
-  --input: var(--zinc-700);
-  --ring: #EBFF00;
-  --chart-1: #EBFF00;
-  --chart-2: var(--neon-400);
-  --chart-3: var(--slate-400);
-  --chart-4: var(--onyx-400);
-  --chart-5: var(--blue-200);
-  --sidebar: var(--zinc-800);
-  --sidebar-foreground: var(--slate-50);
-  --sidebar-primary: #EBFF00;
-  --sidebar-primary-foreground: var(--slate-900);
-  --sidebar-accent: var(--zinc-700);
-  --sidebar-accent-foreground: var(--slate-50);
-  --sidebar-border: var(--zinc-700);
-  --sidebar-ring: #EBFF00;
+  --background: var(--ns-glacier-950);
+  --foreground: var(--ns-glacier-50);
+  --card: var(--ns-glacier-950);
+  --card-foreground: var(--ns-glacier-50);
+  --popover: var(--ns-glacier-900);
+  --popover-foreground: var(--ns-glacier-50);
+  --primary: var(--ns-aurora-500);
+  --primary-foreground: var(--ns-glacier-800);
+  --secondary: var(--ns-glacier-300);
+  --secondary-foreground: var(--ns-glacier-900);
+  --muted: var(--ns-glacier-800);
+  --muted-foreground: var(--ns-slate-400);
+  --accent: var(--ns-aurora-200);
+  --accent-foreground: var(--ns-glacier-800);
+  --destructive: var(--ns-rose-950);
+  --destructive-foreground: var(--ns-rose-300);
+  --border: var(--ns-slate-800);
+  --input: var(--ns-slate-800);
+  --ring: var(--ns-aurora-500);
+  --chart-1: var(--ns-indigo-400);
+  --chart-2: var(--ns-yellow-300);
+  --chart-3: var(--ns-purple-500);
+  --chart-4: var(--ns-emerald-400);
+  --chart-5: var(--ns-cyan-500);
+  --sidebar: var(--ns-glacier-950);
+  --sidebar-foreground: var(--ns-glacier-50);
+  --sidebar-primary: var(--ns-aurora-500);
+  --sidebar-primary-foreground: var(--ns-glacier-800);
+  --sidebar-accent: var(--ns-aurora-200);
+  --sidebar-accent-foreground: var(--ns-glacier-800);
+  --sidebar-border: var(--ns-slate-800);
+  --sidebar-ring: var(--ns-aurora-500);
 }
 
 .contrast {
