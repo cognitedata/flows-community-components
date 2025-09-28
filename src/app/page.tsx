@@ -1,13 +1,10 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Palette, Zap, Code, Sparkles } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { AuraLogo } from "@/components/aura-logo"
 import PrismaticBurst from "@/components/PrismaticBurst"
-import { ExpandableFeatureCards } from "@/components/expandable-feature-cards"
 
 
 export default function HomePage() {
@@ -26,10 +23,12 @@ export default function HomePage() {
           rayCount={16}
           mixBlendMode="lighten"
           colors={[
-            '#A9F853', // aurora-500
-            '#BDFB99', // aurora-300-ish highlight
-            '#8DF034', // aurora-600-ish deeper
-            '#6CC521'  // aurora-700-ish accent
+            '#CDECFB', // ns-glacier-300
+            '#78A7CB', // ns-glacier-500
+            '#A9F853', // ns-aurora-500
+            '#DDFCBA', // ns-aurora-200
+            '#C7D2FE', // glacier-mist-200
+            '#3730A3'  // glacier-mist-800
           ]}
         />
       </div>
@@ -77,10 +76,7 @@ export default function HomePage() {
             </Button>
           </div>
 
-          {/* Feature Grid */}
-          <div className="mt-16">
-            <ExpandableFeatureCards />
-          </div>
+          {/* Feature cards removed */}
         </div>
       </div>
     </div>
