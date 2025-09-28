@@ -25,7 +25,12 @@ export default function HomePage() {
           hoverDampness={0.25}
           rayCount={16}
           mixBlendMode="lighten"
-          colors={['#84cc16', '#6366f1', '#64748b']}
+          colors={[
+            '#A9F853', // aurora-500
+            '#BDFB99', // aurora-300-ish highlight
+            '#8DF034', // aurora-600-ish deeper
+            '#6CC521'  // aurora-700-ish accent
+          ]}
         />
       </div>
       
