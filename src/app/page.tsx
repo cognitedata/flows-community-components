@@ -37,8 +37,8 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Hero Text */}
           <div className="space-y-4">
-            <h2 className="text-5xl sm:text-6xl font-bold tracking-tight">Build with Aura</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <h2 className="text-5xl sm:text-6xl font-bold tracking-tight text-[var(--ns-glacier-50)]">Build with Aura</h2>
+            <p className="text-xl max-w-2xl mx-auto leading-relaxed text-[var(--ns-slate-400)]">
               Aura is Cognite's AI-native design system inspired by fractal intelligence and adaptive by nature.
             </p>
           </div>
