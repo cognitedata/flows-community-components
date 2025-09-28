@@ -49,7 +49,7 @@
 }
 
 :root {
-  --radius: 6px;
+  --radius: 0.375rem;
   
   /* Blue color ramp */
   --blue-50: #eff6ff;
