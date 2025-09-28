@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Zap, Sun, Moon, Contrast } from "lucide-react"
-import { AuraLogo } from "@/components/aura-logo"
+import Image from "next/image"
 
 const navItems = [
   { href: "/overview", label: "Overview" },
@@ -62,7 +62,7 @@ export function Navigation() {
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
           <Link href="/" className="flex items-center space-x-3">
-            <AuraLogo size={32} />
+            <Image src="/logo.png" alt="Aura" width={32} height={32} priority />
             <span className="text-lg font-bold lowercase" style={{ fontFamily: "'Nova Mono', monospace" }}>aura</span>
           </Link>
 
