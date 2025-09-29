@@ -113,7 +113,9 @@ export function SandboxChat({ onCodeGenerated }: SandboxChatProps) {
       }
       
       setMessages(prev => [...prev, aiMessage])
-      onCodeGenerated?.(aiResponseContent)
+      // Prefer fenced code block if present; otherwise pass full content
+      const fenced = extractFirstCodeBlock(aiResponseContent)
+      onCodeGenerated?.(fenced || aiResponseContent)
       setIsLoading(false)
     } catch (error) {
       console.error('Error calling AI API:', error)
@@ -130,7 +132,8 @@ export function SandboxChat({ onCodeGenerated }: SandboxChatProps) {
       }
       
       setMessages(prev => [...prev, aiMessage])
-      onCodeGenerated?.(fallbackResponse)
+      const fenced = extractFirstCodeBlock(fallbackResponse)
+      onCodeGenerated?.(fenced || fallbackResponse)
       setIsLoading(false)
     }
   }
@@ -347,6 +350,16 @@ This component uses your design system primitives with proper styling and struct
       timestamp: new Date(),
       type: "text"
     }])
+  }
+
+  // Extract first fenced code block (```tsx ... ``` or ``` ... ```)
+  const extractFirstCodeBlock = (text: string): string | null => {
+    const regex = /```(?:tsx|ts|jsx|js)?\n([\s\S]*?)\n```/m
+    const match = text.match(regex)
+    if (match && match[1]) {
+      return match[1].trim()
+    }
+    return null
   }
 
   const copyMessage = (content: string) => {

@@ -112,7 +112,7 @@ export function MyComponent() {
             <TabsContent value="code" className="h-full m-0 p-4">
               <div className="relative h-full">
                 <div className="absolute top-2 right-2 z-10">
-                  <CodeCopyButton text={displayCode} />
+                  <CodeCopyButton code={displayCode} />
                 </div>
                 <div className="h-full border rounded-lg overflow-hidden">
                   <textarea

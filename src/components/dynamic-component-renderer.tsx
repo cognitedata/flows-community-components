@@ -108,8 +108,14 @@ export function DynamicComponentRenderer({ code, className, onError }: DynamicCo
       // Clean the code first - remove markdown code blocks and extract just the JSX
       let cleanCode = code.trim()
       
-      // Remove markdown code block formatting if present
-      cleanCode = cleanCode.replace(/^```(?:tsx|ts|jsx|js)?\s*\n/, '').replace(/\n```\s*$/, '')
+      // Prefer extracting the first fenced code block if present
+      const fencedMatch = cleanCode.match(/```(?:tsx|ts|jsx|js)?\n([\s\S]*?)\n```/m)
+      if (fencedMatch && fencedMatch[1]) {
+        cleanCode = fencedMatch[1].trim()
+      } else {
+        // Otherwise, strip any stray backticks that might wrap code
+        cleanCode = cleanCode.replace(/^```[\s\S]*?\n/, '').replace(/\n```\s*$/, '').trim()
+      }
       
       // Remove any import statements (we provide components directly)
       cleanCode = cleanCode.replace(/^import\s+.*?from\s+.*?[;"']$/gm, '').trim()
