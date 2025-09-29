@@ -75,7 +75,7 @@ export default function EosPage() {
       <SectionLayout>
         <div className="mx-auto max-w-[680px] py-10 space-y-4">
           {/* Greeting card */}
-          <Card className="backdrop-blur-xl bg-background/60 shadow-lg">
+          <Card className="backdrop-blur-xl bg-background/60 shadow-lg border-0">
             <CardContent className="py-6">
               <div className="text-center space-y-2">
                 <h2 className="text-2xl font-medium">
@@ -87,7 +87,7 @@ export default function EosPage() {
           </Card>
 
           {/* Input + buttons */}
-          <Card className="bg-background/60 border border-border backdrop-blur-sm">
+          <Card className="bg-background/60 border-0 backdrop-blur-sm">
             <CardContent className="p-4 space-y-3">
               <Textarea
                 value={prompt}
@@ -113,7 +113,6 @@ export default function EosPage() {
           <div className="flex items-center justify-center gap-2">
             <Select defaultValue="incident">
               <SelectTrigger className="w-[210px]">
-                <ChevronDown className="mr-2 h-4 w-4" />
                 <SelectValue placeholder="Incident investigation" />
               </SelectTrigger>
               <SelectContent>
@@ -124,7 +123,6 @@ export default function EosPage() {
             </Select>
             <Select defaultValue="analyze">
               <SelectTrigger className="w-[210px]">
-                <ChevronDown className="mr-2 h-4 w-4" />
                 <SelectValue placeholder="Analyze and act" />
               </SelectTrigger>
               <SelectContent>
@@ -135,7 +133,6 @@ export default function EosPage() {
             </Select>
             <Select defaultValue="maintenance">
               <SelectTrigger className="w-[230px]">
-                <ChevronDown className="mr-2 h-4 w-4" />
                 <SelectValue placeholder="Optimize maintenance" />
               </SelectTrigger>
               <SelectContent>
