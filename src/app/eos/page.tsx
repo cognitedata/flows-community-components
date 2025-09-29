@@ -8,6 +8,12 @@ import { Badge } from "@/components/ui/badge"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import * as Recharts from "recharts"
 import { BarChart3, Shapes, AppWindow, Paperclip, Settings, Mic, Send, ChevronDown, Plus, Pencil } from "lucide-react"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { Toaster } from "@/components/ui/sonner"
+import { toast } from "sonner"
+import React from "react"
 
 const efficiencyData = [
   { month: "Jan", target: 90, actual: 91 },
@@ -28,6 +34,14 @@ const oeeData = [
 ]
 
 export default function EosPage() {
+  const [prompt, setPrompt] = React.useState("I want to analyze vibrations and frequency data on @21PT1019")
+  const [showTarget, setShowTarget] = React.useState(true)
+  const [showActual, setShowActual] = React.useState(true)
+
+  const handleSend = () => {
+    toast.success("Prompt sent", { description: prompt })
+  }
+
   return (
     <SectionLayout>
       {/* Exact frame rendering from Figma (requires local asset server) */}
@@ -36,18 +50,20 @@ export default function EosPage() {
       </div>
       {/* Responsive approximation for smaller screens */}
       <div className="mx-auto max-w-[1100px] space-y-10 lg:hidden">
-        {/* Top tabs mimic */}
-        <div className="flex items-center justify-center gap-2">
-          <Button variant="secondary" size="sm" className="h-8">
-            <BarChart3 className="mr-2 h-4 w-4" /> Overview
-          </Button>
-          <Button variant="ghost" size="sm" className="h-8 text-muted-foreground">
-            <Shapes className="mr-2 h-4 w-4" /> Views
-          </Button>
-          <Button variant="ghost" size="sm" className="h-8 text-muted-foreground">
-            <AppWindow className="mr-2 h-4 w-4" /> App library
-          </Button>
-        </div>
+        {/* Top tabs mimic using DS Tabs */}
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="overview" className="justify-center">
+              <BarChart3 className="mr-2 h-4 w-4" /> Overview
+            </TabsTrigger>
+            <TabsTrigger value="views" className="justify-center">
+              <Shapes className="mr-2 h-4 w-4" /> Views
+            </TabsTrigger>
+            <TabsTrigger value="apps" className="justify-center">
+              <AppWindow className="mr-2 h-4 w-4" /> App library
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
 
         {/* Hero */}
         <div className="text-center space-y-2">
@@ -60,10 +76,13 @@ export default function EosPage() {
         {/* Prompt input */}
         <div className="mx-auto max-w-[760px] space-y-3">
           <div className="rounded-md border border-slate-800 bg-background p-4">
-            <p className="text-sm text-slate-400">
-              I want to analyze vibrations and frequency data on @21PT1019
-            </p>
-            <div className="mt-4 flex items-center justify-between">
+            <Textarea
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              className="min-h-[72px] resize-y"
+              spellCheck={false}
+            />
+            <div className="mt-3 flex items-center justify-between">
               <div className="flex items-center gap-3 text-muted-foreground">
                 <Button variant="ghost" size="icon" className="h-8 w-8">
                   <Paperclip className="h-4 w-4" />
@@ -79,24 +98,45 @@ export default function EosPage() {
                 <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
                   <Mic className="h-4 w-4" />
                 </Button>
-                <Button size="icon" className="h-8 w-8 bg-muted text-background">
+                <Button size="icon" className="h-8 w-8" onClick={handleSend}>
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
             </div>
           </div>
 
-          {/* Quick starts */}
+          {/* Quick starts with DS Selects */}
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <Button variant="outline" size="sm" className="h-8">
-              Incident investigation <ChevronDown className="ml-2 h-3 w-3" />
-            </Button>
-            <Button variant="outline" size="sm" className="h-8">
-              Analyze and act <ChevronDown className="ml-2 h-3 w-3" />
-            </Button>
-            <Button variant="outline" size="sm" className="h-8">
-              Optimize maintenance <ChevronDown className="ml-2 h-3 w-3" />
-            </Button>
+            <Select defaultValue="incident">
+              <SelectTrigger className="w-[210px]">
+                <SelectValue placeholder="Select flow" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="incident">Incident investigation</SelectItem>
+                <SelectItem value="safety">Safety audit</SelectItem>
+                <SelectItem value="inspection">Inspection planning</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select defaultValue="analyze">
+              <SelectTrigger className="w-[210px]">
+                <SelectValue placeholder="Select action" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="analyze">Analyze and act</SelectItem>
+                <SelectItem value="summarize">Summarize</SelectItem>
+                <SelectItem value="notify">Notify team</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select defaultValue="maintenance">
+              <SelectTrigger className="w-[230px]">
+                <SelectValue placeholder="Select goal" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="maintenance">Optimize maintenance</SelectItem>
+                <SelectItem value="uptime">Improve uptime</SelectItem>
+                <SelectItem value="energy">Reduce energy cost</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
@@ -115,7 +155,7 @@ export default function EosPage() {
           </div>
         </div>
 
-        {/* KPI cards */}
+        {/* KPI cards with interactive toggles */}
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {/* Energy efficiency vs target */}
           <Card className="backdrop-blur-sm bg-background/60 border-slate-800">
@@ -137,14 +177,26 @@ export default function EosPage() {
                     <Recharts.CartesianGrid vertical={false} strokeOpacity={0.15} />
                     <Recharts.XAxis dataKey="month" tickLine={false} axisLine={false} dy={6} tick={{ fontSize: 12 }} />
                     <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                    <Recharts.Area type="monotone" dataKey="target" stroke="hsl(var(--muted-foreground))" fill="hsl(var(--muted-foreground))" fillOpacity={0.15} />
-                    <Recharts.Area type="monotone" dataKey="actual" stroke="#a9f853" fill="#a9f853" fillOpacity={0.2} />
+                    {showTarget && (
+                      <Recharts.Area type="monotone" dataKey="target" stroke="hsl(var(--muted-foreground))" fill="hsl(var(--muted-foreground))" fillOpacity={0.15} />
+                    )}
+                    {showActual && (
+                      <Recharts.Area type="monotone" dataKey="actual" stroke="#a9f853" fill="#a9f853" fillOpacity={0.2} />
+                    )}
                   </Recharts.AreaChart>
                 </ChartContainer>
               </div>
               <div className="mt-2 flex items-center gap-2">
-                <Badge variant="secondary" className="bg-[#1b2536] text-[var(--ns-glacier-300)]">Target: 90%</Badge>
+                <Badge variant="secondary" className="bg-[#1b2536]">Target: 90%</Badge>
                 <Badge className="bg-[#223211] text-[#cbfb98]">Actual: 95%</Badge>
+              </div>
+              <div className="mt-3 flex gap-2">
+                <Button variant={showTarget ? "default" : "outline"} size="sm" onClick={() => setShowTarget((v) => !v)}>
+                  Toggle target
+                </Button>
+                <Button variant={showActual ? "default" : "outline"} size="sm" onClick={() => setShowActual((v) => !v)}>
+                  Toggle actual
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -190,6 +242,7 @@ export default function EosPage() {
           </Card>
         </div>
       </div>
+      <Toaster richColors position="bottom-center" />
     </SectionLayout>
   )
 }
