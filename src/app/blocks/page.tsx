@@ -115,7 +115,7 @@ export default function BlocksPage() {
               </div>
 
               {/* CTA */}
-              <Button asChild className="w-full" size="sm">
+              <Button variant="secondary" asChild className="w-full" size="sm">
                 <Link href={block.href}>
                   Explore component
                   <ArrowRight className="ml-2 h-4 w-4" />
