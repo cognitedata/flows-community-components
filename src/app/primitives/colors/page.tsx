@@ -6,8 +6,8 @@ import { Badge } from "@/components/ui/badge"
 // Color definitions with their CSS variable names and hex values
 const colorPalettes = [
   {
-    name: "Aurora Lime",
-    description: "Vibrant lime color palette with electric energy",
+    name: "Aurora",
+    description: "Fractal aurora greens (brand lime ramp)",
     category: "brand",
     colors: [
       { name: "50", var: "--aurora-lime-50", hex: "#fbffcc" },
@@ -24,7 +24,7 @@ const colorPalettes = [
     ]
   },
   {
-    name: "Glacier Mist",
+    name: "Indigo",
     description: "Cool indigo tones reminiscent of glacial formations",
     category: "nature",
     colors: [
@@ -39,6 +39,24 @@ const colorPalettes = [
       { name: "800", var: "--glacier-mist-800", hex: "#3730a3" },
       { name: "900", var: "--glacier-mist-900", hex: "#312e81" },
       { name: "950", var: "--glacier-mist-950", hex: "#1e1b4b" },
+    ]
+  },
+  {
+    name: "Glacier",
+    description: "Glacier neutrals with blue-grey undertones",
+    category: "brand",
+    colors: [
+      { name: "50", var: "--glacier-50", hex: "#f5fbff" },
+      { name: "100", var: "--glacier-100", hex: "#e6f5fd" },
+      { name: "200", var: "--glacier-200", hex: "#cdeafb" },
+      { name: "300", var: "--glacier-300", hex: "#cdecfb" },
+      { name: "400", var: "--glacier-400", hex: "#8cc7ea" },
+      { name: "500", var: "--glacier-500", hex: "#78a7cb" },
+      { name: "600", var: "--glacier-600", hex: "#5f86a9" },
+      { name: "700", var: "--glacier-700", hex: "#486a88" },
+      { name: "800", var: "--glacier-800", hex: "#2f4e6a" },
+      { name: "900", var: "--glacier-900", hex: "#223b50" },
+      { name: "950", var: "--glacier-950", hex: "#172838" },
     ]
   },
   {
@@ -57,6 +75,24 @@ const colorPalettes = [
       { name: "800", var: "--mountain-fjord-800", hex: "#27272a" },
       { name: "900", var: "--mountain-fjord-900", hex: "#18181b" },
       { name: "950", var: "--mountain-fjord-950", hex: "#09090b" },
+    ]
+  },
+  {
+    name: "Slate",
+    description: "Neutral slate tones",
+    category: "standard",
+    colors: [
+      { name: "50", var: "--slate-50", hex: "#f8fafc" },
+      { name: "100", var: "--slate-100", hex: "#f1f5f9" },
+      { name: "200", var: "--slate-200", hex: "#e2e8f0" },
+      { name: "300", var: "--slate-300", hex: "#cbd5e1" },
+      { name: "400", var: "--slate-400", hex: "#94a3b8" },
+      { name: "500", var: "--slate-500", hex: "#64748b" },
+      { name: "600", var: "--slate-600", hex: "#475569" },
+      { name: "700", var: "--slate-700", hex: "#334155" },
+      { name: "800", var: "--slate-800", hex: "#1f2937" },
+      { name: "900", var: "--slate-900", hex: "#0f172a" },
+      { name: "950", var: "--slate-950", hex: "#020617" },
     ]
   },
   // Tailwind colors
