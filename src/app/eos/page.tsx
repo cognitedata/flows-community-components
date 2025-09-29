@@ -89,12 +89,12 @@ export default function EosPage() {
           </div>
 
           {/* Input + buttons */}
-          <Card className="bg-background/60 border-0 backdrop-blur-sm">
-            <CardContent className="p-4 space-y-3">
+          <Card className="bg-background/60 border backdrop-blur-sm">
+            <CardContent className="px-4 py-0 space-y-3">
               <Textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="min-h-[72px] resize-y"
+                className="min-h-[72px] resize-y bg-transparent border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 spellCheck={false}
               />
               <div className="flex items-center justify-between">
