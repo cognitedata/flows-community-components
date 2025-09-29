@@ -1,6 +1,7 @@
 "use client"
 
 import { SectionLayout } from "@/components/section-layout"
+import EosFigmaFrame from "@/components/eos-figma-frame"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -29,7 +30,12 @@ const oeeData = [
 export default function EosPage() {
   return (
     <SectionLayout>
-      <div className="mx-auto max-w-[1100px] space-y-10">
+      {/* Exact frame rendering from Figma (requires local asset server) */}
+      <div className="hidden lg:block">
+        <EosFigmaFrame />
+      </div>
+      {/* Responsive approximation for smaller screens */}
+      <div className="mx-auto max-w-[1100px] space-y-10 lg:hidden">
         {/* Top tabs mimic */}
         <div className="flex items-center justify-center gap-2">
           <Button variant="secondary" size="sm" className="h-8">
