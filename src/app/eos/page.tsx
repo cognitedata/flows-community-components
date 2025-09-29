@@ -73,10 +73,10 @@ export default function EosPage() {
       </div>
 
       {/* Content area with background image */}
-      <div className="relative">
+      <div className="relative min-h-[calc(100vh-48px)]">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-[url('/eos-background.png')] bg-cover bg-center"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[url('/eos-background.png')] bg-cover bg-center bg-no-repeat"
         />
         <SectionLayout>
         <div className="mx-auto max-w-[680px] py-10 space-y-4">
