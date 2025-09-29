@@ -75,18 +75,18 @@
   --neon-800: #467F00;
   --neon-900: #2B6600;
   
-  /* Aurora Lime color ramp */
-  --aurora-lime-50: #fbffcc;
-  --aurora-lime-100: #f7ff99;
-  --aurora-lime-200: #f0ff66;
-  --aurora-lime-300: #e9ff33;
-  --aurora-lime-400: #e4ff14;
-  --aurora-lime-500: #e2ff00;
-  --aurora-lime-600: #cce100;
-  --aurora-lime-700: #aec200;
-  --aurora-lime-800: #91a300;
-  --aurora-lime-900: #748500;
-  --aurora-lime-950: #5e6c00;
+  /* Aurora color ramp (updated) */
+  --aurora-lime-50: #f6faee;
+  --aurora-lime-100: #eafedd;
+  --aurora-lime-200: #ddfcba;
+  --aurora-lime-300: #cbfba8;
+  --aurora-lime-400: #baf975;
+  --aurora-lime-500: #a9f853;
+  --aurora-lime-600: #98df4b;
+  --aurora-lime-700: #87c642;
+  --aurora-lime-800: #658532;
+  --aurora-lime-900: #446321;
+  --aurora-lime-950: #223211;
   
   /* Slate color ramp */
   --slate-50: #f8fafc;
