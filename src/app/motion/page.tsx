@@ -10,17 +10,17 @@ const principles = [
   {
     title: "Purpose",
     description: "Every animation should have a clear purpose and enhance the user experience",
-    icon: "🎯",
+    icon: "",
   },
   {
     title: "Personality",
     description: "Motion should reflect the brand personality while maintaining professionalism",
-    icon: "✨",
+    icon: "",
   },
   {
     title: "Performance",
     description: "Animations should be smooth, lightweight, and respect user preferences",
-    icon: "⚡",
+    icon: "",
   },
 ]
 
@@ -97,7 +97,6 @@ export default function MotionPage() {
               >
                 <Card className="text-center h-full">
                   <CardHeader>
-                    <div className="text-4xl mb-4">{principle.icon}</div>
                     <CardTitle>{principle.title}</CardTitle>
                   </CardHeader>
                   <CardContent>

@@ -26,7 +26,7 @@ const colorPalettes = [
   {
     name: "Indigo",
     description: "Cool indigo tones reminiscent of glacial formations",
-    category: "nature",
+    category: "brand",
     colors: [
       { name: "50", var: "--glacier-mist-50", hex: "#eef2ff" },
       { name: "100", var: "--glacier-mist-100", hex: "#e0e7ff" },
@@ -62,7 +62,7 @@ const colorPalettes = [
   {
     name: "Mountain Fjord",
     description: "Neutral zinc tones inspired by mountain landscapes",
-    category: "nature",
+    category: "brand",
     colors: [
       { name: "50", var: "--mountain-fjord-50", hex: "#fafafa" },
       { name: "100", var: "--mountain-fjord-100", hex: "#f4f4f5" },
@@ -80,7 +80,7 @@ const colorPalettes = [
   {
     name: "Slate",
     description: "Neutral slate tones",
-    category: "standard",
+    category: "brand",
     colors: [
       { name: "50", var: "--slate-50", hex: "#f8fafc" },
       { name: "100", var: "--slate-100", hex: "#f1f5f9" },
@@ -436,7 +436,6 @@ function ColorPalette({ palette }: { palette: typeof colorPalettes[0] }) {
 export default function ColorsPage() {
   // Group palettes by category
   const brandPalettes = colorPalettes.filter(p => p.category === "brand")
-  const naturePalettes = colorPalettes.filter(p => p.category === "nature")
   const standardPalettes = colorPalettes.filter(p => p.category === "standard")
 
   return (
@@ -459,21 +458,6 @@ export default function ColorsPage() {
           </div>
           <div className="space-y-6">
             {brandPalettes.map((palette) => (
-              <ColorPalette key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
-
-        {/* Nature-Inspired Colors */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Nature-Inspired</h2>
-            <p className="text-muted-foreground">
-              Color palettes inspired by natural elements and landscapes
-            </p>
-          </div>
-          <div className="space-y-6">
-            {naturePalettes.map((palette) => (
               <ColorPalette key={palette.name} palette={palette} />
             ))}
           </div>
