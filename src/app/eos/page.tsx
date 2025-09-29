@@ -11,19 +11,19 @@ export default function EosPage() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <SectionLayout>
-      {/* Local page topbar */}
-      <div className="w-full border-b border-border bg-background rounded-none">
+    <>
+      {/* Local page topbar (edge-to-edge) */}
+      <div className="w-full border-b border-border bg-background">
         <div className="h-12 px-3 flex items-center justify-between gap-3">
           {/* Left: brand */}
           <div className="flex items-center gap-2">
-            <Image src="/aura-logo.png" alt="Logo" width={24} height={24} className="rounded" />
+            <Image src="/cognite-logo.png" alt="Cognite" width={24} height={24} className="rounded" />
           </div>
 
           {/* Center: tabs */}
           <div className="hidden md:flex">
             <Tabs defaultValue="overview">
-              <TabsList className="grid grid-cols-5">
+              <TabsList className="grid grid-cols-3">
                 <TabsTrigger value="overview" className="flex items-center gap-2">
                   <BarChart3 className="h-4 w-4" />
                   Overview
@@ -35,14 +35,6 @@ export default function EosPage() {
                 <TabsTrigger value="apps" className="flex items-center gap-2">
                   <AppWindow className="h-4 w-4" />
                   App library
-                </TabsTrigger>
-                <TabsTrigger value="tools" className="flex items-center gap-2">
-                  <Grid className="h-4 w-4" />
-                  Tools
-                </TabsTrigger>
-                <TabsTrigger value="more" className="flex items-center gap-2">
-                  <Grid className="h-4 w-4" />
-                  More
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -75,8 +67,10 @@ export default function EosPage() {
         </div>
       </div>
 
-      <div className="min-h-[60vh]" />
-    </SectionLayout>
+      <SectionLayout>
+        <div className="min-h-[60vh]" />
+      </SectionLayout>
+    </>
   )
 }
 
