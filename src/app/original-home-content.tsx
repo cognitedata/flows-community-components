@@ -115,35 +115,35 @@ export default function Home() {
 
         {/* Principles Section */}
         <motion.section variants={itemVariants} className="space-y-8">
-          <h2 className="text-3xl font-bold text-center">Core Principles</h2>
+          <h2 className="text-3xl font-bold text-center">Core principles</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="text-center">
               <CardHeader>
-                <CardTitle>Consistency</CardTitle>
+                <CardTitle>Intentional</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Unified patterns and components ensure coherent experiences across all touchpoints.
+                  Every element has a purpose. Design choices are grounded in research and feedback, ensuring clarity in complexity.
                 </p>
               </CardContent>
             </Card>
             <Card className="text-center">
               <CardHeader>
-                <CardTitle>Accessibility</CardTitle>
+                <CardTitle>Adaptive</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  WCAG-compliant designs that work for everyone, regardless of ability or technology.
+                  The system flexes to different contexts and scales, embracing fractal perspectives that reveal insights at any level.
                 </p>
               </CardContent>
             </Card>
             <Card className="text-center">
               <CardHeader>
-                <CardTitle>Scalability</CardTitle>
+                <CardTitle>Intuitive</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Flexible components and patterns that grow with your product and team needs.
+                  Interactions guide users naturally, letting motion, hierarchy, and structure feel effortless and transparent.
                 </p>
               </CardContent>
             </Card>
@@ -152,7 +152,7 @@ export default function Home() {
 
         {/* Features Grid */}
         <motion.section variants={itemVariants} className="space-y-8">
-          <h2 className="text-3xl font-bold text-center">Explore the System</h2>
+          <h2 className="text-3xl font-bold text-center">Explore the system</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature) => (
               <motion.div
@@ -177,7 +177,7 @@ export default function Home() {
 
         {/* Component Showcase */}
         <motion.section variants={itemVariants} className="space-y-8">
-          <h2 className="text-3xl font-bold text-center">Component Showcase</h2>
+          <h2 className="text-3xl font-bold text-center">Component showcase</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card className="p-6">
               <Button className="w-full">Primary Button</Button>
@@ -211,13 +211,13 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild>
               <Link href="/guides">
-                Designer Guide
+                Designer guide
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
               <Link href="/guides">
-                Developer Guide
+                Developer guide
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
