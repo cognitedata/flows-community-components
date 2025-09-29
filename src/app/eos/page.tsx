@@ -4,11 +4,16 @@ import { SectionLayout } from "@/components/section-layout"
 import Image from "next/image"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
-import { Search, Bell, Sun, Moon, BarChart3, Shapes, AppWindow, Grid } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Search, Bell, Sun, Moon, BarChart3, Shapes, AppWindow, Grid, Paperclip, Settings, Mic, Send, ChevronDown } from "lucide-react"
 import { useTheme } from "next-themes"
+import React from "react"
 
 export default function EosPage() {
   const { theme, setTheme } = useTheme()
+  const [prompt, setPrompt] = React.useState("I want to analyze vibrations and frequency data on @21PT1019")
 
   return (
     <>
@@ -68,7 +73,79 @@ export default function EosPage() {
       </div>
 
       <SectionLayout>
-        <div className="min-h-[60vh]" />
+        <div className="mx-auto max-w-[680px] py-10 space-y-4">
+          {/* Greeting card */}
+          <Card className="backdrop-blur-xl bg-background/60 shadow-lg">
+            <CardContent className="py-6">
+              <div className="text-center space-y-2">
+                <h2 className="text-2xl font-medium">
+                  Hello, <span className="text-[var(--ns-aurora-500)]">Mike H.</span>
+                </h2>
+                <p className="text-muted-foreground">What can Atlas help you with today?</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Input + buttons */}
+          <Card className="bg-background/60 border border-border backdrop-blur-sm">
+            <CardContent className="p-4 space-y-3">
+              <Textarea
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="min-h-[72px] resize-y"
+                spellCheck={false}
+              />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Button variant="ghost" size="icon" className="h-8 w-8"><Paperclip className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="icon" className="h-8 w-8"><Settings className="h-4 w-4" /></Button>
+                  <Button variant="ghost" size="icon" className="h-8 w-8"><AppWindow className="h-4 w-4" /></Button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground"><Mic className="h-4 w-4" /></Button>
+                  <Button size="icon" className="h-8 w-8"><Send className="h-4 w-4" /></Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Quick starts */}
+          <div className="flex items-center justify-center gap-2">
+            <Select defaultValue="incident">
+              <SelectTrigger className="w-[210px]">
+                <ChevronDown className="mr-2 h-4 w-4" />
+                <SelectValue placeholder="Incident investigation" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="incident">Incident investigation</SelectItem>
+                <SelectItem value="safety">Safety audit</SelectItem>
+                <SelectItem value="inspection">Inspection planning</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select defaultValue="analyze">
+              <SelectTrigger className="w-[210px]">
+                <ChevronDown className="mr-2 h-4 w-4" />
+                <SelectValue placeholder="Analyze and act" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="analyze">Analyze and act</SelectItem>
+                <SelectItem value="summarize">Summarize</SelectItem>
+                <SelectItem value="notify">Notify team</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select defaultValue="maintenance">
+              <SelectTrigger className="w-[230px]">
+                <ChevronDown className="mr-2 h-4 w-4" />
+                <SelectValue placeholder="Optimize maintenance" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="maintenance">Optimize maintenance</SelectItem>
+                <SelectItem value="uptime">Improve uptime</SelectItem>
+                <SelectItem value="energy">Reduce energy cost</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
       </SectionLayout>
     </>
   )
