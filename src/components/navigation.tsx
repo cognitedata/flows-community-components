@@ -16,6 +16,7 @@ const navItems = [
   { href: "/primitives", label: "Primitives" },
   { href: "/blocks", label: "Blocks" },
   { href: "/sandbox", label: "Sandbox" },
+  { href: "/eos", label: "Eos" },
 ]
 
 function ThemeToggleGroup() {
