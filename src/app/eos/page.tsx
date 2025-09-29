@@ -80,17 +80,13 @@ export default function EosPage() {
         />
         <SectionLayout>
         <div className="mx-auto max-w-[680px] py-10 space-y-4">
-          {/* Greeting card */}
-          <Card className="backdrop-blur-xl bg-background/60 shadow-lg border-0">
-            <CardContent className="py-6">
-              <div className="text-center space-y-2">
-                <h2 className="text-2xl font-medium">
-                  Hello, <span className="text-[var(--ns-aurora-500)]">Mike H.</span>
-                </h2>
-                <p className="text-muted-foreground">What can Atlas help you with today?</p>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Greeting (no container or shadow) */}
+          <div className="text-center space-y-2 py-6">
+            <h2 className="text-2xl font-medium">
+              Hello, <span className="text-[var(--ns-aurora-500)]">Mike H.</span>
+            </h2>
+            <p className="text-muted-foreground">What can Atlas help you with today?</p>
+          </div>
 
           {/* Input + buttons */}
           <Card className="bg-background/60 border-0 backdrop-blur-sm">
