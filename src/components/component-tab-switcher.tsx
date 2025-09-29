@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 
 interface TabSwitcherProps {
@@ -40,9 +40,9 @@ export function ComponentTabSwitcher({ previewContent, codeContent, markdownCont
       </div>
 
       {/* Content */}
-      {activeTab === 'preview' && previewContent}
-      {activeTab === 'code' && codeContent}
-      {activeTab === 'markdown' && markdownContent}
+      {activeTab === 'preview' && <>{React.Children.toArray(previewContent as any)}</>}
+      {activeTab === 'code' && <>{React.Children.toArray(codeContent as any)}</>}
+      {activeTab === 'markdown' && <>{React.Children.toArray(markdownContent as any)}</>}
     </div>
   )
 }
