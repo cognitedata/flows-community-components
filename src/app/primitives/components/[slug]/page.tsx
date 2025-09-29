@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { promises as fs } from "fs"
 import path from "path"
 import matter from "gray-matter"
-import { MDXRemote } from "next-mdx-remote/rsc"
+// import { MDXRemote } from "next-mdx-remote/rsc"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -80,17 +80,15 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   }
 
   // Get MDX components for rendering
-  const mdxComponents = {
-    // Import all the components we need for MDX rendering
-    Button,
-    Badge,
-    Separator,
-    Tabs,
-    TabsContent,
-    TabsList,
-    TabsTrigger,
-    // Add other components as needed
-  }
+  // const mdxComponents = {
+  //   Button,
+  //   Badge,
+  //   Separator,
+  //   Tabs,
+  //   TabsContent,
+  //   TabsList,
+  //   TabsTrigger,
+  // }
 
   return (
     <div className="px-3 py-8">
@@ -634,29 +632,34 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             </div>
 
 
-            {/* Guidelines Placeholder */}
+          </div>
+          }
+          guidelinesContent={
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold">Guidelines</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-3">
                   <h3 className="font-semibold text-green-700 dark:text-green-400">Do</h3>
                   <div className="p-4 rounded-lg border bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800">
-                    <p className="text-sm text-muted-foreground">
-                      Guidelines for best practices with {doc.meta.component} will be added here.
-                    </p>
+                    <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+                      <li>Use semantic variants and sizes appropriately.</li>
+                      <li>Ensure accessible labels and focus states.</li>
+                      <li>Follow spacing and radius tokens.</li>
+                    </ul>
                   </div>
                 </div>
                 <div className="space-y-3">
                   <h3 className="font-semibold text-red-700 dark:text-red-400">Don&apos;t</h3>
                   <div className="p-4 rounded-lg border bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-800">
-                  <p className="text-sm text-muted-foreground">
-                      Guidelines for what to avoid with {doc.meta.component} will be added here.
-                  </p>
+                    <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
+                      <li>Don&apos;t override tokens with hard-coded colors.</li>
+                      <li>Don&apos;t remove focus-visible outlines.</li>
+                      <li>Don&apos;t mix padding that breaks alignment.</li>
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           }
           codeContent={
             <div className="space-y-6">
