@@ -94,7 +94,7 @@ export default function EosPage() {
               <Textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                className="min-h-[72px] resize-y bg-transparent border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="min-h-[72px] resize-none bg-transparent border-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 spellCheck={false}
               />
               <div className="flex items-center justify-between">
