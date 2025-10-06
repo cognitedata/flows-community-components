@@ -1,15 +1,19 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useTheme } from "next-themes"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Zap, Sun, Moon, Contrast } from "lucide-react"
-import Image from "next/image"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/cognite/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/cognite/sheet";
+import { Menu, Sun, Moon, Contrast } from "lucide-react";
+import Image from "next/image";
 
 const navItems = [
   { href: "/overview", label: "Overview" },
@@ -17,25 +21,25 @@ const navItems = [
   { href: "/blocks", label: "Blocks" },
   { href: "/sandbox", label: "Sandbox" },
   { href: "/eos", label: "Eos" },
-]
+];
 
 function ThemeToggleGroup() {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
-    return null
+    return null;
   }
 
   const themes = [
     { name: "light", icon: Sun, label: "Light" },
     { name: "dark", icon: Moon, label: "Dark" },
     { name: "contrast", icon: Contrast, label: "High contrast" },
-  ]
+  ];
 
   return (
     <div className="flex items-center bg-muted rounded-lg p-1">
@@ -52,35 +56,45 @@ function ThemeToggleGroup() {
         </Button>
       ))}
     </div>
-  )
+  );
 }
 
 export function Navigation() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
           <Link href="/" className="flex items-center space-x-3">
-            <Image src="/aura-logo.png" alt="Aura" width={32} height={32} priority />
-            <span className="text-lg font-bold lowercase" style={{ fontFamily: "'Nova Mono', monospace" }}>aura</span>
+            <Image
+              src="/aura-logo.png"
+              alt="Aura"
+              width={32}
+              height={32}
+              priority
+            />
+            <span
+              className="text-lg font-bold lowercase"
+              style={{ fontFamily: "'Nova Mono', monospace" }}
+            >
+              aura
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => {
               // Check if current pathname starts with the nav item href (for sub-routes)
-              const isActive = pathname.startsWith(item.href) && pathname !== "/"
-              
+              const isActive =
+                pathname.startsWith(item.href) && pathname !== "/";
+
               return (
                 <Link key={item.href} href={item.href} className="relative">
                   <span
                     className={cn(
                       "text-sm font-medium transition-colors hover:text-primary",
-                      isActive
-                        ? "text-primary"
-                        : "text-muted-foreground"
+                      isActive ? "text-primary" : "text-muted-foreground"
                     )}
                   >
                     {item.label}
@@ -98,14 +112,14 @@ export function Navigation() {
                     />
                   )}
                 </Link>
-              )
+              );
             })}
           </nav>
         </div>
 
         <div className="flex items-center space-x-4">
           <ThemeToggleGroup />
-          
+
           {/* Mobile Navigation */}
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
@@ -117,22 +131,21 @@ export function Navigation() {
             <SheetContent side="right" className="w-80">
               <div className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => {
-                  const isActive = pathname.startsWith(item.href) && pathname !== "/"
-                  
+                  const isActive =
+                    pathname.startsWith(item.href) && pathname !== "/";
+
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
                       className={cn(
                         "text-lg font-medium transition-colors hover:text-primary",
-                        isActive
-                          ? "text-primary"
-                          : "text-muted-foreground"
+                        isActive ? "text-primary" : "text-muted-foreground"
                       )}
                     >
                       {item.label}
                     </Link>
-                  )
+                  );
                 })}
                 <div className="pt-4 border-t">
                   <div className="text-sm font-medium mb-2">Theme</div>
@@ -144,5 +157,5 @@ export function Navigation() {
         </div>
       </div>
     </header>
-  )
+  );
 }

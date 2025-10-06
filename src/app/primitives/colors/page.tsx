@@ -1,7 +1,12 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/cognite/card";
+import { Badge } from "@/components/ui/cognite/badge";
 
 // Color definitions with their CSS variable names and hex values
 const colorPalettes = [
@@ -21,7 +26,7 @@ const colorPalettes = [
       { name: "800", var: "--aurora-lime-800", hex: "#658532" },
       { name: "900", var: "--aurora-lime-900", hex: "#446321" },
       { name: "950", var: "--aurora-lime-950", hex: "#223211" },
-    ]
+    ],
   },
   {
     name: "Indigo",
@@ -39,7 +44,7 @@ const colorPalettes = [
       { name: "800", var: "--glacier-mist-800", hex: "#3730a3" },
       { name: "900", var: "--glacier-mist-900", hex: "#312e81" },
       { name: "950", var: "--glacier-mist-950", hex: "#1e1b4b" },
-    ]
+    ],
   },
   {
     name: "Glacier",
@@ -57,7 +62,7 @@ const colorPalettes = [
       { name: "800", var: "--glacier-800", hex: "#2f4e6a" },
       { name: "900", var: "--glacier-900", hex: "#223b50" },
       { name: "950", var: "--glacier-950", hex: "#172838" },
-    ]
+    ],
   },
   {
     name: "Mountain Fjord",
@@ -75,7 +80,7 @@ const colorPalettes = [
       { name: "800", var: "--mountain-fjord-800", hex: "#27272a" },
       { name: "900", var: "--mountain-fjord-900", hex: "#18181b" },
       { name: "950", var: "--mountain-fjord-950", hex: "#09090b" },
-    ]
+    ],
   },
   {
     name: "Slate",
@@ -93,7 +98,7 @@ const colorPalettes = [
       { name: "800", var: "--slate-800", hex: "#1f2937" },
       { name: "900", var: "--slate-900", hex: "#0f172a" },
       { name: "950", var: "--slate-950", hex: "#020617" },
-    ]
+    ],
   },
   // Tailwind colors
   {
@@ -112,7 +117,7 @@ const colorPalettes = [
       { name: "800", var: "--teal-800", hex: "#115e59" },
       { name: "900", var: "--teal-900", hex: "#134e4a" },
       { name: "950", var: "--teal-950", hex: "#042f2e" },
-    ]
+    ],
   },
   {
     name: "Emerald",
@@ -130,7 +135,7 @@ const colorPalettes = [
       { name: "800", var: "--emerald-800", hex: "#065f46" },
       { name: "900", var: "--emerald-900", hex: "#064e3b" },
       { name: "950", var: "--emerald-950", hex: "#022c22" },
-    ]
+    ],
   },
   {
     name: "Green",
@@ -148,7 +153,7 @@ const colorPalettes = [
       { name: "800", var: "--green-800", hex: "#166534" },
       { name: "900", var: "--green-900", hex: "#14532d" },
       { name: "950", var: "--green-950", hex: "#052e16" },
-    ]
+    ],
   },
   {
     name: "Yellow",
@@ -166,7 +171,7 @@ const colorPalettes = [
       { name: "800", var: "--yellow-800", hex: "#854d0e" },
       { name: "900", var: "--yellow-900", hex: "#713f12" },
       { name: "950", var: "--yellow-950", hex: "#422006" },
-    ]
+    ],
   },
   {
     name: "Amber",
@@ -184,7 +189,7 @@ const colorPalettes = [
       { name: "800", var: "--amber-800", hex: "#92400e" },
       { name: "900", var: "--amber-900", hex: "#78350f" },
       { name: "950", var: "--amber-950", hex: "#451a03" },
-    ]
+    ],
   },
   {
     name: "Pink",
@@ -202,7 +207,7 @@ const colorPalettes = [
       { name: "800", var: "--pink-800", hex: "#9d174d" },
       { name: "900", var: "--pink-900", hex: "#831843" },
       { name: "950", var: "--pink-950", hex: "#500724" },
-    ]
+    ],
   },
   {
     name: "Orange",
@@ -220,7 +225,7 @@ const colorPalettes = [
       { name: "800", var: "--orange-800", hex: "#9a3412" },
       { name: "900", var: "--orange-900", hex: "#7c2d12" },
       { name: "950", var: "--orange-950", hex: "#431407" },
-    ]
+    ],
   },
   {
     name: "Cyan",
@@ -238,7 +243,7 @@ const colorPalettes = [
       { name: "800", var: "--cyan-800", hex: "#155e75" },
       { name: "900", var: "--cyan-900", hex: "#164e63" },
       { name: "950", var: "--cyan-950", hex: "#083344" },
-    ]
+    ],
   },
   {
     name: "Sky",
@@ -256,7 +261,7 @@ const colorPalettes = [
       { name: "800", var: "--sky-800", hex: "#075985" },
       { name: "900", var: "--sky-900", hex: "#0c4a6e" },
       { name: "950", var: "--sky-950", hex: "#082f49" },
-    ]
+    ],
   },
   {
     name: "Violet",
@@ -274,7 +279,7 @@ const colorPalettes = [
       { name: "800", var: "--violet-800", hex: "#5b21b6" },
       { name: "900", var: "--violet-900", hex: "#4c1d95" },
       { name: "950", var: "--violet-950", hex: "#2e1065" },
-    ]
+    ],
   },
   {
     name: "Gray",
@@ -292,7 +297,7 @@ const colorPalettes = [
       { name: "800", var: "--gray-800", hex: "#1f2937" },
       { name: "900", var: "--gray-900", hex: "#111827" },
       { name: "950", var: "--gray-950", hex: "#030712" },
-    ]
+    ],
   },
   {
     name: "Rose",
@@ -310,7 +315,7 @@ const colorPalettes = [
       { name: "800", var: "--rose-800", hex: "#9f1239" },
       { name: "900", var: "--rose-900", hex: "#881337" },
       { name: "950", var: "--rose-950", hex: "#4c0519" },
-    ]
+    ],
   },
   {
     name: "Purple",
@@ -328,7 +333,7 @@ const colorPalettes = [
       { name: "800", var: "--purple-800", hex: "#6b21a8" },
       { name: "900", var: "--purple-900", hex: "#581c87" },
       { name: "950", var: "--purple-950", hex: "#3b0764" },
-    ]
+    ],
   },
   {
     name: "Fuchsia",
@@ -346,57 +351,74 @@ const colorPalettes = [
       { name: "800", var: "--fuchsia-800", hex: "#86198f" },
       { name: "900", var: "--fuchsia-900", hex: "#701a75" },
       { name: "950", var: "--fuchsia-950", hex: "#4a044e" },
-    ]
+    ],
   },
-]
+];
 
 // Helper function to copy text to clipboard
 const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text)
-}
+  navigator.clipboard.writeText(text);
+};
 
 // Color swatch component
-function ColorSwatch({ color, paletteName }: { color: { name: string; var: string; hex: string }; paletteName: string }) {
-  const isDark = parseInt(color.name) >= 700
-  
+function ColorSwatch({
+  color,
+  paletteName,
+}: {
+  color: { name: string; var: string; hex: string };
+  paletteName: string;
+}) {
+  console.log(paletteName);
+  const isDark = parseInt(color.name) >= 700;
+
   return (
-    <div 
+    <div
       className="relative group cursor-pointer rounded-lg overflow-hidden"
       style={{ backgroundColor: color.hex }}
       onClick={() => copyToClipboard(color.hex)}
       title={`Click to copy ${color.hex}`}
     >
       <div className="aspect-square w-full min-h-[80px] flex flex-col justify-end p-3">
-        <div className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        <div
+          className={`text-sm font-medium ${
+            isDark ? "text-white" : "text-gray-900"
+          }`}
+        >
           {color.name}
         </div>
-        <div className={`text-xs ${isDark ? 'text-gray-200' : 'text-gray-600'}`}>
+        <div
+          className={`text-xs ${isDark ? "text-gray-200" : "text-gray-600"}`}
+        >
           {color.hex}
         </div>
       </div>
-      
+
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-        <span className={`text-xs font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        <span
+          className={`text-xs font-medium ${
+            isDark ? "text-white" : "text-gray-900"
+          }`}
+        >
           Click to copy
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 // Palette component
-function ColorPalette({ palette }: { palette: typeof colorPalettes[0] }) {
+function ColorPalette({ palette }: { palette: (typeof colorPalettes)[0] }) {
   const getCategoryBadge = (category: string) => {
     switch (category) {
       case "brand":
-        return <Badge variant="default">Brand</Badge>
+        return <Badge variant="default">Brand</Badge>;
       case "nature":
-        return <Badge variant="secondary">Nature</Badge>
+        return <Badge variant="secondary">Nature</Badge>;
       default:
-        return <Badge variant="outline">Standard</Badge>
+        return <Badge variant="outline">Standard</Badge>;
     }
-  }
+  };
 
   return (
     <Card className="w-full">
@@ -410,115 +432,123 @@ function ColorPalette({ palette }: { palette: typeof colorPalettes[0] }) {
       <CardContent>
         <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 gap-2">
           {palette.colors.map((color) => (
-            <ColorSwatch 
-              key={color.name} 
-              color={color} 
-              paletteName={palette.name} 
+            <ColorSwatch
+              key={color.name}
+              color={color}
+              paletteName={palette.name}
             />
           ))}
         </div>
-        
+
         {/* CSS Variables section */}
         <div className="mt-6 pt-4 border-t">
           <h4 className="text-sm font-medium mb-2">CSS Variables</h4>
           <div className="bg-muted rounded-lg p-3">
             <code className="text-xs text-muted-foreground">
-              {palette.colors.slice(0, 3).map(color => color.var).join(', ')}
-              {palette.colors.length > 3 && ', ...'}
+              {palette.colors
+                .slice(0, 3)
+                .map((color) => color.var)
+                .join(", ")}
+              {palette.colors.length > 3 && ", ..."}
             </code>
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 export default function ColorsPage() {
   // Group palettes by category
-  const brandPalettes = colorPalettes.filter(p => p.category === "brand")
-  const standardPalettes = colorPalettes.filter(p => p.category === "standard")
+  const brandPalettes = colorPalettes.filter((p) => p.category === "brand");
+  const standardPalettes = colorPalettes.filter(
+    (p) => p.category === "standard"
+  );
 
   return (
     <div className="space-y-8">
-        {/* Page Header */}
+      {/* Page Header */}
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
+        <p className="text-lg text-muted-foreground mt-2">
+          Comprehensive color palette for your design system
+        </p>
+      </div>
+
+      {/* Brand Colors */}
+      <section className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
-          <p className="text-lg text-muted-foreground mt-2">
-            Comprehensive color palette for your design system
+          <h2 className="text-2xl font-semibold mb-2">Brand Colors</h2>
+          <p className="text-muted-foreground">
+            Custom color palettes that reflect our brand identity
           </p>
         </div>
+        <div className="space-y-6">
+          {brandPalettes.map((palette) => (
+            <ColorPalette key={palette.name} palette={palette} />
+          ))}
+        </div>
+      </section>
 
-        {/* Brand Colors */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Brand Colors</h2>
-            <p className="text-muted-foreground">
-              Custom color palettes that reflect our brand identity
-            </p>
-          </div>
-          <div className="space-y-6">
-            {brandPalettes.map((palette) => (
-              <ColorPalette key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
+      {/* Standard Colors */}
+      <section className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-semibold mb-2">Standard Palette</h2>
+          <p className="text-muted-foreground">
+            Complete Tailwind CSS color palette for comprehensive design
+            coverage
+          </p>
+        </div>
+        <div className="grid gap-6">
+          {standardPalettes.map((palette) => (
+            <ColorPalette key={palette.name} palette={palette} />
+          ))}
+        </div>
+      </section>
 
-        {/* Standard Colors */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Standard Palette</h2>
-            <p className="text-muted-foreground">
-              Complete Tailwind CSS color palette for comprehensive design coverage
-            </p>
-          </div>
-          <div className="grid gap-6">
-            {standardPalettes.map((palette) => (
-              <ColorPalette key={palette.name} palette={palette} />
-            ))}
-          </div>
-        </section>
+      {/* Usage Guidelines */}
+      <section className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-semibold mb-2">Usage Guidelines</h2>
+        </div>
 
-        {/* Usage Guidelines */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Usage Guidelines</h2>
-          </div>
-          
-          <div className="grid gap-6 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>CSS Variables</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  All colors are available as CSS custom properties for consistent theming:
-                </p>
-                <div className="bg-muted rounded-lg p-3">
-                  <code className="text-xs">
-                    color: var(--aurora-lime-500);<br/>
-                    background: var(--glacier-mist-100);
-                  </code>
-                </div>
-              </CardContent>
-            </Card>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>CSS Variables</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                All colors are available as CSS custom properties for consistent
+                theming:
+              </p>
+              <div className="bg-muted rounded-lg p-3">
+                <code className="text-xs">
+                  color: var(--aurora-lime-500);
+                  <br />
+                  background: var(--glacier-mist-100);
+                </code>
+              </div>
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Accessibility</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  When using colors, ensure proper contrast ratios:
-                </p>
-                <ul className="text-sm space-y-1 text-muted-foreground">
-                  <li>• Use 50-300 for backgrounds</li>
-                  <li>• Use 700-950 for text on light backgrounds</li>
-                  <li>• Use 50-300 for text on dark backgrounds</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Accessibility</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                When using colors, ensure proper contrast ratios:
+              </p>
+              <ul className="text-sm space-y-1 text-muted-foreground">
+                <li>• Use 50-300 for backgrounds</li>
+                <li>• Use 700-950 for text on light backgrounds</li>
+                <li>• Use 50-300 for text on dark backgrounds</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
     </div>
-  )
+  );
 }

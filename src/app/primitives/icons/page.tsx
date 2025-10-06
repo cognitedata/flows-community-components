@@ -1,19 +1,25 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { 
-  Search, 
-  Download, 
-  Copy, 
-  Heart, 
-  Star, 
-  Home, 
-  Settings, 
-  User, 
-  Mail, 
-  Phone, 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/cognite/card";
+import { Button } from "@/components/ui/cognite/button";
+import { Input } from "@/components/ui/cognite/input";
+import {
+  Search,
+  Download,
+  Copy,
+  Heart,
+  Star,
+  Home,
+  Settings,
+  User,
+  Mail,
+  Phone,
   Calendar,
   Archive,
   Bookmark,
@@ -24,41 +30,41 @@ import {
   Globe,
   Lock,
   Plus,
-  Trash2
-} from "lucide-react"
-import { useState } from "react"
+  Trash2,
+} from "lucide-react";
+import { useState } from "react";
 
 const iconSets = [
   {
     name: "Interface",
     description: "Essential icons for user interface elements",
     count: 240,
-    icons: [Home, Settings, User, Mail, Search, Edit, Plus, Trash2]
+    icons: [Home, Settings, User, Mail, Search, Edit, Plus, Trash2],
   },
   {
-    name: "Communication", 
+    name: "Communication",
     description: "Icons for messaging and social features",
     count: 86,
-    icons: [Mail, Phone, Heart, Star, Bookmark, Archive]
+    icons: [Mail, Phone, Heart, Star, Bookmark, Archive],
   },
   {
     name: "Media",
     description: "Icons for media content and files",
     count: 124,
-    icons: [Camera, File, Globe, Calendar, Clock, Lock]
-  }
-]
+    icons: [Camera, File, Globe, Calendar, Clock, Lock],
+  },
+];
 
 export default function IconsPage() {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-4xl font-bold mb-4">Icons</h1>
         <p className="text-lg text-muted-foreground max-w-3xl">
-          A comprehensive icon library built on Lucide React, providing consistent 
-          visual language across all interface elements.
+          A comprehensive icon library built on Lucide React, providing
+          consistent visual language across all interface elements.
         </p>
       </div>
 
@@ -151,5 +157,5 @@ export default function IconsPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

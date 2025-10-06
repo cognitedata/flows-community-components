@@ -1,35 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { 
-  Code, 
-  Play, 
-  Copy, 
-  RotateCcw, 
-  FileText,
-  Eye
-} from "lucide-react"
-import { CodeCopyButton } from "@/components/code-copy-button"
-import { DynamicComponentRenderer } from "@/components/dynamic-component-renderer"
-import { PresetComponentRenderer } from "@/components/preset-component-renderer"
-import { PreviewDebugger } from "@/components/preview-debugger"
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/cognite/card";
+import { Button } from "@/components/ui/cognite/button";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/cognite/tabs";
+import { RotateCcw, FileText, Eye } from "lucide-react";
+import { CodeCopyButton } from "@/components/code-copy-button";
+import { DynamicComponentRenderer } from "@/components/dynamic-component-renderer";
+import { PresetComponentRenderer } from "@/components/preset-component-renderer";
+import { PreviewDebugger } from "@/components/preview-debugger";
 
 interface SandboxEditorProps {
-  code?: string
-  onCodeChange?: (code: string) => void
+  code?: string;
+  onCodeChange?: (code: string) => void;
 }
 
-
 export function SandboxEditor({ code = "", onCodeChange }: SandboxEditorProps) {
-  const [currentCode, setCurrentCode] = useState(code)
-  const [activeTab, setActiveTab] = useState("code")
-  const [previewErrors, setPreviewErrors] = useState<string[]>([])
-  const [retryKey, setRetryKey] = useState(0)
-  const [useFallback, setUseFallback] = useState(false)
+  const [currentCode, setCurrentCode] = useState(code);
+  const [activeTab, setActiveTab] = useState("code");
+  const [previewErrors, setPreviewErrors] = useState<string[]>([]);
+  const [retryKey, setRetryKey] = useState(0);
+  const [useFallback, setUseFallback] = useState(false);
 
   const defaultCode = `import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -52,41 +48,45 @@ export function MyComponent() {
       </CardContent>
     </Card>
   )
-}`
+}`;
 
   const handleCodeChange = (newCode: string) => {
-    setCurrentCode(newCode)
-    onCodeChange?.(newCode)
-  }
+    setCurrentCode(newCode);
+    onCodeChange?.(newCode);
+  };
 
   const resetCode = () => {
-    const codeToReset = code || defaultCode
-    setCurrentCode(codeToReset)
-    onCodeChange?.(codeToReset)
-    setPreviewErrors([])
-    setRetryKey(prev => prev + 1)
-  }
+    const codeToReset = code || defaultCode;
+    setCurrentCode(codeToReset);
+    onCodeChange?.(codeToReset);
+    setPreviewErrors([]);
+    setRetryKey((prev) => prev + 1);
+  };
 
   const handlePreviewError = (error: string) => {
-    setPreviewErrors(prev => [...prev, error])
+    setPreviewErrors((prev) => [...prev, error]);
     // If we get an execution error, switch to fallback
-    if (error.includes('Execution error')) {
-      setUseFallback(true)
+    if (error.includes("Execution error")) {
+      setUseFallback(true);
     }
-  }
+  };
 
   const handleRetry = () => {
-    setPreviewErrors([])
-    setRetryKey(prev => prev + 1)
-    setUseFallback(false) // Try dynamic renderer again
-  }
+    setPreviewErrors([]);
+    setRetryKey((prev) => prev + 1);
+    setUseFallback(false); // Try dynamic renderer again
+  };
 
-  const displayCode = currentCode || code || defaultCode
+  const displayCode = currentCode || code || defaultCode;
 
   return (
     <Card className="h-full flex flex-col p-0">
       <CardContent className="flex-1 p-0">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="h-full flex flex-col"
+        >
           <div className="border-b px-4 py-4 flex items-center gap-4">
             <TabsList className="grid grid-cols-2 flex-1">
               <TabsTrigger value="code" className="flex items-center gap-2">
@@ -98,8 +98,8 @@ export function MyComponent() {
                 Preview
               </TabsTrigger>
             </TabsList>
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="sm"
               onClick={resetCode}
               className="text-muted-foreground hover:text-foreground flex-shrink-0"
@@ -122,10 +122,11 @@ export function MyComponent() {
                     placeholder="Enter your component code here..."
                     spellCheck={false}
                     style={{
-                      lineHeight: '1.6',
-                      tabSize: '2',
-                      fontSize: '14px',
-                      fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Monaco, "Inconsolata", "Fira Code", "Droid Sans Mono", Consolas, monospace'
+                      lineHeight: "1.6",
+                      tabSize: "2",
+                      fontSize: "14px",
+                      fontFamily:
+                        'ui-monospace, SFMono-Regular, "SF Mono", Monaco, "Inconsolata", "Fira Code", "Droid Sans Mono", Consolas, monospace',
                     }}
                   />
                 </div>
@@ -138,36 +139,42 @@ export function MyComponent() {
                 <div className="lg:col-span-2 border rounded-lg bg-background overflow-auto">
                   <div className="p-6">
                     <div className="mb-6 text-center">
-                      <h3 className="text-lg font-semibold mb-2">Live Preview</h3>
+                      <h3 className="text-lg font-semibold mb-2">
+                        Live Preview
+                      </h3>
                       <p className="text-sm text-muted-foreground">
                         Real-time component rendering with error handling
                       </p>
                     </div>
-                    
+
                     {/* Component Renderer */}
                     <div className="min-h-[400px] rounded-lg border bg-muted/10">
                       {!useFallback ? (
-                        <DynamicComponentRenderer 
+                        <DynamicComponentRenderer
                           key={retryKey}
-                          code={displayCode} 
+                          code={displayCode}
                           className="min-h-[400px] flex items-center justify-center p-8"
                           onError={handlePreviewError}
                         />
                       ) : (
-                        <PresetComponentRenderer 
+                        <PresetComponentRenderer
                           code={displayCode}
                           className="min-h-[400px] flex items-center justify-center p-8"
                         />
                       )}
                     </div>
-                    
+
                     {/* Component Stats */}
                     <div className="mt-4 p-3 bg-muted/30 rounded-lg">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">Lines: {displayCode.split('\n').length}</span>
-                        <span className="text-muted-foreground">Characters: {displayCode.length}</span>
                         <span className="text-muted-foreground">
-                          Renderer: {useFallback ? 'Preset' : 'Dynamic'}
+                          Lines: {displayCode.split("\n").length}
+                        </span>
+                        <span className="text-muted-foreground">
+                          Characters: {displayCode.length}
+                        </span>
+                        <span className="text-muted-foreground">
+                          Renderer: {useFallback ? "Preset" : "Dynamic"}
                         </span>
                       </div>
                     </div>
@@ -176,7 +183,7 @@ export function MyComponent() {
 
                 {/* Debugger Panel - Takes 1/3 on large screens */}
                 <div className="lg:col-span-1">
-                  <PreviewDebugger 
+                  <PreviewDebugger
                     code={displayCode}
                     errors={previewErrors}
                     onRetry={handleRetry}
@@ -188,5 +195,5 @@ export function MyComponent() {
         </Tabs>
       </CardContent>
     </Card>
-  )
+  );
 }

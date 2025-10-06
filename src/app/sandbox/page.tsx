@@ -1,18 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { SectionLayout } from "@/components/section-layout"
-import { SandboxChat } from "@/components/sandbox-chat"
-import { SandboxEditor } from "@/components/sandbox-editor"
-import { Badge } from "@/components/ui/badge"
-import { Sparkles, Code } from "lucide-react"
+import { useState } from "react";
+import { SandboxChat } from "@/components/sandbox-chat";
+import { SandboxEditor } from "@/components/sandbox-editor";
+import { Sparkles } from "lucide-react";
 
 export default function SandboxPage() {
-  const [generatedCode, setGeneratedCode] = useState("")
+  const [generatedCode, setGeneratedCode] = useState("");
 
   const handleCodeGenerated = (code: string) => {
-    setGeneratedCode(code)
-  }
+    setGeneratedCode(code);
+  };
 
   return (
     <div className="w-full max-w-[1800px] mx-auto px-3 py-8">
@@ -24,8 +22,9 @@ export default function SandboxPage() {
             <h1 className="text-4xl font-bold">Sandbox</h1>
           </div>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Build custom components with AI assistance using your design system primitives. 
-            Describe what you want, and watch as the AI generates code using your components.
+            Build custom components with AI assistance using your design system
+            primitives. Describe what you want, and watch as the AI generates
+            code using your components.
           </p>
         </div>
 
@@ -38,8 +37,8 @@ export default function SandboxPage() {
 
           {/* Code Editor */}
           <div className="h-full flex-1">
-            <SandboxEditor 
-              code={generatedCode} 
+            <SandboxEditor
+              code={generatedCode}
               onCodeChange={setGeneratedCode}
             />
           </div>
@@ -48,10 +47,11 @@ export default function SandboxPage() {
         {/* Quick Info */}
         <div className="text-center text-sm text-muted-foreground">
           <p>
-            This is an experimental AI assistant. Generated code uses your design system components and patterns.
+            This is an experimental AI assistant. Generated code uses your
+            design system components and patterns.
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,27 +1,48 @@
-import type { MDXComponents } from 'mdx/types'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { cn } from '@/lib/utils'
+import type { MDXComponents } from "mdx/types";
+import { Button } from "@/components/ui/cognite/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/cognite/card";
+import { Input } from "@/components/ui/cognite/input";
+import { Label } from "@/components/ui/cognite/label";
+import { Badge } from "@/components/ui/cognite/badge";
+import { Separator } from "@/components/ui/cognite/separator";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/cognite/tabs";
+import { cn } from "@/lib/utils";
 
 // Code block component for syntax highlighting
-function CodeBlock({ className, children, ...props }: React.HTMLAttributes<HTMLElement>) {
+function CodeBlock({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLElement>) {
   return (
-    <pre className={cn(
-      "mb-4 mt-6 overflow-x-auto rounded-lg bg-muted px-4 py-3 text-sm",
-      className
-    )} {...props}>
+    <pre
+      className={cn(
+        "mb-4 mt-6 overflow-x-auto rounded-lg bg-muted px-4 py-3 text-sm",
+        className
+      )}
+      {...props}
+    >
       <code>{children}</code>
     </pre>
-  )
+  );
 }
 
 // Inline code component
-function InlineCode({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
+function InlineCode({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLElement>) {
   return (
     <code
       className={cn(
@@ -30,21 +51,27 @@ function InlineCode({ className, ...props }: React.HTMLAttributes<HTMLElement>) 
       )}
       {...props}
     />
-  )
+  );
 }
 
 // Component preview wrapper
-function ComponentPreview({ children, className }: { children: React.ReactNode; className?: string }) {
+function ComponentPreview({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className={cn(
-      "relative rounded-lg border bg-background p-8 mb-6",
-      className
-    )}>
-      <div className="flex items-center justify-center">
-        {children}
-      </div>
+    <div
+      className={cn(
+        "relative rounded-lg border bg-background p-8 mb-6",
+        className
+      )}
+    >
+      <div className="flex items-center justify-center">{children}</div>
     </div>
-  )
+  );
 }
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -185,5 +212,5 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     TabsList,
     TabsTrigger,
     ...components,
-  }
+  };
 }
