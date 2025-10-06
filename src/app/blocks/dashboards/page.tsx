@@ -1,125 +1,161 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart, Pie, PieChart, Cell } from "recharts"
-import { BarChart3, TrendingUp, Thermometer, Shield, RefreshCw } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Badge } from "@/components/ui/cognite/badge";
+import { Button } from "@/components/ui/cognite/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/cognite/card";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/cognite/chart";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  Cell,
+} from "recharts";
+import {
+  BarChart3,
+  TrendingUp,
+  Thermometer,
+  Shield,
+  RefreshCw,
+} from "lucide-react";
 
 // Generate 3 months of equipment uptime/downtime data with proper stacking
 const generateEquipmentData = () => {
-  const data = []
-  const today = new Date()
-  const totalDays = 90 // 3 months (90 days)
-  
+  const data = [];
+  const today = new Date();
+  const totalDays = 90; // 3 months (90 days)
+
   // Base patterns for more realistic variation over 3 months
-  const maintenanceEvents = [7, 21, 35, 49, 63, 77] // Monthly maintenance cycles
-  const incidentEvents = [12, 28, 44, 58, 72, 85] // Random incidents
-  
+  const maintenanceEvents = [7, 21, 35, 49, 63, 77]; // Monthly maintenance cycles
+  const incidentEvents = [12, 28, 44, 58, 72, 85]; // Random incidents
+
   for (let i = totalDays - 1; i >= 0; i--) {
-    const date = new Date(today)
-    date.setDate(date.getDate() - i)
-    const dayIndex = totalDays - 1 - i
-    
-    let uptimePercent = 82 // Higher base for less dramatic variation
-    
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const dayIndex = totalDays - 1 - i;
+
+    let uptimePercent = 82; // Higher base for less dramatic variation
+
     // Add moderate daily variation
-    uptimePercent += Math.sin(dayIndex * 0.3) * 8  // Primary wave
-    uptimePercent += Math.sin(dayIndex * 0.6) * 5  // Secondary wave
-    uptimePercent += (Math.random() - 0.5) * 6     // Moderate random variation
-    
+    uptimePercent += Math.sin(dayIndex * 0.3) * 8; // Primary wave
+    uptimePercent += Math.sin(dayIndex * 0.6) * 5; // Secondary wave
+    uptimePercent += (Math.random() - 0.5) * 6; // Moderate random variation
+
     // Planned maintenance events (moderate drops)
     if (maintenanceEvents.includes(dayIndex)) {
-      uptimePercent -= 15 + Math.random() * 10 // 15-25% drop
+      uptimePercent -= 15 + Math.random() * 10; // 15-25% drop
     }
-    
+
     // Unplanned incidents (significant but not extreme drops)
     if (incidentEvents.includes(dayIndex)) {
-      uptimePercent -= 20 + Math.random() * 15 // 20-35% drop
+      uptimePercent -= 20 + Math.random() * 15; // 20-35% drop
     }
-    
+
     // Weekend effect (moderate impact)
-    const dayOfWeek = date.getDay()
+    const dayOfWeek = date.getDay();
     if (dayOfWeek === 0 || dayOfWeek === 6) {
-      uptimePercent -= 4 + Math.random() * 4
+      uptimePercent -= 4 + Math.random() * 4;
     }
-    
+
     // Create some random "good days" for peaks
-    if (Math.random() < 0.15 && !maintenanceEvents.includes(dayIndex) && !incidentEvents.includes(dayIndex)) {
-      uptimePercent += 6 + Math.random() * 8 // Moderate boost for "good days"
+    if (
+      Math.random() < 0.15 &&
+      !maintenanceEvents.includes(dayIndex) &&
+      !incidentEvents.includes(dayIndex)
+    ) {
+      uptimePercent += 6 + Math.random() * 8; // Moderate boost for "good days"
     }
-    
+
     // Ensure realistic bounds with moderate range
-    uptimePercent = Math.max(55, Math.min(97, uptimePercent))
-    const downtimePercent = 100 - uptimePercent
-    
+    uptimePercent = Math.max(55, Math.min(97, uptimePercent));
+    const downtimePercent = 100 - uptimePercent;
+
     // For stacked area chart, we need cumulative values
     // Bottom area (downtime) goes from 0 to downtimePercent
     // Top area (uptime) goes from downtimePercent to 100
     data.push({
-      date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      date: date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      }),
       downtime: Math.round(downtimePercent * 10) / 10,
       uptime: Math.round(uptimePercent * 10) / 10,
       // Store original percentages for tooltip
       uptimePercent: Math.round(uptimePercent * 10) / 10,
       downtimePercent: Math.round(downtimePercent * 10) / 10,
-    })
+    });
   }
-  
-  return data
-}
 
-const chartData = generateEquipmentData()
+  return data;
+};
+
+const chartData = generateEquipmentData();
 
 // Generate 4 hours of temperature sensor data (sampled every 5 minutes)
 const generateTemperatureData = () => {
-  const data = []
-  const now = new Date()
-  const samplesPerHour = 12 // Every 5 minutes
-  const totalSamples = 4 * samplesPerHour // 48 samples over 4 hours
-  
+  const data = [];
+  const now = new Date();
+  const samplesPerHour = 12; // Every 5 minutes
+  const totalSamples = 4 * samplesPerHour; // 48 samples over 4 hours
+
   for (let i = totalSamples - 1; i >= 0; i--) {
-    const time = new Date(now.getTime() - (i * 5 * 60 * 1000)) // 5 minutes ago
-    
+    const time = new Date(now.getTime() - i * 5 * 60 * 1000); // 5 minutes ago
+
     // Base temperature around 75°C with realistic industrial variations
-    let temperature = 75
-    
+    let temperature = 75;
+
     // Daily heating cycle (machines get warmer during day shift)
-    const hour = time.getHours()
+    const hour = time.getHours();
     if (hour >= 6 && hour <= 18) {
-      temperature += 5 + Math.sin((hour - 6) / 12 * Math.PI) * 8
+      temperature += 5 + Math.sin(((hour - 6) / 12) * Math.PI) * 8;
     }
-    
+
     // Add process variations (reduced)
-    temperature += Math.sin(i * 0.1) * 2 // Slow oscillation (reduced from 3 to 2)
-    temperature += Math.sin(i * 0.05) * 1.5 // Even slower trend (reduced from 2 to 1.5)
-    temperature += (Math.random() - 0.5) * 2 // Random sensor noise (reduced from 4 to 2)
-    
+    temperature += Math.sin(i * 0.1) * 2; // Slow oscillation (reduced from 3 to 2)
+    temperature += Math.sin(i * 0.05) * 1.5; // Even slower trend (reduced from 2 to 1.5)
+    temperature += (Math.random() - 0.5) * 2; // Random sensor noise (reduced from 4 to 2)
+
     // Occasional temperature spikes (equipment events) - reduced frequency and magnitude
-    if (Math.random() < 0.01) { // 1% chance (reduced from 2%)
-      temperature += 5 + Math.random() * 8 // Smaller spikes (reduced from 10-25 to 5-13)
+    if (Math.random() < 0.01) {
+      // 1% chance (reduced from 2%)
+      temperature += 5 + Math.random() * 8; // Smaller spikes (reduced from 10-25 to 5-13)
     }
-    
+
     // Ensure realistic industrial temperature range
-    temperature = Math.max(60, Math.min(110, temperature))
-    
+    temperature = Math.max(60, Math.min(110, temperature));
+
     data.push({
-      time: time.toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: false 
+      time: time.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
       }),
       temperature: Math.round(temperature * 10) / 10,
-      timestamp: time.getTime()
-    })
+      timestamp: time.getTime(),
+    });
   }
-  
-  return data
-}
 
-const temperatureData = generateTemperatureData()
+  return data;
+};
+
+const temperatureData = generateTemperatureData();
 
 const chartConfig = {
   uptime: {
@@ -127,17 +163,17 @@ const chartConfig = {
     color: "hsl(var(--chart-1))",
   },
   downtime: {
-    label: "Downtime", 
+    label: "Downtime",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 const temperatureChartConfig = {
   temperature: {
     label: "Temperature",
     color: "hsl(var(--chart-3))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 // Asset health status data
 const assetHealthData = [
@@ -149,7 +185,7 @@ const assetHealthData = [
     hoverColor: "hsl(142 76% 36%)", // Brighter green on hover
   },
   {
-    name: "Warning", 
+    name: "Warning",
     value: 23,
     count: 46,
     color: "hsl(45 93% 35%)", // Dark yellow/amber
@@ -162,7 +198,7 @@ const assetHealthData = [
     color: "hsl(0 84% 45%)", // Dark red
     hoverColor: "hsl(0 84% 60%)", // Brighter red on hover
   },
-]
+];
 
 const assetHealthConfig = {
   healthy: {
@@ -174,22 +210,22 @@ const assetHealthConfig = {
     color: "hsl(45 93% 35%)",
   },
   critical: {
-    label: "Critical", 
+    label: "Critical",
     color: "hsl(0 84% 45%)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 function EquipmentUptimeChart() {
-  const [animationKey, setAnimationKey] = useState(0)
-  
+  const [animationKey, setAnimationKey] = useState(0);
+
   useEffect(() => {
     // Trigger animation on mount
     const timer = setTimeout(() => {
-      setAnimationKey(1)
-    }, 100)
-    
-    return () => clearTimeout(timer)
-  }, [])
+      setAnimationKey(1);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Card className="w-full rounded-[4px]">
@@ -288,60 +324,69 @@ function EquipmentUptimeChart() {
         <div className="flex items-center gap-2 text-sm mt-4 px-6">
           <TrendingUp className="h-4 w-4 text-emerald-500" />
           <span className="text-muted-foreground">
-            Average uptime: {(chartData.reduce((sum, item) => sum + item.uptimePercent, 0) / chartData.length).toFixed(1)}% over 3 months
+            Average uptime:{" "}
+            {(
+              chartData.reduce((sum, item) => sum + item.uptimePercent, 0) /
+              chartData.length
+            ).toFixed(1)}
+            % over 3 months
           </span>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function TemperatureSensorChart() {
-  const [animationKey, setAnimationKey] = useState(0)
-  const [currentData, setCurrentData] = useState(temperatureData)
-  
+  const [animationKey, setAnimationKey] = useState(0);
+  const [currentData, setCurrentData] = useState(temperatureData);
+
   useEffect(() => {
     // Trigger animation on mount
     const timer = setTimeout(() => {
-      setAnimationKey(1)
-    }, 100)
-    
-    return () => clearTimeout(timer)
-  }, [])
+      setAnimationKey(1);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Simulate real-time data updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentData(prevData => {
-        const newData = [...prevData]
-        const lastTime = new Date(newData[newData.length - 1].timestamp + 5 * 60 * 1000)
-        
+      setCurrentData((prevData) => {
+        const newData = [...prevData];
+        const lastTime = new Date(
+          newData[newData.length - 1].timestamp + 5 * 60 * 1000
+        );
+
         // Generate new temperature reading
-        let newTemp = newData[newData.length - 1].temperature
-        newTemp += (Math.random() - 0.5) * 3 // Small variation
-        newTemp = Math.max(60, Math.min(110, newTemp))
-        
+        let newTemp = newData[newData.length - 1].temperature;
+        newTemp += (Math.random() - 0.5) * 3; // Small variation
+        newTemp = Math.max(60, Math.min(110, newTemp));
+
         // Remove oldest data point and add new one
-        newData.shift()
+        newData.shift();
         newData.push({
-          time: lastTime.toLocaleTimeString('en-US', { 
-            hour: '2-digit', 
-            minute: '2-digit',
-            hour12: false 
+          time: lastTime.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
           }),
           temperature: Math.round(newTemp * 10) / 10,
-          timestamp: lastTime.getTime()
-        })
-        
-        return newData
-      })
-    }, 3000) // Update every 3 seconds for demo
+          timestamp: lastTime.getTime(),
+        });
 
-    return () => clearInterval(interval)
-  }, [])
+        return newData;
+      });
+    }, 3000); // Update every 3 seconds for demo
 
-  const currentTemp = currentData[currentData.length - 1]?.temperature || 0
-  const avgTemp = currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentTemp = currentData[currentData.length - 1]?.temperature || 0;
+  const avgTemp =
+    currentData.reduce((sum, item) => sum + item.temperature, 0) /
+    currentData.length;
 
   return (
     <Card className="w-full rounded-[4px]">
@@ -376,27 +421,29 @@ function TemperatureSensorChart() {
               interval={5} // Show every 6th tick (30 minutes)
               tickFormatter={(value) => {
                 // Only show times that end in :00 or :30
-                const [hour, minute] = value.split(':')
-                if (minute === '00' || minute === '30') {
-                  return `${hour}:${minute}`
+                const [hour, minute] = value.split(":");
+                if (minute === "00" || minute === "30") {
+                  return `${hour}:${minute}`;
                 }
-                return ''
+                return "";
               }}
             />
             <YAxis
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              domain={['dataMin - 5', 'dataMax + 5']}
+              domain={["dataMin - 5", "dataMax + 5"]}
               tickFormatter={(value) => `${value}°C`}
             />
             <ChartTooltip
-              cursor={{ stroke: 'hsl(239 84% 67%)', strokeWidth: 1 }}
-              content={<ChartTooltipContent 
-                indicator="dot"
-                labelFormatter={(value) => `Time: ${value}`}
-                formatter={(value) => [`${value}°C`, 'Temperature']}
-              />}
+              cursor={{ stroke: "hsl(239 84% 67%)", strokeWidth: 1 }}
+              content={
+                <ChartTooltipContent
+                  indicator="dot"
+                  labelFormatter={(value) => `Time: ${value}`}
+                  formatter={(value) => [`${value}°C`, "Temperature"]}
+                />
+              }
             />
             <Line
               dataKey="temperature"
@@ -413,7 +460,10 @@ function TemperatureSensorChart() {
         <div className="flex items-center justify-between text-sm mt-4">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'hsl(239 84% 67%)' }}></div>
+              <div
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: "hsl(239 84% 67%)" }}
+              ></div>
               <span className="text-muted-foreground">
                 Current: {currentTemp}°C
               </span>
@@ -428,27 +478,30 @@ function TemperatureSensorChart() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function AssetHealthChart() {
-  const [animationKey, setAnimationKey] = useState(0)
-  const [hoveredIndex, setHoveredIndex] = useState(-1)
-  
+  const [animationKey, setAnimationKey] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState(-1);
+
   useEffect(() => {
     // Trigger animation on mount
     const timer = setTimeout(() => {
-      setAnimationKey(1)
-    }, 100)
-    
-    return () => clearTimeout(timer)
-  }, [])
+      setAnimationKey(1);
+    }, 100);
 
-  const totalAssets = assetHealthData.reduce((sum, item) => sum + item.count, 0)
+    return () => clearTimeout(timer);
+  }, []);
+
+  const totalAssets = assetHealthData.reduce(
+    (sum, item) => sum + item.count,
+    0
+  );
 
   const renderCustomLabel = (entry: { value: number }) => {
-    return `${entry.value}%`
-  }
+    return `${entry.value}%`;
+  };
 
   return (
     <Card className="w-full rounded-[4px] aspect-square">
@@ -457,37 +510,103 @@ function AssetHealthChart() {
           <Shield className="h-5 w-5" />
           Asset health status
         </CardTitle>
-        <CardDescription>
-          Plant-wide equipment health overview
-        </CardDescription>
+        <CardDescription>Plant-wide equipment health overview</CardDescription>
       </CardHeader>
       <CardContent className="pb-0">
         <ChartContainer config={assetHealthConfig} className="h-[250px]">
           <PieChart key={animationKey}>
             <defs>
-              <linearGradient id="healthyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(142 76% 36%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(142 76% 26%)" stopOpacity={1} />
+              <linearGradient
+                id="healthyGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="hsl(142 76% 36%)"
+                  stopOpacity={1}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(142 76% 26%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="warningGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(45 93% 47%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(45 93% 35%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(45 93% 35%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="criticalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="criticalGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(0 84% 60%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(0 84% 45%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(0 84% 45%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="healthyHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(142 76% 46%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(142 76% 36%)" stopOpacity={1} />
+              <linearGradient
+                id="healthyHoverGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="hsl(142 76% 46%)"
+                  stopOpacity={1}
+                />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(142 76% 36%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="warningHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="warningHoverGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(45 93% 57%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(45 93% 47%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(45 93% 47%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
-              <linearGradient id="criticalHoverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <linearGradient
+                id="criticalHoverGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
                 <stop offset="0%" stopColor="hsl(0 84% 70%)" stopOpacity={1} />
-                <stop offset="100%" stopColor="hsl(0 84% 60%)" stopOpacity={1} />
+                <stop
+                  offset="100%"
+                  stopColor="hsl(0 84% 60%)"
+                  stopOpacity={1}
+                />
               </linearGradient>
             </defs>
             <Pie
@@ -506,36 +625,47 @@ function AssetHealthChart() {
               onMouseLeave={() => setHoveredIndex(-1)}
             >
               {assetHealthData.map((entry, index) => {
-                const getGradientId = (entryName: string, isHovered: boolean) => {
+                const getGradientId = (
+                  entryName: string,
+                  isHovered: boolean
+                ) => {
                   const gradientMap = {
-                    'Healthy': isHovered ? 'healthyHoverGradient' : 'healthyGradient',
-                    'Warning': isHovered ? 'warningHoverGradient' : 'warningGradient',
-                    'Critical': isHovered ? 'criticalHoverGradient' : 'criticalGradient'
-                  }
-                  return `url(#${gradientMap[entryName as keyof typeof gradientMap]})`
-                }
-                
+                    Healthy: isHovered
+                      ? "healthyHoverGradient"
+                      : "healthyGradient",
+                    Warning: isHovered
+                      ? "warningHoverGradient"
+                      : "warningGradient",
+                    Critical: isHovered
+                      ? "criticalHoverGradient"
+                      : "criticalGradient",
+                  };
+                  return `url(#${
+                    gradientMap[entryName as keyof typeof gradientMap]
+                  })`;
+                };
+
                 return (
-                  <Cell 
-                    key={`cell-${index}`} 
+                  <Cell
+                    key={`cell-${index}`}
                     fill={getGradientId(entry.name, hoveredIndex === index)}
                     style={{
-                      transition: 'all 0.2s ease-in-out'
+                      transition: "all 0.2s ease-in-out",
                     }}
                   />
-                )
+                );
               })}
             </Pie>
             <ChartTooltip
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
-                  const data = payload[0].payload
+                  const data = payload[0].payload;
                   return (
                     <div className="rounded-lg border bg-background p-2 shadow-md">
                       <div className="grid gap-2">
                         <div className="flex items-center gap-2">
-                          <div 
-                            className="h-2.5 w-2.5 rounded-full" 
+                          <div
+                            className="h-2.5 w-2.5 rounded-full"
                             style={{ backgroundColor: data.color }}
                           />
                           <span className="font-medium">{data.name}</span>
@@ -545,20 +675,23 @@ function AssetHealthChart() {
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 }
-                return null
+                return null;
               }}
             />
           </PieChart>
         </ChartContainer>
-        
+
         {/* Legend */}
         <div className="mt-4 space-y-2">
           {assetHealthData.map((item) => (
-            <div key={item.name} className="flex items-center justify-between text-sm">
+            <div
+              key={item.name}
+              className="flex items-center justify-between text-sm"
+            >
               <div className="flex items-center gap-2">
-                <div 
+                <div
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: item.color }}
                 />
@@ -579,15 +712,15 @@ function AssetHealthChart() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 export default function DashboardsBlock() {
-  const [replayKey, setReplayKey] = useState(0)
+  const [replayKey, setReplayKey] = useState(0);
 
   const restartDashboard = () => {
-    setReplayKey(prev => prev + 1)
-  }
+    setReplayKey((prev) => prev + 1);
+  };
 
   return (
     <div className="space-y-6">
@@ -600,11 +733,12 @@ export default function DashboardsBlock() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Dashboards</h1>
             <p className="text-lg text-muted-foreground">
-              Modern data visualization cards with animations and interactive elements
+              Modern data visualization cards with animations and interactive
+              elements
             </p>
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Badge variant="secondary">Animated counters</Badge>
@@ -612,7 +746,11 @@ export default function DashboardsBlock() {
             <Badge variant="secondary">Real-time data</Badge>
             <Badge variant="secondary">Interactive charts</Badge>
           </div>
-          <Button variant="outline" onClick={restartDashboard} className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={restartDashboard}
+            className="flex items-center gap-2"
+          >
             <RefreshCw className="h-4 w-4" />
             Replay
           </Button>
@@ -632,7 +770,6 @@ export default function DashboardsBlock() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {/* Cards will be added here */}
       </div>
-
     </div>
-  )
+  );
 }

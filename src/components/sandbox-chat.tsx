@@ -1,35 +1,36 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { 
-  Send, 
-  Sparkles, 
-  User, 
-  Bot, 
-  Code, 
-  Copy, 
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/cognite/button";
+import { Card, CardContent } from "@/components/ui/cognite/card";
+import { Input } from "@/components/ui/cognite/input";
+import { ScrollArea } from "@/components/ui/cognite/scroll-area";
+import {
+  Send,
+  Sparkles,
+  User,
+  Bot,
+  Copy,
   RefreshCw,
   Lightbulb,
-  Zap
-} from "lucide-react"
-import { componentRegistry, generateImportStatement, getComponentSuggestions } from "@/lib/component-registry"
+  Zap,
+} from "lucide-react";
+import {
+  componentRegistry,
+  generateImportStatement,
+} from "@/lib/component-registry";
 
 interface Message {
-  id: string
-  role: "user" | "assistant"
-  content: string
-  timestamp: Date
-  type?: "text" | "code"
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp: Date;
+  type?: "text" | "code";
 }
 
 interface SandboxChatProps {
-  onCodeGenerated?: (code: string) => void
+  onCodeGenerated?: (code: string) => void;
 }
 
 export function SandboxChat({ onCodeGenerated }: SandboxChatProps) {
@@ -37,120 +38,125 @@ export function SandboxChat({ onCodeGenerated }: SandboxChatProps) {
     {
       id: "welcome",
       role: "assistant",
-      content: "Hi! I&apos;m your AI component assistant. I can help you build custom components using your design system primitives. Try asking me to create a pricing card, dashboard widget, or any other component!",
+      content:
+        "Hi! I&apos;m your AI component assistant. I can help you build custom components using your design system primitives. Try asking me to create a pricing card, dashboard widget, or any other component!",
       timestamp: new Date(),
-      type: "text"
-    }
-  ])
-  const [input, setInput] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const scrollAreaRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+      type: "text",
+    },
+  ]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     if (scrollAreaRef.current) {
-      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]')
+      const scrollContainer = scrollAreaRef.current.querySelector(
+        "[data-radix-scroll-area-viewport]"
+      );
       if (scrollContainer) {
-        scrollContainer.scrollTop = scrollContainer.scrollHeight
+        scrollContainer.scrollTop = scrollContainer.scrollHeight;
       }
     }
-  }, [messages])
+  }, [messages]);
 
   // Example prompts for quick start
   const examplePrompts = [
     "Create a pricing card with badges",
     "Build a dashboard stats widget",
     "Make a user profile card",
-    "Design a feature comparison table"
-  ]
+    "Design a feature comparison table",
+  ];
 
   const handleSendMessage = async () => {
-    if (!input.trim() || isLoading) return
+    if (!input.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
       content: input.trim(),
       timestamp: new Date(),
-      type: "text"
-    }
+      type: "text",
+    };
 
-    setMessages(prev => [...prev, userMessage])
-    setInput("")
-    setIsLoading(true)
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsLoading(true);
 
     // Enhanced AI response with component registry
     try {
       // Call the Gemini API
-      const response = await fetch('/api/chat', {
-        method: 'POST',
+      const response = await fetch("/api/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: input.trim(),
-          components: componentRegistry
+          components: componentRegistry,
         }),
-      })
-      
-      let aiResponseContent: string
-      
+      });
+
+      let aiResponseContent: string;
+
       if (response.ok) {
-        const data = await response.json()
-        aiResponseContent = data.message
+        const data = await response.json();
+        aiResponseContent = data.message;
       } else {
         // Fallback to local generation if API fails
-        aiResponseContent = generateSmartResponse(input.trim())
+        aiResponseContent = generateSmartResponse(input.trim());
       }
-      
+
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
         content: aiResponseContent,
         timestamp: new Date(),
-        type: "text"
-      }
-      
-      setMessages(prev => [...prev, aiMessage])
+        type: "text",
+      };
+
+      setMessages((prev) => [...prev, aiMessage]);
       // Prefer fenced code block if present; otherwise pass full content
-      const fenced = extractFirstCodeBlock(aiResponseContent)
-      onCodeGenerated?.(fenced || aiResponseContent)
-      setIsLoading(false)
+      const fenced = extractFirstCodeBlock(aiResponseContent);
+      onCodeGenerated?.(fenced || aiResponseContent);
+      setIsLoading(false);
     } catch (error) {
-      console.error('Error calling AI API:', error)
-      
+      console.error("Error calling AI API:", error);
+
       // Fallback to local generation
-      const fallbackResponse = generateSmartResponse(input.trim())
-      
+      const fallbackResponse = generateSmartResponse(input.trim());
+
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        role: "assistant", 
+        role: "assistant",
         content: `⚠️ AI service unavailable - using fallback:\n\n${fallbackResponse}`,
         timestamp: new Date(),
-        type: "text"
-      }
-      
-      setMessages(prev => [...prev, aiMessage])
-      const fenced = extractFirstCodeBlock(fallbackResponse)
-      onCodeGenerated?.(fenced || fallbackResponse)
-      setIsLoading(false)
+        type: "text",
+      };
+
+      setMessages((prev) => [...prev, aiMessage]);
+      const fenced = extractFirstCodeBlock(fallbackResponse);
+      onCodeGenerated?.(fenced || fallbackResponse);
+      setIsLoading(false);
     }
-  }
+  };
 
   const generateSmartResponse = (userInput: string): string => {
-        const lowerInput = userInput.toLowerCase()
-        
-        // Check for specific component requests
-        const requestedComponents = componentRegistry.filter(comp => 
-          lowerInput.includes(comp.name.toLowerCase())
-        )
-        
-        if (requestedComponents.length > 0) {
-          const comp = requestedComponents[0]
-          const imports = generateImportStatement([comp.name])
-          
-          return `I&apos;ll help you create a ${comp.name} component! Here&apos;s what you can do with it:
+    const lowerInput = userInput.toLowerCase();
+
+    // Check for specific component requests
+    const requestedComponents = componentRegistry.filter((comp) =>
+      lowerInput.includes(comp.name.toLowerCase())
+    );
+
+    if (requestedComponents.length > 0) {
+      const comp = requestedComponents[0];
+      const imports = generateImportStatement([comp.name]);
+
+      return `I&apos;ll help you create a ${
+        comp.name
+      } component! Here&apos;s what you can do with it:
 
 **${comp.description}**
 
@@ -164,15 +170,24 @@ export function My${comp.name}() {
 }
 \`\`\`
 
-${comp.variants ? `**Available variants:** ${comp.variants.join(', ')}\n\n` : ''}This component is perfect for your design system and follows all accessibility guidelines.`
-        }
-        
-        // Pattern-based responses
-        if (lowerInput.includes('pricing') || lowerInput.includes('price')) {
-          const components = ['Card', 'CardContent', 'CardHeader', 'CardTitle', 'Button', 'Badge']
-          const imports = generateImportStatement(components)
-          
-          return `I&apos;ll create a pricing card component for you:
+${
+  comp.variants ? `**Available variants:** ${comp.variants.join(", ")}\n\n` : ""
+}This component is perfect for your design system and follows all accessibility guidelines.`;
+    }
+
+    // Pattern-based responses
+    if (lowerInput.includes("pricing") || lowerInput.includes("price")) {
+      const components = [
+        "Card",
+        "CardContent",
+        "CardHeader",
+        "CardTitle",
+        "Button",
+        "Badge",
+      ];
+      const imports = generateImportStatement(components);
+
+      return `I&apos;ll create a pricing card component for you:
 
 \`\`\`tsx
 ${imports}
@@ -205,14 +220,24 @@ export function PricingCard() {
 }
 \`\`\`
 
-This pricing card uses your design system primitives with proper spacing and typography.`
-        }
-        
-        if (lowerInput.includes('dashboard') || lowerInput.includes('stats') || lowerInput.includes('metric')) {
-          const components = ['Card', 'CardContent', 'CardHeader', 'CardTitle', 'Badge']
-          const imports = generateImportStatement(components)
-          
-          return `I&apos;ll create a dashboard stats widget for you:
+This pricing card uses your design system primitives with proper spacing and typography.`;
+    }
+
+    if (
+      lowerInput.includes("dashboard") ||
+      lowerInput.includes("stats") ||
+      lowerInput.includes("metric")
+    ) {
+      const components = [
+        "Card",
+        "CardContent",
+        "CardHeader",
+        "CardTitle",
+        "Badge",
+      ];
+      const imports = generateImportStatement(components);
+
+      return `I&apos;ll create a dashboard stats widget for you:
 
 \`\`\`tsx
 ${imports}
@@ -250,14 +275,21 @@ export function StatsWidget() {
 }
 \`\`\`
 
-This creates responsive dashboard cards with metrics and trend indicators.`
-        }
-        
-        if (lowerInput.includes('profile') || lowerInput.includes('user')) {
-          const components = ['Card', 'CardContent', 'CardHeader', 'CardTitle', 'Button', 'Badge']
-          const imports = generateImportStatement(components)
-          
-          return `I&apos;ll create a user profile card for you:
+This creates responsive dashboard cards with metrics and trend indicators.`;
+    }
+
+    if (lowerInput.includes("profile") || lowerInput.includes("user")) {
+      const components = [
+        "Card",
+        "CardContent",
+        "CardHeader",
+        "CardTitle",
+        "Button",
+        "Badge",
+      ];
+      const imports = generateImportStatement(components);
+
+      return `I&apos;ll create a user profile card for you:
 
 \`\`\`tsx
 ${imports}
@@ -293,14 +325,21 @@ export function UserProfile() {
 }
 \`\`\`
 
-This profile card includes avatar placeholder, status badges, and action buttons.`
-        }
-        
-        // Generic fallback
-        const components = ['Card', 'CardContent', 'CardHeader', 'CardTitle', 'Button', 'Badge']
-        const imports = generateImportStatement(components)
-        
-        return `I&apos;ll help you create "${userInput.trim()}". Here&apos;s a component built with your design system primitives:
+This profile card includes avatar placeholder, status badges, and action buttons.`;
+    }
+
+    // Generic fallback
+    const components = [
+      "Card",
+      "CardContent",
+      "CardHeader",
+      "CardTitle",
+      "Button",
+      "Badge",
+    ];
+    const imports = generateImportStatement(components);
+
+    return `I&apos;ll help you create "${userInput.trim()}". Here&apos;s a component built with your design system primitives:
 
 \`\`\`tsx
 ${imports}
@@ -325,46 +364,47 @@ export function CustomComponent() {
 }
 \`\`\`
 
-This component uses your design system primitives with proper styling and structure. Want me to customize it further?`
-      
-      return fallback
-    }
+This component uses your design system primitives with proper styling and structure. Want me to customize it further?`;
+  };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
+      e.preventDefault();
+      handleSendMessage();
     }
-  }
+  };
 
   const handleExamplePrompt = (prompt: string) => {
-    setInput(prompt)
-    inputRef.current?.focus()
-  }
+    setInput(prompt);
+    inputRef.current?.focus();
+  };
 
   const clearChat = () => {
-    setMessages([{
-      id: "welcome",
-      role: "assistant",
-      content: "Hi! I&apos;m your AI component assistant. I can help you build custom components using your design system primitives. Try asking me to create a pricing card, dashboard widget, or any other component!",
-      timestamp: new Date(),
-      type: "text"
-    }])
-  }
+    setMessages([
+      {
+        id: "welcome",
+        role: "assistant",
+        content:
+          "Hi! I&apos;m your AI component assistant. I can help you build custom components using your design system primitives. Try asking me to create a pricing card, dashboard widget, or any other component!",
+        timestamp: new Date(),
+        type: "text",
+      },
+    ]);
+  };
 
   // Extract first fenced code block (```tsx ... ``` or ``` ... ```)
   const extractFirstCodeBlock = (text: string): string | null => {
-    const regex = /```(?:tsx|ts|jsx|js)?\n([\s\S]*?)\n```/m
-    const match = text.match(regex)
+    const regex = /```(?:tsx|ts|jsx|js)?\n([\s\S]*?)\n```/m;
+    const match = text.match(regex);
     if (match && match[1]) {
-      return match[1].trim()
+      return match[1].trim();
     }
-    return null
-  }
+    return null;
+  };
 
   const copyMessage = (content: string) => {
-    navigator.clipboard.writeText(content)
-  }
+    navigator.clipboard.writeText(content);
+  };
 
   return (
     <Card className="h-full flex flex-col p-0 overflow-hidden">
@@ -381,8 +421,8 @@ This component uses your design system primitives with proper styling and struct
               </p>
             </div>
           </div>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             size="sm"
             onClick={clearChat}
             className="text-muted-foreground hover:text-foreground"
@@ -412,16 +452,18 @@ This component uses your design system primitives with proper styling and struct
                       <Bot className="h-4 w-4 text-primary flex-shrink-0" />
                     </div>
                   )}
-                  
-                  <div className={`max-w-[80%] min-w-0 flex-1 ${
-                    message.role === "user" 
-                      ? "bg-primary text-primary-foreground" 
-                      : "bg-muted"
-                  } rounded-lg p-3 relative group overflow-hidden`}>
+
+                  <div
+                    className={`max-w-[80%] min-w-0 flex-1 ${
+                      message.role === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted"
+                    } rounded-lg p-3 relative group overflow-hidden`}
+                  >
                     <div className="whitespace-pre-wrap text-sm break-words overflow-wrap-anywhere">
                       {message.content}
                     </div>
-                    
+
                     {/* Copy button */}
                     <Button
                       variant="ghost"
@@ -459,7 +501,9 @@ This component uses your design system primitives with proper styling and struct
                       <div className="w-2 h-2 bg-current rounded-full animate-bounce [animation-delay:-0.15s]"></div>
                       <div className="w-2 h-2 bg-current rounded-full animate-bounce"></div>
                     </div>
-                    <span className="text-sm text-muted-foreground">Generating component...</span>
+                    <span className="text-sm text-muted-foreground">
+                      Generating component...
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -472,7 +516,9 @@ This component uses your design system primitives with proper styling and struct
           <div className="p-4 border-t bg-muted/30 flex-shrink-0">
             <div className="flex items-center gap-2 mb-3">
               <Lightbulb className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Try these examples:</span>
+              <span className="text-sm font-medium text-muted-foreground">
+                Try these examples:
+              </span>
             </div>
             <div className="flex flex-wrap gap-2">
               {examplePrompts.map((prompt, index) => (
@@ -503,7 +549,7 @@ This component uses your design system primitives with proper styling and struct
               disabled={isLoading}
               className="flex-1"
             />
-            <Button 
+            <Button
               onClick={handleSendMessage}
               disabled={!input.trim() || isLoading}
               size="sm"
@@ -517,5 +563,5 @@ This component uses your design system primitives with proper styling and struct
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

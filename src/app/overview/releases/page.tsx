@@ -1,22 +1,29 @@
-import { SectionLayout } from "@/components/section-layout"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CalendarDays, GitCommit } from "lucide-react"
+import { SectionLayout } from "@/components/section-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/cognite/card";
+import { Badge } from "@/components/ui/cognite/badge";
+import { CalendarDays, GitCommit } from "lucide-react";
 
 const releases = [
   {
     version: "v1.0.0",
     date: "December 2024",
     status: "Latest",
-    description: "Initial release with comprehensive component documentation system",
+    description:
+      "Initial release with comprehensive component documentation system",
     features: [
       "24 ShadCN components with full documentation",
       "Base UI-style documentation system",
       "Live component previews and code examples",
       "Searchable component library",
       "LLM-friendly documentation structure",
-      "MDX rendering with syntax highlighting"
-    ]
+      "MDX rendering with syntax highlighting",
+    ],
   },
   {
     version: "v0.9.0",
@@ -28,10 +35,10 @@ const releases = [
       "Motion guidelines and animations",
       "Core UI primitives",
       "Layout patterns",
-      "Theme system"
-    ]
-  }
-]
+      "Theme system",
+    ],
+  },
+];
 
 export default function ReleasesPage() {
   return (
@@ -40,8 +47,8 @@ export default function ReleasesPage() {
         <div>
           <h1 className="text-4xl font-bold mb-4">Releases</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
-            Track the evolution of our design system with detailed release notes, 
-            new features, and breaking changes.
+            Track the evolution of our design system with detailed release
+            notes, new features, and breaking changes.
           </p>
         </div>
 
@@ -51,8 +58,14 @@ export default function ReleasesPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <CardTitle className="text-2xl">{release.version}</CardTitle>
-                    <Badge variant={release.status === "Latest" ? "default" : "secondary"}>
+                    <CardTitle className="text-2xl">
+                      {release.version}
+                    </CardTitle>
+                    <Badge
+                      variant={
+                        release.status === "Latest" ? "default" : "secondary"
+                      }
+                    >
                       {release.status}
                     </Badge>
                   </div>
@@ -73,7 +86,10 @@ export default function ReleasesPage() {
                   </h4>
                   <ul className="space-y-2">
                     {release.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start gap-2 text-sm">
+                      <li
+                        key={featureIndex}
+                        className="flex items-start gap-2 text-sm"
+                      >
                         <span className="text-green-500 mt-1">•</span>
                         <span>{feature}</span>
                       </li>
@@ -97,5 +113,5 @@ export default function ReleasesPage() {
         </Card>
       </div>
     </SectionLayout>
-  )
+  );
 }

@@ -18,5 +18,7 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@cognite/aura": "https://cognite-one.vercel.app/r/{registry}.json"
+  }
 }

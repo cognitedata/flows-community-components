@@ -1,28 +1,37 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'
-import { NextRequest, NextResponse } from 'next/server'
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { NextRequest, NextResponse } from "next/server";
 
 // Initialize Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '')
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, components } = await request.json()
+    const { message, components } = await request.json();
 
     if (!process.env.GEMINI_API_KEY) {
       return NextResponse.json(
-        { error: 'Gemini API key not configured' },
+        { error: "Gemini API key not configured" },
         { status: 500 }
-      )
+      );
     }
 
     // Get the Gemini model
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
     // Create a specialized prompt for component generation
     const systemPrompt = `You are Aura UI Assistant, an expert at building React components using ShadCN UI components and Tailwind CSS.
 
 Available Components:
-${components ? components.map((comp: any) => `- ${comp.name}: ${comp.description}`).join('\n') : ''}
+${
+  components
+    ? components
+        .map(
+          (comp: { name: string; description: string }) =>
+            `- ${comp.name}: ${comp.description}`
+        )
+        .join("\n")
+    : ""
+}
 
 IMPORTANT RULES:
 1. ONLY use the available ShadCN components listed above
@@ -55,19 +64,19 @@ export function MyComponent() {
 }
 \`\`\`
 
-User Request: ${message}`
+User Request: ${message}`;
 
     // Generate response
-    const result = await model.generateContent(systemPrompt)
-    const response = await result.response
-    const text = response.text()
+    const result = await model.generateContent(systemPrompt);
+    const response = await result.response;
+    const text = response.text();
 
-    return NextResponse.json({ message: text })
+    return NextResponse.json({ message: text });
   } catch (error) {
-    console.error('Gemini API error:', error)
+    console.error("Gemini API error:", error);
     return NextResponse.json(
-      { error: 'Failed to generate response' },
+      { error: "Failed to generate response" },
       { status: 500 }
-    )
+    );
   }
 }

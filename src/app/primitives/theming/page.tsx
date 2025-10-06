@@ -1,84 +1,111 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Palette, Download, Copy, RotateCcw, Sun, Moon, Eye, Check, FileText, Code, Package, Settings } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
-import { CodeCopyButton } from "@/components/code-copy-button"
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Palette, RotateCcw, Sun, Moon, Eye } from "lucide-react";
+import { Button } from "@/components/ui/cognite/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/cognite/card";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/cognite/tabs";
+import { Input } from "@/components/ui/cognite/input";
+import { Label } from "@/components/ui/cognite/label";
+import { Badge } from "@/components/ui/cognite/badge";
+import { CodeCopyButton } from "@/components/code-copy-button";
 
 // Utility functions for color conversion
 function hslToHex(hsl: string): string {
-  const [h, s, l] = hsl.split(' ').map((val, idx) => {
-    if (idx === 0) return parseFloat(val) // hue
-    return parseFloat(val.replace('%', '')) / 100 // saturation and lightness
-  })
-  
-  const c = (1 - Math.abs(2 * l - 1)) * s
-  const x = c * (1 - Math.abs((h / 60) % 2 - 1))
-  const m = l - c / 2
-  
-  let r = 0, g = 0, b = 0
-  
+  const [h, s, l] = hsl.split(" ").map((val, idx) => {
+    if (idx === 0) return parseFloat(val); // hue
+    return parseFloat(val.replace("%", "")) / 100; // saturation and lightness
+  });
+
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+
+  let r = 0,
+    g = 0,
+    b = 0;
+
   if (0 <= h && h < 60) {
-    r = c; g = x; b = 0
+    r = c;
+    g = x;
+    b = 0;
   } else if (60 <= h && h < 120) {
-    r = x; g = c; b = 0
+    r = x;
+    g = c;
+    b = 0;
   } else if (120 <= h && h < 180) {
-    r = 0; g = c; b = x
+    r = 0;
+    g = c;
+    b = x;
   } else if (180 <= h && h < 240) {
-    r = 0; g = x; b = c
+    r = 0;
+    g = x;
+    b = c;
   } else if (240 <= h && h < 300) {
-    r = x; g = 0; b = c
+    r = x;
+    g = 0;
+    b = c;
   } else if (300 <= h && h < 360) {
-    r = c; g = 0; b = x
+    r = c;
+    g = 0;
+    b = x;
   }
-  
-  r = Math.round((r + m) * 255)
-  g = Math.round((g + m) * 255)
-  b = Math.round((b + m) * 255)
-  
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`
+
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+
+  return `#${r.toString(16).padStart(2, "0")}${g
+    .toString(16)
+    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 }
 
 function hexToHsl(hex: string): string {
-  const r = parseInt(hex.slice(1, 3), 16) / 255
-  const g = parseInt(hex.slice(3, 5), 16) / 255
-  const b = parseInt(hex.slice(5, 7), 16) / 255
-  
-  const max = Math.max(r, g, b)
-  const min = Math.min(r, g, b)
-  const diff = max - min
-  
-  let h = 0
-  let s = 0
-  const l = (max + min) / 2
-  
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const diff = max - min;
+
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
+
   if (diff !== 0) {
-    s = l > 0.5 ? diff / (2 - max - min) : diff / (max + min)
-    
+    s = l > 0.5 ? diff / (2 - max - min) : diff / (max + min);
+
     switch (max) {
       case r:
-        h = ((g - b) / diff + (g < b ? 6 : 0)) / 6
-        break
+        h = ((g - b) / diff + (g < b ? 6 : 0)) / 6;
+        break;
       case g:
-        h = ((b - r) / diff + 2) / 6
-        break
+        h = ((b - r) / diff + 2) / 6;
+        break;
       case b:
-        h = ((r - g) / diff + 4) / 6
-        break
+        h = ((r - g) / diff + 4) / 6;
+        break;
     }
   }
-  
-  h = Math.round(h * 360)
-  s = Math.round(s * 100)
-  const lPercent = Math.round(l * 100)
-  
-  return `${h} ${s}% ${lPercent}%`
+
+  h = Math.round(h * 360);
+  s = Math.round(s * 100);
+  const lPercent = Math.round(l * 100);
+
+  return `${h} ${s}% ${lPercent}%`;
 }
 
 // Export functions for different formats
@@ -104,10 +131,11 @@ function generateCSSVariables(theme: ThemeColors): string {
   --input: ${theme.input};
   --ring: ${theme.ring};
   --radius: 0.5rem;
-}`
+}`;
 }
 
 function generateTailwindConfig(theme: ThemeColors): string {
+  console.log(theme);
   return `module.exports = {
   theme: {
     extend: {
@@ -154,7 +182,7 @@ function generateTailwindConfig(theme: ThemeColors): string {
     },
   },
   plugins: [],
-}`
+}`;
 }
 
 function generateGlobalCSS(theme: ThemeColors): string {
@@ -194,7 +222,7 @@ function generateGlobalCSS(theme: ThemeColors): string {
   body {
     @apply bg-background text-foreground;
   }
-}`
+}`;
 }
 
 function generateThemeProvider(): string {
@@ -270,7 +298,7 @@ export const useTheme = () => {
     throw new Error("useTheme must be used within a ThemeProvider")
 
   return context
-}`
+}`;
 }
 
 function generateInstallGuide(): string {
@@ -330,7 +358,7 @@ export function Example() {
   )
 }
 \`\`\`
-`
+`;
 }
 
 // Default theme values - comprehensive like tweakcn.com
@@ -354,7 +382,7 @@ const defaultLightTheme = {
   border: "214.3 31.8% 91.4%",
   input: "214.3 31.8% 91.4%",
   ring: "222.2 84% 4.9%",
-}
+};
 
 const defaultDarkTheme = {
   primary: "210 40% 98%",
@@ -376,129 +404,131 @@ const defaultDarkTheme = {
   border: "217.2 32.6% 17.5%",
   input: "217.2 32.6% 17.5%",
   ring: "212.7 26.8% 83.9%",
-}
+};
 
 // Color presets for quick selection - fun themed combinations
 const colorPresets = [
-  { 
-    name: "Nebula", 
+  {
+    name: "Nebula",
     primary: "262 83% 58%", // Deep purple
     primaryForeground: "210 40% 98%",
-    secondary: "200 100% 25%", // Dark teal  
+    secondary: "200 100% 25%", // Dark teal
     secondaryForeground: "210 40% 98%",
     accent: "285 100% 75%", // Bright magenta
-    accentForeground: "222.2 84% 4.9%"
+    accentForeground: "222.2 84% 4.9%",
   },
-  { 
-    name: "Ocean breeze", 
+  {
+    name: "Ocean breeze",
     primary: "200 100% 50%", // Ocean blue
     primaryForeground: "210 40% 98%",
     secondary: "180 100% 85%", // Light cyan
     secondaryForeground: "222.2 84% 4.9%",
     accent: "220 100% 65%", // Sky blue
-    accentForeground: "210 40% 98%"
+    accentForeground: "210 40% 98%",
   },
-  { 
-    name: "Sunset glow", 
+  {
+    name: "Sunset glow",
     primary: "15 100% 60%", // Warm orange
     primaryForeground: "210 40% 98%",
     secondary: "45 100% 85%", // Light yellow
     secondaryForeground: "222.2 84% 4.9%",
     accent: "350 85% 65%", // Coral pink
-    accentForeground: "210 40% 98%"
+    accentForeground: "210 40% 98%",
   },
-  { 
-    name: "Forest magic", 
+  {
+    name: "Forest magic",
     primary: "140 60% 40%", // Forest green
     primaryForeground: "210 40% 98%",
     secondary: "120 40% 80%", // Light sage
     secondaryForeground: "222.2 84% 4.9%",
     accent: "160 80% 60%", // Emerald
-    accentForeground: "210 40% 98%"
+    accentForeground: "210 40% 98%",
   },
-  { 
-    name: "Royal crown", 
+  {
+    name: "Royal crown",
     primary: "240 100% 30%", // Royal blue
     primaryForeground: "210 40% 98%",
     secondary: "220 30% 90%", // Light blue-gray
     secondaryForeground: "222.2 84% 4.9%",
     accent: "280 100% 70%", // Royal purple
-    accentForeground: "210 40% 98%"
+    accentForeground: "210 40% 98%",
   },
-  { 
-    name: "Cherry blossom", 
+  {
+    name: "Cherry blossom",
     primary: "330 80% 60%", // Cherry pink
     primaryForeground: "210 40% 98%",
     secondary: "320 40% 90%", // Pale pink
     secondaryForeground: "222.2 84% 4.9%",
     accent: "340 100% 70%", // Hot pink
-    accentForeground: "210 40% 98%"
+    accentForeground: "210 40% 98%",
   },
-  { 
-    name: "Midnight jazz", 
+  {
+    name: "Midnight jazz",
     primary: "220 30% 20%", // Dark blue-gray
     primaryForeground: "210 40% 98%",
     secondary: "200 20% 85%", // Light steel
     secondaryForeground: "222.2 84% 4.9%",
     accent: "45 100% 70%", // Jazz gold
-    accentForeground: "222.2 84% 4.9%"
+    accentForeground: "222.2 84% 4.9%",
   },
-  { 
-    name: "Lavender fields", 
+  {
+    name: "Lavender fields",
     primary: "270 50% 60%", // Soft purple
     primaryForeground: "210 40% 98%",
     secondary: "260 30% 90%", // Pale lavender
     secondaryForeground: "222.2 84% 4.9%",
     accent: "290 70% 70%", // Bright violet
-    accentForeground: "210 40% 98%"
+    accentForeground: "210 40% 98%",
   },
-]
+];
 
 interface ThemeColors {
-  primary: string
-  primaryForeground: string
-  secondary: string
-  secondaryForeground: string
-  accent: string
-  accentForeground: string
-  background: string
-  foreground: string
-  card: string
-  cardForeground: string
-  popover: string
-  popoverForeground: string
-  muted: string
-  mutedForeground: string
-  destructive: string
-  destructiveForeground: string
-  border: string
-  input: string
-  ring: string
+  primary: string;
+  primaryForeground: string;
+  secondary: string;
+  secondaryForeground: string;
+  accent: string;
+  accentForeground: string;
+  background: string;
+  foreground: string;
+  card: string;
+  cardForeground: string;
+  popover: string;
+  popoverForeground: string;
+  muted: string;
+  mutedForeground: string;
+  destructive: string;
+  destructiveForeground: string;
+  border: string;
+  input: string;
+  ring: string;
 }
 
 export default function ThemingPage() {
-  const [theme, setTheme] = useState<ThemeColors>(defaultLightTheme)
-  const [isDark, setIsDark] = useState(false)
+  const [theme, setTheme] = useState<ThemeColors>(defaultLightTheme);
+  const [isDark, setIsDark] = useState(false);
 
   // Force re-render when theme changes
   useEffect(() => {
     // Force a reflow to ensure CSS variables are applied
-    const preview = document.querySelector('.theme-preview') as HTMLElement | null
+    const preview = document.querySelector(
+      ".theme-preview"
+    ) as HTMLElement | null;
     if (preview) {
-      preview.style.opacity = '0.999'
+      preview.style.opacity = "0.999";
       setTimeout(() => {
-        preview.style.opacity = '1'
-      }, 1)
+        preview.style.opacity = "1";
+      }, 1);
     }
-  }, [theme])
+  }, [theme]);
 
   const resetTheme = () => {
-    setTheme(isDark ? defaultDarkTheme : defaultLightTheme)
-  }
+    setTheme(isDark ? defaultDarkTheme : defaultLightTheme);
+  };
 
   // Switch theme when dark mode toggles - preserve user colors
   useEffect(() => {
-    setTheme(currentTheme => ({
+    setTheme((currentTheme) => ({
       ...currentTheme,
       // Only update system colors, preserve user's primary/secondary/accent
       background: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
@@ -511,15 +541,17 @@ export default function ThemingPage() {
       mutedForeground: isDark ? "215 20.2% 65.1%" : "215.4 16.3% 46.9%",
       border: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
       input: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
-      ring: isDark ? "212.7 26.8% 83.9%" : currentTheme.primary
-    }))
-  }, [isDark])
+      ring: isDark ? "212.7 26.8% 83.9%" : currentTheme.primary,
+    }));
+  }, [isDark]);
 
   // Inject CSS custom properties for live preview
   useEffect(() => {
-    const style = document.getElementById('theme-preview-styles') || document.createElement('style')
-    style.id = 'theme-preview-styles'
-    
+    const style =
+      document.getElementById("theme-preview-styles") ||
+      document.createElement("style");
+    style.id = "theme-preview-styles";
+
     const cssVariables = `
       .theme-preview {
         /* Apply the background theme immediately */
@@ -711,22 +743,22 @@ export default function ThemingPage() {
         border: 0;
         padding: 0;
       }
-    `
-    
-    style.textContent = cssVariables
-    
-    if (!document.getElementById('theme-preview-styles')) {
-      document.head.appendChild(style)
+    `;
+
+    style.textContent = cssVariables;
+
+    if (!document.getElementById("theme-preview-styles")) {
+      document.head.appendChild(style);
     }
 
     return () => {
       // Cleanup on unmount
-      const existingStyle = document.getElementById('theme-preview-styles')
+      const existingStyle = document.getElementById("theme-preview-styles");
       if (existingStyle) {
-        existingStyle.remove()
+        existingStyle.remove();
       }
-    }
-  }, [theme, isDark])
+    };
+  }, [theme, isDark]);
 
   return (
     <div className="px-3 py-16">
@@ -739,10 +771,12 @@ export default function ThemingPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold">Theme configurator</h1>
+            <h1 className="text-4xl md:text-6xl font-bold">
+              Theme configurator
+            </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Customize your design system colors and see live previews across components. 
-              Export ready-to-use code for your projects.
+              Customize your design system colors and see live previews across
+              components. Export ready-to-use code for your projects.
             </p>
           </div>
 
@@ -798,32 +832,51 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.primary)}
-                            onChange={(e) => setTheme({ ...theme, primary: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                primary: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="primary"
                             value={theme.primary}
-                            onChange={(e) => setTheme({ ...theme, primary: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, primary: e.target.value })
+                            }
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
-                        <Label htmlFor="primaryForeground">Primary foreground</Label>
+                        <Label htmlFor="primaryForeground">
+                          Primary foreground
+                        </Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.primaryForeground)}
-                            onChange={(e) => setTheme({ ...theme, primaryForeground: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                primaryForeground: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="primaryForeground"
                             value={theme.primaryForeground}
-                            onChange={(e) => setTheme({ ...theme, primaryForeground: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                primaryForeground: e.target.value,
+                              })
+                            }
                             placeholder="210 40% 98%"
                             className="flex-1"
                           />
@@ -842,32 +895,51 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.secondary)}
-                            onChange={(e) => setTheme({ ...theme, secondary: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                secondary: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="secondary"
                             value={theme.secondary}
-                            onChange={(e) => setTheme({ ...theme, secondary: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, secondary: e.target.value })
+                            }
                             placeholder="210 40% 96%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
-                        <Label htmlFor="secondaryForeground">Secondary foreground</Label>
+                        <Label htmlFor="secondaryForeground">
+                          Secondary foreground
+                        </Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.secondaryForeground)}
-                            onChange={(e) => setTheme({ ...theme, secondaryForeground: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                secondaryForeground: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="secondaryForeground"
                             value={theme.secondaryForeground}
-                            onChange={(e) => setTheme({ ...theme, secondaryForeground: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                secondaryForeground: e.target.value,
+                              })
+                            }
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -886,32 +958,51 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.accent)}
-                            onChange={(e) => setTheme({ ...theme, accent: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                accent: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="accent"
                             value={theme.accent}
-                            onChange={(e) => setTheme({ ...theme, accent: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, accent: e.target.value })
+                            }
                             placeholder="210 40% 96%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
-                        <Label htmlFor="accentForeground">Accent foreground</Label>
+                        <Label htmlFor="accentForeground">
+                          Accent foreground
+                        </Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.accentForeground)}
-                            onChange={(e) => setTheme({ ...theme, accentForeground: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                accentForeground: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="accentForeground"
                             value={theme.accentForeground}
-                            onChange={(e) => setTheme({ ...theme, accentForeground: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                accentForeground: e.target.value,
+                              })
+                            }
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -930,32 +1021,46 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.background)}
-                            onChange={(e) => setTheme({ ...theme, background: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                background: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="background"
                             value={theme.background}
-                            onChange={(e) => setTheme({ ...theme, background: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, background: e.target.value })
+                            }
                             placeholder="0 0% 100%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
                         <Label htmlFor="foreground">Foreground</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.foreground)}
-                            onChange={(e) => setTheme({ ...theme, foreground: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                foreground: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="foreground"
                             value={theme.foreground}
-                            onChange={(e) => setTheme({ ...theme, foreground: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, foreground: e.target.value })
+                            }
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -974,32 +1079,49 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.card)}
-                            onChange={(e) => setTheme({ ...theme, card: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                card: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="card"
                             value={theme.card}
-                            onChange={(e) => setTheme({ ...theme, card: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, card: e.target.value })
+                            }
                             placeholder="0 0% 100%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
                         <Label htmlFor="cardForeground">Card foreground</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.cardForeground)}
-                            onChange={(e) => setTheme({ ...theme, cardForeground: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                cardForeground: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="cardForeground"
                             value={theme.cardForeground}
-                            onChange={(e) => setTheme({ ...theme, cardForeground: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                cardForeground: e.target.value,
+                              })
+                            }
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -1018,32 +1140,51 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.muted)}
-                            onChange={(e) => setTheme({ ...theme, muted: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                muted: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="muted"
                             value={theme.muted}
-                            onChange={(e) => setTheme({ ...theme, muted: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, muted: e.target.value })
+                            }
                             placeholder="210 40% 96%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
-                        <Label htmlFor="mutedForeground">Muted foreground</Label>
+                        <Label htmlFor="mutedForeground">
+                          Muted foreground
+                        </Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.mutedForeground)}
-                            onChange={(e) => setTheme({ ...theme, mutedForeground: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                mutedForeground: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="mutedForeground"
                             value={theme.mutedForeground}
-                            onChange={(e) => setTheme({ ...theme, mutedForeground: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                mutedForeground: e.target.value,
+                              })
+                            }
                             placeholder="215.4 16.3% 46.9%"
                             className="flex-1"
                           />
@@ -1054,7 +1195,9 @@ export default function ThemingPage() {
 
                   {/* Destructive Colors */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-semibold">Destructive colors</h3>
+                    <h3 className="text-sm font-semibold">
+                      Destructive colors
+                    </h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="destructive">Destructive</Label>
@@ -1062,32 +1205,54 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.destructive)}
-                            onChange={(e) => setTheme({ ...theme, destructive: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                destructive: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="destructive"
                             value={theme.destructive}
-                            onChange={(e) => setTheme({ ...theme, destructive: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                destructive: e.target.value,
+                              })
+                            }
                             placeholder="0 84.2% 60.2%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
-                        <Label htmlFor="destructiveForeground">Destructive foreground</Label>
+                        <Label htmlFor="destructiveForeground">
+                          Destructive foreground
+                        </Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.destructiveForeground)}
-                            onChange={(e) => setTheme({ ...theme, destructiveForeground: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                destructiveForeground: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="destructiveForeground"
                             value={theme.destructiveForeground}
-                            onChange={(e) => setTheme({ ...theme, destructiveForeground: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                destructiveForeground: e.target.value,
+                              })
+                            }
                             placeholder="210 40% 98%"
                             className="flex-1"
                           />
@@ -1098,7 +1263,9 @@ export default function ThemingPage() {
 
                   {/* Border & Input Colors */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-semibold">Border & input colors</h3>
+                    <h3 className="text-sm font-semibold">
+                      Border & input colors
+                    </h3>
                     <div className="grid grid-cols-3 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="border">Border</Label>
@@ -1106,32 +1273,46 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.border)}
-                            onChange={(e) => setTheme({ ...theme, border: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                border: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="border"
                             value={theme.border}
-                            onChange={(e) => setTheme({ ...theme, border: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, border: e.target.value })
+                            }
                             placeholder="214.3 31.8% 91.4%"
                             className="flex-1"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="space-y-2">
                         <Label htmlFor="input">Input</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
                             value={hslToHex(theme.input)}
-                            onChange={(e) => setTheme({ ...theme, input: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                input: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="input"
                             value={theme.input}
-                            onChange={(e) => setTheme({ ...theme, input: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, input: e.target.value })
+                            }
                             placeholder="214.3 31.8% 91.4%"
                             className="flex-1"
                           />
@@ -1144,13 +1325,20 @@ export default function ThemingPage() {
                           <input
                             type="color"
                             value={hslToHex(theme.ring)}
-                            onChange={(e) => setTheme({ ...theme, ring: hexToHsl(e.target.value) })}
+                            onChange={(e) =>
+                              setTheme({
+                                ...theme,
+                                ring: hexToHsl(e.target.value),
+                              })
+                            }
                             className="color-picker-input"
                           />
                           <Input
                             id="ring"
                             value={theme.ring}
-                            onChange={(e) => setTheme({ ...theme, ring: e.target.value })}
+                            onChange={(e) =>
+                              setTheme({ ...theme, ring: e.target.value })
+                            }
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -1166,35 +1354,43 @@ export default function ThemingPage() {
                   <div className="grid grid-cols-2 gap-3">
                     {colorPresets.map((preset) => (
                       <div key={preset.name} className="space-y-2">
-                        <div className="text-xs font-medium text-left">{preset.name}</div>
+                        <div className="text-xs font-medium text-left">
+                          {preset.name}
+                        </div>
                         <button
                           onClick={() => {
-                            setTheme({ 
-                              ...theme, 
+                            setTheme({
+                              ...theme,
                               primary: preset.primary,
                               primaryForeground: preset.primaryForeground,
                               secondary: preset.secondary,
                               secondaryForeground: preset.secondaryForeground,
                               accent: preset.accent,
-                              accentForeground: preset.accentForeground
-                            })
+                              accentForeground: preset.accentForeground,
+                            });
                           }}
                           className="w-full h-8 rounded-md border border-input hover:ring-2 hover:ring-ring/50 transition-all duration-200 overflow-hidden"
                         >
                           <div className="w-full h-full flex">
-                            <div 
-                              className="flex-1" 
-                              style={{ backgroundColor: `hsl(${preset.primary})` }}
+                            <div
+                              className="flex-1"
+                              style={{
+                                backgroundColor: `hsl(${preset.primary})`,
+                              }}
                               title="Primary"
                             />
-                            <div 
-                              className="flex-1" 
-                              style={{ backgroundColor: `hsl(${preset.secondary})` }}
+                            <div
+                              className="flex-1"
+                              style={{
+                                backgroundColor: `hsl(${preset.secondary})`,
+                              }}
                               title="Secondary"
                             />
-                            <div 
-                              className="flex-1" 
-                              style={{ backgroundColor: `hsl(${preset.accent})` }}
+                            <div
+                              className="flex-1"
+                              style={{
+                                backgroundColor: `hsl(${preset.accent})`,
+                              }}
                               title="Accent"
                             />
                           </div>
@@ -1206,7 +1402,11 @@ export default function ThemingPage() {
 
                 {/* Actions */}
                 <div className="flex gap-4 mt-6">
-                  <Button onClick={resetTheme} variant="outline" className="flex-1">
+                  <Button
+                    onClick={resetTheme}
+                    variant="outline"
+                    className="flex-1"
+                  >
                     <RotateCcw className="h-4 w-4 mr-2" />
                     Reset to Default
                   </Button>
@@ -1222,12 +1422,17 @@ export default function ThemingPage() {
                       <TabsTrigger value="provider">Provider</TabsTrigger>
                       <TabsTrigger value="install">Install</TabsTrigger>
                     </TabsList>
-                    
-                    <TabsContent value="css-variables" className="space-y-4 mt-6">
+
+                    <TabsContent
+                      value="css-variables"
+                      className="space-y-4 mt-6"
+                    >
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">CSS Variables</h4>
-                          <p className="text-sm text-muted-foreground">Copy these CSS custom properties to your stylesheet</p>
+                          <p className="text-sm text-muted-foreground">
+                            Copy these CSS custom properties to your stylesheet
+                          </p>
                         </div>
                         <CodeCopyButton code={generateCSSVariables(theme)} />
                       </div>
@@ -1237,12 +1442,17 @@ export default function ThemingPage() {
                         </pre>
                       </div>
                     </TabsContent>
-                    
+
                     <TabsContent value="tailwind" className="space-y-4 mt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-medium">Tailwind Configuration</h4>
-                          <p className="text-sm text-muted-foreground">Replace your tailwind.config.js with this configuration</p>
+                          <h4 className="font-medium">
+                            Tailwind Configuration
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            Replace your tailwind.config.js with this
+                            configuration
+                          </p>
                         </div>
                         <CodeCopyButton code={generateTailwindConfig(theme)} />
                       </div>
@@ -1252,12 +1462,14 @@ export default function ThemingPage() {
                         </pre>
                       </div>
                     </TabsContent>
-                    
+
                     <TabsContent value="globals" className="space-y-4 mt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">globals.css</h4>
-                          <p className="text-sm text-muted-foreground">Complete CSS file with Tailwind and theme variables</p>
+                          <p className="text-sm text-muted-foreground">
+                            Complete CSS file with Tailwind and theme variables
+                          </p>
                         </div>
                         <CodeCopyButton code={generateGlobalCSS(theme)} />
                       </div>
@@ -1267,12 +1479,14 @@ export default function ThemingPage() {
                         </pre>
                       </div>
                     </TabsContent>
-                    
+
                     <TabsContent value="provider" className="space-y-4 mt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">Theme Provider</h4>
-                          <p className="text-sm text-muted-foreground">React component for dark/light mode support</p>
+                          <p className="text-sm text-muted-foreground">
+                            React component for dark/light mode support
+                          </p>
                         </div>
                         <CodeCopyButton code={generateThemeProvider()} />
                       </div>
@@ -1282,12 +1496,14 @@ export default function ThemingPage() {
                         </pre>
                       </div>
                     </TabsContent>
-                    
+
                     <TabsContent value="install" className="space-y-4 mt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">Installation Guide</h4>
-                          <p className="text-sm text-muted-foreground">Step-by-step instructions to integrate your theme</p>
+                          <p className="text-sm text-muted-foreground">
+                            Step-by-step instructions to integrate your theme
+                          </p>
                         </div>
                         <CodeCopyButton code={generateInstallGuide()} />
                       </div>
@@ -1312,7 +1528,8 @@ export default function ThemingPage() {
                   Live Preview
                 </CardTitle>
                 <CardDescription>
-                  See how your theme looks across different components and layouts
+                  See how your theme looks across different components and
+                  layouts
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1323,584 +1540,758 @@ export default function ThemingPage() {
                     <TabsTrigger value="forms">Forms</TabsTrigger>
                     <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
                   </TabsList>
-                  
+
                   <TabsContent value="primitives" className="space-y-6 mt-6">
-                    <div 
+                    <div
                       className="theme-preview p-6 rounded-lg"
-                      style={{
-                        '--primary': theme.primary,
-                        '--primary-foreground': theme.primaryForeground,
-                        '--secondary': theme.secondary,
-                        '--secondary-foreground': theme.secondaryForeground,
-                        '--accent': theme.accent,
-                        '--accent-foreground': theme.accentForeground,
-                        '--background': theme.background,
-                        '--foreground': theme.foreground,
-                        '--card': theme.card,
-                        '--card-foreground': theme.cardForeground,
-                        '--popover': theme.popover,
-                        '--popover-foreground': theme.popoverForeground,
-                        '--muted': theme.muted,
-                        '--muted-foreground': theme.mutedForeground,
-                        '--destructive': theme.destructive,
-                        '--destructive-foreground': theme.destructiveForeground,
-                        '--border': theme.border,
-                        '--input': theme.input,
-                        '--ring': theme.ring,
-                        backgroundColor: `hsl(${theme.background})`,
-                        color: `hsl(${theme.foreground})`,
-                      } as React.CSSProperties}
+                      style={
+                        {
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground":
+                            theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
+                          backgroundColor: `hsl(${theme.background})`,
+                          color: `hsl(${theme.foreground})`,
+                        } as React.CSSProperties
+                      }
                     >
-                    <div className="space-y-8">
-                      {/* Buttons Section */}
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Buttons</h3>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Button Variants</h4>
-                            <div className="flex flex-col gap-2">
-                              <Button>Primary</Button>
-                              <Button variant="secondary">Secondary</Button>
-                              <Button variant="outline">Outline</Button>
-                              <Button variant="ghost">Ghost</Button>
-                              <Button variant="destructive">Destructive</Button>
-                              <Button variant="link">Link</Button>
+                      <div className="space-y-8">
+                        {/* Buttons Section */}
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">Buttons</h3>
+                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Button Variants
+                              </h4>
+                              <div className="flex flex-col gap-2">
+                                <Button>Primary</Button>
+                                <Button variant="secondary">Secondary</Button>
+                                <Button variant="outline">Outline</Button>
+                                <Button variant="ghost">Ghost</Button>
+                                <Button variant="destructive">
+                                  Destructive
+                                </Button>
+                                <Button variant="link">Link</Button>
+                              </div>
+                            </div>
+
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Button Sizes
+                              </h4>
+                              <div className="flex flex-col gap-2 items-start">
+                                <Button size="lg">Large</Button>
+                                <Button>Default</Button>
+                                <Button size="sm">Small</Button>
+                                <Button size="icon">
+                                  <span>🎨</span>
+                                </Button>
+                              </div>
+                            </div>
+
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Button States
+                              </h4>
+                              <div className="flex flex-col gap-2">
+                                <Button>Normal</Button>
+                                <Button disabled>Disabled</Button>
+                                <Button className="opacity-75">
+                                  Loading...
+                                </Button>
+                              </div>
                             </div>
                           </div>
-                          
+                        </div>
+
+                        {/* Badges & Status */}
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">
+                            Badges & Status
+                          </h3>
+                          <div className="grid md:grid-cols-2 gap-6">
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Badge Variants
+                              </h4>
+                              <div className="flex gap-2 flex-wrap">
+                                <Badge>Default</Badge>
+                                <Badge variant="secondary">Secondary</Badge>
+                                <Badge variant="outline">Outline</Badge>
+                                <Badge variant="destructive">Destructive</Badge>
+                              </div>
+                            </div>
+
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Status Colors
+                              </h4>
+                              <div className="flex gap-2 flex-wrap">
+                                <Badge className="bg-green-100 text-green-800">
+                                  Success
+                                </Badge>
+                                <Badge className="bg-yellow-100 text-yellow-800">
+                                  Warning
+                                </Badge>
+                                <Badge className="bg-blue-100 text-blue-800">
+                                  Info
+                                </Badge>
+                                <Badge className="bg-red-100 text-red-800">
+                                  Error
+                                </Badge>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Form Elements */}
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">
+                            Form Elements
+                          </h3>
+                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Inputs
+                              </h4>
+                              <div className="space-y-2">
+                                <Input placeholder="Text input..." />
+                                <Input type="email" placeholder="Email..." />
+                                <Input
+                                  type="password"
+                                  placeholder="Password..."
+                                />
+                                <Input
+                                  disabled
+                                  placeholder="Disabled input..."
+                                />
+                              </div>
+                            </div>
+
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Textarea
+                              </h4>
+                              <textarea
+                                className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                placeholder="Type your message here..."
+                              />
+                            </div>
+
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Select & Options
+                              </h4>
+                              <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Cards & Containers */}
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">
+                            Cards & Containers
+                          </h3>
+                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <Card>
+                              <CardHeader>
+                                <CardTitle className="text-sm">
+                                  Simple Card
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                <p className="text-sm text-muted-foreground">
+                                  Card content with muted text.
+                                </p>
+                              </CardContent>
+                            </Card>
+
+                            <Card>
+                              <CardHeader>
+                                <CardTitle className="text-sm">
+                                  Card with Badge
+                                </CardTitle>
+                                <Badge className="w-fit" variant="secondary">
+                                  New
+                                </Badge>
+                              </CardHeader>
+                              <CardContent>
+                                <p className="text-sm">
+                                  Card with various elements.
+                                </p>
+                              </CardContent>
+                            </Card>
+
+                            <Card>
+                              <CardHeader>
+                                <CardTitle className="text-sm">
+                                  Interactive Card
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent className="space-y-2">
+                                <Button size="sm" className="w-full">
+                                  Action
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="w-full"
+                                >
+                                  Secondary
+                                </Button>
+                              </CardContent>
+                            </Card>
+                          </div>
+                        </div>
+
+                        {/* Navigation & Tabs */}
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">
+                            Navigation & Tabs
+                          </h3>
+                          <div className="space-y-4">
+                            <Tabs defaultValue="tab1" className="w-full">
+                              <TabsList>
+                                <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+                                <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+                                <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+                              </TabsList>
+                              <TabsContent value="tab1" className="mt-4">
+                                <Card>
+                                  <CardContent className="pt-6">
+                                    <p className="text-sm">
+                                      Content for tab 1 with cards and themed
+                                      elements.
+                                    </p>
+                                  </CardContent>
+                                </Card>
+                              </TabsContent>
+                              <TabsContent value="tab2" className="mt-4">
+                                <Card>
+                                  <CardContent className="pt-6">
+                                    <p className="text-sm">
+                                      Content for tab 2 showing theme colors.
+                                    </p>
+                                  </CardContent>
+                                </Card>
+                              </TabsContent>
+                              <TabsContent value="tab3" className="mt-4">
+                                <Card>
+                                  <CardContent className="pt-6">
+                                    <p className="text-sm">
+                                      Content for tab 3 with consistent theming.
+                                    </p>
+                                  </CardContent>
+                                </Card>
+                              </TabsContent>
+                            </Tabs>
+                          </div>
+                        </div>
+
+                        {/* Typography & Text */}
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">Typography</h3>
                           <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Button Sizes</h4>
-                            <div className="flex flex-col gap-2 items-start">
-                              <Button size="lg">Large</Button>
-                              <Button>Default</Button>
-                              <Button size="sm">Small</Button>
-                              <Button size="icon">
-                                <span>🎨</span>
+                            <div>
+                              <h1 className="text-3xl font-bold">Heading 1</h1>
+                              <h2 className="text-2xl font-semibold">
+                                Heading 2
+                              </h2>
+                              <h3 className="text-xl font-medium">Heading 3</h3>
+                              <h4 className="text-lg">Heading 4</h4>
+                            </div>
+                            <div className="space-y-2">
+                              <p className="text-base">
+                                Regular paragraph text with normal formatting.
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                Muted text for secondary information.
+                              </p>
+                              <p className="text-xs">
+                                Small text for captions and details.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Miscellaneous */}
+                        <div className="space-y-4">
+                          <h3 className="text-lg font-semibold">
+                            Miscellaneous
+                          </h3>
+                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Borders & Dividers
+                              </h4>
+                              <div className="space-y-2">
+                                <div className="h-px bg-border"></div>
+                                <div className="h-0.5 bg-muted"></div>
+                                <div className="border-l-4 border-primary pl-4">
+                                  <p className="text-sm">Left border accent</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Backgrounds
+                              </h4>
+                              <div className="space-y-2">
+                                <div className="p-3 bg-muted rounded text-sm">
+                                  Muted background
+                                </div>
+                                <div className="p-3 bg-accent text-accent-foreground rounded text-sm">
+                                  Accent background
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="space-y-3">
+                              <h4 className="font-medium text-sm text-muted-foreground">
+                                Interactive
+                              </h4>
+                              <div className="space-y-2">
+                                <button className="text-primary hover:underline text-sm">
+                                  Link style
+                                </button>
+                                <div className="p-2 border rounded hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer text-sm">
+                                  Hoverable item
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent value="cards" className="space-y-4 mt-6">
+                    <div
+                      className="theme-preview p-6 rounded-lg"
+                      style={
+                        {
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground":
+                            theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
+                          backgroundColor: `hsl(${theme.background})`,
+                          color: `hsl(${theme.foreground})`,
+                        } as React.CSSProperties
+                      }
+                    >
+                      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Profile Card</CardTitle>
+                            <CardDescription>
+                              User profile information
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="flex items-center space-x-3">
+                              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
+                                JD
+                              </div>
+                              <div>
+                                <p className="font-medium">John Doe</p>
+                                <p className="text-sm text-muted-foreground">
+                                  Product Manager
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Stats Card</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">$12,345</div>
+                            <p className="text-xs text-muted-foreground">
+                              +20.1% from last month
+                            </p>
+                            <div className="mt-2">
+                              <Badge
+                                variant="outline"
+                                className="text-green-600 border-green-600"
+                              >
+                                +20.1%
+                              </Badge>
+                            </div>
+                          </CardContent>
+                        </Card>
+
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Product Card</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="space-y-3">
+                              <div className="w-full h-24 bg-muted rounded-md flex items-center justify-center">
+                                <span className="text-muted-foreground">
+                                  Product Image
+                                </span>
+                              </div>
+                              <div>
+                                <h4 className="font-medium">Product Name</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  Short description
+                                </p>
+                                <p className="text-lg font-bold mt-1">$99.99</p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent value="forms" className="space-y-4 mt-6">
+                    <div
+                      className="theme-preview p-6 rounded-lg"
+                      style={
+                        {
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground":
+                            theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
+                          backgroundColor: `hsl(${theme.background})`,
+                          color: `hsl(${theme.foreground})`,
+                        } as React.CSSProperties
+                      }
+                    >
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Login Form</CardTitle>
+                            <CardDescription>
+                              User authentication
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="email">Email</Label>
+                              <Input
+                                id="email"
+                                placeholder="Enter your email"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="password">Password</Label>
+                              <Input
+                                id="password"
+                                type="password"
+                                placeholder="Enter your password"
+                              />
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <input
+                                type="checkbox"
+                                id="remember"
+                                className="rounded"
+                              />
+                              <Label htmlFor="remember" className="text-sm">
+                                Remember me
+                              </Label>
+                            </div>
+                            <Button className="w-full">Sign In</Button>
+                            <Button variant="outline" className="w-full">
+                              Create Account
+                            </Button>
+                          </CardContent>
+                        </Card>
+
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Contact Form</CardTitle>
+                            <CardDescription>
+                              Get in touch with us
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <Label htmlFor="firstName">First Name</Label>
+                                <Input id="firstName" placeholder="John" />
+                              </div>
+                              <div className="space-y-2">
+                                <Label htmlFor="lastName">Last Name</Label>
+                                <Input id="lastName" placeholder="Doe" />
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="contactEmail">Email</Label>
+                              <Input
+                                id="contactEmail"
+                                placeholder="john@example.com"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="message">Message</Label>
+                              <textarea
+                                id="message"
+                                className="w-full p-3 border rounded-md bg-background"
+                                rows={3}
+                                placeholder="Your message..."
+                              />
+                            </div>
+                            <Button className="w-full">Send Message</Button>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent value="dashboard" className="space-y-6 mt-6">
+                    <div
+                      className="theme-preview p-6 rounded-lg"
+                      style={
+                        {
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground":
+                            theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
+                          backgroundColor: `hsl(${theme.background})`,
+                          color: `hsl(${theme.foreground})`,
+                        } as React.CSSProperties
+                      }
+                    >
+                      {/* KPI Cards */}
+                      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        <Card>
+                          <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium">
+                              Total Revenue
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">$45,231.89</div>
+                            <p className="text-xs text-muted-foreground flex items-center">
+                              <span className="text-green-600 mr-1">
+                                ↗ +20.1%
+                              </span>
+                              from last month
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <Card>
+                          <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium">
+                              Subscriptions
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">+2,350</div>
+                            <p className="text-xs text-muted-foreground flex items-center">
+                              <span className="text-green-600 mr-1">
+                                ↗ +180.1%
+                              </span>
+                              from last month
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <Card>
+                          <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium">
+                              Sales
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">+12,234</div>
+                            <p className="text-xs text-muted-foreground flex items-center">
+                              <span className="text-green-600 mr-1">
+                                ↗ +19%
+                              </span>
+                              from last month
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <Card>
+                          <CardHeader className="pb-2">
+                            <CardTitle className="text-sm font-medium">
+                              Active Users
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="text-2xl font-bold">8,432</div>
+                            <p className="text-xs text-muted-foreground flex items-center">
+                              <span className="text-red-600 mr-1">↘ -2.1%</span>
+                              from last month
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </div>
+
+                      {/* Dashboard Sections */}
+                      <div className="grid gap-6 md:grid-cols-2">
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Recent Activity</CardTitle>
+                            <CardDescription>
+                              Latest user actions
+                            </CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs">
+                                    JD
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium">
+                                      John Doe
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">
+                                      Created new project
+                                    </p>
+                                  </div>
+                                </div>
+                                <Badge variant="outline">2m ago</Badge>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                  <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground text-xs">
+                                    AS
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium">
+                                      Alice Smith
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">
+                                      Updated settings
+                                    </p>
+                                  </div>
+                                </div>
+                                <Badge variant="outline">5m ago</Badge>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                  <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center text-accent-foreground text-xs">
+                                    BJ
+                                  </div>
+                                  <div>
+                                    <p className="text-sm font-medium">
+                                      Bob Johnson
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">
+                                      Completed task
+                                    </p>
+                                  </div>
+                                </div>
+                                <Badge variant="outline">1h ago</Badge>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+
+                        <Card>
+                          <CardHeader>
+                            <CardTitle>Quick Actions</CardTitle>
+                            <CardDescription>Common tasks</CardDescription>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid grid-cols-2 gap-3">
+                              <Button className="h-20 flex-col">
+                                <span className="text-lg mb-1">+</span>
+                                <span className="text-xs">New Project</span>
+                              </Button>
+                              <Button
+                                variant="outline"
+                                className="h-20 flex-col"
+                              >
+                                <span className="text-lg mb-1">📊</span>
+                                <span className="text-xs">View Reports</span>
+                              </Button>
+                              <Button
+                                variant="secondary"
+                                className="h-20 flex-col"
+                              >
+                                <span className="text-lg mb-1">👥</span>
+                                <span className="text-xs">Invite Users</span>
+                              </Button>
+                              <Button variant="ghost" className="h-20 flex-col">
+                                <span className="text-lg mb-1">⚙️</span>
+                                <span className="text-xs">Settings</span>
                               </Button>
                             </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Button States</h4>
-                            <div className="flex flex-col gap-2">
-                              <Button>Normal</Button>
-                              <Button disabled>Disabled</Button>
-                              <Button className="opacity-75">Loading...</Button>
-                            </div>
-                          </div>
-                        </div>
+                          </CardContent>
+                        </Card>
                       </div>
-
-                      {/* Badges & Status */}
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Badges & Status</h3>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Badge Variants</h4>
-                            <div className="flex gap-2 flex-wrap">
-                              <Badge>Default</Badge>
-                              <Badge variant="secondary">Secondary</Badge>
-                              <Badge variant="outline">Outline</Badge>
-                              <Badge variant="destructive">Destructive</Badge>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Status Colors</h4>
-                            <div className="flex gap-2 flex-wrap">
-                              <Badge className="bg-green-100 text-green-800">Success</Badge>
-                              <Badge className="bg-yellow-100 text-yellow-800">Warning</Badge>
-                              <Badge className="bg-blue-100 text-blue-800">Info</Badge>
-                              <Badge className="bg-red-100 text-red-800">Error</Badge>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Form Elements */}
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Form Elements</h3>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Inputs</h4>
-                            <div className="space-y-2">
-                              <Input placeholder="Text input..." />
-                              <Input type="email" placeholder="Email..." />
-                              <Input type="password" placeholder="Password..." />
-                              <Input disabled placeholder="Disabled input..." />
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Textarea</h4>
-                            <textarea
-                              className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                              placeholder="Type your message here..."
-                            />
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Select & Options</h4>
-                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                              <option>Option 1</option>
-                              <option>Option 2</option>
-                              <option>Option 3</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Cards & Containers */}
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Cards & Containers</h3>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                          <Card>
-                            <CardHeader>
-                              <CardTitle className="text-sm">Simple Card</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                              <p className="text-sm text-muted-foreground">Card content with muted text.</p>
-                            </CardContent>
-                          </Card>
-                          
-                          <Card>
-                            <CardHeader>
-                              <CardTitle className="text-sm">Card with Badge</CardTitle>
-                              <Badge className="w-fit" variant="secondary">New</Badge>
-                            </CardHeader>
-                            <CardContent>
-                              <p className="text-sm">Card with various elements.</p>
-                            </CardContent>
-                          </Card>
-                          
-                          <Card>
-                            <CardHeader>
-                              <CardTitle className="text-sm">Interactive Card</CardTitle>
-                            </CardHeader>
-                            <CardContent className="space-y-2">
-                              <Button size="sm" className="w-full">Action</Button>
-                              <Button size="sm" variant="outline" className="w-full">Secondary</Button>
-                            </CardContent>
-                          </Card>
-                        </div>
-                      </div>
-
-                      {/* Navigation & Tabs */}
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Navigation & Tabs</h3>
-                        <div className="space-y-4">
-                          <Tabs defaultValue="tab1" className="w-full">
-                            <TabsList>
-                              <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-                              <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-                              <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-                            </TabsList>
-                            <TabsContent value="tab1" className="mt-4">
-                              <Card>
-                                <CardContent className="pt-6">
-                                  <p className="text-sm">Content for tab 1 with cards and themed elements.</p>
-                                </CardContent>
-                              </Card>
-                            </TabsContent>
-                            <TabsContent value="tab2" className="mt-4">
-                              <Card>
-                                <CardContent className="pt-6">
-                                  <p className="text-sm">Content for tab 2 showing theme colors.</p>
-                                </CardContent>
-                              </Card>
-                            </TabsContent>
-                            <TabsContent value="tab3" className="mt-4">
-                              <Card>
-                                <CardContent className="pt-6">
-                                  <p className="text-sm">Content for tab 3 with consistent theming.</p>
-                                </CardContent>
-                              </Card>
-                            </TabsContent>
-                          </Tabs>
-                        </div>
-                      </div>
-
-                      {/* Typography & Text */}
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Typography</h3>
-                        <div className="space-y-3">
-                          <div>
-                            <h1 className="text-3xl font-bold">Heading 1</h1>
-                            <h2 className="text-2xl font-semibold">Heading 2</h2>
-                            <h3 className="text-xl font-medium">Heading 3</h3>
-                            <h4 className="text-lg">Heading 4</h4>
-                          </div>
-                          <div className="space-y-2">
-                            <p className="text-base">Regular paragraph text with normal formatting.</p>
-                            <p className="text-sm text-muted-foreground">Muted text for secondary information.</p>
-                            <p className="text-xs">Small text for captions and details.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Miscellaneous */}
-                      <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">Miscellaneous</h3>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Borders & Dividers</h4>
-                            <div className="space-y-2">
-                              <div className="h-px bg-border"></div>
-                              <div className="h-0.5 bg-muted"></div>
-                              <div className="border-l-4 border-primary pl-4">
-                                <p className="text-sm">Left border accent</p>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Backgrounds</h4>
-                            <div className="space-y-2">
-                              <div className="p-3 bg-muted rounded text-sm">Muted background</div>
-                              <div className="p-3 bg-accent text-accent-foreground rounded text-sm">Accent background</div>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-3">
-                            <h4 className="font-medium text-sm text-muted-foreground">Interactive</h4>
-                            <div className="space-y-2">
-                              <button className="text-primary hover:underline text-sm">Link style</button>
-                              <div className="p-2 border rounded hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer text-sm">
-                                Hoverable item
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="cards" className="space-y-4 mt-6">
-                    <div 
-                      className="theme-preview p-6 rounded-lg"
-                      style={{
-                        '--primary': theme.primary,
-                        '--primary-foreground': theme.primaryForeground,
-                        '--secondary': theme.secondary,
-                        '--secondary-foreground': theme.secondaryForeground,
-                        '--accent': theme.accent,
-                        '--accent-foreground': theme.accentForeground,
-                        '--background': theme.background,
-                        '--foreground': theme.foreground,
-                        '--card': theme.card,
-                        '--card-foreground': theme.cardForeground,
-                        '--popover': theme.popover,
-                        '--popover-foreground': theme.popoverForeground,
-                        '--muted': theme.muted,
-                        '--muted-foreground': theme.mutedForeground,
-                        '--destructive': theme.destructive,
-                        '--destructive-foreground': theme.destructiveForeground,
-                        '--border': theme.border,
-                        '--input': theme.input,
-                        '--ring': theme.ring,
-                        backgroundColor: `hsl(${theme.background})`,
-                        color: `hsl(${theme.foreground})`,
-                      } as React.CSSProperties}
-                    >
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Profile Card</CardTitle>
-                          <CardDescription>User profile information</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
-                              JD
-                            </div>
-                            <div>
-                              <p className="font-medium">John Doe</p>
-                              <p className="text-sm text-muted-foreground">Product Manager</p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                      
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Stats Card</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-2xl font-bold">$12,345</div>
-                          <p className="text-xs text-muted-foreground">+20.1% from last month</p>
-                          <div className="mt-2">
-                            <Badge variant="outline" className="text-green-600 border-green-600">+20.1%</Badge>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Product Card</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-3">
-                            <div className="w-full h-24 bg-muted rounded-md flex items-center justify-center">
-                              <span className="text-muted-foreground">Product Image</span>
-                            </div>
-                            <div>
-                              <h4 className="font-medium">Product Name</h4>
-                              <p className="text-sm text-muted-foreground">Short description</p>
-                              <p className="text-lg font-bold mt-1">$99.99</p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="forms" className="space-y-4 mt-6">
-                    <div 
-                      className="theme-preview p-6 rounded-lg"
-                      style={{
-                        '--primary': theme.primary,
-                        '--primary-foreground': theme.primaryForeground,
-                        '--secondary': theme.secondary,
-                        '--secondary-foreground': theme.secondaryForeground,
-                        '--accent': theme.accent,
-                        '--accent-foreground': theme.accentForeground,
-                        '--background': theme.background,
-                        '--foreground': theme.foreground,
-                        '--card': theme.card,
-                        '--card-foreground': theme.cardForeground,
-                        '--popover': theme.popover,
-                        '--popover-foreground': theme.popoverForeground,
-                        '--muted': theme.muted,
-                        '--muted-foreground': theme.mutedForeground,
-                        '--destructive': theme.destructive,
-                        '--destructive-foreground': theme.destructiveForeground,
-                        '--border': theme.border,
-                        '--input': theme.input,
-                        '--ring': theme.ring,
-                        backgroundColor: `hsl(${theme.background})`,
-                        color: `hsl(${theme.foreground})`,
-                      } as React.CSSProperties}
-                    >
-                    <div className="grid gap-6 md:grid-cols-2">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Login Form</CardTitle>
-                          <CardDescription>User authentication</CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
-                            <Input id="email" placeholder="Enter your email" />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
-                            <Input id="password" type="password" placeholder="Enter your password" />
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <input type="checkbox" id="remember" className="rounded" />
-                            <Label htmlFor="remember" className="text-sm">Remember me</Label>
-                          </div>
-                          <Button className="w-full">Sign In</Button>
-                          <Button variant="outline" className="w-full">Create Account</Button>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Contact Form</CardTitle>
-                          <CardDescription>Get in touch with us</CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="firstName">First Name</Label>
-                              <Input id="firstName" placeholder="John" />
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="lastName">Last Name</Label>
-                              <Input id="lastName" placeholder="Doe" />
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="contactEmail">Email</Label>
-                            <Input id="contactEmail" placeholder="john@example.com" />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="message">Message</Label>
-                            <textarea 
-                              id="message" 
-                              className="w-full p-3 border rounded-md bg-background" 
-                              rows={3} 
-                              placeholder="Your message..."
-                            />
-                          </div>
-                          <Button className="w-full">Send Message</Button>
-                        </CardContent>
-                      </Card>
-                    </div>
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="dashboard" className="space-y-6 mt-6">
-                    <div 
-                      className="theme-preview p-6 rounded-lg"
-                      style={{
-                        '--primary': theme.primary,
-                        '--primary-foreground': theme.primaryForeground,
-                        '--secondary': theme.secondary,
-                        '--secondary-foreground': theme.secondaryForeground,
-                        '--accent': theme.accent,
-                        '--accent-foreground': theme.accentForeground,
-                        '--background': theme.background,
-                        '--foreground': theme.foreground,
-                        '--card': theme.card,
-                        '--card-foreground': theme.cardForeground,
-                        '--popover': theme.popover,
-                        '--popover-foreground': theme.popoverForeground,
-                        '--muted': theme.muted,
-                        '--muted-foreground': theme.mutedForeground,
-                        '--destructive': theme.destructive,
-                        '--destructive-foreground': theme.destructiveForeground,
-                        '--border': theme.border,
-                        '--input': theme.input,
-                        '--ring': theme.ring,
-                        backgroundColor: `hsl(${theme.background})`,
-                        color: `hsl(${theme.foreground})`,
-                      } as React.CSSProperties}
-                    >
-                    {/* KPI Cards */}
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                      <Card>
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-2xl font-bold">$45,231.89</div>
-                          <p className="text-xs text-muted-foreground flex items-center">
-                            <span className="text-green-600 mr-1">↗ +20.1%</span>
-                            from last month
-                          </p>
-                        </CardContent>
-                      </Card>
-                      
-                      <Card>
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-2xl font-bold">+2,350</div>
-                          <p className="text-xs text-muted-foreground flex items-center">
-                            <span className="text-green-600 mr-1">↗ +180.1%</span>
-                            from last month
-                          </p>
-                        </CardContent>
-                      </Card>
-                      
-                      <Card>
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm font-medium">Sales</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-2xl font-bold">+12,234</div>
-                          <p className="text-xs text-muted-foreground flex items-center">
-                            <span className="text-green-600 mr-1">↗ +19%</span>
-                            from last month
-                          </p>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-2xl font-bold">8,432</div>
-                          <p className="text-xs text-muted-foreground flex items-center">
-                            <span className="text-red-600 mr-1">↘ -2.1%</span>
-                            from last month
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    {/* Dashboard Sections */}
-                    <div className="grid gap-6 md:grid-cols-2">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Recent Activity</CardTitle>
-                          <CardDescription>Latest user actions</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-3">
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-xs">
-                                  JD
-                                </div>
-                                <div>
-                                  <p className="text-sm font-medium">John Doe</p>
-                                  <p className="text-xs text-muted-foreground">Created new project</p>
-                                </div>
-                              </div>
-                              <Badge variant="outline">2m ago</Badge>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-secondary-foreground text-xs">
-                                  AS
-                                </div>
-                                <div>
-                                  <p className="text-sm font-medium">Alice Smith</p>
-                                  <p className="text-xs text-muted-foreground">Updated settings</p>
-                                </div>
-                              </div>
-                              <Badge variant="outline">5m ago</Badge>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center text-accent-foreground text-xs">
-                                  BJ
-                                </div>
-                                <div>
-                                  <p className="text-sm font-medium">Bob Johnson</p>
-                                  <p className="text-xs text-muted-foreground">Completed task</p>
-                                </div>
-                              </div>
-                              <Badge variant="outline">1h ago</Badge>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle>Quick Actions</CardTitle>
-                          <CardDescription>Common tasks</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-2 gap-3">
-                            <Button className="h-20 flex-col">
-                              <span className="text-lg mb-1">+</span>
-                              <span className="text-xs">New Project</span>
-                            </Button>
-                            <Button variant="outline" className="h-20 flex-col">
-                              <span className="text-lg mb-1">📊</span>
-                              <span className="text-xs">View Reports</span>
-                            </Button>
-                            <Button variant="secondary" className="h-20 flex-col">
-                              <span className="text-lg mb-1">👥</span>
-                              <span className="text-xs">Invite Users</span>
-                            </Button>
-                            <Button variant="ghost" className="h-20 flex-col">
-                              <span className="text-lg mb-1">⚙️</span>
-                              <span className="text-xs">Settings</span>
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
                     </div>
                   </TabsContent>
                 </Tabs>
@@ -1910,5 +2301,5 @@ export default function ThemingPage() {
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

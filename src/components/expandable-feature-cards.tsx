@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { RefObject, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { Badge } from "@/components/ui/cognite/badge";
+import { Button } from "@/components/ui/cognite/button";
+import { GlowingEffect } from "@/components/ui/cognite/glowing-effect";
 import { Palette, Code, Sparkles, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -24,7 +24,8 @@ const featureCards: FeatureCard[] = [
   {
     id: "theming",
     title: "Aurora lime theming",
-    description: "Dynamic color system with intelligent light/dark mode switching",
+    description:
+      "Dynamic color system with intelligent light/dark mode switching",
     icon: <Palette className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: "18 color palettes",
     ctaText: "Explore colors",
@@ -32,9 +33,10 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          The Aurora lime color system is the foundation of our design language. Built with intelligent 
-          theming capabilities, it automatically adapts to light, dark, and high-contrast modes while 
-          maintaining perfect accessibility standards.
+          The Aurora lime color system is the foundation of our design language.
+          Built with intelligent theming capabilities, it automatically adapts
+          to light, dark, and high-contrast modes while maintaining perfect
+          accessibility standards.
         </p>
         <div className="space-y-3">
           <h4 className="font-semibold text-foreground/90">Key Features:</h4>
@@ -62,19 +64,27 @@ const featureCards: FeatureCard[] = [
           </ul>
         </div>
         <div className="grid grid-cols-4 gap-2 mt-6">
-          {['Aurora lime', 'Glacier mist', 'Mountain fjord', 'Midnight'].map((color, i) => (
-            <div key={color} className="text-center">
-              <div className={`w-full h-8 rounded mb-1 ${
-                i === 0 ? 'bg-primary' : 
-                i === 1 ? 'bg-blue-500' : 
-                i === 2 ? 'bg-slate-500' : 'bg-zinc-800'
-              }`}></div>
-              <span className="text-xs text-foreground/60">{color}</span>
-            </div>
-          ))}
+          {["Aurora lime", "Glacier mist", "Mountain fjord", "Midnight"].map(
+            (color, i) => (
+              <div key={color} className="text-center">
+                <div
+                  className={`w-full h-8 rounded mb-1 ${
+                    i === 0
+                      ? "bg-primary"
+                      : i === 1
+                      ? "bg-blue-500"
+                      : i === 2
+                      ? "bg-slate-500"
+                      : "bg-zinc-800"
+                  }`}
+                ></div>
+                <span className="text-xs text-foreground/60">{color}</span>
+              </div>
+            )
+          )}
         </div>
       </div>
-    )
+    ),
   },
   {
     id: "components",
@@ -87,11 +97,14 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          Our component library is built on the solid foundation of ShadCN and Radix UI, 
-          providing accessible, composable, and customizable components that scale with your project.
+          Our component library is built on the solid foundation of ShadCN and
+          Radix UI, providing accessible, composable, and customizable
+          components that scale with your project.
         </p>
         <div className="space-y-3">
-          <h4 className="font-semibold text-foreground/90">Component Categories:</h4>
+          <h4 className="font-semibold text-foreground/90">
+            Component Categories:
+          </h4>
           <div className="grid grid-cols-2 gap-3 text-sm">
             <div className="space-y-2">
               <h5 className="font-medium text-foreground/80">Interactive</h5>
@@ -114,20 +127,31 @@ const featureCards: FeatureCard[] = [
           </div>
         </div>
         <div className="bg-muted/30 rounded-lg p-4 mt-6">
-          <h5 className="font-medium text-foreground/90 mb-2">Built with Modern Standards</h5>
+          <h5 className="font-medium text-foreground/90 mb-2">
+            Built with Modern Standards
+          </h5>
           <div className="flex flex-wrap gap-2">
-            {['TypeScript', 'Radix UI', 'Tailwind CSS', 'Framer Motion', 'React 18'].map((tech) => (
-              <Badge key={tech} variant="secondary" className="text-xs">{tech}</Badge>
+            {[
+              "TypeScript",
+              "Radix UI",
+              "Tailwind CSS",
+              "Framer Motion",
+              "React 18",
+            ].map((tech) => (
+              <Badge key={tech} variant="secondary" className="text-xs">
+                {tech}
+              </Badge>
             ))}
           </div>
         </div>
       </div>
-    )
+    ),
   },
   {
     id: "sandbox",
     title: "AI-powered sandbox",
-    description: "Generate custom components with AI assistance using your design system",
+    description:
+      "Generate custom components with AI assistance using your design system",
     icon: <Sparkles className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: "Gemini powered",
     ctaText: "Try sandbox",
@@ -135,12 +159,14 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          Our AI-powered sandbox leverages Google's Gemini AI to help you build custom components 
-          using your existing design system. Simply describe what you need, and watch as AI generates 
-          production-ready code.
+          Our AI-powered sandbox leverages Google&apos;s Gemini AI to help you build
+          custom components using your existing design system. Simply describe
+          what you need, and watch as AI generates production-ready code.
         </p>
         <div className="space-y-3">
-          <h4 className="font-semibold text-foreground/90">Sandbox Features:</h4>
+          <h4 className="font-semibold text-foreground/90">
+            Sandbox Features:
+          </h4>
           <ul className="space-y-2 text-sm text-foreground/70">
             <li className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
@@ -165,16 +191,18 @@ const featureCards: FeatureCard[] = [
           </ul>
         </div>
         <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 mt-6">
-          <h5 className="font-medium text-foreground/90 mb-2">Try These Examples</h5>
+          <h5 className="font-medium text-foreground/90 mb-2">
+            Try These Examples
+          </h5>
           <div className="space-y-2 text-sm text-foreground/70">
-            <p>"Create a pricing card with three tiers"</p>
-            <p>"Build a dashboard header with navigation"</p>
-            <p>"Generate a contact form with validation"</p>
+            <p>&quot;Create a pricing card with three tiers&quot;</p>
+            <p>&quot;Build a dashboard header with navigation&quot;</p>
+            <p>&quot;Generate a contact form with validation&quot;</p>
           </div>
         </div>
       </div>
-    )
-  }
+    ),
+  },
 ];
 
 export function ExpandableFeatureCards() {
@@ -199,7 +227,7 @@ export function ExpandableFeatureCards() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
-  useOutsideClick(ref, () => setActive(null));
+  useOutsideClick(ref as RefObject<HTMLElement>, () => setActive(null));
 
   return (
     <>
@@ -230,7 +258,7 @@ export function ExpandableFeatureCards() {
             >
               <X className="h-4 w-4" />
             </motion.button>
-            
+
             <motion.div
               layoutId={`card-${active.id}-${id}`}
               ref={ref}
@@ -240,10 +268,10 @@ export function ExpandableFeatureCards() {
               <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
                 <div className="p-6">
                   <div className="flex items-start gap-4">
-                    <motion.div 
+                    <motion.div
                       layoutId={`icon-${active.id}-${id}`}
                       className="w-12 h-12 rounded-lg bg-primary/20 backdrop-blur-sm border border-white/20 flex items-center justify-center flex-shrink-0"
-                      style={{ borderRadius: '4px' }}
+                      style={{ borderRadius: "4px" }}
                     >
                       {active.icon}
                     </motion.div>
@@ -261,7 +289,10 @@ export function ExpandableFeatureCards() {
                         {active.description}
                       </motion.p>
                       <motion.div layoutId={`badge-${active.id}-${id}`}>
-                        <Badge variant="secondary" className="bg-white/20 border-white/20 text-foreground/80 backdrop-blur-sm">
+                        <Badge
+                          variant="secondary"
+                          className="bg-white/20 border-white/20 text-foreground/80 backdrop-blur-sm"
+                        >
                           {active.badge}
                         </Badge>
                       </motion.div>
@@ -288,7 +319,10 @@ export function ExpandableFeatureCards() {
               <div className="p-6 border-t bg-muted/30">
                 <motion.div layoutId={`cta-${active.id}-${id}`}>
                   <Button asChild className="w-full">
-                    <Link href={active.ctaLink} className="flex items-center justify-center gap-2">
+                    <Link
+                      href={active.ctaLink}
+                      className="flex items-center justify-center gap-2"
+                    >
                       {active.ctaText}
                       <ArrowRight className="h-4 w-4" />
                     </Link>
@@ -318,32 +352,35 @@ export function ExpandableFeatureCards() {
               borderWidth={1}
               variant="default"
             />
-            
+
             <div className="p-6">
-              <motion.div 
+              <motion.div
                 layoutId={`icon-${card.id}-${id}`}
                 className="w-12 h-12 rounded bg-primary/20 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-4"
-                style={{ borderRadius: '4px' }}
+                style={{ borderRadius: "4px" }}
               >
                 {card.icon}
               </motion.div>
-              
+
               <motion.h3
                 layoutId={`title-${card.id}-${id}`}
                 className="text-foreground/90 font-semibold text-xl mb-2"
               >
                 {card.title}
               </motion.h3>
-              
+
               <motion.p
                 layoutId={`description-${card.id}-${id}`}
                 className="text-foreground/70 text-sm mb-4"
               >
                 {card.description}
               </motion.p>
-              
+
               <motion.div layoutId={`badge-${card.id}-${id}`}>
-                <Badge variant="secondary" className="bg-white/20 border-white/20 text-foreground/80 backdrop-blur-sm">
+                <Badge
+                  variant="secondary"
+                  className="bg-white/20 border-white/20 text-foreground/80 backdrop-blur-sm"
+                >
                   {card.badge}
                 </Badge>
               </motion.div>

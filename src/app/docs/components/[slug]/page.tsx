@@ -1,78 +1,83 @@
-import { notFound } from "next/navigation"
-import { promises as fs } from "fs"
-import path from "path"
-import matter from "gray-matter"
-import { MDXRemote } from "next-mdx-remote/rsc"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import Link from "next/link"
-import { ArrowLeft, Copy, ExternalLink } from "lucide-react"
+import { notFound } from "next/navigation";
+import { promises as fs } from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { Button } from "@/components/ui/cognite/button";
+import { Badge } from "@/components/ui/cognite/badge";
+import { Separator } from "@/components/ui/cognite/separator";
+import Link from "next/link";
+import { ArrowLeft, Copy, ExternalLink } from "lucide-react";
 
 interface ComponentPageProps {
   params: Promise<{
-    slug: string
-  }>
+    slug: string;
+  }>;
 }
 
 interface ComponentMeta {
-  component: string
-  description: string
-  llm_usage: string
+  component: string;
+  description: string;
+  llm_usage: string;
 }
 
 async function getComponentDoc(slug: string) {
   try {
-    const filePath = path.join(process.cwd(), "docs", "components", `${slug}.md`)
-    const fileContent = await fs.readFile(filePath, "utf8")
-    const { data, content } = matter(fileContent)
-    
+    const filePath = path.join(
+      process.cwd(),
+      "docs",
+      "components",
+      `${slug}.md`
+    );
+    const fileContent = await fs.readFile(filePath, "utf8");
+    const { data, content } = matter(fileContent);
+
     return {
       meta: data as ComponentMeta,
       content,
-    }
+    };
   } catch {
-    return null
+    return null;
   }
 }
 
 export async function generateStaticParams() {
-  const docsDir = path.join(process.cwd(), "docs", "components")
-  
+  const docsDir = path.join(process.cwd(), "docs", "components");
+
   try {
-    const files = await fs.readdir(docsDir)
-    const markdownFiles = files.filter(file => file.endsWith(".md"))
-    
+    const files = await fs.readdir(docsDir);
+    const markdownFiles = files.filter((file) => file.endsWith(".md"));
+
     return markdownFiles.map((file) => ({
       slug: file.replace(".md", ""),
-    }))
+    }));
   } catch {
-    return []
+    return [];
   }
 }
 
 export async function generateMetadata({ params }: ComponentPageProps) {
-  const { slug } = await params
-  const doc = await getComponentDoc(slug)
-  
+  const { slug } = await params;
+  const doc = await getComponentDoc(slug);
+
   if (!doc) {
     return {
       title: "Component Not Found",
-    }
+    };
   }
 
   return {
     title: `${doc.meta.component} Component - Documentation`,
     description: doc.meta.description,
-  }
+  };
 }
 
 export default async function ComponentPage({ params }: ComponentPageProps) {
-  const { slug } = await params
-  const doc = await getComponentDoc(slug)
+  const { slug } = await params;
+  const doc = await getComponentDoc(slug);
 
   if (!doc) {
-    notFound()
+    notFound();
   }
 
   // Get MDX components for rendering
@@ -81,7 +86,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     Button,
     Badge,
     // Add other components as needed
-  }
+  };
 
   return (
     <div className="px-3 py-8">
@@ -113,7 +118,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               </p>
             </div>
           </div>
-          
+
           {/* LLM Usage */}
           {doc.meta.llm_usage && (
             <div className="bg-muted/50 border border-muted-foreground/20 rounded-lg p-4">
@@ -122,7 +127,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <span className="text-xs font-mono text-primary">AI</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm mb-1">LLM Usage Guide</h3>
+                  <h3 className="font-semibold text-sm mb-1">
+                    LLM Usage Guide
+                  </h3>
                   <p className="text-sm text-muted-foreground">
                     {doc.meta.llm_usage}
                   </p>
@@ -157,5 +164,5 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

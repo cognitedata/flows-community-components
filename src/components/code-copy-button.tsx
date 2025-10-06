@@ -1,26 +1,31 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Copy, Check } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/cognite/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/cognite/tooltip";
+import { Copy, Check } from "lucide-react";
 
 interface CodeCopyButtonProps {
-  code: string
+  code: string;
 }
 
 export function CodeCopyButton({ code }: CodeCopyButtonProps) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy text: ', err)
+      console.error("Failed to copy text: ", err);
     }
-  }
+  };
 
   return (
     <TooltipProvider>
@@ -44,5 +49,5 @@ export function CodeCopyButton({ code }: CodeCopyButtonProps) {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  )
+  );
 }

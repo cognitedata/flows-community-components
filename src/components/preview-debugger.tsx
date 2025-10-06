@@ -1,106 +1,132 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { 
-  Bug, 
-  CheckCircle, 
-  AlertTriangle, 
-  Code, 
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/cognite/card";
+import { Button } from "@/components/ui/cognite/button";
+import { Badge } from "@/components/ui/cognite/badge";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/cognite/tabs";
+import {
+  Bug,
+  CheckCircle,
+  AlertTriangle,
+  Code,
   Zap,
-  RefreshCw
-} from "lucide-react"
+  RefreshCw,
+} from "lucide-react";
 
 interface PreviewDebuggerProps {
-  code: string
-  errors?: string[]
-  onRetry?: () => void
+  code: string;
+  errors?: string[];
+  onRetry?: () => void;
 }
 
 interface CodeAnalysis {
-  hasValidExport: boolean
-  componentName: string | null
-  imports: string[]
-  usedComponents: string[]
-  warnings: string[]
-  suggestions: string[]
+  hasValidExport: boolean;
+  componentName: string | null;
+  imports: string[];
+  usedComponents: string[];
+  warnings: string[];
+  suggestions: string[];
 }
 
-export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerProps) {
-  const [analysis, setAnalysis] = useState<CodeAnalysis | null>(null)
+export function PreviewDebugger({
+  code,
+  errors = [],
+  onRetry,
+}: PreviewDebuggerProps) {
+  const [analysis, setAnalysis] = useState<CodeAnalysis | null>(null);
 
   // Analyze the code for common issues and patterns
   useEffect(() => {
     if (!code.trim()) {
-      setAnalysis(null)
-      return
+      setAnalysis(null);
+      return;
     }
 
     const analyzeCode = (): CodeAnalysis => {
-      const lines = code.split('\n')
       const analysis: CodeAnalysis = {
         hasValidExport: false,
         componentName: null,
         imports: [],
         usedComponents: [],
         warnings: [],
-        suggestions: []
-      }
+        suggestions: [],
+      };
 
       // Check for export function
-      const exportMatch = code.match(/export\s+function\s+(\w+)/)
+      const exportMatch = code.match(/export\s+function\s+(\w+)/);
       if (exportMatch) {
-        analysis.hasValidExport = true
-        analysis.componentName = exportMatch[1]
+        analysis.hasValidExport = true;
+        analysis.componentName = exportMatch[1];
       } else {
-        analysis.warnings.push("No export function found")
-        analysis.suggestions.push("Add 'export function ComponentName() { ... }'")
+        analysis.warnings.push("No export function found");
+        analysis.suggestions.push(
+          "Add 'export function ComponentName() { ... }'"
+        );
       }
 
       // Extract imports
-      const importMatches = code.matchAll(/import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["']/g)
+      const importMatches = code.matchAll(
+        /import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["']/g
+      );
       for (const match of importMatches) {
-        const components = match[1].split(',').map(c => c.trim())
-        analysis.imports.push(...components)
+        const components = match[1].split(",").map((c) => c.trim());
+        analysis.imports.push(...components);
       }
 
       // Find used components
-      const componentRegex = /<(\w+)/g
-      const componentMatches = code.matchAll(componentRegex)
+      const componentRegex = /<(\w+)/g;
+      const componentMatches = code.matchAll(componentRegex);
       for (const match of componentMatches) {
         if (!analysis.usedComponents.includes(match[1])) {
-          analysis.usedComponents.push(match[1])
+          analysis.usedComponents.push(match[1]);
         }
       }
 
       // Check for missing imports
-      analysis.usedComponents.forEach(component => {
-        if (!analysis.imports.includes(component) && component !== 'div' && component !== 'span' && component !== 'p') {
-          analysis.warnings.push(`Component '${component}' may not be imported`)
-          analysis.suggestions.push(`Import ${component} from the appropriate UI library`)
+      analysis.usedComponents.forEach((component) => {
+        if (
+          !analysis.imports.includes(component) &&
+          component !== "div" &&
+          component !== "span" &&
+          component !== "p"
+        ) {
+          analysis.warnings.push(
+            `Component '${component}' may not be imported`
+          );
+          analysis.suggestions.push(
+            `Import ${component} from the appropriate UI library`
+          );
         }
-      })
+      });
 
       // Check for JSX structure
-      if (!code.includes('return')) {
-        analysis.warnings.push("No return statement found")
-        analysis.suggestions.push("Add 'return (' followed by your JSX")
+      if (!code.includes("return")) {
+        analysis.warnings.push("No return statement found");
+        analysis.suggestions.push("Add 'return (' followed by your JSX");
       }
 
       // Check for common patterns
-      if (code.includes('useState') && !analysis.imports.includes('useState')) {
-        analysis.warnings.push("useState used but not imported")
-        analysis.suggestions.push("useState is available as React.useState")
+      if (code.includes("useState") && !analysis.imports.includes("useState")) {
+        analysis.warnings.push("useState used but not imported");
+        analysis.suggestions.push("useState is available as React.useState");
       }
 
-      return analysis
-    }
+      return analysis;
+    };
 
-    setAnalysis(analyzeCode())
-  }, [code])
+    setAnalysis(analyzeCode());
+  }, [code]);
 
   if (!code.trim()) {
     return (
@@ -117,7 +143,7 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
           </p>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   return (
@@ -149,10 +175,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                       <AlertTriangle className="h-4 w-4 text-yellow-600" />
                     )}
                     <span className="text-sm">
-                      {analysis.hasValidExport 
-                        ? `Export found: ${analysis.componentName}` 
-                        : "No valid export function"
-                      }
+                      {analysis.hasValidExport
+                        ? `Export found: ${analysis.componentName}`
+                        : "No valid export function"}
                     </span>
                   </div>
                 </div>
@@ -163,7 +188,11 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     <h4 className="font-medium">Imported Components</h4>
                     <div className="flex flex-wrap gap-1">
                       {analysis.imports.map((imp, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {imp}
                         </Badge>
                       ))}
@@ -177,9 +206,13 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     <h4 className="font-medium">Components Used</h4>
                     <div className="flex flex-wrap gap-1">
                       {analysis.usedComponents.map((comp, index) => (
-                        <Badge 
-                          key={index} 
-                          variant={analysis.imports.includes(comp) ? "default" : "destructive"}
+                        <Badge
+                          key={index}
+                          variant={
+                            analysis.imports.includes(comp)
+                              ? "default"
+                              : "destructive"
+                          }
                           className="text-xs"
                         >
                           {comp}
@@ -195,7 +228,10 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     <h4 className="font-medium text-yellow-600">Warnings</h4>
                     <ul className="space-y-1">
                       {analysis.warnings.map((warning, index) => (
-                        <li key={index} className="text-xs text-muted-foreground flex items-center gap-2">
+                        <li
+                          key={index}
+                          className="text-xs text-muted-foreground flex items-center gap-2"
+                        >
                           <AlertTriangle className="h-3 w-3 text-yellow-600" />
                           {warning}
                         </li>
@@ -210,7 +246,10 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     <h4 className="font-medium text-blue-600">Suggestions</h4>
                     <ul className="space-y-1">
                       {analysis.suggestions.map((suggestion, index) => (
-                        <li key={index} className="text-xs text-muted-foreground flex items-center gap-2">
+                        <li
+                          key={index}
+                          className="text-xs text-muted-foreground flex items-center gap-2"
+                        >
                           <Zap className="h-3 w-3 text-blue-600" />
                           {suggestion}
                         </li>
@@ -226,7 +265,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
             {errors.length > 0 ? (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-medium text-destructive">Runtime Errors</h4>
+                  <h4 className="font-medium text-destructive">
+                    Runtime Errors
+                  </h4>
                   {onRetry && (
                     <Button variant="outline" size="sm" onClick={onRetry}>
                       <RefreshCw className="h-3 w-3 mr-1" />
@@ -236,7 +277,10 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                 </div>
                 <ul className="space-y-2">
                   {errors.map((error, index) => (
-                    <li key={index} className="p-3 bg-destructive/5 border border-destructive/20 rounded text-sm">
+                    <li
+                      key={index}
+                      className="p-3 bg-destructive/5 border border-destructive/20 rounded text-sm"
+                    >
                       {error}
                     </li>
                   ))}
@@ -245,7 +289,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
             ) : (
               <div className="text-center py-8">
                 <CheckCircle className="h-8 w-8 mx-auto text-green-600 mb-2" />
-                <p className="text-sm text-muted-foreground">No errors detected</p>
+                <p className="text-sm text-muted-foreground">
+                  No errors detected
+                </p>
               </div>
             )}
           </TabsContent>
@@ -255,7 +301,7 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
               <div>
                 <h4 className="font-medium mb-2">Component Format</h4>
                 <pre className="text-xs bg-muted p-3 rounded overflow-x-auto">
-{`export function MyComponent() {
+                  {`export function MyComponent() {
   return (
     <Card>
       <CardHeader>
@@ -282,7 +328,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     </ul>
                   </div>
                   <div>
-                    <p className="font-medium text-muted-foreground">Components</p>
+                    <p className="font-medium text-muted-foreground">
+                      Components
+                    </p>
                     <ul className="space-y-1">
                       <li>Button, Badge</li>
                       <li>Input, Label</li>
@@ -294,7 +342,8 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
               <div>
                 <h4 className="font-medium mb-2">React Hooks</h4>
                 <p className="text-xs text-muted-foreground">
-                  Use React.useState, React.useEffect, etc. for stateful components
+                  Use React.useState, React.useEffect, etc. for stateful
+                  components
                 </p>
               </div>
             </div>
@@ -302,5 +351,5 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
         </Tabs>
       </CardContent>
     </Card>
-  )
+  );
 }
