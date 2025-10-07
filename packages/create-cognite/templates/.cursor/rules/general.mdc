@@ -1,0 +1,9 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+Use the ShadCN MCP server to list the Cognite registry for components you can use. If there are no Cognite components fit for purpose, fallback to ShadCN registry ones. When building from reference, make sure to include all components in the reference material in your final build. Do not edit the styling of Cognite components.
+
+Run `pnpm lint` after your changes to make sure you have fixed all potential errors.

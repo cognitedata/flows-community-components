@@ -21,6 +21,7 @@ const navItems = [
   { href: "/blocks", label: "Blocks" },
   { href: "/sandbox", label: "Sandbox" },
   { href: "/eos", label: "Eos" },
+  { href: "/evaluations", label: "Evaluations" },
 ];
 
 function ThemeToggleGroup() {
