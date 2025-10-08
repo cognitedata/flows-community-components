@@ -14,8 +14,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
-import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, CheckCircle2, ChevronDown, Menu, Mic, Moon, Plus, Send, Settings, Shapes, Sun, SunMedium, BarChart3 } from "lucide-react"
+import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, RefreshCw, Moon, Plus, Shapes, Sun, BarChart3 } from "lucide-react"
 import { toast } from "sonner"
+import { format } from "date-fns"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Calendar } from "@/components/ui/calendar"
 
 type ChecklistItem = {
   id: string
@@ -29,7 +32,7 @@ export default function ShiftHandoverAppPage() {
   const [mounted, setMounted] = React.useState(false)
   React.useEffect(() => setMounted(true), [])
 
-  const [shiftDate, setShiftDate] = React.useState("")
+  const [shiftDate, setShiftDate] = React.useState<Date | undefined>(new Date())
   const [shiftType, setShiftType] = React.useState<"morning" | "day" | "night">("night")
   const [fromUser, setFromUser] = React.useState("Jerry Seinfeld")
   const [toUser, setToUser] = React.useState("George Costanza")
@@ -54,10 +57,8 @@ export default function ShiftHandoverAppPage() {
     ])
   }
 
-  const isValid = Boolean(shiftDate.trim() && fromUser && toUser)
-
   async function handleSubmit() {
-    if (!isValid) {
+    if (!shiftDate || !fromUser || !toUser) {
       toast.error("Please fill in the shift date and assignees")
       return
     }
@@ -196,21 +197,32 @@ export default function ShiftHandoverAppPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="handover-date" className="text-muted-foreground">Shift date</Label>
-                  <div className="relative">
-                    <Input
-                      id="handover-date"
-                      placeholder="MM/DD/YYYY"
-                      value={shiftDate}
-                      onChange={(e) => setShiftDate(e.target.value)}
-                      className="pr-8"
-                    />
-                    <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  </div>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <div className="relative">
+                        <Input
+                          id="handover-date"
+                          readOnly
+                          value={shiftDate ? format(shiftDate, "MM/dd/yyyy") : ""}
+                          className="pr-8 bg-transparent"
+                        />
+                        <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={shiftDate}
+                        onSelect={setShiftDate}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </div>
                 <div className="space-y-2">
                   <Label className="text-muted-foreground">Shift type</Label>
                   <Tabs value={shiftType} onValueChange={(v) => setShiftType(v as typeof shiftType)}>
-                    <TabsList className="grid grid-cols-3">
+                    <TabsList className="grid grid-cols-3 w-full">
                       <TabsTrigger value="morning">Morning</TabsTrigger>
                       <TabsTrigger value="day">Day</TabsTrigger>
                       <TabsTrigger value="night">Night</TabsTrigger>
@@ -224,7 +236,7 @@ export default function ShiftHandoverAppPage() {
                 <div className="space-y-2">
                   <Label className="text-muted-foreground">Handover from</Label>
                   <Select value={fromUser} onValueChange={setFromUser}>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full bg-transparent">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -237,7 +249,7 @@ export default function ShiftHandoverAppPage() {
                 <div className="space-y-2">
                   <Label className="text-muted-foreground">Handover to</Label>
                   <Select value={toUser} onValueChange={setToUser}>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full bg-transparent">
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
@@ -302,14 +314,34 @@ export default function ShiftHandoverAppPage() {
               </div>
 
               {/* Submit */}
-              <div className="pt-6">
+              <div className="pt-6 flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  onClick={() => {
+                    setShiftDate(new Date())
+                    setShiftType("night")
+                    setFromUser("Jerry Seinfeld")
+                    setToUser("George Costanza")
+                    setSummary("")
+                    setSafety("")
+                    setChecklistItems([
+                      { id: "walk", label: "Site walk-through", description: "", checked: true },
+                      { id: "logs", label: "Check equipment logs", description: "", checked: true },
+                      { id: "systems", label: "Confirm all critical systems are operational", description: "", checked: false },
+                    ])
+                  }}
+                >
+                  <RefreshCw className="mr-2 h-4 w-4" /> Clear form
+                </Button>
                 <Button
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
                   variant="default"
                   size="lg"
-                  className="w-full"
+                  className="flex-1"
                 >
                   <Check className="mr-2 h-4 w-4" /> {isSubmitting ? "Submitting..." : "Submit handover"}
                 </Button>
