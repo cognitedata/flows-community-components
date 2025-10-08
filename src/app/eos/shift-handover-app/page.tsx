@@ -307,7 +307,9 @@ export default function ShiftHandoverAppPage() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="w-full h-10 bg-[var(--ns-aurora-600)] text-[var(--ns-glacier-800)] hover:bg-[var(--ns-aurora-500)] disabled:opacity-60 disabled:cursor-not-allowed"
+                  variant="default"
+                  size="lg"
+                  className="w-full"
                 >
                   <Check className="mr-2 h-4 w-4" /> {isSubmitting ? "Submitting..." : "Submit handover"}
                 </Button>
