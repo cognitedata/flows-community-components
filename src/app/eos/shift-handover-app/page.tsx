@@ -319,6 +319,7 @@ export default function ShiftHandoverAppPage() {
                   type="button"
                   variant="outline"
                   size="lg"
+                  className="flex-1"
                   onClick={() => {
                     setShiftDate(new Date())
                     setShiftType("night")
