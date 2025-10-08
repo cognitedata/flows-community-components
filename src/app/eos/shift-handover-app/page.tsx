@@ -1,10 +1,332 @@
 "use client"
 
+import Image from "next/image"
+import React from "react"
+import { useTheme } from "next-themes"
+import Link from "next/link"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Separator } from "@/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
+import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, CheckCircle2, ChevronDown, Menu, Mic, Moon, Plus, Send, Settings, Shapes, Sun, SunMedium, BarChart3 } from "lucide-react"
+
+type ChecklistItem = {
+  id: string
+  label: string
+  description?: string
+  checked: boolean
+}
+
 export default function ShiftHandoverAppPage() {
+  const { theme, setTheme } = useTheme()
+
+  const [shiftDate, setShiftDate] = React.useState("")
+  const [shiftType, setShiftType] = React.useState<"morning" | "day" | "night">("night")
+  const [fromUser, setFromUser] = React.useState("Jerry Seinfeld")
+  const [toUser, setToUser] = React.useState("George Costanza")
+  const [summary, setSummary] = React.useState("")
+  const [safety, setSafety] = React.useState("")
+  const [checklistItems, setChecklistItems] = React.useState<ChecklistItem[]>([
+    { id: "walk", label: "Site walk-through", description: "", checked: true },
+    { id: "logs", label: "Check equipment logs", description: "", checked: true },
+    { id: "systems", label: "Confirm all critical systems are operational", description: "", checked: false },
+  ])
+
+  function toggleChecklistItem(id: string, checked: boolean) {
+    setChecklistItems((prev) => prev.map((item) => (item.id === id ? { ...item, checked } : item)))
+  }
+
+  function handleAddChecklistItem() {
+    const newId = `item-${Date.now()}`
+    setChecklistItems((prev) => [
+      ...prev,
+      { id: newId, label: "New checklist item", description: "Description", checked: false },
+    ])
+  }
+
+  const reports = [
+    {
+      id: "2025-10-08-night",
+      title: "8 October 2025",
+      submitted: "16:59",
+      body:
+        "All planned maintenance tasks were completed as scheduled. No abnormalities or delays reported during this shift. Equipment operating within normal parameters.",
+      badges: [
+        { text: "No issues", cls: "bg-emerald-900 text-emerald-200" },
+        { text: "8/8 items completed", cls: "bg-emerald-900 text-emerald-200" },
+      ],
+      headerIcon: <Sun className="h-4 w-4 text-indigo-300" />,
+    },
+    {
+      id: "2025-10-08-morning",
+      title: "8 October 2025",
+      submitted: "06:53",
+      body:
+        "Routine inspection of the hydraulic system was postponed due to limited access during ongoing operations. All other maintenance tasks were completed and verified.",
+      badges: [
+        { text: "1 issue", cls: "bg-amber-900 text-amber-300" },
+        { text: "7/8 items completed", cls: "bg-amber-900 text-amber-300" },
+      ],
+      headerIcon: <Shapes className="h-4 w-4 text-indigo-300" />,
+    },
+    {
+      id: "2025-10-07-night",
+      title: "7 October 2025",
+      submitted: "22:58",
+      body:
+        "Three critical issues were identified and addressed: a pressure anomaly on Pump B, a faulty valve actuator in the separator line, and a control system alarm related to tank level sensors. Temporary fixes applied and follow-up maintenance scheduled for next shift.",
+      badges: [
+        { text: "2 critical issues", cls: "bg-rose-900 text-rose-300" },
+        { text: "5/8 items completed", cls: "bg-amber-900 text-amber-300" },
+      ],
+      headerIcon: <AppWindow className="h-4 w-4 text-indigo-300" />,
+    },
+  ]
+
   return (
     <div className="min-h-screen">
+      {/* App top bar */}
+      <div className="w-full border-b border-border bg-background">
+        <div className="h-12 px-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Image src="/cognite-logo.png" alt="Cognite" width={32} height={32} className="rounded" />
+          </div>
+          <div className="hidden md:flex">
+            <Tabs defaultValue="apps">
+              <TabsList className="grid grid-cols-3">
+                <TabsTrigger value="overview" className="flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4" />
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger value="views" className="flex items-center gap-2">
+                  <Shapes className="h-4 w-4" />
+                  Views
+                </TabsTrigger>
+                <TabsTrigger value="apps" className="flex items-center gap-2">
+                  <AppWindow className="h-4 w-4" />
+                  App library
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Bell className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+            <Image src="/user-avatar.png" alt="User" width={28} height={28} className="rounded" />
+          </div>
+        </div>
+      </div>
+
+      {/* Secondary toolbar */}
+      <div className="w-full border-b border-border">
+        <div className="h-12 px-3 flex items-center gap-2">
+          <Link href="/eos" className="flex items-center">
+            <Button variant="ghost" size="sm" className="h-8 gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to apps
+            </Button>
+          </Link>
+          <Separator orientation="vertical" className="mx-1 h-4" />
+          <div className="flex items-center gap-1">
+            {[
+              "File",
+              "Edit",
+              "View",
+              "Profiles",
+              "Settings",
+            ].map((label) => (
+              <Button key={label} variant="ghost" size="sm" className="h-7 px-2">
+                {label}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div className="px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] gap-4">
+          {/* Left column: form */}
+          <div>
+            <div className="px-6 py-4">
+              <h2 className="text-lg font-medium">New shift handover</h2>
+            </div>
+            <div className="px-6 space-y-6">
+              {/* Row 1: date + shift type */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="handover-date" className="text-muted-foreground">Shift date</Label>
+                  <div className="relative">
+                    <Input
+                      id="handover-date"
+                      placeholder="MM/DD/YYYY"
+                      value={shiftDate}
+                      onChange={(e) => setShiftDate(e.target.value)}
+                      className="pr-8"
+                    />
+                    <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Shift type</Label>
+                  <Tabs value={shiftType} onValueChange={(v) => setShiftType(v as typeof shiftType)}>
+                    <TabsList className="grid grid-cols-3">
+                      <TabsTrigger value="morning">Morning</TabsTrigger>
+                      <TabsTrigger value="day">Day</TabsTrigger>
+                      <TabsTrigger value="night">Night</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+              </div>
+
+              {/* Row 2: from/to selects */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Handover from</Label>
+                  <Select value={fromUser} onValueChange={setFromUser}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Jerry Seinfeld">Jerry Seinfeld</SelectItem>
+                      <SelectItem value="Elaine Benes">Elaine Benes</SelectItem>
+                      <SelectItem value="Kramer">Kramer</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Handover to</Label>
+                  <Select value={toUser} onValueChange={setToUser}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="George Costanza">George Costanza</SelectItem>
+                      <SelectItem value="Newman">Newman</SelectItem>
+                      <SelectItem value="Frank Costanza">Frank Costanza</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Summary of work */}
+              <div className="space-y-2">
+                <Label className="text-muted-foreground">Summary of work</Label>
+                <Textarea
+                  placeholder="Describe work that was carried out."
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  className="min-h-[96px] resize-y"
+                />
+              </div>
+
+              {/* Safety concerns */}
+              <div className="space-y-2">
+                <Label className="text-muted-foreground">Safety concerns</Label>
+                <Textarea
+                  placeholder="Report any safety issues or near-misses."
+                  value={safety}
+                  onChange={(e) => setSafety(e.target.value)}
+                  className="min-h-[96px] resize-y"
+                />
+              </div>
+
+              {/* Checklist */}
+              <div className="space-y-4">
+                <div>
+                  <div className="text-sm font-medium">Handover checklist</div>
+                </div>
+                <div className="space-y-3">
+                  {checklistItems.map((item) => (
+                    <div key={item.id} className="flex items-start gap-3">
+                      <Checkbox
+                        id={`check-${item.id}`}
+                        checked={item.checked}
+                        onCheckedChange={(c) => toggleChecklistItem(item.id, Boolean(c))}
+                        className="mt-0.5"
+                      />
+                      <div className="flex-1">
+                        <Label htmlFor={`check-${item.id}`} className="leading-none">
+                          {item.label}
+                        </Label>
+                        {item.description ? (
+                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Button variant="secondary" size="sm" onClick={handleAddChecklistItem} className="gap-2">
+                  <Plus className="h-4 w-4" /> Add checklist item
+                </Button>
+              </div>
+
+              {/* Submit */}
+              <div className="pt-6">
+                <Button
+                  className="w-full h-10 bg-[var(--ns-aurora-600)] text-[var(--ns-glacier-800)] hover:bg-[var(--ns-aurora-500)]"
+                >
+                  <Check className="mr-2 h-4 w-4" /> Submit handover
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Vertical separator */}
+          <Separator orientation="vertical" className="hidden lg:block" />
+
+          {/* Right column: reports */}
+          <div className="px-6">
+            <div className="py-4">
+              <h2 className="text-lg font-medium">Handover reports</h2>
+            </div>
+            <div className="space-y-4">
+              {reports.map((report) => (
+                <Card key={report.id} className="bg-background/60">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="inline-flex h-5 w-5 items-center justify-center rounded bg-[var(--ns-glacier-900)]">
+                          {report.headerIcon}
+                        </div>
+                        <CardTitle className="text-base">{report.title}</CardTitle>
+                      </div>
+                      <Button variant="ghost" size="icon" className="h-7 w-7">⋮</Button>
+                    </div>
+                    <div className="text-xs text-muted-foreground">Submitted: {report.submitted}</div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="text-sm leading-6">{report.body}</p>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {report.badges.map((b, i) => (
+                        <Badge key={i} className={b.cls}>{b.text}</Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
+
 
 
