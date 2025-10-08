@@ -19,6 +19,7 @@ import { toast } from "sonner"
 import { format } from "date-fns"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Calendar } from "@/components/ui/calendar"
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 type ChecklistItem = {
   id: string
@@ -44,17 +45,24 @@ export default function ShiftHandoverAppPage() {
     { id: "systems", label: "Confirm all critical systems are operational", description: "", checked: false },
   ])
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false)
+  const [newChecklistLabel, setNewChecklistLabel] = React.useState("")
 
   function toggleChecklistItem(id: string, checked: boolean) {
     setChecklistItems((prev) => prev.map((item) => (item.id === id ? { ...item, checked } : item)))
   }
 
   function handleAddChecklistItem() {
+    setIsAddDialogOpen(true)
+  }
+
+  function confirmAddChecklistItem() {
+    const label = newChecklistLabel.trim()
+    if (!label) return
     const newId = `item-${Date.now()}`
-    setChecklistItems((prev) => [
-      ...prev,
-      { id: newId, label: "New checklist item", description: "Description", checked: false },
-    ])
+    setChecklistItems((prev) => [...prev, { id: newId, label, description: "", checked: false }])
+    setNewChecklistLabel("")
+    setIsAddDialogOpen(false)
   }
 
   async function handleSubmit() {
@@ -311,6 +319,36 @@ export default function ShiftHandoverAppPage() {
                 <Button variant="secondary" size="sm" onClick={handleAddChecklistItem} className="gap-2">
                   <Plus className="h-4 w-4" /> Add checklist item
                 </Button>
+
+                <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Add checklist item</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-2 py-2">
+                      <Label htmlFor="new-checklist-label">Label</Label>
+                      <Input
+                        id="new-checklist-label"
+                        autoFocus
+                        value={newChecklistLabel}
+                        onChange={(e) => setNewChecklistLabel(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault()
+                            confirmAddChecklistItem()
+                          }
+                        }}
+                        placeholder="e.g. Verify isolation valves"
+                      />
+                    </div>
+                    <DialogFooter>
+                      <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>Cancel</Button>
+                      <Button onClick={confirmAddChecklistItem} disabled={!newChecklistLabel.trim()}>
+                        Add
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
 
               {/* Submit */}
