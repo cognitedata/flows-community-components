@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
 import { TopbarVisibility } from "@/components/TopbarVisibility";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
               <Navigation />
             </TopbarVisibility>
             <main className="flex-1">{children}</main>
+            <Toaster richColors />
           </div>
         </ThemeProvider>
       </body>

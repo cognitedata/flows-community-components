@@ -15,6 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
 import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, CheckCircle2, ChevronDown, Menu, Mic, Moon, Plus, Send, Settings, Shapes, Sun, SunMedium, BarChart3 } from "lucide-react"
+import { toast } from "sonner"
 
 type ChecklistItem = {
   id: string
@@ -37,6 +38,7 @@ export default function ShiftHandoverAppPage() {
     { id: "logs", label: "Check equipment logs", description: "", checked: true },
     { id: "systems", label: "Confirm all critical systems are operational", description: "", checked: false },
   ])
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   function toggleChecklistItem(id: string, checked: boolean) {
     setChecklistItems((prev) => prev.map((item) => (item.id === id ? { ...item, checked } : item)))
@@ -48,6 +50,27 @@ export default function ShiftHandoverAppPage() {
       ...prev,
       { id: newId, label: "New checklist item", description: "Description", checked: false },
     ])
+  }
+
+  const isValid = Boolean(shiftDate.trim() && fromUser && toUser)
+
+  async function handleSubmit() {
+    if (!isValid) {
+      toast.error("Please fill in the shift date and assignees")
+      return
+    }
+    try {
+      setIsSubmitting(true)
+      const completed = checklistItems.filter((i) => i.checked).length
+      const total = checklistItems.length
+      // Simulate submit
+      await new Promise((r) => setTimeout(r, 400))
+      toast.success("Handover submitted", {
+        description: `${completed}/${total} checklist items completed`,
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const reports = [
@@ -279,9 +302,12 @@ export default function ShiftHandoverAppPage() {
               {/* Submit */}
               <div className="pt-6">
                 <Button
-                  className="w-full h-10 bg-[var(--ns-aurora-600)] text-[var(--ns-glacier-800)] hover:bg-[var(--ns-aurora-500)]"
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={!isValid || isSubmitting}
+                  className="w-full h-10 bg-[var(--ns-aurora-600)] text-[var(--ns-glacier-800)] hover:bg-[var(--ns-aurora-500)] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <Check className="mr-2 h-4 w-4" /> Submit handover
+                  <Check className="mr-2 h-4 w-4" /> {isSubmitting ? "Submitting..." : "Submit handover"}
                 </Button>
               </div>
             </div>
