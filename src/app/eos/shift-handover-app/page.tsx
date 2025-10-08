@@ -14,7 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Separator } from "@/components/ui/separator"
 import { Badge } from "@/components/ui/badge"
-import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, RefreshCw, Moon, Plus, Shapes, Sun, BarChart3 } from "lucide-react"
+import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, RefreshCw, Moon, Plus, Shapes, Sun, BarChart3, CircleCheck, CircleAlert, OctagonAlert } from "lucide-react"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -92,8 +92,8 @@ export default function ShiftHandoverAppPage() {
       body:
         "All planned maintenance tasks were completed as scheduled. No abnormalities or delays reported during this shift. Equipment operating within normal parameters.",
       badges: [
-        { text: "No issues", cls: "bg-emerald-900 text-emerald-200" },
-        { text: "8/8 items completed", cls: "bg-emerald-900 text-emerald-200" },
+        { text: "No issues", cls: "bg-emerald-900 text-emerald-200", icon: CircleCheck },
+        { text: "8/8 items completed", cls: "bg-emerald-900 text-emerald-200", icon: CircleCheck },
       ],
       headerIcon: <Sun className="h-4 w-4 text-indigo-300" />,
     },
@@ -104,8 +104,8 @@ export default function ShiftHandoverAppPage() {
       body:
         "Routine inspection of the hydraulic system was postponed due to limited access during ongoing operations. All other maintenance tasks were completed and verified.",
       badges: [
-        { text: "1 issue", cls: "bg-amber-900 text-amber-300" },
-        { text: "7/8 items completed", cls: "bg-amber-900 text-amber-300" },
+        { text: "1 issue", cls: "bg-amber-900 text-amber-300", icon: CircleAlert },
+        { text: "7/8 items completed", cls: "bg-amber-900 text-amber-300", icon: CircleCheck },
       ],
       headerIcon: <Shapes className="h-4 w-4 text-indigo-300" />,
     },
@@ -116,8 +116,8 @@ export default function ShiftHandoverAppPage() {
       body:
         "Three critical issues were identified and addressed: a pressure anomaly on Pump B, a faulty valve actuator in the separator line, and a control system alarm related to tank level sensors. Temporary fixes applied and follow-up maintenance scheduled for next shift.",
       badges: [
-        { text: "2 critical issues", cls: "bg-rose-900 text-rose-300" },
-        { text: "5/8 items completed", cls: "bg-amber-900 text-amber-300" },
+        { text: "2 critical issues", cls: "bg-rose-900 text-rose-300", icon: OctagonAlert },
+        { text: "5/8 items completed", cls: "bg-amber-900 text-amber-300", icon: CircleCheck },
       ],
       headerIcon: <AppWindow className="h-4 w-4 text-indigo-300" />,
     },
@@ -414,9 +414,15 @@ export default function ShiftHandoverAppPage() {
                   <CardContent className="space-y-3">
                     <p className="text-sm leading-6">{report.body}</p>
                     <div className="flex flex-wrap gap-2 pt-1">
-                      {report.badges.map((b, i) => (
-                        <Badge key={i} className={b.cls}>{b.text}</Badge>
-                      ))}
+                      {report.badges.map((b, i) => {
+                        const Icon = b.icon as React.ElementType | undefined
+                        return (
+                          <Badge key={i} className={b.cls}>
+                            {Icon ? <Icon className="h-3 w-3" /> : null}
+                            {b.text}
+                          </Badge>
+                        )
+                      })}
                     </div>
                   </CardContent>
                 </Card>
