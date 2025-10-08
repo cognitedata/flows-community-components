@@ -184,8 +184,8 @@ export default function ShiftHandoverAppPage() {
       </div>
 
       {/* Main content */}
-      <div className="px-4 pt-0 pb-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] gap-4">
+      <div className="px-4 pt-0 pb-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] gap-4 min-h-[calc(100vh-96px)]">
           {/* Left column: form */}
           <div>
             <div className="px-6 py-4">
@@ -318,7 +318,7 @@ export default function ShiftHandoverAppPage() {
           </div>
 
           {/* Vertical separator */}
-          <Separator orientation="vertical" className="hidden lg:block" />
+          <Separator orientation="vertical" className="hidden lg:block h-full" />
 
           {/* Right column: reports */}
           <div className="px-6">
