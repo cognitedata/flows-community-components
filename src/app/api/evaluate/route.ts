@@ -16,33 +16,35 @@ import { shiftApp } from "@/lib/evaluations/shift-app";
 import { getComponentsPrompt } from "@/lib/ai/get-components.prompt";
 import { getComponentTool } from "@/lib/ai/tools/get-component.tool";
 
-export type EvaluationUIMessage = UIMessage<{
-  status: {
-    message: string;
-    status: "running-evaluation" | "done";
-  };
-  generatedCode: {
-    code: string;
-  };
-}>;
+const convertImageToBase64 = async (imagePath: string) => {
+  const response = await fetch(imagePath);
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch image: ${response.status} ${response.statusText}`
+    );
+  }
+
+  const buffer = Buffer.from(await response.arrayBuffer());
+
+  return `data:image/png;base64,${buffer.toString("base64")}`;
+};
+
+export type EvaluationUIMessage = UIMessage<
+  never,
+  {
+    status: {
+      message: string;
+      status: "running-evaluation" | "done";
+    };
+    "generated-code": {
+      code: string;
+    };
+  }
+>;
 
 export async function POST(request: NextRequest) {
   const criteria = await db.select().from(criteriaTable);
-
-  const system = `
-You are an impartial UI code reviewer. Compare the candidate code to the reference implementation and highlight key differences, missing elements, and any improvements.
-
-Return a concise evaluation with the following sections:
-- Summary: brief overview of how closely the candidate matches the reference.
-- Missing Elements: bullet list of notable components or behaviours absent in the candidate.
-- Divergences: bullet list of structural or stylistic differences.
-- Suggestions: bullet list of the most important adjustments the candidate should make.
-
-Criteria:
-${criteria
-  .map((criterion) => `${criterion.name}: ${criterion.description}`)
-  .join("\n")}
-`;
 
   const stream = createUIMessageStream<EvaluationUIMessage>({
     execute: async ({ writer }) => {
@@ -67,9 +69,11 @@ ${criteria
                 text: getComponentsPrompt,
               },
               {
-                url: `${
-                  process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
-                }/evaluations/benchmark-1.png"`,
+                url: await convertImageToBase64(
+                  `${
+                    process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+                  }/evaluations/benchmark-1.png`
+                ),
                 type: "file",
                 filename: "benchmark-1.png",
                 mediaType: "image/png",
@@ -80,7 +84,7 @@ ${criteria
         tools: {
           getComponent: getComponentTool,
         },
-        stopWhen: stepCountIs(5),
+        stopWhen: stepCountIs(15),
       });
 
       writer.write({
@@ -107,7 +111,22 @@ ${criteria
             reasoningEffort: "low",
           },
         },
-        system,
+        system: `
+You are an impartial UI code reviewer. Compare the candidate code to the reference implementation and highlight key differences, missing elements, and any improvements.
+
+Return a concise evaluation with the following sections:
+- Summary: brief overview of how closely the candidate matches the reference.
+- Missing Elements: bullet list of notable components or behaviours absent in the candidate.
+- Divergences: bullet list of structural or stylistic differences.
+- Suggestions: bullet list of the most important adjustments the candidate should make.
+
+Criteria to evaluate:
+${criteria
+  .map((criterion) => `${criterion.name}: ${criterion.description}`)
+  .join("\n")}
+
+  Return each criteria in it's own section header with a conclusion. Score each criterion out of 5 and give an average score at the end.
+`,
         messages: convertToModelMessages([
           {
             role: "user",
@@ -123,7 +142,7 @@ Reference code (shift-app.ts):\n\`\`\`tsx\n${shiftApp}\n\`\`\`
             ],
           },
         ]),
-        stopWhen: stepCountIs(5),
+        stopWhen: stepCountIs(15),
       });
 
       writer.merge(result.toUIMessageStream());
