@@ -26,6 +26,8 @@ type ChecklistItem = {
 
 export default function ShiftHandoverAppPage() {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
 
   const [shiftDate, setShiftDate] = React.useState("")
   const [shiftType, setShiftType] = React.useState<"morning" | "day" | "night">("night")
@@ -148,7 +150,7 @@ export default function ShiftHandoverAppPage() {
               className="h-8 w-8"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {mounted ? (theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />) : <Sun className="h-4 w-4" />}
             </Button>
             <Image src="/user-avatar.png" alt="User" width={28} height={28} className="rounded" />
           </div>
@@ -304,7 +306,7 @@ export default function ShiftHandoverAppPage() {
                 <Button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={!isValid || isSubmitting}
+                  disabled={isSubmitting}
                   className="w-full h-10 bg-[var(--ns-aurora-600)] text-[var(--ns-glacier-800)] hover:bg-[var(--ns-aurora-500)] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Check className="mr-2 h-4 w-4" /> {isSubmitting ? "Submitting..." : "Submit handover"}
