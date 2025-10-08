@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
+import { TopbarVisibility } from "@/components/TopbarVisibility";
+import { Toaster } from "@/components/ui/cognite/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,8 +39,11 @@ export default function RootLayout({
           themes={["light", "dark", "contrast"]}
         >
           <div className="relative flex min-h-screen flex-col">
-            <Navigation />
+            <TopbarVisibility>
+              <Navigation />
+            </TopbarVisibility>
             <main className="flex-1">{children}</main>
+            <Toaster richColors />
           </div>
         </ThemeProvider>
       </body>
