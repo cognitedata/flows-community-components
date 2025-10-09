@@ -65,6 +65,7 @@ export default function EvaluationRunner() {
       <div className="flex flex-col gap-4 size-full">
         <div className="flex flex-col gap-2">
           <Button
+            type="button"
             onClick={handleRunEvaluation}
             disabled={status === "streaming" || status === "submitted"}
           >
@@ -98,8 +99,8 @@ export default function EvaluationRunner() {
                 </span>
               </button>
             </div>
-            <pre className="px-3 overflow-auto whitespace-pre-wrap text-sm">
-              <code>{shiftApp}</code>
+            <pre className="px-3 overflow-auto whitespace-pre-wrap text-sm p-3 border border-gray-200 rounded-lg bg-gray-800">
+              {shiftApp}
             </pre>
           </div>
 
@@ -166,9 +167,8 @@ export default function EvaluationRunner() {
                         case "data-generated-code":
                           return (
                             <div key={`${message.id}-${i}`}>
-                              <p>{part.data.code}</p>
-                              <pre className="px-3 overflow-auto whitespace-pre-wrap text-sm">
-                                <code>{part.data.code}</code>
+                              <pre className="px-3 overflow-auto whitespace-pre-wrap text-sm p-3 border border-gray-200 rounded-lg bg-gray-800">
+                                {part.data.code}
                               </pre>
                             </div>
                           );

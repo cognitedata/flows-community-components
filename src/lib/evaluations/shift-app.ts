@@ -1,621 +1,438 @@
 export const shiftApp = `
-  "use client";
+  "use client"
 
-  import { useState } from "react";
-  import { Button } from "@/components/ui/cognite/button";
-  import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/cognite/card";
-  import { Input } from "@/components/ui/cognite/input";
-  import { Textarea } from "@/components/ui/cognite/textarea";
-  import { Checkbox } from "@/components/ui/cognite/checkbox";
-  import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/cognite/select";
-  import { Badge } from "@/components/ui/cognite/badge";
-  import { Separator } from "@/components/ui/cognite/separator";
+import Image from "next/image"
+import React from "react"
+import { useTheme } from "next-themes"
+import Link from "next/link"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/cognite/tabs"
+import { Button } from "@/components/ui/cognite/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/cognite/card"
+import { Input } from "@/components/ui/cognite/input"
+import { Label } from "@/components/ui/cognite/label"
+import { Textarea } from "@/components/ui/cognite/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/cognite/select"
+import { Checkbox } from "@/components/ui/cognite/checkbox"
+import { Separator } from "@/components/ui/cognite/separator"
+import { Badge } from "@/components/ui/cognite/badge"
+import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, RefreshCw, Moon, Plus, Shapes, Sun, BarChart3, CircleCheck, CircleAlert, OctagonAlert } from "lucide-react"
+import { toast } from "sonner"
+import { format } from "date-fns"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/cognite/popover"
+import { Calendar } from "@/components/ui/cognite/calendar"
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/cognite/dialog"
 
-  // Icons (using simple SVG icons for now)
-  const BackArrow = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="m15 18-6-6 6-6" />
-    </svg>
-  );
+type ChecklistItem = {
+  id: string
+  label: string
+  description?: string
+  checked: boolean
+}
 
-  const WaveformIcon = () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <rect x="2" y="4" width="3" height="16" rx="1.5" />
-      <rect x="7" y="8" width="3" height="8" rx="1.5" />
-      <rect x="12" y="2" width="3" height="20" rx="1.5" />
-      <rect x="17" y="6" width="3" height="12" rx="1.5" />
-    </svg>
-  );
+export default function ShiftHandoverAppPage() {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
 
-  const BarChartIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M3 3v18h18" />
-      <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
-    </svg>
-  );
+  const [shiftDate, setShiftDate] = React.useState<Date | undefined>(new Date())
+  const [shiftType, setShiftType] = React.useState<"morning" | "day" | "night">("night")
+  const [fromUser, setFromUser] = React.useState("Jerry Seinfeld")
+  const [toUser, setToUser] = React.useState("George Costanza")
+  const [summary, setSummary] = React.useState("")
+  const [safety, setSafety] = React.useState("")
+  const [checklistItems, setChecklistItems] = React.useState<ChecklistItem[]>([
+    { id: "walk", label: "Site walk-through", description: "", checked: true },
+    { id: "logs", label: "Check equipment logs", description: "", checked: true },
+    { id: "systems", label: "Confirm all critical systems are operational", description: "", checked: false },
+  ])
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [isAddDialogOpen, setIsAddDialogOpen] = React.useState(false)
+  const [newChecklistLabel, setNewChecklistLabel] = React.useState("")
 
-  const CompassIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z" />
-    </svg>
-  );
+  function toggleChecklistItem(id: string, checked: boolean) {
+    setChecklistItems((prev) => prev.map((item) => (item.id === id ? { ...item, checked } : item)))
+  }
 
-  const GridIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <rect x="3" y="3" width="7" height="7" />
-      <rect x="14" y="3" width="7" height="7" />
-      <rect x="14" y="14" width="7" height="7" />
-      <rect x="3" y="14" width="7" height="7" />
-    </svg>
-  );
+  function handleAddChecklistItem() {
+    setIsAddDialogOpen(true)
+  }
 
-  const BellIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-    </svg>
-  );
+  function confirmAddChecklistItem() {
+    const label = newChecklistLabel.trim()
+    if (!label) return
+    const newId = \`item-\${Date.now()}\`
+    setChecklistItems((prev) => [...prev, { id: newId, label, description: "", checked: false }])
+    setNewChecklistLabel("")
+    setIsAddDialogOpen(false)
+  }
 
-  const SunIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <circle cx="12" cy="12" r="5" />
-      <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
-    </svg>
-  );
+  async function handleSubmit() {
+    if (!shiftDate || !fromUser || !toUser) {
+      toast.error("Please fill in the shift date and assignees")
+      return
+    }
+    try {
+      setIsSubmitting(true)
+      const completed = checklistItems.filter((i) => i.checked).length
+      const total = checklistItems.length
+      // Simulate submit
+      await new Promise((r) => setTimeout(r, 400))
+      toast.success("Handover submitted", {
+        description: \`\${completed}/\${total} checklist items completed\`,
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
-  const UserIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
+  const reports = [
+    {
+      id: "2025-10-08-night",
+      title: "8 October 2025",
+      submitted: "16:59",
+      body:
+        "All planned maintenance tasks were completed as scheduled. No abnormalities or delays reported during this shift. Equipment operating within normal parameters.",
+      badges: [
+        { text: "No issues", cls: "bg-emerald-950 text-emerald-300", icon: CircleCheck },
+        { text: "8/8 items completed", cls: "bg-emerald-950 text-emerald-300", icon: CircleCheck },
+      ],
+      headerIcon: <Sun className="h-4 w-4 text-indigo-300" />,
+    },
+    {
+      id: "2025-10-08-morning",
+      title: "8 October 2025",
+      submitted: "06:53",
+      body:
+        "Routine inspection of the hydraulic system was postponed due to limited access during ongoing operations. All other maintenance tasks were completed and verified.",
+      badges: [
+        { text: "1 issue", cls: "bg-amber-950 text-amber-300", icon: CircleAlert },
+        { text: "7/8 items completed", cls: "bg-amber-950 text-amber-300", icon: CircleCheck },
+      ],
+      headerIcon: <Shapes className="h-4 w-4 text-indigo-300" />,
+    },
+    {
+      id: "2025-10-07-night",
+      title: "7 October 2025",
+      submitted: "22:58",
+      body:
+        "Three critical issues were identified and addressed: a pressure anomaly on Pump B, a faulty valve actuator in the separator line, and a control system alarm related to tank level sensors. Temporary fixes applied and follow-up maintenance scheduled for next shift.",
+      badges: [
+        { text: "2 critical issues", cls: "bg-rose-950 text-rose-300", icon: OctagonAlert },
+        { text: "5/8 items completed", cls: "bg-amber-950 text-amber-300", icon: CircleCheck },
+      ],
+      headerIcon: <AppWindow className="h-4 w-4 text-indigo-300" />,
+    },
+  ]
 
-  const CalendarIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-    </svg>
-  );
-
-  const ChevronDownIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-
-  const PlusIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M12 5v14M5 12h14" />
-    </svg>
-  );
-
-  const CheckIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-
-  const MoreVerticalIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="12" cy="5" r="1" />
-      <circle cx="12" cy="19" r="1" />
-    </svg>
-  );
-
-  const CheckCircleIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-      <path d="m9 11 3 3L22 4" />
-    </svg>
-  );
-
-  const AlertTriangleIcon = () => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-      <path d="M12 9v4" />
-      <path d="M12 17h.01" />
-    </svg>
-  );
-
-  export default function ShiftHandoverPage() {
-    const [shiftType, setShiftType] = useState("Night");
-    const [checklistItems, setChecklistItems] = useState([
-      { id: 1, text: "Site walk-through", checked: true },
-      { id: 2, text: "Check equipment logs", checked: true },
-      {
-        id: 3,
-        text: "Confirm all critical systems are operational",
-        checked: false,
-      },
-    ]);
-
-    const addChecklistItem = () => {
-      const newItem = {
-        id: checklistItems.length + 1,
-        text: "New checklist item",
-        checked: false,
-      };
-      setChecklistItems([...checklistItems, newItem]);
-    };
-
-    const toggleChecklistItem = (id: number) => {
-      setChecklistItems(
-        checklistItems.map((item) =>
-          item.id === id ? { ...item, checked: !item.checked } : item
-        )
-      );
-    };
-
-    return (
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Left side */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <WaveformIcon />
-                <BackArrow />
-                <span className="text-sm text-gray-600">Back to apps</span>
-              </div>
-              <div className="flex items-center space-x-6 text-sm text-gray-600">
-                <span>File</span>
-                <span>Edit</span>
-                <span>View</span>
-                <span>Profiles</span>
-                <span>Settings</span>
-              </div>
-            </div>
-
-            {/* Center navigation */}
-            <div className="flex items-center space-x-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-2"
-              >
-                <BarChartIcon />
-                <span>Dashboard</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-2"
-              >
-                <CompassIcon />
-                <span>Explore</span>
-              </Button>
-              <Button
-                size="sm"
-                className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700"
-              >
-                <GridIcon />
-                <span>Apps</span>
-              </Button>
-            </div>
-
-            {/* Right side */}
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm">
-                <BellIcon />
-              </Button>
-              <Button variant="ghost" size="sm">
-                <SunIcon />
-              </Button>
-              <Button variant="ghost" size="sm">
-                <UserIcon />
-              </Button>
-            </div>
+  return (
+    <div className="min-h-screen">
+      {/* App top bar */}
+      <div className="w-full border-b border-border bg-background">
+        <div className="h-12 px-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <Image src="/cognite-logo.png" alt="Cognite" width={32} height={32} className="rounded" />
           </div>
-        </header>
-
-        {/* Main content */}
-        <div className="flex h-[calc(100vh-73px)]">
-          {/* Left Panel - New shift handover */}
-          <div className="flex-1 p-6">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>New shift handover</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {/* Shift Date */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
-                    Shift date
-                  </label>
-                  <div className="relative">
-                    <Input placeholder="MM/DD/YYYY" />
-                    <CalendarIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  </div>
-                </div>
-
-                {/* Shift Type */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
-                    Shift type
-                  </label>
-                  <div className="flex space-x-1 p-1 bg-gray-100 rounded-lg">
-                    {["Morning", "Midday", "Night"].map((type) => (
-                      <Button
-                        key={type}
-                        variant={shiftType === type ? "default" : "ghost"}
-                        size="sm"
-                        onClick={() => setShiftType(type)}
-                        className={\`flex-1 \${cn(
-                          shiftType === type
-                            ? "bg-blue-600 text-white hover:bg-blue-700"
-                            : "text-gray-600 hover:text-gray-900"
-                        }\`}
-                      >
-                        {type}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Handover from */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
-                    Handover from
-                  </label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Jerry Seinfeld" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="jerry">Jerry Seinfeld</SelectItem>
-                      <SelectItem value="george">George Costanza</SelectItem>
-                      <SelectItem value="elaine">Elaine Benes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Handover to */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
-                    Handover to
-                  </label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="George Costanza" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="jerry">Jerry Seinfeld</SelectItem>
-                      <SelectItem value="george">George Costanza</SelectItem>
-                      <SelectItem value="elaine">Elaine Benes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Summary of work */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
-                    Summary of work
-                  </label>
-                  <Textarea
-                    placeholder="Describe work that was carried out."
-                    className="min-h-[100px] resize-y"
-                  />
-                </div>
-
-                {/* Safety concerns */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">
-                    Safety concerns
-                  </label>
-                  <Textarea
-                    placeholder="Report any safety issues or near-misses."
-                    className="min-h-[100px] resize-y"
-                  />
-                </div>
-
-                {/* Handover checklist */}
-                <div className="space-y-4">
-                  <label className="text-sm font-medium text-gray-700">
-                    Handover checklist
-                  </label>
-                  <div className="space-y-3">
-                    {checklistItems.map((item) => (
-                      <div key={item.id} className="flex items-start space-x-3">
-                        <Checkbox
-                          checked={item.checked}
-                          onCheckedChange={() => toggleChecklistItem(item.id)}
-                        />
-                        <div className="flex-1">
-                          <span className="text-sm">{item.text}</span>
-                          <div className="text-xs text-gray-500 mt-1">
-                            Description
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={addChecklistItem}
-                    className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                  >
-                    <PlusIcon />
-                    <span className="ml-2">Add checklist item</span>
-                  </Button>
-                </div>
-
-                {/* Submit button */}
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                  <CheckIcon />
-                  <span className="ml-2">Submit handover</span>
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="hidden md:flex">
+            <Tabs defaultValue="apps">
+              <TabsList className="grid grid-cols-3">
+                <TabsTrigger value="overview" className="flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4" />
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger value="views" className="flex items-center gap-2">
+                  <Shapes className="h-4 w-4" />
+                  Views
+                </TabsTrigger>
+                <TabsTrigger value="apps" className="flex items-center gap-2">
+                  <AppWindow className="h-4 w-4" />
+                  App library
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
-
-          {/* Right Panel - Handover reports */}
-          <div className="w-96 p-6">
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle>Handover reports</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Report 1 */}
-                <Card className="border border-gray-200">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <CheckCircleIcon className="text-green-600" />
-                        <Badge
-                          variant="secondary"
-                          className="bg-green-100 text-green-800"
-                        >
-                          No issues
-                        </Badge>
-                        <span className="text-sm font-medium">Night shift</span>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        <MoreVerticalIcon />
-                      </Button>
-                    </div>
-                    <div className="text-xs text-gray-500 mb-3">
-                      21/09/2025 04:55
-                    </div>
-                    <div className="border-2 border-dashed border-gray-300 rounded p-4 mb-3 min-h-[60px]">
-                      {/* Report details placeholder */}
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Report 2 */}
-                <Card className="border border-gray-200">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <AlertTriangleIcon className="text-orange-600" />
-                        <Badge
-                          variant="secondary"
-                          className="bg-orange-100 text-orange-800"
-                        >
-                          1 warning
-                        </Badge>
-                        <span className="text-sm font-medium">Midday shift</span>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        <MoreVerticalIcon />
-                      </Button>
-                    </div>
-                    <div className="text-xs text-gray-500 mb-3">
-                      20/09/2025 19:02
-                    </div>
-                    <div className="border-2 border-dashed border-gray-300 rounded p-4 mb-3 min-h-[60px]">
-                      {/* Report details placeholder */}
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Report 3 */}
-                <Card className="border border-gray-200">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <GridIcon className="text-gray-600" />
-                        <span className="text-sm font-medium">Morning shift</span>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        <MoreVerticalIcon />
-                      </Button>
-                    </div>
-                    <div className="text-xs text-gray-500 mb-3">
-                      20/09/2025 05:52
-                    </div>
-                    <div className="border-2 border-dashed border-gray-300 rounded p-4 mb-3 min-h-[60px]">
-                      {/* Report details placeholder */}
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Report 4 */}
-                <Card className="border border-gray-200">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <CheckCircleIcon className="text-green-600" />
-                        <Badge
-                          variant="secondary"
-                          className="bg-green-100 text-green-800"
-                        >
-                          No issues
-                        </Badge>
-                        <span className="text-sm font-medium">Night shift</span>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        <MoreVerticalIcon />
-                      </Button>
-                    </div>
-                    <div className="text-xs text-gray-500 mb-3">
-                      20/09/2025 04:55
-                    </div>
-                    <div className="border-2 border-dashed border-gray-300 rounded p-4 mb-3 min-h-[60px]">
-                      {/* Report details placeholder */}
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <GridIcon />
-                        <span className="ml-2">Button</span>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CardContent>
-            </Card>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Bell className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {mounted ? (theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />) : <Sun className="h-4 w-4" />}
+            </Button>
+            <Image src="/user-avatar.png" alt="User" width={28} height={28} className="rounded" />
           </div>
         </div>
       </div>
-    );
-  }
+
+      {/* Secondary toolbar */}
+      <div className="w-full border-b border-border">
+        <div className="h-12 px-3 flex items-center gap-2">
+          <Link href="/eos" className="flex items-center">
+            <Button variant="ghost" size="sm" className="h-8 gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to apps
+            </Button>
+          </Link>
+          <Separator orientation="vertical" className="mx-1 h-4" />
+          <div className="flex items-center gap-1">
+            {[
+              "File",
+              "Edit",
+              "View",
+              "Profiles",
+              "Settings",
+            ].map((label) => (
+              <Button key={label} variant="ghost" size="sm" className="h-7 px-2">
+                {label}
+              </Button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div className="px-4 pt-0 pb-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] gap-4 min-h-[calc(100vh-96px)]">
+          {/* Left column: form */}
+          <div>
+            <div className="px-6 py-4">
+              <h2 className="text-lg font-medium">New shift handover</h2>
+            </div>
+            <div className="px-6 space-y-6">
+              {/* Row 1: date + shift type */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="handover-date" className="text-muted-foreground">Shift date</Label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <div className="relative">
+                        <Input
+                          id="handover-date"
+                          readOnly
+                          value={shiftDate ? format(shiftDate, "MM/dd/yyyy") : ""}
+                          className="pr-8 bg-transparent"
+                        />
+                        <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      </div>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={shiftDate}
+                        onSelect={setShiftDate}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Shift type</Label>
+                  <Tabs value={shiftType} onValueChange={(v) => setShiftType(v as typeof shiftType)}>
+                    <TabsList className="grid grid-cols-3 w-full">
+                      <TabsTrigger value="morning">Morning</TabsTrigger>
+                      <TabsTrigger value="day">Day</TabsTrigger>
+                      <TabsTrigger value="night">Night</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+              </div>
+
+              {/* Row 2: from/to selects */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Handover from</Label>
+                  <Select value={fromUser} onValueChange={setFromUser}>
+                    <SelectTrigger className="w-full bg-transparent">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Jerry Seinfeld">Jerry Seinfeld</SelectItem>
+                      <SelectItem value="Elaine Benes">Elaine Benes</SelectItem>
+                      <SelectItem value="Kramer">Kramer</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-muted-foreground">Handover to</Label>
+                  <Select value={toUser} onValueChange={setToUser}>
+                    <SelectTrigger className="w-full bg-transparent">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="George Costanza">George Costanza</SelectItem>
+                      <SelectItem value="Newman">Newman</SelectItem>
+                      <SelectItem value="Frank Costanza">Frank Costanza</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Summary of work */}
+              <div className="space-y-2">
+                <Label className="text-muted-foreground">Summary of work</Label>
+                <Textarea
+                  placeholder="Describe work that was carried out."
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  className="min-h-[96px] resize-y"
+                />
+              </div>
+
+              {/* Safety concerns */}
+              <div className="space-y-2">
+                <Label className="text-muted-foreground">Safety concerns</Label>
+                <Textarea
+                  placeholder="Report any safety issues or near-misses."
+                  value={safety}
+                  onChange={(e) => setSafety(e.target.value)}
+                  className="min-h-[96px] resize-y"
+                />
+              </div>
+
+              {/* Checklist */}
+              <div className="space-y-4">
+                <div>
+                  <div className="text-sm font-medium">Handover checklist</div>
+                </div>
+                <div className="space-y-3">
+                  {checklistItems.map((item) => (
+                    <div key={item.id} className="flex items-start gap-3">
+                      <Checkbox
+                        id={\`check-\${item.id}\`}
+                        checked={item.checked}
+                        onCheckedChange={(c) => toggleChecklistItem(item.id, Boolean(c))}
+                        className="mt-0.5"
+                      />
+                      <div className="flex-1">
+                        <Label htmlFor={\`check-\${item.id}\`} className="leading-none">
+                          {item.label}
+                        </Label>
+                        {item.description ? (
+                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Button variant="secondary" size="sm" onClick={handleAddChecklistItem} className="gap-2">
+                  <Plus className="h-4 w-4" /> Add checklist item
+                </Button>
+
+                <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Add checklist item</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-2 py-2">
+                      <Label htmlFor="new-checklist-label">Label</Label>
+                      <Input
+                        id="new-checklist-label"
+                        autoFocus
+                        value={newChecklistLabel}
+                        onChange={(e) => setNewChecklistLabel(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault()
+                            confirmAddChecklistItem()
+                          }
+                        }}
+                        placeholder="e.g. Verify isolation valves"
+                      />
+                    </div>
+                    <DialogFooter>
+                      <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>Cancel</Button>
+                      <Button onClick={confirmAddChecklistItem} disabled={!newChecklistLabel.trim()}>
+                        Add
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
+              {/* Submit */}
+              <div className="pt-6 flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  className="flex-1"
+                  onClick={() => {
+                    setShiftDate(new Date())
+                    setShiftType("night")
+                    setFromUser("Jerry Seinfeld")
+                    setToUser("George Costanza")
+                    setSummary("")
+                    setSafety("")
+                    setChecklistItems([
+                      { id: "walk", label: "Site walk-through", description: "", checked: true },
+                      { id: "logs", label: "Check equipment logs", description: "", checked: true },
+                      { id: "systems", label: "Confirm all critical systems are operational", description: "", checked: false },
+                    ])
+                  }}
+                >
+                  <RefreshCw className="mr-2 h-4 w-4" /> Clear form
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  variant="default"
+                  size="lg"
+                  className="flex-1"
+                >
+                  <Check className="mr-2 h-4 w-4" /> {isSubmitting ? "Submitting..." : "Submit handover"}
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Vertical separator */}
+          <Separator orientation="vertical" className="hidden lg:block h-full" />
+
+          {/* Right column: reports */}
+          <div className="px-6">
+            <div className="py-4">
+              <h2 className="text-lg font-medium">Handover reports</h2>
+            </div>
+            <div className="space-y-4">
+              {reports.map((report) => (
+                <Card key={report.id} className="bg-background/60">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="inline-flex h-5 w-5 items-center justify-center rounded bg-[var(--ns-glacier-900)]">
+                          {report.headerIcon}
+                        </div>
+                        <CardTitle className="text-base">{report.title}</CardTitle>
+                      </div>
+                      <Button variant="ghost" size="icon" className="h-7 w-7">⋮</Button>
+                    </div>
+                    <div className="text-xs text-muted-foreground">Submitted: {report.submitted}</div>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="text-sm leading-6">{report.body}</p>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {report.badges.map((b, i) => {
+                        const Icon = b.icon as React.ElementType | undefined
+                        return (
+                          <Badge key={i} className={b.cls}>
+                            {Icon ? <Icon className="h-3 w-3" /> : null}
+                            {b.text}
+                          </Badge>
+                        )
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 `;

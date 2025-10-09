@@ -57,16 +57,22 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      const { text: generatedCode } = await generateText({
+      const ctx: string[] = [];
+
+      const generateStream = streamText({
         model: openai("gpt-5"),
         system: getComponentsPrompt,
+        onStepFinish: ({ text }) => {
+          ctx.push(text);
+          console.log(text);
+        },
         messages: convertToModelMessages([
           {
             role: "user",
             parts: [
               {
                 type: "text",
-                text: getComponentsPrompt,
+                text: "Make this layout",
               },
               {
                 url: await convertImageToBase64(
@@ -87,19 +93,19 @@ export async function POST(request: NextRequest) {
         stopWhen: stepCountIs(15),
       });
 
+      writer.merge(
+        generateStream.toUIMessageStream({
+          sendReasoning: true,
+        })
+      );
+
+      await generateStream.consumeStream();
+
       writer.write({
         type: "data-status",
         data: {
           message: "Finished",
           status: "done",
-        },
-      });
-
-      // 2. Send sources (useful for RAG use cases)
-      writer.write({
-        type: "data-generated-code",
-        data: {
-          code: generatedCode,
         },
       });
 
@@ -126,6 +132,8 @@ ${criteria
   .join("\n")}
 
   Return each criteria in it's own section header with a conclusion. Score each criterion out of 5 and give an average score at the end.
+
+  Return in markdown.
 `,
         messages: convertToModelMessages([
           {
@@ -133,10 +141,12 @@ ${criteria
             parts: [
               {
                 text: `
-Candidate code (from chat API):\n\`\`\`tsx\n${generatedCode}\n\`\`\`
+                  Candidate code (from chat API):\n\`\`\`tsx\n${ctx.join(
+                    "\n"
+                  )}\n\`\`\`
 
-Reference code (shift-app.ts):\n\`\`\`tsx\n${shiftApp}\n\`\`\`
-          `,
+                  Reference code (shift-app.tsx):\n\`\`\`tsx\n${shiftApp}\n\`\`\`
+                `,
                 type: "text",
               },
             ],
@@ -145,7 +155,11 @@ Reference code (shift-app.ts):\n\`\`\`tsx\n${shiftApp}\n\`\`\`
         stopWhen: stepCountIs(15),
       });
 
-      writer.merge(result.toUIMessageStream());
+      writer.merge(
+        result.toUIMessageStream({
+          sendReasoning: true,
+        })
+      );
     },
   });
 
