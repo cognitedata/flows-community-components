@@ -1,0 +1,90 @@
+---
+alwaysApply: true
+---
+
+# AGENTS.md - Developer & AI Assistant Onboarding Guide
+
+Important rules:
+
+- Always use the design system provided. cdf-design-system-alpha.
+- Check often for typescript errors, and resolve them as they come. Especially after big changes.
+- When making types for schemas that are represented in data modelling, fetch the details of that view first from CDF.
+- Always use the design system provided. cdf-design-system-alpha.
+
+## 1. Project Overview
+
+This application is a React-based web application. You will build a react application to the spec that the user provides. You will also help define that spec according to the details in this document. You are provided with some boiler plate. Do not touch the `/src/infrastructure` folder, only use its components when needed.
+
+## 2. Core Technologies
+
+- **Language:** TypeScript
+- **Framework:** React 17 with Vite.
+- **State Management:** React context
+- **Styling:** Tailwind + Cognite Design System (cdf-design-system-alpha)[node_modules/cdf-design-system-alpha/AI_USAGE_GUIDE.md]
+- **Data Fetching:** React Query + Cognite SDK (@cognite/sdk)
+- **Testing:** Vitest & Playwright
+- **Package Manager:** npm
+- **Authentication:** Use provided components
+- **Other tools:**: Storybook
+
+## 3. Development Environment Setup
+
+1. **Prerequisites:** Ensure you have Node.js v22+ and Yarn installed
+2. **Install dependencies:** `npm install`
+3. **Environment setup:**
+   - Ensure `cdf.yml` has been populated by the user
+4. **Start development server:** `npm start`
+   - Runs on `http://localhost:5000` by default
+   - Uses hot reloading for development
+
+## 4. Coding Style & Design Principles
+
+### Architecture Patterns
+
+- **Component Structure:** Functional components with hooks, organized by feature in `/components`
+- **Custom Hooks:** Extensive use of custom hooks for business logic (`/hooks`)
+- **Service Layer:** Cognite SDK integration through centralized client (`/services`)
+
+### Code Style Guidelines
+
+- **Import Organization:** Avoid barrel imports
+- **File Organization:** Co-locate related files (component + types + styles)
+- **State Management:** Prefer React Context for global state, local state for component-specific data
+- **Error Handling:** Use React Error Boundaries and proper error states
+
+### Key Conventions
+
+- **Exports:** Avoid default exports
+- **Async Operations:** Use react-query
+- **Styling:** Tailwind CSS with Cognites design system
+- **Testing:** Test files co-located with components using `.test.tsx` extension
+
+## 5. Styling
+
+When asked to style, never use inline styles. Always use as much as possible the design system provided through `cdf-design-system-alpha`. Use tailwindcss actively. See here for more details. (cdf-design-system-alpha)[node_modules/cdf-design-system-alpha/AI_USAGE_GUIDE.md]
+
+## 6. Anything Else to Know?
+
+### Project Structure Highlights
+
+- **`/src/components`**: Feature-based component organization
+- **`/src/pages`**: Top-level page components and routing
+- **`/src/hooks`**: Reusable custom hooks for business logic
+- **`/src/services`**: Services connecting to external data and systems
+- **`/src/config`**: Environment and application configuration
+- **`/src/infrastructure`**: DO NOT EDIT THIS FOLDER. It contains important infrastructure. Use its components as stated
+
+### Important Notes
+
+- **Cognite Integration:** Heavy integration with Cognite Data Fusion APIs for industrial data
+- **Design system:** Exclusively use components from cdf-design-system-alpha, unless the component does not exist in the library. (cdf-design-system-alpha)[node_modules/cdf-design-system-alpha/AI_USAGE_GUIDE.md] contains an AI usage guide.
+
+### Infrastructure
+
+The `/src/infrastructure` folder contains important react components used to enable the application to be run not only in a standalone environment, but also within Cognite Fusion - another web application. It handles the authentication for you, among other things, and will provide you an SDK to connect to CDF.
+
+- `useCDF` will give you an SDK.
+
+### Development Tips
+
+- The app connects to Cognite's industrial data platform, so some features require proper API access

@@ -3,13 +3,10 @@ import {
   convertToModelMessages,
   createUIMessageStream,
   createUIMessageStreamResponse,
-  generateText,
   stepCountIs,
   streamText,
-  tool,
   UIMessage,
 } from "ai";
-import { NextRequest } from "next/server";
 import { criteriaTable } from "@/server/db/schema";
 import db from "@/server/db";
 import { shiftApp } from "@/lib/evaluations/shift-app";
@@ -43,7 +40,7 @@ export type EvaluationUIMessage = UIMessage<
   }
 >;
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   const criteria = await db.select().from(criteriaTable);
 
   const stream = createUIMessageStream<EvaluationUIMessage>({

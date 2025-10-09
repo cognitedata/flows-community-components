@@ -1,0 +1,24 @@
+---
+description: When asked to develop a set of requirements for an application.
+alwaysApply: false
+---
+
+USE THE TEMPLATE PROVIDED VIA docs/TEMPLATE_REQUIREMENTS.MD.
+
+Generate a comprehensive requirements document for a new application. The application will be a web-based dashboard and reporting tool for monitoring industrial asset performance. The core data model is based on CDF (Cognite Data Fusion). The requirements document should include the following sections:
+
+Introduction: A high-level overview of the application's purpose and its target users.
+
+Functional Requirements: A detailed list of what the application must do, including data visualization, reporting, user authentication, and interaction with CDF. Specify how data will be retrieved (e.g., using Cognite's APIs for time series. DO NOT USE ASSETS. Only use Data modelling), transformed, and presented.
+
+Non-Functional Requirements: Cover aspects like performance (e.g., dashboard load times), security (e.g., user roles and permissions mapped to CDF's security model), scalability, and usability.
+
+Data Model & Integration: Describe how the application's data model maps directly to the CDF data model. This section is crucial and must detail the specific CDF core data models and how they will be used to structure the application's data. Include details on how the application will use CDF's asset hierarchy to navigate and filter data. Define new view structures when needed
+
+User Stories: Create a set of user stories that encapsulate the key features from the functional requirements, written from the perspective of a typical user (e.g., a plant manager or a maintenance engineer).
+
+Technology Stack: Always use what is defined in the development.mdc rule.
+
+Ensure the document is structured with clear headings and a professional tone. The output should be a detailed, well-organized document that can serve as a blueprint for the development team.
+
+USE THE TEMPLATE PROVIDED VIA docs/TEMPLATE_REQUIREMENTS.MD.

@@ -1,0 +1,1525 @@
+---
+alwaysApply: true
+---
+
+# Cognite Core APIs SDK Guide
+
+## Introduction
+
+This guide covers the core Cognite Data Fusion (CDF) APIs that handle industrial data management: **3D Models**, **Files**, **Time Series**, **Data Points**, **Raw** (NoSQL storage), and **Units**. These APIs enable you to work with various types of industrial data including 3D models for digital twins, files for documents and images, time series for sensor data, raw tables for flexible storage, and standardized units for measurements.
+
+## Installation
+
+To use these APIs, install the Cognite SDK:
+
+Using npm:
+
+```bash
+npm install @cognite/sdk --save
+```
+
+Using yarn:
+
+```bash
+yarn add @cognite/sdk
+```
+
+## Initialization
+
+Initialize the CogniteClient with your project details and authentication:
+
+```javascript
+import { CogniteClient } from "@cognite/sdk";
+
+const client = new CogniteClient({
+  appId: "YOUR_APP_NAME",
+  project: "YOUR_PROJECT_NAME",
+  oidcTokenProvider: async () => {
+    return "YOUR_OIDC_ACCESS_TOKEN";
+  },
+  baseUrl: "https://api.cognitedata.com", // Optional
+});
+```
+
+## 3D APIs
+
+CDF's 3D APIs enable you to work with 3D models for digital twins, including CAD models, point clouds, and 360-degree images.
+
+### Models 3D API
+
+#### client.models3D.create(models)
+
+- **Description**: Creates new 3D models
+- **Parameters**:
+  - `models` (CreateModel3D[], required): Array of 3D model definitions
+- **Return Type**: Promise<Model3D[]>
+- **Example**:
+
+```javascript
+const models = await client.models3D.create([
+  {
+    name: "Process Plant 3D Model",
+    description: "Complete 3D model of the processing facility",
+    dataSetId: 123456789,
+    metadata: {
+      source: "AutoCAD",
+      version: "2024",
+    },
+  },
+]);
+```
+
+#### client.models3D.list(scope?)
+
+- **Description**: Lists 3D models with optional filtering
+- **Parameters**:
+  - `scope` (Model3DListRequest, optional): Filter options
+- **Return Type**: CursorAndAsyncIterator<Model3D>
+- **Example**:
+
+```javascript
+// List published 3D models
+const publishedModels = await client.models3D
+  .list({ published: true })
+  .autoPagingToArray();
+
+// List all models
+const allModels = await client.models3D.list().autoPagingToArray();
+```
+
+#### client.models3D.retrieve(id)
+
+- **Description**: Retrieves a specific 3D model
+- **Parameters**:
+  - `id` (number, required): Model ID
+- **Return Type**: Promise<Model3D>
+- **Example**:
+
+```javascript
+const model = await client.models3D.retrieve(3744350296805509);
+console.log(`Model: ${model.name}`);
+console.log(`Created: ${new Date(model.createdTime)}`);
+```
+
+#### client.models3D.update(changes)
+
+- **Description**: Updates 3D models
+- **Parameters**:
+  - `changes` (UpdateModel3D[], required): Update operations
+- **Return Type**: Promise<Model3D[]>
+- **Example**:
+
+```javascript
+const updated = await client.models3D.update([
+  {
+    id: 3744350296805509,
+    update: {
+      name: { set: "Updated Plant Model" },
+      metadata: { set: { status: "reviewed" } },
+    },
+  },
+]);
+```
+
+#### client.models3D.delete(ids)
+
+- **Description**: Deletes 3D models
+- **Parameters**:
+  - `ids` (InternalId[], required): Model IDs to delete
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.models3D.delete([{ id: 3744350296805509 }]);
+```
+
+### Revisions 3D API
+
+3D revisions represent versions of a 3D model, linked to uploaded 3D files.
+
+#### client.revisions3D.create(modelId, items)
+
+- **Description**: Creates revisions for a 3D model
+- **Parameters**:
+  - `modelId` (number, required): Parent model ID
+  - `items` (CreateRevision3D[], required): Revision definitions
+- **Return Type**: Promise<Revision3D[]>
+- **Example**:
+
+```javascript
+const revisions = await client.revisions3D.create(3744350296805509, [
+  {
+    fileId: 8252999965991682,
+    published: false,
+    rotation: [0, 0, 0],
+    scale: [1, 1, 1],
+    translation: [0, 0, 0],
+    metadata: {
+      revision: "A",
+      status: "draft",
+    },
+  },
+]);
+```
+
+#### client.revisions3D.list(modelId, filter?)
+
+- **Description**: Lists revisions for a 3D model
+- **Parameters**:
+  - `modelId` (number, required): Model ID
+  - `filter` (Revision3DListRequest, optional): Filter options
+- **Return Type**: CursorAndAsyncIterator<Revision3D>
+- **Example**:
+
+```javascript
+const revisions = await client.revisions3D
+  .list(3744350296805509, {
+    published: true,
+  })
+  .autoPagingToArray();
+```
+
+#### client.revisions3D.update(modelId, changes)
+
+- **Description**: Updates 3D revisions
+- **Parameters**:
+  - `modelId` (number, required): Model ID
+  - `changes` (UpdateRevision3D[], required): Update operations
+- **Return Type**: Promise<Revision3D[]>
+- **Example**:
+
+```javascript
+const updated = await client.revisions3D.update(3744350296805509, [
+  {
+    id: 4190022127342195,
+    update: {
+      published: { set: true },
+      rotation: { set: [0, 0, 90] },
+      metadata: { set: { status: "approved" } },
+    },
+  },
+]);
+```
+
+### Asset Mappings 3D API
+
+Links 3D model nodes to assets in CDF.
+
+#### client.assetMappings3D.create(modelId, revisionId, items)
+
+- **Description**: Creates mappings between 3D nodes and assets
+- **Parameters**:
+  - `modelId` (number, required): Model ID
+  - `revisionId` (number, required): Revision ID
+  - `items` (CreateAssetMapping3D[], required): Mapping definitions
+- **Return Type**: Promise<AssetMapping3D[]>
+- **Example**:
+
+```javascript
+const mappings = await client.assetMappings3D.create(
+  3744350296805509,
+  4190022127342195,
+  [
+    {
+      nodeId: 1234,
+      assetId: 5678,
+    },
+    {
+      nodeId: 2345,
+      assetId: 6789,
+    },
+  ]
+);
+```
+
+#### client.assetMappings3D.list(modelId, revisionId, scope?)
+
+- **Description**: Lists asset mappings for a revision
+- **Parameters**:
+  - `modelId` (number, required): Model ID
+  - `revisionId` (number, required): Revision ID
+  - `scope` (AssetMappings3DListFilter, optional): Filter options
+- **Return Type**: CursorAndAsyncIterator<AssetMapping3D>
+- **Example**:
+
+```javascript
+const mappings = await client.assetMappings3D
+  .list(3744350296805509, 4190022127342195, {
+    assetId: 5678,
+  })
+  .autoPagingToArray();
+```
+
+### Files 3D API
+
+Manages 3D file uploads for models.
+
+#### client.files3D.retrieve(fileId)
+
+- **Description**: Retrieves 3D file information
+- **Parameters**:
+  - `fileId` (number, required): File ID
+- **Return Type**: Promise<File3D>
+- **Example**:
+
+```javascript
+const file3D = await client.files3D.retrieve(8252999965991682);
+console.log(`File: ${file3D.fileName}`);
+console.log(`Size: ${file3D.size} bytes`);
+```
+
+## Files API
+
+The Files API manages documents, images, and other file types in CDF.
+
+### client.files.upload(fileInfo, fileContent?, overwrite?, waitUntilAcknowledged?)
+
+- **Description**: Uploads a file to CDF
+- **Parameters**:
+  - `fileInfo` (ExternalFileInfo, required): File metadata
+  - `fileContent` (FileContent, optional): File data (Buffer, Blob, string, etc.)
+  - `overwrite` (boolean, optional): Whether to overwrite existing file
+  - `waitUntilAcknowledged` (boolean, optional): Wait for upload confirmation
+- **Return Type**: Promise<FileUploadResponse | FileInfo>
+- **Example**:
+
+```javascript
+// Upload with content
+const file = await client.files.upload(
+  {
+    name: "equipment-manual.pdf",
+    externalId: "manual-pump-001",
+    mimeType: "application/pdf",
+    source: "manufacturer-website",
+    assetIds: [123456789],
+    dataSetId: 987654321,
+    metadata: {
+      documentType: "manual",
+      equipmentType: "pump",
+      language: "en",
+    },
+  },
+  fileBuffer // Buffer, Blob, or string
+);
+
+// Upload metadata only (get upload URL)
+const uploadInfo = await client.files.upload({
+  name: "large-video.mp4",
+  mimeType: "video/mp4",
+});
+// Then upload to uploadInfo.uploadUrl separately
+```
+
+### client.files.list(scope?)
+
+- **Description**: Lists files with advanced filtering
+- **Parameters**:
+  - `scope` (FileRequestFilter, optional): Filter and pagination options
+- **Return Type**: CursorAndAsyncIterator<FileInfo>
+- **Example**:
+
+```javascript
+// List PDF files
+const pdfFiles = await client.files
+  .list({
+    filter: {
+      mimeType: "application/pdf",
+      assetIds: [123456789],
+      uploaded: true,
+    },
+  })
+  .autoPagingToArray();
+
+// List files by source
+const manualFiles = await client.files
+  .list({
+    filter: {
+      source: "manufacturer-website",
+      createdTime: {
+        min: new Date("2024-01-01"),
+      },
+    },
+    limit: 100,
+  })
+  .autoPagingToArray();
+```
+
+### client.files.retrieve(ids, params?)
+
+- **Description**: Retrieves specific files by ID
+- **Parameters**:
+  - `ids` (IdEitherWithInstance[], required): File identifiers
+  - `params` (FileRetrieveParams, optional): Additional parameters
+- **Return Type**: Promise<FileInfo[]>
+- **Example**:
+
+```javascript
+const files = await client.files.retrieve([
+  { id: 8252999965991682 },
+  { externalId: "manual-pump-001" },
+]);
+
+files.forEach((file) => {
+  console.log(`File: ${file.name}`);
+  console.log(`Size: ${file.size} bytes`);
+  console.log(`Uploaded: ${file.uploaded}`);
+});
+```
+
+### client.files.download(items)
+
+- **Description**: Downloads file content
+- **Parameters**:
+  - `items` (FileDownloadRequest[], required): Files to download
+- **Return Type**: Promise<(FileContent | undefined)[]>
+- **Example**:
+
+```javascript
+const contents = await client.files.download([
+  { id: 8252999965991682 },
+  { externalId: "manual-pump-001" },
+]);
+
+// Save first file
+const fileContent = contents[0];
+if (fileContent) {
+  // fileContent is ArrayBuffer
+  const buffer = Buffer.from(fileContent);
+  fs.writeFileSync("downloaded-manual.pdf", buffer);
+}
+```
+
+### client.files.search(query)
+
+- **Description**: Searches files using text queries
+- **Parameters**:
+  - `query` (FilesSearchFilter, required): Search parameters
+- **Return Type**: Promise<FileInfo[]>
+- **Example**:
+
+```javascript
+const searchResults = await client.files.search({
+  filter: {
+    mimeType: "application/pdf",
+  },
+  search: {
+    name: "pump manual",
+  },
+});
+```
+
+### client.files.update(changes)
+
+- **Description**: Updates file metadata
+- **Parameters**:
+  - `changes` (FileChangeUpdate[], required): Update operations
+- **Return Type**: Promise<FileInfo[]>
+- **Example**:
+
+```javascript
+const updated = await client.files.update([
+  {
+    id: 8252999965991682,
+    update: {
+      metadata: { set: { reviewed: "true", reviewer: "John Doe" } },
+      assetIds: { add: [234567890] },
+      labels: { add: [{ externalId: "approved" }] },
+    },
+  },
+]);
+```
+
+### client.files.delete(ids)
+
+- **Description**: Deletes files
+- **Parameters**:
+  - `ids` (IdEither[], required): File identifiers
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.files.delete([
+  { id: 8252999965991682 },
+  { externalId: "obsolete-manual" },
+]);
+```
+
+### Multipart Upload for Large Files
+
+For files larger than 5GB, use multipart upload:
+
+```javascript
+// 1. Initialize multipart upload
+const uploadSession = await client.files.multipartUploadSession.create({
+  name: "large-dataset.csv",
+  mimeType: "text/csv",
+});
+
+// 2. Upload parts (5MB - 5GB each)
+const uploadURLs = await client.files.multipartUploadSession.getUploadUrls({
+  id: uploadSession.id,
+  parts: 10, // Number of parts
+});
+
+// 3. Upload each part to its URL
+for (let i = 0; i < uploadURLs.urls.length; i++) {
+  const partData = getFilePart(i); // Your logic to get file chunks
+  await uploadToUrl(uploadURLs.urls[i], partData);
+}
+
+// 4. Complete upload
+const file = await client.files.multipartUploadSession.complete({
+  id: uploadSession.id,
+  partETags: etags, // ETags from each part upload
+});
+```
+
+## Time Series API
+
+Manages time series definitions for sensor data, measurements, and other time-based data.
+
+### client.timeseries.create(items)
+
+- **Description**: Creates new time series
+- **Parameters**:
+  - `items` (ExternalTimeseries[], required): Time series definitions
+- **Return Type**: Promise<Timeseries[]>
+- **Example**:
+
+```javascript
+const timeseries = await client.timeseries.create([
+  {
+    externalId: "temperature-sensor-001",
+    name: "Temperature Sensor 001",
+    description: "Inlet temperature for pump P-001",
+    isString: false,
+    unit: "°C",
+    assetId: 123456789,
+    dataSetId: 987654321,
+    metadata: {
+      location: "inlet",
+      sensorType: "PT100",
+      calibrationDate: "2024-01-15",
+    },
+  },
+  {
+    externalId: "pump-status-001",
+    name: "Pump Status 001",
+    isString: true, // String time series
+    assetId: 123456789,
+  },
+]);
+```
+
+### client.timeseries.list(scope?)
+
+- **Description**: Lists time series with filtering
+- **Parameters**:
+  - `scope` (TimeseriesFilterQuery, optional): Filter options
+- **Return Type**: CursorAndAsyncIterator<Timeseries>
+- **Example**:
+
+```javascript
+// List numeric time series for an asset
+const numericSeries = await client.timeseries
+  .list({
+    filter: {
+      assetIds: [123456789],
+      isString: false,
+    },
+  })
+  .autoPagingToArray();
+
+// List by unit
+const temperatureSeries = await client.timeseries
+  .list({
+    filter: {
+      unit: "°C",
+    },
+    limit: 100,
+  })
+  .autoPagingToArray();
+```
+
+### client.timeseries.retrieve(ids, params?)
+
+- **Description**: Retrieves specific time series
+- **Parameters**:
+  - `ids` (IdEitherWithInstance[], required): Time series identifiers
+  - `params` (TimeseriesRetrieveParams, optional): Additional parameters
+- **Return Type**: Promise<Timeseries[]>
+- **Example**:
+
+```javascript
+const timeseries = await client.timeseries.retrieve([
+  { id: 987654321 },
+  { externalId: "temperature-sensor-001" },
+]);
+```
+
+### client.timeseries.search(query)
+
+- **Description**: Searches time series
+- **Parameters**:
+  - `query` (TimeseriesSearchFilter, required): Search parameters
+- **Return Type**: Promise<Timeseries[]>
+- **Example**:
+
+```javascript
+const results = await client.timeseries.search({
+  filter: {
+    isString: false,
+    assetIds: [123456789],
+  },
+  search: {
+    query: "temperature",
+  },
+  limit: 50,
+});
+```
+
+### client.timeseries.update(changes)
+
+- **Description**: Updates time series metadata
+- **Parameters**:
+  - `changes` (TimeSeriesUpdate[], required): Update operations
+- **Return Type**: Promise<Timeseries[]>
+- **Example**:
+
+```javascript
+const updated = await client.timeseries.update([
+  {
+    id: 987654321,
+    update: {
+      name: { set: "Updated Temperature Sensor" },
+      unit: { set: "K" }, // Change to Kelvin
+      metadata: { set: { calibrated: "2024-02-01" } },
+    },
+  },
+]);
+```
+
+### client.timeseries.delete(ids)
+
+- **Description**: Deletes time series (and all data points)
+- **Parameters**:
+  - `ids` (IdEither[], required): Time series identifiers
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.timeseries.delete([
+  { id: 987654321 },
+  { externalId: "obsolete-sensor" },
+]);
+```
+
+## Data Points API
+
+Manages the actual time series data values.
+
+### client.datapoints.insert(items)
+
+- **Description**: Inserts data points into time series
+- **Parameters**:
+  - `items` (ExternalDatapointsQuery[], required): Data point batches
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.datapoints.insert([
+  {
+    externalId: "temperature-sensor-001",
+    datapoints: [
+      { timestamp: new Date("2024-01-01T12:00:00Z"), value: 25.5 },
+      { timestamp: new Date("2024-01-01T12:01:00Z"), value: 25.7 },
+      { timestamp: Date.now(), value: 26.1 },
+    ],
+  },
+  {
+    id: 987654321, // Can use ID instead of externalId
+    datapoints: [
+      { timestamp: 1704110400000, value: 101.3 }, // Unix timestamp in ms
+    ],
+  },
+  {
+    externalId: "pump-status-001",
+    datapoints: [
+      { timestamp: new Date(), value: "RUNNING" }, // String value
+    ],
+  },
+]);
+```
+
+### client.datapoints.retrieve(query)
+
+- **Description**: Retrieves data points with optional aggregation
+- **Parameters**:
+  - `query` (DatapointsMultiQuery, required): Query parameters
+- **Return Type**: Promise<DatapointAggregates[] | Datapoints[]>
+- **Example**:
+
+```javascript
+// Get raw data points
+const rawData = await client.datapoints.retrieve({
+  items: [
+    {
+      externalId: "temperature-sensor-001",
+    },
+  ],
+  start: "2024-01-01",
+  end: new Date(),
+  limit: 1000,
+});
+
+// Get aggregated data
+const aggregatedData = await client.datapoints.retrieve({
+  items: [
+    {
+      externalId: "temperature-sensor-001",
+      aggregates: ["average", "max", "min", "count"],
+      granularity: "1h",
+    },
+  ],
+  start: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
+  end: "now",
+});
+
+// Multiple time series with different aggregations
+const multiData = await client.datapoints.retrieve({
+  items: [
+    {
+      externalId: "temperature-sensor-001",
+      aggregates: ["average"],
+      granularity: "1h",
+    },
+    {
+      externalId: "pressure-sensor-001",
+      aggregates: ["max", "min"],
+      granularity: "1h",
+    },
+  ],
+  start: "2024-01-01",
+  end: "2024-01-31",
+  timezone: "UTC",
+});
+```
+
+### client.datapoints.retrieveLatest(items, params?)
+
+- **Description**: Gets the latest data point before a given time
+- **Parameters**:
+  - `items` (LatestDataBeforeRequest[], required): Query items
+  - `params` (LatestDataParams, optional): Additional parameters
+- **Return Type**: Promise<Datapoints[]>
+- **Example**:
+
+```javascript
+const latestData = await client.datapoints.retrieveLatest([
+  {
+    externalId: "temperature-sensor-001",
+    before: "now",
+  },
+  {
+    id: 987654321,
+    before: new Date("2024-01-01"),
+  },
+]);
+
+latestData.forEach((series) => {
+  const latest = series.datapoints[0];
+  console.log(
+    `Series ${series.externalId}: ${latest.value} at ${new Date(
+      latest.timestamp
+    )}`
+  );
+});
+```
+
+### client.datapoints.delete(items)
+
+- **Description**: Deletes data points from time series
+- **Parameters**:
+  - `items` (DatapointsDeleteRequest[], required): Deletion ranges
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+// Delete specific time range
+await client.datapoints.delete([
+  {
+    externalId: "temperature-sensor-001",
+    inclusiveBegin: new Date("2024-01-01"),
+    exclusiveEnd: new Date("2024-01-02"),
+  },
+]);
+
+// Delete all data points
+await client.datapoints.delete([
+  {
+    id: 987654321,
+    // Omit time range to delete all
+  },
+]);
+```
+
+### Synthetic Time Series
+
+Query calculated time series using expressions:
+
+```javascript
+const synthetic = await client.timeseries.syntheticQuery([
+  {
+    expression: "ts{externalId='temperature-sensor-001'} * 1.8 + 32", // Convert C to F
+    start: "2024-01-01",
+    end: "2024-01-02",
+    limit: 100,
+  },
+  {
+    expression: "ts{externalId='flow-rate'} * ts{externalId='density'}", // Calculate mass flow
+    start: "2024-01-01",
+    end: "2024-01-02",
+    granularity: "1h",
+    aggregates: ["average"],
+  },
+]);
+```
+
+## Raw API
+
+The Raw API provides flexible NoSQL storage for data that doesn't fit the standard resource types.
+
+### Database Operations
+
+#### client.raw.createDatabases(items)
+
+- **Description**: Creates raw databases
+- **Parameters**:
+  - `items` (RawDBName[], required): Database names
+- **Return Type**: Promise<RawDB[]>
+- **Example**:
+
+```javascript
+const databases = await client.raw.createDatabases([
+  { name: "sensor_configurations" },
+  { name: "maintenance_logs" },
+]);
+```
+
+#### client.raw.listDatabases(scope?)
+
+- **Description**: Lists raw databases
+- **Parameters**:
+  - `scope` (ListRawDatabases, optional): List options
+- **Return Type**: CursorAndAsyncIterator<RawDB>
+- **Example**:
+
+```javascript
+const databases = await client.raw.listDatabases().autoPagingToArray();
+databases.forEach((db) => {
+  console.log(`Database: ${db.name}`);
+});
+```
+
+#### client.raw.deleteDatabases(items, params?)
+
+- **Description**: Deletes databases and all their contents
+- **Parameters**:
+  - `items` (RawDBName[], required): Database names
+  - `params` (RawDatabaseDeleteParams, optional): Delete options
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.raw.deleteDatabases([{ name: "obsolete_data" }], {
+  recursive: true, // Delete even if contains tables
+});
+```
+
+### Table Operations
+
+#### client.raw.createTables(databaseName, items, ensureParent?)
+
+- **Description**: Creates tables in a database
+- **Parameters**:
+  - `databaseName` (string, required): Database name
+  - `items` (RawDBTableName[], required): Table names
+  - `ensureParent` (boolean, optional): Create database if missing
+- **Return Type**: Promise<RawDBTable[]>
+- **Example**:
+
+```javascript
+const tables = await client.raw.createTables(
+  "sensor_configurations",
+  [{ name: "temperature_sensors" }, { name: "pressure_sensors" }],
+  true // Create database if it doesn't exist
+);
+```
+
+#### client.raw.listTables(databaseName, scope?)
+
+- **Description**: Lists tables in a database
+- **Parameters**:
+  - `databaseName` (string, required): Database name
+  - `scope` (ListRawTables, optional): List options
+- **Return Type**: CursorAndAsyncIterator<RawDBTable>
+- **Example**:
+
+```javascript
+const tables = await client.raw
+  .listTables("sensor_configurations")
+  .autoPagingToArray();
+```
+
+#### client.raw.deleteTables(databaseName, items)
+
+- **Description**: Deletes tables and all their rows
+- **Parameters**:
+  - `databaseName` (string, required): Database name
+  - `items` (RawDBTableName[], required): Table names
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.raw.deleteTables("sensor_configurations", [
+  { name: "obsolete_table" },
+]);
+```
+
+### Row Operations
+
+#### client.raw.insertRows(databaseName, tableName, items, ensureParent?)
+
+- **Description**: Inserts or updates rows in a table
+- **Parameters**:
+  - `databaseName` (string, required): Database name
+  - `tableName` (string, required): Table name
+  - `items` (RawDBRowInsert[], required): Rows to insert
+  - `ensureParent` (boolean, optional): Create table/database if missing
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.raw.insertRows(
+  "sensor_configurations",
+  "temperature_sensors",
+  [
+    {
+      key: "sensor-001",
+      columns: {
+        location: "Building A, Floor 2",
+        type: "PT100",
+        range_min: -50,
+        range_max: 200,
+        unit: "celsius",
+        calibration_date: "2024-01-15",
+        config: {
+          // Nested JSON
+          sampling_rate: 1000,
+          filter: "moving_average",
+          window_size: 10,
+        },
+      },
+    },
+    {
+      key: "sensor-002",
+      columns: {
+        location: "Building B, Floor 1",
+        type: "Thermocouple",
+        range_min: 0,
+        range_max: 1000,
+        unit: "celsius",
+      },
+    },
+  ],
+  true // Create table/database if missing
+);
+```
+
+#### client.raw.listRows(databaseName, tableName, options?)
+
+- **Description**: Lists rows from a table with filtering
+- **Parameters**:
+  - `databaseName` (string, required): Database name
+  - `tableName` (string, required): Table name
+  - `options` (ListRawRows, optional): Query options
+- **Return Type**: CursorAndAsyncIterator<RawDBRow>
+- **Example**:
+
+```javascript
+// List all rows
+const allRows = await client.raw
+  .listRows("sensor_configurations", "temperature_sensors")
+  .autoPagingToArray();
+
+// Filter by columns
+const filteredRows = await client.raw
+  .listRows("sensor_configurations", "temperature_sensors", {
+    columns: ["location", "type", "unit"],
+    limit: 100,
+  })
+  .autoPagingToArray();
+
+// Filter by key range
+const rangeRows = await client.raw
+  .listRows("maintenance_logs", "pump_maintenance", {
+    minLastUpdatedTime: new Date("2024-01-01"),
+    maxLastUpdatedTime: new Date("2024-01-31"),
+  })
+  .autoPagingToArray();
+```
+
+#### client.raw.retrieveRows(databaseName, tableName, items)
+
+- **Description**: Retrieves specific rows by key
+- **Parameters**:
+  - `databaseName` (string, required): Database name
+  - `tableName` (string, required): Table name
+  - `items` (RawDBRowKey[], required): Row keys
+- **Return Type**: Promise<RawDBRow[]>
+- **Example**:
+
+```javascript
+const rows = await client.raw.retrieveRows(
+  "sensor_configurations",
+  "temperature_sensors",
+  [{ key: "sensor-001" }, { key: "sensor-002" }]
+);
+
+rows.forEach((row) => {
+  console.log(`Sensor ${row.key}: ${JSON.stringify(row.columns)}`);
+});
+```
+
+#### client.raw.deleteRows(databaseName, tableName, items)
+
+- **Description**: Deletes rows from a table
+- **Parameters**:
+  - `databaseName` (string, required): Database name
+  - `tableName` (string, required): Table name
+  - `items` (RawDBRowKey[], required): Row keys to delete
+- **Return Type**: Promise<{}>
+- **Example**:
+
+```javascript
+await client.raw.deleteRows("sensor_configurations", "temperature_sensors", [
+  { key: "obsolete-sensor-001" },
+  { key: "obsolete-sensor-002" },
+]);
+```
+
+## Units API
+
+The Units API provides access to standardized units of measurement and unit systems.
+
+### client.units.list()
+
+- **Description**: Lists all supported units
+- **Parameters**: None
+- **Return Type**: CursorAndAsyncIterator<Unit>
+- **Example**:
+
+```javascript
+const units = await client.units.list().autoPagingToArray();
+
+// Group units by quantity
+const unitsByQuantity = {};
+units.forEach((unit) => {
+  if (!unitsByQuantity[unit.quantity]) {
+    unitsByQuantity[unit.quantity] = [];
+  }
+  unitsByQuantity[unit.quantity].push(unit);
+});
+
+console.log("Temperature units:", unitsByQuantity["Temperature"]);
+```
+
+### client.units.retrieve(ids)
+
+- **Description**: Retrieves specific units
+- **Parameters**:
+  - `ids` (ExternalId[], required): Unit external IDs
+- **Return Type**: Promise<Unit[]>
+- **Example**:
+
+```javascript
+const units = await client.units.retrieve([
+  { externalId: "temperature:deg_c" },
+  { externalId: "pressure:bar" },
+  { externalId: "flow:m3/h" },
+]);
+
+units.forEach((unit) => {
+  console.log(`${unit.name} (${unit.symbol})`);
+  console.log(`  Quantity: ${unit.quantity}`);
+  console.log(`  Aliases: ${unit.aliases?.join(", ")}`);
+});
+```
+
+### client.units.listUnitSystems()
+
+- **Description**: Lists all supported unit systems
+- **Parameters**: None
+- **Return Type**: Promise<UnitSystem[]>
+- **Example**:
+
+```javascript
+const unitSystems = await client.units.listUnitSystems();
+
+unitSystems.forEach((system) => {
+  console.log(`System: ${system.name}`);
+  console.log(`  Quantities: ${Object.keys(system.quantities).join(", ")}`);
+});
+
+// Get SI units for each quantity
+const siSystem = unitSystems.find((s) => s.name === "SI");
+if (siSystem) {
+  console.log("SI base units:");
+  Object.entries(siSystem.quantities).forEach(([quantity, unit]) => {
+    console.log(`  ${quantity}: ${unit}`);
+  });
+}
+```
+
+## Data Models
+
+### 3D Model Structure
+
+```typescript
+interface Model3D {
+  id: number;
+  name: string;
+  description?: string;
+  createdTime: number;
+  dataSetId?: number;
+  metadata?: Record<string, string>;
+  published: boolean;
+}
+
+interface Revision3D {
+  id: number;
+  fileId: number;
+  published: boolean;
+  status: "Queued" | "Processing" | "Done" | "Failed";
+  createdTime: number;
+  assetMappingCount: number;
+  metadata?: Record<string, string>;
+  rotation?: [number, number, number];
+  scale?: [number, number, number];
+  translation?: [number, number, number];
+  camera?: {
+    target: [number, number, number];
+    position: [number, number, number];
+  };
+}
+
+interface AssetMapping3D {
+  nodeId: number;
+  assetId: number;
+  treeIndex?: number;
+  subtreeSize?: number;
+}
+```
+
+### File Structure
+
+```typescript
+interface FileInfo {
+  id: number;
+  externalId?: string;
+  name: string;
+  source?: string;
+  mimeType?: string;
+  metadata?: Record<string, string>;
+  assetIds?: number[];
+  dataSetId?: number;
+  sourceCreatedTime?: number;
+  sourceModifiedTime?: number;
+  uploaded: boolean;
+  uploadedTime?: number;
+  createdTime: number;
+  lastUpdatedTime: number;
+  uploadUrl?: string;
+  downloadUrl?: string;
+  size?: number;
+}
+```
+
+### Time Series Structure
+
+```typescript
+interface Timeseries {
+  id: number;
+  externalId?: string;
+  name?: string;
+  isString: boolean;
+  metadata?: Record<string, string>;
+  unit?: string;
+  assetId?: number;
+  isStep: boolean;
+  description?: string;
+  securityCategories?: number[];
+  dataSetId?: number;
+  createdTime: number;
+  lastUpdatedTime: number;
+}
+```
+
+### Data Point Structure
+
+```typescript
+interface Datapoint {
+  timestamp: number | Date;
+  value: number | string;
+}
+
+interface DatapointAggregates {
+  timestamp: number;
+  average?: number;
+  max?: number;
+  min?: number;
+  count?: number;
+  sum?: number;
+  interpolation?: number;
+  stepInterpolation?: number;
+  totalVariation?: number;
+  continuousVariance?: number;
+  discreteVariance?: number;
+}
+```
+
+### Raw Storage Structure
+
+```typescript
+interface RawDB {
+  name: string;
+}
+
+interface RawDBTable {
+  name: string;
+}
+
+interface RawDBRow {
+  key: string;
+  columns: Record<string, any>;
+  lastUpdatedTime: number;
+}
+```
+
+### Unit Structure
+
+```typescript
+interface Unit {
+  externalId: string;
+  name: string;
+  longName: string;
+  symbol: string;
+  aliases?: string[];
+  quantity: string;
+  conversion?: {
+    multiplier: number;
+    offset: number;
+  };
+  source?: string;
+  sourceReference?: string;
+}
+
+interface UnitSystem {
+  name: string;
+  quantities: Record<string, string>; // quantity -> unit externalId
+}
+```
+
+## Error Handling
+
+All APIs use the same error structure as other CDF APIs:
+
+```javascript
+try {
+  await client.files.upload({ name: "test.txt" }, fileContent);
+} catch (error) {
+  if (error instanceof CogniteError) {
+    switch (error.status) {
+      case 400:
+        console.error("Invalid request:", error.errorMessage);
+        break;
+      case 401:
+        console.error("Authentication failed");
+        break;
+      case 409:
+        console.error("Conflict:", error.errorMessage);
+        break;
+      case 413:
+        console.error("File too large");
+        break;
+      case 429:
+        console.error("Rate limited, retry later");
+        break;
+      default:
+        console.error(`Error ${error.status}: ${error.errorMessage}`);
+    }
+  }
+}
+```
+
+## Code Example
+
+Here's a comprehensive example using multiple APIs together:
+
+```javascript
+import { CogniteClient } from "@cognite/sdk";
+import fs from "fs";
+
+async function industrialDataExample() {
+  // 1. Initialize client
+  const client = new CogniteClient({
+    appId: "IndustrialDataApp",
+    project: "my-project",
+    oidcTokenProvider: async () => process.env.CDF_ACCESS_TOKEN,
+  });
+
+  try {
+    // 2. Create time series for sensor data
+    console.log("Creating time series...");
+    const timeseries = await client.timeseries.create([
+      {
+        externalId: "temp-sensor-tank-001",
+        name: "Tank 001 Temperature",
+        unit: "°C",
+        description: "Temperature sensor in storage tank 001",
+        metadata: {
+          location: "Storage Area A",
+          sensorType: "PT100",
+        },
+      },
+      {
+        externalId: "level-sensor-tank-001",
+        name: "Tank 001 Level",
+        unit: "m",
+        description: "Level sensor in storage tank 001",
+      },
+    ]);
+    console.log(`Created ${timeseries.length} time series`);
+
+    // 3. Insert historical data points
+    console.log("Inserting data points...");
+    const now = Date.now();
+    const dataPoints = [];
+    for (let i = 0; i < 24; i++) {
+      dataPoints.push({
+        timestamp: now - i * 3600000, // Hourly data
+        value: 20 + Math.random() * 10, // 20-30°C
+      });
+    }
+
+    await client.datapoints.insert([
+      {
+        externalId: "temp-sensor-tank-001",
+        datapoints: dataPoints,
+      },
+      {
+        externalId: "level-sensor-tank-001",
+        datapoints: dataPoints.map((dp) => ({
+          timestamp: dp.timestamp,
+          value: 3 + Math.random() * 2, // 3-5m
+        })),
+      },
+    ]);
+    console.log("Data points inserted");
+
+    // 4. Upload equipment documentation
+    console.log("Uploading documentation...");
+    const pdfContent = fs.readFileSync("tank-manual.pdf");
+    const file = await client.files.upload(
+      {
+        name: "Tank 001 Operations Manual.pdf",
+        externalId: "manual-tank-001",
+        mimeType: "application/pdf",
+        metadata: {
+          documentType: "operations-manual",
+          equipment: "tank-001",
+          version: "2.0",
+        },
+      },
+      pdfContent
+    );
+    console.log(`Uploaded file: ${file.name}`);
+
+    // 5. Create 3D model for the facility
+    console.log("Creating 3D model...");
+    const model3D = await client.models3D.create([
+      {
+        name: "Storage Facility 3D Model",
+        description: "Complete 3D model of storage facility including tanks",
+        metadata: {
+          source: "Revit",
+          lastUpdated: "2024-01-15",
+        },
+      },
+    ]);
+    console.log(`Created 3D model: ${model3D[0].name}`);
+
+    // 6. Store sensor configurations in Raw
+    console.log("Storing sensor configurations...");
+    await client.raw.createDatabases([{ name: "sensor_configs" }]);
+    await client.raw.createTables("sensor_configs", [
+      { name: "temperature_sensors" },
+    ]);
+
+    await client.raw.insertRows("sensor_configs", "temperature_sensors", [
+      {
+        key: "temp-sensor-tank-001",
+        columns: {
+          type: "PT100",
+          range: { min: -50, max: 200 },
+          accuracy: 0.1,
+          calibration: {
+            lastDate: "2024-01-15",
+            nextDate: "2025-01-15",
+            certificate: "CERT-2024-0123",
+          },
+          alarms: {
+            high: 35,
+            highHigh: 40,
+            low: 15,
+            lowLow: 10,
+          },
+        },
+      },
+    ]);
+    console.log("Sensor configuration stored");
+
+    // 7. Query aggregated data
+    console.log("Retrieving aggregated temperature data...");
+    const aggregatedData = await client.datapoints.retrieve({
+      items: [
+        {
+          externalId: "temp-sensor-tank-001",
+          aggregates: ["average", "max", "min"],
+          granularity: "6h",
+        },
+      ],
+      start: now - 24 * 3600000,
+      end: now,
+    });
+
+    console.log("Temperature statistics (6-hour aggregates):");
+    aggregatedData[0].datapoints.forEach((dp) => {
+      console.log(
+        `  ${new Date(dp.timestamp).toISOString()}: ` +
+          `Avg=${dp.average?.toFixed(1)}°C, ` +
+          `Max=${dp.max?.toFixed(1)}°C, ` +
+          `Min=${dp.min?.toFixed(1)}°C`
+      );
+    });
+
+    // 8. Search for related files
+    console.log("\nSearching for tank documentation...");
+    const documents = await client.files.search({
+      search: {
+        name: "tank",
+      },
+      filter: {
+        mimeType: "application/pdf",
+      },
+      limit: 10,
+    });
+    console.log(`Found ${documents.length} tank-related documents`);
+
+    // 9. Get sensor configuration from Raw
+    console.log("\nRetrieving sensor configuration...");
+    const sensorConfig = await client.raw.retrieveRows(
+      "sensor_configs",
+      "temperature_sensors",
+      [{ key: "temp-sensor-tank-001" }]
+    );
+
+    if (sensorConfig.length > 0) {
+      const config = sensorConfig[0].columns;
+      console.log("Sensor Configuration:");
+      console.log(`  Type: ${config.type}`);
+      console.log(`  Range: ${config.range.min}°C to ${config.range.max}°C`);
+      console.log(`  High Alarm: ${config.alarms.high}°C`);
+      console.log(`  Next Calibration: ${config.calibration.nextDate}`);
+    }
+
+    // 10. List available units
+    console.log("\nAvailable temperature units:");
+    const units = await client.units.list().autoPagingToArray();
+    const tempUnits = units.filter((u) => u.quantity === "Temperature");
+    tempUnits.forEach((unit) => {
+      console.log(`  ${unit.name} (${unit.symbol})`);
+    });
+  } catch (error) {
+    if (error instanceof CogniteError) {
+      console.error(`CDF Error ${error.status}: ${error.errorMessage}`);
+      console.error(`Request ID: ${error.requestId}`);
+    } else {
+      console.error("Unexpected error:", error);
+    }
+  }
+}
+
+// Run the example
+industrialDataExample();
+```
+
+This example demonstrates:
+
+- Creating time series for sensor data
+- Inserting and retrieving data points with aggregation
+- Uploading and managing files
+- Working with 3D models
+- Using Raw storage for flexible data
+- Querying units of measurement
+- Error handling
+
+## Best Practices
+
+1. **Time Series Design**
+
+   - Use meaningful external IDs following a naming convention
+   - Set appropriate units for automatic unit conversion
+   - Use string time series for status/state data
+   - Consider data density when setting up aggregations
+
+2. **Data Points Management**
+
+   - Batch insert data points for efficiency (up to 100,000 per request)
+   - Use appropriate granularity for aggregations
+   - Consider using synthetic time series for calculations
+   - Store raw data and use aggregations for visualization
+
+3. **File Management**
+
+   - Use external IDs for files that need stable references
+   - Add comprehensive metadata for searchability
+   - Use multipart upload for files over 5GB
+   - Link files to relevant assets
+
+4. **Raw Storage Usage**
+
+   - Use Raw for configuration data and flexible schemas
+   - Design meaningful key structures for efficient queries
+   - Consider data size limits (4MB per row)
+   - Use columns parameter to retrieve only needed data
+
+5. **3D Models**
+
+   - Publish revisions only when ready for consumption
+   - Use asset mappings to link 3D nodes to assets
+   - Set appropriate transformation matrices for alignment
+   - Add metadata for version tracking
+
+6. **Performance Optimization**
+
+   - Use cursor pagination for large result sets
+   - Leverage filtering to reduce data transfer
+   - Batch operations when possible
+   - Cache frequently accessed metadata
+
+7. **Error Handling**
+   - Implement exponential backoff for rate limits
+   - Handle 409 conflicts for concurrent updates
+   - Log request IDs for troubleshooting
+   - Validate data before inserting
