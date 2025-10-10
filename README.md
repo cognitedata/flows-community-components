@@ -43,3 +43,4 @@ Running this command will publish all components referenced in registry.json wit
 ```bash
 pnpm registry:build
 ```
+v0.0.1
