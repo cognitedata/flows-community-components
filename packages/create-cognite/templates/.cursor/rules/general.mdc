@@ -65,6 +65,8 @@ Aggregated Data Display: Updated chart component to handle both regular datapoin
 
 UI Enhancement: Replaced search dialog with dropdown interface for time series selection, providing better UX with automatic loading and filtering of available time series.
 
+Prefer select dropdowns with in built search
+
 WATCH OUT FOR THIS BUG WITH SHADCN SELECTS:
 A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.
 
