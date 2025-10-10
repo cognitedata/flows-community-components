@@ -8,6 +8,9 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 
 const REQUIRED_DEPENDENCIES = [
+  { name: "recharts", version: "^3.2.1" },
+  { name: "@cognite/sdk", version: "^10.2.0" },
+  { name: "date-fns", version: "^4.1.0" },
   { name: "tailwind-merge", version: "^3.3.1" },
   { name: "tw-animate-css", version: "^1.3.8" },
   { name: "clsx", version: "^2.1.1" },
