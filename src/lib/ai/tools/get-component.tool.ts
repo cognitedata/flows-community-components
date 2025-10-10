@@ -8,10 +8,17 @@ export const getComponentTool = tool({
       .string()
       .describe("The name of the component to get the code for"),
   }),
-  execute: async ({ componentName }) => ({
-    componentName,
-    code: await fetch(
-      `${process.env.COGNITE_REGISTRY_URL}/r/${componentName}.json`
-    ).then((res) => res.json()),
-  }),
+  execute: async ({ componentName }) => {
+    try {
+      return await fetch(
+        `${
+          process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}`
+            : "http://localhost:3000"
+        }/r/${componentName}.json`
+      ).then((res) => res.json());
+    } catch {
+      return "Component does not exist in Cognite registry";
+    }
+  },
 });

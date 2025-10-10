@@ -126,8 +126,8 @@ export default function HelpPage() {
         </div>
       </header>
 
-      <div className="flex min-h-[60vh] flex-col overflow-hidden rounded-xl border border-border/60 bg-background/80">
-        <Conversation className="flex h-full flex-col">
+      <div className="flex min-h-[55vh] flex-col overflow-hidden rounded-xl border border-border/60 bg-background/80">
+        <Conversation className="flex h-full flex-col max-h-[55vh] overflow-y-auto">
           <ConversationContent className="flex flex-col gap-4">
             {messages.length === 0 && (
               <ConversationEmptyState className="rounded-xl border border-dashed border-border/60 bg-muted/30 py-12">
