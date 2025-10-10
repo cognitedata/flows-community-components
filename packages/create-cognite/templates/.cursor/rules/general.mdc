@@ -10,9 +10,18 @@ Always use semantic Tailwind color classes (e.g., bg-primary, text-primary, bord
 
 CogniteSDK Rules
 
-Look in .env.example for the envars to use.
+Environment Variables
+# Cognite Configuration
+NEXT_PUBLIC_COGNITE_PROJECT=
+NEXT_PUBLIC_COGNITE_BASE_URL=
 
-All CogniteSDK calls should be done server side or in server components.
+# OIDC Authentication (Required for production)
+NEXT_PUBLIC_COGNITE_CLIENT_ID=
+COGNITE_CLIENT_SECRET=
+
+Make sure to build fallbacks for any error or empty states.
+
+All CogniteSDK calls should be done server side in server actions or in server components.
 
 We can't use the cognite sdk in the browser as the COGNITE_CLIENT_SECRET is private.
 
