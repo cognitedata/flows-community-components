@@ -8,6 +8,7 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 
 const REQUIRED_DEPENDENCIES = [
+  { name: "@tanstack/react-query", version: "^5.90.2" },
   { name: "recharts", version: "^3.2.1" },
   { name: "@cognite/sdk", version: "^10.2.0" },
   { name: "date-fns", version: "^4.1.0" },

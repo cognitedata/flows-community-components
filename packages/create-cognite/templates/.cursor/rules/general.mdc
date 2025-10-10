@@ -15,6 +15,7 @@ Make sure to properly handle x and y values to proper scales.
 Chart Rendering Rules
 Use direct hex colors: Avoid CSS variables like var(--color-*) in stroke properties
 Make sure charts have properly formatted value properties to display data.
+Use real Cognite data from the SDK.
 
 CogniteSDK Rules
 
