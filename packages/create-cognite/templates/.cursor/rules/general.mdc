@@ -9,3 +9,5 @@ Use the ShadCN MCP server to list the Cognite registry for components you can us
 Always use semantic Tailwind color classes (e.g., bg-primary, text-primary, border-primary) instead of arbitrary color values (e.g., bg-blue-600, text-red-500). This ensures consistency with the design system.
 
 Run `pnpm lint` after your changes to make sure you have fixed all potential errors.
+
+When setting up auth rememeber to set up the oidcTokenProvider.
