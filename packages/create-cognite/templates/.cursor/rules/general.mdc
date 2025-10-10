@@ -10,8 +10,11 @@ Always use semantic Tailwind color classes (e.g., bg-primary, text-primary, bord
 
 Layout & Components
 Make sure to put the components together in a cohesive manner.
-Make sure charts have properly formatted value properties to display data.
 Make sure to properly handle x and y values to proper scales.
+
+Chart Rendering Rules
+Use direct hex colors: Avoid CSS variables like var(--color-*) in stroke properties
+Make sure charts have properly formatted value properties to display data.
 
 CogniteSDK Rules
 
