@@ -8,6 +8,10 @@ Use the ShadCN MCP server to list the Cognite registry for components you can us
 
 Always use semantic Tailwind color classes (e.g., bg-primary, text-primary, border-primary) instead of arbitrary color values (e.g., bg-blue-600, text-red-500). This ensures consistency with the design system.
 
+CogniteSDK Rules
+
+Look in .env.example for the envars to use.
+
 All CogniteSDK calls should be done server side or in server components.
 
 We can't use the cognite sdk in the browser as the COGNITE_CLIENT_SECRET is private.
@@ -41,3 +45,13 @@ export const getToken = async (clientId: string, clientSecret: string) => {
 Always run `pnpm lint` after you make changes to make sure you have fixed all potential errors.
 
 Make sure all client and server components are handled properly and you are not passing client events from server components.
+
+Security Fix: Moved Cognite SDK authentication to server-side API routes (/api/cognite/*) to keep client secrets secure, with client-side service using fetch() calls to these routes.
+
+Date Format Fix: Converted Date objects to Unix timestamps (milliseconds) before sending to Cognite API, as it doesn't accept ISO strings.
+
+Granularity/Aggregates Fix: Ensured aggregates are always provided when granularity is specified (Cognite API requirement), defaulting to "average" aggregation.
+
+Aggregated Data Display: Updated chart component to handle both regular datapoints (value) and aggregated datapoints (average, max, min, etc.) since granularity returns aggregated data.
+
+UI Enhancement: Replaced search dialog with dropdown interface for time series selection, providing better UX with automatic loading and filtering of available time series.
