@@ -11,11 +11,13 @@ Always use semantic Tailwind color classes (e.g., bg-primary, text-primary, bord
 Layout & Components
 Make sure to put the components together in a cohesive manner.
 Make sure to properly handle x and y values to proper scales.
+Make sure you are properly handling timezoned dates between client and server.
 
 Chart Rendering Rules
 Use direct hex colors: Avoid CSS variables like var(--color-*) in stroke properties
 Make sure charts have properly formatted value properties to display data.
 Use real Cognite data from the SDK.
+Be really careful with x chart values and make sure you are rendering them correctly. Keep consistent with date and timestamp formatting as this can cause rendering issues.
 
 CogniteSDK Rules
 
