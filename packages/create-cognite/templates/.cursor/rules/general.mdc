@@ -64,3 +64,13 @@ Granularity/Aggregates Fix: Ensured aggregates are always provided when granular
 Aggregated Data Display: Updated chart component to handle both regular datapoints (value) and aggregated datapoints (average, max, min, etc.) since granularity returns aggregated data.
 
 UI Enhancement: Replaced search dialog with dropdown interface for time series selection, providing better UX with automatic loading and filtering of available time series.
+
+WATCH OUT FOR THIS BUG WITH SHADCN SELECTS:
+A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.
+
+src/components/ui/cognite/select.tsx (107:5) @ SelectItem
+
+
+  105 | }: React.ComponentProps<typeof SelectPrimitive.Item>) {
+  106 |   return (
+> 107 |     <SelectPrimitive.Item
