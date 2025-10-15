@@ -370,7 +370,7 @@ function ColorSwatch({
         <div
           style={{ position: "fixed", left: tooltipPos.left, top: tooltipPos.top, zIndex: 9999, transform: "translateX(-50%) translateY(-100%)" }}
         >
-          <div className="pointer-events-auto rounded-md border bg-popover text-popover-foreground shadow px-2 py-1 text-[10px] sm:text-xs flex items-center gap-2">
+          <div className="pointer-events-auto rounded-md border border-white/10 bg-black/80 text-white shadow px-2 py-1 text-[10px] sm:text-xs flex items-center gap-2">
             <span className="font-medium">{paletteName} {color.name}</span>
             <span className="font-mono text-muted-foreground">{hex || "..."}</span>
             <button
