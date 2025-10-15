@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/cognite/card";
 import { Badge } from "@/components/ui/cognite/badge";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 // Color definitions using CSS variable names (values pulled from globals.css)
 // Groups and order follow globals.css:
@@ -312,6 +313,8 @@ function ColorSwatch({
   const isDark = parseInt(color.name) >= 700;
   const swatchRef = useRef<HTMLDivElement | null>(null);
   const [hex, setHex] = useState<string>("");
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
+  const [tooltipPos, setTooltipPos] = useState<{ left: number; top: number } | null>(null);
 
   const rgbToHex = useMemo(
     () =>
@@ -340,19 +343,33 @@ function ColorSwatch({
     if (hex) copyToClipboard(hex);
   };
 
+  const handleMouseEnter = () => {
+    if (!swatchRef.current) return;
+    const rect = swatchRef.current.getBoundingClientRect();
+    setTooltipPos({ left: rect.left + rect.width / 2, top: Math.max(8, rect.top - 8) });
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
   return (
     <div
       ref={swatchRef}
       className="relative group cursor-pointer rounded-lg overflow-hidden"
       style={{ backgroundColor: `var(${color.var})` }}
       onClick={handleCopyHex}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       title={hex ? `Click to copy ${hex}` : undefined}
     >
       <div className="aspect-square w-full min-h-[80px]" />
 
-      {/* Hover tooltip */}
-      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="absolute left-1/2 top-2 -translate-x-1/2 z-10">
+      {showTooltip && tooltipPos && createPortal(
+        <div
+          style={{ position: "fixed", left: tooltipPos.left, top: tooltipPos.top, zIndex: 9999, transform: "translateX(-50%) translateY(-100%)" }}
+        >
           <div className="pointer-events-auto rounded-md border bg-popover text-popover-foreground shadow px-2 py-1 text-[10px] sm:text-xs flex items-center gap-2">
             <span className="font-medium">{paletteName} {color.name}</span>
             <span className="font-mono text-muted-foreground">{hex || "..."}</span>
@@ -367,8 +384,9 @@ function ColorSwatch({
               Copy
             </button>
           </div>
-        </div>
-      </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
