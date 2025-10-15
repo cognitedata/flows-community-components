@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/cognite/card";
 import { Badge } from "@/components/ui/cognite/badge";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // Color definitions using CSS variable names (values pulled from globals.css)
 // Groups and order follow globals.css:
@@ -308,40 +309,65 @@ function ColorSwatch({
   color: { name: string; var: string };
   paletteName: string;
 }) {
-  console.log(paletteName);
   const isDark = parseInt(color.name) >= 700;
+  const swatchRef = useRef<HTMLDivElement | null>(null);
+  const [hex, setHex] = useState<string>("");
+
+  const rgbToHex = useMemo(
+    () =>
+      (rgb: string) => {
+        // Accepts formats like rgb(r, g, b) or rgba(r, g, b, a)
+        const match = rgb
+          .replace(/\s+/g, "")
+          .match(/^rgba?\((\d+),(\d+),(\d+)(?:,(\d*\.?\d+))?\)$/i);
+        if (!match) return "";
+        const r = Number(match[1]);
+        const g = Number(match[2]);
+        const b = Number(match[3]);
+        const toHex = (n: number) => n.toString(16).padStart(2, "0");
+        return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+      },
+    []
+  );
+
+  useEffect(() => {
+    if (!swatchRef.current) return;
+    const bg = window.getComputedStyle(swatchRef.current).backgroundColor;
+    setHex(rgbToHex(bg));
+  }, [rgbToHex, color.var]);
+
+  const handleCopyHex = () => {
+    if (hex) copyToClipboard(hex);
+  };
 
   return (
     <div
+      ref={swatchRef}
       className="relative group cursor-pointer rounded-lg overflow-hidden"
       style={{ backgroundColor: `var(${color.var})` }}
-      onClick={() => copyToClipboard(`var(${color.var})`)}
-      title={`Click to copy var(${color.var})`}
+      onClick={handleCopyHex}
+      title={hex ? `Click to copy ${hex}` : undefined}
     >
-      <div className="aspect-square w-full min-h-[80px] flex flex-col justify-end p-3">
-        <div
-          className={`text-sm font-medium ${
-            isDark ? "text-white" : "text-gray-900"
-          }`}
-        >
-          {color.name}
-        </div>
-        <div
-          className={`text-xs ${isDark ? "text-gray-200" : "text-gray-600"}`}
-        >
-          {color.var}
-        </div>
-      </div>
+      <div className="aspect-square w-full min-h-[80px]" />
 
-      {/* Hover overlay */}
-      <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-        <span
-          className={`text-xs font-medium ${
-            isDark ? "text-white" : "text-gray-900"
-          }`}
-        >
-          Click to copy
-        </span>
+      {/* Hover tooltip */}
+      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="absolute left-1/2 top-2 -translate-x-1/2 z-10">
+          <div className="pointer-events-auto rounded-md border bg-popover text-popover-foreground shadow px-2 py-1 text-[10px] sm:text-xs flex items-center gap-2">
+            <span className="font-medium">{paletteName} {color.name}</span>
+            <span className="font-mono text-muted-foreground">{hex || "..."}</span>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCopyHex();
+              }}
+              className="ml-1 inline-flex items-center rounded-sm border px-1.5 py-0.5 text-[10px] hover:bg-accent hover:text-accent-foreground"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -382,20 +408,6 @@ function ColorPalette({ palette }: { palette: (typeof colorPalettes)[0] }) {
               paletteName={palette.name}
             />
           ))}
-        </div>
-
-        {/* CSS Variables section */}
-        <div className="mt-6 pt-4 border-t">
-          <h4 className="text-sm font-medium mb-2">CSS Variables</h4>
-          <div className="bg-muted rounded-lg p-3">
-            <code className="text-xs text-muted-foreground">
-              {palette.colors
-                .slice(0, 3)
-                .map((color) => color.var)
-                .join(", ")}
-              {palette.colors.length > 3 && ", ..."}
-            </code>
-          </div>
         </div>
       </CardContent>
     </Card>
