@@ -395,6 +395,7 @@
   --input: var(--mountain-900);
   --ring: var(--gray-300);
   --backdrop: rgba(226, 232, 240, 0.2);
+
   /* Status tokens */
   --destructive: var(--red-900);
   --destructive-hover: var(--red-800);
@@ -407,6 +408,7 @@
   --neutral-foreground: var(--blue-300);
   --undefined: var(--mountain-900);
   --undefined-foreground: var(--mountain-300);
+ 
   /* Decorative background tokens */
   --decorative-background-mountain: var(--mountain-900);
   --decorative-background-fjord: var(--fjord-900);
@@ -415,6 +417,7 @@
   --decorative-background-dusk: var(--dusk-900);
   --decorative-background-orange: var(--orange-900);
   --decorative-background-sky: var(--sky-900);
+  
   /* Decorative background hover tokens */
   --decorative-background-hover-mountain: var(--mountain-900);
   --decorative-background-hover-fjord: var(--fjord-900);
@@ -423,6 +426,7 @@
   --decorative-background-hover-dusk: var(--dusk-900);
   --decorative-background-hover-orange: var(--orange-900);
   --decorative-background-hover-sky: var(--sky-900);
+  
   /* Decorative foreground tokens */
   --decorative-foreground-mountain: var(--mountain-300);
   --decorative-foreground-fjord: var(--fjord-300);
@@ -431,6 +435,7 @@
   --decorative-foreground-dusk: var(--dusk-400);
   --decorative-foreground-orange: var(--orange-300);
   --decorative-foreground-sky: var(--sky-300);
+ 
   /* Charts (dark) */
   --chart-fjord-solid: var(--fjord-300);
   --chart-fjord-opacity-1: rgba(174, 189, 247, 0.8);
@@ -462,6 +467,7 @@
   --chart-dusk-opacity-3: rgba(249, 202, 220, 0.5);
   --chart-dusk-opacity-4: rgba(249, 202, 220, 0.35);
   --chart-dusk-opacity-5: rgba(249, 202, 220, 0.2);
+  
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
