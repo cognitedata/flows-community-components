@@ -260,111 +260,145 @@
   --gray-800: rgb(35, 46, 90);
   --gray-900: rgb(26, 34, 66);
   --gray-950: rgb(13, 17, 34);
-  
-  /* Namespaces-linked base colors (from shadcn-color + Namespaces JSON) */
-  /* Glacier */
-  --ns-glacier-50: rgb(254, 254, 255);
-  --ns-glacier-100: rgb(245, 250, 255);
-  --ns-glacier-200: rgb(227, 244, 255);
-  --ns-glacier-300: rgb(205, 236, 251);
-  --ns-glacier-500: rgb(120, 167, 203);
-  --ns-glacier-700: rgb(46, 71, 107);
-  --ns-glacier-800: rgb(27, 37, 54);
-  --ns-glacier-900: rgb(22, 26, 41);
-  --ns-glacier-950: rgb(12, 15, 23);
-  /* Aurora */
-  --ns-aurora-200: rgb(221, 252, 186);
-  --ns-aurora-500: rgb(169, 248, 83);
-  /* Slate */
-  --ns-slate-50: rgb(248, 250, 252);
-  --ns-slate-200: rgb(226, 232, 240);
-  --ns-slate-400: rgb(148, 163, 184);
-  --ns-slate-600: rgb(71, 85, 105);
-  --ns-slate-800: rgb(30, 41, 59);
-  /* Rose */
-  --ns-rose-100: rgb(255, 228, 230);
-  --ns-rose-300: rgb(253, 164, 175);
-  --ns-rose-800: rgb(159, 18, 57);
-  --ns-rose-950: rgb(76, 5, 25);
-  /* Navy */
-  --ns-navy-950: rgb(0, 5, 22);
-  /* Other charts */
-  --ns-indigo-400: rgb(129, 140, 248);
-  --ns-yellow-300: rgb(253, 224, 71);
-  --ns-purple-500: rgb(168, 85, 247);
-  --ns-emerald-400: rgb(52, 211, 153);
-  --ns-cyan-500: rgb(6, 182, 212);
 
-  /* Semantic color mappings (Light mode) using Namespaces links */
-  --background: var(--ns-glacier-50);
-  --foreground: var(--ns-glacier-950);
-  --card: var(--ns-glacier-100);
-  --card-foreground: var(--ns-glacier-950);
-  --popover: var(--ns-glacier-100);
-  --popover-foreground: var(--ns-navy-950);
-  --primary: var(--ns-glacier-700);
-  --primary-foreground: var(--ns-aurora-500);
-  --secondary: var(--ns-glacier-300);
-  --secondary-foreground: var(--ns-glacier-800);
-  --muted: var(--ns-glacier-200);
-  --muted-foreground: var(--ns-slate-600);
-  --accent: var(--ns-glacier-200);
-  --accent-foreground: var(--ns-glacier-800);
-  --destructive: var(--ns-rose-100);
-  --destructive-foreground: var(--ns-rose-800);
-  --border: var(--ns-slate-200);
-  --input: var(--ns-slate-200);
-  --ring: var(--ns-glacier-500);
-  /* Charts */
-  --chart-1: rgb(152, 223, 75); /* aurora/600 */
-  --chart-2: var(--ns-yellow-300);
-  --chart-3: var(--ns-purple-500);
-  --chart-4: var(--ns-emerald-400);
-  --chart-5: var(--ns-cyan-500);
+  /* Theme tokens (Light) mapped to ramp variables */
+  --background: var(--mountain-white);
+  --foreground: var(--mountain-950);
+  --card: var(--mountain-white);
+  --card-foreground: var(--mountain-950);
+  --popover: var(--mountain-white);
+  --popover-foreground: var(--mountain-950);
+  --primary: var(--mountain-900);
+  --primary-foreground: var(--mountain-50);
+  --secondary: var(--mountain-100);
+  --secondary-foreground: var(--mountain-900);
+  --muted: var(--mountain-50);
+  --muted-foreground: var(--mountain-600);
+  --accent: var(--mountain-100);
+  --accent-foreground: var(--mountain-950);
+  --destructive: var(--red-50);
+  --destructive-foreground: var(--red-550);
+  --border: var(--mountain-50);
+  --input: var(--mountain-100);
+  --ring: var(--gray-600);
+  /* Status tokens */
+  --warning: var(--amber-50);
+  --warning-foreground: var(--amber-500);
+  --success: var(--green-50);
+  --success-foreground: var(--green-500);
+  --neutral: var(--blue-50);
+  --neutral-foreground: var(--blue-500);
+  --backdrop: rgba(2, 6, 23, 0.2);
+  /* Charts (light) */
+  --chart-fjord-solid: var(--fjord-600);
+  --chart-fjord-opacity-1: rgba(47, 85, 234, 0.8);
+  --chart-fjord-opacity-2: rgba(47, 85, 234, 0.65);
+  --chart-fjord-opacity-3: rgba(47, 85, 234, 0.5);
+  --chart-fjord-opacity-4: rgba(47, 85, 234, 0.35);
+  --chart-fjord-opacity-5: rgba(47, 85, 234, 0.2);
+  --chart-aurora-solid: var(--aurora-600);
+  --chart-aurora-opacity-1: rgba(77, 112, 12, 0.8);
+  --chart-aurora-opacity-2: rgba(77, 112, 12, 0.65);
+  --chart-aurora-opacity-3: rgba(77, 112, 12, 0.5);
+  --chart-aurora-opacity-4: rgba(77, 112, 12, 0.35);
+  --chart-aurora-opacity-5: rgba(77, 112, 12, 0.2);
+  --chart-nordic-solid: var(--nordic-600);
+  --chart-nordic-opacity-1: rgba(20, 115, 94, 0.8);
+  --chart-nordic-opacity-2: rgba(20, 115, 94, 0.65);
+  --chart-nordic-opacity-3: rgba(20, 115, 94, 0.5);
+  --chart-nordic-opacity-4: rgba(20, 115, 94, 0.35);
+  --chart-nordic-opacity-5: rgba(20, 115, 94, 0.2);
+  --chart-orange-solid: var(--orange-600);
+  --chart-orange-opacity-1: rgba(173, 69, 6, 0.8);
+  --chart-orange-opacity-2: rgba(173, 69, 6, 0.65);
+  --chart-orange-opacity-3: rgba(173, 69, 6, 0.5);
+  --chart-orange-opacity-4: rgba(173, 69, 6, 0.35);
+  --chart-orange-opacity-5: rgba(173, 69, 6, 0.2);
+  --chart-dusk-solid: var(--dusk-600);
+  --chart-dusk-opacity-1: rgba(196, 22, 91, 0.8);
+  --chart-dusk-opacity-2: rgba(196, 22, 91, 0.65);
+  --chart-dusk-opacity-3: rgba(196, 22, 91, 0.5);
+  --chart-dusk-opacity-4: rgba(196, 22, 91, 0.35);
+  --chart-dusk-opacity-5: rgba(196, 22, 91, 0.2);
   /* Sidebar */
-  --sidebar: var(--ns-glacier-50);
-  --sidebar-foreground: var(--ns-glacier-950);
-  --sidebar-primary: var(--ns-glacier-700);
-  --sidebar-primary-foreground: var(--ns-aurora-500);
-  --sidebar-accent: var(--ns-glacier-200);
-  --sidebar-accent-foreground: var(--ns-glacier-800);
-  --sidebar-border: var(--ns-slate-200);
-  --sidebar-ring: var(--ns-glacier-500);
+  --sidebar: var(--mountain-900);
+  --sidebar-foreground: var(--mountain-100);
+  --sidebar-primary: var(--gray-500);
+  --sidebar-primary-foreground: var(--mountain-white);
+  --sidebar-accent: var(--gray-500);
+  --sidebar-accent-foreground: var(--mountain-white);
+  --sidebar-border: var(--mountain-800);
+  --sidebar-ring: var(--gray-300);
 }
 
 .dark {
-  --background: var(--ns-glacier-950);
-  --foreground: var(--ns-glacier-50);
-  --card: var(--ns-glacier-950);
-  --card-foreground: var(--ns-glacier-50);
-  --popover: var(--ns-glacier-900);
-  --popover-foreground: var(--ns-glacier-50);
-  --primary: var(--ns-aurora-500);
-  --primary-foreground: var(--ns-glacier-800);
-  --secondary: var(--ns-glacier-300);
-  --secondary-foreground: var(--ns-glacier-900);
-  --muted: var(--ns-glacier-800);
-  --muted-foreground: var(--ns-slate-400);
-  --accent: var(--ns-aurora-200);
-  --accent-foreground: var(--ns-glacier-800);
-  --destructive: var(--ns-rose-950);
-  --destructive-foreground: var(--ns-rose-300);
-  --border: var(--ns-slate-800);
-  --input: var(--ns-slate-800);
-  --ring: var(--ns-aurora-500);
-  --chart-1: var(--ns-indigo-400);
-  --chart-2: var(--ns-yellow-300);
-  --chart-3: var(--ns-purple-500);
-  --chart-4: var(--ns-emerald-400);
-  --chart-5: var(--ns-cyan-500);
-  --sidebar: var(--ns-glacier-950);
-  --sidebar-foreground: var(--ns-glacier-50);
-  --sidebar-primary: var(--ns-aurora-500);
-  --sidebar-primary-foreground: var(--ns-glacier-800);
-  --sidebar-accent: var(--ns-aurora-200);
-  --sidebar-accent-foreground: var(--ns-glacier-800);
-  --sidebar-border: var(--ns-slate-800);
-  --sidebar-ring: var(--ns-aurora-500);
+  --background: var(--mountain-950);
+  --foreground: var(--mountain-50);
+  --card: var(--mountain-900);
+  --card-foreground: var(--mountain-50);
+  --popover: var(--mountain-900);
+  --popover-foreground: var(--mountain-200);
+  --primary: var(--mountain-50);
+  --primary-foreground: var(--mountain-950);
+  --secondary: var(--mountain-700);
+  --secondary-foreground: var(--mountain-100);
+  --muted: var(--mountain-800);
+  --muted-foreground: var(--mountain-400);
+  --accent: var(--mountain-700);
+  --accent-foreground: var(--mountain-50);
+  --destructive: var(--red-900);
+  --destructive-foreground: var(--red-400);
+  --border: var(--mountain-800);
+  --input: var(--mountain-900);
+  --ring: var(--gray-300);
+  /* Status tokens */
+  --warning: var(--amber-900);
+  --warning-foreground: var(--amber-300);
+  --success: var(--green-900);
+  --success-foreground: var(--green-300);
+  --neutral: var(--blue-900);
+  --neutral-foreground: var(--blue-300);
+  --backdrop: rgba(226, 232, 240, 0.2);
+  /* Charts (dark) */
+  --chart-fjord-solid: var(--fjord-300);
+  --chart-fjord-opacity-1: rgba(174, 189, 247, 0.8);
+  --chart-fjord-opacity-2: rgba(174, 189, 247, 0.65);
+  --chart-fjord-opacity-3: rgba(174, 189, 247, 0.5);
+  --chart-fjord-opacity-4: rgba(174, 189, 247, 0.35);
+  --chart-fjord-opacity-5: rgba(174, 189, 247, 0.2);
+  --chart-aurora-solid: var(--aurora-200);
+  --chart-aurora-opacity-1: rgba(171, 233, 56, 0.8);
+  --chart-aurora-opacity-2: rgba(171, 233, 56, 0.65);
+  --chart-aurora-opacity-3: rgba(171, 233, 56, 0.5);
+  --chart-aurora-opacity-4: rgba(171, 233, 56, 0.35);
+  --chart-aurora-opacity-5: rgba(171, 233, 56, 0.2);
+  --chart-nordic-solid: var(--nordic-200);
+  --chart-nordic-opacity-1: rgba(127, 233, 210, 0.8);
+  --chart-nordic-opacity-2: rgba(127, 233, 210, 0.65);
+  --chart-nordic-opacity-3: rgba(127, 233, 210, 0.5);
+  --chart-nordic-opacity-4: rgba(127, 233, 210, 0.35);
+  --chart-nordic-opacity-5: rgba(127, 233, 210, 0.2);
+  --chart-orange-solid: var(--orange-200);
+  --chart-orange-opacity-1: rgba(252, 205, 176, 0.8);
+  --chart-orange-opacity-2: rgba(252, 205, 176, 0.65);
+  --chart-orange-opacity-3: rgba(252, 205, 176, 0.5);
+  --chart-orange-opacity-4: rgba(252, 205, 176, 0.35);
+  --chart-orange-opacity-5: rgba(252, 205, 176, 0.2);
+  --chart-dusk-solid: var(--dusk-200);
+  --chart-dusk-opacity-1: rgba(249, 202, 220, 0.8);
+  --chart-dusk-opacity-2: rgba(249, 202, 220, 0.65);
+  --chart-dusk-opacity-3: rgba(249, 202, 220, 0.5);
+  --chart-dusk-opacity-4: rgba(249, 202, 220, 0.35);
+  --chart-dusk-opacity-5: rgba(249, 202, 220, 0.2);
+  /* Sidebar */
+  --sidebar: var(--mountain-900);
+  --sidebar-foreground: var(--mountain-100);
+  --sidebar-primary: var(--gray-500);
+  --sidebar-primary-foreground: var(--mountain-white);
+  --sidebar-accent: var(--gray-500);
+  --sidebar-accent-foreground: var(--mountain-white);
+  --sidebar-border: var(--mountain-800);
+  --sidebar-ring: var(--gray-300);
 }
 
 .contrast {
