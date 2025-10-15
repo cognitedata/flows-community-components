@@ -31,22 +31,23 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Hero Section */}
-      <div className="relative z-10 container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+      {/* Hero Section (locked to dark mode) */}
+      <div className="dark w-full bg-background text-foreground">
+        <div className="relative z-10 container mx-auto px-4 py-16">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
           {/* Hero Text */}
           <div className="space-y-4">
-            <h2 className="text-5xl sm:text-6xl font-bold tracking-tight text-[var(--ns-glacier-50)]">
+            <h2 className="text-5xl sm:text-6xl font-bold tracking-tight text-foreground">
               Build with Aura
             </h2>
-            <p className="text-xl max-w-2xl mx-auto leading-relaxed text-[var(--ns-slate-400)]">
+            <p className="text-xl max-w-2xl mx-auto leading-relaxed text-muted-foreground">
               Aura is Cognite&apos;s AI-native design system inspired by fractal
               intelligence and adaptive by nature.
             </p>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button asChild size="lg" className="text-lg px-8">
               <Link href="/overview">
                 Get started
@@ -61,9 +62,10 @@ export default function HomePage() {
             >
               <Link href="/primitives">Explore components</Link>
             </Button>
-          </div>
+            </div>
 
-          {/* Feature cards removed */}
+            {/* Feature cards removed */}
+          </div>
         </div>
       </div>
     </div>
