@@ -17,6 +17,20 @@ import { ArrowLeft, Copy, ExternalLink, Loader2, Mail } from "lucide-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { CodeCopyButton } from "@/components/code-copy-button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/cognite/sidebar";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -304,6 +318,48 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                             More collapsible content
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {slug === "sidebar" && (
+                  <div className="space-y-6">
+                    <div className="p-6 border rounded-lg bg-background">
+                      <h3 className="font-medium mb-4">Sidebar Demo</h3>
+                      <div className="h-64 border rounded overflow-hidden">
+                        <SidebarProvider>
+                          <div className="flex h-full">
+                            <Sidebar>
+                              <SidebarHeader>Header</SidebarHeader>
+                              <SidebarContent>
+                                <SidebarGroup>
+                                  <SidebarGroupLabel>Application</SidebarGroupLabel>
+                                  <SidebarGroupContent>
+                                    <SidebarMenu>
+                                      <SidebarMenuItem>
+                                        <SidebarMenuButton>Home</SidebarMenuButton>
+                                      </SidebarMenuItem>
+                                      <SidebarMenuItem>
+                                        <SidebarMenuButton>Inbox</SidebarMenuButton>
+                                      </SidebarMenuItem>
+                                      <SidebarMenuItem>
+                                        <SidebarMenuButton>Settings</SidebarMenuButton>
+                                      </SidebarMenuItem>
+                                    </SidebarMenu>
+                                  </SidebarGroupContent>
+                                </SidebarGroup>
+                              </SidebarContent>
+                              <SidebarFooter>Footer</SidebarFooter>
+                            </Sidebar>
+                            <div className="flex-1 p-4">
+                              <SidebarTrigger className="mb-2" />
+                              <div className="text-sm text-muted-foreground">
+                                Main content area
+                              </div>
+                            </div>
+                          </div>
+                        </SidebarProvider>
                       </div>
                     </div>
                   </div>
@@ -1242,6 +1298,110 @@ export function InputDisabled() {
 
 export function InputDisabled() {
   return <Input disabled placeholder="Email" />
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {slug === "sidebar" && (
+                  <div className="space-y-4">
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Basic Sidebar</h4>
+                      <div className="relative">
+                        <CodeCopyButton
+                          code={`import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/cognite/sidebar"
+
+export function SidebarDemo() {
+  return (
+    <SidebarProvider>
+      <div className="flex h-64 border rounded overflow-hidden">
+        <Sidebar>
+          <SidebarHeader>Header</SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Application</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Home</SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Inbox</SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+          <SidebarFooter>Footer</SidebarFooter>
+        </Sidebar>
+        <div className="flex-1 p-4">
+          <SidebarTrigger />
+        </div>
+      </div>
+    </SidebarProvider>
+  )
+}`}
+                        />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/cognite/sidebar"
+
+export function SidebarDemo() {
+  return (
+    <SidebarProvider>
+      <div className="flex h-64 border rounded overflow-hidden">
+        <Sidebar>
+          <SidebarHeader>Header</SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Application</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Home</SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Inbox</SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+          <SidebarFooter>Footer</SidebarFooter>
+        </Sidebar>
+        <div className="flex-1 p-4">
+          <SidebarTrigger />
+        </div>
+      </div>
+    </SidebarProvider>
+  )
 }`}</code>
                         </pre>
                       </div>
