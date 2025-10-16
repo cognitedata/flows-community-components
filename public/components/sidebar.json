@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar",
+  "type": "registry:component",
+  "title": "Sidebar",
+  "description": "A composable, themeable and customizable sidebar component.",
+  "files": [
+    {
+      "path": "src/components/ui/cognite/sidebar.tsx",
+      "type": "registry:component"
+    }
+  ]
+}
+
+

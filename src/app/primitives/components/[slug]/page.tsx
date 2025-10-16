@@ -17,6 +17,20 @@ import { ArrowLeft, Copy, ExternalLink, Loader2, Mail } from "lucide-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { CodeCopyButton } from "@/components/code-copy-button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/cognite/sidebar";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -140,7 +154,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               <div className="space-y-4">
                 {slug === "button" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">
                         All Variants & States
                       </h3>
@@ -175,7 +189,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "badge" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Badge Variants</h3>
                       <div className="flex flex-wrap gap-3">
                         <Badge variant="default">Default</Badge>
@@ -189,7 +203,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "card" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Card Examples</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="p-4 border rounded-lg bg-background">
@@ -214,7 +228,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "input" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Input Examples</h3>
                       <div className="space-y-4 max-w-sm">
                         <div>
@@ -253,7 +267,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         </TabsList>
                         <TabsContent
                           value="tab1"
-                          className="mt-4 p-4 border rounded"
+                          className="mt-4 p-4 border rounded bg-background"
                         >
                           <h4 className="font-medium mb-2">
                             Account Information
@@ -264,7 +278,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         </TabsContent>
                         <TabsContent
                           value="tab2"
-                          className="mt-4 p-4 border rounded"
+                          className="mt-4 p-4 border rounded bg-background"
                         >
                           <h4 className="font-medium mb-2">
                             Password Settings
@@ -275,7 +289,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         </TabsContent>
                         <TabsContent
                           value="tab3"
-                          className="mt-4 p-4 border rounded"
+                          className="mt-4 p-4 border rounded bg-background"
                         >
                           <h4 className="font-medium mb-2">General Settings</h4>
                           <p className="text-sm text-muted-foreground">
@@ -289,7 +303,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "accordion" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Accordion Demo</h3>
                       <div className="space-y-2">
                         <div className="border rounded p-3">
@@ -309,9 +323,51 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   </div>
                 )}
 
+                {slug === "sidebar" && (
+                  <div className="space-y-6">
+                    <div className="p-6 border rounded-lg bg-background">
+                      <h3 className="font-medium mb-4">Sidebar Demo</h3>
+                      <div className="h-64 border rounded overflow-hidden">
+                        <SidebarProvider>
+                          <div className="flex h-full">
+                            <Sidebar>
+                              <SidebarHeader>Header</SidebarHeader>
+                              <SidebarContent>
+                                <SidebarGroup>
+                                  <SidebarGroupLabel>Application</SidebarGroupLabel>
+                                  <SidebarGroupContent>
+                                    <SidebarMenu>
+                                      <SidebarMenuItem>
+                                        <SidebarMenuButton>Home</SidebarMenuButton>
+                                      </SidebarMenuItem>
+                                      <SidebarMenuItem>
+                                        <SidebarMenuButton>Inbox</SidebarMenuButton>
+                                      </SidebarMenuItem>
+                                      <SidebarMenuItem>
+                                        <SidebarMenuButton>Settings</SidebarMenuButton>
+                                      </SidebarMenuItem>
+                                    </SidebarMenu>
+                                  </SidebarGroupContent>
+                                </SidebarGroup>
+                              </SidebarContent>
+                              <SidebarFooter>Footer</SidebarFooter>
+                            </Sidebar>
+                            <div className="flex-1 p-4">
+                              <SidebarTrigger className="mb-2" />
+                              <div className="text-sm text-muted-foreground">
+                                Main content area
+                              </div>
+                            </div>
+                          </div>
+                        </SidebarProvider>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {slug === "alert-dialog" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Alert Dialog Demo</h3>
                       <div className="space-y-3">
                         <Button>Open Alert Dialog</Button>
@@ -327,7 +383,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "calendar" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Calendar Demo</h3>
                       <div className="max-w-sm">
                         <div className="border rounded p-4 bg-background">
@@ -431,7 +487,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "checkbox" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Checkbox Examples</h3>
                       <div className="space-y-3">
                         <div className="flex items-center space-x-2">
@@ -477,7 +533,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "dialog" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Dialog Demo</h3>
                       <div className="space-y-3">
                         <Button>Open Dialog</Button>
@@ -493,7 +549,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "dropdown-menu" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Dropdown Menu Demo</h3>
                       <div className="space-y-3">
                         <Button>Menu Trigger</Button>
@@ -516,7 +572,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "label" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Label Examples</h3>
                       <div className="space-y-4 max-w-sm">
                         <div>
@@ -544,7 +600,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "navigation-menu" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Navigation Menu Demo</h3>
                       <div className="border rounded bg-background p-2">
                         <div className="flex space-x-1">
@@ -568,7 +624,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
                 {slug === "popover" && (
                   <div className="space-y-6">
-                    <div className="p-6 border rounded-lg bg-muted/20">
+                    <div className="p-6 border rounded-lg bg-background">
                       <h3 className="font-medium mb-4">Popover Demo</h3>
                       <div className="space-y-3">
                         <Button>Open Popover</Button>
@@ -1242,6 +1298,110 @@ export function InputDisabled() {
 
 export function InputDisabled() {
   return <Input disabled placeholder="Email" />
+}`}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {slug === "sidebar" && (
+                  <div className="space-y-4">
+                    <div className="bg-muted/50 rounded-lg p-4">
+                      <h4 className="font-medium mb-2">Basic Sidebar</h4>
+                      <div className="relative">
+                        <CodeCopyButton
+                          code={`import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/cognite/sidebar"
+
+export function SidebarDemo() {
+  return (
+    <SidebarProvider>
+      <div className="flex h-64 border rounded overflow-hidden">
+        <Sidebar>
+          <SidebarHeader>Header</SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Application</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Home</SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Inbox</SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+          <SidebarFooter>Footer</SidebarFooter>
+        </Sidebar>
+        <div className="flex-1 p-4">
+          <SidebarTrigger />
+        </div>
+      </div>
+    </SidebarProvider>
+  )
+}`}
+                        />
+                        <pre className="text-sm overflow-x-auto bg-background rounded p-3 border pr-12">
+                          <code>{`import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/cognite/sidebar"
+
+export function SidebarDemo() {
+  return (
+    <SidebarProvider>
+      <div className="flex h-64 border rounded overflow-hidden">
+        <Sidebar>
+          <SidebarHeader>Header</SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Application</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Home</SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>Inbox</SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+          <SidebarFooter>Footer</SidebarFooter>
+        </Sidebar>
+        <div className="flex-1 p-4">
+          <SidebarTrigger />
+        </div>
+      </div>
+    </SidebarProvider>
+  )
 }`}</code>
                         </pre>
                       </div>

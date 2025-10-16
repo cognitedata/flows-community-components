@@ -7,7 +7,7 @@
       "name": "accordion",
       "type": "registry:component",
       "title": "Accordion",
-      "description": "An accessible accordion with smooth expand/collapse built on Radix primitives.",
+      "description": "An Accordion is a vertically stacked list of headers that reveal or hide associated sections of content.",
       "dependencies": ["@radix-ui/react-accordion", "lucide-react"],
       "files": [
         {
@@ -287,6 +287,18 @@
       "files": [
         {
           "path": "src/components/ui/cognite/sonner.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:component",
+      "title": "Sidebar",
+      "description": "A composable, themeable and customizable sidebar component.",
+      "files": [
+        {
+          "path": "src/components/ui/cognite/sidebar.tsx",
           "type": "registry:component"
         }
       ]

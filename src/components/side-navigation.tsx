@@ -19,9 +19,26 @@ interface SideNavigationProps {
 }
 
 const overviewNavigation: NavigationItem[] = [
-  { href: "/overview/about", label: "About" },
-  { href: "/overview/getting-started", label: "Getting started" },
-  { href: "/overview/releases", label: "Releases" },
+  {
+    href: "#",
+    label: "Getting started",
+    isSubsection: true,
+    children: [
+      { href: "/overview/installation", label: "Installation" },
+      { href: "/overview/prototyping-with-aura", label: "Prototyping with aura" },
+      { href: "/overview/developing-with-aura", label: "Developing with aura" },
+      { href: "/overview/faq", label: "FAQ" },
+      { href: "/overview/getting-started", label: "Getting started" },
+    ],
+  },
+  {
+    href: "#",
+    label: "Changelog",
+    isSubsection: true,
+    children: [
+      { href: "/overview/releases", label: "Releases" },
+    ],
+  },
 ]
 
 const primitivesNavigation: NavigationItem[] = [
@@ -43,6 +60,7 @@ const primitivesNavigation: NavigationItem[] = [
     label: "Components",
     isSubsection: true,
     children: [
+      { href: "/primitives/components/introduction", label: "Introduction" },
       { href: "/primitives/components/accordion", label: "Accordion" },
       { href: "/primitives/components/alert-dialog", label: "Alert dialog" },
       { href: "/primitives/components/badge", label: "Badge" },
@@ -60,6 +78,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/components/select", label: "Select" },
       { href: "/primitives/components/separator", label: "Separator" },
       { href: "/primitives/components/sheet", label: "Sheet" },
+      { href: "/primitives/components/sidebar", label: "Sidebar" },
       { href: "/primitives/components/skeleton", label: "Skeleton" },
       { href: "/primitives/components/sonner", label: "Sonner" },
       { href: "/primitives/components/switch", label: "Switch" },
