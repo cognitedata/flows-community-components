@@ -310,26 +310,27 @@ function ColorSwatch({
   color: { name: string; var: string };
   paletteName: string;
 }) {
-  const isDark = parseInt(color.name) >= 700;
   const swatchRef = useRef<HTMLDivElement | null>(null);
   const [hex, setHex] = useState<string>("");
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  const [tooltipPos, setTooltipPos] = useState<{ left: number; top: number } | null>(null);
+  const [tooltipPos, setTooltipPos] = useState<{
+    left: number;
+    top: number;
+  } | null>(null);
 
   const rgbToHex = useMemo(
-    () =>
-      (rgb: string) => {
-        // Accepts formats like rgb(r, g, b) or rgba(r, g, b, a)
-        const match = rgb
-          .replace(/\s+/g, "")
-          .match(/^rgba?\((\d+),(\d+),(\d+)(?:,(\d*\.?\d+))?\)$/i);
-        if (!match) return "";
-        const r = Number(match[1]);
-        const g = Number(match[2]);
-        const b = Number(match[3]);
-        const toHex = (n: number) => n.toString(16).padStart(2, "0");
-        return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
-      },
+    () => (rgb: string) => {
+      // Accepts formats like rgb(r, g, b) or rgba(r, g, b, a)
+      const match = rgb
+        .replace(/\s+/g, "")
+        .match(/^rgba?\((\d+),(\d+),(\d+)(?:,(\d*\.?\d+))?\)$/i);
+      if (!match) return "";
+      const r = Number(match[1]);
+      const g = Number(match[2]);
+      const b = Number(match[3]);
+      const toHex = (n: number) => n.toString(16).padStart(2, "0");
+      return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+    },
     []
   );
 
@@ -346,7 +347,10 @@ function ColorSwatch({
   const handleMouseEnter = () => {
     if (!swatchRef.current) return;
     const rect = swatchRef.current.getBoundingClientRect();
-    setTooltipPos({ left: rect.left + rect.width / 2, top: Math.max(8, rect.top - 8) });
+    setTooltipPos({
+      left: rect.left + rect.width / 2,
+      top: Math.max(8, rect.top - 8),
+    });
     setShowTooltip(true);
   };
 
@@ -366,27 +370,39 @@ function ColorSwatch({
     >
       <div className="aspect-square w-full min-h-[80px]" />
 
-      {showTooltip && tooltipPos && createPortal(
-        <div
-          style={{ position: "fixed", left: tooltipPos.left, top: tooltipPos.top, zIndex: 9999, transform: "translateX(-50%) translateY(-100%)" }}
-        >
-          <div className="pointer-events-auto rounded-md border border-white/10 bg-black/80 text-white shadow px-2 py-1 text-[10px] sm:text-xs flex items-center gap-2">
-            <span className="font-medium">{paletteName} {color.name}</span>
-            <span className="font-mono text-muted-foreground">{hex || "..."}</span>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleCopyHex();
-              }}
-              className="ml-1 inline-flex items-center rounded-sm border px-1.5 py-0.5 text-[10px] hover:bg-accent hover:text-accent-foreground"
-            >
-              Copy
-            </button>
-          </div>
-        </div>,
-        document.body
-      )}
+      {showTooltip &&
+        tooltipPos &&
+        createPortal(
+          <div
+            style={{
+              position: "fixed",
+              left: tooltipPos.left,
+              top: tooltipPos.top,
+              zIndex: 9999,
+              transform: "translateX(-50%) translateY(-100%)",
+            }}
+          >
+            <div className="pointer-events-auto rounded-md border border-white/10 bg-black/80 text-white shadow px-2 py-1 text-[10px] sm:text-xs flex items-center gap-2">
+              <span className="font-medium">
+                {paletteName} {color.name}
+              </span>
+              <span className="font-mono text-muted-foreground">
+                {hex || "..."}
+              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCopyHex();
+                }}
+                className="ml-1 inline-flex items-center rounded-sm border px-1.5 py-0.5 text-[10px] hover:bg-accent hover:text-accent-foreground"
+              >
+                Copy
+              </button>
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
@@ -438,8 +454,12 @@ export default function ColorsPage() {
   const decorativePalettes = colorPalettes.filter(
     (p) => p.category === "decorative"
   );
-  const semanticPalettes = colorPalettes.filter((p) => p.category === "semantic");
-  const extendedPalettes = colorPalettes.filter((p) => p.category === "extended");
+  const semanticPalettes = colorPalettes.filter(
+    (p) => p.category === "semantic"
+  );
+  const extendedPalettes = colorPalettes.filter(
+    (p) => p.category === "extended"
+  );
 
   return (
     <div className="space-y-8">
@@ -492,7 +512,9 @@ export default function ColorsPage() {
       {/* Extended decorative colors */}
       <section className="space-y-6">
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Extended decorative colors</h2>
+          <h2 className="text-2xl font-semibold mb-2">
+            Extended decorative colors
+          </h2>
           <p className="text-muted-foreground">Sky, Orange, Yellow, Gray</p>
         </div>
         <div className="space-y-6">
