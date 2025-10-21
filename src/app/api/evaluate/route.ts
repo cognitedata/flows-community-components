@@ -7,8 +7,6 @@ import {
   streamText,
   UIMessage,
 } from "ai";
-import { criteriaTable } from "@/server/db/schema";
-import db from "@/server/db";
 import { shiftApp } from "@/lib/evaluations/shift-app";
 import { getComponentsPrompt } from "@/lib/ai/get-components.prompt";
 import { getComponentTool } from "@/lib/ai/tools/get-component.tool";
@@ -41,8 +39,6 @@ export type EvaluationUIMessage = UIMessage<
 >;
 
 export async function POST() {
-  const criteria = await db.select().from(criteriaTable);
-
   const stream = createUIMessageStream<EvaluationUIMessage>({
     execute: async ({ writer }) => {
       // 1. Send initial status (transient - won't be added to message history)
@@ -124,13 +120,13 @@ Return a concise evaluation with the following sections:
 - Suggestions: bullet list of the most important adjustments the candidate should make.
 
 Criteria to evaluate:
-${criteria
-  .map((criterion) => `${criterion.name}: ${criterion.description}`)
-  .join("\n")}
+1.	Accuracy: How close does it match the example code?
+2.	Visual Heirachy: Does the page layout make sense? Are all the components all in the right place
+3.	Usage of Cognite components:	Are we using the correct Cognite components, are we using any default ShadCN components where we could be using Cognite ones?
 
-  Return each criteria in it's own section header with a conclusion. Score each criterion out of 5 and give an average score at the end.
+Return each criteria in it's own section header with a conclusion. Score each criterion out of 5 and give an average score at the end.
 
-  Return in markdown.
+Return in markdown.
 `,
         messages: convertToModelMessages([
           {
