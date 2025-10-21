@@ -14,15 +14,13 @@ import {
 } from "@/components/ui/cognite/sheet";
 import { Menu, Sun, Moon, Contrast } from "lucide-react";
 import Image from "next/image";
+import auraLogo from "@/../public/aura-logo.png";
 
 const navItems = [
   { href: "/overview", label: "Overview" },
   { href: "/primitives", label: "Primitives" },
   { href: "/blocks", label: "Blocks" },
-  { href: "/sandbox", label: "Sandbox" },
-  { href: "/evaluations", label: "Evaluations" },
   { href: "/eos", label: "Templates" },
-  { href: "/help", label: "Help" },
 ];
 
 function ThemeToggleGroup() {
@@ -69,13 +67,7 @@ export function Navigation() {
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
           <Link href="/" className="flex items-center space-x-3">
-            <Image
-              src="/aura-logo.png"
-              alt="Aura"
-              width={32}
-              height={32}
-              priority
-            />
+            <Image src={auraLogo} alt="Aura" width={32} height={32} priority />
             <span
               className="text-lg font-bold lowercase"
               style={{ fontFamily: "'Nova Mono', monospace" }}
