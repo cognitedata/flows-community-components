@@ -16,53 +16,11 @@ import { Progress } from "@/components/ui/progress"
 
 ## Usage
 
-### Basic Progress
+### Progress Examples
 
-```tsx
-import { Progress } from "@/components/ui/progress"
+<!-- example:basic -->
 
-export function ProgressDemo() {
-  return <Progress value={33} className="w-[60%]" />
-}
-```
-
-### Progress with Label
-
-```tsx
-import { Progress } from "@/components/ui/progress"
-
-export function ProgressWithLabel() {
-  const progress = 33
-
-  return (
-    <div className="w-full">
-      <div className="flex justify-between mb-1">
-        <span className="text-base font-medium text-blue-700 dark:text-white">Flowbite</span>
-        <span className="text-sm font-medium text-blue-700 dark:text-white">{progress}%</span>
-      </div>
-      <Progress value={progress} className="w-full" />
-    </div>
-  )
-}
-```
-
-### Animated Progress
-
-```tsx
-import { Progress } from "@/components/ui/progress"
-import { useEffect, useState } from "react"
-
-export function AnimatedProgress() {
-  const [progress, setProgress] = useState(13)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500)
-    return () => clearTimeout(timer)
-  }, [])
-
-  return <Progress value={progress} className="w-[60%]" />
-}
-```
+Progress bars showing different completion states
 
 ## API Reference
 

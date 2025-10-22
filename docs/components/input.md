@@ -18,91 +18,21 @@ import { Input } from "@/components/ui/input"
 
 ### Basic Input
 
-```tsx
-import { Input } from "@/components/ui/input"
+<!-- example:basic -->
 
-export function InputDemo() {
-  return <Input type="text" placeholder="Enter your text" />
-}
-```
+A simple text input field
 
 ### Input with Label
 
-```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+<!-- example:withLabel -->
 
-export function InputWithLabel() {
-  return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" placeholder="Enter your email" />
-    </div>
-  )
-}
-```
-
-### Input Types
-
-```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-
-export function InputTypes() {
-  return (
-    <div className="grid w-full max-w-sm gap-4">
-      <div className="grid gap-1.5">
-        <Label htmlFor="text">Text</Label>
-        <Input type="text" id="text" placeholder="Text input" />
-      </div>
-      <div className="grid gap-1.5">
-        <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" placeholder="Email input" />
-      </div>
-      <div className="grid gap-1.5">
-        <Label htmlFor="password">Password</Label>
-        <Input type="password" id="password" placeholder="Password input" />
-      </div>
-      <div className="grid gap-1.5">
-        <Label htmlFor="number">Number</Label>
-        <Input type="number" id="number" placeholder="Number input" />
-      </div>
-    </div>
-  )
-}
-```
+Input field with an associated label
 
 ### Disabled Input
 
-```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+<!-- example:disabled -->
 
-export function DisabledInput() {
-  return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="disabled">Disabled Input</Label>
-      <Input type="text" id="disabled" placeholder="Disabled input" disabled />
-    </div>
-  )
-}
-```
-
-### Input with Button
-
-```tsx
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-
-export function InputWithButton() {
-  return (
-    <div className="flex w-full max-w-sm items-center space-x-2">
-      <Input type="email" placeholder="Enter your email" />
-      <Button type="submit">Subscribe</Button>
-    </div>
-  )
-}
-```
+Input in a disabled state
 
 ## API Reference
 
