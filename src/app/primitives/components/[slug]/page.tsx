@@ -13,7 +13,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/cognite/tabs";
 import Link from "next/link";
-import { IconArrowLeft, IconBookmark, IconCopy, IconExternalLink, IconLoader2, IconMail, IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconArrowLeft, IconBookmark, IconCopy, IconAlertHexagon, IconExternalLink, IconLoader2, IconMail, IconPlus, IconTrash, IconAlertTriangle,IconCircleCheck,IconInnerShadowTopLeft,IconArchive } from '@tabler/icons-react';
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { CodeCopyButton } from "@/components/code-copy-button";
@@ -180,10 +180,12 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                     <div className="p-6 border rounded-lg bg-muted/20">
                       <h3 className="font-medium mb-4">Badge Variants</h3>
                       <div className="flex flex-wrap gap-3">
-                        <Badge variant="default">Default</Badge>
-                        <Badge variant="secondary">Secondary</Badge>
-                        <Badge variant="destructive">Destructive</Badge>
-                        <Badge variant="outline">Outline</Badge>
+                        {/* <Badge variant="default">Default</Badge> */}
+                        <Badge variant="error"><IconAlertHexagon />Error</Badge>
+                        <Badge variant="warning"><IconAlertTriangle />Warning</Badge>
+                        <Badge variant="success"><IconCircleCheck />Success</Badge>
+                        <Badge variant="inProgress"><IconInnerShadowTopLeft />In progress</Badge>
+                        <Badge variant="archived"><IconArchive />Archived</Badge>
                       </div>
                     </div>
                   </div>
