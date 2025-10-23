@@ -273,7 +273,7 @@
   --primary-foreground: var(--mountain-50);
   --secondary: var(--mountain-100);
   --secondary-hover: var(--mountain-200);
-  --secondary-foreground: var(--mountain-900);
+  --secondary-foreground: var(--mountain-800);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-300);
   --tertiary-foreground: var(--mountain-white);
@@ -290,7 +290,7 @@
   /* Status tokens */
   --destructive: var(--red-50);
   --destructive-hover: var(--red-100);
-  --destructive-foreground: var(--red-550);
+  --destructive-foreground: var(--red-500);
   --warning: var(--amber-50);
   --warning-foreground: var(--amber-500);
   --success: var(--green-50);
@@ -298,7 +298,10 @@
   --neutral: var(--blue-50);
   --neutral-foreground: var(--blue-500);
   --undefined: var(--mountain-50);
-  --undefined-foreground: var(--mountain-500);
+  --undefined-foreground: var(--mountain-600);
+  --disabled: var(--mountain-50);
+  --disabled-foreground: var(--mountain-450);
+  --hover: var(--mountain-50);
 
   /* Decorative background tokens */
   --decorative-background-mountain: var(--mountain-50);
@@ -358,6 +361,18 @@
   --chart-dusk-opacity-3: rgba(196, 22, 91, 0.5);
   --chart-dusk-opacity-4: rgba(196, 22, 91, 0.35);
   --chart-dusk-opacity-5: rgba(196, 22, 91, 0.2);
+  --chart-lime-solid: var(--aurora-600);
+  --chart-lime-opacity-1: rgba(77, 112, 12, 0.8);
+  --chart-lime-opacity-2: rgba(77, 112, 12, 0.65);
+  --chart-lime-opacity-3: rgba(77, 112, 12, 0.5);
+  --chart-lime-opacity-4: rgba(77, 112, 12, 0.35);
+  --chart-lime-opacity-5: rgba(77, 112, 12, 0.2);
+  --chart-pink-solid: var(--dusk-600);
+  --chart-pink-opacity-1: rgba(196, 22, 91, 0.8);
+  --chart-pink-opacity-2: rgba(196, 22, 91, 0.65);
+  --chart-pink-opacity-3: rgba(196, 22, 91, 0.5);
+  --chart-pink-opacity-4: rgba(196, 22, 91, 0.35);
+  --chart-pink-opacity-5: rgba(196, 22, 91, 0.2);
   
   /* Sidebar */
   --sidebar: var(--mountain-900);
@@ -381,7 +396,7 @@
   --primary-hover: var(--mountain-200);
   --primary-foreground: var(--mountain-950);
   --secondary: var(--mountain-700);
-  --secondary-hover: var(--mountain-600);
+  --secondary-hover: var(--mountain-700);
   --secondary-foreground: var(--mountain-100);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-700);
@@ -399,7 +414,7 @@
   /* Status tokens */
   --destructive: var(--red-900);
   --destructive-hover: var(--red-800);
-  --destructive-foreground: var(--red-400);
+  --destructive-foreground: var(--red-300);
   --warning: var(--amber-900);
   --warning-foreground: var(--amber-300);
   --success: var(--green-900);
@@ -408,6 +423,9 @@
   --neutral-foreground: var(--blue-300);
   --undefined: var(--mountain-900);
   --undefined-foreground: var(--mountain-300);
+  --disabled: var(--mountain-800);
+  --disabled-foreground: var(--mountain-450);
+  --hover: var(--mountain-800);
  
   /* Decorative background tokens */
   --decorative-background-mountain: var(--mountain-900);
@@ -467,6 +485,18 @@
   --chart-dusk-opacity-3: rgba(249, 202, 220, 0.5);
   --chart-dusk-opacity-4: rgba(249, 202, 220, 0.35);
   --chart-dusk-opacity-5: rgba(249, 202, 220, 0.2);
+  --chart-lime-solid: var(--aurora-200);
+  --chart-lime-opacity-1: rgba(171, 233, 56, 0.8);
+  --chart-lime-opacity-2: rgba(171, 233, 56, 0.65);
+  --chart-lime-opacity-3: rgba(171, 233, 56, 0.5);
+  --chart-lime-opacity-4: rgba(171, 233, 56, 0.35);
+  --chart-lime-opacity-5: rgba(171, 233, 56, 0.2);
+  --chart-pink-solid: var(--dusk-200);
+  --chart-pink-opacity-1: rgba(249, 202, 220, 0.8);
+  --chart-pink-opacity-2: rgba(249, 202, 220, 0.65);
+  --chart-pink-opacity-3: rgba(249, 202, 220, 0.5);
+  --chart-pink-opacity-4: rgba(249, 202, 220, 0.35);
+  --chart-pink-opacity-5: rgba(249, 202, 220, 0.2);
   
   /* Sidebar */
   --sidebar: var(--mountain-900);
