@@ -13,7 +13,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/cognite/tabs";
 import Link from "next/link";
-import { ArrowLeft, Bookmark, Copy, ExternalLink, Loader2, Mail , Plus, Trash} from "lucide-react";
+import { IconArrowLeft, IconBookmark, IconCopy, IconExternalLink, IconLoader2, IconMail, IconPlus, IconTrash } from '@tabler/icons-react';
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { CodeCopyButton } from "@/components/code-copy-button";
@@ -107,7 +107,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <div className="flex items-center gap-4 mb-8">
           <Button variant="secondary" size="sm" asChild>
             <Link href="/docs">
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <IconArrowLeft className="h-4 w-4 mr-2" />
               Back to Docs
             </Link>
           </Button>
@@ -146,12 +146,12 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                       </h3>
                       <div className="space-y-4">
                         <div className="flex flex-wrap gap-3">
-                          <Button variant="default" size="icon"><Plus /></Button>
-                          <Button variant="secondary" size="icon"><Bookmark /></Button>
-                          <Button variant="destructive" size="icon"><Trash /></Button>
-                          <Button variant="default"><Plus /> Add data</Button>
-                          <Button variant="secondary">Explore more<ExternalLink /></Button>
-                          <Button variant="destructive"><Trash />Delete</Button>
+                          <Button variant="default" size="icon"><IconPlus /></Button>
+                          <Button variant="secondary" size="icon"><IconBookmark /></Button>
+                          <Button variant="destructive" size="icon"><IconTrash /></Button>
+                          <Button variant="default"><IconPlus /> Add data</Button>
+                          <Button variant="secondary">Explore more<IconExternalLink /></Button>
+                          <Button variant="destructive"><IconTrash />Delete</Button>
                         </div>
                         <Separator />
                         <div className="flex flex-wrap gap-3">
@@ -159,14 +159,14 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                           <Button size="default">Default</Button>
                           <Button size="lg">Large</Button>
                           <Button size="icon">
-                            <Mail className="h-4 w-4" />
+                            <IconMail className="h-4 w-4" />
                           </Button>
                         </div>
                         <Separator />
                         <div className="flex flex-wrap gap-3">
                           <Button disabled>Disabled</Button>
                           <Button disabled>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
                             Loading...
                           </Button>
                         </div>
@@ -1287,13 +1287,13 @@ export function ${doc.meta.component}Demo() {
             <div className="text-sm text-muted-foreground">
               Found an issue with this documentation?{" "}
               <Button variant="secondary" className="p-0 h-auto">
-                <ExternalLink className="h-3 w-3 mr-1" />
+                <IconExternalLink className="h-3 w-3 mr-1" />
                 Edit on GitHub
               </Button>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="secondary" size="sm">
-                <Copy className="h-4 w-4 mr-2" />
+                <IconCopy className="h-4 w-4 mr-2" />
                 Copy import
               </Button>
             </div>
