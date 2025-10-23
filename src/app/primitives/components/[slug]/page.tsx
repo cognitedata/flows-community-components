@@ -105,7 +105,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
       <div className="max-w-4xl mx-auto">
         {/* Navigation */}
         <div className="flex items-center gap-4 mb-8">
-          <Button variant="ghost" size="sm" asChild>
+          <Button variant="secondary" size="sm" asChild>
             <Link href="/docs">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Docs
@@ -483,7 +483,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                       <h3 className="font-medium mb-4">Dialog Demo</h3>
                       <div className="space-y-3">
                         <Button>Open Dialog</Button>
-                        <Button variant="outline">Settings Dialog</Button>
+                        <Button variant="secondary">Settings Dialog</Button>
                         <p className="text-sm text-muted-foreground">
                           Dialogs for forms, confirmations, and detailed
                           content.
@@ -665,7 +665,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                       <h3 className="font-medium mb-4">Sheet Demo</h3>
                       <div className="space-y-3">
                         <Button>Open Sheet</Button>
-                        <Button variant="outline">Settings Sheet</Button>
+                        <Button variant="secondary">Settings Sheet</Button>
                         <p className="text-sm text-muted-foreground">
                           Slide-out panels for navigation, forms, and content.
                         </p>
@@ -1286,13 +1286,13 @@ export function ${doc.meta.component}Demo() {
           <div className="flex items-center justify-between">
             <div className="text-sm text-muted-foreground">
               Found an issue with this documentation?{" "}
-              <Button variant="link" className="p-0 h-auto">
+              <Button variant="secondary" className="p-0 h-auto">
                 <ExternalLink className="h-3 w-3 mr-1" />
                 Edit on GitHub
               </Button>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
+              <Button variant="secondary" size="sm">
                 <Copy className="h-4 w-4 mr-2" />
                 Copy import
               </Button>
