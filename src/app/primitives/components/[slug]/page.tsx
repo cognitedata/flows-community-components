@@ -13,7 +13,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/cognite/tabs";
 import Link from "next/link";
-import { ArrowLeft, Copy, ExternalLink, Loader2, Mail } from "lucide-react";
+import { ArrowLeft, Bookmark, Copy, ExternalLink, Loader2, Mail , Plus, Trash} from "lucide-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { CodeCopyButton } from "@/components/code-copy-button";
@@ -146,13 +146,14 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                       </h3>
                       <div className="space-y-4">
                         <div className="flex flex-wrap gap-3">
-                          <Button variant="default">Default</Button>
-                          <Button variant="secondary">Secondary</Button>
-                          <Button variant="destructive">Destructive</Button>
-                          <Button variant="outline">Outline</Button>
-                          <Button variant="ghost">Ghost</Button>
-                          <Button variant="link">Link</Button>
+                          <Button variant="default" size="icon"><Plus /></Button>
+                          <Button variant="secondary" size="icon"><Bookmark /></Button>
+                          <Button variant="destructive" size="icon"><Trash /></Button>
+                          <Button variant="default"><Plus /> Add data</Button>
+                          <Button variant="secondary">Explore more<ExternalLink /></Button>
+                          <Button variant="destructive"><Trash />Delete</Button>
                         </div>
+                        <Separator />
                         <div className="flex flex-wrap gap-3">
                           <Button size="sm">Small</Button>
                           <Button size="default">Default</Button>
@@ -161,6 +162,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                             <Mail className="h-4 w-4" />
                           </Button>
                         </div>
+                        <Separator />
                         <div className="flex flex-wrap gap-3">
                           <Button disabled>Disabled</Button>
                           <Button disabled>

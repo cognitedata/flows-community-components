@@ -30,6 +30,10 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-decorative-background-hover: var(--decorative-background-hover);
+  --color-decorative-foreground-hover: var(--decorative-foreground-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -38,10 +42,28 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-hover: var(--tertiary-hover);
+  --color-tertiary-foreground: var(--tertiary-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-foreground-link: var(--foreground-link);
+  --color-backdrop: var(--backdrop);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-neutral: var(--neutral);
+  --color-neutral-foreground: var(--neutral-foreground);
+  --color-undefined: var(--undefined);
+  --color-undefined-foreground: var(--undefined-foreground);
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+  --color-hover: var(--hover);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -301,35 +323,7 @@
   --undefined-foreground: var(--mountain-600);
   --disabled: var(--mountain-50);
   --disabled-foreground: var(--mountain-450);
-  --hover: var(--mountain-50);
-
-  /* Decorative background tokens */
-  --decorative-background-mountain: var(--mountain-50);
-  --decorative-background-fjord: var(--fjord-50);
-  --decorative-background-nordic: var(--nordic-50);
-  --decorative-background-aurora: var(--aurora-50);
-  --decorative-background-dusk: var(--dusk-50);
-  --decorative-background-orange: var(--orange-50);
-  --decorative-background-sky: var(--sky-50);
-  
-  /* Decorative background hover tokens */
-  --decorative-background-hover-mountain: var(--mountain-100);
-  --decorative-background-hover-fjord: var(--fjord-100);
-  --decorative-background-hover-nordic: var(--nordic-100);
-  --decorative-background-hover-aurora: var(--aurora-100);
-  --decorative-background-hover-dusk: var(--dusk-100);
-  --decorative-background-hover-orange: var(--orange-100);
-  --decorative-background-hover-sky: var(--sky-100);
-  
-  /* Decorative foreground tokens */
-  --decorative-foreground-mountain: var(--mountain-650);
-  --decorative-foreground-fjord: var(--fjord-700);
-  --decorative-foreground-nordic: var(--nordic-600);
-  --decorative-foreground-aurora: var(--aurora-600);
-  --decorative-foreground-dusk: var(--dusk-600);
-  --decorative-foreground-orange: var(--orange-600);
-  --decorative-foreground-sky: var(--sky-600);
-
+  --hover: var(--mountain-50)
   /* Charts (light) */
   --chart-fjord-solid: var(--fjord-600);
   --chart-fjord-opacity-1: rgba(47, 85, 234, 0.8);
@@ -396,7 +390,7 @@
   --primary-hover: var(--mountain-200);
   --primary-foreground: var(--mountain-950);
   --secondary: var(--mountain-700);
-  --secondary-hover: var(--mountain-700);
+  --secondary-hover: var(--mountain-600);
   --secondary-foreground: var(--mountain-100);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-700);
@@ -426,33 +420,6 @@
   --disabled: var(--mountain-800);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
- 
-  /* Decorative background tokens */
-  --decorative-background-mountain: var(--mountain-900);
-  --decorative-background-fjord: var(--fjord-900);
-  --decorative-background-nordic: var(--nordic-900);
-  --decorative-background-aurora: var(--aurora-900);
-  --decorative-background-dusk: var(--dusk-900);
-  --decorative-background-orange: var(--orange-900);
-  --decorative-background-sky: var(--sky-900);
-  
-  /* Decorative background hover tokens */
-  --decorative-background-hover-mountain: var(--mountain-900);
-  --decorative-background-hover-fjord: var(--fjord-900);
-  --decorative-background-hover-nordic: var(--nordic-900);
-  --decorative-background-hover-aurora: var(--aurora-900);
-  --decorative-background-hover-dusk: var(--dusk-900);
-  --decorative-background-hover-orange: var(--orange-900);
-  --decorative-background-hover-sky: var(--sky-900);
-  
-  /* Decorative foreground tokens */
-  --decorative-foreground-mountain: var(--mountain-300);
-  --decorative-foreground-fjord: var(--fjord-300);
-  --decorative-foreground-nordic: var(--nordic-300);
-  --decorative-foreground-aurora: var(--aurora-300);
-  --decorative-foreground-dusk: var(--dusk-400);
-  --decorative-foreground-orange: var(--orange-300);
-  --decorative-foreground-sky: var(--sky-300);
  
   /* Charts (dark) */
   --chart-fjord-solid: var(--fjord-300);
