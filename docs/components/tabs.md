@@ -11,7 +11,7 @@ A set of layered sections of content—known as tab panels—that are displayed 
 ## Import
 
 ```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/cognite/tabs"
 ```
 
 ## Usage

@@ -11,7 +11,7 @@ A styled input component that extends the native HTML input element with consist
 ## Import
 
 ```tsx
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/cognite/input"
 ```
 
 ## Usage
@@ -75,8 +75,8 @@ All standard HTML input attributes are supported:
 
 ```tsx
 import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/cognite/input"
+import { Label } from "@/components/ui/cognite/label"
 
 export function ControlledInput() {
   const [value, setValue] = useState("")
@@ -100,9 +100,9 @@ export function ControlledInput() {
 ### Form Integration
 
 ```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/cognite/input"
+import { Label } from "@/components/ui/cognite/label"
+import { Button } from "@/components/ui/cognite/button"
 
 export function FormExample() {
   const handleSubmit = (e: React.FormEvent) => {

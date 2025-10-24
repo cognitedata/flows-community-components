@@ -11,7 +11,7 @@ A versatile badge component for displaying status indicators, labels, counts, an
 ## Import
 
 ```tsx
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/cognite/badge"
 ```
 
 ## Usage
@@ -43,7 +43,7 @@ Different badge styles for various semantic meanings
 ### Custom Colors
 
 ```tsx
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/cognite/badge"
 
 export function CustomColorBadges() {
   return (
@@ -60,7 +60,7 @@ export function CustomColorBadges() {
 ### Interactive Badges
 
 ```tsx
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/cognite/badge"
 import { X } from "lucide-react"
 
 export function InteractiveBadges() {

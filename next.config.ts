@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -8,6 +9,14 @@ const nextConfig: NextConfig = {
   basePath: process.env.PAGES_BASE_PATH,
   images: {
     unoptimized: true,
+  },
+  webpack: (config) => {
+    // Add path alias for cognite -> draft directory mapping
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@/components/ui/cognite': path.resolve(__dirname, './src/components/ui/draft'),
+    };
+    return config;
   },
 };
 

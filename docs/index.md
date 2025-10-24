@@ -30,14 +30,11 @@ A comprehensive collection of React components built with ShadCN/UI and Tailwind
 - [Alert Dialog](./components/alert-dialog.md) - Confirmation dialog
 - [Popover](./components/popover.md) - Floating content container
 - [Tooltip](./components/tooltip.md) - Contextual information on hover
-- [Sheet](./components/sheet.md) - Slide-out panel component
 
 ### Navigation Components
 - [Dropdown Menu](./components/dropdown-menu.md) - Context menu component
-- [Navigation Menu](./components/navigation-menu.md) - Main navigation component
 
 ### Data Components
-- [Table](./components/table.md) - Data table component
 - [Calendar](./components/calendar.md) - Date picker component
 
 ## Usage Guidelines

@@ -11,7 +11,7 @@ Displays a form textarea or a component that looks like a textarea.
 ## Import
 
 ```tsx
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/cognite/textarea"
 ```
 
 ## Usage

@@ -11,7 +11,7 @@ Visually or semantically separates content.
 ## Import
 
 ```tsx
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@/components/ui/cognite/separator"
 ```
 
 ## Usage

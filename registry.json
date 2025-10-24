@@ -83,19 +83,6 @@
       ]
     },
     {
-      "name": "chart",
-      "type": "registry:component",
-      "title": "Chart",
-      "description": "Recharts helpers that theme charts and tooltips with CSS variables.",
-      "dependencies": ["recharts"],
-      "files": [
-        {
-          "path": "src/components/ui/cognite/chart.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "checkbox",
       "type": "registry:component",
       "title": "Checkbox",
@@ -135,18 +122,6 @@
       ]
     },
     {
-      "name": "glowing-effect",
-      "type": "registry:component",
-      "title": "Glowing Effect",
-      "description": "A pointer-tracking glow effect wrapper for interactive surfaces.",
-      "files": [
-        {
-          "path": "src/components/ui/cognite/glowing-effect.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "input",
       "type": "registry:component",
       "title": "Input",
@@ -167,23 +142,6 @@
       "files": [
         {
           "path": "src/components/ui/cognite/label.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "navigation-menu",
-      "type": "registry:component",
-      "title": "Navigation Menu",
-      "description": "A responsive navigation menu with indicators and list content.",
-      "dependencies": [
-        "@radix-ui/react-navigation-menu",
-        "class-variance-authority",
-        "lucide-react"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/cognite/navigation-menu.tsx",
           "type": "registry:component"
         }
       ]
@@ -210,19 +168,6 @@
       "files": [
         {
           "path": "src/components/ui/cognite/progress.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "scroll-area",
-      "type": "registry:component",
-      "title": "Scroll Area",
-      "description": "A scrollable container with custom scrollbars using Radix Scroll Area.",
-      "dependencies": ["@radix-ui/react-scroll-area"],
-      "files": [
-        {
-          "path": "src/components/ui/cognite/scroll-area.tsx",
           "type": "registry:component"
         }
       ]
@@ -300,18 +245,6 @@
       "files": [
         {
           "path": "src/components/ui/cognite/switch.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "table",
-      "type": "registry:component",
-      "title": "Table",
-      "description": "A responsive table wrapper with styled header, rows, and cells.",
-      "files": [
-        {
-          "path": "src/components/ui/cognite/table.tsx",
           "type": "registry:component"
         }
       ]

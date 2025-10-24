@@ -11,7 +11,7 @@ A control that allows the user to toggle between checked and not checked.
 ## Import
 
 ```tsx
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/cognite/checkbox"
 ```
 
 ## Usage
