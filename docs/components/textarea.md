@@ -16,60 +16,11 @@ import { Textarea } from "@/components/ui/textarea"
 
 ## Usage
 
-### Basic Textarea
+### Textarea Examples
 
-```tsx
-import { Textarea } from "@/components/ui/textarea"
+<!-- example:basic -->
 
-export function TextareaDemo() {
-  return <Textarea placeholder="Type your message here." />
-}
-```
-
-### Textarea with Label
-
-```tsx
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-
-export function TextareaWithLabel() {
-  return (
-    <div className="grid w-full gap-1.5">
-      <Label htmlFor="message">Your message</Label>
-      <Textarea placeholder="Type your message here." id="message" />
-    </div>
-  )
-}
-```
-
-### Textarea with Text
-
-```tsx
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-
-export function TextareaWithText() {
-  return (
-    <div className="grid w-full gap-1.5">
-      <Label htmlFor="message-2">Your message</Label>
-      <Textarea placeholder="Type your message here." id="message-2" />
-      <p className="text-sm text-muted-foreground">
-        Your message will be copied to the support team.
-      </p>
-    </div>
-  )
-}
-```
-
-### Disabled Textarea
-
-```tsx
-import { Textarea } from "@/components/ui/textarea"
-
-export function TextareaDisabled() {
-  return <Textarea placeholder="Type your message here." disabled />
-}
-```
+Multi-line text input fields
 
 ## API Reference
 

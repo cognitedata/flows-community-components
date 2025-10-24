@@ -16,51 +16,11 @@ import { Calendar } from "@/components/ui/calendar"
 
 ## Usage
 
-### Basic Calendar
+### Calendar Demo
 
-```tsx
-import { Calendar } from "@/components/ui/calendar"
-import { useState } from "react"
+<!-- example:basic -->
 
-export function CalendarDemo() {
-  const [date, setDate] = useState<Date | undefined>(new Date())
-
-  return (
-    <Calendar
-      mode="single"
-      selected={date}
-      onSelect={setDate}
-      className="rounded-md border"
-    />
-  )
-}
-```
-
-### Date Range Calendar
-
-```tsx
-import { Calendar } from "@/components/ui/calendar"
-import { useState } from "react"
-import { DateRange } from "react-day-picker"
-
-export function CalendarRange() {
-  const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: undefined,
-  })
-
-  return (
-    <Calendar
-      mode="range"
-      defaultMonth={date?.from}
-      selected={date}
-      onSelect={setDate}
-      numberOfMonths={2}
-      className="rounded-md border"
-    />
-  )
-}
-```
+Date picker calendar component
 
 ## API Reference
 

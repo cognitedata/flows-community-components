@@ -18,28 +18,21 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 ### Basic Accordion
 
-```tsx
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+<!-- example:basic -->
 
-export function AccordionDemo() {
-  return (
-    <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It comes with default styles that match your theme.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  )
-}
-```
+A simple accordion with collapsible sections. Only one item can be open at a time.
+
+### Multiple Items Open
+
+<!-- example:multiple -->
+
+Allow multiple accordion items to be open simultaneously by setting type to 
+
+### Default Open Item
+
+<!-- example:defaultValue -->
+
+Set a default open item using the defaultValue prop.
 
 ## API Reference
 
