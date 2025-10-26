@@ -14,6 +14,7 @@ import { ComponentExamplesRenderer } from "@/components/component-examples-rende
 import { CodeExamplesRenderer } from "@/components/code-examples-renderer";
 import { processMarkdownExamples } from "@/lib/markdown-processor";
 import { getComponentStatus } from "@/lib/component-status";
+import { InstallationCommand } from "@/components/installation-command";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -203,6 +204,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   Code examples and implementation details for{" "}
                   {doc.meta.component}.
                 </p>
+
+                {/* Installation Instructions */}
+                <InstallationCommand component={slug} />
 
                 {/* Component Code Examples from Registry */}
                 <CodeExamplesRenderer slug={slug} />
