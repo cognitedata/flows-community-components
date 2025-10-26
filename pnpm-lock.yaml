@@ -174,7 +174,7 @@ importers:
         specifier: ^15.6.6
         version: 15.6.6(react@19.1.0)
       recharts:
-        specifier: ^2.15.4
+        specifier: 2.15.4
         version: 2.15.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       rehype-highlight:
         specifier: ^7.0.2

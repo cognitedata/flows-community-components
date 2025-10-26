@@ -11,11 +11,16 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   webpack: (config) => {
-    // Add path alias for cognite -> draft directory mapping
+    // Configure webpack to try cognite first, then fallback to draft
+    // This matches the TypeScript path mapping behavior
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@/components/ui/cognite': path.resolve(__dirname, './src/components/ui/draft'),
+      '@/components/ui/cognite': [
+        path.resolve(__dirname, './src/components/ui/cognite'),
+        path.resolve(__dirname, './src/components/ui/draft'),
+      ],
     };
+    
     return config;
   },
 };

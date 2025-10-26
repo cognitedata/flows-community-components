@@ -20,6 +20,9 @@
 # production
 /build
 
+# registry build output (auto-generated from registry.json)
+/public/r
+
 # misc
 .DS_Store
 *.pem
@@ -39,3 +42,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+

@@ -1,5 +1,5 @@
 {
-  "name": "liz-playground",
+  "name": "aura",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,7 +12,8 @@
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "clean:dev": "npm run clean && npm run dev",
     "reset": "npm run clean && npm install && npm run dev",
-    "registry:build": "shadcn build"
+    "registry:build": "node scripts/build-registry.js && npm run registry:clean && shadcn build",
+    "registry:clean": "rm -rf public/r && mkdir -p public/r"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.53",
@@ -70,7 +71,7 @@
     "react-day-picker": "^9.11.1",
     "react-dom": "19.1.0",
     "react-syntax-highlighter": "^15.6.6",
-    "recharts": "^2.15.4",
+    "recharts": "2.15.4",
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
     "shadcn": "^3.4.2",
