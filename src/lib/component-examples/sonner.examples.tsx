@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/cognite/button";
-import { toast } from "@/components/ui/cognite/sonner";
+import { toast } from "@/components/ui/cognite/sonner-toast";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -60,7 +60,7 @@ export const sonnerExamples: ComponentExamples = {
     code: `"use client"
 
 import { Button } from "@/components/ui/cognite/button"
-import { toast } from "@/components/ui/cognite/sonner"
+import { toast } from "@/components/ui/cognite/sonner-toast"
 
 export function BasicDemo() {
   const handleSuccess = () => {

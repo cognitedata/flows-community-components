@@ -11,7 +11,7 @@ An opinionated toast component for React. A toast is used to show a brief messag
 ## Import
 
 ```tsx
-import { Toaster, toast } from "@/components/ui/cognite/sonner"
+import { Toaster, toast } from "@/components/ui/cognite/sonner-toast"
 ```
 
 ## Usage
