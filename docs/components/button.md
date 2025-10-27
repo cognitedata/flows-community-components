@@ -11,91 +11,28 @@ A versatile button component that supports multiple variants, sizes, and can ren
 ## Import
 
 ```tsx
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/cognite/button"
 ```
 
 ## Usage
 
-### Default Button
-
-```tsx
-import { Button } from "@/components/ui/button"
-
-export function ButtonDemo() {
-  return <Button>Click me</Button>
-}
-```
-
 ### Button Variants
 
-```tsx
-import { Button } from "@/components/ui/button"
+<!-- example:variants -->
 
-export function ButtonVariants() {
-  return (
-    <div className="flex gap-2">
-      <Button variant="default">Default</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="link">Link</Button>
-    </div>
-  )
-}
-```
+Different visual styles for various use cases
 
 ### Button Sizes
 
-```tsx
-import { Button } from "@/components/ui/button"
+<!-- example:sizes -->
 
-export function ButtonSizes() {
-  return (
-    <div className="flex items-center gap-2">
-      <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
-      <Button size="lg">Large</Button>
-    </div>
-  )
-}
-```
+Available size options including an icon-only variant
 
-### Button with Icon
+### Button States
 
-```tsx
-import { Button } from "@/components/ui/button"
-import { ChevronRight } from "lucide-react"
+<!-- example:states -->
 
-export function ButtonWithIcon() {
-  return (
-    <div className="flex gap-2">
-      <Button>
-        <ChevronRight />
-        Next
-      </Button>
-      <Button size="icon">
-        <ChevronRight />
-      </Button>
-    </div>
-  )
-}
-```
-
-### As Child (Polymorphic)
-
-```tsx
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-
-export function ButtonAsChild() {
-  return (
-    <Button asChild>
-      <Link href="/about">Go to About</Link>
-    </Button>
-  )
-}
-```
+Disabled and loading states
 
 ## API Reference
 
@@ -138,7 +75,7 @@ export function ButtonAsChild() {
 ### Loading Button
 
 ```tsx
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/cognite/button"
 import { Loader2 } from "lucide-react"
 
 export function LoadingButton() {
@@ -154,7 +91,7 @@ export function LoadingButton() {
 ### Button Group
 
 ```tsx
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/cognite/button"
 
 export function ButtonGroup() {
   return (

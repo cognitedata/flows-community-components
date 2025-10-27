@@ -16,55 +16,16 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/cognite/tooltip"
 ```
 
 ## Usage
 
-### Basic Tooltip
+### Tooltip Demo
 
-```tsx
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
+<!-- example:basic -->
 
-export function TooltipDemo() {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover</Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Add to library</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  )
-}
-```
-
-### Tooltip with Custom Content
-
-```tsx
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
-
-export function TooltipCustom() {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover for info</Button>
-        </TooltipTrigger>
-        <TooltipContent className="max-w-xs">
-          <p className="font-semibold">Custom Tooltip</p>
-          <p className="text-sm">This tooltip contains more detailed information about the action.</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  )
-}
-```
+Contextual help on hover (requires interactive implementation)
 
 ## API Reference
 

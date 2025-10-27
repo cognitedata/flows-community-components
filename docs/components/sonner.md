@@ -11,65 +11,16 @@ An opinionated toast component for React. A toast is used to show a brief messag
 ## Import
 
 ```tsx
-import { toast } from "sonner"
+import { Toaster, toast } from "@/components/ui/cognite/sonner-toast"
 ```
 
 ## Usage
 
-### Basic Toast
+### Toast/Sonner Demo
 
-```tsx
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
+<!-- example:basic -->
 
-export function SonnerDemo() {
-  return (
-    <Button
-      variant="outline"
-      onClick={() =>
-        toast("Event has been created", {
-          description: "Sunday, December 03, 2023 at 9:00 AM",
-          action: {
-            label: "Undo",
-            onClick: () => console.log("Undo"),
-          },
-        })
-      }
-    >
-      Show Toast
-    </Button>
-  )
-}
-```
-
-### Different Toast Types
-
-```tsx
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
-
-export function SonnerTypes() {
-  return (
-    <div className="space-x-2">
-      <Button variant="outline" onClick={() => toast("Event has been created")}>
-        Default
-      </Button>
-      <Button variant="outline" onClick={() => toast.success("Event has been created")}>
-        Success
-      </Button>
-      <Button variant="outline" onClick={() => toast.error("Event has not been created")}>
-        Error
-      </Button>
-      <Button variant="outline" onClick={() => toast.warning("Event has a warning")}>
-        Warning
-      </Button>
-      <Button variant="outline" onClick={() => toast.info("Event has info")}>
-        Info
-      </Button>
-    </div>
-  )
-}
-```
+Toast notifications (requires interactive implementation with toast() function)
 
 ## API Reference
 
