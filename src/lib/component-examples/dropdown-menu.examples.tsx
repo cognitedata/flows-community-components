@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/cognite/dropdown-menu";
-import { Separator } from "@/components/ui/cognite/separator";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -45,7 +44,7 @@ function BasicDemo() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      
+
       <p className="text-sm text-muted-foreground">
         Click buttons to open interactive dropdown menus.
       </p>
@@ -56,7 +55,8 @@ function BasicDemo() {
 export const dropdownMenuExamples: ComponentExamples = {
   basic: {
     title: "Dropdown Menu Demo",
-    description: "Interactive contextual menus with actions and keyboard navigation",
+    description:
+      "Interactive contextual menus with actions and keyboard navigation",
     component: BasicDemo,
     difficulty: "intermediate",
     code: `import {
@@ -90,4 +90,3 @@ export function BasicDemo() {
 }`,
   },
 };
-
