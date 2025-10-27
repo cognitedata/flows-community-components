@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
 import { TopbarVisibility } from "@/components/TopbarVisibility";
-import { Toaster } from "@/components/ui/cognite/sonner";
+import { Toaster } from "@/components/ui/cognite/sonner-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
