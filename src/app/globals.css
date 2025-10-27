@@ -30,6 +30,10 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-decorative-background-hover: var(--decorative-background-hover);
+  --color-decorative-foreground-hover: var(--decorative-foreground-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -38,10 +42,96 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-hover: var(--tertiary-hover);
+  --color-tertiary-foreground: var(--tertiary-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-foreground-link: var(--foreground-link);
+  --color-backdrop: var(--backdrop);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-neutral: var(--neutral);
+  --color-neutral-foreground: var(--neutral-foreground);
+  --color-undefined: var(--undefined);
+  --color-undefined-foreground: var(--undefined-foreground);
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+  --color-hover: var(--hover);
+  
+  /* Color ramps - base colors */
+  --color-fjord: var(--fjord-50);
+  --color-nordic: var(--nordic-50);
+  --color-aurora: var(--aurora-50);
+  --color-sky: var(--sky-50);
+  
+  /* Color ramps - individual shades */
+  --color-fjord-50: var(--fjord-50);
+  --color-fjord-100: var(--fjord-100);
+  --color-fjord-200: var(--fjord-200);
+  --color-fjord-300: var(--fjord-300);
+  --color-fjord-400: var(--fjord-400);
+  --color-fjord-450: var(--fjord-450);
+  --color-fjord-500: var(--fjord-500);
+  --color-fjord-550: var(--fjord-550);
+  --color-fjord-600: var(--fjord-600);
+  --color-fjord-650: var(--fjord-650);
+  --color-fjord-700: var(--fjord-700);
+  --color-fjord-800: var(--fjord-800);
+  --color-fjord-900: var(--fjord-900);
+  --color-fjord-950: var(--fjord-950);
+  
+  --color-nordic-50: var(--nordic-50);
+  --color-nordic-100: var(--nordic-100);
+  --color-nordic-200: var(--nordic-200);
+  --color-nordic-300: var(--nordic-300);
+  --color-nordic-400: var(--nordic-400);
+  --color-nordic-450: var(--nordic-450);
+  --color-nordic-500: var(--nordic-500);
+  --color-nordic-550: var(--nordic-550);
+  --color-nordic-600: var(--nordic-600);
+  --color-nordic-650: var(--nordic-650);
+  --color-nordic-700: var(--nordic-700);
+  --color-nordic-800: var(--nordic-800);
+  --color-nordic-900: var(--nordic-900);
+  --color-nordic-950: var(--nordic-950);
+  
+  --color-aurora-50: var(--aurora-50);
+  --color-aurora-100: var(--aurora-100);
+  --color-aurora-200: var(--aurora-200);
+  --color-aurora-300: var(--aurora-300);
+  --color-aurora-400: var(--aurora-400);
+  --color-aurora-450: var(--aurora-450);
+  --color-aurora-500: var(--aurora-500);
+  --color-aurora-550: var(--aurora-550);
+  --color-aurora-600: var(--aurora-600);
+  --color-aurora-650: var(--aurora-650);
+  --color-aurora-700: var(--aurora-700);
+  --color-aurora-800: var(--aurora-800);
+  --color-aurora-900: var(--aurora-900);
+  --color-aurora-950: var(--aurora-950);
+  
+  --color-sky-50: var(--sky-50);
+  --color-sky-100: var(--sky-100);
+  --color-sky-200: var(--sky-200);
+  --color-sky-300: var(--sky-300);
+  --color-sky-400: var(--sky-400);
+  --color-sky-450: var(--sky-450);
+  --color-sky-500: var(--sky-500);
+  --color-sky-550: var(--sky-550);
+  --color-sky-600: var(--sky-600);
+  --color-sky-650: var(--sky-650);
+  --color-sky-700: var(--sky-700);
+  --color-sky-800: var(--sky-800);
+  --color-sky-900: var(--sky-900);
+  --color-sky-950: var(--sky-950);
+  
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -273,7 +363,7 @@
   --primary-foreground: var(--mountain-50);
   --secondary: var(--mountain-100);
   --secondary-hover: var(--mountain-200);
-  --secondary-foreground: var(--mountain-900);
+  --secondary-foreground: var(--mountain-800);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-300);
   --tertiary-foreground: var(--mountain-white);
@@ -290,7 +380,7 @@
   /* Status tokens */
   --destructive: var(--red-50);
   --destructive-hover: var(--red-100);
-  --destructive-foreground: var(--red-550);
+  --destructive-foreground: var(--red-500);
   --warning: var(--amber-50);
   --warning-foreground: var(--amber-500);
   --success: var(--green-50);
@@ -298,35 +388,10 @@
   --neutral: var(--blue-50);
   --neutral-foreground: var(--blue-500);
   --undefined: var(--mountain-50);
-  --undefined-foreground: var(--mountain-500);
-
-  /* Decorative background tokens */
-  --decorative-background-mountain: var(--mountain-50);
-  --decorative-background-fjord: var(--fjord-50);
-  --decorative-background-nordic: var(--nordic-50);
-  --decorative-background-aurora: var(--aurora-50);
-  --decorative-background-dusk: var(--dusk-50);
-  --decorative-background-orange: var(--orange-50);
-  --decorative-background-sky: var(--sky-50);
-
-  /* Decorative background hover tokens */
-  --decorative-background-hover-mountain: var(--mountain-100);
-  --decorative-background-hover-fjord: var(--fjord-100);
-  --decorative-background-hover-nordic: var(--nordic-100);
-  --decorative-background-hover-aurora: var(--aurora-100);
-  --decorative-background-hover-dusk: var(--dusk-100);
-  --decorative-background-hover-orange: var(--orange-100);
-  --decorative-background-hover-sky: var(--sky-100);
-
-  /* Decorative foreground tokens */
-  --decorative-foreground-mountain: var(--mountain-650);
-  --decorative-foreground-fjord: var(--fjord-700);
-  --decorative-foreground-nordic: var(--nordic-600);
-  --decorative-foreground-aurora: var(--aurora-600);
-  --decorative-foreground-dusk: var(--dusk-600);
-  --decorative-foreground-orange: var(--orange-600);
-  --decorative-foreground-sky: var(--sky-600);
-
+  --undefined-foreground: var(--mountain-600);
+  --disabled: var(--mountain-50);
+  --disabled-foreground: var(--mountain-450);
+  --hover: var(--mountain-50)
   /* Charts (light) */
   --chart-fjord-solid: var(--fjord-600);
   --chart-fjord-opacity-1: rgba(47, 85, 234, 0.8);
@@ -358,7 +423,19 @@
   --chart-dusk-opacity-3: rgba(196, 22, 91, 0.5);
   --chart-dusk-opacity-4: rgba(196, 22, 91, 0.35);
   --chart-dusk-opacity-5: rgba(196, 22, 91, 0.2);
-
+  --chart-lime-solid: var(--aurora-600);
+  --chart-lime-opacity-1: rgba(77, 112, 12, 0.8);
+  --chart-lime-opacity-2: rgba(77, 112, 12, 0.65);
+  --chart-lime-opacity-3: rgba(77, 112, 12, 0.5);
+  --chart-lime-opacity-4: rgba(77, 112, 12, 0.35);
+  --chart-lime-opacity-5: rgba(77, 112, 12, 0.2);
+  --chart-pink-solid: var(--dusk-600);
+  --chart-pink-opacity-1: rgba(196, 22, 91, 0.8);
+  --chart-pink-opacity-2: rgba(196, 22, 91, 0.65);
+  --chart-pink-opacity-3: rgba(196, 22, 91, 0.5);
+  --chart-pink-opacity-4: rgba(196, 22, 91, 0.35);
+  --chart-pink-opacity-5: rgba(196, 22, 91, 0.2);
+  
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
@@ -399,7 +476,7 @@
   /* Status tokens */
   --destructive: var(--red-900);
   --destructive-hover: var(--red-800);
-  --destructive-foreground: var(--red-400);
+  --destructive-foreground: var(--red-300);
   --warning: var(--amber-900);
   --warning-foreground: var(--amber-300);
   --success: var(--green-900);
@@ -408,6 +485,10 @@
   --neutral-foreground: var(--blue-300);
   --undefined: var(--mountain-900);
   --undefined-foreground: var(--mountain-300);
+  --disabled: var(--mountain-800);
+  --disabled-foreground: var(--mountain-450);
+  --hover: var(--mountain-800);
+ 
 
   /* Decorative background tokens */
   --decorative-background-mountain: var(--mountain-900);
@@ -467,7 +548,19 @@
   --chart-dusk-opacity-3: rgba(249, 202, 220, 0.5);
   --chart-dusk-opacity-4: rgba(249, 202, 220, 0.35);
   --chart-dusk-opacity-5: rgba(249, 202, 220, 0.2);
-
+  --chart-lime-solid: var(--aurora-200);
+  --chart-lime-opacity-1: rgba(171, 233, 56, 0.8);
+  --chart-lime-opacity-2: rgba(171, 233, 56, 0.65);
+  --chart-lime-opacity-3: rgba(171, 233, 56, 0.5);
+  --chart-lime-opacity-4: rgba(171, 233, 56, 0.35);
+  --chart-lime-opacity-5: rgba(171, 233, 56, 0.2);
+  --chart-pink-solid: var(--dusk-200);
+  --chart-pink-opacity-1: rgba(249, 202, 220, 0.8);
+  --chart-pink-opacity-2: rgba(249, 202, 220, 0.65);
+  --chart-pink-opacity-3: rgba(249, 202, 220, 0.5);
+  --chart-pink-opacity-4: rgba(249, 202, 220, 0.35);
+  --chart-pink-opacity-5: rgba(249, 202, 220, 0.2);
+  
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
