@@ -19,6 +19,6 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@cognite/aura": "${REGISTRY_URL:-https://cognite-one.vercel.app}/r/{registry}.json"
+    "@cognite/aura": "https://cognite-one.vercel.app/r/{registry}.json"
   }
 }

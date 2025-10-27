@@ -12,19 +12,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// Load environment variables from .env.local
-require('dotenv').config({ path: path.join(__dirname, '../.env.local') });
-
 const cogniteDir = path.join(__dirname, '../src/components/ui/cognite');
 const registryTemplate = path.join(__dirname, '../registry.template.json');
 const registryOutput = path.join(__dirname, '../registry.json');
-
-// Get registry URL from environment or use default
-function getRegistryUrl() {
-  const registryUrl = process.env.REGISTRY_URL || 'https://cognite-one.vercel.app';
-  // Remove trailing slash if present
-  return registryUrl.replace(/\/$/, '');
-}
 
 
 // Get all production-ready components in /cognite
@@ -68,10 +58,6 @@ function buildRegistry(template, productionComponents) {
 // Main execution
 async function main() {
   try {
-    // Get registry URL
-    const registryUrl = getRegistryUrl();
-    const isDefault = !process.env.REGISTRY_URL;
-    
     // Display build information
     console.log('\n' + '='.repeat(70));
     console.log('🔨 BUILDING COMPONENT REGISTRY');
