@@ -9,10 +9,8 @@ import { Separator } from "@/components/ui/cognite/separator";
 import Link from "next/link";
 import { IconArrowLeft, IconCopy, IconExternalLink } from "@tabler/icons-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
-import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { ComponentExamplesRenderer } from "@/components/component-examples-renderer";
 import { CodeExamplesRenderer } from "@/components/code-examples-renderer";
-import { processMarkdownExamples } from "@/lib/markdown-processor";
 import { getComponentStatus } from "@/lib/component-status";
 import { InstallationCommand } from "@/components/installation-command";
 
@@ -138,9 +136,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
       // Component code not found, leave empty
     }
   }
-
-  // Process markdown to inject code examples from the registry
-  const processedMarkdown = await processMarkdownExamples(doc.content, slug);
 
   return (
     <div className="px-3 py-8">
