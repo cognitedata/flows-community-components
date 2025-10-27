@@ -11,7 +11,7 @@ Displays an indicator showing the completion progress of a task, typically displ
 ## Import
 
 ```tsx
-import { Progress } from "@/components/ui/progress"
+import { Progress } from "@/components/ui/cognite/progress"
 ```
 
 ## Usage

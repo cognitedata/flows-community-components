@@ -99,7 +99,7 @@ export default function PrimitivesPage() {
   const [inputValue, setInputValue] = useState("");
   const [switchValue, setSwitchValue] = useState(false);
 
-  const buttonCode = `import { Button } from "@/components/ui/button"
+  const buttonCode = `import { Button } from "@/components/ui/cognite/button"
 
 export function ButtonDemo() {
   return (
@@ -111,8 +111,8 @@ export function ButtonDemo() {
   )
 }`;
 
-  const inputCode = `import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+  const inputCode = `import { Input } from "@/components/ui/cognite/input"
+import { Label } from "@/components/ui/cognite/label"
 
 export function InputDemo() {
   return (
@@ -127,7 +127,7 @@ export function InputDemo() {
   )
 }`;
 
-  const cardCode = `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+  const cardCode = `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/cognite/card"
 
 export function CardDemo() {
   return (
@@ -147,8 +147,8 @@ export function CardDemo() {
   )
 }`;
 
-  const switchCode = `import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
+  const switchCode = `import { Switch } from "@/components/ui/cognite/switch"
+import { Label } from "@/components/ui/cognite/label"
 
 export function SwitchDemo() {
   return (

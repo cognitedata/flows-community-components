@@ -11,7 +11,7 @@ A control that allows the user to toggle between checked and not checked.
 ## Import
 
 ```tsx
-import { Switch } from "@/components/ui/switch"
+import { Switch } from "@/components/ui/cognite/switch"
 ```
 
 ## Usage

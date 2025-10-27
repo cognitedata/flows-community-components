@@ -1,25 +1,57 @@
 import { Button } from "@/components/ui/cognite/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/cognite/tooltip";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
   return (
-    <div className="space-y-3">
-      <Button>Hover for tooltip</Button>
-      <div className="border rounded p-2 bg-background text-sm max-w-xs">
-        Tooltip content appears here
+    <TooltipProvider>
+      <div className="space-y-4">
+        <div className="flex gap-2">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button>Hover me</Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Helpful tooltip information</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline">More info</Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>This button does something important</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="destructive">Delete</Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>This action cannot be undone</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+        
+        <p className="text-sm text-muted-foreground">
+          Hover over buttons to see interactive tooltips with helpful information.
+        </p>
       </div>
-      <p className="text-sm text-muted-foreground">
-        Helpful information shown on hover or focus.
-      </p>
-    </div>
+    </TooltipProvider>
   );
 }
 
 export const tooltipExamples: ComponentExamples = {
   basic: {
     title: "Tooltip Demo",
-    description:
-      "Contextual help on hover (requires interactive implementation)",
+    description: "Interactive contextual help that appears on hover or focus",
     component: BasicDemo,
     difficulty: "beginner",
     code: `import {

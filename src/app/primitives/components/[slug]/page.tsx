@@ -10,10 +10,11 @@ import Link from "next/link";
 import { ArrowLeft, Copy, ExternalLink } from "lucide-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
-import { getComponentExamples, type ComponentExample } from "@/lib/component-examples";
-import { ExamplePreview } from "@/components/example-preview";
-import { CodeExample } from "@/components/code-example";
+import { ComponentExamplesRenderer } from "@/components/component-examples-renderer";
+import { CodeExamplesRenderer } from "@/components/code-examples-renderer";
 import { processMarkdownExamples } from "@/lib/markdown-processor";
+import { getComponentStatus } from "@/lib/component-status";
+import { InstallationCommand } from "@/components/installation-command";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -47,6 +48,7 @@ async function getComponentDoc(slug: string) {
   }
 }
 
+
 export async function generateStaticParams() {
   const docsDir = path.join(process.cwd(), "docs", "components");
 
@@ -78,6 +80,20 @@ export async function generateMetadata({ params }: ComponentPageProps) {
   };
 }
 
+// Helper function to get component dependencies from registry
+async function getComponentDependencies(slug: string): Promise<string[]> {
+  try {
+    const registryPath = path.join(process.cwd(), "registry.template.json");
+    const registryContent = await fs.readFile(registryPath, "utf-8");
+    const registry = JSON.parse(registryContent);
+    
+    const component = registry.items?.find((item: any) => item.name === slug);
+    return component?.dependencies || [];
+  } catch {
+    return [];
+  }
+}
+
 export default async function ComponentPage({ params }: ComponentPageProps) {
   const { slug } = await params;
   const doc = await getComponentDoc(slug);
@@ -86,11 +102,30 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     notFound();
   }
 
-  // Get component examples if they exist
-  const examples = getComponentExamples(slug);
+  // Get component status (draft/production)
+  const componentStatus = getComponentStatus(slug);
+
+  // Get component dependencies from registry
+  const dependencies = await getComponentDependencies(slug);
+
+  // Get component source code for manual installation
+  let componentCode = "";
+  try {
+    // Try to read from draft directory (where most components are)
+    const draftPath = path.join(process.cwd(), "src", "components", "ui", "draft", `${slug}.tsx`);
+    componentCode = await fs.readFile(draftPath, "utf-8");
+  } catch {
+    try {
+      // Fallback to cognite directory for production components
+      const cognitePath = path.join(process.cwd(), "src", "components", "ui", "cognite", `${slug}.tsx`);
+      componentCode = await fs.readFile(cognitePath, "utf-8");
+    } catch {
+      // Component code not found, leave empty
+    }
+  }
 
   // Process markdown to inject code examples from the registry
-  const processedMarkdown = processMarkdownExamples(doc.content, slug);
+  const processedMarkdown = await processMarkdownExamples(doc.content, slug);
 
   // Get MDX components for rendering
   // const mdxComponents = {
@@ -127,10 +162,29 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <div className="space-y-4 mb-8">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-4xl font-bold">{doc.meta.component}</h1>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-4xl font-bold">{doc.meta.component}</h1>
+                {componentStatus === "production" && (
+                  <Badge variant="default" className="bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800">
+                    Production Ready
+                  </Badge>
+                )}
+                {componentStatus === "draft" && (
+                  <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800">
+                    Draft
+                  </Badge>
+                )}
+              </div>
               <p className="text-xl text-muted-foreground mt-2">
                 {doc.meta.description}
               </p>
+              {componentStatus === "draft" && (
+                <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
+                  <p className="text-sm text-yellow-800 dark:text-yellow-400">
+                    <strong>Note:</strong> This component is currently in draft status. It may not be production-ready and could undergo changes.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -140,24 +194,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           previewContent={
             <div className="space-y-8">
               {/* Component Examples from Registry */}
-              {examples ? (
-                <div className="space-y-6">
-                  {Object.entries(examples).map(([key, example]: [string, ComponentExample]) => (
-                    <ExamplePreview
-                      key={key}
-                      title={example.title}
-                      description={example.description}
-                      component={example.component}
-                    />
-                  ))}
-                        </div>
-              ) : (
-                    <div className="p-6 border rounded-lg bg-muted/20">
-                          <p className="text-sm text-muted-foreground">
-                    No examples available for this component yet.
-                  </p>
-                  </div>
-                )}
+              <ComponentExamplesRenderer slug={slug} />
             </div>
           }
           guidelinesContent={
@@ -201,24 +238,15 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   {doc.meta.component}.
                 </p>
 
+                {/* Installation Instructions */}
+                <InstallationCommand 
+                  component={slug} 
+                  dependencies={dependencies}
+                  componentCode={componentCode}
+                />
+
                 {/* Component Code Examples from Registry */}
-                {examples ? (
-                  <div className="space-y-4">
-                    {Object.entries(examples).map(([key, example]: [string, ComponentExample]) => (
-                      <CodeExample
-                        key={key}
-                        title={example.title}
-                        code={example.code}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="p-6 border rounded-lg bg-muted/20">
-                    <p className="text-sm text-muted-foreground">
-                      No code examples available for this component yet.
-                    </p>
-                  </div>
-                )}
+                <CodeExamplesRenderer slug={slug} />
               </div>
             </div>
           }

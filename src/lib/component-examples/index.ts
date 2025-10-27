@@ -1,56 +1,86 @@
 // Main registry export for component examples
 
 import { accordionExamples, accordionMeta } from "./accordion.examples";
+import { alertExamples } from "./alert.examples";
 import { alertDialogExamples } from "./alert-dialog.examples";
+import { avatarExamples } from "./avatar.examples";
 import { badgeExamples } from "./badge.examples";
+import { breadcrumbExamples } from "./breadcrumb.examples";
 import { buttonExamples } from "./button.examples";
 import { calendarExamples } from "./calendar.examples";
 import { cardExamples } from "./card.examples";
 import { checkboxExamples } from "./checkbox.examples";
+import { collapsibleExamples } from "./collapsible.examples";
+import { comboboxExamples } from "./combobox.examples";
+import { commandExamples } from "./command.examples";
+import { contextMenuExamples } from "./context-menu.examples";
+import { datePickerExamples } from "./date-picker.examples";
 import { dialogExamples } from "./dialog.examples";
+import { drawerExamples } from "./drawer.examples";
 import { dropdownMenuExamples } from "./dropdown-menu.examples";
 import { inputExamples } from "./input.examples";
+import { kbdExamples } from "./kbd.examples";
 import { labelExamples } from "./label.examples";
-import { navigationMenuExamples } from "./navigation-menu.examples";
+import { menubarExamples } from "./menubar.examples";
+import { paginationExamples } from "./pagination.examples";
 import { popoverExamples } from "./popover.examples";
 import { progressExamples } from "./progress.examples";
+import { radioGroupExamples } from "./radio-group.examples";
 import { selectExamples } from "./select.examples";
 import { separatorExamples } from "./separator.examples";
-import { sheetExamples } from "./sheet.examples";
-import { skeletonExamples } from "./skeleton.examples";
+import { sidebarExamples } from "./sidebar.examples";
+import { sliderExamples } from "./slider.examples";
 import { sonnerExamples } from "./sonner.examples";
+import { swapSlotExamples } from "./swap-slot.examples";
 import { switchExamples } from "./switch.examples";
-import { tableExamples } from "./table.examples";
 import { tabsExamples } from "./tabs.examples";
 import { textareaExamples } from "./textarea.examples";
+import { timeInputExamples } from "./time-input.examples";
+import { toggleExamples } from "./toggle.examples";
 import { tooltipExamples } from "./tooltip.examples";
+import { topbarExamples } from "./topbar.examples";
 import type { ComponentExamples, ComponentMeta } from "./types";
 
 export const componentExamples = {
   accordion: accordionExamples,
+  alert: alertExamples,
   "alert-dialog": alertDialogExamples,
+  avatar: avatarExamples,
   badge: badgeExamples,
+  breadcrumb: breadcrumbExamples,
   button: buttonExamples,
   calendar: calendarExamples,
   card: cardExamples,
   checkbox: checkboxExamples,
+  collapsible: collapsibleExamples,
+  combobox: comboboxExamples,
+  command: commandExamples,
+  "context-menu": contextMenuExamples,
+  "date-picker": datePickerExamples,
   dialog: dialogExamples,
+  drawer: drawerExamples,
   "dropdown-menu": dropdownMenuExamples,
   input: inputExamples,
+  kbd: kbdExamples,
   label: labelExamples,
-  "navigation-menu": navigationMenuExamples,
+  menubar: menubarExamples,
+  pagination: paginationExamples,
   popover: popoverExamples,
   progress: progressExamples,
+  "radio-group": radioGroupExamples,
   select: selectExamples,
   separator: separatorExamples,
-  sheet: sheetExamples,
-  skeleton: skeletonExamples,
+  sidebar: sidebarExamples,
+  slider: sliderExamples,
   sonner: sonnerExamples,
+  "swap-slot": swapSlotExamples,
   switch: switchExamples,
-  table: tableExamples,
   tabs: tabsExamples,
   textarea: textareaExamples,
+  "time-input": timeInputExamples,
+  toggle: toggleExamples,
   tooltip: tooltipExamples,
+  topbar: topbarExamples,
 } as const;
 
 export type ComponentSlug = keyof typeof componentExamples;

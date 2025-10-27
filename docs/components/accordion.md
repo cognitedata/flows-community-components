@@ -11,7 +11,7 @@ A collapsible content component that allows users to show and hide sections of r
 ## Import
 
 ```tsx
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/cognite/accordion"
 ```
 
 ## Usage

@@ -11,7 +11,7 @@ A date picker component for selecting dates and date ranges.
 ## Import
 
 ```tsx
-import { Calendar } from "@/components/ui/calendar"
+import { Calendar } from "@/components/ui/cognite/calendar"
 ```
 
 ## Usage

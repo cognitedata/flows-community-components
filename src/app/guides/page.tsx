@@ -110,7 +110,7 @@ const developerSteps = [
       },
       {
         label: "Import and use (example)",
-        command: `import { Button } from "@/components/ui/button"\n\nexport default function MyPage() {\n  return <Button>Hello Aura!</Button>\n}`,
+        command: `import { Button } from "@/components/ui/cognite/button"\n\nexport default function MyPage() {\n  return <Button>Hello Aura!</Button>\n}`,
       },
     ],
     info: "All components are ready to use with TypeScript support and theming",

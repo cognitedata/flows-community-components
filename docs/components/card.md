@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
   CardAction,
-} from "@/components/ui/card"
+} from "@/components/ui/cognite/card"
 ```
 
 ## Usage

@@ -11,7 +11,7 @@ A versatile button component that supports multiple variants, sizes, and can ren
 ## Import
 
 ```tsx
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/cognite/button"
 ```
 
 ## Usage
@@ -75,7 +75,7 @@ Disabled and loading states
 ### Loading Button
 
 ```tsx
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/cognite/button"
 import { Loader2 } from "lucide-react"
 
 export function LoadingButton() {
@@ -91,7 +91,7 @@ export function LoadingButton() {
 ### Button Group
 
 ```tsx
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/cognite/button"
 
 export function ButtonGroup() {
   return (

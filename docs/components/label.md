@@ -11,7 +11,7 @@ Renders an accessible label associated with controls.
 ## Import
 
 ```tsx
-import { Label } from "@/components/ui/label"
+import { Label } from "@/components/ui/cognite/label"
 ```
 
 ## Usage
