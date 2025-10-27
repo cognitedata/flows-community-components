@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import { Separator } from "@/components/ui/cognite/separator";
 import Link from "next/link";
-import { IconArrowLeft, IconCopy, IconExternalLink } from "@tabler/icons-react";
+import { IconArrowLeft } from "@tabler/icons-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { ComponentExamplesRenderer } from "@/components/component-examples-renderer";
 import { CodeExamplesRenderer } from "@/components/code-examples-renderer";
@@ -269,25 +269,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 </div>
               </div>
             </section>
-
-            {/* Footer */}
-            <div className="border-t pt-8 mt-12">
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-muted-foreground">
-                  Found an issue with this documentation?{" "}
-                  <Button variant="secondary" className="p-0 h-auto">
-                    <IconExternalLink className="h-3 w-3 mr-1" />
-                    Edit on GitHub
-                  </Button>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="secondary" size="sm">
-                    <IconCopy className="h-4 w-4 mr-2" />
-                    Copy import
-                  </Button>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Sidebar with anchor links */}
