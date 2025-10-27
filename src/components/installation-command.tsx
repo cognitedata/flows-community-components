@@ -32,7 +32,7 @@ export function InstallationCommand({ component, dependencies = [], componentCod
   const cliCommands: Record<PackageManager, string> = {
     pnpm: `pnpm dlx shadcn@latest add ${component}`,
     npm: `npx shadcn@latest add ${component}`,
-    yarn: `npx shadcn@latest add ${component}`,
+    yarn: `yarn dlx shadcn@latest add ${component}`,
     bun: `bunx shadcn@latest add ${component}`,
   };
 
