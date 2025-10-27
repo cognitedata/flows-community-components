@@ -11,7 +11,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const readline = require('readline');
 
 // Load environment variables from .env.local
 require('dotenv').config({ path: path.join(__dirname, '../.env.local') });
@@ -27,20 +26,6 @@ function getRegistryUrl() {
   return registryUrl.replace(/\/$/, '');
 }
 
-// Prompt user for confirmation
-function askConfirmation(question) {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      rl.close();
-      resolve(answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes' || answer === '');
-    });
-  });
-}
 
 // Get all production-ready components in /cognite
 function getProductionComponents() {
@@ -87,32 +72,22 @@ async function main() {
     const registryUrl = getRegistryUrl();
     const isDefault = !process.env.REGISTRY_URL;
     
-    // Display registry information
+    // Display build information
     console.log('\n' + '='.repeat(70));
-    console.log('📦 COMPONENT REGISTRY BUILD');
+    console.log('🔨 BUILDING COMPONENT REGISTRY');
     console.log('='.repeat(70));
-    
-    if (isDefault) {
-      console.log('\n⚙️  Registry URL: (using default)');
-      console.log(`   ${registryUrl}`);
-      console.log('\n💡 Tip: Set REGISTRY_URL environment variable to use a different registry');
-      console.log('   Example: REGISTRY_URL=http://localhost:3000');
-    } else {
-      console.log('\n⚙️  Registry URL: (from REGISTRY_URL env var)');
-      console.log(`   ${registryUrl}`);
-    }
     
     // Get production components
     const productionComponents = getProductionComponents();
     
     if (productionComponents.length === 0) {
       console.log('\n⚠️  No production components found in /cognite');
-      console.log('   Registry will be empty (no components to publish)');
+      console.log('   Registry will be empty (no components to build)');
     }
     
-    // Show what will be published
+    // Show what will be built
     console.log('\n' + '─'.repeat(70));
-    console.log('📋 COMPONENTS TO BE PUBLISHED:');
+    console.log('📋 COMPONENTS TO BE BUILT:');
     console.log('─'.repeat(70));
     
     if (productionComponents.length > 0) {
@@ -123,22 +98,13 @@ async function main() {
     }
     
     console.log('\n' + '─'.repeat(70));
-    console.log('🌐 WHERE THEY WILL BE PUBLISHED:');
+    console.log('📁 OUTPUT:');
     console.log('─'.repeat(70));
-    console.log(`\n   ${registryUrl}/r/{component}.json`);
-    console.log(`\n   Example: ${registryUrl}/r/badge.json`);
-    
-    // Ask for confirmation
-    console.log('\n' + '='.repeat(70));
-    const confirmed = await askConfirmation('\n✋ Is this correct? Continue? (Y/n): ');
-    
-    if (!confirmed) {
-      console.log('\n❌ Build cancelled by user\n');
-      process.exit(0);
-    }
+    console.log('\n   registry.json → Root directory');
+    console.log('   Component files → public/r/*.json (via shadcn build)');
     
     // Build the registry
-    console.log('\n⏳ Building registry...\n');
+    console.log('\n⏳ Building registry...');
     const template = loadRegistryTemplate();
     const registry = buildRegistry(template, productionComponents);
 
@@ -148,7 +114,7 @@ async function main() {
     console.log(`📦 Registry contains ${registry.items.length} production component(s)`);
     
     if (productionComponents.length > 0) {
-      console.log(`\n🎉 Ready to publish: ${registry.items.map(i => i.name).join(', ')}`);
+      console.log(`\n🎉 Components built: ${registry.items.map(i => i.name).join(', ')}`);
     }
     
     console.log('\n' + '='.repeat(70));
@@ -156,14 +122,14 @@ async function main() {
     console.log('='.repeat(70) + '\n');
     
     if (productionComponents.length > 0) {
-      console.log('Next steps:');
+      console.log('📝 Next steps:');
       console.log('  1. The registry:build command will now:');
-      console.log('     - Clean public/r/ directory (removes old files)');
-      console.log('     - Run shadcn build (generates new files)');
-      console.log('  2. Deploy to your registry URL');
-      console.log(`  3. Users can install via: npx shadcn add @cognite/aura/{component}\n`);
+      console.log('     - Clean public/r/ directory');
+      console.log('     - Run shadcn build to generate component .json files');
+      console.log('  2. Commit and push the changes');
+      console.log('  3. Deploy your site to make components available\n');
     } else {
-      console.log('ℹ️  Note: Running shadcn build will clean public/r/ and create an empty registry.\n');
+      console.log('ℹ️  Note: No components to build. Add .tsx files to src/components/ui/cognite/\n');
     }
     
   } catch (error) {
