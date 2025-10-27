@@ -347,7 +347,7 @@ export default function App({ children }) {
 Your components will now use the custom theme colors automatically!
 
 \`\`\`jsx
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/cognite/button"
 
 export function Example() {
   return (
