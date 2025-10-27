@@ -352,12 +352,12 @@ export default function DocsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
-                <Link href="/docs/components/button">Browse Components</Link>
+                <Link href="/docs/installation">Installation Guide</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/guides">
+                <Link href="/docs/getting-started">
                   <Book className="mr-2 h-4 w-4" />
-                  View Guides
+                  Getting Started
                 </Link>
               </Button>
             </div>

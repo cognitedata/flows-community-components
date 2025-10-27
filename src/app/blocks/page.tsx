@@ -172,7 +172,7 @@ export default function BlocksPage() {
       </div>
 
       {/* Bottom Section */}
-      <div className="bg-gradient-to-r from-primary/5 to-primary/10 border rounded-lg p-6">
+      <div className="bg-linear-to-r from-primary/5 to-primary/10 border rounded-lg p-6">
         <div className="text-center space-y-4">
           <h2 className="text-2xl font-bold">
             Building interactive experiences

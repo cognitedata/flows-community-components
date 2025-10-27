@@ -77,7 +77,7 @@ const features = [
     icon: BookOpen,
     title: "Getting started",
     description: "Guides for designers and developers",
-    href: "/guides",
+    href: "/docs/getting-started",
   },
 ];
 
@@ -115,7 +115,7 @@ export default function Home() {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/guides">
+                <Link href="/docs/installation">
                   <Code2 className="mr-2 h-4 w-4" />
                   Get started
                 </Link>
@@ -246,13 +246,13 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
-                <Link href="/guides">
+                <Link href="/docs/getting-started">
                   Designer guide
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/guides">
+                <Link href="/docs/getting-started">
                   Developer guide
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

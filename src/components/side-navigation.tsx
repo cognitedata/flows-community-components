@@ -18,11 +18,61 @@ interface SideNavigationProps {
   className?: string
 }
 
-const overviewNavigation: NavigationItem[] = [
-  { href: "/overview/about", label: "About" },
-  { href: "/overview/getting-started", label: "Getting started" },
-  { href: "/overview/releases", label: "Releases" },
+const docsNavigation: NavigationItem[] = [
+  { href: "/docs/installation", label: "Installation" },
+  { href: "/docs/about", label: "About" },
+  { href: "/docs/getting-started", label: "Getting started" },
+  { href: "/docs/releases", label: "Releases" },
+  {
+    href: "#",
+    label: "Components",
+    isSubsection: true,
+    children: [
+      { href: "/docs/components/accordion", label: "Accordion" },
+      { href: "/docs/components/alert", label: "Alert" },
+      { href: "/docs/components/alert-dialog", label: "Alert dialog" },
+      { href: "/docs/components/avatar", label: "Avatar" },
+      { href: "/docs/components/badge", label: "Badge" },
+      { href: "/docs/components/breadcrumb", label: "Breadcrumb" },
+      { href: "/docs/components/button", label: "Button" },
+      { href: "/docs/components/calendar", label: "Calendar" },
+      { href: "/docs/components/card", label: "Card" },
+      { href: "/docs/components/checkbox", label: "Checkbox" },
+      { href: "/docs/components/collapsible", label: "Collapsible" },
+      { href: "/docs/components/combobox", label: "Combobox" },
+      { href: "/docs/components/command", label: "Command" },
+      { href: "/docs/components/context-menu", label: "Context menu" },
+      { href: "/docs/components/date-picker", label: "Date picker" },
+      { href: "/docs/components/dialog", label: "Dialog" },
+      { href: "/docs/components/drawer", label: "Drawer" },
+      { href: "/docs/components/dropdown-menu", label: "Dropdown menu" },
+      { href: "/docs/components/input", label: "Input" },
+      { href: "/docs/components/kbd", label: "Kbd" },
+      { href: "/docs/components/label", label: "Label" },
+      { href: "/docs/components/menubar", label: "Menubar" },
+      { href: "/docs/components/pagination", label: "Pagination" },
+      { href: "/docs/components/popover", label: "Popover" },
+      { href: "/docs/components/progress", label: "Progress" },
+      { href: "/docs/components/radio-group", label: "Radio group" },
+      { href: "/docs/components/select", label: "Select" },
+      { href: "/docs/components/separator", label: "Separator" },
+      { href: "/docs/components/sidebar", label: "Sidebar" },
+      { href: "/docs/components/slider", label: "Slider" },
+      { href: "/docs/components/sonner", label: "Sonner" },
+      { href: "/docs/components/swap-slot", label: "Swap slot" },
+      { href: "/docs/components/switch", label: "Switch" },
+      { href: "/docs/components/tabs", label: "Tabs" },
+      { href: "/docs/components/textarea", label: "Textarea" },
+      { href: "/docs/components/time-input", label: "Time input" },
+      { href: "/docs/components/toggle", label: "Toggle" },
+      { href: "/docs/components/tooltip", label: "Tooltip" },
+      { href: "/docs/components/topbar", label: "Topbar" },
+    ]
+  }
 ]
+
+// Keep for backward compatibility during migration
+const overviewNavigation: NavigationItem[] = docsNavigation
 
 const primitivesNavigation: NavigationItem[] = [
   {
@@ -107,7 +157,8 @@ const sandboxNavigation: NavigationItem[] = [
 ]
 
 export const navigationMap = {
-  overview: overviewNavigation,
+  docs: docsNavigation,
+  overview: overviewNavigation, // Keep for backward compatibility
   primitives: primitivesNavigation,
   blocks: blocksNavigation,
   sandbox: sandboxNavigation,

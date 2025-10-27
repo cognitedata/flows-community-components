@@ -123,7 +123,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           {doc.meta.llm_usage && (
             <div className="bg-muted/50 border border-muted-foreground/20 rounded-lg p-4">
               <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
+                <div className="shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center mt-0.5">
                   <span className="text-xs font-mono text-primary">AI</span>
                 </div>
                 <div>
