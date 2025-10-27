@@ -61,7 +61,7 @@ export default function IconsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-4xl font-bold mb-4">Icons</h1>
+        <h1 className="text-3xl font-bold mb-4">Icons</h1>
         <p className="text-lg text-muted-foreground max-w-3xl">
           A comprehensive icon library built on Lucide React, providing
           consistent visual language across all interface elements.

@@ -31,8 +31,8 @@ export function SectionLayout({ children, className }: SectionLayoutProps) {
   return (
     <div className="flex min-h-screen"> {/* Use min-height instead of fixed height */}
       {/* Side Navigation */}
-      <aside className="w-64 flex-shrink-0 pl-3 pr-6">
-        <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto pt-6 pb-8">
+      <aside className="w-56 flex-shrink-0 border-r pl-6">
+        <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto pt-8 pb-8">
           <SideNavigation items={sideNavItems} />
         </div>
       </aside>

@@ -45,7 +45,7 @@ export default function ReleasesPage() {
     <SectionLayout>
       <div className="space-y-8">
         <div>
-          <h1 className="text-4xl font-bold mb-4">Releases</h1>
+          <h1 className="text-3xl font-bold mb-4">Releases</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             Track the evolution of our design system with detailed release
             notes, new features, and breaking changes.

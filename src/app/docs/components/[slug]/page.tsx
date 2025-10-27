@@ -112,7 +112,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <div className="space-y-4 mb-8">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-4xl font-bold">{doc.meta.component}</h1>
+              <h1 className="text-3xl font-bold">{doc.meta.component}</h1>
               <p className="text-xl text-muted-foreground mt-2">
                 {doc.meta.description}
               </p>
