@@ -168,16 +168,16 @@ cp src/components/ui/draft/button.tsx src/components/ui/cognite/
 npm run registry:build
 ```
 
-### Issue: Registry has wrong URL
+### Issue: Users can't install components
 
-**Cause:** Wrong `REGISTRY_URL` in `.env.local`
+**Cause:** Wrong `REGISTRY_URL` in `components.json`
 
 **Fix:**
 ```bash
-# Edit .env.local
-REGISTRY_URL=http://localhost:3000
+# Edit components.json
+# Update the registries URL to match your deployment
 
-# Rebuild (script will show the URL and ask for confirmation)
+# Rebuild
 npm run registry:build
 ```
 
@@ -193,7 +193,7 @@ npm run registry:build
 2. **Verify before deploying**
    - Check `registry.json` contents
    - Check `public/r/` directory
-   - Confirm URL in build output
+   - Confirm components match expectations
 
 3. **Use `.env.local` for local development**
    ```bash
@@ -221,9 +221,9 @@ npm run registry:build
    - It's auto-generated from `/cognite`
    - Edit `registry.template.json` for metadata
 
-4. **Don't forget to check the URL**
-   - Build script shows URL and asks for confirmation
-   - Wrong URL = components published to wrong location
+4. **Don't forget to deploy**
+   - Built files in `public/r/` need to be deployed
+   - Users access components from your deployed site
 
 ## Summary
 
