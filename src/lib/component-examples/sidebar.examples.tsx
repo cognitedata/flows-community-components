@@ -1,5 +1,4 @@
 import {
-  Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -69,15 +68,17 @@ function BasicDemo() {
             <div className="flex-1 p-4 bg-background">
               <h3 className="text-lg font-semibold mb-2">Main Content</h3>
               <p className="text-sm text-muted-foreground">
-                This is the main content area. The sidebar on the left is fully interactive and contained within the preview.
+                This is the main content area. The sidebar on the left is fully
+                interactive and contained within the preview.
               </p>
             </div>
           </div>
         </SidebarProvider>
       </div>
-      
+
       <p className="text-sm text-muted-foreground">
-        Interactive sidebar component with navigation groups and menu items. The sidebar is contained within the preview area.
+        Interactive sidebar component with navigation groups and menu items. The
+        sidebar is contained within the preview area.
       </p>
     </div>
   );
@@ -86,7 +87,8 @@ function BasicDemo() {
 export const sidebarExamples: ComponentExamples = {
   basic: {
     title: "Sidebar Demo",
-    description: "Interactive sidebar component with navigation groups and menu items",
+    description:
+      "Interactive sidebar component with navigation groups and menu items",
     component: BasicDemo,
     difficulty: "advanced",
     code: `import {
@@ -141,4 +143,3 @@ export function BasicDemo() {
 }`,
   },
 };
-

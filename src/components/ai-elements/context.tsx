@@ -5,7 +5,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/cognite/hover-card";
+} from "@/components/ui/draft/hover-card";
 import { Progress } from "@/components/ui/cognite/progress";
 import { cn } from "@/lib/utils";
 import type { LanguageModelUsage } from "ai";
