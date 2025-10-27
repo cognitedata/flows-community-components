@@ -13,7 +13,22 @@ import {
   TabsTrigger,
 } from "@/components/ui/cognite/tabs";
 import Link from "next/link";
-import { IconArrowLeft, IconBookmark, IconCopy, IconAlertHexagon, IconExternalLink, IconLoader2, IconMail, IconPlus, IconTrash, IconAlertTriangle,IconCircleCheck,IconInnerShadowTopLeft,IconArchive } from '@tabler/icons-react';
+import {
+  IconArrowLeft,
+  IconBookmark,
+  IconCopy,
+  IconAlertHexagon,
+  IconExternalLink,
+  IconHexagon,
+  IconLoader2,
+  IconMail,
+  IconPlus,
+  IconTrash,
+  IconAlertTriangle,
+  IconCircleCheck,
+  IconInnerShadowTopLeft,
+  IconArchive,
+} from "@tabler/icons-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { CodeCopyButton } from "@/components/code-copy-button";
@@ -146,12 +161,26 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                       </h3>
                       <div className="space-y-4">
                         <div className="flex flex-wrap gap-3">
-                          <Button variant="default" size="icon"><IconPlus /></Button>
-                          <Button variant="secondary" size="icon"><IconBookmark /></Button>
-                          <Button variant="destructive" size="icon"><IconTrash /></Button>
-                          <Button variant="default"><IconPlus /> Add data</Button>
-                          <Button variant="secondary">Explore more<IconExternalLink /></Button>
-                          <Button variant="destructive"><IconTrash />Delete</Button>
+                          <Button variant="default" size="icon">
+                            <IconPlus />
+                          </Button>
+                          <Button variant="secondary" size="icon">
+                            <IconBookmark />
+                          </Button>
+                          <Button variant="destructive" size="icon">
+                            <IconTrash />
+                          </Button>
+                          <Button variant="default">
+                            <IconPlus /> Add data
+                          </Button>
+                          <Button variant="secondary">
+                            Explore more
+                            <IconExternalLink />
+                          </Button>
+                          <Button variant="destructive">
+                            <IconTrash />
+                            Delete
+                          </Button>
                         </div>
                         <Separator />
                         <div className="flex flex-wrap gap-3">
@@ -179,13 +208,47 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <div className="space-y-6">
                     <div className="p-6 border rounded-lg bg-muted/20">
                       <h3 className="font-medium mb-4">Badge Variants</h3>
+                      <div className="flex flex-wrap gap-3 mb-3">
+                        {/* <Badge variant="default">Default</Badge> */}
+                        <Badge variant="fjord">
+                          Observations
+                        </Badge>
+                        <Badge variant="nordic">
+                          Plans
+                        </Badge>
+                        <Badge variant="aurora">
+                          Troubleshooting
+                        </Badge>
+                        <Badge variant="sky">
+                          RCA
+                        </Badge>
+                        <Badge variant="secondary">
+                          <IconHexagon />
+                          Asset
+                        </Badge>
+                      </div>
                       <div className="flex flex-wrap gap-3">
                         {/* <Badge variant="default">Default</Badge> */}
-                        <Badge variant="error"><IconAlertHexagon />Error</Badge>
-                        <Badge variant="warning"><IconAlertTriangle />Warning</Badge>
-                        <Badge variant="success"><IconCircleCheck />Success</Badge>
-                        <Badge variant="inProgress"><IconInnerShadowTopLeft />In progress</Badge>
-                        <Badge variant="archived"><IconArchive />Archived</Badge>
+                        <Badge variant="error">
+                          <IconAlertHexagon />
+                          Error
+                        </Badge>
+                        <Badge variant="warning">
+                          <IconAlertTriangle />
+                          Warning
+                        </Badge>
+                        <Badge variant="success">
+                          <IconCircleCheck />
+                          Success
+                        </Badge>
+                        <Badge variant="inProgress">
+                          <IconInnerShadowTopLeft />
+                          In progress
+                        </Badge>
+                        <Badge variant="archived">
+                          <IconArchive />
+                          Archived
+                        </Badge>
                       </div>
                     </div>
                   </div>
