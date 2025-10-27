@@ -11,87 +11,16 @@ A versatile badge component for displaying status indicators, labels, counts, an
 ## Import
 
 ```tsx
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/cognite/badge"
 ```
 
 ## Usage
 
-### Default Badge
-
-```tsx
-import { Badge } from "@/components/ui/badge"
-
-export function BadgeDemo() {
-  return <Badge>Default</Badge>
-}
-```
-
 ### Badge Variants
 
-```tsx
-import { Badge } from "@/components/ui/badge"
+<!-- example:variants -->
 
-export function BadgeVariants() {
-  return (
-    <div className="flex gap-2">
-      <Badge variant="default">Default</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="destructive">Destructive</Badge>
-      <Badge variant="outline">Outline</Badge>
-    </div>
-  )
-}
-```
-
-### Status Indicators
-
-```tsx
-import { Badge } from "@/components/ui/badge"
-
-export function StatusBadges() {
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2">
-        <span>Server Status:</span>
-        <Badge variant="default" className="bg-green-500">Online</Badge>
-      </div>
-      <div className="flex items-center gap-2">
-        <span>Build Status:</span>
-        <Badge variant="destructive">Failed</Badge>
-      </div>
-      <div className="flex items-center gap-2">
-        <span>Deploy Status:</span>
-        <Badge variant="secondary">Pending</Badge>
-      </div>
-    </div>
-  )
-}
-```
-
-### Count Badges
-
-```tsx
-import { Badge } from "@/components/ui/badge"
-
-export function CountBadges() {
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2">
-        <span>Notifications</span>
-        <Badge variant="destructive">3</Badge>
-      </div>
-      <div className="flex items-center gap-2">
-        <span>Messages</span>
-        <Badge variant="default">12</Badge>
-      </div>
-      <div className="flex items-center gap-2">
-        <span>Updates</span>
-        <Badge variant="secondary">2</Badge>
-      </div>
-    </div>
-  )
-}
-```
+Different badge styles for various semantic meanings
 
 ## API Reference
 
@@ -114,7 +43,7 @@ export function CountBadges() {
 ### Custom Colors
 
 ```tsx
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/cognite/badge"
 
 export function CustomColorBadges() {
   return (
@@ -131,7 +60,7 @@ export function CustomColorBadges() {
 ### Interactive Badges
 
 ```tsx
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/cognite/badge"
 import { X } from "lucide-react"
 
 export function InteractiveBadges() {

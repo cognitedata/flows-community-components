@@ -15,37 +15,16 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/cognite/popover"
 ```
 
 ## Usage
 
-### Basic Popover
+### Popover Demo
 
-```tsx
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
+<!-- example:basic -->
 
-export function PopoverDemo() {
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="outline">Open popover</Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80">
-        <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="font-medium leading-none">Dimensions</h4>
-            <p className="text-sm text-muted-foreground">
-              Set the dimensions for the layer.
-            </p>
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
-  )
-}
-```
+Floating content container (requires interactive implementation)
 
 ## API Reference
 

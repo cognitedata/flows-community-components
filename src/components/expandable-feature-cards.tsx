@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Badge } from "@/components/ui/cognite/badge";
 import { Button } from "@/components/ui/cognite/button";
-import { GlowingEffect } from "@/components/ui/cognite/glowing-effect";
 import { Palette, Code, Sparkles, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -159,9 +158,10 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          Our AI-powered sandbox leverages Google&apos;s Gemini AI to help you build
-          custom components using your existing design system. Simply describe
-          what you need, and watch as AI generates production-ready code.
+          Our AI-powered sandbox leverages Google&apos;s Gemini AI to help you
+          build custom components using your existing design system. Simply
+          describe what you need, and watch as AI generates production-ready
+          code.
         </p>
         <div className="space-y-3">
           <h4 className="font-semibold text-foreground/90">
@@ -190,7 +190,7 @@ const featureCards: FeatureCard[] = [
             </li>
           </ul>
         </div>
-        <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 mt-6">
+        <div className="bg-linear-to-r from-primary/10 to-primary/5 rounded-lg p-4 mt-6">
           <h5 className="font-medium text-foreground/90 mb-2">
             Try These Examples
           </h5>
@@ -246,7 +246,7 @@ export function ExpandableFeatureCards() {
       {/* Expanded Card Modal */}
       <AnimatePresence>
         {active ? (
-          <div className="fixed inset-0 grid place-items-center z-[100] p-4">
+          <div className="fixed inset-0 grid place-items-center z-100 p-4">
             <motion.button
               key={`button-${active.id}-${id}`}
               layout
@@ -265,12 +265,12 @@ export function ExpandableFeatureCards() {
               className="w-full max-w-[600px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-background border rounded-lg shadow-2xl overflow-hidden"
             >
               {/* Header */}
-              <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
+              <div className="relative overflow-hidden bg-linear-to-br from-primary/10 via-primary/5 to-transparent">
                 <div className="p-6">
                   <div className="flex items-start gap-4">
                     <motion.div
                       layoutId={`icon-${active.id}-${id}`}
-                      className="w-12 h-12 rounded-lg bg-primary/20 backdrop-blur-sm border border-white/20 flex items-center justify-center flex-shrink-0"
+                      className="w-12 h-12 rounded-lg bg-primary/20 backdrop-blur-sm border border-white/20 flex items-center justify-center shrink-0"
                       style={{ borderRadius: "4px" }}
                     >
                       {active.icon}
@@ -343,16 +343,6 @@ export function ExpandableFeatureCards() {
             onClick={() => setActive(card)}
             className="relative border border-white/20 hover:border-primary/40 transition-all duration-300 overflow-hidden backdrop-blur-xl bg-white/10 dark:bg-black/10 shadow-2xl hover:shadow-primary/20 rounded-sm cursor-pointer group"
           >
-            <GlowingEffect
-              spread={60}
-              glow={false}
-              disabled={false}
-              proximity={80}
-              inactiveZone={0.2}
-              borderWidth={1}
-              variant="default"
-            />
-
             <div className="p-6">
               <motion.div
                 layoutId={`icon-${card.id}-${id}`}

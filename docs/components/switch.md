@@ -11,52 +11,16 @@ A control that allows the user to toggle between checked and not checked.
 ## Import
 
 ```tsx
-import { Switch } from "@/components/ui/switch"
+import { Switch } from "@/components/ui/cognite/switch"
 ```
 
 ## Usage
 
-### Basic Switch
+### Switch Examples
 
-```tsx
-import { Switch } from "@/components/ui/switch"
+<!-- example:basic -->
 
-export function SwitchDemo() {
-  return <Switch />
-}
-```
-
-### Switch with Label
-
-```tsx
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-
-export function SwitchWithLabel() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Switch id="airplane-mode" />
-      <Label htmlFor="airplane-mode">Airplane Mode</Label>
-    </div>
-  )
-}
-```
-
-### Disabled Switch
-
-```tsx
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-
-export function SwitchDisabled() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Switch id="airplane-mode-disabled" disabled />
-      <Label htmlFor="airplane-mode-disabled">Airplane Mode</Label>
-    </div>
-  )
-}
-```
+Toggle switches for on/off settings
 
 ## API Reference
 
