@@ -12,7 +12,7 @@
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "clean:dev": "npm run clean && npm run dev",
     "reset": "npm run clean && npm install && npm run dev",
-    "registry:build": "node scripts/build-registry.js && npm run registry:clean && shadcn build",
+    "registry:build": "tsx scripts/build-registry.ts && npm run registry:clean && shadcn build",
     "registry:clean": "rm -rf public/r && mkdir -p public/r"
   },
   "dependencies": {

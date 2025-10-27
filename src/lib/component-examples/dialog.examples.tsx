@@ -24,7 +24,8 @@ function BasicDemo() {
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you're done.
+                Make changes to your profile here. Click save when you&apos;re
+                done.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
@@ -66,7 +67,7 @@ function BasicDemo() {
           </DialogContent>
         </Dialog>
       </div>
-      
+
       <p className="text-sm text-muted-foreground">
         Click buttons to open interactive modal dialogs.
       </p>
@@ -77,7 +78,8 @@ function BasicDemo() {
 export const dialogExamples: ComponentExamples = {
   basic: {
     title: "Dialog Demo",
-    description: "Interactive modal dialogs for forms, confirmations, and detailed content",
+    description:
+      "Interactive modal dialogs for forms, confirmations, and detailed content",
     component: BasicDemo,
     difficulty: "intermediate",
     code: `import {
@@ -125,4 +127,3 @@ export function BasicDemo() {
 }`,
   },
 };
-

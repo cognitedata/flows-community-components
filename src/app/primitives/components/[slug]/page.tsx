@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import { Separator } from "@/components/ui/cognite/separator";
 import Link from "next/link";
-import { IconArrowLeft, IconCopy, IconExternalLink } from "@tabler/icons-react";  
+import { IconArrowLeft, IconCopy, IconExternalLink } from "@tabler/icons-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { MarkdownCopyBlock } from "@/components/markdown-copy-block";
 import { ComponentExamplesRenderer } from "@/components/component-examples-renderer";
@@ -48,7 +48,6 @@ async function getComponentDoc(slug: string) {
   }
 }
 
-
 export async function generateStaticParams() {
   const docsDir = path.join(process.cwd(), "docs", "components");
 
@@ -86,8 +85,10 @@ async function getComponentDependencies(slug: string): Promise<string[]> {
     const registryPath = path.join(process.cwd(), "registry.template.json");
     const registryContent = await fs.readFile(registryPath, "utf-8");
     const registry = JSON.parse(registryContent);
-    
-    const component = registry.items?.find((item: any) => item.name === slug);
+
+    const component = registry.items?.find(
+      (item: { name: string }) => item.name === slug
+    );
     return component?.dependencies || [];
   } catch {
     return [];
@@ -112,12 +113,26 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   let componentCode = "";
   try {
     // Try to read from draft directory (where most components are)
-    const draftPath = path.join(process.cwd(), "src", "components", "ui", "draft", `${slug}.tsx`);
+    const draftPath = path.join(
+      process.cwd(),
+      "src",
+      "components",
+      "ui",
+      "draft",
+      `${slug}.tsx`
+    );
     componentCode = await fs.readFile(draftPath, "utf-8");
   } catch {
     try {
       // Fallback to cognite directory for production components
-      const cognitePath = path.join(process.cwd(), "src", "components", "ui", "cognite", `${slug}.tsx`);
+      const cognitePath = path.join(
+        process.cwd(),
+        "src",
+        "components",
+        "ui",
+        "cognite",
+        `${slug}.tsx`
+      );
       componentCode = await fs.readFile(cognitePath, "utf-8");
     } catch {
       // Component code not found, leave empty
@@ -165,12 +180,18 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-4xl font-bold">{doc.meta.component}</h1>
                 {componentStatus === "production" && (
-                  <Badge variant="default" className="bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800">
+                  <Badge
+                    variant="default"
+                    className="bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
+                  >
                     Production Ready
                   </Badge>
                 )}
                 {componentStatus === "draft" && (
-                  <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800">
+                  <Badge
+                    variant="secondary"
+                    className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800"
+                  >
                     Draft
                   </Badge>
                 )}
@@ -181,7 +202,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               {componentStatus === "draft" && (
                 <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
                   <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                    <strong>Note:</strong> This component is currently in draft status. It may not be production-ready and could undergo changes.
+                    <strong>Note:</strong> This component is currently in draft
+                    status. It may not be production-ready and could undergo
+                    changes.
                   </p>
                 </div>
               )}
@@ -239,8 +262,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 </p>
 
                 {/* Installation Instructions */}
-                <InstallationCommand 
-                  component={slug} 
+                <InstallationCommand
+                  component={slug}
                   dependencies={dependencies}
                   componentCode={componentCode}
                 />

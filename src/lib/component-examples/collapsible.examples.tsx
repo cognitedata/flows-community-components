@@ -19,7 +19,8 @@ function BasicDemo() {
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
           <div className="rounded-md border px-4 py-3 text-sm">
-            Yes. Free to use for personal and commercial projects. No attribution required.
+            Yes. Free to use for personal and commercial projects. No
+            attribution required.
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -27,7 +28,7 @@ function BasicDemo() {
       <Collapsible className="w-full space-y-2">
         <CollapsibleTrigger asChild>
           <Button variant="outline" className="w-full justify-between">
-            <span>What's included?</span>
+            <span>What&apos;s included?</span>
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
@@ -42,7 +43,7 @@ function BasicDemo() {
           </div>
         </CollapsibleContent>
       </Collapsible>
-      
+
       <p className="text-sm text-muted-foreground">
         Click the buttons above to expand and collapse content sections.
       </p>
@@ -53,7 +54,8 @@ function BasicDemo() {
 export const collapsibleExamples: ComponentExamples = {
   basic: {
     title: "Collapsible Demo",
-    description: "Interactive collapsible components for expandable content sections",
+    description:
+      "Interactive collapsible components for expandable content sections",
     component: BasicDemo,
     difficulty: "intermediate",
     code: `import {
@@ -85,4 +87,3 @@ export function BasicDemo() {
 }`,
   },
 };
-
