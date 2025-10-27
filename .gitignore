@@ -20,9 +20,6 @@
 # production
 /build
 
-# registry build output (auto-generated from registry.json)
-/public/r
-
 # misc
 .DS_Store
 *.pem
