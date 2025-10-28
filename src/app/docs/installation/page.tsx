@@ -2,7 +2,13 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Terminal, Package, FileCode, CheckCircle2, ArrowRight } from "lucide-react";
+import {
+  Terminal,
+  CheckCircle2,
+  ArrowRight,
+  FileText,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/cognite/button";
 import {
   Card,
@@ -13,29 +19,33 @@ import {
 } from "@/components/ui/cognite/card";
 import { Badge } from "@/components/ui/cognite/badge";
 
-const steps = [
+interface Step {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  code?: string;
+  configStep?: boolean;
+}
+
+const steps: Step[] = [
   {
     icon: Terminal,
     title: "Create your project",
     description: "Start with a new Next.js project or use your existing one",
-    code: "npx create-next-app@latest my-app --typescript --tailwind --app",
+    code: "npx create-next-app@latest",
   },
   {
-    icon: Package,
-    title: "Install dependencies",
-    description: "Install the required packages for Aura components",
-    code: "npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react",
+    icon: FileText,
+    title: "Set up environment variables",
+    description:
+      "Copy or create a .env file and add the environment variables from .env.example and configure them for your project",
+    code: `touch .env`,
   },
   {
-    icon: FileCode,
-    title: "Configure Tailwind",
-    description: "Update your tailwind.config.js with Aura's theme configuration",
-    configStep: true,
-  },
-  {
-    icon: CheckCircle2,
-    title: "Start building",
-    description: "Copy components from the documentation and start building your app",
+    icon: Sparkles,
+    title: "Start building with Cursor",
+    description: "Ask Cursor AI to build your features using natural language",
+    code: "Example: Build me a timeseries dashboard",
   },
 ];
 
@@ -54,8 +64,8 @@ export default function InstallationPage() {
             <Badge className="mb-4">Getting Started</Badge>
             <h1 className="text-4xl md:text-6xl font-bold">Installation</h1>
             <p className="text-xl text-muted-foreground max-w-3xl">
-              Get started with Aura in minutes. Follow these steps to set up your
-              project and start building with our design system.
+              Get started with Aura in minutes. Follow these steps to set up
+              your project and start building with our design system.
             </p>
           </div>
 
@@ -70,16 +80,32 @@ export default function InstallationPage() {
             <CardContent>
               <ul className="space-y-2">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
-                  <span>Node.js 18.17 or later</span>
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>
+                    Node.js 20 or later{" "}
+                    <a
+                      href="https://nodejs.org/en/download/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground-link"
+                    >
+                      https://nodejs.org/en/download/
+                    </a>
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
-                  <span>npm, yarn, or pnpm</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-primary" />
-                  <span>A Next.js 13+ project with App Router</span>
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>
+                    Cursor AI Editor{" "}
+                    <a
+                      href="https://www.cursor.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground-link"
+                    >
+                      https://www.cursor.com/
+                    </a>
+                  </span>
                 </li>
               </ul>
             </CardContent>
@@ -128,7 +154,11 @@ export default function InstallationPage() {
                       <CardContent>
                         <div className="space-y-4">
                           <p className="text-sm text-muted-foreground">
-                            Add the following to your <code className="rounded bg-muted px-1.5 py-0.5">tailwind.config.js</code>:
+                            Add the following to your{" "}
+                            <code className="rounded bg-muted px-1.5 py-0.5">
+                              tailwind.config.js
+                            </code>
+                            :
                           </p>
                           <div className="relative">
                             <pre className="overflow-x-auto rounded-lg bg-muted p-4">
@@ -162,14 +192,16 @@ export default function InstallationPage() {
               <CardHeader>
                 <CardTitle>Adding Components</CardTitle>
                 <CardDescription>
-                  Components are designed to be copied and pasted into your project
+                  Components are designed to be copied and pasted into your
+                  project
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Browse the component documentation, find the component you need,
-                  and copy the code directly into your project. Each component is
-                  self-contained and includes all necessary imports.
+                  Browse the component documentation, find the component you
+                  need, and copy the code directly into your project. Each
+                  component is self-contained and includes all necessary
+                  imports.
                 </p>
                 <div className="flex gap-4">
                   <Button asChild>
@@ -237,4 +269,3 @@ export default function InstallationPage() {
     </div>
   );
 }
-
