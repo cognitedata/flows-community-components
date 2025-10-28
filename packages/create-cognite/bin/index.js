@@ -6,6 +6,8 @@ const { spawn } = require("node:child_process");
 const fs = require("node:fs/promises");
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require("node:path");
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const readline = require("node:readline");
 
 const REQUIRED_DEPENDENCIES = [
   { name: "@tanstack/react-query", version: "^5.90.2" },
@@ -17,23 +19,49 @@ const REQUIRED_DEPENDENCIES = [
   { name: "clsx", version: "^2.1.1" },
 ];
 
+function promptForInput(question) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close();
+      resolve(answer.trim());
+    });
+  });
+}
+
 async function main() {
   const args = process.argv.slice(2);
+  let projectDir;
+  let additionalArgs = [];
 
   if (args.length === 0 || args[0].startsWith("-")) {
-    console.error(
-      "Usage: cognite-create <project-name> [create-next-app options]"
-    );
-    process.exit(1);
+    // No project name provided, prompt for one
+    projectDir = await promptForInput("Project name: ");
+
+    if (!projectDir) {
+      console.error("Error: Project name is required");
+      process.exit(1);
+    }
+
+    // Keep any flags that were provided
+    additionalArgs = args;
+  } else {
+    // First arg is the project name
+    projectDir = args[0];
+    // Rest are additional args
+    additionalArgs = args.slice(1);
   }
 
-  const projectDir = args[0];
-  const createArgs = ["create-next-app@latest", ...args];
-  await runCreateNextApp(createArgs);
+  const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+  await runCreateVite(createArgs);
   await addCogniteTemplates(projectDir);
 }
 
-function runCreateNextApp(cliArgs) {
+function runCreateVite(cliArgs) {
   const command = process.platform === "win32" ? "npx.cmd" : "npx";
 
   return new Promise((resolve, reject) => {
@@ -42,7 +70,7 @@ function runCreateNextApp(cliArgs) {
     child.on("error", reject);
     child.on("close", (code) => {
       if (code !== 0) {
-        const error = new Error(`create-next-app exited with code ${code}`);
+        const error = new Error(`create-vite exited with code ${code}`);
         error.exitCode = code;
         return reject(error);
       }
@@ -62,7 +90,7 @@ async function addCogniteTemplates(projectDir) {
     if (error.code === "ENOENT") {
       throw new Error(
         `Expected to find the newly created project at "${projectDir}", but it was not found. ` +
-          "Check the create-next-app output for more details."
+          "Check the create-vite output for more details."
       );
     }
 
