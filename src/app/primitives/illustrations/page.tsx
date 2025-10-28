@@ -40,7 +40,7 @@ export default function IllustrationsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-4xl font-bold mb-4">Illustrations</h1>
+        <h1 className="text-3xl font-bold mb-4">Illustrations</h1>
         <p className="text-lg text-muted-foreground max-w-3xl">
           A collection of cohesive illustrations that support our brand identity
           and enhance user experience across different touchpoints.
