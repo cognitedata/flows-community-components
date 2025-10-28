@@ -1,3 +1,5 @@
+"use client";
+
 import {
   BaseEdge,
   type EdgeProps,

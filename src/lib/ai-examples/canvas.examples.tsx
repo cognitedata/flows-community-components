@@ -1,3 +1,5 @@
+"use client";
+
 import { Canvas } from "@/components/ai-elements/cognite/canvas";
 import { Node, NodeHeader, NodeTitle, NodeContent } from "@/components/ai-elements/cognite/node";
 import type { ComponentExamples } from "@/lib/component-examples/types";

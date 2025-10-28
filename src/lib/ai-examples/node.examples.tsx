@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Node,
   NodeHeader,
@@ -7,38 +9,47 @@ import {
   NodeFooter,
 } from "@/components/ai-elements/cognite/node";
 import type { ComponentExamples } from "@/lib/component-examples/types";
+import { ReactFlowProvider } from "@xyflow/react";
 
 function BasicNodeDemo() {
   return (
-    <Node handles={{ target: true, source: true }}>
-      <NodeHeader>
-        <NodeTitle>Processing Task</NodeTitle>
-        <NodeDescription>Task description</NodeDescription>
-      </NodeHeader>
-      <NodeContent>
-        <p className="text-sm">Task content goes here</p>
-      </NodeContent>
-    </Node>
+    <ReactFlowProvider>
+      <div className="flex items-center justify-center p-4">
+        <Node handles={{ target: true, source: true }}>
+          <NodeHeader>
+            <NodeTitle>Processing Task</NodeTitle>
+            <NodeDescription>Task description</NodeDescription>
+          </NodeHeader>
+          <NodeContent>
+            <p className="text-sm">Task content goes here</p>
+          </NodeContent>
+        </Node>
+      </div>
+    </ReactFlowProvider>
   );
 }
 
 function WithFooterDemo() {
   return (
-    <Node handles={{ target: true, source: true }}>
-      <NodeHeader>
-        <NodeTitle>Data Analysis</NodeTitle>
-        <NodeDescription>Analysing input data</NodeDescription>
-      </NodeHeader>
-      <NodeContent>
-        <div className="space-y-2">
-          <p className="text-sm">Status: Processing</p>
-          <p className="text-sm text-muted-foreground">Records: 1,234</p>
-        </div>
-      </NodeContent>
-      <NodeFooter>
-        <p className="text-sm text-muted-foreground">Last updated: just now</p>
-      </NodeFooter>
-    </Node>
+    <ReactFlowProvider>
+      <div className="flex items-center justify-center p-4">
+        <Node handles={{ target: true, source: true }}>
+          <NodeHeader>
+            <NodeTitle>Data Analysis</NodeTitle>
+            <NodeDescription>Analysing input data</NodeDescription>
+          </NodeHeader>
+          <NodeContent>
+            <div className="space-y-2">
+              <p className="text-sm">Status: Processing</p>
+              <p className="text-sm text-muted-foreground">Records: 1,234</p>
+            </div>
+          </NodeContent>
+          <NodeFooter>
+            <p className="text-sm text-muted-foreground">Last updated: just now</p>
+          </NodeFooter>
+        </Node>
+      </div>
+    </ReactFlowProvider>
   );
 }
 
