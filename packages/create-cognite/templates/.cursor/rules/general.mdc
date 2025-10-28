@@ -80,3 +80,5 @@ src/components/ui/cognite/select.tsx (107:5) @ SelectItem
 > 107 | <SelectPrimitive.Item
 
 Use React best practices when calling useEffect, make sure we are using useMemo and useCallback effectively to avoid re-renders.
+
+Run the lint command after any changes to ensure code quality.
