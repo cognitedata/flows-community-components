@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-md border px-2.5 py-0.5 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3.5 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  "inline-flex items-center justify-center rounded-md border px-1 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3.5 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {
@@ -18,6 +18,8 @@ const badgeVariants = cva(
         aurora:
           "border-transparent bg-aurora-50 text-aurora-600 dark:bg-aurora-900 dark:text-aurora-300",
         sky: "border-transparent bg-sky-50 text-sky-600 dark:bg-sky-900 dark:text-sky-300",
+        dusk: "border-transparent bg-dusk-50 text-dusk-600 dark:bg-dusk-900 dark:text-dusk-400",
+        mountain: "border-transparent bg-mountain-50 text-mountain-600 dark:bg-mountain-900 dark:text-mountain-400",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground ",
         error:
@@ -32,7 +34,7 @@ const badgeVariants = cva(
           "border-transparent bg-undefined text-undefined-foreground",
       },
       outline: {
-        true: "bg-transparent border-current",
+        true: "border-current",
       },
     },
     
@@ -56,7 +58,7 @@ function Badge({
   return (
     <Comp
       data-slot="badge"
-      className={cn(badgeVariants({ variant }), cn(outline && "bg-transparent border-current", className))}
+      className={cn(badgeVariants({ variant }), cn(outline && "border-current", className))}
       {...props}
     />
   );

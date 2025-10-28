@@ -131,6 +131,36 @@
   --color-sky-800: var(--sky-800);
   --color-sky-900: var(--sky-900);
   --color-sky-950: var(--sky-950);
+
+  --color-dusk-50: var(--dusk-50);
+  --color-dusk-100: var(--dusk-100);
+  --color-dusk-200: var(--dusk-200);
+  --color-dusk-300: var(--dusk-300);
+  --color-dusk-400: var(--dusk-400);
+  --color-dusk-450: var(--dusk-450);
+  --color-dusk-500: var(--dusk-500);
+  --color-dusk-550: var(--dusk-550);
+  --color-dusk-600: var(--dusk-600);
+  --color-dusk-650: var(--dusk-650);
+  --color-dusk-700: var(--dusk-700);
+  --color-dusk-800: var(--dusk-800);
+  --color-dusk-900: var(--dusk-900);
+  --color-dusk-950: var(--dusk-950);
+
+  --color-mountain-50: var(--mountain-50);
+  --color-mountain-100: var(--mountain-100);
+  --color-mountain-200: var(--mountain-200);
+  --color-mountain-300: var(--mountain-300);
+  --color-mountain-400: var(--mountain-400);
+  --color-mountain-450: var(--mountain-450);
+  --color-mountain-500: var(--mountain-500);
+  --color-mountain-550: var(--mountain-550);
+  --color-mountain-600: var(--mountain-600);
+  --color-mountain-650: var(--mountain-650);
+  --color-mountain-700: var(--mountain-700);
+  --color-mountain-800: var(--mountain-800);
+  --color-mountain-900: var(--mountain-900);
+  --color-mountain-950: var(--mountain-950);
   
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

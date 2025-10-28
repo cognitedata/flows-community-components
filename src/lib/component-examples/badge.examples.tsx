@@ -7,9 +7,9 @@ function VariantsDemo() {
     <div>
       <div className="flex flex-wrap gap-3 mb-3">
         <Badge variant="fjord">Observations</Badge>
-        <Badge variant="nordic">Plans</Badge>
         <Badge variant="aurora">Troubleshooting</Badge>
-        <Badge variant="sky">RCA</Badge>
+        <Badge variant="mountain">  <IconHexagon />Plans</Badge>
+        <Badge variant="dusk">RCA</Badge>
         <Badge variant="secondary">
           <IconHexagon />
           Asset
