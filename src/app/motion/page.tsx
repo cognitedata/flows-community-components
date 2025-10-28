@@ -105,7 +105,7 @@ export default function MotionPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold">
+            <h1 className="text-3xl md:text-4xl font-bold">
               Motion guidelines
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -118,7 +118,7 @@ export default function MotionPage() {
           {/* Motion Principles */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Motion principles</h2>
+              <h2 className="text-2xl font-bold">Motion principles</h2>
               <p className="text-muted-foreground">
                 Core guidelines that inform all motion decisions in our design
                 system
@@ -151,7 +151,7 @@ export default function MotionPage() {
           {/* Animation Demos */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Interactive demonstrations</h2>
+              <h2 className="text-2xl font-bold">Interactive demonstrations</h2>
               <p className="text-muted-foreground">
                 Live examples of motion patterns and their implementations
               </p>
@@ -241,7 +241,7 @@ export default function MotionPage() {
           {/* Easing Functions */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Easing functions</h2>
+              <h2 className="text-2xl font-bold">Easing functions</h2>
               <p className="text-muted-foreground">
                 Different timing functions create different motion personalities
               </p>
@@ -295,7 +295,7 @@ export default function MotionPage() {
           {/* Stagger Animation */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Stagger animations</h2>
+              <h2 className="text-2xl font-bold">Stagger animations</h2>
               <p className="text-muted-foreground">
                 Sequential animations create rhythm and draw attention
               </p>
@@ -351,7 +351,7 @@ export default function MotionPage() {
           {/* Implementation Guidelines */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Implementation guidelines</h2>
+              <h2 className="text-2xl font-bold">Implementation guidelines</h2>
               <p className="text-muted-foreground">
                 Best practices for implementing motion in your applications
               </p>

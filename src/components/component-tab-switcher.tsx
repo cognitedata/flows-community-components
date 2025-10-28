@@ -6,18 +6,16 @@ import { Button } from "@/components/ui/cognite/button";
 interface TabSwitcherProps {
   previewContent: React.ReactNode;
   codeContent: React.ReactNode;
-  markdownContent: React.ReactNode;
   guidelinesContent?: React.ReactNode;
 }
 
 export function ComponentTabSwitcher({
   previewContent,
   codeContent,
-  markdownContent,
   guidelinesContent,
 }: TabSwitcherProps) {
   const [activeTab, setActiveTab] = useState<
-    "preview" | "guidelines" | "code" | "markdown"
+    "preview" | "guidelines" | "code"
   >("preview");
 
   return (
@@ -47,13 +45,6 @@ export function ComponentTabSwitcher({
         >
           Code
         </Button>
-        <Button
-          variant={activeTab === "markdown" ? "default" : "ghost"}
-          size="sm"
-          onClick={() => setActiveTab("markdown")}
-        >
-          Markdown
-        </Button>
       </div>
 
       {/* Content */}
@@ -62,9 +53,6 @@ export function ComponentTabSwitcher({
         <>{React.Children.toArray(guidelinesContent)}</>
       )}
       {activeTab === "code" && <>{React.Children.toArray(codeContent)}</>}
-      {activeTab === "markdown" && (
-        <>{React.Children.toArray(markdownContent)}</>
-      )}
     </div>
   );
 }
