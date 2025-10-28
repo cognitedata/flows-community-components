@@ -13,6 +13,10 @@
 # testing
 /coverage
 
+/packages/create-cognite/node_modules
+/packages/create-cognite/pnpm-lock.yaml
+/packages/create-cognite/.pnpm-store
+
 # next.js
 /.next/
 /out/

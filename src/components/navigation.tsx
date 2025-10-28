@@ -15,9 +15,10 @@ import {
 import { Menu, Sun, Moon, Contrast } from "lucide-react";
 import Image from "next/image";
 import auraLogo from "@/../public/aura-logo.png";
+import { IconBrandGithub } from "@tabler/icons-react";
 
 const navItems = [
-  { href: "/overview", label: "Overview" },
+  { href: "/docs", label: "Docs" },
   { href: "/primitives", label: "Primitives" },
   { href: "/blocks", label: "Blocks" },
   { href: "/eos", label: "Templates" },
@@ -68,12 +69,6 @@ export function Navigation() {
         <div className="flex items-center space-x-8">
           <Link href="/" className="flex items-center space-x-3">
             <Image src={auraLogo} alt="Aura" width={32} height={32} priority />
-            <span
-              className="text-lg font-bold lowercase"
-              style={{ fontFamily: "'Nova Mono', monospace" }}
-            >
-              aura
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -112,6 +107,17 @@ export function Navigation() {
         </div>
 
         <div className="flex items-center space-x-4">
+          <Button variant="ghost" size="icon" asChild className="h-10 w-10">
+            <a
+              href="https://github.com/cognitedata/aura"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="View on GitHub"
+            >
+              <IconBrandGithub className="h-5 w-5" />
+              <span className="sr-only">GitHub repository</span>
+            </a>
+          </Button>
           <ThemeToggleGroup />
 
           {/* Mobile Navigation */}
@@ -144,6 +150,18 @@ export function Navigation() {
                 <div className="pt-4 border-t">
                   <div className="text-sm font-medium mb-2">Theme</div>
                   <ThemeToggleGroup />
+                </div>
+                <div className="pt-4 border-t">
+                  <Button variant="outline" className="w-full" asChild>
+                    <a
+                      href="https://github.com/cognitedata/aura"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <IconBrandGithub className="h-4 w-4 mr-2" />
+                      View on GitHub
+                    </a>
+                  </Button>
                 </div>
               </div>
             </SheetContent>

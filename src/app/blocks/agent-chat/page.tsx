@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/cognite/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/cognite/card";
@@ -520,19 +520,19 @@ export default function AgentChatBlock() {
     }
   }, [messages, isTyping, demoStep]);
 
+  const startDemo = useCallback(() => {
+    setIsDemoMode(true);
+    setShowTypingDemo(true);
+    setDemoStep(1);
+  }, []);
+
   // Auto-start demo after component mounts
   useEffect(() => {
     const timer = setTimeout(() => {
       startDemo();
     }, 2000); // Start demo after 2 seconds
     return () => clearTimeout(timer);
-  }, []);
-
-  const startDemo = () => {
-    setIsDemoMode(true);
-    setShowTypingDemo(true);
-    setDemoStep(1);
-  };
+  }, [startDemo]);
 
   const handleTypingComplete = () => {
     setShowTypingDemo(false);

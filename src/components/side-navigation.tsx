@@ -1,28 +1,78 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { ChevronRight } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { ChevronRight } from "lucide-react";
 
 interface NavigationItem {
-  href: string
-  label: string
-  isSubsection?: boolean
-  children?: NavigationItem[]
+  href: string;
+  label: string;
+  isSubsection?: boolean;
+  children?: NavigationItem[];
 }
 
 interface SideNavigationProps {
-  items: NavigationItem[]
-  className?: string
+  items: NavigationItem[];
+  className?: string;
 }
 
-const overviewNavigation: NavigationItem[] = [
-  { href: "/overview/about", label: "About" },
-  { href: "/overview/getting-started", label: "Getting started" },
-  { href: "/overview/releases", label: "Releases" },
-]
+const docsNavigation: NavigationItem[] = [
+  { href: "/docs/installation", label: "Installation" },
+  { href: "/docs/about", label: "About" },
+  { href: "/docs/getting-started", label: "Getting started" },
+  { href: "/docs/releases", label: "Releases" },
+  {
+    href: "#",
+    label: "Components",
+    isSubsection: true,
+    children: [
+      { href: "/primitives/components/accordion", label: "Accordion" },
+      { href: "/primitives/components/alert", label: "Alert" },
+      { href: "/primitives/components/alert-dialog", label: "Alert dialog" },
+      { href: "/primitives/components/avatar", label: "Avatar" },
+      { href: "/primitives/components/badge", label: "Badge" },
+      { href: "/primitives/components/breadcrumb", label: "Breadcrumb" },
+      { href: "/primitives/components/button", label: "Button" },
+      { href: "/primitives/components/calendar", label: "Calendar" },
+      { href: "/primitives/components/card", label: "Card" },
+      { href: "/primitives/components/checkbox", label: "Checkbox" },
+      { href: "/primitives/components/collapsible", label: "Collapsible" },
+      { href: "/primitives/components/combobox", label: "Combobox" },
+      { href: "/primitives/components/command", label: "Command" },
+      { href: "/primitives/components/context-menu", label: "Context menu" },
+      { href: "/primitives/components/date-picker", label: "Date picker" },
+      { href: "/primitives/components/dialog", label: "Dialog" },
+      { href: "/primitives/components/drawer", label: "Drawer" },
+      { href: "/primitives/components/dropdown-menu", label: "Dropdown menu" },
+      { href: "/primitives/components/input", label: "Input" },
+      { href: "/primitives/components/kbd", label: "Kbd" },
+      { href: "/primitives/components/label", label: "Label" },
+      { href: "/primitives/components/menubar", label: "Menubar" },
+      { href: "/primitives/components/pagination", label: "Pagination" },
+      { href: "/primitives/components/popover", label: "Popover" },
+      { href: "/primitives/components/progress", label: "Progress" },
+      { href: "/primitives/components/radio-group", label: "Radio group" },
+      { href: "/primitives/components/select", label: "Select" },
+      { href: "/primitives/components/separator", label: "Separator" },
+      { href: "/primitives/components/sidebar", label: "Sidebar" },
+      { href: "/primitives/components/slider", label: "Slider" },
+      { href: "/primitives/components/sonner", label: "Sonner" },
+      { href: "/primitives/components/swap-slot", label: "Swap slot" },
+      { href: "/primitives/components/switch", label: "Switch" },
+      { href: "/primitives/components/tabs", label: "Tabs" },
+      { href: "/primitives/components/textarea", label: "Textarea" },
+      { href: "/primitives/components/time-input", label: "Time input" },
+      { href: "/primitives/components/toggle", label: "Toggle" },
+      { href: "/primitives/components/tooltip", label: "Tooltip" },
+      { href: "/primitives/components/topbar", label: "Topbar" },
+    ],
+  },
+];
+
+// Keep for backward compatibility during migration
+const overviewNavigation: NavigationItem[] = docsNavigation;
 
 const primitivesNavigation: NavigationItem[] = [
   {
@@ -36,7 +86,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/layouts", label: "Layouts" },
       { href: "/primitives/motion-design", label: "Motion design" },
       { href: "/primitives/theming", label: "Theming" },
-    ]
+    ],
   },
   {
     href: "#",
@@ -82,9 +132,9 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/components/toggle", label: "Toggle" },
       { href: "/primitives/components/tooltip", label: "Tooltip" },
       { href: "/primitives/components/topbar", label: "Topbar" },
-    ]
-  }
-]
+    ],
+  },
+];
 
 const blocksNavigation: NavigationItem[] = [
   { href: "/blocks", label: "About" },
@@ -94,28 +144,33 @@ const blocksNavigation: NavigationItem[] = [
     isSubsection: true,
     children: [
       { href: "/blocks/agent-chat", label: "Agent chat" },
-      { href: "/blocks/canvas", label: "Canvas" },
-      { href: "/blocks/commenting", label: "Commenting" },
       { href: "/blocks/dashboards", label: "Dashboards" },
-      { href: "/blocks/shift-handover", label: "Shift handover" },
-    ]
-  }
-]
+      { href: "/eos/shift-handover-app", label: "Shift handover" },
+    ],
+  },
+];
 
 const sandboxNavigation: NavigationItem[] = [
   // To be populated later
-]
+];
 
 export const navigationMap = {
-  overview: overviewNavigation,
+  docs: docsNavigation,
+  overview: overviewNavigation, // Keep for backward compatibility
   primitives: primitivesNavigation,
   blocks: blocksNavigation,
   sandbox: sandboxNavigation,
-}
+};
 
-function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: number }) {
-  const pathname = usePathname()
-  const [isOpen, setIsOpen] = React.useState(true)
+function NavigationGroup({
+  item,
+  level = 0,
+}: {
+  item: NavigationItem;
+  level?: number;
+}) {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = React.useState(true);
 
   if (item.isSubsection) {
     return (
@@ -125,11 +180,11 @@ function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: nu
           className="flex items-center justify-between w-full text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-1.5 pr-1.5 hover:text-foreground transition-colors"
         >
           {item.label}
-          <ChevronRight 
+          <ChevronRight
             className={cn(
-              "h-3 w-3 transition-transform", 
+              "h-3 w-3 transition-transform",
               isOpen && "rotate-90"
-            )} 
+            )}
           />
         </button>
         {isOpen && item.children && (
@@ -140,10 +195,10 @@ function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: nu
           </ul>
         )}
       </li>
-    )
+    );
   }
 
-  const isActive = pathname === item.href
+  const isActive = pathname === item.href;
 
   return (
     <li>
@@ -160,7 +215,7 @@ function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: nu
         {item.label}
       </Link>
     </li>
-  )
+  );
 }
 
 export function SideNavigation({ items, className }: SideNavigationProps) {
@@ -172,9 +227,9 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
         ))}
       </ul>
     </nav>
-  )
+  );
 }
 
 export function getSideNavigationForSection(section: string): NavigationItem[] {
-  return navigationMap[section as keyof typeof navigationMap] || []
+  return navigationMap[section as keyof typeof navigationMap] || [];
 }
