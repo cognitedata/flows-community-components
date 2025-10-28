@@ -92,3 +92,9 @@ export function ConfirmationRequestDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const confirmationMeta = {
+  name: "Confirmation",
+  description: "An alert-based component for managing tool execution approval workflows with request, accept, and reject states.",
+  importPath: "@/components/ai-elements/cognite/confirmation",
+};

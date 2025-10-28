@@ -115,3 +115,9 @@ export function WebPreviewWithConsoleDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const webPreviewMeta = {
+  name: "Web Preview",
+  description: "A component for previewing web content and URLs in AI responses with metadata.",
+  importPath: "@/components/ai-elements/cognite/web-preview",
+};

@@ -85,3 +85,9 @@ export function MultipleProvidersDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const openInChatMeta = {
+  name: "Open In Chat",
+  description: "A dropdown menu for opening queries in various AI chat platforms including ChatGPT, Claude, T3, Scira, and v0.",
+  importPath: "@/components/ai-elements/cognite/open-in-chat",
+};

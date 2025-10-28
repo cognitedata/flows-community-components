@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Branch,
   BranchMessages,
@@ -6,55 +8,146 @@ import {
   BranchNext,
   BranchPage,
 } from "@/components/ai-elements/cognite/branch";
-import { Message } from "@/components/ai-elements/cognite/message";
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+} from "@/components/ai-elements/cognite/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
+import { nanoid } from "nanoid";
 
-function BasicBranchDemo() {
+const userMessages = [
+  {
+    id: nanoid(),
+    content: "What are the key strategies for optimising React performance?",
+  },
+  {
+    id: nanoid(),
+    content: "How can I improve the performance of my React application?",
+  },
+  {
+    id: nanoid(),
+    content:
+      "What performance optimisation techniques should I use in React?",
+  },
+];
+
+const assistantMessages = [
+  {
+    id: nanoid(),
+    content:
+      "Here's the first response to your question. This approach focuses on performance optimisation.",
+  },
+  {
+    id: nanoid(),
+    content:
+      "Here's an alternative response. This approach emphasises code readability and maintainability over pure performance.",
+  },
+  {
+    id: nanoid(),
+    content:
+      "And here's a third option. This balanced approach considers both performance and maintainability, making it suitable for most use cases.",
+  },
+];
+
+function ConversationDemo() {
   return (
-    <Branch>
-      <BranchMessages>
-        <Message from="user">First message</Message>
-      </BranchMessages>
-      <BranchMessages>
-        <Message from="user">Alternative first message</Message>
-      </BranchMessages>
-      <BranchSelector from="user">
-        <BranchPrevious />
-        <BranchPage />
-        <BranchNext />
-      </BranchSelector>
-    </Branch>
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {userMessages.map((message) => (
+            <Message from="user" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar
+                name="Hayden Bleasel"
+                src="/user-avatar.png"
+              />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="user">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {assistantMessages.map((message) => (
+            <Message from="assistant" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="assistant">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+    </div>
   );
 }
 
-function WithMultipleBranchesDemo() {
+function UserBranchDemo() {
   return (
-    <Branch defaultBranch={2}>
-      <BranchMessages>
-        <Message from="assistant">Response option 1</Message>
-      </BranchMessages>
-      <BranchMessages>
-        <Message from="assistant">Response option 2</Message>
-      </BranchMessages>
-      <BranchMessages>
-        <Message from="assistant">Response option 3</Message>
-      </BranchMessages>
-      <BranchSelector from="assistant">
-        <BranchPrevious />
-        <BranchPage />
-        <BranchNext />
-      </BranchSelector>
-    </Branch>
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {userMessages.map((message) => (
+            <Message from="user" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar
+                name="Hayden Bleasel"
+                src="/user-avatar.png"
+              />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="user">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+    </div>
+  );
+}
+
+function AssistantBranchDemo() {
+  return (
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {assistantMessages.map((message) => (
+            <Message from="assistant" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="assistant">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+    </div>
   );
 }
 
 export const branchExamples: ComponentExamples = {
-  basic: {
-    title: "Basic Branch",
-    description: "Multiple conversation branches with navigation controls",
-    component: BasicBranchDemo,
-    difficulty: "beginner",
-    code: `import {
+  conversation: {
+    title: "Conversation",
+    description:
+      "Full conversation with branched user prompts and assistant responses",
+    component: ConversationDemo,
+    difficulty: "intermediate",
+    code: `"use client"
+
+import {
   Branch,
   BranchMessages,
   BranchSelector,
@@ -62,33 +155,72 @@ export const branchExamples: ComponentExamples = {
   BranchNext,
   BranchPage,
 } from "@/components/ai-elements/cognite/branch"
-import { Message } from "@/components/ai-elements/cognite/message"
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+} from "@/components/ai-elements/cognite/message"
+import { nanoid } from "nanoid"
 
-export function BasicBranchDemo() {
+const userMessages = [
+  { id: nanoid(), content: "What are the key strategies for optimising React performance?" },
+  { id: nanoid(), content: "How can I improve the performance of my React application?" },
+  { id: nanoid(), content: "What performance optimisation techniques should I use in React?" },
+]
+
+const assistantMessages = [
+  { id: nanoid(), content: "Here's the first response to your question. This approach focuses on performance optimisation." },
+  { id: nanoid(), content: "Here's an alternative response. This approach emphasises code readability and maintainability over pure performance." },
+  { id: nanoid(), content: "And here's a third option. This balanced approach considers both performance and maintainability, making it suitable for most use cases." },
+]
+
+export function ConversationDemo() {
   return (
-    <Branch>
-      <BranchMessages>
-        <Message from="user">First message</Message>
-      </BranchMessages>
-      <BranchMessages>
-        <Message from="user">Alternative message</Message>
-      </BranchMessages>
-      <BranchSelector from="user">
-        <BranchPrevious />
-        <BranchPage />
-        <BranchNext />
-      </BranchSelector>
-    </Branch>
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {userMessages.map((message) => (
+            <Message from="user" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar name="Hayden Bleasel" src="/user-avatar.png" />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="user">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {assistantMessages.map((message) => (
+            <Message from="assistant" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="assistant">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+    </div>
   )
 }`,
   },
 
-  multipleBranches: {
-    title: "Multiple Branches",
-    description: "Branching with three or more alternative responses",
-    component: WithMultipleBranchesDemo,
-    difficulty: "intermediate",
-    code: `import {
+  user: {
+    title: "User Branch",
+    description: "Branching user prompts in a conversation",
+    component: UserBranchDemo,
+    difficulty: "beginner",
+    code: `"use client"
+
+import {
   Branch,
   BranchMessages,
   BranchSelector,
@@ -96,28 +228,97 @@ export function BasicBranchDemo() {
   BranchNext,
   BranchPage,
 } from "@/components/ai-elements/cognite/branch"
-import { Message } from "@/components/ai-elements/cognite/message"
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+} from "@/components/ai-elements/cognite/message"
+import { nanoid } from "nanoid"
 
-export function MultipleBranchesDemo() {
+const userMessages = [
+  { id: nanoid(), content: "What are the key strategies for optimising React performance?" },
+  { id: nanoid(), content: "How can I improve the performance of my React application?" },
+  { id: nanoid(), content: "What performance optimisation techniques should I use in React?" },
+]
+
+export function UserBranchDemo() {
   return (
-    <Branch defaultBranch={2}>
-      <BranchMessages>
-        <Message from="assistant">Response option 1</Message>
-      </BranchMessages>
-      <BranchMessages>
-        <Message from="assistant">Response option 2</Message>
-      </BranchMessages>
-      <BranchMessages>
-        <Message from="assistant">Response option 3</Message>
-      </BranchMessages>
-      <BranchSelector from="assistant">
-        <BranchPrevious />
-        <BranchPage />
-        <BranchNext />
-      </BranchSelector>
-    </Branch>
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {userMessages.map((message) => (
+            <Message from="user" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar name="Hayden Bleasel" src="/user-avatar.png" />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="user">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+    </div>
+  )
+}`,
+  },
+
+  assistant: {
+    title: "Assistant Branch",
+    description: "Branching assistant responses in a conversation",
+    component: AssistantBranchDemo,
+    difficulty: "beginner",
+    code: `"use client"
+
+import {
+  Branch,
+  BranchMessages,
+  BranchSelector,
+  BranchPrevious,
+  BranchNext,
+  BranchPage,
+} from "@/components/ai-elements/cognite/branch"
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+} from "@/components/ai-elements/cognite/message"
+import { nanoid } from "nanoid"
+
+const assistantMessages = [
+  { id: nanoid(), content: "Here's the first response to your question. This approach focuses on performance optimisation." },
+  { id: nanoid(), content: "Here's an alternative response. This approach emphasises code readability and maintainability over pure performance." },
+  { id: nanoid(), content: "And here's a third option. This balanced approach considers both performance and maintainability, making it suitable for most use cases." },
+]
+
+export function AssistantBranchDemo() {
+  return (
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {assistantMessages.map((message) => (
+            <Message from="assistant" key={message.id}>
+              <MessageContent>{message.content}</MessageContent>
+              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+            </Message>
+          ))}
+        </BranchMessages>
+        <BranchSelector from="assistant">
+          <BranchPrevious />
+          <BranchPage />
+          <BranchNext />
+        </BranchSelector>
+      </Branch>
+    </div>
   )
 }`,
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const branchMeta = {
+  name: "Branch",
+  description: "Manages multiple versions of AI messages, allowing users to navigate between different response branches.",
+  importPath: "@/components/ai-elements/cognite/branch",
+};

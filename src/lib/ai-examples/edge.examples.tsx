@@ -37,3 +37,9 @@ export function CustomEdgeDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const edgeMeta = {
+  name: "Edge",
+  description: "A visual edge for rendering animated connections between nodes in AI workflow diagrams.",
+  importPath: "@/components/ai-elements/cognite/edge",
+};

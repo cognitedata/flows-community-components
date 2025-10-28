@@ -116,3 +116,9 @@ export function ContextWithUsageDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const contextMeta = {
+  name: "Context",
+  description: "A compound component system for displaying AI model context window usage, token consumption, and cost estimation.",
+  importPath: "@/components/ai-elements/cognite/context",
+};

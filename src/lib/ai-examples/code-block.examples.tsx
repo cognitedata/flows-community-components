@@ -61,3 +61,9 @@ export function CodeBlockWithLineNumbersDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const codeBlockMeta = {
+  name: "Code Block",
+  description: "Provides syntax highlighting, line numbers, and copy to clipboard functionality for code blocks.",
+  importPath: "@/components/ai-elements/cognite/code-block",
+};

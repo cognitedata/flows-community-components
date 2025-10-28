@@ -33,3 +33,10 @@ export function VariantsDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const badgeMeta = {
+  name: "Badge",
+  description: "A small status indicator component with multiple variants for displaying labels, counts, and statuses.",
+  llmUsage: "When showing status or labels, use `<Badge variant='default'>Status</Badge>` instead of custom spans. Use variants like 'secondary', 'destructive', or 'outline' for different meanings.",
+  importPath: "@/components/ui/cognite/badge",
+};

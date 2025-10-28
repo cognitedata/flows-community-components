@@ -104,3 +104,9 @@ export function ChainOfThoughtWithResultsDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const chainOfThoughtMeta = {
+  name: "Chain Of Thought",
+  description: "A collapsible component that visualizes AI reasoning steps with support for search results, images, and step-by-step progress indicators.",
+  importPath: "@/components/ai-elements/cognite/chain-of-thought",
+};

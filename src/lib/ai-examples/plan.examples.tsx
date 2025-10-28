@@ -118,3 +118,9 @@ export function StreamingPlanDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const planMeta = {
+  name: "Plan",
+  description: "A collapsible plan component for displaying AI-generated execution plans with streaming support and shimmer animations.",
+  importPath: "@/components/ai-elements/cognite/plan",
+};

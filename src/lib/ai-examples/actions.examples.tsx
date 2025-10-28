@@ -179,3 +179,10 @@ export function ActionsWithLabelsDemo() {
 }`,
   },
 };
+
+// Component metadata - single source of truth for API documentation
+export const actionsMeta = {
+  name: "Actions",
+  description: "A row of composable action buttons for AI responses, including retry, like, dislike, copy, share, and custom actions.",
+  importPath: "@/components/ai-elements/cognite/actions",
+};

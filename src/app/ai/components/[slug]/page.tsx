@@ -1,6 +1,4 @@
 import { notFound } from "next/navigation";
-import { promises as fs } from "fs";
-import path from "path";
 import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import { Separator } from "@/components/ui/cognite/separator";
@@ -10,7 +8,7 @@ import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { AIExamplesRenderer } from "@/components/ai-examples-renderer";
 import { AICodeExamplesRenderer } from "@/components/ai-code-examples-renderer";
 import { getAIComponentStatus } from "@/lib/ai-component-status";
-import { CodeExample } from "@/components/code-example";
+import { getAIComponentMeta } from "@/lib/ai-component-registry";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -40,77 +38,14 @@ function toTitleCase(str: string): string {
     .join(" ");
 }
 
-// Convert slug to proper component name (PascalCase for imports)
-function toComponentName(str: string): string {
-  return str
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("");
-}
-
-// Get component description based on slug
-function getComponentDescription(slug: string): string {
-  const descriptions: Record<string, string> = {
-    "actions": "Action buttons and controls for AI interfaces",
-    "artifact": "Display and interact with AI-generated artifacts",
-    "branch": "Conversation branching visualisation",
-    "canvas": "Interactive canvas for AI outputs and visualisations",
-    "chain-of-thought": "Visualise AI reasoning and thought processes",
-    "code-block": "Syntax-highlighted code blocks with copy functionality",
-    "confirmation": "Confirmation dialogs for AI actions",
-    "connection": "Connection visualisation for graph-based interfaces",
-    "context": "Display contextual information in AI conversations",
-    "controls": "Control elements for managing AI interactions",
-    "conversation": "Container and management for conversational interfaces",
-    "edge": "Edge visualisation for graph and flow representations",
-    "image": "Image display and interaction components",
-    "inline-citation": "Citations and source references within content",
-    "loader": "Loading indicators for AI operations",
-    "message": "Message display for chat and conversational interfaces",
-    "node": "Node visualisation for graph-based representations",
-    "open-in-chat": "Integration button to open content in chat",
-    "panel": "Collapsible panel for additional information",
-    "plan": "Display AI planning and step-by-step processes",
-    "prompt-input": "Input field for AI prompts and queries",
-    "queue": "Queue visualisation for batch operations",
-    "reasoning": "Visualise AI reasoning steps and logic",
-    "response": "Display AI responses with rich formatting",
-    "shimmer": "Loading shimmer effects for AI content",
-    "sources": "Source attribution and citation components",
-    "suggestion": "Suggestion chips and quick action buttons",
-    "task": "Task display and management interface",
-    "tool": "Tool usage display and interaction",
-    "toolbar": "Toolbar for AI interface actions",
-    "web-preview": "Web page preview and embedding component",
-  };
-  return descriptions[slug] || "AI element component for building conversational interfaces";
-}
-
 export async function generateMetadata({ params }: ComponentPageProps) {
   const { slug } = await params;
-  const componentName = toTitleCase(slug);
+  const meta = await getAIComponentMeta(slug);
   
   return {
-    title: `${componentName} Component - AI Elements Documentation`,
-    description: getComponentDescription(slug),
+    title: `${meta?.name || toTitleCase(slug)} Component - AI Elements Documentation`,
+    description: meta?.description || `AI element component for building conversational interfaces`,
   };
-}
-
-async function getComponentCode(slug: string): Promise<string> {
-  try {
-    const filePath = path.join(
-      process.cwd(),
-      "src",
-      "components",
-      "ai-elements",
-      "draft",
-      `${slug}.tsx`
-    );
-    const fileContent = await fs.readFile(filePath, "utf8");
-    return fileContent;
-  } catch {
-    return "";
-  }
 }
 
 export default async function ComponentPage({ params }: ComponentPageProps) {
@@ -121,11 +56,10 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     notFound();
   }
 
-  const componentCode = await getComponentCode(slug);
-  const componentName = toTitleCase(slug);
-  const componentImportName = toComponentName(slug);
+  const meta = await getAIComponentMeta(slug);
+  const componentName = meta?.name || toTitleCase(slug);
   const componentStatus = getAIComponentStatus(slug);
-  const description = getComponentDescription(slug);
+  const description = meta?.description || "AI element component for building conversational interfaces";
 
   return (
     <div className="px-3 py-8">
@@ -143,7 +77,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               </Button>
               <Separator orientation="vertical" className="h-4" />
               <div className="flex items-center gap-2">
-                <Badge variant="outline">Component</Badge>
+                <Badge variant="outline">AI Element</Badge>
                 <span className="text-sm text-muted-foreground">
                   {componentName}
                 </span>
@@ -214,14 +148,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               <h2 className="text-2xl font-bold mb-6">Installation</h2>
               <div className="space-y-4">
                 <p className="text-muted-foreground">
-                  AI elements are included in the project. Copy the component source code to use it:
+                  AI elements are included in the project. Copy the component source code to use it.
                 </p>
-                {componentCode && (
-                  <CodeExample 
-                    title={`src/components/ai-elements/${slug}.tsx`}
-                    code={componentCode}
-                  />
-                )}
               </div>
             </section>
 
@@ -230,16 +158,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               <h2 className="text-2xl font-bold mb-6">Usage</h2>
               <div className="space-y-6">
                 <AICodeExamplesRenderer slug={slug} />
-                {!componentCode && (
-                  <CodeExample 
-                    title="Basic Usage" 
-                    code={`import { ${componentImportName} } from "@/components/ai-elements/cognite/${slug}"
-
-export function Example() {
-  return <${componentImportName} />
-}`} 
-                  />
-                )}
               </div>
             </section>
 

@@ -36,3 +36,9 @@ export function BasicToolbarDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const toolbarMeta = {
+  name: "Toolbar",
+  description: "A customizable toolbar component for AI interface controls and actions.",
+  importPath: "@/components/ai-elements/cognite/toolbar",
+};

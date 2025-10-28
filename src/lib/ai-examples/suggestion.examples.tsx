@@ -75,3 +75,9 @@ export function SizesDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const suggestionMeta = {
+  name: "Suggestion",
+  description: "A suggestion component that displays a horizontal row of clickable suggestions for user interaction.",
+  importPath: "@/components/ai-elements/cognite/suggestion",
+};

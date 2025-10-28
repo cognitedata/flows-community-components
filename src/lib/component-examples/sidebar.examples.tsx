@@ -143,3 +143,11 @@ export function BasicDemo() {
 }`,
   },
 };
+
+// Component metadata - single source of truth for API documentation
+export const sidebarMeta = {
+  name: "Sidebar",
+  description: "A composable, themeable and customizable sidebar component.",
+  llmUsage: "When creating sidebars, use `<Sidebar>` with `<SidebarContent>`, `<SidebarMenu>`, and related components.",
+  importPath: "@/components/ui/cognite/sidebar",
+};

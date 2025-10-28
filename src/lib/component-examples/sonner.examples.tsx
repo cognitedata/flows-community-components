@@ -88,3 +88,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const sonnerMeta = {
+  name: "Sonner",
+  description: "An opinionated toast component for React. A toast is used to show a brief message.",
+  llmUsage: "When asked for toast notifications, use `<Sonner>` or `toast()` function for user feedback messages.",
+  importPath: "@/components/ui/cognite/sonner",
+};
