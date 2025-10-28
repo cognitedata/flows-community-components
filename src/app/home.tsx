@@ -97,7 +97,7 @@ export default function Home() {
             className="text-center space-y-6"
           >
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
                 Design system
                 <span className="block text-primary">guidelines</span>
               </h1>
@@ -128,7 +128,7 @@ export default function Home() {
             variants={itemVariants}
             className="text-center space-y-6"
           >
-            <h2 className="text-3xl font-bold">Built for teams</h2>
+            <h2 className="text-2xl font-bold">Built for teams</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Our design system bridges the gap between design and development,
               providing a single source of truth for creating cohesive user
@@ -138,7 +138,7 @@ export default function Home() {
 
           {/* Principles Section */}
           <motion.section variants={itemVariants} className="space-y-8">
-            <h2 className="text-3xl font-bold text-center">Core principles</h2>
+            <h2 className="text-2xl font-bold text-center">Core principles</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <Card className="text-center">
                 <CardHeader>
@@ -179,7 +179,7 @@ export default function Home() {
 
           {/* Features Grid */}
           <motion.section variants={itemVariants} className="space-y-8">
-            <h2 className="text-3xl font-bold text-center">
+            <h2 className="text-2xl font-bold text-center">
               Explore the system
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -206,7 +206,7 @@ export default function Home() {
 
           {/* Component Showcase */}
           <motion.section variants={itemVariants} className="space-y-8">
-            <h2 className="text-3xl font-bold text-center">
+            <h2 className="text-2xl font-bold text-center">
               Component showcase
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -183,7 +183,7 @@ export default function DocsPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold">
+            <h1 className="text-3xl md:text-4xl font-bold">
               Component Documentation
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -345,7 +345,7 @@ export default function DocsPage() {
 
           {/* Getting Started */}
           <div className="text-center space-y-6 py-16 border-t">
-            <h2 className="text-3xl font-bold">Getting started</h2>
+            <h2 className="text-2xl font-bold">Getting started</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               All components are built with React, TypeScript, and Tailwind CSS.
               Copy the code examples and start building your next project.

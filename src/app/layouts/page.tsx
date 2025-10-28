@@ -157,7 +157,7 @@ export default function LayoutsPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold">Layout patterns</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Layout patterns</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Responsive layout systems and patterns that adapt gracefully
               across all device sizes. Built with CSS Grid and Flexbox for
@@ -168,7 +168,7 @@ export default function LayoutsPage() {
           {/* Breakpoints */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Responsive breakpoints</h2>
+              <h2 className="text-2xl font-bold">Responsive breakpoints</h2>
               <p className="text-muted-foreground">
                 Our responsive system adapts to these key breakpoints
               </p>
@@ -202,7 +202,7 @@ export default function LayoutsPage() {
           {/* Layout Patterns */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Common patterns</h2>
+              <h2 className="text-2xl font-bold">Common patterns</h2>
               <p className="text-muted-foreground">
                 Proven layout patterns for different content types and use cases
               </p>
@@ -225,7 +225,7 @@ export default function LayoutsPage() {
           {/* Responsive Preview */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Responsive previews</h2>
+              <h2 className="text-2xl font-bold">Responsive previews</h2>
               <p className="text-muted-foreground">
                 Interactive demos showing how layouts adapt across breakpoints
               </p>
@@ -301,7 +301,7 @@ export default function LayoutsPage() {
           {/* Grid System */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Grid system</h2>
+              <h2 className="text-2xl font-bold">Grid system</h2>
               <p className="text-muted-foreground">
                 Flexible 12-column grid system for precise layout control
               </p>
@@ -364,7 +364,7 @@ export default function LayoutsPage() {
           {/* Best Practices */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Layout best practices</h2>
+              <h2 className="text-2xl font-bold">Layout best practices</h2>
               <p className="text-muted-foreground">
                 Guidelines for creating effective and accessible layouts
               </p>
