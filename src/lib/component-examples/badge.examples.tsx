@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/cognite/badge";
+import { Badge } from "@/components/ui/draft/badge";
 import type { ComponentExamples } from "./types";
 import {
   IconAlertHexagon,
@@ -26,15 +26,15 @@ function VariantsDemo() {
         </Badge>
       </div>
       <div className="flex flex-wrap gap-3">
-        <Badge variant="error">
+        <Badge variant="error" background={false}>
           <IconAlertHexagon />
           Error
         </Badge>
-        <Badge variant="error" outline>
+        <Badge variant="error" outline >
           <IconAlertHexagon />
           Error
         </Badge>
-        <Badge variant="warning">
+        <Badge variant="warning" background={false}>
           <IconAlertTriangle />
           Warning
         </Badge>
@@ -42,15 +42,15 @@ function VariantsDemo() {
           <IconAlertTriangle />
           Warning
         </Badge>
-        <Badge variant="success">
+        <Badge variant="success" background={false}>
           <IconCircleCheck />
           Success
         </Badge>
-        <Badge variant="inProgress">
+        <Badge variant="inProgress" background={false}>
           <IconInnerShadowTopLeft />
           In progress
         </Badge>
-        <Badge variant="archived">
+        <Badge variant="archived" background={false}>
           <IconArchive />
           Archived
         </Badge>
@@ -84,7 +84,7 @@ export function VariantsDemo() {
         </Badge>
       </div>
       <div className="flex flex-wrap gap-3">
-        <Badge variant="error">
+        <Badge variant="error" background={false}>
           <IconAlertHexagon />
           Error
         </Badge>
@@ -92,7 +92,7 @@ export function VariantsDemo() {
           <IconAlertHexagon />
           Error
         </Badge>
-        <Badge variant="warning">
+        <Badge variant="warning" background={false}>
           <IconAlertTriangle />
           Warning
         </Badge>

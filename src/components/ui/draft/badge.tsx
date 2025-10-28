@@ -9,8 +9,7 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground ",
+        default: "border-transparent bg-primary text-primary-foreground ",
         fjord:
           "border-transparent bg-fjord-50 text-fjord-700 dark:bg-fjord-900 dark:text-fjord-300",
         nordic:
@@ -19,28 +18,27 @@ const badgeVariants = cva(
           "border-transparent bg-aurora-50 text-aurora-600 dark:bg-aurora-900 dark:text-aurora-300",
         sky: "border-transparent bg-sky-50 text-sky-600 dark:bg-sky-900 dark:text-sky-300",
         dusk: "border-transparent bg-dusk-50 text-dusk-600 dark:bg-dusk-900 dark:text-dusk-400",
-        mountain: "border-transparent bg-mountain-50 text-mountain-600 dark:bg-mountain-900 dark:text-mountain-400",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground ",
-        error:
-          "border-transparent bg-destructive text-destructive-foreground",
-        warning:
-          "border-transparent bg-warning text-warning-foreground",
-        success:
-          "border-transparent bg-success text-success-foreground",
-        inProgress:
-          "border-transparent bg-neutral text-neutral-foreground",
-        archived:
-          "border-transparent bg-undefined text-undefined-foreground",
+        mountain:
+          "border-transparent bg-mountain-50 text-mountain-600 dark:bg-mountain-900 dark:text-mountain-400",
+        secondary: "border-transparent bg-secondary text-secondary-foreground ",
+        error: "border-transparent bg-destructive text-destructive-foreground",
+        warning: "border-transparent bg-warning text-warning-foreground",
+        success: "border-transparent bg-success text-success-foreground",
+        inProgress: "border-transparent bg-neutral text-neutral-foreground",
+        archived: "border-transparent bg-undefined text-undefined-foreground",
       },
       outline: {
         true: "border-current",
       },
+      background: {
+        false: "bg-transparent",
+      },
     },
-    
+
     defaultVariants: {
       variant: "default",
       outline: false,
+      background: true,
     },
   }
 );
@@ -49,6 +47,7 @@ function Badge({
   className,
   variant,
   outline,
+  background,
   asChild = false,
   ...props
 }: React.ComponentProps<"span"> &
@@ -58,7 +57,11 @@ function Badge({
   return (
     <Comp
       data-slot="badge"
-      className={cn(badgeVariants({ variant }), cn(outline && "border-current", className))}
+      className={cn(
+        badgeVariants({ variant, background }),
+        outline && "border-current",
+        className
+      )}
       {...props}
     />
   );
