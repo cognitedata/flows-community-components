@@ -137,7 +137,7 @@ export const componentRegistry: ComponentDefinition[] = [
     variants: ['default', 'secondary', 'destructive', 'outline'],
     examples: {
       basic: '<Badge>New</Badge>',
-      advanced: '<Badge variant="outline">Beta</Badge>'
+      advanced: '<Badge variant="secondary">Beta</Badge>'
     }
   },
   {

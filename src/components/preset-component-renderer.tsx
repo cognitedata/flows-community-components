@@ -78,7 +78,7 @@ const presetComponents = {
             <p className="text-sm text-muted-foreground">Software Engineer</p>
           </div>
         </div>
-        <Badge variant="outline" className="w-fit">
+        <Badge variant="secondary" className="w-fit">
           Active
         </Badge>
       </CardHeader>
@@ -116,7 +116,7 @@ const presetComponents = {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Active Users</CardTitle>
-          <Badge variant="outline">+5.2%</Badge>
+          <Badge variant="secondary">+5.2%</Badge>
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">2,543</div>
