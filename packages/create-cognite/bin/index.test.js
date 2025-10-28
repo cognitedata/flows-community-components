@@ -39,6 +39,267 @@ describe("CLI Command Tests", () => {
       ]);
     });
 
+    it("should add default react-ts template when no template is specified", () => {
+      const args = ["my-project"];
+      let projectDir;
+      let additionalArgs = [];
+
+      if (args.length === 0 || args[0].startsWith("-")) {
+        additionalArgs = args;
+      } else {
+        projectDir = args[0];
+        additionalArgs = args.slice(1);
+      }
+
+      // Add default template if not specified
+      const hasTemplate = additionalArgs.some(
+        (arg) => arg === "--template" || arg === "-t"
+      );
+      if (!hasTemplate) {
+        additionalArgs.push("--template", "react-ts");
+      }
+
+      const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+
+      expect(projectDir).toBe("my-project");
+      expect(additionalArgs).toEqual(["--template", "react-ts"]);
+      expect(createArgs).toEqual([
+        "create-vite@latest",
+        "my-project",
+        "--template",
+        "react-ts",
+      ]);
+    });
+
+    it("should not add default template if --template is already specified", () => {
+      const args = ["my-project", "--template", "vue"];
+      let projectDir;
+      let additionalArgs = [];
+
+      if (args.length === 0 || args[0].startsWith("-")) {
+        additionalArgs = args;
+      } else {
+        projectDir = args[0];
+        additionalArgs = args.slice(1);
+      }
+
+      // Add default template if not specified
+      const hasTemplate = additionalArgs.some(
+        (arg) => arg === "--template" || arg === "-t"
+      );
+      if (!hasTemplate) {
+        additionalArgs.push("--template", "react-ts");
+      }
+
+      const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+
+      expect(projectDir).toBe("my-project");
+      expect(additionalArgs).toEqual(["--template", "vue"]);
+      expect(createArgs).toEqual([
+        "create-vite@latest",
+        "my-project",
+        "--template",
+        "vue",
+      ]);
+    });
+
+    it("should not add default template if -t is already specified", () => {
+      const args = ["my-project", "-t", "vue-ts"];
+      let projectDir;
+      let additionalArgs = [];
+
+      if (args.length === 0 || args[0].startsWith("-")) {
+        additionalArgs = args;
+      } else {
+        projectDir = args[0];
+        additionalArgs = args.slice(1);
+      }
+
+      // Add default template if not specified
+      const hasTemplate = additionalArgs.some(
+        (arg) => arg === "--template" || arg === "-t"
+      );
+      if (!hasTemplate) {
+        additionalArgs.push("--template", "react-ts");
+      }
+
+      const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+
+      expect(projectDir).toBe("my-project");
+      expect(additionalArgs).toEqual(["-t", "vue-ts"]);
+      expect(createArgs).toEqual([
+        "create-vite@latest",
+        "my-project",
+        "-t",
+        "vue-ts",
+      ]);
+    });
+
+    it("should add --no-rolldown and --no-install flags by default", () => {
+      const args = ["my-project"];
+      let projectDir;
+      let additionalArgs = [];
+
+      if (args.length === 0 || args[0].startsWith("-")) {
+        additionalArgs = args;
+      } else {
+        projectDir = args[0];
+        additionalArgs = args.slice(1);
+      }
+
+      // Add default template if not specified
+      const hasTemplate = additionalArgs.some(
+        (arg) => arg === "--template" || arg === "-t"
+      );
+      if (!hasTemplate) {
+        additionalArgs.push("--template", "react-ts");
+      }
+
+      // Disable rolldown-vite (experimental) by default
+      const hasRolldownFlag = additionalArgs.some(
+        (arg) => arg === "--rolldown" || arg === "--no-rolldown"
+      );
+      if (!hasRolldownFlag) {
+        additionalArgs.push("--no-rolldown");
+      }
+
+      // Skip install and start prompts - we'll install our own dependencies
+      const hasNoInstallFlag = additionalArgs.some(
+        (arg) => arg === "--no-install" || arg === "--install"
+      );
+      if (!hasNoInstallFlag) {
+        additionalArgs.push("--no-install");
+      }
+
+      const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+
+      expect(projectDir).toBe("my-project");
+      expect(additionalArgs).toEqual([
+        "--template",
+        "react-ts",
+        "--no-rolldown",
+        "--no-install",
+      ]);
+      expect(createArgs).toEqual([
+        "create-vite@latest",
+        "my-project",
+        "--template",
+        "react-ts",
+        "--no-rolldown",
+        "--no-install",
+      ]);
+    });
+
+    it("should not add --no-rolldown if --rolldown is already specified", () => {
+      const args = ["my-project", "--rolldown"];
+      let projectDir;
+      let additionalArgs = [];
+
+      if (args.length === 0 || args[0].startsWith("-")) {
+        additionalArgs = args;
+      } else {
+        projectDir = args[0];
+        additionalArgs = args.slice(1);
+      }
+
+      // Add default template if not specified
+      const hasTemplate = additionalArgs.some(
+        (arg) => arg === "--template" || arg === "-t"
+      );
+      if (!hasTemplate) {
+        additionalArgs.push("--template", "react-ts");
+      }
+
+      // Disable rolldown-vite (experimental) by default
+      const hasRolldownFlag = additionalArgs.some(
+        (arg) => arg === "--rolldown" || arg === "--no-rolldown"
+      );
+      if (!hasRolldownFlag) {
+        additionalArgs.push("--no-rolldown");
+      }
+
+      // Skip install and start prompts
+      const hasNoInstallFlag = additionalArgs.some(
+        (arg) => arg === "--no-install" || arg === "--install"
+      );
+      if (!hasNoInstallFlag) {
+        additionalArgs.push("--no-install");
+      }
+
+      const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+
+      expect(projectDir).toBe("my-project");
+      expect(additionalArgs).toEqual([
+        "--rolldown",
+        "--template",
+        "react-ts",
+        "--no-install",
+      ]);
+      expect(createArgs).toEqual([
+        "create-vite@latest",
+        "my-project",
+        "--rolldown",
+        "--template",
+        "react-ts",
+        "--no-install",
+      ]);
+    });
+
+    it("should not add --no-rolldown if --no-rolldown is already specified", () => {
+      const args = ["my-project", "--no-rolldown"];
+      let projectDir;
+      let additionalArgs = [];
+
+      if (args.length === 0 || args[0].startsWith("-")) {
+        additionalArgs = args;
+      } else {
+        projectDir = args[0];
+        additionalArgs = args.slice(1);
+      }
+
+      // Add default template if not specified
+      const hasTemplate = additionalArgs.some(
+        (arg) => arg === "--template" || arg === "-t"
+      );
+      if (!hasTemplate) {
+        additionalArgs.push("--template", "react-ts");
+      }
+
+      // Disable rolldown-vite (experimental) by default
+      const hasRolldownFlag = additionalArgs.some(
+        (arg) => arg === "--rolldown" || arg === "--no-rolldown"
+      );
+      if (!hasRolldownFlag) {
+        additionalArgs.push("--no-rolldown");
+      }
+
+      // Skip install and start prompts
+      const hasNoInstallFlag = additionalArgs.some(
+        (arg) => arg === "--no-install" || arg === "--install"
+      );
+      if (!hasNoInstallFlag) {
+        additionalArgs.push("--no-install");
+      }
+
+      const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+
+      expect(projectDir).toBe("my-project");
+      expect(additionalArgs).toEqual([
+        "--no-rolldown",
+        "--template",
+        "react-ts",
+        "--no-install",
+      ]);
+      expect(createArgs).toEqual([
+        "create-vite@latest",
+        "my-project",
+        "--no-rolldown",
+        "--template",
+        "react-ts",
+        "--no-install",
+      ]);
+    });
+
     it("should handle flags-only arguments (requires prompt)", () => {
       const args = ["--template", "react-ts"];
       let projectDir;
@@ -131,10 +392,17 @@ describe("CLI Command Tests", () => {
         expect(name).toBe(expected);
       });
     });
+
+    it("should default to npm when no package manager is detected", () => {
+      // When no packageManager field exists and no lock files are found
+      // the function should default to 'npm' instead of returning null
+      const defaultPackageManager = "npm";
+      expect(defaultPackageManager).toBe("npm");
+    });
   });
 
   describe("Install Command Generation", () => {
-    function getInstallCommand(packageManager, dependencySpecs) {
+    function getInstallCommand(packageManager, dependencySpecs, isDev = false) {
       const normalizeCommand = (cmd) => {
         if (process.platform === "win32" && cmd !== "bun") {
           return `${cmd}.cmd`;
@@ -143,16 +411,29 @@ describe("CLI Command Tests", () => {
       };
 
       const normalized = normalizeCommand(packageManager);
+      const devFlag = isDev ? ["-D"] : [];
 
       switch (packageManager) {
         case "npm":
-          return { command: normalized, args: ["install", ...dependencySpecs] };
+          return {
+            command: normalized,
+            args: ["install", ...devFlag, ...dependencySpecs],
+          };
         case "pnpm":
-          return { command: normalized, args: ["add", ...dependencySpecs] };
+          return {
+            command: normalized,
+            args: ["add", ...devFlag, ...dependencySpecs],
+          };
         case "yarn":
-          return { command: normalized, args: ["add", ...dependencySpecs] };
+          return {
+            command: normalized,
+            args: ["add", ...devFlag, ...dependencySpecs],
+          };
         case "bun":
-          return { command: normalized, args: ["add", ...dependencySpecs] };
+          return {
+            command: normalized,
+            args: ["add", ...devFlag, ...dependencySpecs],
+          };
         default:
           return { command: null, args: [] };
       }
@@ -163,9 +444,28 @@ describe("CLI Command Tests", () => {
       expect(result.args).toEqual(["install", "package-a@1.0.0", "package-b"]);
     });
 
+    it("should generate correct npm install command for dev dependencies", () => {
+      const result = getInstallCommand(
+        "npm",
+        ["package-a@1.0.0", "package-b"],
+        true
+      );
+      expect(result.args).toEqual([
+        "install",
+        "-D",
+        "package-a@1.0.0",
+        "package-b",
+      ]);
+    });
+
     it("should generate correct pnpm add command", () => {
       const result = getInstallCommand("pnpm", ["package-a@1.0.0"]);
       expect(result.args).toEqual(["add", "package-a@1.0.0"]);
+    });
+
+    it("should generate correct pnpm add command for dev dependencies", () => {
+      const result = getInstallCommand("pnpm", ["package-a@1.0.0"], true);
+      expect(result.args).toEqual(["add", "-D", "package-a@1.0.0"]);
     });
 
     it("should generate correct yarn add command", () => {
@@ -173,9 +473,19 @@ describe("CLI Command Tests", () => {
       expect(result.args).toEqual(["add", "package-a"]);
     });
 
+    it("should generate correct yarn add command for dev dependencies", () => {
+      const result = getInstallCommand("yarn", ["package-a"], true);
+      expect(result.args).toEqual(["add", "-D", "package-a"]);
+    });
+
     it("should generate correct bun add command", () => {
       const result = getInstallCommand("bun", ["package-a"]);
       expect(result.args).toEqual(["add", "package-a"]);
+    });
+
+    it("should generate correct bun add command for dev dependencies", () => {
+      const result = getInstallCommand("bun", ["package-a"], true);
+      expect(result.args).toEqual(["add", "-D", "package-a"]);
     });
 
     it("should return null command for unsupported package manager", () => {

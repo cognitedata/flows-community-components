@@ -19,6 +19,12 @@ const REQUIRED_DEPENDENCIES = [
   { name: "clsx", version: "^2.1.1" },
 ];
 
+const REQUIRED_DEV_DEPENDENCIES = [
+  { name: "tailwindcss", version: "^4.0.0" },
+  { name: "@tailwindcss/vite", version: "^4.0.0" },
+  { name: "@types/node", version: "^22.10.2" },
+];
+
 function promptForInput(question) {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -56,8 +62,33 @@ async function main() {
     additionalArgs = args.slice(1);
   }
 
+  // Add default template if not specified
+  const hasTemplate = additionalArgs.some(
+    (arg) => arg === "--template" || arg === "-t"
+  );
+  if (!hasTemplate) {
+    additionalArgs.push("--template", "react-ts");
+  }
+
+  // Disable rolldown-vite (experimental) by default
+  const hasRolldownFlag = additionalArgs.some(
+    (arg) => arg === "--rolldown" || arg === "--no-rolldown"
+  );
+  if (!hasRolldownFlag) {
+    additionalArgs.push("--no-rolldown");
+  }
+
+  // Skip install and start prompts - we'll install our own dependencies
+  const hasNoInstallFlag = additionalArgs.some(
+    (arg) => arg === "--no-install" || arg === "--install"
+  );
+  if (!hasNoInstallFlag) {
+    additionalArgs.push("--no-install");
+  }
+
   const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
   await runCreateVite(createArgs);
+  await cleanupViteDefaults(projectDir);
   await addCogniteTemplates(projectDir);
 }
 
@@ -78,6 +109,30 @@ function runCreateVite(cliArgs) {
       resolve();
     });
   });
+}
+
+async function cleanupViteDefaults(projectDir) {
+  const targetRoot = path.resolve(process.cwd(), projectDir);
+
+  // Files to remove since we're using Tailwind CSS
+  const filesToRemove = [
+    path.join(targetRoot, "src", "App.css"),
+    path.join(targetRoot, "src", "index.css"),
+  ];
+
+  for (const filePath of filesToRemove) {
+    try {
+      await fs.unlink(filePath);
+      console.log(`Removed ${path.relative(process.cwd(), filePath)}`);
+    } catch (error) {
+      // File might not exist, that's okay
+      if (error.code !== "ENOENT") {
+        console.warn(
+          `Could not remove ${path.relative(process.cwd(), filePath)}`
+        );
+      }
+    }
+  }
 }
 
 async function addCogniteTemplates(projectDir) {
@@ -112,47 +167,39 @@ async function addCogniteTemplates(projectDir) {
 
     if (pathSegments[0] === "app" || pathSegments[0] === "lib") {
       const target = path.join(srcDirectory, ...pathSegments);
-      const isGlobalsCss =
-        pathSegments[0] === "app" &&
-        pathSegments.length === 2 &&
-        pathSegments[1] === "globals.css";
-
-      if (isGlobalsCss) {
-        await copyFileWithOverwrite(source, target);
-      } else {
-        await copyFileIfMissing(source, target);
-      }
-
+      // Overwrite template files in src/app and src/lib
+      await copyFileWithOverwrite(source, target);
       continue;
     }
 
+    // Overwrite root-level configuration files
     const target = path.join(targetRoot, relativePath);
-    await copyFileIfMissing(source, target);
+    await copyFileWithOverwrite(source, target);
   }
 
   console.log("\nCognite templates copied successfully.");
 }
 
-async function copyFileIfMissing(source, target) {
+async function copyFileWithOverwrite(source, target) {
   await fs.mkdir(path.dirname(target), { recursive: true });
 
+  let fileExists = false;
   try {
     await fs.access(target);
-    console.warn(`Skipped existing ${path.relative(process.cwd(), target)}`);
+    fileExists = true;
   } catch (error) {
     if (error.code !== "ENOENT") {
       throw error;
     }
+  }
 
-    await fs.copyFile(source, target);
+  await fs.copyFile(source, target);
+
+  if (fileExists) {
+    console.log(`Replaced ${path.relative(process.cwd(), target)}`);
+  } else {
     console.log(`Added ${path.relative(process.cwd(), target)}`);
   }
-}
-
-async function copyFileWithOverwrite(source, target) {
-  await fs.mkdir(path.dirname(target), { recursive: true });
-  await fs.copyFile(source, target);
-  console.log(`Replaced ${path.relative(process.cwd(), target)}`);
 }
 
 async function collectTemplateFiles(rootDir) {
@@ -206,7 +253,7 @@ async function ensureDependenciesInstalled(targetRoot) {
       `\nUnable to read or parse ${path.relative(
         process.cwd(),
         packageJsonPath
-      )}. Install ${formatDependencySummary(REQUIRED_DEPENDENCIES)} manually.`
+      )}. Install dependencies manually.`
     );
     return false;
   }
@@ -221,25 +268,49 @@ async function ensureDependenciesInstalled(targetRoot) {
       )
   );
 
-  if (missingDependencies.length === 0) {
+  const missingDevDependencies = REQUIRED_DEV_DEPENDENCIES.filter(
+    (dependency) =>
+      !(
+        (packageJson.dependencies &&
+          packageJson.dependencies[dependency.name]) ||
+        (packageJson.devDependencies &&
+          packageJson.devDependencies[dependency.name])
+      )
+  );
+
+  if (missingDependencies.length === 0 && missingDevDependencies.length === 0) {
     return false;
   }
 
   const packageManager = await detectPackageManager(packageJson, targetRoot);
 
-  if (!packageManager) {
-    console.warn(
-      `\nCould not determine package manager for ${path.relative(
-        process.cwd(),
-        targetRoot
-      )}. Install ${formatDependencySummary(missingDependencies)} manually.`
+  // Install regular dependencies
+  if (missingDependencies.length > 0) {
+    const dependencySummary = formatDependencySummary(missingDependencies);
+    console.log(`\nInstalling ${dependencySummary} using ${packageManager}...`);
+    await installDependencies(
+      packageManager,
+      targetRoot,
+      missingDependencies,
+      false
     );
-    return false;
   }
 
-  const dependencySummary = formatDependencySummary(missingDependencies);
-  console.log(`\nInstalling ${dependencySummary} using ${packageManager}...`);
-  await installDependencies(packageManager, targetRoot, missingDependencies);
+  // Install dev dependencies
+  if (missingDevDependencies.length > 0) {
+    const devDependencySummary = formatDependencySummary(
+      missingDevDependencies
+    );
+    console.log(
+      `\nInstalling dev dependencies ${devDependencySummary} using ${packageManager}...`
+    );
+    await installDependencies(
+      packageManager,
+      targetRoot,
+      missingDevDependencies,
+      true
+    );
+  }
 
   return true;
 }
@@ -271,16 +342,26 @@ async function detectPackageManager(packageJson, targetRoot) {
     }
   }
 
-  return null;
+  // Default to npm if no lock file is found
+  return "npm";
 }
 
-async function installDependencies(packageManager, cwd, dependencies) {
+async function installDependencies(
+  packageManager,
+  cwd,
+  dependencies,
+  isDev = false
+) {
   const dependencySpecs = dependencies.map((dependency) =>
     dependency.version
       ? `${dependency.name}@${dependency.version}`
       : dependency.name
   );
-  const { command, args } = getInstallCommand(packageManager, dependencySpecs);
+  const { command, args } = getInstallCommand(
+    packageManager,
+    dependencySpecs,
+    isDev
+  );
 
   if (!command) {
     throw new Error(`Unsupported package manager: ${packageManager}`);
@@ -306,18 +387,31 @@ async function installDependencies(packageManager, cwd, dependencies) {
   });
 }
 
-function getInstallCommand(packageManager, dependencySpecs) {
+function getInstallCommand(packageManager, dependencySpecs, isDev = false) {
   const normalized = normalizeCommand(packageManager);
+  const devFlag = isDev ? ["-D"] : [];
 
   switch (packageManager) {
     case "npm":
-      return { command: normalized, args: ["install", ...dependencySpecs] };
+      return {
+        command: normalized,
+        args: ["install", ...devFlag, ...dependencySpecs],
+      };
     case "pnpm":
-      return { command: normalized, args: ["add", ...dependencySpecs] };
+      return {
+        command: normalized,
+        args: ["add", ...devFlag, ...dependencySpecs],
+      };
     case "yarn":
-      return { command: normalized, args: ["add", ...dependencySpecs] };
+      return {
+        command: normalized,
+        args: ["add", ...devFlag, ...dependencySpecs],
+      };
     case "bun":
-      return { command: normalized, args: ["add", ...dependencySpecs] };
+      return {
+        command: normalized,
+        args: ["add", ...devFlag, ...dependencySpecs],
+      };
     default:
       return { command: null, args: [] };
   }
