@@ -2,15 +2,7 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
-    turbo: {
-      resolveAlias: {
-        '@/components/ui/cognite': './src/components/ui/draft',
-      },
-    },
-  },
-  output: 'export',
+  output: "export",
   basePath: process.env.PAGES_BASE_PATH,
   images: {
     unoptimized: true,
@@ -20,16 +12,19 @@ const nextConfig: NextConfig = {
     // Point to draft directory as fallback when cognite is empty
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@/components/ui/cognite': path.resolve(__dirname, './src/components/ui/draft'),
+      "@/components/ui/cognite": path.resolve(
+        __dirname,
+        "./src/components/ui/draft"
+      ),
     };
-    
+
     // Add both directories to resolve modules so webpack can find files in either location
     config.resolve.modules = [
-      path.resolve(__dirname, './src/components/ui/cognite'),
-      path.resolve(__dirname, './src/components/ui/draft'),
-      ...(config.resolve.modules || ['node_modules']),
+      path.resolve(__dirname, "./src/components/ui/cognite"),
+      path.resolve(__dirname, "./src/components/ui/draft"),
+      ...(config.resolve.modules || ["node_modules"]),
     ];
-    
+
     return config;
   },
 };

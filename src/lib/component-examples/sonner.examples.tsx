@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/cognite/button";
 import { toast } from "@/components/ui/cognite/sonner-toast";
 import type { ComponentExamples } from "./types";
