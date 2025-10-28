@@ -1,16 +1,30 @@
 import { Button } from "@/components/ui/cognite/button";
-import { Loader2, Mail } from "lucide-react";
+import { IconPlus, IconBookmark, IconTrash, IconExternalLink, IconLoader2, IconMail } from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
 function VariantsDemo() {
   return (
     <div className="flex flex-wrap gap-3">
-      <Button variant="default">Default</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="link">Link</Button>
+      <Button variant="default" size="icon">
+        <IconPlus />
+      </Button>
+      <Button variant="secondary" size="icon">
+        <IconBookmark />
+      </Button>
+      <Button variant="destructive" size="icon">
+        <IconTrash />
+      </Button>
+      <Button variant="default">
+        <IconPlus /> Add data
+      </Button>
+      <Button variant="secondary">
+        Explore more
+        <IconExternalLink />
+      </Button>
+      <Button variant="destructive">
+        <IconTrash />
+        Delete
+      </Button>
     </div>
   );
 }
@@ -22,7 +36,7 @@ function SizesDemo() {
       <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
       <Button size="icon">
-        <Mail className="h-4 w-4" />
+        <IconMail className="h-4 w-4" />
       </Button>
     </div>
   );
@@ -33,7 +47,7 @@ function StatesDemo() {
     <div className="flex flex-wrap gap-3">
       <Button disabled>Disabled</Button>
       <Button disabled>
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
         Loading...
       </Button>
     </div>
@@ -105,4 +119,3 @@ export function StatesDemo() {
 }`,
   },
 };
-

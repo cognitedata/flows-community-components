@@ -291,7 +291,7 @@ export default function GuidesPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold">Getting started</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Getting started</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Comprehensive guides to help designers and developers implement
               our design system effectively in their workflows and projects.
@@ -332,7 +332,7 @@ export default function GuidesPage() {
           {/* Steps */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">
+              <h2 className="text-2xl font-bold">
                 {activeGuide === "designer" ? "Designer" : "Developer"} guide
               </h2>
               <p className="text-muted-foreground">
@@ -354,7 +354,7 @@ export default function GuidesPage() {
           {/* Resources */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Resources & links</h2>
+              <h2 className="text-2xl font-bold">Resources & links</h2>
               <p className="text-muted-foreground">
                 Additional resources to help you work with our design system
               </p>
@@ -412,7 +412,7 @@ export default function GuidesPage() {
           {/* Team Collaboration */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Team collaboration</h2>
+              <h2 className="text-2xl font-bold">Team collaboration</h2>
               <p className="text-muted-foreground">
                 Best practices for design-development collaboration
               </p>

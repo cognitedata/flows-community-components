@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import { Separator } from "@/components/ui/cognite/separator";
 import Link from "next/link";
-import { ArrowLeft, Copy, ExternalLink } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { processMarkdownExamples } from "@/lib/markdown-processor";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -31,10 +32,13 @@ async function getComponentDoc(slug: string) {
     );
     const fileContent = await fs.readFile(filePath, "utf8");
     const { data, content } = matter(fileContent);
+    
+    // Process markdown to inject code examples
+    const processedContent = await processMarkdownExamples(content, slug);
 
     return {
       meta: data as ComponentMeta,
-      content,
+      content: processedContent,
     };
   } catch {
     return null;
@@ -112,7 +116,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <div className="space-y-4 mb-8">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-4xl font-bold">{doc.meta.component}</h1>
+              <h1 className="text-3xl font-bold">{doc.meta.component}</h1>
               <p className="text-xl text-muted-foreground mt-2">
                 {doc.meta.description}
               </p>
@@ -142,25 +146,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         {/* Content */}
         <div className="prose prose-gray dark:prose-invert max-w-none">
           <MDXRemote source={doc.content} components={mdxComponents} />
-        </div>
-
-        {/* Footer */}
-        <div className="border-t pt-8 mt-12">
-          <div className="flex items-center justify-between">
-            <div className="text-sm text-muted-foreground">
-              Found an issue with this documentation?{" "}
-              <Button variant="link" className="p-0 h-auto">
-                <ExternalLink className="h-3 w-3 mr-1" />
-                Edit on GitHub
-              </Button>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
-                <Copy className="h-4 w-4 mr-2" />
-                Copy import
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
