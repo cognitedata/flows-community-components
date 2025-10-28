@@ -79,3 +79,10 @@ export function DisabledDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const inputMeta = {
+  name: "Input",
+  description: "A styled input field component with built-in validation states and accessibility features.",
+  llmUsage: "When creating form inputs, use `<Input type='text' placeholder='Enter text' />` instead of `<input>`. Pair with `<Label>` for accessibility.",
+  importPath: "@/components/ui/cognite/input",
+};

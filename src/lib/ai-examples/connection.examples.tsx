@@ -33,3 +33,9 @@ export function BasicConnectionDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const connectionMeta = {
+  name: "Connection",
+  description: "A visual connector line for linking AI workflow nodes with customizable styling.",
+  importPath: "@/components/ai-elements/cognite/connection",
+};

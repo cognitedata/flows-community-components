@@ -28,3 +28,9 @@ export function BasicShimmerDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const shimmerMeta = {
+  name: "Shimmer",
+  description: "An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.",
+  importPath: "@/components/ai-elements/cognite/shimmer",
+};

@@ -123,3 +123,9 @@ export function CanvasWithNodesDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const canvasMeta = {
+  name: "Canvas",
+  description: "An interactive canvas for AI-generated visual content with zoom, pan, and editing capabilities.",
+  importPath: "@/components/ai-elements/cognite/canvas",
+};

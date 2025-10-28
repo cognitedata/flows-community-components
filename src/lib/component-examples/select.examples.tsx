@@ -65,3 +65,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const selectMeta = {
+  name: "Select",
+  description: "Displays a list of options for the user to pick from—triggered by a button.",
+  llmUsage: "When asked for a select dropdown, use `<Select>` for choosing from multiple options.",
+  importPath: "@/components/ui/cognite/select",
+};

@@ -31,3 +31,9 @@ export function BasicControlsDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const controlsMeta = {
+  name: "Controls",
+  description: "A toolbar providing controls for AI interactions like pause, resume, stop, and regenerate.",
+  importPath: "@/components/ai-elements/cognite/controls",
+};

@@ -22,3 +22,10 @@ export const swapSlotExamples: ComponentExamples = {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const swapSlotMeta = {
+  name: "Swap Slot",
+  description: "Custom component for swapping content slots (implementation pending).",
+  llmUsage: "Swap slot component is a custom component - implementation details coming soon.",
+  importPath: "@/components/ui/cognite/swap-slot",
+};

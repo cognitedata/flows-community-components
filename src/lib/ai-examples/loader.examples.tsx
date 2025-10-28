@@ -89,3 +89,9 @@ export function InlineLoaderDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const loaderMeta = {
+  name: "Loader",
+  description: "A spinning loader component for indicating loading states in AI applications.",
+  importPath: "@/components/ai-elements/cognite/loader",
+};

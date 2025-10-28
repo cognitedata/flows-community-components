@@ -89,3 +89,10 @@ export function VariantsDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const alertMeta = {
+  name: "Alert",
+  description: "Displays a callout for user attention with different severity levels.",
+  llmUsage: "When showing alerts or notifications, use `<Alert>` with `<AlertTitle>` and `<AlertDescription>` components.",
+  importPath: "@/components/ui/cognite/alert",
+};

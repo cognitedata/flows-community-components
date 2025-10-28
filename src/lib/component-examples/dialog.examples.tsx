@@ -127,3 +127,11 @@ export function BasicDemo() {
 }`,
   },
 };
+
+// Component metadata - single source of truth for API documentation
+export const dialogMeta = {
+  name: "Dialog",
+  description: "A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.",
+  llmUsage: "When asked for a dialog, use `<Dialog>` for modal windows, forms, and detailed content overlays.",
+  importPath: "@/components/ui/cognite/dialog",
+};

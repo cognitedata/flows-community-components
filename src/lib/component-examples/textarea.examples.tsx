@@ -65,3 +65,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const textareaMeta = {
+  name: "Textarea",
+  description: "Displays a form textarea or a component that looks like a textarea.",
+  llmUsage: "When asked for a textarea, use `<Textarea>` for multi-line text input and longer form content.",
+  importPath: "@/components/ui/cognite/textarea",
+};

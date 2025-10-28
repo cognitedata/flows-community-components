@@ -143,3 +143,9 @@ export function WithActionsDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const artifactMeta = {
+  name: "Artifact",
+  description: "A container for AI-generated content with header, actions, and tabbed content areas.",
+  importPath: "@/components/ai-elements/cognite/artifact",
+};

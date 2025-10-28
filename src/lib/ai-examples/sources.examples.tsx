@@ -71,3 +71,9 @@ export function CustomSourcesDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const sourcesMeta = {
+  name: "Sources",
+  description: "A component that allows a user to view the sources or citations used to generate a response.",
+  importPath: "@/components/ai-elements/cognite/sources",
+};

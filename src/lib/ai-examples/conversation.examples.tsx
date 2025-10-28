@@ -99,3 +99,9 @@ export function EmptyStateDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const conversationMeta = {
+  name: "Conversation",
+  description: "Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.",
+  importPath: "@/components/ai-elements/cognite/conversation",
+};

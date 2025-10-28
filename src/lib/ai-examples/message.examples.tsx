@@ -99,3 +99,9 @@ export function FlatVariantDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const messageMeta = {
+  name: "Message",
+  description: "Displays a chat interface message from either a user or an AI.",
+  importPath: "@/components/ai-elements/cognite/message",
+};

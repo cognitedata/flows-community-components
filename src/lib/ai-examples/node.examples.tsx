@@ -102,3 +102,9 @@ export function NodeWithFooterDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const nodeMeta = {
+  name: "Node",
+  description: "A draggable node component for AI workflow diagrams with input/output ports.",
+  importPath: "@/components/ai-elements/cognite/node",
+};
