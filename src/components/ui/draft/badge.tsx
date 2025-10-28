@@ -31,9 +31,35 @@ const badgeVariants = cva(
         archived:
           "border-transparent bg-undefined text-undefined-foreground",
       },
+      outline: {
+        true: "bg-transparent border-current",
+      },
     },
+    compoundVariants: [
+      {
+        variant: "fjord",
+        outline: true,
+        class: "text-fjord-700 dark:text-fjord-300 border-fjord-700 dark:border-fjord-300",
+      },
+      {
+        variant: "error",
+        outline: true,
+        class: "text-destructive border-destructive",
+      },
+      {
+        variant: "warning",
+        outline: true,
+        class: "text-warning border-warning",
+      },
+      {
+        variant: "success",
+        outline: true,
+        class: "text-success border-success",
+      },
+    ],
     defaultVariants: {
       variant: "default",
+      outline: false,
     },
   }
 );
@@ -41,6 +67,7 @@ const badgeVariants = cva(
 function Badge({
   className,
   variant,
+  outline,
   asChild = false,
   ...props
 }: React.ComponentProps<"span"> &
@@ -50,7 +77,7 @@ function Badge({
   return (
     <Comp
       data-slot="badge"
-      className={cn(badgeVariants({ variant }), className)}
+      className={cn(badgeVariants({ variant }), cn(outline && "bg-transparent border-current", className))}
       {...props}
     />
   );

@@ -21,7 +21,15 @@ function VariantsDemo() {
           <IconAlertHexagon />
           Error
         </Badge>
+        <Badge variant="error" outline>
+          <IconAlertHexagon />
+          Error
+        </Badge>
         <Badge variant="warning">
+          <IconAlertTriangle />
+          Warning
+        </Badge>
+        <Badge variant="warning" outline>
           <IconAlertTriangle />
           Warning
         </Badge>
