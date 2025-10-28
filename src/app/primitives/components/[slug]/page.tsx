@@ -170,7 +170,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           </Button>
           <Separator orientation="vertical" className="h-4" />
           <div className="flex items-center gap-2">
-            <Badge variant="outline">Component</Badge>
+            <Badge variant="secondary">Component</Badge>
             <span className="text-sm text-muted-foreground">
               {doc.meta.component}
             </span>

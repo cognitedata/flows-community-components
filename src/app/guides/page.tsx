@@ -169,7 +169,7 @@ function StepCard({ step, index }: { step: StepType; index: number }) {
             </div>
             <div className="text-left">
               <div className="mb-2">
-                <Badge variant="outline" className="text-xs">
+                <Badge variant="secondary" className="text-xs">
                   Step {index + 1}
                 </Badge>
               </div>

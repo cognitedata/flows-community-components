@@ -1634,7 +1634,7 @@ export default function ThemingPage() {
                               <div className="flex gap-2 flex-wrap">
                                 <Badge>Default</Badge>
                                 <Badge variant="secondary">Secondary</Badge>
-                                <Badge variant="outline">Outline</Badge>
+                                <Badge variant="secondary">Outline</Badge>
                                 <Badge variant="destructive">Destructive</Badge>
                               </div>
                             </div>
@@ -2221,7 +2221,7 @@ export default function ThemingPage() {
                                     </p>
                                   </div>
                                 </div>
-                                <Badge variant="outline">2m ago</Badge>
+                                <Badge variant="secondary">2m ago</Badge>
                               </div>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
@@ -2237,7 +2237,7 @@ export default function ThemingPage() {
                                     </p>
                                   </div>
                                 </div>
-                                <Badge variant="outline">5m ago</Badge>
+                                <Badge variant="secondary">5m ago</Badge>
                               </div>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
@@ -2253,7 +2253,7 @@ export default function ThemingPage() {
                                     </p>
                                   </div>
                                 </div>
-                                <Badge variant="outline">1h ago</Badge>
+                                <Badge variant="secondary">1h ago</Badge>
                               </div>
                             </div>
                           </CardContent>
