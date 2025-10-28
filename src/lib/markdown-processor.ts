@@ -13,6 +13,14 @@ export async function processMarkdownExamples(
 ): Promise<string> {
   let processedContent = markdownContent;
 
+  // Find all example placeholders before processing
+  const examplePlaceholderRegex = /<!-- example:(\w+) -->/g;
+  const foundPlaceholders = new Set<string>();
+  let match;
+  while ((match = examplePlaceholderRegex.exec(markdownContent)) !== null) {
+    foundPlaceholders.add(match[1]);
+  }
+
   // Dynamically import the examples module to get the code strings
   try {
     // Convert slug to camelCase for the export name (e.g., "alert-dialog" -> "alertDialog")
@@ -29,13 +37,30 @@ export async function processMarkdownExamples(
           const codeBlock = `\`\`\`tsx\n${example.code}\n\`\`\``;
           
           processedContent = processedContent.replace(placeholder, codeBlock);
+          foundPlaceholders.delete(exampleId);
         }
       }
     }
   } catch (error) {
-    // If the examples file doesn't exist or can't be imported, just return the original content
+    // If the examples file doesn't exist or can't be imported, log a warning
     console.warn(`Could not load examples for ${componentSlug}:`, error);
   }
+
+  // Check for any unprocessed example placeholders and replace with error messages
+  if (foundPlaceholders.size > 0) {
+    console.error(
+      `⚠️  Missing examples for ${componentSlug}: ${Array.from(foundPlaceholders).join(', ')}`
+    );
+    
+    for (const missingExample of foundPlaceholders) {
+      const placeholder = `<!-- example:${missingExample} -->`;
+      const errorMessage = `\n> **⚠️ Example Missing**: The example \`${missingExample}\` could not be found for the \`${componentSlug}\` component. Please check that \`src/lib/component-examples/${componentSlug}.examples.tsx\` exports this example.\n`;
+      processedContent = processedContent.replace(placeholder, errorMessage);
+    }
+  }
+
+  // Remove any other HTML comments (non-example ones) to prevent MDX parsing errors
+  processedContent = processedContent.replace(/<!--(?! example:)[\s\S]*?-->/g, '');
 
   return processedContent;
 }
