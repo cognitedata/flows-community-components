@@ -77,7 +77,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               </Button>
               <Separator orientation="vertical" className="h-4" />
               <div className="flex items-center gap-2">
-                <Badge variant="outline">AI Element</Badge>
+                <Badge variant="default" outline>AI Element</Badge>
                 <span className="text-sm text-muted-foreground">
                   {componentName}
                 </span>

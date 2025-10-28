@@ -528,7 +528,7 @@ export default function ThemingPage() {
 
   // Switch theme when dark mode toggles - preserve user colors
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setTheme((currentTheme) => ({
       ...currentTheme,
       // Only update system colors, preserve user's primary/secondary/accent
@@ -1635,8 +1635,8 @@ export default function ThemingPage() {
                               <div className="flex gap-2 flex-wrap">
                                 <Badge>Default</Badge>
                                 <Badge variant="secondary">Secondary</Badge>
-                                <Badge variant="secondary">Outline</Badge>
-                                <Badge variant="destructive">Destructive</Badge>
+                                <Badge variant="default" outline>Outline</Badge>
+                                <Badge variant="error">Destructive</Badge>
                               </div>
                             </div>
 
@@ -1952,7 +1952,8 @@ export default function ThemingPage() {
                             </p>
                             <div className="mt-2">
                               <Badge
-                                variant="outline"
+                                variant="default"
+                                outline
                                 className="text-green-600 border-green-600"
                               >
                                 +20.1%

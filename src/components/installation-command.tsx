@@ -26,7 +26,7 @@ export function InstallationCommand({ component, dependencies = [], componentCod
 
   // Prevent hydration mismatch
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setMounted(true);
   }, []);
 
