@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
-import { Separator } from "@/components/ui/cognite/separator";
 import Link from "next/link";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
@@ -75,13 +74,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   Back to AI Elements
                 </Link>
               </Button>
-              <Separator orientation="vertical" className="h-4" />
-              <div className="flex items-center gap-2">
-                <Badge variant="default" outline>AI Element</Badge>
-                <span className="text-sm text-muted-foreground">
-                  {componentName}
-                </span>
-              </div>
             </div>
 
             {/* Header */}
@@ -90,6 +82,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <h1 className="text-3xl font-bold">{componentName}</h1>
+                    <Badge variant="default" outline>AI Element</Badge>
                     {componentStatus === "production" && (
                       <Badge
                         variant="default"
