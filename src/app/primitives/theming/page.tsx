@@ -528,7 +528,7 @@ export default function ThemingPage() {
 
   // Switch theme when dark mode toggles - preserve user colors
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
     setTheme((currentTheme) => ({
       ...currentTheme,
       // Only update system colors, preserve user's primary/secondary/accent

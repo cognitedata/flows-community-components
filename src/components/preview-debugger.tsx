@@ -49,7 +49,7 @@ export function PreviewDebugger({
   // Analyze the code for common issues and patterns
   useEffect(() => {
     if (!code.trim()) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+       
       setAnalysis(null);
       return;
     }
