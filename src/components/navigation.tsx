@@ -19,6 +19,7 @@ import auraLogo from "@/../public/aura-logo.png";
 const navItems = [
   { href: "/overview", label: "Overview" },
   { href: "/primitives", label: "Primitives" },
+  { href: "/ai", label: "AI" },
   { href: "/blocks", label: "Blocks" },
   { href: "/eos", label: "Templates" },
 ];

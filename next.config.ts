@@ -16,12 +16,18 @@ const nextConfig: NextConfig = {
         __dirname,
         "./src/components/ui/draft"
       ),
+      "@/components/ai-elements/cognite": path.resolve(
+        __dirname,
+        "./src/components/ai-elements/draft"
+      ),
     };
 
     // Add both directories to resolve modules so webpack can find files in either location
     config.resolve.modules = [
       path.resolve(__dirname, "./src/components/ui/cognite"),
       path.resolve(__dirname, "./src/components/ui/draft"),
+      path.resolve(__dirname, "./src/components/ai-elements/cognite"),
+      path.resolve(__dirname, "./src/components/ai-elements/draft"),
       ...(config.resolve.modules || ["node_modules"]),
     ];
 
