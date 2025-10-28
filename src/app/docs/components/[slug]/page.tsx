@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/cognite/badge";
 import { Separator } from "@/components/ui/cognite/separator";
 import Link from "next/link";
 import { ArrowLeft, Copy, ExternalLink } from "lucide-react";
+import { processMarkdownExamples } from "@/lib/markdown-processor";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -31,10 +32,13 @@ async function getComponentDoc(slug: string) {
     );
     const fileContent = await fs.readFile(filePath, "utf8");
     const { data, content } = matter(fileContent);
+    
+    // Process markdown to inject code examples
+    const processedContent = await processMarkdownExamples(content, slug);
 
     return {
       meta: data as ComponentMeta,
-      content,
+      content: processedContent,
     };
   } catch {
     return null;
