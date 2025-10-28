@@ -223,7 +223,7 @@ export default function InstallationPage() {
             <h2 className="text-3xl font-bold">Next Steps</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <Card className="hover:shadow-lg transition-shadow">
-                <Link href="/docs/components/button">
+                <Link href="/primitives/components/button">
                   <CardHeader>
                     <CardTitle>Explore Components</CardTitle>
                     <CardDescription>

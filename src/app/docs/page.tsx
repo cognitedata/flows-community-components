@@ -23,37 +23,37 @@ const componentCategories = [
     components: [
       {
         name: "Button",
-        path: "/docs/components/button",
+        path: "/primitives/components/button",
         description: "Interactive button component",
       },
       {
         name: "Input",
-        path: "/docs/components/input",
+        path: "/primitives/components/input",
         description: "Text input field",
       },
       {
         name: "Label",
-        path: "/docs/components/label",
+        path: "/primitives/components/label",
         description: "Form field labels",
       },
       {
         name: "Textarea",
-        path: "/docs/components/textarea",
+        path: "/primitives/components/textarea",
         description: "Multi-line text input",
       },
       {
         name: "Checkbox",
-        path: "/docs/components/checkbox",
+        path: "/primitives/components/checkbox",
         description: "Checkbox input",
       },
       {
         name: "Switch",
-        path: "/docs/components/switch",
+        path: "/primitives/components/switch",
         description: "Toggle switch",
       },
       {
         name: "Select",
-        path: "/docs/components/select",
+        path: "/primitives/components/select",
         description: "Dropdown selection",
       },
     ],
@@ -65,22 +65,22 @@ const componentCategories = [
     components: [
       {
         name: "Card",
-        path: "/docs/components/card",
+        path: "/primitives/components/card",
         description: "Content container",
       },
       {
         name: "Separator",
-        path: "/docs/components/separator",
+        path: "/primitives/components/separator",
         description: "Visual divider",
       },
       {
         name: "Tabs",
-        path: "/docs/components/tabs",
+        path: "/primitives/components/tabs",
         description: "Tabbed interface",
       },
       {
         name: "Accordion",
-        path: "/docs/components/accordion",
+        path: "/primitives/components/accordion",
         description: "Collapsible panels",
       },
     ],
@@ -92,22 +92,22 @@ const componentCategories = [
     components: [
       {
         name: "Badge",
-        path: "/docs/components/badge",
+        path: "/primitives/components/badge",
         description: "Status indicator",
       },
       {
         name: "Progress",
-        path: "/docs/components/progress",
+        path: "/primitives/components/progress",
         description: "Progress bar",
       },
       {
         name: "Skeleton",
-        path: "/docs/components/skeleton",
+        path: "/primitives/components/skeleton",
         description: "Loading placeholder",
       },
       {
         name: "Sonner",
-        path: "/docs/components/sonner",
+        path: "/primitives/components/sonner",
         description: "Toast notifications",
       },
     ],
@@ -119,27 +119,27 @@ const componentCategories = [
     components: [
       {
         name: "Dialog",
-        path: "/docs/components/dialog",
+        path: "/primitives/components/dialog",
         description: "Modal dialog",
       },
       {
         name: "Alert Dialog",
-        path: "/docs/components/alert-dialog",
+        path: "/primitives/components/alert-dialog",
         description: "Confirmation dialog",
       },
       {
         name: "Popover",
-        path: "/docs/components/popover",
+        path: "/primitives/components/popover",
         description: "Floating content",
       },
       {
         name: "Tooltip",
-        path: "/docs/components/tooltip",
+        path: "/primitives/components/tooltip",
         description: "Contextual information",
       },
       {
         name: "Sheet",
-        path: "/docs/components/sheet",
+        path: "/primitives/components/sheet",
         description: "Slide-out panel",
       },
     ],
