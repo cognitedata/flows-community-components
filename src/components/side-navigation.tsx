@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { ChevronRight } from "lucide-react"
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { ChevronRight } from "lucide-react";
 
 interface NavigationItem {
-  href: string
-  label: string
-  isSubsection?: boolean
-  children?: NavigationItem[]
+  href: string;
+  label: string;
+  isSubsection?: boolean;
+  children?: NavigationItem[];
 }
 
 interface SideNavigationProps {
-  items: NavigationItem[]
-  className?: string
+  items: NavigationItem[];
+  className?: string;
 }
 
 const docsNavigation: NavigationItem[] = [
@@ -67,12 +67,12 @@ const docsNavigation: NavigationItem[] = [
       { href: "/docs/components/toggle", label: "Toggle" },
       { href: "/docs/components/tooltip", label: "Tooltip" },
       { href: "/docs/components/topbar", label: "Topbar" },
-    ]
-  }
-]
+    ],
+  },
+];
 
 // Keep for backward compatibility during migration
-const overviewNavigation: NavigationItem[] = docsNavigation
+const overviewNavigation: NavigationItem[] = docsNavigation;
 
 const primitivesNavigation: NavigationItem[] = [
   {
@@ -86,7 +86,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/layouts", label: "Layouts" },
       { href: "/primitives/motion-design", label: "Motion design" },
       { href: "/primitives/theming", label: "Theming" },
-    ]
+    ],
   },
   {
     href: "#",
@@ -132,9 +132,9 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/components/toggle", label: "Toggle" },
       { href: "/primitives/components/tooltip", label: "Tooltip" },
       { href: "/primitives/components/topbar", label: "Topbar" },
-    ]
-  }
-]
+    ],
+  },
+];
 
 const blocksNavigation: NavigationItem[] = [
   { href: "/blocks", label: "About" },
@@ -144,17 +144,15 @@ const blocksNavigation: NavigationItem[] = [
     isSubsection: true,
     children: [
       { href: "/blocks/agent-chat", label: "Agent chat" },
-      { href: "/blocks/canvas", label: "Canvas" },
-      { href: "/blocks/commenting", label: "Commenting" },
       { href: "/blocks/dashboards", label: "Dashboards" },
-      { href: "/blocks/shift-handover", label: "Shift handover" },
-    ]
-  }
-]
+      { href: "/eos/shift-handover-app", label: "Shift handover" },
+    ],
+  },
+];
 
 const sandboxNavigation: NavigationItem[] = [
   // To be populated later
-]
+];
 
 export const navigationMap = {
   docs: docsNavigation,
@@ -162,11 +160,17 @@ export const navigationMap = {
   primitives: primitivesNavigation,
   blocks: blocksNavigation,
   sandbox: sandboxNavigation,
-}
+};
 
-function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: number }) {
-  const pathname = usePathname()
-  const [isOpen, setIsOpen] = React.useState(true)
+function NavigationGroup({
+  item,
+  level = 0,
+}: {
+  item: NavigationItem;
+  level?: number;
+}) {
+  const pathname = usePathname();
+  const [isOpen, setIsOpen] = React.useState(true);
 
   if (item.isSubsection) {
     return (
@@ -176,11 +180,11 @@ function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: nu
           className="flex items-center justify-between w-full text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-1.5 pr-1.5 hover:text-foreground transition-colors"
         >
           {item.label}
-          <ChevronRight 
+          <ChevronRight
             className={cn(
-              "h-3 w-3 transition-transform", 
+              "h-3 w-3 transition-transform",
               isOpen && "rotate-90"
-            )} 
+            )}
           />
         </button>
         {isOpen && item.children && (
@@ -191,10 +195,10 @@ function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: nu
           </ul>
         )}
       </li>
-    )
+    );
   }
 
-  const isActive = pathname === item.href
+  const isActive = pathname === item.href;
 
   return (
     <li>
@@ -211,7 +215,7 @@ function NavigationGroup({ item, level = 0 }: { item: NavigationItem; level?: nu
         {item.label}
       </Link>
     </li>
-  )
+  );
 }
 
 export function SideNavigation({ items, className }: SideNavigationProps) {
@@ -223,9 +227,9 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
         ))}
       </ul>
     </nav>
-  )
+  );
 }
 
 export function getSideNavigationForSection(section: string): NavigationItem[] {
-  return navigationMap[section as keyof typeof navigationMap] || []
+  return navigationMap[section as keyof typeof navigationMap] || [];
 }

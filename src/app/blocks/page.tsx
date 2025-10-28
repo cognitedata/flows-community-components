@@ -7,15 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/cognite/card";
 import { Badge } from "@/components/ui/cognite/badge";
-import {
-  MessageSquare,
-  BarChart3,
-  Users,
-  Palette,
-  MessageCircle,
-  ArrowRight,
-  Sparkles,
-} from "lucide-react";
+import { MessageSquare, BarChart3, Users, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const blockCategories = [
@@ -31,29 +23,6 @@ const blockCategories = [
       "AI responses",
       "Code highlighting",
     ],
-    status: "Interactive",
-  },
-  {
-    icon: Palette,
-    title: "Canvas",
-    description:
-      "Creative workspace blocks with drawing tools, collaborative editing, and real-time sync.",
-    href: "/blocks/canvas",
-    features: [
-      "Drawing tools",
-      "Collaborative editing",
-      "Shape library",
-      "Export options",
-    ],
-    status: "Interactive",
-  },
-  {
-    icon: MessageCircle,
-    title: "Commenting",
-    description:
-      "Rich commenting and annotation blocks with threaded discussions and mentions.",
-    href: "/blocks/commenting",
-    features: ["Threaded replies", "Mentions", "Rich text", "Reactions"],
     status: "Interactive",
   },
   {
@@ -75,7 +44,7 @@ const blockCategories = [
     title: "Shift handover",
     description:
       "Collaborative workflow blocks for team transitions and task management.",
-    href: "/blocks/shift-handover",
+    href: "/eos/shift-handover-app",
     features: [
       "Task lists",
       "Team updates",
@@ -168,32 +137,6 @@ export default function BlocksPage() {
               </CardContent>
             </Card>
           ))}
-        </div>
-      </div>
-
-      {/* Bottom Section */}
-      <div className="bg-linear-to-r from-primary/5 to-primary/10 border rounded-lg p-6">
-        <div className="text-center space-y-4">
-          <h2 className="text-2xl font-bold">
-            Building interactive experiences
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            These components showcase advanced interaction patterns, smooth
-            animations, and real-time functionality. Each example demonstrates
-            best practices for motion design, state management, and user
-            experience.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild>
-              <Link href="/sandbox">
-                Build your own
-                <Sparkles className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/primitives">View components</Link>
-            </Button>
-          </div>
         </div>
       </div>
     </div>
