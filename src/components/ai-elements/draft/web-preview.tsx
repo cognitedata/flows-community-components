@@ -5,7 +5,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from "@/components/ui/cognite/collapsible";
 import { Input } from "@/components/ui/cognite/input";
 import {
   Tooltip,
