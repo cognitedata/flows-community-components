@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  "inline-flex items-center justify-center rounded-md border px-2.5 py-0.5 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3.5 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {
@@ -35,28 +35,7 @@ const badgeVariants = cva(
         true: "bg-transparent border-current",
       },
     },
-    compoundVariants: [
-      {
-        variant: "fjord",
-        outline: true,
-        class: "text-fjord-700 dark:text-fjord-300 border-fjord-700 dark:border-fjord-300",
-      },
-      {
-        variant: "error",
-        outline: true,
-        class: "text-destructive border-destructive",
-      },
-      {
-        variant: "warning",
-        outline: true,
-        class: "text-warning border-warning",
-      },
-      {
-        variant: "success",
-        outline: true,
-        class: "text-success border-success",
-      },
-    ],
+    
     defaultVariants: {
       variant: "default",
       outline: false,
