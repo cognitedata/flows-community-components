@@ -5,13 +5,13 @@ import type { ComponentExamples } from "./types";
 function VariantsDemo() {
   return (
     <div className="flex flex-wrap gap-3">
-      <Button variant="default" size="icon">
+      <Button variant="default" size="icon-sm">
         <IconPlus />
       </Button>
-      <Button variant="secondary" size="icon">
+      <Button variant="secondary" size="icon-sm">
         <IconBookmark />
       </Button>
-      <Button variant="destructive" size="icon">
+      <Button variant="destructive" size="icon-sm">
         <IconTrash />
       </Button>
       <Button variant="default">
