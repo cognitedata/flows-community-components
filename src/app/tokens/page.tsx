@@ -119,7 +119,7 @@ export default function TokensPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold">Design tokens</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Design tokens</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               The foundational elements of our design system. Colors,
               typography, and spacing tokens ensure consistency across all
@@ -134,7 +134,7 @@ export default function TokensPage() {
           {/* Color Tokens */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Color palette</h2>
+              <h2 className="text-2xl font-bold">Color palette</h2>
               <p className="text-muted-foreground">
                 Our carefully crafted color system supports both light and dark
                 themes
@@ -184,7 +184,7 @@ export default function TokensPage() {
           {/* Typography */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Typography scale</h2>
+              <h2 className="text-2xl font-bold">Typography scale</h2>
               <p className="text-muted-foreground">
                 A harmonious type scale that ensures readable and accessible
                 content
@@ -235,7 +235,7 @@ export default function TokensPage() {
           {/* Spacing */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Spacing system</h2>
+              <h2 className="text-2xl font-bold">Spacing system</h2>
               <p className="text-muted-foreground">
                 Consistent spacing creates rhythm and hierarchy in layouts
               </p>
@@ -275,7 +275,7 @@ export default function TokensPage() {
           {/* Asset Library */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Asset library</h2>
+              <h2 className="text-2xl font-bold">Asset library</h2>
               <p className="text-muted-foreground">
                 Download design assets and implementation files
               </p>

@@ -170,7 +170,7 @@ export function SwitchDemo() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-4xl md:text-6xl font-bold">UI primitives</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">UI primitives</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Core building blocks of our design system. These components are
               the foundation for creating consistent and accessible user
@@ -181,7 +181,7 @@ export function SwitchDemo() {
           {/* Component Categories */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Form controls</h2>
+              <h2 className="text-2xl font-bold">Form controls</h2>
               <p className="text-muted-foreground">
                 Interactive elements for user input and data collection
               </p>
@@ -241,7 +241,7 @@ export function SwitchDemo() {
           {/* Layout Components */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Layout components</h2>
+              <h2 className="text-2xl font-bold">Layout components</h2>
               <p className="text-muted-foreground">
                 Structural components for organizing content and creating
                 layouts
@@ -275,7 +275,7 @@ export function SwitchDemo() {
           {/* Button Variations */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Button variations</h2>
+              <h2 className="text-2xl font-bold">Button variations</h2>
               <p className="text-muted-foreground">
                 Different button styles for various use cases and hierarchies
               </p>
@@ -323,7 +323,7 @@ export function SwitchDemo() {
           {/* Usage Guidelines */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Usage guidelines</h2>
+              <h2 className="text-2xl font-bold">Usage guidelines</h2>
               <p className="text-muted-foreground">
                 Best practices for implementing and customizing components
               </p>
@@ -401,7 +401,7 @@ export function SwitchDemo() {
           {/* Installation */}
           <section className="space-y-8">
             <div className="text-center space-y-2">
-              <h2 className="text-3xl font-bold">Installation & usage</h2>
+              <h2 className="text-2xl font-bold">Installation & usage</h2>
               <p className="text-muted-foreground">
                 Quick start guide for using these components in your project
               </p>
