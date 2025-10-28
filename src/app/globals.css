@@ -161,7 +161,6 @@
   --color-mountain-800: var(--mountain-800);
   --color-mountain-900: var(--mountain-900);
   --color-mountain-950: var(--mountain-950);
-  
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -238,20 +237,20 @@
   --aurora-950: rgb(14, 20, 2);
 
   /* Dusk */
-  --dusk-50: rgb(253, 238, 244);
-  --dusk-100: rgb(251, 222, 234);
-  --dusk-200: rgb(249, 202, 220);
-  --dusk-300: rgb(245, 169, 199);
-  --dusk-400: rgb(242, 138, 180);
-  --dusk-450: rgb(237, 97, 153);
-  --dusk-500: rgb(234, 68, 134);
-  --dusk-550: rgb(226, 25, 105);
-  --dusk-600: rgb(196, 22, 91);
-  --dusk-650: rgb(172, 19, 80);
-  --dusk-700: rgb(136, 15, 63);
-  --dusk-800: rgb(98, 11, 45);
-  --dusk-900: rgb(74, 8, 34);
-  --dusk-950: rgb(40, 5, 19);
+  --dusk-50: rgb(248, 239, 249);
+  --dusk-100: rgb(241, 225, 243);
+  --dusk-200: rgb(232, 206, 236);
+  --dusk-300: rgb(219, 177, 225);
+  --dusk-400: rgb(207, 151, 215);
+  --dusk-450: rgb(192, 120, 203);
+  --dusk-500: rgb(183, 101, 196);
+  --dusk-550: rgb(173, 78, 187);
+  --dusk-600: rgb(153, 64, 166);
+  --dusk-650: rgb(133, 55, 144);
+  --dusk-700: rgb(104, 44, 113);
+  --dusk-800: rgb(55, 23, 60);
+  --dusk-900: rgb(55, 23, 60);
+  --dusk-950: rgb(28, 12, 31);
 
   /* Red */
   --red-50: rgb(254, 238, 241);
