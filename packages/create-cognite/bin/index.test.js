@@ -135,7 +135,7 @@ describe("CLI Command Tests", () => {
       ]);
     });
 
-    it("should add --no-rolldown and --no-install flags by default", () => {
+    it("should add --no-rolldown and --immediate false flags by default", () => {
       const args = ["my-project"];
       let projectDir;
       let additionalArgs = [];
@@ -164,11 +164,11 @@ describe("CLI Command Tests", () => {
       }
 
       // Skip install and start prompts - we'll install our own dependencies
-      const hasNoInstallFlag = additionalArgs.some(
-        (arg) => arg === "--no-install" || arg === "--install"
+      const hasImmediateFlag = additionalArgs.some(
+        (arg) => arg === "--immediate"
       );
-      if (!hasNoInstallFlag) {
-        additionalArgs.push("--no-install");
+      if (!hasImmediateFlag) {
+        additionalArgs.push("--immediate", "false");
       }
 
       const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
@@ -178,7 +178,8 @@ describe("CLI Command Tests", () => {
         "--template",
         "react-ts",
         "--no-rolldown",
-        "--no-install",
+        "--immediate",
+        "false",
       ]);
       expect(createArgs).toEqual([
         "create-vite@latest",
@@ -186,7 +187,8 @@ describe("CLI Command Tests", () => {
         "--template",
         "react-ts",
         "--no-rolldown",
-        "--no-install",
+        "--immediate",
+        "false",
       ]);
     });
 
@@ -219,11 +221,11 @@ describe("CLI Command Tests", () => {
       }
 
       // Skip install and start prompts
-      const hasNoInstallFlag = additionalArgs.some(
-        (arg) => arg === "--no-install" || arg === "--install"
+      const hasImmediateFlag = additionalArgs.some(
+        (arg) => arg === "--immediate"
       );
-      if (!hasNoInstallFlag) {
-        additionalArgs.push("--no-install");
+      if (!hasImmediateFlag) {
+        additionalArgs.push("--immediate", "false");
       }
 
       const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
@@ -233,7 +235,8 @@ describe("CLI Command Tests", () => {
         "--rolldown",
         "--template",
         "react-ts",
-        "--no-install",
+        "--immediate",
+        "false",
       ]);
       expect(createArgs).toEqual([
         "create-vite@latest",
@@ -241,7 +244,8 @@ describe("CLI Command Tests", () => {
         "--rolldown",
         "--template",
         "react-ts",
-        "--no-install",
+        "--immediate",
+        "false",
       ]);
     });
 
@@ -274,11 +278,11 @@ describe("CLI Command Tests", () => {
       }
 
       // Skip install and start prompts
-      const hasNoInstallFlag = additionalArgs.some(
-        (arg) => arg === "--no-install" || arg === "--install"
+      const hasImmediateFlag = additionalArgs.some(
+        (arg) => arg === "--immediate"
       );
-      if (!hasNoInstallFlag) {
-        additionalArgs.push("--no-install");
+      if (!hasImmediateFlag) {
+        additionalArgs.push("--immediate", "false");
       }
 
       const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
@@ -288,7 +292,8 @@ describe("CLI Command Tests", () => {
         "--no-rolldown",
         "--template",
         "react-ts",
-        "--no-install",
+        "--immediate",
+        "false",
       ]);
       expect(createArgs).toEqual([
         "create-vite@latest",
@@ -296,7 +301,8 @@ describe("CLI Command Tests", () => {
         "--no-rolldown",
         "--template",
         "react-ts",
-        "--no-install",
+        "--immediate",
+        "false",
       ]);
     });
 

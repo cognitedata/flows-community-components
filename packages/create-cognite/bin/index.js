@@ -79,14 +79,14 @@ async function main() {
   }
 
   // Skip install and start prompts - we'll install our own dependencies
-  const hasNoInstallFlag = additionalArgs.some(
-    (arg) => arg === "--no-install" || arg === "--install"
-  );
-  if (!hasNoInstallFlag) {
-    additionalArgs.push("--no-install");
+  const hasImmediateFlag = additionalArgs.some((arg) => arg === "--immediate");
+  if (!hasImmediateFlag) {
+    additionalArgs.push("--immediate", "false");
   }
 
   const createArgs = ["create-vite@latest", projectDir, ...additionalArgs];
+  console.log("\n🔍 Running create-vite with args:", createArgs.join(" "));
+  console.log("📋 Full command: npx", createArgs.join(" "), "\n");
   await runCreateVite(createArgs);
   await cleanupViteDefaults(projectDir);
   await addCogniteTemplates(projectDir);
