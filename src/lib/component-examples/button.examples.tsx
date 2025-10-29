@@ -37,92 +37,148 @@ function VariantsDemo() {
 }
 
 function MainComponentDemo() {
-  return ( <div className="flex flex-wrap items-center gap-3 flex-col">
-    <div className="flex flex-wrap items-center gap-3">
-      <Button size="default">Button</Button>
-      <Button size="default">
+  return (
+    <div className="flex flex-wrap items-center gap-3 flex-col">
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default">
+          <IconPlus />
+        </Button>
+        <Button size="sm">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm">
+          <IconPlus />
+        </Button>
+        <Button size="lg">
+          {" "}
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg">
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"secondary"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"secondary"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"secondary"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"secondary"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"secondary"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"secondary"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"outline"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"outline"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"outline"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"outline"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"outline"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"outline"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"ghost"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"ghost"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"ghost"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"ghost"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"ghost"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"ghost"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"destructive"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"destructive"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"destructive"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"destructive"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"destructive"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"destructive"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"link"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"link"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"link"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"link"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"link"}>
         <IconPlus />
-      </Button>
-      <Button size="sm">Button</Button>
-      <Button size="sm">
-        <IconPlus />
-      </Button>
-      <Button size="lg">Button</Button>
-      <Button size="lg">
-        <IconPlus />
-      </Button>
+          Button
+        </Button>
+        <Button size="lg" variant={"link"}>
+          <IconPlus />
+        </Button>
+      </div>
     </div>
-    <div className="flex flex-wrap items-center gap-3">
-    <Button size="default" variant={"secondary"}>Button</Button>
-    <Button size="default" variant={"secondary"}>
-      <IconPlus />
-    </Button>
-    <Button size="sm" variant={"secondary"}>Button</Button>
-    <Button size="sm" variant={"secondary"}>
-      <IconPlus />
-    </Button>
-    <Button size="lg" variant={"secondary"}>Button</Button>
-    <Button size="lg" variant={"secondary"}>
-      <IconPlus />
-    </Button>
-  </div>
-  <div className="flex flex-wrap items-center gap-3">
-    <Button size="default" variant={"outline"}>Button</Button>
-    <Button size="default" variant={"outline"}>
-      <IconPlus />
-    </Button>
-    <Button size="sm" variant={"outline"}>Button</Button>
-    <Button size="sm" variant={"outline"}>
-      <IconPlus />
-    </Button>
-    <Button size="lg" variant={"outline"}>Button</Button>
-    <Button size="lg" variant={"outline"}>
-      <IconPlus />
-    </Button>
-  </div>
-  <div className="flex flex-wrap items-center gap-3">
-    <Button size="default" variant={"ghost"}>Button</Button>
-    <Button size="default" variant={"ghost"}>
-      <IconPlus />
-    </Button>
-    <Button size="sm" variant={"ghost"}>Button</Button>
-    <Button size="sm" variant={"ghost"}>
-      <IconPlus />
-    </Button>
-    <Button size="lg" variant={"ghost"}>Button</Button>
-    <Button size="lg" variant={"ghost"}>
-      <IconPlus />
-    </Button>
-  </div>
-  <div className="flex flex-wrap items-center gap-3">
-    <Button size="default" variant={"destructive"}>Button</Button>
-    <Button size="default" variant={"destructive"}>
-      <IconPlus />
-    </Button>
-    <Button size="sm" variant={"destructive"}>Button</Button>
-    <Button size="sm" variant={"destructive"}>
-      <IconPlus />
-    </Button>
-    <Button size="lg" variant={"destructive"}>Button</Button>
-    <Button size="lg" variant={"destructive"}>
-      <IconPlus />
-    </Button>
-  </div>
-  <div className="flex flex-wrap items-center gap-3">
-    <Button size="default" variant={"link"}>Button</Button>
-    <Button size="default" variant={"link"}>
-      <IconPlus />
-    </Button>
-    <Button size="sm" variant={"link"}>Button</Button>
-    <Button size="sm" variant={"link"}>
-      <IconPlus />
-    </Button>
-    <Button size="lg" variant={"link"}>Button</Button>
-    <Button size="lg" variant={"link"}>
-      <IconPlus />
-    </Button>
-  </div>
-  </div>
   );
 }
 
