@@ -6,7 +6,7 @@ import {
   ReasoningTrigger,
 } from "@/components/ai-elements/cognite/reasoning";
 import type { ComponentExamples } from "@/lib/component-examples/types";
-import { useCallback, useEffect, useState } from "react";
+import { startTransition, useCallback, useEffect, useState } from "react";
 
 const reasoningSteps = [
   "Let me think about this problem step by step.",
@@ -46,16 +46,20 @@ function StreamingReasoningDemo() {
 
   useEffect(() => {
     const tokenizedSteps = chunkIntoTokens(reasoningSteps);
-    setTokens(tokenizedSteps);
-    setContent("");
-    setCurrentTokenIndex(0);
-    setIsStreaming(true);
+    startTransition(() => {
+      setTokens(tokenizedSteps);
+      setContent("");
+      setCurrentTokenIndex(0);
+      setIsStreaming(true);
+    });
   }, [chunkIntoTokens]);
 
   useEffect(() => {
     if (!isStreaming || currentTokenIndex >= tokens.length) {
       if (isStreaming) {
-        setIsStreaming(false);
+        startTransition(() => {
+          setIsStreaming(false);
+        });
       }
       return;
     }
