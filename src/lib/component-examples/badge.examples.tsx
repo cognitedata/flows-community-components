@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/draft/badge";
+import { Badge } from "@/components/ui/cognite/badge";
 import type { ComponentExamples } from "./types";
 import {
   IconAlertHexagon,
@@ -30,7 +30,7 @@ function VariantsDemo() {
           <IconAlertHexagon />
           Error
         </Badge>
-        <Badge variant="error" outline >
+        <Badge variant="error" outline>
           <IconAlertHexagon />
           Error
         </Badge>
@@ -66,6 +66,14 @@ export const badgeExamples: ComponentExamples = {
     component: VariantsDemo,
     difficulty: "beginner",
     code: `import { Badge } from "@/components/ui/cognite/badge"
+import {
+  IconAlertHexagon,
+  IconAlertTriangle,
+  IconArchive,
+  IconCircleCheck,
+  IconHexagon,
+  IconInnerShadowTopLeft,
+} from "@tabler/icons-react"
 
 export function VariantsDemo() {
   return (
@@ -100,15 +108,15 @@ export function VariantsDemo() {
           <IconAlertTriangle />
           Warning
         </Badge>
-        <Badge variant="success">
+        <Badge variant="success" background={false}>
           <IconCircleCheck />
           Success
         </Badge>
-        <Badge variant="inProgress">
+        <Badge variant="inProgress" background={false}>
           <IconInnerShadowTopLeft />
           In progress
         </Badge>
-        <Badge variant="archived">
+        <Badge variant="archived" background={false}>
           <IconArchive />
           Archived
         </Badge>
