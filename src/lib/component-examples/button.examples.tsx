@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/cognite/button";
-import { IconPlus, IconBookmark, IconTrash, IconExternalLink, IconLoader2, IconMail } from "@tabler/icons-react";
+import {
+  IconPlus,
+  IconBookmark,
+  IconTrash,
+  IconExternalLink,
+  IconLoader2,
+  IconMail,
+} from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
 function VariantsDemo() {
@@ -29,16 +36,93 @@ function VariantsDemo() {
   );
 }
 
-function SizesDemo() {
-  return (
+function MainComponentDemo() {
+  return ( <div className="flex flex-wrap items-center gap-3 flex-col">
     <div className="flex flex-wrap items-center gap-3">
-      <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
-      <Button size="lg">Large</Button>
-      <Button size="icon">
-        <IconMail className="h-4 w-4" />
+      <Button size="default">Button</Button>
+      <Button size="default">
+        <IconPlus />
+      </Button>
+      <Button size="sm">Button</Button>
+      <Button size="sm">
+        <IconPlus />
+      </Button>
+      <Button size="lg">Button</Button>
+      <Button size="lg">
+        <IconPlus />
       </Button>
     </div>
+    <div className="flex flex-wrap items-center gap-3">
+    <Button size="default" variant={"secondary"}>Button</Button>
+    <Button size="default" variant={"secondary"}>
+      <IconPlus />
+    </Button>
+    <Button size="sm" variant={"secondary"}>Button</Button>
+    <Button size="sm" variant={"secondary"}>
+      <IconPlus />
+    </Button>
+    <Button size="lg" variant={"secondary"}>Button</Button>
+    <Button size="lg" variant={"secondary"}>
+      <IconPlus />
+    </Button>
+  </div>
+  <div className="flex flex-wrap items-center gap-3">
+    <Button size="default" variant={"outline"}>Button</Button>
+    <Button size="default" variant={"outline"}>
+      <IconPlus />
+    </Button>
+    <Button size="sm" variant={"outline"}>Button</Button>
+    <Button size="sm" variant={"outline"}>
+      <IconPlus />
+    </Button>
+    <Button size="lg" variant={"outline"}>Button</Button>
+    <Button size="lg" variant={"outline"}>
+      <IconPlus />
+    </Button>
+  </div>
+  <div className="flex flex-wrap items-center gap-3">
+    <Button size="default" variant={"ghost"}>Button</Button>
+    <Button size="default" variant={"ghost"}>
+      <IconPlus />
+    </Button>
+    <Button size="sm" variant={"ghost"}>Button</Button>
+    <Button size="sm" variant={"ghost"}>
+      <IconPlus />
+    </Button>
+    <Button size="lg" variant={"ghost"}>Button</Button>
+    <Button size="lg" variant={"ghost"}>
+      <IconPlus />
+    </Button>
+  </div>
+  <div className="flex flex-wrap items-center gap-3">
+    <Button size="default" variant={"destructive"}>Button</Button>
+    <Button size="default" variant={"destructive"}>
+      <IconPlus />
+    </Button>
+    <Button size="sm" variant={"destructive"}>Button</Button>
+    <Button size="sm" variant={"destructive"}>
+      <IconPlus />
+    </Button>
+    <Button size="lg" variant={"destructive"}>Button</Button>
+    <Button size="lg" variant={"destructive"}>
+      <IconPlus />
+    </Button>
+  </div>
+  <div className="flex flex-wrap items-center gap-3">
+    <Button size="default" variant={"link"}>Button</Button>
+    <Button size="default" variant={"link"}>
+      <IconPlus />
+    </Button>
+    <Button size="sm" variant={"link"}>Button</Button>
+    <Button size="sm" variant={"link"}>
+      <IconPlus />
+    </Button>
+    <Button size="lg" variant={"link"}>Button</Button>
+    <Button size="lg" variant={"link"}>
+      <IconPlus />
+    </Button>
+  </div>
+  </div>
   );
 }
 
@@ -77,9 +161,9 @@ export function VariantsDemo() {
   },
 
   sizes: {
-    title: "Button Sizes",
-    description: "Available size options including an icon-only variant",
-    component: SizesDemo,
+    title: "Main Component",
+    description: "Available size and variation options",
+    component: MainComponentDemo,
     difficulty: "beginner",
     code: `import { Button } from "@/components/ui/cognite/button"
 import { Mail } from "lucide-react"
