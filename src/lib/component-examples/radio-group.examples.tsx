@@ -50,3 +50,11 @@ export function BasicDemo() {
 }`,
   },
 };
+
+// Component metadata - single source of truth for API documentation
+export const radioGroupMeta = {
+  name: "Radio Group",
+  description: "A set of checkable buttons where only one can be checked at a time.",
+  llmUsage: "When creating radio button groups, use `<RadioGroup>` with `<RadioGroupItem>` components.",
+  importPath: "@/components/ui/cognite/radio-group",
+};

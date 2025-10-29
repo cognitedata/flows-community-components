@@ -416,11 +416,11 @@ function ColorPalette({ palette }: { palette: (typeof colorPalettes)[0] }) {
       case "decorative":
         return <Badge variant="secondary">Decorative</Badge>;
       case "semantic":
-        return <Badge variant="outline">Semantic</Badge>;
+        return <Badge variant="secondary">Semantic</Badge>;
       case "extended":
-        return <Badge variant="outline">Extended</Badge>;
+        return <Badge variant="secondary">Extended</Badge>;
       default:
-        return <Badge variant="outline">Palette</Badge>;
+        return <Badge variant="secondary">Palette</Badge>;
     }
   };
 

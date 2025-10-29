@@ -55,3 +55,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const switchMeta = {
+  name: "Switch",
+  description: "A control that allows the user to toggle between checked and not checked.",
+  llmUsage: "When asked for a switch or toggle, use `<Switch>` for on/off settings and preferences.",
+  importPath: "@/components/ui/cognite/switch",
+};

@@ -56,3 +56,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const calendarMeta = {
+  name: "Calendar",
+  description: "A date picker component for selecting dates and date ranges.",
+  llmUsage: "When asked for a calendar, use `<Calendar>` for date selection functionality.",
+  importPath: "@/components/ui/cognite/calendar",
+};

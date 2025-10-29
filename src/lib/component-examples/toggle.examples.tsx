@@ -45,3 +45,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const toggleMeta = {
+  name: "Toggle",
+  description: "A two-state button that can be either on or off.",
+  llmUsage: "When creating toggle buttons, use `<Toggle>` for binary state controls.",
+  importPath: "@/components/ui/cognite/toggle",
+};

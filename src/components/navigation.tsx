@@ -20,6 +20,7 @@ import { IconBrandGithub } from "@tabler/icons-react";
 const navItems = [
   { href: "/docs", label: "Docs" },
   { href: "/primitives", label: "Primitives" },
+  { href: "/ai", label: "AI" },
   { href: "/blocks", label: "Blocks" },
   { href: "/eos", label: "Templates" },
 ];

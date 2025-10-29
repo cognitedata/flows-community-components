@@ -1,46 +1,70 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  "inline-flex items-center justify-center rounded-md border px-1 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3.5 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
   {
     variants: {
       variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
-        destructive:
-          "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
-        outline:
-          "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+        default: "border-transparent bg-primary text-primary-foreground ",
+        fjord:
+          "border-transparent bg-fjord-50 text-fjord-700 dark:bg-fjord-900 dark:text-fjord-300",
+        nordic:
+          "border-transparent bg-nordic-50 text-nordic-600 dark:bg-nordic-900 dark:text-nordic-300",
+        aurora:
+          "border-transparent bg-aurora-50 text-aurora-600 dark:bg-aurora-900 dark:text-aurora-300",
+        sky: "border-transparent bg-sky-50 text-sky-600 dark:bg-sky-900 dark:text-sky-300",
+        dusk: "border-transparent bg-dusk-50 text-dusk-600 dark:bg-dusk-900 dark:text-dusk-400",
+        mountain:
+          "border-transparent bg-mountain-50 text-mountain-600 dark:bg-mountain-900 dark:text-mountain-400",
+        secondary: "border-transparent bg-secondary text-secondary-foreground ",
+        error: "border-transparent bg-destructive text-destructive-foreground",
+        warning: "border-transparent bg-warning text-warning-foreground",
+        success: "border-transparent bg-success text-success-foreground",
+        inProgress: "border-transparent bg-neutral text-neutral-foreground",
+        archived: "border-transparent bg-undefined text-undefined-foreground",
+      },
+      outline: {
+        true: "border-current",
+      },
+      background: {
+        false: "bg-transparent",
       },
     },
+
     defaultVariants: {
       variant: "default",
+      outline: false,
+      background: true,
     },
   }
-)
+);
 
 function Badge({
   className,
   variant,
+  outline,
+  background,
   asChild = false,
   ...props
 }: React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "span"
+  const Comp = asChild ? Slot : "span";
 
   return (
     <Comp
       data-slot="badge"
-      className={cn(badgeVariants({ variant }), className)}
+      className={cn(
+        badgeVariants({ variant, background }),
+        outline && "border-current",
+        className
+      )}
       {...props}
     />
-  )
+  );
 }
 
-export { Badge, badgeVariants }
+export { Badge, badgeVariants };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { motion } from "framer-motion";
 import { Palette, RotateCcw, Sun, Moon, Eye } from "lucide-react";
 import { Button } from "@/components/ui/cognite/button";
@@ -528,22 +528,23 @@ export default function ThemingPage() {
 
   // Switch theme when dark mode toggles - preserve user colors
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme((currentTheme) => ({
-      ...currentTheme,
-      // Only update system colors, preserve user's primary/secondary/accent
-      background: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
-      foreground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
-      card: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
-      cardForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
-      popover: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
-      popoverForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
-      muted: isDark ? "222.2 84% 11%" : "210 40% 96%",
-      mutedForeground: isDark ? "215 20.2% 65.1%" : "215.4 16.3% 46.9%",
-      border: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
-      input: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
-      ring: isDark ? "212.7 26.8% 83.9%" : currentTheme.primary,
-    }));
+    startTransition(() => {
+      setTheme((currentTheme) => ({
+        ...currentTheme,
+        // Only update system colors, preserve user's primary/secondary/accent
+        background: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
+        foreground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
+        card: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
+        cardForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
+        popover: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
+        popoverForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
+        muted: isDark ? "222.2 84% 11%" : "210 40% 96%",
+        mutedForeground: isDark ? "215 20.2% 65.1%" : "215.4 16.3% 46.9%",
+        border: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
+        input: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
+        ring: isDark ? "212.7 26.8% 83.9%" : currentTheme.primary,
+      }));
+    });
   }, [isDark]);
 
   // Inject CSS custom properties for live preview
@@ -1635,8 +1636,8 @@ export default function ThemingPage() {
                               <div className="flex gap-2 flex-wrap">
                                 <Badge>Default</Badge>
                                 <Badge variant="secondary">Secondary</Badge>
-                                <Badge variant="outline">Outline</Badge>
-                                <Badge variant="destructive">Destructive</Badge>
+                                <Badge variant="default" outline>Outline</Badge>
+                                <Badge variant="error">Destructive</Badge>
                               </div>
                             </div>
 
@@ -1952,7 +1953,8 @@ export default function ThemingPage() {
                             </p>
                             <div className="mt-2">
                               <Badge
-                                variant="outline"
+                                variant="default"
+                                outline
                                 className="text-green-600 border-green-600"
                               >
                                 +20.1%
@@ -2222,7 +2224,7 @@ export default function ThemingPage() {
                                     </p>
                                   </div>
                                 </div>
-                                <Badge variant="outline">2m ago</Badge>
+                                <Badge variant="secondary">2m ago</Badge>
                               </div>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
@@ -2238,7 +2240,7 @@ export default function ThemingPage() {
                                     </p>
                                   </div>
                                 </div>
-                                <Badge variant="outline">5m ago</Badge>
+                                <Badge variant="secondary">5m ago</Badge>
                               </div>
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
@@ -2254,7 +2256,7 @@ export default function ThemingPage() {
                                     </p>
                                   </div>
                                 </div>
-                                <Badge variant="outline">1h ago</Badge>
+                                <Badge variant="secondary">1h ago</Badge>
                               </div>
                             </div>
                           </CardContent>

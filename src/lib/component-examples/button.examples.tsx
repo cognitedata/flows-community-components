@@ -119,3 +119,11 @@ export function StatesDemo() {
 }`,
   },
 };
+
+// Component metadata - single source of truth for API documentation
+export const buttonMeta = {
+  name: "Button",
+  description: "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
+  llmUsage: "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
+  importPath: "@/components/ui/cognite/button",
+};
