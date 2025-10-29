@@ -10,14 +10,14 @@ function BasicConversationDemo() {
         <ConversationContent>
           <Message from="user">
             <MessageAvatar src="/user-avatar.png" name="User" />
-            <MessageContent variant="contained">
+            <MessageContent>
               What&apos;s the weather like today?
             </MessageContent>
           </Message>
 
           <Message from="assistant">
             <MessageAvatar src="/aura-logo.png" name="AI" />
-          <MessageContent variant="contained">
+          <MessageContent>
             I don&apos;t have real-time weather information, but I can help you with other questions!
           </MessageContent>
           </Message>
@@ -58,14 +58,14 @@ export function BasicConversationDemo() {
       <ConversationContent>
         <Message from="user">
           <MessageAvatar src="/user-avatar.png" name="User" />
-          <MessageContent variant="contained">
+          <MessageContent>
             What&apos;s the weather like today?
           </MessageContent>
         </Message>
 
         <Message from="assistant">
           <MessageAvatar src="/aura-logo.png" name="AI" />
-          <MessageContent variant="contained">
+          <MessageContent>
             I can help you with other questions!
           </MessageContent>
         </Message>
