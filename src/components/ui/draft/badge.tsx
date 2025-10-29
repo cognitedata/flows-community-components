@@ -28,7 +28,7 @@ const badgeVariants = cva(
         archived: "border-transparent bg-undefined text-undefined-foreground",
       },
       outline: {
-        true: "border-current px-0.5",
+        true: "border-current px-0.75",
       },
       background: {
         false: "bg-transparent",
