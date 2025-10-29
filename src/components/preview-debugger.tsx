@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import {
   Card,
   CardContent,
@@ -49,8 +49,9 @@ export function PreviewDebugger({
   // Analyze the code for common issues and patterns
   useEffect(() => {
     if (!code.trim()) {
-       
-      setAnalysis(null);
+      startTransition(() => {
+        setAnalysis(null);
+      });
       return;
     }
 
@@ -126,7 +127,9 @@ export function PreviewDebugger({
       return analysis;
     };
 
-    setAnalysis(analyzeCode());
+    startTransition(() => {
+      setAnalysis(analyzeCode());
+    });
   }, [code]);
 
   if (!code.trim()) {

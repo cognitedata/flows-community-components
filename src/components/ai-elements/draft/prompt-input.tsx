@@ -62,6 +62,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
   type RefObject,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
@@ -1127,8 +1128,11 @@ export const PromptInputSpeechButton = ({
       };
 
       recognitionRef.current = speechRecognition;
-       
-      setRecognition(speechRecognition);
+      
+      // Use startTransition to avoid synchronous setState in effect
+      startTransition(() => {
+        setRecognition(speechRecognition);
+      });
     }
 
     return () => {

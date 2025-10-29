@@ -17,6 +17,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import {
   type ComponentProps,
   createContext,
+  startTransition,
   useCallback,
   useContext,
   useEffect,
@@ -163,9 +164,11 @@ export const InlineCitationCarouselIndex = ({
       return;
     }
 
-     
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap() + 1);
+    // Use startTransition to avoid synchronous setState in effect
+    startTransition(() => {
+      setCount(api.scrollSnapList().length);
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
 
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);

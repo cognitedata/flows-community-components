@@ -9,7 +9,14 @@ import {
 import { cn } from "@/lib/utils";
 import { BrainIcon, ChevronDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";
-import { createContext, memo, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  memo,
+  startTransition,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Response } from "./response";
 import { Shimmer } from "./shimmer";
 
@@ -69,12 +76,15 @@ export const Reasoning = memo(
     useEffect(() => {
       if (isStreaming) {
         if (startTime === null) {
-           
-          setStartTime(Date.now());
+          startTransition(() => {
+            setStartTime(Date.now());
+          });
         }
       } else if (startTime !== null) {
-        setDuration(Math.ceil((Date.now() - startTime) / MS_IN_S));
-        setStartTime(null);
+        startTransition(() => {
+          setDuration(Math.ceil((Date.now() - startTime) / MS_IN_S));
+          setStartTime(null);
+        });
       }
     }, [isStreaming, startTime, setDuration]);
 
