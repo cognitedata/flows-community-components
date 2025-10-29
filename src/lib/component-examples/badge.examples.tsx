@@ -21,7 +21,7 @@ function VariantsDemo() {
         </Badge>
         <Badge variant="dusk">RCA</Badge>
         <Badge variant="secondary">
-          <IconHexagon />
+          <IconHexagon className="rotate-90"/>
           Asset
         </Badge>
       </div>
