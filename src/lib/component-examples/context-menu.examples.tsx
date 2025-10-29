@@ -81,3 +81,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const contextMenuMeta = {
+  name: "Context Menu",
+  description: "Displays a menu at the pointer location.",
+  llmUsage: "When creating right-click menus, use `<ContextMenu>` with `<ContextMenuTrigger>` and `<ContextMenuContent>`.",
+  importPath: "@/components/ui/cognite/context-menu",
+};

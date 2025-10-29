@@ -55,3 +55,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const checkboxMeta = {
+  name: "Checkbox",
+  description: "A control that allows the user to toggle between checked and not checked.",
+  llmUsage: "When asked for a checkbox, use `<Checkbox>` for binary selections and form controls.",
+  importPath: "@/components/ui/cognite/checkbox",
+};

@@ -26,3 +26,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const datePickerMeta = {
+  name: "Date Picker",
+  description: "A date picker component with range and presets.",
+  llmUsage: "When creating date selectors, use `<DatePicker>` which combines Popover and Calendar components.",
+  importPath: "@/components/ui/cognite/date-picker",
+};

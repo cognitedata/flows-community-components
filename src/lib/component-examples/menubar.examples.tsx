@@ -113,3 +113,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const menubarMeta = {
+  name: "Menubar",
+  description: "A visually persistent menu common in desktop applications.",
+  llmUsage: "When creating menu bars, use `<Menubar>` with `<MenubarMenu>`, `<MenubarTrigger>`, and `<MenubarContent>`.",
+  importPath: "@/components/ui/cognite/menubar",
+};

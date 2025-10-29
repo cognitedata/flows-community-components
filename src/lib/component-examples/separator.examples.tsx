@@ -47,3 +47,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const separatorMeta = {
+  name: "Separator",
+  description: "Visually or semantically separates content.",
+  llmUsage: "When asked for a separator, use `<Separator>` to divide content sections or create visual breaks.",
+  importPath: "@/components/ui/cognite/separator",
+};

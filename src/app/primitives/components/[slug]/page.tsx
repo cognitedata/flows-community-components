@@ -1,11 +1,8 @@
 import { notFound } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
-import matter from "gray-matter";
-// import { MDXRemote } from "next-mdx-remote/rsc"
 import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
-import { Separator } from "@/components/ui/cognite/separator";
 import Link from "next/link";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
@@ -13,6 +10,7 @@ import { ComponentExamplesRenderer } from "@/components/component-examples-rende
 import { CodeExamplesRenderer } from "@/components/code-examples-renderer";
 import { getComponentStatus } from "@/lib/component-status";
 import { InstallationCommand } from "@/components/installation-command";
+import { getComponentMeta } from "@/lib/component-registry";
 
 interface ComponentPageProps {
   params: Promise<{
@@ -20,41 +18,16 @@ interface ComponentPageProps {
   }>;
 }
 
-interface ComponentMeta {
-  component: string;
-  description: string;
-  llm_usage: string;
-}
-
-async function getComponentDoc(slug: string) {
-  try {
-    const filePath = path.join(
-      process.cwd(),
-      "docs",
-      "components",
-      `${slug}.md`
-    );
-    const fileContent = await fs.readFile(filePath, "utf8");
-    const { data, content } = matter(fileContent);
-
-    return {
-      meta: data as ComponentMeta,
-      content,
-    };
-  } catch {
-    return null;
-  }
-}
-
+// Generate static params from component examples files
 export async function generateStaticParams() {
-  const docsDir = path.join(process.cwd(), "docs", "components");
+  const examplesDir = path.join(process.cwd(), "src", "lib", "component-examples");
 
   try {
-    const files = await fs.readdir(docsDir);
-    const markdownFiles = files.filter((file) => file.endsWith(".md"));
+    const files = await fs.readdir(examplesDir);
+    const exampleFiles = files.filter((file) => file.endsWith(".examples.tsx") || file.endsWith(".examples.ts"));
 
-    return markdownFiles.map((file) => ({
-      slug: file.replace(".md", ""),
+    return exampleFiles.map((file) => ({
+      slug: file.replace(".examples.tsx", "").replace(".examples.ts", ""),
     }));
   } catch {
     return [];
@@ -63,17 +36,17 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ComponentPageProps) {
   const { slug } = await params;
-  const doc = await getComponentDoc(slug);
+  const meta = await getComponentMeta(slug);
 
-  if (!doc) {
+  if (!meta) {
     return {
       title: "Component Not Found",
     };
   }
 
   return {
-    title: `${doc.meta.component} Component - Documentation`,
-    description: doc.meta.description,
+    title: `${meta.name} Component - Documentation`,
+    description: meta.description,
   };
 }
 
@@ -95,9 +68,9 @@ async function getComponentDependencies(slug: string): Promise<string[]> {
 
 export default async function ComponentPage({ params }: ComponentPageProps) {
   const { slug } = await params;
-  const doc = await getComponentDoc(slug);
+  const meta = await getComponentMeta(slug);
 
-  if (!doc) {
+  if (!meta) {
     notFound();
   }
 
@@ -151,13 +124,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   Back to Docs
                 </Link>
               </Button>
-              <Separator orientation="vertical" className="h-4" />
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary">Component</Badge>
-                <span className="text-sm text-muted-foreground">
-                  {doc.meta.component}
-                </span>
-              </div>
             </div>
 
             {/* Header */}
@@ -165,7 +131,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-3 mb-2">
-                    <h1 className="text-3xl font-bold">{doc.meta.component}</h1>
+                    <h1 className="text-3xl font-bold">{meta.name}</h1>
+                    <Badge variant="secondary">Component</Badge>
                     {componentStatus === "production" && (
                       <Badge
                         variant="default"
@@ -184,7 +151,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                     )}
                   </div>
                   <p className="text-xl text-muted-foreground mt-2">
-                    {doc.meta.description}
+                    {meta.description}
                   </p>
                   {componentStatus === "draft" && (
                     <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
@@ -211,7 +178,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <div className="space-y-4">
                     <p className="text-muted-foreground">
                       Code examples and implementation details for{" "}
-                      {doc.meta.component}.
+                      {meta.name}.
                     </p>
                     <CodeExamplesRenderer slug={slug} />
                   </div>

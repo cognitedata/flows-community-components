@@ -110,3 +110,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const alertDialogMeta = {
+  name: "Alert Dialog",
+  description: "A modal dialog that interrupts the user with important content and expects a response.",
+  llmUsage: "When asked for an alert dialog, use `<AlertDialog>` for confirmation flows and important notifications.",
+  importPath: "@/components/ui/cognite/alert-dialog",
+};

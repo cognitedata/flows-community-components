@@ -73,3 +73,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const labelMeta = {
+  name: "Label",
+  description: "Renders an accessible label associated with controls.",
+  llmUsage: "When asked for a label, use `<Label>` to properly associate text with form controls.",
+  importPath: "@/components/ui/cognite/label",
+};

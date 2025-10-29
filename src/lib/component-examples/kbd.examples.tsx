@@ -35,3 +35,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const kbdMeta = {
+  name: "Kbd",
+  description: "Represents keyboard input or keyboard shortcuts.",
+  llmUsage: "When displaying keyboard shortcuts, use `<Kbd>` to style them properly.",
+  importPath: "@/components/ui/cognite/kbd",
+};

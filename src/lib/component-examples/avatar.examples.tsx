@@ -84,3 +84,10 @@ export function SizesDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const avatarMeta = {
+  name: "Avatar",
+  description: "An image element with a fallback for representing the user.",
+  llmUsage: "When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation.",
+  importPath: "@/components/ui/cognite/avatar",
+};

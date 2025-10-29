@@ -43,3 +43,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const sliderMeta = {
+  name: "Slider",
+  description: "An input where the user selects a value from within a given range.",
+  llmUsage: "When creating range inputs, use `<Slider>` for selecting numeric values within a range.",
+  importPath: "@/components/ui/cognite/slider",
+};

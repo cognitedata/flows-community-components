@@ -26,3 +26,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const comboboxMeta = {
+  name: "Combobox",
+  description: "Autocomplete input and command palette with a list of suggestions.",
+  llmUsage: "When creating searchable select dropdowns, use `<Combobox>` which combines Popover and Command components.",
+  importPath: "@/components/ui/cognite/combobox",
+};

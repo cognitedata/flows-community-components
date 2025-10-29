@@ -109,3 +109,10 @@ export function WithFooterDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const cardMeta = {
+  name: "Card",
+  description: "A flexible card component with header, content, and footer sections for organizing and displaying content.",
+  llmUsage: "When creating content containers, use `<Card>` with `<CardHeader>`, `<CardContent>`, and `<CardFooter>` subcomponents. Use `<CardTitle>` and `<CardDescription>` for header content.",
+  importPath: "@/components/ui/cognite/card",
+};

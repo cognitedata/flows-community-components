@@ -137,3 +137,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const drawerMeta = {
+  name: "Drawer",
+  description: "A drawer component for mobile and desktop.",
+  llmUsage: "When creating drawer panels, use `<Drawer>` with `<DrawerTrigger>` and `<DrawerContent>`.",
+  importPath: "@/components/ui/cognite/drawer",
+};
