@@ -47,7 +47,7 @@ function BasicDemo() {
         </div>
 
         <Avatar>
-          <AvatarImage src="/user-avatar.png" alt="User" />
+          <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
 
@@ -56,14 +56,14 @@ function BasicDemo() {
             variant="nordic"
             className="relative -ml-1 first:ml-0 z-[1] border-2 border-background"
           >
-             <AvatarImage src="/user-avatar.png" alt="User" />
+             <AvatarImage src="/user-avatar3.png" alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar
             variant="aurora"
             className="relative -ml-1 z-[2] border-2 border-background"
           >
-             <AvatarImage src="/user-avatar.png" alt="User" />
+             <AvatarImage src="/user-avatar4.png" alt="User" />
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
           <Avatar
@@ -178,15 +178,15 @@ function SizesVariantsDemo() {
       </div>
       <div className="flex items-center gap-4">
         <Avatar sizes={"xxsm"} variant={"default"}>
-          <AvatarImage src="/user-avatar.png" alt="User" />
+          <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes={"xsm"} variant={"default"}>
-          <AvatarImage src="/user-avatar.png" alt="User" />
+          <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes={"default"} variant={"default"}>
-          <AvatarImage src="/user-avatar.png" alt="User" />
+          <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
