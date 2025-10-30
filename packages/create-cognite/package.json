@@ -17,7 +17,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "vitest": "^2.1.0"
+    "vitest": "^4.0.0"
   },
   "license": "UNLICENSED"
 }
