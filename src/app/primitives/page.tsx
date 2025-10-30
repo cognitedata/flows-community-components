@@ -422,7 +422,7 @@ export function SwitchDemo() {
 
                 <div className="space-y-2">
                   <h4 className="font-semibold">Import</h4>
-                  <CodeBlock code="import { Button } from '@/components/ui/button'" />
+                  <CodeBlock code="import { Button } from '@/components/ui/cognite/button'" />
                 </div>
               </CardContent>
             </Card>

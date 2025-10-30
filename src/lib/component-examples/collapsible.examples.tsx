@@ -87,3 +87,11 @@ export function BasicDemo() {
 }`,
   },
 };
+
+// Component metadata - single source of truth for API documentation
+export const collapsibleMeta = {
+  name: "Collapsible",
+  description: "An interactive component which expands/collapses a panel.",
+  llmUsage: "When showing expandable content, use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>`.",
+  importPath: "@/components/ui/cognite/collapsible",
+};

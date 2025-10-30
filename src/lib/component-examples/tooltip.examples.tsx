@@ -79,3 +79,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const tooltipMeta = {
+  name: "Tooltip",
+  description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+  llmUsage: "When asked for a tooltip, use `<Tooltip>` to provide helpful information on hover or focus.",
+  importPath: "@/components/ui/cognite/tooltip",
+};

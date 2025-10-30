@@ -29,6 +29,10 @@
       "@/components/ui/cognite/*": [
         "./src/components/ui/cognite/*",
         "./src/components/ui/draft/*"
+      ],
+      "@/components/ai-elements/cognite/*": [
+        "./src/components/ai-elements/cognite/*",
+        "./src/components/ai-elements/draft/*"
       ]
     }
   },

@@ -79,3 +79,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const popoverMeta = {
+  name: "Popover",
+  description: "Displays rich content in a portal, triggered by a button.",
+  llmUsage: "When asked for a popover, use `<Popover>` for contextual information and secondary actions.",
+  importPath: "@/components/ui/cognite/popover",
+};

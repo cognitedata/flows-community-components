@@ -90,3 +90,11 @@ export function BasicDemo() {
 }`,
   },
 };
+
+// Component metadata - single source of truth for API documentation
+export const dropdownMenuMeta = {
+  name: "Dropdown Menu",
+  description: "Displays a menu to the user triggered by a button press or hover.",
+  llmUsage: "When asked for a dropdown menu, use `<DropdownMenu>` for contextual actions and navigation.",
+  importPath: "@/components/ui/cognite/dropdown-menu",
+};

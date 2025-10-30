@@ -101,3 +101,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const commandMeta = {
+  name: "Command",
+  description: "Fast, composable command menu for React.",
+  llmUsage: "When creating command palettes or searchable menus, use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` components.",
+  importPath: "@/components/ui/cognite/command",
+};

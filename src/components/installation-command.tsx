@@ -2,7 +2,7 @@
 
 import { Copy } from "lucide-react";
 import { Button } from "@/components/ui/cognite/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { useTheme } from "next-themes";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -26,8 +26,9 @@ export function InstallationCommand({ component, dependencies = [], componentCod
 
   // Prevent hydration mismatch
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
+    startTransition(() => {
+      setMounted(true);
+    });
   }, []);
 
   const cliCommands: Record<PackageManager, string> = {

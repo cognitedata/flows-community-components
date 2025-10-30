@@ -7,12 +7,14 @@ interface TabSwitcherProps {
   previewContent: React.ReactNode;
   codeContent: React.ReactNode;
   guidelinesContent?: React.ReactNode;
+  description?: string;
 }
 
 export function ComponentTabSwitcher({
   previewContent,
   codeContent,
   guidelinesContent,
+  description,
 }: TabSwitcherProps) {
   const [activeTab, setActiveTab] = useState<
     "preview" | "guidelines" | "code"
@@ -20,6 +22,11 @@ export function ComponentTabSwitcher({
 
   return (
     <div className="space-y-6">
+      {/* Description */}
+      {description && (
+        <p className="text-muted-foreground">{description}</p>
+      )}
+      
       {/* Button-based Tab Switcher */}
       <div className="flex space-x-1">
         <Button

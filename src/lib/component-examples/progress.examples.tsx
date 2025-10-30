@@ -67,3 +67,10 @@ export function BasicDemo() {
   },
 };
 
+// Component metadata - single source of truth for API documentation
+export const progressMeta = {
+  name: "Progress",
+  description: "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+  llmUsage: "When asked for a progress bar, use `<Progress>` to show task completion or loading states.",
+  importPath: "@/components/ui/cognite/progress",
+};
