@@ -4,9 +4,10 @@
 
 The registry build system automatically generates and maintains component definitions for distribution. It synchronises three locations:
 
-1. **`/cognite/`** - Production-ready component source files
+1. **`/draft/`** - Draft component source files (published to registry)
 2. **`registry.json`** - Component metadata index
 3. **`public/r/`** - Published JSON files that users download
+4. **`/cognite/`** - Production-ready component source files (optional)
 
 ## Build Process
 
@@ -16,29 +17,43 @@ The `registry:build` command performs three steps:
 npm run registry:build
 ```
 
-1. **Generate** `registry.json` from files in `/cognite`
+1. **Generate** `registry.json` from files in `/draft`
 2. **Clean** all existing files in `public/r/`
 3. **Build** fresh JSON files from `registry.json`
 
-This ensures `public/r/` always matches what's in `/cognite/`, removing stale files automatically.
+This ensures `public/r/` always matches what's in `/draft/`, removing stale files automatically.
 
 ## Component Lifecycle
 
 ### Publishing
 
-Move a component from draft to production:
+All components in `/draft` are automatically published to the registry. To publish a new component:
 
 ```bash
-cp src/components/ui/draft/button.tsx src/components/ui/cognite/
+# Add your component to draft
+vim src/components/ui/draft/button.tsx
+
+# Rebuild to publish
 npm run registry:build
 ```
 
-### Unpublishing
+### Moving to Production (Optional)
 
-Move a component back to draft:
+Move a stable component from draft to production:
 
 ```bash
-mv src/components/ui/cognite/button.tsx src/components/ui/draft/
+# Copy to cognite (keeps it in draft too)
+cp src/components/ui/draft/button.tsx src/components/ui/cognite/
+```
+
+Note: Components in `/cognite` are for production use but are not published to the registry. The registry serves `/draft` components.
+
+### Unpublishing
+
+Remove a component from the registry:
+
+```bash
+rm src/components/ui/draft/button.tsx
 npm run registry:build
 ```
 
@@ -46,11 +61,11 @@ The component is removed from `public/r/` automatically.
 
 ### Updating
 
-Edit a production component:
+Edit a draft component:
 
 ```bash
 # Edit the file
-vim src/components/ui/cognite/button.tsx
+vim src/components/ui/draft/button.tsx
 
 # Rebuild to update published version
 npm run registry:build
@@ -83,8 +98,8 @@ npm run registry:clean
 After building, verify the output:
 
 ```bash
-# Check what's in cognite
-ls src/components/ui/cognite/
+# Check what's in draft
+ls src/components/ui/draft/
 
 # Check what's in registry.json
 grep '"name":' registry.json
@@ -103,7 +118,7 @@ All three should match.
 ## Build Flow
 
 ```
-/cognite/*.tsx → registry.json → public/r/*.json → Deploy
+/draft/*.tsx → registry.json → public/r/*.json → Deploy
 ```
 
-The `public/r/` directory is always rebuilt from scratch to reflect whatever is currently in `/cognite`.
+The `public/r/` directory is always rebuilt from scratch to reflect whatever is currently in `/draft`.

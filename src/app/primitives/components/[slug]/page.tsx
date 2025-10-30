@@ -1,10 +1,7 @@
 import { notFound } from "next/navigation";
 import { promises as fs } from "fs";
 import path from "path";
-import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
-import Link from "next/link";
-import { IconArrowLeft } from "@tabler/icons-react";
 import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
 import { ComponentExamplesRenderer } from "@/components/component-examples-renderer";
 import { CodeExamplesRenderer } from "@/components/code-examples-renderer";
@@ -20,11 +17,18 @@ interface ComponentPageProps {
 
 // Generate static params from component examples files
 export async function generateStaticParams() {
-  const examplesDir = path.join(process.cwd(), "src", "lib", "component-examples");
+  const examplesDir = path.join(
+    process.cwd(),
+    "src",
+    "lib",
+    "component-examples"
+  );
 
   try {
     const files = await fs.readdir(examplesDir);
-    const exampleFiles = files.filter((file) => file.endsWith(".examples.tsx") || file.endsWith(".examples.ts"));
+    const exampleFiles = files.filter(
+      (file) => file.endsWith(".examples.tsx") || file.endsWith(".examples.ts")
+    );
 
     return exampleFiles.map((file) => ({
       slug: file.replace(".examples.tsx", "").replace(".examples.ts", ""),
@@ -116,16 +120,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <div className="flex gap-8">
           {/* Main content */}
           <div className="flex-1 max-w-4xl">
-            {/* Navigation */}
-            <div className="flex items-center gap-4 mb-8">
-              <Button variant="secondary" size="sm" asChild>
-                <Link href="/docs">
-                  <IconArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Docs
-                </Link>
-              </Button>
-            </div>
-
             {/* Header */}
             <div className="space-y-4 mb-8">
               <div className="flex items-start justify-between">
@@ -156,9 +150,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   {componentStatus === "draft" && (
                     <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
                       <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                        <strong>Note:</strong> This component is currently in draft
-                        status. It may not be production-ready and could undergo
-                        changes.
+                        <strong>Note:</strong> This component is currently in
+                        draft status. It may not be production-ready and could
+                        undergo changes.
                       </p>
                     </div>
                   )}
@@ -177,8 +171,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 <div className="space-y-6">
                   <div className="space-y-4">
                     <p className="text-muted-foreground">
-                      Code examples and implementation details for{" "}
-                      {meta.name}.
+                      Code examples and implementation details for {meta.name}.
                     </p>
                     <CodeExamplesRenderer slug={slug} />
                   </div>
