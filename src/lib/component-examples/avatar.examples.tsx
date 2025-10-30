@@ -1,8 +1,9 @@
 import {
   Avatar,
   AvatarFallback,
+  AvatarIcon,
   AvatarImage,
-} from "@/components/ui/draft/avatar";
+} from "@/components/ui/cognite/avatar";
 import type { ComponentExamples } from "./types";
 import { IconWheel } from "@tabler/icons-react";
 
@@ -94,98 +95,98 @@ function SizesVariantsDemo() {
   return (
     <div className="flex items-center flex-col gap-4">
       <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"fjord"}>
-          <AvatarFallback>
+        <Avatar sizes="xxsm" variant="fjord">
+          <AvatarIcon>
             <IconWheel />
-          </AvatarFallback>
+          </AvatarIcon>
         </Avatar>
-        <Avatar sizes={"xsm"} variant={"fjord"}>
-          <AvatarFallback>
+        <Avatar sizes="xsm" variant="fjord">
+          <AvatarIcon>
             <IconWheel />
-          </AvatarFallback>
+          </AvatarIcon>
         </Avatar>
-        <Avatar sizes={"default"} variant={"fjord"}>
-          <AvatarFallback>
+        <Avatar sizes="default" variant="fjord">
+          <AvatarIcon>
             <IconWheel />
-          </AvatarFallback>
+          </AvatarIcon>
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"fjord"}>
+        <Avatar sizes="xxsm" variant="fjord">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"xsm"} variant={"fjord"}>
+        <Avatar sizes="xsm" variant="fjord">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"default"} variant={"fjord"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"nordic"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes={"xsm"} variant={"nordic"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes={"default"} variant={"nordic"}>
+        <Avatar sizes="default" variant="fjord">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"aurora"}>
+        <Avatar sizes="xxsm" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"xsm"} variant={"aurora"}>
+        <Avatar sizes="xsm" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"default"} variant={"aurora"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"dusk"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes={"xsm"} variant={"dusk"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes={"default"} variant={"dusk"}>
+        <Avatar sizes="default" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"orange"}>
+        <Avatar sizes="xxsm" variant="aurora">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"xsm"} variant={"orange"}>
+        <Avatar sizes="xsm" variant="aurora">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"default"} variant={"orange"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"sky"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes={"xsm"} variant={"sky"}>
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes={"default"} variant={"sky"}>
+        <Avatar sizes="default" variant="aurora">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes={"xxsm"} variant={"default"}>
+        <Avatar sizes="xxsm" variant="dusk">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="xsm" variant="dusk">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="default" variant="dusk">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+      </div>
+      <div className="flex items-center gap-4">
+        <Avatar sizes="xxsm" variant="orange">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="xsm" variant="orange">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="default" variant="orange">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+      </div>
+      <div className="flex items-center gap-4">
+        <Avatar sizes="xxsm" variant="sky">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="xsm" variant="sky">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="default" variant="sky">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+      </div>
+      <div className="flex items-center gap-4">
+        <Avatar sizes="xxsm" variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"xsm"} variant={"default"}>
+        <Avatar sizes="xsm" variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes={"default"} variant={"default"}>
+        <Avatar sizes="default" variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
@@ -200,7 +201,7 @@ export const avatarExamples: ComponentExamples = {
     description: "Display user avatars with image and fallback",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/draft/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/cognite/avatar"
 
 export function BasicDemo() {
   return (
@@ -227,7 +228,7 @@ export function BasicDemo() {
     description: "Different avatar sizes using custom classes",
     component: SizesVariantsDemo,
     difficulty: "beginner",
-    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/draft/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/cognite/avatar"
 
 export function SizesDemo() {
   return (
@@ -254,6 +255,6 @@ export function SizesDemo() {
 export const avatarMeta = {
   name: "Avatar",
   description: "An image element with a fallback for representing the user.",
-  llmUsage: "When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation.",
-  importPath: "@/components/ui/cognite/avatar",
+  llmUsage: "When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation. Use `<AvatarIcon>` for icon-only avatars.",
+  importPath: "@/components/ui/draft/avatar",
 };

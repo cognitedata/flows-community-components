@@ -1,10 +1,10 @@
-import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+} from "@/components/ai-elements/draft/inline-citation"
+import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
 import { Actions, Action } from "@/components/ai-elements/draft/actions";
 
 
@@ -15,7 +15,7 @@ function Demo() {
         <MessageContent>
           <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
         </MessageContent>
-        <MessageAvatar src="/user-avatar.png" name="User" />
+        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message from="assistant">
@@ -68,7 +68,11 @@ function Demo() {
             </Action>
           </Actions>
         </MessageContent>
-        <MessageAvatar src="/aura-logo.png" name="AI" />
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
       </Message>
     </div>
   );
@@ -80,12 +84,12 @@ export const messageExamples: ComponentExamples = {
     description: "Messages with background containers for clear visual separation",
     component: Demo,
     difficulty: "beginner",
-    code: `import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+} from "@/components/ai-elements/draft/inline-citation"
+import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
 import { Actions, Action } from "@/components/ai-elements/draft/actions"
 
 export function Demo() {
@@ -95,7 +99,7 @@ export function Demo() {
         <MessageContent>
           <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
         </MessageContent>
-        <MessageAvatar src="/user-avatar.png" name="User" />
+        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message from="assistant">
@@ -148,7 +152,11 @@ export function Demo() {
             </Action>
           </Actions>
         </MessageContent>
-        <MessageAvatar src="/aura-logo.png" name="AI" />
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
       </Message>
     </div>
   )
@@ -160,5 +168,5 @@ export function Demo() {
 export const messageMeta = {
   name: "Message",
   description: "Displays a chat interface message from either a user or an AI.",
-  importPath: "@/components/ai-elements/cognite/message",
+  importPath: "@/components/ai-elements/draft/message",
 };

@@ -7,12 +7,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch";
+} from "@/components/ai-elements/draft/branch";
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message";
+} from "@/components/ai-elements/draft/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { nanoid } from "nanoid";
 
@@ -58,10 +58,7 @@ function ConversationDemo() {
           {userMessages.map((message) => (
             <Message from="user" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar
-                name="Hayden Bleasel"
-                src="/user-avatar.png"
-              />
+              <MessageAvatar src="/user-avatar2.png" name="Hayden Bleasel" />
             </Message>
           ))}
         </BranchMessages>
@@ -77,7 +74,7 @@ function ConversationDemo() {
           {assistantMessages.map((message) => (
             <Message from="assistant" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
             </Message>
           ))}
         </BranchMessages>
@@ -99,10 +96,7 @@ function UserBranchDemo() {
           {userMessages.map((message) => (
             <Message from="user" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar
-                name="Hayden Bleasel"
-                src="/user-avatar.png"
-              />
+              <MessageAvatar src="/user-avatar2.png" name="Hayden Bleasel" />
             </Message>
           ))}
         </BranchMessages>
@@ -124,7 +118,7 @@ function AssistantBranchDemo() {
           {assistantMessages.map((message) => (
             <Message from="assistant" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
             </Message>
           ))}
         </BranchMessages>
@@ -154,12 +148,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch"
+} from "@/components/ai-elements/draft/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message"
+} from "@/components/ai-elements/draft/message"
 import { nanoid } from "nanoid"
 
 const userMessages = [
@@ -198,7 +192,7 @@ export function ConversationDemo() {
           {assistantMessages.map((message) => (
             <Message from="assistant" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
             </Message>
           ))}
         </BranchMessages>
@@ -227,12 +221,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch"
+} from "@/components/ai-elements/draft/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message"
+} from "@/components/ai-elements/draft/message"
 import { nanoid } from "nanoid"
 
 const userMessages = [
@@ -278,12 +272,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch"
+} from "@/components/ai-elements/draft/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message"
+} from "@/components/ai-elements/draft/message"
 import { nanoid } from "nanoid"
 
 const assistantMessages = [
@@ -300,7 +294,7 @@ export function AssistantBranchDemo() {
           {assistantMessages.map((message) => (
             <Message from="assistant" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar name="AI" src="https://github.com/openai.png" />
+              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
             </Message>
           ))}
         </BranchMessages>
@@ -320,5 +314,5 @@ export function AssistantBranchDemo() {
 export const branchMeta = {
   name: "Branch",
   description: "Manages multiple versions of AI messages, allowing users to navigate between different response branches.",
-  importPath: "@/components/ai-elements/cognite/branch",
+  importPath: "@/components/ai-elements/draft/branch",
 };
