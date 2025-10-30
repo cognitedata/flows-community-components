@@ -20,7 +20,9 @@ function BasicDemo() {
         <CollapsibleContent className="space-y-2">
           <div className="rounded-md text-sm">
             <div className="space-y-1">
-            Collapsibles work independently—multiple can be open at once. The shadcn collapsible is for independent sections. Use accordion patterns when you want mutually exclusive content areas.
+              Collapsibles work independently—multiple can be open at once. The
+              shadcn collapsible is for independent sections. Use accordion
+              patterns when you want mutually exclusive content areas.
             </div>
           </div>
         </CollapsibleContent>
@@ -50,17 +52,21 @@ import { ChevronsUpDown } from "lucide-react"
 
 export function BasicDemo() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       <Collapsible className="w-full space-y-2">
         <CollapsibleTrigger asChild>
-          <Button variant="outline" className="w-full justify-between">
-            <span>Can I use this in my project?</span>
+          <Button variant="ghost" className="w-full justify-between">
+            <span>What&apos;s included?</span>
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
-          <div className="rounded-md border px-4 py-3 text-sm">
-            Yes. Free to use for personal and commercial projects.
+          <div className="rounded-md text-sm">
+            <div className="space-y-1">
+              Collapsibles work independently—multiple can be open at once. The
+              shadcn collapsible is for independent sections. Use accordion
+              patterns when you want mutually exclusive content areas.
+            </div>
           </div>
         </CollapsibleContent>
       </Collapsible>
