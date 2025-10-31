@@ -1,17 +1,23 @@
 import { Button } from "@/components/ui/cognite/button";
-import { IconPlus, IconBookmark, IconTrash, IconExternalLink, IconLoader2, IconMail } from "@tabler/icons-react";
+import {
+  IconPlus,
+  IconBookmark,
+  IconTrash,
+  IconExternalLink,
+  IconLoader2,
+} from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
 function VariantsDemo() {
   return (
     <div className="flex flex-wrap gap-3">
-      <Button variant="default" size="icon">
+      <Button variant="default" size="icon-sm">
         <IconPlus />
       </Button>
-      <Button variant="secondary" size="icon">
+      <Button variant="secondary" size="icon-sm">
         <IconBookmark />
       </Button>
-      <Button variant="destructive" size="icon">
+      <Button variant="destructive" size="icon-sm">
         <IconTrash />
       </Button>
       <Button variant="default">
@@ -29,15 +35,148 @@ function VariantsDemo() {
   );
 }
 
-function SizesDemo() {
+function MainComponentDemo() {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
-      <Button size="lg">Large</Button>
-      <Button size="icon">
-        <IconMail className="h-4 w-4" />
-      </Button>
+    <div className="flex flex-wrap items-center gap-3 flex-col">
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default">
+          <IconPlus />
+        </Button>
+        <Button size="sm">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm">
+          <IconPlus />
+        </Button>
+        <Button size="lg">
+          {" "}
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg">
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"secondary"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"secondary"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"secondary"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"secondary"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"secondary"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"secondary"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"outline"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"outline"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"outline"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"outline"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"outline"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"outline"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"ghost"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"ghost"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"ghost"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"ghost"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"ghost"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"ghost"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"destructive"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"destructive"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"destructive"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"destructive"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"destructive"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"destructive"}>
+          <IconPlus />
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant={"link"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="default" variant={"link"}>
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant={"link"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant={"link"}>
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant={"link"}>
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant={"link"}>
+          <IconPlus />
+        </Button>
+      </div>
     </div>
   );
 }
@@ -92,9 +231,9 @@ export function VariantsDemo() {
   },
 
   sizes: {
-    title: "Button Sizes",
-    description: "Available size options including an icon-only variant",
-    component: SizesDemo,
+    title: "Main Component",
+    description: "Available size and variation options",
+    component: MainComponentDemo,
     difficulty: "beginner",
     code: `import { Button } from "@/components/ui/cognite/button"
 import { IconMail } from "@tabler/icons-react"
@@ -138,7 +277,9 @@ export function StatesDemo() {
 // Component metadata - single source of truth for API documentation
 export const buttonMeta = {
   name: "Button",
-  description: "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
-  llmUsage: "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
+  description:
+    "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
+  llmUsage:
+    "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
   importPath: "@/components/ui/cognite/button",
 };

@@ -1,5 +1,5 @@
 import {
-  Command,
+  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
@@ -7,45 +7,63 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/cognite/command";
-import { Calendar, Search, Settings, User } from "lucide-react";
 import type { ComponentExamples } from "./types";
+import React from "react";
+import {
+  IconChartLine,
+  IconHexagon,
+  IconSearch,
+  IconSettings,
+  IconUser,
+} from "@tabler/icons-react";
+import { Button } from "@/components/ui/cognite/button";
 
 function BasicDemo() {
+  const [open, setOpen] = React.useState(false);
+
   return (
     <div className="space-y-4">
-      <div className="rounded-md border">
-        <Command className="rounded-lg border shadow-md">
-          <CommandInput placeholder="Type a command or search..." />
-          <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              <CommandItem>
-                <Calendar className="mr-2 h-4 w-4" />
-                <span>Calendar</span>
-              </CommandItem>
-              <CommandItem>
-                <Search className="mr-2 h-4 w-4" />
-                <span>Search Emoji</span>
-              </CommandItem>
-              <CommandItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </CommandItem>
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Settings">
-              <CommandItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </div>
-      
-      <p className="text-sm text-muted-foreground">
-        Interactive command menu with search functionality. Type to filter results.
-      </p>
+      <Button
+        type="button"
+        aria-label="Open command menu"
+        onClick={() => setOpen(true)}
+        variant="secondary"
+        size="icon"
+      >
+        <IconSearch className="h-4 w-4" />
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Recent">
+            <CommandItem>
+              <IconHexagon className="text-muted-foreground" />
+              Troubleshooting 21PT-1019 report
+            </CommandItem>
+            <CommandItem>
+              <IconChartLine className="text-muted-foreground" />
+              XRC:21 pressure valve
+            </CommandItem>
+            <CommandItem>Calculator</CommandItem>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Suggestions">
+            <CommandItem>
+              <IconHexagon className="text-muted-foreground" />
+              Atlas
+            </CommandItem>
+            <CommandItem>
+              <IconUser className="text-muted-foreground" />
+              Profile
+            </CommandItem>
+            <CommandItem>
+              <IconSettings />
+              Settings
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </div>
   );
 }
@@ -53,7 +71,8 @@ function BasicDemo() {
 export const commandExamples: ComponentExamples = {
   basic: {
     title: "Command Menu",
-    description: "Interactive command menu with search functionality and keyboard navigation",
+    description:
+      "Interactive command menu with search functionality and keyboard navigation",
     component: BasicDemo,
     difficulty: "intermediate",
     code: `import {
@@ -65,38 +84,63 @@ export const commandExamples: ComponentExamples = {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/cognite/command"
-import { Calendar, Search, Settings, User } from "lucide-react"
+import {
+  IconChartLine,
+  IconHexagon,
+  IconSearch,
+  IconSettings,
+  IconUser,
+} from "@tabler/icons-react";
+import { Button } from "@/components/ui/cognite/button";
 
 export function BasicDemo() {
+ const [open, setOpen] = React.useState(false);
+
   return (
-    <Command className="rounded-lg border shadow-md">
-      <CommandInput placeholder="Type a command or search..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
-          <CommandItem>
-            <Calendar className="mr-2 h-4 w-4" />
-            <span>Calendar</span>
-          </CommandItem>
-          <CommandItem>
-            <Search className="mr-2 h-4 w-4" />
-            <span>Search Emoji</span>
-          </CommandItem>
-          <CommandItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </CommandItem>
-        </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading="Settings">
-          <CommandItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </CommandItem>
-        </CommandGroup>
-      </CommandList>
-    </Command>
-  )
+    <div className="space-y-4">
+      <Button
+        type="button"
+        aria-label="Open command menu"
+        onClick={() => setOpen(true)}
+        variant="secondary"
+        size="icon"
+      >
+        <IconSearch className="h-4 w-4" />
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Recent">
+            <CommandItem>
+              <IconHexagon className="text-muted-foreground" />
+              Troubleshooting 21PT-1019 report
+            </CommandItem>
+            <CommandItem>
+              <IconChartLine className="text-muted-foreground" />
+              XRC:21 pressure valve
+            </CommandItem>
+            <CommandItem>Calculator</CommandItem>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Suggestions">
+            <CommandItem>
+              <IconHexagon className="text-muted-foreground" />
+              Atlas
+            </CommandItem>
+            <CommandItem>
+              <IconUser className="text-muted-foreground" />
+              Profile
+            </CommandItem>
+            <CommandItem>
+              <IconSettings />
+              Settings
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
+    </div>
+  );
 }`,
   },
 };
@@ -105,6 +149,7 @@ export function BasicDemo() {
 export const commandMeta = {
   name: "Command",
   description: "Fast, composable command menu for React.",
-  llmUsage: "When creating command palettes or searchable menus, use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` components.",
+  llmUsage:
+    "When creating command palettes or searchable menus, use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` components.",
   importPath: "@/components/ui/cognite/command",
 };

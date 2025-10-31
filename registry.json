@@ -2,5 +2,22 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "shadcn",
   "homepage": "https://ui.shadcn.com",
-  "items": []
+  "items": [
+    {
+      "name": "badge",
+      "type": "registry:component",
+      "title": "Badge",
+      "description": "A status badge component with size and variant support.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/cognite/badge.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
 }

@@ -1,11 +1,11 @@
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/draft/inline-citation"
+} from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
-import { Actions, Action } from "@/components/ai-elements/draft/actions";
+import { Actions, Action } from "@/components/ai-elements/cognite/actions";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -98,13 +98,13 @@ export const messageExamples: ComponentExamples = {
     description: "Messages with background containers for clear visual separation",
     component: Demo,
     difficulty: "beginner",
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/draft/inline-citation"
+} from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
-import { Actions, Action } from "@/components/ai-elements/draft/actions"
+import { Actions, Action } from "@/components/ai-elements/cognite/actions"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -196,5 +196,5 @@ export function Demo() {
 export const messageMeta = {
   name: "Message",
   description: "Displays a chat interface message from either a user or an AI.",
-  importPath: "@/components/ai-elements/draft/message",
+  importPath: "@/components/ai-elements/cognite/message",
 };

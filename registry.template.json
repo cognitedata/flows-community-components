@@ -589,6 +589,460 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:component",
+      "title": "Carousel",
+      "description": "A carousel component with embla-carousel.",
+      "dependencies": [
+        "embla-carousel-react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/cognite/carousel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:component",
+      "title": "Hover Card",
+      "description": "A hover card component powered by Radix Hover Card.",
+      "dependencies": [
+        "@radix-ui/react-hover-card"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/cognite/hover-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:component",
+      "title": "Input Group",
+      "description": "Input group component for grouped inputs with addons.",
+      "files": [
+        {
+          "path": "src/components/ui/cognite/input-group.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "actions",
+      "type": "registry:component",
+      "title": "Actions",
+      "description": "AI actions component for displaying action buttons.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/actions.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact",
+      "type": "registry:component",
+      "title": "Artifact",
+      "description": "AI artifact component for displaying generated content.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/artifact.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "branch",
+      "type": "registry:component",
+      "title": "Branch",
+      "description": "AI conversation branch component.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/branch.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "canvas",
+      "type": "registry:component",
+      "title": "Canvas",
+      "description": "AI canvas component for drawing and visualization.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/canvas.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chain-of-thought",
+      "type": "registry:component",
+      "title": "Chain of Thought",
+      "description": "AI chain of thought component for displaying reasoning steps.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/chain-of-thought.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:component",
+      "title": "Code Block",
+      "description": "AI code block component with syntax highlighting.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/code-block.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "confirmation",
+      "type": "registry:component",
+      "title": "Confirmation",
+      "description": "AI confirmation component for user confirmations.",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/confirmation.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "connection",
+      "type": "registry:component",
+      "title": "Connection",
+      "description": "AI connection component for flow diagrams.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/connection.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "context",
+      "type": "registry:component",
+      "title": "Context",
+      "description": "AI context component for displaying context information.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/context.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "controls",
+      "type": "registry:component",
+      "title": "Controls",
+      "description": "AI controls component for interface controls.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/controls.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "conversation",
+      "type": "registry:component",
+      "title": "Conversation",
+      "description": "AI conversation component with scroll management.",
+      "dependencies": [
+        "use-stick-to-bottom",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/conversation.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "edge",
+      "type": "registry:component",
+      "title": "Edge",
+      "description": "AI edge component for flow diagrams.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/edge.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "image",
+      "type": "registry:component",
+      "title": "Image",
+      "description": "AI image component for displaying generated images.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/image.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "inline-citation",
+      "type": "registry:component",
+      "title": "Inline Citation",
+      "description": "AI inline citation component for source references.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/inline-citation.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "loader",
+      "type": "registry:component",
+      "title": "Loader",
+      "description": "AI loader component for loading states.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/loader.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "message",
+      "type": "registry:component",
+      "title": "Message",
+      "description": "An AI chat message component with avatar support for user and assistant roles.",
+      "dependencies": [
+        "ai"
+      ],
+      "registryDependencies": [
+        "avatar"
+      ],
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/message.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "node",
+      "type": "registry:component",
+      "title": "Node",
+      "description": "AI node component for flow diagrams.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/node.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat",
+      "type": "registry:component",
+      "title": "Open in Chat",
+      "description": "AI open in chat component.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/open-in-chat.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "panel",
+      "type": "registry:component",
+      "title": "Panel",
+      "description": "AI panel component for side panels.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/panel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "plan",
+      "type": "registry:component",
+      "title": "Plan",
+      "description": "AI plan component for displaying execution plans.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/plan.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "prompt-input",
+      "type": "registry:component",
+      "title": "Prompt Input",
+      "description": "AI prompt input component for user prompts.",
+      "registryDependencies": [
+        "textarea",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/prompt-input.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "queue",
+      "type": "registry:component",
+      "title": "Queue",
+      "description": "AI queue component for managing task queues.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/queue.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "reasoning",
+      "type": "registry:component",
+      "title": "Reasoning",
+      "description": "AI reasoning component for displaying reasoning processes.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/reasoning.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "response",
+      "type": "registry:component",
+      "title": "Response",
+      "description": "AI response component for displaying AI responses.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/response.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "shimmer",
+      "type": "registry:component",
+      "title": "Shimmer",
+      "description": "AI shimmer loading effect component.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/shimmer.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sources",
+      "type": "registry:component",
+      "title": "Sources",
+      "description": "AI sources component for displaying source references.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/sources.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "suggestion",
+      "type": "registry:component",
+      "title": "Suggestion",
+      "description": "AI suggestion component for displaying suggestions.",
+      "registryDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/suggestion.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "task",
+      "type": "registry:component",
+      "title": "Task",
+      "description": "AI task component for displaying tasks.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/task.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tool",
+      "type": "registry:component",
+      "title": "Tool",
+      "description": "AI tool component for displaying tool calls.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/tool.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "toolbar",
+      "type": "registry:component",
+      "title": "Toolbar",
+      "description": "AI toolbar component.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/toolbar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "web-preview",
+      "type": "registry:component",
+      "title": "Web Preview",
+      "description": "AI web preview component for displaying web content.",
+      "files": [
+        {
+          "path": "src/components/ai-elements/cognite/web-preview.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

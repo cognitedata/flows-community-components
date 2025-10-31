@@ -4,7 +4,10 @@ import React from "react";
 import { useTheme } from "next-themes";
 import { CodeCopyButton } from "@/components/code-copy-button";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { vscDarkPlus, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+  vscDarkPlus,
+  vs,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface CodeExampleProps {
   title: string;
@@ -13,7 +16,6 @@ interface CodeExampleProps {
 
 export function CodeExample({ title, code }: CodeExampleProps) {
   const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
 
   // Custom style that adapts to the theme
   const customStyle = {
@@ -24,6 +26,9 @@ export function CodeExample({ title, code }: CodeExampleProps) {
     lineHeight: "1.5",
     borderRadius: "0",
   };
+
+  // Use resolvedTheme directly - the suppressHydrationWarning should handle this
+  const isDark = resolvedTheme === "dark";
 
   return (
     <div className="bg-muted/50 rounded-lg p-4">
@@ -37,7 +42,8 @@ export function CodeExample({ title, code }: CodeExampleProps) {
             customStyle={customStyle}
             codeTagProps={{
               style: {
-                fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+                fontFamily:
+                  'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
               },
             }}
             showLineNumbers={false}
@@ -49,4 +55,3 @@ export function CodeExample({ title, code }: CodeExampleProps) {
     </div>
   );
 }
-

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:component",
+  "title": "Badge",
+  "description": "A status badge component with size and variant support.",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/cognite/badge.tsx",
+      "content": "import * as React from \"react\";\nimport { Slot } from \"@radix-ui/react-slot\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst badgeVariants = cva(\n  \"inline-flex items-center align-middle justify-center rounded-md border px-1 text-sm font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3.5 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden leading-[18px]\",\n  {\n    variants: {\n      variant: {\n        default: \"border-transparent bg-primary text-primary-foreground\",\n        fjord:\n          \"border-transparent bg-fjord-50 text-fjord-700 dark:bg-fjord-900 dark:text-fjord-300\",\n        nordic:\n          \"border-transparent bg-nordic-50 text-nordic-600 dark:bg-nordic-900 dark:text-nordic-300\",\n        aurora:\n          \"border-transparent bg-aurora-50 text-aurora-600 dark:bg-aurora-900 dark:text-aurora-300\",\n        sky: \"border-transparent bg-sky-50 text-sky-600 dark:bg-sky-900 dark:text-sky-300\",\n        dusk: \"border-transparent bg-dusk-50 text-dusk-600 dark:bg-dusk-900 dark:text-dusk-400\",\n        mountain:\n          \"border-transparent bg-mountain-50 text-mountain-600 dark:bg-mountain-900 dark:text-mountain-400\",\n        secondary: \"border-transparent bg-secondary text-secondary-foreground \",\n        error: \"border-transparent bg-destructive text-destructive-foreground\",\n        warning: \"border-transparent bg-warning text-warning-foreground\",\n        success: \"border-transparent bg-success text-success-foreground\",\n        inProgress: \"border-transparent bg-neutral text-neutral-foreground\",\n        archived: \"border-transparent bg-undefined text-undefined-foreground\",\n        closable:  \"border-transparent bg-secondary text-secondary-foreground hover:bg-secondary-hover cursor-pointer\",\n      },\n      outline: {\n        true: \"border-current px-0.75\",\n      },\n      background: {\n        false: \"bg-transparent\",\n      },\n      dot: {\n        true: \"rounded-full\",\n      }\n    },\n\n    defaultVariants: {\n      variant: \"default\",\n      outline: false,\n      background: true,\n      dot: false\n    },\n  }\n);\n\nfunction Badge({\n  className,\n  variant,\n  outline,\ndot,\n  background,\n  asChild = false,\n  ...props\n}: React.ComponentProps<\"span\"> &\n  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {\n  const Comp = asChild ? Slot : \"span\";\n\n  return (\n    <Comp\n      data-slot=\"badge\"\n      className={cn(\n        badgeVariants({ variant, background }),\n        outline && \"border-current px-0.75\",\n        dot && \"rounded-full\",\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Badge, badgeVariants };",
+      "type": "registry:component"
+    }
+  ]
+}

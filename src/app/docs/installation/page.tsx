@@ -18,6 +18,10 @@ import {
   CardTitle,
 } from "@/components/ui/cognite/card";
 import { Badge } from "@/components/ui/cognite/badge";
+import {
+  CodeBlock,
+  CodeBlockCopyButton,
+} from "@/components/ai-elements/cognite/code-block";
 
 interface Step {
   icon: React.ComponentType<{ className?: string }>;
@@ -32,7 +36,7 @@ const steps: Step[] = [
     icon: Terminal,
     title: "Create your project",
     description: "Start with a new Next.js project or use your existing one",
-    code: "npx create-next-app@latest",
+    code: "npx cognite-create@latest",
   },
   {
     icon: FileText,
@@ -143,11 +147,9 @@ export default function InstallationPage() {
                     </CardHeader>
                     {step.code && (
                       <CardContent>
-                        <div className="relative">
-                          <pre className="overflow-x-auto rounded-lg bg-muted p-4">
-                            <code className="text-sm">{step.code}</code>
-                          </pre>
-                        </div>
+                        <CodeBlock code={step.code} language="bash">
+                          <CodeBlockCopyButton />
+                        </CodeBlock>
                       </CardContent>
                     )}
                     {step.configStep && (
@@ -160,9 +162,8 @@ export default function InstallationPage() {
                             </code>
                             :
                           </p>
-                          <div className="relative">
-                            <pre className="overflow-x-auto rounded-lg bg-muted p-4">
-                              <code className="text-sm">{`module.exports = {
+                          <CodeBlock
+                            code={`module.exports = {
   darkMode: ["class"],
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -173,9 +174,11 @@ export default function InstallationPage() {
     },
   },
   plugins: [],
-}`}</code>
-                            </pre>
-                          </div>
+}`}
+                            language="javascript"
+                          >
+                            <CodeBlockCopyButton />
+                          </CodeBlock>
                         </div>
                       </CardContent>
                     )}

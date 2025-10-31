@@ -256,5 +256,5 @@ export const avatarMeta = {
   name: "Avatar",
   description: "An image element with a fallback for representing the user.",
   llmUsage: "When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation. Use `<AvatarIcon>` for icon-only avatars.",
-  importPath: "@/components/ui/draft/avatar",
+  importPath: "@/components/ui/cognite/avatar",
 };

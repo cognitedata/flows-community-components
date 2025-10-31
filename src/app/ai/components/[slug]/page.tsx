@@ -17,11 +17,37 @@ interface ComponentPageProps {
 
 // List of valid AI component slugs
 const validSlugs = [
-  "actions", "artifact", "branch", "canvas", "chain-of-thought",
-  "code-block", "confirmation", "connection", "context", "controls", "conversation",
-  "edge", "image", "inline-citation", "loader", "message", "node",
-  "open-in-chat", "panel", "plan", "prompt-input", "queue", "reasoning", "response",
-  "shimmer", "sources", "suggestion", "task", "tool", "toolbar", "web-preview"
+  "actions",
+  "artifact",
+  "branch",
+  "canvas",
+  "chain-of-thought",
+  "code-block",
+  "confirmation",
+  "connection",
+  "context",
+  "controls",
+  "conversation",
+  "edge",
+  "image",
+  "inline-citation",
+  "loader",
+  "message",
+  "node",
+  "open-in-chat",
+  "panel",
+  "plan",
+  "prompt-input",
+  "queue",
+  "reasoning",
+  "response",
+  "shimmer",
+  "sources",
+  "suggestion",
+  "task",
+  "tool",
+  "toolbar",
+  "web-preview",
 ];
 
 export async function generateStaticParams() {
@@ -40,16 +66,20 @@ function toTitleCase(str: string): string {
 export async function generateMetadata({ params }: ComponentPageProps) {
   const { slug } = await params;
   const meta = await getAIComponentMeta(slug);
-  
+
   return {
-    title: `${meta?.name || toTitleCase(slug)} Component - AI Elements Documentation`,
-    description: meta?.description || `AI element component for building conversational interfaces`,
+    title: `${
+      meta?.name || toTitleCase(slug)
+    } Component - AI Elements Documentation`,
+    description:
+      meta?.description ||
+      `AI element component for building conversational interfaces`,
   };
 }
 
 export default async function ComponentPage({ params }: ComponentPageProps) {
   const { slug } = await params;
-  
+
   // Validate slug
   if (!validSlugs.includes(slug)) {
     notFound();
@@ -58,7 +88,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   const meta = await getAIComponentMeta(slug);
   const componentName = meta?.name || toTitleCase(slug);
   const componentStatus = getAIComponentStatus(slug);
-  const description = meta?.description || "AI element component for building conversational interfaces";
+  const description =
+    meta?.description ||
+    "AI element component for building conversational interfaces";
 
   return (
     <div className="px-3 py-8">
@@ -82,7 +114,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <h1 className="text-3xl font-bold">{componentName}</h1>
-                    <Badge variant="default" outline>AI Element</Badge>
+                    <Badge variant="default" outline>
+                      AI Element
+                    </Badge>
                     {componentStatus === "production" && (
                       <Badge
                         variant="default"
@@ -106,9 +140,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   {componentStatus === "draft" && (
                     <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
                       <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                        <strong>Note:</strong> This component is currently in draft
-                        status. It may not be production-ready and could undergo
-                        changes.
+                        <strong>Note:</strong> This component is currently in
+                        draft status. It may not be production-ready and could
+                        undergo changes.
                       </p>
                     </div>
                   )}
@@ -141,7 +175,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               <h2 className="text-2xl font-bold mb-6">Installation</h2>
               <div className="space-y-4">
                 <p className="text-muted-foreground">
-                  AI elements are included in the project. Copy the component source code to use it.
+                  AI elements are included in the project. Copy the component
+                  source code to use it.
                 </p>
               </div>
             </section>
@@ -177,11 +212,11 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   </h3>
                   <div className="p-4 rounded-lg border bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-800">
                     <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
-                      <li>
-                        Don&apos;t forget to handle error states.
-                      </li>
+                      <li>Don&apos;t forget to handle error states.</li>
                       <li>Don&apos;t mix inconsistent message variants.</li>
-                      <li>Don&apos;t omit source attribution for AI content.</li>
+                      <li>
+                        Don&apos;t omit source attribution for AI content.
+                      </li>
                       <li>Don&apos;t override component internals directly.</li>
                     </ul>
                   </div>

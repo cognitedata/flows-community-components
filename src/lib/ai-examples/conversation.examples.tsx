@@ -1,8 +1,8 @@
 "use client";
 
-import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/draft/conversation";
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
-import { Actions, Action } from "@/components/ai-elements/draft/actions";
+import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
+import { Actions, Action } from "@/components/ai-elements/cognite/actions";
 import { MessageSquare } from "lucide-react";
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react";
 import {
@@ -250,9 +250,9 @@ export const conversationExamples: ComponentExamples = {
     difficulty: "beginner",
     code: `"use client"
 
-import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/draft/conversation"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
-import { Actions, Action } from "@/components/ai-elements/draft/actions"
+import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
+import { Actions, Action } from "@/components/ai-elements/cognite/actions"
 import { MessageSquare } from "lucide-react"
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
@@ -358,7 +358,7 @@ export function BasicConversationDemo() {
     description: "Show a placeholder when there are no messages",
     component: EmptyStateDemo,
     difficulty: "beginner",
-    code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/draft/conversation"
+    code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
 import { MessageSquare } from "lucide-react"
 
 export function EmptyStateDemo() {
@@ -381,5 +381,5 @@ export function EmptyStateDemo() {
 export const conversationMeta = {
   name: "Conversation",
   description: "Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.",
-  importPath: "@/components/ai-elements/draft/conversation",
+  importPath: "@/components/ai-elements/cognite/conversation",
 };

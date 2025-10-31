@@ -65,6 +65,7 @@ The `public/r/` directory contains auto-generated component definitions that are
 ### What Gets Cleaned
 
 When `registry:build` runs, it removes:
+
 - All `public/r/*.json` files (component definitions)
 - `public/r/registry.json` (registry index)
 

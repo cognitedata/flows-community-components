@@ -1,5 +1,5 @@
-import { Actions, Action } from "@/components/ai-elements/draft/actions";
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
+import { Actions, Action } from "@/components/ai-elements/cognite/actions";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
 import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react";
 import {
   DropdownMenu,
@@ -107,8 +107,8 @@ export const actionsExamples: ComponentExamples = {
     description: "Action buttons for interacting with AI messages",
     component: BasicActionsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
@@ -172,8 +172,8 @@ export function BasicActionsDemo() {
     description: "Actions with copy, share, and more options buttons",
     component: ActionsWithLabelsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
@@ -231,5 +231,5 @@ export function ActionsWithLabelsDemo() {
 export const actionsMeta = {
   name: "Actions",
   description: "A row of composable action buttons for AI responses, including retry, like, dislike, copy, share, and custom actions.",
-  importPath: "@/components/ai-elements/draft/actions",
+  importPath: "@/components/ai-elements/cognite/actions",
 };
