@@ -3,7 +3,7 @@ import {
   AvatarFallback,
   AvatarIcon,
   AvatarImage,
-} from "@/components/ui/cognite/avatar";
+} from "@/components/ui/draft/avatar";
 import type { ComponentExamples } from "./types";
 import { IconWheel } from "@tabler/icons-react";
 
@@ -201,7 +201,7 @@ export const avatarExamples: ComponentExamples = {
     description: "Display user avatars with image and fallback",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/cognite/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/draft/avatar"
 
 export function BasicDemo() {
   return (
@@ -228,7 +228,7 @@ export function BasicDemo() {
     description: "Different avatar sizes using custom classes",
     component: SizesVariantsDemo,
     difficulty: "beginner",
-    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/cognite/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/draft/avatar"
 
 export function SizesDemo() {
   return (

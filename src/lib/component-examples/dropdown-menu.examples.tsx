@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +6,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
+} from "@/components/ui/draft/dropdown-menu";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -66,8 +66,8 @@ export const dropdownMenuExamples: ComponentExamples = {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
-import { Button } from "@/components/ui/cognite/button"
+} from "@/components/ui/draft/dropdown-menu"
+import { Button } from "@/components/ui/draft/button"
 
 export function BasicDemo() {
   return (
@@ -96,5 +96,5 @@ export const dropdownMenuMeta = {
   name: "Dropdown Menu",
   description: "Displays a menu to the user triggered by a button press or hover.",
   llmUsage: "When asked for a dropdown menu, use `<DropdownMenu>` for contextual actions and navigation.",
-  importPath: "@/components/ui/cognite/dropdown-menu",
+  importPath: "@/components/ui/draft/dropdown-menu",
 };

@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/cognite/hover-card";
-import { Progress } from "@/components/ui/cognite/progress";
+} from "@/components/ui/draft/hover-card";
+import { Progress } from "@/components/ui/draft/progress";
 import { cn } from "@/lib/utils";
 import type { LanguageModelUsage } from "ai";
 import { type ComponentProps, createContext, useContext } from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   Command,
   CommandEmpty,
@@ -9,31 +9,31 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/cognite/command";
+} from "@/components/ui/draft/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
+} from "@/components/ui/draft/dropdown-menu";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/cognite/hover-card";
+} from "@/components/ui/draft/hover-card";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "@/components/ui/cognite/input-group";
+} from "@/components/ui/draft/input-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select";
+} from "@/components/ui/draft/select";
 import { cn } from "@/lib/utils";
 import type { ChatStatus, FileUIPart } from "ai";
 import {

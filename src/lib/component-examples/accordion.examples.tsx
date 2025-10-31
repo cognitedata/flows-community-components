@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion";
+} from "@/components/ui/draft/accordion";
 import type { ComponentExamples, ComponentMeta } from "./types";
 
 // Basic Accordion Demo
@@ -96,7 +96,7 @@ export const accordionExamples: ComponentExamples = {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion"
+} from "@/components/ui/draft/accordion"
 
 export function BasicAccordionDemo() {
   return (
@@ -135,7 +135,7 @@ export function BasicAccordionDemo() {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion"
+} from "@/components/ui/draft/accordion"
 
 export function MultipleAccordionDemo() {
   return (
@@ -174,7 +174,7 @@ export function MultipleAccordionDemo() {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion"
+} from "@/components/ui/draft/accordion"
 
 export function DefaultValueAccordionDemo() {
   return (
@@ -210,7 +210,7 @@ export const accordionMeta: ComponentMeta = {
     "A collapsible content component that allows users to show and hide sections of related content.",
   llmUsage:
     "When asked for an accordion, use `<Accordion>` with `<AccordionItem>` components for collapsible sections.",
-  importPath: "@/components/ui/cognite/accordion",
+  importPath: "@/components/ui/draft/accordion",
   apiReference: {
     props: [
       {

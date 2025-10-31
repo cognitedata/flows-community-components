@@ -7,23 +7,23 @@ import { PanelLeftIcon } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/cognite/button"
-import { Input } from "@/components/ui/cognite/input"
-import { Separator } from "@/components/ui/cognite/separator"
+import { Button } from "@/components/ui/draft/button"
+import { Input } from "@/components/ui/draft/input"
+import { Separator } from "@/components/ui/draft/separator"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/cognite/sheet"
-import { Skeleton } from "@/components/ui/cognite/skeleton"
+} from "@/components/ui/draft/sheet"
+import { Skeleton } from "@/components/ui/draft/skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip"
+} from "@/components/ui/draft/tooltip"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

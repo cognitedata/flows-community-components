@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/cognite/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/draft/card";
 import { CodeExample } from "@/components/code-example";
 
 export default function AIPage() {

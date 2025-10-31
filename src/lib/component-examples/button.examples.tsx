@@ -1,11 +1,10 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   IconPlus,
   IconBookmark,
   IconTrash,
   IconExternalLink,
   IconLoader2,
-  IconMail,
 } from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
@@ -171,7 +170,7 @@ function MainComponentDemo() {
           <IconPlus />
         </Button>
         <Button size="lg" variant={"link"}>
-        <IconPlus />
+          <IconPlus />
           Button
         </Button>
         <Button size="lg" variant={"link"}>
@@ -200,7 +199,7 @@ export const buttonExamples: ComponentExamples = {
     description: "Different visual styles for various use cases",
     component: VariantsDemo,
     difficulty: "beginner",
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "@/components/ui/draft/button"
 import { IconPlus, IconBookmark, IconTrash, IconExternalLink } from "@tabler/icons-react"
 
 export function VariantsDemo() {
@@ -236,7 +235,7 @@ export function VariantsDemo() {
     description: "Available size and variation options",
     component: MainComponentDemo,
     difficulty: "beginner",
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "@/components/ui/draft/button"
 import { IconMail } from "@tabler/icons-react"
 
 export function SizesDemo() {
@@ -258,7 +257,7 @@ export function SizesDemo() {
     description: "Disabled and loading states",
     component: StatesDemo,
     difficulty: "beginner",
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "@/components/ui/draft/button"
 import { IconLoader2 } from "@tabler/icons-react"
 
 export function StatesDemo() {
@@ -278,7 +277,9 @@ export function StatesDemo() {
 // Component metadata - single source of truth for API documentation
 export const buttonMeta = {
   name: "Button",
-  description: "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
-  llmUsage: "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
-  importPath: "@/components/ui/cognite/button",
+  description:
+    "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
+  llmUsage:
+    "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
+  importPath: "@/components/ui/draft/button",
 };

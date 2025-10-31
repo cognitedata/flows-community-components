@@ -5,7 +5,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from "@/components/ui/draft/card";
 import { Badge } from "@/components/ui/cognite/badge";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";

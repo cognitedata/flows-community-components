@@ -3,17 +3,17 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Copy, Check, Code, Eye } from "lucide-react";
-import { Button } from "@/components/ui/cognite/button";
-import { Input } from "@/components/ui/cognite/input";
-import { Label } from "@/components/ui/cognite/label";
+import { Button } from "@/components/ui/draft/button";
+import { Input } from "@/components/ui/draft/input";
+import { Label } from "@/components/ui/draft/label";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Switch } from "@/components/ui/cognite/switch";
+} from "@/components/ui/draft/card";
+import { Switch } from "@/components/ui/draft/switch";
 
 function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
@@ -99,7 +99,7 @@ export default function PrimitivesPage() {
   const [inputValue, setInputValue] = useState("");
   const [switchValue, setSwitchValue] = useState(false);
 
-  const buttonCode = `import { Button } from "@/components/ui/cognite/button"
+  const buttonCode = `import { Button } from "@/components/ui/draft/button"
 
 export function ButtonDemo() {
   return (
@@ -111,8 +111,8 @@ export function ButtonDemo() {
   )
 }`;
 
-  const inputCode = `import { Input } from "@/components/ui/cognite/input"
-import { Label } from "@/components/ui/cognite/label"
+  const inputCode = `import { Input } from "@/components/ui/draft/input"
+import { Label } from "@/components/ui/draft/label"
 
 export function InputDemo() {
   return (
@@ -127,7 +127,7 @@ export function InputDemo() {
   )
 }`;
 
-  const cardCode = `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/cognite/card"
+  const cardCode = `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/draft/card"
 
 export function CardDemo() {
   return (
@@ -147,8 +147,8 @@ export function CardDemo() {
   )
 }`;
 
-  const switchCode = `import { Switch } from "@/components/ui/cognite/switch"
-import { Label } from "@/components/ui/cognite/label"
+  const switchCode = `import { Switch } from "@/components/ui/draft/switch"
+import { Label } from "@/components/ui/draft/label"
 
 export function SwitchDemo() {
   return (
@@ -422,7 +422,7 @@ export function SwitchDemo() {
 
                 <div className="space-y-2">
                   <h4 className="font-semibold">Import</h4>
-                  <CodeBlock code="import { Button } from '@/components/ui/cognite/button'" />
+                  <CodeBlock code="import { Button } from '@/components/ui/draft/button'" />
                 </div>
               </CardContent>
             </Card>

@@ -1,4 +1,4 @@
-import { DatePicker } from "@/components/ui/cognite/date-picker";
+import { DatePicker } from "@/components/ui/draft/date-picker";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -18,7 +18,7 @@ export const datePickerExamples: ComponentExamples = {
     description: "Select a date from a calendar popover",
     component: BasicDemo,
     difficulty: "intermediate",
-    code: `import { DatePicker } from "@/components/ui/cognite/date-picker"
+    code: `import { DatePicker } from "@/components/ui/draft/date-picker"
 
 export function BasicDemo() {
   return <DatePicker />
@@ -31,5 +31,5 @@ export const datePickerMeta = {
   name: "Date Picker",
   description: "A date picker component with range and presets.",
   llmUsage: "When creating date selectors, use `<DatePicker>` which combines Popover and Calendar components.",
-  importPath: "@/components/ui/cognite/date-picker",
+  importPath: "@/components/ui/draft/date-picker",
 };

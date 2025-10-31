@@ -1,4 +1,4 @@
-import { Toggle } from "@/components/ui/cognite/toggle";
+import { Toggle } from "@/components/ui/draft/toggle";
 import { Bold, Italic, Underline } from "lucide-react";
 import type { ComponentExamples } from "./types";
 
@@ -24,7 +24,7 @@ export const toggleExamples: ComponentExamples = {
     description: "A two-state button that can be either on or off",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Toggle } from "@/components/ui/cognite/toggle"
+    code: `import { Toggle } from "@/components/ui/draft/toggle"
 import { Bold, Italic, Underline } from "lucide-react"
 
 export function BasicDemo() {
@@ -50,5 +50,5 @@ export const toggleMeta = {
   name: "Toggle",
   description: "A two-state button that can be either on or off.",
   llmUsage: "When creating toggle buttons, use `<Toggle>` for binary state controls.",
-  importPath: "@/components/ui/cognite/toggle",
+  importPath: "@/components/ui/draft/toggle",
 };

@@ -3,14 +3,14 @@
 import { motion } from "framer-motion";
 import { Download, Copy, Check } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from "@/components/ui/draft/card";
 
 const colors = {
   blue: [

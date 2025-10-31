@@ -6,15 +6,15 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Button } from "@/components/ui/cognite/button";
+} from "@/components/ui/draft/card";
+import { Button } from "@/components/ui/draft/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/cognite/tabs";
+} from "@/components/ui/draft/tabs";
 import {
   Bug,
   CheckCircle,

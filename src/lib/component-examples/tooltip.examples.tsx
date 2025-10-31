@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip";
+} from "@/components/ui/draft/tooltip";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -59,8 +59,8 @@ export const tooltipExamples: ComponentExamples = {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip"
-import { Button } from "@/components/ui/cognite/button"
+} from "@/components/ui/draft/tooltip"
+import { Button } from "@/components/ui/draft/button"
 
 export function BasicDemo() {
   return (
@@ -84,5 +84,5 @@ export const tooltipMeta = {
   name: "Tooltip",
   description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   llmUsage: "When asked for a tooltip, use `<Tooltip>` to provide helpful information on hover or focus.",
-  importPath: "@/components/ui/cognite/tooltip",
+  importPath: "@/components/ui/draft/tooltip",
 };

@@ -3,14 +3,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Play, RotateCcw, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from "@/components/ui/draft/card";
 
 const principles = [
   {

@@ -4,9 +4,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from "@/components/ui/draft/card";
 import { Badge } from "@/components/ui/cognite/badge";
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   BarChart3,
   ShoppingBag,

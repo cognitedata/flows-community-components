@@ -1,7 +1,7 @@
 "use client";
 
-import { Alert, AlertDescription } from "@/components/ui/cognite/alert";
-import { Button } from "@/components/ui/cognite/button";
+import { Alert, AlertDescription } from "@/components/ui/draft/alert";
+import { Button } from "@/components/ui/draft/button";
 import { cn } from "@/lib/utils";
 import {
   type ComponentProps,

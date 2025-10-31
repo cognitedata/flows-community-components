@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from "@/components/ui/draft/card";
 import { Badge } from "@/components/ui/cognite/badge";
 import { CalendarDays, GitCommit } from "lucide-react";
 

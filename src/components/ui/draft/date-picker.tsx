@@ -5,13 +5,13 @@ import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/cognite/button"
-import { Calendar } from "@/components/ui/cognite/calendar"
+import { Button } from "@/components/ui/draft/button"
+import { Calendar } from "@/components/ui/draft/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/cognite/popover"
+} from "@/components/ui/draft/popover"
 
 export function DatePicker() {
   const [date, setDate] = React.useState<Date>()

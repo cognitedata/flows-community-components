@@ -1,5 +1,5 @@
-import { Separator } from "@/components/ui/cognite/separator";
-import { Button } from "@/components/ui/cognite/button";
+import { Separator } from "@/components/ui/draft/separator";
+import { Button } from "@/components/ui/draft/button";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -25,8 +25,8 @@ export const separatorExamples: ComponentExamples = {
     description: "Horizontal and vertical separators for dividing content",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Separator } from "@/components/ui/cognite/separator"
-import { Button } from "@/components/ui/cognite/button"
+    code: `import { Separator } from "@/components/ui/draft/separator"
+import { Button } from "@/components/ui/draft/button"
 
 export function BasicDemo() {
   return (
@@ -52,5 +52,5 @@ export const separatorMeta = {
   name: "Separator",
   description: "Visually or semantically separates content.",
   llmUsage: "When asked for a separator, use `<Separator>` to divide content sections or create visual breaks.",
-  importPath: "@/components/ui/cognite/separator",
+  importPath: "@/components/ui/draft/separator",
 };

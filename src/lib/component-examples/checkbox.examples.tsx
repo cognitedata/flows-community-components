@@ -1,5 +1,5 @@
-import { Checkbox } from "@/components/ui/cognite/checkbox";
-import { Label } from "@/components/ui/cognite/label";
+import { Checkbox } from "@/components/ui/draft/checkbox";
+import { Label } from "@/components/ui/draft/label";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -29,8 +29,8 @@ export const checkboxExamples: ComponentExamples = {
     description: "Checkboxes in different states with labels",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Checkbox } from "@/components/ui/cognite/checkbox"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { Checkbox } from "@/components/ui/draft/checkbox"
+import { Label } from "@/components/ui/draft/label"
 
 export function BasicDemo() {
   return (
@@ -60,5 +60,5 @@ export const checkboxMeta = {
   name: "Checkbox",
   description: "A control that allows the user to toggle between checked and not checked.",
   llmUsage: "When asked for a checkbox, use `<Checkbox>` for binary selections and form controls.",
-  importPath: "@/components/ui/cognite/checkbox",
+  importPath: "@/components/ui/draft/checkbox",
 };

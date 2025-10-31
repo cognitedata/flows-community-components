@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
+} from "@/components/ui/draft/dropdown-menu";
 import { cn } from "@/lib/utils";
 import {
   ChevronDownIcon,

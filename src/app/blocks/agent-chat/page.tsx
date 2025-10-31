@@ -2,17 +2,17 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/cognite/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/cognite/card";
-import { Input } from "@/components/ui/cognite/input";
+import { Button } from "@/components/ui/draft/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/draft/card";
+import { Input } from "@/components/ui/draft/input";
 import { Badge } from "@/components/ui/cognite/badge";
-import { ScrollArea } from "@/components/ui/cognite/scroll-area";
+import { ScrollArea } from "@/components/ui/draft/scroll-area";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
+} from "@/components/ui/draft/dropdown-menu";
 import {
   Send,
   Copy,

@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/cognite/calendar";
+import { Calendar } from "@/components/ui/draft/calendar";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -31,7 +31,7 @@ export const calendarExamples: ComponentExamples = {
     description: "Interactive calendar component with month/year navigation and date selection",
     component: BasicDemo,
     difficulty: "intermediate",
-    code: `import { Calendar } from "@/components/ui/cognite/calendar"
+    code: `import { Calendar } from "@/components/ui/draft/calendar"
 import { useState } from "react"
 
 export function BasicDemo() {
@@ -61,5 +61,5 @@ export const calendarMeta = {
   name: "Calendar",
   description: "A date picker component for selecting dates and date ranges.",
   llmUsage: "When asked for a calendar, use `<Calendar>` for date selection functionality.",
-  importPath: "@/components/ui/cognite/calendar",
+  importPath: "@/components/ui/draft/calendar",
 };

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import Link from "next/link";
 import { IconArrowLeft } from "@tabler/icons-react";

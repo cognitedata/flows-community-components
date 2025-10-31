@@ -6,7 +6,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/cognite/command";
+} from "@/components/ui/draft/command";
 import type { ComponentExamples } from "./types";
 import React from "react";
 import {
@@ -83,7 +83,7 @@ export const commandExamples: ComponentExamples = {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/cognite/command"
+} from "@/components/ui/draft/command"
 import {
   IconChartLine,
   IconHexagon,
@@ -151,5 +151,5 @@ export const commandMeta = {
   description: "Fast, composable command menu for React.",
   llmUsage:
     "When creating command palettes or searchable menus, use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` components.",
-  importPath: "@/components/ui/cognite/command",
+  importPath: "@/components/ui/draft/command",
 };

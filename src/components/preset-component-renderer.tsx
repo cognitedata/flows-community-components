@@ -6,11 +6,11 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Button } from "@/components/ui/cognite/button";
+} from "@/components/ui/draft/card";
+import { Button } from "@/components/ui/draft/button";
 import { Badge } from "@/components/ui/cognite/badge";
-import { Input } from "@/components/ui/cognite/input";
-import { Label } from "@/components/ui/cognite/label";
+import { Input } from "@/components/ui/draft/input";
+import { Label } from "@/components/ui/draft/label";
 import { AlertTriangle, Play } from "lucide-react";
 
 interface PresetComponentRendererProps {

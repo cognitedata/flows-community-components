@@ -4,7 +4,7 @@ import React, { RefObject, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Badge } from "@/components/ui/cognite/badge";
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from "@/components/ui/draft/button";
 import { Palette, Code, Sparkles, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/cognite/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/draft/card"
 
 export default function TemplatesPage() {
   return (
