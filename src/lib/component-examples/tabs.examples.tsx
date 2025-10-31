@@ -3,7 +3,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/draft/tabs";
+} from "@/components/ui/cognite/tabs";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -47,7 +47,7 @@ export const tabsExamples: ComponentExamples = {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/draft/tabs"
+} from "@/components/ui/cognite/tabs"
 
 export function BasicDemo() {
   return (
@@ -86,5 +86,5 @@ export const tabsMeta = {
   name: "Tabs",
   description: "A tabbed interface component for organizing content into multiple panels with accessible keyboard navigation.",
   llmUsage: "When creating tabbed interfaces, use `<Tabs defaultValue='tab1'>` with `<TabsList>`, `<TabsTrigger>`, and `<TabsContent>` components for proper accessibility and functionality.",
-  importPath: "@/components/ui/draft/tabs",
+  importPath: "@/components/ui/cognite/tabs",
 };

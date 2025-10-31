@@ -6,9 +6,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
-import { Button } from "@/components/ui/draft/button";
-import { Input } from "@/components/ui/draft/input";
+} from "@/components/ui/cognite/card";
+import { Button } from "@/components/ui/cognite/button";
+import { Input } from "@/components/ui/cognite/input";
 import {
   Search,
   Download,

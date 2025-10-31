@@ -1,5 +1,5 @@
-import { Slider } from "@/components/ui/draft/slider";
-import { Label } from "@/components/ui/draft/label";
+import { Slider } from "@/components/ui/cognite/slider";
+import { Label } from "@/components/ui/cognite/label";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -23,8 +23,8 @@ export const sliderExamples: ComponentExamples = {
     description: "An input where the user selects a value from within a given range",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Slider } from "@/components/ui/draft/slider"
-import { Label } from "@/components/ui/draft/label"
+    code: `import { Slider } from "@/components/ui/cognite/slider"
+import { Label } from "@/components/ui/cognite/label"
 
 export function BasicDemo() {
   return (
@@ -48,5 +48,5 @@ export const sliderMeta = {
   name: "Slider",
   description: "An input where the user selects a value from within a given range.",
   llmUsage: "When creating range inputs, use `<Slider>` for selecting numeric values within a range.",
-  importPath: "@/components/ui/draft/slider",
+  importPath: "@/components/ui/cognite/slider",
 };

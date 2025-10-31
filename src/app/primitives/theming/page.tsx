@@ -3,22 +3,22 @@
 import { useState, useEffect, startTransition } from "react";
 import { motion } from "framer-motion";
 import { Palette, RotateCcw, Sun, Moon, Eye } from "lucide-react";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
+} from "@/components/ui/cognite/card";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/draft/tabs";
-import { Input } from "@/components/ui/draft/input";
-import { Label } from "@/components/ui/draft/label";
+} from "@/components/ui/cognite/tabs";
+import { Input } from "@/components/ui/cognite/input";
+import { Label } from "@/components/ui/cognite/label";
 import { Badge } from "@/components/ui/cognite/badge";
 import { CodeCopyButton } from "@/components/code-copy-button";
 
@@ -347,7 +347,7 @@ export default function App({ children }) {
 Your components will now use the custom theme colors automatically!
 
 \`\`\`jsx
-import { Button } from "@/components/ui/draft/button"
+import { Button } from "@/components/ui/cognite/button"
 
 export function Example() {
   return (

@@ -5,12 +5,12 @@ import {
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/draft/carousel";
+} from "@/components/ui/cognite/carousel";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/draft/hover-card";
+} from "@/components/ui/cognite/hover-card";
 import { cn } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import type { ComponentType } from "react";

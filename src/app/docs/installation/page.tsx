@@ -9,14 +9,14 @@ import {
   FileText,
   Sparkles,
 } from "lucide-react";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
+} from "@/components/ui/cognite/card";
 import { Badge } from "@/components/ui/cognite/badge";
 import {
   CodeBlock,

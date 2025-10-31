@@ -1,10 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   ScrollArea,
   ScrollBar,
-} from "@/components/ui/draft/scroll-area";
+} from "@/components/ui/cognite/scroll-area";
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 

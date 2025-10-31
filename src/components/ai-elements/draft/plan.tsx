@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Card,
   CardAction,
@@ -9,12 +9,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
+} from "@/components/ui/cognite/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/draft/collapsible";
+} from "@/components/ui/cognite/collapsible";
 import { cn } from "@/lib/utils";
 import { ChevronsUpDownIcon } from "lucide-react";
 import type { ComponentProps } from "react";

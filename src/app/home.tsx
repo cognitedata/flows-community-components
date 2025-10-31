@@ -11,14 +11,14 @@ import {
   BookOpen,
   Code2,
 } from "lucide-react";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
+} from "@/components/ui/cognite/card";
 
 const containerVariants = {
   hidden: { opacity: 0 },

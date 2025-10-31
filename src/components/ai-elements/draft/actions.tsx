@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/draft/tooltip";
+} from "@/components/ui/cognite/tooltip";
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 

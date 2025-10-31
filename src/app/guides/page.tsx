@@ -14,7 +14,7 @@ import {
   Terminal,
   Puzzle,
 } from "lucide-react";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import {
   Card,
@@ -22,7 +22,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
+} from "@/components/ui/cognite/card";
 import { CodeCopyButton } from "@/components/code-copy-button";
 import Link from "next/link";
 
@@ -110,7 +110,7 @@ const developerSteps = [
       },
       {
         label: "Import and use (example)",
-        command: `import { Button } from "@/components/ui/draft/button"\n\nexport default function MyPage() {\n  return <Button>Hello Aura!</Button>\n}`,
+        command: `import { Button } from "@/components/ui/cognite/button"\n\nexport default function MyPage() {\n  return <Button>Hello Aura!</Button>\n}`,
       },
     ],
     info: "All components are ready to use with TypeScript support and theming",

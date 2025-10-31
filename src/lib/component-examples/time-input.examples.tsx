@@ -27,5 +27,5 @@ export const timeInputMeta = {
   name: "Time Input",
   description: "Custom component for time input (implementation pending).",
   llmUsage: "Time input component is a custom component - implementation details coming soon.",
-  importPath: "@/components/ui/draft/time-input",
+  importPath: "@/components/ui/cognite/time-input",
 };

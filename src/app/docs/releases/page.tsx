@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
+} from "@/components/ui/cognite/card";
 import { Badge } from "@/components/ui/cognite/badge";
 import { CalendarDays, GitCommit } from "lucide-react";
 
@@ -115,4 +115,3 @@ export default function ReleasesPage() {
     </SectionLayout>
   );
 }
-

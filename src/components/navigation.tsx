@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "@/components/ui/draft/sheet";
+} from "@/components/ui/cognite/sheet";
 import { Menu, Sun, Moon, Contrast } from "lucide-react";
 import Image from "next/image";
 import auraLogo from "@/../public/aura-logo.png";

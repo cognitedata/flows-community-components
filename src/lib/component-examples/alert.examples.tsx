@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/draft/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert";
 import { Terminal, AlertCircle } from "lucide-react";
 import type { ComponentExamples } from "./types";
 
@@ -43,7 +43,7 @@ export const alertExamples: ComponentExamples = {
     description: "A simple alert with title and description",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/draft/alert"
+    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
 import { Terminal } from "lucide-react"
 
 export function BasicDemo() {
@@ -63,7 +63,7 @@ export function BasicDemo() {
     description: "Different alert styles for various contexts",
     component: VariantsDemo,
     difficulty: "beginner",
-    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/draft/alert"
+    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
 import { Terminal, AlertCircle } from "lucide-react"
 
 export function VariantsDemo() {
@@ -94,5 +94,5 @@ export const alertMeta = {
   name: "Alert",
   description: "Displays a callout for user attention with different severity levels.",
   llmUsage: "When showing alerts or notifications, use `<Alert>` with `<AlertTitle>` and `<AlertDescription>` components.",
-  importPath: "@/components/ui/draft/alert",
+  importPath: "@/components/ui/cognite/alert",
 };

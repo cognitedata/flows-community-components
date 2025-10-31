@@ -1,5 +1,5 @@
-import { Input } from "@/components/ui/draft/input";
-import { Label } from "@/components/ui/draft/label";
+import { Input } from "@/components/ui/cognite/input";
+import { Label } from "@/components/ui/cognite/label";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -33,7 +33,7 @@ export const inputExamples: ComponentExamples = {
     description: "A simple text input field",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `import { Input } from "@/components/ui/draft/input"
+    code: `import { Input } from "@/components/ui/cognite/input"
 
 export function BasicDemo() {
   return (
@@ -49,8 +49,8 @@ export function BasicDemo() {
     description: "Input field with an associated label",
     component: WithLabelDemo,
     difficulty: "beginner",
-    code: `import { Input } from "@/components/ui/draft/input"
-import { Label } from "@/components/ui/draft/label"
+    code: `import { Input } from "@/components/ui/cognite/input"
+import { Label } from "@/components/ui/cognite/label"
 
 export function WithLabelDemo() {
   return (
@@ -67,7 +67,7 @@ export function WithLabelDemo() {
     description: "Input in a disabled state",
     component: DisabledDemo,
     difficulty: "beginner",
-    code: `import { Input } from "@/components/ui/draft/input"
+    code: `import { Input } from "@/components/ui/cognite/input"
 
 export function DisabledDemo() {
   return (
@@ -84,5 +84,5 @@ export const inputMeta = {
   name: "Input",
   description: "A styled input field component with built-in validation states and accessibility features.",
   llmUsage: "When creating form inputs, use `<Input type='text' placeholder='Enter text' />` instead of `<input>`. Pair with `<Label>` for accessibility.",
-  importPath: "@/components/ui/draft/input",
+  importPath: "@/components/ui/cognite/input",
 };

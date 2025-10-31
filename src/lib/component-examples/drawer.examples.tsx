@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Drawer,
   DrawerClose,
@@ -8,9 +8,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/draft/drawer";
-import { Input } from "@/components/ui/draft/input";
-import { Label } from "@/components/ui/draft/label";
+} from "@/components/ui/cognite/drawer";
+import { Input } from "@/components/ui/cognite/input";
+import { Label } from "@/components/ui/cognite/label";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -96,10 +96,10 @@ export const drawerExamples: ComponentExamples = {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/draft/drawer"
-import { Button } from "@/components/ui/draft/button"
-import { Input } from "@/components/ui/draft/input"
-import { Label } from "@/components/ui/draft/label"
+} from "@/components/ui/cognite/drawer"
+import { Button } from "@/components/ui/cognite/button"
+import { Input } from "@/components/ui/cognite/input"
+import { Label } from "@/components/ui/cognite/label"
 
 export function BasicDemo() {
   return (
@@ -142,5 +142,5 @@ export const drawerMeta = {
   name: "Drawer",
   description: "A drawer component for mobile and desktop.",
   llmUsage: "When creating drawer panels, use `<Drawer>` with `<DrawerTrigger>` and `<DrawerContent>`.",
-  importPath: "@/components/ui/draft/drawer",
+  importPath: "@/components/ui/cognite/drawer",
 };

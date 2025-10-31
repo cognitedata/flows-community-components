@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/components/ui/draft/sidebar";
+} from "@/components/ui/cognite/sidebar";
 import { Home, Settings, Users, FileText, BarChart3 } from "lucide-react";
 import type { ComponentExamples } from "./types";
 
@@ -101,7 +101,7 @@ export const sidebarExamples: ComponentExamples = {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/components/ui/draft/sidebar"
+} from "@/components/ui/cognite/sidebar"
 import { Home, Settings, Users, FileText, BarChart3 } from "lucide-react"
 
 export function BasicDemo() {
@@ -149,5 +149,5 @@ export const sidebarMeta = {
   name: "Sidebar",
   description: "A composable, themeable and customizable sidebar component.",
   llmUsage: "When creating sidebars, use `<Sidebar>` with `<SidebarContent>`, `<SidebarMenu>`, and related components.",
-  importPath: "@/components/ui/draft/sidebar",
+  importPath: "@/components/ui/cognite/sidebar",
 };

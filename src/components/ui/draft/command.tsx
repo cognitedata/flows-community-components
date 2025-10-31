@@ -11,7 +11,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/draft/dialog"
+} from "@/components/ui/cognite/dialog"
 
 function Command({
   className,

@@ -6,7 +6,7 @@ import {
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
-} from "@/components/ui/draft/menubar";
+} from "@/components/ui/cognite/menubar";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -80,7 +80,7 @@ export const menubarExamples: ComponentExamples = {
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
-} from "@/components/ui/draft/menubar"
+} from "@/components/ui/cognite/menubar"
 
 export function BasicDemo() {
   return (
@@ -118,5 +118,5 @@ export const menubarMeta = {
   name: "Menubar",
   description: "A visually persistent menu common in desktop applications.",
   llmUsage: "When creating menu bars, use `<Menubar>` with `<MenubarMenu>`, `<MenubarTrigger>`, and `<MenubarContent>`.",
-  importPath: "@/components/ui/draft/menubar",
+  importPath: "@/components/ui/cognite/menubar",
 };

@@ -5,8 +5,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
-import { Button } from "@/components/ui/draft/button";
+} from "@/components/ui/cognite/card";
+import { Button } from "@/components/ui/cognite/button";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -55,7 +55,7 @@ export const cardExamples: ComponentExamples = {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card"
+} from "@/components/ui/cognite/card"
 
 export function BasicDemo() {
   return (
@@ -84,8 +84,8 @@ export function BasicDemo() {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card"
-import { Button } from "@/components/ui/draft/button"
+} from "@/components/ui/cognite/card"
+import { Button } from "@/components/ui/cognite/button"
 
 export function WithFooterDemo() {
   return (
@@ -114,5 +114,5 @@ export const cardMeta = {
   name: "Card",
   description: "A flexible card component with header, content, and footer sections for organizing and displaying content.",
   llmUsage: "When creating content containers, use `<Card>` with `<CardHeader>`, `<CardContent>`, and `<CardFooter>` subcomponents. Use `<CardTitle>` and `<CardDescription>` for header content.",
-  importPath: "@/components/ui/draft/card",
+  importPath: "@/components/ui/cognite/card",
 };

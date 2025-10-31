@@ -1,7 +1,7 @@
 "use client";
 
 import { Copy } from "lucide-react";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import { useState, useEffect, startTransition } from "react";
 import { useTheme } from "next-themes";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";

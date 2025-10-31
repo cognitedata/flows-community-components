@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/draft/popover";
+} from "@/components/ui/cognite/popover";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -56,8 +56,8 @@ export const popoverExamples: ComponentExamples = {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/draft/popover"
-import { Button } from "@/components/ui/draft/button"
+} from "@/components/ui/cognite/popover"
+import { Button } from "@/components/ui/cognite/button"
 
 export function BasicDemo() {
   return (
@@ -84,5 +84,5 @@ export const popoverMeta = {
   name: "Popover",
   description: "Displays rich content in a portal, triggered by a button.",
   llmUsage: "When asked for a popover, use `<Popover>` for contextual information and secondary actions.",
-  importPath: "@/components/ui/draft/popover",
+  importPath: "@/components/ui/cognite/popover",
 };

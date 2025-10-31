@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/draft/select";
-import { Label } from "@/components/ui/draft/label";
+} from "@/components/ui/cognite/select";
+import { Label } from "@/components/ui/cognite/label";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -40,8 +40,8 @@ export const selectExamples: ComponentExamples = {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/draft/select"
-import { Label } from "@/components/ui/draft/label"
+} from "@/components/ui/cognite/select"
+import { Label } from "@/components/ui/cognite/label"
 
 export function BasicDemo() {
   return (
@@ -70,5 +70,5 @@ export const selectMeta = {
   name: "Select",
   description: "Displays a list of options for the user to pick from—triggered by a button.",
   llmUsage: "When asked for a select dropdown, use `<Select>` for choosing from multiple options.",
-  importPath: "@/components/ui/draft/select",
+  importPath: "@/components/ui/cognite/select",
 };

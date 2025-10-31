@@ -2,20 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/cognite/badge";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
+} from "@/components/ui/cognite/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/draft/chart";
+} from "@/components/ui/cognite/chart";
 import {
   Area,
   AreaChart,

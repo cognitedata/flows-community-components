@@ -6,7 +6,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/draft/collapsible";
+} from "@/components/ui/cognite/collapsible";
 import { cn } from "@/lib/utils";
 import {
   BrainIcon,

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import { cn } from "@/lib/utils";
 import type { Element } from "hast";
 import { CheckIcon, CopyIcon } from "lucide-react";

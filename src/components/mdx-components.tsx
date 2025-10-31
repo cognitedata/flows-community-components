@@ -1,22 +1,22 @@
 import type { MDXComponents } from "mdx/types";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/draft/card";
-import { Input } from "@/components/ui/draft/input";
-import { Label } from "@/components/ui/draft/label";
+} from "@/components/ui/cognite/card";
+import { Input } from "@/components/ui/cognite/input";
+import { Label } from "@/components/ui/cognite/label";
 import { Badge } from "@/components/ui/cognite/badge";
-import { Separator } from "@/components/ui/draft/separator";
+import { Separator } from "@/components/ui/cognite/separator";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/draft/tabs";
+} from "@/components/ui/cognite/tabs";
 import { cn } from "@/lib/utils";
 
 // Code block component for syntax highlighting

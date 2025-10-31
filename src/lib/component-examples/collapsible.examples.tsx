@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/draft/collapsible";
+} from "@/components/ui/cognite/collapsible";
 import { ChevronsUpDown } from "lucide-react";
 import type { ComponentExamples } from "./types";
 
@@ -46,8 +46,8 @@ export const collapsibleExamples: ComponentExamples = {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/draft/collapsible"
-import { Button } from "@/components/ui/draft/button"
+} from "@/components/ui/cognite/collapsible"
+import { Button } from "@/components/ui/cognite/button"
 import { ChevronsUpDown } from "lucide-react"
 
 export function BasicDemo() {
@@ -82,5 +82,5 @@ export const collapsibleMeta = {
   description: "An interactive component which expands/collapses a panel.",
   llmUsage:
     "When showing expandable content, use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>`.",
-  importPath: "@/components/ui/draft/collapsible",
+  importPath: "@/components/ui/cognite/collapsible",
 };

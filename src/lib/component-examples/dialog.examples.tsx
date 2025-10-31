@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   Dialog,
   DialogContent,
@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/draft/dialog";
-import { Input } from "@/components/ui/draft/input";
-import { Label } from "@/components/ui/draft/label";
+} from "@/components/ui/cognite/dialog";
+import { Input } from "@/components/ui/cognite/input";
+import { Label } from "@/components/ui/cognite/label";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -90,10 +90,10 @@ export const dialogExamples: ComponentExamples = {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/draft/dialog"
-import { Button } from "@/components/ui/draft/button"
-import { Input } from "@/components/ui/draft/input"
-import { Label } from "@/components/ui/draft/label"
+} from "@/components/ui/cognite/dialog"
+import { Button } from "@/components/ui/cognite/button"
+import { Input } from "@/components/ui/cognite/input"
+import { Label } from "@/components/ui/cognite/label"
 
 export function BasicDemo() {
   return (
@@ -133,5 +133,5 @@ export const dialogMeta = {
   name: "Dialog",
   description: "A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.",
   llmUsage: "When asked for a dialog, use `<Dialog>` for modal windows, forms, and detailed content overlays.",
-  importPath: "@/components/ui/draft/dialog",
+  importPath: "@/components/ui/cognite/dialog",
 };
