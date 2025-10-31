@@ -5,7 +5,6 @@ import {
   IconTrash,
   IconExternalLink,
   IconLoader2,
-  IconMail,
 } from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
@@ -171,7 +170,7 @@ function MainComponentDemo() {
           <IconPlus />
         </Button>
         <Button size="lg" variant={"link"}>
-        <IconPlus />
+          <IconPlus />
           Button
         </Button>
         <Button size="lg" variant={"link"}>
@@ -278,7 +277,9 @@ export function StatesDemo() {
 // Component metadata - single source of truth for API documentation
 export const buttonMeta = {
   name: "Button",
-  description: "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
-  llmUsage: "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
+  description:
+    "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
+  llmUsage:
+    "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
   importPath: "@/components/ui/cognite/button",
 };

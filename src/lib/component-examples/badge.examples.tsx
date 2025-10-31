@@ -153,8 +153,8 @@ export function VariantsDemo() {
     description: "",
     component: MainComponentDemo,
     difficulty: "beginner",
-    code: `import { Button } from "@/components/ui/cognite/button"
-import { IconHexagon } from "@tabler/icons-react";
+    code: `import { Badge } from "@/components/ui/cognite/badge"
+import { IconHexagon, IconX } from "@tabler/icons-react";
 
 export function MainComponentDemo() {
   return (

@@ -16,7 +16,7 @@ import {
   IconSettings,
   IconUser,
 } from "@tabler/icons-react";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 
 function BasicDemo() {
   const [open, setOpen] = React.useState(false);
@@ -91,7 +91,7 @@ import {
   IconSettings,
   IconUser,
 } from "@tabler/icons-react";
-import { Button } from "@/components/ui/draft/button";
+import { Button } from "@/components/ui/cognite/button";
 
 export function BasicDemo() {
  const [open, setOpen] = React.useState(false);

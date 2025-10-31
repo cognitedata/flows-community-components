@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Dynamically builds registry.json from draft components in /draft.
+ * Dynamically builds registry.json from production-ready components in /cognite.
  *
- * This ensures only components that have actual implementations in /draft
+ * This ensures only components that have actual implementations in /cognite
  * (not barrels or redirects) will be published to the registry.
  *
- * Components in /cognite are production-ready.
+ * Components in /draft will never be published.
  */
 
 import * as fs from "fs";
@@ -40,29 +40,52 @@ interface Registry {
   items: RegistryItem[];
 }
 
-const draftDir = path.join(__dirname, "../src/components/ui/draft");
+const uiCogniteDir = path.join(__dirname, "../src/components/ui/cognite");
+const aiCogniteDir = path.join(__dirname, "../src/components/ai-elements/cognite");
 const registryTemplate = path.join(__dirname, "../registry.template.json");
 const registryOutput = path.join(__dirname, "../registry.json");
 
-// Get all draft components in /draft
-function getDraftComponents(): string[] {
-  if (!fs.existsSync(draftDir)) {
-    console.log("⚠️  No /draft directory found. Creating empty registry.");
-    return [];
+// Get all production-ready components in /cognite directories
+function getProductionComponents(): string[] {
+  const components: string[] = [];
+  
+  // Scan UI components
+  if (fs.existsSync(uiCogniteDir)) {
+    const uiFiles = fs
+      .readdirSync(uiCogniteDir)
+      .filter((file: string) => file.endsWith(".tsx"))
+      .map((file: string) => file.replace(".tsx", ""));
+    components.push(...uiFiles);
+    
+    console.log(
+      `\n✅ Found ${uiFiles.length} production-ready UI component(s) in ui/cognite:\n`
+    );
+    uiFiles.forEach((file: string) =>
+      console.log(`   - ${file}`)
+    );
+  }
+  
+  // Scan AI components
+  if (fs.existsSync(aiCogniteDir)) {
+    const aiFiles = fs
+      .readdirSync(aiCogniteDir)
+      .filter((file: string) => file.endsWith(".tsx"))
+      .map((file: string) => file.replace(".tsx", ""));
+    components.push(...aiFiles);
+    
+    console.log(
+      `\n✅ Found ${aiFiles.length} production-ready AI component(s) in ai-elements/cognite:\n`
+    );
+    aiFiles.forEach((file: string) =>
+      console.log(`   - ${file}`)
+    );
+  }
+  
+  if (components.length === 0) {
+    console.log("⚠️  No /cognite directories found. Creating empty registry.");
   }
 
-  const files = fs
-    .readdirSync(draftDir)
-    .filter((file: string) => file.endsWith(".tsx"));
-
-  console.log(
-    `\n✅ Found ${files.length} draft component(s) in /draft:\n`
-  );
-  files.forEach((file: string) =>
-    console.log(`   - ${file.replace(".tsx", "")}`)
-  );
-
-  return files.map((file: string) => file.replace(".tsx", ""));
+  return components;
 }
 
 // Load the full registry template (includes all component metadata)
@@ -79,13 +102,13 @@ function loadRegistryTemplate(): Registry {
   return JSON.parse(content) as Registry;
 }
 
-// Filter registry to only include draft components
+// Filter registry to only include production components
 function buildRegistry(
   template: Registry,
-  draftComponents: string[]
+  productionComponents: string[]
 ): Registry {
   const filteredItems = template.items.filter((item: RegistryItem) =>
-    draftComponents.includes(item.name)
+    productionComponents.includes(item.name)
   );
 
   return {
@@ -102,11 +125,11 @@ async function main(): Promise<void> {
     console.log("🔨 BUILDING COMPONENT REGISTRY");
     console.log("=".repeat(70));
 
-    // Get draft components
-    const draftComponents: string[] = getDraftComponents();
+    // Get production components
+    const productionComponents: string[] = getProductionComponents();
 
-    if (draftComponents.length === 0) {
-      console.log("\n⚠️  No draft components found in /draft");
+    if (productionComponents.length === 0) {
+      console.log("\n⚠️  No production components found in /cognite");
       console.log("   Registry will be empty (no components to build)");
     }
 
@@ -115,9 +138,9 @@ async function main(): Promise<void> {
     console.log("📋 COMPONENTS TO BE BUILT:");
     console.log("─".repeat(70));
 
-    if (draftComponents.length > 0) {
-      console.log(`\n   ${draftComponents.join(", ")}`);
-      console.log(`\n   Total: ${draftComponents.length} component(s)`);
+    if (productionComponents.length > 0) {
+      console.log(`\n   ${productionComponents.join(", ")}`);
+      console.log(`\n   Total: ${productionComponents.length} component(s)`);
     } else {
       console.log("\n   (none)");
     }
@@ -131,16 +154,16 @@ async function main(): Promise<void> {
     // Build the registry
     console.log("\n⏳ Building registry...");
     const template: Registry = loadRegistryTemplate();
-    const registry: Registry = buildRegistry(template, draftComponents);
+    const registry: Registry = buildRegistry(template, productionComponents);
 
     fs.writeFileSync(registryOutput, JSON.stringify(registry, null, 2) + "\n");
 
     console.log("✅ Successfully built registry.json");
     console.log(
-      `📦 Registry contains ${registry.items.length} draft component(s)`
+      `📦 Registry contains ${registry.items.length} production component(s)`
     );
 
-    if (draftComponents.length > 0) {
+    if (productionComponents.length > 0) {
       console.log(
         `\n🎉 Components built: ${registry.items
           .map((i: RegistryItem) => i.name)
@@ -152,7 +175,7 @@ async function main(): Promise<void> {
     console.log("✨ BUILD COMPLETE");
     console.log("=".repeat(70) + "\n");
 
-    if (draftComponents.length > 0) {
+    if (productionComponents.length > 0) {
       console.log("📝 Next steps:");
       console.log("  1. The registry:build command will now:");
       console.log("     - Clean public/r/ directory");
@@ -161,7 +184,7 @@ async function main(): Promise<void> {
       console.log("  3. Deploy your site to make components available\n");
     } else {
       console.log(
-        "ℹ️  Note: No components to build. Add .tsx files to src/components/ui/draft/\n"
+        "ℹ️  Note: No components to build. Add .tsx files to src/components/ui/cognite/\n"
       );
     }
   } catch (error: unknown) {
