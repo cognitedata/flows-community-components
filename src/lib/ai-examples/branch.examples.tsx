@@ -7,12 +7,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/draft/branch";
+} from "@/components/ai-elements/cognite/branch";
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/draft/message";
+} from "@/components/ai-elements/cognite/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { nanoid } from "nanoid";
 
@@ -148,12 +148,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/draft/branch"
+} from "@/components/ai-elements/cognite/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/draft/message"
+} from "@/components/ai-elements/cognite/message"
 import { nanoid } from "nanoid"
 
 const userMessages = [
@@ -221,12 +221,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/draft/branch"
+} from "@/components/ai-elements/cognite/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/draft/message"
+} from "@/components/ai-elements/cognite/message"
 import { nanoid } from "nanoid"
 
 const userMessages = [
@@ -272,12 +272,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/draft/branch"
+} from "@/components/ai-elements/cognite/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/draft/message"
+} from "@/components/ai-elements/cognite/message"
 import { nanoid } from "nanoid"
 
 const assistantMessages = [

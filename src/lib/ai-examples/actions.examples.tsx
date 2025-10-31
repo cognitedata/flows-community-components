@@ -1,6 +1,6 @@
-import { Actions, Action } from "@/components/ai-elements/draft/actions";
-import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation";
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
+import { Actions, Action } from "@/components/ai-elements/cognite/actions";
+import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
 import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
@@ -94,9 +94,9 @@ export const actionsExamples: ComponentExamples = {
     description: "Action buttons for interacting with AI messages",
     component: BasicActionsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
-import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react"
 
 export function BasicActionsDemo() {
@@ -150,9 +150,9 @@ export function BasicActionsDemo() {
     description: "Actions with retry, copy, and share buttons",
     component: ActionsWithLabelsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
-import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react"
 
 export function ActionsWithLabelsDemo() {

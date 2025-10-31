@@ -40,29 +40,52 @@ interface Registry {
   items: RegistryItem[];
 }
 
-const cogniteDir = path.join(__dirname, "../src/components/ui/cognite");
+const uiCogniteDir = path.join(__dirname, "../src/components/ui/cognite");
+const aiCogniteDir = path.join(__dirname, "../src/components/ai-elements/cognite");
 const registryTemplate = path.join(__dirname, "../registry.template.json");
 const registryOutput = path.join(__dirname, "../registry.json");
 
-// Get all production-ready components in /cognite
+// Get all production-ready components in /cognite directories
 function getProductionComponents(): string[] {
-  if (!fs.existsSync(cogniteDir)) {
-    console.log("⚠️  No /cognite directory found. Creating empty registry.");
-    return [];
+  const components: string[] = [];
+  
+  // Scan UI components
+  if (fs.existsSync(uiCogniteDir)) {
+    const uiFiles = fs
+      .readdirSync(uiCogniteDir)
+      .filter((file: string) => file.endsWith(".tsx"))
+      .map((file: string) => file.replace(".tsx", ""));
+    components.push(...uiFiles);
+    
+    console.log(
+      `\n✅ Found ${uiFiles.length} production-ready UI component(s) in ui/cognite:\n`
+    );
+    uiFiles.forEach((file: string) =>
+      console.log(`   - ${file}`)
+    );
+  }
+  
+  // Scan AI components
+  if (fs.existsSync(aiCogniteDir)) {
+    const aiFiles = fs
+      .readdirSync(aiCogniteDir)
+      .filter((file: string) => file.endsWith(".tsx"))
+      .map((file: string) => file.replace(".tsx", ""));
+    components.push(...aiFiles);
+    
+    console.log(
+      `\n✅ Found ${aiFiles.length} production-ready AI component(s) in ai-elements/cognite:\n`
+    );
+    aiFiles.forEach((file: string) =>
+      console.log(`   - ${file}`)
+    );
+  }
+  
+  if (components.length === 0) {
+    console.log("⚠️  No /cognite directories found. Creating empty registry.");
   }
 
-  const files = fs
-    .readdirSync(cogniteDir)
-    .filter((file: string) => file.endsWith(".tsx"));
-
-  console.log(
-    `\n✅ Found ${files.length} production-ready component(s) in /cognite:\n`
-  );
-  files.forEach((file: string) =>
-    console.log(`   - ${file.replace(".tsx", "")}`)
-  );
-
-  return files.map((file: string) => file.replace(".tsx", ""));
+  return components;
 }
 
 // Load the full registry template (includes all component metadata)
