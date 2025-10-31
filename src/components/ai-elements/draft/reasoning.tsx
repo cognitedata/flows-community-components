@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/cognite/collapsible";
 import { cn } from "@/lib/utils";
-import { BrainIcon, ChevronDownIcon } from "lucide-react";
+import { IconChevronDown } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import {
   createContext,
@@ -126,17 +126,15 @@ export type ReasoningTriggerProps = ComponentProps<typeof CollapsibleTrigger>;
 
 const getThinkingMessage = (isStreaming: boolean, duration?: number) => {
   if (isStreaming || duration === 0) {
-    return <Shimmer duration={1}>Thinking...</Shimmer>;
+    return <Shimmer duration={1}>Atlas thinking...</Shimmer>;
   }
-  if (duration === undefined) {
-    return <p>Thought for a few seconds</p>;
-  }
-  return <p>Thought for {duration} seconds</p>;
+  return <p>Atlas reasoning</p>;
 };
 
 export const ReasoningTrigger = memo(
   ({ className, children, ...props }: ReasoningTriggerProps) => {
     const { isStreaming, isOpen, duration } = useReasoning();
+    const isThinking = isStreaming || duration === 0;
 
     return (
       <CollapsibleTrigger
@@ -148,14 +146,19 @@ export const ReasoningTrigger = memo(
       >
         {children ?? (
           <>
-            <BrainIcon className="size-4" />
-            {getThinkingMessage(isStreaming, duration)}
-            <ChevronDownIcon
-              className={cn(
-                "size-4 transition-transform",
-                isOpen ? "rotate-180" : "rotate-0"
-              )}
-            />
+            {isThinking ? (
+              <span className="italic">{getThinkingMessage(isStreaming, duration)}</span>
+            ) : (
+              <span>Atlas reasoning</span>
+            )}
+            {!isThinking && (
+              <IconChevronDown
+                className={cn(
+                  "size-4 transition-transform",
+                  isOpen ? "rotate-180" : "rotate-0"
+                )}
+              />
+            )}
           </>
         )}
       </CollapsibleTrigger>
