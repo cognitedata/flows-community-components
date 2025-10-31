@@ -1,11 +1,11 @@
 import {
   Avatar,
   AvatarFallback,
+  AvatarIcon,
   AvatarImage,
-} from "@/components/ui/cognite/avatar";
+} from "@/components/ui/draft/avatar";
 import { cn } from "@/lib/utils";
 import type { UIMessage } from "ai";
-import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, HTMLAttributes } from "react";
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
@@ -15,55 +15,46 @@ export type MessageProps = HTMLAttributes<HTMLDivElement> & {
 export const Message = ({ className, from, ...props }: MessageProps) => (
   <div
     className={cn(
-      "group flex w-full items-end justify-end gap-2 py-4",
-      from === "user" ? "is-user" : "is-assistant flex-row-reverse justify-end",
+      "group flex w-full items-end justify-end items-start gap-2 py-2 mb-0",
+      from === "user" ? "is-user" : "is-assistant flex-row-reverse items-start justify-end",
       className
     )}
     {...props}
   />
 );
 
-const messageContentVariants = cva(
-  "is-user:dark flex flex-col gap-2 overflow-hidden rounded-lg text-sm",
-  {
-    variants: {
-      variant: {
-        contained: [
-          "max-w-[80%] px-4 py-3",
-          "group-[.is-user]:bg-primary group-[.is-user]:text-primary-foreground",
-          "group-[.is-assistant]:bg-secondary group-[.is-assistant]:text-foreground",
-        ],
-        flat: [
-          "group-[.is-user]:max-w-[80%] group-[.is-user]:bg-secondary group-[.is-user]:px-4 group-[.is-user]:py-3 group-[.is-user]:text-foreground",
-          "group-[.is-assistant]:text-foreground",
-        ],
-      },
-    },
-    defaultVariants: {
-      variant: "contained",
-    },
-  }
-);
-
-export type MessageContentProps = HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof messageContentVariants>;
+export type MessageContentProps = HTMLAttributes<HTMLDivElement>;
 
 export const MessageContent = ({
   children,
   className,
-  variant,
   ...props
 }: MessageContentProps) => (
   <div
-    className={cn(messageContentVariants({ variant, className }))}
+    className={cn(
+      "is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-[0.25px]",
+      "max-w-[80%]",
+      "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
+      "group-[.is-assistant]:text-foreground",
+      className
+    )}
     {...props}
   >
     {children}
   </div>
 );
 
+// Helper function to extract initials from a name
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map(part => part.charAt(0).toUpperCase())
+    .join("")
+    .slice(0, 2);
+}
+
 export type MessageAvatarProps = ComponentProps<typeof Avatar> & {
-  src: string;
+  src?: string;
   name?: string;
 };
 
@@ -71,10 +62,32 @@ export const MessageAvatar = ({
   src,
   name,
   className,
+  children,
+  variant,
+  sizes,
   ...props
-}: MessageAvatarProps) => (
-  <Avatar className={cn("size-8 ring-1 ring-border", className)} {...props}>
-    <AvatarImage alt="" className="mt-0 mb-0" src={src} />
-    <AvatarFallback>{name?.slice(0, 2) || "ME"}</AvatarFallback>
-  </Avatar>
+}: MessageAvatarProps) => {
+  const fallbackText = name ? getInitials(name) : "ME";
+  
+  return (
+    <Avatar 
+      className={cn("size-7 group-[.is-user]:mt-1 ring-1 ring-border", className)} 
+      variant={variant}
+      sizes={sizes}
+      {...props}
+    >
+      {children || (
+        <>
+          {src && <AvatarImage alt={name || ""} className="mt-0 mb-0" src={src} />}
+          <AvatarFallback>{fallbackText}</AvatarFallback>
+        </>
+      )}
+    </Avatar>
+  );
+};
+
+export type MessageAvatarIconProps = ComponentProps<typeof AvatarIcon>;
+
+export const MessageAvatarIcon = (props: MessageAvatarIconProps) => (
+  <AvatarIcon {...props} />
 );

@@ -161,45 +161,45 @@ const aiNavigation: NavigationItem[] = [
     isSubsection: true,
     children: [
       { href: "/ai/components/actions", label: "Actions" },
-      { href: "/ai/components/branch", label: "Branch" },
+      // { href: "/ai/components/branch", label: "Branch" },
       { href: "/ai/components/code-block", label: "Code block" },
       { href: "/ai/components/conversation", label: "Conversation" },
-      { href: "/ai/components/image", label: "Image" },
+      // { href: "/ai/components/image", label: "Image" },
       { href: "/ai/components/inline-citation", label: "Inline citation" },
       { href: "/ai/components/loader", label: "Loader" },
       { href: "/ai/components/message", label: "Message" },
       { href: "/ai/components/prompt-input", label: "Prompt input" },
       { href: "/ai/components/reasoning", label: "Reasoning" },
       { href: "/ai/components/response", label: "Response" },
-      { href: "/ai/components/sources", label: "Sources" },
+      // { href: "/ai/components/sources", label: "Sources" },
       { href: "/ai/components/suggestion", label: "Suggestion" },
-      { href: "/ai/components/task", label: "Task" },
-      { href: "/ai/components/tool", label: "Tool" },
-      { href: "/ai/components/web-preview", label: "Web preview" },
+      // { href: "/ai/components/task", label: "Task" },
+      // { href: "/ai/components/tool", label: "Tool" },
+      // { href: "/ai/components/web-preview", label: "Web preview" },
     ]
   },
-  {
-    href: "#",
-    label: "AI SDK Extras",
-    isSubsection: true,
-    children: [
-      { href: "/ai/components/artifact", label: "Artifact" },
-      { href: "/ai/components/canvas", label: "Canvas" },
-      { href: "/ai/components/chain-of-thought", label: "Chain of thought" },
-      { href: "/ai/components/confirmation", label: "Confirmation" },
-      { href: "/ai/components/connection", label: "Connection" },
-      { href: "/ai/components/context", label: "Context" },
-      { href: "/ai/components/controls", label: "Controls" },
-      { href: "/ai/components/edge", label: "Edge" },
-      { href: "/ai/components/node", label: "Node" },
-      { href: "/ai/components/open-in-chat", label: "Open in chat" },
-      { href: "/ai/components/panel", label: "Panel" },
-      { href: "/ai/components/plan", label: "Plan" },
-      { href: "/ai/components/queue", label: "Queue" },
-      { href: "/ai/components/shimmer", label: "Shimmer" },
-      { href: "/ai/components/toolbar", label: "Toolbar" },
-    ]
-  }
+  // {
+  //   href: "#",
+  //   label: "AI SDK Extras",
+  //   isSubsection: true,
+  //   children: [
+  //     { href: "/ai/components/artifact", label: "Artifact" },
+  //     { href: "/ai/components/canvas", label: "Canvas" },
+  //     { href: "/ai/components/chain-of-thought", label: "Chain of thought" },
+  //     { href: "/ai/components/confirmation", label: "Confirmation" },
+  //     { href: "/ai/components/connection", label: "Connection" },
+  //     { href: "/ai/components/context", label: "Context" },
+  //     { href: "/ai/components/controls", label: "Controls" },
+  //     { href: "/ai/components/edge", label: "Edge" },
+  //     { href: "/ai/components/node", label: "Node" },
+  //     { href: "/ai/components/open-in-chat", label: "Open in chat" },
+  //     { href: "/ai/components/panel", label: "Panel" },
+  //     { href: "/ai/components/plan", label: "Plan" },
+  //     { href: "/ai/components/queue", label: "Queue" },
+  //     { href: "/ai/components/shimmer", label: "Shimmer" },
+  //     { href: "/ai/components/toolbar", label: "Toolbar" },
+  //   ]
+  // }
 ]
 
 export const navigationMap = {

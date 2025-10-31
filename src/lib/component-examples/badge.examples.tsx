@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/draft/badge";
+import { Badge } from "@/components/ui/cognite/badge";
 import type { ComponentExamples } from "./types";
 import {
   IconAlertHexagon,
@@ -7,6 +7,7 @@ import {
   IconCircleCheck,
   IconHexagon,
   IconInnerShadowTopLeft,
+  IconX,
 } from "@tabler/icons-react";
 
 function VariantsDemo() {
@@ -21,7 +22,7 @@ function VariantsDemo() {
         </Badge>
         <Badge variant="dusk">RCA</Badge>
         <Badge variant="secondary">
-          <IconHexagon />
+          <IconHexagon className="rotate-90" />
           Asset
         </Badge>
       </div>
@@ -30,7 +31,7 @@ function VariantsDemo() {
           <IconAlertHexagon />
           Error
         </Badge>
-        <Badge variant="error" outline >
+        <Badge variant="error" outline>
           <IconAlertHexagon />
           Error
         </Badge>
@@ -58,7 +59,28 @@ function VariantsDemo() {
     </div>
   );
 }
-
+function MainComponentDemo() {
+  return (
+    <div className="flex flex-col gap-3 items-center justify-center">
+      <Badge variant="default">
+        <IconHexagon className="rotate-90" />
+        Badge
+      </Badge>
+      <Badge variant={"closable"}>
+        <IconHexagon className="rotate-90" />
+        Badge
+        <IconX />
+      </Badge>
+      <Badge variant="error" background={false}>
+        <IconHexagon className="rotate-90" />
+        Badge
+      </Badge>
+      <Badge variant="error" dot>
+        9
+      </Badge>
+    </div>
+  );
+}
 export const badgeExamples: ComponentExamples = {
   variants: {
     title: "Badge Variants",
@@ -66,10 +88,18 @@ export const badgeExamples: ComponentExamples = {
     component: VariantsDemo,
     difficulty: "beginner",
     code: `import { Badge } from "@/components/ui/cognite/badge"
+import {
+  IconAlertHexagon,
+  IconAlertTriangle,
+  IconArchive,
+  IconCircleCheck,
+  IconHexagon,
+  IconInnerShadowTopLeft,
+} from "@tabler/icons-react"
 
 export function VariantsDemo() {
   return (
-    <div>
+   <div>
       <div className="flex flex-wrap gap-3 mb-4">
         <Badge variant="fjord">Observations</Badge>
         <Badge variant="aurora">Troubleshooting</Badge>
@@ -79,7 +109,7 @@ export function VariantsDemo() {
         </Badge>
         <Badge variant="dusk">RCA</Badge>
         <Badge variant="secondary">
-          <IconHexagon />
+          <IconHexagon className="rotate-90" />
           Asset
         </Badge>
       </div>
@@ -100,19 +130,51 @@ export function VariantsDemo() {
           <IconAlertTriangle />
           Warning
         </Badge>
-        <Badge variant="success">
+        <Badge variant="success" background={false}>
           <IconCircleCheck />
           Success
         </Badge>
-        <Badge variant="inProgress">
+        <Badge variant="inProgress" background={false}>
           <IconInnerShadowTopLeft />
           In progress
         </Badge>
-        <Badge variant="archived">
+        <Badge variant="archived" background={false}>
           <IconArchive />
           Archived
         </Badge>
       </div>
+    </div>
+  )
+}`,
+  },
+
+  mainComponent: {
+    title: "Main component",
+    description: "",
+    component: MainComponentDemo,
+    difficulty: "beginner",
+    code: `import { Button } from "@/components/ui/cognite/button"
+import { IconHexagon } from "@tabler/icons-react";
+
+export function MainComponentDemo() {
+  return (
+    <div className="flex flex-col gap-3 items-center justify-center">
+      <Badge variant="default">
+        <IconHexagon className="rotate-90" />
+        Badge
+      </Badge>
+      <Badge variant={"closable"}>
+        <IconHexagon className="rotate-90" />
+        Badge
+        <IconX />
+      </Badge>
+      <Badge variant="error" background={false}>
+        <IconHexagon className="rotate-90" />
+        Badge
+      </Badge>
+      <Badge variant="error" dot>
+        9
+      </Badge>
     </div>
   )
 }`,
