@@ -17,12 +17,14 @@ const reasoningSteps = [
 
 function BasicReasoningDemo() {
   return (
-    <Reasoning isStreaming={false} duration={3}>
-      <ReasoningTrigger />
-      <ReasoningContent>
-        Let me think about this problem step by step. First, I need to understand what the user is asking for.
-      </ReasoningContent>
-    </Reasoning>
+    <div className="w-full p-4 flex justify-start items-center">
+      <Reasoning isStreaming={false} duration={3}>
+        <ReasoningTrigger />
+        <ReasoningContent>
+          Let me think about this problem step by step. First, I need to understand what the user is asking for.
+        </ReasoningContent>
+      </Reasoning>
+    </div>
   );
 }
 
