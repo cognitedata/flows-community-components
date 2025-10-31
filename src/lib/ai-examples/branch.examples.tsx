@@ -52,7 +52,7 @@ const assistantMessages = [
 
 function ConversationDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
@@ -90,7 +90,7 @@ function ConversationDemo() {
 
 function UserBranchDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
@@ -112,7 +112,7 @@ function UserBranchDemo() {
 
 function AssistantBranchDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
       <Branch defaultBranch={0}>
         <BranchMessages>
           {assistantMessages.map((message) => (
@@ -170,7 +170,7 @@ const assistantMessages = [
 
 export function ConversationDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
@@ -237,7 +237,7 @@ const userMessages = [
 
 export function UserBranchDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
@@ -288,7 +288,7 @@ const assistantMessages = [
 
 export function AssistantBranchDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6">
+    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
       <Branch defaultBranch={0}>
         <BranchMessages>
           {assistantMessages.map((message) => (
