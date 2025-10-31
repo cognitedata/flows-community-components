@@ -1,7 +1,7 @@
-import { Actions, Action } from "@/components/ai-elements/cognite/actions";
-import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation";
-import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message";
-import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare } from "@tabler/icons-react";
+import { Actions, Action } from "@/components/ai-elements/draft/actions";
+import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
+import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicActionsDemo() {
@@ -10,14 +10,18 @@ function BasicActionsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
+            <MessageAvatar src="/user-avatar2.png" name="User" />
             <MessageContent>
               Hello, how are you?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
             <MessageContent>
               I am fine, thank you!
             </MessageContent>
@@ -51,14 +55,18 @@ function ActionsWithLabelsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
+            <MessageAvatar src="/user-avatar2.png" name="User" />
             <MessageContent>
               What is React?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
             <MessageContent>
               React is a JavaScript library for building user interfaces. It&apos;s declarative, efficient, and flexible.
             </MessageContent>
@@ -86,10 +94,10 @@ export const actionsExamples: ComponentExamples = {
     description: "Action buttons for interacting with AI messages",
     component: BasicActionsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation"
-import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message"
-import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare } from "@tabler/icons-react"
+    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
+import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react"
 
 export function BasicActionsDemo() {
     return (
@@ -97,14 +105,18 @@ export function BasicActionsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
+            <MessageAvatar src="/user-avatar2.png" name="User" />
             <MessageContent>
               Hello, how are you?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
             <MessageContent>
               I am fine, thank you!
             </MessageContent>
@@ -138,10 +150,10 @@ export function BasicActionsDemo() {
     description: "Actions with retry, copy, and share buttons",
     component: ActionsWithLabelsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation"
-import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message"
-import { IconCopy, IconRotateClockwise, IconShare } from "@tabler/icons-react"
+    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
+import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+import { IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react"
 
 export function ActionsWithLabelsDemo() {
     return (
@@ -149,14 +161,18 @@ export function ActionsWithLabelsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
+            <MessageAvatar src="/user-avatar2.png" name="User" />
             <MessageContent>
               What is React?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
             <MessageContent>
               React is a JavaScript library for building user interfaces.
             </MessageContent>
@@ -184,5 +200,5 @@ export function ActionsWithLabelsDemo() {
 export const actionsMeta = {
   name: "Actions",
   description: "A row of composable action buttons for AI responses, including retry, like, dislike, copy, share, and custom actions.",
-  importPath: "@/components/ai-elements/cognite/actions",
+  importPath: "@/components/ai-elements/draft/actions",
 };

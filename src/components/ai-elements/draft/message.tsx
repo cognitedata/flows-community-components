@@ -1,8 +1,9 @@
 import {
   Avatar,
   AvatarFallback,
+  AvatarIcon,
   AvatarImage,
-} from "@/components/ui/cognite/avatar";
+} from "@/components/ui/draft/avatar";
 import { cn } from "@/lib/utils";
 import type { UIMessage } from "ai";
 import type { ComponentProps, HTMLAttributes } from "react";
@@ -43,8 +44,17 @@ export const MessageContent = ({
   </div>
 );
 
+// Helper function to extract initials from a name
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map(part => part.charAt(0).toUpperCase())
+    .join("")
+    .slice(0, 2);
+}
+
 export type MessageAvatarProps = ComponentProps<typeof Avatar> & {
-  src: string;
+  src?: string;
   name?: string;
 };
 
@@ -52,10 +62,32 @@ export const MessageAvatar = ({
   src,
   name,
   className,
+  children,
+  variant,
+  sizes,
   ...props
-}: MessageAvatarProps) => (
-  <Avatar className={cn("size-7 group-[.is-user]:mt-1 ring-1 ring-border", className)} {...props}>
-    <AvatarImage alt="" className="mt-0 mb-0" src={src} />
-    <AvatarFallback>{name?.slice(0, 2) || "ME"}</AvatarFallback>
-  </Avatar>
+}: MessageAvatarProps) => {
+  const fallbackText = name ? getInitials(name) : "ME";
+  
+  return (
+    <Avatar 
+      className={cn("size-7 group-[.is-user]:mt-1 ring-1 ring-border", className)} 
+      variant={variant}
+      sizes={sizes}
+      {...props}
+    >
+      {children || (
+        <>
+          {src && <AvatarImage alt={name || ""} className="mt-0 mb-0" src={src} />}
+          <AvatarFallback>{fallbackText}</AvatarFallback>
+        </>
+      )}
+    </Avatar>
+  );
+};
+
+export type MessageAvatarIconProps = ComponentProps<typeof AvatarIcon>;
+
+export const MessageAvatarIcon = (props: MessageAvatarIconProps) => (
+  <AvatarIcon {...props} />
 );
