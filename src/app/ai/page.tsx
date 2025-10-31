@@ -87,7 +87,7 @@ export function ChatInterface() {
   return (
     <Conversation>
       <Message from="user">
-        <MessageContent variant="contained">
+        <MessageContent>
           Hello, AI!
         </MessageContent>
       </Message>

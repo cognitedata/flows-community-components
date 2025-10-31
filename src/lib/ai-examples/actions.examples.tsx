@@ -1,7 +1,7 @@
-import { Actions, Action } from "@/components/ai-elements/cognite/actions";
-import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation";
-import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message";
-import { Copy, ThumbsUp, ThumbsDown, RotateCw, Share2 } from "lucide-react";
+import { Actions, Action } from "@/components/ai-elements/draft/actions";
+import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
+import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicActionsDemo() {
@@ -10,32 +10,36 @@ function BasicActionsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
-            <MessageContent variant="contained">
+            <MessageAvatar src="/user-avatar2.png" name="User" />
+            <MessageContent>
               Hello, how are you?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
-            <MessageContent variant="contained">
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
+            <MessageContent>
               I am fine, thank you!
             </MessageContent>
             <Actions className="mt-2">
               <Action label="Retry" tooltip="Retry">
-                <RotateCw className="h-4 w-4" />
+                <IconRotateClockwise className="w-3 h-3" />
               </Action>
               <Action label="Like" tooltip="Like">
-                <ThumbsUp className="h-4 w-4" />
+                <IconThumbUp className="w-3 h-3" />
               </Action>
               <Action label="Dislike" tooltip="Dislike">
-                <ThumbsDown className="h-4 w-4" />
+                <IconThumbDown className="w-3 h-3" />
               </Action>
               <Action label="Copy" tooltip="Copy">
-                <Copy className="h-4 w-4" />
+                <IconCopy className="w-3 h-3" />
               </Action>
               <Action label="Share" tooltip="Share">
-                <Share2 className="h-4 w-4" />
+                <IconShare className="w-3 h-3" />
               </Action>
             </Actions>
           </Message>
@@ -51,26 +55,30 @@ function ActionsWithLabelsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
-            <MessageContent variant="contained">
+            <MessageAvatar src="/user-avatar2.png" name="User" />
+            <MessageContent>
               What is React?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
-            <MessageContent variant="contained">
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
+            <MessageContent>
               React is a JavaScript library for building user interfaces. It&apos;s declarative, efficient, and flexible.
             </MessageContent>
             <Actions className="mt-2">
               <Action label="Retry" tooltip="Retry">
-                <RotateCw className="h-4 w-4" />
+                <IconRotateClockwise className="w-3 h-3" />
               </Action>
               <Action label="Copy" tooltip="Copy">
-                <Copy className="h-4 w-4" />
+                <IconCopy className="w-3 h-3" />
               </Action>
               <Action label="Share" tooltip="Share">
-                <Share2 className="h-4 w-4" />
+                <IconShare className="w-3 h-3" />
               </Action>
             </Actions>
           </Message>
@@ -86,10 +94,10 @@ export const actionsExamples: ComponentExamples = {
     description: "Action buttons for interacting with AI messages",
     component: BasicActionsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation"
-import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message"
-import { Copy, ThumbsUp, ThumbsDown, RotateCw, Share2 } from "lucide-react"
+    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
+import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+import { IconThumbUp, IconThumbDown, IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react"
 
 export function BasicActionsDemo() {
     return (
@@ -97,32 +105,36 @@ export function BasicActionsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
-            <MessageContent variant="contained">
+            <MessageAvatar src="/user-avatar2.png" name="User" />
+            <MessageContent>
               Hello, how are you?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
-            <MessageContent variant="contained">
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
+            <MessageContent>
               I am fine, thank you!
             </MessageContent>
             <Actions className="mt-2">
               <Action label="Retry" tooltip="Retry">
-                <RotateCw className="h-4 w-4" />
+                <IconRotateClockwise className="w-3 h-3" />
               </Action>
               <Action label="Like" tooltip="Like">
-                <ThumbsUp className="h-4 w-4" />
+                <IconThumbUp className="w-3 h-3" />
               </Action>
               <Action label="Dislike" tooltip="Dislike">
-                <ThumbsDown className="h-4 w-4" />
+                <IconThumbDown className="w-3 h-3" />
               </Action>
               <Action label="Copy" tooltip="Copy">
-                <Copy className="h-4 w-4" />
+                <IconCopy className="w-3 h-3" />
               </Action>
               <Action label="Share" tooltip="Share">
-                <Share2 className="h-4 w-4" />
+                <IconShare className="w-3 h-3" />
               </Action>
             </Actions>
           </Message>
@@ -138,10 +150,10 @@ export function BasicActionsDemo() {
     description: "Actions with retry, copy, and share buttons",
     component: ActionsWithLabelsDemo,
     difficulty: "beginner",
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation"
-import { Message, MessageContent, MessageAvatar } from "@/components/ai-elements/cognite/message"
-import { Copy, RotateCw, Share2 } from "lucide-react"
+    code: `import { Actions, Action } from "@/components/ai-elements/draft/actions"
+import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+import { IconCopy, IconRotateClockwise, IconShare, IconWheel } from "@tabler/icons-react"
 
 export function ActionsWithLabelsDemo() {
     return (
@@ -149,26 +161,30 @@ export function ActionsWithLabelsDemo() {
       <Conversation>
         <ConversationContent>
           <Message from="user">
-            <MessageAvatar src="/user-avatar.png" name="User" />
-            <MessageContent variant="contained">
+            <MessageAvatar src="/user-avatar2.png" name="User" />
+            <MessageContent>
               What is React?
             </MessageContent>
           </Message>
 
           <Message from="assistant" className="flex flex-col gap-2 items-start">
-            <MessageAvatar src="/aura-logo.png" name="AI" />
-            <MessageContent variant="contained">
+            <MessageAvatar variant="fjord">
+              <MessageAvatarIcon>
+                <IconWheel />
+              </MessageAvatarIcon>
+            </MessageAvatar>
+            <MessageContent>
               React is a JavaScript library for building user interfaces.
             </MessageContent>
             <Actions className="mt-2">
               <Action label="Retry" tooltip="Retry">
-                <RotateCw className="h-4 w-4" />
+                <IconRotateClockwise className="w-3 h-3" />
               </Action>
               <Action label="Copy" tooltip="Copy">
-                <Copy className="h-4 w-4" />
+                <IconCopy className="w-3 h-3" />
               </Action>
               <Action label="Share" tooltip="Share">
-                <Share2 className="h-4 w-4" />
+                <IconShare className="w-3 h-3" />
               </Action>
             </Actions>
           </Message>
@@ -184,5 +200,5 @@ export function ActionsWithLabelsDemo() {
 export const actionsMeta = {
   name: "Actions",
   description: "A row of composable action buttons for AI responses, including retry, like, dislike, copy, share, and custom actions.",
-  importPath: "@/components/ai-elements/cognite/actions",
+  importPath: "@/components/ai-elements/draft/actions",
 };

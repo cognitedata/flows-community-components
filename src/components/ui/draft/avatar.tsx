@@ -84,4 +84,20 @@ function AvatarFallback({
   );
 }
 
-export { Avatar, AvatarImage, AvatarFallback, avatarVariants };
+function AvatarIcon({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span
+      data-slot="avatar-icon"
+      className={cn(
+        "flex size-full items-center justify-center rounded-md",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+export { Avatar, AvatarImage, AvatarFallback, AvatarIcon, avatarVariants };
