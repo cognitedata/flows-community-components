@@ -5,12 +5,11 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/app/globals.css",
+    "css": "src/index.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
-  "iconLibrary": "lucide",
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils",
@@ -19,6 +18,6 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@cognite/aura": "https://refactored-couscous-5l9mkl3.pages.github.io/r/{name}.json"
+    "@cognite": "https://refactored-couscous-5l9mkl3.pages.github.io/r/{name}.json"
   }
 }
