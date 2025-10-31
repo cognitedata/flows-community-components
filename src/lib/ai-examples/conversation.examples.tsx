@@ -1,5 +1,5 @@
-import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/draft/conversation";
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message";
+import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation";
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
 import { MessageSquare } from "lucide-react";
 import { IconWheel } from "@tabler/icons-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
@@ -54,8 +54,8 @@ export const conversationExamples: ComponentExamples = {
     description: "A conversation container with messages",
     component: BasicConversationDemo,
     difficulty: "beginner",
-    code: `import { Conversation, ConversationContent } from "@/components/ai-elements/draft/conversation"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/draft/message"
+    code: `import { Conversation, ConversationContent } from "@/components/ai-elements/cognite/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 
 export function BasicConversationDemo() {
   return (
@@ -89,7 +89,7 @@ export function BasicConversationDemo() {
     description: "Show a placeholder when there are no messages",
     component: EmptyStateDemo,
     difficulty: "beginner",
-    code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/draft/conversation"
+    code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
 import { MessageSquare } from "lucide-react"
 
 export function EmptyStateDemo() {
