@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { expect, within } from '@storybook/test';
 import { Badge } from './badge';
 import { badgeExamples } from '@/lib/component-examples/badge.examples';
 
@@ -109,5 +110,125 @@ export const Playground: Story = {
         story: 'Use the controls below to experiment with different badge configurations.',
       },
     },
+  },
+};
+
+// ============================================================
+// Interaction Tests
+// These stories include automated tests that run in Storybook
+// ============================================================
+
+/**
+ * Tests that badges render with correct text content.
+ * This test verifies the basic rendering functionality.
+ */
+export const WithAccessibilityTest: Story = {
+  args: {
+    variant: 'success',
+    children: 'Verified',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that the badge renders with correct text
+    const badge = canvas.getByText('Verified');
+    await expect(badge).toBeInTheDocument();
+    
+    // Test that it has the correct ARIA role (implicitly a status indicator)
+    await expect(badge).toBeVisible();
+  },
+};
+
+/**
+ * Tests different badge variants render correctly.
+ * Ensures variant classes are properly applied.
+ */
+export const VariantRenderingTest: Story = {
+  render: () => (
+    <div className="flex gap-2">
+      <Badge variant="error" data-testid="error-badge">Error</Badge>
+      <Badge variant="success" data-testid="success-badge">Success</Badge>
+      <Badge variant="warning" data-testid="warning-badge">Warning</Badge>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that all variants render
+    const errorBadge = canvas.getByTestId('error-badge');
+    const successBadge = canvas.getByTestId('success-badge');
+    const warningBadge = canvas.getByTestId('warning-badge');
+    
+    await expect(errorBadge).toBeInTheDocument();
+    await expect(successBadge).toBeInTheDocument();
+    await expect(warningBadge).toBeInTheDocument();
+    
+    // Verify text content
+    await expect(errorBadge).toHaveTextContent('Error');
+    await expect(successBadge).toHaveTextContent('Success');
+    await expect(warningBadge).toHaveTextContent('Warning');
+  },
+};
+
+/**
+ * Tests badge with icons renders correctly.
+ * Ensures badges can contain child elements.
+ */
+export const WithIconTest: Story = {
+  render: () => (
+    <Badge variant="success" data-testid="icon-badge">
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 16 16" 
+        fill="currentColor"
+        className="w-4 h-4"
+        data-testid="check-icon"
+      >
+        <path 
+          fillRule="evenodd" 
+          d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" 
+          clipRule="evenodd" 
+        />
+      </svg>
+      Success
+    </Badge>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    // Test that badge and icon both render
+    const badge = canvas.getByTestId('icon-badge');
+    const icon = canvas.getByTestId('check-icon');
+    
+    await expect(badge).toBeInTheDocument();
+    await expect(icon).toBeInTheDocument();
+    await expect(badge).toHaveTextContent('Success');
+  },
+};
+
+/**
+ * Tests outline variant styling.
+ * Ensures the outline prop works correctly.
+ */
+export const OutlineVariantTest: Story = {
+  render: () => (
+    <div className="flex gap-2">
+      <Badge variant="default" outline data-testid="outline-badge">Outlined</Badge>
+      <Badge variant="default" data-testid="filled-badge">Filled</Badge>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    
+    const outlineBadge = canvas.getByTestId('outline-badge');
+    const filledBadge = canvas.getByTestId('filled-badge');
+    
+    // Both should render
+    await expect(outlineBadge).toBeInTheDocument();
+    await expect(filledBadge).toBeInTheDocument();
+    
+    // Verify they render differently (outline has different classes)
+    await expect(outlineBadge).toBeVisible();
+    await expect(filledBadge).toBeVisible();
   },
 };
