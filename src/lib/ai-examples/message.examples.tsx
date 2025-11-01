@@ -6,11 +6,17 @@ import {
 } from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/cognite/dropdown-menu";
 
 
 function Demo() {
   return (
-    <div className="flex flex-col space-y-4 max-w-3xl gap-2">
+    <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
           <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
@@ -51,21 +57,29 @@ function Demo() {
             </InlineCitation>
           </div>
           <Actions>
-            <Action label="Like" tooltip="Like">
+            <Action size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
             </Action>
-            <Action label="Dislike" tooltip="Dislike">
+            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
               <IconThumbDown className="w-3 h-3" />
             </Action>
-            <Action label="Copy" tooltip="Copy">
+            <Action size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </Action>
-            <Action label="Share" tooltip="Share">
+            <Action size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
             </Action>
-            <Action label="More" tooltip="More">
-              <IconDotsVertical className="w-3 h-3" />
-            </Action>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Action size="icon-sm" label="More options">
+                  <IconDotsVertical className="w-3 h-3" />
+                </Action>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Option 1</DropdownMenuItem>
+                <DropdownMenuItem>Option 2</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </Actions>
         </MessageContent>
         <MessageAvatar variant="fjord">
@@ -91,10 +105,16 @@ import {
 } from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/cognite/dropdown-menu"
 
 export function Demo() {
   return (
-    <div className="flex flex-col space-y-4 max-w-3xl gap-2">
+    <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
           <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
@@ -135,21 +155,29 @@ export function Demo() {
             </InlineCitation>
           </div>
           <Actions>
-            <Action label="Like" tooltip="Like">
+            <Action size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
             </Action>
-            <Action label="Dislike" tooltip="Dislike">
+            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
               <IconThumbDown className="w-3 h-3" />
             </Action>
-            <Action label="Copy" tooltip="Copy">
+            <Action size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </Action>
-            <Action label="Share" tooltip="Share">
+            <Action size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
             </Action>
-            <Action label="More" tooltip="More">
-              <IconDotsVertical className="w-3 h-3" />
-            </Action>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Action size="icon-sm" label="More options">
+                  <IconDotsVertical className="w-3 h-3" />
+                </Action>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Option 1</DropdownMenuItem>
+                <DropdownMenuItem>Option 2</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </Actions>
         </MessageContent>
         <MessageAvatar variant="fjord">
@@ -168,5 +196,5 @@ export function Demo() {
 export const messageMeta = {
   name: "Message",
   description: "Displays a chat interface message from either a user or an AI.",
-  importPath: "@/components/ai-elements/draft/message",
+  importPath: "@/components/ai-elements/cognite/message",
 };

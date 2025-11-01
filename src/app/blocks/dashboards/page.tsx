@@ -27,6 +27,7 @@ import {
   Pie,
   PieChart,
   Cell,
+  type PieLabelRenderProps,
 } from "recharts";
 import {
   BarChart3,
@@ -499,8 +500,8 @@ function AssetHealthChart() {
     0
   );
 
-  const renderCustomLabel = (entry: { value: number }) => {
-    return `${entry.value}%`;
+  const renderCustomLabel = (props: PieLabelRenderProps) => {
+    return `${props.value}%`;
   };
 
   return (
