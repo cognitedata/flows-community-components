@@ -139,7 +139,7 @@ export const ReasoningTrigger = memo(
     return (
       <CollapsibleTrigger
         className={cn(
-          "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+          "flex w-full items-center gap-2 text-foreground text-md tracking-tightest transition-colors hover:text-muted-foreground",
           className
         )}
         {...props}
@@ -176,13 +176,13 @@ export const ReasoningContent = memo(
   ({ className, children, ...props }: ReasoningContentProps) => (
     <CollapsibleContent
       className={cn(
-        "mt-4 text-sm",
-        "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "mt-3.5 text-sm",
+        "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground text-md tracking-tightest outline-none data-[state=closed]:animate-out data-[state=open]:animate-in [&>*:not(:last-child)]:mb-2",
         className
       )}
       {...props}
     >
-      <Response className="grid gap-2">{children}</Response>
+      <Response>{children}</Response>
     </CollapsibleContent>
   )
 );
