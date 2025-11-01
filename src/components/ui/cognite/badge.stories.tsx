@@ -59,6 +59,12 @@ export const Default: Story = {
     variant: 'default',
     children: 'Default',
   },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=1576-11547&t=WrHbQFHSUaGF4MMj-4',
+    },
+  },
 };
 
 /**
