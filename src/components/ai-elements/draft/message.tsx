@@ -32,7 +32,7 @@ export const MessageContent = ({
 }: MessageContentProps) => (
   <div
     className={cn(
-      "is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest [&>p~p]:mt-4",
+      "is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest",
       "max-w-[80%]",
       "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
       "group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1",
