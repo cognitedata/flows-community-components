@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { Badge } from './badge';
+import { badgeExamples } from '@/lib/component-examples/badge.examples';
 
 const meta: Meta<typeof Badge> = {
   title: 'UI/Badge',
@@ -52,7 +53,52 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 /**
- * The default badge with primary styling.
+ * The main badge component with common variations.
+ */
+export const MainComponent: Story = {
+  render: () => {
+    const Component = badgeExamples.mainComponent.component;
+    return <Component />;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: badgeExamples.mainComponent.description,
+      },
+      source: {
+        code: badgeExamples.mainComponent.code,
+      },
+    },
+  },
+};
+
+/**
+ * All available badge variants for different semantic meanings.
+ */
+export const Variants: Story = {
+  render: () => {
+    const Component = badgeExamples.variants.component;
+    return <Component />;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: badgeExamples.variants.description,
+      },
+      source: {
+        code: badgeExamples.variants.code,
+      },
+    },
+  },
+};
+
+// ============================================================
+// Individual Variant Stories
+// Each variant gets its own story for better documentation
+// ============================================================
+
+/**
+ * Default badge variant - the standard badge style.
  */
 export const Default: Story = {
   args: {
@@ -68,39 +114,148 @@ export const Default: Story = {
 };
 
 /**
- * All available badge variants displayed together.
+ * Fjord variant - blue-toned badge for observations and data.
  */
-export const AllVariants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="default">Default</Badge>
-      <Badge variant="fjord">Fjord</Badge>
-      <Badge variant="nordic">Nordic</Badge>
-      <Badge variant="aurora">Aurora</Badge>
-      <Badge variant="sky">Sky</Badge>
-      <Badge variant="dusk">Dusk</Badge>
-      <Badge variant="mountain">Mountain</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="error">Error</Badge>
-      <Badge variant="warning">Warning</Badge>
-      <Badge variant="success">Success</Badge>
-      <Badge variant="inProgress">In Progress</Badge>
-      <Badge variant="archived">Archived</Badge>
-      <Badge variant="closable">Closable</Badge>
-    </div>
-  ),
+export const Fjord: Story = {
+  args: {
+    variant: 'fjord',
+    children: 'Observations',
+  },
 };
 
 /**
- * Badges with outline styling.
+ * Nordic variant - cool-toned badge for technical content.
  */
-export const Outline: Story = {
+export const Nordic: Story = {
+  args: {
+    variant: 'nordic',
+    children: 'Technical',
+  },
+};
+
+/**
+ * Aurora variant - vibrant badge for troubleshooting and alerts.
+ */
+export const Aurora: Story = {
+  args: {
+    variant: 'aurora',
+    children: 'Troubleshooting',
+  },
+};
+
+/**
+ * Sky variant - light blue badge for informational content.
+ */
+export const Sky: Story = {
+  args: {
+    variant: 'sky',
+    children: 'Information',
+  },
+};
+
+/**
+ * Dusk variant - purple-toned badge for RCA and analysis.
+ */
+export const Dusk: Story = {
+  args: {
+    variant: 'dusk',
+    children: 'RCA',
+  },
+};
+
+/**
+ * Mountain variant - green-toned badge for plans and goals.
+ */
+export const Mountain: Story = {
+  args: {
+    variant: 'mountain',
+    children: 'Plans',
+  },
+};
+
+/**
+ * Secondary variant - neutral badge for general use.
+ */
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+    children: 'Asset',
+  },
+};
+
+/**
+ * Error variant - red badge for errors and critical issues.
+ */
+export const Error: Story = {
+  args: {
+    variant: 'error',
+    children: 'Error',
+  },
+};
+
+/**
+ * Warning variant - orange/yellow badge for warnings.
+ */
+export const Warning: Story = {
+  args: {
+    variant: 'warning',
+    children: 'Warning',
+  },
+};
+
+/**
+ * Success variant - green badge for successful operations.
+ */
+export const Success: Story = {
+  args: {
+    variant: 'success',
+    children: 'Success',
+  },
+};
+
+/**
+ * In Progress variant - badge for ongoing operations.
+ */
+export const InProgress: Story = {
+  args: {
+    variant: 'inProgress',
+    children: 'In Progress',
+  },
+};
+
+/**
+ * Archived variant - badge for archived or inactive items.
+ */
+export const Archived: Story = {
+  args: {
+    variant: 'archived',
+    children: 'Archived',
+  },
+};
+
+/**
+ * Closable variant - badge with close button functionality.
+ */
+export const Closable: Story = {
+  args: {
+    variant: 'closable',
+    children: 'Closable',
+  },
+};
+
+// ============================================================
+// Style Variations
+// Different styling options for badges
+// ============================================================
+
+/**
+ * Outline style - badges with border only, no background fill.
+ */
+export const OutlineStyle: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
       <Badge variant="default" outline>Default</Badge>
       <Badge variant="fjord" outline>Fjord</Badge>
-      <Badge variant="nordic" outline>Nordic</Badge>
-      <Badge variant="aurora" outline>Aurora</Badge>
       <Badge variant="success" outline>Success</Badge>
       <Badge variant="error" outline>Error</Badge>
     </div>
@@ -108,7 +263,7 @@ export const Outline: Story = {
 };
 
 /**
- * Badges without background fill.
+ * No background - badges without background fill.
  */
 export const NoBackground: Story = {
   render: () => (
@@ -122,146 +277,14 @@ export const NoBackground: Story = {
 };
 
 /**
- * Pill-shaped badges (rounded).
+ * Dot style - pill-shaped rounded badges.
  */
-export const Dot: Story = {
+export const DotStyle: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="default" dot>Default</Badge>
-      <Badge variant="fjord" dot>Fjord</Badge>
-      <Badge variant="nordic" dot>Nordic</Badge>
-      <Badge variant="success" dot>Success</Badge>
-      <Badge variant="error" dot>Error</Badge>
-    </div>
-  ),
-};
-
-/**
- * Badges with icons for additional context.
- */
-export const WithIcon: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="success">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
-          <path fillRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
-        </svg>
-        Success
-      </Badge>
-      <Badge variant="error">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
-          <path fillRule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clipRule="evenodd" />
-        </svg>
-        Error
-      </Badge>
-      <Badge variant="warning">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
-          <path fillRule="evenodd" d="M6.701 2.25c.577-1 2.02-1 2.598 0l5.196 9a1.5 1.5 0 0 1-1.299 2.25H2.804a1.5 1.5 0 0 1-1.3-2.25l5.197-9ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 1 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clipRule="evenodd" />
-        </svg>
-        Warning
-      </Badge>
-      <Badge variant="inProgress">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
-          <path fillRule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM4.5 8a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5Z" clipRule="evenodd" />
-        </svg>
-        In Progress
-      </Badge>
-    </div>
-  ),
-};
-
-/**
- * Combining multiple style options together.
- */
-export const Combinations: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap gap-2">
-        <span className="text-sm text-muted-foreground w-full">Outline + Dot:</span>
-        <Badge variant="fjord" outline dot>Fjord</Badge>
-        <Badge variant="success" outline dot>Success</Badge>
-        <Badge variant="error" outline dot>Error</Badge>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <span className="text-sm text-muted-foreground w-full">No Background + Outline:</span>
-        <Badge variant="fjord" background={false} outline>Fjord</Badge>
-        <Badge variant="success" background={false} outline>Success</Badge>
-        <Badge variant="error" background={false} outline>Error</Badge>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <span className="text-sm text-muted-foreground w-full">Dot + Icon:</span>
-        <Badge variant="success" dot>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
-            <path fillRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
-          </svg>
-          Active
-        </Badge>
-        <Badge variant="error" dot>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
-            <path fillRule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 0 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clipRule="evenodd" />
-          </svg>
-          Failed
-        </Badge>
-      </div>
-    </div>
-  ),
-};
-
-/**
- * Examples of badges in real-world usage contexts.
- */
-export const UsageExamples: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6">
-      {/* Status indicators */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold">Status Indicators</h3>
-        <div className="flex items-center gap-2 p-3 border rounded-lg">
-          <span className="text-sm">Server Status:</span>
-          <Badge variant="success">Online</Badge>
-        </div>
-        <div className="flex items-center gap-2 p-3 border rounded-lg">
-          <span className="text-sm">Deployment:</span>
-          <Badge variant="inProgress">In Progress</Badge>
-        </div>
-        <div className="flex items-center gap-2 p-3 border rounded-lg">
-          <span className="text-sm">Build:</span>
-          <Badge variant="error">Failed</Badge>
-        </div>
-      </div>
-
-      {/* Category tags */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold">Category Tags</h3>
-        <div className="p-3 border rounded-lg">
-          <p className="text-sm mb-2">AI-Powered Data Analysis Tool</p>
-          <div className="flex flex-wrap gap-1.5">
-            <Badge variant="fjord" dot>Machine Learning</Badge>
-            <Badge variant="nordic" dot>Analytics</Badge>
-            <Badge variant="aurora" dot>Cloud</Badge>
-            <Badge variant="sky" dot>API</Badge>
-          </div>
-        </div>
-      </div>
-
-      {/* Notification counts */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold">Notification Counts</h3>
-        <div className="flex gap-4">
-          <button className="relative p-2 border rounded-lg hover:bg-accent">
-            <span className="text-sm">Messages</span>
-            <Badge variant="error" dot className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs">
-              3
-            </Badge>
-          </button>
-          <button className="relative p-2 border rounded-lg hover:bg-accent">
-            <span className="text-sm">Alerts</span>
-            <Badge variant="warning" dot className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs">
-              12
-            </Badge>
-          </button>
-        </div>
-      </div>
+      <Badge variant="default" dot>5</Badge>
+      <Badge variant="error" dot>9</Badge>
+      <Badge variant="success" dot>12</Badge>
     </div>
   ),
 };
@@ -276,5 +299,12 @@ export const Playground: Story = {
     background: true,
     dot: false,
     children: 'Playground Badge',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the controls below to experiment with different badge configurations.',
+      },
+    },
   },
 };
