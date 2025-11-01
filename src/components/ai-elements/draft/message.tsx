@@ -32,7 +32,7 @@ export const MessageContent = ({
 }: MessageContentProps) => (
   <div
     className={cn(
-      "is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-[0.25px]",
+      "is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest [&>p~p]:mt-4",
       "max-w-[80%]",
       "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
       "group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1",
@@ -71,7 +71,7 @@ export const MessageAvatar = ({
   
   return (
     <Avatar 
-      className={cn("size-7 group-[.is-user]:mt-1 ring-1 ring-border", className)} 
+      className={cn("size-7 group-[.is-user]:mt-1", className)} 
       variant={variant}
       sizes={sizes}
       {...props}
