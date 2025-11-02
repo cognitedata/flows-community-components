@@ -12,7 +12,7 @@ import {
 } from "@/components/ai-elements/cognite/prompt-input";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { useState, useRef } from "react";
-import { IconPaperclip, IconAdjustments, IconChevronDown } from "@tabler/icons-react";
+import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react";
 import { Button } from "@/components/ui/cognite/button";
 import {
   DropdownMenu,
@@ -76,7 +76,12 @@ function BasicPromptInputDemo() {
               </DropdownMenuContent>
             </DropdownMenu>
           </PromptInputTools>
-          <PromptInputSubmit status={status} />
+          <div className="flex flex-row gap-2">
+            <Button variant="ghost" size="sm">
+              <IconMicrophone size={16} />
+            </Button>
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
         </PromptInputFooter>
       </PromptInput>
     </PromptInputProvider>
@@ -136,7 +141,12 @@ function AdvancedPromptInputDemo() {
               </DropdownMenuContent>
             </DropdownMenu>
           </PromptInputTools>
-          <PromptInputSubmit status={status} />
+          <div className="flex flex-row gap-2">
+            <Button variant="ghost" size="sm">
+              <IconMicrophone size={14} />
+            </Button>
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
         </PromptInputFooter>
       </PromptInput>
     </PromptInputProvider>
@@ -161,7 +171,7 @@ import {
   type PromptInputMessage,
 } from "@/components/ai-elements/cognite/prompt-input"
 import { useState } from "react"
-import { IconPaperclip, IconAdjustments, IconChevronDown } from "@tabler/icons-react"
+import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react"
 import { Button } from "@/components/ui/cognite/button"
 import {
   DropdownMenu,
@@ -207,7 +217,12 @@ export function BasicPromptInputDemo() {
               </DropdownMenuContent>
             </DropdownMenu>
           </PromptInputTools>
-          <PromptInputSubmit status={status} />
+          <div className="flex flex-row gap-2">
+            <Button variant="ghost" size="sm">
+              <IconMicrophone size={16} />
+            </Button>
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
         </PromptInputFooter>
       </PromptInput>
     </PromptInputProvider>
@@ -232,7 +247,7 @@ import {
   type PromptInputMessage,
 } from "@/components/ai-elements/cognite/prompt-input"
 import { useState, useRef } from "react"
-import { IconPaperclip, IconAdjustments, IconChevronDown } from "@tabler/icons-react"
+import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react"
 import { Button } from "@/components/ui/cognite/button"
 import {
   DropdownMenu,
@@ -260,16 +275,16 @@ export function AdvancedPromptInputDemo() {
         <PromptInputFooter>
           <PromptInputTools>
             <Button variant="ghost" size="sm">
-              <IconPaperclip size={16} />
+              <IconPaperclip size={14} />
             </Button>
             <Button variant="ghost" size="sm">
-              <IconAdjustments size={16} />
+              <IconAdjustments size={14} />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm">
                   Agent model
-                  <IconChevronDown size={16} />
+                  <IconChevronDown size={14} />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -279,7 +294,12 @@ export function AdvancedPromptInputDemo() {
               </DropdownMenuContent>
             </DropdownMenu>
           </PromptInputTools>
-          <PromptInputSubmit status={status} />
+          <div className="flex flex-row gap-2">
+            <Button variant="ghost" size="sm">
+              <IconMicrophone size={14} />
+            </Button>
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
         </PromptInputFooter>
       </PromptInput>
     </PromptInputProvider>
