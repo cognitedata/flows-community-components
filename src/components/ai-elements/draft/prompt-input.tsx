@@ -47,6 +47,7 @@ import {
   XIcon,
 } from "lucide-react";
 import { nanoid } from "nanoid";
+import Image from "next/image";
 import {
   type ChangeEvent,
   type ChangeEventHandler,
@@ -287,8 +288,7 @@ export function PromptInputAttachment({
           <div className="relative size-5 shrink-0">
             <div className="absolute inset-0 flex size-5 items-center justify-center overflow-hidden rounded bg-background transition-opacity group-hover:opacity-0">
               {isImage ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   alt={filename || "attachment"}
                   className="size-5 object-cover"
                   height={20}
@@ -323,8 +323,7 @@ export function PromptInputAttachment({
         <div className="w-auto space-y-3">
           {isImage && (
             <div className="flex max-h-96 w-96 items-center justify-center overflow-hidden rounded-md border">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 alt={filename || "attachment preview"}
                 className="max-h-full max-w-full object-contain"
                 height={384}
@@ -529,45 +528,49 @@ export const PromptInput = ({
   );
 
   const add = useMemo(
-    () => usingProvider
-      ? (files: File[] | FileList) => controller.attachments.add(files)
-      : addLocal,
+    () =>
+      usingProvider && controller
+        ? (files: File[] | FileList) => controller.attachments.add(files)
+        : addLocal,
     [usingProvider, controller, addLocal]
   );
 
   const remove = useMemo(
-    () => usingProvider
-      ? (id: string) => controller.attachments.remove(id)
-      : (id: string) =>
-          setItems((prev) => {
-            const found = prev.find((file) => file.id === id);
-            if (found?.url) {
-              URL.revokeObjectURL(found.url);
-            }
-            return prev.filter((file) => file.id !== id);
-          }),
+    () =>
+      usingProvider && controller
+        ? (id: string) => controller.attachments.remove(id)
+        : (id: string) =>
+            setItems((prev) => {
+              const found = prev.find((file) => file.id === id);
+              if (found?.url) {
+                URL.revokeObjectURL(found.url);
+              }
+              return prev.filter((file) => file.id !== id);
+            }),
     [usingProvider, controller]
   );
 
   const clear = useMemo(
-    () => usingProvider
-      ? () => controller.attachments.clear()
-      : () =>
-          setItems((prev) => {
-            for (const file of prev) {
-              if (file.url) {
-                URL.revokeObjectURL(file.url);
+    () =>
+      usingProvider && controller
+        ? () => controller.attachments.clear()
+        : () =>
+            setItems((prev) => {
+              for (const file of prev) {
+                if (file.url) {
+                  URL.revokeObjectURL(file.url);
+                }
               }
-            }
-            return [];
-          }),
+              return [];
+            }),
     [usingProvider, controller]
   );
 
   const openFileDialog = useMemo(
-    () => usingProvider
-      ? () => controller.attachments.openFileDialog()
-      : openFileDialogLocal,
+    () =>
+      usingProvider && controller
+        ? () => controller.attachments.openFileDialog()
+        : openFileDialogLocal,
     [usingProvider, controller, openFileDialogLocal]
   );
 
@@ -694,7 +697,9 @@ export const PromptInput = ({
 
     // Convert blob URLs to data URLs asynchronously
     Promise.all(
-      files.map(async ({ ...item }) => {
+      files.map(async (file) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { id, ...item } = file;
         if (item.url && item.url.startsWith("blob:")) {
           return {
             ...item,
@@ -751,7 +756,7 @@ export const PromptInput = ({
         onSubmit={handleSubmit}
         {...props}
       >
-        <InputGroup>{children}</InputGroup>
+        <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
       </form>
     </>
   );
@@ -781,7 +786,7 @@ export type PromptInputTextareaProps = ComponentProps<
 export const PromptInputTextarea = ({
   onChange,
   className,
-  placeholder = "What would you like to know?",
+  placeholder = "Type your message...",
   ...props
 }: PromptInputTextareaProps) => {
   const controller = useOptionalPromptInputController();
@@ -852,7 +857,7 @@ export const PromptInputTextarea = ({
 
   return (
     <InputGroupTextarea
-      className={cn("field-sizing-content max-h-48 min-h-16", className)}
+      className={cn("field-sizing-content max-h-48 min-h-16 md:text-base tracking-tightest p-1.75 leading-20", className)}
       name="message"
       onCompositionEnd={() => setIsComposing(false)}
       onCompositionStart={() => setIsComposing(true)}
@@ -892,7 +897,7 @@ export const PromptInputFooter = ({
 }: PromptInputFooterProps) => (
   <InputGroupAddon
     align="block-end"
-    className={cn("justify-between gap-1", className)}
+    className={cn("justify-between gap-1 p-1.75", className)}
     {...props}
   />
 );
@@ -903,7 +908,7 @@ export const PromptInputTools = ({
   className,
   ...props
 }: PromptInputToolsProps) => (
-  <div className={cn("flex items-center gap-1", className)} {...props} />
+  <div className={cn("flex items-center gap-2", className)} {...props} />
 );
 
 export type PromptInputButtonProps = ComponentProps<typeof InputGroupButton>;
