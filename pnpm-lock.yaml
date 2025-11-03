@@ -122,7 +122,7 @@ importers:
         version: 2.0.13
       '@xyflow/react':
         specifier: ^12.9.1
-        version: 12.9.1(@types/react@19.2.2)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 12.9.2(@types/react@19.2.2)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       ai:
         specifier: ^5.0.82
         version: 5.0.83(zod@4.1.12)
@@ -2131,8 +2131,8 @@ packages:
     resolution: {integrity: sha512-yNEQvPcVrK9sIe637+I0jD6leluPxzwJKx/Haw6F4H77CdDsszUn5V3o96LPziXkSNE2B83+Z3mjqGKBK/R6Gg==}
     engines: {node: '>= 20'}
 
-  '@xyflow/react@12.9.1':
-    resolution: {integrity: sha512-JRPCT5p7NnPdVSIh15AFvUSSm+8GUyz2I6iuBEC1LG2lKgig/L48AM/ImMHCc3ZUCg+AgTOJDaX2fcRyPA9BTA==}
+  '@xyflow/react@12.9.2':
+    resolution: {integrity: sha512-Xr+LFcysHCCoc5KRHaw+FwbqbWYxp9tWtk1mshNcqy25OAPuaKzXSdqIMNOA82TIXF/gFKo0Wgpa6PU7wUUVqw==}
     peerDependencies:
       react: '>=17'
       react-dom: '>=17'
@@ -7181,7 +7181,7 @@ snapshots:
 
   '@vercel/oidc@3.0.3': {}
 
-  '@xyflow/react@12.9.1(@types/react@19.2.2)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@xyflow/react@12.9.2(@types/react@19.2.2)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@xyflow/system': 0.0.72
       classcat: 5.0.5
