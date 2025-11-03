@@ -90,9 +90,48 @@ export type TextInputContext = {
   clear: () => void;
 };
 
+export type MentionItem = {
+  id: string;
+  label: string;
+  value: string;
+  [key: string]: unknown;
+};
+
+export type MentionTriggerConfig<T extends MentionItem = MentionItem> = {
+  trigger: string;
+  onSearch: (query: string) => Promise<T[]> | T[];
+  renderItem?: (item: T) => ReactNode;
+  onSelect?: (item: T) => { display: string; value: string };
+};
+
+export type MentionsConfig = {
+  triggers: MentionTriggerConfig[];
+};
+
+export type MentionState = {
+  isOpen: boolean;
+  trigger: string | null;
+  query: string;
+  position: { top: number; left: number } | null;
+  items: MentionItem[];
+  selectedIndex: number;
+};
+
+export type MentionsContext = {
+  config: MentionsConfig | null;
+  state: MentionState;
+  open: (trigger: string, query: string, position: { top: number; left: number }) => void;
+  close: () => void;
+  setQuery: (query: string) => void;
+  setItems: (items: MentionItem[]) => void;
+  setSelectedIndex: (index: number) => void;
+  selectItem: () => void;
+};
+
 export type PromptInputControllerProps = {
   textInput: TextInputContext;
   attachments: AttachmentsContext;
+  mentions: MentionsContext;
   /** INTERNAL: Allows PromptInput to register its file textInput + "open" callback */
   __registerFileInput: (
     ref: RefObject<HTMLInputElement | null>,
@@ -136,6 +175,7 @@ const useOptionalProviderAttachments = () =>
 
 export type PromptInputProviderProps = PropsWithChildren<{
   initialInput?: string;
+  mentions?: MentionsConfig | null;
 }>;
 
 /**
@@ -144,6 +184,7 @@ export type PromptInputProviderProps = PropsWithChildren<{
  */
 export function PromptInputProvider({
   initialInput: initialTextInput = "",
+  mentions: mentionsConfig = null,
   children,
 }: PromptInputProviderProps) {
   // ----- textInput state
@@ -156,6 +197,16 @@ export function PromptInputProvider({
   >([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const openRef = useRef<() => void>(() => {});
+
+  // ----- mentions state
+  const [mentionState, setMentionState] = useState<MentionState>({
+    isOpen: false,
+    trigger: null,
+    query: "",
+    position: null,
+    items: [],
+    selectedIndex: 0,
+  });
 
   const add = useCallback((files: File[] | FileList) => {
     const incoming = Array.from(files);
@@ -213,6 +264,56 @@ export function PromptInputProvider({
     []
   );
 
+  const mentions = useMemo<MentionsContext>(
+    () => ({
+      config: mentionsConfig,
+      state: mentionState,
+      open: (trigger: string, query: string, position: { top: number; left: number }) => {
+        setMentionState({
+          isOpen: true,
+          trigger,
+          query,
+          position,
+          items: [],
+          selectedIndex: 0,
+        });
+      },
+      close: () => {
+        setMentionState((prev) => ({
+          ...prev,
+          isOpen: false,
+          trigger: null,
+          query: "",
+          position: null,
+          items: [],
+          selectedIndex: 0,
+        }));
+      },
+      setQuery: (query: string) => {
+        setMentionState((prev) => ({ ...prev, query }));
+      },
+      setItems: (items: MentionItem[]) => {
+        setMentionState((prev) => ({ ...prev, items, selectedIndex: 0 }));
+      },
+      setSelectedIndex: (index: number) => {
+        setMentionState((prev) => ({ ...prev, selectedIndex: index }));
+      },
+      selectItem: () => {
+        // This will be handled by the textarea
+        setMentionState((prev) => ({
+          ...prev,
+          isOpen: false,
+          trigger: null,
+          query: "",
+          position: null,
+          items: [],
+          selectedIndex: 0,
+        }));
+      },
+    }),
+    [mentionsConfig, mentionState]
+  );
+
   const controller = useMemo<PromptInputControllerProps>(
     () => ({
       textInput: {
@@ -221,9 +322,10 @@ export function PromptInputProvider({
         clear: clearInput,
       },
       attachments,
+      mentions,
       __registerFileInput,
     }),
-    [textInput, clearInput, attachments, __registerFileInput]
+    [textInput, clearInput, attachments, mentions, __registerFileInput]
   );
 
   return (
@@ -737,6 +839,9 @@ export const PromptInput = ({
     });
   };
 
+  // Check if mentions are configured
+  const hasMentions = usingProvider && controller?.mentions.config;
+
   // Render with or without local provider
   const inner = (
     <>
@@ -758,14 +863,21 @@ export const PromptInput = ({
       >
         <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
       </form>
+      {hasMentions && <PromptInputMentionsDropdown />}
     </>
   );
 
-  return usingProvider ? (
+  const wrappedInner = hasMentions ? (
+    <div className="relative w-full">{inner}</div>
+  ) : (
     inner
+  );
+
+  return usingProvider ? (
+    wrappedInner
   ) : (
     <LocalAttachmentsContext.Provider value={ctx}>
-      {inner}
+      {wrappedInner}
     </LocalAttachmentsContext.Provider>
   );
 };
@@ -779,21 +891,117 @@ export const PromptInputBody = ({
   <div className={cn("contents", className)} {...props} />
 );
 
-export type PromptInputTextareaProps = ComponentProps<
-  typeof InputGroupTextarea
->;
+export type PromptInputTextareaProps = Omit<
+  ComponentProps<typeof InputGroupTextarea>,
+  'ref'
+> & {
+  ref?: RefObject<HTMLTextAreaElement | null>;
+};
 
 export const PromptInputTextarea = ({
   onChange,
   className,
   placeholder = "Type your message...",
+  ref: externalRef,
   ...props
 }: PromptInputTextareaProps) => {
   const controller = useOptionalPromptInputController();
   const attachments = usePromptInputAttachments();
   const [isComposing, setIsComposing] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const mentionTriggerStartRef = useRef<number | null>(null);
+
+  // Detect mention triggers and update position
+  const detectMentionTrigger = useCallback((textarea: HTMLTextAreaElement) => {
+    if (!controller?.mentions.config) return;
+
+    const { value, selectionStart } = textarea;
+    const textBeforeCursor = value.substring(0, selectionStart);
+    
+    // Check each trigger
+    for (const triggerConfig of controller.mentions.config.triggers) {
+      const { trigger } = triggerConfig;
+      const lastTriggerIndex = textBeforeCursor.lastIndexOf(trigger);
+      
+      if (lastTriggerIndex !== -1) {
+        const textAfterTrigger = textBeforeCursor.substring(lastTriggerIndex + trigger.length);
+        
+        // Check if there's whitespace between trigger and cursor (which would break the mention)
+        if (!/\s/.test(textAfterTrigger)) {
+          const query = textAfterTrigger;
+          mentionTriggerStartRef.current = lastTriggerIndex;
+          
+          // Calculate position for dropdown
+          const lines = textBeforeCursor.substring(0, lastTriggerIndex).split('\n');
+          const currentLineIndex = lines.length - 1;
+          const currentLineLength = lines[currentLineIndex]?.length || 0;
+          
+          // Approximate positioning (can be enhanced with more precise measurements)
+          const lineHeight = 24; // Approximate line height
+          const charWidth = 8; // Approximate character width
+          
+          const position = {
+            top: (currentLineIndex + 1) * lineHeight,
+            left: currentLineLength * charWidth,
+          };
+          
+          controller.mentions.open(trigger, query, position);
+          controller.mentions.setQuery(query);
+          
+          // Fetch suggestions
+          Promise.resolve(triggerConfig.onSearch(query)).then((items) => {
+            controller.mentions.setItems(items);
+          });
+          
+          return;
+        }
+      }
+    }
+    
+    // No valid trigger found, close mentions
+    if (controller.mentions.state.isOpen) {
+      controller.mentions.close();
+      mentionTriggerStartRef.current = null;
+    }
+  }, [controller]);
 
   const handleKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    // Handle mention dropdown navigation
+    if (controller?.mentions.state.isOpen) {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const nextIndex = Math.min(
+          controller.mentions.state.selectedIndex + 1,
+          controller.mentions.state.items.length - 1
+        );
+        controller.mentions.setSelectedIndex(nextIndex);
+        return;
+      }
+      
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prevIndex = Math.max(controller.mentions.state.selectedIndex - 1, 0);
+        controller.mentions.setSelectedIndex(prevIndex);
+        return;
+      }
+      
+      if (e.key === "Enter" || e.key === "Tab") {
+        e.preventDefault();
+        const selectedItem = controller.mentions.state.items[controller.mentions.state.selectedIndex];
+        if (selectedItem) {
+          insertMention(e.currentTarget, selectedItem);
+        }
+        return;
+      }
+      
+      if (e.key === "Escape") {
+        e.preventDefault();
+        controller.mentions.close();
+        mentionTriggerStartRef.current = null;
+        return;
+      }
+    }
+
     if (e.key === "Enter") {
       if (isComposing || e.nativeEvent.isComposing) {
         return;
@@ -819,6 +1027,40 @@ export const PromptInputTextarea = ({
     }
   };
 
+  const insertMention = useCallback((textarea: HTMLTextAreaElement, item: MentionItem) => {
+    if (!controller?.mentions.state.trigger || mentionTriggerStartRef.current === null) return;
+    
+    const triggerConfig = controller.mentions.config?.triggers.find(
+      (t) => t.trigger === controller.mentions.state.trigger
+    );
+    
+    const result = triggerConfig?.onSelect?.(item) || {
+      display: item.label,
+      value: item.value,
+    };
+    
+    const { value, selectionStart } = textarea;
+    const beforeMention = value.substring(0, mentionTriggerStartRef.current);
+    const afterMention = value.substring(selectionStart);
+    const newValue = beforeMention + result.display + " " + afterMention;
+    const newCursorPosition = beforeMention.length + result.display.length + 1;
+    
+    if (controller.textInput) {
+      controller.textInput.setInput(newValue);
+    } else {
+      textarea.value = newValue;
+    }
+    
+    // Set cursor position after update
+    setTimeout(() => {
+      textarea.setSelectionRange(newCursorPosition, newCursorPosition);
+      textarea.focus();
+    }, 0);
+    
+    controller.mentions.close();
+    mentionTriggerStartRef.current = null;
+  }, [controller]);
+
   const handlePaste: ClipboardEventHandler<HTMLTextAreaElement> = (event) => {
     const items = event.clipboardData?.items;
 
@@ -843,20 +1085,38 @@ export const PromptInputTextarea = ({
     }
   };
 
+  const handleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (controller) {
+      controller.textInput.setInput(e.currentTarget.value);
+    }
+    onChange?.(e);
+    
+    // Detect mention triggers on input change
+    detectMentionTrigger(e.currentTarget);
+  }, [controller, onChange, detectMentionTrigger]);
+
   const controlledProps = controller
     ? {
         value: controller.textInput.value,
-        onChange: (e: ChangeEvent<HTMLTextAreaElement>) => {
-          controller.textInput.setInput(e.currentTarget.value);
-          onChange?.(e);
-        },
+        onChange: handleChange,
       }
     : {
-        onChange,
+        onChange: (e: ChangeEvent<HTMLTextAreaElement>) => {
+          onChange?.(e);
+          detectMentionTrigger(e.currentTarget);
+        },
       };
+
+  // Sync external ref with internal ref
+  useEffect(() => {
+    if (externalRef) {
+      externalRef.current = textareaRef.current;
+    }
+  }, [externalRef]);
 
   return (
     <InputGroupTextarea
+      ref={textareaRef}
       className={cn("field-sizing-content max-h-48 min-h-16 md:text-base tracking-tightest p-1.75 leading-20", className)}
       name="message"
       onCompositionEnd={() => setIsComposing(false)}
@@ -1374,3 +1634,68 @@ export const PromptInputCommandSeparator = ({
 }: PromptInputCommandSeparatorProps) => (
   <CommandSeparator className={cn(className)} {...props} />
 );
+
+// ============================================================================
+// Mentions Dropdown
+// ============================================================================
+
+export type PromptInputMentionsDropdownProps = HTMLAttributes<HTMLDivElement> & {
+  onItemSelect?: (item: MentionItem) => void;
+};
+
+export const PromptInputMentionsDropdown = ({
+  className,
+  onItemSelect,
+  ...props
+}: PromptInputMentionsDropdownProps) => {
+  const controller = useOptionalPromptInputController();
+  
+  if (!controller?.mentions.state.isOpen || !controller.mentions.state.position) {
+    return null;
+  }
+
+  const { state, config } = controller.mentions;
+  const triggerConfig = config?.triggers.find((t) => t.trigger === state.trigger);
+
+  const handleSelect = (item: MentionItem) => {
+    onItemSelect?.(item);
+    controller.mentions.selectItem();
+  };
+
+  if (state.items.length === 0) {
+    return null;
+  }
+
+  return (
+    <div
+      className={cn(
+        "absolute z-50 w-72 rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+        className
+      )}
+      style={{
+        top: state.position!.top,
+        left: state.position!.left,
+      }}
+      {...props}
+    >
+      <Command>
+        <CommandList>
+          <CommandGroup>
+            {state.items.map((item, index) => (
+              <CommandItem
+                key={item.id}
+                className={cn(
+                  "cursor-pointer",
+                  index === state.selectedIndex && "bg-accent"
+                )}
+                onSelect={() => handleSelect(item)}
+              >
+                {triggerConfig?.renderItem ? triggerConfig.renderItem(item) : item.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    </div>
+  );
+};
