@@ -125,7 +125,7 @@ importers:
         version: 12.9.2(@types/react@19.2.2)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       ai:
         specifier: ^5.0.82
-        version: 5.0.83(zod@4.1.12)
+        version: 5.0.84(zod@4.1.12)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
