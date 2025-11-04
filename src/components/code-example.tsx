@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useEffect, useState, startTransition } from "react";
 import { useTheme } from "next-themes";
 import { CodeCopyButton } from "@/components/code-copy-button";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -16,6 +16,14 @@ interface CodeExampleProps {
 
 export function CodeExample({ title, code }: CodeExampleProps) {
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    startTransition(() => {
+      setMounted(true);
+    });
+  }, []);
 
   // Custom style that adapts to the theme
   const customStyle = {
@@ -27,8 +35,9 @@ export function CodeExample({ title, code }: CodeExampleProps) {
     borderRadius: "0",
   };
 
-  // Use resolvedTheme directly - the suppressHydrationWarning should handle this
-  const isDark = resolvedTheme === "dark";
+  // Use resolvedTheme only after mounting to prevent hydration mismatch
+  // Default to dark theme during SSR (matches defaultTheme in layout.tsx)
+  const isDark = mounted ? resolvedTheme === "dark" : true;
 
   return (
     <div className="bg-muted/50 rounded-lg p-4">

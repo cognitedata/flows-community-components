@@ -117,15 +117,17 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   return (
     <div className="px-3 py-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Main content */}
           <div className="flex-1 max-w-4xl">
             {/* Header */}
             <div className="space-y-4 mb-8">
               <div className="flex items-start justify-between">
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h1 className="text-3xl font-bold">{meta.name}</h1>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold wrap-break-word">
+                      {meta.name}
+                    </h1>
                     <Badge variant="secondary">Component</Badge>
                     {componentStatus === "production" && (
                       <Badge
