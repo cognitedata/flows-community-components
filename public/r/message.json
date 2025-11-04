@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message",
+  "type": "registry:component",
+  "title": "Message",
+  "description": "An AI chat message component with avatar support for user and assistant roles.",
+  "dependencies": [
+    "ai"
+  ],
+  "registryDependencies": [
+    "avatar"
+  ],
+  "files": [
+    {
+      "path": "src/components/ai-elements/draft/message.tsx",
+      "content": "import {\n  Avatar,\n  AvatarFallback,\n  AvatarIcon,\n  AvatarImage,\n} from \"@/components/ui/cognite/avatar\";\nimport { cn } from \"@/lib/utils\";\nimport type { UIMessage } from \"ai\";\nimport type { ComponentProps, HTMLAttributes } from \"react\";\n\nexport type MessageProps = HTMLAttributes<HTMLDivElement> & {\n  from: UIMessage[\"role\"];\n};\n\nexport const Message = ({ className, from, ...props }: MessageProps) => (\n  <div\n    className={cn(\n      \"group flex w-full items-end justify-end items-start gap-2 py-2 mb-0\",\n      from === \"user\" ? \"is-user\" : \"is-assistant flex-row-reverse items-start justify-end\",\n      className\n    )}\n    {...props}\n  />\n);\n\nexport type MessageContentProps = HTMLAttributes<HTMLDivElement>;\n\nexport const MessageContent = ({\n  children,\n  className,\n  ...props\n}: MessageContentProps) => (\n  <div\n    className={cn(\n      \"is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest\",\n      \"max-w-[80%]\",\n      \"group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground\",\n      \"group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1\",\n      className\n    )}\n    {...props}\n  >\n    {children}\n  </div>\n);\n\n// Helper function to extract initials from a name\nfunction getInitials(name: string): string {\n  return name\n    .split(\" \")\n    .map(part => part.charAt(0).toUpperCase())\n    .join(\"\")\n    .slice(0, 2);\n}\n\nexport type MessageAvatarProps = ComponentProps<typeof Avatar> & {\n  src?: string;\n  name?: string;\n};\n\nexport const MessageAvatar = ({\n  src,\n  name,\n  className,\n  children,\n  variant,\n  sizes,\n  ...props\n}: MessageAvatarProps) => {\n  const fallbackText = name ? getInitials(name) : \"ME\";\n  \n  return (\n    <Avatar \n      className={cn(\"size-7 group-[.is-user]:mt-1\", className)} \n      variant={variant}\n      sizes={sizes}\n      {...props}\n    >\n      {children || (\n        <>\n          {src && <AvatarImage alt={name || \"\"} className=\"mt-0 mb-0\" src={src} />}\n          <AvatarFallback>{fallbackText}</AvatarFallback>\n        </>\n      )}\n    </Avatar>\n  );\n};\n\nexport type MessageAvatarIconProps = ComponentProps<typeof AvatarIcon>;\n\nexport const MessageAvatarIcon = (props: MessageAvatarIconProps) => (\n  <AvatarIcon {...props} />\n);\n",
+      "type": "registry:component"
+    }
+  ]
+}
