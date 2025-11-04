@@ -2,7 +2,15 @@ import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/com
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import {
   InlineCitation,
-  InlineCitationLink,
+  InlineCitationCard,
+  InlineCitationCardBody,
+  InlineCitationCardTrigger,
+  InlineCitationCarousel,
+  InlineCitationCarouselContent,
+  InlineCitationCarouselHeader,
+  InlineCitationCarouselIndex,
+  InlineCitationCarouselItem,
+  InlineCitationSource,
 } from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions";
@@ -19,7 +27,30 @@ function Demo() {
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span>
+          <InlineCitation>
+            <InlineCitationCard>
+              <InlineCitationCardTrigger
+                sources={["https://example.com/user/21PT1019"]}
+                icon={IconAt}
+              />
+              <InlineCitationCardBody>
+                <InlineCitationCarousel>
+                  <InlineCitationCarouselHeader>
+                    <InlineCitationCarouselIndex />
+                  </InlineCitationCarouselHeader>
+                  <InlineCitationCarouselContent>
+                    <InlineCitationCarouselItem>
+                      <InlineCitationSource
+                        title="21PT1019"
+                        url="https://example.com/user/21PT1019"
+                      />
+                    </InlineCitationCarouselItem>
+                  </InlineCitationCarouselContent>
+                </InlineCitationCarousel>
+              </InlineCitationCardBody>
+            </InlineCitationCard>
+          </InlineCitation>
         </MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
@@ -29,31 +60,73 @@ function Demo() {
           According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
           <div className="flex flex-row gap-2">
             <InlineCitation>
-              <InlineCitationLink
-                url="https://example.com/chart/timeline"
-                target="_blank"
-                icon={IconTimeline}
-              >
-                Time series
-              </InlineCitationLink>
+              <InlineCitationCard>
+                <InlineCitationCardTrigger
+                  sources={["https://example.com/chart/timeline"]}
+                  icon={IconTimeline}
+                />
+                <InlineCitationCardBody>
+                  <InlineCitationCarousel>
+                    <InlineCitationCarouselHeader>
+                      <InlineCitationCarouselIndex />
+                    </InlineCitationCarouselHeader>
+                    <InlineCitationCarouselContent>
+                      <InlineCitationCarouselItem>
+                        <InlineCitationSource
+                          title="Time series"
+                          url="https://example.com/chart/timeline"
+                        />
+                      </InlineCitationCarouselItem>
+                    </InlineCitationCarouselContent>
+                  </InlineCitationCarousel>
+                </InlineCitationCardBody>
+              </InlineCitationCard>
             </InlineCitation>
             <InlineCitation>
-              <InlineCitationLink
-                url="https://example.com/image/image1.jpg"
-                target="_blank"
-                icon={IconPhoto}
-              >
-                pumpB.jpg
-              </InlineCitationLink>
+              <InlineCitationCard>
+                <InlineCitationCardTrigger
+                  sources={["https://example.com/image/image1.jpg"]}
+                  icon={IconPhoto}
+                />
+                <InlineCitationCardBody>
+                  <InlineCitationCarousel>
+                    <InlineCitationCarouselHeader>
+                      <InlineCitationCarouselIndex />
+                    </InlineCitationCarouselHeader>
+                    <InlineCitationCarouselContent>
+                      <InlineCitationCarouselItem>
+                        <InlineCitationSource
+                          title="pumpB.jpg"
+                          url="https://example.com/image/image1.jpg"
+                        />
+                      </InlineCitationCarouselItem>
+                    </InlineCitationCarouselContent>
+                  </InlineCitationCarousel>
+                </InlineCitationCardBody>
+              </InlineCitationCard>
             </InlineCitation>
             <InlineCitation>
-              <InlineCitationLink
-                url="https://example.com/documentation.pdf"
-                target="_blank"
-                icon={IconFile}
-              >
-                pumpB.pdf
-              </InlineCitationLink>
+              <InlineCitationCard>
+                <InlineCitationCardTrigger
+                  sources={["https://example.com/documentation.pdf"]}
+                  icon={IconFile}
+                />
+                <InlineCitationCardBody>
+                  <InlineCitationCarousel>
+                    <InlineCitationCarouselHeader>
+                      <InlineCitationCarouselIndex />
+                    </InlineCitationCarouselHeader>
+                    <InlineCitationCarouselContent>
+                      <InlineCitationCarouselItem>
+                        <InlineCitationSource
+                          title="pumpB.pdf"
+                          url="https://example.com/documentation.pdf"
+                        />
+                      </InlineCitationCarouselItem>
+                    </InlineCitationCarouselContent>
+                  </InlineCitationCarousel>
+                </InlineCitationCardBody>
+              </InlineCitationCard>
             </InlineCitation>
           </div>
           <Actions>
@@ -101,7 +174,15 @@ export const messageExamples: ComponentExamples = {
     code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import {
   InlineCitation,
-  InlineCitationLink,
+  InlineCitationCard,
+  InlineCitationCardBody,
+  InlineCitationCardTrigger,
+  InlineCitationCarousel,
+  InlineCitationCarouselContent,
+  InlineCitationCarouselHeader,
+  InlineCitationCarouselIndex,
+  InlineCitationCarouselItem,
+  InlineCitationSource,
 } from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
@@ -117,7 +198,30 @@ export function Demo() {
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span>
+          <InlineCitation>
+            <InlineCitationCard>
+              <InlineCitationCardTrigger
+                sources={["https://example.com/user/21PT1019"]}
+                icon={IconAt}
+              />
+              <InlineCitationCardBody>
+                <InlineCitationCarousel>
+                  <InlineCitationCarouselHeader>
+                    <InlineCitationCarouselIndex />
+                  </InlineCitationCarouselHeader>
+                  <InlineCitationCarouselContent>
+                    <InlineCitationCarouselItem>
+                      <InlineCitationSource
+                        title="21PT1019"
+                        url="https://example.com/user/21PT1019"
+                      />
+                    </InlineCitationCarouselItem>
+                  </InlineCitationCarouselContent>
+                </InlineCitationCarousel>
+              </InlineCitationCardBody>
+            </InlineCitationCard>
+          </InlineCitation>
         </MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
@@ -127,31 +231,73 @@ export function Demo() {
           According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
           <div className="flex flex-row gap-2">
             <InlineCitation>
-              <InlineCitationLink
-                url="https://example.com/chart/timeline"
-                target="_blank"
-                icon={IconTimeline}
-              >
-                Time series
-              </InlineCitationLink>
+              <InlineCitationCard>
+                <InlineCitationCardTrigger
+                  sources={["https://example.com/chart/timeline"]}
+                  icon={IconTimeline}
+                />
+                <InlineCitationCardBody>
+                  <InlineCitationCarousel>
+                    <InlineCitationCarouselHeader>
+                      <InlineCitationCarouselIndex />
+                    </InlineCitationCarouselHeader>
+                    <InlineCitationCarouselContent>
+                      <InlineCitationCarouselItem>
+                        <InlineCitationSource
+                          title="Time series"
+                          url="https://example.com/chart/timeline"
+                        />
+                      </InlineCitationCarouselItem>
+                    </InlineCitationCarouselContent>
+                  </InlineCitationCarousel>
+                </InlineCitationCardBody>
+              </InlineCitationCard>
             </InlineCitation>
             <InlineCitation>
-              <InlineCitationLink
-                url="https://example.com/image/image1.jpg"
-                target="_blank"
-                icon={IconPhoto}
-              >
-                pumpB.jpg
-              </InlineCitationLink>
+              <InlineCitationCard>
+                <InlineCitationCardTrigger
+                  sources={["https://example.com/image/image1.jpg"]}
+                  icon={IconPhoto}
+                />
+                <InlineCitationCardBody>
+                  <InlineCitationCarousel>
+                    <InlineCitationCarouselHeader>
+                      <InlineCitationCarouselIndex />
+                    </InlineCitationCarouselHeader>
+                    <InlineCitationCarouselContent>
+                      <InlineCitationCarouselItem>
+                        <InlineCitationSource
+                          title="pumpB.jpg"
+                          url="https://example.com/image/image1.jpg"
+                        />
+                      </InlineCitationCarouselItem>
+                    </InlineCitationCarouselContent>
+                  </InlineCitationCarousel>
+                </InlineCitationCardBody>
+              </InlineCitationCard>
             </InlineCitation>
             <InlineCitation>
-              <InlineCitationLink
-                url="https://example.com/documentation.pdf"
-                target="_blank"
-                icon={IconFile}
-              >
-                pumpB.pdf
-              </InlineCitationLink>
+              <InlineCitationCard>
+                <InlineCitationCardTrigger
+                  sources={["https://example.com/documentation.pdf"]}
+                  icon={IconFile}
+                />
+                <InlineCitationCardBody>
+                  <InlineCitationCarousel>
+                    <InlineCitationCarouselHeader>
+                      <InlineCitationCarouselIndex />
+                    </InlineCitationCarouselHeader>
+                    <InlineCitationCarouselContent>
+                      <InlineCitationCarouselItem>
+                        <InlineCitationSource
+                          title="pumpB.pdf"
+                          url="https://example.com/documentation.pdf"
+                        />
+                      </InlineCitationCarouselItem>
+                    </InlineCitationCarouselContent>
+                  </InlineCitationCarousel>
+                </InlineCitationCardBody>
+              </InlineCitationCard>
             </InlineCitation>
           </div>
           <Actions>

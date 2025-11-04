@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/cognite/hover-card";
 import { cn } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import type { ComponentType } from "react";
 import {
   type ComponentProps,
+  type ComponentType,
   createContext,
   startTransition,
   useCallback,
@@ -68,8 +68,9 @@ export const InlineCitationCardTrigger = ({
   <HoverCardTrigger asChild>
     <span
       className={cn(
-        "ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-[color,box-shadow]",
-        "[&>svg]:size-3.5 [&>svg]:pointer-events-none",
+        "ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 tracking-normal font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap transition-colors hover:bg-fjord-100 dark:hover:bg-fjord-800",
+        Icon && "gap-1",
+        "[&>svg]:size-3 [&>svg]:pointer-events-none",
         className
       )}
       {...props}
@@ -267,7 +268,14 @@ export const InlineCitationSource = ({
       <h4 className="truncate font-medium text-sm leading-tight">{title}</h4>
     )}
     {url && (
-      <p className="truncate break-all text-muted-foreground text-xs">{url}</p>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="truncate break-all text-muted-foreground text-xs hover:underline"
+      >
+        {url}
+      </a>
     )}
     {description && (
       <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
@@ -295,41 +303,3 @@ export const InlineCitationQuote = ({
     {children}
   </blockquote>
 );
-
-export type InlineCitationLinkProps = Omit<ComponentProps<"a">, "href" | "target"> & {
-  url: string;
-  target?: "_blank" | "_self";
-  icon?: ComponentType<{ className?: string }>;
-};
-
-export const InlineCitationLink = ({
-  url,
-  target = "_self",
-  icon: Icon,
-  className,
-  children,
-  ...props
-}: InlineCitationLinkProps) => {
-  const hostname = url ? new URL(url).hostname : "unknown";
-
-  return (
-    <a
-      href={url}
-      target={target}
-      rel={target === "_blank" ? "noopener noreferrer" : undefined}
-      className={cn("inline-block", className)}
-      {...props}
-    >
-      <span
-        className={cn(
-          "inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 tracking-normal font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap transition-colors hover:bg-fjord-100 dark:hover:bg-fjord-800",
-          Icon && "gap-1",
-          "[&>svg]:size-3 [&>svg]:pointer-events-none"
-        )}
-      >
-        {Icon && <Icon className="size-3.5" />}
-        {children ?? hostname}
-      </span>
-    </a>
-  );
-};
