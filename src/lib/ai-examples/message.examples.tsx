@@ -2,6 +2,7 @@ import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/com
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import {
   InlineCitation,
+  InlineCitationGroup,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
@@ -27,7 +28,7 @@ function Demo() {
       <Message from="assistant">
         <MessageContent className="flex flex-col gap-2">
           According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
-          <div className="flex flex-row gap-2">
+          <InlineCitationGroup>
             <InlineCitation>
               <InlineCitationLink
                 url="https://example.com/chart/timeline"
@@ -55,7 +56,7 @@ function Demo() {
                 pumpB.pdf
               </InlineCitationLink>
             </InlineCitation>
-          </div>
+          </InlineCitationGroup>
           <Actions>
             <Action size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
@@ -101,6 +102,7 @@ export const messageExamples: ComponentExamples = {
     code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import {
   InlineCitation,
+  InlineCitationGroup,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
@@ -125,7 +127,7 @@ export function Demo() {
       <Message from="assistant">
         <MessageContent className="flex flex-col gap-2">
           According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
-          <div className="flex flex-row gap-2">
+          <InlineCitationGroup>
             <InlineCitation>
               <InlineCitationLink
                 url="https://example.com/chart/timeline"
@@ -153,7 +155,7 @@ export function Demo() {
                 pumpB.pdf
               </InlineCitationLink>
             </InlineCitation>
-          </div>
+          </InlineCitationGroup>
           <Actions>
             <Action size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />

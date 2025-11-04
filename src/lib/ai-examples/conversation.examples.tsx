@@ -3,8 +3,9 @@
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation";
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
 import { Actions, Action } from "@/components/ai-elements/cognite/actions";
+import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "@/components/ai-elements/cognite/inline-citation";
 import { MessageSquare } from "lucide-react";
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react";
+import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconFile, IconPhoto } from "@tabler/icons-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -178,6 +179,28 @@ function BasicConversationDemo() {
                 <MessageContent className={from === "assistant" ? "flex flex-col gap-2" : undefined}>
                   {value}
                   {from === "assistant" && (
+                    <InlineCitationGroup>
+                      <InlineCitation>
+                        <InlineCitationLink
+                          url="https://example.com/documentation.pdf"
+                          target="_blank"
+                          icon={IconFile}
+                        >
+                          documentation.pdf
+                        </InlineCitationLink>
+                      </InlineCitation>
+                      <InlineCitation>
+                        <InlineCitationLink
+                          url="https://example.com/image/image1.jpg"
+                          target="_blank"
+                          icon={IconPhoto}
+                        >
+                          image1.jpg
+                        </InlineCitationLink>
+                      </InlineCitation>
+                    </InlineCitationGroup>
+                  )}
+                  {from === "assistant" && (
                     <Actions>
                       <Action size="icon-sm" label="Like" tooltip="Like">
                         <IconThumbUp className="w-3 h-3" />
@@ -253,8 +276,9 @@ export const conversationExamples: ComponentExamples = {
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "@/components/ai-elements/cognite/inline-citation"
 import { MessageSquare } from "lucide-react"
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconFile, IconPhoto } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -303,6 +327,28 @@ export function BasicConversationDemo() {
               <Message from={from} key={key}>
                 <MessageContent className={from === "assistant" ? "flex flex-col gap-2" : undefined}>
                   {value}
+                  {from === "assistant" && (
+                    <InlineCitationGroup>
+                      <InlineCitation>
+                        <InlineCitationLink
+                          url="https://example.com/documentation.pdf"
+                          target="_blank"
+                          icon={IconFile}
+                        >
+                          documentation.pdf
+                        </InlineCitationLink>
+                      </InlineCitation>
+                      <InlineCitation>
+                        <InlineCitationLink
+                          url="https://example.com/image/image1.jpg"
+                          target="_blank"
+                          icon={IconPhoto}
+                        >
+                          image1.jpg
+                        </InlineCitationLink>
+                      </InlineCitation>
+                    </InlineCitationGroup>
+                  )}
                   {from === "assistant" && (
                     <Actions>
                       <Action size="icon-sm" label="Like" tooltip="Like">
