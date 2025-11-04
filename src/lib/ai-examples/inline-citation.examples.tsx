@@ -12,6 +12,7 @@ import {
   InlineCitationCarouselItem,
   InlineCitationCarouselNext,
   InlineCitationCarouselPrev,
+  InlineCitationGroup,
   InlineCitationLink,
   InlineCitationSource,
   InlineCitationText,
@@ -163,7 +164,7 @@ function LinkDemo() {
 function WithIconsDemo() {
   return (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
-      <div className="flex flex-wrap gap-2">
+      <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
             url="https://example.com/image/image1.jpg"
@@ -234,7 +235,7 @@ function WithIconsDemo() {
             icon={IconAt}
           />
         </InlineCitation>
-      </div>
+      </InlineCitationGroup>
     </div>
   );
 }
@@ -429,6 +430,7 @@ export function LinkDemo() {
     code: `"use client"
 import {
   InlineCitation,
+  InlineCitationGroup,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
 import {
@@ -447,7 +449,7 @@ import {
 export function WithIconsDemo() {
   return (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
-      <div className="flex flex-wrap gap-2">
+      <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
             url="https://example.com/image/image1.jpg"
@@ -518,7 +520,7 @@ export function WithIconsDemo() {
             icon={IconAt}
           />
         </InlineCitation>
-      </div>
+      </InlineCitationGroup>
     </div>
   )
 }`,
