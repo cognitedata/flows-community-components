@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { Badge } from './badge';
 import { badgeExamples } from '@/lib/component-examples/badge.examples';
+import { IconAlertHexagon, IconAlertTriangle, IconArchive, IconCircleCheck, IconHexagon, IconInnerShadowTopLeft } from '@tabler/icons-react';
 
 const meta: Meta<typeof Badge> = {
   title: 'UI/Badge',
@@ -9,43 +10,31 @@ const meta: Meta<typeof Badge> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: [
-        'default',
-        'fjord',
-        'nordic',
-        'aurora',
-        'sky',
-        'dusk',
-        'mountain',
-        'secondary',
-        'error',
-        'warning',
-        'success',
-        'inProgress',
-        'archived',
-        'closable',
-      ],
-      description: 'The visual style variant of the badge',
+      options: ['default', 'fjord', 'nordic', 'aurora', 'sky', 'dusk', 'mountain', 'secondary', 'error', 'warning', 'success', 'inProgress', 'archived', 'closable'],
+      description: 'The visual style variant',
     },
     outline: {
-      control: 'boolean',
-      description: 'Whether to show the badge with an outline style',
+      control: 'select',
+      options: ['true'],
+      description: 'The outline option',
     },
     background: {
-      control: 'boolean',
-      description: 'Whether to show the background fill',
+      control: 'select',
+      options: ['false'],
+      description: 'The background option',
     },
     dot: {
-      control: 'boolean',
-      description: 'Whether to make the badge rounded (pill-shaped)',
+      control: 'select',
+      options: ['true'],
+      description: 'The dot option',
     },
     children: {
       control: 'text',
-      description: 'The content to display inside the badge',
-    },
+      description: 'The content to display',
+    }
   },
-  args: {
-    children: 'Badge',
+  parameters: {
+    layout: 'centered',
   },
 };
 
@@ -53,7 +42,263 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 /**
- * The main badge component with common variations.
+ * Fjord variant - blue-toned for observations and data
+ */
+export const Fjord: Story = {
+  args: {
+    variant: 'fjord',
+    children: 'Observations'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Fjord variant - blue-toned for observations and data',
+      },
+    },
+  },
+};
+
+/**
+ * Aurora variant - vibrant for troubleshooting and alerts
+ */
+export const Aurora: Story = {
+  args: {
+    variant: 'aurora',
+    children: 'Troubleshooting'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Aurora variant - vibrant for troubleshooting and alerts',
+      },
+    },
+  },
+};
+
+/**
+ * Mountain variant - green-toned for plans and goals
+ */
+export const Mountain: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconHexagon />
+          Plans
+    </Badge>
+  ),
+  args: {
+    variant: 'mountain'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Mountain variant - green-toned for plans and goals',
+      },
+    },
+  },
+};
+
+/**
+ * Dusk variant - purple-toned for RCA and analysis
+ */
+export const Dusk: Story = {
+  args: {
+    variant: 'dusk',
+    children: 'RCA'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Dusk variant - purple-toned for RCA and analysis',
+      },
+    },
+  },
+};
+
+/**
+ * Secondary variant - neutral for general use
+ */
+export const Secondary: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconHexagon className="rotate-90" />
+          Asset
+    </Badge>
+  ),
+  args: {
+    variant: 'secondary'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Secondary variant - neutral for general use',
+      },
+    },
+  },
+};
+
+/**
+ * Error variant - red for errors and critical issues
+ */
+export const Error: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconAlertHexagon />
+          Error
+    </Badge>
+  ),
+  args: {
+    variant: 'error',
+    background: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Error variant - red for errors and critical issues',
+      },
+    },
+  },
+};
+
+/**
+ * Error variant - red for errors and critical issues
+ */
+export const Error2: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconAlertHexagon />
+          Error
+    </Badge>
+  ),
+  args: {
+    variant: 'error',
+    outline: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Error variant - red for errors and critical issues',
+      },
+    },
+  },
+};
+
+/**
+ * Warning variant - orange/yellow for warnings
+ */
+export const Warning: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconAlertTriangle />
+          Warning
+    </Badge>
+  ),
+  args: {
+    variant: 'warning',
+    background: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Warning variant - orange/yellow for warnings',
+      },
+    },
+  },
+};
+
+/**
+ * Warning variant - orange/yellow for warnings
+ */
+export const Warning2: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconAlertTriangle />
+          Warning
+    </Badge>
+  ),
+  args: {
+    variant: 'warning',
+    outline: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Warning variant - orange/yellow for warnings',
+      },
+    },
+  },
+};
+
+/**
+ * Success variant - green for successful operations
+ */
+export const Success: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconCircleCheck />
+          Success
+    </Badge>
+  ),
+  args: {
+    variant: 'success',
+    background: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Success variant - green for successful operations',
+      },
+    },
+  },
+};
+
+/**
+ * In Progress variant - for ongoing operations
+ */
+export const InProgress: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconInnerShadowTopLeft />
+          In progress
+    </Badge>
+  ),
+  args: {
+    variant: 'inProgress',
+    background: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'In Progress variant - for ongoing operations',
+      },
+    },
+  },
+};
+
+/**
+ * Archived variant - for archived or inactive items
+ */
+export const Archived: Story = {
+  render: (args) => (
+    <Badge {...args}>
+      <IconArchive />
+          Archived
+    </Badge>
+  ),
+  args: {
+    variant: 'archived',
+    background: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Archived variant - for archived or inactive items',
+      },
+    },
+  },
+};
+
+/**
+ * Main Component
  */
 export const MainComponent: Story = {
   render: () => {
@@ -73,232 +318,42 @@ export const MainComponent: Story = {
 };
 
 /**
- * All available badge variants for different semantic meanings.
+ * Interactive playground for testing different configurations.
+ * Use the controls below to experiment with all available props.
  */
-export const Variants: Story = {
-  render: () => {
-    const Component = badgeExamples.variants.component;
-    return <Component />;
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: badgeExamples.variants.description,
-      },
-      source: {
-        code: badgeExamples.variants.code,
-      },
-    },
-  },
-};
-
-// ============================================================
-// Individual Variant Stories
-// Each variant gets its own story for better documentation
-// ============================================================
-
-/**
- * Default badge variant - the standard badge style.
- */
-export const Default: Story = {
-  args: {
-    variant: 'default',
-    children: 'Default',
-  },
-};
-
-/**
- * Fjord variant - blue-toned badge for observations and data.
- */
-export const Fjord: Story = {
+export const Playground: Story = {
   args: {
     variant: 'fjord',
-    children: 'Observations',
+    children: 'Badge',
   },
 };
-
-/**
- * Nordic variant - cool-toned badge for technical content.
- */
-export const Nordic: Story = {
-  args: {
-    variant: 'nordic',
-    children: 'Technical',
-  },
-};
-
-/**
- * Aurora variant - vibrant badge for troubleshooting and alerts.
- */
-export const Aurora: Story = {
-  args: {
-    variant: 'aurora',
-    children: 'Troubleshooting',
-  },
-};
-
-/**
- * Sky variant - light blue badge for informational content.
- */
-export const Sky: Story = {
-  args: {
-    variant: 'sky',
-    children: 'Information',
-  },
-};
-
-/**
- * Dusk variant - purple-toned badge for RCA and analysis.
- */
-export const Dusk: Story = {
-  args: {
-    variant: 'dusk',
-    children: 'RCA',
-  },
-};
-
-/**
- * Mountain variant - green-toned badge for plans and goals.
- */
-export const Mountain: Story = {
-  args: {
-    variant: 'mountain',
-    children: 'Plans',
-  },
-};
-
-/**
- * Secondary variant - neutral badge for general use.
- */
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-    children: 'Asset',
-  },
-};
-
-/**
- * Error variant - red badge for errors and critical issues.
- */
-export const Error: Story = {
-  args: {
-    variant: 'error',
-    children: 'Error',
-  },
-};
-
-/**
- * Warning variant - orange/yellow badge for warnings.
- */
-export const Warning: Story = {
-  args: {
-    variant: 'warning',
-    children: 'Warning',
-  },
-};
-
-/**
- * Success variant - green badge for successful operations.
- */
-export const Success: Story = {
-  args: {
-    variant: 'success',
-    children: 'Success',
-  },
-};
-
-/**
- * In Progress variant - badge for ongoing operations.
- */
-export const InProgress: Story = {
-  args: {
-    variant: 'inProgress',
-    children: 'In Progress',
-  },
-};
-
-/**
- * Archived variant - badge for archived or inactive items.
- */
-export const Archived: Story = {
-  args: {
-    variant: 'archived',
-    children: 'Archived',
-  },
-};
-
-/**
- * Closable variant - badge with close button functionality.
- */
-export const Closable: Story = {
-  args: {
-    variant: 'closable',
-    children: 'Closable',
-  },
-};
-
-// ============================================================
-// Style Variations
-// Different styling options for badges
-// ============================================================
 
 /**
  * Outline style - badges with border only, no background fill.
+ * Shows how different variants look with the outline prop.
  */
 export const OutlineStyle: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="default" outline>Default</Badge>
       <Badge variant="fjord" outline>Fjord</Badge>
-      <Badge variant="success" outline>Success</Badge>
-      <Badge variant="error" outline>Error</Badge>
+      <Badge variant="aurora" outline>Aurora</Badge>
+      <Badge variant="mountain" outline>Mountain</Badge>
+      <Badge variant="dusk" outline>Dusk</Badge>
     </div>
   ),
 };
 
 /**
  * No background - badges without background fill.
+ * Shows how different variants look without backgrounds.
  */
 export const NoBackground: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="default" background={false}>Default</Badge>
       <Badge variant="fjord" background={false}>Fjord</Badge>
-      <Badge variant="success" background={false}>Success</Badge>
-      <Badge variant="error" background={false}>Error</Badge>
+      <Badge variant="aurora" background={false}>Aurora</Badge>
+      <Badge variant="mountain" background={false}>Mountain</Badge>
+      <Badge variant="dusk" background={false}>Dusk</Badge>
     </div>
   ),
-};
-
-/**
- * Dot style - pill-shaped rounded badges.
- */
-export const DotStyle: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="default" dot>5</Badge>
-      <Badge variant="error" dot>9</Badge>
-      <Badge variant="success" dot>12</Badge>
-    </div>
-  ),
-};
-
-/**
- * Interactive badge with controls for testing all props.
- */
-export const Playground: Story = {
-  args: {
-    variant: 'default',
-    outline: false,
-    background: true,
-    dot: false,
-    children: 'Playground Badge',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use the controls below to experiment with different badge configurations.',
-      },
-    },
-  },
 };

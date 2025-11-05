@@ -11,7 +11,7 @@ function BasicDemo() {
   return (
     <>
       <div className="flex items-center gap-4">
-        <Avatar variant="default">
+        {/* @storybook */}<Avatar variant="default">
           <AvatarFallback>AB</AvatarFallback>
         </Avatar>
         <div id="avatar-group" className="flex items-center">
@@ -47,7 +47,7 @@ function BasicDemo() {
           </Avatar>
         </div>
 
-        <Avatar>
+        {/* @storybook: name=WithImage */}<Avatar variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
@@ -123,7 +123,7 @@ function SizesVariantsDemo() {
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="nordic">
+        {/* @storybook */}<Avatar sizes="xxsm" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes="xsm" variant="nordic">
@@ -134,7 +134,7 @@ function SizesVariantsDemo() {
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="aurora">
+        {/* @storybook */}<Avatar sizes="xxsm" variant="aurora">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes="xsm" variant="aurora">
@@ -145,7 +145,7 @@ function SizesVariantsDemo() {
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="dusk">
+        {/* @storybook */}<Avatar sizes="xxsm" variant="dusk">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes="xsm" variant="dusk">
@@ -156,7 +156,7 @@ function SizesVariantsDemo() {
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="orange">
+        {/* @storybook */}<Avatar sizes="xxsm" variant="orange">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes="xsm" variant="orange">
@@ -167,7 +167,7 @@ function SizesVariantsDemo() {
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="sky">
+        {/* @storybook */}<Avatar sizes="xxsm" variant="sky">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes="xsm" variant="sky">
@@ -178,7 +178,7 @@ function SizesVariantsDemo() {
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="default">
+        {/* @storybook: name=Image */}<Avatar sizes="xxsm" variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>

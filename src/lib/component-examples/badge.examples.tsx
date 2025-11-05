@@ -1,3 +1,4 @@
+/* Note: When updating the code literals to match the component demos, don't include @storybook marker comments.  */
 import { Badge } from "@/components/ui/cognite/badge";
 import type { ComponentExamples } from "./types";
 import {
@@ -14,44 +15,44 @@ function VariantsDemo() {
   return (
     <div>
       <div className="flex flex-wrap gap-3 mb-4">
-        <Badge variant="fjord">Observations</Badge>
-        <Badge variant="aurora">Troubleshooting</Badge>
-        <Badge variant="mountain">
+        {/* @storybook */}<Badge variant="fjord">Observations</Badge>
+        {/* @storybook */}<Badge variant="aurora">Troubleshooting</Badge>
+        {/* @storybook */}<Badge variant="mountain">
           <IconHexagon />
           Plans
         </Badge>
-        <Badge variant="dusk">RCA</Badge>
-        <Badge variant="secondary">
+        {/* @storybook */}<Badge variant="dusk">RCA</Badge>
+        {/* @storybook */}<Badge variant="secondary">
           <IconHexagon className="rotate-90" />
           Asset
         </Badge>
       </div>
       <div className="flex flex-wrap gap-3">
-        <Badge variant="error" background={false}>
+        {/* @storybook */}<Badge variant="error" background={false}>
           <IconAlertHexagon />
           Error
         </Badge>
-        <Badge variant="error" outline>
+        {/* @storybook */}<Badge variant="error" outline>
           <IconAlertHexagon />
           Error
         </Badge>
-        <Badge variant="warning" background={false}>
+        {/* @storybook */}<Badge variant="warning" background={false}>
           <IconAlertTriangle />
           Warning
         </Badge>
-        <Badge variant="warning" outline>
+        {/* @storybook */}<Badge variant="warning" outline>
           <IconAlertTriangle />
           Warning
         </Badge>
-        <Badge variant="success" background={false}>
+        {/* @storybook */}<Badge variant="success" background={false}>
           <IconCircleCheck />
           Success
         </Badge>
-        <Badge variant="inProgress" background={false}>
+        {/* @storybook */}<Badge variant="inProgress" background={false}>
           <IconInnerShadowTopLeft />
           In progress
         </Badge>
-        <Badge variant="archived" background={false}>
+        {/* @storybook */}<Badge variant="archived" background={false}>
           <IconArchive />
           Archived
         </Badge>

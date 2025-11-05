@@ -15,7 +15,8 @@
     "registry:build": "tsx scripts/build-registry.ts && npm run registry:clean && shadcn build",
     "registry:clean": "rm -rf public/r && mkdir -p public/r",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate-stories": "tsx scripts/generate-stories.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.57",
