@@ -162,7 +162,7 @@ export const Error: Story = {
 /**
  * Error variant - red for errors and critical issues
  */
-export const Error2: Story = {
+export const ErrorOutline: Story = {
   render: (args) => (
     <Badge {...args}>
       <IconAlertHexagon />
@@ -208,7 +208,7 @@ export const Warning: Story = {
 /**
  * Warning variant - orange/yellow for warnings
  */
-export const Warning2: Story = {
+export const WarningOutline: Story = {
   render: (args) => (
     <Badge {...args}>
       <IconAlertTriangle />

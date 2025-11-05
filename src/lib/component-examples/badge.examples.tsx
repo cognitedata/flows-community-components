@@ -32,7 +32,7 @@ function VariantsDemo() {
           <IconAlertHexagon />
           Error
         </Badge>
-        {/* @storybook */}<Badge variant="error" outline>
+        {/* @storybook: name=ErrorOutline */}<Badge variant="error" outline>
           <IconAlertHexagon />
           Error
         </Badge>
@@ -40,7 +40,7 @@ function VariantsDemo() {
           <IconAlertTriangle />
           Warning
         </Badge>
-        {/* @storybook */}<Badge variant="warning" outline>
+        {/* @storybook: name=WarningOutline */}<Badge variant="warning" outline>
           <IconAlertTriangle />
           Warning
         </Badge>

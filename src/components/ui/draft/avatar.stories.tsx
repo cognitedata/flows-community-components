@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { Avatar, AvatarFallback, AvatarImage } from './avatar';
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from './avatar';
 
+import { IconWheel } from '@tabler/icons-react';
 
 const meta: Meta<typeof Avatar> = {
   title: 'UI/Draft/Avatar',
@@ -52,22 +53,23 @@ export const Default: Story = {
 };
 
 /**
- * Default variant - the standard style
+ * Fjord variant - blue-toned for observations and data
  */
-export const WithImage: Story = {
+export const WithIcon: Story = {
   render: (args) => (
     <Avatar {...args}>
-      <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>JD</AvatarFallback>
+      <AvatarIcon>
+            <IconWheel />
+          </AvatarIcon>
     </Avatar>
   ),
   args: {
-    variant: 'default'
+    variant: 'fjord'
   },
   parameters: {
     docs: {
       description: {
-        story: 'Default variant - the standard style',
+        story: 'Fjord variant - blue-toned for observations and data',
       },
     },
   },
@@ -181,7 +183,7 @@ export const Sky: Story = {
 /**
  * Default variant - the standard style
  */
-export const Image: Story = {
+export const WithImage: Story = {
   render: (args) => (
     <Avatar {...args}>
       <AvatarImage src="/user-avatar2.png" alt="User" />

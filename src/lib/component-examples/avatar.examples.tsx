@@ -47,7 +47,7 @@ function BasicDemo() {
           </Avatar>
         </div>
 
-        {/* @storybook: name=WithImage */}<Avatar variant="default">
+        <Avatar variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
@@ -95,7 +95,7 @@ function SizesVariantsDemo() {
   return (
     <div className="flex items-center flex-col gap-4">
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="fjord">
+        {/* @storybook: name=WithIcon */}<Avatar sizes="xxsm" variant="fjord">
           <AvatarIcon>
             <IconWheel />
           </AvatarIcon>
@@ -178,7 +178,7 @@ function SizesVariantsDemo() {
         </Avatar>
       </div>
       <div className="flex items-center gap-4">
-        {/* @storybook: name=Image */}<Avatar sizes="xxsm" variant="default">
+        {/* @storybook: name=WithImage */}<Avatar sizes="xxsm" variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
