@@ -2,9 +2,11 @@
 
 import * as React from "react"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
-import { ChevronDownIcon } from "lucide-react"
+import { ChevronDownIcon, LucideProps } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { ForwardRefExoticComponent, RefAttributes } from "react"
+import { Icon } from "@tabler/icons-react"
 
 function Accordion({
   ...props
@@ -28,8 +30,13 @@ function AccordionItem({
 function AccordionTrigger({
   className,
   children,
+  icon,
   ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+}: React.ComponentProps<typeof AccordionPrimitive.Trigger> & {
+  icon?: Icon
+}) {
+  const Icon = icon;
+
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -40,7 +47,10 @@ function AccordionTrigger({
         )}
         {...props}
       >
-        {children}
+        <div className="flex items-center gap-2">
+          {Icon && <Icon className="text-muted-foreground pointer-events-none size-4 shrink-0 transition-transform duration-200" />}
+          <span>{children}</span>
+        </div>
         <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>

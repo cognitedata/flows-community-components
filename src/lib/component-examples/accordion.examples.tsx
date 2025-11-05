@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/cognite/accordion";
 import type { ComponentExamples, ComponentMeta } from "./types";
+import { IconInfoCircle, IconBrush, IconClock } from "@tabler/icons-react";
 
 // Basic Accordion Demo
 function BasicAccordionDemo() {
@@ -24,6 +25,32 @@ function BasicAccordionDemo() {
       </AccordionItem>
       <AccordionItem value="item-3">
         <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It uses smooth transitions for opening and closing.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+
+// Basic Accordion Demo with Icon
+function BasicAccordionDemoWithIcon() {
+  return (
+    <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger icon={IconInfoCircle}>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger icon={IconBrush}>Is it styled?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It comes with default styles that match your theme.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger icon={IconClock}>Is it animated?</AccordionTrigger>
         <AccordionContent>
           Yes. It uses smooth transitions for opening and closing.
         </AccordionContent>
@@ -160,6 +187,46 @@ export function MultipleAccordionDemo() {
       </AccordionItem>
     </Accordion>
   )
+}`,
+  },
+
+  withIcon: {
+    title: "Accordion with Icon",
+    description: "Add an icon to the accordion trigger.",
+    component: BasicAccordionDemoWithIcon,
+    tags: ["common"],
+    difficulty: "beginner",
+    code: `import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/cognite/accordion"
+import { IconInfoCircle, IconBrush, IconClock } from "@tabler/icons-react"
+
+export function BasicAccordionDemoWithIcon() {
+  return (
+    <Accordion type="single" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger icon={IconInfoCircle}>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger icon={IconBrush}>Is it styled?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It comes with default styles that match your theme.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger icon={IconClock}>Is it animated?</AccordionTrigger>
+        <AccordionContent>
+          Yes. It uses smooth transitions for opening and closing.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
 }`,
   },
 
