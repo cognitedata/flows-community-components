@@ -2,10 +2,9 @@
 
 import * as React from "react"
 import * as AccordionPrimitive from "@radix-ui/react-accordion"
-import { ChevronDownIcon, LucideProps } from "lucide-react"
+import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { ForwardRefExoticComponent, RefAttributes } from "react"
 import { Icon } from "@tabler/icons-react"
 
 function Accordion({
