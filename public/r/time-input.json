@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "time-input",
+  "type": "registry:component",
+  "title": "Time Input",
+  "description": "Time Input component.",
+  "files": [
+    {
+      "path": "src/components/ui/draft/time-input.tsx",
+      "content": "// Custom component - TimeInput\n// TODO: Implement time input component\n",
+      "type": "registry:component"
+    }
+  ]
+}

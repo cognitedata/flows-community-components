@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Code+Pro:wght@200..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -9,10 +9,14 @@
 @variant dark (.dark &);
 
 @theme inline {
+  --text-base: 1rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-source-code-pro);
+  --leading-18: 1.125rem;
+  --leading-20: 1.25rem;
+  --tracking-tightest: -0.1px;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -164,11 +168,13 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 6px);
 }
 
 :root {
   --radius: 0.375rem;
+  --font-inter: 'Inter', sans-serif;
+  --font-source-code-pro: 'Source Code Pro', monospace;
 
   /* Mountain */
   --mountain-50: rgb(241, 242, 243);
@@ -398,7 +404,7 @@
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-50);
   --muted-foreground: var(--mountain-600);
-  --accent: var(--mountain-100);
+  --accent: var(--mountain-50);
   --accent-foreground: var(--mountain-950);
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-50);
