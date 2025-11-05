@@ -20,6 +20,13 @@ const COMPONENTS_DRAFT_DIR = join(ROOT_DIR, 'src/components/ui/draft');
 const COMPONENTS_COGNITE_DIR = join(ROOT_DIR, 'src/components/ui/cognite');
 const STORIES_DIR = join(ROOT_DIR, 'src/components/ui');
 
+// Components that should not have stories generated (unimplemented or incomplete)
+const BLACKLISTED_COMPONENTS = [
+  'swap-slot',
+  'time-input',
+  'topbar',
+] as const;
+
 // Components that have examples
 const COMPONENT_EXAMPLES = [
   'accordion',
@@ -1029,6 +1036,13 @@ async function main() {
   
   for (const componentName of COMPONENT_EXAMPLES) {
     try {
+      // Skip blacklisted components
+      if ((BLACKLISTED_COMPONENTS as readonly string[]).includes(componentName)) {
+        console.log(`⚠ Skipped ${componentName} - blacklisted (unimplemented)`);
+        skipped++;
+        continue;
+      }
+      
       // Find the component file
       const componentLocation = await findComponent(componentName);
       
