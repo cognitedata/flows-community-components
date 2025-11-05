@@ -23,7 +23,7 @@ function BasicDemo() {
   return (
     <div className="space-y-4 max-w-sm flex flex-row gap-4">
       <div>
-      <Label className="py-0.5">Choose an option</Label>
+        <Label className="py-0.5">Choose an option</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue}>
           <SelectTrigger className="mt-1">
             <SelectValue
@@ -77,7 +77,7 @@ function StatesDemo() {
   return (
     <div className="space-y-4 max-w-sm flex flex-col gap-4">
       <div>
-      <Label className="py-0.5">Choose an option</Label>
+        <Label className="py-0.5">Choose an option</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue}>
           <SelectTrigger className="mt-1">
             <SelectValue
@@ -103,7 +103,7 @@ function StatesDemo() {
       </div>
 
       <div>
-      <Label className="py-0.5">Choose an option</Label>
+        <Label className="py-0.5">Choose an option</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue} disabled>
           <SelectTrigger className="mt-1">
             <SelectValue
@@ -129,8 +129,8 @@ function StatesDemo() {
       </div>
 
       <div>
-      <Label className="py-0.5">Choose an option</Label>
-        <Select value={selectedValue} onValueChange={setSelectedValue} >
+        <Label className="py-0.5">Choose an option</Label>
+        <Select value={selectedValue} onValueChange={setSelectedValue}>
           <SelectTrigger className="mt-1" data-invalid="true">
             <SelectValue
               placeholder="Select an option"
@@ -153,11 +153,9 @@ function StatesDemo() {
           </SelectContent>
         </Select>
       </div>
-     
     </div>
   );
 }
-
 
 export const selectExamples: ComponentExamples = {
   basic: {
@@ -208,19 +206,91 @@ export function BasicDemo() {
 } from "@/components/ui/cognite/select"
 import { Label } from "@/components/ui/cognite/label"
 
-export function BasicDemo() {
+ const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+
+  // Map values to icons for SelectValue
+  const iconMap: Record<string, React.ReactNode> = {
+    user: <User className="size-4" />,
+    mail: <Mail className="size-4" />,
+    settings: <Settings className="size-4" />,
+    home: <Home className="size-4" />,
+  };
   return (
-    <div className="space-y-4 max-w-sm">
+    <div className="space-y-4 max-w-sm flex flex-col gap-4">
       <div>
-        <Label>Choose an option</Label>
-        <Select>
+        <Label className="py-0.5">Choose an option</Label>
+        <Select value={selectedValue} onValueChange={setSelectedValue}>
           <SelectTrigger className="mt-1">
-            <SelectValue placeholder="Select an option" />
+            <SelectValue
+              placeholder="Select an option"
+              icon={selectedValue ? iconMap[selectedValue] : undefined}
+            />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="option1">Option 1</SelectItem>
-            <SelectItem value="option2">Option 2</SelectItem>
-            <SelectItem value="option3">Option 3</SelectItem>
+            <SelectItem value="user" icon={<User className="size-4" />}>
+              Asset
+            </SelectItem>
+            <SelectItem value="mail" icon={<Mail className="size-4" />}>
+              Event
+            </SelectItem>
+            <SelectItem value="settings" icon={<Settings className="size-4" />}>
+              Time series
+            </SelectItem>
+            <SelectItem value="home" icon={<Home className="size-4" />}>
+              Work order
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <Label className="py-0.5">Choose an option</Label>
+        <Select value={selectedValue} onValueChange={setSelectedValue} disabled>
+          <SelectTrigger className="mt-1">
+            <SelectValue
+              placeholder="Select an option"
+              icon={selectedValue ? iconMap[selectedValue] : undefined}
+            />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="user" icon={<User className="size-4" />}>
+              Asset
+            </SelectItem>
+            <SelectItem value="mail" icon={<Mail className="size-4" />}>
+              Event
+            </SelectItem>
+            <SelectItem value="settings" icon={<Settings className="size-4" />}>
+              Time series
+            </SelectItem>
+            <SelectItem value="home" icon={<Home className="size-4" />}>
+              Work order
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <Label className="py-0.5">Choose an option</Label>
+        <Select value={selectedValue} onValueChange={setSelectedValue}>
+          <SelectTrigger className="mt-1" data-invalid="true">
+            <SelectValue
+              placeholder="Select an option"
+              icon={selectedValue ? iconMap[selectedValue] : undefined}
+            />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="user" icon={<User className="size-4" />}>
+              Asset
+            </SelectItem>
+            <SelectItem value="mail" icon={<Mail className="size-4" />}>
+              Event
+            </SelectItem>
+            <SelectItem value="settings" icon={<Settings className="size-4" />}>
+              Time series
+            </SelectItem>
+            <SelectItem value="home" icon={<Home className="size-4" />}>
+              Work order
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
