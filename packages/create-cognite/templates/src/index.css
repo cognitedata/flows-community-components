@@ -369,7 +369,7 @@
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-50);
   --muted-foreground: var(--mountain-600);
-  --accent: var(--mountain-100);
+  --accent: var(--mountain-50);
   --accent-foreground: var(--mountain-950);
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-50);
