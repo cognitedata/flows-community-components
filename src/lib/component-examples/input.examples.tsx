@@ -2,48 +2,57 @@ import { Input } from "@/components/ui/cognite/input";
 import { Label } from "@/components/ui/cognite/label";
 import type { ComponentExamples } from "./types";
 
-function BasicDemo() {
-  return (
-    <div className="max-w-sm">
-      <Input placeholder="Enter text..." />
-    </div>
-  );
-}
-
 function WithLabelDemo() {
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="email">Email Address</Label>
-      <Input type="email" id="email" placeholder="name@example.com" />
-    </div>
+    <>
+      <div className="space-y-4 flex flex-col gap-4">
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label htmlFor="email">Email Address</Label>
+          <Input
+            type="email"
+            id="email"
+            placeholder="michael.jordan@thebulls.com"
+          />
+        </div>
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label htmlFor="password">Password</Label>
+          <Input type="password" id="password" placeholder="Xa.$}KJb319" />
+        </div>
+      </div>
+    </>
   );
 }
 
-function DisabledDemo() {
+function StatesDemo() {
   return (
-    <div className="max-w-sm">
-      <Input disabled placeholder="Disabled input" />
+    <div className="max-w-sm gap-4 flex flex-col">
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label htmlFor="input1">Input text</Label>
+        <Input type="input1" id="input1" placeholder="Input text" />
+      </div>
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label htmlFor="input2">Disabled Input text</Label>
+        <Input
+          type="input2"
+          id="input2"
+          placeholder="Disabled Input text"
+          disabled
+        />
+      </div>
+      <div className="grid w-full max-w-sm items-center gap-1.5 ">
+        <Label htmlFor="input3">Invalid Input text</Label>
+        <Input
+          type="input3"
+          id="input3"
+          placeholder="Invalid Input text"
+          data-invalid="true"
+        />
+      </div>
     </div>
   );
 }
 
 export const inputExamples: ComponentExamples = {
-  basic: {
-    title: "Basic Input",
-    description: "A simple text input field",
-    component: BasicDemo,
-    difficulty: "beginner",
-    code: `import { Input } from "@/components/ui/cognite/input"
-
-export function BasicDemo() {
-  return (
-    <div className="max-w-sm">
-      <Input placeholder="Enter text..." />
-    </div>
-  )
-}`,
-  },
-
   withLabel: {
     title: "Input with Label",
     description: "Input field with an associated label",
@@ -54,25 +63,60 @@ import { Label } from "@/components/ui/cognite/label"
 
 export function WithLabelDemo() {
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="email">Email Address</Label>
-      <Input type="email" id="email" placeholder="name@example.com" />
-    </div>
+    <>
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label htmlFor="email">Email Address</Label>
+        <Input
+          type="email"
+          id="email"
+          placeholder="michael.jordan@thebulls.com"
+        />
+      </div>
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label htmlFor="password">Password</Label>
+        <Input type="password" id="password" placeholder="Xa.$}KJb319" />
+      </div>
+    </>
   )
 }`,
   },
 
-  disabled: {
-    title: "Disabled Input",
-    description: "Input in a disabled state",
-    component: DisabledDemo,
+  states: {
+    title: "States Demo",
+    description: "Different states of the input field",
+    component: StatesDemo,
     difficulty: "beginner",
     code: `import { Input } from "@/components/ui/cognite/input"
 
-export function DisabledDemo() {
+export function StatesDemo() {
   return (
-    <div className="max-w-sm">
-      <Input disabled placeholder="Disabled input" />
+    <div className="max-w-sm gap-4 flex flex-col">
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label htmlFor="input1">Input text</Label>
+          <Input
+            type="input1"
+            id="input1"
+            placeholder="Input text"
+          />
+        </div>
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label htmlFor="input2">Disabled Input text</Label>
+          <Input
+            type="input2"
+            id="input2"
+            placeholder="Disabled Input text"
+            disabled
+          />
+        </div>
+        <div className="grid w-full max-w-sm items-center gap-1.5 ">
+          <Label htmlFor="input3">Invalid Input text</Label>
+          <Input
+            type="input3"
+            id="input3"
+            placeholder="Invalid Input text"
+            data-invalid="true"
+          />
+        </div>
     </div>
   )
 }`,
@@ -82,7 +126,9 @@ export function DisabledDemo() {
 // Component metadata - single source of truth for API documentation
 export const inputMeta = {
   name: "Input",
-  description: "A styled input field component with built-in validation states and accessibility features.",
-  llmUsage: "When creating form inputs, use `<Input type='text' placeholder='Enter text' />` instead of `<input>`. Pair with `<Label>` for accessibility.",
+  description:
+    "A styled input field component with built-in validation states and accessibility features.",
+  llmUsage:
+    "When creating form inputs, use `<Input type='text' placeholder='Enter text' />` instead of `<input>`. Pair with `<Label>` for accessibility.",
   importPath: "@/components/ui/cognite/input",
 };
