@@ -17,6 +17,9 @@ const REQUIRED_DEPENDENCIES = [
   { name: "tailwind-merge", version: "^3.3.1" },
   { name: "tw-animate-css", version: "^1.3.8" },
   { name: "clsx", version: "^2.1.1" },
+  { name: "nanoid", version: "^5.1.6" },
+  { name: "@tabler/icons-react", version: "^3.35.0" },
+  { name: "@radix-ui/react-avatar", version: "^1.1.11" },
 ];
 
 const REQUIRED_DEV_DEPENDENCIES = [
