@@ -10,7 +10,7 @@
  * Usage: pnpm tsx scripts/generate-stories.ts
  */
 
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile, unlink } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
@@ -144,6 +144,17 @@ async function generateStoryFile(
     : join(STORIES_DIR, 'draft');
   const storyPath = join(storyDir, storyFileName);
   
+  // Check for and delete old story file in the opposite directory
+  const oppositeDir = componentLocation.directory === 'cognite'
+    ? join(STORIES_DIR, 'draft')
+    : join(STORIES_DIR, 'cognite');
+  const oldStoryPath = join(oppositeDir, storyFileName);
+  
+  if (existsSync(oldStoryPath)) {
+    await unlink(oldStoryPath);
+    console.log(`🗑  Deleted old story file: ${oldStoryPath}`);
+  }
+  
   // Read the component file to extract the component name
   const componentContent = await readFile(componentLocation.path, 'utf-8');
   
@@ -248,6 +259,25 @@ async function extractExampleKeys(componentName: string): Promise<string[]> {
 }
 
 /**
+ * Extract variant or type name from props for story naming
+ */
+function extractVariantOrTypeName(props: string): string | undefined {
+  // Try variant first
+  const variantMatch = props.match(/variant=["']([^"']+)["']/);
+  if (variantMatch) {
+    return variantMatch[1];
+  }
+  
+  // Fall back to type if variant not found
+  const typeMatch = props.match(/type=["']([^"']+)["']/);
+  if (typeMatch) {
+    return typeMatch[1];
+  }
+  
+  return undefined;
+}
+
+/**
  * Extract individual component instances from example code
  * Parses JSX to find all top-level component instances marked with @storybook markers
  */
@@ -299,10 +329,9 @@ function extractComponentInstances(
     // Check if self-closing
     if (openMatch[0].endsWith('/>')) {
       // Self-closing tag
-      const variantMatch = props.match(/variant=["']([^"']+)["']/);
       instances.push({
         props,
-        variantName: variantMatch ? variantMatch[1] : undefined,
+        variantName: extractVariantOrTypeName(props),
         customName,
       });
       searchIndex = tagEnd;
@@ -315,10 +344,9 @@ function extractComponentInstances(
     
     if (closeIndex === -1) {
       // No closing tag found, treat as self-closing
-      const variantMatch = props.match(/variant=["']([^"']+)["']/);
       instances.push({
         props,
-        variantName: variantMatch ? variantMatch[1] : undefined,
+        variantName: extractVariantOrTypeName(props),
         customName,
       });
       searchIndex = tagEnd;
@@ -328,13 +356,13 @@ function extractComponentInstances(
     // Extract children
     const children = code.slice(tagEnd, closeIndex).trim();
     
-    // Extract variant name from props if present
-    const variantMatch = props.match(/variant=["']([^"']+)["']/);
+    // Extract variant or type name from props if present
+    const variantName = extractVariantOrTypeName(props);
     
     instances.push({
       props,
       children,
-      variantName: variantMatch ? variantMatch[1] : undefined,
+      variantName,
       customName,
     });
     
@@ -805,15 +833,27 @@ export const ${storyVarName}: Story = {
           }
         });
         
+        // Extract icons from props (e.g., icon={IconInfoCircle})
+        const propIconMatches = instance.props.matchAll(/\{(Icon[A-Z]\w+)\}/g);
+        for (const match of propIconMatches) {
+          iconsUsed.add(match[1]);
+        }
+        
         // Handle children - preserve the original children structure
         let childrenCode = '';
         if (instance.children) {
           // Preserve the original children structure (may include JSX elements like icons)
           childrenCode = instance.children.trim();
           
-          // Extract icon names from children
+          // Extract icon names from children (both JSX elements and prop values)
           const iconMatches = childrenCode.matchAll(/<(Icon[A-Z]\w+)/g);
           for (const match of iconMatches) {
+            iconsUsed.add(match[1]);
+          }
+          
+          // Extract icons from prop values in children (e.g., icon={IconInfoCircle})
+          const childIconPropMatches = childrenCode.matchAll(/\{(Icon[A-Z]\w+)\}/g);
+          for (const match of childIconPropMatches) {
             iconsUsed.add(match[1]);
           }
           
