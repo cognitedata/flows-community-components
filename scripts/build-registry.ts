@@ -170,8 +170,7 @@ function getComponentFilePath(
 // Filter registry to only include specified components and update file paths
 function buildRegistry(
   template: Registry,
-  components: string[],
-  includeDraft: boolean
+  components: string[]
 ): Registry {
   const filteredItems = template.items
     .filter((item: RegistryItem) => components.includes(item.name))
@@ -249,7 +248,7 @@ async function main(): Promise<void> {
     // Build the registry
     console.log("\n⏳ Building registry...");
     const template: Registry = loadRegistryTemplate();
-    const registry: Registry = buildRegistry(template, components, includeAll);
+    const registry: Registry = buildRegistry(template, components);
 
     fs.writeFileSync(registryOutput, JSON.stringify(registry, null, 2) + "\n");
 
