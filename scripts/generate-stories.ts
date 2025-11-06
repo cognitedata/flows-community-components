@@ -544,10 +544,42 @@ function extractComponentMetadata(instances: Array<{ props: string; children?: s
   const hasDot = instances.some(i => i.props.includes('dot'));
   const hasChildren = instances.some(i => i.children && i.children.trim().length > 0);
   
+  // Extract primitive props that appear in examples
+  const primitiveProps: Record<string, Set<string>> = {};
+  const booleanProps = new Set<string>();
+  
   instances.forEach(instance => {
     const variantMatch = instance.props.match(/variant=["']([^"']+)["']/);
     if (variantMatch) {
       variants.add(variantMatch[1]);
+    }
+    
+    // Extract string props with values (e.g., type="single", defaultValue="item-1")
+    const stringPropMatches = instance.props.matchAll(/(\w+)=["']([^"']+)["']/g);
+    for (const match of stringPropMatches) {
+      const propName = match[1];
+      const propValue = match[2];
+      
+      // Skip common props that shouldn't be controls
+      if (['className', 'value', 'defaultValue'].includes(propName)) {
+        continue;
+      }
+      
+      if (!primitiveProps[propName]) {
+        primitiveProps[propName] = new Set();
+      }
+      primitiveProps[propName].add(propValue);
+    }
+    
+    // Extract boolean props (standalone or with {true}/{false})
+    const booleanPropMatches = instance.props.matchAll(/\b(\w+)(?:=\{(?:true|false)\}|\s|>|\/)/g);
+    for (const match of booleanPropMatches) {
+      const propName = match[1];
+      // Skip common props and already tracked props
+      if (!['className', 'value', 'defaultValue', 'type', 'variant'].includes(propName) && 
+          !primitiveProps[propName]) {
+        booleanProps.add(propName);
+      }
     }
   });
   
@@ -557,6 +589,8 @@ function extractComponentMetadata(instances: Array<{ props: string; children?: s
     hasBackground,
     hasDot,
     hasChildren,
+    primitiveProps,
+    booleanProps,
   };
 }
 
@@ -565,7 +599,15 @@ function extractComponentMetadata(instances: Array<{ props: string; children?: s
  */
 function generateArgTypes(
   cvaVariants: Record<string, string[]>,
-  metadata: { variants: string[]; hasOutline: boolean; hasBackground: boolean; hasDot: boolean; hasChildren: boolean }
+  metadata: { 
+    variants: string[]; 
+    hasOutline: boolean; 
+    hasBackground: boolean; 
+    hasDot: boolean; 
+    hasChildren: boolean;
+    primitiveProps: Record<string, Set<string>>;
+    booleanProps: Set<string>;
+  }
 ) {
   const argTypes: string[] = [];
   
@@ -591,22 +633,73 @@ function generateArgTypes(
     }
   }
   
+  // Generate argTypes for primitive props found in examples
+  for (const [propName, values] of Object.entries(metadata.primitiveProps)) {
+    // Skip if already handled by cva variants
+    if (cvaVariants[propName]) continue;
+    
+    const valueArray = Array.from(values);
+    
+    // Generate description based on prop name
+    let description = '';
+    if (propName === 'type') {
+      description = 'The interaction mode';
+    } else {
+      description = `The ${propName} value`;
+    }
+    
+    if (valueArray.length > 1) {
+      // Multiple values - use select control
+      argTypes.push(`    ${propName}: {
+      control: 'select',
+      options: [${valueArray.map(v => `'${v}'`).join(', ')}],
+      description: '${description}',
+    }`);
+    } else if (valueArray.length === 1) {
+      // Single value - use text control but show the common value
+      argTypes.push(`    ${propName}: {
+      control: 'text',
+      description: '${description}',
+    }`);
+    }
+  }
+  
+  // Add boolean props from primitives
+  for (const propName of metadata.booleanProps) {
+    // Skip if already handled
+    if (cvaVariants[propName] || metadata.primitiveProps[propName]) continue;
+    
+    let description = '';
+    if (propName === 'collapsible') {
+      description = 'Whether items can be collapsed';
+    } else if (propName === 'disabled') {
+      description = 'Whether the component is disabled';
+    } else {
+      description = `Whether to enable ${propName}`;
+    }
+    
+    argTypes.push(`    ${propName}: {
+      control: 'boolean',
+      description: '${description}',
+    }`);
+  }
+  
   // Add boolean props found in examples (only if not already in cvaVariants)
-  if (metadata.hasOutline && !cvaVariants.outline) {
+  if (metadata.hasOutline && !cvaVariants.outline && !metadata.booleanProps.has('outline')) {
     argTypes.push(`    outline: {
       control: 'boolean',
       description: 'Whether to show with an outline style',
     }`);
   }
   
-  if (metadata.hasBackground && !cvaVariants.background) {
+  if (metadata.hasBackground && !cvaVariants.background && !metadata.booleanProps.has('background')) {
     argTypes.push(`    background: {
       control: 'boolean',
       description: 'Whether to show the background fill',
     }`);
   }
   
-  if (metadata.hasDot && !cvaVariants.dot) {
+  if (metadata.hasDot && !cvaVariants.dot && !metadata.booleanProps.has('dot')) {
     argTypes.push(`    dot: {
       control: 'boolean',
       description: 'Whether to make rounded (pill-shaped)',
