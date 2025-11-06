@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/cognite/collapsible";
 import { cn } from "@/lib/utils";
-import { BrainIcon, ChevronDownIcon } from "lucide-react";
+import { IconChevronDown } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import {
   createContext,
@@ -110,7 +110,7 @@ export const Reasoning = memo(
         value={{ isStreaming, isOpen, setIsOpen, duration }}
       >
         <Collapsible
-          className={cn("not-prose mb-4", className)}
+          className={cn("not-prose mb-4 pl-1.25", className)}
           onOpenChange={handleOpenChange}
           open={isOpen}
           {...props}
@@ -126,36 +126,39 @@ export type ReasoningTriggerProps = ComponentProps<typeof CollapsibleTrigger>;
 
 const getThinkingMessage = (isStreaming: boolean, duration?: number) => {
   if (isStreaming || duration === 0) {
-    return <Shimmer duration={1}>Thinking...</Shimmer>;
+    return <Shimmer duration={1}>Atlas thinking...</Shimmer>;
   }
-  if (duration === undefined) {
-    return <p>Thought for a few seconds</p>;
-  }
-  return <p>Thought for {duration} seconds</p>;
+  return <p>Atlas reasoning</p>;
 };
 
 export const ReasoningTrigger = memo(
   ({ className, children, ...props }: ReasoningTriggerProps) => {
     const { isStreaming, isOpen, duration } = useReasoning();
+    const isThinking = isStreaming || duration === 0;
 
     return (
       <CollapsibleTrigger
         className={cn(
-          "flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground",
+          "flex w-full items-center gap-2 text-foreground text-md tracking-tightest transition-colors hover:text-muted-foreground",
           className
         )}
         {...props}
       >
         {children ?? (
           <>
-            <BrainIcon className="size-4" />
-            {getThinkingMessage(isStreaming, duration)}
-            <ChevronDownIcon
-              className={cn(
-                "size-4 transition-transform",
-                isOpen ? "rotate-180" : "rotate-0"
-              )}
-            />
+            {isThinking ? (
+              <span className="italic">{getThinkingMessage(isStreaming, duration)}</span>
+            ) : (
+              <span>Atlas reasoning</span>
+            )}
+            {!isThinking && (
+              <IconChevronDown
+                className={cn(
+                  "size-4 transition-transform",
+                  isOpen ? "rotate-180" : "rotate-0"
+                )}
+              />
+            )}
           </>
         )}
       </CollapsibleTrigger>
@@ -173,13 +176,13 @@ export const ReasoningContent = memo(
   ({ className, children, ...props }: ReasoningContentProps) => (
     <CollapsibleContent
       className={cn(
-        "mt-4 text-sm",
-        "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "mt-3.5 text-sm",
+        "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground text-md tracking-tightest outline-none data-[state=closed]:animate-out data-[state=open]:animate-in [&>*:not(:last-child)]:mb-2",
         className
       )}
       {...props}
     >
-      <Response className="grid gap-2">{children}</Response>
+      <Response>{children}</Response>
     </CollapsibleContent>
   )
 );
