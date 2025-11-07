@@ -35,9 +35,9 @@ function BasicDemo() {
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col gap-1">
-                <div className="text-base font-medium">Jane Smith</div>
-                <span className="text-sm text-muted-foreground dark:text-muted-foreground">
+              <div className="flex flex-col">
+                <div className="text-base leading-20 tracking-normal">Jane Smith</div>
+                <span className="text-sm font-normal leading-18 tracking-tight text-muted-foreground dark:text-muted-foreground">
                   jane.smith@cognite.com
                 </span>
               </div>
@@ -82,10 +82,6 @@ export const dropdownMenuExamples: ComponentExamples = {
     code: `import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuSectionLabel,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
