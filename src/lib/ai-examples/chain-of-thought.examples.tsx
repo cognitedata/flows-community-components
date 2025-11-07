@@ -5,7 +5,7 @@ import {
   ChainOfThoughtContent,
   ChainOfThoughtSearchResults,
   ChainOfThoughtSearchResult,
-} from "@/components/ai-elements/chain-of-thought";
+} from "@/components/ui/cognite/chain-of-thought";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicChainOfThoughtDemo() {

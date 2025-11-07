@@ -5,14 +5,14 @@ import {
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from "@/components/ai-elements/conversation";
+} from "@/components/ui/cognite/conversation";
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from "@/components/ai-elements/message";
-import { Actions, Action } from "@/components/ai-elements/actions";
+} from "@/components/ui/cognite/message";
+import { Actions, Action } from "@/components/ui/cognite/actions";
 import { MessageSquare } from "lucide-react";
 import {
   IconWheel,

@@ -3,12 +3,12 @@ import {
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from "@/components/ai-elements/message";
+} from "@/components/ui/cognite/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/inline-citation";
+} from "@/components/ui/cognite/inline-citation";
 import {
   IconAt,
   IconFile,
@@ -21,7 +21,7 @@ import {
   IconDotsVertical,
   IconWheel,
 } from "@tabler/icons-react";
-import { Actions, Action } from "@/components/ai-elements/actions";
+import { Actions, Action } from "@/components/ui/cognite/actions";
 import {
   DropdownMenu,
   DropdownMenuContent,

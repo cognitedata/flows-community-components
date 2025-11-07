@@ -16,7 +16,7 @@ import {
   InlineCitationLink,
   InlineCitationSource,
   InlineCitationText,
-} from "@/components/ai-elements/inline-citation";
+} from "@/components/ui/cognite/inline-citation";
 import {
   IconAt,
   IconFile,

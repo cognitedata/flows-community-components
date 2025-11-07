@@ -3,7 +3,6 @@
 /**
  * Dynamically builds registry.json from all components found in:
  * - src/components/ui/cognite/
- * - src/components/ai-elements/
  *
  * All registry paths point to src/components/ui/cognite/ to create a flat
  * folder structure when components are installed via the registry.
@@ -41,15 +40,13 @@ interface Registry {
 }
 
 const uiCogniteDir = path.join(__dirname, "../src/components/ui/cognite");
-const aiElementsDir = path.join(__dirname, "../src/components/ai-elements");
 const registryTemplate = path.join(__dirname, "../registry.template.json");
 const registryOutput = path.join(__dirname, "../registry.json");
 
-// Get all components from ui/cognite and ai-elements directories
+// Get all components from ui/cognite directory
 function getComponents(): string[] {
   const components: string[] = [];
 
-  // Scan UI components from cognite
   if (fs.existsSync(uiCogniteDir)) {
     const uiFiles = fs
       .readdirSync(uiCogniteDir)
@@ -63,23 +60,9 @@ function getComponents(): string[] {
     }
   }
 
-  // Scan AI components from ai-elements
-  if (fs.existsSync(aiElementsDir)) {
-    const aiFiles = fs
-      .readdirSync(aiElementsDir)
-      .filter((file: string) => file.endsWith(".tsx"))
-      .map((file: string) => file.replace(".tsx", ""));
-
-    if (aiFiles.length > 0) {
-      console.log(`\n✅ Found ${aiFiles.length} component(s) in ai-elements:\n`);
-      aiFiles.forEach((file: string) => console.log(`   - ${file}`));
-      components.push(...aiFiles);
-    }
-  }
-
   if (components.length === 0) {
     console.log(
-      `⚠️  No components found in ui/cognite or ai-elements directories. Creating empty registry.`
+      `⚠️  No components found in ui/cognite directory. Creating empty registry.`
     );
   }
 
@@ -127,23 +110,8 @@ function collectRegistryDependencies(
   }
 }
 
-// Get the actual file path for a component (checks both locations)
-// This ensures the build process can read the files, but registry paths
-// will still point to cognite for installation purposes
+// Get the file path for a component (always cognite)
 function getComponentPath(componentName: string): string {
-  // Check if file exists in ui/cognite
-  const cognitePath = path.join(uiCogniteDir, `${componentName}.tsx`);
-  if (fs.existsSync(cognitePath)) {
-    return `src/components/ui/cognite/${componentName}.tsx`;
-  }
-
-  // Check if file exists in ai-elements
-  const aiPath = path.join(aiElementsDir, `${componentName}.tsx`);
-  if (fs.existsSync(aiPath)) {
-    return `src/components/ai-elements/${componentName}.tsx`;
-  }
-
-  // Default to cognite path (for registry dependencies that might not exist yet)
   return `src/components/ui/cognite/${componentName}.tsx`;
 }
 
@@ -201,15 +169,15 @@ async function main(): Promise<void> {
     // Display build information
     console.log("\n" + "=".repeat(70));
     console.log("🔨 BUILDING COMPONENT REGISTRY");
-    console.log("   Sources: ui/cognite, ai-elements");
+    console.log("   Source: ui/cognite");
     console.log("   Output: All paths → src/components/ui/cognite/");
     console.log("=".repeat(70));
 
-    // Get components from ui/cognite and ai-elements directories
+    // Get components from ui/cognite directory
     const components: string[] = getComponents();
 
     if (components.length === 0) {
-      console.log(`\n⚠️  No components found in ui/cognite or ai-elements directories`);
+      console.log(`\n⚠️  No components found in ui/cognite directory`);
       console.log("   Registry will be empty (no components to build)");
     }
 
@@ -266,8 +234,7 @@ async function main(): Promise<void> {
     } else {
       console.log(
         `ℹ️  Note: No components to build. Add .tsx files to:\n` +
-          `     - src/components/ui/cognite/\n` +
-          `     - src/components/ai-elements/\n`
+          `     - src/components/ui/cognite/\n`
       );
     }
   } catch (error: unknown) {

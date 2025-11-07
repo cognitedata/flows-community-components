@@ -8,7 +8,7 @@ import {
   QueueItem,
   QueueItemIndicator,
   QueueItemContent,
-} from "@/components/ai-elements/queue";
+} from "@/components/ui/cognite/queue";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicQueueDemo() {

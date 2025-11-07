@@ -4,7 +4,7 @@ import {
   ToolContent,
   ToolInput,
   ToolOutput,
-} from "@/components/ai-elements/tool";
+} from "@/components/ui/cognite/tool";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicToolDemo() {

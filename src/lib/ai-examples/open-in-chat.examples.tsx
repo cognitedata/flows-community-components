@@ -4,7 +4,7 @@ import {
   OpenInContent,
   OpenInChatGPT,
   OpenInClaude,
-} from "@/components/ai-elements/open-in-chat";
+} from "@/components/ui/cognite/open-in-chat";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicOpenInDemo() {

@@ -1,7 +1,7 @@
 import {
   CodeBlock,
   CodeBlockCopyButton,
-} from "@/components/ai-elements/code-block";
+} from "@/components/ui/cognite/code-block";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicCodeBlockDemo() {

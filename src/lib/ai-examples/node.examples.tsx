@@ -7,7 +7,7 @@ import {
   NodeDescription,
   NodeContent,
   NodeFooter,
-} from "@/components/ai-elements/node";
+} from "@/components/ui/cognite/node";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { ReactFlowProvider } from "@xyflow/react";
 

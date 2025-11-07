@@ -1,4 +1,4 @@
-import { Suggestion } from "@/components/ai-elements/suggestion";
+import { Suggestion } from "@/components/ui/cognite/suggestion";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicSuggestionDemo() {

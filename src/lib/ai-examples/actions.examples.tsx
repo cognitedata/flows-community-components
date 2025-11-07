@@ -1,10 +1,10 @@
-import { Actions, Action } from "@/components/ai-elements/actions";
+import { Actions, Action } from "@/components/ui/cognite/actions";
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from "@/components/ai-elements/message";
+} from "@/components/ui/cognite/message";
 import {
   IconThumbUp,
   IconThumbDown,

@@ -5,7 +5,7 @@ import {
   WebPreviewUrl,
   WebPreviewBody,
   WebPreviewConsole,
-} from "@/components/ai-elements/web-preview";
+} from "@/components/ui/cognite/web-preview";
 import { ArrowLeftIcon, ArrowRightIcon, RefreshCwIcon } from "lucide-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 

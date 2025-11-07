@@ -3,7 +3,7 @@ import {
   SourcesTrigger,
   SourcesContent,
   Source,
-} from "@/components/ai-elements/sources";
+} from "@/components/ui/cognite/sources";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicSourcesDemo() {

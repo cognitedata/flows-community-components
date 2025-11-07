@@ -1,4 +1,4 @@
-import { Loader } from "@/components/ai-elements/loader";
+import { Loader } from "@/components/ui/cognite/loader";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicLoaderDemo() {

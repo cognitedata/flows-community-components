@@ -7,12 +7,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/branch";
+} from "@/components/ui/cognite/branch";
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/message";
+} from "@/components/ui/cognite/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { nanoid } from "nanoid";
 

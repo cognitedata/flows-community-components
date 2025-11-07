@@ -1,6 +1,6 @@
 "use client";
 
-import { Response } from "@/components/ai-elements/response";
+import { Response } from "@/components/ui/cognite/response";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { useEffect, useState } from "react";
 

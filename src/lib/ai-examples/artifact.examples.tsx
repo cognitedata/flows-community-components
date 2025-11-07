@@ -6,7 +6,7 @@ import {
   ArtifactAction,
   ArtifactContent,
   ArtifactClose,
-} from "@/components/ai-elements/artifact";
+} from "@/components/ui/cognite/artifact";
 import { Copy, Download, Share } from "lucide-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 

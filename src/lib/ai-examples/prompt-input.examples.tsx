@@ -9,7 +9,7 @@ import {
   PromptInputFooter,
   PromptInputTools,
   type PromptInputMessage,
-} from "@/components/ai-elements/prompt-input";
+} from "@/components/ui/cognite/prompt-input";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { useState, useRef } from "react";
 import {

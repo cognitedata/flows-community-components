@@ -4,14 +4,14 @@ import {
   Reasoning,
   ReasoningContent,
   ReasoningTrigger,
-} from "@/components/ai-elements/reasoning";
+} from "@/components/ui/cognite/reasoning";
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from "@/components/ai-elements/message";
-import { Actions, Action } from "@/components/ai-elements/actions";
+} from "@/components/ui/cognite/message";
+import { Actions, Action } from "@/components/ui/cognite/actions";
 import {
   IconWheel,
   IconThumbUp,

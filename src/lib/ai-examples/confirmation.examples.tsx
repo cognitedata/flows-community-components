@@ -5,7 +5,7 @@ import {
   ConfirmationAction,
   ConfirmationRequest,
   ConfirmationAccepted,
-} from "@/components/ai-elements/confirmation";
+} from "@/components/ui/cognite/confirmation";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicConfirmationDemo() {

@@ -5,7 +5,7 @@ import {
   PlanDescription,
   PlanTrigger,
   PlanContent,
-} from "@/components/ai-elements/plan";
+} from "@/components/ui/cognite/plan";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicPlanDemo() {
