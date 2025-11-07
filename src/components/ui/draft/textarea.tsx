@@ -3,7 +3,7 @@
 import { useState, type ComponentProps, type ChangeEvent } from "react"
 
 import { cn } from "@/lib/utils"
-import { IconExclamationCircle } from "@tabler/icons-react"
+import { HelperText } from "./helper-text"
 
 interface TextareaProps extends ComponentProps<"textarea"> {
   maxChars?: number;
@@ -52,28 +52,15 @@ function Textarea({ className, maxChars, ...props }: TextareaProps) {
         {...(restProps as ComponentProps<"textarea">)}
       />
       {isInvalid && (
-        <div className="flex flex-row gap-1 justify-start items-center">
-          <IconExclamationCircle className="text-destructive-foreground text-sm size-4" />
-          <span className="text-destructive-foreground text-sm">
-            Error message
-          </span>
-        </div>
+        <HelperText isError>Error message</HelperText>
       )}
       {maxChars !== undefined && (
-        <div className="flex flex-row gap-1 justify-start items-center">
-          {isOverLimit && (
-            <IconExclamationCircle className="text-destructive-foreground text-sm size-4" />
-          )}
-          <span className={cn(
-            "text-sm tracking-tight leading-20",
-            isOverLimit ? "text-destructive-foreground" : "text-muted-foreground"
-          )}>
-            {isOverLimit 
-              ? "Too many characters" 
-              : `${maxChars - charCount} characters left`
-            }
-          </span>
-        </div>
+        <HelperText isError={isOverLimit}>
+          {isOverLimit 
+            ? "Too many characters" 
+            : `${maxChars - charCount} characters left`
+          }
+        </HelperText>
       )}
     </>
   )
