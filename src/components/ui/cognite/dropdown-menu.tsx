@@ -155,7 +155,7 @@ function DropdownMenuLabel({
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        "px-2 py-1.5 text-sm font-medium data-[inset]:pl-8",
+        "px-2 py-1 text-sm font-medium data-[inset]:pl-8 text-popover-foreground dark:text-popover-foreground",
         className
       )}
       {...props}
@@ -237,7 +237,21 @@ function DropdownMenuSubContent({
     />
   )
 }
-
+function DropdownMenuSectionLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof DropdownMenuPrimitive.Label>) {
+  return (
+    <div
+      data-slot="dropdown-menu-section-label"
+      className={cn(
+        "text-sm text-muted-foreground dark:text-muted-foreground",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 export {
   DropdownMenu,
   DropdownMenuPortal,
@@ -254,4 +268,5 @@ export {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
+  DropdownMenuSectionLabel,
 }

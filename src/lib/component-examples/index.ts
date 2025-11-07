@@ -18,6 +18,7 @@ import { datePickerExamples } from "./date-picker.examples";
 import { dialogExamples } from "./dialog.examples";
 import { drawerExamples } from "./drawer.examples";
 import { dropdownMenuExamples } from "./dropdown-menu.examples";
+import { helperTextExamples, helperTextMeta } from "./helper-text.examples";
 import { inputExamples } from "./input.examples";
 import { kbdExamples } from "./kbd.examples";
 import { labelExamples } from "./label.examples";
@@ -60,6 +61,7 @@ export const componentExamples = {
   dialog: dialogExamples,
   drawer: drawerExamples,
   "dropdown-menu": dropdownMenuExamples,
+  "helper-text": helperTextExamples,
   input: inputExamples,
   kbd: kbdExamples,
   label: labelExamples,
@@ -88,6 +90,7 @@ export type ComponentSlug = keyof typeof componentExamples;
 // Component metadata registry (only for components that have enhanced metadata)
 export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
+  "helper-text": helperTextMeta,
   // Other components will be added here as they're migrated
 };
 
