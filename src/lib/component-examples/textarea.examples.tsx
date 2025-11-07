@@ -12,7 +12,9 @@ function BasicDemo() {
           placeholder="Enter your message..."
           className="mt-1"
           rows={4}
-        />
+        >
+          During inspection of Pump #14, abnormal vibration and intermittent knocking sounds were noted. The pump casing shows visible surface wear near the inlet, and the pressure gauge is fluctuating outside the expected range. Flow output is inconsistent, dropping significantly under load. No external leaks detected, but the unit is not operating within normal parameters and requires further diagnostic testing.
+        </Textarea>
       </div>
       <div>
         <Label htmlFor="disabled">Disabled Textarea</Label>
