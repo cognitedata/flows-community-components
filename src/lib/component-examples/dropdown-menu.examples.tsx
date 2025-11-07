@@ -30,7 +30,7 @@ function BasicDemo() {
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel className="flex flex-row gap-2">
+            <DropdownMenuLabel className="flex flex-row gap-2 pt-1.75 pb-0.75">
               <Avatar>
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
@@ -43,7 +43,7 @@ function BasicDemo() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuSectionLabel>Section label</DropdownMenuSectionLabel>
+            <DropdownMenuSectionLabel className="px-2 py-0.25">Section label</DropdownMenuSectionLabel>
             <DropdownMenuItem>
               <IconUser />
               Profile

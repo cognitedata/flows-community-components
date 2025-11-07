@@ -155,7 +155,7 @@ function DropdownMenuLabel({
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        "px-1.75 py-2 items-center text-sm font-medium data-[inset]:pl-8 text-popover-foreground dark:text-popover-foreground",
+        "px-1.75 py-1.75 items-center text-sm font-medium data-[inset]:pl-8 text-popover-foreground dark:text-popover-foreground",
         className
       )}
       {...props}
@@ -170,7 +170,7 @@ function DropdownMenuSeparator({
   return (
     <DropdownMenuPrimitive.Separator
       data-slot="dropdown-menu-separator"
-      className={cn("bg-border h-px", className)}
+      className={cn("bg-border -mx-1 my-1 h-px", className)}
       {...props}
     />
   )
