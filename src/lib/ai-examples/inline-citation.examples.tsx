@@ -16,7 +16,7 @@ import {
   InlineCitationLink,
   InlineCitationSource,
   InlineCitationText,
-} from "@/components/ai-elements/cognite/inline-citation";
+} from "@/components/ui/cognite/inline-citation";
 import {
   IconAt,
   IconFile,
@@ -59,8 +59,8 @@ function BasicCitationDemo() {
   return (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
       <p>
-        According to recent studies, artificial intelligence has shown remarkable
-        progress in natural language processing.{" "}
+        According to recent studies, artificial intelligence has shown
+        remarkable progress in natural language processing.{" "}
         <InlineCitation>
           <InlineCitationText>{citation.text}</InlineCitationText>
           <InlineCitationCard>
@@ -424,7 +424,8 @@ export function LinkDemo() {
 
   "with-icons": {
     title: "Link Citations with Icons",
-    description: "Link Citations with icons to represent different source types",
+    description:
+      "Link Citations with icons to represent different source types",
     component: WithIconsDemo,
     difficulty: "intermediate",
     code: `"use client"
@@ -530,6 +531,7 @@ export function WithIconsDemo() {
 // Component metadata - single source of truth for API documentation
 export const inlineCitationMeta = {
   name: "Inline Citation",
-  description: "A hoverable citation component that displays source information and quotes inline with text, perfect for AI-generated content with references.",
+  description:
+    "A hoverable citation component that displays source information and quotes inline with text, perfect for AI-generated content with references.",
   importPath: "@/components/ai-elements/cognite/inline-citation",
 };

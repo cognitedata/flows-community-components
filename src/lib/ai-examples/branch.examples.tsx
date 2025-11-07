@@ -7,12 +7,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch";
+} from "@/components/ui/cognite/branch";
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message";
+} from "@/components/ui/cognite/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { nanoid } from "nanoid";
 
@@ -27,8 +27,7 @@ const userMessages = [
   },
   {
     id: nanoid(),
-    content:
-      "What performance optimisation techniques should I use in React?",
+    content: "What performance optimisation techniques should I use in React?",
   },
 ];
 
@@ -74,7 +73,11 @@ function ConversationDemo() {
           {assistantMessages.map((message) => (
             <Message from="assistant" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
+              <MessageAvatar
+                variant="fjord"
+                src="https://github.com/openai.png"
+                name="AI"
+              />
             </Message>
           ))}
         </BranchMessages>
@@ -118,7 +121,11 @@ function AssistantBranchDemo() {
           {assistantMessages.map((message) => (
             <Message from="assistant" key={message.id}>
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
+              <MessageAvatar
+                variant="fjord"
+                src="https://github.com/openai.png"
+                name="AI"
+              />
             </Message>
           ))}
         </BranchMessages>
@@ -313,6 +320,7 @@ export function AssistantBranchDemo() {
 // Component metadata - single source of truth for API documentation
 export const branchMeta = {
   name: "Branch",
-  description: "Manages multiple versions of AI messages, allowing users to navigate between different response branches.",
+  description:
+    "Manages multiple versions of AI messages, allowing users to navigate between different response branches.",
   importPath: "@/components/ai-elements/draft/branch",
 };

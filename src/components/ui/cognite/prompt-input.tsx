@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/cognite/select";
 import { cn } from "@/lib/utils";
 import type { ChatStatus, FileUIPart } from "ai";
+import Image from "next/image";
 import {
   IconPhoto,
   IconLoader2,
@@ -47,7 +48,6 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
-import Image from "next/image";
 import {
   type ChangeEvent,
   type ChangeEventHandler,
@@ -857,7 +857,10 @@ export const PromptInputTextarea = ({
 
   return (
     <InputGroupTextarea
-      className={cn("field-sizing-content max-h-48 min-h-16 md:text-base tracking-tightest p-1.75 leading-20", className)}
+      className={cn(
+        "field-sizing-content max-h-48 min-h-16 md:text-base tracking-tightest p-1.75 leading-20",
+        className
+      )}
       name="message"
       onCompositionEnd={() => setIsComposing(false)}
       onCompositionStart={() => setIsComposing(true)}
@@ -1133,7 +1136,7 @@ export const PromptInputSpeechButton = ({
       };
 
       recognitionRef.current = speechRecognition;
-      
+
       // Use startTransition to avoid synchronous setState in effect
       startTransition(() => {
         setRecognition(speechRecognition);
@@ -1192,7 +1195,7 @@ export const PromptInputModelSelectTrigger = ({
   <SelectTrigger
     className={cn(
       "border-none bg-transparent font-medium text-muted-foreground shadow-none transition-colors",
-      'hover:bg-accent hover:text-foreground [&[aria-expanded="true"]]:bg-accent [&[aria-expanded="true"]]:text-foreground',
+      "hover:bg-accent hover:text-foreground aria-expanded:bg-accent aria-expanded:text-foreground",
       className
     )}
     {...props}

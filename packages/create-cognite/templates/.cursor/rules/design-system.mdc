@@ -1,6 +1,19 @@
 ---
-description: Whenever you are interacting with design or reference, consult these rules.
+description: Whenever you are generating layouts or components with design instructions or reference images, consult these rules.
 alwaysApply: false
 ---
 
-Use tailwinds grid in order to make beautiful accurate pages, pay close attention to positioning detail.
+Use tailwinds grid in order to make beautiful accurate pixel perfect matches to designs, pay close attention to positioning detail.
+
+Use the Chrome browser to visually see what the design looks like and make any changes compared to the reference.
+
+You should make sure you make support for light and dark mode.
+
+Responsive design is a must.
+
+Styling must be consistent with the Cognite design patterns.
+
+Do not edit the Cognite components you add directly you can create wrappers around them.
+
+Grids
+Make sure to build up grids using either flex or grid classes from tailwind, consider the arrangement and use the best one for the job. Make sure to align components as neatly as possible.
