@@ -227,7 +227,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
           {/* Sidebar with anchor links */}
           <aside className="hidden lg:block w-64 shrink-0">
-            <div className="sticky top-8">
+            <div className="sticky top-20">
               <div className="mb-8">
                 <h2 className="text-sm font-semibold mb-4">On This Page</h2>
                 <nav className="space-y-2">
