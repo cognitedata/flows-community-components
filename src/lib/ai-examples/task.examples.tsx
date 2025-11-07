@@ -3,7 +3,7 @@ import {
   TaskTrigger,
   TaskContent,
   TaskItem,
-} from "@/components/ai-elements/cognite/task";
+} from "@/components/ai-elements/task";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicTaskDemo() {
@@ -95,6 +95,7 @@ export function CustomTaskDemo() {
 // Component metadata - single source of truth for API documentation
 export const taskMeta = {
   name: "Task",
-  description: "A collapsible task list component for displaying AI workflow progress, with status indicators and optional descriptions.",
+  description:
+    "A collapsible task list component for displaying AI workflow progress, with status indicators and optional descriptions.",
   importPath: "@/components/ai-elements/cognite/task",
 };

@@ -5,7 +5,7 @@ import {
   PlanDescription,
   PlanTrigger,
   PlanContent,
-} from "@/components/ai-elements/cognite/plan";
+} from "@/components/ai-elements/plan";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicPlanDemo() {
@@ -14,9 +14,7 @@ function BasicPlanDemo() {
       <PlanHeader>
         <div>
           <PlanTitle>Implementation Plan</PlanTitle>
-          <PlanDescription>
-            Steps to implement the new feature
-          </PlanDescription>
+          <PlanDescription>Steps to implement the new feature</PlanDescription>
         </div>
         <PlanTrigger />
       </PlanHeader>
@@ -39,9 +37,7 @@ function StreamingPlanDemo() {
       <PlanHeader>
         <div>
           <PlanTitle>Breaking Changes Analysis</PlanTitle>
-          <PlanDescription>
-            Analysing impact of recent changes
-          </PlanDescription>
+          <PlanDescription>Analysing impact of recent changes</PlanDescription>
         </div>
         <PlanTrigger />
       </PlanHeader>
@@ -121,6 +117,7 @@ export function StreamingPlanDemo() {
 // Component metadata - single source of truth for API documentation
 export const planMeta = {
   name: "Plan",
-  description: "A collapsible plan component for displaying AI-generated execution plans with streaming support and shimmer animations.",
+  description:
+    "A collapsible plan component for displaying AI-generated execution plans with streaming support and shimmer animations.",
   importPath: "@/components/ai-elements/cognite/plan",
 };

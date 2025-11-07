@@ -1,6 +1,6 @@
 "use client";
 
-import { Response } from "@/components/ai-elements/cognite/response";
+import { Response } from "@/components/ai-elements/response";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { useEffect, useState } from "react";
 
@@ -148,7 +148,8 @@ function StreamingResponseDemo() {
 export const responseExamples: ComponentExamples = {
   streaming: {
     title: "Response",
-    description: "The Resaaponse component renders a Markdown response from a large language model. It uses Streamdown under the hood to render the markdown.",
+    description:
+      "The Resaaponse component renders a Markdown response from a large language model. It uses Streamdown under the hood to render the markdown.",
     component: StreamingResponseDemo,
     difficulty: "beginner",
     code: `"use client"
@@ -190,8 +191,10 @@ export function StreamingResponseDemo() {
 // Component metadata - single source of truth for API documentation
 export const responseMeta = {
   name: "Response",
-  description: "A component that renders a Markdown response from a large language model.",
-  llmUsage: "When asked for a markdown response, use the `<Response>` component and pass the markdown content as children.",
+  description:
+    "A component that renders a Markdown response from a large language model.",
+  llmUsage:
+    "When asked for a markdown response, use the `<Response>` component and pass the markdown content as children.",
   importPath: "@/components/ai-elements/cognite/response",
   apiReference: {
     props: [
@@ -199,7 +202,8 @@ export const responseMeta = {
         name: "children",
         type: "string",
         required: true,
-        description: "A component that renders streaming Markdown responses from large language models.",
+        description:
+          "A component that renders streaming Markdown responses from large language models.",
       },
       {
         name: "className",
@@ -214,4 +218,3 @@ export const responseMeta = {
     "Automatically handles markdown formatting",
   ],
 };
-

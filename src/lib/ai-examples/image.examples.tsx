@@ -1,6 +1,6 @@
 "use client";
 
-import { Image } from "@/components/ai-elements/cognite/image";
+import { Image } from "@/components/ai-elements/image";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 const exampleImage = {
@@ -13,7 +13,11 @@ const exampleImage = {
 function BasicImageDemo() {
   return (
     <div className="flex justify-center p-8">
-      <Image {...exampleImage} alt="Example generated image" className="aspect-square h-[150px] border" />
+      <Image
+        {...exampleImage}
+        alt="Example generated image"
+        className="aspect-square h-[150px] border"
+      />
     </div>
   );
 }
@@ -21,7 +25,11 @@ function BasicImageDemo() {
 function RoundedImageDemo() {
   return (
     <div className="flex justify-center p-8">
-      <Image {...exampleImage} alt="Rounded image" className="aspect-square h-[150px] border rounded-lg" />
+      <Image
+        {...exampleImage}
+        alt="Rounded image"
+        className="aspect-square h-[150px] border rounded-lg"
+      />
     </div>
   );
 }

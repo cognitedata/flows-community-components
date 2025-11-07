@@ -1,4 +1,4 @@
-import { Panel } from "@/components/ai-elements/cognite/panel";
+import { Panel } from "@/components/ai-elements/panel";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicPanelDemo() {
@@ -65,6 +65,7 @@ export function CustomPanelDemo() {
 // Component metadata - single source of truth for API documentation
 export const panelMeta = {
   name: "Panel",
-  description: "A resizable side panel layout for AI interfaces with collapsible sections.",
+  description:
+    "A resizable side panel layout for AI interfaces with collapsible sections.",
   importPath: "@/components/ai-elements/cognite/panel",
 };

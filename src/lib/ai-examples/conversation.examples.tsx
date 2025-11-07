@@ -1,10 +1,27 @@
 "use client";
 
-import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation";
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
-import { Actions, Action } from "@/components/ai-elements/cognite/actions";
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from "@/components/ai-elements/conversation";
+import {
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+} from "@/components/ai-elements/message";
+import { Actions, Action } from "@/components/ai-elements/actions";
 import { MessageSquare } from "lucide-react";
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react";
+import {
+  IconWheel,
+  IconThumbUp,
+  IconThumbDown,
+  IconCopy,
+  IconShare,
+  IconDotsVertical,
+} from "@tabler/icons-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +32,13 @@ import type { ComponentExamples } from "@/lib/component-examples/types";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 
-const messages: { key: string; value: string; name: string; avatar: string; from: "user" | "assistant" }[] = [
+const messages: {
+  key: string;
+  value: string;
+  name: string;
+  avatar: string;
+  from: "user" | "assistant";
+}[] = [
   {
     key: nanoid(),
     value: "Hello, how are you?",
@@ -39,7 +62,8 @@ const messages: { key: string; value: string; name: string; avatar: string; from
   },
   {
     key: nanoid(),
-    value: "Sure! We offer a variety of AI solutions. What are you interested in?",
+    value:
+      "Sure! We offer a variety of AI solutions. What are you interested in?",
     name: "AI Assistant",
     avatar: "https://github.com/openai.png",
     from: "assistant",
@@ -175,7 +199,11 @@ function BasicConversationDemo() {
           ) : (
             visibleMessages.map(({ key, value, name, avatar, from }) => (
               <Message from={from} key={key}>
-                <MessageContent className={from === "assistant" ? "flex flex-col gap-2" : undefined}>
+                <MessageContent
+                  className={
+                    from === "assistant" ? "flex flex-col gap-2" : undefined
+                  }
+                >
                   {value}
                   {from === "assistant" && (
                     <Actions>
@@ -205,8 +233,8 @@ function BasicConversationDemo() {
                     </Actions>
                   )}
                 </MessageContent>
-                <MessageAvatar 
-                  src={avatar} 
+                <MessageAvatar
+                  src={avatar}
                   name={name}
                   variant={from === "assistant" ? "fjord" : undefined}
                 >
@@ -380,6 +408,7 @@ export function EmptyStateDemo() {
 // Component metadata - single source of truth for API documentation
 export const conversationMeta = {
   name: "Conversation",
-  description: "Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.",
+  description:
+    "Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.",
   importPath: "@/components/ai-elements/cognite/conversation",
 };

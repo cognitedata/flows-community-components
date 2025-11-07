@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/cognite/badge";
 import {
   CodeBlock,
   CodeBlockCopyButton,
-} from "@/components/ai-elements/cognite/code-block";
+} from "@/components/ai-elements/code-block";
 
 interface Step {
   icon: React.ComponentType<{ className?: string }>;

@@ -5,7 +5,7 @@ import {
   ConfirmationAction,
   ConfirmationRequest,
   ConfirmationAccepted,
-} from "@/components/ai-elements/cognite/confirmation";
+} from "@/components/ai-elements/confirmation";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicConfirmationDemo() {
@@ -95,6 +95,7 @@ export function ConfirmationRequestDemo() {
 // Component metadata - single source of truth for API documentation
 export const confirmationMeta = {
   name: "Confirmation",
-  description: "An alert-based component for managing tool execution approval workflows with request, accept, and reject states.",
+  description:
+    "An alert-based component for managing tool execution approval workflows with request, accept, and reject states.",
   importPath: "@/components/ai-elements/cognite/confirmation",
 };

@@ -3,13 +3,9 @@
 /**
  * Dynamically builds registry.json from all components found in:
  * - src/components/ui/cognite/
- * - src/components/ui/draft/
  *
- * Note: AI elements are not scanned as they are already included in ui/cognite/draft.
- *
- * Components remain in their original locations in the codebase, but all registry
- * paths point to src/components/ui/cognite/ to create a flat folder structure
- * when components are installed via the registry.
+ * All registry paths point to src/components/ui/cognite/ to create a flat
+ * folder structure when components are installed via the registry.
  */
 
 import * as fs from "fs";
@@ -44,51 +40,33 @@ interface Registry {
 }
 
 const uiCogniteDir = path.join(__dirname, "../src/components/ui/cognite");
-const uiDraftDir = path.join(__dirname, "../src/components/ui/draft");
 const registryTemplate = path.join(__dirname, "../registry.template.json");
 const registryOutput = path.join(__dirname, "../registry.json");
 
-// Get all components from ui/cognite and ui/draft directories
+// Get all components from ui/cognite directory
 function getComponents(): string[] {
-  const components: Set<string> = new Set();
+  const components: string[] = [];
 
-  // Scan UI components from cognite
   if (fs.existsSync(uiCogniteDir)) {
     const uiFiles = fs
       .readdirSync(uiCogniteDir)
       .filter((file: string) => file.endsWith(".tsx"))
       .map((file: string) => file.replace(".tsx", ""));
-    uiFiles.forEach((file: string) => components.add(file));
 
     if (uiFiles.length > 0) {
       console.log(`\n✅ Found ${uiFiles.length} component(s) in ui/cognite:\n`);
       uiFiles.forEach((file: string) => console.log(`   - ${file}`));
+      components.push(...uiFiles);
     }
   }
 
-  // Scan UI components from draft
-  if (fs.existsSync(uiDraftDir)) {
-    const uiDraftFiles = fs
-      .readdirSync(uiDraftDir)
-      .filter((file: string) => file.endsWith(".tsx"))
-      .map((file: string) => file.replace(".tsx", ""));
-    uiDraftFiles.forEach((file: string) => components.add(file));
-
-    if (uiDraftFiles.length > 0) {
-      console.log(
-        `\n✅ Found ${uiDraftFiles.length} component(s) in ui/draft:\n`
-      );
-      uiDraftFiles.forEach((file: string) => console.log(`   - ${file}`));
-    }
-  }
-
-  if (components.size === 0) {
+  if (components.length === 0) {
     console.log(
-      `⚠️  No components found in ui/cognite or ui/draft directories. Creating empty registry.`
+      `⚠️  No components found in ui/cognite directory. Creating empty registry.`
     );
   }
 
-  return Array.from(components);
+  return components;
 }
 
 // Load the full registry template (includes all component metadata)
@@ -132,21 +110,8 @@ function collectRegistryDependencies(
   }
 }
 
-// Get the actual file path for a component (checks cognite first, then draft)
-function getActualComponentPath(componentName: string): string {
-  // Check if file exists in cognite
-  const cognitePath = path.join(uiCogniteDir, `${componentName}.tsx`);
-  if (fs.existsSync(cognitePath)) {
-    return `src/components/ui/cognite/${componentName}.tsx`;
-  }
-
-  // Check if file exists in draft
-  const draftPath = path.join(uiDraftDir, `${componentName}.tsx`);
-  if (fs.existsSync(draftPath)) {
-    return `src/components/ui/draft/${componentName}.tsx`;
-  }
-
-  // Default to cognite path (for registry dependencies that might not exist yet)
+// Get the file path for a component (always cognite)
+function getComponentPath(componentName: string): string {
   return `src/components/ui/cognite/${componentName}.tsx`;
 }
 
@@ -180,16 +145,14 @@ function buildRegistry(template: Registry, components: string[]): Registry {
   const filteredItems = template.items
     .filter((item: RegistryItem) => allComponentsToInclude.has(item.name))
     .map((item: RegistryItem) => {
-      // Use actual file path for build process, but registry will install to cognite
-      const actualPath = getActualComponentPath(item.name);
+      // All paths point to src/components/ui/cognite/
+      const componentPath = getComponentPath(item.name);
 
-      // Update the file path to point to actual location (for build)
-      // Note: When installed via registry, components will be installed to cognite
       return {
         ...item,
         files: item.files.map((file: RegistryFile) => ({
           ...file,
-          path: actualPath,
+          path: componentPath,
         })),
       };
     });
@@ -206,18 +169,15 @@ async function main(): Promise<void> {
     // Display build information
     console.log("\n" + "=".repeat(70));
     console.log("🔨 BUILDING COMPONENT REGISTRY");
-    console.log("   Mode: Including all components from ui directories");
-    console.log("   Sources: ui/cognite, ui/draft");
+    console.log("   Source: ui/cognite");
     console.log("   Output: All paths → src/components/ui/cognite/");
     console.log("=".repeat(70));
 
-    // Get components from ui directories
+    // Get components from ui/cognite directory
     const components: string[] = getComponents();
 
     if (components.length === 0) {
-      console.log(
-        `\n⚠️  No components found in ui/cognite or ui/draft directories`
-      );
+      console.log(`\n⚠️  No components found in ui/cognite directory`);
       console.log("   Registry will be empty (no components to build)");
     }
 
@@ -238,8 +198,7 @@ async function main(): Promise<void> {
     console.log("─".repeat(70));
     console.log("\n   registry.json → Root directory");
     console.log("   Component files → public/r/*.json (via shadcn build)");
-    console.log("   Note: Registry paths point to actual file locations");
-    console.log("         (cognite or draft) so build process can read them");
+    console.log("   All paths point to src/components/ui/cognite/");
 
     // Load template first to check for dependencies
     const template: Registry = loadRegistryTemplate();
@@ -275,8 +234,7 @@ async function main(): Promise<void> {
     } else {
       console.log(
         `ℹ️  Note: No components to build. Add .tsx files to:\n` +
-          `     - src/components/ui/cognite/\n` +
-          `     - src/components/ui/draft/\n`
+          `     - src/components/ui/cognite/\n`
       );
     }
   } catch (error: unknown) {
