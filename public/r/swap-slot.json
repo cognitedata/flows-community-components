@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "swap-slot",
+  "type": "registry:component",
+  "title": "Swap Slot",
+  "description": "Swap Slot component.",
+  "files": [
+    {
+      "path": "src/components/ui/draft/swap-slot.tsx",
+      "content": "// Custom component - SwapSlot\n// TODO: Implement swap slot component\n",
+      "type": "registry:component"
+    }
+  ]
+}

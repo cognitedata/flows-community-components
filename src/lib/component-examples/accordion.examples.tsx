@@ -5,25 +5,52 @@ import {
   AccordionTrigger,
 } from "@/components/ui/cognite/accordion";
 import type { ComponentExamples, ComponentMeta } from "./types";
+import { IconInfoCircle, IconBrush, IconClock } from "@tabler/icons-react";
 
 // Basic Accordion Demo
 function BasicAccordionDemo() {
   return (
+    <Accordion type="single" defaultValue="item-2" collapsible className="w-full">
+      <AccordionItem value="item-1">
+        <AccordionTrigger icon={IconInfoCircle}>When should I use single vs. multiple mode?</AccordionTrigger>
+        <AccordionContent>
+          You should use single mode when you want to allow only one section to be open at a time.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+      <AccordionTrigger icon={IconInfoCircle}>Should any sections be open by default?</AccordionTrigger>
+        <AccordionContent>
+          Micro-interactions are events which have one main task — a single purpose — and they are found all over your device and within apps.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger icon={IconInfoCircle}>Any special considerations for mobile?</AccordionTrigger>
+        <AccordionContent>
+          Yes, you should use the collapsible prop to allow the user to collapse the accordion on mobile.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  );
+}
+
+// Basic Accordion Demo with Icon
+function BasicAccordionDemoWithIcon() {
+  return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>Is it accessible?</AccordionTrigger>
         <AccordionContent>
           Yes. It adheres to the WAI-ARIA design pattern.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
+        <AccordionTrigger icon={IconBrush}>Is it styled?</AccordionTrigger>
         <AccordionContent>
           Yes. It comes with default styles that match your theme.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionTrigger icon={IconClock}>Is it animated?</AccordionTrigger>
         <AccordionContent>
           Yes. It uses smooth transitions for opening and closing.
         </AccordionContent>
@@ -58,32 +85,6 @@ function MultipleAccordionDemo() {
   );
 }
 
-// Controlled Accordion Demo
-function DefaultValueAccordionDemo() {
-  return (
-    <Accordion type="single" defaultValue="item-2" collapsible className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger>First Item</AccordionTrigger>
-        <AccordionContent>
-          This item is closed by default.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger>Second Item (Default Open)</AccordionTrigger>
-        <AccordionContent>
-          This item is open by default using the defaultValue prop.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-3">
-        <AccordionTrigger>Third Item</AccordionTrigger>
-        <AccordionContent>
-          This item is also closed by default.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  );
-}
-
 export const accordionExamples: ComponentExamples = {
   basic: {
     title: "Basic Accordion",
@@ -97,26 +98,27 @@ export const accordionExamples: ComponentExamples = {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/cognite/accordion"
+import { IconInfoCircle } from "@tabler/icons-react"
 
 export function BasicAccordionDemo() {
   return (
-    <Accordion type="single" collapsible className="w-full">
+    <Accordion type="single" defaultValue="item-2" collapsible className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>When should I use single vs. multiple mode?</AccordionTrigger>
         <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
+          You should use single mode when you want to allow only one section to be open at a time.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>Should any sections be open by default?</AccordionTrigger>
         <AccordionContent>
-          Yes. It comes with default styles that match your theme.
+          Micro-interactions are events which have one main task — a single purpose — and they are found all over your device and within apps.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>Any special considerations for mobile?</AccordionTrigger>
         <AccordionContent>
-          Yes. It uses smooth transitions for opening and closing.
+          Yes, you should use the collapsible prop to allow the user to collapse the accordion on mobile.
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -163,10 +165,10 @@ export function MultipleAccordionDemo() {
 }`,
   },
 
-  defaultValue: {
-    title: "Default Open Item",
-    description: "Set a default open item using the defaultValue prop.",
-    component: DefaultValueAccordionDemo,
+  withIcon: {
+    title: "Accordion with Icon",
+    description: "Add an icon to the accordion trigger.",
+    component: BasicAccordionDemoWithIcon,
     tags: ["common"],
     difficulty: "beginner",
     code: `import {
@@ -175,26 +177,27 @@ export function MultipleAccordionDemo() {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/cognite/accordion"
+import { IconInfoCircle, IconBrush, IconClock } from "@tabler/icons-react"
 
-export function DefaultValueAccordionDemo() {
+export function BasicAccordionDemoWithIcon() {
   return (
-    <Accordion type="single" defaultValue="item-2" collapsible className="w-full">
+    <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger>First Item</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>Is it accessible?</AccordionTrigger>
         <AccordionContent>
-          This item is closed by default.
+          Yes. It adheres to the WAI-ARIA design pattern.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>Second Item (Default Open)</AccordionTrigger>
+        <AccordionTrigger icon={IconBrush}>Is it styled?</AccordionTrigger>
         <AccordionContent>
-          This item is open by default using the defaultValue prop.
+          Yes. It comes with default styles that match your theme.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>Third Item</AccordionTrigger>
+        <AccordionTrigger icon={IconClock}>Is it animated?</AccordionTrigger>
         <AccordionContent>
-          This item is also closed by default.
+          Yes. It uses smooth transitions for opening and closing.
         </AccordionContent>
       </AccordionItem>
     </Accordion>

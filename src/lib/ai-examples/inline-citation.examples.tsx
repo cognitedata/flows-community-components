@@ -12,6 +12,7 @@ import {
   InlineCitationCarouselItem,
   InlineCitationCarouselNext,
   InlineCitationCarouselPrev,
+  InlineCitationGroup,
   InlineCitationLink,
   InlineCitationSource,
   InlineCitationText,
@@ -21,6 +22,12 @@ import {
   IconFile,
   IconPhoto,
   IconTimeline,
+  IconHexagon,
+  IconCalendarEvent,
+  IconBrackets,
+  IconBriefcase,
+  IconEye,
+  IconCube,
 } from "@tabler/icons-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
@@ -157,14 +164,7 @@ function LinkDemo() {
 function WithIconsDemo() {
   return (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
-      <p>
-        <InlineCitation>
-          <InlineCitationLink
-            url="https://example.com/documentation.pdf"
-            target="_blank"
-            icon={IconFile}
-          />
-        </InlineCitation>
+      <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
             url="https://example.com/image/image1.jpg"
@@ -174,9 +174,9 @@ function WithIconsDemo() {
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/user/example"
+            url="https://example.com/documentation.pdf"
             target="_blank"
-            icon={IconAt}
+            icon={IconFile}
           />
         </InlineCitation>
         <InlineCitation>
@@ -186,7 +186,56 @@ function WithIconsDemo() {
             icon={IconTimeline}
           />
         </InlineCitation>
-      </p>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/asset/pump-123"
+            target="_blank"
+            icon={IconHexagon}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/event/maintenance-456"
+            target="_blank"
+            icon={IconCalendarEvent}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/sequence/sequence-789"
+            target="_blank"
+            icon={IconBrackets}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/work-order/wo-321"
+            target="_blank"
+            icon={IconBriefcase}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/observation/obs-654"
+            target="_blank"
+            icon={IconEye}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/3d/model-987"
+            target="_blank"
+            icon={IconCube}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/user/example"
+            target="_blank"
+            icon={IconAt}
+          />
+        </InlineCitation>
+      </InlineCitationGroup>
     </div>
   );
 }
@@ -381,21 +430,26 @@ export function LinkDemo() {
     code: `"use client"
 import {
   InlineCitation,
+  InlineCitationGroup,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline } from "@tabler/icons-react"
+import {
+  IconAt,
+  IconFile,
+  IconPhoto,
+  IconTimeline,
+  IconHexagon,
+  IconCalendarEvent,
+  IconBrackets,
+  IconBriefcase,
+  IconEye,
+  IconCube,
+} from "@tabler/icons-react"
 
 export function WithIconsDemo() {
   return (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
-      <p>
-        <InlineCitation>
-          <InlineCitationLink
-            url="https://example.com/documentation.pdf"
-            target="_blank"
-            icon={IconFile}
-          />
-        </InlineCitation>
+      <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
             url="https://example.com/image/image1.jpg"
@@ -405,9 +459,9 @@ export function WithIconsDemo() {
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/user/example"
+            url="https://example.com/documentation.pdf"
             target="_blank"
-            icon={IconAt}
+            icon={IconFile}
           />
         </InlineCitation>
         <InlineCitation>
@@ -417,7 +471,56 @@ export function WithIconsDemo() {
             icon={IconTimeline}
           />
         </InlineCitation>
-      </p>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/asset/pump-123"
+            target="_blank"
+            icon={IconHexagon}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/event/maintenance-456"
+            target="_blank"
+            icon={IconCalendarEvent}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/sequence/sequence-789"
+            target="_blank"
+            icon={IconBrackets}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/work-order/wo-321"
+            target="_blank"
+            icon={IconBriefcase}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/observation/obs-654"
+            target="_blank"
+            icon={IconEye}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/3d/model-987"
+            target="_blank"
+            icon={IconCube}
+          />
+        </InlineCitation>
+        <InlineCitation>
+          <InlineCitationLink
+            url="https://example.com/user/example"
+            target="_blank"
+            icon={IconAt}
+          />
+        </InlineCitation>
+      </InlineCitationGroup>
     </div>
   )
 }`,
