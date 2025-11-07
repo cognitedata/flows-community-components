@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, type ComponentProps, type ChangeEvent } from "react"
 
 import { cn } from "@/lib/utils"
