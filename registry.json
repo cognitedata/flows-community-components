@@ -269,6 +269,21 @@
       ]
     },
     {
+      "name": "helper-text",
+      "type": "registry:component",
+      "title": "Helper Text",
+      "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/cognite/helper-text.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:component",
       "title": "Input",
@@ -637,7 +652,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/actions.tsx",
+          "path": "src/components/ui/cognite/actions.tsx",
           "type": "registry:component"
         }
       ]
@@ -649,7 +664,7 @@
       "description": "AI artifact component for displaying generated content.",
       "files": [
         {
-          "path": "src/components/ai-elements/artifact.tsx",
+          "path": "src/components/ui/cognite/artifact.tsx",
           "type": "registry:component"
         }
       ]
@@ -661,7 +676,7 @@
       "description": "AI conversation branch component.",
       "files": [
         {
-          "path": "src/components/ai-elements/branch.tsx",
+          "path": "src/components/ui/cognite/branch.tsx",
           "type": "registry:component"
         }
       ]
@@ -673,7 +688,7 @@
       "description": "AI canvas component for drawing and visualization.",
       "files": [
         {
-          "path": "src/components/ai-elements/canvas.tsx",
+          "path": "src/components/ui/cognite/canvas.tsx",
           "type": "registry:component"
         }
       ]
@@ -685,7 +700,7 @@
       "description": "AI chain of thought component for displaying reasoning steps.",
       "files": [
         {
-          "path": "src/components/ai-elements/chain-of-thought.tsx",
+          "path": "src/components/ui/cognite/chain-of-thought.tsx",
           "type": "registry:component"
         }
       ]
@@ -703,7 +718,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/code-block.tsx",
+          "path": "src/components/ui/cognite/code-block.tsx",
           "type": "registry:component"
         }
       ]
@@ -718,7 +733,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/confirmation.tsx",
+          "path": "src/components/ui/cognite/confirmation.tsx",
           "type": "registry:component"
         }
       ]
@@ -730,7 +745,7 @@
       "description": "AI connection component for flow diagrams.",
       "files": [
         {
-          "path": "src/components/ai-elements/connection.tsx",
+          "path": "src/components/ui/cognite/connection.tsx",
           "type": "registry:component"
         }
       ]
@@ -742,7 +757,7 @@
       "description": "AI context component for displaying context information.",
       "files": [
         {
-          "path": "src/components/ai-elements/context.tsx",
+          "path": "src/components/ui/cognite/context.tsx",
           "type": "registry:component"
         }
       ]
@@ -754,7 +769,7 @@
       "description": "AI controls component for interface controls.",
       "files": [
         {
-          "path": "src/components/ai-elements/controls.tsx",
+          "path": "src/components/ui/cognite/controls.tsx",
           "type": "registry:component"
         }
       ]
@@ -773,7 +788,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/conversation.tsx",
+          "path": "src/components/ui/cognite/conversation.tsx",
           "type": "registry:component"
         }
       ]
@@ -785,7 +800,7 @@
       "description": "AI edge component for flow diagrams.",
       "files": [
         {
-          "path": "src/components/ai-elements/edge.tsx",
+          "path": "src/components/ui/cognite/edge.tsx",
           "type": "registry:component"
         }
       ]
@@ -797,7 +812,7 @@
       "description": "AI image component for displaying generated images.",
       "files": [
         {
-          "path": "src/components/ai-elements/image.tsx",
+          "path": "src/components/ui/cognite/image.tsx",
           "type": "registry:component"
         }
       ]
@@ -809,7 +824,7 @@
       "description": "AI inline citation component for source references.",
       "files": [
         {
-          "path": "src/components/ai-elements/inline-citation.tsx",
+          "path": "src/components/ui/cognite/inline-citation.tsx",
           "type": "registry:component"
         }
       ]
@@ -821,7 +836,7 @@
       "description": "AI loader component for loading states.",
       "files": [
         {
-          "path": "src/components/ai-elements/loader.tsx",
+          "path": "src/components/ui/cognite/loader.tsx",
           "type": "registry:component"
         }
       ]
@@ -839,7 +854,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/message.tsx",
+          "path": "src/components/ui/cognite/message.tsx",
           "type": "registry:component"
         }
       ]
@@ -851,7 +866,7 @@
       "description": "AI node component for flow diagrams.",
       "files": [
         {
-          "path": "src/components/ai-elements/node.tsx",
+          "path": "src/components/ui/cognite/node.tsx",
           "type": "registry:component"
         }
       ]
@@ -863,7 +878,7 @@
       "description": "AI open in chat component.",
       "files": [
         {
-          "path": "src/components/ai-elements/open-in-chat.tsx",
+          "path": "src/components/ui/cognite/open-in-chat.tsx",
           "type": "registry:component"
         }
       ]
@@ -875,7 +890,7 @@
       "description": "AI panel component for side panels.",
       "files": [
         {
-          "path": "src/components/ai-elements/panel.tsx",
+          "path": "src/components/ui/cognite/panel.tsx",
           "type": "registry:component"
         }
       ]
@@ -887,7 +902,7 @@
       "description": "AI plan component for displaying execution plans.",
       "files": [
         {
-          "path": "src/components/ai-elements/plan.tsx",
+          "path": "src/components/ui/cognite/plan.tsx",
           "type": "registry:component"
         }
       ]
@@ -903,7 +918,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/prompt-input.tsx",
+          "path": "src/components/ui/cognite/prompt-input.tsx",
           "type": "registry:component"
         }
       ]
@@ -915,7 +930,7 @@
       "description": "AI queue component for managing task queues.",
       "files": [
         {
-          "path": "src/components/ai-elements/queue.tsx",
+          "path": "src/components/ui/cognite/queue.tsx",
           "type": "registry:component"
         }
       ]
@@ -927,7 +942,7 @@
       "description": "AI reasoning component for displaying reasoning processes.",
       "files": [
         {
-          "path": "src/components/ai-elements/reasoning.tsx",
+          "path": "src/components/ui/cognite/reasoning.tsx",
           "type": "registry:component"
         }
       ]
@@ -939,7 +954,7 @@
       "description": "AI response component for displaying AI responses.",
       "files": [
         {
-          "path": "src/components/ai-elements/response.tsx",
+          "path": "src/components/ui/cognite/response.tsx",
           "type": "registry:component"
         }
       ]
@@ -951,7 +966,7 @@
       "description": "AI shimmer loading effect component.",
       "files": [
         {
-          "path": "src/components/ai-elements/shimmer.tsx",
+          "path": "src/components/ui/cognite/shimmer.tsx",
           "type": "registry:component"
         }
       ]
@@ -963,7 +978,7 @@
       "description": "AI sources component for displaying source references.",
       "files": [
         {
-          "path": "src/components/ai-elements/sources.tsx",
+          "path": "src/components/ui/cognite/sources.tsx",
           "type": "registry:component"
         }
       ]
@@ -978,7 +993,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/suggestion.tsx",
+          "path": "src/components/ui/cognite/suggestion.tsx",
           "type": "registry:component"
         }
       ]
@@ -990,7 +1005,7 @@
       "description": "AI task component for displaying tasks.",
       "files": [
         {
-          "path": "src/components/ai-elements/task.tsx",
+          "path": "src/components/ui/cognite/task.tsx",
           "type": "registry:component"
         }
       ]
@@ -1002,7 +1017,7 @@
       "description": "AI tool component for displaying tool calls.",
       "files": [
         {
-          "path": "src/components/ai-elements/tool.tsx",
+          "path": "src/components/ui/cognite/tool.tsx",
           "type": "registry:component"
         }
       ]
@@ -1014,7 +1029,7 @@
       "description": "AI toolbar component.",
       "files": [
         {
-          "path": "src/components/ai-elements/toolbar.tsx",
+          "path": "src/components/ui/cognite/toolbar.tsx",
           "type": "registry:component"
         }
       ]
@@ -1026,7 +1041,7 @@
       "description": "AI web preview component for displaying web content.",
       "files": [
         {
-          "path": "src/components/ai-elements/web-preview.tsx",
+          "path": "src/components/ui/cognite/web-preview.tsx",
           "type": "registry:component"
         }
       ]
