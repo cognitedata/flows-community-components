@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "type": "registry:component",
+  "title": "Collapsible",
+  "description": "Collapsible component.",
+  "files": [
+    {
+      "path": "src/components/ui/draft/collapsible.tsx",
+      "content": "\"use client\"\n\nimport * as CollapsiblePrimitive from \"@radix-ui/react-collapsible\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction Collapsible({\n  className,\n  ...props\n}: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {\n  return (\n    <CollapsiblePrimitive.Root\n      data-slot=\"collapsible\"\n      className={cn(\"w-full min-w-0 max-w-full box-border [&>*]:max-w-full\", className)}\n      style={{ width: \"100%\", maxWidth: \"100%\" }}\n      {...props}\n    />\n  )\n}\n\nfunction CollapsibleTrigger({\n  className,\n  ...props\n}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {\n  return (\n    <CollapsiblePrimitive.CollapsibleTrigger\n      data-slot=\"collapsible-trigger\"\n      className={cn(\"bg-background text-foreground w-full max-w-full\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction CollapsibleContent({\n  className,\n  ...props\n}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>) {\n  return (\n    <CollapsiblePrimitive.CollapsibleContent\n      data-slot=\"collapsible-content\"\n      className={cn(\n        \"border-none outline-none text-muted-foreground text-base px-3 w-full min-w-0 max-w-full overflow-x-hidden box-border [&>*]:w-full [&>*]:max-w-full [&>*]:box-border\",\n        className\n      )}\n      style={{ width: \"100%\", maxWidth: \"100%\", boxSizing: \"border-box\" }}\n      {...props}\n    />\n  )\n}\n\nexport { Collapsible, CollapsibleTrigger, CollapsibleContent }\n",
+      "type": "registry:component"
+    }
+  ]
+}
