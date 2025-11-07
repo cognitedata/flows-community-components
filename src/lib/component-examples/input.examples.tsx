@@ -41,7 +41,7 @@ function StatesDemo() {
       </div>
       <div className="grid w-full max-w-sm items-center gap-1 mb-0">
         <Label htmlFor="input3">Input text</Label>
-        <Input type="input3" id="input3" value="Input text" />
+        <Input type="input3" id="input3" defaultValue="Input text" />
       </div>
       <div className="grid w-full max-w-sm items-center gap-1 mb-0">
         <Label htmlFor="input4">Invalid Input text</Label>
@@ -113,7 +113,7 @@ export function StatesDemo() {
       </div>
       <div className="grid w-full max-w-sm items-center gap-1 mb-0">
         <Label htmlFor="input3">Input text</Label>
-        <Input type="input3" id="input3" value="Input text" />
+        <Input type="input3" id="input3" defaultValue="Input text" />
       </div>
       <div className="grid w-full max-w-sm items-center gap-1 mb-0">
         <Label htmlFor="input4">Invalid Input text</Label>
