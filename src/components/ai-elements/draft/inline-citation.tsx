@@ -36,6 +36,18 @@ export const InlineCitation = ({
   />
 );
 
+export type InlineCitationGroupProps = ComponentProps<"div">;
+
+export const InlineCitationGroup = ({
+  className,
+  ...props
+}: InlineCitationGroupProps) => (
+  <div
+    className={cn("flex flex-wrap gap-2", className)}
+    {...props}
+  />
+);
+
 export type InlineCitationTextProps = ComponentProps<"span">;
 
 export const InlineCitationText = ({
