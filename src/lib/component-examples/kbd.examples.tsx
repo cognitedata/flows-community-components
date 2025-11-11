@@ -4,11 +4,7 @@ import type { ComponentExamples } from "./types";
 function BasicDemo() {
   return (
     <div className="flex flex-wrap gap-2">
-      <Kbd>⌘</Kbd>
-      <Kbd>K</Kbd>
-      <Kbd>Ctrl</Kbd>
-      <Kbd>Shift</Kbd>
-      <Kbd>Enter</Kbd>
+      <Kbd>⇧⌘A</Kbd>
     </div>
   );
 }
@@ -25,10 +21,7 @@ export function BasicDemo() {
   return (
     <div className="flex flex-wrap gap-2">
       <Kbd>⌘</Kbd>
-      <Kbd>K</Kbd>
-      <Kbd>Ctrl</Kbd>
-      <Kbd>Shift</Kbd>
-      <Kbd>Enter</Kbd>
+   
     </div>
   )
 }`,
