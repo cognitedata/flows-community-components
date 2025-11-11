@@ -9,11 +9,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/cognite/drawer";
-import { Input } from "@/components/ui/cognite/input";
-import { Label } from "@/components/ui/cognite/label";
 import type { ComponentExamples } from "./types";
 
-function BasicDemo() {
+export function BasicDemo() {
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
@@ -22,50 +20,13 @@ function BasicDemo() {
             <Button variant="outline">Open Drawer</Button>
           </DrawerTrigger>
           <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Create New Project</DrawerTitle>
-              <DrawerDescription>
-                Fill out the form below to create a new project.
-              </DrawerDescription>
+            <DrawerHeader className="w-[304px]">
+              <DrawerTitle>Drawer title</DrawerTitle>
+              <DrawerDescription>Drawer description</DrawerDescription>
             </DrawerHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <Label htmlFor="project-name">Project Name</Label>
-                <Input id="project-name" placeholder="Enter project name" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Input id="description" placeholder="Enter description" />
-              </div>
-            </div>
-            <DrawerFooter>
-              <Button>Create Project</Button>
-              <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-
-        <Drawer>
-          <DrawerTrigger asChild>
-            <Button variant="outline">Settings</Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Settings</DrawerTitle>
-              <DrawerDescription>
-                Configure your application settings.
-              </DrawerDescription>
-            </DrawerHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <Label htmlFor="theme">Theme</Label>
-                <Input id="theme" placeholder="Select theme" />
-              </div>
-            </div>
-            <DrawerFooter>
-              <Button>Save Settings</Button>
+            <div className="h-[72px] w-[304px] grid gap-4 py-4 border-dashed border-1 border-ring"></div>
+            <DrawerFooter className="w-[304px]">
+              <Button>Continue</Button>
               <DrawerClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DrawerClose>
@@ -73,10 +34,6 @@ function BasicDemo() {
           </DrawerContent>
         </Drawer>
       </div>
-      
-      <p className="text-sm text-muted-foreground">
-        Click buttons to open interactive drawer panels that slide up from the bottom.
-      </p>
     </div>
   );
 }
@@ -84,7 +41,8 @@ function BasicDemo() {
 export const drawerExamples: ComponentExamples = {
   basic: {
     title: "Drawer Demo",
-    description: "Interactive drawer panels that slide up from the bottom with forms and content",
+    description:
+      "Interactive drawer panels that slide up from the bottom with forms and content",
     component: BasicDemo,
     difficulty: "intermediate",
     code: `import {
@@ -97,41 +55,28 @@ export const drawerExamples: ComponentExamples = {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/cognite/drawer"
-import { Button } from "@/components/ui/cognite/button"
-import { Input } from "@/components/ui/cognite/input"
-import { Label } from "@/components/ui/cognite/label"
+import { Button } from "@/components/ui/cognite/button" 
 
 export function BasicDemo() {
   return (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="outline">Open Drawer</Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Create New Project</DrawerTitle>
-          <DrawerDescription>
-            Fill out the form below to create a new project.
-          </DrawerDescription>
-        </DrawerHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid gap-2">
-            <Label htmlFor="project-name">Project Name</Label>
-            <Input id="project-name" placeholder="Enter project name" />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="description">Description</Label>
-            <Input id="description" placeholder="Enter description" />
-          </div>
-        </div>
-        <DrawerFooter>
-          <Button>Create Project</Button>
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+          <DrawerTrigger asChild>
+            <Button variant="outline">Open Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader className="w-[304px]">
+              <DrawerTitle>Drawer title</DrawerTitle>
+              <DrawerDescription>Drawer description</DrawerDescription>
+            </DrawerHeader>
+            <div className="h-[72px] w-[304px] grid gap-4 py-4 border-dashed border-1 border-ring"></div>
+            <DrawerFooter className="w-[304px]">
+              <Button>Continue</Button>
+              <DrawerClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
   )
 }`,
   },
@@ -141,6 +86,7 @@ export function BasicDemo() {
 export const drawerMeta = {
   name: "Drawer",
   description: "A drawer component for mobile and desktop.",
-  llmUsage: "When creating drawer panels, use `<Drawer>` with `<DrawerTrigger>` and `<DrawerContent>`.",
+  llmUsage:
+    "When creating drawer panels, use `<Drawer>` with `<DrawerTrigger>` and `<DrawerContent>`.",
   importPath: "@/components/ui/cognite/drawer",
 };
