@@ -40,13 +40,14 @@ function SelectTrigger({
   className,
   size = "default",
   children,
+  errorMessage,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default"
+  errorMessage?: string
 }) {
-  const dataInvalid = (props as unknown as { [key: string]: unknown })[
-    "data-invalid"
-  ];
+  const record = props as Record<string, unknown>;
+  const dataInvalid = record["data-invalid"];
   const isInvalid = dataInvalid === true || dataInvalid === "true";
   return (
     <>
@@ -64,11 +65,11 @@ function SelectTrigger({
           <ChevronDownIcon className="size-4 opacity-50" />
         </SelectPrimitive.Icon>
       </SelectPrimitive.Trigger>
-      {isInvalid && (
+      {isInvalid && errorMessage && (
         <div className="flex flex-row gap-1 justify-start items-center p-1">
           <IconExclamationCircle className="text-destructive-foreground text-sm size-4" />
           <span className="text-destructive-foreground text-sm">
-            Error message
+            {errorMessage}
           </span>
         </div>
       )}
