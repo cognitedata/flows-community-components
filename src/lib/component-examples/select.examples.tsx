@@ -310,7 +310,7 @@ import * as React from "react";
       <div>
         <Label className="py-0.5">Choose an option</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue}>
-          <SelectTrigger className="mt-1" data-invalid="true">
+          <SelectTrigger className="mt-1" data-invalid="true" errorMessage="Error message">
             <SelectValue
               placeholder="Select an option"
               icon={selectedValue ? iconMap[selectedValue] : undefined}
