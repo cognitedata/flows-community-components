@@ -42,6 +42,8 @@
   --color-decorative-foreground-hover: var(--decorative-foreground-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+  --color-mountain-foreground: var(--mountain-foreground);
+  --color-mountain: var(--mountain);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -432,6 +434,8 @@
   --accent: var(--mountain-50);
   --accent-foreground: var(--mountain-950);
   --accent-alt: var(--mountain-200);
+  --mountain: var(--mountain-50);
+  --mountain-foreground: var(--mountain-950);
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-100);
   --input: var(--mountain-100);
@@ -565,6 +569,8 @@
   --accent: var(--mountain-700);
   --accent-foreground: var(--mountain-50);
   --accent-alt: var(--mountain-650);
+  --mountain: var(--mountain-800);
+  --mountain-foreground: var(--mountain-50);
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-700);
   --input: var(--mountain-900);
