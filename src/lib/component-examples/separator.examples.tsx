@@ -31,7 +31,6 @@ export const separatorExamples: ComponentExamples = {
     component: BasicDemo,
     difficulty: "beginner",
     code: `import { Separator } from "@/components/ui/cognite/separator"
-import { Button } from "@/components/ui/cognite/button"
 import { Badge } from "@/components/ui/cognite/badge"
 import { IconBook, IconComponents, IconCode } from "@tabler/icons-react"
 
