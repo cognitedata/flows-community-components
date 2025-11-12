@@ -9,16 +9,16 @@ import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
   return (
-    <div className="space-y-4 w-full">
-      <Collapsible className="w-full space-y-2">
+    <div className="space-y-4 w-[490px]">
+      <Collapsible defaultOpen className="w-[490px] space-y-2">
         <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between">
-            <span>What&apos;s included?</span>
+          <Button variant="ghost" className="w-full justify-between text-base">
+            <span>What’s the difference between Collapsible and Accordion?</span>
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
-          <div className="rounded-md text-sm">
+          <div className="rounded-md text-base">
             <div className="space-y-1">
               Collapsibles work independently—multiple can be open at once. The
               shadcn collapsible is for independent sections. Use accordion
@@ -27,10 +27,6 @@ function BasicDemo() {
           </div>
         </CollapsibleContent>
       </Collapsible>
-
-      <p className="text-sm text-muted-foreground">
-        Click the buttons above to expand and collapse content sections.
-      </p>
     </div>
   );
 }
@@ -53,15 +49,15 @@ import { ChevronsUpDown } from "lucide-react"
 export function BasicDemo() {
   return (
     <div className="space-y-4 w-full">
-      <Collapsible className="w-full space-y-2">
+      <Collapsible defaultOpen className="w-full space-y-2">
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between">
-            <span>What&apos;s included?</span>
+            <span>What’s the difference between Collapsible and Accordion?</span>
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
-          <div className="rounded-md text-sm">
+          <div className="rounded-md text-base">
             <div className="space-y-1">
               Collapsibles work independently—multiple can be open at once. The
               shadcn collapsible is for independent sections. Use accordion
