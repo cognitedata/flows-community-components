@@ -18,7 +18,7 @@ function BasicDemo() {
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
-          <div className="rounded-md text-base">
+          <div className="rounded-md">
             <div className="space-y-1">
               Collapsibles work independently—multiple can be open at once. The
               shadcn collapsible is for independent sections. Use accordion

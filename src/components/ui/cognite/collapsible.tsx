@@ -41,7 +41,7 @@ function CollapsibleContent({
     <CollapsiblePrimitive.CollapsibleContent
       data-slot="collapsible-content"
       className={cn(
-        "border-none outline-none text-muted-foreground text-baseleading-20 tracking-tightest px-3 w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border",
+        "border-none outline-none text-muted-foreground text-base leading-20 tracking-tightest px-3 w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border",
         className
       )}
       {...props}
