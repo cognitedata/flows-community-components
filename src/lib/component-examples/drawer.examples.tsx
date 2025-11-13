@@ -21,8 +21,8 @@ export function BasicDemo() {
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="w-[304px]">
-              <DrawerTitle>Drawer title</DrawerTitle>
-              <DrawerDescription>Drawer description</DrawerDescription>
+              <DrawerTitle>Drawer Title</DrawerTitle>
+              <DrawerDescription>Drawer Description</DrawerDescription>
             </DrawerHeader>
             <div className="h-[72px] w-[304px] grid gap-4 py-4 border-dashed border-1 border-ring"></div>
             <DrawerFooter className="w-[304px]">
