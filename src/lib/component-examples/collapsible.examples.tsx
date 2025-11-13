@@ -18,13 +18,7 @@ function BasicDemo() {
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
-          <div className="rounded-md">
-            <div className="space-y-1">
-              Collapsibles work independently—multiple can be open at once. The
-              shadcn collapsible is for independent sections. Use accordion
-              patterns when you want mutually exclusive content areas.
-            </div>
-          </div>
+          Collapsibles work independently—multiple can be open at once. The shadcn collapsible is for independent sections. Use accordion patterns when you want mutually exclusive content areas.
         </CollapsibleContent>
       </Collapsible>
     </div>
@@ -80,3 +74,57 @@ export const collapsibleMeta = {
     "When showing expandable content, use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>`.",
   importPath: "@/components/ui/cognite/collapsible",
 };
+
+// Component code literal - must match src/components/ui/cognite/collapsible.tsx
+export const collapsibleCode = `"use client";
+
+import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+
+import { cn } from "@/lib/utils";
+
+function Collapsible({
+  className,
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {
+  return (
+    <CollapsiblePrimitive.Root
+      data-slot="collapsible"
+      className={cn("w-full min-w-0 box-border [&>*]:max-w-full", className)}
+      {...props}
+    />
+  );
+}
+
+function CollapsibleTrigger({
+  className,
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) {
+  return (
+    <CollapsiblePrimitive.CollapsibleTrigger
+      data-slot="collapsible-trigger"
+      className={cn(
+        "bg-background text-foreground tracking-tighter px-3 py-1.5 has-[>svg]:px-3 has-[>svg]:py-1.5  w-full ",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function CollapsibleContent({
+  className,
+  ...props
+}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>) {
+  return (
+    <CollapsiblePrimitive.CollapsibleContent
+      data-slot="collapsible-content"
+      className={cn(
+        "border-none outline-none text-muted-foreground text-base leading-20 tracking-tightest px-3 w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+export { Collapsible, CollapsibleTrigger, CollapsibleContent };`;
