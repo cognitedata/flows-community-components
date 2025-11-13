@@ -5,6 +5,7 @@ import { alertExamples } from "./alert.examples";
 import { alertDialogExamples } from "./alert-dialog.examples";
 import { avatarExamples } from "./avatar.examples";
 import { badgeExamples } from "./badge.examples";
+import { bannerExamples, bannerMeta } from "./banner.examples";
 import { breadcrumbExamples } from "./breadcrumb.examples";
 import { buttonExamples } from "./button.examples";
 import { calendarExamples } from "./calendar.examples";
@@ -48,6 +49,7 @@ export const componentExamples = {
   "alert-dialog": alertDialogExamples,
   avatar: avatarExamples,
   badge: badgeExamples,
+  banner: bannerExamples,
   breadcrumb: breadcrumbExamples,
   button: buttonExamples,
   calendar: calendarExamples,
@@ -90,6 +92,7 @@ export type ComponentSlug = keyof typeof componentExamples;
 // Component metadata registry (only for components that have enhanced metadata)
 export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
+  banner: bannerMeta,
   "helper-text": helperTextMeta,
   // Other components will be added here as they're migrated
 };

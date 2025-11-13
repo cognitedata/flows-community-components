@@ -1,3 +1,5 @@
+
+
 import { Button } from "@/components/ui/cognite/button";
 import {
   Popover,
@@ -14,34 +16,17 @@ function BasicDemo() {
           <PopoverTrigger asChild>
             <Button>Open Popover</Button>
           </PopoverTrigger>
-          <PopoverContent>
+          <PopoverContent >
             <div className="space-y-2">
-              <h4 className="font-medium">Popover Content</h4>
-              <p className="text-sm text-muted-foreground">
-                This is the content inside a popover. It appears when you click the trigger.
-              </p>
-            </div>
-          </PopoverContent>
-        </Popover>
-
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Settings</Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className="space-y-2">
-              <h4 className="font-medium">Settings</h4>
-              <p className="text-sm text-muted-foreground">
-                Configure your preferences here.
+              <h4 className="font-medium text-popover-foreground text-base leading-20 tracking-tighter mb-2">Get started with Atlas</h4>
+              <p className="text-sm font-normal text-muted-foreground leading-18 tracking-tight">
+                Cognite Atlas AI helps you create and manage industrial AI
+                agents that solve your specific business needs
               </p>
             </div>
           </PopoverContent>
         </Popover>
       </div>
-      
-      <p className="text-sm text-muted-foreground">
-        Click buttons to open interactive popovers with floating content.
-      </p>
     </div>
   );
 }
@@ -61,19 +46,24 @@ import { Button } from "@/components/ui/cognite/button"
 
 export function BasicDemo() {
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button>Open Popover</Button>
-      </PopoverTrigger>
-      <PopoverContent>
-        <div className="space-y-2">
-          <h4 className="font-medium">Popover Content</h4>
-          <p className="text-sm text-muted-foreground">
-            This is the content inside a popover.
-          </p>
-        </div>
-      </PopoverContent>
-    </Popover>
+   <div className="space-y-4">
+      <div className="flex gap-2">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button>Open Popover</Button>
+          </PopoverTrigger>
+          <PopoverContent >
+            <div className="space-y-2">
+              <h4 className="font-medium text-popover-foreground text-base tracking-tightest mb-1 ">Get started with Atlas</h4>
+              <p className="text-sm font-normal text-muted-foreground tracking-tight">
+                Cognite Atlas AI helps you create and manage industrial AI
+                agents that solve your specific business needs
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
   )
 }`,
   },
@@ -83,6 +73,8 @@ export function BasicDemo() {
 export const popoverMeta = {
   name: "Popover",
   description: "Displays rich content in a portal, triggered by a button.",
-  llmUsage: "When asked for a popover, use `<Popover>` for contextual information and secondary actions.",
+  llmUsage:
+    "When asked for a popover, use `<Popover>` for contextual information and secondary actions.",
   importPath: "@/components/ui/cognite/popover",
 };
+
