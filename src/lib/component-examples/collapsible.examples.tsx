@@ -12,7 +12,7 @@ function BasicDemo() {
     <div className="space-y-4 w-[490px]">
       <Collapsible defaultOpen className="w-[490px] space-y-2">
         <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-base">
+          <Button variant="ghost" className="text-base leading-20 tracking-tighter">
             <span>What’s the difference between Collapsible and Accordion?</span>
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
