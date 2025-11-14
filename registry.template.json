@@ -269,6 +269,21 @@
       ]
     },
     {
+      "name": "helper-text",
+      "type": "registry:component",
+      "title": "Helper Text",
+      "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/cognite/helper-text.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:component",
       "title": "Input",

@@ -20,6 +20,8 @@ const REQUIRED_DEPENDENCIES = [
   { name: "nanoid", version: "^5.1.6" },
   { name: "@tabler/icons-react", version: "^3.35.0" },
   { name: "@radix-ui/react-avatar", version: "^1.1.11" },
+  { name: "@radix-ui/react-scroll-area", version: "^1.2.10" },
+  { name: "cmdk", version: "^1.1.1" },
 ];
 
 const REQUIRED_DEV_DEPENDENCIES = [

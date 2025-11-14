@@ -46,8 +46,9 @@ function SelectTrigger({
   size?: "sm" | "default"
   errorMessage?: string
 }) {
-  const record = props as Record<string, unknown>;
-  const dataInvalid = record["data-invalid"];
+  const dataInvalid = (props as unknown as { [key: string]: unknown })[
+    "data-invalid"
+  ];
   const isInvalid = dataInvalid === true || dataInvalid === "true";
   return (
     <>

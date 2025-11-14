@@ -7,7 +7,7 @@ import {
   NodeDescription,
   NodeContent,
   NodeFooter,
-} from "@/components/ai-elements/cognite/node";
+} from "@/components/ui/cognite/node";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import { ReactFlowProvider } from "@xyflow/react";
 
@@ -45,7 +45,9 @@ function WithFooterDemo() {
             </div>
           </NodeContent>
           <NodeFooter>
-            <p className="text-sm text-muted-foreground">Last updated: just now</p>
+            <p className="text-sm text-muted-foreground">
+              Last updated: just now
+            </p>
           </NodeFooter>
         </Node>
       </div>
@@ -116,6 +118,7 @@ export function NodeWithFooterDemo() {
 // Component metadata - single source of truth for API documentation
 export const nodeMeta = {
   name: "Node",
-  description: "A draggable node component for AI workflow diagrams with input/output ports.",
+  description:
+    "A draggable node component for AI workflow diagrams with input/output ports.",
   importPath: "@/components/ai-elements/cognite/node",
 };
