@@ -16,7 +16,7 @@ function BasicDemo() {
           <PopoverTrigger asChild>
             <Button>Open Popover</Button>
           </PopoverTrigger>
-          <PopoverContent >
+          <PopoverContent>
             <div className="space-y-2">
               <h4 className="font-medium text-popover-foreground text-base leading-20 tracking-tighter mb-2">Get started with Atlas</h4>
               <p className="text-sm font-normal text-muted-foreground leading-18 tracking-tight">
