@@ -84,30 +84,58 @@ export const menubarExamples: ComponentExamples = {
 
 export function BasicDemo() {
   return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger>File</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>New Tab</MenubarItem>
-          <MenubarItem>New Window</MenubarItem>
-          <MenubarItem>New Incognito Window</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>Print</MenubarItem>
-          <MenubarItem>Share</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>Edit</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>Undo</MenubarItem>
-          <MenubarItem>Redo</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>Cut</MenubarItem>
-          <MenubarItem>Copy</MenubarItem>
-          <MenubarItem>Paste</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
+    <div className="space-y-4">
+      <Menubar>
+        <MenubarMenu>
+          <MenubarTrigger>File</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>New Tab</MenubarItem>
+            <MenubarItem>New Window</MenubarItem>
+            <MenubarItem>New Incognito Window</MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem>Print</MenubarItem>
+            <MenubarItem>Share</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>Edit</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>Undo</MenubarItem>
+            <MenubarItem>Redo</MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem>Cut</MenubarItem>
+            <MenubarItem>Copy</MenubarItem>
+            <MenubarItem>Paste</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>View</MenubarTrigger>
+          <MenubarContent>
+            <MenubarLabel>Zoom</MenubarLabel>
+            <MenubarItem>Zoom In</MenubarItem>
+            <MenubarItem>Zoom Out</MenubarItem>
+            <MenubarItem>Reset Zoom</MenubarItem>
+            <MenubarSeparator />
+            <MenubarLabel>Layout</MenubarLabel>
+            <MenubarItem>Full Screen</MenubarItem>
+            <MenubarItem>Sidebar</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger>Help</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>Documentation</MenubarItem>
+            <MenubarItem>Keyboard Shortcuts</MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem>About</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+      
+      <p className="text-sm text-muted-foreground">
+        Click on menu items to open interactive dropdown menus with various options.
+      </p>
+    </div>
   )
 }`,
   },
