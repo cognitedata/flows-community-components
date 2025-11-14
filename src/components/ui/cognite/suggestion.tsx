@@ -1,6 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/cognite/button";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/cognite/select";
 import {
   ScrollArea,
   ScrollBar,
@@ -23,34 +28,32 @@ export const Suggestions = ({
   </ScrollArea>
 );
 
-export type SuggestionProps = Omit<ComponentProps<typeof Button>, "onClick"> & {
+export type SuggestionProps = Omit<ComponentProps<typeof Select>, "onValueChange"> & {
   suggestion: string;
-  onClick?: (suggestion: string) => void;
+  onValueChange?: (value: string) => void;
+  className?: string;
+  size?: "sm" | "default";
 };
 
 export const Suggestion = ({
   suggestion,
-  onClick,
+  onValueChange,
   className,
-  variant = "outline",
   size = "sm",
   children,
   ...props
 }: SuggestionProps) => {
-  const handleClick = () => {
-    onClick?.(suggestion);
-  };
-
   return (
-    <Button
-      className={cn("h-9 cursor-pointer rounded-lg leading-18 px-3 py-2.25", className)}
-      onClick={handleClick}
-      size={size}
-      type="button"
-      variant={variant}
-      {...props}
-    >
-      {children || suggestion}
-    </Button>
+    <Select onValueChange={onValueChange} {...props}>
+      <SelectTrigger
+        className={cn("h-9 cursor-pointer rounded-lg leading-18 px-3 py-2.25", className)}
+        size={size}
+      >
+        <SelectValue placeholder={children || suggestion} />
+      </SelectTrigger>
+      <SelectContent>
+        {children}
+      </SelectContent>
+    </Select>
   );
 };
