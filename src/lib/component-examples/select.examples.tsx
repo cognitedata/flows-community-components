@@ -129,9 +129,9 @@ function StatesDemo() {
       </div>
 
       <div>
-        <Label className="py-0.5">Choose an option</Label>
+        <Label className="py-0.5">Choose an option (Invalid)</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue}>
-          <SelectTrigger className="mt-1" data-invalid="true">
+          <SelectTrigger className="mt-1" errorMessage="This field is required">
             <SelectValue
               placeholder="Select an option"
               icon={selectedValue ? iconMap[selectedValue] : undefined}
@@ -163,8 +163,7 @@ export const selectExamples: ComponentExamples = {
     description: "A dropdown select component for choosing from options",
     component: BasicDemo,
     difficulty: "beginner",
-    code: `
-import {
+    code: `import {
   Select,
   SelectContent,
   SelectItem,
@@ -175,7 +174,8 @@ import { Label } from "@/components/ui/cognite/label";
 import { User, Mail, Settings, Home } from "lucide-react";
 import * as React from "react";
 
-     const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+function BasicDemo() {
+  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
 
   // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
@@ -227,7 +227,7 @@ import * as React from "react";
       </div>
     </div>
   );
-    `,
+}`,
   },
   states: {
     title: "Select Dropdown",
@@ -240,11 +240,13 @@ import * as React from "react";
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select"
-import { Label } from "@/components/ui/cognite/label"
+} from "@/components/ui/cognite/select";
+import { Label } from "@/components/ui/cognite/label";
 import { User, Mail, Settings, Home } from "lucide-react";
 import * as React from "react";
- const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+
+function StatesDemo() {
+  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
 
   // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
@@ -308,9 +310,9 @@ import * as React from "react";
       </div>
 
       <div>
-        <Label className="py-0.5">Choose an option</Label>
+        <Label className="py-0.5">Choose an option (Invalid)</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue}>
-          <SelectTrigger className="mt-1" data-invalid="true" errorMessage="Error message">
+          <SelectTrigger className="mt-1" errorMessage="This field is required">
             <SelectValue
               placeholder="Select an option"
               icon={selectedValue ? iconMap[selectedValue] : undefined}
@@ -333,7 +335,7 @@ import * as React from "react";
         </Select>
       </div>
     </div>
-  )
+  );
 }`,
   },
 };
