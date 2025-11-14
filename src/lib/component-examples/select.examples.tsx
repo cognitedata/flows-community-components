@@ -171,20 +171,57 @@ export const selectExamples: ComponentExamples = {
   SelectValue,
 } from "@/components/ui/cognite/select"
 import { Label } from "@/components/ui/cognite/label"
+import { User, Mail, Settings, Home } from "lucide-react"
+import * as React from "react"
 
 export function BasicDemo() {
+  const [selectedValue, setSelectedValue] = React.useState<string>("settings")
+
+  // Map values to icons for SelectValue
+  const iconMap: Record<string, React.ReactNode> = {
+    user: <User className="size-4" />,
+    mail: <Mail className="size-4" />,
+    settings: <Settings className="size-4" />,
+    home: <Home className="size-4" />,
+  }
   return (
-    <div className="space-y-4 max-w-sm">
+    <div className="space-y-4 max-w-sm flex flex-row gap-4">
       <div>
-        <Label>Choose an option</Label>
-        <Select>
+        <Label className="py-0.5">Choose an option</Label>
+        <Select value={selectedValue} onValueChange={setSelectedValue}>
           <SelectTrigger className="mt-1">
-            <SelectValue placeholder="Select an option" />
+            <SelectValue
+              placeholder="Select an option"
+              icon={selectedValue ? iconMap[selectedValue] : undefined}
+            />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="option1">Option 1</SelectItem>
-            <SelectItem value="option2">Option 2</SelectItem>
-            <SelectItem value="option3">Option 3</SelectItem>
+            <SelectItem value="user" icon={<User className="size-4" />}>
+              Asset
+            </SelectItem>
+            <SelectItem value="mail" icon={<Mail className="size-4" />}>
+              Event
+            </SelectItem>
+            <SelectItem value="settings" icon={<Settings className="size-4" />}>
+              Time series
+            </SelectItem>
+            <SelectItem value="home" icon={<Home className="size-4" />}>
+              Work order
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <Label className="py-0.5">Choose an option</Label>
+        <Select>
+          <SelectTrigger className="mt-1">
+            <SelectValue placeholder="Asset" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="option1">Asset</SelectItem>
+            <SelectItem value="option2">Event</SelectItem>
+            <SelectItem value="option3">Time series</SelectItem>
+            <SelectItem value="option4">Work order</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -205,8 +242,11 @@ export function BasicDemo() {
   SelectValue,
 } from "@/components/ui/cognite/select"
 import { Label } from "@/components/ui/cognite/label"
+import { User, Mail, Settings, Home } from "lucide-react"
+import * as React from "react"
 
- const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+export function StatesDemo() {
+  const [selectedValue, setSelectedValue] = React.useState<string>("settings")
 
   // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
@@ -214,7 +254,7 @@ import { Label } from "@/components/ui/cognite/label"
     mail: <Mail className="size-4" />,
     settings: <Settings className="size-4" />,
     home: <Home className="size-4" />,
-  };
+  }
   return (
     <div className="space-y-4 max-w-sm flex flex-col gap-4">
       <div>
