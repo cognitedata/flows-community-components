@@ -1,6 +1,6 @@
 {
   "name": "cognite-create",
-  "version": "0.3.0",
+  "version": "0.3.16",
   "description": "Create a Next.js app preconfigured with Cognite defaults.",
   "bin": {
     "cognite-create": "./bin/index.js"

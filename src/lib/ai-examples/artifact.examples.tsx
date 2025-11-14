@@ -1,12 +1,12 @@
-import { 
-  Artifact, 
-  ArtifactHeader, 
-  ArtifactTitle, 
-  ArtifactActions, 
-  ArtifactAction, 
+import {
+  Artifact,
+  ArtifactHeader,
+  ArtifactTitle,
+  ArtifactActions,
+  ArtifactAction,
   ArtifactContent,
-  ArtifactClose 
-} from "@/components/ai-elements/cognite/artifact";
+  ArtifactClose,
+} from "@/components/ui/cognite/artifact";
 import { Copy, Download, Share } from "lucide-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
@@ -23,7 +23,7 @@ function BasicArtifactDemo() {
       </ArtifactHeader>
       <ArtifactContent>
         <pre className="text-sm">
-{`function greet(name: string) {
+          {`function greet(name: string) {
   return \`Hello, \${name}!\`;
 }`}
         </pre>
@@ -146,6 +146,7 @@ export function WithActionsDemo() {
 // Component metadata - single source of truth for API documentation
 export const artifactMeta = {
   name: "Artifact",
-  description: "A container for AI-generated content with header, actions, and tabbed content areas.",
+  description:
+    "A container for AI-generated content with header, actions, and tabbed content areas.",
   importPath: "@/components/ai-elements/cognite/artifact",
 };

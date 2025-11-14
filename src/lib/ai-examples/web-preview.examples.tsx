@@ -5,7 +5,7 @@ import {
   WebPreviewUrl,
   WebPreviewBody,
   WebPreviewConsole,
-} from "@/components/ai-elements/cognite/web-preview";
+} from "@/components/ui/cognite/web-preview";
 import { ArrowLeftIcon, ArrowRightIcon, RefreshCwIcon } from "lucide-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
@@ -118,6 +118,7 @@ export function WebPreviewWithConsoleDemo() {
 // Component metadata - single source of truth for API documentation
 export const webPreviewMeta = {
   name: "Web Preview",
-  description: "A component for previewing web content and URLs in AI responses with metadata.",
+  description:
+    "A component for previewing web content and URLs in AI responses with metadata.",
   importPath: "@/components/ai-elements/cognite/web-preview",
 };

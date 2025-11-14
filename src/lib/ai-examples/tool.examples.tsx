@@ -1,4 +1,10 @@
-import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from "@/components/ai-elements/cognite/tool";
+import {
+  Tool,
+  ToolHeader,
+  ToolContent,
+  ToolInput,
+  ToolOutput,
+} from "@/components/ui/cognite/tool";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicToolDemo() {
@@ -84,6 +90,7 @@ export function RunningToolDemo() {
 // Component metadata - single source of truth for API documentation
 export const toolMeta = {
   name: "Tool",
-  description: "A collapsible component for displaying tool invocation details in AI chatbot interfaces.",
+  description:
+    "A collapsible component for displaying tool invocation details in AI chatbot interfaces.",
   importPath: "@/components/ai-elements/cognite/tool",
 };

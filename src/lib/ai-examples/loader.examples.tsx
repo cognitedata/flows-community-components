@@ -1,4 +1,4 @@
-import { Loader } from "@/components/ai-elements/cognite/loader";
+import { Loader } from "@/components/ui/cognite/loader";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicLoaderDemo() {
@@ -25,7 +25,9 @@ function InlineLoaderDemo() {
     <div className="space-y-4">
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={16} />
-        <span className="text-sm text-muted-foreground">Processing your request...</span>
+        <span className="text-sm text-muted-foreground">
+          Processing your request...
+        </span>
       </div>
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={20} />
@@ -92,6 +94,7 @@ export function InlineLoaderDemo() {
 // Component metadata - single source of truth for API documentation
 export const loaderMeta = {
   name: "Loader",
-  description: "A spinning loader component for indicating loading states in AI applications.",
+  description:
+    "A spinning loader component for indicating loading states in AI applications.",
   importPath: "@/components/ai-elements/cognite/loader",
 };

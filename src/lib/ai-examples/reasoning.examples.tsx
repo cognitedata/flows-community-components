@@ -4,10 +4,22 @@ import {
   Reasoning,
   ReasoningContent,
   ReasoningTrigger,
-} from "@/components/ai-elements/cognite/reasoning";
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
-import { Actions, Action } from "@/components/ai-elements/cognite/actions";
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react";
+} from "@/components/ui/cognite/reasoning";
+import {
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+} from "@/components/ui/cognite/message";
+import { Actions, Action } from "@/components/ui/cognite/actions";
+import {
+  IconWheel,
+  IconThumbUp,
+  IconThumbDown,
+  IconCopy,
+  IconShare,
+  IconDotsVertical,
+} from "@tabler/icons-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +42,8 @@ function BasicReasoningDemo() {
       <Reasoning isStreaming={false} duration={3}>
         <ReasoningTrigger />
         <ReasoningContent>
-          Let me think about this problem step by step. First, I need to understand what the user is asking for.
+          Let me think about this problem step by step. First, I need to
+          understand what the user is asking for.
         </ReasoningContent>
       </Reasoning>
     </div>
@@ -147,7 +160,8 @@ function StreamingReasoningInMessageDemo() {
             <ReasoningTrigger />
             <ReasoningContent>{content}</ReasoningContent>
           </Reasoning>
-          Based on my analysis, I recommend checking the system configuration and ensuring all dependencies are properly installed.
+          Based on my analysis, I recommend checking the system configuration
+          and ensuring all dependencies are properly installed.
           <Actions>
             <Action size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
@@ -278,10 +292,11 @@ export function StreamingReasoningDemo() {
   )
 }`,
   },
-  
+
   streamingInMessage: {
     title: "Streaming Reasoning in Message",
-    description: "Reasoning component within a message context showing real-world usage",
+    description:
+      "Reasoning component within a message context showing real-world usage",
     component: StreamingReasoningInMessageDemo,
     difficulty: "intermediate",
     code: `"use client"
@@ -397,6 +412,7 @@ export function StreamingReasoningInMessageDemo() {
 // Component metadata - single source of truth for API documentation
 export const reasoningMeta = {
   name: "Reasoning",
-  description: "A collapsible component that displays AI reasoning content, automatically opening during streaming and closing when finished.",
+  description:
+    "A collapsible component that displays AI reasoning content, automatically opening during streaming and closing when finished.",
   importPath: "@/components/ai-elements/cognite/reasoning",
 };

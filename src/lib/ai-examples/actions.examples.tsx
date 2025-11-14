@@ -1,6 +1,18 @@
-import { Actions, Action } from "@/components/ai-elements/cognite/actions";
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
-import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react";
+import { Actions, Action } from "@/components/ui/cognite/actions";
+import {
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+} from "@/components/ui/cognite/message";
+import {
+  IconThumbUp,
+  IconThumbDown,
+  IconCopy,
+  IconShare,
+  IconWheel,
+  IconDotsVertical,
+} from "@tabler/icons-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,12 +22,10 @@ import {
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicActionsDemo() {
-    return (
+  return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
-        <MessageContent>
-          Hello, how are you?
-        </MessageContent>
+        <MessageContent>Hello, how are you?</MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="User" />
       </Message>
 
@@ -59,18 +69,17 @@ function BasicActionsDemo() {
 }
 
 function ActionsWithLabelsDemo() {
-    return (
+  return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
-        <MessageContent>
-          What is React?
-        </MessageContent>
+        <MessageContent>What is React?</MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="User" />
       </Message>
 
       <Message from="assistant">
         <MessageContent className="flex flex-col gap-2">
-          React is a JavaScript library for building user interfaces. It&apos;s declarative, efficient, and flexible.
+          React is a JavaScript library for building user interfaces. It&apos;s
+          declarative, efficient, and flexible.
           <Actions>
             <Action size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
@@ -230,6 +239,7 @@ export function ActionsWithLabelsDemo() {
 // Component metadata - single source of truth for API documentation
 export const actionsMeta = {
   name: "Actions",
-  description: "A row of composable action buttons for AI responses, including retry, like, dislike, copy, share, and custom actions.",
+  description:
+    "A row of composable action buttons for AI responses, including retry, like, dislike, copy, share, and custom actions.",
   importPath: "@/components/ai-elements/cognite/actions",
 };

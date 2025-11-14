@@ -1,7 +1,7 @@
 ---
-alwaysApply: true
+description: Use this when working on any CDF or data access via the Cognite API or data modelling
+alwaysApply: false
 ---
-
 # Cognite Data Modeling SDK Guide
 
 ## Introduction

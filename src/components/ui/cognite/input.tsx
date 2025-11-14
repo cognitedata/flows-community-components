@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { IconExclamationCircle } from "@tabler/icons-react";
+import { HelperText } from "./helper-text";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   const dataInvalid = (props as unknown as { [key: string]: unknown })[
@@ -29,12 +29,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
       />
 
       {isInvalid && (
-        <div className="flex flex-row gap-1 justify-start items-center">
-          <IconExclamationCircle className="text-destructive-foreground text-sm size-4" />
-          <span className="text-destructive-foreground text-sm">
-            Error message
-          </span>
-        </div>
+        <HelperText isError>Error message</HelperText>
       )}
     </>
   );
