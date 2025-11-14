@@ -47,7 +47,6 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
-import Image from "next/image";
 import {
   type ChangeEvent,
   type ChangeEventHandler,
@@ -288,12 +287,11 @@ export function PromptInputAttachment({
           <div className="relative size-5 shrink-0">
             <div className="absolute inset-0 flex size-5 items-center justify-center overflow-hidden rounded bg-background transition-opacity group-hover:opacity-0">
               {isImage ? (
-                <Image
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
                   alt={filename || "attachment"}
                   className="size-5 object-cover"
-                  height={20}
                   src={data.url}
-                  width={20}
                 />
               ) : (
                 <div className="flex size-5 items-center justify-center text-muted-foreground">
@@ -323,12 +321,11 @@ export function PromptInputAttachment({
         <div className="w-auto space-y-3">
           {isImage && (
             <div className="flex max-h-96 w-96 items-center justify-center overflow-hidden rounded-md border">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 alt={filename || "attachment preview"}
                 className="max-h-full max-w-full object-contain"
-                height={384}
                 src={data.url}
-                width={448}
               />
             </div>
           )}
@@ -857,7 +854,10 @@ export const PromptInputTextarea = ({
 
   return (
     <InputGroupTextarea
-      className={cn("field-sizing-content max-h-48 min-h-16 md:text-base tracking-tightest p-1.75 leading-20", className)}
+      className={cn(
+        "field-sizing-content max-h-48 min-h-16 rounded-t-xl md:text-base tracking-tightest p-1.75 leading-20",
+        className
+      )}
       name="message"
       onCompositionEnd={() => setIsComposing(false)}
       onCompositionStart={() => setIsComposing(true)}
@@ -1133,7 +1133,7 @@ export const PromptInputSpeechButton = ({
       };
 
       recognitionRef.current = speechRecognition;
-      
+
       // Use startTransition to avoid synchronous setState in effect
       startTransition(() => {
         setRecognition(speechRecognition);
@@ -1192,7 +1192,7 @@ export const PromptInputModelSelectTrigger = ({
   <SelectTrigger
     className={cn(
       "border-none bg-transparent font-medium text-muted-foreground shadow-none transition-colors",
-      'hover:bg-accent hover:text-foreground [&[aria-expanded="true"]]:bg-accent [&[aria-expanded="true"]]:text-foreground',
+      "hover:bg-accent hover:text-foreground aria-expanded:bg-accent aria-expanded:text-foreground",
       className
     )}
     {...props}

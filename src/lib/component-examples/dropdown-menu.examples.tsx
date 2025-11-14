@@ -13,7 +13,7 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/components/ui/draft/avatar";
+} from "@/components/ui/cognite/avatar";
 import {
   IconUser,
   IconSettings,
@@ -93,7 +93,7 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/components/ui/draft/avatar";
+} from "@/components/ui/cognite/avatar";
 import {
   IconUser,
   IconSettings,

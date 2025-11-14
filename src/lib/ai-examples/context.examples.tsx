@@ -7,7 +7,7 @@ import {
   ContextContentFooter,
   ContextInputUsage,
   ContextOutputUsage,
-} from "@/components/ai-elements/cognite/context";
+} from "@/components/ui/cognite/context";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicContextDemo() {
@@ -119,6 +119,7 @@ export function ContextWithUsageDemo() {
 // Component metadata - single source of truth for API documentation
 export const contextMeta = {
   name: "Context",
-  description: "A compound component system for displaying AI model context window usage, token consumption, and cost estimation.",
+  description:
+    "A compound component system for displaying AI model context window usage, token consumption, and cost estimation.",
   importPath: "@/components/ai-elements/cognite/context",
 };

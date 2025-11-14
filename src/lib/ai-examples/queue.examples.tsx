@@ -8,7 +8,7 @@ import {
   QueueItem,
   QueueItemIndicator,
   QueueItemContent,
-} from "@/components/ai-elements/cognite/queue";
+} from "@/components/ui/cognite/queue";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicQueueDemo() {
@@ -157,6 +157,7 @@ export function MultipleSectionsDemo() {
 // Component metadata - single source of truth for API documentation
 export const queueMeta = {
   name: "Queue",
-  description: "A comprehensive queue component system for displaying message lists, todos, and collapsible task sections in AI applications.",
+  description:
+    "A comprehensive queue component system for displaying message lists, todos, and collapsible task sections in AI applications.",
   importPath: "@/components/ai-elements/cognite/queue",
 };
