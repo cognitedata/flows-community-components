@@ -25,7 +25,7 @@ function CollapsibleTrigger({
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
       className={cn(
-        "bg-background text-foreground tracking-tighter px-3 py-1.5 has-[>svg]:px-3 has-[>svg]:py-1.5  w-full ",
+        "",
         className
       )}
       {...props}
