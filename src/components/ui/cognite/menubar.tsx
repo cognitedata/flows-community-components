@@ -6,19 +6,28 @@ import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+type MenubarSize = "default" | "sm"
+
+const MenubarContext = React.createContext<MenubarSize>("default")
+
 function Menubar({
   className,
+  size = "default",
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.Root>) {
+}: React.ComponentProps<typeof MenubarPrimitive.Root> & {
+  size?: MenubarSize
+}) {
   return (
-    <MenubarPrimitive.Root
-      data-slot="menubar"
-      className={cn(
-        "flex h-7 items-center gap-1",
-        className
-      )}
-      {...props}
-    />
+    <MenubarContext.Provider value={size}>
+      <MenubarPrimitive.Root
+        data-slot="menubar"
+        className={cn(
+          "flex h-7 items-center gap-1",
+          className
+        )}
+        {...props}
+      />
+    </MenubarContext.Provider>
   )
 }
 
@@ -50,13 +59,20 @@ function MenubarRadioGroup({
 
 function MenubarTrigger({
   className,
+  size,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.Trigger>) {
+}: React.ComponentProps<typeof MenubarPrimitive.Trigger> & {
+  size?: MenubarSize
+}) {
+  const contextSize = React.useContext(MenubarContext)
+  const appliedSize = size ?? contextSize
+
   return (
     <MenubarPrimitive.Trigger
       data-slot="menubar-trigger"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:rounded-sm data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none leading-5 tracking-normal",
+        "focus:bg-accent focus:text-accent-foreground focus:rounded-sm data-[state=open]:bg-accent data-[state=open]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:text-disabled-foreground hover:bg-accent hover:text-accent-foreground flex items-center rounded-sm text-sm font-medium outline-hidden select-none leading-5 tracking-normal",
+        appliedSize === "default" ? "p-2" : "px-2 py-1",
         className
       )}
       {...props}
