@@ -6,7 +6,7 @@ import {
   AvatarIcon,
   AvatarImage,
 } from "@/components/ui/cognite/avatar";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/cognite/button";
 import {
   ButtonGroup,
   ButtonGroupText,
