@@ -56,26 +56,32 @@ export const contextMenuExamples: ComponentExamples = {
 
 export function BasicDemo() {
   return (
-    <ContextMenu>
-      <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
-        Right click here
-      </ContextMenuTrigger>
-      <ContextMenuContent>
-        <ContextMenuLabel>File Actions</ContextMenuLabel>
-        <ContextMenuSeparator />
-        <ContextMenuItem>New File</ContextMenuItem>
-        <ContextMenuItem>Open File</ContextMenuItem>
-        <ContextMenuItem>Save</ContextMenuItem>
-        <ContextMenuSeparator />
-        <ContextMenuLabel>Edit</ContextMenuLabel>
-        <ContextMenuSeparator />
-        <ContextMenuItem>Cut</ContextMenuItem>
-        <ContextMenuItem>Copy</ContextMenuItem>
-        <ContextMenuItem>Paste</ContextMenuItem>
-        <ContextMenuSeparator />
-        <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
-      </ContextMenuContent>
-    </ContextMenu>
+    <div className="space-y-4">
+      <ContextMenu>
+        <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed text-sm">
+          Right click here for context menu
+        </ContextMenuTrigger>
+        <ContextMenuContent>
+          <ContextMenuLabel>File Actions</ContextMenuLabel>
+          <ContextMenuSeparator />
+          <ContextMenuItem>New File</ContextMenuItem>
+          <ContextMenuItem>Open File</ContextMenuItem>
+          <ContextMenuItem>Save</ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuLabel>Edit</ContextMenuLabel>
+          <ContextMenuSeparator />
+          <ContextMenuItem>Cut</ContextMenuItem>
+          <ContextMenuItem>Copy</ContextMenuItem>
+          <ContextMenuItem>Paste</ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
+        </ContextMenuContent>
+      </ContextMenu>
+      
+      <p className="text-sm text-muted-foreground">
+        Right-click on the dashed area above to see the interactive context menu.
+      </p>
+    </div>
   )
 }`,
   },
