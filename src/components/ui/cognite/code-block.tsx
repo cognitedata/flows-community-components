@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/cognite/button";
 import { cn } from "@/lib/utils";
 import type { Element } from "hast";
-import { CheckIcon, CopyIcon } from "lucide-react";
+import { CheckIcon, ChevronsUpDown, CopyIcon } from "lucide-react";
 import {
   type ComponentProps,
   createContext,
@@ -17,16 +17,23 @@ import { type BundledLanguage, codeToHtml, type ShikiTransformer } from "shiki";
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;
+  collapsed?: boolean;
   language: BundledLanguage;
   showLineNumbers?: boolean;
 };
 
 type CodeBlockContextType = {
   code: string;
+  isCollapsed: boolean;
+  setIsCollapsed: (collapsed: boolean) => void;
+  lineCount: number;
 };
 
 const CodeBlockContext = createContext<CodeBlockContextType>({
   code: "",
+  isCollapsed: false,
+  setIsCollapsed: () => {},
+  lineCount: 0,
 });
 
 const lineNumberTransformer: ShikiTransformer = {
@@ -77,13 +84,17 @@ export const CodeBlock = ({
   code,
   language,
   showLineNumbers = false,
+  collapsed = false,
   className,
   children,
   ...props
 }: CodeBlockProps) => {
   const [html, setHtml] = useState<string>("");
   const [darkHtml, setDarkHtml] = useState<string>("");
+  const [isCollapsed, setIsCollapsed] = useState(collapsed);
   const mounted = useRef(false);
+
+  const lineCount = code.split("\n").length;
 
   useEffect(() => {
     highlightCode(code, language, showLineNumbers).then(([light, dark]) => {
@@ -100,7 +111,9 @@ export const CodeBlock = ({
   }, [code, language, showLineNumbers]);
 
   return (
-    <CodeBlockContext.Provider value={{ code }}>
+    <CodeBlockContext.Provider
+      value={{ code, isCollapsed, setIsCollapsed, lineCount }}
+    >
       <div
         className={cn(
           "group relative w-full overflow-hidden rounded-md border bg-background text-foreground",
@@ -110,15 +123,24 @@ export const CodeBlock = ({
       >
         <div className="relative">
           <div
-            className="overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm"
+            className={cn(
+              "overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm",
+              isCollapsed && "max-h-[50px] [&>pre]:overflow-hidden"
+            )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: html }}
           />
           <div
-            className="hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm"
+            className={cn(
+              "hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm",
+              isCollapsed && "max-h-[50px] [&>pre]:overflow-hidden"
+            )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: darkHtml }}
           />
+          {isCollapsed && (
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[15px] bg-gradient-to-b from-transparent via-white/70 to-white dark:via-background/70 dark:to-background" />
+          )}
           {children && (
             <div className="absolute top-2 right-2 flex items-center gap-2">
               {children}
@@ -174,6 +196,33 @@ export const CodeBlockCopyButton = ({
       {...props}
     >
       {children ?? <Icon size={14} />}
+    </Button>
+  );
+};
+
+export type CodeBlockCollapseButtonProps = ComponentProps<typeof Button>;
+
+export const CodeBlockCollapseButton = ({
+  children,
+  className,
+  ...props
+}: CodeBlockCollapseButtonProps) => {
+  const { isCollapsed, setIsCollapsed, lineCount } = useContext(CodeBlockContext);
+
+  // Only show the button if there's more than 1 line of code
+  if (lineCount <= 1) {
+    return null;
+  }
+
+  return (
+    <Button
+      className={cn("shrink-0", className)}
+      onClick={() => setIsCollapsed(!isCollapsed)}
+      size="icon"
+      variant="ghost"
+      {...props}
+    >
+      {children ?? <ChevronsUpDown size={14} />}
     </Button>
   );
 };
