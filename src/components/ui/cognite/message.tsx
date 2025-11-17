@@ -10,13 +10,13 @@ import { Button } from "@/components/ui/cognite/button";
 import {
   ButtonGroup,
   ButtonGroupText,
-} from "@/components/ui/button-group";
+} from "@/components/ui/cognite/button-group";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/ui/cognite/tooltip";
 import { cn } from "@/lib/utils";
 import type { FileUIPart, UIMessage } from "ai";
 import {
