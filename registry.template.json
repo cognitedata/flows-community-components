@@ -10,7 +10,7 @@
       "description": "An accessible accordion with smooth expand/collapse built on Radix primitives.",
       "dependencies": [
         "@radix-ui/react-accordion",
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "files": [
         {
