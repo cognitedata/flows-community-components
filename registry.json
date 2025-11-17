@@ -793,7 +793,7 @@
       "description": "AI conversation component with scroll management.",
       "dependencies": [
         "use-stick-to-bottom",
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "registryDependencies": [
         "button"
