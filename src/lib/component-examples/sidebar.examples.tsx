@@ -75,11 +75,6 @@ function BasicDemo() {
           </div>
         </SidebarProvider>
       </div>
-
-      <p className="text-sm text-muted-foreground">
-        Interactive sidebar component with navigation groups and menu items. The
-        sidebar is contained within the preview area.
-      </p>
     </div>
   );
 }
@@ -167,11 +162,6 @@ export function BasicDemo() {
           </div>
         </SidebarProvider>
       </div>
-
-      <p className="text-sm text-muted-foreground">
-        Interactive sidebar component with navigation groups and menu items. The
-        sidebar is contained within the preview area.
-      </p>
     </div>
   )
 }`,
