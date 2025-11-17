@@ -14,7 +14,7 @@ import {
   IconCircleCheck,
   IconCircleX,
   IconClock,
-  IconWrench,
+  IconTool,
 } from "@tabler/icons-react";
 import type { ComponentProps, ReactNode } from "react";
 import { isValidElement } from "react";
@@ -80,7 +80,7 @@ export const ToolHeader = ({
     {...props}
   >
     <div className="flex items-center gap-2">
-      <IconWrench className="size-4 text-muted-foreground" />
+      <IconTool className="size-4 text-muted-foreground" />
       <span className="font-medium text-sm">
         {title ?? type.split("-").slice(1).join("-")}
       </span>
