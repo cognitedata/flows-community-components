@@ -20,11 +20,11 @@ import {
 import { cn } from "@/lib/utils";
 import type { FileUIPart, UIMessage } from "ai";
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PaperclipIcon,
-  XIcon,
-} from "lucide-react";
+  IconChevronLeft,
+  IconChevronRight,
+  IconPaperclip,
+  IconX,
+} from "@tabler/icons-react";
 import type { ComponentProps, HTMLAttributes, ReactElement } from "react";
 import { createContext, memo, useContext, useEffect, useMemo, useState } from "react";
 import { Streamdown } from "streamdown";
@@ -310,7 +310,7 @@ export const MessageBranchPrevious = ({
       variant="ghost"
       {...props}
     >
-      {children ?? <ChevronLeftIcon size={14} />}
+      {children ?? <IconChevronLeft size={14} />}
     </Button>
   );
 };
@@ -333,7 +333,7 @@ export const MessageBranchNext = ({
       variant="ghost"
       {...props}
     >
-      {children ?? <ChevronRightIcon size={14} />}
+      {children ?? <IconChevronRight size={14} />}
     </Button>
   );
 };
@@ -422,7 +422,7 @@ export function MessageAttachment({
               type="button"
               variant="ghost"
             >
-              <XIcon />
+              <IconX />
               <span className="sr-only">Remove</span>
             </Button>
           )}
@@ -432,7 +432,7 @@ export function MessageAttachment({
           <Tooltip>
             <TooltipTrigger asChild>
               <div className="flex size-full shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                <PaperclipIcon className="size-4" />
+                <IconPaperclip className="size-4" />
               </div>
             </TooltipTrigger>
             <TooltipContent>
@@ -450,7 +450,7 @@ export function MessageAttachment({
               type="button"
               variant="ghost"
             >
-              <XIcon />
+              <IconX />
               <span className="sr-only">Remove</span>
             </Button>
           )}
