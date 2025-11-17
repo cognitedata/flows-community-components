@@ -89,10 +89,10 @@ export const MessageAvatar = ({
   ...props
 }: MessageAvatarProps) => {
   const fallbackText = name ? getInitials(name) : "ME";
-  
+
   return (
-    <Avatar 
-      className={cn("size-7 group-[.is-user]:mt-1", className)} 
+    <Avatar
+      className={cn("size-7 group-[.is-user]:mt-1", className)}
       variant={variant}
       sizes={sizes}
       {...props}
@@ -120,7 +120,7 @@ export const MessageActions = ({
   children,
   ...props
 }: MessageActionsProps) => (
-  <div className={cn("flex items-center gap-1", className)} {...props}>
+  <div className={cn("flex items-center gap-2", className)} {...props}>
     {children}
   </div>
 );
@@ -134,12 +134,22 @@ export const MessageAction = ({
   tooltip,
   children,
   label,
+  className,
   variant = "ghost",
-  size = "icon-sm",
+  size = "sm",
   ...props
 }: MessageActionProps) => {
   const button = (
-    <Button size={size} type="button" variant={variant} {...props}>
+    <Button
+      className={cn(
+        "relative icon-sm text-muted-foreground hover:text-foreground",
+        className
+      )}
+      size={size}
+      type="button"
+      variant={variant}
+      {...props}
+    >
       {children}
       <span className="sr-only">{label || tooltip}</span>
     </Button>
@@ -404,6 +414,7 @@ export function MessageAttachment({
     >
       {isImage ? (
         <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             alt={filename || "attachment"}
             className="size-full object-cover"
