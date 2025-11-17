@@ -84,12 +84,8 @@ export const dropdownMenuExamples: ComponentExamples = {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuSectionLabel,
-  DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuSectionLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/cognite/dropdown-menu"
 import { Button } from "@/components/ui/cognite/button"
@@ -97,21 +93,23 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/components/ui/cognite/avatar";
+} from "@/components/ui/cognite/avatar"
 import {
   IconUser,
   IconSettings,
   IconHelp,
   IconBell,
-} from "@tabler/icons-react";
+} from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button>Open Menu</Button>
-      </DropdownMenuTrigger>
-       <DropdownMenuContent>
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
             <DropdownMenuLabel className="flex flex-row gap-2">
               <Avatar>
                 <AvatarImage src="/user-avatar2.png" alt="User" />
@@ -125,9 +123,7 @@ export function BasicDemo() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuSectionLabel>
-              Section label
-            </DropdownMenuSectionLabel>
+            <DropdownMenuSectionLabel>Section label</DropdownMenuSectionLabel>
             <DropdownMenuItem>
               <IconUser />
               Profile
@@ -146,7 +142,13 @@ export function BasicDemo() {
               Help
             </DropdownMenuItem>
           </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenu>
+      </div>
+
+      <p className="text-sm text-muted-foreground">
+        Click buttons to open interactive dropdown menus.
+      </p>
+    </div>
   )
 }`,
   },

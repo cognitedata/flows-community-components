@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/cognite/collapsible";
 import { cn } from "@/lib/utils";
 import {
-  BrainIcon,
-  ChevronDownIcon,
-  DotIcon,
-  type LucideIcon,
-} from "lucide-react";
-import type { ComponentProps } from "react";
+  IconBrain,
+  IconChevronDown,
+  IconPointFilled,
+  type IconProps,
+} from "@tabler/icons-react";
+import type { ComponentProps, ComponentType } from "react";
 import { createContext, memo, useContext, useMemo } from "react";
 
 type ChainOfThoughtContextValue = {
@@ -92,11 +92,11 @@ export const ChainOfThoughtHeader = memo(
           )}
           {...props}
         >
-          <BrainIcon className="size-4" />
+          <IconBrain className="size-4" />
           <span className="flex-1 text-left">
             {children ?? "Chain of Thought"}
           </span>
-          <ChevronDownIcon
+          <IconChevronDown
             className={cn(
               "size-4 transition-transform",
               isOpen ? "rotate-180" : "rotate-0"
@@ -109,7 +109,7 @@ export const ChainOfThoughtHeader = memo(
 );
 
 export type ChainOfThoughtStepProps = ComponentProps<"div"> & {
-  icon?: LucideIcon;
+  icon?: ComponentType<IconProps>;
   label: string;
   description?: string;
   status?: "complete" | "active" | "pending";
@@ -118,7 +118,7 @@ export type ChainOfThoughtStepProps = ComponentProps<"div"> & {
 export const ChainOfThoughtStep = memo(
   ({
     className,
-    icon: Icon = DotIcon,
+    icon: Icon = IconPointFilled,
     label,
     description,
     status = "complete",
@@ -211,7 +211,7 @@ export type ChainOfThoughtImageProps = ComponentProps<"div"> & {
 export const ChainOfThoughtImage = memo(
   ({ className, children, caption, ...props }: ChainOfThoughtImageProps) => (
     <div className={cn("mt-2 space-y-2", className)} {...props}>
-      <div className="relative flex max-h-[22rem] items-center justify-center overflow-hidden rounded-lg bg-muted p-3">
+      <div className="relative flex max-h-88 items-center justify-center overflow-hidden rounded-lg bg-muted p-3">
         {children}
       </div>
       {caption && <p className="text-muted-foreground text-xs">{caption}</p>}
