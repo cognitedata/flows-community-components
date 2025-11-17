@@ -612,7 +612,7 @@
       "description": "A carousel component with embla-carousel.",
       "dependencies": [
         "embla-carousel-react",
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "registryDependencies": [
         "button"
