@@ -122,7 +122,7 @@ importers:
         version: 2.0.13
       '@xyflow/react':
         specifier: ^12.9.1
-        version: 12.9.2(@types/react@19.2.4)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 12.9.3(@types/react@19.2.4)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       ai:
         specifier: ^5.0.82
         version: 5.0.93(zod@4.1.12)
@@ -2167,14 +2167,14 @@ packages:
     resolution: {integrity: sha512-yNEQvPcVrK9sIe637+I0jD6leluPxzwJKx/Haw6F4H77CdDsszUn5V3o96LPziXkSNE2B83+Z3mjqGKBK/R6Gg==}
     engines: {node: '>= 20'}
 
-  '@xyflow/react@12.9.2':
-    resolution: {integrity: sha512-Xr+LFcysHCCoc5KRHaw+FwbqbWYxp9tWtk1mshNcqy25OAPuaKzXSdqIMNOA82TIXF/gFKo0Wgpa6PU7wUUVqw==}
+  '@xyflow/react@12.9.3':
+    resolution: {integrity: sha512-PSWoJ8vHiEqSIkLIkge+0eiHWiw4C6dyFDA03VKWJkqbU4A13VlDIVwKqf/Znuysn2GQw/zA61zpHE4rGgax7Q==}
     peerDependencies:
       react: '>=17'
       react-dom: '>=17'
 
-  '@xyflow/system@0.0.72':
-    resolution: {integrity: sha512-WBI5Aau0fXTXwxHPzceLNS6QdXggSWnGjDtj/gG669crApN8+SCmEtkBth1m7r6pStNo/5fI9McEi7Dk0ymCLA==}
+  '@xyflow/system@0.0.73':
+    resolution: {integrity: sha512-C2ymH2V4mYDkdVSiRx0D7R0s3dvfXiupVBcko6tXP5K4tVdSBMo22/e3V9yRNdn+2HQFv44RFKzwOyCcUUDAVQ==}
 
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
@@ -7198,9 +7198,9 @@ snapshots:
 
   '@vercel/oidc@3.0.3': {}
 
-  '@xyflow/react@12.9.2(@types/react@19.2.4)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@xyflow/react@12.9.3(@types/react@19.2.4)(immer@10.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@xyflow/system': 0.0.72
+      '@xyflow/system': 0.0.73
       classcat: 5.0.5
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
@@ -7209,7 +7209,7 @@ snapshots:
       - '@types/react'
       - immer
 
-  '@xyflow/system@0.0.72':
+  '@xyflow/system@0.0.73':
     dependencies:
       '@types/d3-drag': 3.0.7
       '@types/d3-interpolate': 3.0.4
