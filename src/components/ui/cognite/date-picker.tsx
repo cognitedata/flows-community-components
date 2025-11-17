@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
+import { IconCalendar } from "@tabler/icons-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/cognite/button"
@@ -26,7 +26,7 @@ export function DatePicker() {
             !date && "text-muted-foreground"
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <IconCalendar className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
@@ -76,7 +76,7 @@ export function DatePickerCustom({
           )}
           disabled={disabled}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <IconCalendar className="mr-2 h-4 w-4" />
           {selectedDate ? format(selectedDate, "PPP") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
@@ -132,7 +132,7 @@ export function DateRangePicker({
           )}
           disabled={disabled}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <IconCalendar className="mr-2 h-4 w-4" />
           {selectedRange.from ? (
             selectedRange.to ? (
               <>
