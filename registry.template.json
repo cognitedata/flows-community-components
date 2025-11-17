@@ -693,6 +693,9 @@
       "type": "registry:component",
       "title": "Branch",
       "description": "AI conversation branch component.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/branch.tsx",
