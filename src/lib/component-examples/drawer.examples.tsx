@@ -59,14 +59,16 @@ import { Button } from "@/components/ui/cognite/button"
 
 export function BasicDemo() {
   return (
-    <Drawer>
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <Drawer>
           <DrawerTrigger asChild>
             <Button variant="outline">Open Drawer</Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader className="w-[304px]">
-              <DrawerTitle>Drawer title</DrawerTitle>
-              <DrawerDescription>Drawer description</DrawerDescription>
+              <DrawerTitle>Drawer Title</DrawerTitle>
+              <DrawerDescription>Drawer Description</DrawerDescription>
             </DrawerHeader>
             <div className="h-[72px] w-[304px] grid gap-4 py-4 border-dashed border-1 border-ring"></div>
             <DrawerFooter className="w-[304px]">
@@ -77,6 +79,8 @@ export function BasicDemo() {
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
+      </div>
+    </div>
   )
 }`,
   },
