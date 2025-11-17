@@ -407,7 +407,7 @@
       "description": "A select dropdown with custom trigger, content, and indicator states.",
       "dependencies": [
         "@radix-ui/react-select",
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "files": [
         {
