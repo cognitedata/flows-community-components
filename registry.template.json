@@ -111,7 +111,7 @@
       "title": "Calendar",
       "description": "A themable DayPicker calendar with custom navigation controls.",
       "dependencies": [
-        "lucide-react",
+        "@tabler/icons-react",
         "react-day-picker"
       ],
       "registryDependencies": [
