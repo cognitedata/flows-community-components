@@ -152,10 +152,10 @@
       "name": "checkbox",
       "type": "registry:component",
       "title": "Checkbox",
-      "description": "A checkbox component styled with Radix Checkbox and Lucide icons.",
+      "description": "A checkbox component styled with Radix Checkbox and Tabler icons.",
       "dependencies": [
         "@radix-ui/react-checkbox",
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "files": [
         {
