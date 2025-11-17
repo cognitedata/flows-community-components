@@ -3,6 +3,8 @@ import {
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
+  MessageActions,
+  MessageAction,
 } from "@/components/ui/cognite/message";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 import {
@@ -21,7 +23,6 @@ import {
   IconDotsVertical,
   IconWheel,
 } from "@tabler/icons-react";
-import { Actions, Action } from "@/components/ui/cognite/actions";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -82,31 +83,31 @@ function Demo() {
               </InlineCitationLink>
             </InlineCitation>
           </div>
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
               <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
-            </Action>
+            </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
+                <MessageAction size="icon-sm" label="More options">
                   <IconDotsVertical className="w-3 h-3" />
-                </Action>
+                </MessageAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Option 1</DropdownMenuItem>
                 <DropdownMenuItem>Option 2</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </Actions>
+          </MessageActions>
         </MessageContent>
         <MessageAvatar variant="fjord">
           <MessageAvatarIcon>
@@ -125,13 +126,12 @@ export const messageExamples: ComponentExamples = {
       "Messages with background containers for clear visual separation",
     component: Demo,
     difficulty: "beginner",
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "@/components/ui/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -150,7 +150,7 @@ export function Demo() {
       </Message>
 
       <Message from="assistant">
-        <MessageContent className="flex flex-col gap-2">
+        <MessageContent>
           According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
           <div className="flex flex-row gap-2">
             <InlineCitation>
@@ -181,31 +181,31 @@ export function Demo() {
               </InlineCitationLink>
             </InlineCitation>
           </div>
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
               <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
-            </Action>
+            </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
+                <MessageAction size="icon-sm" label="More options">
                   <IconDotsVertical className="w-3 h-3" />
-                </Action>
+                </MessageAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Option 1</DropdownMenuItem>
                 <DropdownMenuItem>Option 2</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </Actions>
+          </MessageActions>
         </MessageContent>
         <MessageAvatar variant="fjord">
           <MessageAvatarIcon>
@@ -223,5 +223,5 @@ export function Demo() {
 export const messageMeta = {
   name: "Message",
   description: "Displays a chat interface message from either a user or an AI.",
-  importPath: "@/components/ai-elements/cognite/message",
+  importPath: "@/components/ui/cognite/message",
 };
