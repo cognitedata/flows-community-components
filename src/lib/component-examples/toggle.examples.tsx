@@ -1,5 +1,9 @@
 import { Toggle } from "@/components/ui/cognite/toggle";
-import { Bold, Italic, Underline } from "lucide-react";
+import {
+  IconBold as Bold,
+  IconItalic as Italic,
+  IconUnderline as Underline,
+} from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -25,7 +29,7 @@ export const toggleExamples: ComponentExamples = {
     component: BasicDemo,
     difficulty: "beginner",
     code: `import { Toggle } from "@/components/ui/cognite/toggle"
-import { Bold, Italic, Underline } from "lucide-react"
+import { Bold, Italic, Underline } from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
