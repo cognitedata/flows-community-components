@@ -129,9 +129,9 @@ function StatesDemo() {
       </div>
 
       <div>
-        <Label className="py-0.5">Choose an option</Label>
+        <Label className="py-0.5">Choose an option (Invalid)</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue}>
-          <SelectTrigger className="mt-1" data-invalid="true">
+          <SelectTrigger className="mt-1" errorMessage="This field is required">
             <SelectValue
               placeholder="Select an option"
               icon={selectedValue ? iconMap[selectedValue] : undefined}
@@ -169,13 +169,13 @@ export const selectExamples: ComponentExamples = {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select"
-import { Label } from "@/components/ui/cognite/label"
-import { User, Mail, Settings, Home } from "lucide-react"
-import * as React from "react"
+} from "@/components/ui/cognite/select";
+import { Label } from "@/components/ui/cognite/label";
+import { User, Mail, Settings, Home } from "lucide-react";
+import * as React from "react";
 
-export function BasicDemo() {
-  const [selectedValue, setSelectedValue] = React.useState<string>("settings")
+function BasicDemo() {
+  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
 
   // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
@@ -183,7 +183,7 @@ export function BasicDemo() {
     mail: <Mail className="size-4" />,
     settings: <Settings className="size-4" />,
     home: <Home className="size-4" />,
-  }
+  };
   return (
     <div className="space-y-4 max-w-sm flex flex-row gap-4">
       <div>
@@ -226,7 +226,7 @@ export function BasicDemo() {
         </Select>
       </div>
     </div>
-  )
+  );
 }`,
   },
   states: {
@@ -240,13 +240,13 @@ export function BasicDemo() {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select"
-import { Label } from "@/components/ui/cognite/label"
-import { User, Mail, Settings, Home } from "lucide-react"
-import * as React from "react"
+} from "@/components/ui/cognite/select";
+import { Label } from "@/components/ui/cognite/label";
+import { User, Mail, Settings, Home } from "lucide-react";
+import * as React from "react";
 
-export function StatesDemo() {
-  const [selectedValue, setSelectedValue] = React.useState<string>("settings")
+function StatesDemo() {
+  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
 
   // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
@@ -254,7 +254,7 @@ export function StatesDemo() {
     mail: <Mail className="size-4" />,
     settings: <Settings className="size-4" />,
     home: <Home className="size-4" />,
-  }
+  };
   return (
     <div className="space-y-4 max-w-sm flex flex-col gap-4">
       <div>
@@ -310,9 +310,9 @@ export function StatesDemo() {
       </div>
 
       <div>
-        <Label className="py-0.5">Choose an option</Label>
+        <Label className="py-0.5">Choose an option (Invalid)</Label>
         <Select value={selectedValue} onValueChange={setSelectedValue}>
-          <SelectTrigger className="mt-1" data-invalid="true">
+          <SelectTrigger className="mt-1" errorMessage="This field is required">
             <SelectValue
               placeholder="Select an option"
               icon={selectedValue ? iconMap[selectedValue] : undefined}
@@ -335,7 +335,7 @@ export function StatesDemo() {
         </Select>
       </div>
     </div>
-  )
+  );
 }`,
   },
 };
