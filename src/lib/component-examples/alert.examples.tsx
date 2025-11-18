@@ -1,5 +1,12 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert";
-import { Terminal, AlertCircle } from "lucide-react";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/cognite/alert";
+import {
+  IconAlertCircle as AlertCircle,
+  IconTerminal2 as Terminal,
+} from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -44,7 +51,7 @@ export const alertExamples: ComponentExamples = {
     component: BasicDemo,
     difficulty: "beginner",
     code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
-import { Terminal } from "lucide-react"
+import { Terminal } from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
@@ -66,7 +73,7 @@ export function BasicDemo() {
     component: VariantsDemo,
     difficulty: "beginner",
     code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
-import { Terminal, AlertCircle } from "lucide-react"
+import { Terminal, AlertCircle } from "@tabler/icons-react"
 
 export function VariantsDemo() {
   return (
