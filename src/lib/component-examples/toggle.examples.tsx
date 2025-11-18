@@ -1,10 +1,10 @@
-import { Toggle } from "@/components/ui/cognite/toggle";
+import { Toggle } from '@/components/ui/cognite/toggle';
 import {
   IconBold as Bold,
   IconItalic as Italic,
   IconUnderline as Underline,
-} from "@tabler/icons-react";
-import type { ComponentExamples } from "./types";
+} from '@tabler/icons-react';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -24,10 +24,10 @@ function BasicDemo() {
 
 export const toggleExamples: ComponentExamples = {
   basic: {
-    title: "Basic Toggle",
-    description: "A two-state button that can be either on or off",
+    title: 'Basic Toggle',
+    description: 'A two-state button that can be either on or off',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Toggle } from "@/components/ui/cognite/toggle"
 import { Bold, Italic, Underline } from "@tabler/icons-react"
 
@@ -51,8 +51,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const toggleMeta = {
-  name: "Toggle",
-  description: "A two-state button that can be either on or off.",
-  llmUsage: "When creating toggle buttons, use `<Toggle>` for binary state controls.",
-  importPath: "@/components/ui/cognite/toggle",
+  name: 'Toggle',
+  description: 'A two-state button that can be either on or off.',
+  llmUsage:
+    'When creating toggle buttons, use `<Toggle>` for binary state controls.',
+  importPath: '@/components/ui/cognite/toggle',
 };
