@@ -1,22 +1,22 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { cn } from "@/lib/utils";
-import { IconExclamationCircle } from "@tabler/icons-react";
+import { cn } from '@/lib/utils';
+import { IconExclamationCircle } from '@tabler/icons-react';
 
 export interface HelperTextProps extends React.HTMLAttributes<HTMLDivElement> {
   isError?: boolean;
 }
 
-function HelperText({ 
-  className, 
+function HelperText({
+  className,
   isError = false,
   children,
-  ...props 
+  ...props
 }: HelperTextProps) {
   return (
-    <div 
+    <div
       className={cn(
-        "flex flex-row gap-1 justify-start items-center",
+        'flex flex-row gap-1 justify-start items-center',
         className
       )}
       {...props}
@@ -24,10 +24,12 @@ function HelperText({
       {isError && (
         <IconExclamationCircle className="text-destructive-foreground text-sm size-4 flex-shrink-0" />
       )}
-      <span className={cn(
-        "text-sm leading-18 tracking-tight",
-        isError ? "text-destructive-foreground" : "text-muted-foreground"
-      )}>
+      <span
+        className={cn(
+          'text-sm leading-18 tracking-tight',
+          isError ? 'text-destructive-foreground' : 'text-muted-foreground'
+        )}
+      >
         {children}
       </span>
     </div>
@@ -35,4 +37,3 @@ function HelperText({
 }
 
 export { HelperText };
-

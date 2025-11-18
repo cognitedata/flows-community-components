@@ -5,9 +5,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Button } from "@/components/ui/cognite/button";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/card';
+import { Button } from '@/components/ui/cognite/button';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -45,10 +45,10 @@ function WithFooterDemo() {
 
 export const cardExamples: ComponentExamples = {
   basic: {
-    title: "Basic Card",
-    description: "A simple card with header and content",
+    title: 'Basic Card',
+    description: 'A simple card with header and content',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Card,
   CardContent,
@@ -73,10 +73,10 @@ export function BasicDemo() {
   },
 
   withFooter: {
-    title: "Card with Footer",
-    description: "Card with action buttons in the footer",
+    title: 'Card with Footer',
+    description: 'Card with action buttons in the footer',
     component: WithFooterDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Card,
   CardContent,
@@ -111,8 +111,10 @@ export function WithFooterDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const cardMeta = {
-  name: "Card",
-  description: "A flexible card component with header, content, and footer sections for organizing and displaying content.",
-  llmUsage: "When creating content containers, use `<Card>` with `<CardHeader>`, `<CardContent>`, and `<CardFooter>` subcomponents. Use `<CardTitle>` and `<CardDescription>` for header content.",
-  importPath: "@/components/ui/cognite/card",
+  name: 'Card',
+  description:
+    'A flexible card component with header, content, and footer sections for organizing and displaying content.',
+  llmUsage:
+    'When creating content containers, use `<Card>` with `<CardHeader>`, `<CardContent>`, and `<CardFooter>` subcomponents. Use `<CardTitle>` and `<CardDescription>` for header content.',
+  importPath: '@/components/ui/cognite/card',
 };
