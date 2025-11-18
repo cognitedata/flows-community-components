@@ -4,19 +4,19 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select";
-import { Label } from "@/components/ui/cognite/label";
+} from '@/components/ui/cognite/select';
+import { Label } from '@/components/ui/cognite/label';
 import {
   IconHome as Home,
   IconMail as Mail,
   IconSettings as Settings,
   IconUser as User,
-} from "@tabler/icons-react";
-import * as React from "react";
-import type { ComponentExamples } from "./types";
+} from '@tabler/icons-react';
+import * as React from 'react';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
-  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+  const [selectedValue, setSelectedValue] = React.useState<string>('settings');
 
   // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
@@ -70,7 +70,7 @@ function BasicDemo() {
   );
 }
 function StatesDemo() {
-  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+  const [selectedValue, setSelectedValue] = React.useState<string>('settings');
 
   // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
@@ -164,10 +164,10 @@ function StatesDemo() {
 
 export const selectExamples: ComponentExamples = {
   basic: {
-    title: "Select Dropdown",
-    description: "A dropdown select component for choosing from options",
+    title: 'Select Dropdown',
+    description: 'A dropdown select component for choosing from options',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Select,
   SelectContent,
@@ -242,10 +242,10 @@ function BasicDemo() {
 }`,
   },
   states: {
-    title: "Select Dropdown",
-    description: "States of the select dropdown",
+    title: 'Select Dropdown',
+    description: 'States of the select dropdown',
     component: StatesDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Select,
   SelectContent,
@@ -361,10 +361,10 @@ function StatesDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const selectMeta = {
-  name: "Select",
+  name: 'Select',
   description:
-    "Displays a list of options for the user to pick from—triggered by a button.",
+    'Displays a list of options for the user to pick from—triggered by a button.',
   llmUsage:
-    "When asked for a select dropdown, use `<Select>` for choosing from multiple options.",
-  importPath: "@/components/ui/cognite/select",
+    'When asked for a select dropdown, use `<Select>` for choosing from multiple options.',
+  importPath: '@/components/ui/cognite/select',
 };
