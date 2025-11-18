@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 
 interface TabSwitcherProps {
   previewContent: React.ReactNode;

@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/cognite/alert-dialog';
+} from '#aura/alert-dialog';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -80,8 +80,8 @@ export const alertDialogExamples: ComponentExamples = {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/cognite/alert-dialog"
-import { Button } from "@/components/ui/cognite/button"
+} from "#aura/alert-dialog"
+import { Button } from "#aura/button"
 
 export function BasicDemo() {
   return (
@@ -143,5 +143,5 @@ export const alertDialogMeta = {
     'A modal dialog that interrupts the user with important content and expects a response.',
   llmUsage:
     'When asked for an alert dialog, use `<AlertDialog>` for confirmation flows and important notifications.',
-  importPath: '@/components/ui/cognite/alert-dialog',
+  importPath: '#aura/alert-dialog',
 };

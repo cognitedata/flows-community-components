@@ -5,14 +5,14 @@ import {
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from '@/components/ui/cognite/conversation';
+} from '#aura/conversation';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
-import { Actions, Action } from '@/components/ui/cognite/actions';
+} from '#aura/message';
+import { Actions, Action } from '#aura/actions';
 import { MessageSquare } from 'lucide-react';
 import {
   IconWheel,
@@ -27,8 +27,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/dropdown-menu';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 
@@ -278,9 +278,9 @@ export const conversationExamples: ComponentExamples = {
     difficulty: 'beginner',
     code: `"use client"
 
-import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "#components/ai-elements/cognite/conversation"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "#components/ai-elements/cognite/message"
+import { Actions, Action } from "#components/ai-elements/cognite/actions"
 import { MessageSquare } from "lucide-react"
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
@@ -288,7 +288,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "#aura/dropdown-menu"
 import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 
@@ -386,7 +386,7 @@ export function BasicConversationDemo() {
     description: 'Show a placeholder when there are no messages',
     component: EmptyStateDemo,
     difficulty: 'beginner',
-    code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
+    code: `import { Conversation, ConversationContent, ConversationEmptyState } from "#components/ai-elements/cognite/conversation"
 import { MessageSquare } from "lucide-react"
 
 export function EmptyStateDemo() {
@@ -410,5 +410,5 @@ export const conversationMeta = {
   name: 'Conversation',
   description:
     'Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.',
-  importPath: '@/components/ai-elements/cognite/conversation',
+  importPath: '#components/ai-elements/cognite/conversation',
 };

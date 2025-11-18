@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   IconPlus,
   IconBookmark,
@@ -199,7 +199,7 @@ export const buttonExamples: ComponentExamples = {
     description: 'Different visual styles for various use cases',
     component: VariantsDemo,
     difficulty: 'beginner',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "#aura/button"
 import { IconPlus, IconBookmark, IconTrash, IconExternalLink } from "@tabler/icons-react"
 
 export function VariantsDemo() {
@@ -235,7 +235,7 @@ export function VariantsDemo() {
     description: 'Available size and variation options',
     component: MainComponentDemo,
     difficulty: 'beginner',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "#aura/button"
 import { IconPlus } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
@@ -390,7 +390,7 @@ export function MainComponentDemo() {
     description: 'Disabled and loading states',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "#aura/button"
 import { IconLoader2 } from "@tabler/icons-react"
 
 export function StatesDemo() {
@@ -414,5 +414,5 @@ export const buttonMeta = {
     'A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.',
   llmUsage:
     "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
-  importPath: '@/components/ui/cognite/button',
+  importPath: '#aura/button',
 };

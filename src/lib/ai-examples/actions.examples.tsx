@@ -1,10 +1,10 @@
-import { Actions, Action } from '@/components/ui/cognite/actions';
+import { Actions, Action } from '#aura/actions';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
+} from '#aura/message';
 import {
   IconThumbUp,
   IconThumbDown,
@@ -18,8 +18,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/dropdown-menu';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicActionsDemo() {
   return (
@@ -116,15 +116,15 @@ export const actionsExamples: ComponentExamples = {
     description: 'Action buttons for interacting with AI messages',
     component: BasicActionsDemo,
     difficulty: 'beginner',
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
+    code: `import { Actions, Action } from "#components/ai-elements/cognite/actions"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "#components/ai-elements/cognite/message"
 import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "#aura/dropdown-menu"
 
 export function BasicActionsDemo() {
     return (
@@ -181,15 +181,15 @@ export function BasicActionsDemo() {
     description: 'Actions with copy, share, and more options buttons',
     component: ActionsWithLabelsDemo,
     difficulty: 'beginner',
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
+    code: `import { Actions, Action } from "#components/ai-elements/cognite/actions"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "#components/ai-elements/cognite/message"
 import { IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "#aura/dropdown-menu"
 
 export function ActionsWithLabelsDemo() {
     return (
@@ -241,5 +241,5 @@ export const actionsMeta = {
   name: 'Actions',
   description:
     'A row of composable action buttons for AI responses, including retry, like, dislike, copy, share, and custom actions.',
-  importPath: '@/components/ai-elements/cognite/actions',
+  importPath: '#components/ai-elements/cognite/actions',
 };

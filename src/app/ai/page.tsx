@@ -8,8 +8,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { CodeExample } from '@/components/code-example';
+} from '#aura/card';
+import { CodeExample } from '#components/code-example';
 
 export default function AIPage() {
   const components = [
@@ -194,8 +194,8 @@ export default function AIPage() {
                   <h4 className="font-semibold">Import</h4>
                   <CodeExample
                     title="Example"
-                    code={`import { Message, MessageContent } from "@/components/ai-elements/cognite/message"
-import { Conversation } from "@/components/ai-elements/cognite/conversation"
+                    code={`import { Message, MessageContent } from "#components/ai-elements/cognite/message"
+import { Conversation } from "#components/ai-elements/cognite/conversation"
 
 export function ChatInterface() {
   return (

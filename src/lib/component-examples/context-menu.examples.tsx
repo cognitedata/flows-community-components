@@ -5,7 +5,7 @@ import {
   ContextMenuLabel,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from '@/components/ui/cognite/context-menu';
+} from '#aura/context-menu';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -54,7 +54,7 @@ export const contextMenuExamples: ComponentExamples = {
   ContextMenuLabel,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@/components/ui/cognite/context-menu"
+} from "#aura/context-menu"
 
 export function BasicDemo() {
   return (
@@ -95,5 +95,5 @@ export const contextMenuMeta = {
   description: 'Displays a menu at the pointer location.',
   llmUsage:
     'When creating right-click menus, use `<ContextMenu>` with `<ContextMenuTrigger>` and `<ContextMenuContent>`.',
-  importPath: '@/components/ui/cognite/context-menu',
+  importPath: '#aura/context-menu',
 };

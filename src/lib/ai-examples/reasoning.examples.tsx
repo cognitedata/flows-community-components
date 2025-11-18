@@ -4,14 +4,14 @@ import {
   Reasoning,
   ReasoningContent,
   ReasoningTrigger,
-} from '@/components/ui/cognite/reasoning';
+} from '#aura/reasoning';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
-import { Actions, Action } from '@/components/ui/cognite/actions';
+} from '#aura/message';
+import { Actions, Action } from '#aura/actions';
 import {
   IconWheel,
   IconThumbUp,
@@ -25,8 +25,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/dropdown-menu';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import { startTransition, useCallback, useEffect, useState } from 'react';
 
 const reasoningSteps = [
@@ -209,7 +209,7 @@ import {
   Reasoning,
   ReasoningTrigger,
   ReasoningContent,
-} from "@/components/ai-elements/cognite/reasoning"
+} from "#components/ai-elements/cognite/reasoning"
 
 export function BasicReasoningDemo() {
   return (
@@ -233,7 +233,7 @@ import {
   Reasoning,
   ReasoningTrigger,
   ReasoningContent,
-} from "@/components/ai-elements/cognite/reasoning"
+} from "#components/ai-elements/cognite/reasoning"
 import { useCallback, useEffect, useState } from "react"
 
 const reasoningSteps = [
@@ -304,16 +304,16 @@ import {
   Reasoning,
   ReasoningTrigger,
   ReasoningContent,
-} from "@/components/ai-elements/cognite/reasoning"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+} from "#components/ai-elements/cognite/reasoning"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "#components/ai-elements/cognite/message"
+import { Actions, Action } from "#components/ai-elements/cognite/actions"
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "#aura/dropdown-menu"
 import { useCallback, useEffect, useState } from "react"
 
 const reasoningSteps = [
@@ -414,5 +414,5 @@ export const reasoningMeta = {
   name: 'Reasoning',
   description:
     'A collapsible component that displays AI reasoning content, automatically opening during streaming and closing when finished.',
-  importPath: '@/components/ai-elements/cognite/reasoning',
+  importPath: '#components/ai-elements/cognite/reasoning',
 };

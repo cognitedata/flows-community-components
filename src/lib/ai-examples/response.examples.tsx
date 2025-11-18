@@ -1,7 +1,7 @@
 'use client';
 
-import { Response } from '@/components/ui/cognite/response';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import { Response } from '#aura/response';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import { useEffect, useState } from 'react';
 
 const tokens = [
@@ -153,7 +153,7 @@ export const responseExamples: ComponentExamples = {
     component: StreamingResponseDemo,
     difficulty: 'beginner',
     code: `"use client"
-import { Response } from "@/components/ai-elements/cognite/response"
+import { Response } from "#components/ai-elements/cognite/response"
 import { useEffect, useState } from "react"
 
 const tokens = [
@@ -195,7 +195,7 @@ export const responseMeta = {
     'A component that renders a Markdown response from a large language model.',
   llmUsage:
     'When asked for a markdown response, use the `<Response>` component and pass the markdown content as children.',
-  importPath: '@/components/ai-elements/cognite/response',
+  importPath: '#components/ai-elements/cognite/response',
   apiReference: {
     props: [
       {

@@ -5,9 +5,9 @@ import {
   WebPreviewUrl,
   WebPreviewBody,
   WebPreviewConsole,
-} from '@/components/ui/cognite/web-preview';
+} from '#aura/web-preview';
 import { ArrowLeftIcon, ArrowRightIcon, RefreshCwIcon } from 'lucide-react';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicWebPreviewDemo() {
   return (
@@ -66,7 +66,7 @@ export const webPreviewExamples: ComponentExamples = {
   WebPreviewNavigationButton,
   WebPreviewUrl,
   WebPreviewBody,
-} from "@/components/ai-elements/cognite/web-preview"
+} from "#components/ai-elements/cognite/web-preview"
 
 export function BasicWebPreviewDemo() {
   return (
@@ -91,7 +91,7 @@ export function BasicWebPreviewDemo() {
   WebPreviewUrl,
   WebPreviewBody,
   WebPreviewConsole,
-} from "@/components/ai-elements/cognite/web-preview"
+} from "#components/ai-elements/cognite/web-preview"
 
 export function WebPreviewWithConsoleDemo() {
   const logs = [
@@ -120,5 +120,5 @@ export const webPreviewMeta = {
   name: 'Web Preview',
   description:
     'A component for previewing web content and URLs in AI responses with metadata.',
-  importPath: '@/components/ai-elements/cognite/web-preview',
+  importPath: '#components/ai-elements/cognite/web-preview',
 };

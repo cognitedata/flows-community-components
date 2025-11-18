@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Dialog,
   DialogContent,
@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/cognite/dialog';
+} from '#aura/dialog';
 import { IconTrash } from '@tabler/icons-react';
 import type { ComponentExamples } from './types';
 
@@ -73,7 +73,7 @@ export const dialogExamples: ComponentExamples = {
       'Interactive modal dialogs for forms, confirmations, and detailed content',
     component: BasicDemo,
     difficulty: 'intermediate',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "#aura/button"
 import {
   Dialog,
   DialogContent,
@@ -82,7 +82,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/cognite/dialog"
+} from "#aura/dialog"
 
 function BasicDemo() {
   return (
@@ -116,7 +116,7 @@ function BasicDemo() {
       'Interactive modal dialogs for forms, confirmations, and detailed content',
     component: DeleteDemo,
     difficulty: 'intermediate',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "#aura/button"
 import {
   Dialog,
   DialogContent,
@@ -125,7 +125,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/cognite/dialog"
+} from "#aura/dialog"
 import { IconTrash } from "@tabler/icons-react"
 
 function DeleteDemo() {
@@ -167,5 +167,5 @@ export const dialogMeta = {
     'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',
   llmUsage:
     'When asked for a dialog, use `<Dialog>` for modal windows, forms, and detailed content overlays.',
-  importPath: '@/components/ui/cognite/dialog',
+  importPath: '#aura/dialog',
 };

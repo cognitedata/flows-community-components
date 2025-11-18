@@ -31,7 +31,7 @@ import { taskExamples } from './task.examples';
 import { toolExamples } from './tool.examples';
 import { toolbarExamples } from './toolbar.examples';
 import { webPreviewExamples } from './web-preview.examples';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 export const aiExamples = {
   message: messageExamples,
@@ -81,4 +81,4 @@ export function getAIComponentExamples(slug: string): ComponentExamples | null {
 export type {
   ComponentExample,
   ComponentExamples,
-} from '@/lib/component-examples/types';
+} from '#lib/component-examples/types';

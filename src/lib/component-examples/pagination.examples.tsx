@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/cognite/pagination';
+} from '#aura/pagination';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -52,7 +52,7 @@ export const paginationExamples: ComponentExamples = {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/cognite/pagination"
+} from "#aura/pagination"
 
 export function BasicDemo() {
   return (
@@ -91,5 +91,5 @@ export const paginationMeta = {
   description: 'Pagination with page numbers and navigation controls.',
   llmUsage:
     'When adding pagination, use `<Pagination>` with `<PaginationContent>`, `<PaginationItem>`, and `<PaginationLink>`.',
-  importPath: '@/components/ui/cognite/pagination',
+  importPath: '#aura/pagination',
 };

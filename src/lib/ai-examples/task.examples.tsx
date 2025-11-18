@@ -3,8 +3,8 @@ import {
   TaskTrigger,
   TaskContent,
   TaskItem,
-} from '@/components/ui/cognite/task';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/task';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicTaskDemo() {
   return (
@@ -47,7 +47,7 @@ export const taskExamples: ComponentExamples = {
   TaskTrigger,
   TaskContent,
   TaskItem,
-} from "@/components/ai-elements/cognite/task"
+} from "#components/ai-elements/cognite/task"
 
 export function BasicTaskDemo() {
   return (
@@ -72,7 +72,7 @@ export function BasicTaskDemo() {
   TaskTrigger,
   TaskContent,
   TaskItem,
-} from "@/components/ai-elements/cognite/task"
+} from "#components/ai-elements/cognite/task"
 
 export function CustomTaskDemo() {
   return (
@@ -97,5 +97,5 @@ export const taskMeta = {
   name: 'Task',
   description:
     'A collapsible task list component for displaying AI workflow progress, with status indicators and optional descriptions.',
-  importPath: '@/components/ai-elements/cognite/task',
+  importPath: '#components/ai-elements/cognite/task',
 };

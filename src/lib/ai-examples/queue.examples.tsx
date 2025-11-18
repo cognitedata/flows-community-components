@@ -8,8 +8,8 @@ import {
   QueueItem,
   QueueItemIndicator,
   QueueItemContent,
-} from '@/components/ui/cognite/queue';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/queue';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicQueueDemo() {
   return (
@@ -92,7 +92,7 @@ export const queueExamples: ComponentExamples = {
   QueueItem,
   QueueItemIndicator,
   QueueItemContent,
-} from "@/components/ai-elements/cognite/queue"
+} from "#components/ai-elements/cognite/queue"
 
 export function BasicQueueDemo() {
   return (
@@ -130,7 +130,7 @@ export function BasicQueueDemo() {
   QueueItem,
   QueueItemIndicator,
   QueueItemContent,
-} from "@/components/ai-elements/cognite/queue"
+} from "#components/ai-elements/cognite/queue"
 
 export function MultipleSectionsDemo() {
   return (
@@ -159,5 +159,5 @@ export const queueMeta = {
   name: 'Queue',
   description:
     'A comprehensive queue component system for displaying message lists, todos, and collapsible task sections in AI applications.',
-  importPath: '@/components/ai-elements/cognite/queue',
+  importPath: '#components/ai-elements/cognite/queue',
 };

@@ -3,24 +3,24 @@
 import { useState, useEffect, startTransition } from 'react';
 import { motion } from 'framer-motion';
 import { Palette, RotateCcw, Sun, Moon, Eye } from 'lucide-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '#aura/card';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/cognite/tabs';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
-import { Badge } from '@/components/ui/cognite/badge';
-import { CodeCopyButton } from '@/components/code-copy-button';
+} from '#aura/tabs';
+import { Input } from '#aura/input';
+import { Label } from '#aura/label';
+import { Badge } from '#aura/badge';
+import { CodeCopyButton } from '#components/code-copy-button';
 
 // Utility functions for color conversion
 function hslToHex(hsl: string): string {
@@ -326,7 +326,7 @@ Add the generated \`globals.css\` content to your main CSS file.
 2. Wrap your app with the ThemeProvider:
 
 \`\`\`jsx
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "#components/theme-provider"
 
 export default function App({ children }) {
   return (
@@ -347,7 +347,7 @@ export default function App({ children }) {
 Your components will now use the custom theme colors automatically!
 
 \`\`\`jsx
-import { Button } from "@/components/ui/cognite/button"
+import { Button } from "#aura/button"
 
 export function Example() {
   return (

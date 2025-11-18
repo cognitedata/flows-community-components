@@ -3,8 +3,8 @@ import {
   SourcesTrigger,
   SourcesContent,
   Source,
-} from '@/components/ui/cognite/sources';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/sources';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicSourcesDemo() {
   return (
@@ -39,7 +39,7 @@ export const sourcesExamples: ComponentExamples = {
     description: 'Collapsible source attribution with links',
     component: BasicSourcesDemo,
     difficulty: 'beginner',
-    code: `import { Sources, SourcesTrigger, SourcesContent, Source } from "@/components/ai-elements/cognite/sources"
+    code: `import { Sources, SourcesTrigger, SourcesContent, Source } from "#components/ai-elements/cognite/sources"
 
 export function BasicSourcesDemo() {
   return (
@@ -59,7 +59,7 @@ export function BasicSourcesDemo() {
     description: 'Sources with custom trigger text',
     component: SourcesWithCustomTitleDemo,
     difficulty: 'beginner',
-    code: `import { Sources, SourcesTrigger, SourcesContent, Source } from "@/components/ai-elements/cognite/sources"
+    code: `import { Sources, SourcesTrigger, SourcesContent, Source } from "#components/ai-elements/cognite/sources"
 
 export function CustomSourcesDemo() {
   return (
@@ -81,5 +81,5 @@ export const sourcesMeta = {
   name: 'Sources',
   description:
     'A component that allows a user to view the sources or citations used to generate a response.',
-  importPath: '@/components/ai-elements/cognite/sources',
+  importPath: '#components/ai-elements/cognite/sources',
 };

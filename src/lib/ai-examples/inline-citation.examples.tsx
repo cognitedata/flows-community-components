@@ -16,7 +16,7 @@ import {
   InlineCitationLink,
   InlineCitationSource,
   InlineCitationText,
-} from '@/components/ui/cognite/inline-citation';
+} from '#aura/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -29,7 +29,7 @@ import {
   IconEye,
   IconCube,
 } from '@tabler/icons-react';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 const citation = {
   text: 'The technology continues to evolve rapidly, with new breakthroughs being announced regularly',
@@ -261,7 +261,7 @@ import {
   InlineCitationCarouselPrev,
   InlineCitationSource,
   InlineCitationText,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "#components/ai-elements/cognite/inline-citation"
 
 const citation = {
   text: "The technology continues to evolve rapidly, with new breakthroughs being announced regularly",
@@ -344,7 +344,7 @@ import {
   InlineCitationCarouselIndex,
   InlineCitationCarouselItem,
   InlineCitationSource,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "#components/ai-elements/cognite/inline-citation"
 import { IconFile } from "@tabler/icons-react"
 
 export function SingleSourceDemo() {
@@ -402,7 +402,7 @@ export function SingleSourceDemo() {
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "#components/ai-elements/cognite/inline-citation"
 
 export function LinkDemo() {
   return (
@@ -433,7 +433,7 @@ import {
   InlineCitation,
   InlineCitationGroup,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "#components/ai-elements/cognite/inline-citation"
 import {
   IconAt,
   IconFile,
@@ -533,5 +533,5 @@ export const inlineCitationMeta = {
   name: 'Inline Citation',
   description:
     'A hoverable citation component that displays source information and quotes inline with text, perfect for AI-generated content with references.',
-  importPath: '@/components/ai-elements/cognite/inline-citation',
+  importPath: '#components/ai-elements/cognite/inline-citation',
 };

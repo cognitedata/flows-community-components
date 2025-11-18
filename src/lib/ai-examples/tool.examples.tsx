@@ -4,8 +4,8 @@ import {
   ToolContent,
   ToolInput,
   ToolOutput,
-} from '@/components/ui/cognite/tool';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/tool';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicToolDemo() {
   return (
@@ -44,7 +44,7 @@ export const toolExamples: ComponentExamples = {
     description: 'Tool execution with input and output',
     component: BasicToolDemo,
     difficulty: 'beginner',
-    code: `import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from "@/components/ai-elements/cognite/tool"
+    code: `import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from "#components/ai-elements/cognite/tool"
 
 export function BasicToolDemo() {
   return (
@@ -68,7 +68,7 @@ export function BasicToolDemo() {
     description: "Tool that's currently executing",
     component: RunningToolDemo,
     difficulty: 'beginner',
-    code: `import { Tool, ToolHeader, ToolContent, ToolInput } from "@/components/ai-elements/cognite/tool"
+    code: `import { Tool, ToolHeader, ToolContent, ToolInput } from "#components/ai-elements/cognite/tool"
 
 export function RunningToolDemo() {
   return (
@@ -92,5 +92,5 @@ export const toolMeta = {
   name: 'Tool',
   description:
     'A collapsible component for displaying tool invocation details in AI chatbot interfaces.',
-  importPath: '@/components/ai-elements/cognite/tool',
+  importPath: '#components/ai-elements/cognite/tool',
 };

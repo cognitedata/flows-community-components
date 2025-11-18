@@ -3,12 +3,12 @@ import {
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/message';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import {
   InlineCitation,
   InlineCitationLink,
-} from '@/components/ui/cognite/inline-citation';
+} from '#aura/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -21,13 +21,13 @@ import {
   IconDotsVertical,
   IconWheel,
 } from '@tabler/icons-react';
-import { Actions, Action } from '@/components/ui/cognite/actions';
+import { Actions, Action } from '#aura/actions';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '#aura/dropdown-menu';
 
 function Demo() {
   return (
@@ -125,19 +125,19 @@ export const messageExamples: ComponentExamples = {
       'Messages with background containers for clear visual separation',
     component: Demo,
     difficulty: 'beginner',
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "#components/ai-elements/cognite/message"
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "#components/ai-elements/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { Actions, Action } from "#components/ai-elements/cognite/actions"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "#aura/dropdown-menu"
 
 export function Demo() {
   return (
@@ -223,5 +223,5 @@ export function Demo() {
 export const messageMeta = {
   name: 'Message',
   description: 'Displays a chat interface message from either a user or an AI.',
-  importPath: '@/components/ai-elements/cognite/message',
+  importPath: '#components/ai-elements/cognite/message',
 };

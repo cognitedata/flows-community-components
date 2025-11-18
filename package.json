@@ -23,7 +23,8 @@
     "#common/*": "./src/common/*.ts",
     "#components/*": "./src/components/*.tsx",
     "#hooks/*": "./src/hooks/*.ts",
-    "#lib/*": "./src/lib/*"
+    "#lib/*": "./src/lib/*",
+    "#app/*": "./src/app/*"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.57",

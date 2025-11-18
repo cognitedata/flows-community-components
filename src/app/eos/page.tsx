@@ -6,7 +6,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '#aura/card';
 
 export default function TemplatesPage() {
   return (

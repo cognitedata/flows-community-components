@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Drawer,
   DrawerClose,
@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/cognite/drawer';
+} from '#aura/drawer';
 import type { ComponentExamples } from './types';
 
 export function BasicDemo() {
@@ -54,8 +54,8 @@ export const drawerExamples: ComponentExamples = {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/cognite/drawer"
-import { Button } from "@/components/ui/cognite/button" 
+} from "#aura/drawer"
+import { Button } from "#aura/button" 
 
 export function BasicDemo() {
   return (
@@ -92,5 +92,5 @@ export const drawerMeta = {
   description: 'A drawer component for mobile and desktop.',
   llmUsage:
     'When creating drawer panels, use `<Drawer>` with `<DrawerTrigger>` and `<DrawerContent>`.',
-  importPath: '@/components/ui/cognite/drawer',
+  importPath: '#aura/drawer',
 };

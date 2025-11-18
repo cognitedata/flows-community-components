@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter, Source_Code_Pro } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Navigation } from '@/components/navigation';
-import { TopbarVisibility } from '@/components/TopbarVisibility';
-import { Toaster } from '@/components/ui/cognite/sonner-toast';
+import { ThemeProvider } from '#components/theme-provider';
+import { Navigation } from '#components/navigation';
+import { TopbarVisibility } from '#components/TopbarVisibility';
+import { Toaster } from '#aura/sonner-toast';
 
 const inter = Inter({
   variable: '--font-inter',

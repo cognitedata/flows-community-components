@@ -3,7 +3,7 @@ import {
   getComponentStatus,
   getComponentStatusMessage,
   getComponentStatusClasses,
-} from '@/lib/component-status';
+} from '#lib/component-status';
 
 interface ComponentStatusNotificationProps {
   componentSlug: string;

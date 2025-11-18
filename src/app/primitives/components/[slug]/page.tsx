@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { Badge } from '@/components/ui/cognite/badge';
-import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
-import { ComponentExamplesRenderer } from '@/components/component-examples-renderer';
-import { CodeExamplesRenderer } from '@/components/code-examples-renderer';
-import { getComponentStatus } from '@/lib/component-status';
-import { InstallationCommand } from '@/components/installation-command';
-import { getComponentMeta } from '@/lib/component-registry';
+import { Badge } from '#aura/badge';
+import { ComponentTabSwitcher } from '#components/component-tab-switcher';
+import { ComponentExamplesRenderer } from '#components/component-examples-renderer';
+import { CodeExamplesRenderer } from '#components/code-examples-renderer';
+import { getComponentStatus } from '#lib/component-status';
+import { InstallationCommand } from '#components/installation-command';
+import { getComponentMeta } from '#lib/component-registry';
 
 interface ComponentPageProps {
   params: Promise<{

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTheme } from 'next-themes';
-import { CodeCopyButton } from '@/components/code-copy-button';
+import { CodeCopyButton } from '#components/code-copy-button';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   vscDarkPlus,

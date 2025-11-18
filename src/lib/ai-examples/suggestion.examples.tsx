@@ -1,5 +1,5 @@
-import { Suggestion } from '@/components/ui/cognite/suggestion';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import { Suggestion } from '#aura/suggestion';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicSuggestionDemo() {
   return (
@@ -28,7 +28,7 @@ export const suggestionExamples: ComponentExamples = {
     description: 'Chip-style suggestions for quick actions',
     component: BasicSuggestionDemo,
     difficulty: 'beginner',
-    code: `import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
+    code: `import { Suggestion } from "#components/ai-elements/cognite/suggestion"
 
 export function BasicSuggestionDemo() {
   return (
@@ -47,5 +47,5 @@ export const suggestionMeta = {
   name: 'Suggestion',
   description:
     'A suggestion component that displays a horizontal row of clickable suggestions for user interaction.',
-  importPath: '@/components/ai-elements/cognite/suggestion',
+  importPath: '#components/ai-elements/cognite/suggestion',
 };

@@ -5,7 +5,7 @@ import {
   BannerStatus,
   BannerActions,
   BannerAction,
-} from '@/components/ui/cognite/banner';
+} from '#aura/banner';
 import type { ComponentExamples } from './types';
 import { IconInfoCircle, IconCopy } from '@tabler/icons-react';
 
@@ -107,7 +107,7 @@ export const bannerExamples: ComponentExamples = {
   BannerStatus,
   BannerActions,
   BannerAction,
-} from "@/components/ui/cognite/banner"
+} from "#aura/banner"
 import { IconInfoCircle, IconCopy } from "@tabler/icons-react"
 
 export function VariantsDemo() {
@@ -150,7 +150,7 @@ export function VariantsDemo() {
   BannerTitle,
   BannerActions,
   BannerAction,
-} from "@/components/ui/cognite/banner"
+} from "#aura/banner"
 import { IconInfoCircle } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
@@ -228,5 +228,5 @@ export const bannerMeta = {
     'A flexible banner component for displaying important messages, notifications, or announcements with optional icons, actions, and close functionality.',
   llmUsage:
     'When displaying important messages or notifications, use `<Banner>` with `<BannerTitle>` for the message. Add `<BannerIcon>` for visual context. Group action buttons and close button inside `<BannerActions>` to position them on the right. Use `<BannerAction>` for interactive buttons and `<BannerClose>` for dismissible banners. Use the `inset` prop for rounded corners in contained layouts.',
-  importPath: '@/components/ui/cognite/banner',
+  importPath: '#aura/banner',
 };

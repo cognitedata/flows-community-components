@@ -1,21 +1,21 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Badge } from '@/components/ui/cognite/badge';
-import { Button } from '@/components/ui/cognite/button';
+import { Badge } from '#aura/badge';
+import { Button } from '#aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '#aura/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/cognite/chart';
+} from '#aura/chart';
 import {
   Area,
   AreaChart,

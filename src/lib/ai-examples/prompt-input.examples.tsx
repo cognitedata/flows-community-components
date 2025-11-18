@@ -9,8 +9,8 @@ import {
   PromptInputFooter,
   PromptInputTools,
   type PromptInputMessage,
-} from '@/components/ui/cognite/prompt-input';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/prompt-input';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import { useState, useRef } from 'react';
 import {
   IconPaperclip,
@@ -18,13 +18,13 @@ import {
   IconChevronDown,
   IconMicrophone,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '#aura/dropdown-menu';
 
 const SUBMITTING_TIMEOUT = 200;
 const STREAMING_TIMEOUT = 2000;
@@ -174,16 +174,16 @@ import {
   PromptInputFooter,
   PromptInputTools,
   type PromptInputMessage,
-} from "@/components/ai-elements/cognite/prompt-input"
+} from "#components/ai-elements/cognite/prompt-input"
 import { useState } from "react"
 import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react"
-import { Button } from "@/components/ui/cognite/button"
+import { Button } from "#aura/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "#aura/dropdown-menu"
 
 export function BasicPromptInputDemo() {
   const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready")
@@ -250,16 +250,16 @@ import {
   PromptInputFooter,
   PromptInputTools,
   type PromptInputMessage,
-} from "@/components/ai-elements/cognite/prompt-input"
+} from "#components/ai-elements/cognite/prompt-input"
 import { useState, useRef } from "react"
 import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react"
-import { Button } from "@/components/ui/cognite/button"
+import { Button } from "#aura/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "#aura/dropdown-menu"
 
 export function AdvancedPromptInputDemo() {
   const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready")
@@ -318,5 +318,5 @@ export const promptInputMeta = {
   name: 'Prompt Input',
   description:
     'Allows a user to send a message with file attachments to a large language model. It includes a textarea, file upload capabilities, a submit button, and a dropdown for selecting the model.',
-  importPath: '@/components/ai-elements/cognite/prompt-input',
+  importPath: '#components/ai-elements/cognite/prompt-input',
 };

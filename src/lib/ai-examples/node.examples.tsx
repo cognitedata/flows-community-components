@@ -7,8 +7,8 @@ import {
   NodeDescription,
   NodeContent,
   NodeFooter,
-} from '@/components/ui/cognite/node';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/node';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import { ReactFlowProvider } from '@xyflow/react';
 
 function BasicNodeDemo() {
@@ -67,7 +67,7 @@ export const nodeExamples: ComponentExamples = {
   NodeTitle,
   NodeDescription,
   NodeContent,
-} from "@/components/ai-elements/cognite/node"
+} from "#components/ai-elements/cognite/node"
 
 export function BasicNodeDemo() {
   return (
@@ -95,7 +95,7 @@ export function BasicNodeDemo() {
   NodeTitle,
   NodeContent,
   NodeFooter,
-} from "@/components/ai-elements/cognite/node"
+} from "#components/ai-elements/cognite/node"
 
 export function NodeWithFooterDemo() {
   return (
@@ -120,5 +120,5 @@ export const nodeMeta = {
   name: 'Node',
   description:
     'A draggable node component for AI workflow diagrams with input/output ports.',
-  importPath: '@/components/ai-elements/cognite/node',
+  importPath: '#components/ai-elements/cognite/node',
 };

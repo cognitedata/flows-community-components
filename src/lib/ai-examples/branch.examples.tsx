@@ -7,13 +7,13 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from '@/components/ui/cognite/branch';
+} from '#aura/branch';
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from '@/components/ui/cognite/message';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/message';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import { nanoid } from 'nanoid';
 
 const userMessages = [
@@ -155,12 +155,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch"
+} from "#components/ai-elements/cognite/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message"
+} from "#components/ai-elements/cognite/message"
 import { nanoid } from "nanoid"
 
 const userMessages = [
@@ -228,12 +228,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch"
+} from "#components/ai-elements/cognite/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message"
+} from "#components/ai-elements/cognite/message"
 import { nanoid } from "nanoid"
 
 const userMessages = [
@@ -279,12 +279,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ai-elements/cognite/branch"
+} from "#components/ai-elements/cognite/branch"
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ai-elements/cognite/message"
+} from "#components/ai-elements/cognite/message"
 import { nanoid } from "nanoid"
 
 const assistantMessages = [
@@ -322,5 +322,5 @@ export const branchMeta = {
   name: 'Branch',
   description:
     'Manages multiple versions of AI messages, allowing users to navigate between different response branches.',
-  importPath: '@/components/ai-elements/draft/branch',
+  importPath: '#components/ai-elements/draft/branch',
 };

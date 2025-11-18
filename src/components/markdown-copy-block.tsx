@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/cognite/tooltip';
+} from '#aura/tooltip';
 import { Copy, Check } from 'lucide-react';
 
 interface MarkdownCopyBlockProps {

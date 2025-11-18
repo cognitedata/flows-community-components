@@ -4,8 +4,8 @@ import {
   OpenInContent,
   OpenInChatGPT,
   OpenInClaude,
-} from '@/components/ui/cognite/open-in-chat';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/open-in-chat';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicOpenInDemo() {
   return (
@@ -43,7 +43,7 @@ export const openInChatExamples: ComponentExamples = {
   OpenInContent,
   OpenInChatGPT,
   OpenInClaude,
-} from "@/components/ai-elements/cognite/open-in-chat"
+} from "#components/ai-elements/cognite/open-in-chat"
 
 export function BasicOpenInDemo() {
   return (
@@ -69,7 +69,7 @@ export function BasicOpenInDemo() {
   OpenInContent,
   OpenInChatGPT,
   OpenInClaude,
-} from "@/components/ai-elements/cognite/open-in-chat"
+} from "#components/ai-elements/cognite/open-in-chat"
 
 export function MultipleProvidersDemo() {
   return (
@@ -90,5 +90,5 @@ export const openInChatMeta = {
   name: 'Open In Chat',
   description:
     'A dropdown menu for opening queries in various AI chat platforms including ChatGPT, Claude, T3, Scira, and v0.',
-  importPath: '@/components/ai-elements/cognite/open-in-chat',
+  importPath: '#components/ai-elements/cognite/open-in-chat',
 };

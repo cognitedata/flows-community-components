@@ -1,4 +1,4 @@
-import { Combobox } from '@/components/ui/cognite/combobox';
+import { Combobox } from '#aura/combobox';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -18,7 +18,7 @@ export const comboboxExamples: ComponentExamples = {
     description: 'A searchable select dropdown with autocomplete',
     component: BasicDemo,
     difficulty: 'intermediate',
-    code: `import { Combobox } from "@/components/ui/cognite/combobox"
+    code: `import { Combobox } from "#aura/combobox"
 
 export function BasicDemo() {
   return <Combobox />
@@ -33,5 +33,5 @@ export const comboboxMeta = {
     'Autocomplete input and command palette with a list of suggestions.',
   llmUsage:
     'When creating searchable select dropdowns, use `<Combobox>` which combines Popover and Command components.',
-  importPath: '@/components/ui/cognite/combobox',
+  importPath: '#aura/combobox',
 };

@@ -1,5 +1,5 @@
-import { Textarea } from '@/components/ui/cognite/textarea';
-import { Label } from '@/components/ui/cognite/label';
+import { Textarea } from '#aura/textarea';
+import { Label } from '#aura/label';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -83,8 +83,8 @@ export const textareaExamples: ComponentExamples = {
     description: 'Multi-line text input fields',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Textarea } from "@/components/ui/cognite/textarea"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { Textarea } from "#aura/textarea"
+import { Label } from "#aura/label"
 
 export function BasicDemo() {
   return (
@@ -107,8 +107,8 @@ export function BasicDemo() {
     description: 'Different states of the textarea field',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import { Textarea } from "@/components/ui/cognite/textarea"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { Textarea } from "#aura/textarea"
+import { Label } from "#aura/label"
 
 export function StatesDemo() {
   return (
@@ -148,8 +148,8 @@ export function StatesDemo() {
     description: 'Textarea with character counting and validation',
     component: CharacterLimitDemo,
     difficulty: 'beginner',
-    code: `import { Textarea } from "@/components/ui/cognite/textarea"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { Textarea } from "#aura/textarea"
+import { Label } from "#aura/label"
 
 export function CharacterLimitDemo() {
   return (
@@ -186,5 +186,5 @@ export const textareaMeta = {
     'Displays a form textarea or a component that looks like a textarea.',
   llmUsage:
     'When asked for a textarea, use `<Textarea>` for multi-line text input and longer form content.',
-  importPath: '@/components/ui/cognite/textarea',
+  importPath: '#aura/textarea',
 };

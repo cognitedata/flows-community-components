@@ -7,8 +7,8 @@ import {
   ContextContentFooter,
   ContextInputUsage,
   ContextOutputUsage,
-} from '@/components/ui/cognite/context';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/context';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicContextDemo() {
   return (
@@ -61,7 +61,7 @@ export const contextExamples: ComponentExamples = {
   ContextContentHeader,
   ContextContentBody,
   ContextContentFooter,
-} from "@/components/ai-elements/cognite/context"
+} from "#components/ai-elements/cognite/context"
 
 export function BasicContextDemo() {
   return (
@@ -91,7 +91,7 @@ export function BasicContextDemo() {
   ContextInputUsage,
   ContextOutputUsage,
   ContextContentFooter,
-} from "@/components/ai-elements/cognite/context"
+} from "#components/ai-elements/cognite/context"
 
 export function ContextWithUsageDemo() {
   const usage = {
@@ -121,5 +121,5 @@ export const contextMeta = {
   name: 'Context',
   description:
     'A compound component system for displaying AI model context window usage, token consumption, and cost estimation.',
-  importPath: '@/components/ai-elements/cognite/context',
+  importPath: '#components/ai-elements/cognite/context',
 };

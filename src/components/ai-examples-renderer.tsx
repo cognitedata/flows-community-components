@@ -1,8 +1,8 @@
 'use client';
 
-import { getAIComponentExamples } from '@/lib/ai-examples';
-import { ExamplePreview } from '@/components/example-preview';
-import type { ComponentExample } from '@/lib/ai-examples';
+import { getAIComponentExamples } from '#lib/ai-examples';
+import { ExamplePreview } from '#components/example-preview';
+import type { ComponentExample } from '#lib/ai-examples';
 
 interface AIExamplesRendererProps {
   slug: string;

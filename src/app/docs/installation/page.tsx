@@ -9,19 +9,19 @@ import {
   FileText,
   Sparkles,
 } from 'lucide-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '#aura/card';
+import { Badge } from '#aura/badge';
 import {
   CodeBlock,
   CodeBlockCopyButton,
-} from '@/components/ui/cognite/code-block';
+} from '#aura/code-block';
 
 interface Step {
   icon: React.ComponentType<{ className?: string }>;

@@ -5,8 +5,8 @@ import {
   ConfirmationAction,
   ConfirmationRequest,
   ConfirmationAccepted,
-} from '@/components/ui/cognite/confirmation';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/confirmation';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicConfirmationDemo() {
   return (
@@ -49,7 +49,7 @@ export const confirmationExamples: ComponentExamples = {
   ConfirmationTitle,
   ConfirmationActions,
   ConfirmationAction,
-} from "@/components/ai-elements/cognite/confirmation"
+} from "#components/ai-elements/cognite/confirmation"
 
 export function BasicConfirmationDemo() {
   return (
@@ -75,7 +75,7 @@ export function BasicConfirmationDemo() {
   ConfirmationRequest,
   ConfirmationActions,
   ConfirmationAction,
-} from "@/components/ai-elements/cognite/confirmation"
+} from "#components/ai-elements/cognite/confirmation"
 
 export function ConfirmationRequestDemo() {
   return (
@@ -97,5 +97,5 @@ export const confirmationMeta = {
   name: 'Confirmation',
   description:
     'An alert-based component for managing tool execution approval workflows with request, accept, and reject states.',
-  importPath: '@/components/ai-elements/cognite/confirmation',
+  importPath: '#components/ai-elements/cognite/confirmation',
 };

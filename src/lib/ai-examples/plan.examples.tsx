@@ -5,8 +5,8 @@ import {
   PlanDescription,
   PlanTrigger,
   PlanContent,
-} from '@/components/ui/cognite/plan';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/plan';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicPlanDemo() {
   return (
@@ -61,7 +61,7 @@ export const planExamples: ComponentExamples = {
   PlanDescription,
   PlanTrigger,
   PlanContent,
-} from "@/components/ai-elements/cognite/plan"
+} from "#components/ai-elements/cognite/plan"
 
 export function BasicPlanDemo() {
   return (
@@ -94,7 +94,7 @@ export function BasicPlanDemo() {
   PlanTitle,
   PlanDescription,
   PlanContent,
-} from "@/components/ai-elements/cognite/plan"
+} from "#components/ai-elements/cognite/plan"
 
 export function StreamingPlanDemo() {
   return (
@@ -119,5 +119,5 @@ export const planMeta = {
   name: 'Plan',
   description:
     'A collapsible plan component for displaying AI-generated execution plans with streaming support and shimmer animations.',
-  importPath: '@/components/ai-elements/cognite/plan',
+  importPath: '#components/ai-elements/cognite/plan',
 };

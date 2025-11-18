@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '#aura/card';
+import { Badge } from '#aura/badge';
 import { MessageSquare, BarChart3, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 

@@ -1,5 +1,5 @@
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
+import { Input } from '#aura/input';
+import { Label } from '#aura/label';
 import type { ComponentExamples } from './types';
 
 function WithLabelDemo() {
@@ -62,8 +62,8 @@ export const inputExamples: ComponentExamples = {
     description: 'Input field with an associated label',
     component: WithLabelDemo,
     difficulty: 'beginner',
-    code: `import { Input } from "@/components/ui/cognite/input"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { Input } from "#aura/input"
+import { Label } from "#aura/label"
 
 export function WithLabelDemo() {
   return (
@@ -92,8 +92,8 @@ export function WithLabelDemo() {
     description: 'Different states of the input field',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import { Input } from "@/components/ui/cognite/input"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { Input } from "#aura/input"
+import { Label } from "#aura/label"
 
 export function StatesDemo() {
   return (
@@ -137,5 +137,5 @@ export const inputMeta = {
     'A styled input field component with built-in validation states and accessibility features.',
   llmUsage:
     "When creating form inputs, use `<Input type='text' placeholder='Enter text' />` instead of `<input>`. Pair with `<Label>` for accessibility.",
-  importPath: '@/components/ui/cognite/input',
+  importPath: '#aura/input',
 };

@@ -1,4 +1,4 @@
-import { SectionLayout } from '@/components/section-layout';
+import { SectionLayout } from '#components/section-layout';
 
 export default function PrimitivesLayout({
   children,

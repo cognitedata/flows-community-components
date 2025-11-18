@@ -1,5 +1,5 @@
-import { Loader } from '@/components/ui/cognite/loader';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import { Loader } from '#aura/loader';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicLoaderDemo() {
   return (
@@ -43,7 +43,7 @@ export const loaderExamples: ComponentExamples = {
     description: 'A simple spinning loader icon',
     component: BasicLoaderDemo,
     difficulty: 'beginner',
-    code: `import { Loader } from "@/components/ai-elements/cognite/loader"
+    code: `import { Loader } from "#components/ai-elements/cognite/loader"
 
 export function BasicLoaderDemo() {
   return (
@@ -59,7 +59,7 @@ export function BasicLoaderDemo() {
     description: 'Loader component with custom size',
     component: SizesDemo,
     difficulty: 'beginner',
-    code: `import { Loader } from "@/components/ai-elements/cognite/loader"
+    code: `import { Loader } from "#components/ai-elements/cognite/loader"
 
 export function SizesDemo() {
   return (
@@ -78,7 +78,7 @@ export function SizesDemo() {
     description: 'Loader displayed alongside text',
     component: InlineLoaderDemo,
     difficulty: 'beginner',
-    code: `import { Loader } from "@/components/ai-elements/cognite/loader"
+    code: `import { Loader } from "#components/ai-elements/cognite/loader"
 
 export function InlineLoaderDemo() {
   return (
@@ -96,5 +96,5 @@ export const loaderMeta = {
   name: 'Loader',
   description:
     'A spinning loader component for indicating loading states in AI applications.',
-  importPath: '@/components/ai-elements/cognite/loader',
+  importPath: '#components/ai-elements/cognite/loader',
 };

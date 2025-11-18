@@ -1,5 +1,5 @@
-import { Panel } from '@/components/ui/cognite/panel';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import { Panel } from '#aura/panel';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicPanelDemo() {
   return (
@@ -31,7 +31,7 @@ export const panelExamples: ComponentExamples = {
     description: 'A floating panel for supplementary content',
     component: BasicPanelDemo,
     difficulty: 'beginner',
-    code: `import { Panel } from "@/components/ai-elements/cognite/panel"
+    code: `import { Panel } from "#components/ai-elements/cognite/panel"
 
 export function BasicPanelDemo() {
   return (
@@ -50,7 +50,7 @@ export function BasicPanelDemo() {
     description: 'Panel with custom styling',
     component: PanelWithCustomStylingDemo,
     difficulty: 'beginner',
-    code: `import { Panel } from "@/components/ai-elements/cognite/panel"
+    code: `import { Panel } from "#components/ai-elements/cognite/panel"
 
 export function CustomPanelDemo() {
   return (
@@ -67,5 +67,5 @@ export const panelMeta = {
   name: 'Panel',
   description:
     'A resizable side panel layout for AI interfaces with collapsible sections.',
-  importPath: '@/components/ai-elements/cognite/panel',
+  importPath: '#components/ai-elements/cognite/panel',
 };

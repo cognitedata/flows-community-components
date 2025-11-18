@@ -9,9 +9,9 @@ import {
   type MouseEventHandler,
   useContext,
 } from 'react';
-import { Button } from '@/components/ui/cognite/button';
-import { Badge } from '@/components/ui/cognite/badge';
-import { cn } from '#common/utils';
+import { Button } from '#aura/button';
+import { Badge } from '#aura/badge';
+import { cn } from '#lib/utils';
 
 type BannerVariant = 'default' | 'neutral' | 'destructive' | 'warning';
 

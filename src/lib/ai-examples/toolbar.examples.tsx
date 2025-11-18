@@ -1,4 +1,4 @@
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 // Note: Toolbar is a wrapper for React Flow NodeToolbar
 // It provides a toolbar that appears on node hover
@@ -17,8 +17,8 @@ export const toolbarExamples: ComponentExamples = {
     description: 'Toolbar that appears on node hover in flow diagrams',
     component: BasicToolbarDemo,
     difficulty: 'intermediate',
-    code: `import { Toolbar } from "@/components/ai-elements/cognite/toolbar"
-import { Node } from "@/components/ai-elements/cognite/node"
+    code: `import { Toolbar } from "#components/ai-elements/cognite/toolbar"
+import { Node } from "#components/ai-elements/cognite/node"
 
 export function BasicToolbarDemo() {
   return (
@@ -41,5 +41,5 @@ export const toolbarMeta = {
   name: 'Toolbar',
   description:
     'A customizable toolbar component for AI interface controls and actions.',
-  importPath: '@/components/ai-elements/cognite/toolbar',
+  importPath: '#components/ai-elements/cognite/toolbar',
 };

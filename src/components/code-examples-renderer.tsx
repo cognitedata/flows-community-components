@@ -3,7 +3,7 @@
 import {
   getComponentExamples,
   type ComponentExample,
-} from '@/lib/component-examples';
+} from '#lib/component-examples';
 import { CodeExample } from './code-example';
 
 interface CodeExamplesRendererProps {

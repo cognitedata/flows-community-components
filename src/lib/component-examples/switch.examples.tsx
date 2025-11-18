@@ -1,5 +1,5 @@
-import { Switch } from '@/components/ui/cognite/switch';
-import { Label } from '@/components/ui/cognite/label';
+import { Switch } from '#aura/switch';
+import { Label } from '#aura/label';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -29,8 +29,8 @@ export const switchExamples: ComponentExamples = {
     description: 'Toggle switches for on/off settings',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Switch } from "@/components/ui/cognite/switch"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { Switch } from "#aura/switch"
+import { Label } from "#aura/label"
 
 export function BasicDemo() {
   return (
@@ -62,5 +62,5 @@ export const switchMeta = {
     'A control that allows the user to toggle between checked and not checked.',
   llmUsage:
     'When asked for a switch or toggle, use `<Switch>` for on/off settings and preferences.',
-  importPath: '@/components/ui/cognite/switch',
+  importPath: '#aura/switch',
 };

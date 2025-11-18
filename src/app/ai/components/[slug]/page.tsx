@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation';
-import { Button } from '@/components/ui/cognite/button';
-import { Badge } from '@/components/ui/cognite/badge';
+import { Button } from '#aura/button';
+import { Badge } from '#aura/badge';
 import Link from 'next/link';
 import { IconArrowLeft } from '@tabler/icons-react';
-import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
-import { AIExamplesRenderer } from '@/components/ai-examples-renderer';
-import { AICodeExamplesRenderer } from '@/components/ai-code-examples-renderer';
-import { getAIComponentStatus } from '@/lib/ai-component-status';
-import { getAIComponentMeta } from '@/lib/ai-component-registry';
+import { ComponentTabSwitcher } from '#components/component-tab-switcher';
+import { AIExamplesRenderer } from '#components/ai-examples-renderer';
+import { AICodeExamplesRenderer } from '#components/ai-code-examples-renderer';
+import { getAIComponentStatus } from '#lib/ai-component-status';
+import { getAIComponentMeta } from '#lib/ai-component-registry';
 
 interface ComponentPageProps {
   params: Promise<{

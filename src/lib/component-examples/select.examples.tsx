@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/cognite/select';
-import { Label } from '@/components/ui/cognite/label';
+} from '#aura/select';
+import { Label } from '#aura/label';
 import { User, Mail, Settings, Home } from 'lucide-react';
 import * as React from 'react';
 import type { ComponentExamples } from './types';
@@ -169,8 +169,8 @@ export const selectExamples: ComponentExamples = {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select";
-import { Label } from "@/components/ui/cognite/label";
+} from "#aura/select";
+import { Label } from "#aura/label";
 import { User, Mail, Settings, Home } from "lucide-react";
 import * as React from "react";
 
@@ -240,8 +240,8 @@ function BasicDemo() {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select";
-import { Label } from "@/components/ui/cognite/label";
+} from "#aura/select";
+import { Label } from "#aura/label";
 import { User, Mail, Settings, Home } from "lucide-react";
 import * as React from "react";
 
@@ -347,5 +347,5 @@ export const selectMeta = {
     'Displays a list of options for the user to pick from—triggered by a button.',
   llmUsage:
     'When asked for a select dropdown, use `<Select>` for choosing from multiple options.',
-  importPath: '@/components/ui/cognite/select',
+  importPath: '#aura/select',
 };

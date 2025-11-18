@@ -1,13 +1,13 @@
 'use client';
 
-import { Canvas } from '@/components/ui/cognite/canvas';
+import { Canvas } from '#aura/canvas';
 import {
   Node,
   NodeHeader,
   NodeTitle,
   NodeContent,
-} from '@/components/ui/cognite/node';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/node';
+import type { ComponentExamples } from '#lib/component-examples/types';
 import {
   Background,
   type Edge,
@@ -81,7 +81,7 @@ export const canvasExamples: ComponentExamples = {
     description: 'A flow-based canvas for visualizing interactive workflows',
     component: BasicCanvasDemo,
     difficulty: 'beginner',
-    code: `import { Canvas } from "@/components/ai-elements/cognite/canvas"
+    code: `import { Canvas } from "#components/ai-elements/cognite/canvas"
 import { Background } from "@xyflow/react"
 
 export function BasicCanvasDemo() {
@@ -110,7 +110,7 @@ export function BasicCanvasDemo() {
     description: 'Multiple nodes connected with edges',
     component: WithMultipleNodesDemo,
     difficulty: 'intermediate',
-    code: `import { Canvas } from "@/components/ai-elements/cognite/canvas"
+    code: `import { Canvas } from "#components/ai-elements/cognite/canvas"
 import { Background } from "@xyflow/react"
 
 export function CanvasWithNodesDemo() {
@@ -139,5 +139,5 @@ export const canvasMeta = {
   name: 'Canvas',
   description:
     'An interactive canvas for AI-generated visual content with zoom, pan, and editing capabilities.',
-  importPath: '@/components/ai-elements/cognite/canvas',
+  importPath: '#components/ai-elements/cognite/canvas',
 };

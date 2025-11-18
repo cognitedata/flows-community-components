@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
+} from '#aura/collapsible';
 import { ChevronsUpDown } from 'lucide-react';
 import type { ComponentExamples } from './types';
 
@@ -43,8 +43,8 @@ export const collapsibleExamples: ComponentExamples = {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/cognite/collapsible"
-import { Button } from "@/components/ui/cognite/button"
+} from "#aura/collapsible"
+import { Button } from "#aura/button"
 import { ChevronsUpDown } from "lucide-react"
 
 export function BasicDemo() {
@@ -73,7 +73,7 @@ export const collapsibleMeta = {
   description: 'An interactive component which expands/collapses a panel.',
   llmUsage:
     'When showing expandable content, use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>`.',
-  importPath: '@/components/ui/cognite/collapsible',
+  importPath: '#aura/collapsible',
 };
 
 // Component code literal - must match src/components/ui/cognite/collapsible.tsx
@@ -81,7 +81,7 @@ export const collapsibleCode = `"use client";
 
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 
-import { cn } from "@/lib/utils";
+import { cn } from "#lib/utils";
 
 function Collapsible({
   className,

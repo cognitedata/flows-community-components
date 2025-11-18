@@ -6,9 +6,9 @@ import {
   ArtifactAction,
   ArtifactContent,
   ArtifactClose,
-} from '@/components/ui/cognite/artifact';
+} from '#aura/artifact';
 import { Copy, Download, Share } from 'lucide-react';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicArtifactDemo() {
   return (
@@ -77,7 +77,7 @@ export const artifactExamples: ComponentExamples = {
   ArtifactAction, 
   ArtifactContent,
   ArtifactClose 
-} from "@/components/ai-elements/cognite/artifact"
+} from "#components/ai-elements/cognite/artifact"
 import { Copy, Download } from "lucide-react"
 
 export function BasicArtifactDemo() {
@@ -114,7 +114,7 @@ export function BasicArtifactDemo() {
   ArtifactAction, 
   ArtifactContent,
   ArtifactClose 
-} from "@/components/ai-elements/cognite/artifact"
+} from "#components/ai-elements/cognite/artifact"
 import { Copy, Download, Share } from "lucide-react"
 
 export function WithActionsDemo() {
@@ -148,5 +148,5 @@ export const artifactMeta = {
   name: 'Artifact',
   description:
     'A container for AI-generated content with header, actions, and tabbed content areas.',
-  importPath: '@/components/ai-elements/cognite/artifact',
+  importPath: '#components/ai-elements/cognite/artifact',
 };

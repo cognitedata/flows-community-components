@@ -1,7 +1,7 @@
 'use client';
 
-import { Image } from '@/components/ui/cognite/image';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+import { Image } from '#aura/image';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 const exampleImage = {
   base64:
@@ -41,7 +41,7 @@ export const imageExamples: ComponentExamples = {
     component: BasicImageDemo,
     difficulty: 'beginner',
     code: `"use client"
-import { Image } from "@/components/ai-elements/cognite/image"
+import { Image } from "#components/ai-elements/cognite/image"
 
 const exampleImage = {
   base64: "<insert base64 encoded image here>",
@@ -66,7 +66,7 @@ export function BasicImageDemo() {
     component: RoundedImageDemo,
     difficulty: 'beginner',
     code: `"use client"
-import { Image } from "@/components/ai-elements/cognite/image"
+import { Image } from "#components/ai-elements/cognite/image"
 
 const exampleImage = {
   base64: "<insert base64 encoded image here>",
@@ -90,5 +90,5 @@ export function RoundedImageDemo() {
 export const imageMeta = {
   name: 'Image',
   description: 'Displays AI-generated images from the AI SDK.',
-  importPath: '@/components/ai-elements/cognite/image',
+  importPath: '#components/ai-elements/cognite/image',
 };

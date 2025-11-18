@@ -4,9 +4,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
-import { Button } from '@/components/ui/cognite/button';
+} from '#aura/card';
+import { Badge } from '#aura/badge';
+import { Button } from '#aura/button';
 import {
   BarChart3,
   ShoppingBag,

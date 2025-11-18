@@ -2,8 +2,8 @@ import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from '@/components/ui/cognite/code-block';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/code-block';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicCodeBlockDemo() {
   return (
@@ -50,7 +50,7 @@ export const codeBlockExamples: ComponentExamples = {
     description: 'Syntax-highlighted code with copy and collapse buttons',
     component: BasicCodeBlockDemo,
     difficulty: 'beginner',
-    code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ai-elements/cognite/code-block"
+    code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "#components/ai-elements/cognite/code-block"
 
 export function BasicCodeBlockDemo() {
   return (
@@ -68,7 +68,7 @@ export function BasicCodeBlockDemo() {
       'Syntax highlighting with line numbers, collapse and copy buttons',
     component: WithSyntaxHighlightingDemo,
     difficulty: 'beginner',
-    code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ai-elements/cognite/code-block"
+    code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "#components/ai-elements/cognite/code-block"
 
 export function WithSyntaxHighlightingDemo() {
   const code = \`function greet(name: string) {
@@ -91,7 +91,7 @@ greet('World');\`
     description: 'Code block that starts in a collapsed state',
     component: PreCollapsedDemo,
     difficulty: 'beginner',
-    code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ai-elements/cognite/code-block"
+    code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "#components/ai-elements/cognite/code-block"
 
 export function PreCollapsedDemo() {
   const code = \`function greet(name: string) {
@@ -115,5 +115,5 @@ export const codeBlockMeta = {
   name: 'Code Block',
   description:
     'Provides syntax highlighting, line numbers, and copy to clipboard functionality for code blocks.',
-  importPath: '@/components/ai-elements/cognite/code-block',
+  importPath: '#components/ai-elements/cognite/code-block',
 };

@@ -5,8 +5,8 @@ import {
   ChainOfThoughtContent,
   ChainOfThoughtSearchResults,
   ChainOfThoughtSearchResult,
-} from '@/components/ui/cognite/chain-of-thought';
-import type { ComponentExamples } from '@/lib/component-examples/types';
+} from '#aura/chain-of-thought';
+import type { ComponentExamples } from '#lib/component-examples/types';
 
 function BasicChainOfThoughtDemo() {
   return (
@@ -57,7 +57,7 @@ export const chainOfThoughtExamples: ComponentExamples = {
   ChainOfThoughtHeader,
   ChainOfThoughtStep,
   ChainOfThoughtContent,
-} from "@/components/ai-elements/cognite/chain-of-thought"
+} from "#components/ai-elements/cognite/chain-of-thought"
 
 export function BasicChainOfThoughtDemo() {
   return (
@@ -85,7 +85,7 @@ export function BasicChainOfThoughtDemo() {
   ChainOfThoughtContent,
   ChainOfThoughtSearchResults,
   ChainOfThoughtSearchResult,
-} from "@/components/ai-elements/cognite/chain-of-thought"
+} from "#components/ai-elements/cognite/chain-of-thought"
 
 export function ChainOfThoughtWithResultsDemo() {
   return (
@@ -109,5 +109,5 @@ export const chainOfThoughtMeta = {
   name: 'Chain Of Thought',
   description:
     'A collapsible component that visualizes AI reasoning steps with support for search results, images, and step-by-step progress indicators.',
-  importPath: '@/components/ai-elements/cognite/chain-of-thought',
+  importPath: '#components/ai-elements/cognite/chain-of-thought',
 };

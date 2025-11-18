@@ -1,5 +1,5 @@
-import { Label } from '@/components/ui/cognite/label';
-import { Input } from '@/components/ui/cognite/input';
+import { Label } from '#aura/label';
+import { Input } from '#aura/input';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -38,8 +38,8 @@ export const labelExamples: ComponentExamples = {
     description: 'Labels for form inputs with different styles',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Label } from "@/components/ui/cognite/label"
-import { Input } from "@/components/ui/cognite/input"
+    code: `import { Label } from "#aura/label"
+import { Input } from "#aura/input"
 
 export function BasicDemo() {
   return (
@@ -79,5 +79,5 @@ export const labelMeta = {
   description: 'Renders an accessible label associated with controls.',
   llmUsage:
     'When asked for a label, use `<Label>` to properly associate text with form controls.',
-  importPath: '@/components/ui/cognite/label',
+  importPath: '#aura/label',
 };

@@ -10,14 +10,14 @@ import {
   Layout,
   Columns,
 } from 'lucide-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '#aura/card';
 
 const breakpoints = [
   { name: 'Mobile', icon: Smartphone, width: '375px', minWidth: '320px' },

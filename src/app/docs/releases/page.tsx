@@ -1,12 +1,12 @@
-import { SectionLayout } from '@/components/section-layout';
+import { SectionLayout } from '#components/section-layout';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '#aura/card';
+import { Badge } from '#aura/badge';
 import { CalendarDays, GitCommit } from 'lucide-react';
 
 const releases = [

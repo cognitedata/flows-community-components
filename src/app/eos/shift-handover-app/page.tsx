@@ -4,27 +4,27 @@ import Image from 'next/image';
 import React from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/cognite/tabs';
-import { Button } from '@/components/ui/cognite/button';
+import { Tabs, TabsList, TabsTrigger } from '#aura/tabs';
+import { Button } from '#aura/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
-import { Textarea } from '@/components/ui/cognite/textarea';
+} from '#aura/card';
+import { Input } from '#aura/input';
+import { Label } from '#aura/label';
+import { Textarea } from '#aura/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/cognite/select';
-import { Checkbox } from '@/components/ui/cognite/checkbox';
-import { Separator } from '@/components/ui/cognite/separator';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '#aura/select';
+import { Checkbox } from '#aura/checkbox';
+import { Separator } from '#aura/separator';
+import { Badge } from '#aura/badge';
 import {
   AppWindow,
   ArrowLeft,
@@ -47,15 +47,15 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/cognite/popover';
-import { Calendar } from '@/components/ui/cognite/calendar';
+} from '#aura/popover';
+import { Calendar } from '#aura/calendar';
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/cognite/dialog';
+} from '#aura/dialog';
 
 type ChecklistItem = {
   id: string;

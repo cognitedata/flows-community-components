@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/cognite/badge';
+import { Badge } from '#aura/badge';
 import type { ComponentExamples } from './types';
 import {
   IconAlertHexagon,
@@ -87,7 +87,7 @@ export const badgeExamples: ComponentExamples = {
     description: 'Different badge styles for various semantic meanings',
     component: VariantsDemo,
     difficulty: 'beginner',
-    code: `import { Badge } from "@/components/ui/cognite/badge"
+    code: `import { Badge } from "#aura/badge"
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -153,7 +153,7 @@ export function VariantsDemo() {
     description: '',
     component: MainComponentDemo,
     difficulty: 'beginner',
-    code: `import { Badge } from "@/components/ui/cognite/badge"
+    code: `import { Badge } from "#aura/badge"
 import { IconHexagon, IconX } from "@tabler/icons-react";
 
 export function MainComponentDemo() {
@@ -188,5 +188,5 @@ export const badgeMeta = {
     'A small status indicator component with multiple variants for displaying labels, counts, and statuses.',
   llmUsage:
     "When showing status or labels, use `<Badge variant='default'>Status</Badge>` instead of custom spans. Use variants like 'secondary', 'destructive', or 'outline' for different meanings.",
-  importPath: '@/components/ui/cognite/badge',
+  importPath: '#aura/badge',
 };

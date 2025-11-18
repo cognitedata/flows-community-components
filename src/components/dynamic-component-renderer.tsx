@@ -6,17 +6,17 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Button } from '@/components/ui/cognite/button';
-import { Badge } from '@/components/ui/cognite/badge';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
+} from '#aura/card';
+import { Button } from '#aura/button';
+import { Badge } from '#aura/badge';
+import { Input } from '#aura/input';
+import { Label } from '#aura/label';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/cognite/tabs';
+} from '#aura/tabs';
 import {
   IconAlertTriangle,
   IconPlayerPlay,

@@ -1,7 +1,7 @@
-import { HelperText } from '@/components/ui/cognite/helper-text';
-import { Input } from '@/components/ui/cognite/input';
-import { Textarea } from '@/components/ui/cognite/textarea';
-import { Label } from '@/components/ui/cognite/label';
+import { HelperText } from '#aura/helper-text';
+import { Input } from '#aura/input';
+import { Textarea } from '#aura/textarea';
+import { Label } from '#aura/label';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -92,7 +92,7 @@ export const helperTextExamples: ComponentExamples = {
     description: 'Helper text in default and error states',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
+    code: `import { HelperText } from "#aura/helper-text"
 
 export function BasicDemo() {
   return (
@@ -113,9 +113,9 @@ export function BasicDemo() {
     description: 'Using helper text with input fields',
     component: WithInputDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
-import { Input } from "@/components/ui/cognite/input"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { HelperText } from "#aura/helper-text"
+import { Input } from "#aura/input"
+import { Label } from "#aura/label"
 
 export function WithInputDemo() {
   return (
@@ -148,9 +148,9 @@ export function WithInputDemo() {
     description: 'Using helper text with textarea fields',
     component: WithTextareaDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
-import { Textarea } from "@/components/ui/cognite/textarea"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { HelperText } from "#aura/helper-text"
+import { Textarea } from "#aura/textarea"
+import { Label } from "#aura/label"
 
 export function WithTextareaDemo() {
   return (
@@ -184,7 +184,7 @@ export function WithTextareaDemo() {
     description: 'Different states and use cases for helper text',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
+    code: `import { HelperText } from "#aura/helper-text"
 
 export function StatesDemo() {
   return (
@@ -221,7 +221,7 @@ export const helperTextMeta = {
     'A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.',
   llmUsage:
     'Use `<HelperText>` to provide additional information or guidance below form fields. Set `isError={true}` to display error messages with the appropriate styling and icon.',
-  importPath: '@/components/ui/cognite/helper-text',
+  importPath: '#aura/helper-text',
   apiReference: {
     props: [
       {
