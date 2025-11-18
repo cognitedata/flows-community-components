@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from '@/components/ui/cognite/button';
 import {
   Drawer,
   DrawerClose,
@@ -8,8 +8,8 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/cognite/drawer";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/drawer';
+import type { ComponentExamples } from './types';
 
 export function BasicDemo() {
   return (
@@ -40,11 +40,11 @@ export function BasicDemo() {
 
 export const drawerExamples: ComponentExamples = {
   basic: {
-    title: "Drawer Demo",
+    title: 'Drawer Demo',
     description:
-      "Interactive drawer panels that slide up from the bottom with forms and content",
+      'Interactive drawer panels that slide up from the bottom with forms and content',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Drawer,
   DrawerClose,
@@ -88,9 +88,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const drawerMeta = {
-  name: "Drawer",
-  description: "A drawer component for mobile and desktop.",
+  name: 'Drawer',
+  description: 'A drawer component for mobile and desktop.',
   llmUsage:
-    "When creating drawer panels, use `<Drawer>` with `<DrawerTrigger>` and `<DrawerContent>`.",
-  importPath: "@/components/ui/cognite/drawer",
+    'When creating drawer panels, use `<Drawer>` with `<DrawerTrigger>` and `<DrawerContent>`.',
+  importPath: '@/components/ui/cognite/drawer',
 };

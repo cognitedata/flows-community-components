@@ -5,8 +5,8 @@ import {
   ChainOfThoughtContent,
   ChainOfThoughtSearchResults,
   ChainOfThoughtSearchResult,
-} from "@/components/ui/cognite/chain-of-thought";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/chain-of-thought';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicChainOfThoughtDemo() {
   return (
@@ -48,10 +48,10 @@ function WithSearchResultsDemo() {
 
 export const chainOfThoughtExamples: ComponentExamples = {
   basic: {
-    title: "Basic Chain of Thought",
-    description: "Step-by-step reasoning process with collapsible steps",
+    title: 'Basic Chain of Thought',
+    description: 'Step-by-step reasoning process with collapsible steps',
     component: BasicChainOfThoughtDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   ChainOfThought,
   ChainOfThoughtHeader,
@@ -74,10 +74,10 @@ export function BasicChainOfThoughtDemo() {
   },
 
   withSearchResults: {
-    title: "With Search Results",
-    description: "Chain of thought with embedded search results",
+    title: 'With Search Results',
+    description: 'Chain of thought with embedded search results',
     component: WithSearchResultsDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   ChainOfThought,
   ChainOfThoughtHeader,
@@ -106,8 +106,8 @@ export function ChainOfThoughtWithResultsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const chainOfThoughtMeta = {
-  name: "Chain Of Thought",
+  name: 'Chain Of Thought',
   description:
-    "A collapsible component that visualizes AI reasoning steps with support for search results, images, and step-by-step progress indicators.",
-  importPath: "@/components/ai-elements/cognite/chain-of-thought",
+    'A collapsible component that visualizes AI reasoning steps with support for search results, images, and step-by-step progress indicators.',
+  importPath: '@/components/ai-elements/cognite/chain-of-thought',
 };

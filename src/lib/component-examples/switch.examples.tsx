@@ -1,6 +1,6 @@
-import { Switch } from "@/components/ui/cognite/switch";
-import { Label } from "@/components/ui/cognite/label";
-import type { ComponentExamples } from "./types";
+import { Switch } from '@/components/ui/cognite/switch';
+import { Label } from '@/components/ui/cognite/label';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -25,10 +25,10 @@ function BasicDemo() {
 
 export const switchExamples: ComponentExamples = {
   basic: {
-    title: "Switch Examples",
-    description: "Toggle switches for on/off settings",
+    title: 'Switch Examples',
+    description: 'Toggle switches for on/off settings',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Switch } from "@/components/ui/cognite/switch"
 import { Label } from "@/components/ui/cognite/label"
 
@@ -57,8 +57,10 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const switchMeta = {
-  name: "Switch",
-  description: "A control that allows the user to toggle between checked and not checked.",
-  llmUsage: "When asked for a switch or toggle, use `<Switch>` for on/off settings and preferences.",
-  importPath: "@/components/ui/cognite/switch",
+  name: 'Switch',
+  description:
+    'A control that allows the user to toggle between checked and not checked.',
+  llmUsage:
+    'When asked for a switch or toggle, use `<Switch>` for on/off settings and preferences.',
+  importPath: '@/components/ui/cognite/switch',
 };

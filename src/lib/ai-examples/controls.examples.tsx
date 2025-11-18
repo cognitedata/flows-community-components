@@ -1,4 +1,4 @@
-import type { ComponentExamples } from "@/lib/component-examples/types";
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 // Note: Controls is a wrapper around React Flow Controls
 // It provides zoom in/out and fit view buttons
@@ -13,10 +13,10 @@ function BasicControlsDemo() {
 
 export const controlsExamples: ComponentExamples = {
   basic: {
-    title: "Canvas Controls",
-    description: "Zoom and navigation controls for flow diagrams",
+    title: 'Canvas Controls',
+    description: 'Zoom and navigation controls for flow diagrams',
     component: BasicControlsDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Controls } from "@/components/ai-elements/cognite/controls"
 import { Canvas } from "@/components/ai-elements/cognite/canvas"
 
@@ -33,7 +33,8 @@ export function BasicControlsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const controlsMeta = {
-  name: "Controls",
-  description: "A toolbar providing controls for AI interactions like pause, resume, stop, and regenerate.",
-  importPath: "@/components/ai-elements/cognite/controls",
+  name: 'Controls',
+  description:
+    'A toolbar providing controls for AI interactions like pause, resume, stop, and regenerate.',
+  importPath: '@/components/ai-elements/cognite/controls',
 };
