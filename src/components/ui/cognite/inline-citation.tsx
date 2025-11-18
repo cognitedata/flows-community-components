@@ -12,7 +12,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/cognite/hover-card";
 import { cn } from "@/lib/utils";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import type { ComponentType } from "react";
 import {
   type ComponentProps,
@@ -228,7 +228,7 @@ export const InlineCitationCarouselPrev = ({
       type="button"
       {...props}
     >
-      <ArrowLeftIcon className="size-4 text-muted-foreground" />
+      <IconArrowLeft className="size-4 text-muted-foreground" />
     </button>
   );
 };
@@ -255,7 +255,7 @@ export const InlineCitationCarouselNext = ({
       type="button"
       {...props}
     >
-      <ArrowRightIcon className="size-4 text-muted-foreground" />
+      <IconArrowRight className="size-4 text-muted-foreground" />
     </button>
   );
 };

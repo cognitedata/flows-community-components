@@ -850,6 +850,9 @@
       "type": "registry:component",
       "title": "Inline Citation",
       "description": "AI inline citation component for source references.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/inline-citation.tsx",
