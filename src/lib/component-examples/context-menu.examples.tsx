@@ -5,8 +5,8 @@ import {
   ContextMenuLabel,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@/components/ui/cognite/context-menu";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/context-menu';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -31,9 +31,10 @@ function BasicDemo() {
           <ContextMenuItem variant="destructive">Delete</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
-      
+
       <p className="text-sm text-muted-foreground">
-        Right-click on the dashed area above to see the interactive context menu.
+        Right-click on the dashed area above to see the interactive context
+        menu.
       </p>
     </div>
   );
@@ -41,10 +42,11 @@ function BasicDemo() {
 
 export const contextMenuExamples: ComponentExamples = {
   basic: {
-    title: "Context Menu",
-    description: "Interactive right-click menu that appears at the pointer location",
+    title: 'Context Menu',
+    description:
+      'Interactive right-click menu that appears at the pointer location',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   ContextMenu,
   ContextMenuContent,
@@ -89,8 +91,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const contextMenuMeta = {
-  name: "Context Menu",
-  description: "Displays a menu at the pointer location.",
-  llmUsage: "When creating right-click menus, use `<ContextMenu>` with `<ContextMenuTrigger>` and `<ContextMenuContent>`.",
-  importPath: "@/components/ui/cognite/context-menu",
+  name: 'Context Menu',
+  description: 'Displays a menu at the pointer location.',
+  llmUsage:
+    'When creating right-click menus, use `<ContextMenu>` with `<ContextMenuTrigger>` and `<ContextMenuContent>`.',
+  importPath: '@/components/ui/cognite/context-menu',
 };

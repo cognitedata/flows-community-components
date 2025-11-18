@@ -2,8 +2,8 @@ import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "@/components/ui/cognite/code-block";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/code-block';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicCodeBlockDemo() {
   return (
@@ -46,10 +46,10 @@ greet('World');`;
 
 export const codeBlockExamples: ComponentExamples = {
   basic: {
-    title: "Basic Code Block",
-    description: "Syntax-highlighted code with copy and collapse buttons",
+    title: 'Basic Code Block',
+    description: 'Syntax-highlighted code with copy and collapse buttons',
     component: BasicCodeBlockDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ai-elements/cognite/code-block"
 
 export function BasicCodeBlockDemo() {
@@ -63,10 +63,11 @@ export function BasicCodeBlockDemo() {
   },
 
   withLineNumbers: {
-    title: "Code Block with Line Numbers",
-    description: "Syntax highlighting with line numbers, collapse and copy buttons",
+    title: 'Code Block with Line Numbers',
+    description:
+      'Syntax highlighting with line numbers, collapse and copy buttons',
     component: WithSyntaxHighlightingDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ai-elements/cognite/code-block"
 
 export function WithSyntaxHighlightingDemo() {
@@ -86,10 +87,10 @@ greet('World');\`
   },
 
   preCollapsed: {
-    title: "Pre-collapsed Code Block",
-    description: "Code block that starts in a collapsed state",
+    title: 'Pre-collapsed Code Block',
+    description: 'Code block that starts in a collapsed state',
     component: PreCollapsedDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ai-elements/cognite/code-block"
 
 export function PreCollapsedDemo() {
@@ -111,8 +112,8 @@ greet('World');\`
 
 // Component metadata - single source of truth for API documentation
 export const codeBlockMeta = {
-  name: "Code Block",
+  name: 'Code Block',
   description:
-    "Provides syntax highlighting, line numbers, and copy to clipboard functionality for code blocks.",
-  importPath: "@/components/ai-elements/cognite/code-block",
+    'Provides syntax highlighting, line numbers, and copy to clipboard functionality for code blocks.',
+  importPath: '@/components/ai-elements/cognite/code-block',
 };

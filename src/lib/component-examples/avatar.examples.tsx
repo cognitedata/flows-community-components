@@ -3,9 +3,9 @@ import {
   AvatarFallback,
   AvatarIcon,
   AvatarImage,
-} from "@/components/ui/cognite/avatar";
-import type { ComponentExamples } from "./types";
-import { IconWheel } from "@tabler/icons-react";
+} from '@/components/ui/cognite/avatar';
+import type { ComponentExamples } from './types';
+import { IconWheel } from '@tabler/icons-react';
 
 function BasicDemo() {
   return (
@@ -57,14 +57,14 @@ function BasicDemo() {
             variant="nordic"
             className="relative -ml-1 first:ml-0 z-[1] border-2 border-background"
           >
-             <AvatarImage src="/user-avatar3.png" alt="User" />
+            <AvatarImage src="/user-avatar3.png" alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar
             variant="aurora"
             className="relative -ml-1 z-[2] border-2 border-background"
           >
-             <AvatarImage src="/user-avatar4.png" alt="User" />
+            <AvatarImage src="/user-avatar4.png" alt="User" />
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
           <Avatar
@@ -197,10 +197,10 @@ function SizesVariantsDemo() {
 
 export const avatarExamples: ComponentExamples = {
   basic: {
-    title: "Basic Avatar",
-    description: "Display user avatars with image and fallback",
+    title: 'Basic Avatar',
+    description: 'Display user avatars with image and fallback',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/cognite/avatar"
 
 export function BasicDemo() {
@@ -288,10 +288,10 @@ export function BasicDemo() {
 }`,
   },
   sizes: {
-    title: "Avatar Sizes",
-    description: "Different avatar sizes using custom classes",
+    title: 'Avatar Sizes',
+    description: 'Different avatar sizes using custom classes',
     component: SizesVariantsDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/cognite/avatar"
 import { IconWheel } from "@tabler/icons-react"
 
@@ -403,8 +403,9 @@ export function SizesVariantsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const avatarMeta = {
-  name: "Avatar",
-  description: "An image element with a fallback for representing the user.",
-  llmUsage: "When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation. Use `<AvatarIcon>` for icon-only avatars.",
-  importPath: "@/components/ui/cognite/avatar",
+  name: 'Avatar',
+  description: 'An image element with a fallback for representing the user.',
+  llmUsage:
+    'When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation. Use `<AvatarIcon>` for icon-only avatars.',
+  importPath: '@/components/ui/cognite/avatar',
 };
