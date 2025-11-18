@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/cognite/button";
 import { Badge } from "@/components/ui/cognite/badge";
 import { Input } from "@/components/ui/cognite/input";
 import { Label } from "@/components/ui/cognite/label";
-import { AlertTriangle, Play } from "lucide-react";
+import { IconAlertTriangle, IconPlayerPlay } from "@tabler/icons-react";
 
 interface PresetComponentRendererProps {
   code: string;
@@ -212,7 +212,7 @@ export function PresetComponentRenderer({
         className={`flex items-center justify-center p-8 border-2 border-dashed border-muted-foreground/20 rounded-lg ${className}`}
       >
         <div className="text-center space-y-2">
-          <Play className="h-8 w-8 mx-auto text-muted-foreground" />
+          <IconPlayerPlay className="h-8 w-8 mx-auto text-muted-foreground" />
           <p className="text-sm text-muted-foreground">
             Enter component code to see live preview
           </p>
@@ -244,7 +244,7 @@ export function PresetComponentRenderer({
       className={`p-6 border border-muted rounded-lg bg-muted/10 ${className}`}
     >
       <div className="flex items-center gap-2 text-muted-foreground mb-3">
-        <AlertTriangle className="h-4 w-4" />
+        <IconAlertTriangle className="h-4 w-4" />
         <span className="font-medium">Preview Not Available</span>
       </div>
       <p className="text-sm text-muted-foreground mb-4">
