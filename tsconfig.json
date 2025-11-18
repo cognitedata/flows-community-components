@@ -23,15 +23,20 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/components/ui/cognite/*": [
+      "#aura/*": [
         "./src/components/ui/cognite/*"
       ],
-      "@/components/ai-elements/cognite/*": [
-        "./src/components/ai-elements/cognite/*",
-        "./src/components/ai-elements/draft/*"
+      "#common/*": [
+        "./src/common/*"
+      ],
+      "#components/*": [
+        "./src/components/*"
+      ],
+      "#hooks/*": [
+        "./src/hooks/*"
+      ],
+      "#lib/*": [
+        "./src/lib/*"
       ]
     }
   },
@@ -48,3 +53,4 @@
     "packages"
   ]
 }
+

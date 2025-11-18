@@ -22,14 +22,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components/ui/cognite/*": [
-        "./src/components/ui/cognite/*"
-      ],
-      "@/components/ai-elements/cognite/*": [
-        "./src/components/ai-elements/cognite/*",
-        "./src/components/ai-elements/draft/*"
-      ]
+      "#aura/*": ["./src/components/ui/cognite/*"],
+      "#common/*": ["./src/common/*"],
+      "#components/*": ["./src/components/*"],
+      "#hooks/*": ["./src/hooks/*"],
+      "#lib/*": ["./src/lib/*"]
     }
   },
   "include": ["vite.config.ts"],

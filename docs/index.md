@@ -43,8 +43,8 @@ npx shadcn add @cognite/aura/button
 Always use the `/cognite` path for imports:
 
 ```tsx
-import { Button } from "@/components/ui/cognite/button"
-import { Badge } from "@/components/ui/cognite/badge"
+import { Button } from "#aura/button"
+import { Badge } from "#aura/badge"
 ```
 
 **Why `/cognite`?** The system automatically resolves to production components when available, or draft components as a fallback. This means:
@@ -54,8 +54,8 @@ import { Badge } from "@/components/ui/cognite/badge"
 ### Basic Example
 
 ```tsx
-import { Button } from "@/components/ui/cognite/button"
-import { Badge } from "@/components/ui/cognite/badge"
+import { Button } from "#aura/button"
+import { Badge } from "#aura/badge"
 
 export function MyComponent() {
   return (

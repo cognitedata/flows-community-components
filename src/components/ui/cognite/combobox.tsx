@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { IconCheck, IconCaretUpDown } from "@tabler/icons-react"
+import * as React from 'react';
+import { IconCheck, IconCaretUpDown } from '@tabler/icons-react';
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/cognite/button"
+import { cn } from '#common/utils';
+import { Button } from '@/components/ui/cognite/button';
 import {
   Command,
   CommandEmpty,
@@ -12,51 +12,51 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/cognite/command"
+} from '@/components/ui/cognite/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/cognite/popover"
+} from '@/components/ui/cognite/popover';
 
 const frameworks = [
   {
-    value: "next.js",
-    label: "Next.js",
+    value: 'next.js',
+    label: 'Next.js',
   },
   {
-    value: "sveltekit",
-    label: "SvelteKit",
+    value: 'sveltekit',
+    label: 'SvelteKit',
   },
   {
-    value: "nuxt.js",
-    label: "Nuxt.js",
+    value: 'nuxt.js',
+    label: 'Nuxt.js',
   },
   {
-    value: "remix",
-    label: "Remix",
+    value: 'remix',
+    label: 'Remix',
   },
   {
-    value: "astro",
-    label: "Astro",
+    value: 'astro',
+    label: 'Astro',
   },
   {
-    value: "wordpress",
-    label: "WordPress",
+    value: 'wordpress',
+    label: 'WordPress',
   },
   {
-    value: "express.js",
-    label: "Express.js",
+    value: 'express.js',
+    label: 'Express.js',
   },
   {
-    value: "nest.js",
-    label: "Nest.js",
+    value: 'nest.js',
+    label: 'Nest.js',
   },
-]
+];
 
 export function Combobox() {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState('');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -69,7 +69,7 @@ export function Combobox() {
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            : 'Select framework...'}
           <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -84,14 +84,14 @@ export function Combobox() {
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
-                    setOpen(false)
+                    setValue(currentValue === value ? '' : currentValue);
+                    setOpen(false);
                   }}
                 >
                   <IconCheck
                     className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      'mr-2 h-4 w-4',
+                      value === framework.value ? 'opacity-100' : 'opacity-0'
                     )}
                   />
                   {framework.label}
@@ -102,37 +102,37 @@ export function Combobox() {
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }
 
 export interface ComboboxProps {
-  options: Array<{ value: string; label: string }>
-  value?: string
-  onValueChange?: (value: string) => void
-  placeholder?: string
-  searchPlaceholder?: string
-  emptyText?: string
-  className?: string
+  options: Array<{ value: string; label: string }>;
+  value?: string;
+  onValueChange?: (value: string) => void;
+  placeholder?: string;
+  searchPlaceholder?: string;
+  emptyText?: string;
+  className?: string;
 }
 
 export function ComboboxCustom({
   options,
   value,
   onValueChange,
-  placeholder = "Select option...",
-  searchPlaceholder = "Search...",
-  emptyText = "No option found.",
+  placeholder = 'Select option...',
+  searchPlaceholder = 'Search...',
+  emptyText = 'No option found.',
   className,
 }: ComboboxProps) {
-  const [open, setOpen] = React.useState(false)
-  const [selectedValue, setSelectedValue] = React.useState(value || "")
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState(value || '');
 
   const handleValueChange = (newValue: string) => {
-    const finalValue = newValue === selectedValue ? "" : newValue
-    setSelectedValue(finalValue)
-    onValueChange?.(finalValue)
-    setOpen(false)
-  }
+    const finalValue = newValue === selectedValue ? '' : newValue;
+    setSelectedValue(finalValue);
+    onValueChange?.(finalValue);
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -141,7 +141,7 @@ export function ComboboxCustom({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn("w-[200px] justify-between", className)}
+          className={cn('w-[200px] justify-between', className)}
         >
           {selectedValue
             ? options.find((option) => option.value === selectedValue)?.label
@@ -163,8 +163,10 @@ export function ComboboxCustom({
                 >
                   <IconCheck
                     className={cn(
-                      "mr-2 h-4 w-4",
-                      selectedValue === option.value ? "opacity-100" : "opacity-0"
+                      'mr-2 h-4 w-4',
+                      selectedValue === option.value
+                        ? 'opacity-100'
+                        : 'opacity-0'
                     )}
                   />
                   {option.label}
@@ -175,5 +177,5 @@ export function ComboboxCustom({
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

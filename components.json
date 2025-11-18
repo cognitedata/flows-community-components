@@ -12,11 +12,11 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
+    "components": "#components",
+    "utils": "#common/utils",
+    "ui": "#components/ui",
+    "lib": "#common/lib",
+    "hooks": "#common/hooks"
   },
   "registries": {
     "@cognite/aura": "https://refactored-couscous-5l9mkl3.pages.github.io/r/{name}.json"
