@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/cognite/button";
 import { cn } from "@/lib/utils";
-import { ArrowDownIcon } from "lucide-react";
+import { IconArrowDown } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import { useCallback } from "react";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
@@ -90,7 +90,7 @@ export const ConversationScrollButton = ({
         variant="outline"
         {...props}
       >
-        <ArrowDownIcon className="size-4" />
+        <IconArrowDown className="size-4" />
       </Button>
     )
   );
