@@ -7,7 +7,11 @@ import {
   ArtifactContent,
   ArtifactClose,
 } from "@/components/ui/cognite/artifact";
-import { Copy, Download, Share } from "lucide-react";
+import {
+  IconCopy as Copy,
+  IconDownload as Download,
+  IconShare3 as Share,
+} from "@tabler/icons-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicArtifactDemo() {
@@ -78,7 +82,7 @@ export const artifactExamples: ComponentExamples = {
   ArtifactContent,
   ArtifactClose 
 } from "@/components/ai-elements/cognite/artifact"
-import { Copy, Download } from "lucide-react"
+import { Copy, Download } from "@tabler/icons-react"
 
 export function BasicArtifactDemo() {
   return (
@@ -115,7 +119,7 @@ export function BasicArtifactDemo() {
   ArtifactContent,
   ArtifactClose 
 } from "@/components/ai-elements/cognite/artifact"
-import { Copy, Download, Share } from "lucide-react"
+import { Copy, Download, Share } from "@tabler/icons-react"
 
 export function WithActionsDemo() {
   return (
