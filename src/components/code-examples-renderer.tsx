@@ -1,7 +1,10 @@
-"use client";
+'use client';
 
-import { getComponentExamples, type ComponentExample } from "@/lib/component-examples";
-import { CodeExample } from "./code-example";
+import {
+  getComponentExamples,
+  type ComponentExample,
+} from '@/lib/component-examples';
+import { CodeExample } from './code-example';
 
 interface CodeExamplesRendererProps {
   slug: string;
@@ -22,14 +25,11 @@ export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
 
   return (
     <div className="space-y-4">
-      {Object.entries(examples).map(([key, example]: [string, ComponentExample]) => (
-        <CodeExample
-          key={key}
-          title={example.title}
-          code={example.code}
-        />
-      ))}
+      {Object.entries(examples).map(
+        ([key, example]: [string, ComponentExample]) => (
+          <CodeExample key={key} title={example.title} code={example.code} />
+        )
+      )}
     </div>
   );
 }
-

@@ -1,6 +1,6 @@
-import { Textarea } from "@/components/ui/cognite/textarea";
-import { Label } from "@/components/ui/cognite/label";
-import type { ComponentExamples } from "./types";
+import { Textarea } from '@/components/ui/cognite/textarea';
+import { Label } from '@/components/ui/cognite/label';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -43,7 +43,7 @@ function StatesDemo() {
         <Textarea
           id="textarea4"
           placeholder="Invalid Textarea text"
-          data-invalid="true"
+          errorMessage="This field is required"
           rows={3}
         />
       </div>
@@ -79,10 +79,10 @@ function CharacterLimitDemo() {
 
 export const textareaExamples: ComponentExamples = {
   basic: {
-    title: "Textarea Examples",
-    description: "Multi-line text input fields",
+    title: 'Textarea Examples',
+    description: 'Multi-line text input fields',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Textarea } from "@/components/ui/cognite/textarea"
 import { Label } from "@/components/ui/cognite/label"
 
@@ -103,10 +103,10 @@ export function BasicDemo() {
 }`,
   },
   states: {
-    title: "States Demo",
-    description: "Different states of the textarea field",
+    title: 'States Demo',
+    description: 'Different states of the textarea field',
     component: StatesDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Textarea } from "@/components/ui/cognite/textarea"
 import { Label } from "@/components/ui/cognite/label"
 
@@ -135,7 +135,7 @@ export function StatesDemo() {
         <Textarea
           id="textarea4"
           placeholder="Invalid Textarea text"
-          data-invalid="true"
+          errorMessage="This field is required"
           rows={3}
         />
       </div>
@@ -144,10 +144,10 @@ export function StatesDemo() {
 }`,
   },
   characterLimit: {
-    title: "Character Limit",
-    description: "Textarea with character counting and validation",
+    title: 'Character Limit',
+    description: 'Textarea with character counting and validation',
     component: CharacterLimitDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Textarea } from "@/components/ui/cognite/textarea"
 import { Label } from "@/components/ui/cognite/label"
 
@@ -181,8 +181,10 @@ export function CharacterLimitDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const textareaMeta = {
-  name: "Textarea",
-  description: "Displays a form textarea or a component that looks like a textarea.",
-  llmUsage: "When asked for a textarea, use `<Textarea>` for multi-line text input and longer form content.",
-  importPath: "@/components/ui/cognite/textarea",
+  name: 'Textarea',
+  description:
+    'Displays a form textarea or a component that looks like a textarea.',
+  llmUsage:
+    'When asked for a textarea, use `<Textarea>` for multi-line text input and longer form content.',
+  importPath: '@/components/ui/cognite/textarea',
 };
