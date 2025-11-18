@@ -1,4 +1,4 @@
-import type { ComponentExamples } from "./types";
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -14,18 +14,19 @@ function BasicDemo() {
 
 export const timeInputExamples: ComponentExamples = {
   basic: {
-    title: "Time Input (Coming Soon)",
-    description: "Custom time input component - implementation pending",
+    title: 'Time Input (Coming Soon)',
+    description: 'Custom time input component - implementation pending',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `// Time Input component - implementation coming soon`,
   },
 };
 
 // Component metadata - single source of truth for API documentation
 export const timeInputMeta = {
-  name: "Time Input",
-  description: "Custom component for time input (implementation pending).",
-  llmUsage: "Time input component is a custom component - implementation details coming soon.",
-  importPath: "@/components/ui/cognite/time-input",
+  name: 'Time Input',
+  description: 'Custom component for time input (implementation pending).',
+  llmUsage:
+    'Time input component is a custom component - implementation details coming soon.',
+  importPath: '@/components/ui/cognite/time-input',
 };

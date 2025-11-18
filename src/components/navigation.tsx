@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/cognite/button";
+import * as React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/cognite/button';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "@/components/ui/cognite/sheet";
-import { Menu, Sun, Moon, Contrast } from "lucide-react";
-import Image from "next/image";
-import auraLogo from "@/../public/aura-logo.png";
-import { IconBrandGithub } from "@tabler/icons-react";
+} from '@/components/ui/cognite/sheet';
+import { Menu, Sun, Moon, Contrast } from 'lucide-react';
+import Image from 'next/image';
+import auraLogo from '@/../public/aura-logo.png';
+import { IconBrandGithub } from '@tabler/icons-react';
 
 const navItems = [
-  { href: "/primitives", label: "Primitives" },
-  { href: "/ai", label: "AI" },
-  { href: "/blocks", label: "Blocks" },
-  { href: "/eos", label: "Templates" },
+  { href: '/primitives', label: 'Primitives' },
+  { href: '/ai', label: 'AI' },
+  { href: '/blocks', label: 'Blocks' },
+  { href: '/eos', label: 'Templates' },
 ];
 
 function ThemeToggleGroup() {
@@ -37,9 +37,9 @@ function ThemeToggleGroup() {
   }
 
   const themes = [
-    { name: "light", icon: Sun, label: "Light" },
-    { name: "dark", icon: Moon, label: "Dark" },
-    { name: "contrast", icon: Contrast, label: "High contrast" },
+    { name: 'light', icon: Sun, label: 'Light' },
+    { name: 'dark', icon: Moon, label: 'Dark' },
+    { name: 'contrast', icon: Contrast, label: 'High contrast' },
   ];
 
   return (
@@ -48,7 +48,7 @@ function ThemeToggleGroup() {
         <Button
           key={themeOption.name}
           size="sm"
-          variant={theme === themeOption.name ? "default" : "ghost"}
+          variant={theme === themeOption.name ? 'default' : 'ghost'}
           onClick={() => setTheme(themeOption.name)}
           className="h-8 w-8 p-0"
           title={themeOption.label}
@@ -76,14 +76,14 @@ export function Navigation() {
             {navItems.map((item) => {
               // Check if current pathname starts with the nav item href (for sub-routes)
               const isActive =
-                pathname.startsWith(item.href) && pathname !== "/";
+                pathname.startsWith(item.href) && pathname !== '/';
 
               return (
                 <Link key={item.href} href={item.href} className="relative">
                   <span
                     className={cn(
-                      "text-sm font-medium transition-colors hover:text-primary",
-                      isActive ? "text-primary" : "text-muted-foreground"
+                      'text-sm font-medium transition-colors hover:text-primary',
+                      isActive ? 'text-primary' : 'text-muted-foreground'
                     )}
                   >
                     {item.label}
@@ -94,7 +94,7 @@ export function Navigation() {
                       layoutId="activeTab"
                       initial={false}
                       transition={{
-                        type: "spring",
+                        type: 'spring',
                         stiffness: 500,
                         damping: 30,
                       }}
@@ -132,15 +132,15 @@ export function Navigation() {
               <div className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => {
                   const isActive =
-                    pathname.startsWith(item.href) && pathname !== "/";
+                    pathname.startsWith(item.href) && pathname !== '/';
 
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "text-lg font-medium transition-colors hover:text-primary",
-                        isActive ? "text-primary" : "text-muted-foreground"
+                        'text-lg font-medium transition-colors hover:text-primary',
+                        isActive ? 'text-primary' : 'text-muted-foreground'
                       )}
                     >
                       {item.label}

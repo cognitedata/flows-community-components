@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/cognite/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/cognite/card";
-import { Input } from "@/components/ui/cognite/input";
-import { Badge } from "@/components/ui/cognite/badge";
-import { ScrollArea } from "@/components/ui/cognite/scroll-area";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/cognite/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/cognite/card';
+import { Input } from '@/components/ui/cognite/input';
+import { Badge } from '@/components/ui/cognite/badge';
+import { ScrollArea } from '@/components/ui/cognite/scroll-area';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
+} from '@/components/ui/cognite/dropdown-menu';
 import {
   Send,
   Copy,
@@ -26,12 +26,12 @@ import {
   Edit,
   Share,
   Trash2,
-} from "lucide-react";
-import Image from "next/image";
+} from 'lucide-react';
+import Image from 'next/image';
 
 interface Message {
   id: string;
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
   isTyping?: boolean;
@@ -41,8 +41,8 @@ interface Message {
 
 const initialMessages: Message[] = [
   {
-    id: "1",
-    role: "assistant",
+    id: '1',
+    role: 'assistant',
     content:
       "Hello! I'm your AI assistant. I can help you with coding questions, design problems, or general tasks. What would you like to work on today?",
     timestamp: new Date(Date.now() - 300000),
@@ -108,22 +108,22 @@ function MessageBubble({
         scale: 0.95,
       }}
       transition={{
-        type: "spring",
+        type: 'spring',
         stiffness: 500,
         damping: 30,
         duration: 0.4,
       }}
       className={`flex gap-3 items-start ${
-        message.role === "user" ? "justify-end" : "justify-start"
+        message.role === 'user' ? 'justify-end' : 'justify-start'
       }`}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
       <div
         className={`max-w-[80%] ${
-          message.role === "user" ? "bg-zinc-800 text-zinc-100" : ""
+          message.role === 'user' ? 'bg-zinc-800 text-zinc-100' : ''
         } ${
-          message.role === "user" ? "rounded-sm" : "rounded-lg"
+          message.role === 'user' ? 'rounded-sm' : 'rounded-lg'
         } p-3 relative group`}
       >
         <div className="whitespace-pre-wrap text-sm">
@@ -142,7 +142,7 @@ function MessageBubble({
 
         {/* Message Actions */}
         <AnimatePresence>
-          {showActions && message.role === "assistant" && (
+          {showActions && message.role === 'assistant' && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -153,7 +153,7 @@ function MessageBubble({
                 variant="ghost"
                 size="sm"
                 className="h-6 w-6 p-0"
-                onClick={() => onReact(message.id, "👍")}
+                onClick={() => onReact(message.id, '👍')}
               >
                 <ThumbsUp className="h-3 w-3" />
               </Button>
@@ -161,7 +161,7 @@ function MessageBubble({
                 variant="ghost"
                 size="sm"
                 className="h-6 w-6 p-0"
-                onClick={() => onReact(message.id, "👎")}
+                onClick={() => onReact(message.id, '👎')}
               >
                 <ThumbsDown className="h-3 w-3" />
               </Button>
@@ -197,7 +197,7 @@ function MessageBubble({
         )}
       </div>
 
-      {message.role === "user" && (
+      {message.role === 'user' && (
         <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0">
           <Image
             src="/user-avatar.png"
@@ -275,7 +275,7 @@ function TimeSeriesCard() {
                   fill="url(#areaGradient)"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 2, delay: 0.5, ease: 'easeInOut' }}
                 />
 
                 {/* Animated line */}
@@ -286,7 +286,7 @@ function TimeSeriesCard() {
                   strokeWidth="2"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
-                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 2, delay: 0.5, ease: 'easeInOut' }}
                 />
 
                 {/* Animated data points */}
@@ -389,10 +389,10 @@ function WorkOrderCard() {
               <span className="text-sm text-muted-foreground">Tasks:</span>
               <div className="space-y-1.5">
                 {[
-                  "Inspect bearing housing for wear",
-                  "Replace bearing assembly",
-                  "Check alignment and balance",
-                  "Update vibration baseline",
+                  'Inspect bearing housing for wear',
+                  'Replace bearing assembly',
+                  'Check alignment and balance',
+                  'Update vibration baseline',
                 ].map((task, i) => (
                   <div key={i} className="flex items-center gap-2 text-sm">
                     <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full"></div>
@@ -422,14 +422,14 @@ function TypingAnimation({
   text,
   onComplete,
   speed = 80,
-  className = "",
+  className = '',
 }: {
   text: string;
   onComplete?: () => void;
   speed?: number;
   className?: string;
 }) {
-  const [displayedText, setDisplayedText] = useState("");
+  const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -462,7 +462,7 @@ function TypingAnimation({
 
 export default function AgentChatBlock() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isDemoMode, setIsDemoMode] = useState(false);
   const [demoStep, setDemoStep] = useState(0);
@@ -470,12 +470,12 @@ export default function AgentChatBlock() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const demoMessage =
-    "There is abnormal vibration levels on Pump 4B. Show me the trend for the last 24 hours.";
+    'There is abnormal vibration levels on Pump 4B. Show me the trend for the last 24 hours.';
 
   useEffect(() => {
     if (scrollAreaRef.current) {
       const scrollContainer = scrollAreaRef.current.querySelector(
-        "[data-radix-scroll-area-viewport]"
+        '[data-radix-scroll-area-viewport]'
       );
       if (scrollContainer) {
         // Add a small delay to allow content to render before scrolling
@@ -548,13 +548,13 @@ export default function AgentChatBlock() {
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      role: "user",
+      role: 'user',
       content: demoMessage.trim(),
       timestamp: new Date(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    setInput('');
     setDemoStep(2);
 
     // Add 500ms delay before showing thinking indicator
@@ -567,7 +567,7 @@ export default function AgentChatBlock() {
       setIsTyping(false);
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        role: "assistant",
+        role: 'assistant',
         content:
           "I can see the vibration data for Pump 4B over the last 24 hours. The levels have indeed been abnormal, particularly between 2-4 AM and 10-12 PM. Here's what I found:\n\n• Average vibration: 8.2 mm/s (Normal: <6.0 mm/s)\n• Peak vibration: 12.4 mm/s at 3:15 AM\n• Pattern suggests bearing wear\n\nI recommend scheduling maintenance within the next 48 hours to prevent potential failure.",
         timestamp: new Date(),
@@ -586,13 +586,13 @@ export default function AgentChatBlock() {
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      role: "user",
+      role: 'user',
       content: input.trim(),
       timestamp: new Date(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    setInput('');
 
     // Add 500ms delay before showing thinking indicator
     setTimeout(() => {
@@ -600,30 +600,34 @@ export default function AgentChatBlock() {
     }, 500);
 
     // Simulate AI response
-    setTimeout(() => {
-      setIsTyping(false);
-      const responses = [
-        "Here's a great solution for that! Let me break it down for you...",
-        "I can help you with that. Here's what I recommend:",
-        "That's an interesting challenge. Let me show you how to approach it:",
-        '```jsx\nfunction Button({ children, onClick }) {\n  return (\n    <button \n      onClick={onClick}\n      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"\n    >\n      {children}\n    </button>\n  )\n}\n```',
-      ];
+    setTimeout(
+      () => {
+        setIsTyping(false);
+        const responses = [
+          "Here's a great solution for that! Let me break it down for you...",
+          "I can help you with that. Here's what I recommend:",
+          "That's an interesting challenge. Let me show you how to approach it:",
+          '```jsx\nfunction Button({ children, onClick }) {\n  return (\n    <button \n      onClick={onClick}\n      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"\n    >\n      {children}\n    </button>\n  )\n}\n```',
+        ];
 
-      const response = responses[Math.floor(Math.random() * responses.length)];
-      const isCodeResponse = response.includes("```");
+        const response =
+          responses[Math.floor(Math.random() * responses.length)];
+        const isCodeResponse = response.includes('```');
 
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: isCodeResponse
-          ? response.replace(/```jsx|```/g, "").trim()
-          : response,
-        timestamp: new Date(),
-        isCode: isCodeResponse,
-      };
+        const aiMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: isCodeResponse
+            ? response.replace(/```jsx|```/g, '').trim()
+            : response,
+          timestamp: new Date(),
+          isCode: isCodeResponse,
+        };
 
-      setMessages((prev) => [...prev, aiMessage]);
-    }, 1500 + Math.random() * 1000);
+        setMessages((prev) => [...prev, aiMessage]);
+      },
+      1500 + Math.random() * 1000
+    );
   };
 
   const handleReaction = (messageId: string, reaction: string) => {
@@ -691,7 +695,7 @@ export default function AgentChatBlock() {
         {/* Chat Interface */}
         <div
           className="h-[600px] flex flex-col rounded-lg overflow-hidden border border-zinc-700"
-          style={{ backgroundColor: "#18181b" }}
+          style={{ backgroundColor: '#18181b' }}
         >
           {/* Header */}
           <div className="border-b border-zinc-800 p-3 flex-shrink-0">
@@ -761,8 +765,8 @@ export default function AgentChatBlock() {
                 {/* Show cards after vibration response */}
                 {messages.some(
                   (msg) =>
-                    msg.role === "assistant" &&
-                    msg.content.includes("vibration")
+                    msg.role === 'assistant' &&
+                    msg.content.includes('vibration')
                 ) && (
                   <div className="space-y-3 mt-4">
                     <TimeSeriesCard />
@@ -780,13 +784,13 @@ export default function AgentChatBlock() {
             <div className="flex gap-2">
               <div className="flex-1 relative">
                 <Input
-                  value={isDemoMode && showTypingDemo ? "" : input}
+                  value={isDemoMode && showTypingDemo ? '' : input}
                   onChange={(e) => !isDemoMode && setInput(e.target.value)}
                   onKeyPress={(e) =>
-                    !isDemoMode && e.key === "Enter" && handleSendMessage()
+                    !isDemoMode && e.key === 'Enter' && handleSendMessage()
                   }
                   placeholder={
-                    isDemoMode && showTypingDemo ? "" : "Ask me anything..."
+                    isDemoMode && showTypingDemo ? '' : 'Ask me anything...'
                   }
                   className="flex-1"
                   disabled={isDemoMode}
