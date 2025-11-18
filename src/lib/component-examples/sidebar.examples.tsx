@@ -7,15 +7,15 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/components/ui/cognite/sidebar";
+} from '@/components/ui/cognite/sidebar';
 import {
-  IconBarChart as BarChart3,
+  IconChartBar as BarChart3,
   IconFileText as FileText,
   IconHome as Home,
   IconSettings as Settings,
   IconUsers as Users,
-} from "@tabler/icons-react";
-import type { ComponentExamples } from "./types";
+} from '@tabler/icons-react';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -92,11 +92,11 @@ function BasicDemo() {
 
 export const sidebarExamples: ComponentExamples = {
   basic: {
-    title: "Sidebar Demo",
+    title: 'Sidebar Demo',
     description:
-      "Interactive sidebar component with navigation groups and menu items",
+      'Interactive sidebar component with navigation groups and menu items',
     component: BasicDemo,
-    difficulty: "advanced",
+    difficulty: 'advanced',
     code: `import {
   Sidebar,
   SidebarContent,
@@ -152,8 +152,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const sidebarMeta = {
-  name: "Sidebar",
-  description: "A composable, themeable and customizable sidebar component.",
-  llmUsage: "When creating sidebars, use `<Sidebar>` with `<SidebarContent>`, `<SidebarMenu>`, and related components.",
-  importPath: "@/components/ui/cognite/sidebar",
+  name: 'Sidebar',
+  description: 'A composable, themeable and customizable sidebar component.',
+  llmUsage:
+    'When creating sidebars, use `<Sidebar>` with `<SidebarContent>`, `<SidebarMenu>`, and related components.',
+  importPath: '@/components/ui/cognite/sidebar',
 };
