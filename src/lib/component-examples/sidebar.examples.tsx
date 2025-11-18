@@ -8,7 +8,13 @@ import {
   SidebarMenuItem,
   SidebarProvider,
 } from "@/components/ui/cognite/sidebar";
-import { Home, Settings, Users, FileText, BarChart3 } from "lucide-react";
+import {
+  IconBarChart as BarChart3,
+  IconFileText as FileText,
+  IconHome as Home,
+  IconSettings as Settings,
+  IconUsers as Users,
+} from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -102,7 +108,7 @@ export const sidebarExamples: ComponentExamples = {
   SidebarMenuItem,
   SidebarProvider,
 } from "@/components/ui/cognite/sidebar"
-import { Home, Settings, Users, FileText, BarChart3 } from "lucide-react"
+import { Home, Settings, Users, FileText, BarChart3 } from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
