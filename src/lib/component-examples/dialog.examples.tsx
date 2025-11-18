@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from '@/components/ui/cognite/button';
 import {
   Dialog,
   DialogContent,
@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/cognite/dialog";
-import { IconTrash } from "@tabler/icons-react";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/dialog';
+import { IconTrash } from '@tabler/icons-react';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -68,11 +68,11 @@ function DeleteDemo() {
 
 export const dialogExamples: ComponentExamples = {
   basic: {
-    title: "Dialog Demo",
+    title: 'Dialog Demo',
     description:
-      "Interactive modal dialogs for forms, confirmations, and detailed content",
+      'Interactive modal dialogs for forms, confirmations, and detailed content',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import { Button } from "@/components/ui/cognite/button"
 import {
   Dialog,
@@ -111,11 +111,11 @@ function BasicDemo() {
 }`,
   },
   delete: {
-    title: "Delete Dialog Demo",
+    title: 'Delete Dialog Demo',
     description:
-      "Interactive modal dialogs for forms, confirmations, and detailed content",
+      'Interactive modal dialogs for forms, confirmations, and detailed content',
     component: DeleteDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import { Button } from "@/components/ui/cognite/button"
 import {
   Dialog,
@@ -162,10 +162,10 @@ function DeleteDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const dialogMeta = {
-  name: "Dialog",
+  name: 'Dialog',
   description:
-    "A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.",
+    'A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.',
   llmUsage:
-    "When asked for a dialog, use `<Dialog>` for modal windows, forms, and detailed content overlays.",
-  importPath: "@/components/ui/cognite/dialog",
+    'When asked for a dialog, use `<Dialog>` for modal windows, forms, and detailed content overlays.',
+  importPath: '@/components/ui/cognite/dialog',
 };

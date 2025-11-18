@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ExamplePreviewProps {
   title: string;
@@ -23,4 +23,3 @@ export function ExamplePreview({
     </div>
   );
 }
-

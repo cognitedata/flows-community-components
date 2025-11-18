@@ -1,4 +1,4 @@
-import type { ComponentExamples } from "@/lib/component-examples/types";
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 // Note: Connection is a custom SVG connection line component for React Flow
 // It's typically rendered as part of a flow diagram
@@ -13,10 +13,10 @@ function BasicConnectionDemo() {
 
 export const connectionExamples: ComponentExamples = {
   basic: {
-    title: "Custom Connection Line",
-    description: "Animated SVG connection lines between nodes",
+    title: 'Custom Connection Line',
+    description: 'Animated SVG connection lines between nodes',
     component: BasicConnectionDemo,
-    difficulty: "advanced",
+    difficulty: 'advanced',
     code: `import { Connection } from "@/components/ai-elements/cognite/connection"
 import { ConnectionLineComponent } from "@xyflow/react"
 
@@ -35,7 +35,8 @@ export function BasicConnectionDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const connectionMeta = {
-  name: "Connection",
-  description: "A visual connector line for linking AI workflow nodes with customizable styling.",
-  importPath: "@/components/ai-elements/cognite/connection",
+  name: 'Connection',
+  description:
+    'A visual connector line for linking AI workflow nodes with customizable styling.',
+  importPath: '@/components/ai-elements/cognite/connection',
 };
