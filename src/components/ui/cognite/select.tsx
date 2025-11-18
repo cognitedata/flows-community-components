@@ -47,8 +47,8 @@ function SelectTrigger({
   errorMessage,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: "sm" | "default"
-  errorMessage?: string
+  size?: 'sm' | 'default';
+  errorMessage?: string;
 }) {
   const isInvalid = !!errorMessage;
   return (

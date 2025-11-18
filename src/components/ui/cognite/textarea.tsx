@@ -12,26 +12,26 @@ interface TextareaProps extends ComponentProps<'textarea'> {
   charactersLeftMessage?: (remaining: number) => string;
 }
 
-function Textarea({ 
-  className, 
+function Textarea({
+  className,
   maxChars,
   errorMessage,
-  overLimitMessage = "Too many characters",
+  overLimitMessage = 'Too many characters',
   charactersLeftMessage = (remaining) => `${remaining} characters left`,
-  ...props 
+  ...props
 }: TextareaProps) {
   // Initialize character count from defaultValue or value
   const [charCount, setCharCount] = useState(() => {
     const initialValue = props.defaultValue || props.value || '';
     return String(initialValue).length;
   });
-  
+
   // Check if character count exceeds maxChars
   const isOverLimit = maxChars !== undefined && charCount > maxChars;
-  
+
   // Invalid if errorMessage provided OR over character limit
   const isInvalid = !!errorMessage || isOverLimit;
-  
+
   // Handle textarea changes to track character count
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setCharCount(e.target.value.length);
@@ -52,15 +52,12 @@ function Textarea({
         onChange={handleChange}
         {...props}
       />
-      {errorMessage && (
-        <HelperText isError>{errorMessage}</HelperText>
-      )}
+      {errorMessage && <HelperText isError>{errorMessage}</HelperText>}
       {maxChars !== undefined && (
         <HelperText isError={isOverLimit}>
-          {isOverLimit 
+          {isOverLimit
             ? overLimitMessage
-            : charactersLeftMessage(maxChars - charCount)
-          }
+            : charactersLeftMessage(maxChars - charCount)}
         </HelperText>
       )}
     </>

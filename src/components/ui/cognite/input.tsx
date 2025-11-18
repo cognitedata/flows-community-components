@@ -3,13 +3,13 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { HelperText } from './helper-text';
 
-interface InputProps extends React.ComponentProps<"input"> {
+interface InputProps extends React.ComponentProps<'input'> {
   errorMessage?: string;
 }
 
 function Input({ className, type, errorMessage, ...props }: InputProps) {
   const isInvalid = !!errorMessage;
-  
+
   return (
     <>
       <input
@@ -23,9 +23,7 @@ function Input({ className, type, errorMessage, ...props }: InputProps) {
         {...props}
       />
 
-      {errorMessage && (
-        <HelperText isError>{errorMessage}</HelperText>
-      )}
+      {errorMessage && <HelperText isError>{errorMessage}</HelperText>}
     </>
   );
 }
