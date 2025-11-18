@@ -35,7 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-
 ## Publishing ShadCN Library
 
 Running this command will publish all components referenced in registry.json with their dependencies.
@@ -43,4 +42,5 @@ Running this command will publish all components referenced in registry.json wit
 ```bash
 pnpm registry:build
 ```
+
 v0.0.1

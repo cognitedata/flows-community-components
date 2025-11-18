@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Button } from "@/components/ui/cognite/button";
-import { Badge } from "@/components/ui/cognite/badge";
-import { Input } from "@/components/ui/cognite/input";
-import { Label } from "@/components/ui/cognite/label";
-import { AlertTriangle, Play } from "lucide-react";
+} from '@/components/ui/cognite/card';
+import { Button } from '@/components/ui/cognite/button';
+import { Badge } from '@/components/ui/cognite/badge';
+import { Input } from '@/components/ui/cognite/input';
+import { Label } from '@/components/ui/cognite/label';
+import { AlertTriangle, Play } from 'lucide-react';
 
 interface PresetComponentRendererProps {
   code: string;
@@ -155,48 +155,48 @@ function detectComponentPattern(
 
   // Check for pricing-related patterns
   if (
-    lowerCode.includes("pricing") ||
-    lowerCode.includes("price") ||
-    lowerCode.includes("plan")
+    lowerCode.includes('pricing') ||
+    lowerCode.includes('price') ||
+    lowerCode.includes('plan')
   ) {
-    return "PricingCard";
+    return 'PricingCard';
   }
 
   // Check for profile-related patterns
   if (
-    lowerCode.includes("profile") ||
-    lowerCode.includes("user") ||
-    lowerCode.includes("avatar")
+    lowerCode.includes('profile') ||
+    lowerCode.includes('user') ||
+    lowerCode.includes('avatar')
   ) {
-    return "UserProfile";
+    return 'UserProfile';
   }
 
   // Check for dashboard/stats patterns
   if (
-    lowerCode.includes("dashboard") ||
-    lowerCode.includes("stats") ||
-    lowerCode.includes("metric") ||
-    lowerCode.includes("revenue")
+    lowerCode.includes('dashboard') ||
+    lowerCode.includes('stats') ||
+    lowerCode.includes('metric') ||
+    lowerCode.includes('revenue')
   ) {
-    return "StatsWidget";
+    return 'StatsWidget';
   }
 
   // Check for form patterns
   if (
-    lowerCode.includes("form") ||
-    (lowerCode.includes("input") && lowerCode.includes("label"))
+    lowerCode.includes('form') ||
+    (lowerCode.includes('input') && lowerCode.includes('label'))
   ) {
-    return "ContactForm";
+    return 'ContactForm';
   }
 
   // Check for card with header
-  if (lowerCode.includes("cardheader") || lowerCode.includes("cardtitle")) {
-    return "CardWithHeader";
+  if (lowerCode.includes('cardheader') || lowerCode.includes('cardtitle')) {
+    return 'CardWithHeader';
   }
 
   // Check for basic card
-  if (lowerCode.includes("card") && lowerCode.includes("cardcontent")) {
-    return "BasicCard";
+  if (lowerCode.includes('card') && lowerCode.includes('cardcontent')) {
+    return 'BasicCard';
   }
 
   return null;
