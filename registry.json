@@ -8,10 +8,7 @@
       "type": "registry:component",
       "title": "Accordion",
       "description": "An accessible accordion with smooth expand/collapse built on Radix primitives.",
-      "dependencies": [
-        "@radix-ui/react-accordion",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-accordion", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/accordion.tsx",
@@ -36,12 +33,8 @@
       "type": "registry:component",
       "title": "Alert Dialog",
       "description": "A modal dialog for critical confirmations powered by Radix Alert Dialog.",
-      "dependencies": [
-        "@radix-ui/react-alert-dialog"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "dependencies": ["@radix-ui/react-alert-dialog"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/alert-dialog.tsx",
@@ -66,10 +59,7 @@
       "type": "registry:component",
       "title": "Badge",
       "description": "A status badge component with size and variant support.",
-      "dependencies": [
-        "@radix-ui/react-slot",
-        "class-variance-authority"
-      ],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
           "path": "src/components/ui/cognite/badge.tsx",
@@ -82,9 +72,7 @@
       "type": "registry:component",
       "title": "Breadcrumb",
       "description": "Breadcrumb component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/breadcrumb.tsx",
@@ -97,10 +85,7 @@
       "type": "registry:component",
       "title": "Button",
       "description": "A versatile button component with variants, sizes, and slot support.",
-      "dependencies": [
-        "@radix-ui/react-slot",
-        "class-variance-authority"
-      ],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
           "path": "src/components/ui/cognite/button.tsx",
@@ -113,13 +98,8 @@
       "type": "registry:component",
       "title": "Calendar",
       "description": "A themable DayPicker calendar with custom navigation controls.",
-      "dependencies": [
-        "@tabler/icons-react",
-        "react-day-picker"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "dependencies": ["@tabler/icons-react", "react-day-picker"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/calendar.tsx",
@@ -156,10 +136,7 @@
       "type": "registry:component",
       "title": "Checkbox",
       "description": "A checkbox component styled with Radix Checkbox and Tabler icons.",
-      "dependencies": [
-        "@radix-ui/react-checkbox",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-checkbox", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/checkbox.tsx",
@@ -184,9 +161,7 @@
       "type": "registry:component",
       "title": "Combobox",
       "description": "Combobox component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/combobox.tsx",
@@ -199,9 +174,7 @@
       "type": "registry:component",
       "title": "Command",
       "description": "Command component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/command.tsx",
@@ -238,10 +211,7 @@
       "type": "registry:component",
       "title": "Dialog",
       "description": "A modal dialog with overlay, content, and close affordances built on Radix Dialog.",
-      "dependencies": [
-        "@radix-ui/react-dialog",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/dialog.tsx",
@@ -266,10 +236,7 @@
       "type": "registry:component",
       "title": "Dropdown Menu",
       "description": "A dropdown menu with submenus, separators, and selection states.",
-      "dependencies": [
-        "@radix-ui/react-dropdown-menu",
-        "lucide-react"
-      ],
+      "dependencies": ["@radix-ui/react-dropdown-menu", "lucide-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/dropdown-menu.tsx",
@@ -282,9 +249,7 @@
       "type": "registry:component",
       "title": "Helper Text",
       "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/helper-text.tsx",
@@ -321,9 +286,7 @@
       "type": "registry:component",
       "title": "Label",
       "description": "An accessible form label built on Radix Label.",
-      "dependencies": [
-        "@radix-ui/react-label"
-      ],
+      "dependencies": ["@radix-ui/react-label"],
       "files": [
         {
           "path": "src/components/ui/cognite/label.tsx",
@@ -354,18 +317,14 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "popover",
       "type": "registry:component",
       "title": "Popover",
       "description": "A popover trigger and content pair powered by Radix Popover.",
-      "dependencies": [
-        "@radix-ui/react-popover"
-      ],
+      "dependencies": ["@radix-ui/react-popover"],
       "files": [
         {
           "path": "src/components/ui/cognite/popover.tsx",
@@ -378,9 +337,7 @@
       "type": "registry:component",
       "title": "Progress",
       "description": "A progress bar component built on Radix Progress.",
-      "dependencies": [
-        "@radix-ui/react-progress"
-      ],
+      "dependencies": ["@radix-ui/react-progress"],
       "files": [
         {
           "path": "src/components/ui/cognite/progress.tsx",
@@ -399,9 +356,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "scroll-area",
@@ -420,10 +375,7 @@
       "type": "registry:component",
       "title": "Select",
       "description": "A select dropdown with custom trigger, content, and indicator states.",
-      "dependencies": [
-        "@radix-ui/react-select",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-select", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/select.tsx",
@@ -436,9 +388,7 @@
       "type": "registry:component",
       "title": "Separator",
       "description": "A separator component for visually dividing content.",
-      "dependencies": [
-        "@radix-ui/react-separator"
-      ],
+      "dependencies": ["@radix-ui/react-separator"],
       "files": [
         {
           "path": "src/components/ui/cognite/separator.tsx",
@@ -451,10 +401,7 @@
       "type": "registry:component",
       "title": "Sheet",
       "description": "A slide-over sheet built on Radix Dialog primitives.",
-      "dependencies": [
-        "@radix-ui/react-dialog",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/sheet.tsx",
@@ -467,19 +414,14 @@
       "type": "registry:component",
       "title": "Sidebar",
       "description": "Sidebar component.",
-      "registryDependencies": [
-        "sheet",
-        "skeleton"
-      ],
+      "registryDependencies": ["sheet", "skeleton"],
       "files": [
         {
           "path": "src/components/ui/cognite/sidebar.tsx",
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "skeleton",
@@ -522,9 +464,7 @@
       "type": "registry:component",
       "title": "Switch",
       "description": "A toggle switch component using Radix Switch.",
-      "dependencies": [
-        "@radix-ui/react-switch"
-      ],
+      "dependencies": ["@radix-ui/react-switch"],
       "files": [
         {
           "path": "src/components/ui/cognite/switch.tsx",
@@ -537,9 +477,7 @@
       "type": "registry:component",
       "title": "Tabs",
       "description": "Tabs with list and content areas built on Radix Tabs.",
-      "dependencies": [
-        "@radix-ui/react-tabs"
-      ],
+      "dependencies": ["@radix-ui/react-tabs"],
       "files": [
         {
           "path": "src/components/ui/cognite/tabs.tsx",
@@ -588,9 +526,7 @@
       "type": "registry:component",
       "title": "Tooltip",
       "description": "A tooltip component with animated content powered by Radix Tooltip.",
-      "dependencies": [
-        "@radix-ui/react-tooltip"
-      ],
+      "dependencies": ["@radix-ui/react-tooltip"],
       "files": [
         {
           "path": "src/components/ui/cognite/tooltip.tsx",
@@ -615,13 +551,8 @@
       "type": "registry:component",
       "title": "Carousel",
       "description": "A carousel component with embla-carousel.",
-      "dependencies": [
-        "embla-carousel-react",
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "dependencies": ["embla-carousel-react", "@tabler/icons-react"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/carousel.tsx",
@@ -634,9 +565,7 @@
       "type": "registry:component",
       "title": "Hover Card",
       "description": "A hover card component powered by Radix Hover Card.",
-      "dependencies": [
-        "@radix-ui/react-hover-card"
-      ],
+      "dependencies": ["@radix-ui/react-hover-card"],
       "files": [
         {
           "path": "src/components/ui/cognite/hover-card.tsx",
@@ -661,13 +590,8 @@
       "type": "registry:component",
       "title": "Actions",
       "description": "AI actions component for displaying action buttons.",
-      "dependencies": [
-        "lucide-react"
-      ],
-      "registryDependencies": [
-        "button",
-        "tooltip"
-      ],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "tooltip"],
       "files": [
         {
           "path": "src/components/ui/cognite/actions.tsx",
@@ -686,18 +610,14 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "branch",
       "type": "registry:component",
       "title": "Branch",
       "description": "AI conversation branch component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/branch.tsx",
@@ -722,9 +642,7 @@
       "type": "registry:component",
       "title": "Chain of Thought",
       "description": "AI chain of thought component for displaying reasoning steps.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/chain-of-thought.tsx",
@@ -737,12 +655,8 @@
       "type": "registry:component",
       "title": "Code Block",
       "description": "AI code block component with syntax highlighting.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/code-block.tsx",
@@ -755,9 +669,7 @@
       "type": "registry:component",
       "title": "Confirmation",
       "description": "AI confirmation component for user confirmations.",
-      "registryDependencies": [
-        "button"
-      ],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/confirmation.tsx",
@@ -806,13 +718,8 @@
       "type": "registry:component",
       "title": "Conversation",
       "description": "AI conversation component with scroll management.",
-      "dependencies": [
-        "use-stick-to-bottom",
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "dependencies": ["use-stick-to-bottom", "@tabler/icons-react"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/conversation.tsx",
@@ -849,9 +756,7 @@
       "type": "registry:component",
       "title": "Inline Citation",
       "description": "AI inline citation component for source references.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/inline-citation.tsx",
@@ -876,12 +781,8 @@
       "type": "registry:component",
       "title": "Message",
       "description": "An AI chat message component with avatar support for user and assistant roles.",
-      "dependencies": [
-        "ai"
-      ],
-      "registryDependencies": [
-        "avatar"
-      ],
+      "dependencies": ["ai"],
+      "registryDependencies": ["avatar"],
       "files": [
         {
           "path": "src/components/ui/cognite/message.tsx",
@@ -912,9 +813,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "panel",
@@ -939,19 +838,14 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "prompt-input",
       "type": "registry:component",
       "title": "Prompt Input",
       "description": "AI prompt input component for user prompts.",
-      "registryDependencies": [
-        "textarea",
-        "button"
-      ],
+      "registryDependencies": ["textarea", "button"],
       "files": [
         {
           "path": "src/components/ui/cognite/prompt-input.tsx",
@@ -970,9 +864,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "reasoning",
@@ -1021,18 +913,14 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "suggestion",
       "type": "registry:component",
       "title": "Suggestion",
       "description": "AI suggestion component for displaying suggestions.",
-      "registryDependencies": [
-        "button"
-      ],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/suggestion.tsx",
@@ -1051,9 +939,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "tool",
@@ -1066,9 +952,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "toolbar",
@@ -1093,9 +977,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     }
   ]
 }
