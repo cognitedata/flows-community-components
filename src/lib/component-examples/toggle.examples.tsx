@@ -28,8 +28,12 @@ export const toggleExamples: ComponentExamples = {
     description: 'A two-state button that can be either on or off',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Toggle } from "@/components/ui/cognite/toggle"
-import { Bold, Italic, Underline } from "@tabler/icons-react"
+    code: `import { Toggle } from '@/components/ui/cognite/toggle';
+    import {
+      IconBold as Bold,
+      IconItalic as Italic,
+      IconUnderline as Underline,
+    } from '@tabler/icons-react';
 
 export function BasicDemo() {
   return (
