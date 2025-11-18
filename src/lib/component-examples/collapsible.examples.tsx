@@ -4,7 +4,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/cognite/collapsible";
-import { ChevronsUpDown } from "lucide-react";
+import { IconChevronsUpDown as ChevronsUpDown } from "@tabler/icons-react";
 import type { ComponentExamples } from "./types";
 
 function BasicDemo() {
@@ -38,7 +38,7 @@ export const collapsibleExamples: ComponentExamples = {
   CollapsibleTrigger,
 } from "@/components/ui/cognite/collapsible"
 import { Button } from "@/components/ui/cognite/button"
-import { ChevronsUpDown } from "lucide-react"
+import { ChevronsUpDown } from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
