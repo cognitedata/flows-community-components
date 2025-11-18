@@ -8,8 +8,8 @@ import {
   QueueItem,
   QueueItemIndicator,
   QueueItemContent,
-} from "@/components/ui/cognite/queue";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/queue';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicQueueDemo() {
   return (
@@ -78,10 +78,10 @@ function MultipleSectionsDemo() {
 
 export const queueExamples: ComponentExamples = {
   basic: {
-    title: "Basic Queue",
-    description: "Task queue with collapsible sections",
+    title: 'Basic Queue',
+    description: 'Task queue with collapsible sections',
     component: BasicQueueDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Queue,
   QueueSection,
@@ -116,10 +116,10 @@ export function BasicQueueDemo() {
   },
 
   multipleSections: {
-    title: "Multiple Sections",
-    description: "Queue with different task categories",
+    title: 'Multiple Sections',
+    description: 'Queue with different task categories',
     component: MultipleSectionsDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Queue,
   QueueSection,
@@ -156,8 +156,8 @@ export function MultipleSectionsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const queueMeta = {
-  name: "Queue",
+  name: 'Queue',
   description:
-    "A comprehensive queue component system for displaying message lists, todos, and collapsible task sections in AI applications.",
-  importPath: "@/components/ai-elements/cognite/queue",
+    'A comprehensive queue component system for displaying message lists, todos, and collapsible task sections in AI applications.',
+  importPath: '@/components/ai-elements/cognite/queue',
 };
