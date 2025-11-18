@@ -3,7 +3,11 @@
 import { Button } from "@/components/ui/cognite/button";
 import { cn } from "@/lib/utils";
 import type { Element } from "hast";
-import { CheckIcon, ChevronsUpDown, CopyIcon } from "lucide-react";
+import {
+  IconArrowsUpDown,
+  IconCheck,
+  IconCopy,
+} from "@tabler/icons-react";
 import {
   type ComponentProps,
   createContext,
@@ -185,7 +189,7 @@ export const CodeBlockCopyButton = ({
     }
   };
 
-  const Icon = isCopied ? CheckIcon : CopyIcon;
+  const Icon = isCopied ? IconCheck : IconCopy;
 
   return (
     <Button
@@ -222,7 +226,7 @@ export const CodeBlockCollapseButton = ({
       variant="ghost"
       {...props}
     >
-      {children ?? <ChevronsUpDown size={14} />}
+      {children ?? <IconArrowsUpDown size={14} />}
     </Button>
   );
 };
