@@ -58,10 +58,6 @@ function BasicDemo() {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
-      
-      <p className="text-sm text-muted-foreground">
-        Click on menu items to open interactive dropdown menus with various options.
-      </p>
     </div>
   );
 }
@@ -131,10 +127,6 @@ export function BasicDemo() {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
-      
-      <p className="text-sm text-muted-foreground">
-        Click on menu items to open interactive dropdown menus with various options.
-      </p>
     </div>
   )
 }`,
