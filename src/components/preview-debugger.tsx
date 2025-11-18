@@ -16,13 +16,13 @@ import {
   TabsTrigger,
 } from "@/components/ui/cognite/tabs";
 import {
-  Bug,
-  CheckCircle,
-  AlertTriangle,
-  Code,
-  Zap,
-  RefreshCw,
-} from "lucide-react";
+  IconAlertTriangle,
+  IconBolt,
+  IconBug,
+  IconCircleCheck,
+  IconCode,
+  IconRefresh,
+} from "@tabler/icons-react";
 
 interface PreviewDebuggerProps {
   code: string;
@@ -137,7 +137,7 @@ export function PreviewDebugger({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Code className="h-4 w-4" />
+            <IconCode className="h-4 w-4" />
             Code Analysis
           </CardTitle>
         </CardHeader>
@@ -154,7 +154,7 @@ export function PreviewDebugger({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Bug className="h-4 w-4" />
+          <IconBug className="h-4 w-4" />
           Preview Debugger
         </CardTitle>
       </CardHeader>
@@ -174,9 +174,9 @@ export function PreviewDebugger({
                   <h4 className="font-medium">Component Status</h4>
                   <div className="flex items-center gap-2">
                     {analysis.hasValidExport ? (
-                      <CheckCircle className="h-4 w-4 text-green-600" />
+                      <IconCircleCheck className="h-4 w-4 text-green-600" />
                     ) : (
-                      <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                      <IconAlertTriangle className="h-4 w-4 text-yellow-600" />
                     )}
                     <span className="text-sm">
                       {analysis.hasValidExport
@@ -236,7 +236,7 @@ export function PreviewDebugger({
                           key={index}
                           className="text-xs text-muted-foreground flex items-center gap-2"
                         >
-                          <AlertTriangle className="h-3 w-3 text-yellow-600" />
+                          <IconAlertTriangle className="h-3 w-3 text-yellow-600" />
                           {warning}
                         </li>
                       ))}
@@ -254,7 +254,7 @@ export function PreviewDebugger({
                           key={index}
                           className="text-xs text-muted-foreground flex items-center gap-2"
                         >
-                          <Zap className="h-3 w-3 text-blue-600" />
+                          <IconBolt className="h-3 w-3 text-blue-600" />
                           {suggestion}
                         </li>
                       ))}
@@ -274,7 +274,7 @@ export function PreviewDebugger({
                   </h4>
                   {onRetry && (
                     <Button variant="outline" size="sm" onClick={onRetry}>
-                      <RefreshCw className="h-3 w-3 mr-1" />
+                      <IconRefresh className="h-3 w-3 mr-1" />
                       Retry
                     </Button>
                   )}
@@ -292,7 +292,7 @@ export function PreviewDebugger({
               </div>
             ) : (
               <div className="text-center py-8">
-                <CheckCircle className="h-8 w-8 mx-auto text-green-600 mb-2" />
+                <IconCircleCheck className="h-8 w-8 mx-auto text-green-600 mb-2" />
                 <p className="text-sm text-muted-foreground">
                   No errors detected
                 </p>
