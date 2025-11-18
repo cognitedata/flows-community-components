@@ -1,5 +1,5 @@
-import { Kbd } from "@/components/ui/cognite/kbd";
-import type { ComponentExamples } from "./types";
+import { Kbd } from '@/components/ui/cognite/kbd';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -11,10 +11,10 @@ function BasicDemo() {
 
 export const kbdExamples: ComponentExamples = {
   basic: {
-    title: "Keyboard Shortcuts",
-    description: "Display keyboard shortcuts with proper styling",
+    title: 'Keyboard Shortcuts',
+    description: 'Display keyboard shortcuts with proper styling',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Kbd } from "@/components/ui/cognite/kbd"
 
 export function BasicDemo() {
@@ -29,8 +29,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const kbdMeta = {
-  name: "Kbd",
-  description: "Represents keyboard input or keyboard shortcuts.",
-  llmUsage: "When displaying keyboard shortcuts, use `<Kbd>` to style them properly.",
-  importPath: "@/components/ui/cognite/kbd",
+  name: 'Kbd',
+  description: 'Represents keyboard input or keyboard shortcuts.',
+  llmUsage:
+    'When displaying keyboard shortcuts, use `<Kbd>` to style them properly.',
+  importPath: '@/components/ui/cognite/kbd',
 };
