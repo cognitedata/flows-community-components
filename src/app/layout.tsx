@@ -1,24 +1,25 @@
-import type { Metadata } from "next";
-import { Inter, Source_Code_Pro } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Navigation } from "@/components/navigation";
-import { TopbarVisibility } from "@/components/TopbarVisibility";
-import { Toaster } from "@/components/ui/cognite/sonner-toast";
+import type { Metadata } from 'next';
+import { Inter, Source_Code_Pro } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Navigation } from '@/components/navigation';
+import { TopbarVisibility } from '@/components/TopbarVisibility';
+import { Toaster } from '@/components/ui/cognite/sonner-toast';
 
 const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+  variable: '--font-inter',
+  subsets: ['latin'],
 });
 
 const sourceCodePro = Source_Code_Pro({
-  variable: "--font-source-code-pro",
-  subsets: ["latin"],
+  variable: '--font-source-code-pro',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Aura Design System",
-  description: "Interactive brand guidelines and design system documentation for Aura UI",
+  title: 'Aura Design System',
+  description:
+    'Interactive brand guidelines and design system documentation for Aura UI',
 };
 
 export default function RootLayout({
@@ -36,7 +37,7 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
-          themes={["light", "dark", "contrast"]}
+          themes={['light', 'dark', 'contrast']}
         >
           <div className="relative flex min-h-screen flex-col">
             <TopbarVisibility>

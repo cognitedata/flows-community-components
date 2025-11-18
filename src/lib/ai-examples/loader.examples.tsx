@@ -1,5 +1,5 @@
-import { Loader } from "@/components/ui/cognite/loader";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+import { Loader } from '@/components/ui/cognite/loader';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicLoaderDemo() {
   return (
@@ -39,10 +39,10 @@ function InlineLoaderDemo() {
 
 export const loaderExamples: ComponentExamples = {
   basic: {
-    title: "Basic Loader",
-    description: "A simple spinning loader icon",
+    title: 'Basic Loader',
+    description: 'A simple spinning loader icon',
     component: BasicLoaderDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Loader } from "@/components/ai-elements/cognite/loader"
 
 export function BasicLoaderDemo() {
@@ -55,10 +55,10 @@ export function BasicLoaderDemo() {
   },
 
   sizes: {
-    title: "Different Sizes",
-    description: "Loader component with custom size",
+    title: 'Different Sizes',
+    description: 'Loader component with custom size',
     component: SizesDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Loader } from "@/components/ai-elements/cognite/loader"
 
 export function SizesDemo() {
@@ -74,10 +74,10 @@ export function SizesDemo() {
   },
 
   inline: {
-    title: "Inline with Text",
-    description: "Loader displayed alongside text",
+    title: 'Inline with Text',
+    description: 'Loader displayed alongside text',
     component: InlineLoaderDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Loader } from "@/components/ai-elements/cognite/loader"
 
 export function InlineLoaderDemo() {
@@ -93,8 +93,8 @@ export function InlineLoaderDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const loaderMeta = {
-  name: "Loader",
+  name: 'Loader',
   description:
-    "A spinning loader component for indicating loading states in AI applications.",
-  importPath: "@/components/ai-elements/cognite/loader",
+    'A spinning loader component for indicating loading states in AI applications.',
+  importPath: '@/components/ai-elements/cognite/loader',
 };

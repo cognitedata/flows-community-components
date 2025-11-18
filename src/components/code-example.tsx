@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useTheme } from "next-themes";
-import { CodeCopyButton } from "@/components/code-copy-button";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import React from 'react';
+import { useTheme } from 'next-themes';
+import { CodeCopyButton } from '@/components/code-copy-button';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
   vscDarkPlus,
   vs,
-} from "react-syntax-highlighter/dist/esm/styles/prism";
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface CodeExampleProps {
   title: string;
@@ -20,15 +20,15 @@ export function CodeExample({ title, code }: CodeExampleProps) {
   // Custom style that adapts to the theme
   const customStyle = {
     margin: 0,
-    padding: "1rem",
-    paddingRight: "3rem",
-    fontSize: "0.875rem",
-    lineHeight: "1.5",
-    borderRadius: "0",
+    padding: '1rem',
+    paddingRight: '3rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.5',
+    borderRadius: '0',
   };
 
   // Use resolvedTheme directly - the suppressHydrationWarning should handle this
-  const isDark = resolvedTheme === "dark";
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <div className="bg-muted/50 rounded-lg p-4">

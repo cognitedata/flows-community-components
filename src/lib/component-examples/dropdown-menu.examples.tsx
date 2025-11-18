@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from '@/components/ui/cognite/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,19 +7,19 @@ import {
   DropdownMenuSectionLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/dropdown-menu';
+import type { ComponentExamples } from './types';
 import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/components/ui/cognite/avatar";
+} from '@/components/ui/cognite/avatar';
 import {
   IconUser,
   IconSettings,
   IconHelp,
   IconBell,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 
 function BasicDemo() {
   return (
@@ -74,11 +74,11 @@ function BasicDemo() {
 
 export const dropdownMenuExamples: ComponentExamples = {
   basic: {
-    title: "Dropdown Menu Demo",
+    title: 'Dropdown Menu Demo',
     description:
-      "Interactive contextual menus with actions and keyboard navigation",
+      'Interactive contextual menus with actions and keyboard navigation',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   DropdownMenu,
   DropdownMenuContent,
@@ -156,10 +156,10 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const dropdownMenuMeta = {
-  name: "Dropdown Menu",
+  name: 'Dropdown Menu',
   description:
-    "Displays a menu to the user triggered by a button press or hover.",
+    'Displays a menu to the user triggered by a button press or hover.',
   llmUsage:
-    "When asked for a dropdown menu, use `<DropdownMenu>` for contextual actions and navigation.",
-  importPath: "@/components/ui/cognite/dropdown-menu",
+    'When asked for a dropdown menu, use `<DropdownMenu>` for contextual actions and navigation.',
+  importPath: '@/components/ui/cognite/dropdown-menu',
 };
