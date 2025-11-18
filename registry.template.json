@@ -1070,6 +1070,9 @@
       "type": "registry:component",
       "title": "Web Preview",
       "description": "AI web preview component for displaying web content.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/web-preview.tsx",
