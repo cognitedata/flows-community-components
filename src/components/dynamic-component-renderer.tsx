@@ -17,7 +17,11 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/cognite/tabs";
-import { AlertTriangle, Play, RefreshCw } from "lucide-react";
+import {
+  IconAlertTriangle,
+  IconPlayerPlay,
+  IconRefresh,
+} from "@tabler/icons-react";
 
 interface DynamicComponentRendererProps {
   code: string;
@@ -93,7 +97,7 @@ class ErrorBoundary extends React.Component<
       return (
         <div className="p-4 border border-destructive/20 rounded-lg bg-destructive/5">
           <div className="flex items-center gap-2 text-destructive mb-2">
-            <AlertTriangle className="h-4 w-4" />
+            <IconAlertTriangle className="h-4 w-4" />
             <span className="font-medium">Component Error</span>
           </div>
           <p className="text-sm text-muted-foreground">
@@ -349,7 +353,7 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
     return (
       <div className={`flex items-center justify-center p-8 ${className}`}>
         <div className="flex items-center gap-2 text-muted-foreground">
-          <RefreshCw className="h-4 w-4 animate-spin" />
+          <IconRefresh className="h-4 w-4 animate-spin" />
           <span>Rendering component...</span>
         </div>
       </div>
@@ -363,7 +367,7 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
         className={`p-6 border border-destructive/20 rounded-lg bg-destructive/5 ${className}`}
       >
         <div className="flex items-center gap-2 text-destructive mb-3">
-          <AlertTriangle className="h-4 w-4" />
+          <IconAlertTriangle className="h-4 w-4" />
           <span className="font-medium">Code Error</span>
         </div>
         <p className="text-sm text-muted-foreground mb-4">
@@ -395,11 +399,11 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
       >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2 text-destructive">
-            <AlertTriangle className="h-4 w-4" />
+          <IconAlertTriangle className="h-4 w-4" />
             <span className="font-medium">Runtime Error</span>
           </div>
           <Button variant="outline" size="sm" onClick={handleRetry}>
-            <RefreshCw className="h-3 w-3 mr-1" />
+            <IconRefresh className="h-3 w-3 mr-1" />
             Retry
           </Button>
         </div>
@@ -429,7 +433,7 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
       className={`flex items-center justify-center p-8 border-2 border-dashed border-muted-foreground/20 rounded-lg ${className}`}
     >
       <div className="text-center space-y-2">
-        <Play className="h-8 w-8 mx-auto text-muted-foreground" />
+        <IconPlayerPlay className="h-8 w-8 mx-auto text-muted-foreground" />
         <p className="text-sm text-muted-foreground">
           Enter component code to see live preview
         </p>
