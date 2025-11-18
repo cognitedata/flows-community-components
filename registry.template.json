@@ -950,6 +950,9 @@
       "type": "registry:component",
       "title": "Tool",
       "description": "AI tool component for displaying tool calls.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/tool.tsx",
@@ -974,6 +977,9 @@
       "type": "registry:component",
       "title": "Web Preview",
       "description": "AI web preview component for displaying web content.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/web-preview.tsx",

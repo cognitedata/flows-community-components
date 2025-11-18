@@ -7,24 +7,24 @@ import {
   BannerAction,
 } from '@/components/ui/cognite/banner';
 import type { ComponentExamples } from './types';
-import { Info, Copy } from 'lucide-react';
+import { IconInfoCircle, IconCopy } from '@tabler/icons-react';
 
 function VariantsDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
-            <Copy />
+            <IconCopy />
             <span>Duplicate</span>
           </BannerAction>
         </BannerActions>
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
@@ -39,7 +39,7 @@ function MainComponentDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -52,7 +52,7 @@ function MainComponentDemo() {
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -65,7 +65,7 @@ function MainComponentDemo() {
       </Banner>
 
       <Banner variant="destructive">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -78,7 +78,7 @@ function MainComponentDemo() {
       </Banner>
 
       <Banner variant="warning">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -108,26 +108,26 @@ export const bannerExamples: ComponentExamples = {
   BannerActions,
   BannerAction,
 } from "@/components/ui/cognite/banner"
-import { Info, Copy } from "lucide-react"
+import { IconInfoCircle, IconCopy } from "@tabler/icons-react"
 
 export function VariantsDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Read only. Duplicate to make changes.
         </BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
-            <Copy />
+            <IconCopy />
             <span>Duplicate</span>
           </BannerAction>
         </BannerActions>
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
@@ -151,13 +151,13 @@ export function VariantsDemo() {
   BannerActions,
   BannerAction,
 } from "@/components/ui/cognite/banner"
-import { Info } from "lucide-react"
+import { IconInfoCircle } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
@@ -172,7 +172,7 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
@@ -187,7 +187,7 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="destructive">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
@@ -202,7 +202,7 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="warning">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
