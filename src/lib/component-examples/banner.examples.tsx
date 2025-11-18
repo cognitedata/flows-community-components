@@ -114,20 +114,20 @@ export function VariantsDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Read only. Duplicate to make changes.
         </BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
-            <Copy />
+            <IconCopy />
             <span>Duplicate</span>
           </BannerAction>
         </BannerActions>
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
@@ -157,7 +157,7 @@ export function MainComponentDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
@@ -172,7 +172,7 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
@@ -187,7 +187,7 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="destructive">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
@@ -202,7 +202,7 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="warning">
-        <BannerIcon icon={Info} />
+        <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>
           Banner title
         </BannerTitle>
