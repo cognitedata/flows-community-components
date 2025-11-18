@@ -1,7 +1,7 @@
 'use client';
 
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
-import { type LucideIcon, XIcon } from 'lucide-react';
+import { IconX, type IconProps } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -79,8 +79,10 @@ export const Banner = ({
   );
 };
 
+type TablerIconComponent = React.ComponentType<IconProps>;
+
 export type BannerIconProps = HTMLAttributes<HTMLDivElement> & {
-  icon: LucideIcon;
+  icon: TablerIconComponent;
 };
 
 export const BannerIcon = ({
@@ -89,7 +91,7 @@ export const BannerIcon = ({
   ...props
 }: BannerIconProps) => {
   const { variant } = useContext(BannerContext);
-  
+
   return (
     <div
       className={cn(
@@ -111,24 +113,32 @@ export const BannerTitle = ({ className, ...props }: BannerTitleProps) => (
 
 export type BannerStatusProps = ComponentProps<typeof Badge>;
 
-export const BannerStatus = ({ outline = true, variant, className, ...props }: BannerStatusProps) => {
+export const BannerStatus = ({
+  outline = true,
+  variant,
+  className,
+  ...props
+}: BannerStatusProps) => {
   const { variant: bannerVariant } = useContext(BannerContext);
-  
-  const variantMap: Record<BannerVariant, 'default' | 'warning' | 'error' | 'inProgress'> = {
+
+  const variantMap: Record<
+    BannerVariant,
+    'default' | 'warning' | 'error' | 'inProgress'
+  > = {
     default: 'default',
     neutral: 'inProgress',
     destructive: 'error',
     warning: 'warning',
   };
-  
+
   const badgeVariant = variant ?? variantMap[bannerVariant];
-  
+
   return (
-    <Badge 
-      outline={outline} 
-      variant={badgeVariant} 
-      className={cn('shrink-0', className)} 
-      {...props} 
+    <Badge
+      outline={outline}
+      variant={badgeVariant}
+      className={cn('shrink-0', className)}
+      {...props}
     />
   );
 };
@@ -188,7 +198,7 @@ export const BannerClose = ({
       variant={variant}
       {...props}
     >
-      <XIcon size={18} />
+      <IconX size={18} />
     </Button>
   );
 };
