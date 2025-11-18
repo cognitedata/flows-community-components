@@ -86,7 +86,8 @@ export const sidebarExamples: ComponentExamples = {
       'Interactive sidebar component with navigation groups and menu items',
     component: BasicDemo,
     difficulty: 'advanced',
-    code: `import {
+    code: `
+import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -95,8 +96,8 @@ export const sidebarExamples: ComponentExamples = {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from "@/components/ui/cognite/sidebar"
-import { Home, Settings, Users, FileText, BarChart3 } from "lucide-react"
+} from '@/components/ui/cognite/sidebar';
+import { Home, Settings, Users, FileText, BarChart3 } from 'lucide-react';
 
 export function BasicDemo() {
   return (
