@@ -73,16 +73,17 @@ export const artifactExamples: ComponentExamples = {
     description: 'A simple artifact container with header and content',
     component: BasicArtifactDemo,
     difficulty: 'beginner',
-    code: `import { 
-  Artifact, 
-  ArtifactHeader, 
-  ArtifactTitle, 
-  ArtifactActions, 
-  ArtifactAction, 
+    code: `
+    import {
+  Artifact,
+  ArtifactHeader,
+  ArtifactTitle,
+  ArtifactActions,
+  ArtifactAction,
   ArtifactContent,
-  ArtifactClose 
-} from "@/components/ai-elements/cognite/artifact"
-import { Copy, Download } from "@tabler/icons-react"
+  ArtifactClose,
+} from '@/components/ui/cognite/artifact';
+import { Copy, Download, Share } from 'lucide-react';
 
 export function BasicArtifactDemo() {
   return (
@@ -110,16 +111,17 @@ export function BasicArtifactDemo() {
     description: 'An artifact with multiple action buttons',
     component: WithActionsDemo,
     difficulty: 'beginner',
-    code: `import { 
-  Artifact, 
-  ArtifactHeader, 
-  ArtifactTitle, 
-  ArtifactActions, 
-  ArtifactAction, 
+    code: `
+    import {
+  Artifact,
+  ArtifactHeader,
+  ArtifactTitle,
+  ArtifactActions,
+  ArtifactAction,
   ArtifactContent,
-  ArtifactClose 
-} from "@/components/ai-elements/cognite/artifact"
-import { Copy, Download, Share } from "@tabler/icons-react"
+  ArtifactClose,
+} from '@/components/ui/cognite/artifact';
+import { Copy, Download, Share } from 'lucide-react';
 
 export function WithActionsDemo() {
   return (
