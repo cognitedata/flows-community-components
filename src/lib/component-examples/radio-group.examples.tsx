@@ -1,6 +1,9 @@
-import { RadioGroup, RadioGroupItem } from "@/components/ui/cognite/radio-group";
-import { Label } from "@/components/ui/cognite/label";
-import type { ComponentExamples } from "./types";
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from '@/components/ui/cognite/radio-group';
+import { Label } from '@/components/ui/cognite/label';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -23,10 +26,11 @@ function BasicDemo() {
 
 export const radioGroupExamples: ComponentExamples = {
   basic: {
-    title: "Basic Radio Group",
-    description: "A set of checkable buttons where only one can be checked at a time",
+    title: 'Basic Radio Group',
+    description:
+      'A set of checkable buttons where only one can be checked at a time',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { RadioGroup, RadioGroupItem } from "@/components/ui/cognite/radio-group"
 import { Label } from "@/components/ui/cognite/label"
 
@@ -53,8 +57,10 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const radioGroupMeta = {
-  name: "Radio Group",
-  description: "A set of checkable buttons where only one can be checked at a time.",
-  llmUsage: "When creating radio button groups, use `<RadioGroup>` with `<RadioGroupItem>` components.",
-  importPath: "@/components/ui/cognite/radio-group",
+  name: 'Radio Group',
+  description:
+    'A set of checkable buttons where only one can be checked at a time.',
+  llmUsage:
+    'When creating radio button groups, use `<RadioGroup>` with `<RadioGroupItem>` components.',
+  importPath: '@/components/ui/cognite/radio-group',
 };
