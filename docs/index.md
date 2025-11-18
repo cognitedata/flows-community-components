@@ -14,6 +14,7 @@ All components can be browsed in the documentation regardless of status. The doc
 ## Components
 
 Browse all components in the sidebar navigation or see individual component pages for:
+
 - Interactive examples and previews
 - Usage guidelines and best practices
 - Code snippets and installation instructions
@@ -43,19 +44,20 @@ npx shadcn add @cognite/aura/button
 Always use the `/cognite` path for imports:
 
 ```tsx
-import { Button } from "@/components/ui/cognite/button"
-import { Badge } from "@/components/ui/cognite/badge"
+import { Button } from '@/components/ui/cognite/button';
+import { Badge } from '@/components/ui/cognite/badge';
 ```
 
 **Why `/cognite`?** The system automatically resolves to production components when available, or draft components as a fallback. This means:
+
 - No import changes needed when components are promoted to production
 - Consistent import pattern across your entire codebase
 
 ### Basic Example
 
 ```tsx
-import { Button } from "@/components/ui/cognite/button"
-import { Badge } from "@/components/ui/cognite/badge"
+import { Button } from '@/components/ui/cognite/button';
+import { Badge } from '@/components/ui/cognite/badge';
 
 export function MyComponent() {
   return (
@@ -63,7 +65,7 @@ export function MyComponent() {
       <Badge>New</Badge>
       <Button>Click me</Button>
     </div>
-  )
+  );
 }
 ```
 

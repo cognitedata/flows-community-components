@@ -1,25 +1,20 @@
-import { Calendar } from "@/components/ui/cognite/calendar";
-import type { ComponentExamples } from "./types";
+import { Calendar } from '@/components/ui/cognite/calendar';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
     <div className="space-y-4">
       <div className="rounded-md border">
-        <Calendar
-          mode="single"
-          className="rounded-md"
-        />
+        <Calendar mode="single" className="rounded-md" />
       </div>
-      
+
       <div className="rounded-md border">
-        <Calendar
-          mode="range"
-          className="rounded-md"
-        />
+        <Calendar mode="range" className="rounded-md" />
       </div>
-      
+
       <p className="text-sm text-muted-foreground">
-        Interactive calendar with month/year navigation. Click the arrow buttons to navigate between months.
+        Interactive calendar with month/year navigation. Click the arrow buttons
+        to navigate between months.
       </p>
     </div>
   );
@@ -27,10 +22,11 @@ function BasicDemo() {
 
 export const calendarExamples: ComponentExamples = {
   basic: {
-    title: "Calendar Demo",
-    description: "Interactive calendar component with month/year navigation and date selection",
+    title: 'Calendar Demo',
+    description:
+      'Interactive calendar component with month/year navigation and date selection',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import { Calendar } from "@/components/ui/cognite/calendar"
 
 export function BasicDemo() {
@@ -61,8 +57,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const calendarMeta = {
-  name: "Calendar",
-  description: "A date picker component for selecting dates and date ranges.",
-  llmUsage: "When asked for a calendar, use `<Calendar>` for date selection functionality.",
-  importPath: "@/components/ui/cognite/calendar",
+  name: 'Calendar',
+  description: 'A date picker component for selecting dates and date ranges.',
+  llmUsage:
+    'When asked for a calendar, use `<Calendar>` for date selection functionality.',
+  importPath: '@/components/ui/cognite/calendar',
 };
