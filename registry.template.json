@@ -353,6 +353,9 @@
           "path": "src/components/ui/cognite/pagination.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -395,6 +398,9 @@
           "path": "src/components/ui/cognite/radio-group.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -447,7 +453,7 @@
       "description": "A slide-over sheet built on Radix Dialog primitives.",
       "dependencies": [
         "@radix-ui/react-dialog",
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "files": [
         {
@@ -461,12 +467,18 @@
       "type": "registry:component",
       "title": "Sidebar",
       "description": "Sidebar component.",
-      "registryDependencies": ["sheet", "skeleton"],
+      "registryDependencies": [
+        "sheet",
+        "skeleton"
+      ],
       "files": [
         {
           "path": "src/components/ui/cognite/sidebar.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -500,7 +512,8 @@
       "description": "A themed Sonner toaster that syncs with the application theme.",
       "dependencies": [
         "next-themes",
-        "sonner"
+        "sonner",
+        "@tabler/icons-react"
       ],
       "files": [
         {
@@ -689,6 +702,9 @@
           "path": "src/components/ai-elements/cognite/artifact.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -739,7 +755,7 @@
       "title": "Code Block",
       "description": "AI code block component with syntax highlighting.",
       "dependencies": [
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "registryDependencies": [
         "button"
@@ -912,6 +928,9 @@
           "path": "src/components/ai-elements/cognite/open-in-chat.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -936,6 +955,9 @@
           "path": "src/components/ai-elements/cognite/plan.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -964,6 +986,9 @@
           "path": "src/components/ai-elements/cognite/queue.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1012,6 +1037,9 @@
           "path": "src/components/ai-elements/cognite/sources.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1039,6 +1067,9 @@
           "path": "src/components/ai-elements/cognite/task.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1051,6 +1082,9 @@
           "path": "src/components/ai-elements/cognite/tool.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1075,6 +1109,9 @@
           "path": "src/components/ai-elements/cognite/web-preview.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     }
   ]

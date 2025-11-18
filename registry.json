@@ -353,6 +353,9 @@
           "path": "src/components/ui/cognite/pagination.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -395,6 +398,9 @@
           "path": "src/components/ui/cognite/radio-group.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -447,7 +453,7 @@
       "description": "A slide-over sheet built on Radix Dialog primitives.",
       "dependencies": [
         "@radix-ui/react-dialog",
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "files": [
         {
@@ -470,6 +476,9 @@
           "path": "src/components/ui/cognite/sidebar.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -676,6 +685,9 @@
           "path": "src/components/ui/cognite/artifact.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -726,7 +738,7 @@
       "title": "Code Block",
       "description": "AI code block component with syntax highlighting.",
       "dependencies": [
-        "lucide-react"
+        "@tabler/icons-react"
       ],
       "registryDependencies": [
         "button"
@@ -899,6 +911,9 @@
           "path": "src/components/ui/cognite/open-in-chat.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -923,6 +938,9 @@
           "path": "src/components/ui/cognite/plan.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -951,6 +969,9 @@
           "path": "src/components/ui/cognite/queue.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -999,6 +1020,9 @@
           "path": "src/components/ui/cognite/sources.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1026,6 +1050,9 @@
           "path": "src/components/ui/cognite/task.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1038,6 +1065,9 @@
           "path": "src/components/ui/cognite/tool.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1062,6 +1092,9 @@
           "path": "src/components/ui/cognite/web-preview.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     }
   ]
