@@ -6,7 +6,12 @@ import {
   SelectValue,
 } from "@/components/ui/cognite/select";
 import { Label } from "@/components/ui/cognite/label";
-import { User, Mail, Settings, Home } from "lucide-react";
+import {
+  IconHome as Home,
+  IconMail as Mail,
+  IconSettings as Settings,
+  IconUser as User,
+} from "@tabler/icons-react";
 import * as React from "react";
 import type { ComponentExamples } from "./types";
 
@@ -169,10 +174,17 @@ export const selectExamples: ComponentExamples = {
   SelectItem,
   SelectTrigger,
   SelectValue,
+<<<<<<< Updated upstream
 } from "@/components/ui/cognite/select";
 import { Label } from "@/components/ui/cognite/label";
 import { User, Mail, Settings, Home } from "lucide-react";
 import * as React from "react";
+=======
+} from "@/components/ui/cognite/select"
+import { Label } from "@/components/ui/cognite/label"
+import { User, Mail, Settings, Home } from "@tabler/icons-react"
+import * as React from "react"
+>>>>>>> Stashed changes
 
 function BasicDemo() {
   const [selectedValue, setSelectedValue] = React.useState<string>("settings");
@@ -240,10 +252,17 @@ function BasicDemo() {
   SelectItem,
   SelectTrigger,
   SelectValue,
+<<<<<<< Updated upstream
 } from "@/components/ui/cognite/select";
 import { Label } from "@/components/ui/cognite/label";
 import { User, Mail, Settings, Home } from "lucide-react";
 import * as React from "react";
+=======
+} from "@/components/ui/cognite/select"
+import { Label } from "@/components/ui/cognite/label"
+import { User, Mail, Settings, Home } from "@tabler/icons-react"
+import * as React from "react"
+>>>>>>> Stashed changes
 
 function StatesDemo() {
   const [selectedValue, setSelectedValue] = React.useState<string>("settings");
