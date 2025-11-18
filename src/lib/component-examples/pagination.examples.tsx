@@ -6,8 +6,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/cognite/pagination";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/pagination';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -40,10 +40,10 @@ function BasicDemo() {
 
 export const paginationExamples: ComponentExamples = {
   basic: {
-    title: "Basic Pagination",
-    description: "Pagination with page numbers and navigation",
+    title: 'Basic Pagination',
+    description: 'Pagination with page numbers and navigation',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Pagination,
   PaginationContent,
@@ -87,8 +87,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const paginationMeta = {
-  name: "Pagination",
-  description: "Pagination with page numbers and navigation controls.",
-  llmUsage: "When adding pagination, use `<Pagination>` with `<PaginationContent>`, `<PaginationItem>`, and `<PaginationLink>`.",
-  importPath: "@/components/ui/cognite/pagination",
+  name: 'Pagination',
+  description: 'Pagination with page numbers and navigation controls.',
+  llmUsage:
+    'When adding pagination, use `<Pagination>` with `<PaginationContent>`, `<PaginationItem>`, and `<PaginationLink>`.',
+  importPath: '@/components/ui/cognite/pagination',
 };

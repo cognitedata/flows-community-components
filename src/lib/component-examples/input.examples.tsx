@@ -1,6 +1,6 @@
-import { Input } from "@/components/ui/cognite/input";
-import { Label } from "@/components/ui/cognite/label";
-import type { ComponentExamples } from "./types";
+import { Input } from '@/components/ui/cognite/input';
+import { Label } from '@/components/ui/cognite/label';
+import type { ComponentExamples } from './types';
 
 function WithLabelDemo() {
   return (
@@ -49,7 +49,7 @@ function StatesDemo() {
           type="input4"
           id="input4"
           placeholder="Invalid Input text"
-          data-invalid="true"
+          errorMessage="This field is required"
         />
       </div>
     </div>
@@ -58,10 +58,10 @@ function StatesDemo() {
 
 export const inputExamples: ComponentExamples = {
   withLabel: {
-    title: "Input with Label",
-    description: "Input field with an associated label",
+    title: 'Input with Label',
+    description: 'Input field with an associated label',
     component: WithLabelDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Input } from "@/components/ui/cognite/input"
 import { Label } from "@/components/ui/cognite/label"
 
@@ -88,10 +88,10 @@ export function WithLabelDemo() {
   },
 
   states: {
-    title: "States Demo",
-    description: "Different states of the input field",
+    title: 'States Demo',
+    description: 'Different states of the input field',
     component: StatesDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Input } from "@/components/ui/cognite/input"
 import { Label } from "@/components/ui/cognite/label"
 
@@ -121,7 +121,7 @@ export function StatesDemo() {
           type="input4"
           id="input4"
           placeholder="Invalid Input text"
-          data-invalid="true"
+          errorMessage="This field is required"
         />
       </div>
     </div>
@@ -132,10 +132,10 @@ export function StatesDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const inputMeta = {
-  name: "Input",
+  name: 'Input',
   description:
-    "A styled input field component with built-in validation states and accessibility features.",
+    'A styled input field component with built-in validation states and accessibility features.',
   llmUsage:
     "When creating form inputs, use `<Input type='text' placeholder='Enter text' />` instead of `<input>`. Pair with `<Label>` for accessibility.",
-  importPath: "@/components/ui/cognite/input",
+  importPath: '@/components/ui/cognite/input',
 };

@@ -1,13 +1,13 @@
-import { notFound } from "next/navigation";
-import { promises as fs } from "fs";
-import path from "path";
-import { Badge } from "@/components/ui/cognite/badge";
-import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
-import { ComponentExamplesRenderer } from "@/components/component-examples-renderer";
-import { CodeExamplesRenderer } from "@/components/code-examples-renderer";
-import { getComponentStatus } from "@/lib/component-status";
-import { InstallationCommand } from "@/components/installation-command";
-import { getComponentMeta } from "@/lib/component-registry";
+import { notFound } from 'next/navigation';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { Badge } from '@/components/ui/cognite/badge';
+import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
+import { ComponentExamplesRenderer } from '@/components/component-examples-renderer';
+import { CodeExamplesRenderer } from '@/components/code-examples-renderer';
+import { getComponentStatus } from '@/lib/component-status';
+import { InstallationCommand } from '@/components/installation-command';
+import { getComponentMeta } from '@/lib/component-registry';
 
 interface ComponentPageProps {
   params: Promise<{
@@ -19,19 +19,19 @@ interface ComponentPageProps {
 export async function generateStaticParams() {
   const examplesDir = path.join(
     process.cwd(),
-    "src",
-    "lib",
-    "component-examples"
+    'src',
+    'lib',
+    'component-examples'
   );
 
   try {
     const files = await fs.readdir(examplesDir);
     const exampleFiles = files.filter(
-      (file) => file.endsWith(".examples.tsx") || file.endsWith(".examples.ts")
+      (file) => file.endsWith('.examples.tsx') || file.endsWith('.examples.ts')
     );
 
     return exampleFiles.map((file) => ({
-      slug: file.replace(".examples.tsx", "").replace(".examples.ts", ""),
+      slug: file.replace('.examples.tsx', '').replace('.examples.ts', ''),
     }));
   } catch {
     return [];
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: ComponentPageProps) {
 
   if (!meta) {
     return {
-      title: "Component Not Found",
+      title: 'Component Not Found',
     };
   }
 
@@ -57,8 +57,8 @@ export async function generateMetadata({ params }: ComponentPageProps) {
 // Helper function to get component dependencies from registry
 async function getComponentDependencies(slug: string): Promise<string[]> {
   try {
-    const registryPath = path.join(process.cwd(), "registry.template.json");
-    const registryContent = await fs.readFile(registryPath, "utf-8");
+    const registryPath = path.join(process.cwd(), 'registry.template.json');
+    const registryContent = await fs.readFile(registryPath, 'utf-8');
     const registry = JSON.parse(registryContent);
 
     const component = registry.items?.find(
@@ -85,30 +85,30 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   const dependencies = await getComponentDependencies(slug);
 
   // Get component source code for manual installation
-  let componentCode = "";
+  let componentCode = '';
   try {
     // Try to read from draft directory (where most components are)
     const draftPath = path.join(
       process.cwd(),
-      "src",
-      "components",
-      "ui",
-      "draft",
+      'src',
+      'components',
+      'ui',
+      'draft',
       `${slug}.tsx`
     );
-    componentCode = await fs.readFile(draftPath, "utf-8");
+    componentCode = await fs.readFile(draftPath, 'utf-8');
   } catch {
     try {
       // Fallback to cognite directory for production components
       const cognitePath = path.join(
         process.cwd(),
-        "src",
-        "components",
-        "ui",
-        "cognite",
+        'src',
+        'components',
+        'ui',
+        'cognite',
         `${slug}.tsx`
       );
-      componentCode = await fs.readFile(cognitePath, "utf-8");
+      componentCode = await fs.readFile(cognitePath, 'utf-8');
     } catch {
       // Component code not found, leave empty
     }
@@ -127,7 +127,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <div className="flex items-center gap-3 mb-2">
                     <h1 className="text-3xl font-bold">{meta.name}</h1>
                     <Badge variant="secondary">Component</Badge>
-                    {componentStatus === "production" && (
+                    {componentStatus === 'production' && (
                       <Badge
                         variant="default"
                         className="bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
@@ -135,7 +135,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         Production Ready
                       </Badge>
                     )}
-                    {componentStatus === "draft" && (
+                    {componentStatus === 'draft' && (
                       <Badge
                         variant="secondary"
                         className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800"
@@ -147,7 +147,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <p className="text-xl text-muted-foreground mt-2">
                     {meta.description}
                   </p>
-                  {componentStatus === "draft" && (
+                  {componentStatus === 'draft' && (
                     <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
                       <p className="text-sm text-yellow-800 dark:text-yellow-400">
                         <strong>Note:</strong> This component is currently in

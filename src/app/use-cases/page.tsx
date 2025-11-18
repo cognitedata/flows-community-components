@@ -4,9 +4,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Badge } from "@/components/ui/cognite/badge";
-import { Button } from "@/components/ui/cognite/button";
+} from '@/components/ui/cognite/card';
+import { Badge } from '@/components/ui/cognite/badge';
+import { Button } from '@/components/ui/cognite/button';
 import {
   BarChart3,
   ShoppingBag,
@@ -17,105 +17,105 @@ import {
   Building,
   Zap,
   ArrowRight,
-} from "lucide-react";
-import Link from "next/link";
+} from 'lucide-react';
+import Link from 'next/link';
 
 const useCases = [
   {
     icon: BarChart3,
-    title: "Data Dashboards",
+    title: 'Data Dashboards',
     description:
-      "Build comprehensive analytics and reporting interfaces with beautiful charts and KPI cards.",
-    components: ["Card", "Badge", "Progress", "Tabs", "Table"],
+      'Build comprehensive analytics and reporting interfaces with beautiful charts and KPI cards.',
+    components: ['Card', 'Badge', 'Progress', 'Tabs', 'Table'],
     examples: [
-      "Revenue analytics dashboard",
-      "User engagement metrics",
-      "Performance monitoring",
+      'Revenue analytics dashboard',
+      'User engagement metrics',
+      'Performance monitoring',
     ],
-    href: "/sandbox?example=dashboard",
+    href: '/sandbox?example=dashboard',
   },
   {
     icon: ShoppingBag,
-    title: "E-commerce Platforms",
+    title: 'E-commerce Platforms',
     description:
-      "Create modern shopping experiences with product cards, checkout flows, and user accounts.",
-    components: ["Card", "Button", "Input", "Badge", "Dialog"],
+      'Create modern shopping experiences with product cards, checkout flows, and user accounts.',
+    components: ['Card', 'Button', 'Input', 'Badge', 'Dialog'],
     examples: [
-      "Product listing pages",
-      "Shopping cart interface",
-      "Checkout forms",
+      'Product listing pages',
+      'Shopping cart interface',
+      'Checkout forms',
     ],
-    href: "/sandbox?example=ecommerce",
+    href: '/sandbox?example=ecommerce',
   },
   {
     icon: Users,
-    title: "User Management",
+    title: 'User Management',
     description:
-      "Design comprehensive user interfaces for team management, profiles, and permissions.",
-    components: ["Table", "Dialog", "Form", "Avatar", "Badge"],
+      'Design comprehensive user interfaces for team management, profiles, and permissions.',
+    components: ['Table', 'Dialog', 'Form', 'Avatar', 'Badge'],
     examples: [
-      "Team member directory",
-      "User profile settings",
-      "Role-based permissions",
+      'Team member directory',
+      'User profile settings',
+      'Role-based permissions',
     ],
-    href: "/sandbox?example=users",
+    href: '/sandbox?example=users',
   },
   {
     icon: FileText,
-    title: "Content Management",
+    title: 'Content Management',
     description:
-      "Build editorial interfaces for blogs, documentation, and content creation platforms.",
-    components: ["Form", "Textarea", "Tabs", "Card", "Badge"],
+      'Build editorial interfaces for blogs, documentation, and content creation platforms.',
+    components: ['Form', 'Textarea', 'Tabs', 'Card', 'Badge'],
     examples: [
-      "Blog post editor",
-      "Document management",
-      "Content publishing workflow",
+      'Blog post editor',
+      'Document management',
+      'Content publishing workflow',
     ],
-    href: "/sandbox?example=cms",
+    href: '/sandbox?example=cms',
   },
   {
     icon: Calendar,
-    title: "Scheduling & Events",
+    title: 'Scheduling & Events',
     description:
-      "Create appointment booking, event management, and calendar applications.",
-    components: ["Calendar", "Dialog", "Form", "Card", "Badge"],
-    examples: ["Appointment booking", "Event management", "Meeting scheduler"],
-    href: "/sandbox?example=calendar",
+      'Create appointment booking, event management, and calendar applications.',
+    components: ['Calendar', 'Dialog', 'Form', 'Card', 'Badge'],
+    examples: ['Appointment booking', 'Event management', 'Meeting scheduler'],
+    href: '/sandbox?example=calendar',
   },
   {
     icon: MessageSquare,
-    title: "Communication Tools",
+    title: 'Communication Tools',
     description:
-      "Design chat interfaces, messaging platforms, and collaboration tools.",
-    components: ["ScrollArea", "Input", "Button", "Card", "Avatar"],
+      'Design chat interfaces, messaging platforms, and collaboration tools.',
+    components: ['ScrollArea', 'Input', 'Button', 'Card', 'Avatar'],
     examples: [
-      "Team chat interface",
-      "Customer support portal",
-      "Real-time messaging",
+      'Team chat interface',
+      'Customer support portal',
+      'Real-time messaging',
     ],
-    href: "/sandbox?example=chat",
+    href: '/sandbox?example=chat',
   },
   {
     icon: Building,
-    title: "Business Applications",
+    title: 'Business Applications',
     description:
-      "Build enterprise software, CRM systems, and business process management tools.",
-    components: ["Table", "Form", "Dialog", "Tabs", "Card"],
-    examples: ["CRM dashboard", "Invoice management", "Project tracking"],
-    href: "/sandbox?example=business",
+      'Build enterprise software, CRM systems, and business process management tools.',
+    components: ['Table', 'Form', 'Dialog', 'Tabs', 'Card'],
+    examples: ['CRM dashboard', 'Invoice management', 'Project tracking'],
+    href: '/sandbox?example=business',
   },
   {
     icon: Zap,
-    title: "API Documentation",
+    title: 'API Documentation',
     description:
-      "Create interactive API docs, developer portals, and technical documentation.",
-    components: ["Tabs", "Code", "Card", "Badge", "Button"],
+      'Create interactive API docs, developer portals, and technical documentation.',
+    components: ['Tabs', 'Code', 'Card', 'Badge', 'Button'],
     examples: [
-      "API reference pages",
-      "Interactive code examples",
-      "Developer onboarding",
+      'API reference pages',
+      'Interactive code examples',
+      'Developer onboarding',
     ],
-    href: "/sandbox?example=docs",
+    href: '/sandbox?example=docs',
   },
 ];
 
