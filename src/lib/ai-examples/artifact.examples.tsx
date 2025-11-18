@@ -6,13 +6,13 @@ import {
   ArtifactAction,
   ArtifactContent,
   ArtifactClose,
-} from "@/components/ui/cognite/artifact";
+} from '@/components/ui/cognite/artifact';
 import {
   IconCopy as Copy,
   IconDownload as Download,
   IconShare3 as Share,
-} from "@tabler/icons-react";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@tabler/icons-react';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicArtifactDemo() {
   return (
@@ -69,10 +69,10 @@ function WithActionsDemo() {
 
 export const artifactExamples: ComponentExamples = {
   basic: {
-    title: "Basic Artifact",
-    description: "A simple artifact container with header and content",
+    title: 'Basic Artifact',
+    description: 'A simple artifact container with header and content',
     component: BasicArtifactDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { 
   Artifact, 
   ArtifactHeader, 
@@ -106,10 +106,10 @@ export function BasicArtifactDemo() {
   },
 
   withActions: {
-    title: "Artifact with Actions",
-    description: "An artifact with multiple action buttons",
+    title: 'Artifact with Actions',
+    description: 'An artifact with multiple action buttons',
     component: WithActionsDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { 
   Artifact, 
   ArtifactHeader, 
@@ -149,8 +149,8 @@ export function WithActionsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const artifactMeta = {
-  name: "Artifact",
+  name: 'Artifact',
   description:
-    "A container for AI-generated content with header, actions, and tabbed content areas.",
-  importPath: "@/components/ai-elements/cognite/artifact",
+    'A container for AI-generated content with header, actions, and tabbed content areas.',
+  importPath: '@/components/ai-elements/cognite/artifact',
 };
