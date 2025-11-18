@@ -16,12 +16,12 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/cognite/tabs";
+} from '@/components/ui/cognite/tabs';
 import {
   IconAlertTriangle,
   IconPlayerPlay,
   IconRefresh,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 
 interface DynamicComponentRendererProps {
   code: string;
@@ -399,7 +399,7 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
       >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2 text-destructive">
-          <IconAlertTriangle className="h-4 w-4" />
+            <IconAlertTriangle className="h-4 w-4" />
             <span className="font-medium">Runtime Error</span>
           </div>
           <Button variant="outline" size="sm" onClick={handleRetry}>

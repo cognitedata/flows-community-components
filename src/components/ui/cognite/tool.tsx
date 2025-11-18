@@ -15,10 +15,10 @@ import {
   IconCircleX,
   IconClock,
   IconTool,
-} from "@tabler/icons-react";
-import type { ComponentProps, ReactNode } from "react";
-import { isValidElement } from "react";
-import { CodeBlock } from "./code-block";
+} from '@tabler/icons-react';
+import type { ComponentProps, ReactNode } from 'react';
+import { isValidElement } from 'react';
+import { CodeBlock } from './code-block';
 
 export type ToolProps = ComponentProps<typeof Collapsible>;
 
@@ -48,13 +48,13 @@ const getStatusBadge = (status: ToolUIPart['state']) => {
   };
 
   const icons: Partial<Record<string, ReactNode>> = {
-    "input-streaming": <IconCircle className="size-4" />,
-    "input-available": <IconClock className="size-4 animate-pulse" />,
-    "approval-requested": <IconClock className="size-4 text-yellow-600" />,
-    "approval-responded": <IconCircleCheck className="size-4 text-blue-600" />,
-    "output-available": <IconCircleCheck className="size-4 text-green-600" />,
-    "output-error": <IconCircleX className="size-4 text-red-600" />,
-    "output-denied": <IconCircleX className="size-4 text-orange-600" />,
+    'input-streaming': <IconCircle className="size-4" />,
+    'input-available': <IconClock className="size-4 animate-pulse" />,
+    'approval-requested': <IconClock className="size-4 text-yellow-600" />,
+    'approval-responded': <IconCircleCheck className="size-4 text-blue-600" />,
+    'output-available': <IconCircleCheck className="size-4 text-green-600" />,
+    'output-error': <IconCircleX className="size-4 text-red-600" />,
+    'output-denied': <IconCircleX className="size-4 text-orange-600" />,
   };
 
   return (

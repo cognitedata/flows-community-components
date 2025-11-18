@@ -12,11 +12,11 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip";
-import { cn } from "@/lib/utils";
-import { IconChevronDown } from "@tabler/icons-react";
-import type { ComponentProps, ReactNode } from "react";
-import { createContext, useContext, useEffect, useState } from "react";
+} from '@/components/ui/cognite/tooltip';
+import { cn } from '@/lib/utils';
+import { IconChevronDown } from '@tabler/icons-react';
+import type { ComponentProps, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export type WebPreviewContextValue = {
   url: string;

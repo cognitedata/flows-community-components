@@ -6,9 +6,9 @@ import {
   IconCircleCheck,
   IconInfoCircle,
   IconLoader2,
-} from "@tabler/icons-react"
-import { useTheme } from "next-themes"
-import { Toaster as Sonner, type ToasterProps } from "sonner"
+} from '@tabler/icons-react';
+import { useTheme } from 'next-themes';
+import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
 // Re-export the toast function from sonner
 export { toast } from 'sonner';
