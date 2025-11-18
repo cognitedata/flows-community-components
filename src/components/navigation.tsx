@@ -12,10 +12,15 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/cognite/sheet";
-import { Menu, Sun, Moon, Contrast } from "lucide-react";
 import Image from "next/image";
 import auraLogo from "@/../public/aura-logo.png";
-import { IconBrandGithub } from "@tabler/icons-react";
+import {
+  IconBrandGithub,
+  IconContrast,
+  IconMenu2,
+  IconMoon,
+  IconSun,
+} from "@tabler/icons-react";
 
 const navItems = [
   { href: "/primitives", label: "Primitives" },
@@ -37,9 +42,9 @@ function ThemeToggleGroup() {
   }
 
   const themes = [
-    { name: "light", icon: Sun, label: "Light" },
-    { name: "dark", icon: Moon, label: "Dark" },
-    { name: "contrast", icon: Contrast, label: "High contrast" },
+    { name: "light", icon: IconSun, label: "Light" },
+    { name: "dark", icon: IconMoon, label: "Dark" },
+    { name: "contrast", icon: IconContrast, label: "High contrast" },
   ];
 
   return (
@@ -124,7 +129,7 @@ export function Navigation() {
           <Sheet>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
+                <IconMenu2 className="h-5 w-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
