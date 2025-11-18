@@ -39,13 +39,14 @@ export const collapsibleExamples: ComponentExamples = {
       'Interactive collapsible components for expandable content sections',
     component: BasicDemo,
     difficulty: 'intermediate',
-    code: `import {
+    code: `
+    import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/cognite/collapsible"
-import { Button } from "@/components/ui/cognite/button"
-import { ChevronsUpDown } from "@tabler/icons-react"
+} from '@/components/ui/cognite/collapsible';
+import { Button } from '@/components/ui/cognite/button';
+import { ChevronsUpDown } from 'lucide-react';
 
 export function BasicDemo() {
   return (
@@ -77,11 +78,12 @@ export const collapsibleMeta = {
 };
 
 // Component code literal - must match src/components/ui/cognite/collapsible.tsx
-export const collapsibleCode = `"use client";
+export const collapsibleCode = `
+"use client";
 
-import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 function Collapsible({
   className,
@@ -90,7 +92,7 @@ function Collapsible({
   return (
     <CollapsiblePrimitive.Root
       data-slot="collapsible"
-      className={cn("w-full min-w-0 box-border [&>*]:max-w-full", className)}
+      className={cn('w-full min-w-0 box-border [&>*]:max-w-full', className)}
       {...props}
     />
   );
@@ -104,7 +106,7 @@ function CollapsibleTrigger({
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
       className={cn(
-        "bg-background text-foreground tracking-tighter px-3 py-1.5 has-[>svg]:px-3 has-[>svg]:py-1.5  w-full ",
+        'bg-background text-foreground tracking-tighter px-3 py-1.5 has-[>svg]:px-3 has-[>svg]:py-1.5  w-full ',
         className
       )}
       {...props}
@@ -120,7 +122,7 @@ function CollapsibleContent({
     <CollapsiblePrimitive.CollapsibleContent
       data-slot="collapsible-content"
       className={cn(
-        "border-none outline-none text-muted-foreground text-base leading-20 tracking-tightest px-3 w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border",
+        'border-none outline-none text-muted-foreground text-base leading-20 tracking-tightest px-3 w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border',
         className
       )}
       {...props}
