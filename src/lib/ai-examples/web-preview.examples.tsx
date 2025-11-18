@@ -6,7 +6,11 @@ import {
   WebPreviewBody,
   WebPreviewConsole,
 } from "@/components/ui/cognite/web-preview";
-import { ArrowLeftIcon, ArrowRightIcon, RefreshCwIcon } from "lucide-react";
+import {
+  IconArrowLeft as ArrowLeftIcon,
+  IconArrowRight as ArrowRightIcon,
+  IconRefresh as RefreshCwIcon,
+} from "@tabler/icons-react";
 import type { ComponentExamples } from "@/lib/component-examples/types";
 
 function BasicWebPreviewDemo() {
