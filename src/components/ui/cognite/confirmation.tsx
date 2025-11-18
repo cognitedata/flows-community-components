@@ -2,7 +2,7 @@
 
 import { Alert, AlertDescription } from '#aura/alert';
 import { Button } from '#aura/button';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import {
   type ComponentProps,
   createContext,

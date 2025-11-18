@@ -6,7 +6,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '#aura/collapsible';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import type { ToolUIPart } from 'ai';
 import {
   IconChevronDown,

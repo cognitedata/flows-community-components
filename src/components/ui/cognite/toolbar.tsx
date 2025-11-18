@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { NodeToolbar, Position } from '@xyflow/react';
 import type { ComponentProps } from 'react';
 

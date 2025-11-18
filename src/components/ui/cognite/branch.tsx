@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '#aura/button';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import type { UIMessage } from 'ai';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import type { ComponentProps, HTMLAttributes, ReactElement } from 'react';

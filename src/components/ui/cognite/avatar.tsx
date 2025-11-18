@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 
 const avatarVariants = cva(
   'relative flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md inline-flex flex-col justify-center items-center hover:cursor-pointer',

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
 import { IconSearch } from '@tabler/icons-react';
 
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import {
   Dialog,
   DialogContent,

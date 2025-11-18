@@ -7,7 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '#aura/tooltip';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { type LucideIcon, XIcon } from 'lucide-react';
 import type { ComponentProps, HTMLAttributes } from 'react';
 

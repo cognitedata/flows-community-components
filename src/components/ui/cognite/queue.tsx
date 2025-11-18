@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
 } from '#aura/collapsible';
 import { ScrollArea } from '#aura/scroll-area';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { ChevronDownIcon, PaperclipIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 

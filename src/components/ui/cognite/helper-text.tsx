@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { IconExclamationCircle } from '@tabler/icons-react';
 
 export interface HelperTextProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -11,7 +11,7 @@ import {
 } from 'react';
 import { Button } from '#aura/button';
 import { Badge } from '#aura/badge';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 
 type BannerVariant = 'default' | 'neutral' | 'destructive' | 'warning';
 

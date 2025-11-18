@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '#aura/button';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { IconArrowDown } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import { useCallback } from 'react';

@@ -5,7 +5,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '#aura/collapsible';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { ChevronDownIcon, SearchIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 

@@ -2,7 +2,7 @@
 
 import { Button } from '#aura/button';
 import { ScrollArea, ScrollBar } from '#aura/scroll-area';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import type { ComponentProps } from 'react';
 
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;

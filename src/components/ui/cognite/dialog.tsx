@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { IconX } from '@tabler/icons-react';
 
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 
 function Dialog({
   ...props

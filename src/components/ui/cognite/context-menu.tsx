@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { IconCheck, IconChevronRight, IconCircle } from '@tabler/icons-react';
 
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 
 function ContextMenu({
   ...props

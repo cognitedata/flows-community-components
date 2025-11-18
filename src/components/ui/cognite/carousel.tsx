@@ -6,7 +6,7 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { Button } from '#aura/button';
 
 type CarouselApi = UseEmblaCarouselType[1];

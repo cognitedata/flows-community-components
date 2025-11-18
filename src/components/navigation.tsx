@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { Button } from '#aura/button';
 import {
   Sheet,

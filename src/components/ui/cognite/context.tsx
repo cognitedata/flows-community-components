@@ -7,7 +7,7 @@ import {
   HoverCardTrigger,
 } from '#aura/hover-card';
 import { Progress } from '#aura/progress';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import type { LanguageModelUsage } from 'ai';
 import { type ComponentProps, createContext, useContext } from 'react';
 import { getUsage } from 'tokenlens';

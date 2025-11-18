@@ -17,7 +17,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '#aura/tabs';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 
 // Code block component for syntax highlighting
 function CodeBlock({

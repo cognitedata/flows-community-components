@@ -15,7 +15,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '#aura/collapsible';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { ChevronsUpDownIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { createContext, useContext } from 'react';

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '#aura/button';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import type { Element } from 'hast';
 import { CheckIcon, ChevronsUpDown, CopyIcon } from 'lucide-react';
 import {

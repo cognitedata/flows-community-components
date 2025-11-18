@@ -11,7 +11,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '#aura/hover-card';
-import { cn } from '#lib/utils';
+import { cn } from '#common/utils';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import type { ComponentType } from 'react';
 import {
