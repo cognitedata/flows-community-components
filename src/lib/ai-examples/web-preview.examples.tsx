@@ -5,13 +5,13 @@ import {
   WebPreviewUrl,
   WebPreviewBody,
   WebPreviewConsole,
-} from "@/components/ui/cognite/web-preview";
+} from '@/components/ui/cognite/web-preview';
 import {
   IconArrowLeft as ArrowLeftIcon,
   IconArrowRight as ArrowRightIcon,
   IconRefresh as RefreshCwIcon,
-} from "@tabler/icons-react";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@tabler/icons-react';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicWebPreviewDemo() {
   return (
@@ -36,13 +36,13 @@ function BasicWebPreviewDemo() {
 function WithConsoleDemo() {
   const logs = [
     {
-      level: "log" as const,
-      message: "Page loaded successfully",
+      level: 'log' as const,
+      message: 'Page loaded successfully',
       timestamp: new Date(),
     },
     {
-      level: "warn" as const,
-      message: "Deprecated API used",
+      level: 'warn' as const,
+      message: 'Deprecated API used',
       timestamp: new Date(),
     },
   ];
@@ -60,10 +60,10 @@ function WithConsoleDemo() {
 
 export const webPreviewExamples: ComponentExamples = {
   basic: {
-    title: "Basic Web Preview",
-    description: "Interactive iframe preview with navigation",
+    title: 'Basic Web Preview',
+    description: 'Interactive iframe preview with navigation',
     component: BasicWebPreviewDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   WebPreview,
   WebPreviewNavigation,
@@ -85,10 +85,10 @@ export function BasicWebPreviewDemo() {
   },
 
   withConsole: {
-    title: "With Console",
-    description: "Web preview with console logs",
+    title: 'With Console',
+    description: 'Web preview with console logs',
     component: WithConsoleDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   WebPreview,
   WebPreviewNavigation,
@@ -121,8 +121,8 @@ export function WebPreviewWithConsoleDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const webPreviewMeta = {
-  name: "Web Preview",
+  name: 'Web Preview',
   description:
-    "A component for previewing web content and URLs in AI responses with metadata.",
-  importPath: "@/components/ai-elements/cognite/web-preview",
+    'A component for previewing web content and URLs in AI responses with metadata.',
+  importPath: '@/components/ai-elements/cognite/web-preview',
 };
