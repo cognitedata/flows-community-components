@@ -3,30 +3,44 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion";
-import type { ComponentExamples, ComponentMeta } from "./types";
-import { IconInfoCircle, IconBrush, IconClock } from "@tabler/icons-react";
+} from '@/components/ui/cognite/accordion';
+import type { ComponentExamples, ComponentMeta } from './types';
+import { IconInfoCircle, IconBrush, IconClock } from '@tabler/icons-react';
 
 // Basic Accordion Demo
 function BasicAccordionDemo() {
   return (
-    <Accordion type="single" defaultValue="item-2" collapsible className="w-full">
+    <Accordion
+      type="single"
+      defaultValue="item-2"
+      collapsible
+      className="w-full"
+    >
       <AccordionItem value="item-1">
-        <AccordionTrigger icon={IconInfoCircle}>When should I use single vs. multiple mode?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>
+          When should I use single vs. multiple mode?
+        </AccordionTrigger>
         <AccordionContent>
-          You should use single mode when you want to allow only one section to be open at a time.
+          You should use single mode when you want to allow only one section to
+          be open at a time.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-      <AccordionTrigger icon={IconInfoCircle}>Should any sections be open by default?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>
+          Should any sections be open by default?
+        </AccordionTrigger>
         <AccordionContent>
-          Micro-interactions are events which have one main task — a single purpose — and they are found all over your device and within apps.
+          Micro-interactions are events which have one main task — a single
+          purpose — and they are found all over your device and within apps.
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger icon={IconInfoCircle}>Any special considerations for mobile?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>
+          Any special considerations for mobile?
+        </AccordionTrigger>
         <AccordionContent>
-          Yes, you should use the collapsible prop to allow the user to collapse the accordion on mobile.
+          Yes, you should use the collapsible prop to allow the user to collapse
+          the accordion on mobile.
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -38,7 +52,9 @@ function BasicAccordionDemoWithIcon() {
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
-        <AccordionTrigger icon={IconInfoCircle}>Is it accessible?</AccordionTrigger>
+        <AccordionTrigger icon={IconInfoCircle}>
+          Is it accessible?
+        </AccordionTrigger>
         <AccordionContent>
           Yes. It adheres to the WAI-ARIA design pattern.
         </AccordionContent>
@@ -87,11 +103,12 @@ function MultipleAccordionDemo() {
 
 export const accordionExamples: ComponentExamples = {
   basic: {
-    title: "Basic Accordion",
-    description: "A simple accordion with collapsible sections. Only one item can be open at a time.",
+    title: 'Basic Accordion',
+    description:
+      'A simple accordion with collapsible sections. Only one item can be open at a time.',
     component: BasicAccordionDemo,
-    tags: ["fundamental", "common"],
-    difficulty: "beginner",
+    tags: ['fundamental', 'common'],
+    difficulty: 'beginner',
     code: `import {
   Accordion,
   AccordionContent,
@@ -127,11 +144,12 @@ export function BasicAccordionDemo() {
   },
 
   multiple: {
-    title: "Multiple Items Open",
-    description: "Allow multiple accordion items to be open simultaneously by setting type to 'multiple'.",
+    title: 'Multiple Items Open',
+    description:
+      "Allow multiple accordion items to be open simultaneously by setting type to 'multiple'.",
     component: MultipleAccordionDemo,
-    tags: ["advanced"],
-    difficulty: "intermediate",
+    tags: ['advanced'],
+    difficulty: 'intermediate',
     code: `import {
   Accordion,
   AccordionContent,
@@ -166,11 +184,11 @@ export function MultipleAccordionDemo() {
   },
 
   withIcon: {
-    title: "Accordion with Icon",
-    description: "Add an icon to the accordion trigger.",
+    title: 'Accordion with Icon',
+    description: 'Add an icon to the accordion trigger.',
     component: BasicAccordionDemoWithIcon,
-    tags: ["common"],
-    difficulty: "beginner",
+    tags: ['common'],
+    difficulty: 'beginner',
     code: `import {
   Accordion,
   AccordionContent,
@@ -208,57 +226,56 @@ export function BasicAccordionDemoWithIcon() {
 
 // Component metadata - single source of truth for API documentation
 export const accordionMeta: ComponentMeta = {
-  name: "Accordion",
+  name: 'Accordion',
   description:
-    "A collapsible content component that allows users to show and hide sections of related content.",
+    'A collapsible content component that allows users to show and hide sections of related content.',
   llmUsage:
-    "When asked for an accordion, use `<Accordion>` with `<AccordionItem>` components for collapsible sections.",
-  importPath: "@/components/ui/cognite/accordion",
+    'When asked for an accordion, use `<Accordion>` with `<AccordionItem>` components for collapsible sections.',
+  importPath: '@/components/ui/cognite/accordion',
   apiReference: {
     props: [
       {
-        name: "type",
+        name: 'type',
         type: '"single" | "multiple"',
         required: true,
         description:
-          "Determines whether one or multiple items can be open at the same time",
+          'Determines whether one or multiple items can be open at the same time',
       },
       {
-        name: "collapsible",
-        type: "boolean",
-        default: "false",
+        name: 'collapsible',
+        type: 'boolean',
+        default: 'false',
         description:
           "When type is 'single', allows closing content when clicking trigger of open item",
       },
       {
-        name: "defaultValue",
-        type: "string | string[]",
-        description: "The value of the item(s) to expand by default",
+        name: 'defaultValue',
+        type: 'string | string[]',
+        description: 'The value of the item(s) to expand by default',
       },
       {
-        name: "value",
-        type: "string | string[]",
+        name: 'value',
+        type: 'string | string[]',
         description:
-          "The controlled value of the item(s) to expand. Use with onValueChange",
+          'The controlled value of the item(s) to expand. Use with onValueChange',
       },
       {
-        name: "onValueChange",
-        type: "(value: string | string[]) => void",
-        description: "Callback when the expanded item(s) change",
+        name: 'onValueChange',
+        type: '(value: string | string[]) => void',
+        description: 'Callback when the expanded item(s) change',
       },
       {
-        name: "disabled",
-        type: "boolean",
-        default: "false",
-        description: "Disables the entire accordion",
+        name: 'disabled',
+        type: 'boolean',
+        default: 'false',
+        description: 'Disables the entire accordion',
       },
     ],
   },
-  relatedComponents: ["Card", "Tabs"],
+  relatedComponents: ['Card', 'Tabs'],
   notes: [
-    "Built on top of Radix UI Accordion primitive",
-    "Fully keyboard accessible with arrow key navigation",
-    "Supports both controlled and uncontrolled modes",
+    'Built on top of Radix UI Accordion primitive',
+    'Fully keyboard accessible with arrow key navigation',
+    'Supports both controlled and uncontrolled modes',
   ],
 };
-

@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,12 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/components/ui/cognite/*": [
-        "./src/components/ui/cognite/*"
-      ],
+      "@/*": ["./src/*"],
+      "@/components/ui/cognite/*": ["./src/components/ui/cognite/*"],
       "@/components/ai-elements/cognite/*": [
         "./src/components/ai-elements/cognite/*",
         "./src/components/ai-elements/draft/*"
@@ -42,9 +34,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    ".next",
-    "packages"
-  ]
+  "exclude": ["node_modules", ".next", "packages"]
 }
