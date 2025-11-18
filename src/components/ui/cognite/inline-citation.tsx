@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/cognite/carousel";
+} from '@/components/ui/cognite/carousel';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/cognite/hover-card";
-import { cn } from "@/lib/utils";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import type { ComponentType } from "react";
+} from '@/components/ui/cognite/hover-card';
+import { cn } from '@/lib/utils';
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
+import type { ComponentType } from 'react';
 import {
   type ComponentProps,
   createContext,
@@ -22,40 +22,37 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
+} from 'react';
 
-export type InlineCitationProps = ComponentProps<"span">;
+export type InlineCitationProps = ComponentProps<'span'>;
 
 export const InlineCitation = ({
   className,
   ...props
 }: InlineCitationProps) => (
   <span
-    className={cn("group inline items-center gap-1", className)}
+    className={cn('group inline items-center gap-1', className)}
     {...props}
   />
 );
 
-export type InlineCitationGroupProps = ComponentProps<"div">;
+export type InlineCitationGroupProps = ComponentProps<'div'>;
 
 export const InlineCitationGroup = ({
   className,
   ...props
 }: InlineCitationGroupProps) => (
-  <div
-    className={cn("flex flex-wrap gap-2", className)}
-    {...props}
-  />
+  <div className={cn('flex flex-wrap gap-2', className)} {...props} />
 );
 
-export type InlineCitationTextProps = ComponentProps<"span">;
+export type InlineCitationTextProps = ComponentProps<'span'>;
 
 export const InlineCitationText = ({
   className,
   ...props
 }: InlineCitationTextProps) => (
   <span
-    className={cn("transition-colors group-hover:bg-accent", className)}
+    className={cn('transition-colors group-hover:bg-accent', className)}
     {...props}
   />
 );
@@ -66,7 +63,7 @@ export const InlineCitationCard = (props: InlineCitationCardProps) => (
   <HoverCard closeDelay={0} openDelay={0} {...props} />
 );
 
-export type InlineCitationCardTriggerProps = ComponentProps<"span"> & {
+export type InlineCitationCardTriggerProps = ComponentProps<'span'> & {
   sources: string[];
   icon?: ComponentType<{ className?: string }>;
 };
@@ -80,8 +77,8 @@ export const InlineCitationCardTrigger = ({
   <HoverCardTrigger asChild>
     <span
       className={cn(
-        "ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-[color,box-shadow]",
-        "[&>svg]:size-3.5 [&>svg]:pointer-events-none",
+        'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-[color,box-shadow]',
+        '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
         className
       )}
       {...props}
@@ -89,23 +86,23 @@ export const InlineCitationCardTrigger = ({
       {Icon && <Icon className="size-3.5" />}
       {sources[0] ? (
         <>
-          {new URL(sources[0]).hostname}{" "}
+          {new URL(sources[0]).hostname}{' '}
           {sources.length > 1 && `+${sources.length - 1}`}
         </>
       ) : (
-        "unknown"
+        'unknown'
       )}
     </span>
   </HoverCardTrigger>
 );
 
-export type InlineCitationCardBodyProps = ComponentProps<"div">;
+export type InlineCitationCardBodyProps = ComponentProps<'div'>;
 
 export const InlineCitationCardBody = ({
   className,
   ...props
 }: InlineCitationCardBodyProps) => (
-  <HoverCardContent className={cn("relative w-80 p-0", className)} {...props} />
+  <HoverCardContent className={cn('relative w-80 p-0', className)} {...props} />
 );
 
 const CarouselApiContext = createContext<CarouselApi | undefined>(undefined);
@@ -126,32 +123,32 @@ export const InlineCitationCarousel = ({
 
   return (
     <CarouselApiContext.Provider value={api}>
-      <Carousel className={cn("w-full", className)} setApi={setApi} {...props}>
+      <Carousel className={cn('w-full', className)} setApi={setApi} {...props}>
         {children}
       </Carousel>
     </CarouselApiContext.Provider>
   );
 };
 
-export type InlineCitationCarouselContentProps = ComponentProps<"div">;
+export type InlineCitationCarouselContentProps = ComponentProps<'div'>;
 
 export const InlineCitationCarouselContent = (
   props: InlineCitationCarouselContentProps
 ) => <CarouselContent {...props} />;
 
-export type InlineCitationCarouselItemProps = ComponentProps<"div">;
+export type InlineCitationCarouselItemProps = ComponentProps<'div'>;
 
 export const InlineCitationCarouselItem = ({
   className,
   ...props
 }: InlineCitationCarouselItemProps) => (
   <CarouselItem
-    className={cn("w-full space-y-2 p-4 pl-8", className)}
+    className={cn('w-full space-y-2 p-4 pl-8', className)}
     {...props}
   />
 );
 
-export type InlineCitationCarouselHeaderProps = ComponentProps<"div">;
+export type InlineCitationCarouselHeaderProps = ComponentProps<'div'>;
 
 export const InlineCitationCarouselHeader = ({
   className,
@@ -159,14 +156,14 @@ export const InlineCitationCarouselHeader = ({
 }: InlineCitationCarouselHeaderProps) => (
   <div
     className={cn(
-      "flex items-center justify-between gap-2 rounded-t-md bg-secondary p-2",
+      'flex items-center justify-between gap-2 rounded-t-md bg-secondary p-2',
       className
     )}
     {...props}
   />
 );
 
-export type InlineCitationCarouselIndexProps = ComponentProps<"div">;
+export type InlineCitationCarouselIndexProps = ComponentProps<'div'>;
 
 export const InlineCitationCarouselIndex = ({
   children,
@@ -188,7 +185,7 @@ export const InlineCitationCarouselIndex = ({
       setCurrent(api.selectedScrollSnap() + 1);
     });
 
-    api.on("select", () => {
+    api.on('select', () => {
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
@@ -196,7 +193,7 @@ export const InlineCitationCarouselIndex = ({
   return (
     <div
       className={cn(
-        "flex flex-1 items-center justify-end px-3 py-1 text-muted-foreground text-xs",
+        'flex flex-1 items-center justify-end px-3 py-1 text-muted-foreground text-xs',
         className
       )}
       {...props}
@@ -206,7 +203,7 @@ export const InlineCitationCarouselIndex = ({
   );
 };
 
-export type InlineCitationCarouselPrevProps = ComponentProps<"button">;
+export type InlineCitationCarouselPrevProps = ComponentProps<'button'>;
 
 export const InlineCitationCarouselPrev = ({
   className,
@@ -223,7 +220,7 @@ export const InlineCitationCarouselPrev = ({
   return (
     <button
       aria-label="Previous"
-      className={cn("shrink-0", className)}
+      className={cn('shrink-0', className)}
       onClick={handleClick}
       type="button"
       {...props}
@@ -233,7 +230,7 @@ export const InlineCitationCarouselPrev = ({
   );
 };
 
-export type InlineCitationCarouselNextProps = ComponentProps<"button">;
+export type InlineCitationCarouselNextProps = ComponentProps<'button'>;
 
 export const InlineCitationCarouselNext = ({
   className,
@@ -250,7 +247,7 @@ export const InlineCitationCarouselNext = ({
   return (
     <button
       aria-label="Next"
-      className={cn("shrink-0", className)}
+      className={cn('shrink-0', className)}
       onClick={handleClick}
       type="button"
       {...props}
@@ -260,7 +257,7 @@ export const InlineCitationCarouselNext = ({
   );
 };
 
-export type InlineCitationSourceProps = ComponentProps<"div"> & {
+export type InlineCitationSourceProps = ComponentProps<'div'> & {
   title?: string;
   url?: string;
   description?: string;
@@ -274,7 +271,7 @@ export const InlineCitationSource = ({
   children,
   ...props
 }: InlineCitationSourceProps) => (
-  <div className={cn("space-y-1", className)} {...props}>
+  <div className={cn('space-y-1', className)} {...props}>
     {title && (
       <h4 className="truncate font-medium text-sm leading-tight">{title}</h4>
     )}
@@ -290,7 +287,7 @@ export const InlineCitationSource = ({
   </div>
 );
 
-export type InlineCitationQuoteProps = ComponentProps<"blockquote">;
+export type InlineCitationQuoteProps = ComponentProps<'blockquote'>;
 
 export const InlineCitationQuote = ({
   children,
@@ -299,7 +296,7 @@ export const InlineCitationQuote = ({
 }: InlineCitationQuoteProps) => (
   <blockquote
     className={cn(
-      "border-muted border-l-2 pl-3 text-muted-foreground text-sm italic",
+      'border-muted border-l-2 pl-3 text-muted-foreground text-sm italic',
       className
     )}
     {...props}
@@ -308,35 +305,38 @@ export const InlineCitationQuote = ({
   </blockquote>
 );
 
-export type InlineCitationLinkProps = Omit<ComponentProps<"a">, "href" | "target"> & {
+export type InlineCitationLinkProps = Omit<
+  ComponentProps<'a'>,
+  'href' | 'target'
+> & {
   url: string;
-  target?: "_blank" | "_self";
+  target?: '_blank' | '_self';
   icon?: ComponentType<{ className?: string }>;
 };
 
 export const InlineCitationLink = ({
   url,
-  target = "_self",
+  target = '_self',
   icon: Icon,
   className,
   children,
   ...props
 }: InlineCitationLinkProps) => {
-  const hostname = url ? new URL(url).hostname : "unknown";
+  const hostname = url ? new URL(url).hostname : 'unknown';
 
   return (
     <a
       href={url}
       target={target}
-      rel={target === "_blank" ? "noopener noreferrer" : undefined}
-      className={cn("inline-block", className)}
+      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+      className={cn('inline-block', className)}
       {...props}
     >
       <span
         className={cn(
-          "inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 tracking-normal font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap transition-colors hover:bg-fjord-100 dark:hover:bg-fjord-800",
-          Icon && "gap-1",
-          "[&>svg]:size-3 [&>svg]:pointer-events-none"
+          'inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 tracking-normal font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap transition-colors hover:bg-fjord-100 dark:hover:bg-fjord-800',
+          Icon && 'gap-1',
+          '[&>svg]:size-3 [&>svg]:pointer-events-none'
         )}
       >
         {Icon && <Icon className="size-3.5" />}
