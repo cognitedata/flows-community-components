@@ -8,8 +8,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/cognite/tooltip";
 import { cn } from "@/lib/utils";
-import { type LucideIcon, XIcon } from "lucide-react";
+import { IconX, type IconProps } from "@tabler/icons-react";
 import type { ComponentProps, HTMLAttributes } from "react";
+
+type TablerIconComponent = (props: IconProps) => JSX.Element;
 
 export type ArtifactProps = HTMLAttributes<HTMLDivElement>;
 
@@ -57,7 +59,7 @@ export const ArtifactClose = ({
     variant={variant}
     {...props}
   >
-    {children ?? <XIcon className="size-4" />}
+    {children ?? <IconX className="size-4" />}
     <span className="sr-only">Close</span>
   </Button>
 );
@@ -92,7 +94,7 @@ export const ArtifactActions = ({
 export type ArtifactActionProps = ComponentProps<typeof Button> & {
   tooltip?: string;
   label?: string;
-  icon?: LucideIcon;
+  icon?: TablerIconComponent;
 };
 
 export const ArtifactAction = ({
