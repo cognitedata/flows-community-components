@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/cognite/banner";
 import type { ComponentExamples } from "./types";
 import {
-  Info,
-  Copy,
-} from "lucide-react";
+  IconCopy as Copy,
+  IconInfoCircle as Info,
+} from "@tabler/icons-react";
 
 function VariantsDemo() {
   return (
@@ -120,7 +120,7 @@ export const bannerExamples: ComponentExamples = {
   BannerActions,
   BannerAction,
 } from "@/components/ui/cognite/banner"
-import { Info, Copy } from "lucide-react"
+import { Info, Copy } from "@tabler/icons-react"
 
 export function VariantsDemo() {
   return (
@@ -163,7 +163,7 @@ export function VariantsDemo() {
   BannerActions,
   BannerAction,
 } from "@/components/ui/cognite/banner"
-import { Info } from "lucide-react"
+import { Info } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
   return (
