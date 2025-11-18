@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/cognite/button";
+import { useState } from 'react';
+import { Button } from '@/components/ui/cognite/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip";
-import { Copy, Check } from "lucide-react";
+} from '@/components/ui/cognite/tooltip';
+import { Copy, Check } from 'lucide-react';
 
 interface MarkdownCopyBlockProps {
   content: string;
@@ -23,7 +23,7 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy text: ", err);
+      console.error('Failed to copy text: ', err);
     }
   };
 
@@ -53,7 +53,7 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
-                <p>{copied ? "Copied to clipboard" : "Click to copy"}</p>
+                <p>{copied ? 'Copied to clipboard' : 'Click to copy'}</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

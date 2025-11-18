@@ -1,27 +1,27 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Button } from "@/components/ui/cognite/button";
-import { Badge } from "@/components/ui/cognite/badge";
-import { Input } from "@/components/ui/cognite/input";
-import { Label } from "@/components/ui/cognite/label";
+} from '@/components/ui/cognite/card';
+import { Button } from '@/components/ui/cognite/button';
+import { Badge } from '@/components/ui/cognite/badge';
+import { Input } from '@/components/ui/cognite/input';
+import { Label } from '@/components/ui/cognite/label';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/cognite/tabs";
+} from '@/components/ui/cognite/tabs';
 import {
   IconAlertTriangle,
   IconPlayerPlay,
   IconRefresh,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 
 interface DynamicComponentRendererProps {
   code: string;
@@ -101,7 +101,7 @@ class ErrorBoundary extends React.Component<
             <span className="font-medium">Component Error</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            {this.state.error?.message || "Failed to render component"}
+            {this.state.error?.message || 'Failed to render component'}
           </p>
         </div>
       );
@@ -123,7 +123,7 @@ export function DynamicComponentRenderer({
   // Parse and prepare the component code
   const componentResult = useMemo(() => {
     if (!code.trim()) {
-      return { error: "No code provided", component: null };
+      return { error: 'No code provided', component: null };
     }
 
     try {
@@ -142,14 +142,14 @@ export function DynamicComponentRenderer({
       } else {
         // Otherwise, strip any stray backticks that might wrap code
         cleanCode = cleanCode
-          .replace(/^```[\s\S]*?\n/, "")
-          .replace(/\n```\s*$/, "")
+          .replace(/^```[\s\S]*?\n/, '')
+          .replace(/\n```\s*$/, '')
           .trim();
       }
 
       // Remove any import statements (we provide components directly)
       cleanCode = cleanCode
-        .replace(/^import\s+.*?from\s+.*?[;"']$/gm, "")
+        .replace(/^import\s+.*?from\s+.*?[;"']$/gm, '')
         .trim();
 
       // Extract the export function/component from the code
@@ -174,7 +174,7 @@ export function DynamicComponentRenderer({
         if (jsxMatch) {
           // Create a wrapper function around the JSX
           const jsxContent = jsxMatch[1];
-          exportMatch = ["", "GeneratedComponent", `return (${jsxContent})`];
+          exportMatch = ['', 'GeneratedComponent', `return (${jsxContent})`];
         }
       }
 
@@ -182,7 +182,7 @@ export function DynamicComponentRenderer({
         // Provide more helpful error message with actual code snippet
         const codePreview =
           cleanCode.length > 100
-            ? cleanCode.substring(0, 100) + "..."
+            ? cleanCode.substring(0, 100) + '...'
             : cleanCode;
         return {
           error: `No valid export function found. 
@@ -210,8 +210,8 @@ export function ComponentName() {
 
       // Clean up the component body
       const cleanBody = componentBody
-        .replace(/^\s*return\s*\(?\s*/, "") // Remove 'return (' from start
-        .replace(/\s*\)?\s*$/, "") // Remove ')' from end
+        .replace(/^\s*return\s*\(?\s*/, '') // Remove 'return (' from start
+        .replace(/\s*\)?\s*$/, '') // Remove ')' from end
         .trim();
 
       // Simple JSX to React.createElement transformation
@@ -249,41 +249,41 @@ export function ComponentName() {
         // Handle simple cases like <Card><CardContent>text</CardContent></Card>
         // This is a very basic transformation - only handles simple nested structures
         if (
-          processedBody.includes("<Card>") &&
-          processedBody.includes("<CardContent>")
+          processedBody.includes('<Card>') &&
+          processedBody.includes('<CardContent>')
         ) {
           // Simple regex replacement for the most common pattern
           processedBody = processedBody
             .replace(
               /<Card([^>]*)>/g,
-              "React.createElement(Card, $1 ? {$1} : null,"
+              'React.createElement(Card, $1 ? {$1} : null,'
             )
-            .replace(/<\/Card>/g, ")")
+            .replace(/<\/Card>/g, ')')
             .replace(
               /<CardContent([^>]*)>/g,
-              "React.createElement(CardContent, $1 ? {$1} : null,"
+              'React.createElement(CardContent, $1 ? {$1} : null,'
             )
-            .replace(/<\/CardContent>/g, ")")
+            .replace(/<\/CardContent>/g, ')')
             .replace(
               /<CardHeader([^>]*)>/g,
-              "React.createElement(CardHeader, $1 ? {$1} : null,"
+              'React.createElement(CardHeader, $1 ? {$1} : null,'
             )
-            .replace(/<\/CardHeader>/g, ")")
+            .replace(/<\/CardHeader>/g, ')')
             .replace(
               /<CardTitle([^>]*)>/g,
-              "React.createElement(CardTitle, $1 ? {$1} : null,"
+              'React.createElement(CardTitle, $1 ? {$1} : null,'
             )
-            .replace(/<\/CardTitle>/g, ")")
+            .replace(/<\/CardTitle>/g, ')')
             .replace(
               /<Button([^>]*)>/g,
-              "React.createElement(Button, $1 ? {$1} : null,"
+              'React.createElement(Button, $1 ? {$1} : null,'
             )
-            .replace(/<\/Button>/g, ")")
+            .replace(/<\/Button>/g, ')')
             .replace(
               /<Badge([^>]*)>/g,
-              "React.createElement(Badge, $1 ? {$1} : null,"
+              'React.createElement(Badge, $1 ? {$1} : null,'
             )
-            .replace(/<\/Badge>/g, ")");
+            .replace(/<\/Badge>/g, ')');
         }
 
         const functionBody = `
@@ -307,7 +307,7 @@ export function ComponentName() {
       } catch (execError) {
         return {
           error: `Execution error: ${
-            execError instanceof Error ? execError.message : "Unknown error"
+            execError instanceof Error ? execError.message : 'Unknown error'
           }
 
 **Processed code:**
@@ -324,7 +324,7 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
     } catch (parseError) {
       return {
         error: `Parse error: ${
-          parseError instanceof Error ? parseError.message : "Unknown error"
+          parseError instanceof Error ? parseError.message : 'Unknown error'
         }`,
         component: null,
       };
@@ -399,7 +399,7 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
       >
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2 text-destructive">
-          <IconAlertTriangle className="h-4 w-4" />
+            <IconAlertTriangle className="h-4 w-4" />
             <span className="font-medium">Runtime Error</span>
           </div>
           <Button variant="outline" size="sm" onClick={handleRetry}>

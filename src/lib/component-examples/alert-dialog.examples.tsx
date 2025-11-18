@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from '@/components/ui/cognite/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,8 +9,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/cognite/alert-dialog";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/alert-dialog';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -35,7 +35,7 @@ function BasicDemo() {
           </AlertDialogContent>
         </AlertDialog>
       </div>
-      
+
       <div className="space-y-2">
         <AlertDialog>
           <AlertDialogTrigger asChild>
@@ -55,7 +55,7 @@ function BasicDemo() {
           </AlertDialogContent>
         </AlertDialog>
       </div>
-      
+
       <p className="text-sm text-muted-foreground">
         Click buttons to see interactive alert dialogs in action.
       </p>
@@ -65,11 +65,11 @@ function BasicDemo() {
 
 export const alertDialogExamples: ComponentExamples = {
   basic: {
-    title: "Alert Dialog Demo",
+    title: 'Alert Dialog Demo',
     description:
-      "Interactive alert dialogs for critical confirmations and important information",
+      'Interactive alert dialogs for critical confirmations and important information',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   AlertDialog,
   AlertDialogAction,
@@ -138,8 +138,10 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const alertDialogMeta = {
-  name: "Alert Dialog",
-  description: "A modal dialog that interrupts the user with important content and expects a response.",
-  llmUsage: "When asked for an alert dialog, use `<AlertDialog>` for confirmation flows and important notifications.",
-  importPath: "@/components/ui/cognite/alert-dialog",
+  name: 'Alert Dialog',
+  description:
+    'A modal dialog that interrupts the user with important content and expects a response.',
+  llmUsage:
+    'When asked for an alert dialog, use `<AlertDialog>` for confirmation flows and important notifications.',
+  importPath: '@/components/ui/cognite/alert-dialog',
 };
