@@ -43,7 +43,7 @@ function StatesDemo() {
         <Textarea
           id="textarea4"
           placeholder="Invalid Textarea text"
-          data-invalid="true"
+          errorMessage="This field is required"
           rows={3}
         />
       </div>
@@ -135,7 +135,7 @@ export function StatesDemo() {
         <Textarea
           id="textarea4"
           placeholder="Invalid Textarea text"
-          data-invalid="true"
+          errorMessage="This field is required"
           rows={3}
         />
       </div>
