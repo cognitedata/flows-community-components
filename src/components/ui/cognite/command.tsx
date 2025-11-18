@@ -4,14 +4,14 @@ import * as React from 'react';
 import { Command as CommandPrimitive } from 'cmdk';
 import { IconSearch } from '@tabler/icons-react';
 
-import { cn } from '#common/utils';
+import { cn } from '#lib/utils';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/cognite/dialog';
+} from '#aura/dialog';
 
 function Command({
   className,

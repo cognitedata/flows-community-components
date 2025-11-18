@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import { IconCheck, IconChevronRight, IconCircle } from '@tabler/icons-react';
 
-import { cn } from '#common/utils';
+import { cn } from '#lib/utils';
 
 function Menubar({
   className,

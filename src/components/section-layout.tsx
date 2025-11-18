@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 import {
   SideNavigation,
   getSideNavigationForSection,
-} from '@/components/side-navigation';
-import { cn } from '#common/utils';
+} from '#components/side-navigation';
+import { cn } from '#lib/utils';
 
 interface SectionLayoutProps {
   children: React.ReactNode;

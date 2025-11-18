@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -37,6 +33,9 @@
       ],
       "#lib/*": [
         "./src/lib/*"
+      ],
+      "#app/*": [
+        "./src/app/*"
       ]
     }
   },
@@ -47,10 +46,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    ".next",
-    "packages"
-  ]
+  "exclude": ["node_modules", ".next", "packages"]
 }
 

@@ -1,13 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/cognite/tooltip';
-import { cn } from '#common/utils';
+} from '#aura/tooltip';
+import { cn } from '#lib/utils';
 import type { ComponentProps } from 'react';
 
 export type ActionsProps = ComponentProps<'div'>;

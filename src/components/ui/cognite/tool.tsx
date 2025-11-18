@@ -1,12 +1,12 @@
 'use client';
 
-import { Badge } from '@/components/ui/cognite/badge';
+import { Badge } from '#aura/badge';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
-import { cn } from '#common/utils';
+} from '#aura/collapsible';
+import { cn } from '#lib/utils';
 import type { ToolUIPart } from 'ai';
 import {
   IconChevronDown,

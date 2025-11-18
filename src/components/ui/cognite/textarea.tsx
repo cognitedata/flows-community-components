@@ -2,7 +2,7 @@
 
 import { useState, type ComponentProps, type ChangeEvent } from 'react';
 
-import { cn } from '#common/utils';
+import { cn } from '#lib/utils';
 import { HelperText } from './helper-text';
 
 interface TextareaProps extends ComponentProps<'textarea'> {

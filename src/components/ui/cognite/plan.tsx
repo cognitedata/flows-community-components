@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Card,
   CardAction,
@@ -9,13 +9,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '#aura/card';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
-import { cn } from '#common/utils';
+} from '#aura/collapsible';
+import { cn } from '#lib/utils';
 import { ChevronsUpDownIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import { createContext, useContext } from 'react';

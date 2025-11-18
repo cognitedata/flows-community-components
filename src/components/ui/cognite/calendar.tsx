@@ -8,8 +8,8 @@ import {
 } from '@tabler/icons-react';
 import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker';
 
-import { cn } from '#common/utils';
-import { Button, buttonVariants } from '@/components/ui/cognite/button';
+import { cn } from '#lib/utils';
+import { Button, buttonVariants } from '#aura/button';
 
 function Calendar({
   className,

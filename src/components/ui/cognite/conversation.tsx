@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
-import { cn } from '#common/utils';
+import { Button } from '#aura/button';
+import { cn } from '#lib/utils';
 import { IconArrowDown } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import { useCallback } from 'react';

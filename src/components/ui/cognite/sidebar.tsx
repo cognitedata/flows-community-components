@@ -5,25 +5,25 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeftIcon } from 'lucide-react';
 
-import { useIsMobile } from '@/hooks/use-mobile';
-import { cn } from '#common/utils';
-import { Button } from '@/components/ui/cognite/button';
-import { Input } from '@/components/ui/cognite/input';
-import { Separator } from '@/components/ui/cognite/separator';
+import { useIsMobile } from '#hooks/use-mobile';
+import { cn } from '#lib/utils';
+import { Button } from '#aura/button';
+import { Input } from '#aura/input';
+import { Separator } from '#aura/separator';
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/cognite/sheet';
-import { Skeleton } from '@/components/ui/cognite/skeleton';
+} from '#aura/sheet';
+import { Skeleton } from '#aura/skeleton';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/cognite/tooltip';
+} from '#aura/tooltip';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

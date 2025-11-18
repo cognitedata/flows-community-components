@@ -4,8 +4,8 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
-import { cn } from '#common/utils';
+} from '#aura/collapsible';
+import { cn } from '#lib/utils';
 import { BookIcon, ChevronDownIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 

@@ -1,13 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
-import { ScrollArea } from '@/components/ui/cognite/scroll-area';
-import { cn } from '#common/utils';
+} from '#aura/collapsible';
+import { ScrollArea } from '#aura/scroll-area';
+import { cn } from '#lib/utils';
 import { ChevronDownIcon, PaperclipIcon } from 'lucide-react';
 import type { ComponentProps } from 'react';
 

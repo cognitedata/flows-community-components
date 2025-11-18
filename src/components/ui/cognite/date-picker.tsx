@@ -4,14 +4,14 @@ import * as React from 'react';
 import { format } from 'date-fns';
 import { IconCalendar } from '@tabler/icons-react';
 
-import { cn } from '#common/utils';
-import { Button } from '@/components/ui/cognite/button';
-import { Calendar } from '@/components/ui/cognite/calendar';
+import { cn } from '#lib/utils';
+import { Button } from '#aura/button';
+import { Calendar } from '#aura/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/cognite/popover';
+} from '#aura/popover';
 
 export function DatePicker() {
   const [date, setDate] = React.useState<Date>();

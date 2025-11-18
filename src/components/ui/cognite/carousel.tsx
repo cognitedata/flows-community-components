@@ -6,8 +6,8 @@ import useEmblaCarousel, {
 } from 'embla-carousel-react';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 
-import { cn } from '#common/utils';
-import { Button } from '@/components/ui/cognite/button';
+import { cn } from '#lib/utils';
+import { Button } from '#aura/button';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;

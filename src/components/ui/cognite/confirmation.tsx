@@ -1,8 +1,8 @@
 'use client';
 
-import { Alert, AlertDescription } from '@/components/ui/cognite/alert';
-import { Button } from '@/components/ui/cognite/button';
-import { cn } from '#common/utils';
+import { Alert, AlertDescription } from '#aura/alert';
+import { Button } from '#aura/button';
+import { cn } from '#lib/utils';
 import {
   type ComponentProps,
   createContext,

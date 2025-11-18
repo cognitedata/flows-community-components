@@ -3,8 +3,8 @@ import {
   AvatarFallback,
   AvatarIcon,
   AvatarImage,
-} from '@/components/ui/cognite/avatar';
-import { cn } from '#common/utils';
+} from '#aura/avatar';
+import { cn } from '#lib/utils';
 import type { UIMessage } from 'ai';
 import type { ComponentProps, HTMLAttributes } from 'react';
 

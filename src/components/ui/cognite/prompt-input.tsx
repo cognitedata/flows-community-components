@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Command,
   CommandEmpty,
@@ -9,32 +9,32 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/cognite/command';
+} from '#aura/command';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '#aura/dropdown-menu';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/cognite/hover-card';
+} from '#aura/hover-card';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from '@/components/ui/cognite/input-group';
+} from '#aura/input-group';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/cognite/select';
-import { cn } from '#common/utils';
+} from '#aura/select';
+import { cn } from '#lib/utils';
 import type { ChatStatus, FileUIPart } from 'ai';
 import {
   IconPhoto,
@@ -70,9 +70,7 @@ import {
   useRef,
   useState,
 } from 'react';
-// ============================================================================
 // Provider Context & Types
-// ============================================================================
 
 export type AttachmentsContext = {
   files: (FileUIPart & { id: string })[];
@@ -234,9 +232,7 @@ export function PromptInputProvider({
   );
 }
 
-// ============================================================================
 // Component Context & Hooks
-// ============================================================================
 
 const LocalAttachmentsContext = createContext<AttachmentsContext | null>(null);
 

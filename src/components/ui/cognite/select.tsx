@@ -9,7 +9,7 @@ import {
   IconExclamationCircle,
 } from '@tabler/icons-react';
 
-import { cn } from '#common/utils';
+import { cn } from '#lib/utils';
 
 function Select({
   ...props

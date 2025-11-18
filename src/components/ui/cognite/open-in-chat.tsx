@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,8 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
-import { cn } from '#common/utils';
+} from '#aura/dropdown-menu';
+import { cn } from '#lib/utils';
 import {
   ChevronDownIcon,
   ExternalLinkIcon,

@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
-import { cn } from '#common/utils';
+import { Button } from '#aura/button';
+import { cn } from '#lib/utils';
 import type { Element } from 'hast';
 import { CheckIcon, ChevronsUpDown, CopyIcon } from 'lucide-react';
 import {

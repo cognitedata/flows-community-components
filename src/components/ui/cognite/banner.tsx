@@ -79,7 +79,7 @@ export const Banner = ({
   );
 };
 
-type TablerIconComponent = (props: IconProps) => JSX.Element;
+type TablerIconComponent = React.ComponentType<IconProps>;
 
 export type BannerIconProps = HTMLAttributes<HTMLDivElement> & {
   icon: TablerIconComponent;

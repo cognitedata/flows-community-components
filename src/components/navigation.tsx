@@ -5,16 +5,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
-import { cn } from '#common/utils';
-import { Button } from '@/components/ui/cognite/button';
+import { cn } from '#lib/utils';
+import { Button } from '#aura/button';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from '@/components/ui/cognite/sheet';
+} from '#aura/sheet';
 import { Menu, Sun, Moon, Contrast } from 'lucide-react';
 import Image from 'next/image';
-import auraLogo from '@/../public/aura-logo.png';
+import auraLogo from '/aura-logo.png';
 import { IconBrandGithub } from '@tabler/icons-react';
 
 const navItems = [

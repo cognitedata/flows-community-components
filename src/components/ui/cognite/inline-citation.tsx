@@ -5,13 +5,13 @@ import {
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/cognite/carousel';
+} from '#aura/carousel';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/cognite/hover-card';
-import { cn } from '#common/utils';
+} from '#aura/hover-card';
+import { cn } from '#lib/utils';
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import type { ComponentType } from 'react';
 import {

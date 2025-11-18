@@ -1,13 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/cognite/hover-card';
-import { Progress } from '@/components/ui/cognite/progress';
-import { cn } from '#common/utils';
+} from '#aura/hover-card';
+import { Progress } from '#aura/progress';
+import { cn } from '#lib/utils';
 import type { LanguageModelUsage } from 'ai';
 import { type ComponentProps, createContext, useContext } from 'react';
 import { getUsage } from 'tokenlens';

@@ -1,19 +1,19 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '#aura/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
-import { Input } from '@/components/ui/cognite/input';
+} from '#aura/collapsible';
+import { Input } from '#aura/input';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/cognite/tooltip';
-import { cn } from '#common/utils';
+} from '#aura/tooltip';
+import { cn } from '#lib/utils';
 import { IconChevronDown } from '@tabler/icons-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
