@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { IconCheck, IconCaretUpDown } from "@tabler/icons-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/cognite/button"
@@ -70,7 +70,7 @@ export function Combobox() {
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
             : "Select framework..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
@@ -88,7 +88,7 @@ export function Combobox() {
                     setOpen(false)
                   }}
                 >
-                  <Check
+                  <IconCheck
                     className={cn(
                       "mr-2 h-4 w-4",
                       value === framework.value ? "opacity-100" : "opacity-0"
@@ -146,7 +146,7 @@ export function ComboboxCustom({
           {selectedValue
             ? options.find((option) => option.value === selectedValue)?.label
             : placeholder}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
@@ -161,7 +161,7 @@ export function ComboboxCustom({
                   value={option.value}
                   onSelect={handleValueChange}
                 >
-                  <Check
+                  <IconCheck
                     className={cn(
                       "mr-2 h-4 w-4",
                       selectedValue === option.value ? "opacity-100" : "opacity-0"
