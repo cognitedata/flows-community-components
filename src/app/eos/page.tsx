@@ -1,7 +1,12 @@
-"use client"
+'use client';
 
-import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/cognite/card"
+import Link from 'next/link';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/cognite/card';
 
 export default function TemplatesPage() {
   return (
@@ -13,11 +18,13 @@ export default function TemplatesPage() {
               <CardTitle>Shift handover app</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Open the shift handover template</p>
+              <p className="text-sm text-muted-foreground">
+                Open the shift handover template
+              </p>
             </CardContent>
           </Card>
         </Link>
       </div>
     </div>
-  )
+  );
 }
