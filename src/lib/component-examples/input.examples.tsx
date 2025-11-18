@@ -49,7 +49,7 @@ function StatesDemo() {
           type="input4"
           id="input4"
           placeholder="Invalid Input text"
-          data-invalid="true"
+          errorMessage="This field is required"
         />
       </div>
     </div>
@@ -121,7 +121,7 @@ export function StatesDemo() {
           type="input4"
           id="input4"
           placeholder="Invalid Input text"
-          data-invalid="true"
+          errorMessage="This field is required"
         />
       </div>
     </div>
