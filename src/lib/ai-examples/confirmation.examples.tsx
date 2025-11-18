@@ -5,8 +5,8 @@ import {
   ConfirmationAction,
   ConfirmationRequest,
   ConfirmationAccepted,
-} from "@/components/ui/cognite/confirmation";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/confirmation';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicConfirmationDemo() {
   return (
@@ -40,10 +40,10 @@ function WithRequestStateDemo() {
 
 export const confirmationExamples: ComponentExamples = {
   basic: {
-    title: "Basic Confirmation",
-    description: "User approval workflow for AI actions",
+    title: 'Basic Confirmation',
+    description: 'User approval workflow for AI actions',
     component: BasicConfirmationDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Confirmation,
   ConfirmationTitle,
@@ -65,10 +65,10 @@ export function BasicConfirmationDemo() {
   },
 
   requestState: {
-    title: "Confirmation Request",
-    description: "Confirmation in pending approval state",
+    title: 'Confirmation Request',
+    description: 'Confirmation in pending approval state',
     component: WithRequestStateDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Confirmation,
   ConfirmationTitle,
@@ -94,8 +94,8 @@ export function ConfirmationRequestDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const confirmationMeta = {
-  name: "Confirmation",
+  name: 'Confirmation',
   description:
-    "An alert-based component for managing tool execution approval workflows with request, accept, and reject states.",
-  importPath: "@/components/ai-elements/cognite/confirmation",
+    'An alert-based component for managing tool execution approval workflows with request, accept, and reject states.',
+  importPath: '@/components/ai-elements/cognite/confirmation',
 };
