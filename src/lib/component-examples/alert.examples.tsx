@@ -50,8 +50,9 @@ export const alertExamples: ComponentExamples = {
     description: 'A simple alert with title and description',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
-import { Terminal } from "@tabler/icons-react"
+    code: `
+    import { Alert, AlertDescription, AlertTitle } from '@/components/ui/cognite/alert';  
+import { Terminal } from 'lucide-react';
 
 export function BasicDemo() {
   return (
@@ -72,8 +73,9 @@ export function BasicDemo() {
     description: 'Different alert styles for various contexts',
     component: VariantsDemo,
     difficulty: 'beginner',
-    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
-import { Terminal, AlertCircle } from "@tabler/icons-react"
+    code: `
+    import { Alert, AlertDescription, AlertTitle } from '@/components/ui/cognite/alert';
+import { Terminal, AlertCircle } from 'lucide-react';
 
 export function VariantsDemo() {
   return (
