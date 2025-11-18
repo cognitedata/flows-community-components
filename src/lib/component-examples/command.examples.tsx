@@ -6,17 +6,17 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/cognite/command";
-import type { ComponentExamples } from "./types";
-import React from "react";
+} from '@/components/ui/cognite/command';
+import type { ComponentExamples } from './types';
+import React from 'react';
 import {
   IconChartLine,
   IconHexagon,
   IconSearch,
   IconSettings,
   IconUser,
-} from "@tabler/icons-react";
-import { Button } from "@/components/ui/cognite/button";
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/cognite/button';
 
 function BasicDemo() {
   const [open, setOpen] = React.useState(false);
@@ -70,11 +70,11 @@ function BasicDemo() {
 
 export const commandExamples: ComponentExamples = {
   basic: {
-    title: "Command Menu",
+    title: 'Command Menu',
     description:
-      "Interactive command menu with search functionality and keyboard navigation",
+      'Interactive command menu with search functionality and keyboard navigation',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Command,
   CommandEmpty,
@@ -147,9 +147,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const commandMeta = {
-  name: "Command",
-  description: "Fast, composable command menu for React.",
+  name: 'Command',
+  description: 'Fast, composable command menu for React.',
   llmUsage:
-    "When creating command palettes or searchable menus, use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` components.",
-  importPath: "@/components/ui/cognite/command",
+    'When creating command palettes or searchable menus, use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` components.',
+  importPath: '@/components/ui/cognite/command',
 };

@@ -1,43 +1,52 @@
-"use client";
+'use client';
 
 import {
   Avatar,
   AvatarFallback,
   AvatarIcon,
   AvatarImage,
-} from "@/components/ui/cognite/avatar";
-import { Button } from "@/components/ui/cognite/button";
+} from '@/components/ui/cognite/avatar';
+import { Button } from '@/components/ui/cognite/button';
 import {
   ButtonGroup,
   ButtonGroupText,
-} from "@/components/ui/cognite/button-group";
+} from '@/components/ui/cognite/button-group';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip";
-import { cn } from "@/lib/utils";
-import type { FileUIPart, UIMessage } from "ai";
+} from '@/components/ui/cognite/tooltip';
+import { cn } from '@/lib/utils';
+import type { FileUIPart, UIMessage } from 'ai';
 import {
   IconChevronLeft,
   IconChevronRight,
   IconPaperclip,
   IconX,
-} from "@tabler/icons-react";
-import type { ComponentProps, HTMLAttributes, ReactElement } from "react";
-import { createContext, memo, useContext, useEffect, useMemo, useState } from "react";
-import { Streamdown } from "streamdown";
+} from '@tabler/icons-react';
+import type { ComponentProps, HTMLAttributes, ReactElement } from 'react';
+import {
+  createContext,
+  memo,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { Streamdown } from 'streamdown';
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
-  from: UIMessage["role"];
+  from: UIMessage['role'];
 };
 
 export const Message = ({ className, from, ...props }: MessageProps) => (
   <div
     className={cn(
-      "group flex w-full items-start gap-2 py-2 mb-0",
-      from === "user" ? "is-user justify-end" : "is-assistant flex-row-reverse justify-end",
+      'group flex w-full items-start gap-2 py-2 mb-0',
+      from === 'user'
+        ? 'is-user justify-end'
+        : 'is-assistant flex-row-reverse justify-end',
       className
     )}
     {...props}
@@ -53,10 +62,10 @@ export const MessageContent = ({
 }: MessageContentProps) => (
   <div
     className={cn(
-      "is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest",
-      "max-w-[80%]",
-      "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
-      "group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1",
+      'is-user:dark flex gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest',
+      'max-w-[80%]',
+      'group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground',
+      'group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1',
       className
     )}
     {...props}
@@ -68,9 +77,9 @@ export const MessageContent = ({
 // Helper function to extract initials from a name
 function getInitials(name: string): string {
   return name
-    .split(" ")
-    .map(part => part.charAt(0).toUpperCase())
-    .join("")
+    .split(' ')
+    .map((part) => part.charAt(0).toUpperCase())
+    .join('')
     .slice(0, 2);
 }
 
@@ -88,18 +97,20 @@ export const MessageAvatar = ({
   sizes,
   ...props
 }: MessageAvatarProps) => {
-  const fallbackText = name ? getInitials(name) : "ME";
+  const fallbackText = name ? getInitials(name) : 'ME';
 
   return (
     <Avatar
-      className={cn("size-7 group-[.is-user]:mt-1", className)}
+      className={cn('size-7 group-[.is-user]:mt-1', className)}
       variant={variant}
       sizes={sizes}
       {...props}
     >
       {children || (
         <>
-          {src && <AvatarImage alt={name || ""} className="mt-0 mb-0" src={src} />}
+          {src && (
+            <AvatarImage alt={name || ''} className="mt-0 mb-0" src={src} />
+          )}
           <AvatarFallback>{fallbackText}</AvatarFallback>
         </>
       )}
@@ -113,14 +124,14 @@ export const MessageAvatarIcon = (props: MessageAvatarIconProps) => (
   <AvatarIcon {...props} />
 );
 
-export type MessageActionsProps = ComponentProps<"div">;
+export type MessageActionsProps = ComponentProps<'div'>;
 
 export const MessageActions = ({
   className,
   children,
   ...props
 }: MessageActionsProps) => (
-  <div className={cn("flex items-center gap-2", className)} {...props}>
+  <div className={cn('flex items-center gap-2', className)} {...props}>
     {children}
   </div>
 );
@@ -135,14 +146,14 @@ export const MessageAction = ({
   children,
   label,
   className,
-  variant = "ghost",
-  size = "sm",
+  variant = 'ghost',
+  size = 'sm',
   ...props
 }: MessageActionProps) => {
   const button = (
     <Button
       className={cn(
-        "relative icon-sm text-muted-foreground hover:text-foreground",
+        'relative icon-sm text-muted-foreground hover:text-foreground',
         className
       )}
       size={size}
@@ -189,7 +200,7 @@ const useMessageBranch = () => {
 
   if (!context) {
     throw new Error(
-      "MessageBranch components must be used within MessageBranch"
+      'MessageBranch components must be used within MessageBranch'
     );
   }
 
@@ -239,7 +250,7 @@ export const MessageBranch = ({
   return (
     <MessageBranchContext.Provider value={contextValue}>
       <div
-        className={cn("grid w-full gap-2 [&>div]:pb-0", className)}
+        className={cn('grid w-full gap-2 [&>div]:pb-0', className)}
         {...props}
       />
     </MessageBranchContext.Provider>
@@ -268,8 +279,8 @@ export const MessageBranchContent = ({
   return childrenArray.map((branch, index) => (
     <div
       className={cn(
-        "grid gap-2 overflow-hidden [&>div]:pb-0",
-        index === currentBranch ? "block" : "hidden"
+        'grid gap-2 overflow-hidden [&>div]:pb-0',
+        index === currentBranch ? 'block' : 'hidden'
       )}
       key={branch.key}
       {...props}
@@ -280,7 +291,7 @@ export const MessageBranchContent = ({
 };
 
 export type MessageBranchSelectorProps = HTMLAttributes<HTMLDivElement> & {
-  from: UIMessage["role"];
+  from: UIMessage['role'];
 };
 
 export const MessageBranchSelector = ({
@@ -359,7 +370,7 @@ export const MessageBranchPage = ({
   return (
     <ButtonGroupText
       className={cn(
-        "border-none bg-transparent text-muted-foreground shadow-none",
+        'border-none bg-transparent text-muted-foreground shadow-none',
         className
       )}
       {...props}
@@ -375,7 +386,7 @@ export const MessageResponse = memo(
   ({ className, ...props }: MessageResponseProps) => (
     <Streamdown
       className={cn(
-        "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+        'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
         className
       )}
       {...props}
@@ -384,7 +395,7 @@ export const MessageResponse = memo(
   (prevProps, nextProps) => prevProps.children === nextProps.children
 );
 
-MessageResponse.displayName = "MessageResponse";
+MessageResponse.displayName = 'MessageResponse';
 
 export type MessageAttachmentProps = HTMLAttributes<HTMLDivElement> & {
   data: FileUIPart;
@@ -398,16 +409,16 @@ export function MessageAttachment({
   onRemove,
   ...props
 }: MessageAttachmentProps) {
-  const filename = data.filename || "";
+  const filename = data.filename || '';
   const mediaType =
-    data.mediaType?.startsWith("image/") && data.url ? "image" : "file";
-  const isImage = mediaType === "image";
-  const attachmentLabel = filename || (isImage ? "Image" : "Attachment");
+    data.mediaType?.startsWith('image/') && data.url ? 'image' : 'file';
+  const isImage = mediaType === 'image';
+  const attachmentLabel = filename || (isImage ? 'Image' : 'Attachment');
 
   return (
     <div
       className={cn(
-        "group relative size-24 overflow-hidden rounded-lg",
+        'group relative size-24 overflow-hidden rounded-lg',
         className
       )}
       {...props}
@@ -416,7 +427,7 @@ export function MessageAttachment({
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            alt={filename || "attachment"}
+            alt={filename || 'attachment'}
             className="size-full object-cover"
             height={100}
             src={data.url}
@@ -471,7 +482,7 @@ export function MessageAttachment({
   );
 }
 
-export type MessageAttachmentsProps = ComponentProps<"div">;
+export type MessageAttachmentsProps = ComponentProps<'div'>;
 
 export function MessageAttachments({
   children,
@@ -485,7 +496,7 @@ export function MessageAttachments({
   return (
     <div
       className={cn(
-        "ml-auto flex w-fit flex-wrap items-start gap-2",
+        'ml-auto flex w-fit flex-wrap items-start gap-2',
         className
       )}
       {...props}
@@ -495,7 +506,7 @@ export function MessageAttachments({
   );
 }
 
-export type MessageToolbarProps = ComponentProps<"div">;
+export type MessageToolbarProps = ComponentProps<'div'>;
 
 export const MessageToolbar = ({
   className,
@@ -504,7 +515,7 @@ export const MessageToolbar = ({
 }: MessageToolbarProps) => (
   <div
     className={cn(
-      "mt-4 flex w-full items-center justify-between gap-4",
+      'mt-4 flex w-full items-center justify-between gap-4',
       className
     )}
     {...props}

@@ -94,7 +94,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "^24.0.0",
-    "@types/react": "19.2.4",
+    "@types/react": "19.2.5",
     "@types/react-dom": "19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
     "eslint": "^9.38.0",
@@ -110,7 +110,7 @@
       "msw"
     ],
     "overrides": {
-      "@types/react": "19.2.4",
+      "@types/react": "19.2.5",
       "@types/react-dom": "19.2.3"
     }
   },

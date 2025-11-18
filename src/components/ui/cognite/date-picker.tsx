@@ -1,33 +1,33 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
+import * as React from 'react';
+import { format } from 'date-fns';
+import { IconCalendar } from '@tabler/icons-react';
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/cognite/button"
-import { Calendar } from "@/components/ui/cognite/calendar"
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/cognite/button';
+import { Calendar } from '@/components/ui/cognite/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/cognite/popover"
+} from '@/components/ui/cognite/popover';
 
 export function DatePicker() {
-  const [date, setDate] = React.useState<Date>()
+  const [date, setDate] = React.useState<Date>();
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={"outline"}
+          variant={'outline'}
           className={cn(
-            "w-[240px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
+            'w-[240px] justify-start text-left font-normal',
+            !date && 'text-muted-foreground'
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          <IconCalendar className="mr-2 h-4 w-4" />
+          {date ? format(date, 'PPP') : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
@@ -39,45 +39,51 @@ export function DatePicker() {
         />
       </PopoverContent>
     </Popover>
-  )
+  );
 }
 
 export interface DatePickerProps {
-  date?: Date
-  onDateChange?: (date: Date | undefined) => void
-  placeholder?: string
-  className?: string
-  disabled?: boolean
+  date?: Date;
+  onDateChange?: (date: Date | undefined) => void;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
 }
 
 export function DatePickerCustom({
   date,
   onDateChange,
-  placeholder = "Pick a date",
+  placeholder = 'Pick a date',
   className,
   disabled = false,
 }: DatePickerProps) {
-  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(date)
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
+    date
+  );
 
   const handleDateChange = (newDate: Date | undefined) => {
-    setSelectedDate(newDate)
-    onDateChange?.(newDate)
-  }
+    setSelectedDate(newDate);
+    onDateChange?.(newDate);
+  };
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={"outline"}
+          variant={'outline'}
           className={cn(
-            "w-[240px] justify-start text-left font-normal",
-            !selectedDate && "text-muted-foreground",
+            'w-[240px] justify-start text-left font-normal',
+            !selectedDate && 'text-muted-foreground',
             className
           )}
           disabled={disabled}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {selectedDate ? format(selectedDate, "PPP") : <span>{placeholder}</span>}
+          <IconCalendar className="mr-2 h-4 w-4" />
+          {selectedDate ? (
+            format(selectedDate, 'PPP')
+          ) : (
+            <span>{placeholder}</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
@@ -89,58 +95,63 @@ export function DatePickerCustom({
         />
       </PopoverContent>
     </Popover>
-  )
+  );
 }
 
 export interface DateRangePickerProps {
-  from?: Date | undefined
-  to?: Date | undefined
-  onValueChange?: (range: { from: Date | undefined; to?: Date | undefined }) => void
-  placeholder?: string
-  className?: string
-  disabled?: boolean
+  from?: Date | undefined;
+  to?: Date | undefined;
+  onValueChange?: (range: {
+    from: Date | undefined;
+    to?: Date | undefined;
+  }) => void;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
 }
 
 export function DateRangePicker({
   from,
   to,
   onValueChange,
-  placeholder = "Pick a date range",
+  placeholder = 'Pick a date range',
   className,
   disabled = false,
 }: DateRangePickerProps) {
   const [selectedRange, setSelectedRange] = React.useState<{
-    from: Date | undefined
-    to?: Date | undefined
-  }>({ from, to })
+    from: Date | undefined;
+    to?: Date | undefined;
+  }>({ from, to });
 
-  const handleRangeChange = (range: { from: Date | undefined; to?: Date | undefined } | undefined) => {
-    const newRange = range || { from: undefined, to: undefined }
-    setSelectedRange(newRange)
-    onValueChange?.(newRange)
-  }
+  const handleRangeChange = (
+    range: { from: Date | undefined; to?: Date | undefined } | undefined
+  ) => {
+    const newRange = range || { from: undefined, to: undefined };
+    setSelectedRange(newRange);
+    onValueChange?.(newRange);
+  };
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={"outline"}
+          variant={'outline'}
           className={cn(
-            "w-[240px] justify-start text-left font-normal",
-            !selectedRange.from && "text-muted-foreground",
+            'w-[240px] justify-start text-left font-normal',
+            !selectedRange.from && 'text-muted-foreground',
             className
           )}
           disabled={disabled}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <IconCalendar className="mr-2 h-4 w-4" />
           {selectedRange.from ? (
             selectedRange.to ? (
               <>
-                {format(selectedRange.from, "LLL dd, y")} -{" "}
-                {format(selectedRange.to, "LLL dd, y")}
+                {format(selectedRange.from, 'LLL dd, y')} -{' '}
+                {format(selectedRange.to, 'LLL dd, y')}
               </>
             ) : (
-              format(selectedRange.from, "LLL dd, y")
+              format(selectedRange.from, 'LLL dd, y')
             )
           ) : (
             <span>{placeholder}</span>
@@ -156,5 +167,5 @@ export function DateRangePicker({
         />
       </PopoverContent>
     </Popover>
-  )
+  );
 }
