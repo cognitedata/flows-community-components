@@ -168,23 +168,17 @@ export const selectExamples: ComponentExamples = {
     description: 'A dropdown select component for choosing from options',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import {
+    code: `
+    import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-<<<<<<< Updated upstream
-} from "@/components/ui/cognite/select";
-import { Label } from "@/components/ui/cognite/label";
-import { User, Mail, Settings, Home } from "lucide-react";
-import * as React from "react";
-=======
-} from "@/components/ui/cognite/select"
-import { Label } from "@/components/ui/cognite/label"
-import { User, Mail, Settings, Home } from "@tabler/icons-react"
-import * as React from "react"
->>>>>>> Stashed changes
+} from '@/components/ui/cognite/select';
+import { Label } from '@/components/ui/cognite/label';
+import { User, Mail, Settings, Home } from 'lucide-react';
+import * as React from 'react';
 
 function BasicDemo() {
   const [selectedValue, setSelectedValue] = React.useState<string>("settings");
@@ -246,23 +240,17 @@ function BasicDemo() {
     description: 'States of the select dropdown',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import {
+    code: `
+    import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-<<<<<<< Updated upstream
-} from "@/components/ui/cognite/select";
-import { Label } from "@/components/ui/cognite/label";
-import { User, Mail, Settings, Home } from "lucide-react";
-import * as React from "react";
-=======
-} from "@/components/ui/cognite/select"
-import { Label } from "@/components/ui/cognite/label"
-import { User, Mail, Settings, Home } from "@tabler/icons-react"
-import * as React from "react"
->>>>>>> Stashed changes
+} from '@/components/ui/cognite/select';
+import { Label } from '@/components/ui/cognite/label';
+import { User, Mail, Settings, Home } from 'lucide-react';
+import * as React from 'react';
 
 function StatesDemo() {
   const [selectedValue, setSelectedValue] = React.useState<string>("settings");
