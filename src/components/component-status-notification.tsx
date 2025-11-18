@@ -1,9 +1,9 @@
-import { AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle } from 'lucide-react';
 import {
   getComponentStatus,
   getComponentStatusMessage,
   getComponentStatusClasses,
-} from "@/lib/component-status";
+} from '@/lib/component-status';
 
 interface ComponentStatusNotificationProps {
   componentSlug: string;
@@ -16,8 +16,8 @@ export function ComponentStatusNotification({
   const message = getComponentStatusMessage(componentSlug);
   const classes = getComponentStatusClasses(status);
 
-  const Icon = status === "production" ? CheckCircle : AlertCircle;
-  const statusText = status === "production" ? "Production Ready" : "Draft";
+  const Icon = status === 'production' ? CheckCircle : AlertCircle;
+  const statusText = status === 'production' ? 'Production Ready' : 'Draft';
 
   return (
     <div

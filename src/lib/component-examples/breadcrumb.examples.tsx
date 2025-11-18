@@ -5,8 +5,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/cognite/breadcrumb";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/breadcrumb';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -30,10 +30,10 @@ function BasicDemo() {
 
 export const breadcrumbExamples: ComponentExamples = {
   basic: {
-    title: "Basic Breadcrumb",
-    description: "Navigation breadcrumbs showing the current page location",
+    title: 'Basic Breadcrumb',
+    description: 'Navigation breadcrumbs showing the current page location',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Breadcrumb,
   BreadcrumbItem,
@@ -67,8 +67,10 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const breadcrumbMeta = {
-  name: "Breadcrumb",
-  description: "Displays the path to the current resource using a hierarchy of links.",
-  llmUsage: "When showing navigation breadcrumbs, use `<Breadcrumb>` with `<BreadcrumbList>`, `<BreadcrumbItem>`, and `<BreadcrumbLink>` components.",
-  importPath: "@/components/ui/cognite/breadcrumb",
+  name: 'Breadcrumb',
+  description:
+    'Displays the path to the current resource using a hierarchy of links.',
+  llmUsage:
+    'When showing navigation breadcrumbs, use `<Breadcrumb>` with `<BreadcrumbList>`, `<BreadcrumbItem>`, and `<BreadcrumbLink>` components.',
+  importPath: '@/components/ui/cognite/breadcrumb',
 };

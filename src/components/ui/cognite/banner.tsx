@@ -89,7 +89,7 @@ export const BannerIcon = ({
   ...props
 }: BannerIconProps) => {
   const { variant } = useContext(BannerContext);
-  
+
   return (
     <div
       className={cn(
@@ -111,24 +111,32 @@ export const BannerTitle = ({ className, ...props }: BannerTitleProps) => (
 
 export type BannerStatusProps = ComponentProps<typeof Badge>;
 
-export const BannerStatus = ({ outline = true, variant, className, ...props }: BannerStatusProps) => {
+export const BannerStatus = ({
+  outline = true,
+  variant,
+  className,
+  ...props
+}: BannerStatusProps) => {
   const { variant: bannerVariant } = useContext(BannerContext);
-  
-  const variantMap: Record<BannerVariant, 'default' | 'warning' | 'error' | 'inProgress'> = {
+
+  const variantMap: Record<
+    BannerVariant,
+    'default' | 'warning' | 'error' | 'inProgress'
+  > = {
     default: 'default',
     neutral: 'inProgress',
     destructive: 'error',
     warning: 'warning',
   };
-  
+
   const badgeVariant = variant ?? variantMap[bannerVariant];
-  
+
   return (
-    <Badge 
-      outline={outline} 
-      variant={badgeVariant} 
-      className={cn('shrink-0', className)} 
-      {...props} 
+    <Badge
+      outline={outline}
+      variant={badgeVariant}
+      className={cn('shrink-0', className)}
+      {...props}
     />
   );
 };

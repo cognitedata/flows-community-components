@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { RefObject, useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useOutsideClick } from "@/hooks/use-outside-click";
-import { Badge } from "@/components/ui/cognite/badge";
-import { Button } from "@/components/ui/cognite/button";
-import { Palette, Code, Sparkles, X, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import React, { RefObject, useEffect, useId, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useOutsideClick } from '@/hooks/use-outside-click';
+import { Badge } from '@/components/ui/cognite/badge';
+import { Button } from '@/components/ui/cognite/button';
+import { Palette, Code, Sparkles, X, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface FeatureCard {
   id: string;
@@ -21,14 +21,14 @@ interface FeatureCard {
 
 const featureCards: FeatureCard[] = [
   {
-    id: "theming",
-    title: "Aurora lime theming",
+    id: 'theming',
+    title: 'Aurora lime theming',
     description:
-      "Dynamic color system with intelligent light/dark mode switching",
+      'Dynamic color system with intelligent light/dark mode switching',
     icon: <Palette className="h-6 w-6 text-primary drop-shadow-sm" />,
-    badge: "18 color palettes",
-    ctaText: "Explore colors",
-    ctaLink: "/primitives/colors",
+    badge: '18 color palettes',
+    ctaText: 'Explore colors',
+    ctaLink: '/primitives/colors',
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
@@ -63,18 +63,18 @@ const featureCards: FeatureCard[] = [
           </ul>
         </div>
         <div className="grid grid-cols-4 gap-2 mt-6">
-          {["Aurora lime", "Glacier mist", "Mountain fjord", "Midnight"].map(
+          {['Aurora lime', 'Glacier mist', 'Mountain fjord', 'Midnight'].map(
             (color, i) => (
               <div key={color} className="text-center">
                 <div
                   className={`w-full h-8 rounded mb-1 ${
                     i === 0
-                      ? "bg-primary"
+                      ? 'bg-primary'
                       : i === 1
-                      ? "bg-blue-500"
-                      : i === 2
-                      ? "bg-slate-500"
-                      : "bg-zinc-800"
+                        ? 'bg-blue-500'
+                        : i === 2
+                          ? 'bg-slate-500'
+                          : 'bg-zinc-800'
                   }`}
                 ></div>
                 <span className="text-xs text-foreground/60">{color}</span>
@@ -86,13 +86,13 @@ const featureCards: FeatureCard[] = [
     ),
   },
   {
-    id: "components",
-    title: "ShadCN components",
-    description: "Production-ready components built on Radix UI primitives",
+    id: 'components',
+    title: 'ShadCN components',
+    description: 'Production-ready components built on Radix UI primitives',
     icon: <Code className="h-6 w-6 text-primary drop-shadow-sm" />,
-    badge: "25+ components",
-    ctaText: "View components",
-    ctaLink: "/primitives/components/button",
+    badge: '25+ components',
+    ctaText: 'View components',
+    ctaLink: '/primitives/components/button',
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
@@ -131,11 +131,11 @@ const featureCards: FeatureCard[] = [
           </h5>
           <div className="flex flex-wrap gap-2">
             {[
-              "TypeScript",
-              "Radix UI",
-              "Tailwind CSS",
-              "Framer Motion",
-              "React 18",
+              'TypeScript',
+              'Radix UI',
+              'Tailwind CSS',
+              'Framer Motion',
+              'React 18',
             ].map((tech) => (
               <Badge key={tech} variant="secondary" className="text-xs">
                 {tech}
@@ -147,14 +147,14 @@ const featureCards: FeatureCard[] = [
     ),
   },
   {
-    id: "sandbox",
-    title: "AI-powered sandbox",
+    id: 'sandbox',
+    title: 'AI-powered sandbox',
     description:
-      "Generate custom components with AI assistance using your design system",
+      'Generate custom components with AI assistance using your design system',
     icon: <Sparkles className="h-6 w-6 text-primary drop-shadow-sm" />,
-    badge: "Gemini powered",
-    ctaText: "Try sandbox",
-    ctaLink: "/sandbox",
+    badge: 'Gemini powered',
+    ctaText: 'Try sandbox',
+    ctaLink: '/sandbox',
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
@@ -212,19 +212,19 @@ export function ExpandableFeatureCards() {
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         setActive(null);
       }
     }
 
     if (active) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
 
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [active]);
 
   useOutsideClick(ref as RefObject<HTMLElement>, () => setActive(null));
@@ -271,7 +271,7 @@ export function ExpandableFeatureCards() {
                     <motion.div
                       layoutId={`icon-${active.id}-${id}`}
                       className="w-12 h-12 rounded-lg bg-primary/20 backdrop-blur-sm border border-white/20 flex items-center justify-center shrink-0"
-                      style={{ borderRadius: "4px" }}
+                      style={{ borderRadius: '4px' }}
                     >
                       {active.icon}
                     </motion.div>
@@ -347,7 +347,7 @@ export function ExpandableFeatureCards() {
               <motion.div
                 layoutId={`icon-${card.id}-${id}`}
                 className="w-12 h-12 rounded bg-primary/20 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-4"
-                style={{ borderRadius: "4px" }}
+                style={{ borderRadius: '4px' }}
               >
                 {card.icon}
               </motion.div>
