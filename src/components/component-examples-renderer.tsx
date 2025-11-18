@@ -1,13 +1,18 @@
-"use client";
+'use client';
 
-import { getComponentExamples, type ComponentExample } from "@/lib/component-examples";
-import { ExamplePreview } from "./example-preview";
+import {
+  getComponentExamples,
+  type ComponentExample,
+} from '@/lib/component-examples';
+import { ExamplePreview } from './example-preview';
 
 interface ComponentExamplesRendererProps {
   slug: string;
 }
 
-export function ComponentExamplesRenderer({ slug }: ComponentExamplesRendererProps) {
+export function ComponentExamplesRenderer({
+  slug,
+}: ComponentExamplesRendererProps) {
   const examples = getComponentExamples(slug);
 
   if (!examples) {
@@ -22,15 +27,16 @@ export function ComponentExamplesRenderer({ slug }: ComponentExamplesRendererPro
 
   return (
     <div className="space-y-6">
-      {Object.entries(examples).map(([key, example]: [string, ComponentExample]) => (
-        <ExamplePreview
-          key={key}
-          title={example.title}
-          description={example.description}
-          component={example.component}
-        />
-      ))}
+      {Object.entries(examples).map(
+        ([key, example]: [string, ComponentExample]) => (
+          <ExamplePreview
+            key={key}
+            title={example.title}
+            description={example.description}
+            component={example.component}
+          />
+        )
+      )}
     </div>
   );
 }
-

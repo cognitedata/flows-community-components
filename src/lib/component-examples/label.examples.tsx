@@ -1,6 +1,6 @@
-import { Label } from "@/components/ui/cognite/label";
-import { Input } from "@/components/ui/cognite/input";
-import type { ComponentExamples } from "./types";
+import { Label } from '@/components/ui/cognite/label';
+import { Input } from '@/components/ui/cognite/input';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -34,10 +34,10 @@ function BasicDemo() {
 
 export const labelExamples: ComponentExamples = {
   basic: {
-    title: "Label Examples",
-    description: "Labels for form inputs with different styles",
+    title: 'Label Examples',
+    description: 'Labels for form inputs with different styles',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Label } from "@/components/ui/cognite/label"
 import { Input } from "@/components/ui/cognite/input"
 
@@ -75,8 +75,9 @@ export function BasicDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const labelMeta = {
-  name: "Label",
-  description: "Renders an accessible label associated with controls.",
-  llmUsage: "When asked for a label, use `<Label>` to properly associate text with form controls.",
-  importPath: "@/components/ui/cognite/label",
+  name: 'Label',
+  description: 'Renders an accessible label associated with controls.',
+  llmUsage:
+    'When asked for a label, use `<Label>` to properly associate text with form controls.',
+  importPath: '@/components/ui/cognite/label',
 };
