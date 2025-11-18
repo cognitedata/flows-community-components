@@ -64,13 +64,14 @@ export const webPreviewExamples: ComponentExamples = {
     description: 'Interactive iframe preview with navigation',
     component: BasicWebPreviewDemo,
     difficulty: 'beginner',
-    code: `import {
+    code: `
+    import {
   WebPreview,
   WebPreviewNavigation,
   WebPreviewNavigationButton,
   WebPreviewUrl,
   WebPreviewBody,
-} from "@/components/ai-elements/cognite/web-preview"
+} from '@/components/ui/cognite/web-preview';
 
 export function BasicWebPreviewDemo() {
   return (
