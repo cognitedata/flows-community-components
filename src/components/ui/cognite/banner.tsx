@@ -1,7 +1,7 @@
 'use client';
 
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
-import { type LucideIcon, XIcon } from 'lucide-react';
+import { IconX, type IconProps } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -79,8 +79,10 @@ export const Banner = ({
   );
 };
 
+type TablerIconComponent = (props: IconProps) => JSX.Element;
+
 export type BannerIconProps = HTMLAttributes<HTMLDivElement> & {
-  icon: LucideIcon;
+  icon: TablerIconComponent;
 };
 
 export const BannerIcon = ({
@@ -188,7 +190,7 @@ export const BannerClose = ({
       variant={variant}
       {...props}
     >
-      <XIcon size={18} />
+      <IconX size={18} />
     </Button>
   );
 };
