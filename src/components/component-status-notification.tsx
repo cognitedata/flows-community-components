@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle } from "lucide-react";
+import { IconAlertCircle, IconCircleCheck } from "@tabler/icons-react";
 import {
   getComponentStatus,
   getComponentStatusMessage,
@@ -16,7 +16,7 @@ export function ComponentStatusNotification({
   const message = getComponentStatusMessage(componentSlug);
   const classes = getComponentStatusClasses(status);
 
-  const Icon = status === "production" ? CheckCircle : AlertCircle;
+  const Icon = status === "production" ? IconCircleCheck : IconAlertCircle;
   const statusText = status === "production" ? "Production Ready" : "Draft";
 
   return (
