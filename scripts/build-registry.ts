@@ -8,9 +8,9 @@
  * folder structure when components are installed via the registry.
  */
 
-import * as fs from "fs";
-import * as path from "path";
-import { fileURLToPath } from "url";
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -39,9 +39,9 @@ interface Registry {
   items: RegistryItem[];
 }
 
-const uiCogniteDir = path.join(__dirname, "../src/components/ui/cognite");
-const registryTemplate = path.join(__dirname, "../registry.template.json");
-const registryOutput = path.join(__dirname, "../registry.json");
+const uiCogniteDir = path.join(__dirname, '../src/components/ui/cognite');
+const registryTemplate = path.join(__dirname, '../registry.template.json');
+const registryOutput = path.join(__dirname, '../registry.json');
 
 // Get all components from ui/cognite directory
 function getComponents(): string[] {
@@ -50,8 +50,8 @@ function getComponents(): string[] {
   if (fs.existsSync(uiCogniteDir)) {
     const uiFiles = fs
       .readdirSync(uiCogniteDir)
-      .filter((file: string) => file.endsWith(".tsx"))
-      .map((file: string) => file.replace(".tsx", ""));
+      .filter((file: string) => file.endsWith('.tsx'))
+      .map((file: string) => file.replace('.tsx', ''));
 
     if (uiFiles.length > 0) {
       console.log(`\n✅ Found ${uiFiles.length} component(s) in ui/cognite:\n`);
@@ -72,14 +72,14 @@ function getComponents(): string[] {
 // Load the full registry template (includes all component metadata)
 function loadRegistryTemplate(): Registry {
   if (!fs.existsSync(registryTemplate)) {
-    console.error("❌ registry.template.json not found!");
+    console.error('❌ registry.template.json not found!');
     console.log(
-      "\nPlease create registry.template.json with all component definitions."
+      '\nPlease create registry.template.json with all component definitions.'
     );
     process.exit(1);
   }
 
-  const content = fs.readFileSync(registryTemplate, "utf8");
+  const content = fs.readFileSync(registryTemplate, 'utf8');
   return JSON.parse(content) as Registry;
 }
 
@@ -137,7 +137,7 @@ function buildRegistry(template: Registry, components: string[]): Registry {
     console.log(
       `\n📦 Added ${
         additionalDeps.length
-      } registry dependency component(s): ${additionalDeps.join(", ")}`
+      } registry dependency component(s): ${additionalDeps.join(', ')}`
     );
   }
 
@@ -167,70 +167,70 @@ function buildRegistry(template: Registry, components: string[]): Registry {
 async function main(): Promise<void> {
   try {
     // Display build information
-    console.log("\n" + "=".repeat(70));
-    console.log("🔨 BUILDING COMPONENT REGISTRY");
-    console.log("   Source: ui/cognite");
-    console.log("   Output: All paths → src/components/ui/cognite/");
-    console.log("=".repeat(70));
+    console.log('\n' + '='.repeat(70));
+    console.log('🔨 BUILDING COMPONENT REGISTRY');
+    console.log('   Source: ui/cognite');
+    console.log('   Output: All paths → src/components/ui/cognite/');
+    console.log('='.repeat(70));
 
     // Get components from ui/cognite directory
     const components: string[] = getComponents();
 
     if (components.length === 0) {
       console.log(`\n⚠️  No components found in ui/cognite directory`);
-      console.log("   Registry will be empty (no components to build)");
+      console.log('   Registry will be empty (no components to build)');
     }
 
     // Show what will be built
-    console.log("\n" + "─".repeat(70));
-    console.log("📋 COMPONENTS TO BE BUILT:");
-    console.log("─".repeat(70));
+    console.log('\n' + '─'.repeat(70));
+    console.log('📋 COMPONENTS TO BE BUILT:');
+    console.log('─'.repeat(70));
 
     if (components.length > 0) {
-      console.log(`\n   ${components.join(", ")}`);
+      console.log(`\n   ${components.join(', ')}`);
       console.log(`\n   Total: ${components.length} component(s)`);
     } else {
-      console.log("\n   (none)");
+      console.log('\n   (none)');
     }
 
-    console.log("\n" + "─".repeat(70));
-    console.log("📁 OUTPUT:");
-    console.log("─".repeat(70));
-    console.log("\n   registry.json → Root directory");
-    console.log("   Component files → public/r/*.json (via shadcn build)");
-    console.log("   All paths point to src/components/ui/cognite/");
+    console.log('\n' + '─'.repeat(70));
+    console.log('📁 OUTPUT:');
+    console.log('─'.repeat(70));
+    console.log('\n   registry.json → Root directory');
+    console.log('   Component files → public/r/*.json (via shadcn build)');
+    console.log('   All paths point to src/components/ui/cognite/');
 
     // Load template first to check for dependencies
     const template: Registry = loadRegistryTemplate();
 
     // Build the registry (this will also collect all registry dependencies)
-    console.log("\n⏳ Building registry...");
+    console.log('\n⏳ Building registry...');
     const registry: Registry = buildRegistry(template, components);
 
-    fs.writeFileSync(registryOutput, JSON.stringify(registry, null, 2) + "\n");
+    fs.writeFileSync(registryOutput, JSON.stringify(registry, null, 2) + '\n');
 
-    console.log("✅ Successfully built registry.json");
+    console.log('✅ Successfully built registry.json');
     console.log(`📦 Registry contains ${registry.items.length} component(s)`);
 
     if (components.length > 0) {
       console.log(
         `\n🎉 Components built: ${registry.items
           .map((i: RegistryItem) => i.name)
-          .join(", ")}`
+          .join(', ')}`
       );
     }
 
-    console.log("\n" + "=".repeat(70));
-    console.log("✨ BUILD COMPLETE");
-    console.log("=".repeat(70) + "\n");
+    console.log('\n' + '='.repeat(70));
+    console.log('✨ BUILD COMPLETE');
+    console.log('='.repeat(70) + '\n');
 
     if (components.length > 0) {
-      console.log("📝 Next steps:");
-      console.log("  1. The registry:build command will now:");
-      console.log("     - Clean public/r/ directory");
-      console.log("     - Run shadcn build to generate component .json files");
-      console.log("  2. Commit and push the changes");
-      console.log("  3. Deploy your site to make components available\n");
+      console.log('📝 Next steps:');
+      console.log('  1. The registry:build command will now:');
+      console.log('     - Clean public/r/ directory');
+      console.log('     - Run shadcn build to generate component .json files');
+      console.log('  2. Commit and push the changes');
+      console.log('  3. Deploy your site to make components available\n');
     } else {
       console.log(
         `ℹ️  Note: No components to build. Add .tsx files to:\n` +
@@ -239,7 +239,7 @@ async function main(): Promise<void> {
     }
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error("\n❌ Failed to build registry:", errorMessage);
+    console.error('\n❌ Failed to build registry:', errorMessage);
     process.exit(1);
   }
 }
