@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  ArrowRight,
-  Palette,
-  Zap,
-  Grid3X3,
-  Layout,
-  BookOpen,
-  Code2,
-} from 'lucide-react';
+  IconArrowRight as ArrowRight,
+  IconBook as BookOpen,
+  IconCode as Code2,
+  IconGrid3x3 as Grid3X3,
+  IconLayout as Layout,
+  IconPalette as Palette,
+  IconZap as Zap,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
