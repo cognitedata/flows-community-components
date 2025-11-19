@@ -1,6 +1,10 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert";
-import { Terminal, AlertCircle } from "lucide-react";
-import type { ComponentExamples } from "./types";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/cognite/alert';
+import { Terminal, AlertCircle } from 'lucide-react';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -39,30 +43,32 @@ function VariantsDemo() {
 
 export const alertExamples: ComponentExamples = {
   basic: {
-    title: "Basic Alert",
-    description: "A simple alert with title and description",
+    title: 'Basic Alert',
+    description: 'A simple alert with title and description',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
 import { Terminal } from "lucide-react"
 
 export function BasicDemo() {
   return (
-    <Alert>
-      <Terminal className="h-4 w-4" />
-      <AlertTitle>Heads up!</AlertTitle>
-      <AlertDescription>
-        You can add components to your app using the cli.
-      </AlertDescription>
-    </Alert>
+    <div className="space-y-4">
+      <Alert>
+        <Terminal className="h-4 w-4" />
+        <AlertTitle>Heads up!</AlertTitle>
+        <AlertDescription>
+          You can add components to your app using the cli.
+        </AlertDescription>
+      </Alert>
+    </div>
   )
 }`,
   },
   variants: {
-    title: "Alert Variants",
-    description: "Different alert styles for various contexts",
+    title: 'Alert Variants',
+    description: 'Different alert styles for various contexts',
     component: VariantsDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
 import { Terminal, AlertCircle } from "lucide-react"
 
@@ -91,8 +97,10 @@ export function VariantsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const alertMeta = {
-  name: "Alert",
-  description: "Displays a callout for user attention with different severity levels.",
-  llmUsage: "When showing alerts or notifications, use `<Alert>` with `<AlertTitle>` and `<AlertDescription>` components.",
-  importPath: "@/components/ui/cognite/alert",
+  name: 'Alert',
+  description:
+    'Displays a callout for user attention with different severity levels.',
+  llmUsage:
+    'When showing alerts or notifications, use `<Alert>` with `<AlertTitle>` and `<AlertDescription>` components.',
+  importPath: '@/components/ui/cognite/alert',
 };
