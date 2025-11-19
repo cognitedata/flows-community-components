@@ -4,6 +4,7 @@ import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import { IconX, type IconProps } from '@tabler/icons-react';
 import {
   type ComponentProps,
+  type ComponentType,
   createContext,
   type HTMLAttributes,
   type MouseEventHandler,
