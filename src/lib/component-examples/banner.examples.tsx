@@ -101,7 +101,7 @@ export const bannerExamples: ComponentExamples = {
     component: VariantsDemo,
     difficulty: 'beginner',
     code: `
-    import {  
+import {
   Banner,
   BannerIcon,
   BannerTitle,
@@ -109,16 +109,14 @@ export const bannerExamples: ComponentExamples = {
   BannerActions,
   BannerAction,
 } from '@/components/ui/cognite/banner';
- import { IconCopy as Copy, IconInfoCircle as Info } from '@tabler/icons-react';
+import { IconCopy as Copy, IconInfoCircle as Info } from '@tabler/icons-react';
 
 export function VariantsDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={ Info } />
-        <BannerTitle>
-          Read only. Duplicate to make changes.
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <Copy />
@@ -128,7 +126,7 @@ export function VariantsDemo() {
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={ Info } />
+        <BannerIcon icon={Info} />
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
@@ -136,8 +134,9 @@ export function VariantsDemo() {
         </BannerActions>
       </Banner>
     </div>
-  );  
-}`,
+  );
+}
+`,
   },
 
   mainComponent: {
@@ -146,7 +145,7 @@ export function VariantsDemo() {
     component: MainComponentDemo,
     difficulty: 'beginner',
     code: `
-    import {
+import {
   Banner,
   BannerIcon,
   BannerTitle,
@@ -159,10 +158,8 @@ export function MainComponentDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={ Info } />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -174,10 +171,8 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={ Info } />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -189,10 +184,8 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="destructive">
-        <BannerIcon icon={ Info } />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -204,10 +197,8 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="warning">
-        <BannerIcon icon={ Info } />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -219,7 +210,8 @@ export function MainComponentDemo() {
       </Banner>
     </div>
   );
-}`,
+}
+`,
   },
 };
 
