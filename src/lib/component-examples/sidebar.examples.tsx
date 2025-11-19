@@ -8,7 +8,13 @@ import {
   SidebarMenuItem,
   SidebarProvider,
 } from '@/components/ui/cognite/sidebar';
-import { Home, Settings, Users, FileText, BarChart3 } from 'lucide-react';
+import {
+  IconChartBar as BarChart3,
+  IconFileText as FileText,
+  IconHome as Home,
+  IconSettings as Settings,
+  IconUsers as Users,
+} from '@tabler/icons-react';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -86,8 +92,8 @@ export const sidebarExamples: ComponentExamples = {
       'Interactive sidebar component with navigation groups and menu items',
     component: BasicDemo,
     difficulty: 'advanced',
-    code: ` 
-    import {
+    code: `
+import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -97,7 +103,13 @@ export const sidebarExamples: ComponentExamples = {
   SidebarMenuItem,
   SidebarProvider,
 } from '@/components/ui/cognite/sidebar';
-import { Home, Settings, Users, FileText, BarChart3 } from 'lucide-react';
+import {
+  IconChartBar as BarChart3,
+  IconFileText as FileText,
+  IconHome as Home,
+  IconSettings as Settings,
+  IconUsers as Users,
+} from '@tabler/icons-react';
 
 export function BasicDemo() {
   return (
@@ -164,8 +176,9 @@ export function BasicDemo() {
         </SidebarProvider>
       </div>
     </div>
-  )
-}`,
+  );
+}
+`,
   },
 };
 
