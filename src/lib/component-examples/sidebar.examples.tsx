@@ -92,7 +92,7 @@ export const sidebarExamples: ComponentExamples = {
       'Interactive sidebar component with navigation groups and menu items',
     component: BasicDemo,
     difficulty: 'advanced',
-    code: ` 
+    code: `
 import {
   SidebarContent,
   SidebarGroup,
@@ -103,7 +103,14 @@ import {
   SidebarMenuItem,
   SidebarProvider,
 } from '@/components/ui/cognite/sidebar';
-import { Home, Settings, Users, FileText, BarChart3 } from 'lucide-react';
+import {
+  IconChartBar as BarChart3,
+  IconFileText as FileText,
+  IconHome as Home,
+  IconSettings as Settings,
+  IconUsers as Users,
+} from '@tabler/icons-react';
+
 export function BasicDemo() {
   return (
     <div className="space-y-4">
@@ -169,8 +176,9 @@ export function BasicDemo() {
         </SidebarProvider>
       </div>
     </div>
-  )
-}`,
+  );
+}
+`,
   },
 };
 
