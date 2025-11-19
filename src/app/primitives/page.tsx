@@ -2,7 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Copy, Check, Code, Eye } from 'lucide-react';
+import {
+  IconCheck as Check,
+  IconCode as Code,
+  IconCopy as Copy,
+  IconEye as Eye,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import { Input } from '@/components/ui/cognite/input';
 import { Label } from '@/components/ui/cognite/label';
