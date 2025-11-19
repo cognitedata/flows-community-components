@@ -3,17 +3,17 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import {
-  Palette,
-  Code,
-  Download,
-  ExternalLink,
-  CheckCircle,
-  Users,
-  Lightbulb,
-  Book,
-  Terminal,
-  Puzzle,
-} from 'lucide-react';
+  IconBook as Book,
+  IconCheckCircle as CheckCircle,
+  IconCode as Code,
+  IconDownload as Download,
+  IconExternalLink as ExternalLink,
+  IconLightbulb as Lightbulb,
+  IconPalette as Palette,
+  IconPuzzle as Puzzle,
+  IconTerminal as Terminal,
+  IconUsers as Users,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import { Badge } from '@/components/ui/cognite/badge';
 import {
@@ -62,7 +62,7 @@ const developerSteps = [
       'Set up Tailwind CSS, Radix UI components, and required dependencies for Aura',
     icon: Terminal,
     action: 'View documentation',
-    code: 'npm install tailwindcss postcss autoprefixer @radix-ui/react-icons lucide-react class-variance-authority tailwind-merge clsx next-themes',
+    code: 'npm install tailwindcss postcss autoprefixer @radix-ui/react-icons @tabler/icons-react class-variance-authority tailwind-merge clsx next-themes',
     info: 'Install all required packages for Aura UI components and theming',
   },
   {
