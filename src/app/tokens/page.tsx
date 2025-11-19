@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Download, Copy, Check } from 'lucide-react';
+import { IconCheck as Check, IconCopy as Copy, IconDownload as Download } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/cognite/button';
 import {
