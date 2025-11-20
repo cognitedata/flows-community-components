@@ -1,10 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/cognite/button';
-import { ArrowRight, Terminal } from 'lucide-react';
+import { ArrowRight, Terminal, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
-import PrismaticBurst from '@/components/PrismaticBurst';
 import { useState } from 'react';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/cognite/alert';
 
 export default function HomePage() {
   const [copied, setCopied] = useState(false);
@@ -17,33 +21,11 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
-      {/* Prismatic Burst Background */}
-      <div style={{ position: 'fixed', inset: '0', zIndex: '1' }}>
-        <PrismaticBurst
-          animationType="rotate3d"
-          intensity={1.5}
-          speed={0.3}
-          distort={1.2}
-          paused={false}
-          offset={{ x: 0, y: 0 }}
-          hoverDampness={0.25}
-          rayCount={16}
-          mixBlendMode="lighten"
-          colors={[
-            '#CDECFB', // ns-glacier-300
-            '#78A7CB', // ns-glacier-500
-            '#A9F853', // ns-aurora-500
-            '#DDFCBA', // ns-aurora-200
-            '#C7D2FE', // glacier-mist-200
-            '#3730A3', // glacier-mist-800
-          ]}
-        />
-      </div>
-
-      {/* Hero Section (locked to dark mode) */}
-      <div className="dark w-full bg-background text-foreground">
+      {/* Hero Section */}
+      <div className="w-full">
         <div className="relative z-10 container mx-auto px-4 py-16">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-8">
             {/* Hero Text */}
             <div className="space-y-4">
               <h2 className="text-5xl sm:text-6xl font-bold tracking-tight text-foreground">
@@ -79,6 +61,17 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* Alert Banner */}
+            <div className="max-w-2xl mx-auto">
+              <Alert variant="destructive" className="text-left">
+                <AlertTriangle className="h-4 w-4" />
+                <AlertTitle className="font-bold">Aura is still in active development</AlertTitle>
+                <AlertDescription>
+                  This site reflects a prototype that&apos;s changing fast. It&apos;s here for exploration and prototyping only, not production use. For feedback, hang tight — we&apos;re already working through major updates and will open structured feedback rounds once the foundation is more stable.
+                </AlertDescription>
+              </Alert>
+            </div>
+
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button asChild size="lg" className="text-lg px-8">
@@ -98,6 +91,7 @@ export default function HomePage() {
             </div>
 
             {/* Feature cards removed */}
+            </div>
           </div>
         </div>
       </div>

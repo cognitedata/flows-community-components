@@ -19,6 +19,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/cognite/card';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/cognite/alert';
+import { AlertTriangle } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -85,6 +91,13 @@ export default function Home() {
   return (
     <div className="px-3 py-16">
       <div className="max-w-4xl mx-auto">
+        <Alert variant="destructive" className="mb-8">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertTitle className="font-bold">Aura is still in active development</AlertTitle>
+          <AlertDescription>
+            This site reflects a prototype that&apos;s changing fast. It&apos;s here for exploration and prototyping only, not production use. For feedback, hang tight — we&apos;re already working through major updates and will open structured feedback rounds once the foundation is more stable.
+          </AlertDescription>
+        </Alert>
         <motion.div
           variants={containerVariants}
           initial="hidden"
