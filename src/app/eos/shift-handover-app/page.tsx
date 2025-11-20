@@ -30,7 +30,7 @@ import {
   IconAlertOctagon as OctagonAlert,
   IconAppWindow as AppWindow,
   IconArrowLeft as ArrowLeft,
-  IconBarChart as BarChart3,
+  IconChartBar as BarChart3,
   IconBell as Bell,
   IconCalendar as CalendarIcon,
   IconCheck as Check,
@@ -38,7 +38,7 @@ import {
   IconMoon as Moon,
   IconPlus as Plus,
   IconRefresh as RefreshCw,
-  IconShapes as Shapes,
+  IconShape as Shapes,
   IconSun as Sun,
 } from '@tabler/icons-react';
 import { toast } from 'sonner';

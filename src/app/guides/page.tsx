@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import {
   IconBook as Book,
-  IconCheckCircle as CheckCircle,
+  IconCircleCheck as CheckCircle,
   IconCode as Code,
   IconDownload as Download,
   IconExternalLink as ExternalLink,
-  IconLightbulb as Lightbulb,
+  IconBulb as Lightbulb,
   IconPalette as Palette,
   IconPuzzle as Puzzle,
   IconTerminal as Terminal,
