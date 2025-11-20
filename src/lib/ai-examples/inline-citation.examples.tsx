@@ -14,12 +14,7 @@ import {
   InlineCitationCarouselPrev,
   InlineCitationSource,
 } from '@/components/ui/cognite/inline-citation';
-import {
-  IconAt,
-  IconFile,
-  IconPhoto,
-  IconTimeline,
-} from '@tabler/icons-react';
+import { IconAt, IconFile, IconPhoto, IconTimeline } from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function CitationDemo() {
@@ -42,7 +37,10 @@ function CitationDemo() {
                 </InlineCitationCarouselHeader>
                 <InlineCitationCarouselContent>
                   <InlineCitationCarouselItem>
-                    <InlineCitationSource title={source.title} url={source.url} />
+                    <InlineCitationSource
+                      title={source.title}
+                      url={source.url}
+                    />
                   </InlineCitationCarouselItem>
                 </InlineCitationCarouselContent>
               </InlineCitationCarousel>
@@ -85,7 +83,10 @@ function CitationsWithIconsDemo() {
         {sources.map((source) => (
           <InlineCitation key={source.url}>
             <InlineCitationCard>
-              <InlineCitationCardTrigger sources={[source.url]} icon={source.icon} />
+              <InlineCitationCardTrigger
+                sources={[source.url]}
+                icon={source.icon}
+              />
               <InlineCitationCardBody>
                 <InlineCitationCarousel>
                   <InlineCitationCarouselHeader>
@@ -95,7 +96,10 @@ function CitationsWithIconsDemo() {
                   </InlineCitationCarouselHeader>
                   <InlineCitationCarouselContent>
                     <InlineCitationCarouselItem>
-                      <InlineCitationSource title={source.title} url={source.url} />
+                      <InlineCitationSource
+                        title={source.title}
+                        url={source.url}
+                      />
                     </InlineCitationCarouselItem>
                   </InlineCitationCarouselContent>
                 </InlineCitationCarousel>
