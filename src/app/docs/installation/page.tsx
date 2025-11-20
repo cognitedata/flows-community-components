@@ -3,12 +3,12 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  Terminal,
-  CheckCircle2,
-  ArrowRight,
-  FileText,
-  Sparkles,
-} from 'lucide-react';
+  IconArrowRight as ArrowRight,
+  IconCircleCheck as CheckCircle2,
+  IconFileText as FileText,
+  IconSparkles as Sparkles,
+  IconTerminal as Terminal,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
   Card,

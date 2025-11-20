@@ -1,6 +1,6 @@
 'use client';
 
-import { Copy } from 'lucide-react';
+import { IconCopy } from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import { useState, useEffect, startTransition } from 'react';
 import { useTheme } from 'next-themes';
@@ -117,7 +117,7 @@ export function InstallationCommand({
             {copied ? (
               <span className="text-xs">✓</span>
             ) : (
-              <Copy className="h-4 w-4" />
+              <IconCopy className="h-4 w-4" />
             )}
           </Button>
         </div>
@@ -191,7 +191,7 @@ export function InstallationCommand({
                       <span className="text-xs">✓ Copied</span>
                     ) : (
                       <>
-                        <Copy className="h-4 w-4 mr-2" />
+                        <IconCopy className="h-4 w-4 mr-2" />
                         Copy
                       </>
                     )}

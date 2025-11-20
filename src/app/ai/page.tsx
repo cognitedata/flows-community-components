@@ -147,11 +147,6 @@ export default function AIPage() {
       name: 'Toolbar',
       description: 'Toolbar for AI interfaces',
     },
-    {
-      slug: 'web-preview',
-      name: 'Web Preview',
-      description: 'Web page preview component',
-    },
   ];
 
   return (

@@ -4,7 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { ChevronRight } from 'lucide-react';
+import { IconChevronRight } from '@tabler/icons-react';
 
 interface NavigationItem {
   href: string;
@@ -179,7 +179,6 @@ const aiNavigation: NavigationItem[] = [
       { href: '/ai/components/suggestion', label: 'Suggestion' },
       // { href: "/ai/components/task", label: "Task" },
       // { href: "/ai/components/tool", label: "Tool" },
-      // { href: "/ai/components/web-preview", label: "Web preview" },
     ],
   },
   // {
@@ -233,7 +232,7 @@ function NavigationGroup({
           className="flex items-center justify-between w-full text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-1.5 pr-1.5 hover:text-foreground transition-colors"
         >
           {item.label}
-          <ChevronRight
+          <IconChevronRight
             className={cn(
               'h-3 w-3 transition-transform',
               isOpen && 'rotate-90'

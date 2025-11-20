@@ -14,19 +14,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/cognite/dropdown-menu';
 import {
-  Send,
-  Copy,
-  ThumbsUp,
-  ThumbsDown,
-  MoreHorizontal,
-  Code,
-  RefreshCw,
-  MessageSquare,
-  ChevronDown,
-  Edit,
-  Share,
-  Trash2,
-} from 'lucide-react';
+  IconChevronDown as ChevronDown,
+  IconCode as Code,
+  IconCopy as Copy,
+  IconDots as MoreHorizontal,
+  IconEdit as Edit,
+  IconMessageSquare as MessageSquare,
+  IconRefresh as RefreshCw,
+  IconSend as Send,
+  IconShare as Share,
+  IconThumbDown as ThumbsDown,
+  IconThumbUp as ThumbsUp,
+  IconTrash as Trash2,
+} from '@tabler/icons-react';
 import Image from 'next/image';
 
 interface Message {

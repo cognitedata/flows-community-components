@@ -9,9 +9,7 @@ import {
 } from '@/components/ui/cognite/tooltip';
 import { cn } from '@/lib/utils';
 import { IconX, type IconProps } from '@tabler/icons-react';
-import type { ComponentProps, HTMLAttributes } from 'react';
-
-type TablerIconComponent = (props: IconProps) => JSX.Element;
+import type { ComponentProps, ComponentType, HTMLAttributes } from 'react';
 
 export type ArtifactProps = HTMLAttributes<HTMLDivElement>;
 
@@ -94,7 +92,7 @@ export const ArtifactActions = ({
 export type ArtifactActionProps = ComponentProps<typeof Button> & {
   tooltip?: string;
   label?: string;
-  icon?: TablerIconComponent;
+  icon?: ComponentType<IconProps>;
 };
 
 export const ArtifactAction = ({

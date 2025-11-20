@@ -7,7 +7,11 @@ import {
 } from '@/components/ui/cognite/card';
 import { Badge } from '@/components/ui/cognite/badge';
 import { Button } from '@/components/ui/cognite/button';
-import { Image as LucideImage, Download, Palette } from 'lucide-react';
+import {
+  IconDownload as Download,
+  IconPalette as Palette,
+  IconPhoto as LucideImage,
+} from '@tabler/icons-react';
 
 const illustrationCategories = [
   {
