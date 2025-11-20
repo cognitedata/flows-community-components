@@ -1,0 +1,20 @@
+---
+description: You should always use these rules when needing to use any components, you should be importing from the Cognite registry if a component exists there.
+alwaysApply: false
+---
+
+
+Use the ShadCN MCP server to retrieve the attached registries, make sure Cognite is available then list the components you can use.
+
+If you cannot find any variation of a Cognite component you may import a ShadCN one but make sure the styles are consistent.
+
+Layout & Components
+Make sure to put the components together in a cohesive manner.
+Make sure to properly handle x and y values to proper scales.
+Make sure you are properly handling timezoned dates.
+
+Chart Rendering Rules
+Use direct hex colors: Avoid CSS variables like var(--color-\*) in stroke properties
+Make sure charts have properly formatted value properties to display data.
+Use real Cognite data from the SDK.
+Be really careful with x chart values and make sure you are rendering them correctly. Keep consistent with date and timestamp formatting as this can cause rendering issues.

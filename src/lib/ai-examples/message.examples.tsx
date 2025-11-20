@@ -1,33 +1,59 @@
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+import {
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+} from '@/components/ui/cognite/message';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   InlineCitation,
   InlineCitationGroup,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions";
+} from '@/components/ui/cognite/inline-citation';
+import {
+  IconAt,
+  IconFile,
+  IconPhoto,
+  IconTimeline,
+  IconThumbUp,
+  IconThumbDown,
+  IconCopy,
+  IconShare,
+  IconDotsVertical,
+  IconWheel,
+} from '@tabler/icons-react';
+import { Actions, Action } from '@/components/ui/cognite/actions';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
-
+} from '@/components/ui/cognite/dropdown-menu';
 
 function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span>
+          <InlineCitation>
+            <InlineCitationLink
+              url="https://example.com/user/21PT1019"
+              target="_blank"
+              icon={IconAt}
+            >
+              21PT1019
+            </InlineCitationLink>
+          </InlineCitation>
         </MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message from="assistant">
         <MessageContent className="flex flex-col gap-2">
-          According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
+          According to the time series, vibration amplitude has been rising
+          steadily since 03:00. The motor temperature also increased by 8°C over
+          the same period. Would you like me to add this to the canvas?
           <InlineCitationGroup>
             <InlineCitation>
               <InlineCitationLink
@@ -95,18 +121,19 @@ function Demo() {
 
 export const messageExamples: ComponentExamples = {
   contained: {
-    title: "Message",
-    description: "Messages with background containers for clear visual separation",
+    title: 'Message',
+    description:
+      'Messages with background containers for clear visual separation',
     component: Demo,
-    difficulty: "beginner",
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
+    difficulty: 'beginner',
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ui/cognite/message"
 import {
   InlineCitation,
   InlineCitationGroup,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "@/components/ui/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+import { Actions, Action } from "@/components/ui/cognite/actions"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -196,7 +223,7 @@ export function Demo() {
 
 // Component metadata - single source of truth for API documentation
 export const messageMeta = {
-  name: "Message",
-  description: "Displays a chat interface message from either a user or an AI.",
-  importPath: "@/components/ai-elements/cognite/message",
+  name: 'Message',
+  description: 'Displays a chat interface message from either a user or an AI.',
+  importPath: '@/components/ui/cognite/message',
 };

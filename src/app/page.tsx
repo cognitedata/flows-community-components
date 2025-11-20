@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/cognite/button";
-import { ArrowRight, Terminal } from "lucide-react";
-import Link from "next/link";
-import PrismaticBurst from "@/components/PrismaticBurst";
-import { useState } from "react";
+import { Button } from '@/components/ui/cognite/button';
+import { IconArrowRight as ArrowRight, IconTerminal as Terminal } from '@tabler/icons-react';
+import Link from 'next/link';
+import PrismaticBurst from '@/components/PrismaticBurst';
+import { useState } from 'react';
 
 export default function HomePage() {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText("npx cognite-create@latest");
+    await navigator.clipboard.writeText('npx cognite-create@latest');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -18,7 +18,7 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen flex items-center justify-center">
       {/* Prismatic Burst Background */}
-      <div style={{ position: "fixed", inset: "0", zIndex: "1" }}>
+      <div style={{ position: 'fixed', inset: '0', zIndex: '1' }}>
         <PrismaticBurst
           animationType="rotate3d"
           intensity={1.5}
@@ -30,12 +30,12 @@ export default function HomePage() {
           rayCount={16}
           mixBlendMode="lighten"
           colors={[
-            "#CDECFB", // ns-glacier-300
-            "#78A7CB", // ns-glacier-500
-            "#A9F853", // ns-aurora-500
-            "#DDFCBA", // ns-aurora-200
-            "#C7D2FE", // glacier-mist-200
-            "#3730A3", // glacier-mist-800
+            '#CDECFB', // ns-glacier-300
+            '#78A7CB', // ns-glacier-500
+            '#A9F853', // ns-aurora-500
+            '#DDFCBA', // ns-aurora-200
+            '#C7D2FE', // glacier-mist-200
+            '#3730A3', // glacier-mist-800
           ]}
         />
       </div>
@@ -74,7 +74,7 @@ export default function HomePage() {
                     copyToClipboard();
                   }}
                 >
-                  {copied ? "Copied!" : "Copy"}
+                  {copied ? 'Copied!' : 'Copy'}
                 </Button>
               </div>
             </div>

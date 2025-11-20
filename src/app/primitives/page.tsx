@@ -1,19 +1,24 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { Copy, Check, Code, Eye } from "lucide-react";
-import { Button } from "@/components/ui/cognite/button";
-import { Input } from "@/components/ui/cognite/input";
-import { Label } from "@/components/ui/cognite/label";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import {
+  IconCheck as Check,
+  IconCode as Code,
+  IconCopy as Copy,
+  IconEye as Eye,
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/cognite/button';
+import { Input } from '@/components/ui/cognite/input';
+import { Label } from '@/components/ui/cognite/label';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Switch } from "@/components/ui/cognite/switch";
+} from '@/components/ui/cognite/card';
+import { Switch } from '@/components/ui/cognite/switch';
 
 function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
@@ -69,7 +74,7 @@ function ComponentDemo({
           <div className="flex items-center space-x-2">
             <Button
               size="sm"
-              variant={showCode ? "default" : "outline"}
+              variant={showCode ? 'default' : 'outline'}
               onClick={() => setShowCode(!showCode)}
             >
               {showCode ? (
@@ -77,7 +82,7 @@ function ComponentDemo({
               ) : (
                 <Code className="h-4 w-4" />
               )}
-              {showCode ? "Preview" : "Code"}
+              {showCode ? 'Preview' : 'Code'}
             </Button>
           </div>
         </div>
@@ -96,7 +101,7 @@ function ComponentDemo({
 }
 
 export default function PrimitivesPage() {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [switchValue, setSwitchValue] = useState(false);
 
   const buttonCode = `import { Button } from "@/components/ui/cognite/button"

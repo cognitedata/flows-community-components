@@ -1,13 +1,13 @@
-import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/cognite/button";
-import { Badge } from "@/components/ui/cognite/badge";
-import Link from "next/link";
-import { IconArrowLeft } from "@tabler/icons-react";
-import { ComponentTabSwitcher } from "@/components/component-tab-switcher";
-import { AIExamplesRenderer } from "@/components/ai-examples-renderer";
-import { AICodeExamplesRenderer } from "@/components/ai-code-examples-renderer";
-import { getAIComponentStatus } from "@/lib/ai-component-status";
-import { getAIComponentMeta } from "@/lib/ai-component-registry";
+import { notFound } from 'next/navigation';
+import { Button } from '@/components/ui/cognite/button';
+import { Badge } from '@/components/ui/cognite/badge';
+import Link from 'next/link';
+import { IconArrowLeft } from '@tabler/icons-react';
+import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
+import { AIExamplesRenderer } from '@/components/ai-examples-renderer';
+import { AICodeExamplesRenderer } from '@/components/ai-code-examples-renderer';
+import { getAIComponentStatus } from '@/lib/ai-component-status';
+import { getAIComponentMeta } from '@/lib/ai-component-registry';
 
 interface ComponentPageProps {
   params: Promise<{
@@ -17,37 +17,36 @@ interface ComponentPageProps {
 
 // List of valid AI component slugs
 const validSlugs = [
-  "actions",
-  "artifact",
-  "branch",
-  "canvas",
-  "chain-of-thought",
-  "code-block",
-  "confirmation",
-  "connection",
-  "context",
-  "controls",
-  "conversation",
-  "edge",
-  "image",
-  "inline-citation",
-  "loader",
-  "message",
-  "node",
-  "open-in-chat",
-  "panel",
-  "plan",
-  "prompt-input",
-  "queue",
-  "reasoning",
-  "response",
-  "shimmer",
-  "sources",
-  "suggestion",
-  "task",
-  "tool",
-  "toolbar",
-  "web-preview",
+  'actions',
+  'artifact',
+  'branch',
+  'canvas',
+  'chain-of-thought',
+  'code-block',
+  'confirmation',
+  'connection',
+  'context',
+  'controls',
+  'conversation',
+  'edge',
+  'image',
+  'inline-citation',
+  'loader',
+  'message',
+  'node',
+  'open-in-chat',
+  'panel',
+  'plan',
+  'prompt-input',
+  'queue',
+  'reasoning',
+  'response',
+  'shimmer',
+  'sources',
+  'suggestion',
+  'task',
+  'tool',
+  'toolbar',
 ];
 
 export async function generateStaticParams() {
@@ -58,9 +57,9 @@ export async function generateStaticParams() {
 
 function toTitleCase(str: string): string {
   return str
-    .split("-")
+    .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .join(' ');
 }
 
 export async function generateMetadata({ params }: ComponentPageProps) {
@@ -90,7 +89,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   const componentStatus = getAIComponentStatus(slug);
   const description =
     meta?.description ||
-    "AI element component for building conversational interfaces";
+    'AI element component for building conversational interfaces';
 
   return (
     <div className="px-3 py-8">
@@ -117,7 +116,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                     <Badge variant="default" outline>
                       AI Element
                     </Badge>
-                    {componentStatus === "production" && (
+                    {componentStatus === 'production' && (
                       <Badge
                         variant="default"
                         className="bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
@@ -125,7 +124,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         Production Ready
                       </Badge>
                     )}
-                    {componentStatus === "draft" && (
+                    {componentStatus === 'draft' && (
                       <Badge
                         variant="secondary"
                         className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800"
@@ -137,7 +136,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <p className="text-xl text-muted-foreground mt-2">
                     {description}
                   </p>
-                  {componentStatus === "draft" && (
+                  {componentStatus === 'draft' && (
                     <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
                       <p className="text-sm text-yellow-800 dark:text-yellow-400">
                         <strong>Note:</strong> This component is currently in
@@ -161,7 +160,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 <div className="space-y-6">
                   <div className="space-y-4">
                     <p className="text-muted-foreground">
-                      Code examples and implementation details for{" "}
+                      Code examples and implementation details for{' '}
                       {componentName}.
                     </p>
                     <AICodeExamplesRenderer slug={slug} />
@@ -227,7 +226,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
           {/* Sidebar with anchor links */}
           <aside className="hidden lg:block w-64 shrink-0">
-            <div className="sticky top-8">
+            <div className="sticky top-20">
               <div className="mb-8">
                 <h2 className="text-sm font-semibold mb-4">On This Page</h2>
                 <nav className="space-y-2">

@@ -5,8 +5,8 @@ import {
   PlanDescription,
   PlanTrigger,
   PlanContent,
-} from "@/components/ai-elements/cognite/plan";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/plan';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicPlanDemo() {
   return (
@@ -14,9 +14,7 @@ function BasicPlanDemo() {
       <PlanHeader>
         <div>
           <PlanTitle>Implementation Plan</PlanTitle>
-          <PlanDescription>
-            Steps to implement the new feature
-          </PlanDescription>
+          <PlanDescription>Steps to implement the new feature</PlanDescription>
         </div>
         <PlanTrigger />
       </PlanHeader>
@@ -39,9 +37,7 @@ function StreamingPlanDemo() {
       <PlanHeader>
         <div>
           <PlanTitle>Breaking Changes Analysis</PlanTitle>
-          <PlanDescription>
-            Analysing impact of recent changes
-          </PlanDescription>
+          <PlanDescription>Analysing impact of recent changes</PlanDescription>
         </div>
         <PlanTrigger />
       </PlanHeader>
@@ -54,10 +50,10 @@ function StreamingPlanDemo() {
 
 export const planExamples: ComponentExamples = {
   basic: {
-    title: "Basic Plan",
-    description: "A collapsible plan card with streaming support",
+    title: 'Basic Plan',
+    description: 'A collapsible plan card with streaming support',
     component: BasicPlanDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Plan,
   PlanHeader,
@@ -88,10 +84,10 @@ export function BasicPlanDemo() {
   },
 
   streaming: {
-    title: "Streaming Plan",
-    description: "Plan with animated shimmer during streaming",
+    title: 'Streaming Plan',
+    description: 'Plan with animated shimmer during streaming',
     component: StreamingPlanDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Plan,
   PlanHeader,
@@ -120,7 +116,8 @@ export function StreamingPlanDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const planMeta = {
-  name: "Plan",
-  description: "A collapsible plan component for displaying AI-generated execution plans with streaming support and shimmer animations.",
-  importPath: "@/components/ai-elements/cognite/plan",
+  name: 'Plan',
+  description:
+    'A collapsible plan component for displaying AI-generated execution plans with streaming support and shimmer animations.',
+  importPath: '@/components/ai-elements/cognite/plan',
 };

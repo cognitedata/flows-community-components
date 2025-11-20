@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
-  ArrowRight,
-  Palette,
-  Zap,
-  Grid3X3,
-  Layout,
-  BookOpen,
-  Code2,
-} from "lucide-react";
-import { Button } from "@/components/ui/cognite/button";
+  IconArrowRight as ArrowRight,
+  IconBook as BookOpen,
+  IconCode as Code2,
+  IconGrid3x3 as Grid3X3,
+  IconLayout as Layout,
+  IconPalette as Palette,
+  IconBolt as Zap,
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from '@/components/ui/cognite/card';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -44,40 +44,40 @@ const itemVariants = {
 const features = [
   {
     icon: Palette,
-    title: "Design tokens",
-    description: "Colors, typography, and spacing tokens with live previews",
-    href: "/tokens",
+    title: 'Design tokens',
+    description: 'Colors, typography, and spacing tokens with live previews',
+    href: '/tokens',
   },
   {
     icon: Zap,
-    title: "Motion guidelines",
-    description: "Animation principles and interactive demonstrations",
-    href: "/motion",
+    title: 'Motion guidelines',
+    description: 'Animation principles and interactive demonstrations',
+    href: '/motion',
   },
   {
     icon: Grid3X3,
-    title: "UI primitives",
-    description: "Core components with live code examples",
-    href: "/primitives",
+    title: 'UI primitives',
+    description: 'Core components with live code examples',
+    href: '/primitives',
   },
   {
     icon: Layout,
-    title: "Layout patterns",
-    description: "Responsive layouts with resizable previews",
-    href: "/layouts",
+    title: 'Layout patterns',
+    description: 'Responsive layouts with resizable previews',
+    href: '/layouts',
   },
   {
     icon: Code2,
-    title: "Component docs",
+    title: 'Component docs',
     description:
-      "Comprehensive documentation with live examples and code snippets",
-    href: "/docs",
+      'Comprehensive documentation with live examples and code snippets',
+    href: '/docs',
   },
   {
     icon: BookOpen,
-    title: "Getting started",
-    description: "Guides for designers and developers",
-    href: "/docs/getting-started",
+    title: 'Getting started',
+    description: 'Guides for designers and developers',
+    href: '/docs/getting-started',
   },
 ];
 
@@ -188,7 +188,7 @@ export default function Home() {
                   key={feature.title}
                   variants={itemVariants}
                   whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
                 >
                   <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
                     <Link href={feature.href}>

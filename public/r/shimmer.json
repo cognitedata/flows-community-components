@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shimmer",
+  "type": "registry:component",
+  "title": "Shimmer",
+  "description": "AI shimmer loading effect component.",
+  "files": [
+    {
+      "path": "src/components/ui/cognite/shimmer.tsx",
+      "content": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\nimport { motion } from \"motion/react\";\nimport { type CSSProperties, type ElementType, memo, useMemo } from \"react\";\n\nexport type TextShimmerProps = {\n  children: string;\n  as?: ElementType;\n  className?: string;\n  duration?: number;\n  spread?: number;\n};\n\n// Pre-create commonly used motion components outside of render\nconst MotionP = motion.p;\nconst MotionSpan = motion.span;\nconst MotionDiv = motion.div;\nconst MotionH1 = motion.h1;\nconst MotionH2 = motion.h2;\nconst MotionH3 = motion.h3;\n\n// Map of component types to their motion equivalents\nconst motionComponentMap = {\n  p: MotionP,\n  span: MotionSpan,\n  div: MotionDiv,\n  h1: MotionH1,\n  h2: MotionH2,\n  h3: MotionH3,\n} as const;\n\nconst ShimmerComponent = ({\n  children,\n  as: Component = \"p\",\n  className,\n  duration = 2,\n  spread = 2,\n}: TextShimmerProps) => {\n  // Use pre-created motion component or fallback to motion.p\n  const MotionComponent =\n    motionComponentMap[Component as keyof typeof motionComponentMap] ||\n    MotionP;\n\n  const dynamicSpread = useMemo(\n    () => (children?.length ?? 0) * spread,\n    [children, spread]\n  );\n\n  return (\n    <MotionComponent\n      animate={{ backgroundPosition: \"0% center\" }}\n      className={cn(\n        \"relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent\",\n        \"[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]\",\n        className\n      )}\n      initial={{ backgroundPosition: \"100% center\" }}\n      style={\n        {\n          \"--spread\": `${dynamicSpread}px`,\n          backgroundImage:\n            \"var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))\",\n        } as CSSProperties\n      }\n      transition={{\n        repeat: Number.POSITIVE_INFINITY,\n        duration,\n        ease: \"linear\",\n      }}\n    >\n      {children}\n    </MotionComponent>\n  );\n};\n\nexport const Shimmer = memo(ShimmerComponent);\n",
+      "type": "registry:component"
+    }
+  ]
+}
