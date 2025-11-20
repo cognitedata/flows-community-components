@@ -27,9 +27,9 @@ const avatarVariants = cva(
           'bg-secondary-50 text-secondary-600 hover:bg-secondary-100 dark:bg-secondary-900 dark:text-overflow-300 dark:hover:bg-secondary-800',
       },
       sizes: {
-        default: 'size-9 text-sm [&_svg]:w-[17.5px] [&_svg]:h-[17.5px]',
-        xsm: 'size-7 text-xs  [&_svg]:w-[14px] [&_svg]:h-[14px]',
-        xxsm: 'size-5 text-[10px] [&_svg]:w-[10.5px] [&_svg]:h-[10.5px]',
+        default: 'size-9 text-sm avatar-icon-default',
+        xsm: 'size-7 text-xs avatar-icon-sm',
+        xxsm: 'size-5 text-2xs avatar-icon-xs',
       },
     },
     defaultVariants: {
