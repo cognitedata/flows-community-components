@@ -102,9 +102,9 @@ export function BasicArtifactDemo() {
       </ArtifactHeader>
       <ArtifactContent>
         <pre className="text-sm">
-{`function greet(name: string) {
-  return \`Hello, \${name}!\`;
-}`}
+{\`function greet(name: string) {
+  return \\\`Hello, \\\${name}!\`;
+}\`}
         </pre>
       </ArtifactContent>
     </Artifact>

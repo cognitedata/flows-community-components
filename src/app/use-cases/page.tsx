@@ -13,10 +13,10 @@ import {
   IconCalendar as Calendar,
   IconChartBar as BarChart3,
   IconFileText as FileText,
-  IconMessageSquare as MessageSquare,
+  IconMessage as MessageSquare,
   IconShoppingBag as ShoppingBag,
   IconUsers as Users,
-  IconZap as Zap,
+  IconBolt as Zap,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 

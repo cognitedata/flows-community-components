@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import {
   IconColumns as Columns,
-  IconGrid as Grid,
+  IconLayoutGrid as Grid,
   IconLayoutSidebar as Layout,
   IconDeviceDesktop as Monitor,
   IconDeviceMobile as Smartphone,
