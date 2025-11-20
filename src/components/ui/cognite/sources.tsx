@@ -6,7 +6,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/cognite/collapsible';
 import { cn } from '@/lib/utils';
-import { BookIcon, ChevronDownIcon } from 'lucide-react';
+import { IconBook, IconChevronDown } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 
 export type SourcesProps = ComponentProps<'div'>;
@@ -35,7 +35,7 @@ export const SourcesTrigger = ({
     {children ?? (
       <>
         <p className="font-medium">Used {count} sources</p>
-        <ChevronDownIcon className="h-4 w-4" />
+        <IconChevronDown className="h-4 w-4" />
       </>
     )}
   </CollapsibleTrigger>
@@ -69,7 +69,7 @@ export const Source = ({ href, title, children, ...props }: SourceProps) => (
   >
     {children ?? (
       <>
-        <BookIcon className="h-4 w-4" />
+        <IconBook className="h-4 w-4" />
         <span className="block font-medium">{title}</span>
       </>
     )}
