@@ -1,5 +1,6 @@
 'use client';
 
+import { Badge } from '@/components/ui/cognite/badge';
 import {
   Carousel,
   type CarouselApi,
@@ -63,7 +64,7 @@ export const InlineCitationCard = (props: InlineCitationCardProps) => (
   <HoverCard closeDelay={0} openDelay={0} {...props} />
 );
 
-export type InlineCitationCardTriggerProps = ComponentProps<'span'> & {
+export type InlineCitationCardTriggerProps = ComponentProps<typeof Badge> & {
   sources: string[];
   icon?: ComponentType<{ className?: string }>;
 };
@@ -75,7 +76,7 @@ export const InlineCitationCardTrigger = ({
   ...props
 }: InlineCitationCardTriggerProps) => (
   <HoverCardTrigger asChild>
-    <span
+    <Badge
       className={cn(
         'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-[color,box-shadow]',
         '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
@@ -92,7 +93,7 @@ export const InlineCitationCardTrigger = ({
       ) : (
         'unknown'
       )}
-    </span>
+    </Badge>
   </HoverCardTrigger>
 );
 
