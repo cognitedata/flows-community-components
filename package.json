@@ -18,6 +18,10 @@
     "registry:build-all": "tsx scripts/build-registry.ts --all && npm run registry:clean && shadcn build",
     "registry:clean": "rm -rf public/r && mkdir -p public/r"
   },
+  "imports": {
+    "#aura/*": "./src/components/ui/cognite/*.tsx",
+    "#common/*": "./src/common/*.ts"
+  },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.69",
     "@ai-sdk/react": "^2.0.97",

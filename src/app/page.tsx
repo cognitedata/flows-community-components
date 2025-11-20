@@ -23,7 +23,6 @@ import { motion } from 'framer-motion';
 import {
   ArrowRight,
   ChevronDown,
-  FileText,
   Sparkles,
   Terminal,
   Settings,
@@ -45,15 +44,9 @@ const newProjectSteps: Step[] = [
   {
     icon: Terminal,
     title: 'Create your project',
-    description: 'Start with a new Next.js project or use your existing one',
-    code: 'npx cognite-create@latest',
-  },
-  {
-    icon: FileText,
-    title: 'Set up environment variables',
     description:
-      'Copy or create a .env file and add the environment variables from .env.example and configure them for your project',
-    code: 'touch .env',
+      'Start with a new Next.js project. You can name your project by appending the name to the command (e.g. my-app), or use "." to create it in the current directory.',
+    code: 'npx cognite-create@latest',
   },
   {
     icon: Sparkles,
@@ -65,12 +58,18 @@ const newProjectSteps: Step[] = [
 
 const existingProjectSteps: Step[] = [
   {
+    icon: Terminal,
+    title: 'Initialize shadcn',
+    description: "If you haven't already, initialize shadcn-ui in your project",
+    code: 'npx shadcn@latest init',
+  },
+  {
     icon: Settings,
     title: 'Configure registry',
     description: 'Add the Aura registry to your components.json file',
     code: `{
   "registries": {
-    "@aura": "https://aura.cognite.com/r"
+    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
   }
 }`,
     language: 'json',
