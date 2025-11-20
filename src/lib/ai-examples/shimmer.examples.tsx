@@ -1,5 +1,5 @@
-import { Shimmer } from "@/components/ai-elements/cognite/shimmer";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+import { Shimmer } from '@/components/ui/cognite/shimmer';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicShimmerDemo() {
   return (
@@ -14,10 +14,10 @@ function BasicShimmerDemo() {
 
 export const shimmerExamples: ComponentExamples = {
   basic: {
-    title: "Shimmer Loading Effect",
-    description: "Animated shimmer effect for loading states",
+    title: 'Shimmer Loading Effect',
+    description: 'Animated shimmer effect for loading states',
     component: BasicShimmerDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Shimmer } from "@/components/ai-elements/cognite/shimmer"
 
 export function BasicShimmerDemo() {
@@ -30,7 +30,8 @@ export function BasicShimmerDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const shimmerMeta = {
-  name: "Shimmer",
-  description: "An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.",
-  importPath: "@/components/ai-elements/cognite/shimmer",
+  name: 'Shimmer',
+  description:
+    'An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.',
+  importPath: '@/components/ai-elements/cognite/shimmer',
 };

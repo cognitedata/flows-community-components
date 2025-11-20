@@ -6,7 +6,7 @@
   "description": "Topbar component.",
   "files": [
     {
-      "path": "src/components/ui/draft/topbar.tsx",
+      "path": "src/components/ui/cognite/topbar.tsx",
       "content": "// Custom component - Topbar\n// TODO: Implement topbar component\n",
       "type": "registry:component"
     }

@@ -6,20 +6,11 @@ alwaysApply: true
 
 Package Manager: pnpm
 
+Run pnpm lint after every change.
+
 Use the ShadCN MCP server to list the Cognite registry for components you can use. If there are no Cognite components fit for purpose, fallback to ShadCN registry ones. When building from reference, make sure to include all components in the reference material in your final build. Do not edit the styling of Cognite components.
 
 Always use semantic Tailwind color classes (e.g., bg-primary, text-primary, border-primary) instead of arbitrary color values (e.g., bg-blue-600, text-red-500). This ensures consistency with the design system.
-
-Layout & Components
-Make sure to put the components together in a cohesive manner.
-Make sure to properly handle x and y values to proper scales.
-Make sure you are properly handling timezoned dates.
-
-Chart Rendering Rules
-Use direct hex colors: Avoid CSS variables like var(--color-\*) in stroke properties
-Make sure charts have properly formatted value properties to display data.
-Use real Cognite data from the SDK.
-Be really careful with x chart values and make sure you are rendering them correctly. Keep consistent with date and timestamp formatting as this can cause rendering issues.
 
 CogniteSDK Rules
 
@@ -29,12 +20,12 @@ Environment Variables
 
 # Cognite Configuration
 
-COGNITE_PROJECT=
-COGNITE_BASE_URL=
+VITE_COGNITE_PROJECT=
+VITE_COGNITE_BASE_URL=
 
 # OIDC Authentication (Required for production)
 
-COGNITE_CLIENT_ID=
+VITE_COGNITE_CLIENT_ID=
 
 SDK Usage
 

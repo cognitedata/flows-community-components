@@ -1,57 +1,57 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import {
-  Monitor,
-  Tablet,
-  Smartphone,
-  Grid,
-  Layout,
-  Columns,
-} from "lucide-react";
-import { Button } from "@/components/ui/cognite/button";
+  IconColumns as Columns,
+  IconLayoutGrid as Grid,
+  IconLayoutSidebar as Layout,
+  IconDeviceDesktop as Monitor,
+  IconDeviceMobile as Smartphone,
+  IconDeviceTablet as Tablet,
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from '@/components/ui/cognite/card';
 
 const breakpoints = [
-  { name: "Mobile", icon: Smartphone, width: "375px", minWidth: "320px" },
-  { name: "Tablet", icon: Tablet, width: "768px", minWidth: "768px" },
-  { name: "Desktop", icon: Monitor, width: "1200px", minWidth: "1024px" },
+  { name: 'Mobile', icon: Smartphone, width: '375px', minWidth: '320px' },
+  { name: 'Tablet', icon: Tablet, width: '768px', minWidth: '768px' },
+  { name: 'Desktop', icon: Monitor, width: '1200px', minWidth: '1024px' },
 ];
 
 const layoutPatterns = [
   {
-    name: "Grid layout",
+    name: 'Grid layout',
     icon: Grid,
-    description: "Flexible grid system for complex layouts",
-    cols: "grid-cols-3",
+    description: 'Flexible grid system for complex layouts',
+    cols: 'grid-cols-3',
     preview: [
-      "col-span-2",
-      "col-span-1",
-      "col-span-1",
-      "col-span-2",
-      "col-span-3",
+      'col-span-2',
+      'col-span-1',
+      'col-span-1',
+      'col-span-2',
+      'col-span-3',
     ],
   },
   {
-    name: "Sidebar layout",
+    name: 'Sidebar layout',
     icon: Layout,
-    description: "Fixed sidebar with main content area",
-    cols: "grid-cols-4",
-    preview: ["col-span-1", "col-span-3"],
+    description: 'Fixed sidebar with main content area',
+    cols: 'grid-cols-4',
+    preview: ['col-span-1', 'col-span-3'],
   },
   {
-    name: "Column layout",
+    name: 'Column layout',
     icon: Columns,
-    description: "Multi-column content organization",
-    cols: "grid-cols-2",
-    preview: ["col-span-1", "col-span-1", "col-span-1", "col-span-1"],
+    description: 'Multi-column content organization',
+    cols: 'grid-cols-2',
+    preview: ['col-span-1', 'col-span-1', 'col-span-1', 'col-span-1'],
   },
 ];
 
@@ -79,7 +79,7 @@ function ResponsiveDemo({
               <Button
                 key={bp.name}
                 size="sm"
-                variant={activeBreakpoint === index ? "default" : "outline"}
+                variant={activeBreakpoint === index ? 'default' : 'outline'}
                 onClick={() => setActiveBreakpoint(index)}
               >
                 <bp.icon className="h-4 w-4" />
@@ -91,7 +91,7 @@ function ResponsiveDemo({
       <CardContent>
         <div className="border rounded-lg p-4 bg-muted/30">
           <div className="text-xs text-muted-foreground mb-2 text-center">
-            {breakpoints[activeBreakpoint].name} -{" "}
+            {breakpoints[activeBreakpoint].name} -{' '}
             {breakpoints[activeBreakpoint].width}
           </div>
           <motion.div
@@ -103,11 +103,11 @@ function ResponsiveDemo({
             style={{
               width:
                 activeBreakpoint === 0
-                  ? "375px"
+                  ? '375px'
                   : activeBreakpoint === 1
-                  ? "600px"
-                  : "800px",
-              maxWidth: "100%",
+                    ? '600px'
+                    : '800px',
+              maxWidth: '100%',
             }}
           >
             {children}
@@ -243,7 +243,7 @@ export default function LayoutsPage() {
                       </div>
                     </div>
                     <div className="hidden md:flex space-x-4">
-                      {["Home", "About", "Contact"].map((item) => (
+                      {['Home', 'About', 'Contact'].map((item) => (
                         <div
                           key={item}
                           className="text-sm px-2 py-1 bg-muted rounded"

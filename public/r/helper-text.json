@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "helper-text",
+  "type": "registry:component",
+  "title": "Helper Text",
+  "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
+  "dependencies": [
+    "@tabler/icons-react"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/cognite/helper-text.tsx",
+      "content": "import * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { IconExclamationCircle } from \"@tabler/icons-react\";\n\nexport interface HelperTextProps extends React.HTMLAttributes<HTMLDivElement> {\n  isError?: boolean;\n}\n\nfunction HelperText({ \n  className, \n  isError = false,\n  children,\n  ...props \n}: HelperTextProps) {\n  return (\n    <div \n      className={cn(\n        \"flex flex-row gap-1 justify-start items-center\",\n        className\n      )}\n      {...props}\n    >\n      {isError && (\n        <IconExclamationCircle className=\"text-destructive-foreground text-sm size-4 flex-shrink-0\" />\n      )}\n      <span className={cn(\n        \"text-sm leading-18 tracking-tight\",\n        isError ? \"text-destructive-foreground\" : \"text-muted-foreground\"\n      )}>\n        {children}\n      </span>\n    </div>\n  );\n}\n\nexport { HelperText };\n\n",
+      "type": "registry:component"
+    }
+  ]
+}

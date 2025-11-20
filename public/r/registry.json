@@ -14,7 +14,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/accordion.tsx",
+          "path": "src/components/ui/cognite/accordion.tsx",
           "type": "registry:component"
         }
       ]
@@ -26,7 +26,7 @@
       "description": "Alert component.",
       "files": [
         {
-          "path": "src/components/ui/draft/alert.tsx",
+          "path": "src/components/ui/cognite/alert.tsx",
           "type": "registry:component"
         }
       ]
@@ -44,7 +44,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/alert-dialog.tsx",
+          "path": "src/components/ui/cognite/alert-dialog.tsx",
           "type": "registry:component"
         }
       ]
@@ -56,7 +56,7 @@
       "description": "Avatar component.",
       "files": [
         {
-          "path": "src/components/ui/draft/avatar.tsx",
+          "path": "src/components/ui/cognite/avatar.tsx",
           "type": "registry:component"
         }
       ]
@@ -84,7 +84,7 @@
       "description": "Breadcrumb component.",
       "files": [
         {
-          "path": "src/components/ui/draft/breadcrumb.tsx",
+          "path": "src/components/ui/cognite/breadcrumb.tsx",
           "type": "registry:component"
         }
       ]
@@ -100,7 +100,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/button.tsx",
+          "path": "src/components/ui/cognite/button.tsx",
           "type": "registry:component"
         }
       ]
@@ -119,7 +119,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/calendar.tsx",
+          "path": "src/components/ui/cognite/calendar.tsx",
           "type": "registry:component"
         }
       ]
@@ -131,7 +131,7 @@
       "description": "A flexible card layout with header, content, action, and footer slots.",
       "files": [
         {
-          "path": "src/components/ui/draft/card.tsx",
+          "path": "src/components/ui/cognite/card.tsx",
           "type": "registry:component"
         }
       ]
@@ -143,7 +143,7 @@
       "description": "Chart component.",
       "files": [
         {
-          "path": "src/components/ui/draft/chart.tsx",
+          "path": "src/components/ui/cognite/chart.tsx",
           "type": "registry:component"
         }
       ]
@@ -159,7 +159,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/checkbox.tsx",
+          "path": "src/components/ui/cognite/checkbox.tsx",
           "type": "registry:component"
         }
       ]
@@ -171,7 +171,7 @@
       "description": "Collapsible component.",
       "files": [
         {
-          "path": "src/components/ui/draft/collapsible.tsx",
+          "path": "src/components/ui/cognite/collapsible.tsx",
           "type": "registry:component"
         }
       ]
@@ -183,7 +183,7 @@
       "description": "Combobox component.",
       "files": [
         {
-          "path": "src/components/ui/draft/combobox.tsx",
+          "path": "src/components/ui/cognite/combobox.tsx",
           "type": "registry:component"
         }
       ]
@@ -195,7 +195,7 @@
       "description": "Command component.",
       "files": [
         {
-          "path": "src/components/ui/draft/command.tsx",
+          "path": "src/components/ui/cognite/command.tsx",
           "type": "registry:component"
         }
       ]
@@ -207,7 +207,7 @@
       "description": "Context Menu component.",
       "files": [
         {
-          "path": "src/components/ui/draft/context-menu.tsx",
+          "path": "src/components/ui/cognite/context-menu.tsx",
           "type": "registry:component"
         }
       ]
@@ -219,7 +219,7 @@
       "description": "Date Picker component.",
       "files": [
         {
-          "path": "src/components/ui/draft/date-picker.tsx",
+          "path": "src/components/ui/cognite/date-picker.tsx",
           "type": "registry:component"
         }
       ]
@@ -235,7 +235,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/dialog.tsx",
+          "path": "src/components/ui/cognite/dialog.tsx",
           "type": "registry:component"
         }
       ]
@@ -247,7 +247,7 @@
       "description": "Drawer component.",
       "files": [
         {
-          "path": "src/components/ui/draft/drawer.tsx",
+          "path": "src/components/ui/cognite/drawer.tsx",
           "type": "registry:component"
         }
       ]
@@ -263,7 +263,22 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/dropdown-menu.tsx",
+          "path": "src/components/ui/cognite/dropdown-menu.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "helper-text",
+      "type": "registry:component",
+      "title": "Helper Text",
+      "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/cognite/helper-text.tsx",
           "type": "registry:component"
         }
       ]
@@ -275,7 +290,7 @@
       "description": "A styled text input with focus, disabled, and invalid states.",
       "files": [
         {
-          "path": "src/components/ui/draft/input.tsx",
+          "path": "src/components/ui/cognite/input.tsx",
           "type": "registry:component"
         }
       ]
@@ -287,7 +302,7 @@
       "description": "Kbd component.",
       "files": [
         {
-          "path": "src/components/ui/draft/kbd.tsx",
+          "path": "src/components/ui/cognite/kbd.tsx",
           "type": "registry:component"
         }
       ]
@@ -302,7 +317,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/label.tsx",
+          "path": "src/components/ui/cognite/label.tsx",
           "type": "registry:component"
         }
       ]
@@ -314,7 +329,7 @@
       "description": "Menubar component.",
       "files": [
         {
-          "path": "src/components/ui/draft/menubar.tsx",
+          "path": "src/components/ui/cognite/menubar.tsx",
           "type": "registry:component"
         }
       ]
@@ -326,7 +341,7 @@
       "description": "Pagination component.",
       "files": [
         {
-          "path": "src/components/ui/draft/pagination.tsx",
+          "path": "src/components/ui/cognite/pagination.tsx",
           "type": "registry:component"
         }
       ]
@@ -341,7 +356,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/popover.tsx",
+          "path": "src/components/ui/cognite/popover.tsx",
           "type": "registry:component"
         }
       ]
@@ -356,7 +371,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/progress.tsx",
+          "path": "src/components/ui/cognite/progress.tsx",
           "type": "registry:component"
         }
       ]
@@ -368,7 +383,7 @@
       "description": "Radio Group component.",
       "files": [
         {
-          "path": "src/components/ui/draft/radio-group.tsx",
+          "path": "src/components/ui/cognite/radio-group.tsx",
           "type": "registry:component"
         }
       ]
@@ -380,7 +395,7 @@
       "description": "Scroll Area component.",
       "files": [
         {
-          "path": "src/components/ui/draft/scroll-area.tsx",
+          "path": "src/components/ui/cognite/scroll-area.tsx",
           "type": "registry:component"
         }
       ]
@@ -396,7 +411,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/select.tsx",
+          "path": "src/components/ui/cognite/select.tsx",
           "type": "registry:component"
         }
       ]
@@ -411,7 +426,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/separator.tsx",
+          "path": "src/components/ui/cognite/separator.tsx",
           "type": "registry:component"
         }
       ]
@@ -427,7 +442,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/sheet.tsx",
+          "path": "src/components/ui/cognite/sheet.tsx",
           "type": "registry:component"
         }
       ]
@@ -443,7 +458,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/sidebar.tsx",
+          "path": "src/components/ui/cognite/sidebar.tsx",
           "type": "registry:component"
         }
       ]
@@ -455,7 +470,7 @@
       "description": "Skeleton placeholders for representing loading UI states.",
       "files": [
         {
-          "path": "src/components/ui/draft/skeleton.tsx",
+          "path": "src/components/ui/cognite/skeleton.tsx",
           "type": "registry:component"
         }
       ]
@@ -467,7 +482,7 @@
       "description": "Slider component.",
       "files": [
         {
-          "path": "src/components/ui/draft/slider.tsx",
+          "path": "src/components/ui/cognite/slider.tsx",
           "type": "registry:component"
         }
       ]
@@ -479,7 +494,7 @@
       "description": "Swap Slot component.",
       "files": [
         {
-          "path": "src/components/ui/draft/swap-slot.tsx",
+          "path": "src/components/ui/cognite/swap-slot.tsx",
           "type": "registry:component"
         }
       ]
@@ -494,7 +509,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/switch.tsx",
+          "path": "src/components/ui/cognite/switch.tsx",
           "type": "registry:component"
         }
       ]
@@ -509,7 +524,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/tabs.tsx",
+          "path": "src/components/ui/cognite/tabs.tsx",
           "type": "registry:component"
         }
       ]
@@ -521,7 +536,7 @@
       "description": "A styled textarea with invalid, focus, and disabled states.",
       "files": [
         {
-          "path": "src/components/ui/draft/textarea.tsx",
+          "path": "src/components/ui/cognite/textarea.tsx",
           "type": "registry:component"
         }
       ]
@@ -533,7 +548,7 @@
       "description": "Time Input component.",
       "files": [
         {
-          "path": "src/components/ui/draft/time-input.tsx",
+          "path": "src/components/ui/cognite/time-input.tsx",
           "type": "registry:component"
         }
       ]
@@ -545,7 +560,7 @@
       "description": "Toggle component.",
       "files": [
         {
-          "path": "src/components/ui/draft/toggle.tsx",
+          "path": "src/components/ui/cognite/toggle.tsx",
           "type": "registry:component"
         }
       ]
@@ -560,7 +575,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/tooltip.tsx",
+          "path": "src/components/ui/cognite/tooltip.tsx",
           "type": "registry:component"
         }
       ]
@@ -572,7 +587,7 @@
       "description": "Topbar component.",
       "files": [
         {
-          "path": "src/components/ui/draft/topbar.tsx",
+          "path": "src/components/ui/cognite/topbar.tsx",
           "type": "registry:component"
         }
       ]
@@ -591,7 +606,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/carousel.tsx",
+          "path": "src/components/ui/cognite/carousel.tsx",
           "type": "registry:component"
         }
       ]
@@ -606,7 +621,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/draft/hover-card.tsx",
+          "path": "src/components/ui/cognite/hover-card.tsx",
           "type": "registry:component"
         }
       ]
@@ -618,7 +633,7 @@
       "description": "Input group component for grouped inputs with addons.",
       "files": [
         {
-          "path": "src/components/ui/draft/input-group.tsx",
+          "path": "src/components/ui/cognite/input-group.tsx",
           "type": "registry:component"
         }
       ]
@@ -637,7 +652,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/draft/actions.tsx",
+          "path": "src/components/ui/cognite/actions.tsx",
           "type": "registry:component"
         }
       ]
@@ -649,7 +664,7 @@
       "description": "AI artifact component for displaying generated content.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/artifact.tsx",
+          "path": "src/components/ui/cognite/artifact.tsx",
           "type": "registry:component"
         }
       ]
@@ -661,7 +676,7 @@
       "description": "AI conversation branch component.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/branch.tsx",
+          "path": "src/components/ui/cognite/branch.tsx",
           "type": "registry:component"
         }
       ]
@@ -673,7 +688,7 @@
       "description": "AI canvas component for drawing and visualization.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/canvas.tsx",
+          "path": "src/components/ui/cognite/canvas.tsx",
           "type": "registry:component"
         }
       ]
@@ -685,7 +700,7 @@
       "description": "AI chain of thought component for displaying reasoning steps.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/chain-of-thought.tsx",
+          "path": "src/components/ui/cognite/chain-of-thought.tsx",
           "type": "registry:component"
         }
       ]
@@ -703,7 +718,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/draft/code-block.tsx",
+          "path": "src/components/ui/cognite/code-block.tsx",
           "type": "registry:component"
         }
       ]
@@ -718,7 +733,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/draft/confirmation.tsx",
+          "path": "src/components/ui/cognite/confirmation.tsx",
           "type": "registry:component"
         }
       ]
@@ -730,7 +745,7 @@
       "description": "AI connection component for flow diagrams.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/connection.tsx",
+          "path": "src/components/ui/cognite/connection.tsx",
           "type": "registry:component"
         }
       ]
@@ -742,7 +757,7 @@
       "description": "AI context component for displaying context information.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/context.tsx",
+          "path": "src/components/ui/cognite/context.tsx",
           "type": "registry:component"
         }
       ]
@@ -754,7 +769,7 @@
       "description": "AI controls component for interface controls.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/controls.tsx",
+          "path": "src/components/ui/cognite/controls.tsx",
           "type": "registry:component"
         }
       ]
@@ -773,7 +788,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/draft/conversation.tsx",
+          "path": "src/components/ui/cognite/conversation.tsx",
           "type": "registry:component"
         }
       ]
@@ -785,7 +800,7 @@
       "description": "AI edge component for flow diagrams.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/edge.tsx",
+          "path": "src/components/ui/cognite/edge.tsx",
           "type": "registry:component"
         }
       ]
@@ -797,7 +812,7 @@
       "description": "AI image component for displaying generated images.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/image.tsx",
+          "path": "src/components/ui/cognite/image.tsx",
           "type": "registry:component"
         }
       ]
@@ -809,7 +824,7 @@
       "description": "AI inline citation component for source references.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/inline-citation.tsx",
+          "path": "src/components/ui/cognite/inline-citation.tsx",
           "type": "registry:component"
         }
       ]
@@ -821,7 +836,7 @@
       "description": "AI loader component for loading states.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/loader.tsx",
+          "path": "src/components/ui/cognite/loader.tsx",
           "type": "registry:component"
         }
       ]
@@ -839,7 +854,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/draft/message.tsx",
+          "path": "src/components/ui/cognite/message.tsx",
           "type": "registry:component"
         }
       ]
@@ -851,7 +866,7 @@
       "description": "AI node component for flow diagrams.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/node.tsx",
+          "path": "src/components/ui/cognite/node.tsx",
           "type": "registry:component"
         }
       ]
@@ -863,7 +878,7 @@
       "description": "AI open in chat component.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/open-in-chat.tsx",
+          "path": "src/components/ui/cognite/open-in-chat.tsx",
           "type": "registry:component"
         }
       ]
@@ -875,7 +890,7 @@
       "description": "AI panel component for side panels.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/panel.tsx",
+          "path": "src/components/ui/cognite/panel.tsx",
           "type": "registry:component"
         }
       ]
@@ -887,7 +902,7 @@
       "description": "AI plan component for displaying execution plans.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/plan.tsx",
+          "path": "src/components/ui/cognite/plan.tsx",
           "type": "registry:component"
         }
       ]
@@ -903,7 +918,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/draft/prompt-input.tsx",
+          "path": "src/components/ui/cognite/prompt-input.tsx",
           "type": "registry:component"
         }
       ]
@@ -915,7 +930,7 @@
       "description": "AI queue component for managing task queues.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/queue.tsx",
+          "path": "src/components/ui/cognite/queue.tsx",
           "type": "registry:component"
         }
       ]
@@ -927,7 +942,7 @@
       "description": "AI reasoning component for displaying reasoning processes.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/reasoning.tsx",
+          "path": "src/components/ui/cognite/reasoning.tsx",
           "type": "registry:component"
         }
       ]
@@ -939,7 +954,7 @@
       "description": "AI response component for displaying AI responses.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/response.tsx",
+          "path": "src/components/ui/cognite/response.tsx",
           "type": "registry:component"
         }
       ]
@@ -951,7 +966,7 @@
       "description": "AI shimmer loading effect component.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/shimmer.tsx",
+          "path": "src/components/ui/cognite/shimmer.tsx",
           "type": "registry:component"
         }
       ]
@@ -963,7 +978,7 @@
       "description": "AI sources component for displaying source references.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/sources.tsx",
+          "path": "src/components/ui/cognite/sources.tsx",
           "type": "registry:component"
         }
       ]
@@ -978,7 +993,7 @@
       ],
       "files": [
         {
-          "path": "src/components/ai-elements/draft/suggestion.tsx",
+          "path": "src/components/ui/cognite/suggestion.tsx",
           "type": "registry:component"
         }
       ]
@@ -990,7 +1005,7 @@
       "description": "AI task component for displaying tasks.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/task.tsx",
+          "path": "src/components/ui/cognite/task.tsx",
           "type": "registry:component"
         }
       ]
@@ -1002,7 +1017,7 @@
       "description": "AI tool component for displaying tool calls.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/tool.tsx",
+          "path": "src/components/ui/cognite/tool.tsx",
           "type": "registry:component"
         }
       ]
@@ -1014,19 +1029,7 @@
       "description": "AI toolbar component.",
       "files": [
         {
-          "path": "src/components/ai-elements/draft/toolbar.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "web-preview",
-      "type": "registry:component",
-      "title": "Web Preview",
-      "description": "AI web preview component for displaying web content.",
-      "files": [
-        {
-          "path": "src/components/ai-elements/draft/web-preview.tsx",
+          "path": "src/components/ui/cognite/toolbar.tsx",
           "type": "registry:component"
         }
       ]

@@ -6,7 +6,7 @@
   "description": "AI toolbar component.",
   "files": [
     {
-      "path": "src/components/ai-elements/draft/toolbar.tsx",
+      "path": "src/components/ui/cognite/toolbar.tsx",
       "content": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\nimport { NodeToolbar, Position } from \"@xyflow/react\";\nimport type { ComponentProps } from \"react\";\n\ntype ToolbarProps = ComponentProps<typeof NodeToolbar>;\n\nexport const Toolbar = ({ className, ...props }: ToolbarProps) => (\n  <NodeToolbar\n    className={cn(\n      \"flex items-center gap-1 rounded-sm border bg-background p-1.5\",\n      className\n    )}\n    position={Position.Bottom}\n    {...props}\n  />\n);\n",
       "type": "registry:component"
     }
