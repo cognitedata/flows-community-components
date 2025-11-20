@@ -1,5 +1,11 @@
-import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from "@/components/ai-elements/cognite/tool";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+import {
+  Tool,
+  ToolHeader,
+  ToolContent,
+  ToolInput,
+  ToolOutput,
+} from '@/components/ui/cognite/tool';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicToolDemo() {
   return (
@@ -10,7 +16,7 @@ function BasicToolDemo() {
         state="output-available"
       />
       <ToolContent>
-        <ToolInput input={{ path: "/example/file.txt" }} />
+        <ToolInput input={{ path: '/example/file.txt' }} />
         <ToolOutput output="File created successfully" errorText={undefined} />
       </ToolContent>
     </Tool>
@@ -26,7 +32,7 @@ function RunningToolDemo() {
         state="input-available"
       />
       <ToolContent>
-        <ToolInput input={{ url: "https://api.example.com/data" }} />
+        <ToolInput input={{ url: 'https://api.example.com/data' }} />
       </ToolContent>
     </Tool>
   );
@@ -34,10 +40,10 @@ function RunningToolDemo() {
 
 export const toolExamples: ComponentExamples = {
   basic: {
-    title: "Basic Tool",
-    description: "Tool execution with input and output",
+    title: 'Basic Tool',
+    description: 'Tool execution with input and output',
     component: BasicToolDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from "@/components/ai-elements/cognite/tool"
 
 export function BasicToolDemo() {
@@ -58,10 +64,10 @@ export function BasicToolDemo() {
   },
 
   running: {
-    title: "Running Tool",
+    title: 'Running Tool',
     description: "Tool that's currently executing",
     component: RunningToolDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Tool, ToolHeader, ToolContent, ToolInput } from "@/components/ai-elements/cognite/tool"
 
 export function RunningToolDemo() {
@@ -83,7 +89,8 @@ export function RunningToolDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const toolMeta = {
-  name: "Tool",
-  description: "A collapsible component for displaying tool invocation details in AI chatbot interfaces.",
-  importPath: "@/components/ai-elements/cognite/tool",
+  name: 'Tool',
+  description:
+    'A collapsible component for displaying tool invocation details in AI chatbot interfaces.',
+  importPath: '@/components/ai-elements/cognite/tool',
 };

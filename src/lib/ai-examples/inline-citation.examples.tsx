@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   InlineCitation,
@@ -10,26 +10,28 @@ import {
   InlineCitationCarouselHeader,
   InlineCitationCarouselIndex,
   InlineCitationCarouselItem,
+  InlineCitationCarouselNext,
+  InlineCitationCarouselPrev,
   InlineCitationSource,
-} from "@/components/ai-elements/cognite/inline-citation";
+} from '@/components/ui/cognite/inline-citation';
 import {
   IconAt,
   IconFile,
   IconPhoto,
   IconTimeline,
-} from "@tabler/icons-react";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@tabler/icons-react';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function CitationDemo() {
   const source = {
-    url: "https://example.com/research",
-    title: "Research Findings",
+    url: 'https://example.com/research',
+    title: 'Research Findings',
   };
 
   return (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
       <p>
-        Recent research has demonstrated promising results.{" "}
+        Recent research has demonstrated promising results.{' '}
         <InlineCitation>
           <InlineCitationCard>
             <InlineCitationCardTrigger sources={[source.url]} />
@@ -56,23 +58,23 @@ function CitationDemo() {
 function CitationsWithIconsDemo() {
   const sources = [
     {
-      url: "https://example.com/documentation.pdf",
-      title: "Documentation",
+      url: 'https://example.com/documentation.pdf',
+      title: 'Documentation',
       icon: IconFile,
     },
     {
-      url: "https://example.com/image/image1.jpg",
-      title: "Image",
+      url: 'https://example.com/image/image1.jpg',
+      title: 'Image',
       icon: IconPhoto,
     },
     {
-      url: "https://example.com/user/example",
-      title: "User",
+      url: 'https://example.com/user/example',
+      title: 'User',
       icon: IconAt,
     },
     {
-      url: "https://example.com/chart/timeline",
-      title: "Timeline Chart",
+      url: 'https://example.com/chart/timeline',
+      title: 'Timeline Chart',
       icon: IconTimeline,
     },
   ];
@@ -87,6 +89,8 @@ function CitationsWithIconsDemo() {
               <InlineCitationCardBody>
                 <InlineCitationCarousel>
                   <InlineCitationCarouselHeader>
+                    <InlineCitationCarouselPrev />
+                    <InlineCitationCarouselNext />
                     <InlineCitationCarouselIndex />
                   </InlineCitationCarouselHeader>
                   <InlineCitationCarouselContent>
@@ -106,10 +110,10 @@ function CitationsWithIconsDemo() {
 
 export const inlineCitationExamples: ComponentExamples = {
   citation: {
-    title: "Citation",
-    description: "Citation with a hover overlay",
+    title: 'Citation',
+    description: 'Citation with a hover overlay',
     component: CitationDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `"use client"
 import {
   InlineCitation,
@@ -121,8 +125,10 @@ import {
   InlineCitationCarouselHeader,
   InlineCitationCarouselIndex,
   InlineCitationCarouselItem,
+  InlineCitationCarouselNext,
+  InlineCitationCarouselPrev,
   InlineCitationSource,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "@/components/ui/cognite/inline-citation"
 
 export function CitationDemo() {
   const source = {
@@ -140,6 +146,8 @@ export function CitationDemo() {
             <InlineCitationCardBody>
               <InlineCitationCarousel>
                 <InlineCitationCarouselHeader>
+                  <InlineCitationCarouselPrev />
+                  <InlineCitationCarouselNext />
                   <InlineCitationCarouselIndex />
                 </InlineCitationCarouselHeader>
                 <InlineCitationCarouselContent>
@@ -158,11 +166,11 @@ export function CitationDemo() {
 }`,
   },
 
-  "with-icons": {
-    title: "Citations with Icons",
-    description: "Citations with icons to represent different source types",
+  'with-icons': {
+    title: 'Citations with Icons',
+    description: 'Citations with icons to represent different source types',
     component: CitationsWithIconsDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `"use client"
 import {
   InlineCitation,
@@ -174,9 +182,16 @@ import {
   InlineCitationCarouselHeader,
   InlineCitationCarouselIndex,
   InlineCitationCarouselItem,
+  InlineCitationCarouselNext,
+  InlineCitationCarouselPrev,
   InlineCitationSource,
-} from "@/components/ai-elements/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline } from "@tabler/icons-react"
+} from "@/components/ui/cognite/inline-citation"
+import {
+  IconAt,
+  IconFile,
+  IconPhoto,
+  IconTimeline,
+} from "@tabler/icons-react"
 
 export function CitationsWithIconsDemo() {
   const sources = [
@@ -212,6 +227,8 @@ export function CitationsWithIconsDemo() {
               <InlineCitationCardBody>
                 <InlineCitationCarousel>
                   <InlineCitationCarouselHeader>
+                    <InlineCitationCarouselPrev />
+                    <InlineCitationCarouselNext />
                     <InlineCitationCarouselIndex />
                   </InlineCitationCarouselHeader>
                   <InlineCitationCarouselContent>
@@ -233,7 +250,8 @@ export function CitationsWithIconsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const inlineCitationMeta = {
-  name: "Inline Citation",
-  description: "A hoverable citation component that displays source information and quotes inline with text, perfect for AI-generated content with references.",
-  importPath: "@/components/ai-elements/cognite/inline-citation",
+  name: 'Inline Citation',
+  description:
+    'A hoverable citation component that displays source information and quotes inline with text, perfect for AI-generated content with references.',
+  importPath: '@/components/ui/cognite/inline-citation',
 };

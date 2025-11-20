@@ -26,19 +26,20 @@ This ensures `public/r/` always matches what's in `/cognite/`, removing stale fi
 
 ### Publishing
 
-Move a component from draft to production:
+Add a new component to production:
 
 ```bash
-cp src/components/ui/draft/button.tsx src/components/ui/cognite/
+# Create component in cognite folder
+vim src/components/ui/cognite/button.tsx
 npm run registry:build
 ```
 
 ### Unpublishing
 
-Move a component back to draft:
+Remove a component from production:
 
 ```bash
-mv src/components/ui/cognite/button.tsx src/components/ui/draft/
+rm src/components/ui/cognite/button.tsx
 npm run registry:build
 ```
 

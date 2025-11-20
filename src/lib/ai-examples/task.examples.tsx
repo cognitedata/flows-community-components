@@ -3,8 +3,8 @@ import {
   TaskTrigger,
   TaskContent,
   TaskItem,
-} from "@/components/ai-elements/cognite/task";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/task';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicTaskDemo() {
   return (
@@ -38,10 +38,10 @@ function CustomTaskDemo() {
 
 export const taskExamples: ComponentExamples = {
   basic: {
-    title: "Basic Task",
-    description: "Collapsible task list with items",
+    title: 'Basic Task',
+    description: 'Collapsible task list with items',
     component: BasicTaskDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Task,
   TaskTrigger,
@@ -63,10 +63,10 @@ export function BasicTaskDemo() {
   },
 
   customTrigger: {
-    title: "Custom Trigger",
-    description: "Task with custom trigger content",
+    title: 'Custom Trigger',
+    description: 'Task with custom trigger content',
     component: CustomTaskDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Task,
   TaskTrigger,
@@ -94,7 +94,8 @@ export function CustomTaskDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const taskMeta = {
-  name: "Task",
-  description: "A collapsible task list component for displaying AI workflow progress, with status indicators and optional descriptions.",
-  importPath: "@/components/ai-elements/cognite/task",
+  name: 'Task',
+  description:
+    'A collapsible task list component for displaying AI workflow progress, with status indicators and optional descriptions.',
+  importPath: '@/components/ai-elements/cognite/task',
 };

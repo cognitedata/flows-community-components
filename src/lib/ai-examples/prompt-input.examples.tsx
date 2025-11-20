@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   PromptInput,
@@ -9,25 +9,30 @@ import {
   PromptInputFooter,
   PromptInputTools,
   type PromptInputMessage,
-} from "@/components/ai-elements/cognite/prompt-input";
-import type { ComponentExamples } from "@/lib/component-examples/types";
-import { useState, useRef } from "react";
-import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react";
-import { Button } from "@/components/ui/cognite/button";
+} from '@/components/ui/cognite/prompt-input';
+import type { ComponentExamples } from '@/lib/component-examples/types';
+import { useState, useRef } from 'react';
+import {
+  IconPaperclip,
+  IconAdjustments,
+  IconChevronDown,
+  IconMicrophone,
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/cognite/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
+} from '@/components/ui/cognite/dropdown-menu';
 
 const SUBMITTING_TIMEOUT = 200;
 const STREAMING_TIMEOUT = 2000;
 
 function BasicPromptInputDemo() {
   const [status, setStatus] = useState<
-    "submitted" | "streaming" | "ready" | "error"
-  >("ready");
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
 
   const handleSubmit = (message: PromptInputMessage) => {
     const hasText = Boolean(message.text);
@@ -37,14 +42,14 @@ function BasicPromptInputDemo() {
       return;
     }
 
-    setStatus("submitted");
+    setStatus('submitted');
 
     setTimeout(() => {
-      setStatus("streaming");
+      setStatus('streaming');
     }, SUBMITTING_TIMEOUT);
 
     setTimeout(() => {
-      setStatus("ready");
+      setStatus('ready');
     }, STREAMING_TIMEOUT);
   };
 
@@ -90,8 +95,8 @@ function BasicPromptInputDemo() {
 
 function AdvancedPromptInputDemo() {
   const [status, setStatus] = useState<
-    "submitted" | "streaming" | "ready" | "error"
-  >("ready");
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (message: PromptInputMessage) => {
@@ -102,14 +107,14 @@ function AdvancedPromptInputDemo() {
       return;
     }
 
-    setStatus("submitted");
+    setStatus('submitted');
 
     setTimeout(() => {
-      setStatus("streaming");
+      setStatus('streaming');
     }, SUBMITTING_TIMEOUT);
 
     setTimeout(() => {
-      setStatus("ready");
+      setStatus('ready');
     }, STREAMING_TIMEOUT);
   };
 
@@ -155,10 +160,10 @@ function AdvancedPromptInputDemo() {
 
 export const promptInputExamples: ComponentExamples = {
   basic: {
-    title: "Basic Prompt Input",
-    description: "AI chat input with textarea and submit button",
+    title: 'Basic Prompt Input',
+    description: 'AI chat input with textarea and submit button',
     component: BasicPromptInputDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `"use client"
 import {
   PromptInput,
@@ -231,10 +236,10 @@ export function BasicPromptInputDemo() {
   },
 
   advanced: {
-    title: "Advanced Prompt Input",
-    description: "Prompt input with ref and custom tools",
+    title: 'Advanced Prompt Input',
+    description: 'Prompt input with ref and custom tools',
     component: AdvancedPromptInputDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `"use client"
 import {
   PromptInput,
@@ -310,7 +315,8 @@ export function AdvancedPromptInputDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const promptInputMeta = {
-  name: "Prompt Input",
-  description: "Allows a user to send a message with file attachments to a large language model. It includes a textarea, file upload capabilities, a submit button, and a dropdown for selecting the model.",
-  importPath: "@/components/ai-elements/cognite/prompt-input",
+  name: 'Prompt Input',
+  description:
+    'Allows a user to send a message with file attachments to a large language model. It includes a textarea, file upload capabilities, a submit button, and a dropdown for selecting the model.',
+  importPath: '@/components/ai-elements/cognite/prompt-input',
 };

@@ -7,8 +7,8 @@ import {
   ContextContentFooter,
   ContextInputUsage,
   ContextOutputUsage,
-} from "@/components/ai-elements/cognite/context";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/context';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicContextDemo() {
   return (
@@ -50,10 +50,10 @@ function WithCustomUsageDemo() {
 
 export const contextExamples: ComponentExamples = {
   basic: {
-    title: "Basic Context Usage",
-    description: "Display token usage and context information",
+    title: 'Basic Context Usage',
+    description: 'Display token usage and context information',
     component: BasicContextDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Context,
   ContextTrigger,
@@ -78,10 +78,10 @@ export function BasicContextDemo() {
   },
 
   withUsage: {
-    title: "Detailed Usage Stats",
-    description: "Context with input/output token breakdown",
+    title: 'Detailed Usage Stats',
+    description: 'Context with input/output token breakdown',
     component: WithCustomUsageDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Context,
   ContextTrigger,
@@ -118,7 +118,8 @@ export function ContextWithUsageDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const contextMeta = {
-  name: "Context",
-  description: "A compound component system for displaying AI model context window usage, token consumption, and cost estimation.",
-  importPath: "@/components/ai-elements/cognite/context",
+  name: 'Context',
+  description:
+    'A compound component system for displaying AI model context window usage, token consumption, and cost estimation.',
+  importPath: '@/components/ai-elements/cognite/context',
 };

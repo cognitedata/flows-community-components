@@ -4,8 +4,8 @@ import {
   OpenInContent,
   OpenInChatGPT,
   OpenInClaude,
-} from "@/components/ai-elements/cognite/open-in-chat";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/open-in-chat';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicOpenInDemo() {
   return (
@@ -33,10 +33,10 @@ function WithMultipleProvidersDemo() {
 
 export const openInChatExamples: ComponentExamples = {
   basic: {
-    title: "Open in Chat",
-    description: "Dropdown to open prompts in various AI chat providers",
+    title: 'Open in Chat',
+    description: 'Dropdown to open prompts in various AI chat providers',
     component: BasicOpenInDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   OpenIn,
   OpenInTrigger,
@@ -59,10 +59,10 @@ export function BasicOpenInDemo() {
   },
 
   multipleProviders: {
-    title: "Multiple Providers",
-    description: "Open in chat with various AI service providers",
+    title: 'Multiple Providers',
+    description: 'Open in chat with various AI service providers',
     component: WithMultipleProvidersDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   OpenIn,
   OpenInTrigger,
@@ -87,7 +87,8 @@ export function MultipleProvidersDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const openInChatMeta = {
-  name: "Open In Chat",
-  description: "A dropdown menu for opening queries in various AI chat platforms including ChatGPT, Claude, T3, Scira, and v0.",
-  importPath: "@/components/ai-elements/cognite/open-in-chat",
+  name: 'Open In Chat',
+  description:
+    'A dropdown menu for opening queries in various AI chat platforms including ChatGPT, Claude, T3, Scira, and v0.',
+  importPath: '@/components/ai-elements/cognite/open-in-chat',
 };
