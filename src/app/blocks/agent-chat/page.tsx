@@ -19,7 +19,7 @@ import {
   IconCopy as Copy,
   IconDots as MoreHorizontal,
   IconEdit as Edit,
-  IconMessageSquare as MessageSquare,
+  IconMessage as MessageSquare,
   IconRefresh as RefreshCw,
   IconSend as Send,
   IconShare as Share,
