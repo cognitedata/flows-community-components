@@ -7,24 +7,24 @@ import {
   BannerAction,
 } from '@/components/ui/cognite/banner';
 import type { ComponentExamples } from './types';
-import { IconInfoCircle, IconCopy } from '@tabler/icons-react';
+import { IconCopy as Copy, IconInfoCircle as Info } from '@tabler/icons-react';
 
 function VariantsDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={IconInfoCircle} />
+        <BannerIcon icon={Info} />
         <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
-            <IconCopy />
+            <Copy />
             <span>Duplicate</span>
           </BannerAction>
         </BannerActions>
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={IconInfoCircle} />
+        <BannerIcon icon={Info} />
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
@@ -39,7 +39,7 @@ function MainComponentDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={IconInfoCircle} />
+        <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -52,7 +52,7 @@ function MainComponentDemo() {
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={IconInfoCircle} />
+        <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -65,7 +65,7 @@ function MainComponentDemo() {
       </Banner>
 
       <Banner variant="destructive">
-        <BannerIcon icon={IconInfoCircle} />
+        <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -78,7 +78,7 @@ function MainComponentDemo() {
       </Banner>
 
       <Banner variant="warning">
-        <BannerIcon icon={IconInfoCircle} />
+        <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
@@ -100,34 +100,33 @@ export const bannerExamples: ComponentExamples = {
       'Different banner configurations with icons, actions, and close buttons',
     component: VariantsDemo,
     difficulty: 'beginner',
-    code: `import {
+    code: `
+import {
   Banner,
   BannerIcon,
   BannerTitle,
   BannerStatus,
   BannerActions,
   BannerAction,
-} from "@/components/ui/cognite/banner"
-import { IconInfoCircle, IconCopy } from "@tabler/icons-react"
+} from '@/components/ui/cognite/banner';
+import { IconCopy as Copy, IconInfoCircle as Info } from '@tabler/icons-react';
 
 export function VariantsDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={IconInfoCircle} />
-        <BannerTitle>
-          Read only. Duplicate to make changes.
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
-            <IconCopy />
+            <Copy />
             <span>Duplicate</span>
           </BannerAction>
         </BannerActions>
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={IconInfoCircle} />
+        <BannerIcon icon={Info} />
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
@@ -135,8 +134,9 @@ export function VariantsDemo() {
         </BannerActions>
       </Banner>
     </div>
-  )
-}`,
+  );
+}
+`,
   },
 
   mainComponent: {
@@ -144,23 +144,22 @@ export function VariantsDemo() {
     description: '',
     component: MainComponentDemo,
     difficulty: 'beginner',
-    code: `import {
+    code: `
+import {
   Banner,
   BannerIcon,
   BannerTitle,
   BannerActions,
   BannerAction,
-} from "@/components/ui/cognite/banner"
-import { IconInfoCircle } from "@tabler/icons-react"
+} from '@/components/ui/cognite/banner';
+import { IconInfoCircle as Info } from '@tabler/icons-react';
 
 export function MainComponentDemo() {
   return (
     <div className="w-full space-y-4">
       <Banner>
-        <BannerIcon icon={IconInfoCircle} />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -172,10 +171,8 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="neutral">
-        <BannerIcon icon={IconInfoCircle} />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -187,10 +184,8 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="destructive">
-        <BannerIcon icon={IconInfoCircle} />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -202,10 +197,8 @@ export function MainComponentDemo() {
       </Banner>
 
       <Banner variant="warning">
-        <BannerIcon icon={IconInfoCircle} />
-        <BannerTitle>
-          Banner title
-        </BannerTitle>
+        <BannerIcon icon={Info} />
+        <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
           <BannerAction variant="ghost">
             <span>Button</span>
@@ -216,8 +209,9 @@ export function MainComponentDemo() {
         </BannerActions>
       </Banner>
     </div>
-  )
-}`,
+  );
+}
+`,
   },
 };
 

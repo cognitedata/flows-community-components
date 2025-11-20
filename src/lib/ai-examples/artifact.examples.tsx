@@ -14,7 +14,15 @@ import {
 } from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
+const basicArtifactCodeLines = [
+  'function greet(name: string) {',
+  '  return `Hello, ${name}!`;',
+  '}',
+];
+
 function BasicArtifactDemo() {
+  const code = basicArtifactCodeLines.join('\n');
+
   return (
     <Artifact className="max-w-2xl">
       <ArtifactHeader>
@@ -26,10 +34,8 @@ function BasicArtifactDemo() {
         </ArtifactActions>
       </ArtifactHeader>
       <ArtifactContent>
-        <pre className="text-sm">
-          {`function greet(name: string) {
-  return \`Hello, \${name}!\`;
-}`}
+        <pre className="text-sm bg-muted/40 rounded-md p-3 overflow-auto">
+          <code>{code}</code>
         </pre>
       </ArtifactContent>
     </Artifact>
@@ -90,6 +96,13 @@ import {
 } from '@tabler/icons-react';
 
 export function BasicArtifactDemo() {
+  const codeLines = [
+    'function greet(name: string) {',
+    '  return \`Hello, \${name}!\`;',
+    '}',
+  ];
+  const code = codeLines.join('\\n');
+
   return (
     <Artifact className="max-w-2xl">
       <ArtifactHeader>
@@ -101,10 +114,8 @@ export function BasicArtifactDemo() {
         </ArtifactActions>
       </ArtifactHeader>
       <ArtifactContent>
-        <pre className="text-sm">
-{\`function greet(name: string) {
-  return \\\`Hello, \\\${name}!\`;
-}\`}
+        <pre className="text-sm bg-muted/40 rounded-md p-3 overflow-auto">
+          <code>{code}</code>
         </pre>
       </ArtifactContent>
     </Artifact>
