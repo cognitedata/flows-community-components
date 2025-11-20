@@ -17,42 +17,42 @@ function VariantsDemo() {
         <Badge variant="fjord">Observations</Badge>
         <Badge variant="aurora">Troubleshooting</Badge>
         <Badge variant="mountain">
-          <IconHexagon />
+          <IconHexagon size={12} />
           Plans
         </Badge>
         <Badge variant="dusk">RCA</Badge>
         <Badge variant="secondary">
-          <IconHexagon className="rotate-90" />
+          <IconHexagon className="rotate-90" size={12} />
           Asset
         </Badge>
       </div>
       <div className="flex flex-wrap gap-3">
         <Badge variant="error" background={false}>
-          <IconAlertHexagon />
+          <IconAlertHexagon size={12} />
           Error
         </Badge>
         <Badge variant="error" outline>
-          <IconAlertHexagon />
+          <IconAlertHexagon size={12} />
           Error
         </Badge>
         <Badge variant="warning" background={false}>
-          <IconAlertTriangle />
+          <IconAlertTriangle size={12} />
           Warning
         </Badge>
         <Badge variant="warning" outline>
-          <IconAlertTriangle />
+          <IconAlertTriangle size={12} />
           Warning
         </Badge>
         <Badge variant="success" background={false}>
-          <IconCircleCheck />
+          <IconCircleCheck size={12} />
           Success
         </Badge>
         <Badge variant="inProgress" background={false}>
-          <IconInnerShadowTopLeft />
+          <IconInnerShadowTopLeft size={12} />
           In progress
         </Badge>
         <Badge variant="archived" background={false}>
-          <IconArchive />
+          <IconArchive size={12} />
           Archived
         </Badge>
       </div>
@@ -63,16 +63,16 @@ function MainComponentDemo() {
   return (
     <div className="flex flex-col gap-3 items-center justify-center">
       <Badge variant="default">
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant={'closable'}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
-        <IconX />
+        <IconX size={12} />
       </Badge>
       <Badge variant="error" background={false}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant="error" dot>
@@ -104,42 +104,42 @@ export function VariantsDemo() {
         <Badge variant="fjord">Observations</Badge>
         <Badge variant="aurora">Troubleshooting</Badge>
         <Badge variant="mountain">
-          <IconHexagon />
+          <IconHexagon  size={12} />
           Plans
         </Badge>
         <Badge variant="dusk">RCA</Badge>
         <Badge variant="secondary">
-          <IconHexagon className="rotate-90" />
+          <IconHexagon className="rotate-90"  size={12} />
           Asset
         </Badge>
       </div>
       <div className="flex flex-wrap gap-3">
         <Badge variant="error" background={false}>
-          <IconAlertHexagon />
+          <IconAlertHexagon  size={12} />
           Error
         </Badge>
         <Badge variant="error" outline>
-          <IconAlertHexagon />
+          <IconAlertHexagon  size={12} />
           Error
         </Badge>
         <Badge variant="warning" background={false}>
-          <IconAlertTriangle />
+          <IconAlertTriangle  size={12} />
           Warning
         </Badge>
         <Badge variant="warning" outline>
-          <IconAlertTriangle />
+          <IconAlertTriangle  size={12} />
           Warning
         </Badge>
         <Badge variant="success" background={false}>
-          <IconCircleCheck />
+          <IconCircleCheck  size={12} />
           Success
         </Badge>
         <Badge variant="inProgress" background={false}>
-          <IconInnerShadowTopLeft />
+          <IconInnerShadowTopLeft size={12} />
           In progress
         </Badge>
         <Badge variant="archived" background={false}>
-          <IconArchive />
+          <IconArchive  size={12} />
           Archived
         </Badge>
       </div>
@@ -160,16 +160,16 @@ export function MainComponentDemo() {
   return (
     <div className="flex flex-col gap-3 items-center justify-center">
       <Badge variant="default">
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant={"closable"}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
-        <IconX />
+        <IconX size={12} />
       </Badge>
       <Badge variant="error" background={false}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant="error" dot>
