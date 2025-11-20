@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/cognite/button';
-import { ArrowRight, Terminal } from 'lucide-react';
+import { IconArrowRight as ArrowRight, IconTerminal as Terminal } from '@tabler/icons-react';
 import Link from 'next/link';
 import PrismaticBurst from '@/components/PrismaticBurst';
 import { useState } from 'react';
