@@ -16,7 +16,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/cognite/collapsible';
 import { cn } from '@/lib/utils';
-import { IconArrowsUpDown } from '@tabler/icons-react';
+import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import { createContext, useContext } from 'react';
 import { Shimmer } from './shimmer';
@@ -135,7 +135,7 @@ export const PlanTrigger = ({ className, ...props }: PlanTriggerProps) => (
       variant="ghost"
       {...props}
     >
-      <IconArrowsUpDown className="size-4" />
+      <ChevronsUpDown className="size-4" />
       <span className="sr-only">Toggle plan</span>
     </Button>
   </CollapsibleTrigger>
