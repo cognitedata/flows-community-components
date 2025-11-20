@@ -422,7 +422,7 @@ export function SwitchDemo() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <h4 className="font-semibold">Installation</h4>
-                  <CodeBlock code="npx shadcn@latest add button input label card switch" />
+                  <CodeBlock code="pnpm dlx shadcn@latest add @aura/button @aura/input @aura/label @aura/card @aura/switch" />
                 </div>
 
                 <div className="space-y-2">
