@@ -2,7 +2,11 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { Play, RotateCcw, ArrowRight } from 'lucide-react';
+import {
+  IconArrowRight as ArrowRight,
+  IconPlayerPlay as Play,
+  IconRefresh as RotateCcw,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
