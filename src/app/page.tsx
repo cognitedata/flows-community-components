@@ -18,7 +18,6 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/cognite/tabs';
-import PrismaticBurst from '@/components/PrismaticBurst';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -99,29 +98,6 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/20">
-      {/* Prismatic Burst Background */}
-      <div className="fixed inset-0 z-0">
-        <PrismaticBurst
-          animationType="rotate3d"
-          intensity={1.5}
-          speed={0.3}
-          distort={1.2}
-          paused={false}
-          offset={{ x: 0, y: 0 }}
-          hoverDampness={0.25}
-          rayCount={16}
-          mixBlendMode="lighten"
-          colors={[
-            '#CDECFB', // ns-glacier-300
-            '#78A7CB', // ns-glacier-500
-            '#A9F853', // ns-aurora-500
-            '#DDFCBA', // ns-aurora-200
-            '#C7D2FE', // glacier-mist-200
-            '#3730A3', // glacier-mist-800
-          ]}
-        />
-      </div>
-
       {/* Splash Screen Section */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4">
         <motion.div
