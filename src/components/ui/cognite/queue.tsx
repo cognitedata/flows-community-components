@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/cognite/collapsible';
 import { ScrollArea } from '@/components/ui/cognite/scroll-area';
 import { cn } from '@/lib/utils';
-import { ChevronDownIcon, PaperclipIcon } from 'lucide-react';
+import { IconChevronDown, IconPaperclip } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 
 export type QueueMessagePart = {
@@ -75,7 +75,7 @@ export const QueueItemContent = ({
 }: QueueItemContentProps) => (
   <span
     className={cn(
-      'line-clamp-1 grow break-words',
+      'line-clamp-1 grow wrap-break-words',
       completed
         ? 'text-muted-foreground/50 line-through'
         : 'text-muted-foreground',
@@ -175,7 +175,7 @@ export const QueueItemFile = ({
     )}
     {...props}
   >
-    <PaperclipIcon size={12} />
+    <IconPaperclip size={12} />
     <span className="max-w-[100px] truncate">{children}</span>
   </span>
 );
@@ -242,7 +242,7 @@ export const QueueSectionLabel = ({
   ...props
 }: QueueSectionLabelProps) => (
   <span className={cn('flex items-center gap-2', className)} {...props}>
-    <ChevronDownIcon className="group-data-[state=closed]:-rotate-90 size-4 transition-transform" />
+    <IconChevronDown className="group-data-[state=closed]:-rotate-90 size-4 transition-transform" />
     {icon}
     <span>
       {count} {label}
