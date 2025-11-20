@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/cognite/button';
 import { cn } from '@/lib/utils';
 import type { Element } from 'hast';
-import { IconArrowsUpDown, IconCheck, IconCopy } from '@tabler/icons-react';
+import { IconSelector, IconCheck, IconCopy } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -223,7 +223,7 @@ export const CodeBlockCollapseButton = ({
       variant="ghost"
       {...props}
     >
-      {children ?? <IconArrowsUpDown size={14} />}
+      {children ?? <IconSelector size={14} />}
     </Button>
   );
 };
