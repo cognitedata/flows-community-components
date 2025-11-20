@@ -1029,6 +1029,7 @@ interface SpeechRecognition extends EventTarget {
 
 interface SpeechRecognitionEvent extends Event {
   results: SpeechRecognitionResultList;
+  resultIndex: number;
 }
 
 type SpeechRecognitionResultList = {
@@ -1107,9 +1108,8 @@ export const PromptInputSpeechButton = ({
       speechRecognition.onresult = (event) => {
         let finalTranscript = '';
 
-        const results = Array.from(event.results);
-
-        for (const result of results) {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
           if (result.isFinal) {
             finalTranscript += result[0]?.transcript ?? '';
           }
