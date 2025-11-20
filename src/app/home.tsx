@@ -9,7 +9,7 @@ import {
   IconGrid3x3 as Grid3X3,
   IconLayout as Layout,
   IconPalette as Palette,
-  IconZap as Zap,
+  IconBolt as Zap,
 } from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
