@@ -855,7 +855,7 @@ export const PromptInputTextarea = ({
   return (
     <InputGroupTextarea
       className={cn(
-        'field-sizing-content max-h-48 min-h-16 rounded-t-xl md:text-base tracking-tightest p-1.75 leading-20',
+        'field-sizing-content max-h-48 min-h-16 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-20',
         className
       )}
       name="message"
@@ -897,7 +897,7 @@ export const PromptInputFooter = ({
 }: PromptInputFooterProps) => (
   <InputGroupAddon
     align="block-end"
-    className={cn('justify-between gap-1 p-1.75', className)}
+    className={cn('justify-between gap-1 p-2.75', className)}
     {...props}
   />
 );
