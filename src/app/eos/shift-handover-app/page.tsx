@@ -38,7 +38,7 @@ import {
   IconMoon as Moon,
   IconPlus as Plus,
   IconRefresh as RefreshCw,
-  IconShape as Shapes,
+  IconCategory as Shapes,
   IconSun as Sun,
 } from '@tabler/icons-react';
 import { toast } from 'sonner';
