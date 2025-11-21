@@ -14,20 +14,13 @@ import {
   IconFile,
   IconPhoto,
   IconTimeline,
-  IconThumbUp,
-  IconThumbDown,
   IconCopy,
-  IconShare,
-  IconDotsVertical,
+  IconDownload,
+  IconTool,
+  IconRefresh,
   IconWheel,
 } from '@tabler/icons-react';
 import { Actions, Action } from '@/components/ui/cognite/actions';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
 
 function Demo() {
   return (
@@ -83,29 +76,18 @@ function Demo() {
             </InlineCitation>
           </div>
           <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </Action>
             <Action size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <Action size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
             </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Action size="icon-sm" label="Settings" tooltip="Spanner">
+              <IconTool className="w-3 h-3" />
+            </Action>
+            <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
+            </Action>
           </Actions>
         </MessageContent>
         <MessageAvatar variant="fjord">
@@ -130,21 +112,24 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
+import { IconAt, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
 
 export function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span>
+          <InlineCitation>
+            <InlineCitationLink
+              url="https://example.com/user/21PT1019"
+              target="_blank"
+              icon={IconAt}
+            >
+              21PT1019
+            </InlineCitationLink>
+          </InlineCitation>
         </MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
@@ -182,29 +167,18 @@ export function Demo() {
             </InlineCitation>
           </div>
           <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </Action>
             <Action size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <Action size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
             </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Action size="icon-sm" label="Settings" tooltip="Spanner">
+              <IconTool className="w-3 h-3" />
+            </Action>
+            <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
+            </Action>
           </Actions>
         </MessageContent>
         <MessageAvatar variant="fjord">
