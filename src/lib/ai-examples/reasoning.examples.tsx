@@ -154,7 +154,12 @@ function StreamingReasoningInMessageDemo() {
 
   return (
     <div className="w-full p-4 flex flex-col gap-2" style={{ height: '400px' }}>
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <Reasoning className="w-full" isStreaming={isStreaming}>
             <ReasoningTrigger />
@@ -188,11 +193,6 @@ function StreamingReasoningInMessageDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   );
@@ -364,7 +364,12 @@ export function StreamingReasoningInMessageDemo() {
 
   return (
     <div className="w-full p-4 flex flex-col gap-2" style={{ height: "400px" }}>
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <Reasoning className="w-full" isStreaming={isStreaming}>
             <ReasoningTrigger />
@@ -397,11 +402,6 @@ export function StreamingReasoningInMessageDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   )

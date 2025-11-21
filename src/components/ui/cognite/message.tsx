@@ -5,14 +5,17 @@ import {
   AvatarImage,
 } from '@/components/ui/cognite/avatar';
 import { cn } from '@/lib/utils';
-import type { UIMessage } from 'ai';
 import type { ComponentProps, HTMLAttributes } from 'react';
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
-  from: UIMessage['role'];
+  isResponse?: boolean;
 };
 
-export const Message = ({ className, from, ...props }: MessageProps) => (
+export const Message = ({
+  className,
+  isResponse = false,
+  ...props
+}: MessageProps) => (
   <div
     className={cn(
       'group flex w-full items-end justify-end items-start gap-2 py-2 mb-0',
@@ -56,12 +59,12 @@ function getInitials(name: string): string {
 }
 
 export type MessageAvatarProps = ComponentProps<typeof Avatar> & {
-  src?: string;
+  avatarUrl?: string;
   name?: string;
 };
 
 export const MessageAvatar = ({
-  src,
+  avatarUrl,
   name,
   className,
   children,
@@ -80,8 +83,12 @@ export const MessageAvatar = ({
     >
       {children || (
         <>
-          {src && (
-            <AvatarImage alt={name || ''} className="mt-0 mb-0" src={src} />
+          {avatarUrl && (
+            <AvatarImage
+              alt={name || ''}
+              className="mt-0 mb-0"
+              src={avatarUrl}
+            />
           )}
           <AvatarFallback>{fallbackText}</AvatarFallback>
         </>
