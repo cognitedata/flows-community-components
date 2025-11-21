@@ -3,35 +3,65 @@ import path from 'path';
 
 export type ComponentStatus = 'draft' | 'production';
 
+export type ComponentMetadata = {
+  hash: string;
+  status: ComponentStatus;
+};
+
 /**
- * Determines if a component is in draft or production status.
+ * Gets component metadata from the .metadata.ts file
  *
- * Draft: Component exists only in /draft directory (redirected via path mapping)
- * Production: Component has a dedicated file in /cognite directory
+ * @param componentSlug - The component slug (e.g., 'button', 'accordion')
+ * @returns ComponentMetadata or null if not found
+ */
+export async function getComponentMetadata(
+  componentSlug: string
+): Promise<ComponentMetadata | null> {
+  try {
+    const metadata = await import(
+      `@/components/ui/cognite/${componentSlug}.metadata`
+    );
+    return metadata.metadata as ComponentMetadata;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Determines if a component is in draft or production status by reading
+ * the .metadata.ts file next to the component.
  *
  * @param componentSlug - The component slug (e.g., 'button', 'accordion')
  * @returns ComponentStatus indicating whether the component is draft or production-ready
  */
 export function getComponentStatus(componentSlug: string): ComponentStatus {
-  const cognitePath = path.join(
-    process.cwd(),
-    'src',
-    'components',
-    'ui',
-    'cognite',
-    `${componentSlug}.tsx`
-  );
+  try {
+    const metadataPath = path.join(
+      process.cwd(),
+      'src',
+      'components',
+      'ui',
+      'cognite',
+      `${componentSlug}.metadata.ts`
+    );
 
-  // Check if component exists in cognite directory
-  const hasCogniteFile = fs.existsSync(cognitePath);
+    if (!fs.existsSync(metadataPath)) {
+      return 'draft';
+    }
 
-  // If there's a cognite file, it's production-ready
-  if (hasCogniteFile) {
-    return 'production';
+    // Read and parse the metadata file content
+    const content = fs.readFileSync(metadataPath, 'utf-8');
+    const statusMatch = content.match(/status:\s*'(\w+)'/);
+
+    if (statusMatch && statusMatch[1] === 'production') {
+      return 'production';
+    }
+
+    return 'draft';
+  } catch {
+    // If metadata file doesn't exist or can't be read, default to draft
+    return 'draft';
   }
-
-  // If there's only a draft file (or neither), it's draft
-  return 'draft';
 }
 
 /**

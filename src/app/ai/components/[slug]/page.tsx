@@ -6,7 +6,7 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
 import { AIExamplesRenderer } from '@/components/ai-examples-renderer';
 import { AICodeExamplesRenderer } from '@/components/ai-code-examples-renderer';
-import { getAIComponentStatus } from '@/lib/ai-component-status';
+import { getComponentStatus } from '@/lib/component-status';
 import { getAIComponentMeta } from '@/lib/ai-component-registry';
 
 interface ComponentPageProps {
@@ -86,7 +86,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
   const meta = await getAIComponentMeta(slug);
   const componentName = meta?.name || toTitleCase(slug);
-  const componentStatus = getAIComponentStatus(slug);
+  const componentStatus = getComponentStatus(slug);
   const description =
     meta?.description ||
     'AI element component for building conversational interfaces';

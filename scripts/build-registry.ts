@@ -6,11 +6,16 @@
  *
  * All registry paths point to src/components/ui/cognite/ to create a flat
  * folder structure when components are installed via the registry.
+ *
+ * Also generates .metadata.ts files for each component containing:
+ * - hash: MD5 hash of component file content
+ * - status: 'draft' | 'production'
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { updateComponentHash } from './update-hash.js';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -211,6 +216,21 @@ async function main(): Promise<void> {
 
     console.log('✅ Successfully built registry.json');
     console.log(`📦 Registry contains ${registry.items.length} component(s)`);
+
+    // Generate metadata files for all components
+    console.log('\n⏳ Generating component metadata files...');
+    let metadataCount = 0;
+    for (const componentName of components) {
+      try {
+        const success = updateComponentHash(componentName);
+        if (success) {
+          metadataCount++;
+        }
+      } catch (error) {
+        console.error(`❌ Failed to generate metadata for ${componentName}:`, error);
+      }
+    }
+    console.log(`✅ Generated ${metadataCount} metadata file(s)`);
 
     if (components.length > 0) {
       console.log(

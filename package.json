@@ -15,8 +15,8 @@
     "clean:dev": "npm run clean && npm run dev",
     "reset": "npm run clean && npm install && npm run dev",
     "registry:build": "tsx scripts/build-registry.ts && npm run registry:clean && shadcn build",
-    "registry:build-all": "tsx scripts/build-registry.ts --all && npm run registry:clean && shadcn build",
-    "registry:clean": "rm -rf public/r && mkdir -p public/r"
+    "registry:clean": "rm -rf public/r && mkdir -p public/r",
+    "hash:update": "tsx scripts/update-hash.ts"
   },
   "imports": {
     "#aura/*": "./src/components/ui/cognite/*.tsx",
