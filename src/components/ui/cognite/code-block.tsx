@@ -117,7 +117,13 @@ export const CodeBlock = ({
 
   return (
     <CodeBlockContext.Provider
-      value={{ code, copyText: textToCopy, isCollapsed, setIsCollapsed, lineCount }}
+      value={{
+        code,
+        copyText: textToCopy,
+        isCollapsed,
+        setIsCollapsed,
+        lineCount,
+      }}
     >
       <div
         className={cn(
