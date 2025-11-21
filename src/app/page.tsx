@@ -57,7 +57,7 @@ const newProjectSteps: Step[] = [
     icon: Sparkles,
     title: 'Start building with Cursor',
     description: 'Ask Cursor AI to build your features using natural language',
-    code: 'Example: Build me a timeseries dashboard',
+    code: 'Build me a timeseries dashboard',
   },
 ];
 
@@ -105,7 +105,7 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/20">
       {/* Splash Screen Section */}
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4">
+      <div className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -184,7 +184,7 @@ export default function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer"
+          className="absolute bottom-16 left-1/2 -translate-x-1/2 cursor-pointer"
           onClick={scrollToQuickStart}
         >
           <motion.div
