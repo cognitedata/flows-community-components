@@ -13,8 +13,8 @@ import {
   MessageAvatarIcon,
 } from '@/components/ui/cognite/message';
 import { Actions, Action } from '@/components/ui/cognite/actions';
-import { IconMessageCircle as MessageSquare } from '@tabler/icons-react';
 import {
+  IconMessageCircle,
   IconWheel,
   IconThumbUp,
   IconThumbDown,
@@ -194,7 +194,7 @@ function BasicConversationDemo() {
             <ConversationEmptyState
               title="Start a conversation"
               description="Messages will appear here as the conversation progresses."
-              icon={<MessageSquare className="h-12 w-12" />}
+              icon={<IconMessageCircle className="h-12 w-12" />}
             />
           ) : (
             visibleMessages.map(({ key, value, name, avatar, from }) => (
@@ -262,7 +262,7 @@ function EmptyStateDemo() {
           <ConversationEmptyState
             title="Start a conversation"
             description="Ask me anything to get started"
-            icon={<MessageSquare className="h-12 w-12" />}
+            icon={<IconMessageCircle className="h-12 w-12" />}
           />
         </ConversationContent>
       </Conversation>
@@ -281,7 +281,7 @@ export const conversationExamples: ComponentExamples = {
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { MessageSquare } from "@tabler/icons-react"
+import { IconMessageCircle } from "@tabler/icons-react"
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
@@ -324,7 +324,7 @@ export function BasicConversationDemo() {
             <ConversationEmptyState
               title="Start a conversation"
               description="Messages will appear here as the conversation progresses."
-              icon={<MessageSquare className="h-12 w-12" />}
+              icon={<IconMessageCircle className="h-12 w-12" />}
             />
           ) : (
             visibleMessages.map(({ key, value, name, avatar, from }) => (
@@ -359,8 +359,8 @@ export function BasicConversationDemo() {
                     </Actions>
                   )}
                 </MessageContent>
-                <MessageAvatar 
-                  src={avatar} 
+                <MessageAvatar
+                  src={avatar}
                   name={name}
                   variant={from === "assistant" ? "fjord" : undefined}
                 >
@@ -387,7 +387,7 @@ export function BasicConversationDemo() {
     component: EmptyStateDemo,
     difficulty: 'beginner',
     code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
-import { MessageSquare } from "@tabler/icons-react"
+import { IconMessageCircle } from "@tabler/icons-react"
 
 export function EmptyStateDemo() {
   return (
@@ -396,7 +396,7 @@ export function EmptyStateDemo() {
         <ConversationEmptyState
           title="Start a conversation"
           description="Ask me anything to get started"
-          icon={<MessageSquare className="h-12 w-12" />}
+          icon={<IconMessageCircle className="h-12 w-12" />}
         />
       </ConversationContent>
     </Conversation>
