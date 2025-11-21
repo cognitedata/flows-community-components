@@ -334,7 +334,7 @@ export const InlineCitationLink = ({
     >
       <span
         className={cn(
-          'inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 tracking-normal font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap transition-colors hover:bg-fjord-100 dark:hover:bg-fjord-800',
+          'inline-flex items-center justify-center rounded-md border border-transparent bg-nordic hover:bg-nordic-100 dark:bg-nordic-900 dark:hover:bg-nordic-800 px-1 py-0.25 text-sm leading-4 tracking-normal font-medium text-nordic-600 dark:text-nordic-300 whitespace-nowrap transition-colors',
           Icon && 'gap-1',
           '[&>svg]:size-3 [&>svg]:pointer-events-none'
         )}
