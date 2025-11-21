@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/cognite/tooltip';
-import { Copy, Check } from 'lucide-react';
+import { IconCheck, IconCopy } from '@tabler/icons-react';
 
 interface MarkdownCopyBlockProps {
   content: string;
@@ -46,9 +46,9 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
                   onClick={handleCopy}
                 >
                   {copied ? (
-                    <Check className="h-4 w-4" />
+                    <IconCheck className="h-4 w-4" />
                   ) : (
-                    <Copy className="h-4 w-4" />
+                    <IconCopy className="h-4 w-4" />
                   )}
                 </Button>
               </TooltipTrigger>

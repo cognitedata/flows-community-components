@@ -30,12 +30,12 @@ import {
   type PieLabelRenderProps,
 } from 'recharts';
 import {
-  BarChart3,
-  TrendingUp,
-  Thermometer,
-  Shield,
-  RefreshCw,
-} from 'lucide-react';
+  IconChartBar as BarChart3,
+  IconRefresh as RefreshCw,
+  IconShield as Shield,
+  IconTemperature as Thermometer,
+  IconTrendingUp as TrendingUp,
+} from '@tabler/icons-react';
 
 // Generate 3 months of equipment uptime/downtime data with proper stacking
 const generateEquipmentData = () => {

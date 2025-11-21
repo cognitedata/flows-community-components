@@ -3,13 +3,13 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import {
-  Monitor,
-  Tablet,
-  Smartphone,
-  Grid,
-  Layout,
-  Columns,
-} from 'lucide-react';
+  IconColumns as Columns,
+  IconLayoutGrid as Grid,
+  IconLayoutSidebar as Layout,
+  IconDeviceDesktop as Monitor,
+  IconDeviceMobile as Smartphone,
+  IconDeviceTablet as Tablet,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
   Card,

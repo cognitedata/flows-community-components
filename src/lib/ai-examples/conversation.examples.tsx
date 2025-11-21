@@ -13,7 +13,7 @@ import {
   MessageAvatarIcon,
 } from '@/components/ui/cognite/message';
 import { Actions, Action } from '@/components/ui/cognite/actions';
-import { MessageSquare } from 'lucide-react';
+import { IconMessageCircle as MessageSquare } from '@tabler/icons-react';
 import {
   IconWheel,
   IconThumbUp,
@@ -281,7 +281,7 @@ export const conversationExamples: ComponentExamples = {
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { MessageSquare } from "lucide-react"
+import { MessageSquare } from "@tabler/icons-react"
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
@@ -387,7 +387,7 @@ export function BasicConversationDemo() {
     component: EmptyStateDemo,
     difficulty: 'beginner',
     code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
-import { MessageSquare } from "lucide-react"
+import { MessageSquare } from "@tabler/icons-react"
 
 export function EmptyStateDemo() {
   return (

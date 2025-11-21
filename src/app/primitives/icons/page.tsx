@@ -10,28 +10,28 @@ import {
 import { Button } from '@/components/ui/cognite/button';
 import { Input } from '@/components/ui/cognite/input';
 import {
-  Search,
-  Download,
-  Copy,
-  Heart,
-  Star,
-  Home,
-  Settings,
-  User,
-  Mail,
-  Phone,
-  Calendar,
-  Archive,
-  Bookmark,
-  Camera,
-  Clock,
-  Edit,
-  File,
-  Globe,
-  Lock,
-  Plus,
-  Trash2,
-} from 'lucide-react';
+  IconArchive as Archive,
+  IconBookmark as Bookmark,
+  IconCalendar as Calendar,
+  IconCamera as Camera,
+  IconClock as Clock,
+  IconCopy as Copy,
+  IconDownload as Download,
+  IconEdit as Edit,
+  IconFile as File,
+  IconGlobe as Globe,
+  IconHeart as Heart,
+  IconHome as Home,
+  IconLock as Lock,
+  IconMail as Mail,
+  IconPhone as Phone,
+  IconPlus as Plus,
+  IconSearch as Search,
+  IconSettings as Settings,
+  IconStar as Star,
+  IconTrash as Trash2,
+  IconUser as User,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
 const iconSets = [
@@ -63,7 +63,7 @@ export default function IconsPage() {
       <div>
         <h1 className="text-3xl font-bold mb-4">Icons</h1>
         <p className="text-lg text-muted-foreground max-w-3xl">
-          A comprehensive icon library built on Lucide React, providing
+          A comprehensive icon library built on Tabler Icons React, providing
           consistent visual language across all interface elements.
         </p>
       </div>

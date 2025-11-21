@@ -30,7 +30,6 @@ import { reasoningExamples } from './reasoning.examples';
 import { taskExamples } from './task.examples';
 import { toolExamples } from './tool.examples';
 import { toolbarExamples } from './toolbar.examples';
-import { webPreviewExamples } from './web-preview.examples';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 export const aiExamples = {
@@ -64,7 +63,6 @@ export const aiExamples = {
   task: taskExamples,
   tool: toolExamples,
   toolbar: toolbarExamples,
-  'web-preview': webPreviewExamples,
 } as const;
 
 export type AIComponentSlug = keyof typeof aiExamples;

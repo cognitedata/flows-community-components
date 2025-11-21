@@ -6,7 +6,12 @@ import {
   SelectValue,
 } from '@/components/ui/cognite/select';
 import { Label } from '@/components/ui/cognite/label';
-import { User, Mail, Settings, Home } from 'lucide-react';
+import {
+  IconHome as Home,
+  IconMail as Mail,
+  IconSettings as Settings,
+  IconUser as User,
+} from '@tabler/icons-react';
 import * as React from 'react';
 import type { ComponentExamples } from './types';
 
@@ -163,27 +168,34 @@ export const selectExamples: ComponentExamples = {
     description: 'A dropdown select component for choosing from options',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import {
+    code: `
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select";
-import { Label } from "@/components/ui/cognite/label";
-import { User, Mail, Settings, Home } from "lucide-react";
-import * as React from "react";
+} from '@/components/ui/cognite/select';
+import { Label } from '@/components/ui/cognite/label';
+import {
+  IconHome as Home,
+  IconMail as Mail,
+  IconSettings as Settings,
+  IconUser as User,
+} from '@tabler/icons-react';
+import * as React from 'react';
 
 function BasicDemo() {
-  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+  const [selectedValue, setSelectedValue] =
+    React.useState<string>('settings');
 
-  // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
     user: <User className="size-4" />,
     mail: <Mail className="size-4" />,
     settings: <Settings className="size-4" />,
     home: <Home className="size-4" />,
   };
+
   return (
     <div className="space-y-4 max-w-sm flex flex-row gap-4">
       <div>
@@ -227,34 +239,42 @@ function BasicDemo() {
       </div>
     </div>
   );
-}`,
+}
+`,
   },
   states: {
     title: 'Select Dropdown',
     description: 'States of the select dropdown',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import {
+    code: `
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/cognite/select";
-import { Label } from "@/components/ui/cognite/label";
-import { User, Mail, Settings, Home } from "lucide-react";
-import * as React from "react";
+} from '@/components/ui/cognite/select';
+import { Label } from '@/components/ui/cognite/label';
+import {
+  IconHome as Home,
+  IconMail as Mail,
+  IconSettings as Settings,
+  IconUser as User,
+} from '@tabler/icons-react';
+import * as React from 'react';
 
 function StatesDemo() {
-  const [selectedValue, setSelectedValue] = React.useState<string>("settings");
+  const [selectedValue, setSelectedValue] =
+    React.useState<string>('settings');
 
-  // Map values to icons for SelectValue
   const iconMap: Record<string, React.ReactNode> = {
     user: <User className="size-4" />,
     mail: <Mail className="size-4" />,
     settings: <Settings className="size-4" />,
     home: <Home className="size-4" />,
   };
+
   return (
     <div className="space-y-4 max-w-sm flex flex-col gap-4">
       <div>
@@ -336,7 +356,8 @@ function StatesDemo() {
       </div>
     </div>
   );
-}`,
+}
+`,
   },
 };
 

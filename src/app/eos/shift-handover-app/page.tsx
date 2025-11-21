@@ -26,21 +26,21 @@ import { Checkbox } from '@/components/ui/cognite/checkbox';
 import { Separator } from '@/components/ui/cognite/separator';
 import { Badge } from '@/components/ui/cognite/badge';
 import {
-  AppWindow,
-  ArrowLeft,
-  Bell,
-  Calendar as CalendarIcon,
-  Check,
-  RefreshCw,
-  Moon,
-  Plus,
-  Shapes,
-  Sun,
-  BarChart3,
-  CircleCheck,
-  CircleAlert,
-  OctagonAlert,
-} from 'lucide-react';
+  IconAlertCircle as CircleAlert,
+  IconAlertOctagon as OctagonAlert,
+  IconAppWindow as AppWindow,
+  IconArrowLeft as ArrowLeft,
+  IconChartBar as BarChart3,
+  IconBell as Bell,
+  IconCalendar as CalendarIcon,
+  IconCheck as Check,
+  IconCircleCheck as CircleCheck,
+  IconMoon as Moon,
+  IconPlus as Plus,
+  IconRefresh as RefreshCw,
+  IconCategory as Shapes,
+  IconSun as Sun,
+} from '@tabler/icons-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 import {

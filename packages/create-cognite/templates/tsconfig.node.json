@@ -20,17 +20,7 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/components/ui/cognite/*": [
-        "./src/components/ui/cognite/*"
-      ],
-      "@/components/ai-elements/cognite/*": [
-        "./src/components/ai-elements/cognite/*",
-        "./src/components/ai-elements/draft/*"
-      ]
-    }
+    "noUncheckedSideEffectImports": true
   },
   "include": ["vite.config.ts"],
   "exclude": ["node_modules"]
