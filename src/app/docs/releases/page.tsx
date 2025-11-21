@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/cognite/card';
 import { Badge } from '@/components/ui/cognite/badge';
-import { CalendarDays, GitCommit } from 'lucide-react';
+import { IconCalendarStats as CalendarDays, IconGitCommit as GitCommit } from '@tabler/icons-react';
 
 const releases = [
   {

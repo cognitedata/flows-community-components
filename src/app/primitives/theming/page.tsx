@@ -2,7 +2,13 @@
 
 import { useState, useEffect, startTransition } from 'react';
 import { motion } from 'framer-motion';
-import { Palette, RotateCcw, Sun, Moon, Eye } from 'lucide-react';
+import {
+  IconEye as Eye,
+  IconMoon as Moon,
+  IconPalette as Palette,
+  IconRotateClockwise as RotateCcw,
+  IconSun as Sun,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
@@ -308,7 +314,7 @@ function generateInstallGuide(): string {
 
 \`\`\`bash
 npm install tailwindcss-animate class-variance-authority clsx tailwind-merge
-npm install lucide-react # for icons
+npm install @tabler/icons-react # for icons
 npm install next-themes # for dark mode support
 \`\`\`
 

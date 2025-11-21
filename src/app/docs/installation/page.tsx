@@ -3,12 +3,12 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
-  Terminal,
-  CheckCircle2,
-  ArrowRight,
-  FileText,
-  Sparkles,
-} from 'lucide-react';
+  IconArrowRight as ArrowRight,
+  IconCircleCheck as CheckCircle2,
+  IconFileText as FileText,
+  IconSparkles as Sparkles,
+  IconTerminal as Terminal,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
@@ -28,6 +28,7 @@ interface Step {
   title: string;
   description: string;
   code?: string;
+  exampleLabel?: string;
   configStep?: boolean;
 }
 
@@ -49,7 +50,7 @@ const steps: Step[] = [
     icon: Sparkles,
     title: 'Start building with Cursor',
     description: 'Ask Cursor AI to build your features using natural language',
-    code: 'Example: Build me a timeseries dashboard',
+    code: 'Build me a timeseries dashboard',
   },
 ];
 
