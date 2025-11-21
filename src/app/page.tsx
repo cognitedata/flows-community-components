@@ -167,7 +167,7 @@ export default function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer"
+          className="absolute bottom-16 left-1/2 -translate-x-1/2 cursor-pointer"
           onClick={scrollToQuickStart}
         >
           <motion.div
