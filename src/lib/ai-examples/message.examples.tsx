@@ -29,6 +29,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/cognite/dropdown-menu';
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from '@/components/ui/cognite/code-block';
 
 function Demo() {
   return (
@@ -83,6 +88,70 @@ function Demo() {
               </InlineCitationLink>
             </InlineCitation>
           </div>
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
+              <IconThumbUp className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
+              <IconThumbDown className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+              <IconCopy className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
+              <IconShare className="w-3 h-3" />
+            </MessageAction>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <MessageAction size="icon-sm" label="More options">
+                  <IconDotsVertical className="w-3 h-3" />
+                </MessageAction>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Option 1</DropdownMenuItem>
+                <DropdownMenuItem>Option 2</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </MessageActions>
+        </MessageContent>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
+      </Message>
+    </div>
+  );
+}
+
+function WithCodeBlockDemo() {
+  const code = `async function analyzeVibrationData(timeseriesId: string) {
+  const data = await fetchTimeseries(timeseriesId);
+  const anomalies = detectAnomalies(data);
+
+  return anomalies.filter(a => a.severity > 0.8);
+}`;
+
+  return (
+    <div className="flex flex-col space-y-4 w-full gap-2">
+      <Message from="user">
+        <MessageContent>
+          Can you show me how to analyze vibration data using TypeScript?
+        </MessageContent>
+        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+      </Message>
+
+      <Message from="assistant">
+        <MessageContent className="flex flex-col gap-2">
+          <CodeBlock
+            code={code}
+            language="typescript"
+            showLineNumbers
+            className="-mt-1"
+          >
+            <CodeBlockCopyButton />
+            <CodeBlockCollapseButton />
+          </CodeBlock>
           <MessageActions>
             <MessageAction size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
@@ -181,6 +250,87 @@ export function Demo() {
               </InlineCitationLink>
             </InlineCitation>
           </div>
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
+              <IconThumbUp className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
+              <IconThumbDown className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+              <IconCopy className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
+              <IconShare className="w-3 h-3" />
+            </MessageAction>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <MessageAction size="icon-sm" label="More options">
+                  <IconDotsVertical className="w-3 h-3" />
+                </MessageAction>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Option 1</DropdownMenuItem>
+                <DropdownMenuItem>Option 2</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </MessageActions>
+        </MessageContent>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
+      </Message>
+    </div>
+  )
+}`,
+  },
+
+  withCodeBlock: {
+    title: 'Message with Code Block',
+    description:
+      'Assistant message containing a code block with syntax highlighting',
+    component: WithCodeBlockDemo,
+    difficulty: 'beginner',
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/cognite/code-block"
+import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/cognite/dropdown-menu"
+
+export function WithCodeBlockDemo() {
+  const code = \`async function analyzeVibrationData(timeseriesId: string) {
+  const data = await fetchTimeseries(timeseriesId);
+  const anomalies = detectAnomalies(data);
+
+  return anomalies.filter(a => a.severity > 0.8);
+}\`
+
+  return (
+    <div className="flex flex-col space-y-4 w-full gap-2">
+      <Message from="user">
+        <MessageContent>
+          Can you show me how to analyze vibration data using TypeScript?
+        </MessageContent>
+        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+      </Message>
+
+      <Message from="assistant">
+        <MessageContent className="flex flex-col gap-2">
+          <CodeBlock
+            code={code}
+            language="typescript"
+            showLineNumbers
+            className="-mt-1"
+          >
+            <CodeBlockCopyButton />
+            <CodeBlockCollapseButton />
+          </CodeBlock>
           <MessageActions>
             <MessageAction size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
