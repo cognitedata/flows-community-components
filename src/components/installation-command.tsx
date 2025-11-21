@@ -39,10 +39,10 @@ export function InstallationCommand({
   }, []);
 
   const cliCommands: Record<PackageManager, string> = {
-    pnpm: `pnpm dlx shadcn@latest add ${component}`,
-    npm: `npx shadcn@latest add ${component}`,
-    yarn: `yarn dlx shadcn@latest add ${component}`,
-    bun: `bunx shadcn@latest add ${component}`,
+    pnpm: `pnpm dlx shadcn@latest add @aura/${component}`,
+    npm: `npx shadcn@latest add @aura/${component}`,
+    yarn: `yarn dlx shadcn@latest add @aura/${component}`,
+    bun: `bunx shadcn@latest add @aura/${component}`,
   };
 
   // Build manual installation commands based on actual dependencies
