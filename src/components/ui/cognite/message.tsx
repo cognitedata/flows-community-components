@@ -18,10 +18,8 @@ export const Message = ({
 }: MessageProps) => (
   <div
     className={cn(
-      'group flex w-full items-end justify-end items-start gap-2 py-2 mb-0',
-      from === 'user'
-        ? 'is-user'
-        : 'is-assistant flex-row-reverse items-start justify-end',
+      'group flex w-full items-start justify-start gap-2 py-2 mb-0',
+      isResponse ? 'is-assistant items-start' : 'is-user flex-row-reverse',
       className
     )}
     {...props}
