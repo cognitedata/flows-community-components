@@ -28,6 +28,7 @@ interface Step {
   title: string;
   description: string;
   code?: string;
+  exampleLabel?: string;
   configStep?: boolean;
 }
 
@@ -49,7 +50,7 @@ const steps: Step[] = [
     icon: Sparkles,
     title: 'Start building with Cursor',
     description: 'Ask Cursor AI to build your features using natural language',
-    code: 'Example: Build me a timeseries dashboard',
+    code: 'Build me a timeseries dashboard',
   },
 ];
 

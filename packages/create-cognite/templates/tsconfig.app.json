@@ -15,16 +15,6 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/components/ui/cognite/*": [
-        "./src/components/ui/cognite/*"
-      ],
-      "@/components/ai-elements/cognite/*": [
-        "./src/components/ai-elements/cognite/*",
-        "./src/components/ai-elements/draft/*"
-      ]
-    },
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
