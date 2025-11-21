@@ -18,6 +18,11 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/cognite/tabs';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/cognite/alert';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -26,6 +31,7 @@ import {
   Terminal,
   Settings,
   Download,
+  AlertTriangle,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -139,6 +145,17 @@ export default function HomePage() {
                 {copied ? 'Copied!' : 'Copy'}
               </Button>
             </div>
+          </div>
+
+          {/* Alert Banner */}
+          <div className="max-w-2xl mx-auto">
+            <Alert variant="destructive" className="text-left">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle className="font-bold">Aura is still in active development</AlertTitle>
+              <AlertDescription>
+                This site reflects a prototype that&apos;s changing fast. It&apos;s here for exploration and prototyping only, not production use. For feedback, hang tight — we&apos;re already working through major updates and will open structured feedback rounds once the foundation is more stable.
+              </AlertDescription>
+            </Alert>
           </div>
 
           {/* CTA Buttons */}
