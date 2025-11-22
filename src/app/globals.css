@@ -15,9 +15,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-source-code-pro);
-  --leading-18: 1.125rem;
-  --leading-20: 1.25rem;
-  --leading-24: 1.5rem;
   --tracking-tight: -0.04px;
   --tracking-tighter: -0.08px;
   --tracking-tightest: -0.1px;

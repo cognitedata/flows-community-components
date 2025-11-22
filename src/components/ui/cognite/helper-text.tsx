@@ -26,7 +26,7 @@ function HelperText({
       )}
       <span
         className={cn(
-          'text-sm leading-18 tracking-tight',
+          'text-sm leading-4.5 tracking-tight',
           isError ? 'text-destructive-foreground' : 'text-muted-foreground'
         )}
       >
