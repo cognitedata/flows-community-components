@@ -333,16 +333,15 @@ export const InlineCitationLink = ({
       className={cn('inline-block', className)}
       {...props}
     >
-      <span
+      <Badge
         className={cn(
-          'inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 tracking-normal font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap transition-colors hover:bg-fjord-100 dark:hover:bg-fjord-800',
-          Icon && 'gap-1',
-          '[&>svg]:size-3 [&>svg]:pointer-events-none'
+          'inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-colors hover:bg-fjord-100 dark:hover:bg-fjord-800',
+          '[&>svg]:size-3.5 [&>svg]:pointer-events-none'
         )}
       >
         {Icon && <Icon className="size-3.5" />}
         {children ?? hostname}
-      </span>
+      </Badge>
     </a>
   );
 };
