@@ -40,6 +40,7 @@ function Demo() {
               url="https://example.com/user/21PT1019"
               target="_blank"
               icon={IconAt}
+              variant="nordic"
             >
               21PT1019
             </InlineCitationLink>
@@ -144,7 +145,7 @@ export function Demo() {
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
         </MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
