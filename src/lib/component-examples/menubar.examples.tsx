@@ -1,64 +1,89 @@
 import {
   Menubar,
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarLabel,
   MenubarMenu,
   MenubarSeparator,
+  MenubarShortcut,
   MenubarTrigger,
 } from '@/components/ui/cognite/menubar';
 import type { ComponentExamples } from './types';
 
-function BasicDemo() {
+function MenubarDemo() {
   return (
-    <div className="space-y-4">
-      <Menubar>
-        <MenubarMenu>
-          <MenubarTrigger>File</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>New Tab</MenubarItem>
-            <MenubarItem>New Window</MenubarItem>
-            <MenubarItem>New Incognito Window</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem>Print</MenubarItem>
-            <MenubarItem>Share</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Edit</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>Undo</MenubarItem>
-            <MenubarItem>Redo</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem>Cut</MenubarItem>
-            <MenubarItem>Copy</MenubarItem>
-            <MenubarItem>Paste</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>View</MenubarTrigger>
-          <MenubarContent>
-            <MenubarLabel>Zoom</MenubarLabel>
-            <MenubarItem>Zoom In</MenubarItem>
-            <MenubarItem>Zoom Out</MenubarItem>
-            <MenubarItem>Reset Zoom</MenubarItem>
-            <MenubarSeparator />
-            <MenubarLabel>Layout</MenubarLabel>
-            <MenubarItem>Full Screen</MenubarItem>
-            <MenubarItem>Sidebar</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Help</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>Documentation</MenubarItem>
-            <MenubarItem>Keyboard Shortcuts</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem>About</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
-    </div>
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>New Tab</MenubarItem>
+          <MenubarItem>New Window</MenubarItem>
+          <MenubarItem>New Incognito Window</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>Print</MenubarItem>
+          <MenubarItem>Share</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Edit</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem inset>
+            Copy<MenubarShortcut>⌘C</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>
+            Paste<MenubarShortcut>⌘V</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>
+            Paste to replace<MenubarShortcut>⇧⌘V</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>
+            Duplicate<MenubarShortcut>⌘D</MenubarShortcut>
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarCheckboxItem checked>Annotations</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Comments</MenubarCheckboxItem>
+          <MenubarCheckboxItem checked>Layout guides</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Rulers</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Pixel grid</MenubarCheckboxItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>View</MenubarTrigger>
+        <MenubarContent>
+          <MenubarLabel>Zoom</MenubarLabel>
+          <MenubarItem>Zoom In</MenubarItem>
+          <MenubarItem>Zoom Out</MenubarItem>
+          <MenubarItem>Reset Zoom</MenubarItem>
+          <MenubarSeparator />
+          <MenubarLabel>Layout</MenubarLabel>
+          <MenubarItem>Full Screen</MenubarItem>
+          <MenubarItem>Sidebar</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger disabled>Profiles</MenubarTrigger>
+        <MenubarContent>
+          <MenubarLabel>Zoom</MenubarLabel>
+          <MenubarItem>Zoom In</MenubarItem>
+          <MenubarItem>Zoom Out</MenubarItem>
+          <MenubarItem>Reset Zoom</MenubarItem>
+          <MenubarSeparator />
+          <MenubarLabel>Layout</MenubarLabel>
+          <MenubarItem>Full Screen</MenubarItem>
+          <MenubarItem>Sidebar</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Settings</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>Documentation</MenubarItem>
+          <MenubarItem>Keyboard Shortcuts</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>About</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
   );
 }
 
@@ -67,68 +92,93 @@ export const menubarExamples: ComponentExamples = {
     title: 'Menubar Demo',
     description:
       'Interactive menu bar with dropdown menus common in desktop applications',
-    component: BasicDemo,
+    component: MenubarDemo,
     difficulty: 'intermediate',
     code: `import {
   Menubar,
+  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarLabel,
   MenubarMenu,
   MenubarSeparator,
+  MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/cognite/menubar"
 
-export function BasicDemo() {
+export function MenubarDemo() {
   return (
-    <div className="space-y-4">
-      <Menubar>
-        <MenubarMenu>
-          <MenubarTrigger>File</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>New Tab</MenubarItem>
-            <MenubarItem>New Window</MenubarItem>
-            <MenubarItem>New Incognito Window</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem>Print</MenubarItem>
-            <MenubarItem>Share</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Edit</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>Undo</MenubarItem>
-            <MenubarItem>Redo</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem>Cut</MenubarItem>
-            <MenubarItem>Copy</MenubarItem>
-            <MenubarItem>Paste</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>View</MenubarTrigger>
-          <MenubarContent>
-            <MenubarLabel>Zoom</MenubarLabel>
-            <MenubarItem>Zoom In</MenubarItem>
-            <MenubarItem>Zoom Out</MenubarItem>
-            <MenubarItem>Reset Zoom</MenubarItem>
-            <MenubarSeparator />
-            <MenubarLabel>Layout</MenubarLabel>
-            <MenubarItem>Full Screen</MenubarItem>
-            <MenubarItem>Sidebar</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Help</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>Documentation</MenubarItem>
-            <MenubarItem>Keyboard Shortcuts</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem>About</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
-    </div>
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>New Tab</MenubarItem>
+          <MenubarItem>New Window</MenubarItem>
+          <MenubarItem>New Incognito Window</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>Print</MenubarItem>
+          <MenubarItem>Share</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Edit</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem inset>
+            Copy<MenubarShortcut>⌘C</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>
+            Paste<MenubarShortcut>⌘V</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>
+            Paste to replace<MenubarShortcut>⇧⌘V</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem inset>
+            Duplicate<MenubarShortcut>⌘D</MenubarShortcut>
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarCheckboxItem checked>Annotations</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Comments</MenubarCheckboxItem>
+          <MenubarCheckboxItem checked>Layout guides</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Rulers</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Pixel grid</MenubarCheckboxItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>View</MenubarTrigger>
+        <MenubarContent>
+          <MenubarLabel>Zoom</MenubarLabel>
+          <MenubarItem>Zoom In</MenubarItem>
+          <MenubarItem>Zoom Out</MenubarItem>
+          <MenubarItem>Reset Zoom</MenubarItem>
+          <MenubarSeparator />
+          <MenubarLabel>Layout</MenubarLabel>
+          <MenubarItem>Full Screen</MenubarItem>
+          <MenubarItem>Sidebar</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger disabled>Profiles</MenubarTrigger>
+        <MenubarContent>
+          <MenubarLabel>Zoom</MenubarLabel>
+          <MenubarItem>Zoom In</MenubarItem>
+          <MenubarItem>Zoom Out</MenubarItem>
+          <MenubarItem>Reset Zoom</MenubarItem>
+          <MenubarSeparator />
+          <MenubarLabel>Layout</MenubarLabel>
+          <MenubarItem>Full Screen</MenubarItem>
+          <MenubarItem>Sidebar</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Settings</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>Documentation</MenubarItem>
+          <MenubarItem>Keyboard Shortcuts</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>About</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
   )
 }`,
   },
