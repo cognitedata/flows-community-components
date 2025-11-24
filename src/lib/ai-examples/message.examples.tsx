@@ -120,11 +120,6 @@ function Demo() {
             </DropdownMenu>
           </MessageActions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   );
