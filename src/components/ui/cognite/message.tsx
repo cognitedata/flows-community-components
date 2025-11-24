@@ -37,14 +37,18 @@ import {
 import { Streamdown } from 'streamdown';
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
-  from: UIMessage['role'];
+  isResponse?: boolean;
 };
 
-export const Message = ({ className, from, ...props }: MessageProps) => (
+export const Message = ({
+  className,
+  isResponse = false,
+  ...props
+}: MessageProps) => (
   <div
     className={cn(
-      'group flex w-full justify-end items-start gap-3 py-2 mb-0',
-      from === 'user' ? 'is-user' : 'is-assistant flex-row-reverse',
+      'group flex w-full items-start justify-start gap-3 py-2 mb-0',
+      isResponse ? 'is-assistant items-start' : 'is-user flex-row-reverse',
       className
     )}
     {...props}
@@ -82,12 +86,12 @@ function getInitials(name: string): string {
 }
 
 export type MessageAvatarProps = ComponentProps<typeof Avatar> & {
-  src?: string;
+  avatarUrl?: string;
   name?: string;
 };
 
 export const MessageAvatar = ({
-  src,
+  avatarUrl,
   name,
   className,
   children,
@@ -106,8 +110,12 @@ export const MessageAvatar = ({
     >
       {children || (
         <>
-          {src && (
-            <AvatarImage alt={name || ''} className="mt-0 mb-0" src={src} />
+          {avatarUrl && (
+            <AvatarImage
+              alt={name || ''}
+              className="mt-0 mb-0"
+              src={avatarUrl}
+            />
           )}
           <AvatarFallback>{fallbackText}</AvatarFallback>
         </>
