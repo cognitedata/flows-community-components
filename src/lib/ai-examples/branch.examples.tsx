@@ -322,5 +322,5 @@ export const branchMeta = {
   name: 'Branch',
   description:
     'Manages multiple versions of AI messages, allowing users to navigate between different response branches.',
-  importPath: '@/components/ai-elements/draft/branch',
+  importPath: '@/components/ui/cognite/branch',
 };
