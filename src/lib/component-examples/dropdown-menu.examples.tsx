@@ -4,8 +4,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSectionLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/cognite/dropdown-menu';
 import type { ComponentExamples } from './types';
@@ -81,16 +79,14 @@ export const dropdownMenuExamples: ComponentExamples = {
       'Interactive contextual menus with actions and keyboard navigation',
     component: BasicDemo,
     difficulty: 'intermediate',
-    code: `import {
+    code: `import { Button } from "@/components/ui/cognite/button"
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSectionLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/cognite/dropdown-menu"
-import { Button } from "@/components/ui/cognite/button"
 import {
   Avatar,
   AvatarImage,
@@ -111,37 +107,40 @@ export function BasicDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuLabel className="flex flex-row gap-2">
-              <Avatar>
+          <DropdownMenuContent className="w-[280px] p-0">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 pt-1 pb-1 border-b border-border">
+              <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col gap-1">
-                <div className="text-base font-medium">Jane Smith</div>
-                <span className="text-sm text-muted-foreground dark:text-muted-foreground">
+              <div className="flex flex-col">
+                <div className="text-base tracking-tighter font-medium">
+                  Jane Smith
+                </div>
+                <span className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
                   jane.smith@cognite.com
                 </span>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <IconUser />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconSettings />
-              Settings
-            </DropdownMenuItem>
+            <div className="p-1">
+              <DropdownMenuItem>
+                <IconUser />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <IconSettings />
+                Settings
+              </DropdownMenuItem>
 
-            <DropdownMenuItem>
-              <IconBell />
-              Notifications
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconHelp />
-              Help
-            </DropdownMenuItem>
+              <DropdownMenuItem>
+                <IconBell />
+                Notifications
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <IconHelp />
+                Help
+              </DropdownMenuItem>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
