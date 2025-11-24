@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from '@/components/ui/cognite/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip";
-import { cn } from "@/lib/utils";
-import type { ComponentProps } from "react";
+} from '@/components/ui/cognite/tooltip';
+import { cn } from '@/lib/utils';
+import type { ComponentProps } from 'react';
 
-export type ActionsProps = ComponentProps<"div">;
+export type ActionsProps = ComponentProps<'div'>;
 
 export const Actions = ({ className, children, ...props }: ActionsProps) => (
-  <div className={cn("flex items-center gap-2", className)} {...props}>
+  <div className={cn('flex items-center gap-2', className)} {...props}>
     {children}
   </div>
 );
@@ -28,14 +28,14 @@ export const Action = ({
   children,
   label,
   className,
-  variant = "ghost",
-  size = "sm",
+  variant = 'ghost',
+  size = 'sm',
   ...props
 }: ActionProps) => {
   const button = (
     <Button
       className={cn(
-        "relative icon-sm text-muted-foreground hover:text-foreground",
+        'relative icon-sm text-muted-foreground hover:text-foreground',
         className
       )}
       size={size}

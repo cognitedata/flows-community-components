@@ -4,35 +4,39 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Badge } from "@/components/ui/cognite/badge";
-import { Button } from "@/components/ui/cognite/button";
-import { Image as LucideImage, Download, Palette } from "lucide-react";
+} from '@/components/ui/cognite/card';
+import { Badge } from '@/components/ui/cognite/badge';
+import { Button } from '@/components/ui/cognite/button';
+import {
+  IconDownload as Download,
+  IconPalette as Palette,
+  IconPhoto as LucideImage,
+} from '@tabler/icons-react';
 
 const illustrationCategories = [
   {
-    name: "Brand illustrations",
-    description: "Core brand illustrations for marketing and onboarding",
+    name: 'Brand illustrations',
+    description: 'Core brand illustrations for marketing and onboarding',
     count: 24,
-    status: "Available",
+    status: 'Available',
   },
   {
-    name: "Empty states",
-    description: "Friendly illustrations for empty states and error pages",
+    name: 'Empty states',
+    description: 'Friendly illustrations for empty states and error pages',
     count: 12,
-    status: "Available",
+    status: 'Available',
   },
   {
-    name: "Onboarding",
-    description: "Step-by-step illustrations for user onboarding flows",
+    name: 'Onboarding',
+    description: 'Step-by-step illustrations for user onboarding flows',
     count: 8,
-    status: "In progress",
+    status: 'In progress',
   },
   {
-    name: "Feature highlights",
-    description: "Product feature illustrations for marketing pages",
+    name: 'Feature highlights',
+    description: 'Product feature illustrations for marketing pages',
     count: 16,
-    status: "Available",
+    status: 'Available',
   },
 ];
 
@@ -64,9 +68,9 @@ export default function IllustrationsPage() {
                       </span>
                       <Badge
                         variant={
-                          category.status === "Available"
-                            ? "default"
-                            : "secondary"
+                          category.status === 'Available'
+                            ? 'default'
+                            : 'secondary'
                         }
                       >
                         {category.status}
@@ -82,7 +86,7 @@ export default function IllustrationsPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  disabled={category.status !== "Available"}
+                  disabled={category.status !== 'Available'}
                 >
                   <Palette className="h-4 w-4 mr-2" />
                   Preview
@@ -90,7 +94,7 @@ export default function IllustrationsPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  disabled={category.status !== "Available"}
+                  disabled={category.status !== 'Available'}
                 >
                   <Download className="h-4 w-4 mr-2" />
                   Download

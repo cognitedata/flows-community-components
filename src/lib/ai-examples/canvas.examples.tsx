@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { Canvas } from "@/components/ui/cognite/canvas";
+import { Canvas } from '@/components/ui/cognite/canvas';
 import {
   Node,
   NodeHeader,
   NodeTitle,
   NodeContent,
-} from "@/components/ui/cognite/node";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/node';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   Background,
   type Edge,
   type Node as ReactFlowNode,
-} from "@xyflow/react";
+} from '@xyflow/react';
 
 function BasicCanvasDemo() {
   const nodes: ReactFlowNode[] = [
     {
-      id: "1",
-      data: { label: "Node 1" },
+      id: '1',
+      data: { label: 'Node 1' },
       position: { x: 250, y: 5 },
     },
   ];
@@ -37,25 +37,25 @@ function BasicCanvasDemo() {
 function WithMultipleNodesDemo() {
   const nodes: ReactFlowNode[] = [
     {
-      id: "1",
-      data: { label: "Start" },
+      id: '1',
+      data: { label: 'Start' },
       position: { x: 250, y: 5 },
     },
     {
-      id: "2",
-      data: { label: "Process" },
+      id: '2',
+      data: { label: 'Process' },
       position: { x: 250, y: 100 },
     },
     {
-      id: "3",
-      data: { label: "End" },
+      id: '3',
+      data: { label: 'End' },
       position: { x: 250, y: 195 },
     },
   ];
 
   const edges: Edge[] = [
-    { id: "e1-2", source: "1", target: "2" },
-    { id: "e2-3", source: "2", target: "3" },
+    { id: 'e1-2', source: '1', target: '2' },
+    { id: 'e2-3', source: '2', target: '3' },
   ];
 
   return (
@@ -77,10 +77,10 @@ function WithMultipleNodesDemo() {
 
 export const canvasExamples: ComponentExamples = {
   basic: {
-    title: "Basic Canvas",
-    description: "A flow-based canvas for visualizing interactive workflows",
+    title: 'Basic Canvas',
+    description: 'A flow-based canvas for visualizing interactive workflows',
     component: BasicCanvasDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Canvas } from "@/components/ai-elements/cognite/canvas"
 import { Background } from "@xyflow/react"
 
@@ -106,10 +106,10 @@ export function BasicCanvasDemo() {
   },
 
   withNodes: {
-    title: "Canvas with Nodes",
-    description: "Multiple nodes connected with edges",
+    title: 'Canvas with Nodes',
+    description: 'Multiple nodes connected with edges',
     component: WithMultipleNodesDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import { Canvas } from "@/components/ai-elements/cognite/canvas"
 import { Background } from "@xyflow/react"
 
@@ -136,8 +136,8 @@ export function CanvasWithNodesDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const canvasMeta = {
-  name: "Canvas",
+  name: 'Canvas',
   description:
-    "An interactive canvas for AI-generated visual content with zoom, pan, and editing capabilities.",
-  importPath: "@/components/ai-elements/cognite/canvas",
+    'An interactive canvas for AI-generated visual content with zoom, pan, and editing capabilities.',
+  importPath: '@/components/ai-elements/cognite/canvas',
 };

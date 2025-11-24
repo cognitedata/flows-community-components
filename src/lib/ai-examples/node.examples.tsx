@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Node,
@@ -7,9 +7,9 @@ import {
   NodeDescription,
   NodeContent,
   NodeFooter,
-} from "@/components/ui/cognite/node";
-import type { ComponentExamples } from "@/lib/component-examples/types";
-import { ReactFlowProvider } from "@xyflow/react";
+} from '@/components/ui/cognite/node';
+import type { ComponentExamples } from '@/lib/component-examples/types';
+import { ReactFlowProvider } from '@xyflow/react';
 
 function BasicNodeDemo() {
   return (
@@ -57,10 +57,10 @@ function WithFooterDemo() {
 
 export const nodeExamples: ComponentExamples = {
   basic: {
-    title: "Basic Node",
-    description: "A flow node with header, content, and connection handles",
+    title: 'Basic Node',
+    description: 'A flow node with header, content, and connection handles',
     component: BasicNodeDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Node,
   NodeHeader,
@@ -85,10 +85,10 @@ export function BasicNodeDemo() {
   },
 
   withFooter: {
-    title: "Node with Footer",
-    description: "Complete node structure with header, content, and footer",
+    title: 'Node with Footer',
+    description: 'Complete node structure with header, content, and footer',
     component: WithFooterDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Node,
   NodeHeader,
@@ -117,8 +117,8 @@ export function NodeWithFooterDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const nodeMeta = {
-  name: "Node",
+  name: 'Node',
   description:
-    "A draggable node component for AI workflow diagrams with input/output ports.",
-  importPath: "@/components/ai-elements/cognite/node",
+    'A draggable node component for AI workflow diagrams with input/output ports.',
+  importPath: '@/components/ai-elements/cognite/node',
 };

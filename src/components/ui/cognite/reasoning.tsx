@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
+import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/cognite/collapsible";
-import { cn } from "@/lib/utils";
-import { IconChevronDown } from "@tabler/icons-react";
-import type { ComponentProps } from "react";
+} from '@/components/ui/cognite/collapsible';
+import { cn } from '@/lib/utils';
+import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
+import type { ComponentProps } from 'react';
 import {
   createContext,
   memo,
@@ -16,15 +16,15 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { Response } from "./response";
-import { Shimmer } from "./shimmer";
+} from 'react';
+import { Streamdown } from 'streamdown';
+import { Shimmer } from './shimmer';
 
 type ReasoningContextValue = {
   isStreaming: boolean;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  duration: number;
+  duration: number | undefined;
 };
 
 const ReasoningContext = createContext<ReasoningContextValue | null>(null);
@@ -32,7 +32,7 @@ const ReasoningContext = createContext<ReasoningContextValue | null>(null);
 const useReasoning = () => {
   const context = useContext(ReasoningContext);
   if (!context) {
-    throw new Error("Reasoning components must be used within Reasoning");
+    throw new Error('Reasoning components must be used within Reasoning');
   }
   return context;
 };
@@ -66,7 +66,7 @@ export const Reasoning = memo(
     });
     const [duration, setDuration] = useControllableState({
       prop: durationProp,
-      defaultProp: 0,
+      defaultProp: undefined,
     });
 
     const [hasAutoClosed, setHasAutoClosed] = useState(false);
@@ -110,7 +110,7 @@ export const Reasoning = memo(
         value={{ isStreaming, isOpen, setIsOpen, duration }}
       >
         <Collapsible
-          className={cn("not-prose mb-4 pl-1.25", className)}
+          className={cn('not-prose mb-4', className)}
           onOpenChange={handleOpenChange}
           open={isOpen}
           {...props}
@@ -125,7 +125,7 @@ export const Reasoning = memo(
 export type ReasoningTriggerProps = ComponentProps<typeof CollapsibleTrigger>;
 
 const getThinkingMessage = (isStreaming: boolean, duration?: number) => {
-  if (isStreaming || duration === 0) {
+  if (isStreaming || duration === 0 || duration === undefined) {
     return <Shimmer duration={1}>Atlas thinking...</Shimmer>;
   }
   return <p>Atlas reasoning</p>;
@@ -133,13 +133,13 @@ const getThinkingMessage = (isStreaming: boolean, duration?: number) => {
 
 export const ReasoningTrigger = memo(
   ({ className, children, ...props }: ReasoningTriggerProps) => {
-    const { isStreaming, isOpen, duration } = useReasoning();
-    const isThinking = isStreaming || duration === 0;
+    const { isStreaming, duration } = useReasoning();
+    const isThinking = isStreaming || duration === 0 || duration === undefined;
 
     return (
       <CollapsibleTrigger
         className={cn(
-          "flex w-full items-center gap-2 text-foreground text-md tracking-tightest transition-colors hover:text-muted-foreground",
+          'flex w-full items-center gap-2 text-foreground text-base leading-5 tracking-tightest transition-colors hover:text-muted-foreground',
           className
         )}
         {...props}
@@ -147,17 +147,14 @@ export const ReasoningTrigger = memo(
         {children ?? (
           <>
             {isThinking ? (
-              <span className="italic">{getThinkingMessage(isStreaming, duration)}</span>
+              <span className="italic">
+                {getThinkingMessage(isStreaming, duration)}
+              </span>
             ) : (
               <span>Atlas reasoning</span>
             )}
             {!isThinking && (
-              <IconChevronDown
-                className={cn(
-                  "size-4 transition-transform",
-                  isOpen ? "rotate-180" : "rotate-0"
-                )}
-              />
+              <ChevronsUpDown className="size-4 transition-transform" />
             )}
           </>
         )}
@@ -176,17 +173,16 @@ export const ReasoningContent = memo(
   ({ className, children, ...props }: ReasoningContentProps) => (
     <CollapsibleContent
       className={cn(
-        "mt-3.5 text-sm",
-        "data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-muted-foreground text-md tracking-tightest outline-none data-[state=closed]:animate-out data-[state=open]:animate-in [&>*:not(:last-child)]:mb-2",
+        'mt-3.5 [&>*:not(:last-child)]:mb-2 text-sm leading-4.5 tracking-tight text-muted-foreground outline-none data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 data-[state=closed]:animate-out data-[state=open]:animate-in',
         className
       )}
       {...props}
     >
-      <Response>{children}</Response>
+      <Streamdown>{children}</Streamdown>
     </CollapsibleContent>
   )
 );
 
-Reasoning.displayName = "Reasoning";
-ReasoningTrigger.displayName = "ReasoningTrigger";
-ReasoningContent.displayName = "ReasoningContent";
+Reasoning.displayName = 'Reasoning';
+ReasoningTrigger.displayName = 'ReasoningTrigger';
+ReasoningContent.displayName = 'ReasoningContent';

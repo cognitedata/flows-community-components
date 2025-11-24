@@ -1,55 +1,56 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
-  Terminal,
-  CheckCircle2,
-  ArrowRight,
-  FileText,
-  Sparkles,
-} from "lucide-react";
-import { Button } from "@/components/ui/cognite/button";
+  IconArrowRight as ArrowRight,
+  IconCircleCheck as CheckCircle2,
+  IconFileText as FileText,
+  IconSparkles as Sparkles,
+  IconTerminal as Terminal,
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Badge } from "@/components/ui/cognite/badge";
+} from '@/components/ui/cognite/card';
+import { Badge } from '@/components/ui/cognite/badge';
 import {
   CodeBlock,
   CodeBlockCopyButton,
-} from "@/components/ui/cognite/code-block";
+} from '@/components/ui/cognite/code-block';
 
 interface Step {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   code?: string;
+  exampleLabel?: string;
   configStep?: boolean;
 }
 
 const steps: Step[] = [
   {
     icon: Terminal,
-    title: "Create your project",
-    description: "Start with a new Next.js project or use your existing one",
-    code: "npx cognite-create@latest",
+    title: 'Create your project',
+    description: 'Start with a new Next.js project or use your existing one',
+    code: 'npx cognite-create@latest',
   },
   {
     icon: FileText,
-    title: "Set up environment variables",
+    title: 'Set up environment variables',
     description:
-      "Copy or create a .env file and add the environment variables from .env.example and configure them for your project",
+      'Copy or create a .env file and add the environment variables from .env.example and configure them for your project',
     code: `touch .env`,
   },
   {
     icon: Sparkles,
-    title: "Start building with Cursor",
-    description: "Ask Cursor AI to build your features using natural language",
-    code: "Example: Build me a timeseries dashboard",
+    title: 'Start building with Cursor',
+    description: 'Ask Cursor AI to build your features using natural language',
+    code: 'Build me a timeseries dashboard',
   },
 ];
 
@@ -86,7 +87,7 @@ export default function InstallationPage() {
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4" />
                   <span>
-                    Node.js 20 or later{" "}
+                    Node.js 20 or later{' '}
                     <a
                       href="https://nodejs.org/en/download/"
                       target="_blank"
@@ -100,7 +101,7 @@ export default function InstallationPage() {
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4" />
                   <span>
-                    Cursor AI Editor{" "}
+                    Cursor AI Editor{' '}
                     <a
                       href="https://www.cursor.com/"
                       target="_blank"
@@ -156,7 +157,7 @@ export default function InstallationPage() {
                       <CardContent>
                         <div className="space-y-4">
                           <p className="text-sm text-muted-foreground">
-                            Add the following to your{" "}
+                            Add the following to your{' '}
                             <code className="rounded bg-muted px-1.5 py-0.5">
                               tailwind.config.js
                             </code>
