@@ -15,22 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/cognite/checkbox"
 import { Separator } from "@/components/ui/cognite/separator"
 import { Badge } from "@/components/ui/cognite/badge"
-import {
-  IconAlertCircle as CircleAlert,
-  IconAlertOctagon as OctagonAlert,
-  IconAppWindow as AppWindow,
-  IconArrowLeft as ArrowLeft,
-  IconBell as Bell,
-  IconCalendar as CalendarIcon,
-  IconCategory as Shapes,
-  IconChartBar as BarChart3,
-  IconCheck as Check,
-  IconCircleCheck as CircleCheck,
-  IconMoon as Moon,
-  IconPlus as Plus,
-  IconRefresh as RefreshCw,
-  IconSun as Sun,
-} from "@tabler/icons-react"
+import { IconAppWindow as AppWindow, IconArrowLeft as ArrowLeft, IconBell as Bell, IconCalendar as CalendarIcon, IconCheck as Check, IconRefresh as RefreshCw, IconMoon as Moon, IconPlus as Plus, IconShapes as Shapes, IconSun as Sun, IconChartBar as BarChart3, IconCircleCheck as CircleCheck, IconAlertCircle as CircleAlert, IconAlertOctagon as OctagonAlert } from "@tabler/icons-react"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/cognite/popover"
