@@ -22,7 +22,7 @@ function BasicDemo() {
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="space-y-2">
+        <CollapsibleContent className="space-y-2 px-3">
           Collapsibles work independently—multiple can be open at once. The
           shadcn collapsible is for independent sections. Use accordion patterns
           when you want mutually exclusive content areas.
