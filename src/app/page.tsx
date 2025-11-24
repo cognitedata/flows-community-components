@@ -25,14 +25,14 @@ import {
 } from '@/components/ui/cognite/alert';
 import { motion } from 'framer-motion';
 import {
-  ArrowRight,
-  ChevronDown,
-  Sparkles,
-  Terminal,
-  Settings,
-  Download,
-  AlertTriangle,
-} from 'lucide-react';
+  IconAlertTriangle as AlertTriangle,
+  IconArrowRight as ArrowRight,
+  IconChevronDown as ChevronDown,
+  IconDownload as Download,
+  IconSettings as Settings,
+  IconSparkles as Sparkles,
+  IconTerminal as Terminal,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import type { BundledLanguage } from 'shiki';
