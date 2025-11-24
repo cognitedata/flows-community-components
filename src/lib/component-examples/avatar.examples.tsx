@@ -11,77 +11,64 @@ function BasicDemo() {
   return (
     <>
       <div className="flex items-center gap-4">
-        <Avatar variant="default">
-          <AvatarFallback>AB</AvatarFallback>
+        <Avatar sizes="xsm" variant="nordic">
+          <AvatarIcon>
+            <IconWheel />
+          </AvatarIcon>
         </Avatar>
-        <div id="avatar-group" className="flex items-center">
-          <Avatar
-            variant="nordic"
-            className="relative -ml-1 first:ml-0 z-[1] border-2 border-background"
-          >
-            <AvatarFallback>NC</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="aurora"
-            className="relative -ml-1 z-[2] border-2 border-background"
-          >
-            <AvatarFallback>AR</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="fjord"
-            className="relative -ml-1 z-[3] border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="dusk"
-            className="relative -ml-1 z-[4] border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="overflow"
-            className="relative -ml-1 z-[5] border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
-        </div>
-
-        <Avatar>
+        <Avatar sizes="xsm" variant="fjord">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="xsm" variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>JD</AvatarFallback>
+          <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
 
         <div id="avatar-group" className="flex items-center">
           <Avatar
             variant="nordic"
-            className="relative -ml-1 first:ml-0 z-[1] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
           >
             <AvatarImage src="/user-avatar3.png" alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar
-            variant="aurora"
-            className="relative -ml-1 z-[2] border-2 border-background"
+            variant="default"
+            sizes="default"
+            className="relative -ml-1 z-2 border-2 border-background"
           >
             <AvatarImage src="/user-avatar4.png" alt="User" />
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
           <Avatar
-            variant="fjord"
-            className="relative -ml-1 z-[3] border-2 border-background"
+            variant="default"
+            sizes="default"
+            className="relative -ml-1 z-3 border-2 border-background"
           >
+            <AvatarImage src="/user-avatar5.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
-            variant="dusk"
-            className="relative -ml-1 z-[4] border-2 border-background"
+            variant="default"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
           >
+            <AvatarImage src="/user-avatar6.png" alt="User" />
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="default"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarImage src="/user-avatar7.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
             variant="overflow"
-            className="relative -ml-1 z-[5] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-5 border-2 border-background"
           >
             <AvatarFallback>+4</AvatarFallback>
           </Avatar>
@@ -213,31 +200,36 @@ export function BasicDemo() {
         <div id="avatar-group" className="flex items-center">
           <Avatar
             variant="nordic"
-            className="relative -ml-1 first:ml-0 z-[1] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
           >
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar
             variant="aurora"
-            className="relative -ml-1 z-[2] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-2 border-2 border-background"
           >
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
           <Avatar
             variant="fjord"
-            className="relative -ml-1 z-[3] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-3 border-2 border-background"
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
             variant="dusk"
-            className="relative -ml-1 z-[4] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
             variant="overflow"
-            className="relative -ml-1 z-[5] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-5 border-2 border-background"
           >
             <AvatarFallback>+4</AvatarFallback>
           </Avatar>
@@ -251,33 +243,38 @@ export function BasicDemo() {
         <div id="avatar-group" className="flex items-center">
           <Avatar
             variant="nordic"
-            className="relative -ml-1 first:ml-0 z-[1] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
           >
              <AvatarImage src="/user-avatar3.png" alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar
             variant="aurora"
-            className="relative -ml-1 z-[2] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-2 border-2 border-background"
           >
              <AvatarImage src="/user-avatar4.png" alt="User" />
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
           <Avatar
             variant="fjord"
-            className="relative -ml-1 z-[3] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-3 border-2 border-background"
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
             variant="dusk"
-            className="relative -ml-1 z-[4] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
             variant="overflow"
-            className="relative -ml-1 z-[5] border-2 border-background"
+            sizes="default"
+            className="relative -ml-1 z-5 border-2 border-background"
           >
             <AvatarFallback>+4</AvatarFallback>
           </Avatar>
