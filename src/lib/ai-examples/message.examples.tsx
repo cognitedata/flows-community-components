@@ -38,7 +38,8 @@ import {
 function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           <span>There are abnormal vibration levels on </span>
           <InlineCitation>
@@ -52,10 +53,14 @@ function Demo() {
             </InlineCitationLink>
           </InlineCitation>
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           According to the time series, vibration amplitude has been rising
           steadily since 03:00. The motor temperature also increased by 8°C over
@@ -115,11 +120,6 @@ function Demo() {
             </DropdownMenu>
           </MessageActions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   );
@@ -135,14 +135,14 @@ function WithCodeBlockDemo() {
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message isResponse={false}>
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
         <MessageContent className="flex flex-col gap-2">
           <CodeBlock
             code={code}
@@ -179,11 +179,6 @@ function WithCodeBlockDemo() {
             </DropdownMenu>
           </MessageActions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   );
@@ -212,14 +207,19 @@ import {
 export function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message isResponse={false}>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent>
           According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
           <div className="flex flex-row gap-2">
@@ -277,11 +277,6 @@ export function Demo() {
             </DropdownMenu>
           </MessageActions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   )
@@ -318,7 +313,7 @@ export function WithCodeBlockDemo() {
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message from="assistant">
@@ -358,11 +353,6 @@ export function WithCodeBlockDemo() {
             </DropdownMenu>
           </MessageActions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   )
