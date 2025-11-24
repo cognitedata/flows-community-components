@@ -12,13 +12,13 @@ import {
   PromptInputAttachments,
   PromptInputSpeechButton,
   PromptInputButton,
-  usePromptInputAttachments,
+  // usePromptInputAttachments, // TODO: Uncomment when file dialog functionality is re-added
   type PromptInputMessage,
 } from '@/components/ui/cognite/prompt-input';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { useState, useRef } from 'react';
 import {
-  IconPaperclip,
+  // IconPaperclip, // TODO: Uncomment when file dialog functionality is re-added
   IconAdjustments,
   IconChevronDown,
 } from '@tabler/icons-react';
@@ -34,13 +34,13 @@ const SUBMITTING_TIMEOUT = 200;
 const STREAMING_TIMEOUT = 2000;
 
 function AttachmentTools() {
-  const attachments = usePromptInputAttachments();
+  // const attachments = usePromptInputAttachments(); // TODO: Uncomment when file dialog functionality is re-added
 
   return (
     <>
-      <PromptInputButton onClick={() => attachments.openFileDialog()}>
+      {/* <PromptInputButton onClick={() => attachments.openFileDialog()}>
         <IconPaperclip size={16} />
-      </PromptInputButton>
+      </PromptInputButton> */}
       <PromptInputButton>
         <IconAdjustments size={16} />
       </PromptInputButton>
@@ -133,12 +133,12 @@ import {
   PromptInputAttachments,
   PromptInputSpeechButton,
   PromptInputButton,
-  usePromptInputAttachments,
+  // usePromptInputAttachments, // TODO: Uncomment when file dialog functionality is re-added
   type PromptInputMessage,
 } from '@/components/ui/cognite/prompt-input';
 import { useState, useRef } from 'react';
 import {
-  IconPaperclip,
+  // IconPaperclip, // TODO: Uncomment when file dialog functionality is re-added
   IconAdjustments,
   IconChevronDown,
 } from '@tabler/icons-react';
@@ -151,13 +151,13 @@ import {
 } from '@/components/ui/cognite/dropdown-menu';
 
 function AttachmentTools() {
-  const attachments = usePromptInputAttachments();
+  // const attachments = usePromptInputAttachments(); // TODO: Uncomment when file dialog functionality is re-added
 
   return (
     <>
-      <PromptInputButton onClick={() => attachments.openFileDialog()}>
+      {/* <PromptInputButton onClick={() => attachments.openFileDialog()}>
         <IconPaperclip size={16} />
-      </PromptInputButton>
+      </PromptInputButton> */}
       <PromptInputButton>
         <IconAdjustments size={16} />
       </PromptInputButton>
