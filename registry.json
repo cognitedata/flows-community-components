@@ -316,7 +316,8 @@
           "path": "src/components/ui/cognite/pagination.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "popover",
@@ -354,7 +355,8 @@
           "path": "src/components/ui/cognite/radio-group.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "scroll-area",
@@ -399,7 +401,7 @@
       "type": "registry:component",
       "title": "Sheet",
       "description": "A slide-over sheet built on Radix Dialog primitives.",
-      "dependencies": ["@radix-ui/react-dialog", "lucide-react"],
+      "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/sheet.tsx",
@@ -418,7 +420,8 @@
           "path": "src/components/ui/cognite/sidebar.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "skeleton",
@@ -606,7 +609,8 @@
           "path": "src/components/ui/cognite/artifact.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "branch",
@@ -651,7 +655,7 @@
       "type": "registry:component",
       "title": "Code Block",
       "description": "AI code block component with syntax highlighting.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": ["button"],
       "files": [
         {
@@ -808,7 +812,8 @@
           "path": "src/components/ui/cognite/open-in-chat.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "panel",
@@ -832,7 +837,8 @@
           "path": "src/components/ui/cognite/plan.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "prompt-input",
@@ -857,7 +863,8 @@
           "path": "src/components/ui/cognite/queue.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "reasoning",
@@ -905,7 +912,8 @@
           "path": "src/components/ui/cognite/sources.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "suggestion",
@@ -930,7 +938,8 @@
           "path": "src/components/ui/cognite/task.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "tool",
