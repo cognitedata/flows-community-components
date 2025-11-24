@@ -10,7 +10,7 @@
       "description": "An accessible accordion with smooth expand/collapse built on Radix primitives.",
       "dependencies": [
         "@radix-ui/react-accordion",
-        "@tabler/icons-react"
+        "lucide-react"
       ],
       "files": [
         {
@@ -82,9 +82,6 @@
       "type": "registry:component",
       "title": "Breadcrumb",
       "description": "Breadcrumb component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "files": [
         {
           "path": "src/components/ui/cognite/breadcrumb.tsx",
@@ -114,7 +111,7 @@
       "title": "Calendar",
       "description": "A themable DayPicker calendar with custom navigation controls.",
       "dependencies": [
-        "@tabler/icons-react",
+        "lucide-react",
         "react-day-picker"
       ],
       "registryDependencies": [
@@ -155,10 +152,10 @@
       "name": "checkbox",
       "type": "registry:component",
       "title": "Checkbox",
-      "description": "A checkbox component styled with Radix Checkbox and Tabler icons.",
+      "description": "A checkbox component styled with Radix Checkbox and Lucide icons.",
       "dependencies": [
         "@radix-ui/react-checkbox",
-        "@tabler/icons-react"
+        "lucide-react"
       ],
       "files": [
         {
@@ -184,9 +181,6 @@
       "type": "registry:component",
       "title": "Combobox",
       "description": "Combobox component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "files": [
         {
           "path": "src/components/ui/cognite/combobox.tsx",
@@ -199,9 +193,6 @@
       "type": "registry:component",
       "title": "Command",
       "description": "Command component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "files": [
         {
           "path": "src/components/ui/cognite/command.tsx",
@@ -240,7 +231,7 @@
       "description": "A modal dialog with overlay, content, and close affordances built on Radix Dialog.",
       "dependencies": [
         "@radix-ui/react-dialog",
-        "@tabler/icons-react"
+        "lucide-react"
       ],
       "files": [
         {
@@ -416,7 +407,7 @@
       "description": "A select dropdown with custom trigger, content, and indicator states.",
       "dependencies": [
         "@radix-ui/react-select",
-        "@tabler/icons-react"
+        "lucide-react"
       ],
       "files": [
         {
@@ -608,7 +599,7 @@
       "description": "A carousel component with embla-carousel.",
       "dependencies": [
         "embla-carousel-react",
-        "@tabler/icons-react"
+        "lucide-react"
       ],
       "registryDependencies": [
         "button"
@@ -683,9 +674,6 @@
       "type": "registry:component",
       "title": "Branch",
       "description": "AI conversation branch component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "files": [
         {
           "path": "src/components/ui/cognite/branch.tsx",
@@ -710,9 +698,6 @@
       "type": "registry:component",
       "title": "Chain of Thought",
       "description": "AI chain of thought component for displaying reasoning steps.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "files": [
         {
           "path": "src/components/ui/cognite/chain-of-thought.tsx",
@@ -796,7 +781,7 @@
       "description": "AI conversation component with scroll management.",
       "dependencies": [
         "use-stick-to-bottom",
-        "@tabler/icons-react"
+        "lucide-react"
       ],
       "registryDependencies": [
         "button"
@@ -837,9 +822,6 @@
       "type": "registry:component",
       "title": "Inline Citation",
       "description": "AI inline citation component for source references.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "files": [
         {
           "path": "src/components/ui/cognite/inline-citation.tsx",
@@ -1033,9 +1015,6 @@
       "type": "registry:component",
       "title": "Tool",
       "description": "AI tool component for displaying tool calls.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
       "files": [
         {
           "path": "src/components/ui/cognite/tool.tsx",
