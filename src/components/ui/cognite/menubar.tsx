@@ -8,11 +8,11 @@ import { cn } from '@/lib/utils';
 
 type MenubarSize = 'default' | 'sm';
 
-const MenubarContext = React.createContext<MenubarSize>('default');
+const MenubarContext = React.createContext<MenubarSize>('sm');
 
 function Menubar({
   className,
-  size = 'default',
+  size = 'sm',
   ...props
 }: React.ComponentProps<typeof MenubarPrimitive.Root> & {
   size?: MenubarSize;
