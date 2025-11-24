@@ -140,14 +140,14 @@ function WithCodeBlockDemo() {
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message isResponse={false}>
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
         <MessageContent className="flex flex-col gap-2">
           <CodeBlock
             code={code}
@@ -318,7 +318,7 @@ export function WithCodeBlockDemo() {
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message from="assistant">

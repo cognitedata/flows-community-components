@@ -9,11 +9,9 @@ import {
   Message,
   MessageContent,
   MessageAvatar,
-  MessageAvatarIcon,
 } from '@/components/ui/cognite/message';
 import { Actions, Action } from '@/components/ui/cognite/actions';
 import {
-  IconWheel,
   IconThumbUp,
   IconThumbDown,
   IconCopy,
@@ -364,7 +362,7 @@ import {
 } from "@/components/ai-elements/cognite/reasoning"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
