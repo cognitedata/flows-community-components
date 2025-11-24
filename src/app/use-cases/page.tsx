@@ -8,16 +8,16 @@ import {
 import { Badge } from '@/components/ui/cognite/badge';
 import { Button } from '@/components/ui/cognite/button';
 import {
-  BarChart3,
-  ShoppingBag,
-  Users,
-  FileText,
-  Calendar,
-  MessageSquare,
-  Building,
-  Zap,
-  ArrowRight,
-} from 'lucide-react';
+  IconArrowRight as ArrowRight,
+  IconBuilding as Building,
+  IconCalendar as Calendar,
+  IconChartBar as BarChart3,
+  IconFileText as FileText,
+  IconMessage as MessageSquare,
+  IconShoppingBag as ShoppingBag,
+  IconUsers as Users,
+  IconBolt as Zap,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 
 const useCases = [

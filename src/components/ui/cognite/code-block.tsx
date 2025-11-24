@@ -17,6 +17,7 @@ import { type BundledLanguage, codeToHtml, type ShikiTransformer } from 'shiki';
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;
+  copyText?: string;
   collapsed?: boolean;
   language: BundledLanguage;
   showLineNumbers?: boolean;
@@ -24,6 +25,7 @@ type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
 
 type CodeBlockContextType = {
   code: string;
+  copyText: string;
   isCollapsed: boolean;
   setIsCollapsed: (collapsed: boolean) => void;
   lineCount: number;
@@ -31,6 +33,7 @@ type CodeBlockContextType = {
 
 const CodeBlockContext = createContext<CodeBlockContextType>({
   code: '',
+  copyText: '',
   isCollapsed: false,
   setIsCollapsed: () => {},
   lineCount: 0,
@@ -82,6 +85,7 @@ export async function highlightCode(
 
 export const CodeBlock = ({
   code,
+  copyText,
   language,
   showLineNumbers = false,
   collapsed = false,
@@ -95,6 +99,7 @@ export const CodeBlock = ({
   const mounted = useRef(false);
 
   const lineCount = code.split('\n').length;
+  const textToCopy = copyText ?? code;
 
   useEffect(() => {
     highlightCode(code, language, showLineNumbers).then(([light, dark]) => {
@@ -112,7 +117,13 @@ export const CodeBlock = ({
 
   return (
     <CodeBlockContext.Provider
-      value={{ code, isCollapsed, setIsCollapsed, lineCount }}
+      value={{
+        code,
+        copyText: textToCopy,
+        isCollapsed,
+        setIsCollapsed,
+        lineCount,
+      }}
     >
       <div
         className={cn(
@@ -167,7 +178,7 @@ export const CodeBlockCopyButton = ({
   ...props
 }: CodeBlockCopyButtonProps) => {
   const [isCopied, setIsCopied] = useState(false);
-  const { code } = useContext(CodeBlockContext);
+  const { copyText } = useContext(CodeBlockContext);
 
   const copyToClipboard = async () => {
     if (typeof window === 'undefined' || !navigator?.clipboard?.writeText) {
@@ -176,7 +187,7 @@ export const CodeBlockCopyButton = ({
     }
 
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(copyText);
       setIsCopied(true);
       onCopy?.();
       setTimeout(() => setIsCopied(false), timeout);

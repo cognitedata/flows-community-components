@@ -2,7 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Copy, Check, Code, Eye } from 'lucide-react';
+import {
+  IconCheck as Check,
+  IconCode as Code,
+  IconCopy as Copy,
+  IconEye as Eye,
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import { Input } from '@/components/ui/cognite/input';
 import { Label } from '@/components/ui/cognite/label';
@@ -417,7 +422,7 @@ export function SwitchDemo() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <h4 className="font-semibold">Installation</h4>
-                  <CodeBlock code="npx shadcn@latest add button input label card switch" />
+                  <CodeBlock code="pnpm dlx shadcn@latest add @aura/button @aura/input @aura/label @aura/card @aura/switch" />
                 </div>
 
                 <div className="space-y-2">

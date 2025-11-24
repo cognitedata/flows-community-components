@@ -147,11 +147,6 @@ export default function AIPage() {
       name: 'Toolbar',
       description: 'Toolbar for AI interfaces',
     },
-    {
-      slug: 'web-preview',
-      name: 'Web Preview',
-      description: 'Web page preview component',
-    },
   ];
 
   return (
@@ -200,7 +195,7 @@ import { Conversation } from "@/components/ai-elements/cognite/conversation"
 export function ChatInterface() {
   return (
     <Conversation>
-      <Message from="user">
+      <Message>
         <MessageContent>
           Hello, AI!
         </MessageContent>

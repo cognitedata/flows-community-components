@@ -3,7 +3,10 @@ import {
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/cognite/alert';
-import { Terminal, AlertCircle } from 'lucide-react';
+import {
+  IconAlertCircle as AlertCircle,
+  IconTerminal2 as Terminal,
+} from '@tabler/icons-react';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -47,8 +50,9 @@ export const alertExamples: ComponentExamples = {
     description: 'A simple alert with title and description',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
-import { Terminal } from "lucide-react"
+    code: `
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/cognite/alert';
+import { IconTerminal2 as Terminal } from '@tabler/icons-react';
 
 export function BasicDemo() {
   return (
@@ -61,16 +65,21 @@ export function BasicDemo() {
         </AlertDescription>
       </Alert>
     </div>
-  )
-}`,
+  );
+}
+`,
   },
   variants: {
     title: 'Alert Variants',
     description: 'Different alert styles for various contexts',
     component: VariantsDemo,
     difficulty: 'beginner',
-    code: `import { Alert, AlertDescription, AlertTitle } from "@/components/ui/cognite/alert"
-import { Terminal, AlertCircle } from "lucide-react"
+    code: `
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/cognite/alert';
+import {
+  IconAlertCircle as AlertCircle,
+  IconTerminal2 as Terminal,
+} from '@tabler/icons-react';
 
 export function VariantsDemo() {
   return (
@@ -90,8 +99,9 @@ export function VariantsDemo() {
         </AlertDescription>
       </Alert>
     </div>
-  )
-}`,
+  );
+}
+`,
   },
 };
 

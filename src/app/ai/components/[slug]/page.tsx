@@ -47,7 +47,6 @@ const validSlugs = [
   'task',
   'tool',
   'toolbar',
-  'web-preview',
 ];
 
 export async function generateStaticParams() {

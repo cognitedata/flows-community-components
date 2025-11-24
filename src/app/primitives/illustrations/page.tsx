@@ -7,7 +7,11 @@ import {
 } from '@/components/ui/cognite/card';
 import { Badge } from '@/components/ui/cognite/badge';
 import { Button } from '@/components/ui/cognite/button';
-import { Image as LucideImage, Download, Palette } from 'lucide-react';
+import {
+  IconDownload as Download,
+  IconPalette as Palette,
+  IconPhoto as ImageIcon,
+} from '@tabler/icons-react';
 
 const illustrationCategories = [
   {
@@ -54,7 +58,7 @@ export default function IllustrationsPage() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-muted">
-                    <LucideImage className="h-5 w-5" />
+                    <ImageIcon className="h-5 w-5" />
                   </div>
                   <div>
                     <CardTitle className="text-lg">{category.name}</CardTitle>

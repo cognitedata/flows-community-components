@@ -7,7 +7,12 @@ import {
   CardTitle,
 } from '@/components/ui/cognite/card';
 import { Badge } from '@/components/ui/cognite/badge';
-import { MessageSquare, BarChart3, Users, ArrowRight } from 'lucide-react';
+import {
+  IconArrowRight as ArrowRight,
+  IconChartBar as BarChart3,
+  IconMessageCircle as MessageSquare,
+  IconUsers as Users,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 
 const blockCategories = [
