@@ -3,12 +3,14 @@ import {
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from "@/components/ui/cognite/message";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+  MessageActions,
+  MessageAction,
+} from '@/components/ui/cognite/message';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ui/cognite/inline-citation";
+} from '@/components/ui/cognite/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -20,14 +22,18 @@ import {
   IconShare,
   IconDotsVertical,
   IconWheel,
-} from "@tabler/icons-react";
-import { Actions, Action } from "@/components/ui/cognite/actions";
+} from '@tabler/icons-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
+} from '@/components/ui/cognite/dropdown-menu';
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from '@/components/ui/cognite/code-block';
 
 function Demo() {
   return (
@@ -40,6 +46,7 @@ function Demo() {
               url="https://example.com/user/21PT1019"
               target="_blank"
               icon={IconAt}
+              variant="nordic"
             >
               21PT1019
             </InlineCitationLink>
@@ -82,31 +89,95 @@ function Demo() {
               </InlineCitationLink>
             </InlineCitation>
           </div>
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
               <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
-            </Action>
+            </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
+                <MessageAction size="icon-sm" label="More options">
                   <IconDotsVertical className="w-3 h-3" />
-                </Action>
+                </MessageAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Option 1</DropdownMenuItem>
                 <DropdownMenuItem>Option 2</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </Actions>
+          </MessageActions>
+        </MessageContent>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
+      </Message>
+    </div>
+  );
+}
+
+function WithCodeBlockDemo() {
+  const code = `async function analyzeVibrationData(timeseriesId: string) {
+  const data = await fetchTimeseries(timeseriesId);
+  const anomalies = detectAnomalies(data);
+
+  return anomalies.filter(a => a.severity > 0.8);
+}`;
+
+  return (
+    <div className="flex flex-col space-y-4 w-full gap-2">
+      <Message from="user">
+        <MessageContent>
+          Can you show me how to analyze vibration data using TypeScript?
+        </MessageContent>
+        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+      </Message>
+
+      <Message from="assistant">
+        <MessageContent className="flex flex-col gap-2">
+          <CodeBlock
+            code={code}
+            language="typescript"
+            showLineNumbers
+            className="-mt-1"
+          >
+            <CodeBlockCopyButton />
+            <CodeBlockCollapseButton />
+          </CodeBlock>
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
+              <IconThumbUp className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
+              <IconThumbDown className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+              <IconCopy className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
+              <IconShare className="w-3 h-3" />
+            </MessageAction>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <MessageAction size="icon-sm" label="More options">
+                  <IconDotsVertical className="w-3 h-3" />
+                </MessageAction>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Option 1</DropdownMenuItem>
+                <DropdownMenuItem>Option 2</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </MessageActions>
         </MessageContent>
         <MessageAvatar variant="fjord">
           <MessageAvatarIcon>
@@ -120,18 +191,17 @@ function Demo() {
 
 export const messageExamples: ComponentExamples = {
   contained: {
-    title: "Message",
+    title: 'Message',
     description:
-      "Messages with background containers for clear visual separation",
+      'Messages with background containers for clear visual separation',
     component: Demo,
-    difficulty: "beginner",
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
+    difficulty: 'beginner',
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ai-elements/cognite/inline-citation"
+} from "@/components/ui/cognite/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -144,13 +214,13 @@ export function Demo() {
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message from="user">
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt}>21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
         </MessageContent>
         <MessageAvatar src="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message from="assistant">
-        <MessageContent className="flex flex-col gap-2">
+        <MessageContent>
           According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
           <div className="flex flex-row gap-2">
             <InlineCitation>
@@ -181,31 +251,112 @@ export function Demo() {
               </InlineCitationLink>
             </InlineCitation>
           </div>
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
               <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
               <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
-            </Action>
+            </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
+                <MessageAction size="icon-sm" label="More options">
                   <IconDotsVertical className="w-3 h-3" />
-                </Action>
+                </MessageAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Option 1</DropdownMenuItem>
                 <DropdownMenuItem>Option 2</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          </Actions>
+          </MessageActions>
+        </MessageContent>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
+      </Message>
+    </div>
+  )
+}`,
+  },
+
+  withCodeBlock: {
+    title: 'Message with Code Block',
+    description:
+      'Assistant message containing a code block with syntax highlighting',
+    component: WithCodeBlockDemo,
+    difficulty: 'beginner',
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/cognite/code-block"
+import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/cognite/dropdown-menu"
+
+export function WithCodeBlockDemo() {
+  const code = \`async function analyzeVibrationData(timeseriesId: string) {
+  const data = await fetchTimeseries(timeseriesId);
+  const anomalies = detectAnomalies(data);
+
+  return anomalies.filter(a => a.severity > 0.8);
+}\`
+
+  return (
+    <div className="flex flex-col space-y-4 w-full gap-2">
+      <Message from="user">
+        <MessageContent>
+          Can you show me how to analyze vibration data using TypeScript?
+        </MessageContent>
+        <MessageAvatar src="/user-avatar2.png" name="John Doe" />
+      </Message>
+
+      <Message from="assistant">
+        <MessageContent className="flex flex-col gap-2">
+          <CodeBlock
+            code={code}
+            language="typescript"
+            showLineNumbers
+            className="-mt-1"
+          >
+            <CodeBlockCopyButton />
+            <CodeBlockCollapseButton />
+          </CodeBlock>
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Like" tooltip="Like">
+              <IconThumbUp className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
+              <IconThumbDown className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+              <IconCopy className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Share" tooltip="Share">
+              <IconShare className="w-3 h-3" />
+            </MessageAction>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <MessageAction size="icon-sm" label="More options">
+                  <IconDotsVertical className="w-3 h-3" />
+                </MessageAction>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Option 1</DropdownMenuItem>
+                <DropdownMenuItem>Option 2</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </MessageActions>
         </MessageContent>
         <MessageAvatar variant="fjord">
           <MessageAvatarIcon>
@@ -221,7 +372,7 @@ export function Demo() {
 
 // Component metadata - single source of truth for API documentation
 export const messageMeta = {
-  name: "Message",
-  description: "Displays a chat interface message from either a user or an AI.",
-  importPath: "@/components/ai-elements/cognite/message",
+  name: 'Message',
+  description: 'Displays a chat interface message from either a user or an AI.',
+  importPath: '@/components/ui/cognite/message',
 };

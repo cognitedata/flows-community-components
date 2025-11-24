@@ -3,8 +3,8 @@ import {
   SourcesTrigger,
   SourcesContent,
   Source,
-} from "@/components/ui/cognite/sources";
-import type { ComponentExamples } from "@/lib/component-examples/types";
+} from '@/components/ui/cognite/sources';
+import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicSourcesDemo() {
   return (
@@ -35,10 +35,10 @@ function SourcesWithCustomTitleDemo() {
 
 export const sourcesExamples: ComponentExamples = {
   basic: {
-    title: "Basic Sources",
-    description: "Collapsible source attribution with links",
+    title: 'Basic Sources',
+    description: 'Collapsible source attribution with links',
     component: BasicSourcesDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Sources, SourcesTrigger, SourcesContent, Source } from "@/components/ai-elements/cognite/sources"
 
 export function BasicSourcesDemo() {
@@ -55,10 +55,10 @@ export function BasicSourcesDemo() {
   },
 
   customTitle: {
-    title: "Custom Title",
-    description: "Sources with custom trigger text",
+    title: 'Custom Title',
+    description: 'Sources with custom trigger text',
     component: SourcesWithCustomTitleDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Sources, SourcesTrigger, SourcesContent, Source } from "@/components/ai-elements/cognite/sources"
 
 export function CustomSourcesDemo() {
@@ -78,8 +78,8 @@ export function CustomSourcesDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const sourcesMeta = {
-  name: "Sources",
+  name: 'Sources',
   description:
-    "A component that allows a user to view the sources or citations used to generate a response.",
-  importPath: "@/components/ai-elements/cognite/sources",
+    'A component that allows a user to view the sources or citations used to generate a response.',
+  importPath: '@/components/ai-elements/cognite/sources',
 };

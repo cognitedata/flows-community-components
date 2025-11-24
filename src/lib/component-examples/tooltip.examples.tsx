@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/cognite/button";
+import { Button } from '@/components/ui/cognite/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/tooltip';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -39,9 +39,10 @@ function BasicDemo() {
             </TooltipContent>
           </Tooltip>
         </div>
-        
+
         <p className="text-sm text-muted-foreground">
-          Hover over buttons to see interactive tooltips with helpful information.
+          Hover over buttons to see interactive tooltips with helpful
+          information.
         </p>
       </div>
     </TooltipProvider>
@@ -94,10 +95,10 @@ function VariantsDemo() {
 
 export const tooltipExamples: ComponentExamples = {
   basic: {
-    title: "Tooltip Demo",
-    description: "Interactive contextual help that appears on hover or focus",
+    title: 'Tooltip Demo',
+    description: 'Interactive contextual help that appears on hover or focus',
     component: BasicDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Tooltip,
   TooltipContent,
@@ -148,10 +149,10 @@ export function BasicDemo() {
 }`,
   },
   positions: {
-    title: "Variants",
-    description: "Tooltips with arrows appearing from all sides",
+    title: 'Variants',
+    description: 'Tooltips with arrows appearing from all sides',
     component: VariantsDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Tooltip,
   TooltipContent,
@@ -208,8 +209,10 @@ export function VariantsDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const tooltipMeta = {
-  name: "Tooltip",
-  description: "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  llmUsage: "When asked for a tooltip, use `<Tooltip>` to provide helpful information on hover or focus.",
-  importPath: "@/components/ui/cognite/tooltip",
+  name: 'Tooltip',
+  description:
+    'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+  llmUsage:
+    'When asked for a tooltip, use `<Tooltip>` to provide helpful information on hover or focus.',
+  importPath: '@/components/ui/cognite/tooltip',
 };
