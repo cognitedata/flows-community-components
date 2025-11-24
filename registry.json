@@ -354,9 +354,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "popover",
@@ -399,9 +397,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "scroll-area",
@@ -451,10 +447,7 @@
       "type": "registry:component",
       "title": "Sheet",
       "description": "A slide-over sheet built on Radix Dialog primitives.",
-      "dependencies": [
-        "@radix-ui/react-dialog",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/cognite/sheet.tsx",
@@ -477,9 +470,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "skeleton",
@@ -686,9 +677,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "branch",
@@ -737,12 +726,8 @@
       "type": "registry:component",
       "title": "Code Block",
       "description": "AI code block component with syntax highlighting.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "button"
-      ],
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/cognite/code-block.tsx",
@@ -912,9 +897,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "panel",
@@ -939,9 +922,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "prompt-input",
@@ -970,9 +951,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "reasoning",
@@ -1021,9 +1000,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "suggestion",
@@ -1051,9 +1028,7 @@
           "type": "registry:component"
         }
       ],
-      "dependencies": [
-        "@tabler/icons-react"
-      ]
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "tool",
