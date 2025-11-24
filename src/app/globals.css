@@ -9,6 +9,7 @@
 @variant dark (.dark &);
 
 @theme inline {
+  --text-2xs: 0.625rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
@@ -181,6 +182,9 @@
   --radius-3xl: 24px;
   --radius-4xl: 32px;
   --radius-full: 9999px;
+  --avatar-icon-default: 1.09375rem; // 17.5px
+  --avatar-icon-xs: 0.875rem; // 14px
+  --avatar-icon-xxs: 0.65625rem; // 10.5px
 }
 
 :root {
@@ -754,5 +758,9 @@
 
   .animate-accordion-up {
     animation: accordion-up 0.2s ease-out;
+  }
+  .text-2xs {
+    font-size: var(--text-2xs);
+    line-height: 1;
   }
 }
