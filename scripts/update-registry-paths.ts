@@ -65,19 +65,35 @@ function updateRegistryPaths(): void {
       }
 
       const oldPath = data.files[0].path;
+      let hasChanges = false;
       
-      // Only update if path contains cognite
+      // Update path if it contains cognite
       if (oldPath && oldPath.includes('src/components/ui/cognite/')) {
         const newPath = oldPath.replace('src/components/ui/cognite/', 'src/components/ui/aura/');
         data.files[0].path = newPath;
-
-        // Write updated JSON back to file
+        hasChanges = true;
+        console.log(`   Path: ${oldPath} → ${newPath}`);
+      }
+      
+      // Update content imports from @/lib/utils to #common/utils
+      if (data.files[0].content) {
+        const oldContent = data.files[0].content;
+        // Replace @/lib/utils with #common/utils using regex
+        const newContent = oldContent.replace(/@\/lib\/utils/g, '#common/utils');
+        if (oldContent !== newContent) {
+          data.files[0].content = newContent;
+          hasChanges = true;
+          console.log(`   Content: Updated imports from @/lib/utils to #common/utils`);
+        }
+      }
+      
+      // Write updated JSON back to file if there were changes
+      if (hasChanges) {
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n', 'utf8');
         console.log(`✅ Updated ${file}`);
-        console.log(`   ${oldPath} → ${newPath}`);
         updatedCount++;
       } else {
-        console.log(`⏭️  Skipping ${file} (path doesn't contain cognite)`);
+        console.log(`⏭️  Skipping ${file} (no changes needed)`);
         skippedCount++;
       }
     } catch (error) {
