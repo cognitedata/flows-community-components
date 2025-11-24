@@ -184,9 +184,9 @@
   --radius-3xl: 24px;
   --radius-4xl: 32px;
   --radius-full: 9999px;
-  --avatar-icon-default: 17.5px;
-  --avatar-icon-sm: 14px;
-  --avatar-icon-xs: 10.5px;
+  --avatar-icon-default: 1.09375rem; // 17.5px
+  --avatar-icon-xs: 0.875rem; // 14px
+  --avatar-icon-xxs: 0.65625rem; // 10.5px
 }
 
 :root {
@@ -764,17 +764,5 @@
   .text-2xs {
     font-size: var(--text-2xs);
     line-height: 1;
-  }
-  .avatar-icon-default svg {
-    width: var(--avatar-icon-default);
-    height: var(--avatar-icon-default);
-  }
-  .avatar-icon-sm svg {
-    width: var(--avatar-icon-sm);
-    height: var(--avatar-icon-sm);
-  }
-  .avatar-icon-xs svg {
-    width: var(--avatar-icon-xs);
-    height: var(--avatar-icon-xs);
   }
 }
