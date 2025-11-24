@@ -855,7 +855,7 @@ export const PromptInputTextarea = ({
   return (
     <InputGroupTextarea
       className={cn(
-        'field-sizing-content max-h-48 min-h-16 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-20',
+        'field-sizing-content max-h-48 min-h-16 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5',
         className
       )}
       name="message"

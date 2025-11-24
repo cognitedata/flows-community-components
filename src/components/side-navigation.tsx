@@ -178,7 +178,7 @@ const aiNavigation: NavigationItem[] = [
       // { href: "/ai/components/sources", label: "Sources" },
       { href: '/ai/components/suggestion', label: 'Suggestion' },
       // { href: "/ai/components/task", label: "Task" },
-      // { href: "/ai/components/tool", label: "Tool" },
+      { href: '/ai/components/tool', label: 'Tool' },
     ],
   },
   // {
