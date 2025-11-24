@@ -9,18 +9,16 @@
 @variant dark (.dark &);
 
 @theme inline {
-  --text-base: 1rem;
-  --text-xl: 1.25rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-source-code-pro);
-  --leading-18: 1.125rem;
-  --leading-20: 1.25rem;
-  --leading-24: 1.5rem;
   --tracking-tight: -0.04px;
   --tracking-tighter: -0.08px;
   --tracking-tightest: -0.1px;
+  --shadow-md:
+    0 1px 2px 0 rgba(0, 0, 0, 0.03),
+      0 1px 3px 0 rgba(0, 0, 0, 0.03);
   --shadow-xl:
     0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   --color-sidebar-ring: var(--sidebar-ring);
