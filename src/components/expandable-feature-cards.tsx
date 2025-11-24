@@ -5,7 +5,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useOutsideClick } from '@/hooks/use-outside-click';
 import { Badge } from '@/components/ui/cognite/badge';
 import { Button } from '@/components/ui/cognite/button';
-import { Palette, Code, Sparkles, X, ArrowRight } from 'lucide-react';
+import {
+  IconArrowRight as ArrowRight,
+  IconCode as Code,
+  IconPalette as Palette,
+  IconSparkles as Sparkles,
+  IconX as X,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 
 interface FeatureCard {
