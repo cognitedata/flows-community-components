@@ -209,10 +209,11 @@ export type SuggestionContentProps = ComponentProps<
 export const SuggestionContent = ({
   className,
   children,
+  align = 'start',
   ...props
 }: SuggestionContentProps) => {
   return (
-    <SelectContentPrimitive className={className} {...props}>
+    <SelectContentPrimitive className={className} align={align} {...props}>
       {children}
     </SelectContentPrimitive>
   );
