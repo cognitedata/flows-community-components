@@ -15,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/cognite/checkbox"
 import { Separator } from "@/components/ui/cognite/separator"
 import { Badge } from "@/components/ui/cognite/badge"
-import { AppWindow, ArrowLeft, Bell, Calendar as CalendarIcon, Check, RefreshCw, Moon, Plus, Shapes, Sun, BarChart3, CircleCheck, CircleAlert, OctagonAlert } from "lucide-react"
+import { IconAppWindow as AppWindow, IconArrowLeft as ArrowLeft, IconBell as Bell, IconCalendar as CalendarIcon, IconCheck as Check, IconRefresh as RefreshCw, IconMoon as Moon, IconPlus as Plus, IconShapes as Shapes, IconSun as Sun, IconChartBar as BarChart3, IconCircleCheck as CircleCheck, IconAlertCircle as CircleAlert, IconAlertOctagon as OctagonAlert } from "@tabler/icons-react"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/cognite/popover"
