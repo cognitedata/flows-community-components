@@ -195,7 +195,7 @@ import { Conversation } from "@/components/ai-elements/cognite/conversation"
 export function ChatInterface() {
   return (
     <Conversation>
-      <Message from="user">
+      <Message>
         <MessageContent>
           Hello, AI!
         </MessageContent>
