@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
 import {
   Conversation,
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from "@/components/ui/cognite/conversation";
+} from '@/components/ui/cognite/conversation';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from "@/components/ui/cognite/message";
-import { Actions, Action } from "@/components/ui/cognite/actions";
-import { MessageSquare } from "lucide-react";
+} from '@/components/ui/cognite/message';
+import { Actions, Action } from '@/components/ui/cognite/actions';
+import { IconMessageCircle as MessageSquare } from '@tabler/icons-react';
 import {
   IconWheel,
   IconThumbUp,
@@ -21,150 +21,150 @@ import {
   IconCopy,
   IconShare,
   IconDotsVertical,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu";
-import type { ComponentExamples } from "@/lib/component-examples/types";
-import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+} from '@/components/ui/cognite/dropdown-menu';
+import type { ComponentExamples } from '@/lib/component-examples/types';
+import { nanoid } from 'nanoid';
+import { useEffect, useState } from 'react';
 
 const messages: {
   key: string;
   value: string;
   name: string;
   avatar: string;
-  from: "user" | "assistant";
+  isResponse: boolean;
 }[] = [
   {
     key: nanoid(),
-    value: "Hello, how are you?",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    value: 'Hello, how are you?',
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
     value: "I'm good, thank you! How can I assist you today?",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
     value: "I'm looking for information about your services.",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
     value:
-      "Sure! We offer a variety of AI solutions. What are you interested in?",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+      'Sure! We offer a variety of AI solutions. What are you interested in?',
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
     value: "I'm interested in natural language processing tools.",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
-    value: "Great choice! We have several NLP APIs. Would you like a demo?",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    value: 'Great choice! We have several NLP APIs. Would you like a demo?',
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
-    value: "Yes, a demo would be helpful.",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    value: 'Yes, a demo would be helpful.',
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
-    value: "Alright, I can show you a sentiment analysis example. Ready?",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    value: 'Alright, I can show you a sentiment analysis example. Ready?',
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
-    value: "Yes, please proceed.",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    value: 'Yes, please proceed.',
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
     value: "Here is a sample: 'I love this product!' → Positive sentiment.",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
-    value: "Impressive! Can it handle multiple languages?",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    value: 'Impressive! Can it handle multiple languages?',
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
-    value: "Absolutely, our models support over 20 languages.",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    value: 'Absolutely, our models support over 20 languages.',
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
-    value: "How do I get started with the API?",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    value: 'How do I get started with the API?',
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
-    value: "You can sign up on our website and get an API key instantly.",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    value: 'You can sign up on our website and get an API key instantly.',
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
-    value: "Is there a free trial available?",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    value: 'Is there a free trial available?',
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
-    value: "Yes, we offer a 14-day free trial with full access.",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    value: 'Yes, we offer a 14-day free trial with full access.',
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
   {
     key: nanoid(),
-    value: "Thank you for the information!",
-    name: "Alex Johnson",
-    avatar: "/user-avatar2.png",
-    from: "user",
+    value: 'Thank you for the information!',
+    name: 'Alex Johnson',
+    avatar: '/user-avatar2.png',
+    isResponse: false,
   },
   {
     key: nanoid(),
     value: "You're welcome! Let me know if you have any more questions.",
-    name: "AI Assistant",
-    avatar: "https://github.com/openai.png",
-    from: "assistant",
+    name: 'AI Assistant',
+    avatar: 'https://github.com/openai.png',
+    isResponse: true,
   },
 ];
 
@@ -197,15 +197,26 @@ function BasicConversationDemo() {
               icon={<MessageSquare className="h-12 w-12" />}
             />
           ) : (
-            visibleMessages.map(({ key, value, name, avatar, from }) => (
-              <Message from={from} key={key}>
+            visibleMessages.map(({ key, value, name, avatar, isResponse }) => (
+              <Message key={key} isResponse={isResponse}>
+                <MessageAvatar
+                  avatarUrl={avatar}
+                  name={name}
+                  variant={isResponse ? 'fjord' : undefined}
+                >
+                  {isResponse && (
+                    <MessageAvatarIcon>
+                      <IconWheel />
+                    </MessageAvatarIcon>
+                  )}
+                </MessageAvatar>
                 <MessageContent
                   className={
-                    from === "assistant" ? "flex flex-col gap-2" : undefined
+                    isResponse ? 'flex flex-col gap-2' : undefined
                   }
                 >
                   {value}
-                  {from === "assistant" && (
+                  {isResponse && (
                     <Actions>
                       <Action size="icon-sm" label="Like" tooltip="Like">
                         <IconThumbUp className="w-3 h-3" />
@@ -233,17 +244,6 @@ function BasicConversationDemo() {
                     </Actions>
                   )}
                 </MessageContent>
-                <MessageAvatar
-                  src={avatar}
-                  name={name}
-                  variant={from === "assistant" ? "fjord" : undefined}
-                >
-                  {from === "assistant" && (
-                    <MessageAvatarIcon>
-                      <IconWheel />
-                    </MessageAvatarIcon>
-                  )}
-                </MessageAvatar>
               </Message>
             ))
           )}
@@ -272,16 +272,16 @@ function EmptyStateDemo() {
 
 export const conversationExamples: ComponentExamples = {
   basic: {
-    title: "Basic Conversation",
-    description: "A dynamic conversation that progressively displays messages",
+    title: 'Basic Conversation',
+    description: 'A dynamic conversation that progressively displays messages',
     component: BasicConversationDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `"use client"
 
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { MessageSquare } from "lucide-react"
+import { MessageSquare } from "@tabler/icons-react"
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
@@ -293,10 +293,10 @@ import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 
 const messages = [
-  { key: nanoid(), value: "Hello, how are you?", name: "Alex Johnson", avatar: "/user-avatar2.png", from: "user" },
-  { key: nanoid(), value: "I'm good, thank you! How can I assist you today?", name: "AI Assistant", avatar: "https://github.com/openai.png", from: "assistant" },
-  { key: nanoid(), value: "I'm looking for information about your services.", name: "Alex Johnson", avatar: "/user-avatar2.png", from: "user" },
-  { key: nanoid(), value: "Sure! We offer a variety of AI solutions. What are you interested in?", name: "AI Assistant", avatar: "https://github.com/openai.png", from: "assistant" },
+  { key: nanoid(), value: "Hello, how are you?", name: "Alex Johnson", avatar: "/user-avatar2.png", isResponse: false },
+  { key: nanoid(), value: "I'm good, thank you! How can I assist you today?", name: "AI Assistant", avatar: "https://github.com/openai.png", isResponse: true },
+  { key: nanoid(), value: "I'm looking for information about your services.", name: "Alex Johnson", avatar: "/user-avatar2.png", isResponse: false },
+  { key: nanoid(), value: "Sure! We offer a variety of AI solutions. What are you interested in?", name: "AI Assistant", avatar: "https://github.com/openai.png", isResponse: true },
 ]
 
 export function BasicConversationDemo() {
@@ -327,11 +327,22 @@ export function BasicConversationDemo() {
               icon={<MessageSquare className="h-12 w-12" />}
             />
           ) : (
-            visibleMessages.map(({ key, value, name, avatar, from }) => (
-              <Message from={from} key={key}>
-                <MessageContent className={from === "assistant" ? "flex flex-col gap-2" : undefined}>
+            visibleMessages.map(({ key, value, name, avatar, isResponse }) => (
+              <Message isResponse={isResponse} key={key}>
+                <MessageAvatar 
+                  avatarUrl={avatar} 
+                  name={name}
+                  variant={isResponse ? "fjord" : undefined}
+                >
+                  {isResponse && (
+                    <MessageAvatarIcon>
+                      <IconWheel />
+                    </MessageAvatarIcon>
+                  )}
+                </MessageAvatar>
+                <MessageContent className={isResponse ? "flex flex-col gap-2" : undefined}>
                   {value}
-                  {from === "assistant" && (
+                  {isResponse && (
                     <Actions>
                       <Action size="icon-sm" label="Like" tooltip="Like">
                         <IconThumbUp className="w-3 h-3" />
@@ -359,17 +370,6 @@ export function BasicConversationDemo() {
                     </Actions>
                   )}
                 </MessageContent>
-                <MessageAvatar 
-                  src={avatar} 
-                  name={name}
-                  variant={from === "assistant" ? "fjord" : undefined}
-                >
-                  {from === "assistant" && (
-                    <MessageAvatarIcon>
-                      <IconWheel />
-                    </MessageAvatarIcon>
-                  )}
-                </MessageAvatar>
               </Message>
             ))
           )}
@@ -382,12 +382,12 @@ export function BasicConversationDemo() {
   },
 
   emptyState: {
-    title: "Empty State",
-    description: "Show a placeholder when there are no messages",
+    title: 'Empty State',
+    description: 'Show a placeholder when there are no messages',
     component: EmptyStateDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
-import { MessageSquare } from "lucide-react"
+import { MessageSquare } from "@tabler/icons-react"
 
 export function EmptyStateDemo() {
   return (
@@ -407,8 +407,8 @@ export function EmptyStateDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const conversationMeta = {
-  name: "Conversation",
+  name: 'Conversation',
   description:
-    "Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.",
-  importPath: "@/components/ai-elements/cognite/conversation",
+    'Wraps messages and automatically scrolls to the bottom. Also includes a scroll button that appears when not at the bottom.',
+  importPath: '@/components/ai-elements/cognite/conversation',
 };

@@ -1,85 +1,85 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Download, Copy, Check } from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/components/ui/cognite/button";
+import { motion } from 'framer-motion';
+import { IconCheck as Check, IconCopy as Copy, IconDownload as Download } from '@tabler/icons-react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/cognite/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
+} from '@/components/ui/cognite/card';
 
 const colors = {
   blue: [
-    { name: "Blue 50", value: "#eff6ff", hex: "#eff6ff" },
-    { name: "Blue 100", value: "#dbeafe", hex: "#dbeafe" },
-    { name: "Blue 200", value: "#bfdbfe", hex: "#bfdbfe" },
-    { name: "Blue 300", value: "#93c5fd", hex: "#93c5fd" },
-    { name: "Blue 400", value: "#60a5fa", hex: "#60a5fa" },
-    { name: "Blue 500", value: "#3b82f6", hex: "#3b82f6" },
-    { name: "Blue 600", value: "#2563eb", hex: "#2563eb" },
-    { name: "Blue 700", value: "#1d4ed8", hex: "#1d4ed8" },
-    { name: "Blue 800", value: "#1e40af", hex: "#1e40af" },
-    { name: "Blue 900", value: "#1e3a8a", hex: "#1e3a8a" },
+    { name: 'Blue 50', value: '#eff6ff', hex: '#eff6ff' },
+    { name: 'Blue 100', value: '#dbeafe', hex: '#dbeafe' },
+    { name: 'Blue 200', value: '#bfdbfe', hex: '#bfdbfe' },
+    { name: 'Blue 300', value: '#93c5fd', hex: '#93c5fd' },
+    { name: 'Blue 400', value: '#60a5fa', hex: '#60a5fa' },
+    { name: 'Blue 500', value: '#3b82f6', hex: '#3b82f6' },
+    { name: 'Blue 600', value: '#2563eb', hex: '#2563eb' },
+    { name: 'Blue 700', value: '#1d4ed8', hex: '#1d4ed8' },
+    { name: 'Blue 800', value: '#1e40af', hex: '#1e40af' },
+    { name: 'Blue 900', value: '#1e3a8a', hex: '#1e3a8a' },
   ],
   neon: [
-    { name: "Neon 50", value: "#FCFF99", hex: "#FCFF99" },
-    { name: "Neon 100", value: "#F8FF66", hex: "#F8FF66" },
-    { name: "Neon 200", value: "#F2FF33", hex: "#F2FF33" },
-    { name: "Neon 300", value: "#EBFF00", hex: "#EBFF00" },
-    { name: "Neon 400", value: "#D6E600", hex: "#D6E600" },
-    { name: "Neon 500", value: "#B3CC00", hex: "#B3CC00" },
-    { name: "Neon 600", value: "#8FB300", hex: "#8FB300" },
-    { name: "Neon 700", value: "#6B9900", hex: "#6B9900" },
-    { name: "Neon 800", value: "#467F00", hex: "#467F00" },
-    { name: "Neon 900", value: "#2B6600", hex: "#2B6600" },
+    { name: 'Neon 50', value: '#FCFF99', hex: '#FCFF99' },
+    { name: 'Neon 100', value: '#F8FF66', hex: '#F8FF66' },
+    { name: 'Neon 200', value: '#F2FF33', hex: '#F2FF33' },
+    { name: 'Neon 300', value: '#EBFF00', hex: '#EBFF00' },
+    { name: 'Neon 400', value: '#D6E600', hex: '#D6E600' },
+    { name: 'Neon 500', value: '#B3CC00', hex: '#B3CC00' },
+    { name: 'Neon 600', value: '#8FB300', hex: '#8FB300' },
+    { name: 'Neon 700', value: '#6B9900', hex: '#6B9900' },
+    { name: 'Neon 800', value: '#467F00', hex: '#467F00' },
+    { name: 'Neon 900', value: '#2B6600', hex: '#2B6600' },
   ],
   slate: [
-    { name: "Slate 50", value: "#f8fafc", hex: "#f8fafc" },
-    { name: "Slate 100", value: "#f1f5f9", hex: "#f1f5f9" },
-    { name: "Slate 200", value: "#e2e8f0", hex: "#e2e8f0" },
-    { name: "Slate 300", value: "#cbd5e1", hex: "#cbd5e1" },
-    { name: "Slate 400", value: "#94a3b8", hex: "#94a3b8" },
-    { name: "Slate 500", value: "#64748b", hex: "#64748b" },
-    { name: "Slate 600", value: "#475569", hex: "#475569" },
-    { name: "Slate 700", value: "#334155", hex: "#334155" },
-    { name: "Slate 800", value: "#1e293b", hex: "#1e293b" },
-    { name: "Slate 900", value: "#0f172a", hex: "#0f172a" },
+    { name: 'Slate 50', value: '#f8fafc', hex: '#f8fafc' },
+    { name: 'Slate 100', value: '#f1f5f9', hex: '#f1f5f9' },
+    { name: 'Slate 200', value: '#e2e8f0', hex: '#e2e8f0' },
+    { name: 'Slate 300', value: '#cbd5e1', hex: '#cbd5e1' },
+    { name: 'Slate 400', value: '#94a3b8', hex: '#94a3b8' },
+    { name: 'Slate 500', value: '#64748b', hex: '#64748b' },
+    { name: 'Slate 600', value: '#475569', hex: '#475569' },
+    { name: 'Slate 700', value: '#334155', hex: '#334155' },
+    { name: 'Slate 800', value: '#1e293b', hex: '#1e293b' },
+    { name: 'Slate 900', value: '#0f172a', hex: '#0f172a' },
   ],
   onyx: [
-    { name: "Onyx 50", value: "#fafafa", hex: "#fafafa" },
-    { name: "Onyx 100", value: "#f5f5f5", hex: "#f5f5f5" },
-    { name: "Onyx 200", value: "#e5e5e5", hex: "#e5e5e5" },
-    { name: "Onyx 300", value: "#d4d4d4", hex: "#d4d4d4" },
-    { name: "Onyx 400", value: "#a3a3a3", hex: "#a3a3a3" },
-    { name: "Onyx 500", value: "#737373", hex: "#737373" },
-    { name: "Onyx 600", value: "#525252", hex: "#525252" },
-    { name: "Onyx 700", value: "#404040", hex: "#404040" },
-    { name: "Onyx 800", value: "#262626", hex: "#262626" },
-    { name: "Onyx 900", value: "#171717", hex: "#171717" },
+    { name: 'Onyx 50', value: '#fafafa', hex: '#fafafa' },
+    { name: 'Onyx 100', value: '#f5f5f5', hex: '#f5f5f5' },
+    { name: 'Onyx 200', value: '#e5e5e5', hex: '#e5e5e5' },
+    { name: 'Onyx 300', value: '#d4d4d4', hex: '#d4d4d4' },
+    { name: 'Onyx 400', value: '#a3a3a3', hex: '#a3a3a3' },
+    { name: 'Onyx 500', value: '#737373', hex: '#737373' },
+    { name: 'Onyx 600', value: '#525252', hex: '#525252' },
+    { name: 'Onyx 700', value: '#404040', hex: '#404040' },
+    { name: 'Onyx 800', value: '#262626', hex: '#262626' },
+    { name: 'Onyx 900', value: '#171717', hex: '#171717' },
   ],
 };
 
 const typography = [
-  { name: "Display large", size: "4rem", weight: "700", lineHeight: "1.1" },
-  { name: "Display medium", size: "3rem", weight: "700", lineHeight: "1.2" },
-  { name: "Heading 1", size: "2.25rem", weight: "600", lineHeight: "1.3" },
-  { name: "Heading 2", size: "1.875rem", weight: "600", lineHeight: "1.3" },
-  { name: "Body large", size: "1.125rem", weight: "400", lineHeight: "1.6" },
-  { name: "Body medium", size: "1rem", weight: "400", lineHeight: "1.6" },
-  { name: "Body small", size: "0.875rem", weight: "400", lineHeight: "1.5" },
+  { name: 'Display large', size: '4rem', weight: '700', lineHeight: '1.1' },
+  { name: 'Display medium', size: '3rem', weight: '700', lineHeight: '1.2' },
+  { name: 'Heading 1', size: '2.25rem', weight: '600', lineHeight: '1.3' },
+  { name: 'Heading 2', size: '1.875rem', weight: '600', lineHeight: '1.3' },
+  { name: 'Body large', size: '1.125rem', weight: '400', lineHeight: '1.6' },
+  { name: 'Body medium', size: '1rem', weight: '400', lineHeight: '1.6' },
+  { name: 'Body small', size: '0.875rem', weight: '400', lineHeight: '1.5' },
 ];
 
 const spacing = [
-  { name: "XS", value: "0.25rem", pixels: "4px" },
-  { name: "SM", value: "0.5rem", pixels: "8px" },
-  { name: "MD", value: "1rem", pixels: "16px" },
-  { name: "LG", value: "1.5rem", pixels: "24px" },
-  { name: "XL", value: "2rem", pixels: "32px" },
-  { name: "2XL", value: "3rem", pixels: "48px" },
+  { name: 'XS', value: '0.25rem', pixels: '4px' },
+  { name: 'SM', value: '0.5rem', pixels: '8px' },
+  { name: 'MD', value: '1rem', pixels: '16px' },
+  { name: 'LG', value: '1.5rem', pixels: '24px' },
+  { name: 'XL', value: '2rem', pixels: '32px' },
+  { name: '2XL', value: '3rem', pixels: '48px' },
 ];
 
 function CopyButton({ text }: { text: string }) {

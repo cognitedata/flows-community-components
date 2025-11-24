@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import { useState, useEffect, startTransition } from "react";
+import { useState, useEffect, startTransition } from 'react';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Button } from "@/components/ui/cognite/button";
-import { Badge } from "@/components/ui/cognite/badge";
+} from '@/components/ui/cognite/card';
+import { Button } from '@/components/ui/cognite/button';
+import { Badge } from '@/components/ui/cognite/badge';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/cognite/tabs";
+} from '@/components/ui/cognite/tabs';
 import {
-  Bug,
-  CheckCircle,
-  AlertTriangle,
-  Code,
-  Zap,
-  RefreshCw,
-} from "lucide-react";
+  IconAlertTriangle,
+  IconBolt,
+  IconBug,
+  IconCircleCheck,
+  IconCode,
+  IconRefresh,
+} from '@tabler/icons-react';
 
 interface PreviewDebuggerProps {
   code: string;
@@ -71,7 +71,7 @@ export function PreviewDebugger({
         analysis.hasValidExport = true;
         analysis.componentName = exportMatch[1];
       } else {
-        analysis.warnings.push("No export function found");
+        analysis.warnings.push('No export function found');
         analysis.suggestions.push(
           "Add 'export function ComponentName() { ... }'"
         );
@@ -82,7 +82,7 @@ export function PreviewDebugger({
         /import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["']/g
       );
       for (const match of importMatches) {
-        const components = match[1].split(",").map((c) => c.trim());
+        const components = match[1].split(',').map((c) => c.trim());
         analysis.imports.push(...components);
       }
 
@@ -99,9 +99,9 @@ export function PreviewDebugger({
       analysis.usedComponents.forEach((component) => {
         if (
           !analysis.imports.includes(component) &&
-          component !== "div" &&
-          component !== "span" &&
-          component !== "p"
+          component !== 'div' &&
+          component !== 'span' &&
+          component !== 'p'
         ) {
           analysis.warnings.push(
             `Component '${component}' may not be imported`
@@ -113,15 +113,15 @@ export function PreviewDebugger({
       });
 
       // Check for JSX structure
-      if (!code.includes("return")) {
-        analysis.warnings.push("No return statement found");
+      if (!code.includes('return')) {
+        analysis.warnings.push('No return statement found');
         analysis.suggestions.push("Add 'return (' followed by your JSX");
       }
 
       // Check for common patterns
-      if (code.includes("useState") && !analysis.imports.includes("useState")) {
-        analysis.warnings.push("useState used but not imported");
-        analysis.suggestions.push("useState is available as React.useState");
+      if (code.includes('useState') && !analysis.imports.includes('useState')) {
+        analysis.warnings.push('useState used but not imported');
+        analysis.suggestions.push('useState is available as React.useState');
       }
 
       return analysis;
@@ -137,7 +137,7 @@ export function PreviewDebugger({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Code className="h-4 w-4" />
+            <IconCode className="h-4 w-4" />
             Code Analysis
           </CardTitle>
         </CardHeader>
@@ -154,7 +154,7 @@ export function PreviewDebugger({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Bug className="h-4 w-4" />
+          <IconBug className="h-4 w-4" />
           Preview Debugger
         </CardTitle>
       </CardHeader>
@@ -174,14 +174,14 @@ export function PreviewDebugger({
                   <h4 className="font-medium">Component Status</h4>
                   <div className="flex items-center gap-2">
                     {analysis.hasValidExport ? (
-                      <CheckCircle className="h-4 w-4 text-green-600" />
+                      <IconCircleCheck className="h-4 w-4 text-green-600" />
                     ) : (
-                      <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                      <IconAlertTriangle className="h-4 w-4 text-yellow-600" />
                     )}
                     <span className="text-sm">
                       {analysis.hasValidExport
                         ? `Export found: ${analysis.componentName}`
-                        : "No valid export function"}
+                        : 'No valid export function'}
                     </span>
                   </div>
                 </div>
@@ -214,8 +214,8 @@ export function PreviewDebugger({
                           key={index}
                           variant={
                             analysis.imports.includes(comp)
-                              ? "default"
-                              : "error"
+                              ? 'default'
+                              : 'error'
                           }
                           className="text-xs"
                         >
@@ -236,7 +236,7 @@ export function PreviewDebugger({
                           key={index}
                           className="text-xs text-muted-foreground flex items-center gap-2"
                         >
-                          <AlertTriangle className="h-3 w-3 text-yellow-600" />
+                          <IconAlertTriangle className="h-3 w-3 text-yellow-600" />
                           {warning}
                         </li>
                       ))}
@@ -254,7 +254,7 @@ export function PreviewDebugger({
                           key={index}
                           className="text-xs text-muted-foreground flex items-center gap-2"
                         >
-                          <Zap className="h-3 w-3 text-blue-600" />
+                          <IconBolt className="h-3 w-3 text-blue-600" />
                           {suggestion}
                         </li>
                       ))}
@@ -274,7 +274,7 @@ export function PreviewDebugger({
                   </h4>
                   {onRetry && (
                     <Button variant="outline" size="sm" onClick={onRetry}>
-                      <RefreshCw className="h-3 w-3 mr-1" />
+                      <IconRefresh className="h-3 w-3 mr-1" />
                       Retry
                     </Button>
                   )}
@@ -292,7 +292,7 @@ export function PreviewDebugger({
               </div>
             ) : (
               <div className="text-center py-8">
-                <CheckCircle className="h-8 w-8 mx-auto text-green-600 mb-2" />
+                <IconCircleCheck className="h-8 w-8 mx-auto text-green-600 mb-2" />
                 <p className="text-sm text-muted-foreground">
                   No errors detected
                 </p>

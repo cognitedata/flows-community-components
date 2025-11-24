@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/cognite/badge";
-import type { ComponentExamples } from "./types";
+import { Badge } from '@/components/ui/cognite/badge';
+import type { ComponentExamples } from './types';
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -8,7 +8,7 @@ import {
   IconHexagon,
   IconInnerShadowTopLeft,
   IconX,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
 
 function VariantsDemo() {
   return (
@@ -66,7 +66,7 @@ function MainComponentDemo() {
         <IconHexagon className="rotate-90" />
         Badge
       </Badge>
-      <Badge variant={"closable"}>
+      <Badge variant={'closable'}>
         <IconHexagon className="rotate-90" />
         Badge
         <IconX />
@@ -83,10 +83,10 @@ function MainComponentDemo() {
 }
 export const badgeExamples: ComponentExamples = {
   variants: {
-    title: "Badge Variants",
-    description: "Different badge styles for various semantic meanings",
+    title: 'Badge Variants',
+    description: 'Different badge styles for various semantic meanings',
     component: VariantsDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Badge } from "@/components/ui/cognite/badge"
 import {
   IconAlertHexagon,
@@ -149,10 +149,10 @@ export function VariantsDemo() {
   },
 
   mainComponent: {
-    title: "Main component",
-    description: "",
+    title: 'Main component',
+    description: '',
     component: MainComponentDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import { Badge } from "@/components/ui/cognite/badge"
 import { IconHexagon, IconX } from "@tabler/icons-react";
 
@@ -183,8 +183,10 @@ export function MainComponentDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const badgeMeta = {
-  name: "Badge",
-  description: "A small status indicator component with multiple variants for displaying labels, counts, and statuses.",
-  llmUsage: "When showing status or labels, use `<Badge variant='default'>Status</Badge>` instead of custom spans. Use variants like 'secondary', 'destructive', or 'outline' for different meanings.",
-  importPath: "@/components/ui/cognite/badge",
+  name: 'Badge',
+  description:
+    'A small status indicator component with multiple variants for displaying labels, counts, and statuses.',
+  llmUsage:
+    "When showing status or labels, use `<Badge variant='default'>Status</Badge>` instead of custom spans. Use variants like 'secondary', 'destructive', or 'outline' for different meanings.",
+  importPath: '@/components/ui/cognite/badge',
 };

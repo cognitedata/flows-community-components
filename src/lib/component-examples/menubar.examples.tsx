@@ -8,8 +8,8 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@/components/ui/cognite/menubar";
-import type { ComponentExamples } from "./types";
+} from '@/components/ui/cognite/menubar';
+import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
@@ -29,10 +29,18 @@ function BasicDemo() {
         <MenubarMenu>
           <MenubarTrigger>Edit</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem inset>Copy<MenubarShortcut>⌘C</MenubarShortcut></MenubarItem>
-            <MenubarItem inset>Paste<MenubarShortcut>⌘V</MenubarShortcut></MenubarItem>
-            <MenubarItem inset>Paste to replace<MenubarShortcut>⇧⌘V</MenubarShortcut></MenubarItem>
-            <MenubarItem inset>Duplicate<MenubarShortcut>⌘D</MenubarShortcut></MenubarItem>
+            <MenubarItem inset>
+              Copy<MenubarShortcut>⌘C</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem inset>
+              Paste<MenubarShortcut>⌘V</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem inset>
+              Paste to replace<MenubarShortcut>⇧⌘V</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem inset>
+              Duplicate<MenubarShortcut>⌘D</MenubarShortcut>
+            </MenubarItem>
             <MenubarSeparator />
             <MenubarCheckboxItem checked>Annotations</MenubarCheckboxItem>
             <MenubarCheckboxItem>Comments</MenubarCheckboxItem>
@@ -97,12 +105,22 @@ function SmallSizeDemo() {
         <MenubarMenu>
           <MenubarTrigger>Edit</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>Undo<MenubarShortcut>⌘Z</MenubarShortcut></MenubarItem>
-            <MenubarItem>Redo<MenubarShortcut>⇧⌘Z</MenubarShortcut></MenubarItem>
+            <MenubarItem>
+              Undo<MenubarShortcut>⌘Z</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>
+              Redo<MenubarShortcut>⇧⌘Z</MenubarShortcut>
+            </MenubarItem>
             <MenubarSeparator />
-            <MenubarItem>Cut<MenubarShortcut>⌘X</MenubarShortcut></MenubarItem>
-            <MenubarItem>Copy<MenubarShortcut>⌘C</MenubarShortcut></MenubarItem>
-            <MenubarItem>Paste<MenubarShortcut>⌘V</MenubarShortcut></MenubarItem>
+            <MenubarItem>
+              Cut<MenubarShortcut>⌘X</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>
+              Copy<MenubarShortcut>⌘C</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>
+              Paste<MenubarShortcut>⌘V</MenubarShortcut>
+            </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
         <MenubarMenu>
@@ -124,11 +142,11 @@ function SmallSizeDemo() {
 
 export const menubarExamples: ComponentExamples = {
   basic: {
-    title: "Menubar Demo",
+    title: 'Menubar Demo',
     description:
-      "Interactive menu bar with dropdown menus common in desktop applications",
+      'Interactive menu bar with dropdown menus common in desktop applications',
     component: BasicDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `import {
   Menubar,
   MenubarCheckboxItem,
@@ -212,10 +230,10 @@ export function BasicDemo() {
 }`,
   },
   smallSize: {
-    title: "Small Size",
-    description: "A more compact menubar using the small size variant",
+    title: 'Small Size',
+    description: 'A more compact menubar using the small size variant',
     component: SmallSizeDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `import {
   Menubar,
   MenubarContent,
@@ -267,9 +285,9 @@ export function SmallSizeDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const menubarMeta = {
-  name: "Menubar",
-  description: "A visually persistent menu common in desktop applications.",
+  name: 'Menubar',
+  description: 'A visually persistent menu common in desktop applications.',
   llmUsage:
-    "When creating menu bars, use `<Menubar>` with `<MenubarMenu>`, `<MenubarTrigger>`, and `<MenubarContent>`.",
-  importPath: "@/components/ui/cognite/menubar",
+    'When creating menu bars, use `<Menubar>` with `<MenubarMenu>`, `<MenubarTrigger>`, and `<MenubarContent>`.',
+  importPath: '@/components/ui/cognite/menubar',
 };

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Branch,
@@ -7,27 +7,27 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from "@/components/ui/cognite/branch";
+} from '@/components/ui/cognite/branch';
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@/components/ui/cognite/message";
-import type { ComponentExamples } from "@/lib/component-examples/types";
-import { nanoid } from "nanoid";
+} from '@/components/ui/cognite/message';
+import type { ComponentExamples } from '@/lib/component-examples/types';
+import { nanoid } from 'nanoid';
 
 const userMessages = [
   {
     id: nanoid(),
-    content: "What are the key strategies for optimising React performance?",
+    content: 'What are the key strategies for optimising React performance?',
   },
   {
     id: nanoid(),
-    content: "How can I improve the performance of my React application?",
+    content: 'How can I improve the performance of my React application?',
   },
   {
     id: nanoid(),
-    content: "What performance optimisation techniques should I use in React?",
+    content: 'What performance optimisation techniques should I use in React?',
   },
 ];
 
@@ -55,9 +55,9 @@ function ConversationDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
-            <Message from="user" key={message.id}>
+            <Message key={message.id}>
+              <MessageAvatar avatarUrl="/user-avatar2.png" name="Hayden Bleasel" />
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar src="/user-avatar2.png" name="Hayden Bleasel" />
             </Message>
           ))}
         </BranchMessages>
@@ -71,13 +71,13 @@ function ConversationDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {assistantMessages.map((message) => (
-            <Message from="assistant" key={message.id}>
-              <MessageContent>{message.content}</MessageContent>
+            <Message isResponse={true} key={message.id}>
               <MessageAvatar
                 variant="fjord"
-                src="https://github.com/openai.png"
+                avatarUrl="https://github.com/openai.png"
                 name="AI"
               />
+              <MessageContent>{message.content}</MessageContent>
             </Message>
           ))}
         </BranchMessages>
@@ -97,9 +97,9 @@ function UserBranchDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
-            <Message from="user" key={message.id}>
+            <Message key={message.id}>
+              <MessageAvatar avatarUrl="/user-avatar2.png" name="Hayden Bleasel" />
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar src="/user-avatar2.png" name="Hayden Bleasel" />
             </Message>
           ))}
         </BranchMessages>
@@ -119,13 +119,13 @@ function AssistantBranchDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {assistantMessages.map((message) => (
-            <Message from="assistant" key={message.id}>
-              <MessageContent>{message.content}</MessageContent>
+            <Message isResponse={true} key={message.id}>
               <MessageAvatar
                 variant="fjord"
-                src="https://github.com/openai.png"
+                avatarUrl="https://github.com/openai.png"
                 name="AI"
               />
+              <MessageContent>{message.content}</MessageContent>
             </Message>
           ))}
         </BranchMessages>
@@ -141,11 +141,11 @@ function AssistantBranchDemo() {
 
 export const branchExamples: ComponentExamples = {
   conversation: {
-    title: "Conversation",
+    title: 'Conversation',
     description:
-      "Full conversation with branched user prompts and assistant responses",
+      'Full conversation with branched user prompts and assistant responses',
     component: ConversationDemo,
-    difficulty: "intermediate",
+    difficulty: 'intermediate',
     code: `"use client"
 
 import {
@@ -181,9 +181,9 @@ export function ConversationDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
-            <Message from="user" key={message.id}>
+            <Message key={message.id}>
+              <MessageAvatar avatarUrl="/user-avatar.png" name="Hayden Bleasel" />
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar name="Hayden Bleasel" src="/user-avatar.png" />
             </Message>
           ))}
         </BranchMessages>
@@ -197,9 +197,9 @@ export function ConversationDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {assistantMessages.map((message) => (
-            <Message from="assistant" key={message.id}>
+            <Message isResponse={true} key={message.id}>
+              <MessageAvatar variant="fjord" avatarUrl="https://github.com/openai.png" name="AI" />
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
             </Message>
           ))}
         </BranchMessages>
@@ -215,10 +215,10 @@ export function ConversationDemo() {
   },
 
   user: {
-    title: "User Branch",
-    description: "Branching user prompts in a conversation",
+    title: 'User Branch',
+    description: 'Branching user prompts in a conversation',
     component: UserBranchDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `"use client"
 
 import {
@@ -248,9 +248,9 @@ export function UserBranchDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {userMessages.map((message) => (
-            <Message from="user" key={message.id}>
+            <Message key={message.id}>
+              <MessageAvatar avatarUrl="/user-avatar.png" name="Hayden Bleasel" />
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar name="Hayden Bleasel" src="/user-avatar.png" />
             </Message>
           ))}
         </BranchMessages>
@@ -266,10 +266,10 @@ export function UserBranchDemo() {
   },
 
   assistant: {
-    title: "Assistant Branch",
-    description: "Branching assistant responses in a conversation",
+    title: 'Assistant Branch',
+    description: 'Branching assistant responses in a conversation',
     component: AssistantBranchDemo,
-    difficulty: "beginner",
+    difficulty: 'beginner',
     code: `"use client"
 
 import {
@@ -299,9 +299,9 @@ export function AssistantBranchDemo() {
       <Branch defaultBranch={0}>
         <BranchMessages>
           {assistantMessages.map((message) => (
-            <Message from="assistant" key={message.id}>
+            <Message isResponse={true} key={message.id}>
+              <MessageAvatar variant="fjord" avatarUrl="https://github.com/openai.png" name="AI" />
               <MessageContent>{message.content}</MessageContent>
-              <MessageAvatar variant="fjord" src="https://github.com/openai.png" name="AI" />
             </Message>
           ))}
         </BranchMessages>
@@ -319,8 +319,8 @@ export function AssistantBranchDemo() {
 
 // Component metadata - single source of truth for API documentation
 export const branchMeta = {
-  name: "Branch",
+  name: 'Branch',
   description:
-    "Manages multiple versions of AI messages, allowing users to navigate between different response branches.",
-  importPath: "@/components/ai-elements/draft/branch",
+    'Manages multiple versions of AI messages, allowing users to navigate between different response branches.',
+  importPath: '@/components/ui/cognite/branch',
 };

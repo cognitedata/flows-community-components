@@ -1,8 +1,8 @@
-"use client"
+'use client';
 
-import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
+import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 function Collapsible({
   className,
@@ -11,11 +11,10 @@ function Collapsible({
   return (
     <CollapsiblePrimitive.Root
       data-slot="collapsible"
-      className={cn("w-full min-w-0 max-w-full box-border [&>*]:max-w-full", className)}
-      style={{ width: "100%", maxWidth: "100%" }}
+      className={cn('w-full min-w-0 box-border [&>*]:max-w-full', className)}
       {...props}
     />
-  )
+  );
 }
 
 function CollapsibleTrigger({
@@ -25,10 +24,10 @@ function CollapsibleTrigger({
   return (
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
-      className={cn("bg-background text-foreground w-full max-w-full", className)}
+      className={cn('', className)}
       {...props}
     />
-  )
+  );
 }
 
 function CollapsibleContent({
@@ -39,13 +38,12 @@ function CollapsibleContent({
     <CollapsiblePrimitive.CollapsibleContent
       data-slot="collapsible-content"
       className={cn(
-        "border-none outline-none text-muted-foreground text-base px-3 w-full min-w-0 max-w-full overflow-x-hidden box-border [&>*]:w-full [&>*]:max-w-full [&>*]:box-border",
+        'border-none outline-none text-muted-foreground text-sm leading-4.5 tracking-tight w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border',
         className
       )}
-      style={{ width: "100%", maxWidth: "100%", boxSizing: "border-box" }}
       {...props}
     />
-  )
+  );
 }
 
-export { Collapsible, CollapsibleTrigger, CollapsibleContent }
+export { Collapsible, CollapsibleTrigger, CollapsibleContent };

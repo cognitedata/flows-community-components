@@ -1,43 +1,152 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/cognite/card";
-import { CodeExample } from "@/components/code-example";
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/cognite/card';
+import { CodeExample } from '@/components/code-example';
 
 export default function AIPage() {
   const components = [
-    { slug: "actions", name: "Actions", description: "Action buttons for AI interfaces" },
-    { slug: "artifact", name: "Artifact", description: "Display AI-generated artifacts" },
-    { slug: "branch", name: "Branch", description: "Branch conversation elements" },
-    { slug: "canvas", name: "Canvas", description: "Interactive canvas for AI outputs" },
-    { slug: "chain-of-thought", name: "Chain of Thought", description: "Reasoning process visualisation" },
-    { slug: "code-block", name: "Code Block", description: "Syntax-highlighted code blocks" },
-    { slug: "confirmation", name: "Confirmation", description: "Confirmation dialogs for AI actions" },
-    { slug: "connection", name: "Connection", description: "Connection visualisation" },
-    { slug: "context", name: "Context", description: "Contextual information display" },
-    { slug: "controls", name: "Controls", description: "Control elements for AI interfaces" },
-    { slug: "conversation", name: "Conversation", description: "Conversation container and management" },
-    { slug: "edge", name: "Edge", description: "Edge visualisation for graphs" },
-    { slug: "image", name: "Image", description: "Image display components" },
-    { slug: "inline-citation", name: "Inline Citation", description: "Citations within content" },
-    { slug: "loader", name: "Loader", description: "Loading indicators" },
-    { slug: "message", name: "Message", description: "Message display for chat interfaces" },
-    { slug: "node", name: "Node", description: "Node visualisation for graphs" },
-    { slug: "open-in-chat", name: "Open in Chat", description: "Chat integration button" },
-    { slug: "panel", name: "Panel", description: "Collapsible panel component" },
-    { slug: "plan", name: "Plan", description: "AI planning and step-by-step processes" },
-    { slug: "prompt-input", name: "Prompt Input", description: "Input field for prompts" },
-    { slug: "queue", name: "Queue", description: "Queue visualisation for batch operations" },
-    { slug: "reasoning", name: "Reasoning", description: "Reasoning visualisation" },
-    { slug: "response", name: "Response", description: "Response display component" },
-    { slug: "shimmer", name: "Shimmer", description: "Loading shimmer effects" },
-    { slug: "sources", name: "Sources", description: "Source attribution components" },
-    { slug: "suggestion", name: "Suggestion", description: "Suggestion chips or buttons" },
-    { slug: "task", name: "Task", description: "Task display and management" },
-    { slug: "tool", name: "Tool", description: "Tool usage display" },
-    { slug: "toolbar", name: "Toolbar", description: "Toolbar for AI interfaces" },
-    { slug: "web-preview", name: "Web Preview", description: "Web page preview component" },
+    {
+      slug: 'actions',
+      name: 'Actions',
+      description: 'Action buttons for AI interfaces',
+    },
+    {
+      slug: 'artifact',
+      name: 'Artifact',
+      description: 'Display AI-generated artifacts',
+    },
+    {
+      slug: 'branch',
+      name: 'Branch',
+      description: 'Branch conversation elements',
+    },
+    {
+      slug: 'canvas',
+      name: 'Canvas',
+      description: 'Interactive canvas for AI outputs',
+    },
+    {
+      slug: 'chain-of-thought',
+      name: 'Chain of Thought',
+      description: 'Reasoning process visualisation',
+    },
+    {
+      slug: 'code-block',
+      name: 'Code Block',
+      description: 'Syntax-highlighted code blocks',
+    },
+    {
+      slug: 'confirmation',
+      name: 'Confirmation',
+      description: 'Confirmation dialogs for AI actions',
+    },
+    {
+      slug: 'connection',
+      name: 'Connection',
+      description: 'Connection visualisation',
+    },
+    {
+      slug: 'context',
+      name: 'Context',
+      description: 'Contextual information display',
+    },
+    {
+      slug: 'controls',
+      name: 'Controls',
+      description: 'Control elements for AI interfaces',
+    },
+    {
+      slug: 'conversation',
+      name: 'Conversation',
+      description: 'Conversation container and management',
+    },
+    {
+      slug: 'edge',
+      name: 'Edge',
+      description: 'Edge visualisation for graphs',
+    },
+    { slug: 'image', name: 'Image', description: 'Image display components' },
+    {
+      slug: 'inline-citation',
+      name: 'Inline Citation',
+      description: 'Citations within content',
+    },
+    { slug: 'loader', name: 'Loader', description: 'Loading indicators' },
+    {
+      slug: 'message',
+      name: 'Message',
+      description: 'Message display for chat interfaces',
+    },
+    {
+      slug: 'node',
+      name: 'Node',
+      description: 'Node visualisation for graphs',
+    },
+    {
+      slug: 'open-in-chat',
+      name: 'Open in Chat',
+      description: 'Chat integration button',
+    },
+    {
+      slug: 'panel',
+      name: 'Panel',
+      description: 'Collapsible panel component',
+    },
+    {
+      slug: 'plan',
+      name: 'Plan',
+      description: 'AI planning and step-by-step processes',
+    },
+    {
+      slug: 'prompt-input',
+      name: 'Prompt Input',
+      description: 'Input field for prompts',
+    },
+    {
+      slug: 'queue',
+      name: 'Queue',
+      description: 'Queue visualisation for batch operations',
+    },
+    {
+      slug: 'reasoning',
+      name: 'Reasoning',
+      description: 'Reasoning visualisation',
+    },
+    {
+      slug: 'response',
+      name: 'Response',
+      description: 'Response display component',
+    },
+    {
+      slug: 'shimmer',
+      name: 'Shimmer',
+      description: 'Loading shimmer effects',
+    },
+    {
+      slug: 'sources',
+      name: 'Sources',
+      description: 'Source attribution components',
+    },
+    {
+      slug: 'suggestion',
+      name: 'Suggestion',
+      description: 'Suggestion chips or buttons',
+    },
+    { slug: 'task', name: 'Task', description: 'Task display and management' },
+    { slug: 'tool', name: 'Tool', description: 'Tool usage display' },
+    {
+      slug: 'toolbar',
+      name: 'Toolbar',
+      description: 'Toolbar for AI interfaces',
+    },
   ];
 
   return (
@@ -53,9 +162,9 @@ export default function AIPage() {
           <div className="text-center space-y-4">
             <h1 className="text-3xl md:text-4xl font-bold">AI Elements</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Specialised components for building AI-powered conversational interfaces. 
-              These components provide the building blocks for chat interfaces, agent interactions, 
-              and AI-driven experiences.
+              Specialised components for building AI-powered conversational
+              interfaces. These components provide the building blocks for chat
+              interfaces, agent interactions, and AI-driven experiences.
             </p>
           </div>
 
@@ -78,22 +187,22 @@ export default function AIPage() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <h4 className="font-semibold">Import</h4>
-                  <CodeExample 
-                    title="Example" 
+                  <CodeExample
+                    title="Example"
                     code={`import { Message, MessageContent } from "@/components/ai-elements/cognite/message"
 import { Conversation } from "@/components/ai-elements/cognite/conversation"
 
 export function ChatInterface() {
   return (
     <Conversation>
-      <Message from="user">
+      <Message>
         <MessageContent>
           Hello, AI!
         </MessageContent>
       </Message>
     </Conversation>
   )
-}`} 
+}`}
                   />
                 </div>
               </CardContent>
@@ -111,14 +220,16 @@ export function ChatInterface() {
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {components.map((component) => (
-                <Link 
+                <Link
                   key={component.slug}
                   href={`/ai/components/${component.slug}`}
                   className="group"
                 >
                   <Card className="h-full transition-all hover:shadow-md hover:border-primary/50">
                     <CardHeader>
-                      <CardTitle className="text-base">{component.name}</CardTitle>
+                      <CardTitle className="text-base">
+                        {component.name}
+                      </CardTitle>
                       <CardDescription className="text-sm">
                         {component.description}
                       </CardDescription>
@@ -155,7 +266,8 @@ export function ChatInterface() {
                   <div className="flex items-start space-x-2">
                     <span className="text-green-500 mt-1">✓</span>
                     <span className="text-sm">
-                      Provide clear visual distinction between user and assistant messages
+                      Provide clear visual distinction between user and
+                      assistant messages
                     </span>
                   </div>
                   <div className="flex items-start space-x-2">

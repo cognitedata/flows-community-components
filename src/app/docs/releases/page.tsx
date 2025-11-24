@@ -1,41 +1,41 @@
-import { SectionLayout } from "@/components/section-layout";
+import { SectionLayout } from '@/components/section-layout';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/cognite/card";
-import { Badge } from "@/components/ui/cognite/badge";
-import { CalendarDays, GitCommit } from "lucide-react";
+} from '@/components/ui/cognite/card';
+import { Badge } from '@/components/ui/cognite/badge';
+import { IconCalendarStats as CalendarDays, IconGitCommit as GitCommit } from '@tabler/icons-react';
 
 const releases = [
   {
-    version: "v1.0.0",
-    date: "December 2024",
-    status: "Latest",
+    version: 'v1.0.0',
+    date: 'December 2024',
+    status: 'Latest',
     description:
-      "Initial release with comprehensive component documentation system",
+      'Initial release with comprehensive component documentation system',
     features: [
-      "24 ShadCN components with full documentation",
-      "Base UI-style documentation system",
-      "Live component previews and code examples",
-      "Searchable component library",
-      "LLM-friendly documentation structure",
-      "MDX rendering with syntax highlighting",
+      '24 ShadCN components with full documentation',
+      'Base UI-style documentation system',
+      'Live component previews and code examples',
+      'Searchable component library',
+      'LLM-friendly documentation structure',
+      'MDX rendering with syntax highlighting',
     ],
   },
   {
-    version: "v0.9.0",
-    date: "November 2024",
-    status: "Beta",
-    description: "Pre-release with core design system components",
+    version: 'v0.9.0',
+    date: 'November 2024',
+    status: 'Beta',
+    description: 'Pre-release with core design system components',
     features: [
-      "Design tokens implementation",
-      "Motion guidelines and animations",
-      "Core UI primitives",
-      "Layout patterns",
-      "Theme system",
+      'Design tokens implementation',
+      'Motion guidelines and animations',
+      'Core UI primitives',
+      'Layout patterns',
+      'Theme system',
     ],
   },
 ];
@@ -63,7 +63,7 @@ export default function ReleasesPage() {
                     </CardTitle>
                     <Badge
                       variant={
-                        release.status === "Latest" ? "default" : "secondary"
+                        release.status === 'Latest' ? 'default' : 'secondary'
                       }
                     >
                       {release.status}
