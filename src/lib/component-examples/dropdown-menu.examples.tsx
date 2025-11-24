@@ -29,38 +29,40 @@ function BasicDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel className="flex flex-row gap-2">
-              <Avatar>
+          <DropdownMenuContent className="w-[280px] p-0">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 pt-1 pb-1 border-b border-border">
+              <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col gap-1">
-                <div className="text-base font-medium">Jane Smith</div>
-                <span className="text-sm text-muted-foreground dark:text-muted-foreground">
+              <div className="flex flex-col">
+                <div className="text-base tracking-tighter font-medium">
+                  Jane Smith
+                </div>
+                <span className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
                   jane.smith@cognite.com
                 </span>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuSectionLabel>Section label</DropdownMenuSectionLabel>
-            <DropdownMenuItem>
-              <IconUser />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconSettings />
-              Settings
-            </DropdownMenuItem>
+            <div className="p-1">
+              <DropdownMenuItem>
+                <IconUser />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <IconSettings />
+                Settings
+              </DropdownMenuItem>
 
-            <DropdownMenuItem>
-              <IconBell />
-              Notifications
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconHelp />
-              Help
-            </DropdownMenuItem>
+              <DropdownMenuItem>
+                <IconBell />
+                Notifications
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <IconHelp />
+                Help
+              </DropdownMenuItem>
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -109,7 +111,7 @@ export function BasicDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="w-[280px]">
             <DropdownMenuLabel className="flex flex-row gap-2">
               <Avatar>
                 <AvatarImage src="/user-avatar2.png" alt="User" />
@@ -123,7 +125,6 @@ export function BasicDemo() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuSectionLabel>Section label</DropdownMenuSectionLabel>
             <DropdownMenuItem>
               <IconUser />
               Profile
