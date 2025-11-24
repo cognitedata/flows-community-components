@@ -182,9 +182,9 @@
   --radius-3xl: 24px;
   --radius-4xl: 32px;
   --radius-full: 9999px;
-  --avatar-icon-default: 1.09375rem; // 17.5px
-  --avatar-icon-xs: 0.875rem; // 14px
-  --avatar-icon-xxs: 0.65625rem; // 10.5px
+  --avatar-icon-default: 1.09375rem;
+  --avatar-icon-xs: 0.875rem;
+  --avatar-icon-xxs: 0.65625rem;
 }
 
 :root {
