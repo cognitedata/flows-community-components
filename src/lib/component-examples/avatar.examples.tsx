@@ -91,105 +91,111 @@ function BasicDemo() {
   );
 }
 
-function SizesVariantsDemo() {
+function MainComponentDemo() {
   return (
     <div className="flex items-center flex-col gap-4">
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="fjord">
-          <AvatarIcon>
-            <IconWheel />
-          </AvatarIcon>
-        </Avatar>
-        <Avatar sizes="xsm" variant="fjord">
-          <AvatarIcon>
-            <IconWheel />
-          </AvatarIcon>
-        </Avatar>
-        <Avatar sizes="default" variant="fjord">
-          <AvatarIcon>
-            <IconWheel />
-          </AvatarIcon>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="fjord">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="fjord">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="fjord">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="nordic">
+        <Avatar sizes="default" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes="xsm" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes="default" variant="nordic">
+        <Avatar sizes="xxsm" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="aurora">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="aurora">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="aurora">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
+      <div className="flex items-center gap-4 pt-8">
+        <div id="avatar-group" className="flex items-center">
+          <Avatar
+            variant="nordic"
+            sizes="default"
+            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="orange"
+            sizes="default"
+            className="relative -ml-1 z-2 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="dusk"
+            sizes="default"
+            className="relative -ml-1 z-3 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="aurora"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="sky"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="overflow"
+            sizes="default"
+            className="relative -ml-1 z-5 border-2 border-background"
+          >
+            <AvatarFallback>+4</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="dusk">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="dusk">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="dusk">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="orange">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="orange">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="orange">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="sky">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="sky">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="sky">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="default">
-          <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="default">
-          <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="default">
-          <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
+        <div id="avatar-group" className="flex items-center">
+          <Avatar
+            variant="nordic"
+            sizes="xsm"
+            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="orange"
+            sizes="xsm"
+            className="relative -ml-1 z-2 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="dusk"
+            sizes="xsm"
+            className="relative -ml-1 z-3 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="aurora"
+            sizes="xsm"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="sky"
+            sizes="xsm"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="overflow"
+            sizes="xsm"
+            className="relative -ml-1 z-5 border-2 border-background"
+          >
+            <AvatarFallback>+4</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </div>
   );
@@ -287,120 +293,125 @@ export function BasicDemo() {
   )
 }`,
   },
-  sizes: {
-    title: 'Avatar Sizes',
-    description: 'Different avatar sizes using custom classes',
-    component: SizesVariantsDemo,
+  mainComponent: {
+    title: 'Main Component',
+    description: 'Available size and variation options',
+    component: MainComponentDemo,
     difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/cognite/avatar"
 import { IconWheel } from "@tabler/icons-react"
 
-export function SizesVariantsDemo() {
+export function MainComponentDemo() {
   return (
-    <div className="flex items-center flex-col gap-4">
+   <div className="flex items-center flex-col gap-4">
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="fjord">
-          <AvatarIcon>
-            <IconWheel />
-          </AvatarIcon>
-        </Avatar>
-        <Avatar sizes="xsm" variant="fjord">
-          <AvatarIcon>
-            <IconWheel />
-          </AvatarIcon>
-        </Avatar>
-        <Avatar sizes="default" variant="fjord">
-          <AvatarIcon>
-            <IconWheel />
-          </AvatarIcon>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="fjord">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="fjord">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="fjord">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="nordic">
+        <Avatar sizes="default" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar sizes="xsm" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <Avatar sizes="default" variant="nordic">
+        <Avatar sizes="xxsm" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="aurora">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="aurora">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="aurora">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
+      <div className="flex items-center gap-4 pt-8">
+        <div id="avatar-group" className="flex items-center">
+          <Avatar
+            variant="nordic"
+            sizes="default"
+            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="orange"
+            sizes="default"
+            className="relative -ml-1 z-2 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="dusk"
+            sizes="default"
+            className="relative -ml-1 z-3 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="aurora"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="sky"
+            sizes="default"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="overflow"
+            sizes="default"
+            className="relative -ml-1 z-5 border-2 border-background"
+          >
+            <AvatarFallback>+4</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
       <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="dusk">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="dusk">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="dusk">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="orange">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="orange">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="orange">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="sky">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="sky">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="sky">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex items-center gap-4">
-        <Avatar sizes="xxsm" variant="default">
-          <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="default">
-          <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="default" variant="default">
-          <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
+        <div id="avatar-group" className="flex items-center">
+          <Avatar
+            variant="nordic"
+            sizes="xsm"
+            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="orange"
+            sizes="xsm"
+            className="relative -ml-1 z-2 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="dusk"
+            sizes="xsm"
+            className="relative -ml-1 z-3 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="aurora"
+            sizes="xsm"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="sky"
+            sizes="xsm"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar
+            variant="overflow"
+            sizes="xsm"
+            className="relative -ml-1 z-5 border-2 border-background"
+          >
+            <AvatarFallback>+4</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </div>
   )
 }`,
   },
 };
-
 // Component metadata - single source of truth for API documentation
 export const avatarMeta = {
   name: 'Avatar',
