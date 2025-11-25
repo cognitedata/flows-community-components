@@ -353,6 +353,9 @@
           "path": "src/components/ui/cognite/pagination.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -395,6 +398,9 @@
           "path": "src/components/ui/cognite/radio-group.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -470,6 +476,9 @@
           "path": "src/components/ui/cognite/sidebar.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -676,6 +685,9 @@
           "path": "src/components/ui/cognite/artifact.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -899,6 +911,9 @@
           "path": "src/components/ui/cognite/open-in-chat.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -923,6 +938,9 @@
           "path": "src/components/ui/cognite/plan.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -951,6 +969,9 @@
           "path": "src/components/ui/cognite/queue.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -999,6 +1020,9 @@
           "path": "src/components/ui/cognite/sources.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
@@ -1026,6 +1050,9 @@
           "path": "src/components/ui/cognite/task.tsx",
           "type": "registry:component"
         }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
       ]
     },
     {
