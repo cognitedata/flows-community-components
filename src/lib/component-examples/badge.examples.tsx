@@ -133,7 +133,11 @@ function BuildingBlocksDemo() {
           <IconHexagon className="rotate-90" />
           Badge
         </Badge>
-        <Badge variant="success" outline>
+        <Badge variant="warning" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="success" background={false}>
           <IconHexagon className="rotate-90" />
           Badge
         </Badge>
@@ -141,7 +145,7 @@ function BuildingBlocksDemo() {
           <IconHexagon className="rotate-90" />
           Badge
         </Badge>
-        <Badge variant="inProgress" outline>
+        <Badge variant="inProgress" background={false}>
           <IconHexagon className="rotate-90" />
           Badge
         </Badge>
@@ -149,11 +153,11 @@ function BuildingBlocksDemo() {
           <IconHexagon className="rotate-90" />
           Badge
         </Badge>
-        <Badge variant="undefined" outline>
+        <Badge variant="archived" background={false}>
           <IconHexagon className="rotate-90" />
           Badge
         </Badge>
-        <Badge variant="undefined" outline>
+        <Badge variant="archived" outline>
           <IconHexagon className="rotate-90" />
           Badge
         </Badge>

@@ -18,6 +18,9 @@ const badgeVariants = cva(
           'border-transparent bg-aurora-50 text-aurora-600 dark:bg-aurora-900 dark:text-aurora-300',
         sky: 'border-transparent bg-sky-50 text-sky-600 dark:bg-sky-900 dark:text-sky-300',
         dusk: 'border-transparent bg-dusk-50 text-dusk-600 dark:bg-dusk-900 dark:text-dusk-400',
+        orange:
+          'border-transparent bg-orange-50 text-orange-600 dark:bg-orange-900 dark:text-orange-300',
+        gray: 'border-transparent bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300',
         mountain:
           'border-transparent bg-mountain-50 text-mountain-600 dark:bg-mountain-900 dark:text-mountain-400',
         secondary: 'border-transparent bg-secondary text-secondary-foreground ',
