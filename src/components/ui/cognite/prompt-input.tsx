@@ -16,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/cognite/dropdown-menu';
+import { HelperText } from '@/components/ui/cognite/helper-text';
 import {
   HoverCard,
   HoverCardContent,
@@ -37,10 +38,11 @@ import {
 import { cn } from '@/lib/utils';
 import type { ChatStatus, FileUIPart } from 'ai';
 import {
-  IconPhoto,
+  IconInfoCircle,
   IconLoader2,
   IconMicrophone,
   IconPaperclip,
+  IconPhoto,
   IconPlus,
   IconSend,
   IconSquare,
@@ -419,6 +421,8 @@ export type PromptInputProps = Omit<
     message: PromptInputMessage,
     event: FormEvent<HTMLFormElement>
   ) => void | Promise<void>;
+  // Helper text to show below the input. Set to false to hide, undefined for default, or provide custom ReactNode
+  helperText?: ReactNode | false;
 };
 
 export const PromptInput = ({
@@ -431,6 +435,7 @@ export const PromptInput = ({
   maxFileSize,
   onError,
   onSubmit,
+  helperText,
   children,
   ...props
 }: PromptInputProps) => {
@@ -734,6 +739,16 @@ export const PromptInput = ({
     });
   };
 
+  // Determine helper text to render
+  const defaultHelperText = (
+    <HelperText size="xs" icon={<IconInfoCircle />}>
+      AI doesn&apos;t always get it right. Be sure to check results
+    </HelperText>
+  );
+
+  const helperTextToRender =
+    helperText === false ? null : (helperText ?? defaultHelperText);
+
   // Render with or without local provider
   const inner = (
     <>
@@ -748,13 +763,16 @@ export const PromptInput = ({
         title="Upload files"
         type="file"
       />
-      <form
-        className={cn('w-full', className)}
-        onSubmit={handleSubmit}
-        {...props}
-      >
-        <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
-      </form>
+      <div className="w-full flex flex-col gap-2">
+        <form
+          className={cn('w-full', className)}
+          onSubmit={handleSubmit}
+          {...props}
+        >
+          <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
+        </form>
+        {helperTextToRender}
+      </div>
     </>
   );
 
@@ -855,7 +873,7 @@ export const PromptInputTextarea = ({
   return (
     <InputGroupTextarea
       className={cn(
-        'field-sizing-content max-h-48 min-h-16 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5',
+        'field-sizing-content max-h-48 min-h-18 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5',
         className
       )}
       name="message"

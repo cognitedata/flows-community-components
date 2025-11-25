@@ -20,9 +20,11 @@ import { useState, useRef } from 'react';
 import {
   // IconPaperclip, // TODO: Uncomment when file dialog functionality is re-added
   IconAdjustments,
+  IconAlertTriangle,
   IconChevronDown,
 } from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
+import { HelperText } from '@/components/ui/cognite/helper-text';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,17 +40,17 @@ function AttachmentTools() {
 
   return (
     <>
-      {/* <PromptInputButton onClick={() => attachments.openFileDialog()}>
-        <IconPaperclip size={16} />
+      {/* <PromptInputButton size="icon-sm" onClick={() => attachments.openFileDialog()}>
+        <IconPaperclip />
       </PromptInputButton> */}
-      <PromptInputButton>
-        <IconAdjustments size={16} />
+      <PromptInputButton size="icon-sm">
+        <IconAdjustments />
       </PromptInputButton>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm">
             Agent model
-            <IconChevronDown size={16} />
+            <IconChevronDown />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -89,6 +91,122 @@ function PromptInputDemo() {
   return (
     <PromptInputProvider>
       <PromptInput onSubmit={handleSubmit} accept="image/*" multiple>
+        <PromptInputBody>
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
+        </PromptInputBody>
+        <PromptInputFooter>
+          <PromptInputTools>
+            <AttachmentTools />
+          </PromptInputTools>
+          <div className="flex flex-row gap-2">
+            <PromptInputSpeechButton textareaRef={textareaRef} />
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
+        </PromptInputFooter>
+      </PromptInput>
+    </PromptInputProvider>
+  );
+}
+
+function PromptInputNoHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    const hasText = Boolean(message.text);
+    const hasAttachments = Boolean(message.files?.length);
+
+    if (!(hasText || hasAttachments)) {
+      return;
+    }
+
+    setStatus('submitted');
+
+    setTimeout(() => {
+      setStatus('streaming');
+    }, SUBMITTING_TIMEOUT);
+
+    setTimeout(() => {
+      setStatus('ready');
+    }, STREAMING_TIMEOUT);
+  };
+
+  return (
+    <PromptInputProvider>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={false}
+      >
+        <PromptInputBody>
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
+        </PromptInputBody>
+        <PromptInputFooter>
+          <PromptInputTools>
+            <AttachmentTools />
+          </PromptInputTools>
+          <div className="flex flex-row gap-2">
+            <PromptInputSpeechButton textareaRef={textareaRef} />
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
+        </PromptInputFooter>
+      </PromptInput>
+    </PromptInputProvider>
+  );
+}
+
+function PromptInputCustomHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    const hasText = Boolean(message.text);
+    const hasAttachments = Boolean(message.files?.length);
+
+    if (!(hasText || hasAttachments)) {
+      return;
+    }
+
+    setStatus('submitted');
+
+    setTimeout(() => {
+      setStatus('streaming');
+    }, SUBMITTING_TIMEOUT);
+
+    setTimeout(() => {
+      setStatus('ready');
+    }, STREAMING_TIMEOUT);
+  };
+
+  return (
+    <PromptInputProvider>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={
+          <HelperText size="xs" icon={<IconAlertTriangle />}>
+            This is experimental. Use with caution.
+          </HelperText>
+        }
+      >
         <PromptInputBody>
           <PromptInputAttachments>
             {(attachment) => <PromptInputAttachment data={attachment} />}
@@ -205,6 +323,145 @@ export function PromptInputDemo() {
         <PromptInputFooter>
           <PromptInputTools>
             <AttachmentTools />
+          </PromptInputTools>
+          <div className="flex flex-row gap-2">
+            <PromptInputSpeechButton textareaRef={textareaRef} />
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
+        </PromptInputFooter>
+      </PromptInput>
+    </PromptInputProvider>
+  );
+}`,
+  },
+
+  noHelperText: {
+    title: 'Prompt Input Without Helper Text',
+    description:
+      'Prompt input with helper text hidden using helperText={false}',
+    component: PromptInputNoHelperTextDemo,
+    difficulty: 'beginner',
+    code: `'use client';
+
+import {
+  PromptInput,
+  PromptInputProvider,
+  PromptInputBody,
+  PromptInputTextarea,
+  PromptInputSubmit,
+  PromptInputFooter,
+  PromptInputTools,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputSpeechButton,
+  type PromptInputMessage,
+} from '@/components/ui/cognite/prompt-input';
+import { useState, useRef } from 'react';
+
+export function PromptInputNoHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    setStatus('submitted');
+    setTimeout(() => setStatus('streaming'), 200);
+    setTimeout(() => setStatus('ready'), 2000);
+  };
+
+  return (
+    <PromptInputProvider>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={false}
+      >
+        <PromptInputBody>
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
+        </PromptInputBody>
+        <PromptInputFooter>
+          <PromptInputTools>
+            {/* Your tools here */}
+          </PromptInputTools>
+          <div className="flex flex-row gap-2">
+            <PromptInputSpeechButton textareaRef={textareaRef} />
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
+        </PromptInputFooter>
+      </PromptInput>
+    </PromptInputProvider>
+  );
+}`,
+  },
+
+  customHelperText: {
+    title: 'Prompt Input With Custom Helper Text',
+    description: 'Prompt input with custom helper text',
+    component: PromptInputCustomHelperTextDemo,
+    difficulty: 'beginner',
+    code: `'use client';
+
+import {
+  PromptInput,
+  PromptInputProvider,
+  PromptInputBody,
+  PromptInputTextarea,
+  PromptInputSubmit,
+  PromptInputFooter,
+  PromptInputTools,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputSpeechButton,
+  type PromptInputMessage,
+} from '@/components/ui/cognite/prompt-input';
+import { useState, useRef } from 'react';
+import { IconAlertTriangle } from '@tabler/icons-react';
+import { HelperText } from '@/components/ui/cognite/helper-text';
+
+export function PromptInputCustomHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    setStatus('submitted');
+    setTimeout(() => setStatus('streaming'), 200);
+    setTimeout(() => setStatus('ready'), 2000);
+  };
+
+  return (
+    <PromptInputProvider>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={
+          <HelperText size="xs" icon={<IconAlertTriangle />}>
+            This is experimental. Use with caution.
+          </HelperText>
+        }
+      >
+        <PromptInputBody>
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
+        </PromptInputBody>
+        <PromptInputFooter>
+          <PromptInputTools>
+            {/* Your tools here */}
           </PromptInputTools>
           <div className="flex flex-row gap-2">
             <PromptInputSpeechButton textareaRef={textareaRef} />
