@@ -3,13 +3,14 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import {
+  IconAlertTriangle as AlertTriangle,
   IconArrowRight as ArrowRight,
   IconBook as BookOpen,
+  IconBolt as Zap,
   IconCode as Code2,
   IconGrid3x3 as Grid3X3,
   IconLayout as Layout,
   IconPalette as Palette,
-  IconBolt as Zap,
 } from '@tabler/icons-react';
 import { Button } from '@/components/ui/cognite/button';
 import {
@@ -24,7 +25,6 @@ import {
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/cognite/alert';
-import { AlertTriangle } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },

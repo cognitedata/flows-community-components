@@ -3,7 +3,11 @@
 import { Button } from '@/components/ui/cognite/button';
 import { cn } from '@/lib/utils';
 import type { Element } from 'hast';
-import { CheckIcon, ChevronsUpDown, CopyIcon } from 'lucide-react';
+import {
+  IconCheck as CheckIcon,
+  IconCopy as CopyIcon,
+  IconSelector as ChevronsUpDown,
+} from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,

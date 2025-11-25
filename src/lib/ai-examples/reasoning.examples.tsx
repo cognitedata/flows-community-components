@@ -9,11 +9,9 @@ import {
   Message,
   MessageContent,
   MessageAvatar,
-  MessageAvatarIcon,
 } from '@/components/ui/cognite/message';
 import { Actions, Action } from '@/components/ui/cognite/actions';
 import {
-  IconWheel,
   IconThumbUp,
   IconThumbDown,
   IconCopy,
@@ -205,15 +203,15 @@ function MessageConversationWithReasoningDemo() {
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2 p-4">
-      <Message from="user">
+      <Message isResponse={false}>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="Sarah Chen" />
         <MessageContent>
           How can I make a reasoning panel auto-open during streaming in my UI
           component?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="Sarah Chen" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
         <MessageContent className="flex flex-col gap-2">
           <Reasoning
             className="w-full"
@@ -250,11 +248,6 @@ function MessageConversationWithReasoningDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   );
@@ -369,7 +362,7 @@ import {
 } from "@/components/ai-elements/cognite/reasoning"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -463,14 +456,14 @@ export function MessageConversationWithReasoningDemo() {
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2 p-4" style={{ height: "500px" }}>
-      <Message from="user">
+      <Message isResponse={false}>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="Sarah Chen" />
         <MessageContent>
           What&apos;s causing the abnormal vibration levels on pump 21PT1019?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="Sarah Chen" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
         <MessageContent className="flex flex-col gap-2">
           <Reasoning className="w-full" isStreaming={isStreaming} onOpenChange={handleReasoningOpenChange}>
             <ReasoningTrigger />
@@ -503,11 +496,6 @@ export function MessageConversationWithReasoningDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   )
