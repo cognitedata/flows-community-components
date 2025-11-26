@@ -191,6 +191,9 @@
   --radius: 0.375rem; /* 6px - default radius, maps to radius-md */
   --font-inter: 'Inter', sans-serif;
   --font-source-code-pro: 'Source Code Pro', monospace;
+  --code-block-collapsed-height: 3.125rem;
+  --code-block-fade-height: 0.9375rem;
+  --message-content-max-width: 80%;
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
