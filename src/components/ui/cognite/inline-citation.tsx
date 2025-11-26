@@ -32,7 +32,10 @@ export const InlineCitation = ({
   ...props
 }: InlineCitationProps) => (
   <span
-    className={cn('group inline items-center gap-1', className)}
+    className={cn(
+      'group inline-flex items-stretch items-center gap-1',
+      className
+    )}
     {...props}
   />
 );
@@ -78,7 +81,7 @@ export const InlineCitationCardTrigger = ({
   <HoverCardTrigger asChild>
     <Badge
       className={cn(
-        'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-px text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-colors transition-shadow',
+        'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 text-sm leading-4.5 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-[color,box-shadow]',
         '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
         className
       )}
@@ -306,18 +309,14 @@ export const InlineCitationQuote = ({
   </blockquote>
 );
 
-export type InlineCitationLinkProps = Omit<
-  ComponentProps<'a'>,
-  'href' | 'target'
-> & {
-  url: string;
+export type InlineCitationLinkProps = Omit<ComponentProps<'a'>, 'target'> & {
   target?: '_blank' | '_self';
   icon?: ComponentType<{ className?: string }>;
   variant?: 'mountain' | 'nordic' | 'fjord';
 };
 
 export const InlineCitationLink = ({
-  url,
+  href,
   target = '_self',
   icon: Icon,
   variant = 'mountain',
@@ -325,7 +324,7 @@ export const InlineCitationLink = ({
   children,
   ...props
 }: InlineCitationLinkProps) => {
-  const hostname = url ? new URL(url).hostname : 'unknown';
+  const hostname = href ? new URL(href).hostname : 'unknown';
 
   const variantStyles = {
     mountain:
@@ -338,15 +337,15 @@ export const InlineCitationLink = ({
 
   return (
     <a
-      href={url}
+      href={href}
       target={target}
       rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-      className="inline-block"
+      className="inline-flex items-stretch"
       {...props}
     >
       <Badge
         className={cn(
-          'inline-flex items-center justify-center rounded-md border border-transparent px-1 py-px text-sm leading-4 font-medium whitespace-nowrap gap-1 transition-colors transition-shadow',
+          'inline-flex items-center justify-center rounded-md border border-transparent px-1 text-sm leading-4.5 font-medium whitespace-nowrap gap-1 transition-colors',
           '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
           variantStyles[variant],
           className

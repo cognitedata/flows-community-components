@@ -44,7 +44,7 @@ function Demo() {
           <span>There are abnormal vibration levels on </span>
           <InlineCitation>
             <InlineCitationLink
-              url="https://example.com/user/21PT1019"
+              href="https://example.com/user/21PT1019"
               target="_blank"
               icon={IconAt}
               variant="nordic"
@@ -68,7 +68,7 @@ function Demo() {
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/chart/timeline"
+                href="https://example.com/chart/timeline"
                 target="_blank"
                 icon={IconTimeline}
               >
@@ -77,7 +77,7 @@ function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/image/image1.jpg"
+                href="https://example.com/image/image1.jpg"
                 target="_blank"
                 icon={IconPhoto}
               >
@@ -86,7 +86,7 @@ function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/documentation.pdf"
+                href="https://example.com/documentation.pdf"
                 target="_blank"
                 icon={IconFile}
               >
@@ -210,7 +210,7 @@ export function Demo() {
       <Message isResponse={false}>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink href="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
         </MessageContent>
       </Message>
 
@@ -225,7 +225,7 @@ export function Demo() {
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/chart/timeline"
+                href="https://example.com/chart/timeline"
                 target="_blank"
                 icon={IconTimeline}
               >
@@ -234,7 +234,7 @@ export function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/image/image1.jpg"
+                href="https://example.com/image/image1.jpg"
                 target="_blank"
                 icon={IconPhoto}
               >
@@ -243,7 +243,7 @@ export function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/documentation.pdf"
+                href="https://example.com/documentation.pdf"
                 target="_blank"
                 icon={IconFile}
               >
