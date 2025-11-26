@@ -39,11 +39,6 @@ function BasicDemo() {
             </TooltipContent>
           </Tooltip>
         </div>
-
-        <p className="text-sm text-muted-foreground">
-          Hover over buttons to see interactive tooltips with helpful
-          information.
-        
       </div>
     </TooltipProvider>
   );
@@ -139,10 +134,6 @@ export function BasicDemo() {
             </TooltipContent>
           </Tooltip>
         </div>
-        
-        <p className="text-sm text-muted-foreground">
-          Hover over buttons to see interactive tooltips with helpful information.
-        
       </div>
     </TooltipProvider>
   )
