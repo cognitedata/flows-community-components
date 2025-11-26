@@ -78,7 +78,7 @@ export const InlineCitationCardTrigger = ({
   <HoverCardTrigger asChild>
     <Badge
       className={cn(
-        'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-0.25 text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-[color,box-shadow]',
+        'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 py-px text-sm leading-4 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-colors transition-shadow',
         '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
         className
       )}
@@ -346,7 +346,7 @@ export const InlineCitationLink = ({
     >
       <Badge
         className={cn(
-          'inline-flex items-center justify-center rounded-md border border-transparent px-1 py-0.25 text-sm leading-4 font-medium whitespace-nowrap gap-1 transition-colors',
+          'inline-flex items-center justify-center rounded-md border border-transparent px-1 py-px text-sm leading-4 font-medium whitespace-nowrap gap-1 transition-colors transition-shadow',
           '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
           variantStyles[variant],
           className
