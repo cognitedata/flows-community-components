@@ -16,12 +16,12 @@ import {
   IconFile,
   IconPhoto,
   IconTimeline,
-  IconThumbUp,
-  IconThumbDown,
   IconCopy,
-  IconShare,
-  IconDotsVertical,
+  IconDownload,
+  IconTool,
+  IconRefresh,
   IconWheel,
+  IconDotsVertical,
 } from '@tabler/icons-react';
 import {
   DropdownMenu,
@@ -95,17 +95,17 @@ function Demo() {
             </InlineCitation>
           </div>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </MessageAction>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
             </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -136,13 +136,18 @@ function WithCodeBlockDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <CodeBlock
             code={code}
@@ -154,17 +159,17 @@ function WithCodeBlockDemo() {
             <CodeBlockCollapseButton />
           </CodeBlock>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </MessageAction>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
             </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -196,7 +201,7 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ui/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
+import { IconAt, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -207,7 +212,7 @@ import {
 export function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message isResponse={false}>
+      <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink href="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
@@ -220,8 +225,10 @@ export function Demo() {
             <IconWheel />
           </MessageAvatarIcon>
         </MessageAvatar>
-        <MessageContent>
-          According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
+        <MessageContent className="flex flex-col gap-2">
+          According to the time series, vibration amplitude has been rising
+          steadily since 03:00. The motor temperature also increased by 8°C over
+          the same period. Would you like me to add this to the canvas?
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
@@ -252,17 +259,17 @@ export function Demo() {
             </InlineCitation>
           </div>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </MessageAction>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
             </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -291,7 +298,7 @@ export function Demo() {
     difficulty: 'beginner',
     code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/cognite/code-block"
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -309,14 +316,19 @@ export function WithCodeBlockDemo() {
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message isResponse={false}>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <CodeBlock
             code={code}
