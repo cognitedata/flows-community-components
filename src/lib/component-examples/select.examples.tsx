@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/cognite/select';
-import { Label } from '@/components/ui/cognite/label';
+} from '@/components/ui/aura/select';
+import { Label } from '@/components/ui/aura/label';
 import {
   IconHome as Home,
   IconMail as Mail,
@@ -175,8 +175,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/cognite/select';
-import { Label } from '@/components/ui/cognite/label';
+} from '@/components/ui/aura/select';
+import { Label } from '@/components/ui/aura/label';
 import {
   IconHome as Home,
   IconMail as Mail,
@@ -254,8 +254,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/cognite/select';
-import { Label } from '@/components/ui/cognite/label';
+} from '@/components/ui/aura/select';
+import { Label } from '@/components/ui/aura/label';
 import {
   IconHome as Home,
   IconMail as Mail,
@@ -368,5 +368,5 @@ export const selectMeta = {
     'Displays a list of options for the user to pick from—triggered by a button.',
   llmUsage:
     'When asked for a select dropdown, use `<Select>` for choosing from multiple options.',
-  importPath: '@/components/ui/cognite/select',
+  importPath: '@/components/ui/aura/select',
 };

@@ -3,7 +3,7 @@ import {
   AvatarFallback,
   AvatarIcon,
   AvatarImage,
-} from '@/components/ui/cognite/avatar';
+} from '@/components/ui/aura/avatar';
 import type { ComponentExamples } from './types';
 import { IconWheel } from '@tabler/icons-react';
 
@@ -717,7 +717,7 @@ export const avatarExamples: ComponentExamples = {
     description: 'Display user avatars with image and fallback',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/cognite/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar"
 
 export function BasicDemo() {
   return (
@@ -818,7 +818,7 @@ export function BasicDemo() {
     description: 'Available size and variation options',
     component: MainComponentDemo,
     difficulty: 'beginner',
-    code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/cognite/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
 import { IconWheel } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
@@ -936,7 +936,7 @@ export function MainComponentDemo() {
     description: 'Available size and variation options',
     component: BuildingBlocksDemo,
     difficulty: 'beginner',
-    code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/cognite/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
 import { IconWheel } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
@@ -1056,5 +1056,5 @@ export const avatarMeta = {
   description: 'An image element with a fallback for representing the user.',
   llmUsage:
     'When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation. Use `<AvatarIcon>` for icon-only avatars.',
-  importPath: '@/components/ui/cognite/avatar',
+  importPath: '@/components/ui/aura/avatar',
 };

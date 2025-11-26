@@ -3,7 +3,7 @@ import {
   TaskTrigger,
   TaskContent,
   TaskItem,
-} from '@/components/ui/cognite/task';
+} from '@/components/ui/aura/task';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicTaskDemo() {

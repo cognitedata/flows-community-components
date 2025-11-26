@@ -4,27 +4,27 @@ import Image from 'next/image';
 import React from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/cognite/tabs';
-import { Button } from '@/components/ui/cognite/button';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/aura/tabs';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
-import { Textarea } from '@/components/ui/cognite/textarea';
+} from '@/components/ui/aura/card';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
+import { Textarea } from '@/components/ui/aura/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/cognite/select';
-import { Checkbox } from '@/components/ui/cognite/checkbox';
-import { Separator } from '@/components/ui/cognite/separator';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '@/components/ui/aura/select';
+import { Checkbox } from '@/components/ui/aura/checkbox';
+import { Separator } from '@/components/ui/aura/separator';
+import { Badge } from '@/components/ui/aura/badge';
 import {
   IconAlertCircle as CircleAlert,
   IconAlertOctagon as OctagonAlert,
@@ -47,15 +47,15 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/cognite/popover';
-import { Calendar } from '@/components/ui/cognite/calendar';
+} from '@/components/ui/aura/popover';
+import { Calendar } from '@/components/ui/aura/calendar';
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/cognite/dialog';
+} from '@/components/ui/aura/dialog';
 
 type ChecklistItem = {
   id: string;

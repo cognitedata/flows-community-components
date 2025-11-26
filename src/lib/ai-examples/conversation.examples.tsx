@@ -5,14 +5,14 @@ import {
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from '@/components/ui/cognite/conversation';
+} from '@/components/ui/aura/conversation';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
-import { Actions, Action } from '@/components/ui/cognite/actions';
+} from '@/components/ui/aura/message';
+import { Actions, Action } from '@/components/ui/aura/actions';
 import {
   IconMessageCircle,
   IconWheel,
@@ -27,7 +27,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
@@ -286,7 +286,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 

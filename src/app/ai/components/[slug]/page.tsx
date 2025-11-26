@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { Button } from '@/components/ui/cognite/button';
-import { Badge } from '@/components/ui/cognite/badge';
+import { Button } from '@/components/ui/aura/button';
+import { Badge } from '@/components/ui/aura/badge';
 import Link from 'next/link';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { ComponentTabSwitcher } from '@/components/component-tab-switcher';

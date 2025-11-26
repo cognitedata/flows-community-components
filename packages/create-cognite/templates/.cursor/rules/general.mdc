@@ -65,7 +65,7 @@ UI Enhancement: Prefer select dropdowns with built-in search for better user exp
 WATCH OUT FOR THIS BUG WITH SHADCN SELECTS:
 A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.
 
-src/components/ui/cognite/select.tsx (107:5) @ SelectItem
+src/components/ui/aura/select.tsx (107:5) @ SelectItem
 
 105 | }: React.ComponentProps<typeof SelectPrimitive.Item>) {
 106 | return (

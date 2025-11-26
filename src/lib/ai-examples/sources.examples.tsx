@@ -1,10 +1,10 @@
-import { Badge } from '@/components/ui/cognite/badge';
+import { Badge } from '@/components/ui/aura/badge';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from '@/components/ui/cognite/hover-card';
-import { Sources, Source } from '@/components/ui/cognite/sources';
+} from '@/components/ui/aura/hover-card';
+import { Sources, Source } from '@/components/ui/aura/sources';
 import {
   IconChartLine,
   IconPhoto,
@@ -146,7 +146,7 @@ export const sourcesExamples: ComponentExamples = {
     description: 'Inline source citations displayed as badges',
     component: BasicSourcesDemo,
     difficulty: 'beginner',
-    code: `import { Sources, Source } from "@/components/ui/cognite/sources"
+    code: `import { Sources, Source } from "@/components/ui/aura/sources"
 import { IconChartLine, IconPhoto, IconFile, IconBriefcase } from "@tabler/icons-react"
 
 export function BasicSourcesDemo() {
@@ -186,13 +186,13 @@ export function BasicSourcesDemo() {
     description: 'Sources with overflow hover card for additional citations',
     component: SourcesWithHoverCardDemo,
     difficulty: 'intermediate',
-    code: `import { Badge } from "@/components/ui/cognite/badge"
+    code: `import { Badge } from "@/components/ui/aura/badge"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/cognite/hover-card"
-import { Sources, Source } from "@/components/ui/cognite/sources"
+} from "@/components/ui/aura/hover-card"
+import { Sources, Source } from "@/components/ui/aura/sources"
 import {
   IconChartLine,
   IconPhoto,
@@ -274,7 +274,7 @@ export function SourcesWithHoverCardDemo() {
     description: 'Sources with different colour variants',
     component: SourcesWithIconDemo,
     difficulty: 'beginner',
-    code: `import { Sources, Source } from "@/components/ui/cognite/sources"
+    code: `import { Sources, Source } from "@/components/ui/aura/sources"
 import { IconChartLine, IconPhoto, IconFile } from "@tabler/icons-react"
 
 export function SourcesWithIconDemo() {
@@ -312,5 +312,5 @@ export const sourcesMeta = {
   name: 'Sources',
   description:
     'A component that displays inline source citations as clickable badges, with support for overflow hover cards.',
-  importPath: '@/components/ui/cognite/sources',
+  importPath: '@/components/ui/aura/sources',
 };

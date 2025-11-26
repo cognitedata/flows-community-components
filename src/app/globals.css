@@ -774,8 +774,9 @@
       var(--tw-ring-color);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
       var(--tw-shadow, 0 0 #0000);
-  .text-2xs {
-    font-size: var(--text-2xs);
-    line-height: 1;
+    .text-2xs {
+      font-size: var(--text-2xs);
+      line-height: 1;
+    }
   }
 }

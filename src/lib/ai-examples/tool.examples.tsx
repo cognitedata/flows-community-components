@@ -4,7 +4,7 @@ import {
   ToolContent,
   ToolInput,
   ToolOutput,
-} from '@/components/ui/cognite/tool';
+} from '@/components/ui/aura/tool';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicToolDemo() {

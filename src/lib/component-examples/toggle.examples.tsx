@@ -1,4 +1,4 @@
-import { Toggle } from '@/components/ui/cognite/toggle';
+import { Toggle } from '@/components/ui/aura/toggle';
 import {
   IconBold as Bold,
   IconItalic as Italic,
@@ -28,7 +28,7 @@ export const toggleExamples: ComponentExamples = {
     description: 'A two-state button that can be either on or off',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Toggle } from '@/components/ui/cognite/toggle';
+    code: `import { Toggle } from '@/components/ui/aura/toggle';
     import {
       IconBold as Bold,
       IconItalic as Italic,
@@ -59,5 +59,5 @@ export const toggleMeta = {
   description: 'A two-state button that can be either on or off.',
   llmUsage:
     'When creating toggle buttons, use `<Toggle>` for binary state controls.',
-  importPath: '@/components/ui/cognite/toggle',
+  importPath: '@/components/ui/aura/toggle',
 };

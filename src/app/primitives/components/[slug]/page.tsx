@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { Badge } from '@/components/ui/cognite/badge';
+import { Badge } from '@/components/ui/aura/badge';
 import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
 import { ComponentExamplesRenderer } from '@/components/component-examples-renderer';
 import { CodeExamplesRenderer } from '@/components/code-examples-renderer';

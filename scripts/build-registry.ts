@@ -2,9 +2,9 @@
 
 /**
  * Dynamically builds registry.json from all components found in:
- * - src/components/ui/cognite/
+ * - src/components/ui/aura/
  *
- * All registry paths point to src/components/ui/cognite/ to create a flat
+ * All registry paths point to src/components/ui/aura/ to create a flat
  * folder structure when components are installed via the registry.
  */
 
@@ -39,7 +39,7 @@ interface Registry {
   items: RegistryItem[];
 }
 
-const uiCogniteDir = path.join(__dirname, '../src/components/ui/cognite');
+const uiCogniteDir = path.join(__dirname, '../src/components/ui/aura');
 const registryTemplate = path.join(__dirname, '../registry.template.json');
 const registryOutput = path.join(__dirname, '../registry.json');
 
@@ -112,7 +112,7 @@ function collectRegistryDependencies(
 
 // Get the file path for a component (always cognite)
 function getComponentPath(componentName: string): string {
-  return `src/components/ui/cognite/${componentName}.tsx`;
+  return `src/components/ui/aura/${componentName}.tsx`;
 }
 
 // Filter registry to only include specified components and update file paths
@@ -145,7 +145,7 @@ function buildRegistry(template: Registry, components: string[]): Registry {
   const filteredItems = template.items
     .filter((item: RegistryItem) => allComponentsToInclude.has(item.name))
     .map((item: RegistryItem) => {
-      // All paths point to src/components/ui/cognite/
+      // All paths point to src/components/ui/aura/
       const componentPath = getComponentPath(item.name);
 
       return {
@@ -170,7 +170,7 @@ async function main(): Promise<void> {
     console.log('\n' + '='.repeat(70));
     console.log('🔨 BUILDING COMPONENT REGISTRY');
     console.log('   Source: ui/cognite');
-    console.log('   Output: All paths → src/components/ui/cognite/');
+    console.log('   Output: All paths → src/components/ui/aura/');
     console.log('='.repeat(70));
 
     // Get components from ui/cognite directory
@@ -198,7 +198,7 @@ async function main(): Promise<void> {
     console.log('─'.repeat(70));
     console.log('\n   registry.json → Root directory');
     console.log('   Component files → public/r/*.json (via shadcn build)');
-    console.log('   All paths point to src/components/ui/cognite/');
+    console.log('   All paths point to src/components/ui/aura/');
 
     // Load template first to check for dependencies
     const template: Registry = loadRegistryTemplate();
@@ -234,7 +234,7 @@ async function main(): Promise<void> {
     } else {
       console.log(
         `ℹ️  Note: No components to build. Add .tsx files to:\n` +
-          `     - src/components/ui/cognite/\n`
+          `     - src/components/ui/aura/\n`
       );
     }
   } catch (error: unknown) {

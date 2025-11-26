@@ -2,7 +2,7 @@ import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from '@/components/ui/cognite/code-block';
+} from '@/components/ui/aura/code-block';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicCodeBlockDemo() {

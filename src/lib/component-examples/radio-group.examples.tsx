@@ -1,8 +1,8 @@
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@/components/ui/cognite/radio-group';
-import { Label } from '@/components/ui/cognite/label';
+} from '@/components/ui/aura/radio-group';
+import { Label } from '@/components/ui/aura/label';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -31,8 +31,8 @@ export const radioGroupExamples: ComponentExamples = {
       'A set of checkable buttons where only one can be checked at a time',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { RadioGroup, RadioGroupItem } from "@/components/ui/cognite/radio-group"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { RadioGroup, RadioGroupItem } from "@/components/ui/aura/radio-group"
+import { Label } from "@/components/ui/aura/label"
 
 export function BasicDemo() {
   return (
@@ -62,5 +62,5 @@ export const radioGroupMeta = {
     'A set of checkable buttons where only one can be checked at a time.',
   llmUsage:
     'When creating radio button groups, use `<RadioGroup>` with `<RadioGroupItem>` components.',
-  importPath: '@/components/ui/cognite/radio-group',
+  importPath: '@/components/ui/aura/radio-group',
 };

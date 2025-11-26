@@ -7,12 +7,12 @@ import {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from '@/components/ui/cognite/branch';
+} from '@/components/ui/aura/branch';
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from '@/components/ui/cognite/message';
+} from '@/components/ui/aura/message';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { nanoid } from 'nanoid';
 
@@ -322,5 +322,5 @@ export const branchMeta = {
   name: 'Branch',
   description:
     'Manages multiple versions of AI messages, allowing users to navigate between different response branches.',
-  importPath: '@/components/ui/cognite/branch',
+  importPath: '@/components/ui/aura/branch',
 };

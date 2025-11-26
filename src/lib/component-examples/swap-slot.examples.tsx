@@ -29,5 +29,5 @@ export const swapSlotMeta = {
     'Custom component for swapping content slots (implementation pending).',
   llmUsage:
     'Swap slot component is a custom component - implementation details coming soon.',
-  importPath: '@/components/ui/cognite/swap-slot',
+  importPath: '@/components/ui/aura/swap-slot',
 };

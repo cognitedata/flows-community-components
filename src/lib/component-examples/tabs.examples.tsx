@@ -3,7 +3,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/cognite/tabs';
+} from '@/components/ui/aura/tabs';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -47,7 +47,7 @@ export const tabsExamples: ComponentExamples = {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/cognite/tabs"
+} from "@/components/ui/aura/tabs"
 
 export function BasicDemo() {
   return (
@@ -88,5 +88,5 @@ export const tabsMeta = {
     'A tabbed interface component for organizing content into multiple panels with accessible keyboard navigation.',
   llmUsage:
     "When creating tabbed interfaces, use `<Tabs defaultValue='tab1'>` with `<TabsList>`, `<TabsTrigger>`, and `<TabsContent>` components for proper accessibility and functionality.",
-  importPath: '@/components/ui/cognite/tabs',
+  importPath: '@/components/ui/aura/tabs',
 };
