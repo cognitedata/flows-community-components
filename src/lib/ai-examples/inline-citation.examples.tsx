@@ -151,7 +151,7 @@ function LinkDemo() {
         Recent research has demonstrated promising results.{' '}
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/research"
+            href="https://example.com/research"
             target="_blank"
           />
         </InlineCitation>
@@ -167,70 +167,70 @@ function WithIconsDemo() {
       <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/image/image1.jpg"
+            href="https://example.com/image/image1.jpg"
             target="_blank"
             icon={IconPhoto}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/documentation.pdf"
+            href="https://example.com/documentation.pdf"
             target="_blank"
             icon={IconFile}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/chart/timeline"
+            href="https://example.com/chart/timeline"
             target="_blank"
             icon={IconTimeline}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/asset/pump-123"
+            href="https://example.com/asset/pump-123"
             target="_blank"
             icon={IconHexagon}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/event/maintenance-456"
+            href="https://example.com/event/maintenance-456"
             target="_blank"
             icon={IconCalendarEvent}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/sequence/sequence-789"
+            href="https://example.com/sequence/sequence-789"
             target="_blank"
             icon={IconBrackets}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/work-order/wo-321"
+            href="https://example.com/work-order/wo-321"
             target="_blank"
             icon={IconBriefcase}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/observation/obs-654"
+            href="https://example.com/observation/obs-654"
             target="_blank"
             icon={IconEye}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/3d/model-987"
+            href="https://example.com/3d/model-987"
             target="_blank"
             icon={IconCube}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/user/example"
+            href="https://example.com/user/example"
             target="_blank"
             icon={IconAt}
           />
@@ -418,7 +418,7 @@ export function LinkDemo() {
         Recent research has demonstrated promising results.{' '}
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/research"
+            href="https://example.com/research"
             target="_blank"
           />
         </InlineCitation>
@@ -461,70 +461,70 @@ export function WithIconsDemo() {
       <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/image/image1.jpg"
+            href="https://example.com/image/image1.jpg"
             target="_blank"
             icon={IconPhoto}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/documentation.pdf"
+            href="https://example.com/documentation.pdf"
             target="_blank"
             icon={IconFile}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/chart/timeline"
+            href="https://example.com/chart/timeline"
             target="_blank"
             icon={IconTimeline}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/asset/pump-123"
+            href="https://example.com/asset/pump-123"
             target="_blank"
             icon={IconHexagon}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/event/maintenance-456"
+            href="https://example.com/event/maintenance-456"
             target="_blank"
             icon={IconCalendarEvent}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/sequence/sequence-789"
+            href="https://example.com/sequence/sequence-789"
             target="_blank"
             icon={IconBrackets}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/work-order/wo-321"
+            href="https://example.com/work-order/wo-321"
             target="_blank"
             icon={IconBriefcase}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/observation/obs-654"
+            href="https://example.com/observation/obs-654"
             target="_blank"
             icon={IconEye}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/3d/model-987"
+            href="https://example.com/3d/model-987"
             target="_blank"
             icon={IconCube}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/user/example"
+            href="https://example.com/user/example"
             target="_blank"
             icon={IconAt}
           />
