@@ -1,10 +1,10 @@
-import { Actions, Action } from '@/components/ui/cognite/actions';
+import { Actions, Action } from '@/components/ui/aura/actions';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
+} from '@/components/ui/aura/message';
 import {
   IconThumbUp,
   IconThumbDown,
@@ -18,7 +18,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicActionsDemo() {
@@ -124,7 +124,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function BasicActionsDemo() {
     return (
@@ -189,7 +189,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function ActionsWithLabelsDemo() {
     return (

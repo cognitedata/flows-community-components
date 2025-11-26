@@ -8,7 +8,7 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from '@/components/ui/cognite/menubar';
+} from '@/components/ui/aura/menubar';
 import type { ComponentExamples } from './types';
 
 function MenubarDemo() {
@@ -104,7 +104,7 @@ export const menubarExamples: ComponentExamples = {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@/components/ui/cognite/menubar"
+} from "@/components/ui/aura/menubar"
 
 export function MenubarDemo() {
   return (
@@ -190,5 +190,5 @@ export const menubarMeta = {
   description: 'A visually persistent menu common in desktop applications.',
   llmUsage:
     'When creating menu bars, use `<Menubar>` with `<MenubarMenu>`, `<MenubarTrigger>`, and `<MenubarContent>`.',
-  importPath: '@/components/ui/cognite/menubar',
+  importPath: '@/components/ui/aura/menubar',
 };

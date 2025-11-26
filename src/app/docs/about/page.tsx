@@ -12,19 +12,19 @@ import {
   IconLayout as Layout,
   IconPalette as Palette,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '@/components/ui/aura/card';
 import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from '@/components/ui/cognite/alert';
+} from '@/components/ui/aura/alert';
 
 const containerVariants = {
   hidden: { opacity: 0 },

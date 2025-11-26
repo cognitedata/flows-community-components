@@ -16,7 +16,7 @@ import {
   InlineCitationLink,
   InlineCitationSource,
   InlineCitationText,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -151,7 +151,7 @@ function LinkDemo() {
         Recent research has demonstrated promising results.{' '}
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/research"
+            href="https://example.com/research"
             target="_blank"
           />
         </InlineCitation>
@@ -167,70 +167,70 @@ function WithIconsDemo() {
       <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/image/image1.jpg"
+            href="https://example.com/image/image1.jpg"
             target="_blank"
             icon={IconPhoto}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/documentation.pdf"
+            href="https://example.com/documentation.pdf"
             target="_blank"
             icon={IconFile}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/chart/timeline"
+            href="https://example.com/chart/timeline"
             target="_blank"
             icon={IconTimeline}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/asset/pump-123"
+            href="https://example.com/asset/pump-123"
             target="_blank"
             icon={IconHexagon}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/event/maintenance-456"
+            href="https://example.com/event/maintenance-456"
             target="_blank"
             icon={IconCalendarEvent}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/sequence/sequence-789"
+            href="https://example.com/sequence/sequence-789"
             target="_blank"
             icon={IconBrackets}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/work-order/wo-321"
+            href="https://example.com/work-order/wo-321"
             target="_blank"
             icon={IconBriefcase}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/observation/obs-654"
+            href="https://example.com/observation/obs-654"
             target="_blank"
             icon={IconEye}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/3d/model-987"
+            href="https://example.com/3d/model-987"
             target="_blank"
             icon={IconCube}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/user/example"
+            href="https://example.com/user/example"
             target="_blank"
             icon={IconAt}
           />
@@ -262,7 +262,7 @@ import {
   InlineCitationCarouselPrev,
   InlineCitationSource,
   InlineCitationText,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 
 const citation = {
   text: 'The technology continues to evolve rapidly, with new breakthroughs being announced regularly',
@@ -346,7 +346,7 @@ import {
   InlineCitationCarouselIndex,
   InlineCitationCarouselItem,
   InlineCitationSource,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import { IconFile } from '@tabler/icons-react';
 
 export function SingleSourceDemo() {
@@ -409,7 +409,7 @@ export function SingleSourceDemo() {
 import {
   InlineCitation,
   InlineCitationLink,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 
 export function LinkDemo() {
   return (
@@ -418,7 +418,7 @@ export function LinkDemo() {
         Recent research has demonstrated promising results.{' '}
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/research"
+            href="https://example.com/research"
             target="_blank"
           />
         </InlineCitation>
@@ -441,7 +441,7 @@ import {
   InlineCitation,
   InlineCitationGroup,
   InlineCitationLink,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -461,70 +461,70 @@ export function WithIconsDemo() {
       <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/image/image1.jpg"
+            href="https://example.com/image/image1.jpg"
             target="_blank"
             icon={IconPhoto}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/documentation.pdf"
+            href="https://example.com/documentation.pdf"
             target="_blank"
             icon={IconFile}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/chart/timeline"
+            href="https://example.com/chart/timeline"
             target="_blank"
             icon={IconTimeline}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/asset/pump-123"
+            href="https://example.com/asset/pump-123"
             target="_blank"
             icon={IconHexagon}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/event/maintenance-456"
+            href="https://example.com/event/maintenance-456"
             target="_blank"
             icon={IconCalendarEvent}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/sequence/sequence-789"
+            href="https://example.com/sequence/sequence-789"
             target="_blank"
             icon={IconBrackets}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/work-order/wo-321"
+            href="https://example.com/work-order/wo-321"
             target="_blank"
             icon={IconBriefcase}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/observation/obs-654"
+            href="https://example.com/observation/obs-654"
             target="_blank"
             icon={IconEye}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/3d/model-987"
+            href="https://example.com/3d/model-987"
             target="_blank"
             icon={IconCube}
           />
         </InlineCitation>
         <InlineCitation>
           <InlineCitationLink
-            url="https://example.com/user/example"
+            href="https://example.com/user/example"
             target="_blank"
             icon={IconAt}
           />
@@ -541,5 +541,5 @@ export const inlineCitationMeta = {
   name: 'Inline Citation',
   description:
     'A hoverable citation component that displays source information and quotes inline with text, perfect for AI-generated content with references.',
-  importPath: '@/components/ui/cognite/inline-citation',
+  importPath: '@/components/ui/aura/inline-citation',
 };

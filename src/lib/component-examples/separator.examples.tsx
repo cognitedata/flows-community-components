@@ -1,6 +1,6 @@
-import { Separator } from '@/components/ui/cognite/separator';
+import { Separator } from '@/components/ui/aura/separator';
 import type { ComponentExamples } from './types';
-import { Badge } from '@/components/ui/cognite/badge';
+import { Badge } from '@/components/ui/aura/badge';
 import { IconBook, IconComponents, IconCode } from '@tabler/icons-react';
 function BasicDemo() {
   return (
@@ -30,8 +30,8 @@ export const separatorExamples: ComponentExamples = {
     description: 'Horizontal and vertical separators for dividing content',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Separator } from "@/components/ui/cognite/separator"
-import { Badge } from "@/components/ui/cognite/badge"
+    code: `import { Separator } from "@/components/ui/aura/separator"
+import { Badge } from "@/components/ui/aura/badge"
 import { IconBook, IconComponents, IconCode } from "@tabler/icons-react"
 
 export function BasicDemo() {
@@ -64,5 +64,5 @@ export const separatorMeta = {
   description: 'Visually or semantically separates content.',
   llmUsage:
     'When asked for a separator, use `<Separator>` to divide content sections or create visual breaks.',
-  importPath: '@/components/ui/cognite/separator',
+  importPath: '@/components/ui/aura/separator',
 };

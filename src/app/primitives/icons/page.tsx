@@ -6,9 +6,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Button } from '@/components/ui/cognite/button';
-import { Input } from '@/components/ui/cognite/input';
+} from '@/components/ui/aura/card';
+import { Button } from '@/components/ui/aura/button';
+import { Input } from '@/components/ui/aura/input';
 import {
   IconArchive as Archive,
   IconBookmark as Bookmark,

@@ -8,92 +8,62 @@ import {
   PromptInputSubmit,
   PromptInputFooter,
   PromptInputTools,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputSpeechButton,
+  PromptInputButton,
+  // usePromptInputAttachments, // TODO: Uncomment when file dialog functionality is re-added
   type PromptInputMessage,
-} from '@/components/ui/cognite/prompt-input';
+} from '@/components/ui/aura/prompt-input';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { useState, useRef } from 'react';
 import {
-  IconPaperclip,
+  // IconPaperclip, // TODO: Uncomment when file dialog functionality is re-added
   IconAdjustments,
+  IconAlertTriangle,
   IconChevronDown,
-  IconMicrophone,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
+import { HelperText } from '@/components/ui/aura/helper-text';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 
 const SUBMITTING_TIMEOUT = 200;
 const STREAMING_TIMEOUT = 2000;
 
-function BasicPromptInputDemo() {
-  const [status, setStatus] = useState<
-    'submitted' | 'streaming' | 'ready' | 'error'
-  >('ready');
-
-  const handleSubmit = (message: PromptInputMessage) => {
-    const hasText = Boolean(message.text);
-    const hasAttachments = Boolean(message.files?.length);
-
-    if (!(hasText || hasAttachments)) {
-      return;
-    }
-
-    setStatus('submitted');
-
-    setTimeout(() => {
-      setStatus('streaming');
-    }, SUBMITTING_TIMEOUT);
-
-    setTimeout(() => {
-      setStatus('ready');
-    }, STREAMING_TIMEOUT);
-  };
+function AttachmentTools() {
+  // const attachments = usePromptInputAttachments(); // TODO: Uncomment when file dialog functionality is re-added
 
   return (
-    <PromptInputProvider>
-      <PromptInput onSubmit={handleSubmit}>
-        <PromptInputBody>
-          <PromptInputTextarea placeholder="Type your message..." />
-        </PromptInputBody>
-        <PromptInputFooter>
-          <PromptInputTools>
-            <Button variant="ghost" size="sm">
-              <IconPaperclip size={16} />
-            </Button>
-            <Button variant="ghost" size="sm">
-              <IconAdjustments size={16} />
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  Agent model
-                  <IconChevronDown size={16} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>GPT-4</DropdownMenuItem>
-                <DropdownMenuItem>GPT-3.5</DropdownMenuItem>
-                <DropdownMenuItem>Claude</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </PromptInputTools>
-          <div className="flex flex-row gap-2">
-            <Button variant="ghost" size="sm">
-              <IconMicrophone size={16} />
-            </Button>
-            <PromptInputSubmit className="size-7" status={status} />
-          </div>
-        </PromptInputFooter>
-      </PromptInput>
-    </PromptInputProvider>
+    <>
+      {/* <PromptInputButton size="icon-sm" onClick={() => attachments.openFileDialog()}>
+        <IconPaperclip />
+      </PromptInputButton> */}
+      <PromptInputButton size="icon-sm">
+        <IconAdjustments />
+      </PromptInputButton>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="sm">
+            Agent model
+            <IconChevronDown />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>GPT-4</DropdownMenuItem>
+          <DropdownMenuItem>GPT-3.5</DropdownMenuItem>
+          <DropdownMenuItem>Claude</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   );
 }
 
-function AdvancedPromptInputDemo() {
+function PromptInputDemo() {
   const [status, setStatus] = useState<
     'submitted' | 'streaming' | 'ready' | 'error'
   >('ready');
@@ -120,36 +90,138 @@ function AdvancedPromptInputDemo() {
 
   return (
     <PromptInputProvider>
-      <PromptInput onSubmit={handleSubmit}>
+      <PromptInput onSubmit={handleSubmit} accept="image/*" multiple>
         <PromptInputBody>
-          <PromptInputTextarea ref={textareaRef} />
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
-            <Button variant="ghost" size="sm">
-              <IconPaperclip size={14} />
-            </Button>
-            <Button variant="ghost" size="sm">
-              <IconAdjustments size={14} />
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  Agent model
-                  <IconChevronDown size={14} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>GPT-4</DropdownMenuItem>
-                <DropdownMenuItem>GPT-3.5</DropdownMenuItem>
-                <DropdownMenuItem>Claude</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <AttachmentTools />
           </PromptInputTools>
           <div className="flex flex-row gap-2">
-            <Button variant="ghost" size="sm">
-              <IconMicrophone size={14} />
-            </Button>
+            <PromptInputSpeechButton textareaRef={textareaRef} />
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
+        </PromptInputFooter>
+      </PromptInput>
+    </PromptInputProvider>
+  );
+}
+
+function PromptInputNoHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    const hasText = Boolean(message.text);
+    const hasAttachments = Boolean(message.files?.length);
+
+    if (!(hasText || hasAttachments)) {
+      return;
+    }
+
+    setStatus('submitted');
+
+    setTimeout(() => {
+      setStatus('streaming');
+    }, SUBMITTING_TIMEOUT);
+
+    setTimeout(() => {
+      setStatus('ready');
+    }, STREAMING_TIMEOUT);
+  };
+
+  return (
+    <PromptInputProvider>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={false}
+      >
+        <PromptInputBody>
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
+        </PromptInputBody>
+        <PromptInputFooter>
+          <PromptInputTools>
+            <AttachmentTools />
+          </PromptInputTools>
+          <div className="flex flex-row gap-2">
+            <PromptInputSpeechButton textareaRef={textareaRef} />
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
+        </PromptInputFooter>
+      </PromptInput>
+    </PromptInputProvider>
+  );
+}
+
+function PromptInputCustomHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    const hasText = Boolean(message.text);
+    const hasAttachments = Boolean(message.files?.length);
+
+    if (!(hasText || hasAttachments)) {
+      return;
+    }
+
+    setStatus('submitted');
+
+    setTimeout(() => {
+      setStatus('streaming');
+    }, SUBMITTING_TIMEOUT);
+
+    setTimeout(() => {
+      setStatus('ready');
+    }, STREAMING_TIMEOUT);
+  };
+
+  return (
+    <PromptInputProvider>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={
+          <HelperText size="xs" icon={<IconAlertTriangle />}>
+            This is experimental. Use with caution.
+          </HelperText>
+        }
+      >
+        <PromptInputBody>
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
+        </PromptInputBody>
+        <PromptInputFooter>
+          <PromptInputTools>
+            <AttachmentTools />
+          </PromptInputTools>
+          <div className="flex flex-row gap-2">
+            <PromptInputSpeechButton textareaRef={textareaRef} />
             <PromptInputSubmit className="size-7" status={status} />
           </div>
         </PromptInputFooter>
@@ -160,11 +232,13 @@ function AdvancedPromptInputDemo() {
 
 export const promptInputExamples: ComponentExamples = {
   basic: {
-    title: 'Basic Prompt Input',
-    description: 'AI chat input with textarea and submit button',
-    component: BasicPromptInputDemo,
+    title: 'Prompt Input',
+    description:
+      'AI chat input with file attachments, speech-to-text, and model selection',
+    component: PromptInputDemo,
     difficulty: 'beginner',
-    code: `"use client"
+    code: `'use client';
+
 import {
   PromptInput,
   PromptInputProvider,
@@ -173,74 +247,102 @@ import {
   PromptInputSubmit,
   PromptInputFooter,
   PromptInputTools,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputSpeechButton,
+  PromptInputButton,
+  // usePromptInputAttachments, // TODO: Uncomment when file dialog functionality is re-added
   type PromptInputMessage,
-} from "@/components/ai-elements/cognite/prompt-input"
-import { useState } from "react"
-import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react"
-import { Button } from "@/components/ui/cognite/button"
+} from '@/components/ui/aura/prompt-input';
+import { useState, useRef } from 'react';
+import {
+  // IconPaperclip, // TODO: Uncomment when file dialog functionality is re-added
+  IconAdjustments,
+  IconChevronDown,
+} from '@tabler/icons-react';
+import { Button } from '@/components/ui/aura/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from '@/components/ui/aura/dropdown-menu';
 
-export function BasicPromptInputDemo() {
-  const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready")
+function AttachmentTools() {
+  // const attachments = usePromptInputAttachments(); // TODO: Uncomment when file dialog functionality is re-added
+
+  return (
+    <>
+      {/* <PromptInputButton onClick={() => attachments.openFileDialog()}>
+        <IconPaperclip size={16} />
+      </PromptInputButton> */}
+      <PromptInputButton>
+        <IconAdjustments size={16} />
+      </PromptInputButton>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="sm">
+            Agent model
+            <IconChevronDown size={16} />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem>GPT-4</DropdownMenuItem>
+          <DropdownMenuItem>GPT-3.5</DropdownMenuItem>
+          <DropdownMenuItem>Claude</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
+  );
+}
+
+export function PromptInputDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (message: PromptInputMessage) => {
-    setStatus("submitted")
-    setTimeout(() => setStatus("streaming"), 200)
-    setTimeout(() => setStatus("ready"), 2000)
-  }
+    setStatus('submitted');
+    setTimeout(() => setStatus('streaming'), 200);
+    setTimeout(() => setStatus('ready'), 2000);
+  };
 
   return (
     <PromptInputProvider>
-      <PromptInput onSubmit={handleSubmit}>
+      <PromptInput onSubmit={handleSubmit} accept="image/*" multiple>
         <PromptInputBody>
-          <PromptInputTextarea placeholder="Type your message..." />
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
-            <Button variant="ghost" size="sm">
-              <IconPaperclip size={16} />
-            </Button>
-            <Button variant="ghost" size="sm">
-              <IconAdjustments size={16} />
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  Agent model
-                  <IconChevronDown size={16} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>GPT-4</DropdownMenuItem>
-                <DropdownMenuItem>GPT-3.5</DropdownMenuItem>
-                <DropdownMenuItem>Claude</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <AttachmentTools />
           </PromptInputTools>
           <div className="flex flex-row gap-2">
-            <Button variant="ghost" size="sm">
-              <IconMicrophone size={16} />
-            </Button>
+            <PromptInputSpeechButton textareaRef={textareaRef} />
             <PromptInputSubmit className="size-7" status={status} />
           </div>
         </PromptInputFooter>
       </PromptInput>
     </PromptInputProvider>
-  )
+  );
 }`,
   },
 
-  advanced: {
-    title: 'Advanced Prompt Input',
-    description: 'Prompt input with ref and custom tools',
-    component: AdvancedPromptInputDemo,
-    difficulty: 'intermediate',
-    code: `"use client"
+  noHelperText: {
+    title: 'Prompt Input Without Helper Text',
+    description:
+      'Prompt input with helper text hidden using helperText={false}',
+    component: PromptInputNoHelperTextDemo,
+    difficulty: 'beginner',
+    code: `'use client';
+
 import {
   PromptInput,
   PromptInputProvider,
@@ -249,66 +351,126 @@ import {
   PromptInputSubmit,
   PromptInputFooter,
   PromptInputTools,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputSpeechButton,
   type PromptInputMessage,
-} from "@/components/ai-elements/cognite/prompt-input"
-import { useState, useRef } from "react"
-import { IconPaperclip, IconAdjustments, IconChevronDown, IconMicrophone } from "@tabler/icons-react"
-import { Button } from "@/components/ui/cognite/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from '@/components/ui/aura/prompt-input';
+import { useState, useRef } from 'react';
 
-export function AdvancedPromptInputDemo() {
-  const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready")
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+export function PromptInputNoHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSubmit = (message: PromptInputMessage) => {
-    setStatus("submitted")
-    setTimeout(() => setStatus("streaming"), 200)
-    setTimeout(() => setStatus("ready"), 2000)
-  }
+    setStatus('submitted');
+    setTimeout(() => setStatus('streaming'), 200);
+    setTimeout(() => setStatus('ready'), 2000);
+  };
 
   return (
     <PromptInputProvider>
-      <PromptInput onSubmit={handleSubmit}>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={false}
+      >
         <PromptInputBody>
-          <PromptInputTextarea ref={textareaRef} />
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
-            <Button variant="ghost" size="sm">
-              <IconPaperclip size={14} />
-            </Button>
-            <Button variant="ghost" size="sm">
-              <IconAdjustments size={14} />
-            </Button>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  Agent model
-                  <IconChevronDown size={14} />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>GPT-4</DropdownMenuItem>
-                <DropdownMenuItem>GPT-3.5</DropdownMenuItem>
-                <DropdownMenuItem>Claude</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* Your tools here */}
           </PromptInputTools>
           <div className="flex flex-row gap-2">
-            <Button variant="ghost" size="sm">
-              <IconMicrophone size={14} />
-            </Button>
+            <PromptInputSpeechButton textareaRef={textareaRef} />
             <PromptInputSubmit className="size-7" status={status} />
           </div>
         </PromptInputFooter>
       </PromptInput>
     </PromptInputProvider>
-  )
+  );
+}`,
+  },
+
+  customHelperText: {
+    title: 'Prompt Input With Custom Helper Text',
+    description: 'Prompt input with custom helper text',
+    component: PromptInputCustomHelperTextDemo,
+    difficulty: 'beginner',
+    code: `'use client';
+
+import {
+  PromptInput,
+  PromptInputProvider,
+  PromptInputBody,
+  PromptInputTextarea,
+  PromptInputSubmit,
+  PromptInputFooter,
+  PromptInputTools,
+  PromptInputAttachment,
+  PromptInputAttachments,
+  PromptInputSpeechButton,
+  type PromptInputMessage,
+} from '@/components/ui/aura/prompt-input';
+import { useState, useRef } from 'react';
+import { IconAlertTriangle } from '@tabler/icons-react';
+import { HelperText } from '@/components/ui/aura/helper-text';
+
+export function PromptInputCustomHelperTextDemo() {
+  const [status, setStatus] = useState<
+    'submitted' | 'streaming' | 'ready' | 'error'
+  >('ready');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    setStatus('submitted');
+    setTimeout(() => setStatus('streaming'), 200);
+    setTimeout(() => setStatus('ready'), 2000);
+  };
+
+  return (
+    <PromptInputProvider>
+      <PromptInput
+        onSubmit={handleSubmit}
+        accept="image/*"
+        multiple
+        helperText={
+          <HelperText size="xs" icon={<IconAlertTriangle />}>
+            This is experimental. Use with caution.
+          </HelperText>
+        }
+      >
+        <PromptInputBody>
+          <PromptInputAttachments>
+            {(attachment) => <PromptInputAttachment data={attachment} />}
+          </PromptInputAttachments>
+          <PromptInputTextarea
+            ref={textareaRef}
+            placeholder="Type your message..."
+          />
+        </PromptInputBody>
+        <PromptInputFooter>
+          <PromptInputTools>
+            {/* Your tools here */}
+          </PromptInputTools>
+          <div className="flex flex-row gap-2">
+            <PromptInputSpeechButton textareaRef={textareaRef} />
+            <PromptInputSubmit className="size-7" status={status} />
+          </div>
+        </PromptInputFooter>
+      </PromptInput>
+    </PromptInputProvider>
+  );
 }`,
   },
 };
@@ -318,5 +480,5 @@ export const promptInputMeta = {
   name: 'Prompt Input',
   description:
     'Allows a user to send a message with file attachments to a large language model. It includes a textarea, file upload capabilities, a submit button, and a dropdown for selecting the model.',
-  importPath: '@/components/ai-elements/cognite/prompt-input',
+  importPath: '@/components/ui/aura/prompt-input',
 };

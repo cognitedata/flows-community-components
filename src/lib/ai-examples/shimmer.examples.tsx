@@ -1,4 +1,4 @@
-import { Shimmer } from '@/components/ui/cognite/shimmer';
+import { Shimmer } from '@/components/ui/aura/shimmer';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicShimmerDemo() {

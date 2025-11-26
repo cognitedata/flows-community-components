@@ -1,7 +1,7 @@
 'use client';
 
 import { IconCopy } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import { useState, useEffect, startTransition } from 'react';
 import { useTheme } from 'next-themes';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';

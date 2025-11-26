@@ -5,16 +5,16 @@ import {
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from '@/components/ui/cognite/conversation';
+} from '@/components/ui/aura/conversation';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
-import { Actions, Action } from '@/components/ui/cognite/actions';
-import { IconMessageCircle as MessageSquare } from '@tabler/icons-react';
+} from '@/components/ui/aura/message';
+import { Actions, Action } from '@/components/ui/aura/actions';
 import {
+  IconMessageCircle,
   IconWheel,
   IconThumbUp,
   IconThumbDown,
@@ -27,7 +27,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
@@ -194,7 +194,7 @@ function BasicConversationDemo() {
             <ConversationEmptyState
               title="Start a conversation"
               description="Messages will appear here as the conversation progresses."
-              icon={<MessageSquare className="h-12 w-12" />}
+              icon={<IconMessageCircle className="h-12 w-12" />}
             />
           ) : (
             visibleMessages.map(({ key, value, name, avatar, isResponse }) => (
@@ -211,9 +211,7 @@ function BasicConversationDemo() {
                   )}
                 </MessageAvatar>
                 <MessageContent
-                  className={
-                    isResponse ? 'flex flex-col gap-2' : undefined
-                  }
+                  className={isResponse ? 'flex flex-col gap-2' : undefined}
                 >
                   {value}
                   {isResponse && (
@@ -262,7 +260,7 @@ function EmptyStateDemo() {
           <ConversationEmptyState
             title="Start a conversation"
             description="Ask me anything to get started"
-            icon={<MessageSquare className="h-12 w-12" />}
+            icon={<IconMessageCircle className="h-12 w-12" />}
           />
         </ConversationContent>
       </Conversation>
@@ -281,14 +279,14 @@ export const conversationExamples: ComponentExamples = {
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { MessageSquare } from "@tabler/icons-react"
+import { IconMessageCircle } from "@tabler/icons-react"
 import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 
@@ -324,13 +322,13 @@ export function BasicConversationDemo() {
             <ConversationEmptyState
               title="Start a conversation"
               description="Messages will appear here as the conversation progresses."
-              icon={<MessageSquare className="h-12 w-12" />}
+              icon={<IconMessageCircle className="h-12 w-12" />}
             />
           ) : (
             visibleMessages.map(({ key, value, name, avatar, isResponse }) => (
-              <Message isResponse={isResponse} key={key}>
-                <MessageAvatar 
-                  avatarUrl={avatar} 
+              <Message key={key} isResponse={isResponse}>
+                <MessageAvatar
+                  avatarUrl={avatar}
                   name={name}
                   variant={isResponse ? "fjord" : undefined}
                 >
@@ -387,7 +385,7 @@ export function BasicConversationDemo() {
     component: EmptyStateDemo,
     difficulty: 'beginner',
     code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
-import { MessageSquare } from "@tabler/icons-react"
+import { IconMessageCircle } from "@tabler/icons-react"
 
 export function EmptyStateDemo() {
   return (
@@ -396,7 +394,7 @@ export function EmptyStateDemo() {
         <ConversationEmptyState
           title="Start a conversation"
           description="Ask me anything to get started"
-          icon={<MessageSquare className="h-12 w-12" />}
+          icon={<IconMessageCircle className="h-12 w-12" />}
         />
       </ConversationContent>
     </Conversation>

@@ -7,7 +7,7 @@ import {
   ContextContentFooter,
   ContextInputUsage,
   ContextOutputUsage,
-} from '@/components/ui/cognite/context';
+} from '@/components/ui/aura/context';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicContextDemo() {

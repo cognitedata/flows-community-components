@@ -5,35 +5,35 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
-} from '@/components/ui/cognite/message';
+} from '@/components/ui/aura/message';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   InlineCitation,
   InlineCitationLink,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import {
   IconAt,
   IconFile,
   IconPhoto,
   IconTimeline,
-  IconThumbUp,
-  IconThumbDown,
   IconCopy,
-  IconShare,
-  IconDotsVertical,
+  IconDownload,
+  IconTool,
+  IconRefresh,
   IconWheel,
+  IconDotsVertical,
 } from '@tabler/icons-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from '@/components/ui/cognite/code-block';
+} from '@/components/ui/aura/code-block';
 
 function Demo() {
   return (
@@ -44,7 +44,7 @@ function Demo() {
           <span>There are abnormal vibration levels on </span>
           <InlineCitation>
             <InlineCitationLink
-              url="https://example.com/user/21PT1019"
+              href="https://example.com/user/21PT1019"
               target="_blank"
               icon={IconAt}
               variant="nordic"
@@ -68,7 +68,7 @@ function Demo() {
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/chart/timeline"
+                href="https://example.com/chart/timeline"
                 target="_blank"
                 icon={IconTimeline}
               >
@@ -77,7 +77,7 @@ function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/image/image1.jpg"
+                href="https://example.com/image/image1.jpg"
                 target="_blank"
                 icon={IconPhoto}
               >
@@ -86,7 +86,7 @@ function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/documentation.pdf"
+                href="https://example.com/documentation.pdf"
                 target="_blank"
                 icon={IconFile}
               >
@@ -95,17 +95,17 @@ function Demo() {
             </InlineCitation>
           </div>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </MessageAction>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
             </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -136,13 +136,18 @@ function WithCodeBlockDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
       <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <CodeBlock
             code={code}
@@ -154,17 +159,17 @@ function WithCodeBlockDemo() {
             <CodeBlockCollapseButton />
           </CodeBlock>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </MessageAction>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
             </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -191,26 +196,26 @@ export const messageExamples: ComponentExamples = {
       'Messages with background containers for clear visual separation',
     component: Demo,
     difficulty: 'beginner',
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ui/cognite/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical, IconWheel } from "@tabler/icons-react"
+} from "@/components/ui/aura/inline-citation"
+import { IconAt, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message isResponse={false}>
+      <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink url="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink href="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
         </MessageContent>
       </Message>
 
@@ -220,12 +225,14 @@ export function Demo() {
             <IconWheel />
           </MessageAvatarIcon>
         </MessageAvatar>
-        <MessageContent>
-          According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?
+        <MessageContent className="flex flex-col gap-2">
+          According to the time series, vibration amplitude has been rising
+          steadily since 03:00. The motor temperature also increased by 8°C over
+          the same period. Would you like me to add this to the canvas?
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/chart/timeline"
+                href="https://example.com/chart/timeline"
                 target="_blank"
                 icon={IconTimeline}
               >
@@ -234,7 +241,7 @@ export function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/image/image1.jpg"
+                href="https://example.com/image/image1.jpg"
                 target="_blank"
                 icon={IconPhoto}
               >
@@ -243,7 +250,7 @@ export function Demo() {
             </InlineCitation>
             <InlineCitation>
               <InlineCitationLink
-                url="https://example.com/documentation.pdf"
+                href="https://example.com/documentation.pdf"
                 target="_blank"
                 icon={IconFile}
               >
@@ -252,17 +259,17 @@ export function Demo() {
             </InlineCitation>
           </div>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </MessageAction>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
             </MessageAction>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -289,15 +296,15 @@ export function Demo() {
       'Assistant message containing a code block with syntax highlighting',
     component: WithCodeBlockDemo,
     difficulty: 'beginner',
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/cognite/code-block"
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/aura/code-block"
+import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function WithCodeBlockDemo() {
   const code = \`async function analyzeVibrationData(timeseriesId: string) {
@@ -309,14 +316,19 @@ export function WithCodeBlockDemo() {
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message isResponse={false}>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <CodeBlock
             code={code}
@@ -364,5 +376,5 @@ export function WithCodeBlockDemo() {
 export const messageMeta = {
   name: 'Message',
   description: 'Displays a chat interface message from either a user or an AI.',
-  importPath: '@/components/ui/cognite/message',
+  importPath: '@/components/ui/aura/message',
 };

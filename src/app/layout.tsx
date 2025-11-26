@@ -4,7 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navigation } from '@/components/navigation';
 import { TopbarVisibility } from '@/components/TopbarVisibility';
-import { Toaster } from '@/components/ui/cognite/sonner-toast';
+import { Toaster } from '@/components/ui/aura/sonner-toast';
 
 const inter = Inter({
   variable: '--font-inter',

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { cn } from '@/common/utils';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface NavigationItem {
@@ -169,13 +169,13 @@ const aiNavigation: NavigationItem[] = [
       { href: '/ai/components/code-block', label: 'Code block' },
       { href: '/ai/components/conversation', label: 'Conversation' },
       // { href: "/ai/components/image", label: "Image" },
-      { href: '/ai/components/inline-citation', label: 'Inline citation' },
+      // { href: '/ai/components/inline-citation', label: 'Inline citation' },
       { href: '/ai/components/loader', label: 'Loader' },
       { href: '/ai/components/message', label: 'Message' },
       { href: '/ai/components/prompt-input', label: 'Prompt input' },
       { href: '/ai/components/reasoning', label: 'Reasoning' },
       { href: '/ai/components/response', label: 'Response' },
-      // { href: "/ai/components/sources", label: "Sources" },
+      { href: '/ai/components/sources', label: 'Sources' },
       { href: '/ai/components/suggestion', label: 'Suggestion' },
       // { href: "/ai/components/task", label: "Task" },
       { href: '/ai/components/tool', label: 'Tool' },

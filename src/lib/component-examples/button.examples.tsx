@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   IconPlus,
   IconBookmark,
@@ -43,137 +43,465 @@ function MainComponentDemo() {
           <IconPlus />
           Button
         </Button>
+        <div className="[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover">
+          <Button size="default">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="default" disabled>
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover">
+          <Button size="default">
+            <IconPlus />
+          </Button>
+        </div>
         <Button size="default">
           <IconPlus />
         </Button>
+        <Button size="default" disabled>
+          <IconPlus />
+        </Button>
         <Button size="sm">
           <IconPlus />
           Button
         </Button>
+        <div className="[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover">
+          <Button size="sm">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="sm" disabled>
+          <IconPlus />
+          Button
+        </Button>
         <Button size="sm">
           <IconPlus />
         </Button>
+        <div className="[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover">
+          <Button size="sm">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="sm" disabled>
+          <IconPlus />
+        </Button>
         <Button size="lg">
-          {' '}
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover">
+          <Button size="lg">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="lg" disabled>
           <IconPlus />
           Button
         </Button>
         <Button size="lg">
           <IconPlus />
         </Button>
-      </div>
-      <div className="flex flex-wrap items-center gap-3">
-        <Button size="default" variant={'secondary'}>
-          <IconPlus />
-          Button
-        </Button>
-        <Button size="default" variant={'secondary'}>
-          <IconPlus />
-        </Button>
-        <Button size="sm" variant={'secondary'}>
-          <IconPlus />
-          Button
-        </Button>
-        <Button size="sm" variant={'secondary'}>
-          <IconPlus />
-        </Button>
-        <Button size="lg" variant={'secondary'}>
-          <IconPlus />
-          Button
-        </Button>
-        <Button size="lg" variant={'secondary'}>
+        <div className="[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover">
+          <Button size="lg">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="lg" disabled>
           <IconPlus />
         </Button>
       </div>
+
       <div className="flex flex-wrap items-center gap-3">
-        <Button size="default" variant={'outline'}>
+        <Button size="default" variant="secondary">
           <IconPlus />
           Button
         </Button>
-        <Button size="default" variant={'outline'}>
-          <IconPlus />
-        </Button>
-        <Button size="sm" variant={'outline'}>
-          <IconPlus />
-          Button
-        </Button>
-        <Button size="sm" variant={'outline'}>
-          <IconPlus />
-        </Button>
-        <Button size="lg" variant={'outline'}>
+        <div className="[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover">
+          <Button size="default" variant="secondary">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="default" disabled variant="secondary">
           <IconPlus />
           Button
         </Button>
-        <Button size="lg" variant={'outline'}>
+        <div className="[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover">
+          <Button size="default" variant="secondary">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="default" variant="secondary">
+          <IconPlus />
+        </Button>
+        <Button size="default" disabled variant="secondary">
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant="secondary">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover">
+          <Button size="sm" variant="secondary">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="secondary">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant="secondary">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover">
+          <Button size="sm" variant="secondary">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="secondary">
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant="secondary">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover">
+          <Button size="lg" variant="secondary">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="secondary">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant="secondary">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover">
+          <Button size="lg" variant="secondary">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="secondary">
           <IconPlus />
         </Button>
       </div>
+
       <div className="flex flex-wrap items-center gap-3">
-        <Button size="default" variant={'ghost'}>
+        <Button size="default" variant="outline">
           <IconPlus />
           Button
         </Button>
-        <Button size="default" variant={'ghost'}>
-          <IconPlus />
-        </Button>
-        <Button size="sm" variant={'ghost'}>
-          <IconPlus />
-          Button
-        </Button>
-        <Button size="sm" variant={'ghost'}>
-          <IconPlus />
-        </Button>
-        <Button size="lg" variant={'ghost'}>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-input/50">
+          <Button size="default" variant="outline">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="default" disabled variant="outline">
           <IconPlus />
           Button
         </Button>
-        <Button size="lg" variant={'ghost'}>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-input/50">
+          <Button size="default" variant="outline">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="default" variant="outline">
+          <IconPlus />
+        </Button>
+        <Button size="default" disabled variant="outline">
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant="outline">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-input/50">
+          <Button size="sm" variant="outline">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="outline">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant="outline">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-input/50">
+          <Button size="sm" variant="outline">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="outline">
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant="outline">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-input/50">
+          <Button size="lg" variant="outline">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="outline">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant="outline">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-input/50">
+          <Button size="lg" variant="outline">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="outline">
           <IconPlus />
         </Button>
       </div>
+
       <div className="flex flex-wrap items-center gap-3">
-        <Button size="default" variant={'destructive'}>
+        <Button size="default" variant="ghost">
           <IconPlus />
           Button
         </Button>
-        <Button size="default" variant={'destructive'}>
-          <IconPlus />
-        </Button>
-        <Button size="sm" variant={'destructive'}>
-          <IconPlus />
-          Button
-        </Button>
-        <Button size="sm" variant={'destructive'}>
-          <IconPlus />
-        </Button>
-        <Button size="lg" variant={'destructive'}>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-accent/50">
+          <Button size="default" variant="ghost">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="default" disabled variant="ghost">
           <IconPlus />
           Button
         </Button>
-        <Button size="lg" variant={'destructive'}>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-accent/50">
+          <Button size="default" variant="ghost">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="default" variant="ghost">
+          <IconPlus />
+        </Button>
+        <Button size="default" disabled variant="ghost">
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant="ghost">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-accent/50">
+          <Button size="sm" variant="ghost">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="ghost">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant="ghost">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-accent/50">
+          <Button size="sm" variant="ghost">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="ghost">
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant="ghost">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-accent/50">
+          <Button size="lg" variant="ghost">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="ghost">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant="ghost">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-accent dark:[&>button]:bg-accent/50">
+          <Button size="lg" variant="ghost">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="ghost">
           <IconPlus />
         </Button>
       </div>
+
       <div className="flex flex-wrap items-center gap-3">
-        <Button size="default" variant={'link'}>
+        <Button size="default" variant="destructive">
           <IconPlus />
           Button
         </Button>
-        <Button size="default" variant={'link'}>
-          <IconPlus />
-        </Button>
-        <Button size="sm" variant={'link'}>
-          <IconPlus />
-          Button
-        </Button>
-        <Button size="sm" variant={'link'}>
-          <IconPlus />
-        </Button>
-        <Button size="lg" variant={'link'}>
+        <div className="[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover">
+          <Button size="default" variant="destructive">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="default" disabled variant="destructive">
           <IconPlus />
           Button
         </Button>
-        <Button size="lg" variant={'link'}>
+        <div className="[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover">
+          <Button size="default" variant="destructive">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="default" variant="destructive">
+          <IconPlus />
+        </Button>
+        <Button size="default" disabled variant="destructive">
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant="destructive">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover">
+          <Button size="sm" variant="destructive">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="destructive">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant="destructive">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover">
+          <Button size="sm" variant="destructive">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="destructive">
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant="destructive">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover">
+          <Button size="lg" variant="destructive">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="destructive">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant="destructive">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover">
+          <Button size="lg" variant="destructive">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="destructive">
+          <IconPlus />
+        </Button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="default" variant="link">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline">
+          <Button size="default" variant="link">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="default" disabled variant="link">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline">
+          <Button size="default" variant="link">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="default" variant="link">
+          <IconPlus />
+        </Button>
+        <Button size="default" disabled variant="link">
+          <IconPlus />
+        </Button>
+        <Button size="sm" variant="link">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline">
+          <Button size="sm" variant="link">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="link">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="sm" variant="link">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline">
+          <Button size="sm" variant="link">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="sm" disabled variant="link">
+          <IconPlus />
+        </Button>
+        <Button size="lg" variant="link">
+          <IconPlus />
+          Button
+        </Button>
+        <div className="[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline">
+          <Button size="lg" variant="link">
+            <IconPlus />
+            Button
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="link">
+          <IconPlus />
+          Button
+        </Button>
+        <Button size="lg" variant="link">
+          <IconPlus />
+        </Button>
+        <div className="[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline">
+          <Button size="lg" variant="link">
+            <IconPlus />
+          </Button>
+        </div>
+        <Button size="lg" disabled variant="link">
           <IconPlus />
         </Button>
       </div>
@@ -199,7 +527,7 @@ export const buttonExamples: ComponentExamples = {
     description: 'Different visual styles for various use cases',
     component: VariantsDemo,
     difficulty: 'beginner',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "@/components/ui/aura/button"
 import { IconPlus, IconBookmark, IconTrash, IconExternalLink } from "@tabler/icons-react"
 
 export function VariantsDemo() {
@@ -235,7 +563,7 @@ export function VariantsDemo() {
     description: 'Available size and variation options',
     component: MainComponentDemo,
     difficulty: 'beginner',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "@/components/ui/aura/button"
 import { IconPlus } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
@@ -390,7 +718,7 @@ export function MainComponentDemo() {
     description: 'Disabled and loading states',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "@/components/ui/aura/button"
 import { IconLoader2 } from "@tabler/icons-react"
 
 export function StatesDemo() {
@@ -414,5 +742,5 @@ export const buttonMeta = {
     'A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.',
   llmUsage:
     "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
-  importPath: '@/components/ui/cognite/button',
+  importPath: '@/components/ui/aura/button',
 };

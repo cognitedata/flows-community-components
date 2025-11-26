@@ -2,17 +2,17 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/cognite/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/cognite/card';
-import { Input } from '@/components/ui/cognite/input';
-import { Badge } from '@/components/ui/cognite/badge';
-import { ScrollArea } from '@/components/ui/cognite/scroll-area';
+import { Button } from '@/components/ui/aura/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/aura/card';
+import { Input } from '@/components/ui/aura/input';
+import { Badge } from '@/components/ui/aura/badge';
+import { ScrollArea } from '@/components/ui/aura/scroll-area';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import {
   IconChevronDown as ChevronDown,
   IconCode as Code,

@@ -6,7 +6,7 @@ import {
   ArtifactAction,
   ArtifactContent,
   ArtifactClose,
-} from '@/components/ui/cognite/artifact';
+} from '@/components/ui/aura/artifact';
 import {
   IconCopy as Copy,
   IconDownload as Download,
@@ -88,7 +88,7 @@ import {
   ArtifactAction,
   ArtifactContent,
   ArtifactClose,
-} from '@/components/ui/cognite/artifact';
+} from '@/components/ui/aura/artifact';
 import {
   IconCopy as Copy,
   IconDownload as Download,
@@ -138,7 +138,7 @@ import {
   ArtifactAction,
   ArtifactContent,
   ArtifactClose,
-} from '@/components/ui/cognite/artifact';
+} from '@/components/ui/aura/artifact';
 import {
   IconCopy as Copy,
   IconDownload as Download,

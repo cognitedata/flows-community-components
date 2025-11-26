@@ -19,7 +19,7 @@
     "registry:clean": "rm -rf public/r && mkdir -p public/r"
   },
   "imports": {
-    "#aura/*": "./src/components/ui/cognite/*.tsx",
+    "#aura/*": "./src/components/ui/aura/*.tsx",
     "#common/*": "./src/common/*.ts"
   },
   "dependencies": {
@@ -70,7 +70,6 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "framer-motion": "^12.23.24",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.553.0",
     "motion": "^12.23.24",
     "nanoid": "^5.1.6",
     "next": "16.0.3",
@@ -81,7 +80,7 @@
     "react-day-picker": "^9.11.1",
     "react-dom": "19.2.0",
     "react-syntax-highlighter": "^16.1.0",
-    "recharts": "3.4.1",
+    "recharts": "3.5.0",
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
     "shadcn": "^3.5.0",
@@ -98,7 +97,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/node": "^24.10.1",
-    "@types/react": "19.2.5",
+    "@types/react": "19.2.6",
     "@types/react-dom": "19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
     "eslint": "^9.39.1",
@@ -116,9 +115,9 @@
       "sharp"
     ],
     "overrides": {
-      "@types/react": "19.2.5",
+      "@types/react": "19.2.6",
       "@types/react-dom": "19.2.3"
     }
   },
-  "packageManager": "pnpm@10.22.0"
+  "packageManager": "pnpm@10.23.0"
 }

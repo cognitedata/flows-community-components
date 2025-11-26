@@ -1,23 +1,23 @@
 import type { MDXComponents } from 'mdx/types';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
-import { Badge } from '@/components/ui/cognite/badge';
-import { Separator } from '@/components/ui/cognite/separator';
+} from '@/components/ui/aura/card';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
+import { Badge } from '@/components/ui/aura/badge';
+import { Separator } from '@/components/ui/aura/separator';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/cognite/tabs';
-import { cn } from '@/lib/utils';
+} from '@/components/ui/aura/tabs';
+import { cn } from '@/common/utils';
 
 // Code block component for syntax highlighting
 function CodeBlock({

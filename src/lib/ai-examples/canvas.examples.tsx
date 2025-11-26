@@ -1,12 +1,12 @@
 'use client';
 
-import { Canvas } from '@/components/ui/cognite/canvas';
+import { Canvas } from '@/components/ui/aura/canvas';
 import {
   Node,
   NodeHeader,
   NodeTitle,
   NodeContent,
-} from '@/components/ui/cognite/node';
+} from '@/components/ui/aura/node';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   Background,

@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '@/components/ui/aura/card';
+import { Badge } from '@/components/ui/aura/badge';
 import {
   IconArrowRight as ArrowRight,
   IconChartBar as BarChart3,

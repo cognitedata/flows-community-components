@@ -7,7 +7,7 @@ import {
   SuggestionSeparator,
   SuggestionTrigger,
   SuggestionValue,
-} from '@/components/ui/cognite/suggestion';
+} from '@/components/ui/aura/suggestion';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   IconActivity,
@@ -108,7 +108,7 @@ export const suggestionExamples: ComponentExamples = {
     description: 'Simple button-style suggestions for quick queries',
     component: BasicSuggestionDemo,
     difficulty: 'beginner',
-    code: `import { Suggestion } from "@/components/ui/cognite/suggestion"
+    code: `import { Suggestion } from "@/components/ui/aura/suggestion"
 
 export function BasicSuggestionDemo() {
   const handleSuggestion = (value: string) => {
@@ -135,7 +135,7 @@ export function BasicSuggestionDemo() {
   SuggestionItem,
   SuggestionTrigger,
   SuggestionValue,
-} from "@/components/ui/cognite/suggestion"
+} from "@/components/ui/aura/suggestion"
 import { IconGauge, IconActivity, IconChartLine } from "@tabler/icons-react"
 
 export function SelectSuggestionDemo() {
@@ -178,7 +178,7 @@ export function SelectSuggestionDemo() {
   SuggestionSeparator,
   SuggestionTrigger,
   SuggestionValue,
-} from "@/components/ui/cognite/suggestion"
+} from "@/components/ui/aura/suggestion"
 import { IconGauge, IconActivity, IconChartLine, IconHistory } from "@tabler/icons-react"
 
 export function GroupedSuggestionDemo() {
@@ -225,5 +225,5 @@ export const suggestionMeta = {
   name: 'Suggestion',
   description:
     'A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.',
-  importPath: '@/components/ui/cognite/suggestion',
+  importPath: '@/components/ui/aura/suggestion',
 };
