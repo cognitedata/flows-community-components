@@ -81,6 +81,91 @@ function MainComponentDemo() {
     </div>
   );
 }
+
+function BuildingBlocksDemo() {
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap gap-3 border-dashed border-2 border-gray-300 p-4 rounded-md">
+        <Badge variant="mountain">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="fjord">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="nordic">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="aurora">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="dusk">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="orange">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="sky">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="gray">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+      </div>
+
+      <div className="flex flex-wrap gap-3 border-dashed border-2 border-gray-300 p-4 rounded-md">
+        <Badge variant="error" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="error" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="warning" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="warning" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="success" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="success" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="inProgress" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="inProgress" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="archived" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="archived" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+      </div>
+    </div>
+  );
+}
+
 export const badgeExamples: ComponentExamples = {
   variants: {
     title: 'Badge Variants',
@@ -177,6 +262,27 @@ export function MainComponentDemo() {
       </Badge>
     </div>
   )
+}`,
+  },
+
+  buildingBlocks: {
+    title: 'Building blocks',
+    description: '',
+    component: BuildingBlocksDemo,
+    difficulty: 'beginner',
+    code: `import { Badge } from "@/components/ui/cognite/badge"
+import { IconHexagon } from "@tabler/icons-react";
+
+export function BuildingBlocksDemo() {
+  return (
+    <div>
+      <Badge variant="default">
+        <IconHexagon className="rotate-90" />
+        Badge
+      </Badge>
+    </div>
+  );
+}
 }`,
   },
 };
