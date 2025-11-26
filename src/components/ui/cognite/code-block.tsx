@@ -3,7 +3,11 @@
 import { Button } from '@/components/ui/cognite/button';
 import { cn } from '@/lib/utils';
 import type { Element } from 'hast';
-import { CheckIcon, ChevronsUpDown, CopyIcon } from 'lucide-react';
+import {
+  IconCheck as CheckIcon,
+  IconCopy as CopyIcon,
+  IconSelector as ChevronsUpDown,
+} from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -130,7 +134,8 @@ export const CodeBlock = ({
           <div
             className={cn(
               'overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
-              isCollapsed && 'max-h-[50px] [&>pre]:overflow-hidden'
+              isCollapsed &&
+                'max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden'
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: html }}
@@ -138,13 +143,14 @@ export const CodeBlock = ({
           <div
             className={cn(
               'hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
-              isCollapsed && 'max-h-[50px] [&>pre]:overflow-hidden'
+              isCollapsed &&
+                'max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden'
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: darkHtml }}
           />
           {isCollapsed && (
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[15px] bg-gradient-to-b from-transparent via-white/70 to-white dark:via-background/70 dark:to-background" />
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-white/70 to-white dark:via-background/70 dark:to-background" />
           )}
           {children && (
             <div className="absolute top-2 right-2 flex items-center gap-2">
