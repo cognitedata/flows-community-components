@@ -57,7 +57,7 @@ function TooltipContent({
         {/* Border arrow */}
         <TooltipPrimitive.Arrow
           className={cn(
-            'bg-border fill-border z-50 size-2.5 rounded-[2px]',
+            'bg-border fill-border z-50 size-2.5 rounded-sm',
             side === 'bottom' && 'rotate-45 translate-y-[calc(-50%_-_1px)]',
             side === 'top' && 'rotate-45 translate-y-[calc(-50%_-_1px)]',
             side === 'left' && 'rotate-45 translate-y-[calc(-50%_-_1px)]',
@@ -67,7 +67,7 @@ function TooltipContent({
         {/* Background arrow */}
         <TooltipPrimitive.Arrow
           className={cn(
-            'bg-popover fill-popover z-50 size-2.5 rounded-[2px]',
+            'bg-popover fill-popover z-50 size-2.5 rounded-sm',
             side === 'bottom' && 'rotate-45 translate-y-[calc(-50%_-_2px)]',
             side === 'top' && 'rotate-45 translate-y-[calc(-50%_-_2px)]',
             side === 'left' && 'rotate-45 translate-y-[calc(-50%_-_2px)]',
