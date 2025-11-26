@@ -1,4 +1,4 @@
-import { Panel } from '@/components/ui/cognite/panel';
+import { Panel } from '@/components/ui/aura/panel';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicPanelDemo() {

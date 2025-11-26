@@ -1,28 +1,28 @@
 'use client';
 
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '@/components/ui/aura/card';
 import {
   CodeBlock,
   CodeBlockCopyButton,
-} from '@/components/ui/cognite/code-block';
+} from '@/components/ui/aura/code-block';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/cognite/tabs';
+} from '@/components/ui/aura/tabs';
 import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from '@/components/ui/cognite/alert';
+} from '@/components/ui/aura/alert';
 import { motion } from 'framer-motion';
 import {
   IconAlertTriangle as AlertTriangle,

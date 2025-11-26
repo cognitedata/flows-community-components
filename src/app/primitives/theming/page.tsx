@@ -9,23 +9,23 @@ import {
   IconRotateClockwise as RotateCcw,
   IconSun as Sun,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '@/components/ui/aura/card';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/cognite/tabs';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '@/components/ui/aura/tabs';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
+import { Badge } from '@/components/ui/aura/badge';
 import { CodeCopyButton } from '@/components/code-copy-button';
 
 // Utility functions for color conversion
@@ -353,7 +353,7 @@ export default function App({ children }) {
 Your components will now use the custom theme colors automatically!
 
 \`\`\`jsx
-import { Button } from "@/components/ui/cognite/button"
+import { Button } from "@/components/ui/aura/button"
 
 export function Example() {
   return (

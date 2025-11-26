@@ -6,15 +6,15 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Button } from '@/components/ui/cognite/button';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '@/components/ui/aura/card';
+import { Button } from '@/components/ui/aura/button';
+import { Badge } from '@/components/ui/aura/badge';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@/components/ui/cognite/tabs';
+} from '@/components/ui/aura/tabs';
 import {
   IconAlertTriangle,
   IconBolt,

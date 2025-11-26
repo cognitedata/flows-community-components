@@ -4,9 +4,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
-import { Button } from '@/components/ui/cognite/button';
+} from '@/components/ui/aura/card';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
 import {
   IconDownload as Download,
   IconPalette as Palette,

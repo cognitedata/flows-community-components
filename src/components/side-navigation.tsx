@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { cn } from '@/common/utils';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface NavigationItem {

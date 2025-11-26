@@ -1,17 +1,17 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from './types';
 import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from '@/components/ui/cognite/avatar';
+} from '@/components/ui/aura/avatar';
 import {
   IconUser,
   IconSettings,
@@ -79,19 +79,19 @@ export const dropdownMenuExamples: ComponentExamples = {
       'Interactive contextual menus with actions and keyboard navigation',
     component: BasicDemo,
     difficulty: 'intermediate',
-    code: `import { Button } from "@/components/ui/cognite/button"
+    code: `import { Button } from "@/components/ui/aura/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/components/ui/cognite/avatar"
+} from "@/components/ui/aura/avatar"
 import {
   IconUser,
   IconSettings,
@@ -161,5 +161,5 @@ export const dropdownMenuMeta = {
     'Displays a menu to the user triggered by a button press or hover.',
   llmUsage:
     'When asked for a dropdown menu, use `<DropdownMenu>` for contextual actions and navigation.',
-  importPath: '@/components/ui/cognite/dropdown-menu',
+  importPath: '@/components/ui/aura/dropdown-menu',
 };

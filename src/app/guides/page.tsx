@@ -14,15 +14,15 @@ import {
   IconTerminal as Terminal,
   IconUsers as Users,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
-import { Badge } from '@/components/ui/cognite/badge';
+import { Button } from '@/components/ui/aura/button';
+import { Badge } from '@/components/ui/aura/badge';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '@/components/ui/aura/card';
 import { CodeCopyButton } from '@/components/code-copy-button';
 import Link from 'next/link';
 
@@ -110,7 +110,7 @@ const developerSteps = [
       },
       {
         label: 'Import and use (example)',
-        command: `import { Button } from "@/components/ui/cognite/button"\n\nexport default function MyPage() {\n  return <Button>Hello Aura!</Button>\n}`,
+        command: `import { Button } from "@/components/ui/aura/button"\n\nexport default function MyPage() {\n  return <Button>Hello Aura!</Button>\n}`,
       },
     ],
     info: 'All components are ready to use with TypeScript support and theming',

@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/cognite/accordion';
+} from '@/components/ui/aura/accordion';
 import type { ComponentExamples, ComponentMeta } from './types';
 import { IconInfoCircle, IconBrush, IconClock } from '@tabler/icons-react';
 
@@ -114,7 +114,7 @@ export const accordionExamples: ComponentExamples = {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion"
+} from "@/components/ui/aura/accordion"
 import { IconInfoCircle } from "@tabler/icons-react"
 
 export function BasicAccordionDemo() {
@@ -155,7 +155,7 @@ export function BasicAccordionDemo() {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion"
+} from "@/components/ui/aura/accordion"
 
 export function MultipleAccordionDemo() {
   return (
@@ -194,7 +194,7 @@ export function MultipleAccordionDemo() {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/cognite/accordion"
+} from "@/components/ui/aura/accordion"
 import { IconInfoCircle, IconBrush, IconClock } from "@tabler/icons-react"
 
 export function BasicAccordionDemoWithIcon() {
@@ -231,7 +231,7 @@ export const accordionMeta: ComponentMeta = {
     'A collapsible content component that allows users to show and hide sections of related content.',
   llmUsage:
     'When asked for an accordion, use `<Accordion>` with `<AccordionItem>` components for collapsible sections.',
-  importPath: '@/components/ui/cognite/accordion',
+  importPath: '@/components/ui/aura/accordion',
   apiReference: {
     props: [
       {

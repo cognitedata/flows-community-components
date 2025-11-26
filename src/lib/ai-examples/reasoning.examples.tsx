@@ -4,13 +4,13 @@ import {
   Reasoning,
   ReasoningContent,
   ReasoningTrigger,
-} from '@/components/ui/cognite/reasoning';
+} from '@/components/ui/aura/reasoning';
 import {
   Message,
   MessageContent,
   MessageAvatar,
-} from '@/components/ui/cognite/message';
-import { Actions, Action } from '@/components/ui/cognite/actions';
+} from '@/components/ui/aura/message';
+import { Actions, Action } from '@/components/ui/aura/actions';
 import {
   IconThumbUp,
   IconThumbDown,
@@ -23,7 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { startTransition, useCallback, useEffect, useState } from 'react';
 
@@ -368,7 +368,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 import { useCallback, useEffect, useState } from "react"
 
 const reasoningContent = [

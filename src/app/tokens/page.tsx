@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 import { IconCheck as Check, IconCopy as Copy, IconDownload as Download } from '@tabler/icons-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '@/components/ui/aura/card';
 
 const colors = {
   blue: [

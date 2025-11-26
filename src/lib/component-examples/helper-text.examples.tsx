@@ -1,7 +1,7 @@
-import { HelperText } from '@/components/ui/cognite/helper-text';
-import { Input } from '@/components/ui/cognite/input';
-import { Textarea } from '@/components/ui/cognite/textarea';
-import { Label } from '@/components/ui/cognite/label';
+import { HelperText } from '@/components/ui/aura/helper-text';
+import { Input } from '@/components/ui/aura/input';
+import { Textarea } from '@/components/ui/aura/textarea';
+import { Label } from '@/components/ui/aura/label';
 import {
   IconInfoCircle,
   IconAlertTriangle,
@@ -181,7 +181,7 @@ export const helperTextExamples: ComponentExamples = {
     description: 'Helper text in default and error states',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
+    code: `import { HelperText } from "@/components/ui/aura/helper-text"
 
 export function BasicDemo() {
   return (
@@ -202,9 +202,9 @@ export function BasicDemo() {
     description: 'Using helper text with input fields',
     component: WithInputDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
-import { Input } from "@/components/ui/cognite/input"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { HelperText } from "@/components/ui/aura/helper-text"
+import { Input } from "@/components/ui/aura/input"
+import { Label } from "@/components/ui/aura/label"
 
 export function WithInputDemo() {
   return (
@@ -237,9 +237,9 @@ export function WithInputDemo() {
     description: 'Using helper text with textarea fields',
     component: WithTextareaDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
-import { Textarea } from "@/components/ui/cognite/textarea"
-import { Label } from "@/components/ui/cognite/label"
+    code: `import { HelperText } from "@/components/ui/aura/helper-text"
+import { Textarea } from "@/components/ui/aura/textarea"
+import { Label } from "@/components/ui/aura/label"
 
 export function WithTextareaDemo() {
   return (
@@ -273,7 +273,7 @@ export function WithTextareaDemo() {
     description: 'Different sizes for helper text',
     component: SizesDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
+    code: `import { HelperText } from "@/components/ui/aura/helper-text"
 import { IconInfoCircle } from "@tabler/icons-react"
 
 export function SizesDemo() {
@@ -314,7 +314,7 @@ export function SizesDemo() {
     description: 'Different states and use cases for helper text',
     component: StatesDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
+    code: `import { HelperText } from "@/components/ui/aura/helper-text"
 import { IconInfoCircle } from "@tabler/icons-react"
 
 export function StatesDemo() {
@@ -356,7 +356,7 @@ export function StatesDemo() {
     description: 'Using custom icons with helper text',
     component: CustomIconsDemo,
     difficulty: 'beginner',
-    code: `import { HelperText } from "@/components/ui/cognite/helper-text"
+    code: `import { HelperText } from "@/components/ui/aura/helper-text"
 import {
   IconInfoCircle,
   IconAlertTriangle,
@@ -417,7 +417,7 @@ export const helperTextMeta = {
     'A text component for displaying helper messages and error messages below form fields. Supports custom icons and automatically shows an error icon when in error state.',
   llmUsage:
     'Use `<HelperText>` to provide additional information or guidance below form fields. Set `isError={true}` to display error messages with red text and a default error icon. Pass a custom `icon` prop to override the default icon or add an icon to non-error states. Use `size="xs"` for compact layouts or omit for default `"sm"` size.',
-  importPath: '@/components/ui/cognite/helper-text',
+  importPath: '@/components/ui/aura/helper-text',
   apiReference: {
     props: [
       {

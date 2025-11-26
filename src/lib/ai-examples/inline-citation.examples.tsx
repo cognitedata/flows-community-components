@@ -16,7 +16,7 @@ import {
   InlineCitationLink,
   InlineCitationSource,
   InlineCitationText,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -262,7 +262,7 @@ import {
   InlineCitationCarouselPrev,
   InlineCitationSource,
   InlineCitationText,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 
 const citation = {
   text: 'The technology continues to evolve rapidly, with new breakthroughs being announced regularly',
@@ -346,7 +346,7 @@ import {
   InlineCitationCarouselIndex,
   InlineCitationCarouselItem,
   InlineCitationSource,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import { IconFile } from '@tabler/icons-react';
 
 export function SingleSourceDemo() {
@@ -409,7 +409,7 @@ export function SingleSourceDemo() {
 import {
   InlineCitation,
   InlineCitationLink,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 
 export function LinkDemo() {
   return (
@@ -441,7 +441,7 @@ import {
   InlineCitation,
   InlineCitationGroup,
   InlineCitationLink,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -541,5 +541,5 @@ export const inlineCitationMeta = {
   name: 'Inline Citation',
   description:
     'A hoverable citation component that displays source information and quotes inline with text, perfect for AI-generated content with references.',
-  importPath: '@/components/ui/cognite/inline-citation',
+  importPath: '@/components/ui/aura/inline-citation',
 };

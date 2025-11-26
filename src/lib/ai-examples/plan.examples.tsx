@@ -5,7 +5,7 @@ import {
   PlanDescription,
   PlanTrigger,
   PlanContent,
-} from '@/components/ui/cognite/plan';
+} from '@/components/ui/aura/plan';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicPlanDemo() {

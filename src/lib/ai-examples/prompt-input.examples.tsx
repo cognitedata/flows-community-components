@@ -14,7 +14,7 @@ import {
   PromptInputButton,
   // usePromptInputAttachments, // TODO: Uncomment when file dialog functionality is re-added
   type PromptInputMessage,
-} from '@/components/ui/cognite/prompt-input';
+} from '@/components/ui/aura/prompt-input';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { useState, useRef } from 'react';
 import {
@@ -23,14 +23,14 @@ import {
   IconAlertTriangle,
   IconChevronDown,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
-import { HelperText } from '@/components/ui/cognite/helper-text';
+import { Button } from '@/components/ui/aura/button';
+import { HelperText } from '@/components/ui/aura/helper-text';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 
 const SUBMITTING_TIMEOUT = 200;
 const STREAMING_TIMEOUT = 2000;
@@ -253,20 +253,20 @@ import {
   PromptInputButton,
   // usePromptInputAttachments, // TODO: Uncomment when file dialog functionality is re-added
   type PromptInputMessage,
-} from '@/components/ui/cognite/prompt-input';
+} from '@/components/ui/aura/prompt-input';
 import { useState, useRef } from 'react';
 import {
   // IconPaperclip, // TODO: Uncomment when file dialog functionality is re-added
   IconAdjustments,
   IconChevronDown,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 
 function AttachmentTools() {
   // const attachments = usePromptInputAttachments(); // TODO: Uncomment when file dialog functionality is re-added
@@ -355,7 +355,7 @@ import {
   PromptInputAttachments,
   PromptInputSpeechButton,
   type PromptInputMessage,
-} from '@/components/ui/cognite/prompt-input';
+} from '@/components/ui/aura/prompt-input';
 import { useState, useRef } from 'react';
 
 export function PromptInputNoHelperTextDemo() {
@@ -421,10 +421,10 @@ import {
   PromptInputAttachments,
   PromptInputSpeechButton,
   type PromptInputMessage,
-} from '@/components/ui/cognite/prompt-input';
+} from '@/components/ui/aura/prompt-input';
 import { useState, useRef } from 'react';
 import { IconAlertTriangle } from '@tabler/icons-react';
-import { HelperText } from '@/components/ui/cognite/helper-text';
+import { HelperText } from '@/components/ui/aura/helper-text';
 
 export function PromptInputCustomHelperTextDemo() {
   const [status, setStatus] = useState<
@@ -480,5 +480,5 @@ export const promptInputMeta = {
   name: 'Prompt Input',
   description:
     'Allows a user to send a message with file attachments to a large language model. It includes a textarea, file upload capabilities, a submit button, and a dropdown for selecting the model.',
-  importPath: '@/components/ui/cognite/prompt-input',
+  importPath: '@/components/ui/aura/prompt-input',
 };

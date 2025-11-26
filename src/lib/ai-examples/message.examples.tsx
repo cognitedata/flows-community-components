@@ -5,12 +5,12 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
-} from '@/components/ui/cognite/message';
+} from '@/components/ui/aura/message';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   InlineCitation,
   InlineCitationLink,
-} from '@/components/ui/cognite/inline-citation';
+} from '@/components/ui/aura/inline-citation';
 import {
   IconAt,
   IconFile,
@@ -28,12 +28,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from '@/components/ui/cognite/code-block';
+} from '@/components/ui/aura/code-block';
 
 function Demo() {
   return (
@@ -196,18 +196,18 @@ export const messageExamples: ComponentExamples = {
       'Messages with background containers for clear visual separation',
     component: Demo,
     difficulty: 'beginner',
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
 import {
   InlineCitation,
   InlineCitationLink,
-} from "@/components/ui/cognite/inline-citation"
+} from "@/components/ui/aura/inline-citation"
 import { IconAt, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function Demo() {
   return (
@@ -296,15 +296,15 @@ export function Demo() {
       'Assistant message containing a code block with syntax highlighting',
     component: WithCodeBlockDemo,
     difficulty: 'beginner',
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/cognite/message"
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/cognite/code-block"
+    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/aura/code-block"
 import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh, IconDotsVertical } from "@tabler/icons-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function WithCodeBlockDemo() {
   const code = \`async function analyzeVibrationData(timeseriesId: string) {
@@ -376,5 +376,5 @@ export function WithCodeBlockDemo() {
 export const messageMeta = {
   name: 'Message',
   description: 'Displays a chat interface message from either a user or an AI.',
-  importPath: '@/components/ui/cognite/message',
+  importPath: '@/components/ui/aura/message',
 };
