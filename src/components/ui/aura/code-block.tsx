@@ -3,11 +3,7 @@
 import { Button } from '@/components/ui/aura/button';
 import { cn } from '@/common/utils';
 import type { Element } from 'hast';
-import {
-  IconCheck as CheckIcon,
-  IconChevronDown,
-  IconCopy as CopyIcon,
-} from '@tabler/icons-react';
+import { IconCheck, IconChevronDown, IconCopy } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -202,7 +198,7 @@ export const CodeBlockCopyButton = ({
     }
   };
 
-  const Icon = isCopied ? CheckIcon : CopyIcon;
+  const Icon = isCopied ? IconCheck : IconCopy;
 
   return (
     <Button
