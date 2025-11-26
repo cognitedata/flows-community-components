@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const avatarVariants = cva(
-  'relative flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md inline-flex flex-col justify-center items-center hover:cursor-pointer',
+  'relative flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md inline-flex flex-col justify-center items-center hover:cursor-pointer box-border',
   {
     variants: {
       variant: {
@@ -24,12 +24,13 @@ const avatarVariants = cva(
           'bg-orange-50 text-orange-600 hover:bg-orange-100 dark:bg-orange-900 dark:text-orange-300 dark:hover:bg-orange-800',
         sky: 'bg-sky-50 text-sky-600 hover:bg-sky-100 dark:bg-sky-900 dark:text-sky-300 dark:hover:bg-sky-800',
         overflow:
-          'bg-secondary-50 text-secondary-600 hover:bg-secondary-100 dark:bg-secondary-900 dark:text-overflow-300 dark:hover:bg-secondary-800',
+          'bg-secondary text-secondary-600 hover:bg-secondary-100 dark:bg-secondary dark:text-overflow-300 dark:hover:bg-secondary-800',
       },
       sizes: {
-        default: 'size-9 text-sm [&_svg]:w-[17.5px] [&_svg]:h-[17.5px]',
-        xsm: 'size-7 text-xs  [&_svg]:w-[14px] [&_svg]:h-[14px]',
-        xxsm: 'size-5 text-[10px] [&_svg]:w-[10.5px] [&_svg]:h-[10.5px]',
+        default:
+          'size-9 text-sm [&_svg]:w-[var(--avatar-icon-default)] [&_svg]:h-[var(--avatar-icon-default)]',
+        xsm: 'size-7 text-xs [&_svg]:w-[var(--avatar-icon-xs)] [&_svg]:h-[var(--avatar-icon-xs)]',
+        xxsm: 'size-5 text-2xs [&_svg]:w-[var(--avatar-icon-xxs)] [&_svg]:h-[var(--avatar-icon-xxs)]',
       },
     },
     defaultVariants: {

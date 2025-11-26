@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
+import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import {
   IconCheck,
   IconChevronDown,
@@ -11,10 +12,47 @@ import {
 
 import { cn } from '@/lib/utils';
 
+type SelectContextValue = {
+  isOpen: boolean;
+};
+
+const SelectContext = React.createContext<SelectContextValue | null>(null);
+
+const useSelect = () => {
+  const context = React.useContext(SelectContext);
+  if (!context) {
+    throw new Error('Select components must be used within Select');
+  }
+  return context;
+};
+
 function Select({
+  open,
+  defaultOpen = false,
+  onOpenChange,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />;
+  const [isOpen, setIsOpen] = useControllableState({
+    prop: open,
+    defaultProp: defaultOpen,
+    onChange: onOpenChange,
+  });
+
+  const selectContext = React.useMemo(
+    () => ({ isOpen: isOpen ?? false }),
+    [isOpen]
+  );
+
+  return (
+    <SelectContext.Provider value={selectContext}>
+      <SelectPrimitive.Root
+        data-slot="select"
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        {...props}
+      />
+    </SelectContext.Provider>
+  );
 }
 
 function SelectGroup({
@@ -50,6 +88,7 @@ function SelectTrigger({
   size?: 'sm' | 'default';
   errorMessage?: string;
 }) {
+  const { isOpen } = useSelect();
   const isInvalid = !!errorMessage;
   return (
     <>
@@ -58,14 +97,19 @@ function SelectTrigger({
         data-size={size}
         aria-invalid={isInvalid ? true : undefined}
         className={cn(
-          "flex w-fit min-w-[200px] items-center justify-between gap-2 rounded-md border border-border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs text-muted-foreground transition-[color,box-shadow] outline-none hover:bg-accent hover:text-accent-foreground cursor-pointer focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 dark:bg-input/30 dark:text-muted-foreground dark:hover:bg-accent aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
+          "flex w-fit min-w-[202px] min-h-[38px] items-center justify-between gap-2 rounded-md border border-border bg-background p-2 text-base leading-5 tracking-tightest whitespace-nowrap text-muted-foreground transition-[color,box-shadow] outline-none hover:bg-accent hover:text-accent-foreground cursor-pointer focus-visible:border-ring focus-visible:ring-[1px] focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 dark:bg-input/30 dark:text-muted-foreground dark:hover:bg-accent aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
           className
         )}
         {...props}
       >
         {children}
         <SelectPrimitive.Icon asChild>
-          <IconChevronDown className="size-4 opacity-50" />
+          <IconChevronDown
+            className={cn(
+              'size-4 opacity-50 transition-transform',
+              isOpen ? 'rotate-180' : 'rotate-0'
+            )}
+          />
         </SelectPrimitive.Icon>
       </SelectPrimitive.Trigger>
       {errorMessage && (
@@ -142,7 +186,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "relative flex w-full min-h-[36px] cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-base leading-5 tracking-tightest outline-hidden select-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className
       )}
       {...props}

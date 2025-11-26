@@ -1,6 +1,5 @@
 'use client';
 
-import { Badge } from '@/components/ui/cognite/badge';
 import {
   Collapsible,
   CollapsibleContent,
@@ -8,14 +7,7 @@ import {
 } from '@/components/ui/cognite/collapsible';
 import { cn } from '@/lib/utils';
 import type { ToolUIPart } from 'ai';
-import {
-  IconChevronDown,
-  IconCircle,
-  IconCircleCheck,
-  IconCircleX,
-  IconClock,
-  IconTool,
-} from '@tabler/icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 import type { ComponentProps, ReactNode } from 'react';
 import { isValidElement } from 'react';
 import { CodeBlock } from './code-block';
@@ -24,7 +16,10 @@ export type ToolProps = ComponentProps<typeof Collapsible>;
 
 export const Tool = ({ className, ...props }: ToolProps) => (
   <Collapsible
-    className={cn('not-prose mb-4 w-full rounded-md border', className)}
+    className={cn(
+      'group not-prose mb-4 w-full  bg-background rounded-md',
+      className
+    )}
     {...props}
   />
 );
@@ -32,61 +27,28 @@ export const Tool = ({ className, ...props }: ToolProps) => (
 export type ToolHeaderProps = {
   title?: string;
   type: ToolUIPart['type'];
-  state: ToolUIPart['state'];
   className?: string;
-};
-
-const getStatusBadge = (status: ToolUIPart['state']) => {
-  const labels: Partial<Record<string, string>> = {
-    'input-streaming': 'Pending',
-    'input-available': 'Running',
-    'approval-requested': 'Awaiting Approval',
-    'approval-responded': 'Responded',
-    'output-available': 'Completed',
-    'output-error': 'Error',
-    'output-denied': 'Denied',
-  };
-
-  const icons: Partial<Record<string, ReactNode>> = {
-    'input-streaming': <IconCircle className="size-4" />,
-    'input-available': <IconClock className="size-4 animate-pulse" />,
-    'approval-requested': <IconClock className="size-4 text-yellow-600" />,
-    'approval-responded': <IconCircleCheck className="size-4 text-blue-600" />,
-    'output-available': <IconCircleCheck className="size-4 text-green-600" />,
-    'output-error': <IconCircleX className="size-4 text-red-600" />,
-    'output-denied': <IconCircleX className="size-4 text-orange-600" />,
-  };
-
-  return (
-    <Badge className="gap-1.5 rounded-full text-xs" variant="secondary">
-      {icons[status]}
-      {labels[status]}
-    </Badge>
-  );
 };
 
 export const ToolHeader = ({
   className,
   title,
   type,
-  state,
   ...props
 }: ToolHeaderProps) => (
   <CollapsibleTrigger
     className={cn(
-      'flex w-full items-center justify-between gap-4 p-3',
+      'w-full h-9 flex items-center justify-between rounded-md px-3 py-2.25 hover:bg-accent',
       className
     )}
     {...props}
   >
     <div className="flex items-center gap-2">
-      <IconTool className="size-4 text-muted-foreground" />
-      <span className="font-medium text-sm">
+      <span className="font-normal text-base leading-5 tracking-tightest">
         {title ?? type.split('-').slice(1).join('-')}
       </span>
-      {getStatusBadge(state)}
     </div>
-    <IconChevronDown className="size-4 text-muted-foreground transition-transform group-data-[state=open]:rotate-180" />
+    <IconChevronDown className="size-4 text-foreground transition-transform group-data-[state=open]:rotate-180" />
   </CollapsibleTrigger>
 );
 
