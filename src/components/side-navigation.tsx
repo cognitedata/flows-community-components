@@ -164,7 +164,7 @@ const aiNavigation: NavigationItem[] = [
     label: 'Shad CN',
     isSubsection: true,
     children: [
-      { href: '/ai/components/actions', label: 'Actions' },
+      // { href: '/ai/components/actions', label: 'Actions' },
       // { href: "/ai/components/branch", label: "Branch" },
       { href: '/ai/components/code-block', label: 'Code block' },
       { href: '/ai/components/conversation', label: 'Conversation' },
