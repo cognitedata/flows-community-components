@@ -11,15 +11,16 @@ import {
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
+  MessageActions,
+  MessageAction,
 } from '@/components/ui/aura/message';
-import { Actions, Action } from '@/components/ui/aura/actions';
 import {
   IconMessageCircle,
   IconWheel,
-  IconThumbUp,
-  IconThumbDown,
   IconCopy,
-  IconShare,
+  IconDownload,
+  IconTool,
+  IconRefresh,
 } from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { nanoid } from 'nanoid';
@@ -195,7 +196,7 @@ function BasicConversationDemo() {
                 <MessageAvatar
                   avatarUrl={avatar}
                   name={name}
-                  variant={isResponse ? 'fjord' : undefined}
+                  variant={isResponse ? 'nordic' : undefined}
                 >
                   {isResponse && (
                     <MessageAvatarIcon>
@@ -208,20 +209,32 @@ function BasicConversationDemo() {
                 >
                   {value}
                   {isResponse && (
-                    <Actions>
-                      <Action size="icon-sm" label="Like" tooltip="Like">
-                        <IconThumbUp className="w-3 h-3" />
-                      </Action>
-                      <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-                        <IconThumbDown className="w-3 h-3" />
-                      </Action>
-                      <Action size="icon-sm" label="Copy" tooltip="Copy">
+                    <MessageActions>
+                      <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                         <IconCopy className="w-3 h-3" />
-                      </Action>
-                      <Action size="icon-sm" label="Share" tooltip="Share">
-                        <IconShare className="w-3 h-3" />
-                      </Action>
-                    </Actions>
+                      </MessageAction>
+                      <MessageAction
+                        size="icon-sm"
+                        label="Download"
+                        tooltip="Download"
+                      >
+                        <IconDownload className="w-3 h-3" />
+                      </MessageAction>
+                      <MessageAction
+                        size="icon-sm"
+                        label="Explain Tool Call(s)"
+                        tooltip="Explain Tool Call(s)"
+                      >
+                        <IconTool className="w-3 h-3" />
+                      </MessageAction>
+                      <MessageAction
+                        size="icon-sm"
+                        label="Refresh"
+                        tooltip="Refresh"
+                      >
+                        <IconRefresh className="w-3 h-3" />
+                      </MessageAction>
+                    </MessageActions>
                   )}
                 </MessageContent>
               </Message>
@@ -259,10 +272,8 @@ export const conversationExamples: ComponentExamples = {
     code: `"use client"
 
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { IconMessageCircle } from "@tabler/icons-react"
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare } from "@tabler/icons-react"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ai-elements/cognite/message"
+import { IconMessageCircle, IconWheel, IconCopy, IconDownload, IconTool, IconRefresh } from "@tabler/icons-react"
 import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 
@@ -306,7 +317,7 @@ export function BasicConversationDemo() {
                 <MessageAvatar
                   avatarUrl={avatar}
                   name={name}
-                  variant={isResponse ? "fjord" : undefined}
+                  variant={isResponse ? "nordic" : undefined}
                 >
                   {isResponse && (
                     <MessageAvatarIcon>
@@ -317,20 +328,20 @@ export function BasicConversationDemo() {
                 <MessageContent className={isResponse ? "flex flex-col gap-2" : undefined}>
                   {value}
                   {isResponse && (
-                    <Actions>
-                      <Action size="icon-sm" label="Like" tooltip="Like">
-                        <IconThumbUp className="w-3 h-3" />
-                      </Action>
-                      <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-                        <IconThumbDown className="w-3 h-3" />
-                      </Action>
-                      <Action size="icon-sm" label="Copy" tooltip="Copy">
+                    <MessageActions>
+                      <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                         <IconCopy className="w-3 h-3" />
-                      </Action>
-                      <Action size="icon-sm" label="Share" tooltip="Share">
-                        <IconShare className="w-3 h-3" />
-                      </Action>
-                    </Actions>
+                      </MessageAction>
+                      <MessageAction size="icon-sm" label="Download" tooltip="Download">
+                        <IconDownload className="w-3 h-3" />
+                      </MessageAction>
+                      <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
+                        <IconTool className="w-3 h-3" />
+                      </MessageAction>
+                      <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+                        <IconRefresh className="w-3 h-3" />
+                      </MessageAction>
+                    </MessageActions>
                   )}
                 </MessageContent>
               </Message>
