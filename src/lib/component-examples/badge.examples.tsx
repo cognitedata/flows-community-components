@@ -162,6 +162,19 @@ function BuildingBlocksDemo() {
           Badge
         </Badge>
       </div>
+
+      <div className="flex flex-wrap gap-3 border-dashed border-2 border-gray-300 p-4 rounded-md">
+        <Badge variant={'closable'}>
+          <IconHexagon className="rotate-90" size={12} />
+          Badge
+          <IconX size={12} />
+        </Badge>
+        <Badge variant={'closable'} className="bg-secondary-hover">
+          <IconHexagon className="rotate-90" size={12} />
+          Badge
+          <IconX size={12} />
+        </Badge>
+      </div>
     </div>
   );
 }
