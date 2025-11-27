@@ -2,6 +2,7 @@
 
 import { Alert, AlertDescription } from '@/components/ui/aura/alert';
 import { Button } from '@/components/ui/aura/button';
+import { HelperText } from '@/components/ui/aura/helper-text';
 import { cn } from '@/common/utils';
 import {
   type ComponentProps,
@@ -9,6 +10,7 @@ import {
   type ReactNode,
   useContext,
 } from 'react';
+import { IconAlertTriangle } from '@tabler/icons-react';
 
 type ApprovalType = {
   approved?: boolean;
@@ -37,21 +39,44 @@ const useConfirmation = () => {
 export type ConfirmationProps = ComponentProps<typeof Alert> & {
   approval?: ApprovalType;
   state: string;
+  helperText?: ReactNode | false;
 };
 
 export const Confirmation = ({
   className,
   approval,
   state,
+  helperText,
+  children,
   ...props
 }: ConfirmationProps) => {
   if (!approval || state === 'input-streaming' || state === 'input-available') {
     return null;
   }
 
+  const defaultHelperText = (
+    <HelperText size="xs" icon={<IconAlertTriangle />} className="self-end">
+      Only allow tools that you trust
+    </HelperText>
+  );
+
+  const helperTextToRender =
+    state === 'approval-requested' && helperText !== false
+      ? (helperText ?? defaultHelperText)
+      : null;
+
   return (
     <ConfirmationContext.Provider value={{ approval, state }}>
-      <Alert className={cn('flex flex-col gap-2', className)} {...props} />
+      <Alert
+        className={cn(
+          'flex flex-col gap-2 p-3 bg-background text-foreground border-none',
+          className
+        )}
+        {...props}
+      >
+        {children}
+        {helperTextToRender}
+      </Alert>
     </ConfirmationContext.Provider>
   );
 };
@@ -148,5 +173,5 @@ export const ConfirmationActions = ({
 export type ConfirmationActionProps = ComponentProps<typeof Button>;
 
 export const ConfirmationAction = (props: ConfirmationActionProps) => (
-  <Button className="h-8 px-3 text-sm" type="button" {...props} />
+  <Button type="button" {...props} />
 );

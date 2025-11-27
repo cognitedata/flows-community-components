@@ -167,6 +167,7 @@ const aiNavigation: NavigationItem[] = [
       { href: '/ai/components/actions', label: 'Actions' },
       // { href: "/ai/components/branch", label: "Branch" },
       { href: '/ai/components/code-block', label: 'Code block' },
+      { href: '/ai/components/confirmation', label: 'Confirmation' },
       { href: '/ai/components/conversation', label: 'Conversation' },
       // { href: "/ai/components/image", label: "Image" },
       // { href: '/ai/components/inline-citation', label: 'Inline citation' },
