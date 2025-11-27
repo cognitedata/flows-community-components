@@ -23,7 +23,6 @@ import {
   IconRefresh,
 } from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
-import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 
 const messages: {
@@ -34,28 +33,28 @@ const messages: {
   isResponse: boolean;
 }[] = [
   {
-    key: nanoid(),
+    key: '1',
     value: 'Hello, how are you?',
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '2',
     value: "I'm good, thank you! How can I assist you today?",
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '3',
     value: "I'm looking for information about your services.",
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '4',
     value:
       'Sure! We offer a variety of AI solutions. What are you interested in?',
     name: 'AI Assistant',
@@ -63,98 +62,98 @@ const messages: {
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '5',
     value: "I'm interested in natural language processing tools.",
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '6',
     value: 'Great choice! We have several NLP APIs. Would you like a demo?',
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '7',
     value: 'Yes, a demo would be helpful.',
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '8',
     value: 'Alright, I can show you a sentiment analysis example. Ready?',
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '9',
     value: 'Yes, please proceed.',
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '10',
     value: "Here is a sample: 'I love this product!' → Positive sentiment.",
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '11',
     value: 'Impressive! Can it handle multiple languages?',
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '12',
     value: 'Absolutely, our models support over 20 languages.',
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '13',
     value: 'How do I get started with the API?',
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '14',
     value: 'You can sign up on our website and get an API key instantly.',
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '15',
     value: 'Is there a free trial available?',
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '16',
     value: 'Yes, we offer a 14-day free trial with full access.',
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
     isResponse: true,
   },
   {
-    key: nanoid(),
+    key: '17',
     value: 'Thank you for the information!',
     name: 'Alex Johnson',
     avatar: '/user-avatar2.png',
     isResponse: false,
   },
   {
-    key: nanoid(),
+    key: '18',
     value: "You're welcome! Let me know if you have any more questions.",
     name: 'AI Assistant',
     avatar: 'https://github.com/openai.png',
@@ -274,14 +273,13 @@ export const conversationExamples: ComponentExamples = {
 import { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton } from "@/components/ai-elements/cognite/conversation"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ai-elements/cognite/message"
 import { IconMessageCircle, IconWheel, IconCopy, IconDownload, IconTool, IconRefresh } from "@tabler/icons-react"
-import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 
 const messages = [
-  { key: nanoid(), value: "Hello, how are you?", name: "Alex Johnson", avatar: "/user-avatar2.png", isResponse: false },
-  { key: nanoid(), value: "I'm good, thank you! How can I assist you today?", name: "AI Assistant", avatar: "https://github.com/openai.png", isResponse: true },
-  { key: nanoid(), value: "I'm looking for information about your services.", name: "Alex Johnson", avatar: "/user-avatar2.png", isResponse: false },
-  { key: nanoid(), value: "Sure! We offer a variety of AI solutions. What are you interested in?", name: "AI Assistant", avatar: "https://github.com/openai.png", isResponse: true },
+  { key: "1", value: "Hello, how are you?", name: "Alex Johnson", avatar: "/user-avatar2.png", isResponse: false },
+  { key: "2", value: "I'm good, thank you! How can I assist you today?", name: "AI Assistant", avatar: "https://github.com/openai.png", isResponse: true },
+  { key: "3", value: "I'm looking for information about your services.", name: "Alex Johnson", avatar: "/user-avatar2.png", isResponse: false },
+  { key: "4", value: "Sure! We offer a variety of AI solutions. What are you interested in?", name: "AI Assistant", avatar: "https://github.com/openai.png", isResponse: true },
 ]
 
 export function BasicConversationDemo() {
