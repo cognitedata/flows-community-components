@@ -20,14 +20,7 @@ import {
   IconThumbDown,
   IconCopy,
   IconShare,
-  IconDotsVertical,
 } from '@tabler/icons-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
@@ -228,17 +221,6 @@ function BasicConversationDemo() {
                       <Action size="icon-sm" label="Share" tooltip="Share">
                         <IconShare className="w-3 h-3" />
                       </Action>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Action size="icon-sm" label="More options">
-                            <IconDotsVertical className="w-3 h-3" />
-                          </Action>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>Option 1</DropdownMenuItem>
-                          <DropdownMenuItem>Option 2</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
                     </Actions>
                   )}
                 </MessageContent>
@@ -280,13 +262,7 @@ import { Conversation, ConversationContent, ConversationEmptyState, Conversation
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
 import { IconMessageCircle } from "@tabler/icons-react"
-import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu"
+import { IconWheel, IconThumbUp, IconThumbDown, IconCopy, IconShare } from "@tabler/icons-react"
 import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 
@@ -354,17 +330,6 @@ export function BasicConversationDemo() {
                       <Action size="icon-sm" label="Share" tooltip="Share">
                         <IconShare className="w-3 h-3" />
                       </Action>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Action size="icon-sm" label="More options">
-                            <IconDotsVertical className="w-3 h-3" />
-                          </Action>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>Option 1</DropdownMenuItem>
-                          <DropdownMenuItem>Option 2</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
                     </Actions>
                   )}
                 </MessageContent>

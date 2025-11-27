@@ -1,3 +1,5 @@
+'use client';
+
 import { Actions, Action } from '@/components/ui/aura/actions';
 import {
   Message,
@@ -6,20 +8,39 @@ import {
   MessageAvatarIcon,
 } from '@/components/ui/aura/message';
 import {
-  IconThumbUp,
-  IconThumbDown,
-  IconCopy,
-  IconShare,
-  IconWheel,
-  IconDotsVertical,
-} from '@tabler/icons-react';
+  Branch,
+  BranchMessages,
+  BranchSelector,
+  BranchPrevious,
+  BranchNext,
+  BranchPage,
+} from '@/components/ui/aura/branch';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
+  IconCopy,
+  IconDownload,
+  IconTool,
+  IconRefresh,
+  IconWheel,
+} from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
+
+const assistantResponses = [
+  {
+    id: '1',
+    content:
+      "I'm doing great, thank you for asking! How can I assist you today?",
+  },
+  {
+    id: '2',
+    content:
+      "I'm functioning optimally! Is there something specific you'd like help with?",
+  },
+  {
+    id: '3',
+    content:
+      'All systems are running smoothly. What would you like to work on together?',
+  },
+];
 
 function BasicActionsDemo() {
   return (
@@ -29,83 +50,45 @@ function BasicActionsDemo() {
         <MessageContent>Hello, how are you?</MessageContent>
       </Message>
 
-      <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
-        <MessageContent className="flex flex-col gap-2">
-          I am fine, thank you!
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
-            </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </Actions>
-        </MessageContent>
-      </Message>
-    </div>
-  );
-}
-
-function ActionsWithLabelsDemo() {
-  return (
-    <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
-        <MessageContent>What is React?</MessageContent>
-      </Message>
-
-      <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
-        <MessageContent className="flex flex-col gap-2">
-          React is a JavaScript library for building user interfaces. It&apos;s
-          declarative, efficient, and flexible.
-          <Actions>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
-            </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </Actions>
-        </MessageContent>
-      </Message>
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {assistantResponses.map((response) => (
+            <Message isResponse={true} key={response.id}>
+              <MessageAvatar variant="fjord">
+                <MessageAvatarIcon>
+                  <IconWheel />
+                </MessageAvatarIcon>
+              </MessageAvatar>
+              <MessageContent className="flex flex-col gap-2">
+                {response.content}
+                <Actions>
+                  <Action size="icon-sm" label="Copy" tooltip="Copy">
+                    <IconCopy className="w-3 h-3" />
+                  </Action>
+                  <Action size="icon-sm" label="Download" tooltip="Download">
+                    <IconDownload className="w-3 h-3" />
+                  </Action>
+                  <Action
+                    size="icon-sm"
+                    label="Explain Tool Call(s)"
+                    tooltip="Explain Tool Call(s)"
+                  >
+                    <IconTool className="w-3 h-3" />
+                  </Action>
+                  <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+                    <IconRefresh className="w-3 h-3" />
+                  </Action>
+                  <BranchSelector from="assistant" className="px-0">
+                    <BranchPrevious />
+                    <BranchPage />
+                    <BranchNext />
+                  </BranchSelector>
+                </Actions>
+              </MessageContent>
+            </Message>
+          ))}
+        </BranchMessages>
+      </Branch>
     </div>
   );
 }
@@ -116,18 +99,28 @@ export const actionsExamples: ComponentExamples = {
     description: 'Action buttons for interacting with AI messages',
     component: BasicActionsDemo,
     difficulty: 'beginner',
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
+    code: `"use client"
+
+import { Actions, Action } from "@/components/ai-elements/cognite/actions"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
-import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu"
+  Branch,
+  BranchMessages,
+  BranchSelector,
+  BranchPrevious,
+  BranchNext,
+  BranchPage,
+} from "@/components/ai-elements/cognite/branch"
+import { IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
+
+const assistantResponses = [
+  { id: "1", content: "I'm doing great, thank you for asking! How can I assist you today?" },
+  { id: "2", content: "I'm functioning optimally! Is there something specific you'd like help with?" },
+  { id: "3", content: "All systems are running smoothly. What would you like to work on together?" },
+]
 
 export function BasicActionsDemo() {
-    return (
+  return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
@@ -136,100 +129,41 @@ export function BasicActionsDemo() {
         </MessageContent>
       </Message>
 
-      <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
-        <MessageContent className="flex flex-col gap-2">
-          I am fine, thank you!
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
-            </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </Actions>
-        </MessageContent>
-      </Message>
-    </div>
-  )
-}`,
-  },
-
-  withLabels: {
-    title: 'Actions with Different Icons',
-    description: 'Actions with copy, share, and more options buttons',
-    component: ActionsWithLabelsDemo,
-    difficulty: 'beginner',
-    code: `import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
-import { IconCopy, IconShare, IconWheel, IconDotsVertical } from "@tabler/icons-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu"
-
-export function ActionsWithLabelsDemo() {
-    return (
-    <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
-        <MessageContent>
-          What is React?
-        </MessageContent>
-      </Message>
-
-      <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
-        <MessageContent className="flex flex-col gap-2">
-          React is a JavaScript library for building user interfaces.
-          <Actions>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
-            </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </Actions>
-        </MessageContent>
-      </Message>
+      <Branch defaultBranch={0}>
+        <BranchMessages>
+          {assistantResponses.map((response) => (
+            <Message isResponse={true} key={response.id}>
+              <MessageAvatar variant="fjord">
+                <MessageAvatarIcon>
+                  <IconWheel />
+                </MessageAvatarIcon>
+              </MessageAvatar>
+              <MessageContent className="flex flex-col gap-2">
+                {response.content}
+                <Actions>
+                  <Action size="icon-sm" label="Copy" tooltip="Copy">
+                    <IconCopy className="w-3 h-3" />
+                  </Action>
+                  <Action size="icon-sm" label="Download" tooltip="Download">
+                    <IconDownload className="w-3 h-3" />
+                  </Action>
+                  <Action size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
+                    <IconTool className="w-3 h-3" />
+                  </Action>
+                  <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+                    <IconRefresh className="w-3 h-3" />
+                  </Action>
+                  <BranchSelector from="assistant" className="px-0">
+                    <BranchPrevious />
+                    <BranchPage />
+                    <BranchNext />
+                  </BranchSelector>
+                </Actions>
+              </MessageContent>
+            </Message>
+          ))}
+        </BranchMessages>
+      </Branch>
     </div>
   )
 }`,

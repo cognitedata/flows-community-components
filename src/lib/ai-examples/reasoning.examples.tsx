@@ -16,14 +16,7 @@ import {
   IconThumbDown,
   IconCopy,
   IconShare,
-  IconDotsVertical,
 } from '@tabler/icons-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { startTransition, useCallback, useEffect, useState } from 'react';
 
@@ -235,17 +228,6 @@ function MessageConversationWithReasoningDemo() {
             <Action size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
             </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Add to canvas</DropdownMenuItem>
-                <DropdownMenuItem>Create work order</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </Actions>
         </MessageContent>
       </Message>
@@ -362,13 +344,7 @@ import {
 } from "@/components/ai-elements/cognite/reasoning"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu"
+import { IconThumbUp, IconThumbDown, IconCopy, IconShare } from "@tabler/icons-react"
 import { useCallback, useEffect, useState } from "react"
 
 const reasoningContent = [
@@ -483,17 +459,6 @@ export function MessageConversationWithReasoningDemo() {
             <Action size="icon-sm" label="Share" tooltip="Share">
               <IconShare className="w-3 h-3" />
             </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Add to canvas</DropdownMenuItem>
-                <DropdownMenuItem>Create work order</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </Actions>
         </MessageContent>
       </Message>
