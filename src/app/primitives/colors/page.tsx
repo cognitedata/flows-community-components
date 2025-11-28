@@ -21,6 +21,8 @@ const colorPalettes = [
     description: 'Neutral base ramp',
     category: 'base',
     colors: [
+      { name: 'white', var: '--mountain-white' },
+      { name: '10', var: '--mountain-10' },
       { name: '50', var: '--mountain-50' },
       { name: '100', var: '--mountain-100' },
       { name: '200', var: '--mountain-200' },
@@ -35,6 +37,7 @@ const colorPalettes = [
       { name: '800', var: '--mountain-800' },
       { name: '900', var: '--mountain-900' },
       { name: '950', var: '--mountain-950' },
+      { name: 'black', var: '--mountain-black' },
     ],
   },
   {
@@ -295,6 +298,27 @@ const colorPalettes = [
       { name: '950', var: '--gray-950' },
     ],
   },
+  {
+    name: 'Pink',
+    description: 'Pink extended',
+    category: 'extended',
+    colors: [
+      { name: '50', var: '--pink-50' },
+      { name: '100', var: '--pink-100' },
+      { name: '200', var: '--pink-200' },
+      { name: '300', var: '--pink-300' },
+      { name: '400', var: '--pink-400' },
+      { name: '450', var: '--pink-450' },
+      { name: '500', var: '--pink-500' },
+      { name: '550', var: '--pink-550' },
+      { name: '600', var: '--pink-600' },
+      { name: '650', var: '--pink-650' },
+      { name: '700', var: '--pink-700' },
+      { name: '800', var: '--pink-800' },
+      { name: '900', var: '--pink-900' },
+      { name: '950', var: '--pink-950' },
+    ],
+  },
 ];
 
 // Helper function to copy text to clipboard
@@ -515,7 +539,7 @@ export default function ColorsPage() {
           <h2 className="text-2xl font-semibold mb-2">
             Extended decorative colors
           </h2>
-          <p className="text-muted-foreground">Sky, Orange, Yellow, Gray</p>
+          <p className="text-muted-foreground">Sky, Orange, Yellow, Gray, Pink</p>
         </div>
         <div className="space-y-6">
           {extendedPalettes.map((palette) => (
