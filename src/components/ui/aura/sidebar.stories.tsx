@@ -3,7 +3,7 @@ import { Sidebar } from './sidebar';
 import { sidebarExamples } from '@/lib/component-examples/sidebar.examples';
 
 const meta: Meta<typeof Sidebar> = {
-  title: 'UI/Draft/Sidebar',
+  title: 'UI/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
   argTypes: {
@@ -11,7 +11,7 @@ const meta: Meta<typeof Sidebar> = {
       control: 'select',
       options: ['default', 'outline'],
       description: 'The visual style variant',
-    }
+    },
   },
   parameters: {
     layout: 'centered',
