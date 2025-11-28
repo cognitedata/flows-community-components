@@ -816,9 +816,4 @@
   .animate-accordion-up {
     animation: accordion-up 0.2s ease-out;
   }
-
-  .text-2xs {
-    font-size: var(--text-2xs);
-    line-height: 1;
-  }
 }
