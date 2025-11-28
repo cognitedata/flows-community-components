@@ -83,11 +83,13 @@ const primitivesNavigation: NavigationItem[] = [
     isSubsection: true,
     children: [
       { href: '/primitives/colors', label: 'Colors' },
-      { href: '/primitives/icons', label: 'Icons' },
-      { href: '/primitives/illustrations', label: 'Illustrations' },
-      { href: '/primitives/layouts', label: 'Layouts' },
-      { href: '/primitives/motion-design', label: 'Motion design' },
-      { href: '/primitives/theming', label: 'Theming' },
+      { href: '/primitives/effects', label: 'Effects' },
+      // { href: '/primitives/icons', label: 'Icons' },
+      // { href: '/primitives/illustrations', label: 'Illustrations' },
+      // { href: '/primitives/layouts', label: 'Layouts' },
+      // { href: '/primitives/motion-design', label: 'Motion design' },
+      // { href: '/primitives/theming', label: 'Theming' },
+      { href: '/primitives/typography', label: 'Typography' },
     ],
   },
   {
