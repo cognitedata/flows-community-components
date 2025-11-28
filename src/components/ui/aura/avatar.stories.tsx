@@ -361,6 +361,89 @@ export const AvatarGroupSmall: Story = {
 };
 
 /**
+ * Edge cases: long text, empty text, special characters, and small sizes with text
+ */
+export const EdgeCases: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <p className="text-sm text-muted-foreground">Long text overflow</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="default">
+            <AvatarFallback>ABCDEFGH</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic" sizes="xsm">
+            <AvatarFallback>ABCDEFGH</AvatarFallback>
+          </Avatar>
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarFallback>ABCDEFGH</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="text-sm text-muted-foreground">Empty fallback text</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="aurora">
+            <AvatarFallback></AvatarFallback>
+          </Avatar>
+          <Avatar variant="dusk" sizes="xsm">
+            <AvatarFallback></AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="text-sm text-muted-foreground">Special characters</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="orange">
+            <AvatarFallback>🎨🔥</AvatarFallback>
+          </Avatar>
+          <Avatar variant="sky">
+            <AvatarFallback>@#$</AvatarFallback>
+          </Avatar>
+          <Avatar variant="default">
+            <AvatarFallback>中文</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="text-sm text-muted-foreground">
+          Normal text in very small sizes
+        </p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="nordic" sizes="xxsm">
+            <AvatarFallback>AB</AvatarFallback>
+          </Avatar>
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarFallback>ABC</AvatarFallback>
+          </Avatar>
+          <Avatar variant="aurora" sizes="xxsm">
+            <AvatarFallback>ABCD</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <p className="text-sm text-muted-foreground">Single character</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="dusk">
+            <AvatarFallback>A</AvatarFallback>
+          </Avatar>
+          <Avatar variant="orange" sizes="xsm">
+            <AvatarFallback>Z</AvatarFallback>
+          </Avatar>
+          <Avatar variant="sky" sizes="xxsm">
+            <AvatarFallback>M</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+/**
  * Interactive playground for testing different configurations
  */
 export const Playground: Story = {
