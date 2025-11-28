@@ -10,24 +10,30 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'light',
-      values: [
-        {
-          name: 'light',
-          value: '#ffffff',
-        },
-        {
-          name: 'dark',
-          value: '#111213',
-        },
-      ],
+      disable: true,
+    },
+    layout: 'padded',
+  },
+  globalTypes: {
+    theme: {
+      description: 'Theme for the components',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
     },
   },
   decorators: [
     (Story, context) => {
-      const isDark = context.globals.backgrounds?.value === '#111213';
+      const theme = context.globals.theme || 'light';
       return (
-        <div className={isDark ? 'dark' : ''}>
+        <div className={theme === 'dark' ? 'dark bg-background text-foreground' : 'bg-background text-foreground'}>
           <Story />
         </div>
       );
