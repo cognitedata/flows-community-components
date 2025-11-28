@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
+} from '@/components/ui/aura/collapsible';
 import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
 import type { ComponentExamples } from './types';
 
@@ -22,7 +22,7 @@ function BasicDemo() {
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="space-y-2">
+        <CollapsibleContent className="space-y-2 px-3">
           Collapsibles work independently—multiple can be open at once. The
           shadcn collapsible is for independent sections. Use accordion patterns
           when you want mutually exclusive content areas.
@@ -40,12 +40,12 @@ export const collapsibleExamples: ComponentExamples = {
     component: BasicDemo,
     difficulty: 'intermediate',
     code: `
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/cognite/collapsible';
+} from '@/components/ui/aura/collapsible';
 import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
 
 export function BasicDemo() {
@@ -75,16 +75,16 @@ export const collapsibleMeta = {
   description: 'An interactive component which expands/collapses a panel.',
   llmUsage:
     'When showing expandable content, use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>`.',
-  importPath: '@/components/ui/cognite/collapsible',
+  importPath: '@/components/ui/aura/collapsible',
 };
 
-// Component code literal - must match src/components/ui/cognite/collapsible.tsx
+// Component code literal - must match src/components/ui/aura/collapsible.tsx
 export const collapsibleCode = `
 "use client";
 
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/common/utils';
 
 function Collapsible({
   className,

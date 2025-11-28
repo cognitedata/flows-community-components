@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/cognite/tooltip';
+} from '@/components/ui/aura/tooltip';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -17,7 +17,7 @@ function BasicDemo() {
               <Button>Hover me</Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Publishing will make it available to all users</p>
+              Publishing will make it available to all users
             </TooltipContent>
           </Tooltip>
 
@@ -26,7 +26,7 @@ function BasicDemo() {
               <Button variant="outline">More info</Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>This button does something important</p>
+              This button does something important
             </TooltipContent>
           </Tooltip>
 
@@ -35,15 +35,10 @@ function BasicDemo() {
               <Button variant="destructive">Delete</Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>This action cannot be undone</p>
+              This action cannot be undone
             </TooltipContent>
           </Tooltip>
         </div>
-
-        <p className="text-sm text-muted-foreground">
-          Hover over buttons to see interactive tooltips with helpful
-          information.
-        </p>
       </div>
     </TooltipProvider>
   );
@@ -58,7 +53,7 @@ function VariantsDemo() {
             <Button variant="outline">Hover me - Top</Button>
           </TooltipTrigger>
           <TooltipContent side="top">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
 
@@ -67,7 +62,7 @@ function VariantsDemo() {
             <Button variant="outline">Hover me - Right</Button>
           </TooltipTrigger>
           <TooltipContent side="right">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
 
@@ -76,7 +71,7 @@ function VariantsDemo() {
             <Button variant="outline">Hover me - Bottom</Button>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
 
@@ -85,7 +80,7 @@ function VariantsDemo() {
             <Button variant="outline">Hover me - Left</Button>
           </TooltipTrigger>
           <TooltipContent side="left">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
       </div>
@@ -104,8 +99,8 @@ export const tooltipExamples: ComponentExamples = {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip"
-import { Button } from "@/components/ui/cognite/button"
+} from "@/components/ui/aura/tooltip"
+import { Button } from "@/components/ui/aura/button"
 
 export function BasicDemo() {
   return (
@@ -117,7 +112,7 @@ export function BasicDemo() {
               <Button>Hover me</Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Publishing will make it available to all users</p>
+              Publishing will make it available to all users
             </TooltipContent>
           </Tooltip>
 
@@ -126,7 +121,7 @@ export function BasicDemo() {
               <Button variant="outline">More info</Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>This button does something important</p>
+              This button does something important
             </TooltipContent>
           </Tooltip>
 
@@ -135,14 +130,10 @@ export function BasicDemo() {
               <Button variant="destructive">Delete</Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>This action cannot be undone</p>
+              This action cannot be undone
             </TooltipContent>
           </Tooltip>
         </div>
-        
-        <p className="text-sm text-muted-foreground">
-          Hover over buttons to see interactive tooltips with helpful information.
-        </p>
       </div>
     </TooltipProvider>
   )
@@ -158,8 +149,8 @@ export function BasicDemo() {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/cognite/tooltip"
-import { Button } from "@/components/ui/cognite/button"
+} from "@/components/ui/aura/tooltip"
+import { Button } from "@/components/ui/aura/button"
 
 export function VariantsDemo() {
   return (
@@ -170,7 +161,7 @@ export function VariantsDemo() {
             <Button variant="outline">Hover me - Top</Button>
           </TooltipTrigger>
           <TooltipContent side="top">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
 
@@ -179,7 +170,7 @@ export function VariantsDemo() {
             <Button variant="outline">Hover me - Right</Button>
           </TooltipTrigger>
           <TooltipContent side="right">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
 
@@ -188,7 +179,7 @@ export function VariantsDemo() {
             <Button variant="outline">Hover me - Bottom</Button>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
 
@@ -197,7 +188,7 @@ export function VariantsDemo() {
             <Button variant="outline">Hover me - Left</Button>
           </TooltipTrigger>
           <TooltipContent side="left">
-            <p>This is a helpful message</p>
+            This is a helpful message
           </TooltipContent>
         </Tooltip>
       </div>
@@ -214,5 +205,5 @@ export const tooltipMeta = {
     'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
   llmUsage:
     'When asked for a tooltip, use `<Tooltip>` to provide helpful information on hover or focus.',
-  importPath: '@/components/ui/cognite/tooltip',
+  importPath: '@/components/ui/aura/tooltip',
 };

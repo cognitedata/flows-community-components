@@ -6,11 +6,11 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Button } from '@/components/ui/cognite/button';
-import { Badge } from '@/components/ui/cognite/badge';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
+} from '@/components/ui/aura/card';
+import { Button } from '@/components/ui/aura/button';
+import { Badge } from '@/components/ui/aura/badge';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
 import { IconAlertTriangle, IconPlayerPlay } from '@tabler/icons-react';
 
 interface PresetComponentRendererProps {

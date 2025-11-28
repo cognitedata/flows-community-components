@@ -1,6 +1,6 @@
 'use client';
 
-import { Response } from '@/components/ui/cognite/response';
+import { Response } from '@/components/ui/aura/response';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { useEffect, useState } from 'react';
 
@@ -149,7 +149,7 @@ export const responseExamples: ComponentExamples = {
   streaming: {
     title: 'Response',
     description:
-      'The Resaaponse component renders a Markdown response from a large language model. It uses Streamdown under the hood to render the markdown.',
+      'The Response component renders a Markdown response from a large language model. It uses Streamdown under the hood to render the markdown.',
     component: StreamingResponseDemo,
     difficulty: 'beginner',
     code: `"use client"

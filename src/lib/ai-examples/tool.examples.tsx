@@ -4,35 +4,16 @@ import {
   ToolContent,
   ToolInput,
   ToolOutput,
-} from '@/components/ui/cognite/tool';
+} from '@/components/ui/aura/tool';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicToolDemo() {
   return (
     <Tool>
-      <ToolHeader
-        title="File System Tool"
-        type="tool-call"
-        state="output-available"
-      />
+      <ToolHeader title="Tool call - find assets" type="tool-call" />
       <ToolContent>
         <ToolInput input={{ path: '/example/file.txt' }} />
         <ToolOutput output="File created successfully" errorText={undefined} />
-      </ToolContent>
-    </Tool>
-  );
-}
-
-function RunningToolDemo() {
-  return (
-    <Tool>
-      <ToolHeader
-        title="API Request Tool"
-        type="tool-call"
-        state="input-available"
-      />
-      <ToolContent>
-        <ToolInput input={{ url: 'https://api.example.com/data' }} />
       </ToolContent>
     </Tool>
   );
@@ -49,37 +30,10 @@ export const toolExamples: ComponentExamples = {
 export function BasicToolDemo() {
   return (
     <Tool>
-      <ToolHeader
-        title="File System Tool"
-        type="tool-call"
-        state="output-available"
-      />
+      <ToolHeader title="File System Tool" type="tool-call" />
       <ToolContent>
         <ToolInput input={{ path: "/file.txt" }} />
         <ToolOutput output="Success" errorText={undefined} />
-      </ToolContent>
-    </Tool>
-  )
-}`,
-  },
-
-  running: {
-    title: 'Running Tool',
-    description: "Tool that's currently executing",
-    component: RunningToolDemo,
-    difficulty: 'beginner',
-    code: `import { Tool, ToolHeader, ToolContent, ToolInput } from "@/components/ai-elements/cognite/tool"
-
-export function RunningToolDemo() {
-  return (
-    <Tool>
-      <ToolHeader
-        title="API Request"
-        type="tool-call"
-        state="input-available"
-      />
-      <ToolContent>
-        <ToolInput input={{ url: "https://api.example.com" }} />
       </ToolContent>
     </Tool>
   )

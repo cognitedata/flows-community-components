@@ -1,5 +1,5 @@
-import { Progress } from '@/components/ui/cognite/progress';
-import { Label } from '@/components/ui/cognite/label';
+import { Progress } from '@/components/ui/aura/progress';
+import { Label } from '@/components/ui/aura/label';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -22,7 +22,7 @@ export const progressExamples: ComponentExamples = {
     description: 'Progress bars showing different completion states',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Progress } from "@/components/ui/cognite/progress"
+    code: `import { Progress } from "@/components/ui/aura/progress"
 
 export function BasicDemo() {
   return (
@@ -61,5 +61,5 @@ export const progressMeta = {
     'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
   llmUsage:
     'When asked for a progress bar, use `<Progress>` to show task completion or loading states.',
-  importPath: '@/components/ui/cognite/progress',
+  importPath: '@/components/ui/aura/progress',
 };

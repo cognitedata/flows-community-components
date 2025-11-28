@@ -10,15 +10,15 @@
     "cssVariables": true,
     "prefix": ""
   },
-  "iconLibrary": "lucide",
+  "iconLibrary": "tabler",
   "aliases": {
     "components": "@/components",
-    "utils": "@/lib/utils",
+    "utils": "/common/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
   "registries": {
-    "@cognite/aura": "https://refactored-couscous-5l9mkl3.pages.github.io/r/{name}.json"
+    "@cognite/aura": "https://cognitedata.github.io/aura/r/{name}.json"
   }
 }

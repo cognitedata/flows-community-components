@@ -11,7 +11,7 @@
       "dependencies": ["@radix-ui/react-accordion", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/accordion.tsx",
+          "path": "src/components/ui/aura/accordion.tsx",
           "type": "registry:component"
         }
       ]
@@ -23,7 +23,7 @@
       "description": "Alert component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/alert.tsx",
+          "path": "src/components/ui/aura/alert.tsx",
           "type": "registry:component"
         }
       ]
@@ -37,7 +37,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/cognite/alert-dialog.tsx",
+          "path": "src/components/ui/aura/alert-dialog.tsx",
           "type": "registry:component"
         }
       ]
@@ -49,7 +49,7 @@
       "description": "Avatar component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/avatar.tsx",
+          "path": "src/components/ui/aura/avatar.tsx",
           "type": "registry:component"
         }
       ]
@@ -62,7 +62,7 @@
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/cognite/badge.tsx",
+          "path": "src/components/ui/aura/badge.tsx",
           "type": "registry:component"
         }
       ]
@@ -75,7 +75,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/breadcrumb.tsx",
+          "path": "src/components/ui/aura/breadcrumb.tsx",
           "type": "registry:component"
         }
       ]
@@ -88,7 +88,7 @@
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/cognite/button.tsx",
+          "path": "src/components/ui/aura/button.tsx",
           "type": "registry:component"
         }
       ]
@@ -102,7 +102,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/cognite/calendar.tsx",
+          "path": "src/components/ui/aura/calendar.tsx",
           "type": "registry:component"
         }
       ]
@@ -114,7 +114,7 @@
       "description": "A flexible card layout with header, content, action, and footer slots.",
       "files": [
         {
-          "path": "src/components/ui/cognite/card.tsx",
+          "path": "src/components/ui/aura/card.tsx",
           "type": "registry:component"
         }
       ]
@@ -126,7 +126,7 @@
       "description": "Chart component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/chart.tsx",
+          "path": "src/components/ui/aura/chart.tsx",
           "type": "registry:component"
         }
       ]
@@ -139,7 +139,7 @@
       "dependencies": ["@radix-ui/react-checkbox", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/checkbox.tsx",
+          "path": "src/components/ui/aura/checkbox.tsx",
           "type": "registry:component"
         }
       ]
@@ -151,7 +151,7 @@
       "description": "Collapsible component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/collapsible.tsx",
+          "path": "src/components/ui/aura/collapsible.tsx",
           "type": "registry:component"
         }
       ]
@@ -164,7 +164,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/combobox.tsx",
+          "path": "src/components/ui/aura/combobox.tsx",
           "type": "registry:component"
         }
       ]
@@ -177,7 +177,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/command.tsx",
+          "path": "src/components/ui/aura/command.tsx",
           "type": "registry:component"
         }
       ]
@@ -189,7 +189,7 @@
       "description": "Context Menu component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/context-menu.tsx",
+          "path": "src/components/ui/aura/context-menu.tsx",
           "type": "registry:component"
         }
       ]
@@ -201,7 +201,7 @@
       "description": "Date Picker component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/date-picker.tsx",
+          "path": "src/components/ui/aura/date-picker.tsx",
           "type": "registry:component"
         }
       ]
@@ -214,7 +214,7 @@
       "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/dialog.tsx",
+          "path": "src/components/ui/aura/dialog.tsx",
           "type": "registry:component"
         }
       ]
@@ -226,7 +226,7 @@
       "description": "Drawer component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/drawer.tsx",
+          "path": "src/components/ui/aura/drawer.tsx",
           "type": "registry:component"
         }
       ]
@@ -236,10 +236,10 @@
       "type": "registry:component",
       "title": "Dropdown Menu",
       "description": "A dropdown menu with submenus, separators, and selection states.",
-      "dependencies": ["@radix-ui/react-dropdown-menu", "lucide-react"],
+      "dependencies": ["@radix-ui/react-dropdown-menu", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/dropdown-menu.tsx",
+          "path": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         }
       ]
@@ -252,7 +252,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/helper-text.tsx",
+          "path": "src/components/ui/aura/helper-text.tsx",
           "type": "registry:component"
         }
       ]
@@ -264,7 +264,7 @@
       "description": "A styled text input with focus, disabled, and invalid states.",
       "files": [
         {
-          "path": "src/components/ui/cognite/input.tsx",
+          "path": "src/components/ui/aura/input.tsx",
           "type": "registry:component"
         }
       ]
@@ -276,7 +276,7 @@
       "description": "Kbd component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/kbd.tsx",
+          "path": "src/components/ui/aura/kbd.tsx",
           "type": "registry:component"
         }
       ]
@@ -289,7 +289,7 @@
       "dependencies": ["@radix-ui/react-label"],
       "files": [
         {
-          "path": "src/components/ui/cognite/label.tsx",
+          "path": "src/components/ui/aura/label.tsx",
           "type": "registry:component"
         }
       ]
@@ -301,7 +301,7 @@
       "description": "Menubar component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/menubar.tsx",
+          "path": "src/components/ui/aura/menubar.tsx",
           "type": "registry:component"
         }
       ]
@@ -313,10 +313,11 @@
       "description": "Pagination component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/pagination.tsx",
+          "path": "src/components/ui/aura/pagination.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "popover",
@@ -326,7 +327,7 @@
       "dependencies": ["@radix-ui/react-popover"],
       "files": [
         {
-          "path": "src/components/ui/cognite/popover.tsx",
+          "path": "src/components/ui/aura/popover.tsx",
           "type": "registry:component"
         }
       ]
@@ -339,7 +340,7 @@
       "dependencies": ["@radix-ui/react-progress"],
       "files": [
         {
-          "path": "src/components/ui/cognite/progress.tsx",
+          "path": "src/components/ui/aura/progress.tsx",
           "type": "registry:component"
         }
       ]
@@ -351,10 +352,11 @@
       "description": "Radio Group component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/radio-group.tsx",
+          "path": "src/components/ui/aura/radio-group.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "scroll-area",
@@ -363,7 +365,7 @@
       "description": "Scroll Area component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/scroll-area.tsx",
+          "path": "src/components/ui/aura/scroll-area.tsx",
           "type": "registry:component"
         }
       ]
@@ -376,7 +378,7 @@
       "dependencies": ["@radix-ui/react-select", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/select.tsx",
+          "path": "src/components/ui/aura/select.tsx",
           "type": "registry:component"
         }
       ]
@@ -389,7 +391,7 @@
       "dependencies": ["@radix-ui/react-separator"],
       "files": [
         {
-          "path": "src/components/ui/cognite/separator.tsx",
+          "path": "src/components/ui/aura/separator.tsx",
           "type": "registry:component"
         }
       ]
@@ -399,10 +401,10 @@
       "type": "registry:component",
       "title": "Sheet",
       "description": "A slide-over sheet built on Radix Dialog primitives.",
-      "dependencies": ["@radix-ui/react-dialog", "lucide-react"],
+      "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/sheet.tsx",
+          "path": "src/components/ui/aura/sheet.tsx",
           "type": "registry:component"
         }
       ]
@@ -415,10 +417,11 @@
       "registryDependencies": ["sheet", "skeleton"],
       "files": [
         {
-          "path": "src/components/ui/cognite/sidebar.tsx",
+          "path": "src/components/ui/aura/sidebar.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "skeleton",
@@ -427,7 +430,7 @@
       "description": "Skeleton placeholders for representing loading UI states.",
       "files": [
         {
-          "path": "src/components/ui/cognite/skeleton.tsx",
+          "path": "src/components/ui/aura/skeleton.tsx",
           "type": "registry:component"
         }
       ]
@@ -439,7 +442,7 @@
       "description": "Slider component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/slider.tsx",
+          "path": "src/components/ui/aura/slider.tsx",
           "type": "registry:component"
         }
       ]
@@ -449,10 +452,10 @@
       "type": "registry:component",
       "title": "Toaster",
       "description": "A themed Sonner toaster that syncs with the application theme.",
-      "dependencies": ["next-themes", "sonner"],
+      "dependencies": ["next-themes", "sonner", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/cognite/sonner.tsx",
+          "path": "src/components/ui/aura/sonner.tsx",
           "type": "registry:component"
         }
       ]
@@ -464,7 +467,7 @@
       "description": "Swap Slot component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/swap-slot.tsx",
+          "path": "src/components/ui/aura/swap-slot.tsx",
           "type": "registry:component"
         }
       ]
@@ -477,7 +480,7 @@
       "dependencies": ["@radix-ui/react-switch"],
       "files": [
         {
-          "path": "src/components/ui/cognite/switch.tsx",
+          "path": "src/components/ui/aura/switch.tsx",
           "type": "registry:component"
         }
       ]
@@ -490,7 +493,7 @@
       "dependencies": ["@radix-ui/react-tabs"],
       "files": [
         {
-          "path": "src/components/ui/cognite/tabs.tsx",
+          "path": "src/components/ui/aura/tabs.tsx",
           "type": "registry:component"
         }
       ]
@@ -502,7 +505,7 @@
       "description": "A styled textarea with invalid, focus, and disabled states.",
       "files": [
         {
-          "path": "src/components/ui/cognite/textarea.tsx",
+          "path": "src/components/ui/aura/textarea.tsx",
           "type": "registry:component"
         }
       ]
@@ -514,7 +517,7 @@
       "description": "Time Input component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/time-input.tsx",
+          "path": "src/components/ui/aura/time-input.tsx",
           "type": "registry:component"
         }
       ]
@@ -526,7 +529,7 @@
       "description": "Toggle component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/toggle.tsx",
+          "path": "src/components/ui/aura/toggle.tsx",
           "type": "registry:component"
         }
       ]
@@ -539,7 +542,7 @@
       "dependencies": ["@radix-ui/react-tooltip"],
       "files": [
         {
-          "path": "src/components/ui/cognite/tooltip.tsx",
+          "path": "src/components/ui/aura/tooltip.tsx",
           "type": "registry:component"
         }
       ]
@@ -551,7 +554,7 @@
       "description": "Topbar component.",
       "files": [
         {
-          "path": "src/components/ui/cognite/topbar.tsx",
+          "path": "src/components/ui/aura/topbar.tsx",
           "type": "registry:component"
         }
       ]
@@ -565,7 +568,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/cognite/carousel.tsx",
+          "path": "src/components/ui/aura/carousel.tsx",
           "type": "registry:component"
         }
       ]
@@ -578,7 +581,7 @@
       "dependencies": ["@radix-ui/react-hover-card"],
       "files": [
         {
-          "path": "src/components/ui/cognite/hover-card.tsx",
+          "path": "src/components/ui/aura/hover-card.tsx",
           "type": "registry:component"
         }
       ]
@@ -590,7 +593,7 @@
       "description": "Input group component for grouped inputs with addons.",
       "files": [
         {
-          "path": "src/components/ui/cognite/input-group.tsx",
+          "path": "src/components/ui/aura/input-group.tsx",
           "type": "registry:component"
         }
       ]
@@ -600,7 +603,7 @@
       "type": "registry:component",
       "title": "Actions",
       "description": "AI actions component for displaying action buttons.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": ["button", "tooltip"],
       "files": [
         {
@@ -619,7 +622,8 @@
           "path": "src/components/ai-elements/cognite/artifact.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "branch",
@@ -664,7 +668,7 @@
       "type": "registry:component",
       "title": "Code Block",
       "description": "AI code block component with syntax highlighting.",
-      "dependencies": ["lucide-react"],
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": ["button"],
       "files": [
         {
@@ -821,7 +825,8 @@
           "path": "src/components/ai-elements/cognite/open-in-chat.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "panel",
@@ -845,7 +850,8 @@
           "path": "src/components/ai-elements/cognite/plan.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "prompt-input",
@@ -870,7 +876,8 @@
           "path": "src/components/ai-elements/cognite/queue.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "reasoning",
@@ -918,7 +925,8 @@
           "path": "src/components/ai-elements/cognite/sources.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "suggestion",
@@ -943,7 +951,8 @@
           "path": "src/components/ai-elements/cognite/task.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@tabler/icons-react"]
     },
     {
       "name": "tool",

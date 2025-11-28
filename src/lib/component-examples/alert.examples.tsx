@@ -2,7 +2,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from '@/components/ui/cognite/alert';
+} from '@/components/ui/aura/alert';
 import {
   IconAlertCircle as AlertCircle,
   IconTerminal2 as Terminal,
@@ -51,7 +51,7 @@ export const alertExamples: ComponentExamples = {
     component: BasicDemo,
     difficulty: 'beginner',
     code: `
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/cognite/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/aura/alert';
 import { IconTerminal2 as Terminal } from '@tabler/icons-react';
 
 export function BasicDemo() {
@@ -75,7 +75,7 @@ export function BasicDemo() {
     component: VariantsDemo,
     difficulty: 'beginner',
     code: `
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/cognite/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/aura/alert';
 import {
   IconAlertCircle as AlertCircle,
   IconTerminal2 as Terminal,
@@ -112,5 +112,5 @@ export const alertMeta = {
     'Displays a callout for user attention with different severity levels.',
   llmUsage:
     'When showing alerts or notifications, use `<Alert>` with `<AlertTitle>` and `<AlertDescription>` components.',
-  importPath: '@/components/ui/cognite/alert',
+  importPath: '@/components/ui/aura/alert',
 };

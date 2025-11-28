@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/cognite/badge';
+import { Badge } from '@/components/ui/aura/badge';
 import type { ComponentExamples } from './types';
 import {
   IconAlertHexagon,
@@ -14,45 +14,45 @@ function VariantsDemo() {
   return (
     <div>
       <div className="flex flex-wrap gap-3 mb-4">
-        {/* @storybook */}<Badge variant="fjord">Observations</Badge>
-        {/* @storybook */}<Badge variant="aurora">Troubleshooting</Badge>
-        {/* @storybook */}<Badge variant="mountain">
-          <IconHexagon />
+        <Badge variant="fjord">Observations</Badge>
+        <Badge variant="aurora">Troubleshooting</Badge>
+        <Badge variant="mountain">
+          <IconHexagon size={12} />
           Plans
         </Badge>
-        {/* @storybook */}<Badge variant="dusk">RCA</Badge>
-        {/* @storybook */}<Badge variant="secondary">
-          <IconHexagon className="rotate-90" />
+        <Badge variant="dusk">RCA</Badge>
+        <Badge variant="secondary">
+          <IconHexagon className="rotate-90" size={12} />
           Asset
         </Badge>
       </div>
       <div className="flex flex-wrap gap-3">
-        {/* @storybook */}<Badge variant="error" background={false}>
-          <IconAlertHexagon />
+        <Badge variant="error" background={false}>
+          <IconAlertHexagon size={12} />
           Error
         </Badge>
-        {/* @storybook: name=ErrorOutline */}<Badge variant="error" outline>
-          <IconAlertHexagon />
+        <Badge variant="error" outline>
+          <IconAlertHexagon size={12} />
           Error
         </Badge>
-        {/* @storybook */}<Badge variant="warning" background={false}>
-          <IconAlertTriangle />
+        <Badge variant="warning" background={false}>
+          <IconAlertTriangle size={12} />
           Warning
         </Badge>
-        {/* @storybook: name=WarningOutline */}<Badge variant="warning" outline>
-          <IconAlertTriangle />
+        <Badge variant="warning" outline>
+          <IconAlertTriangle size={12} />
           Warning
         </Badge>
-        {/* @storybook */}<Badge variant="success" background={false}>
-          <IconCircleCheck />
+        <Badge variant="success" background={false}>
+          <IconCircleCheck size={12} />
           Success
         </Badge>
-        {/* @storybook */}<Badge variant="inProgress" background={false}>
-          <IconInnerShadowTopLeft />
+        <Badge variant="inProgress" background={false}>
+          <IconInnerShadowTopLeft size={12} />
           In progress
         </Badge>
-        {/* @storybook */}<Badge variant="archived" background={false}>
-          <IconArchive />
+        <Badge variant="archived" background={false}>
+          <IconArchive size={12} />
           Archived
         </Badge>
       </div>
@@ -63,16 +63,16 @@ function MainComponentDemo() {
   return (
     <div className="flex flex-col gap-3 items-center justify-center">
       <Badge variant="default">
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant={'closable'}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
-        <IconX />
+        <IconX size={12} />
       </Badge>
       <Badge variant="error" background={false}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant="error" dot>
@@ -81,13 +81,98 @@ function MainComponentDemo() {
     </div>
   );
 }
+
+function BuildingBlocksDemo() {
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap gap-3 border-dashed border-2 border-gray-300 p-4 rounded-md">
+        <Badge variant="mountain">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="fjord">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="nordic">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="aurora">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="dusk">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="orange">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="sky">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="gray">
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+      </div>
+
+      <div className="flex flex-wrap gap-3 border-dashed border-2 border-gray-300 p-4 rounded-md">
+        <Badge variant="error" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="error" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="warning" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="warning" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="success" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="success" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="inProgress" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="inProgress" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="archived" background={false}>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+        <Badge variant="archived" outline>
+          <IconHexagon className="rotate-90" />
+          Badge
+        </Badge>
+      </div>
+    </div>
+  );
+}
+
 export const badgeExamples: ComponentExamples = {
   variants: {
     title: 'Badge Variants',
     description: 'Different badge styles for various semantic meanings',
     component: VariantsDemo,
     difficulty: 'beginner',
-    code: `import { Badge } from "@/components/ui/cognite/badge"
+    code: `import { Badge } from "@/components/ui/aura/badge"
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -104,42 +189,42 @@ export function VariantsDemo() {
         <Badge variant="fjord">Observations</Badge>
         <Badge variant="aurora">Troubleshooting</Badge>
         <Badge variant="mountain">
-          <IconHexagon />
+          <IconHexagon  size={12} />
           Plans
         </Badge>
         <Badge variant="dusk">RCA</Badge>
         <Badge variant="secondary">
-          <IconHexagon className="rotate-90" />
+          <IconHexagon className="rotate-90"  size={12} />
           Asset
         </Badge>
       </div>
       <div className="flex flex-wrap gap-3">
         <Badge variant="error" background={false}>
-          <IconAlertHexagon />
+          <IconAlertHexagon  size={12} />
           Error
         </Badge>
         <Badge variant="error" outline>
-          <IconAlertHexagon />
+          <IconAlertHexagon  size={12} />
           Error
         </Badge>
         <Badge variant="warning" background={false}>
-          <IconAlertTriangle />
+          <IconAlertTriangle  size={12} />
           Warning
         </Badge>
         <Badge variant="warning" outline>
-          <IconAlertTriangle />
+          <IconAlertTriangle  size={12} />
           Warning
         </Badge>
         <Badge variant="success" background={false}>
-          <IconCircleCheck />
+          <IconCircleCheck  size={12} />
           Success
         </Badge>
         <Badge variant="inProgress" background={false}>
-          <IconInnerShadowTopLeft />
+          <IconInnerShadowTopLeft size={12} />
           In progress
         </Badge>
         <Badge variant="archived" background={false}>
-          <IconArchive />
+          <IconArchive  size={12} />
           Archived
         </Badge>
       </div>
@@ -153,23 +238,23 @@ export function VariantsDemo() {
     description: '',
     component: MainComponentDemo,
     difficulty: 'beginner',
-    code: `import { Badge } from "@/components/ui/cognite/badge"
+    code: `import { Badge } from "@/components/ui/aura/badge"
 import { IconHexagon, IconX } from "@tabler/icons-react";
 
 export function MainComponentDemo() {
   return (
     <div className="flex flex-col gap-3 items-center justify-center">
       <Badge variant="default">
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant={"closable"}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
-        <IconX />
+        <IconX size={12} />
       </Badge>
       <Badge variant="error" background={false}>
-        <IconHexagon className="rotate-90" />
+        <IconHexagon className="rotate-90" size={12} />
         Badge
       </Badge>
       <Badge variant="error" dot>
@@ -177,6 +262,27 @@ export function MainComponentDemo() {
       </Badge>
     </div>
   )
+}`,
+  },
+
+  buildingBlocks: {
+    title: 'Building blocks',
+    description: '',
+    component: BuildingBlocksDemo,
+    difficulty: 'beginner',
+    code: `import { Badge } from "@/components/ui/aura/badge"
+import { IconHexagon } from "@tabler/icons-react";
+
+export function BuildingBlocksDemo() {
+  return (
+    <div>
+      <Badge variant="default">
+        <IconHexagon className="rotate-90" />
+        Badge
+      </Badge>
+    </div>
+  );
+}
 }`,
   },
 };
@@ -188,5 +294,5 @@ export const badgeMeta = {
     'A small status indicator component with multiple variants for displaying labels, counts, and statuses.',
   llmUsage:
     "When showing status or labels, use `<Badge variant='default'>Status</Badge>` instead of custom spans. Use variants like 'secondary', 'destructive', or 'outline' for different meanings.",
-  importPath: '@/components/ui/cognite/badge',
+  importPath: '@/components/ui/aura/badge',
 };

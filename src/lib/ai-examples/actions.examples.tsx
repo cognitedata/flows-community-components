@@ -1,10 +1,10 @@
-import { Actions, Action } from '@/components/ui/cognite/actions';
+import { Actions, Action } from '@/components/ui/aura/actions';
 import {
   Message,
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
-} from '@/components/ui/cognite/message';
+} from '@/components/ui/aura/message';
 import {
   IconThumbUp,
   IconThumbDown,
@@ -18,18 +18,23 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/cognite/dropdown-menu';
+} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicActionsDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>Hello, how are you?</MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="User" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           I am fine, thank you!
           <Actions>
@@ -58,11 +63,6 @@ function BasicActionsDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   );
@@ -71,12 +71,17 @@ function BasicActionsDemo() {
 function ActionsWithLabelsDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>What is React?</MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="User" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           React is a JavaScript library for building user interfaces. It&apos;s
           declarative, efficient, and flexible.
@@ -100,11 +105,6 @@ function ActionsWithLabelsDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   );
@@ -124,19 +124,24 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function BasicActionsDemo() {
     return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>
           Hello, how are you?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="User" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           I am fine, thank you!
           <Actions>
@@ -165,11 +170,6 @@ export function BasicActionsDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   )
@@ -189,19 +189,24 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/cognite/dropdown-menu"
+} from "@/components/ui/aura/dropdown-menu"
 
 export function ActionsWithLabelsDemo() {
     return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message from="user">
+      <Message>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>
           What is React?
         </MessageContent>
-        <MessageAvatar src="/user-avatar2.png" name="User" />
       </Message>
 
-      <Message from="assistant">
+      <Message isResponse={true}>
+        <MessageAvatar variant="fjord">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           React is a JavaScript library for building user interfaces.
           <Actions>
@@ -224,11 +229,6 @@ export function ActionsWithLabelsDemo() {
             </DropdownMenu>
           </Actions>
         </MessageContent>
-        <MessageAvatar variant="fjord">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
       </Message>
     </div>
   )

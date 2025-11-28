@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/cognite/button';
-import { toast } from '@/components/ui/cognite/sonner-toast';
+import { Button } from '@/components/ui/aura/button';
+import { toast } from '@/components/ui/aura/sonner-toast';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -59,8 +59,8 @@ export const sonnerExamples: ComponentExamples = {
       'Interactive toast notifications with different types and descriptions',
     component: BasicDemo,
     difficulty: 'intermediate',
-    code: `import { Button } from "@/components/ui/cognite/button"
-import { toast } from "@/components/ui/cognite/sonner-toast"
+    code: `import { Button } from "@/components/ui/aura/button"
+import { toast } from "@/components/ui/aura/sonner-toast"
 
 export function BasicDemo() {
   const handleSuccess = () => {
@@ -118,5 +118,5 @@ export const sonnerMeta = {
     'An opinionated toast component for React. A toast is used to show a brief message.',
   llmUsage:
     'When asked for toast notifications, use `<Sonner>` or `toast()` function for user feedback messages.',
-  importPath: '@/components/ui/cognite/sonner',
+  importPath: '@/components/ui/aura/sonner',
 };

@@ -30,7 +30,7 @@ Add a new component to production:
 
 ```bash
 # Create component in cognite folder
-vim src/components/ui/cognite/button.tsx
+vim src/components/ui/aura/button.tsx
 npm run registry:build
 ```
 
@@ -39,7 +39,7 @@ npm run registry:build
 Remove a component from production:
 
 ```bash
-rm src/components/ui/cognite/button.tsx
+rm src/components/ui/aura/button.tsx
 npm run registry:build
 ```
 
@@ -51,7 +51,7 @@ Edit a production component:
 
 ```bash
 # Edit the file
-vim src/components/ui/cognite/button.tsx
+vim src/components/ui/aura/button.tsx
 
 # Rebuild to update published version
 npm run registry:build
@@ -86,7 +86,7 @@ After building, verify the output:
 
 ```bash
 # Check what's in cognite
-ls src/components/ui/cognite/
+ls src/components/ui/aura/
 
 # Check what's in registry.json
 grep '"name":' registry.json

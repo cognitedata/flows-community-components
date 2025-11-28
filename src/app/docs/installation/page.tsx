@@ -9,25 +9,26 @@ import {
   IconSparkles as Sparkles,
   IconTerminal as Terminal,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
+import { Button } from '@/components/ui/aura/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '@/components/ui/aura/card';
+import { Badge } from '@/components/ui/aura/badge';
 import {
   CodeBlock,
   CodeBlockCopyButton,
-} from '@/components/ui/cognite/code-block';
+} from '@/components/ui/aura/code-block';
 
 interface Step {
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   code?: string;
+  exampleLabel?: string;
   configStep?: boolean;
 }
 
@@ -49,7 +50,7 @@ const steps: Step[] = [
     icon: Sparkles,
     title: 'Start building with Cursor',
     description: 'Ask Cursor AI to build your features using natural language',
-    code: 'Example: Build me a timeseries dashboard',
+    code: 'Build me a timeseries dashboard',
   },
 ];
 

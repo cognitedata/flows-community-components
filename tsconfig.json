@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/components/ui/cognite/*": ["./src/components/ui/cognite/*"],
+      "@/components/ui/aura/*": ["./src/components/ui/aura/*"],
       "@/components/ai-elements/cognite/*": [
         "./src/components/ai-elements/cognite/*",
         "./src/components/ai-elements/draft/*"

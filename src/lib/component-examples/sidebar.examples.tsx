@@ -7,7 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from '@/components/ui/cognite/sidebar';
+} from '@/components/ui/aura/sidebar';
 import {
   IconChartBar as BarChart3,
   IconFileText as FileText,
@@ -102,7 +102,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-} from '@/components/ui/cognite/sidebar';
+} from '@/components/ui/aura/sidebar';
 import {
   IconChartBar as BarChart3,
   IconFileText as FileText,
@@ -188,5 +188,5 @@ export const sidebarMeta = {
   description: 'A composable, themeable and customizable sidebar component.',
   llmUsage:
     'When creating sidebars, use `<Sidebar>` with `<SidebarContent>`, `<SidebarMenu>`, and related components.',
-  importPath: '@/components/ui/cognite/sidebar',
+  importPath: '@/components/ui/aura/sidebar',
 };

@@ -3,9 +3,15 @@
 import React, { RefObject, useEffect, useId, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useOutsideClick } from '@/hooks/use-outside-click';
-import { Badge } from '@/components/ui/cognite/badge';
-import { Button } from '@/components/ui/cognite/button';
-import { Palette, Code, Sparkles, X, ArrowRight } from 'lucide-react';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import {
+  IconArrowRight,
+  IconCode,
+  IconPalette,
+  IconSparkles,
+  IconX,
+} from '@tabler/icons-react';
 import Link from 'next/link';
 
 interface FeatureCard {
@@ -25,7 +31,7 @@ const featureCards: FeatureCard[] = [
     title: 'Aurora lime theming',
     description:
       'Dynamic color system with intelligent light/dark mode switching',
-    icon: <Palette className="h-6 w-6 text-primary drop-shadow-sm" />,
+    icon: <IconPalette className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: '18 color palettes',
     ctaText: 'Explore colors',
     ctaLink: '/primitives/colors',
@@ -89,7 +95,7 @@ const featureCards: FeatureCard[] = [
     id: 'components',
     title: 'ShadCN components',
     description: 'Production-ready components built on Radix UI primitives',
-    icon: <Code className="h-6 w-6 text-primary drop-shadow-sm" />,
+    icon: <IconCode className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: '25+ components',
     ctaText: 'View components',
     ctaLink: '/primitives/components/button',
@@ -151,7 +157,7 @@ const featureCards: FeatureCard[] = [
     title: 'AI-powered sandbox',
     description:
       'Generate custom components with AI assistance using your design system',
-    icon: <Sparkles className="h-6 w-6 text-primary drop-shadow-sm" />,
+    icon: <IconSparkles className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: 'Gemini powered',
     ctaText: 'Try sandbox',
     ctaLink: '/sandbox',
@@ -256,7 +262,7 @@ export function ExpandableFeatureCards() {
               className="flex absolute top-4 right-4 items-center justify-center bg-background border rounded-full h-8 w-8 shadow-lg hover:bg-muted transition-colors"
               onClick={() => setActive(null)}
             >
-              <X className="h-4 w-4" />
+              <IconX className="h-4 w-4" />
             </motion.button>
 
             <motion.div
@@ -324,7 +330,7 @@ export function ExpandableFeatureCards() {
                       className="flex items-center justify-center gap-2"
                     >
                       {active.ctaText}
-                      <ArrowRight className="h-4 w-4" />
+                      <IconArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </motion.div>

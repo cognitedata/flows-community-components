@@ -29,5 +29,5 @@ export const topbarMeta = {
     'Custom component for application topbar (implementation pending).',
   llmUsage:
     'Topbar component is a custom component - implementation details coming soon.',
-  importPath: '@/components/ui/cognite/topbar',
+  importPath: '@/components/ui/aura/topbar',
 };

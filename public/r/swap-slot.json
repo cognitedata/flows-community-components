@@ -6,7 +6,7 @@
   "description": "Swap Slot component.",
   "files": [
     {
-      "path": "src/components/ui/cognite/swap-slot.tsx",
+      "path": "src/components/ui/aura/swap-slot.tsx",
       "content": "// Custom component - SwapSlot\n// TODO: Implement swap slot component\n",
       "type": "registry:component"
     }

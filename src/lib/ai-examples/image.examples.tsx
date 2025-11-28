@@ -1,6 +1,6 @@
 'use client';
 
-import { Image } from '@/components/ui/cognite/image';
+import { Image } from '@/components/ui/aura/image';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 const exampleImage = {

@@ -8,17 +8,17 @@ import {
   IconCopy as Copy,
   IconEye as Eye,
 } from '@tabler/icons-react';
-import { Button } from '@/components/ui/cognite/button';
-import { Input } from '@/components/ui/cognite/input';
-import { Label } from '@/components/ui/cognite/label';
+import { Button } from '@/components/ui/aura/button';
+import { Input } from '@/components/ui/aura/input';
+import { Label } from '@/components/ui/aura/label';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Switch } from '@/components/ui/cognite/switch';
+} from '@/components/ui/aura/card';
+import { Switch } from '@/components/ui/aura/switch';
 
 function CodeBlock({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
@@ -104,7 +104,7 @@ export default function PrimitivesPage() {
   const [inputValue, setInputValue] = useState('');
   const [switchValue, setSwitchValue] = useState(false);
 
-  const buttonCode = `import { Button } from "@/components/ui/cognite/button"
+  const buttonCode = `import { Button } from "@/components/ui/aura/button"
 
 export function ButtonDemo() {
   return (
@@ -116,8 +116,8 @@ export function ButtonDemo() {
   )
 }`;
 
-  const inputCode = `import { Input } from "@/components/ui/cognite/input"
-import { Label } from "@/components/ui/cognite/label"
+  const inputCode = `import { Input } from "@/components/ui/aura/input"
+import { Label } from "@/components/ui/aura/label"
 
 export function InputDemo() {
   return (
@@ -132,7 +132,7 @@ export function InputDemo() {
   )
 }`;
 
-  const cardCode = `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/cognite/card"
+  const cardCode = `import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/aura/card"
 
 export function CardDemo() {
   return (
@@ -152,8 +152,8 @@ export function CardDemo() {
   )
 }`;
 
-  const switchCode = `import { Switch } from "@/components/ui/cognite/switch"
-import { Label } from "@/components/ui/cognite/label"
+  const switchCode = `import { Switch } from "@/components/ui/aura/switch"
+import { Label } from "@/components/ui/aura/label"
 
 export function SwitchDemo() {
   return (
@@ -422,12 +422,12 @@ export function SwitchDemo() {
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <h4 className="font-semibold">Installation</h4>
-                  <CodeBlock code="npx shadcn@latest add button input label card switch" />
+                  <CodeBlock code="pnpm dlx shadcn@latest add @aura/button @aura/input @aura/label @aura/card @aura/switch" />
                 </div>
 
                 <div className="space-y-2">
                   <h4 className="font-semibold">Import</h4>
-                  <CodeBlock code="import { Button } from '@/components/ui/cognite/button'" />
+                  <CodeBlock code="import { Button } from '@/components/ui/aura/button'" />
                 </div>
               </CardContent>
             </Card>

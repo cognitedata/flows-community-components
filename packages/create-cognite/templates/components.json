@@ -12,12 +12,12 @@
   },
   "aliases": {
     "components": "@/components",
-    "utils": "@/lib/utils",
+    "utils": "@/common/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
   "registries": {
-    "@cognite": "http://localhost:3000/r/{name}.json"
+    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
   }
 }

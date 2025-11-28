@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
+} from '@/components/ui/aura/card';
 import { CodeExample } from '@/components/code-example';
 
 export default function AIPage() {
@@ -195,7 +195,7 @@ import { Conversation } from "@/components/ai-elements/cognite/conversation"
 export function ChatInterface() {
   return (
     <Conversation>
-      <Message from="user">
+      <Message>
         <MessageContent>
           Hello, AI!
         </MessageContent>

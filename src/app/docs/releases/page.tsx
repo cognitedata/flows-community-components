@@ -5,8 +5,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/cognite/card';
-import { Badge } from '@/components/ui/cognite/badge';
+} from '@/components/ui/aura/card';
+import { Badge } from '@/components/ui/aura/badge';
 import { IconCalendarStats as CalendarDays, IconGitCommit as GitCommit } from '@tabler/icons-react';
 
 const releases = [
