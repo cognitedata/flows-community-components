@@ -499,6 +499,18 @@
       ]
     },
     {
+      "name": "table",
+      "type": "registry:component",
+      "title": "Table",
+      "description": "A responsive table component for displaying tabular data with support for headers, bodies, footers, and captions.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/table.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "textarea",
       "type": "registry:component",
       "title": "Textarea",

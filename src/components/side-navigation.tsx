@@ -130,6 +130,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/components/sonner', label: 'Sonner' },
       { href: '/primitives/components/swap-slot', label: 'Swap slot' },
       { href: '/primitives/components/switch', label: 'Switch' },
+      { href: '/primitives/components/table', label: 'Table' },
       { href: '/primitives/components/tabs', label: 'Tabs' },
       { href: '/primitives/components/textarea', label: 'Textarea' },
       { href: '/primitives/components/time-input', label: 'Time input' },
