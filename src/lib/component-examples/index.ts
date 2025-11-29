@@ -41,6 +41,7 @@ import { timeInputExamples } from './time-input.examples';
 import { toggleExamples } from './toggle.examples';
 import { tooltipExamples } from './tooltip.examples';
 import { topbarExamples } from './topbar.examples';
+import { typographyExamples, typographyMeta } from './typography.examples';
 import type { ComponentExamples, ComponentMeta } from './types';
 
 export const componentExamples = {
@@ -85,6 +86,7 @@ export const componentExamples = {
   toggle: toggleExamples,
   tooltip: tooltipExamples,
   topbar: topbarExamples,
+  typography: typographyExamples,
 } as const;
 
 export type ComponentSlug = keyof typeof componentExamples;
@@ -94,6 +96,7 @@ export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
   banner: bannerMeta,
   'helper-text': helperTextMeta,
+  typography: typographyMeta,
   // Other components will be added here as they're migrated
 };
 

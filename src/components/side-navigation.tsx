@@ -69,6 +69,7 @@ const docsNavigation: NavigationItem[] = [
       { href: '/primitives/components/toggle', label: 'Toggle' },
       { href: '/primitives/components/tooltip', label: 'Tooltip' },
       { href: '/primitives/components/topbar', label: 'Topbar' },
+      { href: '/primitives/components/typography', label: 'Typography' },
     ],
   },
 ];
@@ -136,6 +137,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/components/toggle', label: 'Toggle' },
       { href: '/primitives/components/tooltip', label: 'Tooltip' },
       { href: '/primitives/components/topbar', label: 'Topbar' },
+      { href: '/primitives/components/typography', label: 'Typography' },
     ],
   },
 ];
