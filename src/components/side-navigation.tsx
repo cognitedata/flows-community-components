@@ -178,6 +178,7 @@ const aiNavigation: NavigationItem[] = [
       { href: '/ai/components/prompt-input', label: 'Prompt input' },
       { href: '/ai/components/reasoning', label: 'Reasoning' },
       { href: '/ai/components/response', label: 'Response' },
+      { href: '/ai/components/shimmer', label: 'Shimmer' },
       { href: '/ai/components/sources', label: 'Sources' },
       { href: '/ai/components/suggestion', label: 'Suggestion' },
       // { href: "/ai/components/task", label: "Task" },
