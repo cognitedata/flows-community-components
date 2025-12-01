@@ -8,21 +8,13 @@ import {
   MessageActions,
   MessageAction,
 } from '@/components/ui/aura/message';
-import {
-  Branch,
-  BranchMessages,
-  BranchSelector,
-  BranchPrevious,
-  BranchNext,
-  BranchPage,
-} from '@/components/ui/aura/branch';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
   InlineCitation,
   InlineCitationLink,
 } from '@/components/ui/aura/inline-citation';
 import {
-  IconAt,
+  IconHash,
   IconFile,
   IconPhoto,
   IconTimeline,
@@ -38,24 +30,6 @@ import {
   CodeBlockCopyButton,
 } from '@/components/ui/aura/code-block';
 
-const assistantResponses = [
-  {
-    id: '1',
-    content:
-      'According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?',
-  },
-  {
-    id: '2',
-    content:
-      'I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.',
-  },
-  {
-    id: '3',
-    content:
-      'The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment.',
-  },
-];
-
 function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
@@ -65,9 +39,9 @@ function Demo() {
           <span>There are abnormal vibration levels on </span>
           <InlineCitation>
             <InlineCitationLink
-              href="https://example.com/user/21PT1019"
+              href="https://example.com/pump/21PT1019"
               target="_blank"
-              icon={IconAt}
+              icon={IconHash}
               variant="nordic"
             >
               21PT1019
@@ -76,82 +50,65 @@ function Demo() {
         </MessageContent>
       </Message>
 
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {assistantResponses.map((response) => (
-            <Message isResponse={true} key={response.id}>
-              <MessageAvatar variant="nordic">
-                <MessageAvatarIcon>
-                  <IconWheel />
-                </MessageAvatarIcon>
-              </MessageAvatar>
-              <MessageContent className="flex flex-col gap-2">
-                {response.content}
-                <div className="flex flex-row gap-2">
-                  <InlineCitation>
-                    <InlineCitationLink
-                      href="https://example.com/chart/timeline"
-                      target="_blank"
-                      icon={IconTimeline}
-                    >
-                      Time series
-                    </InlineCitationLink>
-                  </InlineCitation>
-                  <InlineCitation>
-                    <InlineCitationLink
-                      href="https://example.com/image/image1.jpg"
-                      target="_blank"
-                      icon={IconPhoto}
-                    >
-                      pumpB.jpg
-                    </InlineCitationLink>
-                  </InlineCitation>
-                  <InlineCitation>
-                    <InlineCitationLink
-                      href="https://example.com/documentation.pdf"
-                      target="_blank"
-                      icon={IconFile}
-                    >
-                      pumpB.pdf
-                    </InlineCitationLink>
-                  </InlineCitation>
-                </div>
-                <MessageActions>
-                  <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-                    <IconCopy className="w-3 h-3" />
-                  </MessageAction>
-                  <MessageAction
-                    size="icon-sm"
-                    label="Download"
-                    tooltip="Download"
-                  >
-                    <IconDownload className="w-3 h-3" />
-                  </MessageAction>
-                  <MessageAction
-                    size="icon-sm"
-                    label="Explain Tool Call(s)"
-                    tooltip="Explain Tool Call(s)"
-                  >
-                    <IconTool className="w-3 h-3" />
-                  </MessageAction>
-                  <MessageAction
-                    size="icon-sm"
-                    label="Refresh"
-                    tooltip="Refresh"
-                  >
-                    <IconRefresh className="w-3 h-3" />
-                  </MessageAction>
-                  <BranchSelector from="assistant" className="px-0">
-                    <BranchPrevious />
-                    <BranchPage />
-                    <BranchNext />
-                  </BranchSelector>
-                </MessageActions>
-              </MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-      </Branch>
+      <Message isResponse={true}>
+        <MessageAvatar variant="nordic">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
+        <MessageContent className="flex flex-col gap-2">
+          I analyzed the sensor data and found that vibration levels on 21PT1019
+          exceeded normal thresholds at 03:15. This correlates with a 12%
+          increase in RPM during that window.
+          <div className="flex flex-row gap-2">
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/chart/timeline"
+                target="_blank"
+                icon={IconTimeline}
+              >
+                Time series
+              </InlineCitationLink>
+            </InlineCitation>
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/image/image1.jpg"
+                target="_blank"
+                icon={IconPhoto}
+              >
+                pumpB.jpg
+              </InlineCitationLink>
+            </InlineCitation>
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/documentation.pdf"
+                target="_blank"
+                icon={IconFile}
+              >
+                pumpB.pdf
+              </InlineCitationLink>
+            </InlineCitation>
+          </div>
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+              <IconCopy className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction
+              size="icon-sm"
+              label="Explain Tool Call(s)"
+              tooltip="Explain Tool Call(s)"
+            >
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
+            </MessageAction>
+          </MessageActions>
+        </MessageContent>
+      </Message>
     </div>
   );
 }
@@ -224,24 +181,10 @@ export const messageExamples: ComponentExamples = {
 
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
 import {
-  Branch,
-  BranchMessages,
-  BranchSelector,
-  BranchPrevious,
-  BranchNext,
-  BranchPage,
-} from "@/components/ui/aura/branch"
-import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ui/aura/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
-
-const assistantResponses = [
-  { id: "1", content: "According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period. Would you like me to add this to the canvas?" },
-  { id: "2", content: "I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window." },
-  { id: "3", content: "The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment." },
-]
+import { IconHash, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
 
 export function Demo() {
   return (
@@ -249,62 +192,56 @@ export function Demo() {
       <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink href="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span>
+          <InlineCitation>
+            <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+              21PT1019
+            </InlineCitationLink>
+          </InlineCitation>
         </MessageContent>
       </Message>
 
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {assistantResponses.map((response) => (
-            <Message isResponse={true} key={response.id}>
-              <MessageAvatar variant="nordic">
-                <MessageAvatarIcon>
-                  <IconWheel />
-                </MessageAvatarIcon>
-              </MessageAvatar>
-              <MessageContent className="flex flex-col gap-2">
-                {response.content}
-                <div className="flex flex-row gap-2">
-                  <InlineCitation>
-                    <InlineCitationLink href="https://example.com/chart/timeline" target="_blank" icon={IconTimeline}>
-                      Time series
-                    </InlineCitationLink>
-                  </InlineCitation>
-                  <InlineCitation>
-                    <InlineCitationLink href="https://example.com/image/image1.jpg" target="_blank" icon={IconPhoto}>
-                      pumpB.jpg
-                    </InlineCitationLink>
-                  </InlineCitation>
-                  <InlineCitation>
-                    <InlineCitationLink href="https://example.com/documentation.pdf" target="_blank" icon={IconFile}>
-                      pumpB.pdf
-                    </InlineCitationLink>
-                  </InlineCitation>
-                </div>
-                <MessageActions>
-                  <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-                    <IconCopy className="w-3 h-3" />
-                  </MessageAction>
-                  <MessageAction size="icon-sm" label="Download" tooltip="Download">
-                    <IconDownload className="w-3 h-3" />
-                  </MessageAction>
-                  <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
-                    <IconTool className="w-3 h-3" />
-                  </MessageAction>
-                  <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
-                    <IconRefresh className="w-3 h-3" />
-                  </MessageAction>
-                  <BranchSelector from="assistant" className="px-0">
-                    <BranchPrevious />
-                    <BranchPage />
-                    <BranchNext />
-                  </BranchSelector>
-                </MessageActions>
-              </MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-      </Branch>
+      <Message isResponse={true}>
+        <MessageAvatar variant="nordic">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
+        <MessageContent className="flex flex-col gap-2">
+          I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.
+          <div className="flex flex-row gap-2">
+            <InlineCitation>
+              <InlineCitationLink href="https://example.com/chart/timeline" target="_blank" icon={IconTimeline}>
+                Time series
+              </InlineCitationLink>
+            </InlineCitation>
+            <InlineCitation>
+              <InlineCitationLink href="https://example.com/image/image1.jpg" target="_blank" icon={IconPhoto}>
+                pumpB.jpg
+              </InlineCitationLink>
+            </InlineCitation>
+            <InlineCitation>
+              <InlineCitationLink href="https://example.com/documentation.pdf" target="_blank" icon={IconFile}>
+                pumpB.pdf
+              </InlineCitationLink>
+            </InlineCitation>
+          </div>
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+              <IconCopy className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
+            </MessageAction>
+          </MessageActions>
+        </MessageContent>
+      </Message>
     </div>
   )
 }`,
