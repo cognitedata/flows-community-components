@@ -36,17 +36,19 @@ function Demo() {
       <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span>
-          <InlineCitation>
-            <InlineCitationLink
-              href="https://example.com/pump/21PT1019"
-              target="_blank"
-              icon={IconHash}
-              variant="nordic"
-            >
-              21PT1019
-            </InlineCitationLink>
-          </InlineCitation>
+          <span>
+            There are abnormal vibration levels on{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+          </span>
         </MessageContent>
       </Message>
 
@@ -192,12 +194,14 @@ export function Demo() {
       <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span>
-          <InlineCitation>
-            <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
-              21PT1019
-            </InlineCitationLink>
-          </InlineCitation>
+          <span>
+            There are abnormal vibration levels on{' '}
+            <InlineCitation>
+              <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+          </span>
         </MessageContent>
       </Message>
 

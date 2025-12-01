@@ -57,18 +57,20 @@ function BranchDemo() {
       <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>What&apos;s causing the abnormal vibration levels on pump </span>
-          <InlineCitation>
-            <InlineCitationLink
-              href="https://example.com/pump/21PT1019"
-              target="_blank"
-              icon={IconHash}
-              variant="nordic"
-            >
-              21PT1019
-            </InlineCitationLink>
-          </InlineCitation>
-          <span>?</span>
+          <span>
+            What&apos;s causing the abnormal vibration levels on pump{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+            ?
+          </span>
         </MessageContent>
       </Message>
 
@@ -195,18 +197,20 @@ export function BranchDemo() {
       <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>What's causing the abnormal vibration levels on pump </span>
-          <InlineCitation>
-            <InlineCitationLink
-              href="https://example.com/pump/21PT1019"
-              target="_blank"
-              icon={IconHash}
-              variant="nordic"
-            >
-              21PT1019
-            </InlineCitationLink>
-          </InlineCitation>
-          <span>?</span>
+          <span>
+            What's causing the abnormal vibration levels on pump{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+            ?
+          </span>
         </MessageContent>
       </Message>
 
