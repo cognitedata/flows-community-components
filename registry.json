@@ -78,6 +78,26 @@
       ]
     },
     {
+      "name": "banner",
+      "type": "registry:component",
+      "title": "Banner",
+      "description": "A banner component for displaying important messages with icon, title, status, and actions.",
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "button",
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/banner.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "breadcrumb",
       "type": "registry:component",
       "title": "Breadcrumb",
