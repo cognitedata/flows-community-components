@@ -352,6 +352,18 @@
       ]
     },
     {
+      "name": "markdown",
+      "type": "registry:component",
+      "title": "Markdown",
+      "description": "Wrapper component for styling HTML rendered from markdown parsers, designed for LLM-generated content.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/markdown.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menubar",
       "type": "registry:component",
       "title": "Menubar",
@@ -638,18 +650,6 @@
       "files": [
         {
           "path": "src/components/ui/aura/topbar.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "typography",
-      "type": "registry:component",
-      "title": "Typography",
-      "description": "A collection of semantic HTML typography components with consistent styling for headings, paragraphs, lists, blockquotes, and inline elements.",
-      "files": [
-        {
-          "path": "src/components/ui/aura/typography.tsx",
           "type": "registry:component"
         }
       ]

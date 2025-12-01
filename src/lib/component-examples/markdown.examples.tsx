@@ -1,0 +1,587 @@
+import { Markdown } from '@/components/ui/aura/markdown';
+import type { ComponentExamples, ComponentMeta } from './types';
+
+function HeadingsDemo() {
+  return (
+    <Markdown>
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
+    </Markdown>
+  );
+}
+
+function ParagraphsDemo() {
+  return (
+    <Markdown>
+      <p>
+        This is a standard paragraph using the base markdown styling. It uses
+        the default body text size with regular weight and proper line height
+        for optimal readability.
+      </p>
+      <p>
+        You can use <strong>bold text</strong> for emphasis, or{' '}
+        <em>italic text</em> for subtle emphasis. Multiple paragraphs stack
+        naturally with appropriate spacing.
+      </p>
+      <hr />
+      <p>
+        Horizontal rules (above) can be used to separate sections of content.
+      </p>
+    </Markdown>
+  );
+}
+
+function ListsDemo() {
+  return (
+    <Markdown>
+      <h4>Unordered List</h4>
+      <ul>
+        <li>First item in the list</li>
+        <li>Second item with more detail</li>
+        <li>Third item to complete the set</li>
+      </ul>
+
+      <h4>Ordered List</h4>
+      <ol>
+        <li>First step in the process</li>
+        <li>Second step to follow</li>
+        <li>Final step to complete</li>
+      </ol>
+    </Markdown>
+  );
+}
+
+function BlockquoteDemo() {
+  return (
+    <Markdown>
+      <p>
+        Here&apos;s an example of using a blockquote to highlight important
+        information or quotations:
+      </p>
+      <blockquote>
+        &ldquo;Design is not just what it looks like and feels like. Design is
+        how it works.&rdquo; — Steve Jobs
+      </blockquote>
+      <p>
+        Blockquotes are perfect for emphasising key messages or external quotes.
+      </p>
+    </Markdown>
+  );
+}
+
+function CodeDemo() {
+  return (
+    <Markdown>
+      <p>
+        You can use <code>inline code</code> to highlight technical terms or
+        code snippets within text.
+      </p>
+      <p>
+        For example, the <code>className</code> prop accepts any valid Tailwind
+        CSS classes, and the <code>dangerouslySetInnerHTML</code> prop can be
+        used for HTML content.
+      </p>
+    </Markdown>
+  );
+}
+
+function LinksDemo() {
+  return (
+    <Markdown>
+      <p>
+        Links are styled consistently with the design system. You can{' '}
+        <a href="#">read the documentation</a> or <a href="#">view examples</a>{' '}
+        for more information.
+      </p>
+      <p>
+        Links use the <code>foreground-link</code> colour and show an underline
+        on hover.
+      </p>
+    </Markdown>
+  );
+}
+
+function CodeBlocksDemo() {
+  return (
+    <Markdown>
+      <p>Code blocks are useful for displaying longer code snippets:</p>
+      <pre>
+        <code>{`function greet(name) {
+  return \`Hello, \${name}!\`;
+}
+
+console.log(greet('World'));`}</code>
+      </pre>
+      <p>
+        They maintain formatting and use monospace font with proper syntax
+        highlighting support.
+      </p>
+    </Markdown>
+  );
+}
+
+function EmphasisDemo() {
+  return (
+    <Markdown>
+      <p>
+        You can combine <strong>bold</strong>, <em>italic</em>, and even{' '}
+        <strong>
+          <em>bold and italic together</em>
+        </strong>{' '}
+        for maximum emphasis.
+      </p>
+      <p>
+        This is <strong>very important</strong>, this is <em>emphasised</em>,
+        and this is{' '}
+        <strong>
+          <em>extremely important</em>
+        </strong>
+        .
+      </p>
+    </Markdown>
+  );
+}
+
+function LineBreaksDemo() {
+  return (
+    <Markdown>
+      <p>
+        Line breaks can be used within paragraphs.
+        <br />
+        This text appears on a new line without starting a new paragraph.
+        <br />
+        Useful for addresses, poetry, or structured content.
+      </p>
+      <p>
+        123 Design Street
+        <br />
+        Building 4, Floor 2<br />
+        London, UK
+      </p>
+    </Markdown>
+  );
+}
+
+function TablesDemo() {
+  return (
+    <Markdown>
+      <p>Tables display structured data with borders and zebra striping:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Andy Smith</td>
+            <td>Developer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Sarah Jones</td>
+            <td>Designer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Mike Wilson</td>
+            <td>Product Manager</td>
+            <td>Away</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Tables work well for simple data display from LLM-generated markdown.
+      </p>
+    </Markdown>
+  );
+}
+
+function LLMGeneratedDemo() {
+  // Simulate what an LLM markdown parser would output
+  const llmHtml = `<h2>Getting Started</h2>
+<p>Welcome to the documentation. This content was generated by an LLM and parsed to HTML.</p>
+<h3>Quick Start</h3>
+<p>Follow these steps to get started:</p>
+<ol>
+  <li>Install the package using <code>npm install</code></li>
+  <li>Import the Markdown component</li>
+  <li>Wrap your HTML content</li>
+</ol>
+<blockquote>Note: Make sure to check the <a href="#">documentation</a> for more details.</blockquote>`;
+
+  return <Markdown dangerouslySetInnerHTML={{ __html: llmHtml }} />;
+}
+
+function CompleteExampleDemo() {
+  return (
+    <Markdown>
+      <h1>Getting Started with Design Systems</h1>
+      <p>
+        A comprehensive guide to building and maintaining design systems that
+        scale across multiple applications and platforms.
+      </p>
+
+      <hr />
+
+      <h2>What is a Design System?</h2>
+      <p>
+        A design system is a collection of reusable components, guided by clear
+        standards, that can be assembled together to build applications. It
+        includes the <code>Markdown</code> component you&apos;re looking at
+        right now.
+      </p>
+
+      <blockquote>
+        &ldquo;A design system isn&apos;t a project. It&apos;s a product serving
+        products.&rdquo;
+      </blockquote>
+
+      <h3>Key Benefits</h3>
+      <ul>
+        <li>Consistency across all products and platforms</li>
+        <li>Faster development and iteration cycles</li>
+        <li>Improved collaboration between design and engineering</li>
+        <li>Better accessibility and user experience</li>
+      </ul>
+
+      <h3>Getting Started</h3>
+      <ol>
+        <li>Define your design principles and values</li>
+        <li>Audit existing components and patterns</li>
+        <li>Build your component library</li>
+        <li>Document and share with your team</li>
+      </ol>
+
+      <h4>Next Steps</h4>
+      <p>
+        Ready to dive deeper? Check out our{' '}
+        <a href="#installation">installation guide</a> or explore the{' '}
+        <a href="#components">component library</a>.
+      </p>
+    </Markdown>
+  );
+}
+
+export const markdownExamples: ComponentExamples = {
+  headings: {
+    title: 'Headings',
+    description: 'Semantic heading elements from H1 to H6',
+    component: HeadingsDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function HeadingsDemo() {
+  return (
+    <Markdown>
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
+    </Markdown>
+  )
+}`,
+  },
+
+  paragraphs: {
+    title: 'Paragraphs',
+    description: 'Standard paragraph text with emphasis and horizontal rules',
+    component: ParagraphsDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function ParagraphsDemo() {
+  return (
+    <Markdown>
+      <p>
+        This is a standard paragraph using the base markdown styling.
+      </p>
+      <p>
+        You can use <strong>bold text</strong> for emphasis, or <em>italic
+        text</em> for subtle emphasis.
+      </p>
+      <hr />
+      <p>Horizontal rules can separate sections.</p>
+    </Markdown>
+  )
+}`,
+  },
+
+  lists: {
+    title: 'Lists',
+    description: 'Ordered and unordered lists with proper styling',
+    component: ListsDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function ListsDemo() {
+  return (
+    <Markdown>
+      <h4>Unordered List</h4>
+      <ul>
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+      </ul>
+
+      <h4>Ordered List</h4>
+      <ol>
+        <li>First step</li>
+        <li>Second step</li>
+        <li>Final step</li>
+      </ol>
+    </Markdown>
+  )
+}`,
+  },
+
+  blockquote: {
+    title: 'Blockquote',
+    description: 'Styled blockquotes for highlighting quotations',
+    component: BlockquoteDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function BlockquoteDemo() {
+  return (
+    <Markdown>
+      <p>Here's an example of using a blockquote:</p>
+      <blockquote>
+        "Design is not just what it looks like. Design is how it works."
+        — Steve Jobs
+      </blockquote>
+      <p>Blockquotes are perfect for emphasising key messages.</p>
+    </Markdown>
+  )
+}`,
+  },
+
+  code: {
+    title: 'Inline Code',
+    description: 'Inline code snippets within text',
+    component: CodeDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function CodeDemo() {
+  return (
+    <Markdown>
+      <p>
+        You can use <code>inline code</code> to highlight technical terms.
+      </p>
+      <p>
+        For example, the <code>className</code> prop accepts Tailwind classes.
+      </p>
+    </Markdown>
+  )
+}`,
+  },
+
+  links: {
+    title: 'Links',
+    description: 'Styled hyperlinks with consistent design system colours',
+    component: LinksDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function LinksDemo() {
+  return (
+    <Markdown>
+      <p>
+        Links are styled consistently. You can{' '}
+        <a href="#">read the documentation</a> or{' '}
+        <a href="#">view examples</a>.
+      </p>
+    </Markdown>
+  )
+}`,
+  },
+
+  codeBlocks: {
+    title: 'Code Blocks',
+    description: 'Multi-line code blocks with proper formatting',
+    component: CodeBlocksDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function CodeBlocksDemo() {
+  return (
+    <Markdown>
+      <p>Code blocks are useful for displaying longer code snippets:</p>
+      <pre><code>{\`function greet(name) {
+  return \\\`Hello, \\\${name}!\\\`;
+}
+
+console.log(greet('World'));\`}</code></pre>
+      <p>They maintain formatting and use monospace font.</p>
+    </Markdown>
+  )
+}`,
+  },
+
+  emphasis: {
+    title: 'Combined Emphasis',
+    description: 'Bold and italic text combined for maximum emphasis',
+    component: EmphasisDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function EmphasisDemo() {
+  return (
+    <Markdown>
+      <p>
+        You can combine <strong>bold</strong>, <em>italic</em>, and even{' '}
+        <strong><em>bold and italic together</em></strong> for maximum emphasis.
+      </p>
+    </Markdown>
+  )
+}`,
+  },
+
+  lineBreaks: {
+    title: 'Line Breaks',
+    description: 'Line breaks within paragraphs for structured content',
+    component: LineBreaksDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function LineBreaksDemo() {
+  return (
+    <Markdown>
+      <p>
+        Line breaks can be used within paragraphs.<br />
+        This text appears on a new line without starting a new paragraph.
+      </p>
+      <p>
+        123 Design Street<br />
+        Building 4, Floor 2<br />
+        London, UK
+      </p>
+    </Markdown>
+  )
+}`,
+  },
+
+  tables: {
+    title: 'Tables',
+    description: 'Simple data tables with borders and striping',
+    component: TablesDemo,
+    difficulty: 'beginner',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function TablesDemo() {
+  return (
+    <Markdown>
+      <p>Tables display structured data:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Andy Smith</td>
+            <td>Developer</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Sarah Jones</td>
+            <td>Designer</td>
+            <td>Active</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Tables work well for simple data from LLM-generated markdown.</p>
+    </Markdown>
+  )
+}`,
+  },
+
+  llmGenerated: {
+    title: 'LLM-Generated HTML',
+    description: 'Rendering HTML output from markdown parsers',
+    component: LLMGeneratedDemo,
+    difficulty: 'intermediate',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+// LLM generates markdown, parser converts to HTML
+const llmMarkdown = \`# Getting Started
+Welcome to the documentation.
+
+## Quick Start
+Follow these steps...
+\`;
+
+const htmlContent = markdownParser(llmMarkdown);
+
+export function LLMGeneratedDemo() {
+  return <Markdown dangerouslySetInnerHTML={{ __html: htmlContent }} />
+}`,
+  },
+
+  complete: {
+    title: 'Complete Example',
+    description: 'A full page layout using all markdown elements together',
+    component: CompleteExampleDemo,
+    difficulty: 'intermediate',
+    code: `import { Markdown } from "@/components/ui/aura/markdown"
+
+export function CompleteExampleDemo() {
+  return (
+    <Markdown>
+      <h1>Getting Started with Design Systems</h1>
+      <p>A comprehensive guide to building design systems...</p>
+
+      <hr />
+
+      <h2>What is a Design System?</h2>
+      <p>A design system is a collection of reusable components...</p>
+
+      <blockquote>
+        "A design system isn't a project. It's a product serving products."
+      </blockquote>
+
+      <h3>Key Benefits</h3>
+      <ul>
+        <li>Consistency across products</li>
+        <li>Faster development cycles</li>
+      </ul>
+
+      <h3>Getting Started</h3>
+      <ol>
+        <li>Define your design principles</li>
+        <li>Audit existing components</li>
+      </ol>
+
+      <p>
+        Check out our <a href="#">documentation</a> for more.
+      </p>
+    </Markdown>
+  )
+}`,
+  },
+};
+
+export const markdownMeta: ComponentMeta = {
+  name: 'Markdown',
+  description:
+    'Wrapper component for styling HTML rendered from markdown parsers. Designed specifically for LLM-generated content that outputs markdown which then gets converted to HTML.',
+  importPath: '@/components/ui/aura/markdown',
+  llmUsage: `For rendering LLM-generated markdown that has been parsed to HTML, use the Markdown wrapper component. It automatically styles all standard HTML elements (h1-h6, p, ul, ol, li, a, strong, em, blockquote, code, hr, table) with consistent typography.
+
+Example:
+const llmMarkdown = "# Title\\n\\nParagraph with **bold** text."
+const htmlContent = markdownParser(llmMarkdown)
+<Markdown dangerouslySetInnerHTML={{ __html: htmlContent }} />`,
+};

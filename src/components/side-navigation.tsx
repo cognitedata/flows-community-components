@@ -51,6 +51,7 @@ const docsNavigation: NavigationItem[] = [
       { href: '/primitives/components/input', label: 'Input' },
       { href: '/primitives/components/kbd', label: 'Kbd' },
       { href: '/primitives/components/label', label: 'Label' },
+      { href: '/primitives/components/markdown', label: 'Markdown' },
       { href: '/primitives/components/menubar', label: 'Menubar' },
       { href: '/primitives/components/pagination', label: 'Pagination' },
       { href: '/primitives/components/popover', label: 'Popover' },
@@ -69,7 +70,6 @@ const docsNavigation: NavigationItem[] = [
       { href: '/primitives/components/toggle', label: 'Toggle' },
       { href: '/primitives/components/tooltip', label: 'Tooltip' },
       { href: '/primitives/components/topbar', label: 'Topbar' },
-      { href: '/primitives/components/typography', label: 'Typography' },
     ],
   },
 ];
@@ -121,6 +121,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/components/input', label: 'Input' },
       { href: '/primitives/components/kbd', label: 'Kbd' },
       { href: '/primitives/components/label', label: 'Label' },
+      { href: '/primitives/components/markdown', label: 'Markdown' },
       { href: '/primitives/components/menubar', label: 'Menubar' },
       { href: '/primitives/components/pagination', label: 'Pagination' },
       { href: '/primitives/components/popover', label: 'Popover' },
@@ -140,7 +141,6 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/components/toggle', label: 'Toggle' },
       { href: '/primitives/components/tooltip', label: 'Tooltip' },
       { href: '/primitives/components/topbar', label: 'Topbar' },
-      { href: '/primitives/components/typography', label: 'Typography' },
     ],
   },
 ];
