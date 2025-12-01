@@ -36,6 +36,7 @@ import { sonnerExamples } from './sonner.examples';
 import { swapSlotExamples } from './swap-slot.examples';
 import { switchExamples } from './switch.examples';
 import { tabsExamples } from './tabs.examples';
+import { tableExamples, tableMeta } from './table.examples';
 import { textareaExamples } from './textarea.examples';
 import { timeInputExamples } from './time-input.examples';
 import { toggleExamples } from './toggle.examples';
@@ -80,6 +81,7 @@ export const componentExamples = {
   'swap-slot': swapSlotExamples,
   switch: switchExamples,
   tabs: tabsExamples,
+  table: tableExamples,
   textarea: textareaExamples,
   'time-input': timeInputExamples,
   toggle: toggleExamples,
@@ -94,6 +96,7 @@ export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
   banner: bannerMeta,
   'helper-text': helperTextMeta,
+  table: tableMeta,
   // Other components will be added here as they're migrated
 };
 
