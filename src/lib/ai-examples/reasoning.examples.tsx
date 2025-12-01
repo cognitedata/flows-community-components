@@ -9,21 +9,17 @@ import {
   Message,
   MessageContent,
   MessageAvatar,
+  MessageAvatarIcon,
+  MessageActions,
+  MessageAction,
 } from '@/components/ui/aura/message';
-import { Actions, Action } from '@/components/ui/aura/actions';
 import {
-  IconThumbUp,
-  IconThumbDown,
   IconCopy,
-  IconShare,
-  IconDotsVertical,
+  IconDownload,
+  IconTool,
+  IconRefresh,
+  IconWheel,
 } from '@tabler/icons-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { startTransition, useCallback, useEffect, useState } from 'react';
 
@@ -202,16 +198,20 @@ function MessageConversationWithReasoningDemo() {
   }, [isStreamingResponse, currentResponseTokenIndex, responseTokens]);
 
   return (
-    <div className="flex flex-col space-y-4 w-full gap-2 p-4">
+    <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="Sarah Chen" />
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          How can I make a reasoning panel auto-open during streaming in my UI
-          component?
+          What&apos;s causing the abnormal vibration levels on pump 21PT1019?
         </MessageContent>
       </Message>
 
       <Message isResponse={true}>
+        <MessageAvatar variant="nordic">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <Reasoning
             className="w-full"
@@ -222,31 +222,24 @@ function MessageConversationWithReasoningDemo() {
             <ReasoningContent>{content}</ReasoningContent>
           </Reasoning>
           {showMessage && <p>{responseContent}</p>}
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
-            </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Add to canvas</DropdownMenuItem>
-                <DropdownMenuItem>Create work order</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </Actions>
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction
+              size="icon-sm"
+              label="Explain Tool Call(s)"
+              tooltip="Explain Tool Call(s)"
+            >
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
+            </MessageAction>
+          </MessageActions>
         </MessageContent>
       </Message>
     </div>
@@ -360,15 +353,8 @@ import {
   ReasoningTrigger,
   ReasoningContent,
 } from "@/components/ai-elements/cognite/reasoning"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
-import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { IconThumbUp, IconThumbDown, IconCopy, IconShare, IconDotsVertical } from "@tabler/icons-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu"
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ai-elements/cognite/message"
+import { IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
 import { useCallback, useEffect, useState } from "react"
 
 const reasoningContent = [
@@ -455,46 +441,40 @@ export function MessageConversationWithReasoningDemo() {
   }, [isStreamingResponse, currentResponseTokenIndex, responseTokens])
 
   return (
-    <div className="flex flex-col space-y-4 w-full gap-2 p-4" style={{ height: "500px" }}>
+    <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="Sarah Chen" />
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          What&apos;s causing the abnormal vibration levels on pump 21PT1019?
+          What's causing the abnormal vibration levels on pump 21PT1019?
         </MessageContent>
       </Message>
 
       <Message isResponse={true}>
+        <MessageAvatar variant="nordic">
+          <MessageAvatarIcon>
+            <IconWheel />
+          </MessageAvatarIcon>
+        </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <Reasoning className="w-full" isStreaming={isStreaming} onOpenChange={handleReasoningOpenChange}>
             <ReasoningTrigger />
             <ReasoningContent>{content}</ReasoningContent>
           </Reasoning>
           {showMessage && <p>{responseContent}</p>}
-          <Actions>
-            <Action size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Copy" tooltip="Copy">
+          <MessageActions>
+            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </Action>
-            <Action size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
-            </Action>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Action size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </Action>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Add to canvas</DropdownMenuItem>
-                <DropdownMenuItem>Create work order</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </Actions>
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
+            </MessageAction>
+          </MessageActions>
         </MessageContent>
       </Message>
     </div>
