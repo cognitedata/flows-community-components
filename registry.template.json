@@ -68,6 +68,20 @@
       ]
     },
     {
+      "name": "banner",
+      "type": "registry:component",
+      "title": "Banner",
+      "description": "A banner component for displaying important messages with icon, title, status, and actions.",
+      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
+      "registryDependencies": ["button", "badge"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/banner.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "breadcrumb",
       "type": "registry:component",
       "title": "Breadcrumb",
@@ -494,6 +508,18 @@
       "files": [
         {
           "path": "src/components/ui/aura/tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:component",
+      "title": "Table",
+      "description": "A responsive table component for displaying tabular data with support for headers, bodies, footers, and captions.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/table.tsx",
           "type": "registry:component"
         }
       ]

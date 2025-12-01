@@ -5,24 +5,24 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/common/utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center align-middle justify-center rounded-sm border px-1 text-sm font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-ring-md aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden leading-[18px]',
+  'inline-flex items-center align-middle justify-center rounded-sm border px-1 text-sm font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden leading-[18px]',
   {
     variants: {
       variant: {
         default: 'border-transparent bg-primary text-primary-foreground',
         fjord:
-          'border-transparent bg-fjord-50 text-fjord-700 dark:bg-fjord-900 dark:text-fjord-300',
+          'border-transparent bg-decorative-background-fjord text-decorative-foreground-fjord',
         nordic:
-          'border-transparent bg-nordic-50 text-nordic-600 dark:bg-nordic-900 dark:text-nordic-300',
+          'border-transparent bg-decorative-background-nordic text-decorative-foreground-nordic',
         aurora:
-          'border-transparent bg-aurora-50 text-aurora-600 dark:bg-aurora-900 dark:text-aurora-300',
-        sky: 'border-transparent bg-sky-50 text-sky-600 dark:bg-sky-900 dark:text-sky-300',
-        dusk: 'border-transparent bg-dusk-50 text-dusk-600 dark:bg-dusk-900 dark:text-dusk-400',
+          'border-transparent bg-decorative-background-aurora text-decorative-foreground-aurora',
+        sky: 'border-transparent bg-decorative-background-sky text-decorative-foreground-sky',
+        dusk: 'border-transparent bg-decorative-background-dusk text-decorative-foreground-dusk',
         orange:
-          'border-transparent bg-orange-50 text-orange-600 dark:bg-orange-900 dark:text-orange-300',
-        gray: 'border-transparent bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300',
+          'border-transparent bg-decorative-background-orange text-decorative-foreground-orange',
+        gray: 'border-transparent bg-decorative-background-gray text-decorative-foreground-gray',
         mountain:
-          'border-transparent bg-mountain-50 text-mountain-600 dark:bg-mountain-900 dark:text-mountain-400',
+          'border-transparent bg-decorative-background-mountain text-decorative-foreground-mountain',
         secondary: 'border-transparent bg-secondary text-secondary-foreground ',
         error: 'border-transparent bg-destructive text-destructive-foreground',
         warning: 'border-transparent bg-warning text-warning-foreground',
