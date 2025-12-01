@@ -46,7 +46,7 @@ function Textarea({
         data-slot="textarea"
         aria-invalid={isInvalid ? true : undefined}
         className={cn(
-          'border-border hover:bg-accent placeholder:text-muted-foreground focus-visible:ring-ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive-foreground dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent p-1.75 text-base tracking-tightest leading-5 transition-[color] outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'border-border placeholder:text-muted-foreground focus-visible:ring-ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive-foreground dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent p-1.75 text-base tracking-tightest leading-5 transition-[color] outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50',
           className
         )}
         onChange={handleChange}
