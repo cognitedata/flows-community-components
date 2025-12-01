@@ -1,7 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { IconCheck as Check, IconCopy as Copy, IconDownload as Download } from '@tabler/icons-react';
+import {
+  IconCheck as Check,
+  IconCopy as Copy,
+  IconDownload as Download,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/aura/button';
 import {
@@ -25,18 +29,6 @@ const colors = {
     { name: 'Blue 800', value: '#1e40af', hex: '#1e40af' },
     { name: 'Blue 900', value: '#1e3a8a', hex: '#1e3a8a' },
   ],
-  neon: [
-    { name: 'Neon 50', value: '#FCFF99', hex: '#FCFF99' },
-    { name: 'Neon 100', value: '#F8FF66', hex: '#F8FF66' },
-    { name: 'Neon 200', value: '#F2FF33', hex: '#F2FF33' },
-    { name: 'Neon 300', value: '#EBFF00', hex: '#EBFF00' },
-    { name: 'Neon 400', value: '#D6E600', hex: '#D6E600' },
-    { name: 'Neon 500', value: '#B3CC00', hex: '#B3CC00' },
-    { name: 'Neon 600', value: '#8FB300', hex: '#8FB300' },
-    { name: 'Neon 700', value: '#6B9900', hex: '#6B9900' },
-    { name: 'Neon 800', value: '#467F00', hex: '#467F00' },
-    { name: 'Neon 900', value: '#2B6600', hex: '#2B6600' },
-  ],
   slate: [
     { name: 'Slate 50', value: '#f8fafc', hex: '#f8fafc' },
     { name: 'Slate 100', value: '#f1f5f9', hex: '#f1f5f9' },
@@ -48,18 +40,6 @@ const colors = {
     { name: 'Slate 700', value: '#334155', hex: '#334155' },
     { name: 'Slate 800', value: '#1e293b', hex: '#1e293b' },
     { name: 'Slate 900', value: '#0f172a', hex: '#0f172a' },
-  ],
-  onyx: [
-    { name: 'Onyx 50', value: '#fafafa', hex: '#fafafa' },
-    { name: 'Onyx 100', value: '#f5f5f5', hex: '#f5f5f5' },
-    { name: 'Onyx 200', value: '#e5e5e5', hex: '#e5e5e5' },
-    { name: 'Onyx 300', value: '#d4d4d4', hex: '#d4d4d4' },
-    { name: 'Onyx 400', value: '#a3a3a3', hex: '#a3a3a3' },
-    { name: 'Onyx 500', value: '#737373', hex: '#737373' },
-    { name: 'Onyx 600', value: '#525252', hex: '#525252' },
-    { name: 'Onyx 700', value: '#404040', hex: '#404040' },
-    { name: 'Onyx 800', value: '#262626', hex: '#262626' },
-    { name: 'Onyx 900', value: '#171717', hex: '#171717' },
   ],
 };
 
