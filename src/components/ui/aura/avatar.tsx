@@ -7,24 +7,24 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/common/utils';
 
 const avatarVariants = cva(
-  'relative flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md inline-flex flex-col justify-center items-center hover:cursor-pointer box-border',
+  'group relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border',
   {
     variants: {
       variant: {
         default:
-          'bg-mountain-50 text-mountain-650 dark:bg-mountain-800 dark:text-mountain-300',
+          'bg-decorative-background-mountain text-decorative-foreground-mountain hover:bg-decorative-background-hover-mountain',
         nordic:
-          'bg-nordic-50 text-nordic-600 hover:bg-nordic-100 dark:bg-nordic-900 dark:text-nordic-300 dark:hover:bg-nordic-800',
+          'bg-decorative-background-nordic text-decorative-foreground-nordic hover:bg-decorative-background-hover-nordic',
         aurora:
-          'bg-aurora-50 text-aurora-600 hover:bg-aurora-100 dark:bg-aurora-900 dark:text-aurora-300 dark:hover:bg-aurora-800',
+          'bg-decorative-background-aurora text-decorative-foreground-aurora hover:bg-decorative-background-hover-aurora',
         fjord:
-          'bg-fjord-50 text-fjord-700 hover:bg-fjord-100 dark:bg-fjord-900 dark:text-fjord-300 dark:hover:bg-fjord-800',
-        dusk: 'bg-dusk-50 text-dusk-600 hover:bg-dusk-100 dark:bg-dusk-900 dark:text-dusk-400 dark:hover:bg-dusk-800',
+          'bg-decorative-background-fjord text-decorative-foreground-fjord hover:bg-decorative-background-hover-fjord',
+        dusk: 'bg-decorative-background-dusk text-decorative-foreground-dusk hover:bg-decorative-background-hover-dusk',
         orange:
-          'bg-orange-50 text-orange-600 hover:bg-orange-100 dark:bg-orange-900 dark:text-orange-300 dark:hover:bg-orange-800',
-        sky: 'bg-sky-50 text-sky-600 hover:bg-sky-100 dark:bg-sky-900 dark:text-sky-300 dark:hover:bg-sky-800',
+          'bg-decorative-background-orange text-decorative-foreground-orange hover:bg-decorative-background-hover-orange',
+        sky: 'bg-decorative-background-sky text-decorative-foreground-sky hover:bg-decorative-background-hover-sky',
         overflow:
-          'bg-secondary text-secondary-600 hover:bg-secondary-100 dark:bg-secondary dark:text-overflow-300 dark:hover:bg-secondary-800',
+          'bg-secondary text-secondary-foreground hover:bg-secondary-hover',
       },
       sizes: {
         default:
@@ -61,11 +61,18 @@ function AvatarImage({
   ...props
 }: React.ComponentProps<typeof AvatarPrimitive.Image>) {
   return (
-    <AvatarPrimitive.Image
-      data-slot="avatar-image"
-      className={cn('aspect-square', className)}
-      {...props}
-    />
+    <>
+      <AvatarPrimitive.Image
+        data-slot="avatar-image"
+        className={cn('aspect-square size-full', className)}
+        {...props}
+      />
+      <span
+        data-slot="avatar-image-backdrop"
+        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none"
+        aria-hidden="true"
+      />
+    </>
   );
 }
 

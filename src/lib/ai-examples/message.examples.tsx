@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Message,
   MessageContent,
@@ -12,7 +14,7 @@ import {
   InlineCitationLink,
 } from '@/components/ui/aura/inline-citation';
 import {
-  IconAt,
+  IconHash,
   IconFile,
   IconPhoto,
   IconTimeline,
@@ -21,14 +23,7 @@ import {
   IconTool,
   IconRefresh,
   IconWheel,
-  IconDotsVertical,
 } from '@tabler/icons-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
 import {
   CodeBlock,
   CodeBlockCollapseButton,
@@ -44,9 +39,9 @@ function Demo() {
           <span>There are abnormal vibration levels on </span>
           <InlineCitation>
             <InlineCitationLink
-              href="https://example.com/user/21PT1019"
+              href="https://example.com/pump/21PT1019"
               target="_blank"
-              icon={IconAt}
+              icon={IconHash}
               variant="nordic"
             >
               21PT1019
@@ -56,15 +51,15 @@ function Demo() {
       </Message>
 
       <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
+        <MessageAvatar variant="nordic">
           <MessageAvatarIcon>
             <IconWheel />
           </MessageAvatarIcon>
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
-          According to the time series, vibration amplitude has been rising
-          steadily since 03:00. The motor temperature also increased by 8°C over
-          the same period. Would you like me to add this to the canvas?
+          I analyzed the sensor data and found that vibration levels on 21PT1019
+          exceeded normal thresholds at 03:15. This correlates with a 12%
+          increase in RPM during that window.
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
@@ -101,23 +96,16 @@ function Demo() {
             <MessageAction size="icon-sm" label="Download" tooltip="Download">
               <IconDownload className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+            <MessageAction
+              size="icon-sm"
+              label="Explain Tool Call(s)"
+              tooltip="Explain Tool Call(s)"
+            >
               <IconTool className="w-3 h-3" />
             </MessageAction>
             <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
               <IconRefresh className="w-3 h-3" />
             </MessageAction>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <MessageAction size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </MessageAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </MessageActions>
         </MessageContent>
       </Message>
@@ -143,7 +131,7 @@ function WithCodeBlockDemo() {
       </Message>
 
       <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
+        <MessageAvatar variant="nordic">
           <MessageAvatarIcon>
             <IconWheel />
           </MessageAvatarIcon>
@@ -165,23 +153,16 @@ function WithCodeBlockDemo() {
             <MessageAction size="icon-sm" label="Download" tooltip="Download">
               <IconDownload className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+            <MessageAction
+              size="icon-sm"
+              label="Explain Tool Call(s)"
+              tooltip="Explain Tool Call(s)"
+            >
               <IconTool className="w-3 h-3" />
             </MessageAction>
             <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
               <IconRefresh className="w-3 h-3" />
             </MessageAction>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <MessageAction size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </MessageAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </MessageActions>
         </MessageContent>
       </Message>
@@ -196,18 +177,14 @@ export const messageExamples: ComponentExamples = {
       'Messages with background containers for clear visual separation',
     component: Demo,
     difficulty: 'beginner',
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
+    code: `"use client"
+
+import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
 import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ui/aura/inline-citation"
-import { IconAt, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel, IconDotsVertical } from "@tabler/icons-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu"
+import { IconHash, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
 
 export function Demo() {
   return (
@@ -215,45 +192,36 @@ export function Demo() {
       <Message>
         <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span><InlineCitation><InlineCitationLink href="https://example.com/user/21PT1019" target="_blank" icon={IconAt} variant="nordic">21PT1019</InlineCitationLink></InlineCitation>
+          <span>There are abnormal vibration levels on </span>
+          <InlineCitation>
+            <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+              21PT1019
+            </InlineCitationLink>
+          </InlineCitation>
         </MessageContent>
       </Message>
 
       <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
+        <MessageAvatar variant="nordic">
           <MessageAvatarIcon>
             <IconWheel />
           </MessageAvatarIcon>
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
-          According to the time series, vibration amplitude has been rising
-          steadily since 03:00. The motor temperature also increased by 8°C over
-          the same period. Would you like me to add this to the canvas?
+          I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.
           <div className="flex flex-row gap-2">
             <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/chart/timeline"
-                target="_blank"
-                icon={IconTimeline}
-              >
+              <InlineCitationLink href="https://example.com/chart/timeline" target="_blank" icon={IconTimeline}>
                 Time series
               </InlineCitationLink>
             </InlineCitation>
             <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/image/image1.jpg"
-                target="_blank"
-                icon={IconPhoto}
-              >
+              <InlineCitationLink href="https://example.com/image/image1.jpg" target="_blank" icon={IconPhoto}>
                 pumpB.jpg
               </InlineCitationLink>
             </InlineCitation>
             <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/documentation.pdf"
-                target="_blank"
-                icon={IconFile}
-              >
+              <InlineCitationLink href="https://example.com/documentation.pdf" target="_blank" icon={IconFile}>
                 pumpB.pdf
               </InlineCitationLink>
             </InlineCitation>
@@ -265,23 +233,12 @@ export function Demo() {
             <MessageAction size="icon-sm" label="Download" tooltip="Download">
               <IconDownload className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Settings" tooltip="Settings">
+            <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
               <IconTool className="w-3 h-3" />
             </MessageAction>
             <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
               <IconRefresh className="w-3 h-3" />
             </MessageAction>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <MessageAction size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </MessageAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </MessageActions>
         </MessageContent>
       </Message>
@@ -298,13 +255,7 @@ export function Demo() {
     difficulty: 'beginner',
     code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/aura/code-block"
-import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh, IconDotsVertical } from "@tabler/icons-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu"
+import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh } from "@tabler/icons-react"
 
 export function WithCodeBlockDemo() {
   const code = \`async function analyzeVibrationData(timeseriesId: string) {
@@ -324,7 +275,7 @@ export function WithCodeBlockDemo() {
       </Message>
 
       <Message isResponse={true}>
-        <MessageAvatar variant="fjord">
+        <MessageAvatar variant="nordic">
           <MessageAvatarIcon>
             <IconWheel />
           </MessageAvatarIcon>
@@ -340,29 +291,18 @@ export function WithCodeBlockDemo() {
             <CodeBlockCollapseButton />
           </CodeBlock>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Like" tooltip="Like">
-              <IconThumbUp className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Dislike" tooltip="Dislike">
-              <IconThumbDown className="w-3 h-3" />
-            </MessageAction>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Share" tooltip="Share">
-              <IconShare className="w-3 h-3" />
+            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+              <IconDownload className="w-3 h-3" />
             </MessageAction>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <MessageAction size="icon-sm" label="More options">
-                  <IconDotsVertical className="w-3 h-3" />
-                </MessageAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Option 1</DropdownMenuItem>
-                <DropdownMenuItem>Option 2</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
+              <IconTool className="w-3 h-3" />
+            </MessageAction>
+            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+              <IconRefresh className="w-3 h-3" />
+            </MessageAction>
           </MessageActions>
         </MessageContent>
       </Message>

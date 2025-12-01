@@ -23,6 +23,7 @@ import { helperTextExamples, helperTextMeta } from './helper-text.examples';
 import { inputExamples } from './input.examples';
 import { kbdExamples } from './kbd.examples';
 import { labelExamples } from './label.examples';
+import { markdownExamples, markdownMeta } from './markdown.examples';
 import { menubarExamples } from './menubar.examples';
 import { paginationExamples } from './pagination.examples';
 import { popoverExamples } from './popover.examples';
@@ -36,12 +37,12 @@ import { sonnerExamples } from './sonner.examples';
 import { swapSlotExamples } from './swap-slot.examples';
 import { switchExamples } from './switch.examples';
 import { tabsExamples } from './tabs.examples';
+import { tableExamples, tableMeta } from './table.examples';
 import { textareaExamples } from './textarea.examples';
 import { timeInputExamples } from './time-input.examples';
 import { toggleExamples } from './toggle.examples';
 import { tooltipExamples } from './tooltip.examples';
 import { topbarExamples } from './topbar.examples';
-import { typographyExamples, typographyMeta } from './typography.examples';
 import type { ComponentExamples, ComponentMeta } from './types';
 
 export const componentExamples = {
@@ -68,6 +69,7 @@ export const componentExamples = {
   input: inputExamples,
   kbd: kbdExamples,
   label: labelExamples,
+  markdown: markdownExamples,
   menubar: menubarExamples,
   pagination: paginationExamples,
   popover: popoverExamples,
@@ -81,12 +83,12 @@ export const componentExamples = {
   'swap-slot': swapSlotExamples,
   switch: switchExamples,
   tabs: tabsExamples,
+  table: tableExamples,
   textarea: textareaExamples,
   'time-input': timeInputExamples,
   toggle: toggleExamples,
   tooltip: tooltipExamples,
   topbar: topbarExamples,
-  typography: typographyExamples,
 } as const;
 
 export type ComponentSlug = keyof typeof componentExamples;
@@ -96,7 +98,8 @@ export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
   banner: bannerMeta,
   'helper-text': helperTextMeta,
-  typography: typographyMeta,
+  markdown: markdownMeta,
+  table: tableMeta,
   // Other components will be added here as they're migrated
 };
 
