@@ -4,6 +4,11 @@ import {
   AvatarIcon,
   AvatarImage,
 } from '@/components/ui/aura/avatar';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/aura/hover-card';
 import type { ComponentExamples } from './types';
 import { IconWheel } from '@tabler/icons-react';
 
@@ -65,13 +70,50 @@ function BasicDemo() {
             <AvatarImage src="/user-avatar7.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar
+                variant="overflow"
+                sizes="default"
+                className="relative -ml-1 z-5 border-2 border-background"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">
+                  4 more people
+                </p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       </div>
     </>
@@ -129,13 +171,50 @@ function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar
+                variant="overflow"
+                sizes="default"
+                className="relative -ml-1 z-5 border-2 border-background"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">
+                  4 more people
+                </p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       </div>
       <div className="flex items-center gap-4">
@@ -175,13 +254,50 @@ function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="xsm"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar
+                variant="overflow"
+                sizes="xsm"
+                className="relative -ml-1 z-5 border-2 border-background"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">
+                  4 more people
+                </p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       </div>
     </div>
@@ -190,524 +306,156 @@ function MainComponentDemo() {
 
 function BuildingBlocksDemo() {
   return (
-    <>
+    <div className="flex flex-col gap-8">
+      {/* All color variants - Fallback */}
       <div className="flex flex-col gap-4">
-        <div className="flex flex-row gap-4">
-          <div className="flex items-center flex-col gap-4 border-dashed border-2 border-gray-300 p-4 rounded-md">
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="nordic" sizes="xxsm">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="nordic"
-                sizes="xxsm"
-                className="bg-nordic-100 dark:bg-nordic-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="fjord" sizes="xxsm">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="fjord"
-                sizes="xxsm"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="aurora" sizes="xxsm">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="aurora"
-                sizes="xxsm"
-                className="bg-aurora-100 dark:bg-aurora-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="dusk" sizes="xxsm">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="dusk"
-                sizes="xxsm"
-                className="bg-dusk-100 dark:bg-dusk-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="orange" sizes="xxsm">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="orange"
-                sizes="xxsm"
-                className="bg-orange-100 dark:bg-orange-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="sky" sizes="xxsm">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="sky"
-                sizes="xxsm"
-                className="bg-sky-100 dark:bg-sky-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="nordic" sizes="xxsm">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="nordic"
-                sizes="xxsm"
-                className="bg-nordic-100 dark:bg-nordic-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="fjord" sizes="xxsm">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="fjord"
-                sizes="xxsm"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="aurora" sizes="xxsm">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="aurora"
-                sizes="xxsm"
-                className="bg-aurora-100 dark:bg-aurora-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="dusk" sizes="xxsm">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="dusk"
-                sizes="xxsm"
-                className="bg-dusk-100 dark:bg-dusk-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="orange" sizes="xxsm">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="orange"
-                sizes="xxsm"
-                className="bg-orange-100 dark:bg-orange-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="sky" sizes="xxsm">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="sky"
-                sizes="xxsm"
-                className="bg-sky-100 dark:bg-sky-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="fjord" sizes="xxsm">
-                <AvatarImage src="/user-avatar2.png" alt="User" />
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="fjord"
-                sizes="xxsm"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarImage src="/user-avatar2.png" alt="User" />
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-          </div>
-          <div className="flex items-center flex-col gap-4 border-dashed border-2 border-gray-300 p-4 rounded-md">
-            <div className="flex items-center flex-row gap-4">
-              <Avatar sizes="xsm" variant="nordic">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="nordic"
-                className="bg-nordic-100 dark:bg-nordic-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar sizes="xsm" variant="fjord">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="fjord"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar sizes="xsm" variant="aurora">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="aurora"
-                className="bg-aurora-100 dark:bg-aurora-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar sizes="xsm" variant="dusk">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="dusk"
-                className="bg-dusk-100 dark:bg-dusk-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar sizes="xsm" variant="orange">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="orange"
-                className="bg-orange-100 dark:bg-orange-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar sizes="xsm" variant="sky">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="sky"
-                className="bg-sky-100 dark:bg-sky-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar sizes="xsm" variant="nordic">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="nordic"
-                className="bg-nordic-100 dark:bg-nordic-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar sizes="xsm" variant="fjord">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="fjord"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar sizes="xsm" variant="aurora">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="aurora"
-                className="bg-aurora-100 dark:bg-aurora-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar sizes="xsm" variant="dusk">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="dusk"
-                className="bg-dusk-100 dark:bg-dusk-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar sizes="xsm" variant="orange">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="orange"
-                className="bg-orange-100 dark:bg-orange-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar sizes="xsm" variant="sky">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="sky"
-                className="bg-sky-100 dark:bg-sky-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar sizes="xsm" variant="fjord">
-                <AvatarImage src="/user-avatar2.png" alt="User" />
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                sizes="xsm"
-                variant="fjord"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarImage src="/user-avatar2.png" alt="User" />
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-          </div>
-          <div className="flex items-center flex-col gap-4 border-dashed border-2 border-gray-300 p-4 rounded-md">
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="nordic">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="nordic"
-                className="bg-nordic-100 dark:bg-nordic-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="fjord">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="fjord"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="aurora">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="aurora"
-                className="bg-aurora-100 dark:bg-aurora-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="dusk">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="dusk" className="bg-dusk-100 dark:bg-dusk-800">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="orange">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="orange"
-                className="bg-orange-100 dark:bg-orange-800"
-              >
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="sky">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar variant="sky" className="bg-sky-100 dark:bg-sky-800">
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="nordic">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="nordic"
-                className="bg-nordic-100 dark:bg-nordic-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="fjord">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="fjord"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="aurora">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="aurora"
-                className="bg-aurora-100 dark:bg-aurora-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="dusk">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="dusk" className="bg-dusk-100 dark:bg-dusk-800">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="orange">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar
-                variant="orange"
-                className="bg-orange-100 dark:bg-orange-800"
-              >
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="sky">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-              <Avatar variant="sky" className="bg-sky-100 dark:bg-sky-800">
-                <AvatarIcon>
-                  <IconWheel />
-                </AvatarIcon>
-              </Avatar>
-            </div>
-            <div className="flex items-center flex-row gap-4">
-              <Avatar variant="fjord">
-                <AvatarImage src="/user-avatar2.png" alt="User" />
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-              <Avatar
-                variant="fjord"
-                className="bg-fjord-100 dark:bg-fjord-800"
-              >
-                <AvatarImage src="/user-avatar2.png" alt="User" />
-                <AvatarFallback>PJ</AvatarFallback>
-              </Avatar>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="flex flex-row gap-4">
-            <div className="flex items-center flex-col gap-4 border-dashed border-2 border-gray-300 p-4 rounded-md">
-              <div className="flex items-center flex-col gap-4">
-                <Avatar variant="overflow" sizes="xsm">
-                  <AvatarFallback>PJ</AvatarFallback>
-                </Avatar>
-                <Avatar
-                  variant="overflow"
-                  className="bg-secondary-100 dark:bg-secondary-800"
-                  sizes="xsm"
-                >
-                  <AvatarFallback>+4</AvatarFallback>
-                </Avatar>
+        <p className="text-sm text-muted-foreground">
+          Color variants with fallback (hover to see hover state)
+        </p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="default">
+            <AvatarFallback>AB</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic">
+            <AvatarFallback>NC</AvatarFallback>
+          </Avatar>
+          <Avatar variant="fjord">
+            <AvatarFallback>FJ</AvatarFallback>
+          </Avatar>
+          <Avatar variant="aurora">
+            <AvatarFallback>AR</AvatarFallback>
+          </Avatar>
+          <Avatar variant="dusk">
+            <AvatarFallback>DK</AvatarFallback>
+          </Avatar>
+          <Avatar variant="orange">
+            <AvatarFallback>OR</AvatarFallback>
+          </Avatar>
+          <Avatar variant="sky">
+            <AvatarFallback>SK</AvatarFallback>
+          </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar variant="overflow">
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">
+                  4 more people
+                </p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center flex-col gap-4 border-dashed border-2 border-gray-300 p-4 rounded-md">
-              <div className="flex items-center flex-col gap-4">
-                <Avatar variant="overflow">
-                  <AvatarFallback>PJ</AvatarFallback>
-                </Avatar>
-                <Avatar
-                  variant="overflow"
-                  className="bg-secondary-100 dark:bg-secondary-800"
-                >
-                  <AvatarFallback className="bg-secondary-100 dark:bg-secondary-800">
-                    +4
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-            </div>
-          </div>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       </div>
-    </>
+
+      {/* All color variants - Icons */}
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">
+          Color variants with icons
+        </p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="default">
+            <AvatarIcon>
+              <IconWheel />
+            </AvatarIcon>
+          </Avatar>
+          <Avatar variant="nordic">
+            <AvatarIcon>
+              <IconWheel />
+            </AvatarIcon>
+          </Avatar>
+          <Avatar variant="fjord">
+            <AvatarIcon>
+              <IconWheel />
+            </AvatarIcon>
+          </Avatar>
+          <Avatar variant="aurora">
+            <AvatarIcon>
+              <IconWheel />
+            </AvatarIcon>
+          </Avatar>
+          <Avatar variant="dusk">
+            <AvatarIcon>
+              <IconWheel />
+            </AvatarIcon>
+          </Avatar>
+          <Avatar variant="orange">
+            <AvatarIcon>
+              <IconWheel />
+            </AvatarIcon>
+          </Avatar>
+          <Avatar variant="sky">
+            <AvatarIcon>
+              <IconWheel />
+            </AvatarIcon>
+          </Avatar>
+        </div>
+      </div>
+
+      {/* Size variants */}
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">Size variants</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="nordic" sizes="default">
+            <AvatarFallback>LG</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic" sizes="xsm">
+            <AvatarFallback>MD</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic" sizes="xxsm">
+            <AvatarFallback>SM</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+
+      {/* With images */}
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">With images</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="fjord">
+            <AvatarImage src="/user-avatar2.png" alt="User" />
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar variant="fjord" sizes="xsm">
+            <AvatarImage src="/user-avatar2.png" alt="User" />
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarImage src="/user-avatar2.png" alt="User" />
+            <AvatarFallback>PJ</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -717,56 +465,25 @@ export const avatarExamples: ComponentExamples = {
     description: 'Display user avatars with image and fallback',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar"
+    code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card"
+import { IconWheel } from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
     <>
       <div className="flex items-center gap-4">
-        <Avatar variant="default">
-          <AvatarFallback>AB</AvatarFallback>
+        <Avatar sizes="xsm" variant="nordic">
+          <AvatarIcon>
+            <IconWheel />
+          </AvatarIcon>
         </Avatar>
-        <div id="avatar-group" className="flex items-center">
-          <Avatar
-            variant="nordic"
-            sizes="default"
-            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
-          >
-            <AvatarFallback>NC</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="aurora"
-            sizes="default"
-            className="relative -ml-1 z-2 border-2 border-background"
-          >
-            <AvatarFallback>AR</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="fjord"
-            sizes="default"
-            className="relative -ml-1 z-3 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="dusk"
-            sizes="default"
-            className="relative -ml-1 z-4 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
-        </div>
-
-        <Avatar>
+        <Avatar sizes="xsm" variant="fjord">
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar sizes="xsm" variant="default">
           <AvatarImage src="/user-avatar2.png" alt="User" />
-          <AvatarFallback>JD</AvatarFallback>
+          <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
 
         <div id="avatar-group" className="flex items-center">
@@ -775,38 +492,83 @@ export function BasicDemo() {
             sizes="default"
             className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
           >
-             <AvatarImage src="/user-avatar3.png" alt="User" />
+            <AvatarImage src="/user-avatar3.png" alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar
-            variant="aurora"
+            variant="default"
             sizes="default"
             className="relative -ml-1 z-2 border-2 border-background"
           >
-             <AvatarImage src="/user-avatar4.png" alt="User" />
+            <AvatarImage src="/user-avatar4.png" alt="User" />
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
           <Avatar
-            variant="fjord"
+            variant="default"
             sizes="default"
             className="relative -ml-1 z-3 border-2 border-background"
           >
+            <AvatarImage src="/user-avatar5.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
-            variant="dusk"
+            variant="default"
             sizes="default"
             className="relative -ml-1 z-4 border-2 border-background"
           >
+            <AvatarImage src="/user-avatar6.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar
-            variant="overflow"
+            variant="default"
             sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
+            className="relative -ml-1 z-4 border-2 border-background"
           >
-            <AvatarFallback>+4</AvatarFallback>
+            <AvatarImage src="/user-avatar7.png" alt="User" />
+            <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar
+                variant="overflow"
+                sizes="default"
+                className="relative -ml-1 z-5 border-2 border-background"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">4 more people</p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       </div>
     </>
@@ -819,11 +581,12 @@ export function BasicDemo() {
     component: MainComponentDemo,
     difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card"
 import { IconWheel } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
   return (
-   <div className="flex items-center flex-col gap-4">
+    <div className="flex items-center flex-col gap-4">
       <div className="flex items-center gap-4">
         <Avatar sizes="default" variant="nordic">
           <AvatarFallback>PJ</AvatarFallback>
@@ -872,13 +635,48 @@ export function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar
+                variant="overflow"
+                sizes="default"
+                className="relative -ml-1 z-5 border-2 border-background"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">4 more people</p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       </div>
       <div className="flex items-center gap-4">
@@ -918,13 +716,48 @@ export function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="xsm"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar
+                variant="overflow"
+                sizes="xsm"
+                className="relative -ml-1 z-5 border-2 border-background"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">4 more people</p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       </div>
     </div>
@@ -937,111 +770,139 @@ export function MainComponentDemo() {
     component: BuildingBlocksDemo,
     difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card"
 import { IconWheel } from "@tabler/icons-react"
 
-export function MainComponentDemo() {
+export function BuildingBlocksDemo() {
   return (
-   <div className="flex items-center flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <Avatar sizes="default" variant="nordic">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xsm" variant="nordic">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar sizes="xxsm" variant="nordic">
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
+    <div className="flex flex-col gap-8">
+      {/* All color variants - Fallback */}
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">
+          Color variants with fallback (hover to see hover state)
+        </p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="default">
+            <AvatarFallback>AB</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic">
+            <AvatarFallback>NC</AvatarFallback>
+          </Avatar>
+          <Avatar variant="fjord">
+            <AvatarFallback>FJ</AvatarFallback>
+          </Avatar>
+          <Avatar variant="aurora">
+            <AvatarFallback>AR</AvatarFallback>
+          </Avatar>
+          <Avatar variant="dusk">
+            <AvatarFallback>DK</AvatarFallback>
+          </Avatar>
+          <Avatar variant="orange">
+            <AvatarFallback>OR</AvatarFallback>
+          </Avatar>
+          <Avatar variant="sky">
+            <AvatarFallback>SK</AvatarFallback>
+          </Avatar>
+          <HoverCard openDelay={0} closeDelay={0}>
+            <HoverCardTrigger asChild>
+              <Avatar variant="overflow">
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-auto p-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-muted-foreground font-medium">4 more people</p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="aurora" sizes="xsm">
+                      <AvatarFallback>EL</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Emma Liu</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="dusk" sizes="xsm">
+                      <AvatarFallback>JK</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">James Kim</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="orange" sizes="xsm">
+                      <AvatarFallback>SB</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Sarah Brown</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Avatar variant="sky" sizes="xsm">
+                      <AvatarFallback>MT</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm">Michael Torres</span>
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
+        </div>
       </div>
-      <div className="flex items-center gap-4 pt-8">
-        <div id="avatar-group" className="flex items-center">
-          <Avatar
-            variant="nordic"
-            sizes="default"
-            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
+
+      {/* All color variants - Icons */}
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">Color variants with icons</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="default">
+            <AvatarIcon><IconWheel /></AvatarIcon>
           </Avatar>
-          <Avatar
-            variant="orange"
-            sizes="default"
-            className="relative -ml-1 z-2 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
+          <Avatar variant="nordic">
+            <AvatarIcon><IconWheel /></AvatarIcon>
           </Avatar>
-          <Avatar
-            variant="dusk"
-            sizes="default"
-            className="relative -ml-1 z-3 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
+          <Avatar variant="fjord">
+            <AvatarIcon><IconWheel /></AvatarIcon>
           </Avatar>
-          <Avatar
-            variant="aurora"
-            sizes="default"
-            className="relative -ml-1 z-4 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
+          <Avatar variant="aurora">
+            <AvatarIcon><IconWheel /></AvatarIcon>
           </Avatar>
-          <Avatar
-            variant="sky"
-            sizes="default"
-            className="relative -ml-1 z-4 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
+          <Avatar variant="dusk">
+            <AvatarIcon><IconWheel /></AvatarIcon>
           </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
+          <Avatar variant="orange">
+            <AvatarIcon><IconWheel /></AvatarIcon>
+          </Avatar>
+          <Avatar variant="sky">
+            <AvatarIcon><IconWheel /></AvatarIcon>
           </Avatar>
         </div>
       </div>
-      <div className="flex items-center gap-4">
-        <div id="avatar-group" className="flex items-center">
-          <Avatar
-            variant="nordic"
-            sizes="xsm"
-            className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
-          >
+
+      {/* Size variants */}
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">Size variants</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="nordic" sizes="default">
+            <AvatarFallback>LG</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic" sizes="xsm">
+            <AvatarFallback>MD</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic" sizes="xxsm">
+            <AvatarFallback>SM</AvatarFallback>
+          </Avatar>
+        </div>
+      </div>
+
+      {/* With images */}
+      <div className="flex flex-col gap-4">
+        <p className="text-sm text-muted-foreground">With images</p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="fjord">
+            <AvatarImage src="/user-avatar2.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="orange"
-            sizes="xsm"
-            className="relative -ml-1 z-2 border-2 border-background"
-          >
+          <Avatar variant="fjord" sizes="xsm">
+            <AvatarImage src="/user-avatar2.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="dusk"
-            sizes="xsm"
-            className="relative -ml-1 z-3 border-2 border-background"
-          >
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarImage src="/user-avatar2.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="aurora"
-            sizes="xsm"
-            className="relative -ml-1 z-4 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="sky"
-            sizes="xsm"
-            className="relative -ml-1 z-4 border-2 border-background"
-          >
-            <AvatarFallback>PJ</AvatarFallback>
-          </Avatar>
-          <Avatar
-            variant="overflow"
-            sizes="xsm"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
           </Avatar>
         </div>
       </div>
