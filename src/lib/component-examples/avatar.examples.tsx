@@ -5,10 +5,10 @@ import {
   AvatarImage,
 } from '@/components/ui/aura/avatar';
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/aura/hover-card';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
 import type { ComponentExamples } from './types';
 import { IconWheel } from '@tabler/icons-react';
 
@@ -70,17 +70,17 @@ function BasicDemo() {
             <AvatarImage src="/user-avatar7.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
+          <Popover>
+            <PopoverTrigger asChild>
               <Avatar
                 variant="overflow"
                 sizes="default"
-                className="relative -ml-1 z-5 border-2 border-background"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
               >
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">
                   4 more people
@@ -112,8 +112,8 @@ function BasicDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </>
@@ -171,17 +171,17 @@ function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
+          <Popover>
+            <PopoverTrigger asChild>
               <Avatar
                 variant="overflow"
                 sizes="default"
-                className="relative -ml-1 z-5 border-2 border-background"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
               >
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">
                   4 more people
@@ -213,8 +213,8 @@ function MainComponentDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
       <div className="flex items-center gap-4">
@@ -254,17 +254,17 @@ function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
+          <Popover>
+            <PopoverTrigger asChild>
               <Avatar
                 variant="overflow"
                 sizes="xsm"
-                className="relative -ml-1 z-5 border-2 border-background"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
               >
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">
                   4 more people
@@ -296,8 +296,8 @@ function MainComponentDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </div>
@@ -310,7 +310,7 @@ function BuildingBlocksDemo() {
       {/* All color variants - Fallback */}
       <div className="flex flex-col gap-4">
         <p className="text-sm text-muted-foreground">
-          Color variants with fallback (hover to see hover state)
+          Color variants with fallback (click to see overflow)
         </p>
         <div className="flex items-center gap-4">
           <Avatar variant="default">
@@ -334,13 +334,13 @@ function BuildingBlocksDemo() {
           <Avatar variant="sky">
             <AvatarFallback>SK</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
-              <Avatar variant="overflow">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Avatar variant="overflow" className="cursor-pointer">
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">
                   4 more people
@@ -372,8 +372,8 @@ function BuildingBlocksDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
 
@@ -466,7 +466,7 @@ export const avatarExamples: ComponentExamples = {
     component: BasicDemo,
     difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover"
 import { IconWheel } from "@tabler/icons-react"
 
 export function BasicDemo() {
@@ -527,17 +527,17 @@ export function BasicDemo() {
             <AvatarImage src="/user-avatar7.png" alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
+          <Popover>
+            <PopoverTrigger asChild>
               <Avatar
                 variant="overflow"
                 sizes="default"
-                className="relative -ml-1 z-5 border-2 border-background"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
               >
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">4 more people</p>
                 <div className="flex flex-col gap-2">
@@ -567,8 +567,8 @@ export function BasicDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </>
@@ -581,7 +581,7 @@ export function BasicDemo() {
     component: MainComponentDemo,
     difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover"
 import { IconWheel } from "@tabler/icons-react"
 
 export function MainComponentDemo() {
@@ -635,17 +635,17 @@ export function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
+          <Popover>
+            <PopoverTrigger asChild>
               <Avatar
                 variant="overflow"
                 sizes="default"
-                className="relative -ml-1 z-5 border-2 border-background"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
               >
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">4 more people</p>
                 <div className="flex flex-col gap-2">
@@ -675,8 +675,8 @@ export function MainComponentDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
       <div className="flex items-center gap-4">
@@ -716,17 +716,17 @@ export function MainComponentDemo() {
           >
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
+          <Popover>
+            <PopoverTrigger asChild>
               <Avatar
                 variant="overflow"
                 sizes="xsm"
-                className="relative -ml-1 z-5 border-2 border-background"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
               >
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">4 more people</p>
                 <div className="flex flex-col gap-2">
@@ -756,8 +756,8 @@ export function MainComponentDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </div>
@@ -770,7 +770,7 @@ export function MainComponentDemo() {
     component: BuildingBlocksDemo,
     difficulty: 'beginner',
     code: `import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover"
 import { IconWheel } from "@tabler/icons-react"
 
 export function BuildingBlocksDemo() {
@@ -779,7 +779,7 @@ export function BuildingBlocksDemo() {
       {/* All color variants - Fallback */}
       <div className="flex flex-col gap-4">
         <p className="text-sm text-muted-foreground">
-          Color variants with fallback (hover to see hover state)
+          Color variants with fallback (click to see overflow)
         </p>
         <div className="flex items-center gap-4">
           <Avatar variant="default">
@@ -803,13 +803,13 @@ export function BuildingBlocksDemo() {
           <Avatar variant="sky">
             <AvatarFallback>SK</AvatarFallback>
           </Avatar>
-          <HoverCard openDelay={0} closeDelay={0}>
-            <HoverCardTrigger asChild>
-              <Avatar variant="overflow">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Avatar variant="overflow" className="cursor-pointer">
                 <AvatarFallback>+4</AvatarFallback>
               </Avatar>
-            </HoverCardTrigger>
-            <HoverCardContent className="w-auto p-3">
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3">
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground font-medium">4 more people</p>
                 <div className="flex flex-col gap-2">
@@ -839,8 +839,8 @@ export function BuildingBlocksDemo() {
                   </div>
                 </div>
               </div>
-            </HoverCardContent>
-          </HoverCard>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
 
