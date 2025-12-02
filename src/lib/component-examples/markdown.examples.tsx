@@ -4,12 +4,12 @@ import type { ComponentExamples, ComponentMeta } from './types';
 function HeadingsDemo() {
   return (
     <Markdown>
-      <h1>Heading 1</h1>
-      <h2>Heading 2</h2>
-      <h3>Heading 3</h3>
-      <h4>Heading 4</h4>
-      <h5>Heading 5</h5>
-      <h6>Heading 6</h6>
+      <h1>H1 header text</h1>
+      <h2>H2 header text</h2>
+      <h3>H3 header text</h3>
+      <h4>H4 header text</h4>
+      <h5>H5 header text</h5>
+      <h6>H6 header text</h6>{' '}
     </Markdown>
   );
 }
@@ -285,12 +285,12 @@ export const markdownExamples: ComponentExamples = {
 export function HeadingsDemo() {
   return (
     <Markdown>
-      <h1>Heading 1</h1>
-      <h2>Heading 2</h2>
-      <h3>Heading 3</h3>
-      <h4>Heading 4</h4>
-      <h5>Heading 5</h5>
-      <h6>Heading 6</h6>
+      <h1>H1 header text</h1>
+      <h2>H2 header text</h2>
+      <h3>H3 header text</h3>
+      <h4>H4 header text</h4>
+      <h5>H5 header text</h5>
+      <h6>H6 header text</h6>
     </Markdown>
   )
 }`,
@@ -454,18 +454,7 @@ export function EmphasisDemo() {
     <Markdown>
       <p>
         You can combine <strong>bold</strong>, <em>italic</em>, and even{' '}
-        <strong>
-          <em>bold and italic together</em>
-        </strong>{' '}
-        for maximum emphasis.
-      </p>
-      <p>
-        This is <strong>very important</strong>, this is <em>emphasised</em>,
-        and this is{' '}
-        <strong>
-          <em>extremely important</em>
-        </strong>
-        .
+        <strong><em>bold and italic together</em></strong> for maximum emphasis.
       </p>
     </Markdown>
   )
