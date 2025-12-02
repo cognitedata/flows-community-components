@@ -5,7 +5,7 @@ import {
   AlertButton,
 } from '@/components/ui/aura/alert';
 import {
-  IconUserCircle,
+  IconUser,
   IconInfoCircle,
   IconAlertTriangle,
   IconAlertHexagon,
@@ -30,7 +30,7 @@ function BasicDemo() {
         </AlertDescription>
       </Alert>
       <Alert variant="secondary" className="w-[401px]">
-        <IconUserCircle className="h-3.5 w-3.5" />
+        <IconUser className="h-3.5 w-3.5" />
         <AlertDescription>
           Changes will not be saved until you click ‘Update’.
         </AlertDescription>
@@ -58,9 +58,7 @@ function BasicDemo() {
         <AlertDescription>
           Verify you have the correct ID and try again.
         </AlertDescription>
-        <AlertButton className="text-card-foreground">
-          <IconRocket /> Try again
-        </AlertButton>
+        <AlertButton className="text-card-foreground">Try again</AlertButton>
       </Alert>
     </div>
   );

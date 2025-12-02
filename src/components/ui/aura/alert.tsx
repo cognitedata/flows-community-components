@@ -20,7 +20,7 @@ const AlertContext = React.createContext<AlertContextProps>({
 });
 
 const alertVariants = cva(
-  'relative w-full max-w-[var(--alert-max-width)] rounded-md border pt-2 pr-3 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 gap-0.70 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
+  'relative w-full max-w-[var(--alert-max-width)] rounded-md border pt-2 pr-3 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 gap-0.70 items-center [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
   {
     variants: {
       variant: {
@@ -98,7 +98,7 @@ function AlertDescription({
     <div
       data-slot="alert-description"
       className={cn(
-        'text-card-foreground col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-[18px] tracking-tight',
+        'text-card-foreground col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-[18px] tracking-tight min-h-7 items-center',
         className
       )}
       {...props}
