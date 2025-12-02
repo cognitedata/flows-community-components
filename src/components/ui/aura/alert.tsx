@@ -7,7 +7,7 @@ import { IconX } from '@tabler/icons-react';
 import type { MouseEventHandler } from 'react';
 
 import { cn } from '@/common/utils';
-import { Button, buttonVariants } from '#aura/button';
+import { Button } from '#aura/button';
 
 type AlertContextProps = {
   show: boolean;
@@ -112,7 +112,7 @@ function AlertButton({ className, ...props }: React.ComponentProps<'button'>) {
       <Button
         data-slot="alert-button"
         variant="ghost"
-        className={cn('px-0! text-foreground', className)}
+        className={cn('!px-0 text-foreground', className)}
         {...props}
       />
     </div>
