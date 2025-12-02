@@ -17,7 +17,7 @@ export function ComponentExamplesRenderer({
 
   if (!examples) {
     return (
-      <div className="p-6 border rounded-lg bg-muted/20">
+      <div className="p-6 border rounded-lg">
         <p className="text-sm text-muted-foreground">
           No examples available for this component yet.
         </p>
