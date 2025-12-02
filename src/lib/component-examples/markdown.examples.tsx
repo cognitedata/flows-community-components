@@ -4,12 +4,12 @@ import type { ComponentExamples, ComponentMeta } from './types';
 function HeadingsDemo() {
   return (
     <Markdown>
-      <h1>H1 header text</h1>
-      <h2>H2 header text</h2>
-      <h3>H3 header text</h3>
-      <h4>H4 header text</h4>
-      <h5>H5 header text</h5>
-      <h6>H6 header text</h6>
+      <h1>Heading 1</h1>
+      <h2>Heading 2</h2>
+      <h3>Heading 3</h3>
+      <h4>Heading 4</h4>
+      <h5>Heading 5</h5>
+      <h6>Heading 6</h6>
     </Markdown>
   );
 }
@@ -306,15 +306,25 @@ export function HeadingsDemo() {
 export function ParagraphsDemo() {
   return (
     <Markdown>
+      <p>Paragraph text - default</p>
       <p>
-        This is a standard paragraph using the base markdown styling.
+        <em>Paragraph text - italic</em>
+      </p>
+
+      <p>
+        <strong>Paragraph text - bold</strong>
+      </p>
+
+      <p>
+        <em>
+          <strong>Paragraph text - italic bold</strong>
+        </em>
       </p>
       <p>
-        You can use <strong>bold text</strong> for emphasis, or <em>italic
-        text</em> for subtle emphasis.
+        <a href="#">Paragraph text - link</a>
       </p>
-      <hr />
-      <p>Horizontal rules can separate sections.</p>
+
+      <blockquote>This is an example of a block quote.</blockquote>
     </Markdown>
   )
 }`,
@@ -330,18 +340,18 @@ export function ParagraphsDemo() {
 export function ListsDemo() {
   return (
     <Markdown>
-      <h4>Unordered List</h4>
+      <h3>List header</h3>
+
       <ul>
-        <li>First item</li>
-        <li>Second item</li>
-        <li>Third item</li>
+        <li>Unordered list</li>
+        <li>Unordered list</li>
+        <li>Unordered list</li>
       </ul>
 
-      <h4>Ordered List</h4>
       <ol>
-        <li>First step</li>
-        <li>Second step</li>
-        <li>Final step</li>
+        <li>Ordered list</li>
+        <li>Ordered list</li>
+        <li>Ordered list</li>
       </ol>
     </Markdown>
   )
@@ -444,7 +454,18 @@ export function EmphasisDemo() {
     <Markdown>
       <p>
         You can combine <strong>bold</strong>, <em>italic</em>, and even{' '}
-        <strong><em>bold and italic together</em></strong> for maximum emphasis.
+        <strong>
+          <em>bold and italic together</em>
+        </strong>{' '}
+        for maximum emphasis.
+      </p>
+      <p>
+        This is <strong>very important</strong>, this is <em>emphasised</em>,
+        and this is{' '}
+        <strong>
+          <em>extremely important</em>
+        </strong>
+        .
       </p>
     </Markdown>
   )

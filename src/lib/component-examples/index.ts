@@ -23,6 +23,7 @@ import { helperTextExamples, helperTextMeta } from './helper-text.examples';
 import { inputExamples } from './input.examples';
 import { kbdExamples } from './kbd.examples';
 import { labelExamples } from './label.examples';
+import { markdownExamples, markdownMeta } from './markdown.examples';
 import { menubarExamples } from './menubar.examples';
 import { paginationExamples } from './pagination.examples';
 import { popoverExamples } from './popover.examples';
@@ -68,6 +69,7 @@ export const componentExamples = {
   input: inputExamples,
   kbd: kbdExamples,
   label: labelExamples,
+  markdown: markdownExamples,
   menubar: menubarExamples,
   pagination: paginationExamples,
   popover: popoverExamples,
@@ -96,6 +98,7 @@ export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
   banner: bannerMeta,
   'helper-text': helperTextMeta,
+  markdown: markdownMeta,
   table: tableMeta,
   // Other components will be added here as they're migrated
 };
