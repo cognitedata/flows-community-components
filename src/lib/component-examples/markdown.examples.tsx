@@ -290,7 +290,7 @@ export function HeadingsDemo() {
 
   paragraphs: {
     title: 'Paragraphs',
-    description: 'Standard paragraph text with emphasis and horizontal rules',
+    description: 'Standard paragraph text with emphasis, links, and quotes',
     component: ParagraphsDemo,
     difficulty: 'beginner',
     code: `import { Markdown } from "@/components/ui/aura/markdown"
@@ -360,12 +360,17 @@ export function ListsDemo() {
 export function BlockquoteDemo() {
   return (
     <Markdown>
-      <p>Here's an example of using a blockquote:</p>
+      <p>
+        Here&apos;s an example of using a blockquote to highlight important
+        information or quotations:
+      </p>
       <blockquote>
-        "Design is not just what it looks like. Design is how it works."
-        — Steve Jobs
+        &ldquo;Design is not just what it looks like and feels like. Design is
+        how it works.&rdquo; — Steve Jobs
       </blockquote>
-      <p>Blockquotes are perfect for emphasising key messages.</p>
+      <p>
+        Blockquotes are perfect for emphasising key messages or external quotes.
+      </p>
     </Markdown>
   )
 }`,
@@ -382,10 +387,13 @@ export function CodeDemo() {
   return (
     <Markdown>
       <p>
-        You can use <code>inline code</code> to highlight technical terms.
+        You can use <code>inline code</code> to highlight technical terms or
+        code snippets within text.
       </p>
       <p>
-        For example, the <code>className</code> prop accepts Tailwind classes.
+        For example, the <code>className</code> prop accepts any valid Tailwind
+        CSS classes, and the <code>dangerouslySetInnerHTML</code> prop can be
+        used for HTML content.
       </p>
     </Markdown>
   )
@@ -403,9 +411,13 @@ export function LinksDemo() {
   return (
     <Markdown>
       <p>
-        Links are styled consistently. You can{' '}
-        <a href="#">read the documentation</a> or{' '}
-        <a href="#">view examples</a>.
+        Links are styled consistently with the design system. You can{" "}
+        <a href="#">read the documentation</a> or <a href="#">view examples</a>{" "}
+        for more information.
+      </p>
+      <p>
+        Links use the <code>foreground-link</code> colour and show an underline
+        on hover.
       </p>
     </Markdown>
   )
@@ -423,12 +435,17 @@ export function CodeBlocksDemo() {
   return (
     <Markdown>
       <p>Code blocks are useful for displaying longer code snippets:</p>
-      <pre><code>{\`function greet(name) {
+      <pre>
+        <code>{\`function greet(name) {
   return \\\`Hello, \\\${name}!\\\`;
 }
 
-console.log(greet('World'));\`}</code></pre>
-      <p>They maintain formatting and use monospace font.</p>
+console.log(greet('World'));\`}</code>
+      </pre>
+      <p>
+        They maintain formatting and use monospace font with proper syntax
+        highlighting support.
+      </p>
     </Markdown>
   )
 }`,
@@ -490,7 +507,7 @@ export function LineBreaksDemo() {
 export function TablesDemo() {
   return (
     <Markdown>
-      <p>Tables display structured data:</p>
+      <p>Tables display structured data with borders and zebra striping:</p>
       <table>
         <thead>
           <tr>
@@ -510,9 +527,16 @@ export function TablesDemo() {
             <td>Designer</td>
             <td>Active</td>
           </tr>
+          <tr>
+            <td>Mike Wilson</td>
+            <td>Product Manager</td>
+            <td>Away</td>
+          </tr>
         </tbody>
       </table>
-      <p>Tables work well for simple data from LLM-generated markdown.</p>
+      <p>
+        Tables work well for simple data display from LLM-generated markdown.
+      </p>
     </Markdown>
   )
 }`,
@@ -551,31 +575,47 @@ export function CompleteExampleDemo() {
   return (
     <Markdown>
       <h1>Getting Started with Design Systems</h1>
-      <p>A comprehensive guide to building design systems...</p>
+      <p>
+        A comprehensive guide to building and maintaining design systems that
+        scale across multiple applications and platforms.
+      </p>
 
       <hr />
 
       <h2>What is a Design System?</h2>
-      <p>A design system is a collection of reusable components...</p>
+      <p>
+        A design system is a collection of reusable components, guided by clear
+        standards, that can be assembled together to build applications. It
+        includes the <code>Markdown</code> component you&apos;re looking at
+        right now.
+      </p>
 
       <blockquote>
-        "A design system isn't a project. It's a product serving products."
+        &ldquo;A design system isn&apos;t a project. It&apos;s a product serving
+        products.&rdquo;
       </blockquote>
 
       <h3>Key Benefits</h3>
       <ul>
-        <li>Consistency across products</li>
-        <li>Faster development cycles</li>
+        <li>Consistency across all products and platforms</li>
+        <li>Faster development and iteration cycles</li>
+        <li>Improved collaboration between design and engineering</li>
+        <li>Better accessibility and user experience</li>
       </ul>
 
       <h3>Getting Started</h3>
       <ol>
-        <li>Define your design principles</li>
-        <li>Audit existing components</li>
+        <li>Define your design principles and values</li>
+        <li>Audit existing components and patterns</li>
+        <li>Build your component library</li>
+        <li>Document and share with your team</li>
       </ol>
 
+      <h4>Next Steps</h4>
       <p>
-        Check out our <a href="#">documentation</a> for more.
+        Ready to dive deeper? Check out our{" "}
+        <a href="#installation">installation guide</a> or explore the{" "}
+        <a href="#components">component library</a>.
       </p>
     </Markdown>
   )
