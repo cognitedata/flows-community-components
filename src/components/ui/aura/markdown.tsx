@@ -53,8 +53,11 @@ const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
           '[&_blockquote]:mt-6 [&_blockquote]:border-l [&_blockquote]:pl-2 [&_blockquote]:text-sm [&_blockquote]:font-normal [&_blockquote]:tracking-tight',
           '[&_hr]:my-8 [&_hr]:border-border',
           '[&_a]:text-foreground-link [&_a]:hover:underline [&_a]:underline-offset-4',
+          // Inline code
           '[&_code]:relative [&_code]:rounded [&_code]:bg-muted [&_code]:px-[0.3rem] [&_code]:py-[0.2rem] [&_code]:font-mono [&_code]:text-sm [&_code]:font-semibold',
-          '[&_pre]:mb-4 [&_pre]:mt-6 [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:bg-muted [&_pre]:p-4',
+          // Code blocks - styled to match CodeBlock component
+          '[&_pre]:my-3 [&_pre]:mx-0 [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:border [&_pre]:bg-background [&_pre]:p-4 [&_pre]:text-foreground [&_pre]:text-sm',
+          '[&_pre_code]:static [&_pre_code]:rounded-none [&_pre_code]:bg-transparent [&_pre_code]:px-0 [&_pre_code]:py-0 [&_pre_code]:font-mono [&_pre_code]:text-sm [&_pre_code]:font-normal',
           '[&_table]:my-6 [&_table]:w-full',
           '[&_tr]:m-0 [&_tr]:border-t [&_tr]:p-0 [&_tr]:even:bg-muted',
           '[&_th]:border [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:font-bold',
