@@ -34,19 +34,20 @@ function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span>
-          <InlineCitation>
-            <InlineCitationLink
-              href="https://example.com/pump/21PT1019"
-              target="_blank"
-              icon={IconHash}
-              variant="nordic"
-            >
-              21PT1019
-            </InlineCitationLink>
-          </InlineCitation>
+          <span>
+            There are abnormal vibration levels on{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+          </span>
         </MessageContent>
       </Message>
 
@@ -57,9 +58,21 @@ function Demo() {
           </MessageAvatarIcon>
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
-          I analyzed the sensor data and found that vibration levels on 21PT1019
-          exceeded normal thresholds at 03:15. This correlates with a 12%
-          increase in RPM during that window.
+          <span>
+            I analyzed the sensor data and found that vibration levels on{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>{' '}
+            exceeded normal thresholds at 03:15. This correlates with a 12%
+            increase in RPM during that window.
+          </span>
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink
@@ -124,7 +137,6 @@ function WithCodeBlockDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>
@@ -190,14 +202,15 @@ export function Demo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          <span>There are abnormal vibration levels on </span>
-          <InlineCitation>
-            <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
-              21PT1019
-            </InlineCitationLink>
-          </InlineCitation>
+          <span>
+            There are abnormal vibration levels on{' '}
+            <InlineCitation>
+              <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+          </span>
         </MessageContent>
       </Message>
 
@@ -208,7 +221,15 @@ export function Demo() {
           </MessageAvatarIcon>
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
-          I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.
+          <span>
+            I analyzed the sensor data and found that vibration levels on{' '}
+            <InlineCitation>
+              <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+            {' '}exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.
+          </span>
           <div className="flex flex-row gap-2">
             <InlineCitation>
               <InlineCitationLink href="https://example.com/chart/timeline" target="_blank" icon={IconTimeline}>
@@ -268,7 +289,6 @@ export function WithCodeBlockDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           Can you show me how to analyze vibration data using TypeScript?
         </MessageContent>

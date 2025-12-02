@@ -14,11 +14,16 @@ import {
   MessageAction,
 } from '@/components/ui/aura/message';
 import {
+  InlineCitation,
+  InlineCitationLink,
+} from '@/components/ui/aura/inline-citation';
+import {
   IconCopy,
   IconDownload,
   IconTool,
   IconRefresh,
   IconWheel,
+  IconHash,
 } from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import { startTransition, useCallback, useEffect, useState } from 'react';
@@ -200,9 +205,20 @@ function MessageConversationWithReasoningDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          What&apos;s causing the abnormal vibration levels on pump 21PT1019?
+          <span>
+            What&apos;s causing the abnormal vibration levels on pump{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>?
+          </span>
         </MessageContent>
       </Message>
 
@@ -354,7 +370,8 @@ import {
   ReasoningContent,
 } from "@/components/ai-elements/cognite/reasoning"
 import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ai-elements/cognite/message"
-import { IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
+import { InlineCitation, InlineCitationLink } from "@/components/ai-elements/cognite/inline-citation"
+import { IconCopy, IconDownload, IconTool, IconRefresh, IconWheel, IconHash } from "@tabler/icons-react"
 import { useCallback, useEffect, useState } from "react"
 
 const reasoningContent = [
@@ -443,9 +460,15 @@ export function MessageConversationWithReasoningDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message isResponse={false}>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          What's causing the abnormal vibration levels on pump 21PT1019?
+          <span>
+            What's causing the abnormal vibration levels on pump{' '}
+            <InlineCitation>
+              <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>?
+          </span>
         </MessageContent>
       </Message>
 
