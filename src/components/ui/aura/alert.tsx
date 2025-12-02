@@ -20,14 +20,14 @@ const AlertContext = React.createContext<AlertContextProps>({
 });
 
 const alertVariants = cva(
-  'relative w-full max-w-[var(--alert-max-width)] rounded-md border pt-2 pr-3 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 gap-1.25 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
+  'relative w-full max-w-[var(--alert-max-width)] rounded-md border pt-2 pr-3 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 gap-0.70 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
   {
     variants: {
       variant: {
-        default: 'bg-card text-card-foreground',
-        secondary: 'bg-neutral text-neutral-foreground',
-        warning: 'bg-warning text-warning-foreground',
-        error: 'bg-destructive text-destructive-foreground',
+        default: 'bg-card text-card-foreground border-card',
+        secondary: 'bg-neutral text-neutral-foreground border-neutral',
+        warning: 'bg-warning text-warning-foreground border-warning',
+        error: 'bg-destructive text-destructive-foreground border-destructive',
       },
     },
     defaultVariants: {
@@ -98,7 +98,7 @@ function AlertDescription({
     <div
       data-slot="alert-description"
       className={cn(
-        'text-card-foreground col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-[18px] tracking-tight [&_p]:leading-relaxed',
+        'text-card-foreground col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-[18px] tracking-tight',
         className
       )}
       {...props}
@@ -137,7 +137,7 @@ function AlertClose({
       variant="ghost"
       size="icon-sm"
       className={cn(
-        'absolute top-3 right-4 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-current',
+        'absolute top-3 right-4 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-foreground',
         className
       )}
       onClick={handleClick}
