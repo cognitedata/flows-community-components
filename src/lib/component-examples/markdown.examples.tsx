@@ -9,7 +9,7 @@ function HeadingsDemo() {
       <h3>H3 header text</h3>
       <h4>H4 header text</h4>
       <h5>H5 header text</h5>
-      <h6>H6 header text</h6>{' '}
+      <h6>H6 header text</h6>
     </Markdown>
   );
 }
@@ -138,14 +138,6 @@ function EmphasisDemo() {
           <em>bold and italic together</em>
         </strong>{' '}
         for maximum emphasis.
-      </p>
-      <p>
-        This is <strong>very important</strong>, this is <em>emphasised</em>,
-        and this is{' '}
-        <strong>
-          <em>extremely important</em>
-        </strong>
-        .
       </p>
     </Markdown>
   );
@@ -454,7 +446,10 @@ export function EmphasisDemo() {
     <Markdown>
       <p>
         You can combine <strong>bold</strong>, <em>italic</em>, and even{' '}
-        <strong><em>bold and italic together</em></strong> for maximum emphasis.
+        <strong>
+          <em>bold and italic together</em>
+        </strong>{' '}
+        for maximum emphasis.
       </p>
     </Markdown>
   )
