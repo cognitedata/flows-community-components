@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { IconChevronRight, IconDots } from '@tabler/icons-react';
+import { IconDots, IconSlash } from '@tabler/icons-react';
 
 import { cn } from '@/common/utils';
 
@@ -13,7 +13,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<'ol'>) {
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm wrap-break-word sm:gap-2.5',
+        'flex flex-wrap items-center text-sm tracking-tight wrap-break-word',
         className
       )}
       {...props}
@@ -25,7 +25,10 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumb-item"
-      className={cn('inline-flex items-center gap-1.5', className)}
+      className={cn(
+        'inline-flex items-center text-muted-foreground text-sm tracking-tight px-1.5 py-1 hover:text-foreground hover:bg-accent rounded-sm',
+        className
+      )}
       {...props}
     />
   );
@@ -43,7 +46,7 @@ function BreadcrumbLink({
   return (
     <Comp
       data-slot="breadcrumb-link"
-      className={cn('hover:text-foreground transition-colors', className)}
+      className={cn('transition-colors', className)}
       {...props}
     />
   );
@@ -56,7 +59,10 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<'span'>) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn('text-foreground font-normal', className)}
+      className={cn(
+        'text-foreground font-medium text-sm tracking-tight hover:text-foreground hover:bg-accent rounded-sm',
+        className
+      )}
       {...props}
     />
   );
@@ -72,10 +78,10 @@ function BreadcrumbSeparator({
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={cn('[&>svg]:size-3.5', className)}
+      className={cn('[&>svg]:size-3.5 ', className)}
       {...props}
     >
-      {children ?? <IconChevronRight />}
+      {children ?? <IconSlash className="size-3 text-muted-foreground" />}
     </li>
   );
 }
@@ -89,10 +95,10 @@ function BreadcrumbEllipsis({
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       aria-hidden="true"
-      className={cn('flex size-9 items-center justify-center', className)}
+      className={cn('flex size-6 items-center justify-center', className)}
       {...props}
     >
-      <IconDots className="size-4" />
+      <IconDots className="size-3 text-muted-foreground" />
       <span className="sr-only">More</span>
     </span>
   );
