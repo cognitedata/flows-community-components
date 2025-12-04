@@ -5,6 +5,7 @@
   "title": "Helper Text",
   "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
   "dependencies": [
+    "class-variance-authority",
     "@tabler/icons-react"
   ],
   "files": [
