@@ -467,8 +467,16 @@ function BasicConversationDemo() {
                             </MessageAction>
                             <MessageAction
                               size="icon-sm"
-                              label="Show tool calls"
-                              tooltip="Show tool calls"
+                              label={
+                                showTools
+                                  ? 'Hide tool calls'
+                                  : 'Show tool calls'
+                              }
+                              tooltip={
+                                showTools
+                                  ? 'Hide tool calls'
+                                  : 'Show tool calls'
+                              }
                               onClick={() => setShowTools(!showTools)}
                               data-active={showTools}
                               className="data-[active=true]:bg-accent"
@@ -769,8 +777,8 @@ export function BasicConversationDemo() {
                             </MessageAction>
                             <MessageAction
                               size="icon-sm"
-                              label="Show tool calls"
-                              tooltip="Show tool calls"
+                              label={showTools ? "Hide tool calls" : "Show tool calls"}
+                              tooltip={showTools ? "Hide tool calls" : "Show tool calls"}
                               onClick={() => setShowTools(!showTools)}
                               data-active={showTools}
                               className="data-[active=true]:bg-accent"
