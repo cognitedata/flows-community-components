@@ -10,6 +10,15 @@ export type TextShimmerProps = {
   className?: string;
   duration?: number;
   spread?: number;
+  variant?:
+    | 'default'
+    | 'nordic'
+    | 'aurora'
+    | 'dusk'
+    | 'equinox'
+    | 'summer'
+    | 'spring'
+    | 'fall';
 };
 
 // Pre-create commonly used motion components outside of render
@@ -36,6 +45,7 @@ const ShimmerComponent = ({
   className,
   duration = 2,
   spread = 2,
+  variant = 'default',
 }: TextShimmerProps) => {
   // Use pre-created motion component or fallback to motion.p
   const MotionComponent =
@@ -46,24 +56,49 @@ const ShimmerComponent = ({
     [children, spread]
   );
 
+  const backgroundImage = useMemo(() => {
+    const shimmerBg =
+      'linear-gradient(90deg, transparent calc(50% - var(--spread)), rgba(255, 255, 255, 0.4), transparent calc(50% + var(--spread)))';
+
+    if (variant === 'default') {
+      return `${shimmerBg}, linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))`;
+    }
+
+    // Map variants to gradient tokens
+    const gradientMap = {
+      nordic: 'var(--gradient-nordic)',
+      aurora: 'var(--gradient-aurora)',
+      dusk: 'var(--gradient-dusk)',
+      equinox: 'var(--gradient-equinox)',
+      summer: 'var(--gradient-summer)',
+      spring: 'var(--gradient-spring)',
+      fall: 'var(--gradient-fall)',
+    };
+
+    const gradient = gradientMap[variant as keyof typeof gradientMap];
+    return gradient
+      ? `${shimmerBg}, ${gradient}`
+      : `${shimmerBg}, linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))`;
+  }, [variant]);
+
   return (
     <MotionComponent
-      animate={{ backgroundPosition: '0% center' }}
+      animate={{
+        backgroundPosition: ['100% center, center', '0% center, center'],
+      }}
       className={cn(
-        'relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent',
-        '[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--color-background),#0000_calc(50%+var(--spread)))] [background-repeat:no-repeat,padding-box]',
+        'relative inline-block px-4 py-2 bg-clip-text text-transparent rounded-md',
         className
       )}
-      initial={{ backgroundPosition: '100% center' }}
       style={
         {
           '--spread': `${dynamicSpread}px`,
-          backgroundImage:
-            'var(--bg), linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))',
+          backgroundImage,
+          backgroundSize: '250% 100%, 100% 100%',
         } as CSSProperties
       }
       transition={{
-        repeat: Number.POSITIVE_INFINITY,
+        repeat: Infinity,
         duration,
         ease: 'linear',
       }}
