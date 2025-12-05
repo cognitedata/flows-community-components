@@ -3,11 +3,7 @@
 import { Button } from '@/components/ui/aura/button';
 import { cn } from '@/common/utils';
 import type { Element } from 'hast';
-import {
-  IconCheck as CheckIcon,
-  IconCopy as CopyIcon,
-  IconSelector as ChevronsUpDown,
-} from '@tabler/icons-react';
+import { IconCheck, IconChevronDown, IconCopy } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -121,7 +117,13 @@ export const CodeBlock = ({
 
   return (
     <CodeBlockContext.Provider
-      value={{ code, copyText: textToCopy, isCollapsed, setIsCollapsed, lineCount }}
+      value={{
+        code,
+        copyText: textToCopy,
+        isCollapsed,
+        setIsCollapsed,
+        lineCount,
+      }}
     >
       <div
         className={cn(
@@ -153,7 +155,7 @@ export const CodeBlock = ({
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-white/70 to-white dark:via-background/70 dark:to-background" />
           )}
           {children && (
-            <div className="absolute top-2 right-2 flex items-center gap-2">
+            <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover:flex">
               {children}
             </div>
           )}
@@ -196,14 +198,14 @@ export const CodeBlockCopyButton = ({
     }
   };
 
-  const Icon = isCopied ? CheckIcon : CopyIcon;
+  const Icon = isCopied ? IconCheck : IconCopy;
 
   return (
     <Button
       className={cn('shrink-0', className)}
       onClick={copyToClipboard}
       size="icon"
-      variant="ghost"
+      variant="secondary"
       {...props}
     >
       {children ?? <Icon size={14} />}
@@ -231,10 +233,15 @@ export const CodeBlockCollapseButton = ({
       className={cn('shrink-0', className)}
       onClick={() => setIsCollapsed(!isCollapsed)}
       size="icon"
-      variant="ghost"
+      variant="secondary"
       {...props}
     >
-      {children ?? <ChevronsUpDown size={14} />}
+      {children ?? (
+        <IconChevronDown
+          size={14}
+          className={cn('transition-transform', !isCollapsed && 'rotate-180')}
+        />
+      )}
     </Button>
   );
 };
