@@ -417,9 +417,13 @@ function BasicConversationDemo() {
                         <Response controls={false}>{streamedContent}</Response>
                         {isComplete && showTools && (
                           <div className="flex flex-col gap-2">
+                            <hr className="my-3" />
+                            <h4 className="text-sm font-medium text-muted-foreground">
+                              Tool calls
+                            </h4>
                             <Tool defaultOpen={false}>
                               <ToolHeader
-                                title="search_database"
+                                title="Search database"
                                 type="tool-call"
                               />
                               <ToolContent>
@@ -432,7 +436,7 @@ function BasicConversationDemo() {
                             </Tool>
                             <Tool defaultOpen={false}>
                               <ToolHeader
-                                title="fetch_sensor_data"
+                                title="Fetch sensor data"
                                 type="tool-call"
                               />
                               <ToolContent>
@@ -463,8 +467,8 @@ function BasicConversationDemo() {
                             </MessageAction>
                             <MessageAction
                               size="icon-sm"
-                              label="Explain Tool Call(s)"
-                              tooltip="Explain Tool Call(s)"
+                              label="Show tool calls"
+                              tooltip="Show tool calls"
                               onClick={() => setShowTools(!showTools)}
                               data-active={showTools}
                               className="data-[active=true]:bg-accent"
@@ -698,13 +702,18 @@ export function BasicConversationDemo() {
                         </span>
                         <Response controls={false}>{streamedContent}</Response>
                         {phase === "complete" && showTools && (
-                          <Tool defaultOpen={false}>
-                            <ToolHeader title="search_database" type="tool-call" />
-                            <ToolContent>
-                              <ToolInput input={toolInput} />
-                              <ToolOutput output={toolOutput} errorText={undefined} />
-                            </ToolContent>
-                          </Tool>
+                          <div className="flex flex-col gap-2">
+                            <h4 className="text-sm font-medium text-muted-foreground">
+                              Tool calls
+                            </h4>
+                            <Tool defaultOpen={false}>
+                              <ToolHeader title="Search database" type="tool-call" />
+                              <ToolContent>
+                                <ToolInput input={toolInput} />
+                                <ToolOutput output={toolOutput} errorText={undefined} />
+                              </ToolContent>
+                            </Tool>
+                          </div>
                         )}
                         {phase === "complete" && (
                           <MessageActions>
@@ -713,8 +722,8 @@ export function BasicConversationDemo() {
                             </MessageAction>
                             <MessageAction
                               size="icon-sm"
-                              label="Explain Tool Call(s)"
-                              tooltip="Explain Tool Call(s)"
+                              label="Show tool calls"
+                              tooltip="Show tool calls"
                               onClick={() => setShowTools(!showTools)}
                               data-active={showTools}
                               className="data-[active=true]:bg-accent"
