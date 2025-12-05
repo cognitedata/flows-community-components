@@ -224,6 +224,15 @@
   --color-decorative-foreground-sky: var(--decorative-foreground-sky);
   --color-decorative-foreground-gray: var(--decorative-foreground-gray);
 
+  /* Gradient tokens */
+  --color-gradient-nordic: var(--gradient-nordic);
+  --color-gradient-aurora: var(--gradient-aurora);
+  --color-gradient-dusk: var(--gradient-dusk);
+  --color-gradient-equinox: var(--gradient-equinox);
+  --color-gradient-summer: var(--gradient-summer);
+  --color-gradient-spring: var(--gradient-spring);
+  --color-gradient-fall: var(--gradient-fall);
+
   --radius-none: 0px;
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -600,6 +609,15 @@
   --decorative-foreground-sky: var(--sky-600);
   --decorative-foreground-gray: var(--gray-600);
 
+  /* Gradient tokens */
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-50) 0%, var(--nordic-400) 44%, var(--nordic-200) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-50) 0%, var(--aurora-400) 50%, var(--aurora-200) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-50) 0%, var(--dusk-400) 48%, var(--dusk-200) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-600) 0%, var(--dusk-300) 40%, var(--aurora-50) 60%, var(--aurora-100) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-100) 0%, var(--dusk-50) 50%, var(--aurora-100) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-50) 0%, var(--nordic-100) 50%, var(--aurora-100) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-550) 0%, var(--dusk-550) 50%, var(--dusk-300) 100%);
+
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
@@ -691,6 +709,15 @@
   --decorative-foreground-orange: var(--orange-300);
   --decorative-foreground-sky: var(--sky-300);
   --decorative-foreground-gray: var(--gray-300);
+
+  /* Gradient tokens */
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-900) 0%, var(--nordic-600) 44%, var(--nordic-800) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-900) 0%, var(--aurora-600) 50%, var(--aurora-800) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-900) 0%, var(--dusk-600) 48%, var(--dusk-800) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-400) 0%, var(--dusk-700) 40%, var(--aurora-950) 60%, var(--aurora-900) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-900) 0%, var(--dusk-950) 50%, var(--aurora-900) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-950) 0%, var(--nordic-900) 50%, var(--aurora-900) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-450) 0%, var(--dusk-450) 50%, var(--dusk-700) 100%);
 
   /* Charts (dark) */
   --chart-fjord-solid: var(--fjord-300);
