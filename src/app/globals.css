@@ -9,19 +9,43 @@
 @variant dark (.dark &);
 
 @theme inline {
-  --text-2xs: 0.625rem;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Typography scale overrides - font sizes */
+  --text-2xs: 0.625rem; /* 10px */
+  --text-3xl: 1.75rem; /* 28px (TW default is 30px) */
+  --text-4xl: 2rem; /* 32px (TW default is 36px) */
+  --text-5xl: 2.25rem; /* 36px (TW default is 48px) */
+
+  /* Typography scale overrides - line heights */
+  --text-2xs--line-height: 0.75rem; /* 12px */
+  --text-xs--line-height: 0.875rem; /* 14px (TW default is 16px) */
+  --text-sm--line-height: 1.125rem; /* 18px (TW default is 20px) */
+  --text-base--line-height: 1.25rem; /* 20px (TW default is 24px) */
+  --text-lg--line-height: 1.5rem; /* 24px (TW default is 28px) */
+  --text-xl--line-height: 1.5rem; /* 24px (TW default is 28px) */
+  --text-2xl--line-height: 1.75rem; /* 28px (TW default is 32px) */
+  --text-3xl--line-height: 2rem; /* 32px (TW default is 36px) */
+  --text-5xl--line-height: 2.75rem; /* 44px (TW default is 1) */
+
   --font-sans: var(--font-inter);
   --font-mono: var(--font-source-code-pro);
   --tracking-tight: -0.04px;
   --tracking-tighter: -0.08px;
   --tracking-tightest: -0.1px;
-  --shadow-md:
-    0 1px 2px 0 rgba(0, 0, 0, 0.03),
-      0 1px 3px 0 rgba(0, 0, 0, 0.03);
-  --shadow-xl:
-    0 10px 10px -5px rgba(0, 0, 0, 0.04), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* tooltips; small containers */
+  --shadow-default: /* menus; popovers; hover cards */
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: /* sonner; temporary elements */
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: /* modals; dialogs without backdrop overlay */
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: /* modals; dialogs with backdrop overlay */
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,8 +65,6 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-destructive-hover: var(--destructive-hover);
-  --color-decorative-background-hover: var(--decorative-background-hover);
-  --color-decorative-foreground-hover: var(--decorative-foreground-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-mountain-foreground: var(--mountain-foreground);
@@ -172,6 +194,36 @@
   --color-mountain-800: var(--mountain-800);
   --color-mountain-900: var(--mountain-900);
   --color-mountain-950: var(--mountain-950);
+
+  /* Decorative background tokens */
+  --color-decorative-background-mountain: var(--decorative-background-mountain);
+  --color-decorative-background-fjord: var(--decorative-background-fjord);
+  --color-decorative-background-nordic: var(--decorative-background-nordic);
+  --color-decorative-background-aurora: var(--decorative-background-aurora);
+  --color-decorative-background-dusk: var(--decorative-background-dusk);
+  --color-decorative-background-orange: var(--decorative-background-orange);
+  --color-decorative-background-sky: var(--decorative-background-sky);
+  --color-decorative-background-gray: var(--decorative-background-gray);
+
+  /* Decorative background hover tokens */
+  --color-decorative-background-hover-mountain: var(--decorative-background-hover-mountain);
+  --color-decorative-background-hover-fjord: var(--decorative-background-hover-fjord);
+  --color-decorative-background-hover-nordic: var(--decorative-background-hover-nordic);
+  --color-decorative-background-hover-aurora: var(--decorative-background-hover-aurora);
+  --color-decorative-background-hover-dusk: var(--decorative-background-hover-dusk);
+  --color-decorative-background-hover-orange: var(--decorative-background-hover-orange);
+  --color-decorative-background-hover-sky: var(--decorative-background-hover-sky);
+
+  /* Decorative foreground tokens */
+  --color-decorative-foreground-mountain: var(--decorative-foreground-mountain);
+  --color-decorative-foreground-fjord: var(--decorative-foreground-fjord);
+  --color-decorative-foreground-nordic: var(--decorative-foreground-nordic);
+  --color-decorative-foreground-aurora: var(--decorative-foreground-aurora);
+  --color-decorative-foreground-dusk: var(--decorative-foreground-dusk);
+  --color-decorative-foreground-orange: var(--decorative-foreground-orange);
+  --color-decorative-foreground-sky: var(--decorative-foreground-sky);
+  --color-decorative-foreground-gray: var(--decorative-foreground-gray);
+
   --radius-none: 0px;
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -186,6 +238,7 @@
   --avatar-icon-default: 1.09375rem;
   --avatar-icon-xs: 0.875rem;
   --avatar-icon-xxs: 0.65625rem;
+  --avatar-image-backdrop: rgba(2, 6, 23, 0.2);
 }
 
 :root {
@@ -199,7 +252,7 @@
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
   --mountain-black: rgb(0, 0, 0);
-  --mountain-10: rgb(248, 248, 249);
+  --mountain-10: rgb(249, 250, 250);
   --mountain-50: rgb(241, 242, 243);
   --mountain-100: rgb(228, 230, 232);
   --mountain-200: rgb(212, 215, 217);
@@ -275,7 +328,7 @@
   --dusk-600: rgb(153, 64, 166);
   --dusk-650: rgb(133, 55, 144);
   --dusk-700: rgb(104, 44, 113);
-  --dusk-800: rgb(55, 23, 60);
+  --dusk-800: rgb(74, 31, 80);
   --dusk-900: rgb(55, 23, 60);
   --dusk-950: rgb(28, 12, 31);
 
@@ -584,7 +637,7 @@
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-700);
   --input: var(--mountain-900);
-  --ring: var(--gray-300);
+  --ring: var(--gray-400);
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
@@ -762,21 +815,5 @@
 
   .animate-accordion-up {
     animation: accordion-up 0.2s ease-out;
-  }
-  
-  .focus-ring-md:focus-visible {
-    --tw-ring-offset-width: var(--tw-ring-offset-width, 0px);
-    --tw-ring-offset-color: var(--tw-ring-offset-color, #fff);
-    --tw-ring-color: var(--tw-ring-color, rgba(59, 130, 246, 0.5));
-    --tw-ring-offset-shadow: 0 0 0 var(--tw-ring-offset-width)
-      var(--tw-ring-offset-color);
-    --tw-ring-shadow: 0 0 0 calc(var(--ring-width-md) + var(--tw-ring-offset-width))
-      var(--tw-ring-color);
-    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-      var(--tw-shadow, 0 0 #0000);
-    .text-2xs {
-      font-size: var(--text-2xs);
-      line-height: 1;
-    }
   }
 }

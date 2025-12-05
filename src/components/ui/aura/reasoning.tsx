@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
 import { cn } from '@/common/utils';
-import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
+import { IconSelector } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import {
   createContext,
@@ -154,7 +154,7 @@ export const ReasoningTrigger = memo(
               <span>Atlas reasoning</span>
             )}
             {!isThinking && (
-              <ChevronsUpDown className="size-4 transition-transform" />
+              <IconSelector className="size-4 transition-transform" />
             )}
           </>
         )}
