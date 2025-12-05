@@ -127,7 +127,7 @@ export const CodeBlock = ({
     >
       <div
         className={cn(
-          'group relative w-full overflow-hidden rounded-md border bg-background text-foreground',
+          'group/code-block relative w-full overflow-hidden rounded-md border bg-background text-foreground',
           className
         )}
         {...props}
@@ -155,7 +155,7 @@ export const CodeBlock = ({
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-white/70 to-white dark:via-background/70 dark:to-background" />
           )}
           {children && (
-            <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover:flex">
+            <div className="absolute top-2 right-2 flex items-center gap-2 opacity-0 transition-opacity group-hover/code-block:opacity-100">
               {children}
             </div>
           )}
