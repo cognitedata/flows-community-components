@@ -415,7 +415,7 @@ function BasicConversationDemo() {
                   </MessageAvatar>
                   <MessageContent className="flex flex-col gap-2">
                     {isThinking ? (
-                      <Shimmer>{thinkingPhrases[phraseIndex]}</Shimmer>
+                      <Shimmer variant="nordic">{thinkingPhrases[phraseIndex]}</Shimmer>
                     ) : (
                       <>
                         <span className="text-muted-foreground text-sm">
@@ -852,7 +852,7 @@ export function BasicConversationDemo() {
                   </MessageAvatar>
                   <MessageContent className="flex flex-col gap-2">
                     {isThinking ? (
-                      <Shimmer>{thinkingPhrases[phraseIndex]}</Shimmer>
+                      <Shimmer variant="nordic">{thinkingPhrases[phraseIndex]}</Shimmer>
                     ) : (
                       <>
                         <span className="text-muted-foreground text-sm">
