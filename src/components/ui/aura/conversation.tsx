@@ -28,7 +28,7 @@ export const ConversationContent = ({
   ...props
 }: ConversationContentProps) => (
   <StickToBottom.Content
-    className={cn('flex flex-col gap-8 p-4', className)}
+    className={cn('flex flex-col gap-8 p-3', className)}
     {...props}
   />
 );
@@ -42,29 +42,29 @@ export type ConversationEmptyStateProps = ComponentProps<'div'> & {
 export const ConversationEmptyState = ({
   className,
   title = 'No messages yet',
-  description = 'Start a conversation to see messages here',
+  description = '',
   icon,
   children,
   ...props
 }: ConversationEmptyStateProps) => (
   <div
-    className={cn(
-      'flex size-full flex-col items-center justify-center gap-3 p-8 text-center',
-      className
-    )}
+    className={cn('flex flex-col items-center gap-3 size-full p-10', className)}
     {...props}
   >
-    {children ?? (
-      <>
-        {icon && <div className="text-muted-foreground">{icon}</div>}
-        <div className="space-y-1">
-          <h3 className="font-medium text-sm">{title}</h3>
-          {description && (
-            <p className="text-muted-foreground text-sm">{description}</p>
-          )}
+    <div className="max-w-[594px] w-full flex flex-col items-center justify-center text-center">
+      {icon && (
+        <div className="flex items-center justify-center w-[80px] h-[80px] bg-mountain rounded-lg mb-14">
+          {icon}
         </div>
-      </>
-    )}
+      )}
+      <div className="space-y-1 mb-14">
+        <h3 className="text-lg font-medium tracking-tightest">{title}</h3>
+        {description && (
+          <p className="text-muted-foreground text-sm">{description}</p>
+        )}
+      </div>
+      {children}
+    </div>
   </div>
 );
 

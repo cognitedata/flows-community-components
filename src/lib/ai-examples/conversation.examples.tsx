@@ -48,6 +48,8 @@ import {
   IconAdjustments,
   IconChevronDown,
 } from '@tabler/icons-react';
+import { Suggestion } from '@/components/ui/aura/suggestion';
+import { usePromptInputController } from '@/components/ui/aura/prompt-input';
 import { Button } from '@/components/ui/aura/button';
 import {
   DropdownMenu,
@@ -373,10 +375,15 @@ function BasicConversationDemo() {
         <ConversationContent>
           {phase === 'empty' ? (
             <ConversationEmptyState
-              title="Start a conversation"
-              description="Ask me anything about your industrial assets."
+              title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
-            />
+            >
+              <div className="flex flex-wrap gap-2 justify-center pb-4">
+                <Suggestion suggestion="Are there any anomalies, risks, or non-conformances identified?" />
+                <Suggestion suggestion="What asset or equipment is being evaluated and what is its operational context?" />
+                <Suggestion suggestion="What are the current field conditions and observations recorded?" />
+              </div>
+            </ConversationEmptyState>
           ) : (
             <>
               {showUserMessage && (
@@ -537,18 +544,119 @@ function BasicConversationDemo() {
   );
 }
 
-function EmptyStateDemo() {
+function EmptyStateFillInputDemo() {
+  const controller = usePromptInputController();
+
+  const handleSuggestion = (value: string) => {
+    controller.textInput.setInput(value);
+  };
+
   return (
-    <div className="h-96 w-full border rounded-lg">
-      <Conversation>
+    <div className="h-[900px] w-full border rounded-lg flex flex-col">
+      <Conversation className="flex-1 min-h-0">
         <ConversationContent>
           <ConversationEmptyState
-            title="Start a conversation"
-            description="Ask me anything to get started"
+            title="Start a conversation with Atlas"
             icon={<IconMessageCircle className="h-12 w-12" />}
-          />
+          >
+            <div className="flex flex-wrap gap-2 justify-center pb-4">
+              <Suggestion
+                suggestion="Are there any anomalies, risks, or non-conformances identified?"
+                onClick={handleSuggestion}
+              />
+              <Suggestion
+                suggestion="What asset or equipment is being evaluated and what is its operational context?"
+                onClick={handleSuggestion}
+              />
+              <Suggestion
+                suggestion="What are the current field conditions and observations recorded?"
+                onClick={handleSuggestion}
+              />
+            </div>
+          </ConversationEmptyState>
         </ConversationContent>
       </Conversation>
+
+      <div className="border-t p-4">
+        <PromptInput onSubmit={() => {}}>
+          <PromptInputBody>
+            <PromptInputTextarea placeholder="Ask about your assets..." />
+          </PromptInputBody>
+          <PromptInputFooter>
+            <PromptInputTools>
+              <PromptInputButton size="icon-sm">
+                <IconAdjustments />
+              </PromptInputButton>
+            </PromptInputTools>
+            <PromptInputSubmit />
+          </PromptInputFooter>
+        </PromptInput>
+      </div>
+    </div>
+  );
+}
+
+function EmptyStateSubmitDemo() {
+  const [submitted, setSubmitted] = useState(false);
+  const [userMessage, setUserMessage] = useState('');
+
+  const handleSuggestion = (value: string) => {
+    setUserMessage(value);
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="h-[900px] w-full border rounded-lg flex flex-col">
+      <Conversation className="flex-1 min-h-0">
+        <ConversationContent>
+          {!submitted ? (
+            <ConversationEmptyState
+              title="Start a conversation with Atlas"
+              icon={<IconMessageCircle className="h-12 w-12" />}
+            >
+              <div className="flex flex-wrap gap-2 justify-center pb-4">
+                <Suggestion
+                  suggestion="Are there any anomalies, risks, or non-conformances identified?"
+                  onClick={handleSuggestion}
+                />
+                <Suggestion
+                  suggestion="What asset or equipment is being evaluated and what is its operational context?"
+                  onClick={handleSuggestion}
+                />
+                <Suggestion
+                  suggestion="What are the current field conditions and observations recorded?"
+                  onClick={handleSuggestion}
+                />
+              </div>
+            </ConversationEmptyState>
+          ) : (
+            <Message>
+              <MessageContent>
+                <span>{userMessage}</span>
+              </MessageContent>
+            </Message>
+          )}
+        </ConversationContent>
+        <ConversationScrollButton />
+      </Conversation>
+
+      <div className="border-t p-4">
+        <PromptInputProvider>
+          <PromptInput onSubmit={() => {}}>
+            <PromptInputBody>
+              <PromptInputTextarea placeholder="Ask about your assets..." />
+            </PromptInputBody>
+            <PromptInputFooter>
+              <PromptInputTools>
+                <PromptInputButton size="icon-sm">
+                  <IconAdjustments />
+                </PromptInputButton>
+              </PromptInputTools>
+              <PromptInputSubmit />
+            </PromptInputFooter>
+          </PromptInput>
+        </PromptInputProvider>
+      </div>
     </div>
   );
 }
@@ -599,6 +707,7 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
+import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
 import { Button } from "@/components/ui/aura/button"
 import {
   DropdownMenu,
@@ -703,10 +812,15 @@ export function BasicConversationDemo() {
         <ConversationContent>
           {phase === "empty" ? (
             <ConversationEmptyState
-              title="Start a conversation"
-              description="Ask me anything about your industrial assets."
+              title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
-            />
+            >
+              <div className="flex flex-wrap gap-2 justify-center pb-4">
+                <Suggestion suggestion="Are there any anomalies, risks, or non-conformances identified?" />
+                <Suggestion suggestion="What asset or equipment is being evaluated and what is its operational context?" />
+                <Suggestion suggestion="What are the current field conditions and observations recorded?" />
+              </div>
+            </ConversationEmptyState>
           ) : (
             <>
               {showUserMessage && (
@@ -836,25 +950,192 @@ export function BasicConversationDemo() {
 }`,
   },
 
-  emptyState: {
-    title: 'Empty State',
-    description: 'Show a placeholder when there are no messages',
-    component: EmptyStateDemo,
-    difficulty: 'beginner',
-    code: `import { Conversation, ConversationContent, ConversationEmptyState } from "@/components/ai-elements/cognite/conversation"
-import { IconMessageCircle } from "@tabler/icons-react"
+  emptyStateSubmit: {
+    title: 'Empty State - Auto Submit',
+    description:
+      'Suggestions that immediately submit and display as user messages when clicked',
+    component: EmptyStateSubmitDemo,
+    difficulty: 'intermediate',
+    code: `"use client"
 
-export function EmptyStateDemo() {
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+  ConversationScrollButton,
+} from "@/components/ai-elements/cognite/conversation"
+import {
+  Message,
+  MessageContent,
+} from "@/components/ai-elements/cognite/message"
+import {
+  PromptInput,
+  PromptInputProvider,
+  PromptInputBody,
+  PromptInputTextarea,
+  PromptInputSubmit,
+  PromptInputFooter,
+  PromptInputTools,
+  PromptInputButton,
+} from "@/components/ai-elements/cognite/prompt-input"
+import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
+import { IconMessageCircle, IconAdjustments } from "@tabler/icons-react"
+import { useState } from "react"
+
+export function EmptyStateSubmitDemo() {
+  const [submitted, setSubmitted] = useState(false)
+  const [userMessage, setUserMessage] = useState("")
+
+  const handleSuggestion = (value: string) => {
+    setUserMessage(value)
+    setSubmitted(true)
+  }
+
   return (
-    <Conversation>
-      <ConversationContent>
-        <ConversationEmptyState
-          title="Start a conversation"
-          description="Ask me anything to get started"
-          icon={<IconMessageCircle className="h-12 w-12" />}
-        />
-      </ConversationContent>
-    </Conversation>
+    <div className="h-[900px] w-full border rounded-lg flex flex-col">
+      <Conversation className="flex-1 min-h-0">
+        <ConversationContent>
+          {!submitted ? (
+            <ConversationEmptyState
+              title="Start a conversation with Atlas"
+              icon={<IconMessageCircle className="h-12 w-12" />}
+            >
+              <div className="flex flex-wrap gap-2 justify-center pb-4">
+                <Suggestion
+                  suggestion="Are there any anomalies, risks, or non-conformances identified?"
+                  onClick={handleSuggestion}
+                />
+                <Suggestion
+                  suggestion="What asset or equipment is being evaluated and what is its operational context?"
+                  onClick={handleSuggestion}
+                />
+                <Suggestion
+                  suggestion="What are the current field conditions and observations recorded?"
+                  onClick={handleSuggestion}
+                />
+              </div>
+            </ConversationEmptyState>
+          ) : (
+            <Message>
+              <MessageContent>
+                <span>{userMessage}</span>
+              </MessageContent>
+            </Message>
+          )}
+        </ConversationContent>
+        <ConversationScrollButton />
+      </Conversation>
+
+      <div className="border-t p-4">
+        <PromptInputProvider>
+          <PromptInput onSubmit={() => {}}>
+            <PromptInputBody>
+              <PromptInputTextarea placeholder="Ask about your assets..." />
+            </PromptInputBody>
+            <PromptInputFooter>
+              <PromptInputTools>
+                <PromptInputButton size="icon-sm">
+                  <IconAdjustments />
+                </PromptInputButton>
+              </PromptInputTools>
+              <PromptInputSubmit />
+            </PromptInputFooter>
+          </PromptInput>
+        </PromptInputProvider>
+      </div>
+    </div>
+  )
+}`,
+  },
+
+  emptyStateFillInput: {
+    title: 'Empty State - Fill Input',
+    description:
+      'Suggestions that fill the prompt input when clicked, ready for the user to submit',
+    component: () => (
+      <PromptInputProvider>
+        <EmptyStateFillInputDemo />
+      </PromptInputProvider>
+    ),
+    difficulty: 'intermediate',
+    code: `"use client"
+
+import {
+  Conversation,
+  ConversationContent,
+  ConversationEmptyState,
+} from "@/components/ai-elements/cognite/conversation"
+import {
+  PromptInput,
+  PromptInputProvider,
+  PromptInputBody,
+  PromptInputTextarea,
+  PromptInputSubmit,
+  PromptInputFooter,
+  PromptInputTools,
+  PromptInputButton,
+  usePromptInputController,
+} from "@/components/ai-elements/cognite/prompt-input"
+import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
+import { IconMessageCircle, IconAdjustments } from "@tabler/icons-react"
+
+function EmptyStateFillInputDemo() {
+  const controller = usePromptInputController()
+
+  const handleSuggestion = (value: string) => {
+    controller.textInput.setInput(value)
+  }
+
+  return (
+    <div className="h-[900px] w-full border rounded-lg flex flex-col">
+      <Conversation className="flex-1 min-h-0">
+        <ConversationContent>
+          <ConversationEmptyState
+            title="Start a conversation with Atlas"
+            icon={<IconMessageCircle className="h-12 w-12" />}
+          >
+            <div className="flex flex-wrap gap-2 justify-center pb-4">
+              <Suggestion
+                suggestion="Are there any anomalies, risks, or non-conformances identified?"
+                onClick={handleSuggestion}
+              />
+              <Suggestion
+                suggestion="What asset or equipment is being evaluated and what is its operational context?"
+                onClick={handleSuggestion}
+              />
+              <Suggestion
+                suggestion="What are the current field conditions and observations recorded?"
+                onClick={handleSuggestion}
+              />
+            </div>
+          </ConversationEmptyState>
+        </ConversationContent>
+      </Conversation>
+
+      <div className="border-t p-4">
+        <PromptInput onSubmit={() => {}}>
+          <PromptInputBody>
+            <PromptInputTextarea placeholder="Ask about your assets..." />
+          </PromptInputBody>
+          <PromptInputFooter>
+            <PromptInputTools>
+              <PromptInputButton size="icon-sm">
+                <IconAdjustments />
+              </PromptInputButton>
+            </PromptInputTools>
+            <PromptInputSubmit />
+          </PromptInputFooter>
+        </PromptInput>
+      </div>
+    </div>
+  )
+}
+
+export default function Demo() {
+  return (
+    <PromptInputProvider>
+      <EmptyStateFillInputDemo />
+    </PromptInputProvider>
   )
 }`,
   },
