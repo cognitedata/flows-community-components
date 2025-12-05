@@ -7,7 +7,8 @@ import {
 } from '@/components/ui/aura/collapsible';
 import { cn } from '@/common/utils';
 import type { ToolUIPart } from 'ai';
-import { IconChevronDown } from '@tabler/icons-react';
+import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
+import { Button } from '@/components/ui/aura/button';
 import type { ComponentProps, ReactNode } from 'react';
 import { isValidElement } from 'react';
 import {
@@ -20,10 +21,7 @@ export type ToolProps = ComponentProps<typeof Collapsible>;
 
 export const Tool = ({ className, ...props }: ToolProps) => (
   <Collapsible
-    className={cn(
-      'group not-prose mb-4 w-full  bg-background rounded-md',
-      className
-    )}
+    className={cn('group not-prose w-full bg-background rounded-md', className)}
     {...props}
   />
 );
@@ -40,19 +38,11 @@ export const ToolHeader = ({
   type,
   ...props
 }: ToolHeaderProps) => (
-  <CollapsibleTrigger
-    className={cn(
-      'w-full h-9 flex items-center justify-between rounded-md px-3 py-2.25 hover:bg-accent',
-      className
-    )}
-    {...props}
-  >
-    <div className="flex items-center gap-2">
-      <span className="font-normal text-base leading-5 tracking-tightest">
-        {title ?? type.split('-').slice(1).join('-')}
-      </span>
-    </div>
-    <IconChevronDown className="size-4 text-foreground transition-transform group-data-[state=open]:rotate-180" />
+  <CollapsibleTrigger className={className} {...props} asChild>
+    <Button variant="ghost" className="text-base leading-5 tracking-tighter">
+      <span>{title ?? type.split('-').slice(1).join('-')}</span>
+      <ChevronsUpDown className="h-4 w-4" />
+    </Button>
   </CollapsibleTrigger>
 );
 
@@ -103,15 +93,20 @@ export const ToolOutput = ({
 
   let Output = <div>{output as ReactNode}</div>;
 
-  if (typeof output === 'object' && !isValidElement(output)) {
+  const codeContent =
+    typeof output === 'object' && !isValidElement(output)
+      ? JSON.stringify(output, null, 2)
+      : typeof output === 'string'
+        ? output
+        : undefined;
+
+  if (codeContent) {
     Output = (
-      <CodeBlock code={JSON.stringify(output, null, 2)} language="json">
+      <CodeBlock code={codeContent} language="json">
         <CodeBlockCopyButton />
         <CodeBlockCollapseButton />
       </CodeBlock>
     );
-  } else if (typeof output === 'string') {
-    Output = <CodeBlock code={output} language="json" />;
   }
 
   return (
