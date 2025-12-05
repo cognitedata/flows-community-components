@@ -576,6 +576,7 @@ import {
   PromptInputSubmit,
   PromptInputFooter,
   PromptInputTools,
+  PromptInputButton,
 } from "@/components/ai-elements/cognite/prompt-input"
 import { Shimmer } from "@/components/ai-elements/cognite/shimmer"
 import { Response } from "@/components/ai-elements/cognite/response"
@@ -590,7 +591,24 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
-import { IconMessageCircle, IconWheel, IconCopy, IconTool, IconRefresh, IconHash } from "@tabler/icons-react"
+import { Button } from "@/components/ui/aura/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/aura/dropdown-menu"
+import {
+  IconMessageCircle,
+  IconWheel,
+  IconCopy,
+  IconDownload,
+  IconTool,
+  IconRefresh,
+  IconHash,
+  IconAdjustments,
+  IconChevronDown,
+} from "@tabler/icons-react"
 import { useEffect, useState } from "react"
 
 const thinkingPhrases = ["Searching database…", "Fetching sensor data…", "Formulating response…"]
@@ -603,8 +621,10 @@ const responseTokens = [
   "|-----------|--------|", "\\n", "| 03:15:00", " | Critical", " |",
 ]
 
-const toolInput = { asset_id: "21PT1019" }
-const toolOutput = { status: "success", anomalies_detected: 3 }
+const searchDatabaseInput = { asset_id: "21PT1019", data_types: ["vibration", "temperature", "rpm"] }
+const searchDatabaseOutput = { status: "success", data_points_retrieved: 1247 }
+const fetchSensorDataInput = { asset_id: "21PT1019", analysis: { detect_anomalies: true } }
+const fetchSensorDataOutput = { status: "success", anomalies_detected: 3, urgency: "within_48_hours" }
 
 type Phase = "empty" | "userMessage" | "waiting" | "thinking" | "streaming" | "complete"
 
@@ -664,8 +684,13 @@ export function BasicConversationDemo() {
     return () => clearInterval(interval)
   }, [phase])
 
+  const showUserMessage = phase !== "empty"
+  const showAssistantMessage = phase === "thinking" || phase === "streaming" || phase === "complete"
+  const isThinking = phase === "thinking"
+  const isComplete = phase === "complete"
+
   return (
-    <div className="h-[600px] w-full border rounded-lg flex flex-col">
+    <div className="h-[900px] w-full border rounded-lg flex flex-col">
       <Conversation className="flex-1 min-h-0">
         <ConversationContent>
           {phase === "empty" ? (
@@ -676,24 +701,35 @@ export function BasicConversationDemo() {
             />
           ) : (
             <>
-              <Message>
-                <MessageContent>
-                  There are abnormal vibration levels on{" "}
-                  <InlineCitation>
-                    <InlineCitationLink href="#" icon={IconHash} variant="nordic">
-                      21PT1019
-                    </InlineCitationLink>
-                  </InlineCitation>
-                </MessageContent>
-              </Message>
+              {showUserMessage && (
+                <Message>
+                  <MessageContent>
+                    <span>
+                      There are abnormal vibration levels on{" "}
+                      <InlineCitation>
+                        <InlineCitationLink
+                          href="https://example.com/pump/21PT1019"
+                          target="_blank"
+                          icon={IconHash}
+                          variant="nordic"
+                        >
+                          21PT1019
+                        </InlineCitationLink>
+                      </InlineCitation>
+                    </span>
+                  </MessageContent>
+                </Message>
+              )}
 
-              {(phase === "thinking" || phase === "streaming" || phase === "complete") && (
-                <Message isResponse>
+              {showAssistantMessage && (
+                <Message isResponse={true}>
                   <MessageAvatar variant="nordic">
-                    <MessageAvatarIcon><IconWheel /></MessageAvatarIcon>
+                    <MessageAvatarIcon>
+                      <IconWheel />
+                    </MessageAvatarIcon>
                   </MessageAvatar>
                   <MessageContent className="flex flex-col gap-2">
-                    {phase === "thinking" ? (
+                    {isThinking ? (
                       <Shimmer>{thinkingPhrases[phraseIndex]}</Shimmer>
                     ) : (
                       <>
@@ -701,24 +737,35 @@ export function BasicConversationDemo() {
                           Thought for {thinkingSeconds} seconds
                         </span>
                         <Response controls={false}>{streamedContent}</Response>
-                        {phase === "complete" && showTools && (
+                        {isComplete && showTools && (
                           <div className="flex flex-col gap-2">
+                            <hr className="my-3" />
                             <h4 className="text-sm font-medium text-muted-foreground">
                               Tool calls
                             </h4>
                             <Tool defaultOpen={false}>
                               <ToolHeader title="Search database" type="tool-call" />
                               <ToolContent>
-                                <ToolInput input={toolInput} />
-                                <ToolOutput output={toolOutput} errorText={undefined} />
+                                <ToolInput input={searchDatabaseInput} />
+                                <ToolOutput output={searchDatabaseOutput} errorText={undefined} />
+                              </ToolContent>
+                            </Tool>
+                            <Tool defaultOpen={false}>
+                              <ToolHeader title="Fetch sensor data" type="tool-call" />
+                              <ToolContent>
+                                <ToolInput input={fetchSensorDataInput} />
+                                <ToolOutput output={fetchSensorDataOutput} errorText={undefined} />
                               </ToolContent>
                             </Tool>
                           </div>
                         )}
-                        {phase === "complete" && (
+                        {isComplete && (
                           <MessageActions>
                             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                               <IconCopy className="w-3 h-3" />
+                            </MessageAction>
+                            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+                              <IconDownload className="w-3 h-3" />
                             </MessageAction>
                             <MessageAction
                               size="icon-sm"
@@ -729,6 +776,9 @@ export function BasicConversationDemo() {
                               className="data-[active=true]:bg-accent"
                             >
                               <IconTool className="w-3 h-3" />
+                            </MessageAction>
+                            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+                              <IconRefresh className="w-3 h-3" />
                             </MessageAction>
                           </MessageActions>
                         )}
@@ -750,7 +800,24 @@ export function BasicConversationDemo() {
               <PromptInputTextarea placeholder="Ask about your assets..." />
             </PromptInputBody>
             <PromptInputFooter>
-              <PromptInputTools />
+              <PromptInputTools>
+                <PromptInputButton size="icon-sm">
+                  <IconAdjustments />
+                </PromptInputButton>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm">
+                      Agent model
+                      <IconChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>GPT-4</DropdownMenuItem>
+                    <DropdownMenuItem>Claude</DropdownMenuItem>
+                    <DropdownMenuItem>Gemini</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </PromptInputTools>
               <PromptInputSubmit />
             </PromptInputFooter>
           </PromptInput>
