@@ -4,6 +4,15 @@
   "type": "registry:component",
   "title": "Context",
   "description": "AI context component for displaying context information.",
+  "dependencies": [
+    "ai",
+    "tokenlens"
+  ],
+  "registryDependencies": [
+    "button",
+    "hover-card",
+    "progress"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/context.tsx",

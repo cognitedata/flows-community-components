@@ -4,6 +4,9 @@
   "type": "registry:component",
   "title": "Confirmation",
   "description": "AI confirmation component for user confirmations.",
+  "dependencies": [
+    "@tabler/icons-react"
+  ],
   "registryDependencies": [
     "button"
   ],
