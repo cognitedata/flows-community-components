@@ -3,11 +3,8 @@ import type { ComponentExamples } from '@/lib/component-examples/types';
 
 function BasicShimmerDemo() {
   return (
-    <div className="space-y-3">
-      <p className="text-sm text-muted-foreground">Loading shimmer effect:</p>
-      <div className="border rounded-lg p-4 h-12">
-        <Shimmer>Processing...</Shimmer>
-      </div>
+    <div className="w-full flex justify-start space-y-3">
+      <Shimmer>Processing...</Shimmer>
     </div>
   );
 }
