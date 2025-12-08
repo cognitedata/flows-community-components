@@ -30,6 +30,18 @@ const colors = {
     { name: 'Mountain 900', value: 'rgb(33, 36, 38)', hex: '#212426' },
     { name: 'Mountain 950', value: 'rgb(17, 18, 19)', hex: '#111213' },
   ],
+  slate: [
+    { name: 'Slate 50', value: '#f8fafc', hex: '#f8fafc' },
+    { name: 'Slate 100', value: '#f1f5f9', hex: '#f1f5f9' },
+    { name: 'Slate 200', value: '#e2e8f0', hex: '#e2e8f0' },
+    { name: 'Slate 300', value: '#cbd5e1', hex: '#cbd5e1' },
+    { name: 'Slate 400', value: '#94a3b8', hex: '#94a3b8' },
+    { name: 'Slate 500', value: '#64748b', hex: '#64748b' },
+    { name: 'Slate 600', value: '#475569', hex: '#475569' },
+    { name: 'Slate 700', value: '#334155', hex: '#334155' },
+    { name: 'Slate 800', value: '#1e293b', hex: '#1e293b' },
+    { name: 'Slate 900', value: '#0f172a', hex: '#0f172a' },
+  ],
   fjord: [
     { name: 'Fjord 50', value: 'rgb(239, 242, 253)', hex: '#eff2fd' },
     { name: 'Fjord 100', value: 'rgb(223, 229, 252)', hex: '#dfe5fc' },

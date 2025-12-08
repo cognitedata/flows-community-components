@@ -37,7 +37,7 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
-          themes={['light', 'dark', 'contrast']}
+          themes={['light', 'dark']}
         >
           <div className="relative flex min-h-screen flex-col">
             <TopbarVisibility>
