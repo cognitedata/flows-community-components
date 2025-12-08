@@ -16,7 +16,7 @@ export const Response = memo(
         '[&_h2]:mt-4 [&_h2]:mb-1 [&_h2]:scroll-m-20 [&_h2]:text-lg [&_h2]:font-medium [&_h2]:tracking-tightest',
         '[&_h3]:mt-4 [&_h3]:mb-1 [&_h3]:scroll-m-20 [&_h3]:text-base [&_h3]:font-medium [&_h3]:tracking-tighter',
         '[&_h4]:mt-2 [&_h4]:mb-0 [&_h4]:scroll-m-20 [&_h4]:text-sm [&_h4]:font-medium [&_h4]:tracking-normal',
-        '[&_h5]:mt-0 [&_h5]:mb-0  [&_h5]:scroll-m-20 [&_h5]:text-xs [&_h5]:font-medium [&_h5]:tracking-tighter',
+        '[&_h5]:mt-0 [&_h5]:mb-0 [&_h5]:scroll-m-20 [&_h5]:text-xs [&_h5]:font-medium [&_h5]:tracking-tighter',
         '[&_h6]:mt-0 [&_h6]:mb-0 [&_h6]:scroll-m-20 [&_h6]:text-2xs [&_h6]:font-medium [&_h6]:tracking-tighter',
         // Paragraphs and text formatting
         '[&_p]:mt-2 [&_p]:mb-3 [&_p]:leading-7 [&_p]:text-base [&_p]:font-normal [&_p]:tracking-tightest',
@@ -31,7 +31,7 @@ export const Response = memo(
         '[&_blockquote_p]:text-sm [&_blockquote_p]:tracking-tight',
         '[&_hr]:my-4 [&_hr]:border-border',
         // Links
-        '[&_a]:text-foreground-link [&_a]:hover:underline [&_a]:underline-offset-4',
+        '[&_a]:text-foreground-link [&_a]:no-underline [&_a]:hover:underline [&_a]:underline-offset-4',
         // Inline code
         '[&_code]:relative [&_code]:rounded [&_code]:bg-muted [&_code]:px-[0.3rem] [&_code]:py-[0.2rem] [&_code]:font-mono [&_code]:text-sm [&_code]:font-semibold',
         // Code blocks
