@@ -46,7 +46,6 @@ function BasicActionsDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>Hello, how are you?</MessageContent>
       </Message>
 
@@ -123,7 +122,6 @@ export function BasicActionsDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>
           Hello, how are you?
         </MessageContent>

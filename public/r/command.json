@@ -5,6 +5,7 @@
   "title": "Command",
   "description": "Command component.",
   "dependencies": [
+    "cmdk",
     "@tabler/icons-react"
   ],
   "files": [
