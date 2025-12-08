@@ -77,14 +77,16 @@ function SourcesWithPopoverDemo() {
       />
       <Popover>
         <PopoverTrigger asChild>
-          <Badge variant="mountain" className="cursor-pointer">+4</Badge>
+          <Badge variant="mountain" className="cursor-pointer">
+            +4
+          </Badge>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
             <p className="text-xs text-muted-foreground font-medium">
               4 more sources
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap flex-col gap-2">
               <Source
                 href="https://example.com/33XT5421"
                 title="33XT5421"
