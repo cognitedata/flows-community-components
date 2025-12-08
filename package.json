@@ -28,8 +28,8 @@
     "@google/generative-ai": "^0.24.1",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@next/eslint-plugin-next": "16.0.3",
-    "@next/mdx": "16.0.3",
+    "@next/eslint-plugin-next": "16.0.5",
+    "@next/mdx": "16.0.5",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -72,11 +72,11 @@
     "gray-matter": "^4.0.3",
     "motion": "^12.23.24",
     "nanoid": "^5.1.6",
-    "next": "16.0.3",
+    "next": "16.0.7",
     "next-mdx-remote": "^5.0.0",
     "next-themes": "^0.4.6",
     "ogl": "^1.0.11",
-    "react": "19.2.0",
+    "react": "19.2.1",
     "react-day-picker": "^9.11.1",
     "react-dom": "19.2.0",
     "react-syntax-highlighter": "^16.1.0",
@@ -101,7 +101,7 @@
     "@types/react-dom": "19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
     "eslint": "^9.39.1",
-    "eslint-config-next": "16.0.3",
+    "eslint-config-next": "16.0.5",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.17",
     "tsx": "^4.20.6",
@@ -119,5 +119,5 @@
       "@types/react-dom": "19.2.3"
     }
   },
-  "packageManager": "pnpm@10.23.0"
+  "packageManager": "pnpm@10.24.0"
 }

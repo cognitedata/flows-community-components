@@ -4,6 +4,10 @@
   "type": "registry:component",
   "title": "Context Menu",
   "description": "Context Menu component.",
+  "dependencies": [
+    "@radix-ui/react-context-menu",
+    "@tabler/icons-react"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/context-menu.tsx",

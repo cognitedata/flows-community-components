@@ -47,6 +47,7 @@
       "type": "registry:component",
       "title": "Avatar",
       "description": "Avatar component.",
+      "dependencies": ["@radix-ui/react-avatar", "class-variance-authority"],
       "files": [
         {
           "path": "src/components/ui/aura/avatar.tsx",
@@ -108,6 +109,20 @@
       ]
     },
     {
+      "name": "button-group",
+      "type": "registry:component",
+      "title": "Button Group",
+      "description": "A component for grouping buttons with horizontal or vertical orientation.",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "registryDependencies": ["separator"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/button-group.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "calendar",
       "type": "registry:component",
       "title": "Calendar",
@@ -163,6 +178,7 @@
       "type": "registry:component",
       "title": "Collapsible",
       "description": "Collapsible component.",
+      "dependencies": ["@radix-ui/react-collapsible"],
       "files": [
         {
           "path": "src/components/ui/aura/collapsible.tsx",
@@ -188,7 +204,7 @@
       "type": "registry:component",
       "title": "Command",
       "description": "Command component.",
-      "dependencies": ["@tabler/icons-react"],
+      "dependencies": ["cmdk", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/aura/command.tsx",
@@ -201,6 +217,7 @@
       "type": "registry:component",
       "title": "Context Menu",
       "description": "Context Menu component.",
+      "dependencies": ["@radix-ui/react-context-menu", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/aura/context-menu.tsx",
@@ -213,6 +230,8 @@
       "type": "registry:component",
       "title": "Date Picker",
       "description": "Date Picker component.",
+      "dependencies": ["date-fns", "@tabler/icons-react"],
+      "registryDependencies": ["button", "calendar", "popover"],
       "files": [
         {
           "path": "src/components/ui/aura/date-picker.tsx",
@@ -238,6 +257,7 @@
       "type": "registry:component",
       "title": "Drawer",
       "description": "Drawer component.",
+      "dependencies": ["vaul"],
       "files": [
         {
           "path": "src/components/ui/aura/drawer.tsx",
@@ -263,7 +283,7 @@
       "type": "registry:component",
       "title": "Helper Text",
       "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
-      "dependencies": ["@tabler/icons-react"],
+      "dependencies": ["class-variance-authority", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/aura/helper-text.tsx",
@@ -313,6 +333,7 @@
       "type": "registry:component",
       "title": "Menubar",
       "description": "Menubar component.",
+      "dependencies": ["@radix-ui/react-menubar", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/aura/menubar.tsx",
@@ -377,6 +398,7 @@
       "type": "registry:component",
       "title": "Scroll Area",
       "description": "Scroll Area component.",
+      "dependencies": ["@radix-ui/react-scroll-area"],
       "files": [
         {
           "path": "src/components/ui/aura/scroll-area.tsx",
@@ -454,6 +476,7 @@
       "type": "registry:component",
       "title": "Slider",
       "description": "Slider component.",
+      "dependencies": ["@radix-ui/react-slider"],
       "files": [
         {
           "path": "src/components/ui/aura/slider.tsx",
@@ -553,6 +576,7 @@
       "type": "registry:component",
       "title": "Toggle",
       "description": "Toggle component.",
+      "dependencies": ["@radix-ui/react-toggle", "class-variance-authority"],
       "files": [
         {
           "path": "src/components/ui/aura/toggle.tsx",
@@ -617,6 +641,8 @@
       "type": "registry:component",
       "title": "Input Group",
       "description": "Input group component for grouped inputs with addons.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["button", "input", "textarea"],
       "files": [
         {
           "path": "src/components/ui/aura/input-group.tsx",
@@ -681,7 +707,8 @@
       "type": "registry:component",
       "title": "Chain of Thought",
       "description": "AI chain of thought component for displaying reasoning steps.",
-      "dependencies": ["@tabler/icons-react"],
+      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
+      "registryDependencies": ["badge", "collapsible"],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/chain-of-thought.tsx",
@@ -708,6 +735,7 @@
       "type": "registry:component",
       "title": "Confirmation",
       "description": "AI confirmation component for user confirmations.",
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": ["button"],
       "files": [
         {
@@ -733,6 +761,8 @@
       "type": "registry:component",
       "title": "Context",
       "description": "AI context component for displaying context information.",
+      "dependencies": ["ai", "tokenlens"],
+      "registryDependencies": ["button", "hover-card", "progress"],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/context.tsx",
@@ -783,6 +813,7 @@
       "type": "registry:component",
       "title": "Image",
       "description": "AI image component for displaying generated images.",
+      "dependencies": ["ai"],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/image.tsx",
@@ -910,6 +941,8 @@
       "type": "registry:component",
       "title": "Reasoning",
       "description": "AI reasoning component for displaying reasoning processes.",
+      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react", "streamdown"],
+      "registryDependencies": ["collapsible"],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/reasoning.tsx",

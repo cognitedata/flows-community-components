@@ -27,7 +27,6 @@ import {
   IconThumbUp as ThumbsUp,
   IconTrash as Trash2,
 } from '@tabler/icons-react';
-import Image from 'next/image';
 
 interface Message {
   id: string;
@@ -196,16 +195,6 @@ function MessageBubble({
           </div>
         )}
       </div>
-
-      {message.role === 'user' && (
-        <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0">
-          <Image
-            src="/user-avatar.png"
-            alt="User Avatar"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      )}
     </motion.div>
   );
 }

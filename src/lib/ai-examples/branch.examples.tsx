@@ -36,18 +36,43 @@ import type { ComponentExamples } from '@/lib/component-examples/types';
 const assistantResponses = [
   {
     id: '1',
-    content:
-      'According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period.',
+    content: (
+      <>
+        According to the time series, vibration amplitude has been rising
+        steadily since 03:00. The motor temperature also increased by 8°C over
+        the same period.
+      </>
+    ),
   },
   {
     id: '2',
-    content:
-      'I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM.',
+    content: (
+      <span>
+        I analyzed the sensor data and found that vibration levels on{' '}
+        <InlineCitation>
+          <InlineCitationLink
+            href="https://example.com/pump/21PT1019"
+            target="_blank"
+            icon={IconHash}
+            variant="nordic"
+          >
+            21PT1019
+          </InlineCitationLink>
+        </InlineCitation>{' '}
+        exceeded normal thresholds at 03:15. This correlates with a 12% increase
+        in RPM.
+      </span>
+    ),
   },
   {
     id: '3',
-    content:
-      'The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment.',
+    content: (
+      <>
+        The abnormal vibration pattern suggests potential bearing wear.
+        Historical data shows similar patterns preceded maintenance events on
+        comparable equipment.
+      </>
+    ),
   },
 ];
 
@@ -55,7 +80,6 @@ function BranchDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           <span>
             What&apos;s causing the abnormal vibration levels on pump{' '}
@@ -187,7 +211,20 @@ import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh, IconHash, Ico
 
 const assistantResponses = [
   { id: "1", content: "According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period." },
-  { id: "2", content: "I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM." },
+  {
+    id: "2",
+    content: (
+      <span>
+        I analyzed the sensor data and found that vibration levels on{' '}
+        <InlineCitation>
+          <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+            21PT1019
+          </InlineCitationLink>
+        </InlineCitation>
+        {' '}exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM.
+      </span>
+    ),
+  },
   { id: "3", content: "The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment." },
 ]
 
@@ -195,7 +232,6 @@ export function BranchDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
           <span>
             What's causing the abnormal vibration levels on pump{' '}
@@ -208,8 +244,7 @@ export function BranchDemo() {
               >
                 21PT1019
               </InlineCitationLink>
-            </InlineCitation>
-            ?
+            </InlineCitation>?
           </span>
         </MessageContent>
       </Message>
