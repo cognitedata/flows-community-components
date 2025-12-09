@@ -38,7 +38,6 @@ import {
   InlineCitationLink,
 } from '@/components/ui/aura/inline-citation';
 import {
-  IconMessageCircle,
   IconWheel,
   IconCopy,
   IconDownload,
@@ -374,22 +373,19 @@ function BasicConversationDemo() {
       <Conversation className="flex-1 min-h-0">
         <ConversationContent>
           {phase === 'empty' ? (
-            <ConversationEmptyState
-              title="Start a conversation with Atlas"
-              icon={<IconMessageCircle className="h-12 w-12" />}
-            >
+            <ConversationEmptyState title="Start a conversation with Atlas">
               <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What asset or equipment is being evaluated and what is its operational context?"
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What are the current field conditions and observations recorded?"
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
               </div>
             </ConversationEmptyState>
@@ -566,25 +562,22 @@ function EmptyStateFillInputDemo() {
     <div className="h-[900px] w-full border rounded-lg flex flex-col">
       <Conversation className="flex-1 min-h-0">
         <ConversationContent>
-          <ConversationEmptyState
-            title="Start a conversation with Atlas"
-            icon={<IconMessageCircle className="h-12 w-12" />}
-          >
+          <ConversationEmptyState title="Start a conversation with Atlas">
             <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
               <Suggestion
                 suggestion="Are there any anomalies, risks, or non-conformances identified?"
                 onClick={handleSuggestion}
-                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What asset or equipment is being evaluated and what is its operational context?"
                 onClick={handleSuggestion}
-                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What are the current field conditions and observations recorded?"
                 onClick={handleSuggestion}
-                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
               />
             </div>
           </ConversationEmptyState>
@@ -624,25 +617,22 @@ function EmptyStateSubmitDemo() {
       <Conversation className="flex-1 min-h-0">
         <ConversationContent>
           {!submitted ? (
-            <ConversationEmptyState
-              title="Start a conversation with Atlas"
-              icon={<IconMessageCircle className="h-12 w-12" />}
-            >
+            <ConversationEmptyState title="Start a conversation with Atlas">
               <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   onClick={handleSuggestion}
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What asset or equipment is being evaluated and what is its operational context?"
                   onClick={handleSuggestion}
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What are the current field conditions and observations recorded?"
                   onClick={handleSuggestion}
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
               </div>
             </ConversationEmptyState>
@@ -733,7 +723,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu"
 import {
-  IconMessageCircle,
   IconWheel,
   IconCopy,
   IconDownload,
@@ -830,20 +819,19 @@ export function BasicConversationDemo() {
           {phase === "empty" ? (
             <ConversationEmptyState
               title="Start a conversation with Atlas"
-              icon={<IconMessageCircle className="h-12 w-12" />}
             >
               <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What asset or equipment is being evaluated and what is its operational context?"
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What are the current field conditions and observations recorded?"
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
               </div>
             </ConversationEmptyState>
@@ -1005,7 +993,7 @@ import {
   PromptInputButton,
 } from "@/components/ai-elements/cognite/prompt-input"
 import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
-import { IconMessageCircle, IconAdjustments } from "@tabler/icons-react"
+import { IconAdjustments } from "@tabler/icons-react"
 import { useState } from "react"
 
 export function EmptyStateSubmitDemo() {
@@ -1024,23 +1012,22 @@ export function EmptyStateSubmitDemo() {
           {!submitted ? (
             <ConversationEmptyState
               title="Start a conversation with Atlas"
-              icon={<IconMessageCircle className="h-12 w-12" />}
             >
               <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   onClick={handleSuggestion}
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What asset or equipment is being evaluated and what is its operational context?"
                   onClick={handleSuggestion}
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What are the current field conditions and observations recorded?"
                   onClick={handleSuggestion}
-                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
                 />
               </div>
             </ConversationEmptyState>
@@ -1106,7 +1093,7 @@ import {
   usePromptInputController,
 } from "@/components/ai-elements/cognite/prompt-input"
 import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
-import { IconMessageCircle, IconAdjustments } from "@tabler/icons-react"
+import { IconAdjustments } from "@tabler/icons-react"
 
 function EmptyStateFillInputDemo() {
   const controller = usePromptInputController()
@@ -1121,23 +1108,22 @@ function EmptyStateFillInputDemo() {
         <ConversationContent>
           <ConversationEmptyState
             title="Start a conversation with Atlas"
-            icon={<IconMessageCircle className="h-12 w-12" />}
           >
             <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
               <Suggestion
                 suggestion="Are there any anomalies, risks, or non-conformances identified?"
                 onClick={handleSuggestion}
-                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What asset or equipment is being evaluated and what is its operational context?"
                 onClick={handleSuggestion}
-                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What are the current field conditions and observations recorded?"
                 onClick={handleSuggestion}
-                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
               />
             </div>
           </ConversationEmptyState>
