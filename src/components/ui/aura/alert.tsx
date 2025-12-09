@@ -20,7 +20,7 @@ const AlertContext = React.createContext<AlertContextProps>({
 });
 
 const alertVariants = cva(
-  'relative w-full max-w-[var(--alert-max-width)] rounded-md border pt-2 pr-3 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-0.5 gap-0.70 items-center [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
+  'relative w-full max-w-[var(--alert-max-width)] rounded-md border pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 gap-0.70 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
   {
     variants: {
       variant: {
@@ -98,7 +98,20 @@ function AlertDescription({
     <div
       data-slot="alert-description"
       className={cn(
-        'text-card-foreground col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight min-h-7 items-center',
+        'text-card-foreground col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight items-center',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="alert-actions"
+      className={cn(
+        'col-start-2 flex flex-wrap items-start gap-2 -ml-2 pt-1',
         className
       )}
       {...props}
@@ -108,14 +121,13 @@ function AlertDescription({
 
 function AlertButton({ className, ...props }: React.ComponentProps<'button'>) {
   return (
-    <div className="col-start-2 grid justify-items-start gap-1 w-auto">
-      <Button
-        data-slot="alert-button"
-        variant="ghost"
-        className={cn('!px-0 text-foreground', className)}
-        {...props}
-      />
-    </div>
+    <Button
+      data-slot="alert-button"
+      variant="ghost"
+      size="sm"
+      className={cn('text-foreground', className)}
+      {...props}
+    />
   );
 }
 
@@ -149,4 +161,11 @@ function AlertClose({
   );
 }
 
-export { Alert, AlertTitle, AlertDescription, AlertButton, AlertClose };
+export {
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  AlertActions,
+  AlertButton,
+  AlertClose,
+};

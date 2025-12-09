@@ -2,6 +2,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  AlertActions,
   AlertButton,
 } from '@/components/ui/aura/alert';
 import {
@@ -15,50 +16,52 @@ import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
       <Alert
-        className="w-[401px]"
         onClose={() => {
           console.log('close');
         }}
       >
-        <IconInfoCircle className="h-3.5 w-3.5" />
+        <IconInfoCircle className="w-3.5 h-3.5" />
         <AlertTitle>Account verification required</AlertTitle>
         <AlertDescription>
           Please check your email and click the verification link to activate
           your account.
         </AlertDescription>
       </Alert>
-      <Alert variant="secondary" className="w-[401px]">
-        <IconUser className="h-3.5 w-3.5" />
+      <Alert variant="secondary">
+        <IconUser className="w-3.5 h-3.5" />
         <AlertDescription>
-          Changes will not be saved until you click ‘Update’.
+          Changes will not be saved until you click &apos;Update&apos;.
         </AlertDescription>
       </Alert>
       <Alert
         variant="warning"
-        className="w-[401px]"
         onClose={() => {
           console.log('close');
         }}
       >
-        <IconAlertTriangle className="h-3.5 w-3.5" />
+        <IconAlertTriangle className="w-3.5 h-3.5" />
         <AlertTitle>Storage almost full</AlertTitle>
         <AlertDescription>
-          You're using 90% of your available storage. Consider upgrading your
-          plan.
+          You&apos;re using 90% of your available storage. Consider upgrading
+          your plan.
         </AlertDescription>
-        <AlertButton className="text-card-foreground">
-          <IconRocket /> Upgrade plan
-        </AlertButton>
+        <AlertActions>
+          <AlertButton className="text-card-foreground">
+            <IconRocket /> Upgrade plan
+          </AlertButton>
+        </AlertActions>
       </Alert>
-      <Alert variant="error" className="w-[401px]">
-        <IconAlertHexagon className="h-3.5 w-3.5" />
+      <Alert variant="error">
+        <IconAlertHexagon className="w-3.5 h-3.5" />
         <AlertTitle>Unable to connect data</AlertTitle>
         <AlertDescription>
           Verify you have the correct ID and try again.
         </AlertDescription>
-        <AlertButton className="text-card-foreground">Try again</AlertButton>
+        <AlertActions>
+          <AlertButton className="text-card-foreground">Try again</AlertButton>
+        </AlertActions>
       </Alert>
     </div>
   );
