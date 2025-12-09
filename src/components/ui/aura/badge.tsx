@@ -58,11 +58,17 @@ function Badge({
   outline,
   dot,
   background,
+  urgent = false,
   asChild = false,
+  children,
   ...props
 }: React.ComponentProps<'span'> &
-  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+  VariantProps<typeof badgeVariants> & {
+    asChild?: boolean;
+    urgent?: boolean;
+  }) {
   const Comp = asChild ? Slot : 'span';
+  const isEmpty = !children;
 
   return (
     <Comp
@@ -71,10 +77,15 @@ function Badge({
         badgeVariants({ variant, background }),
         outline && 'border-current px-0.75',
         dot && 'rounded-full',
+        dot && isEmpty && 'size-2 p-0 border-0',
+        dot && isEmpty && urgent && 'bg-destructive-foreground',
+        dot && isEmpty && !urgent && 'bg-neutral-foreground',
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </Comp>
   );
 }
 
