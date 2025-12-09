@@ -68,7 +68,7 @@ export const ToolInput = ({ className, input, ...props }: ToolInputProps) => (
       Parameters
     </h4>
     <div className="rounded-md bg-muted/50">
-      <CodeBlock code={JSON.stringify(input, null, 2)} language="json">
+      <CodeBlock code={JSON.stringify(input, null, 2)} language="json" collapsed>
         <CodeBlockCopyButton />
         <CodeBlockCollapseButton />
       </CodeBlock>
@@ -102,7 +102,7 @@ export const ToolOutput = ({
 
   if (codeContent) {
     Output = (
-      <CodeBlock code={codeContent} language="json">
+      <CodeBlock code={codeContent} language="json" collapsed>
         <CodeBlockCopyButton />
         <CodeBlockCollapseButton />
       </CodeBlock>
