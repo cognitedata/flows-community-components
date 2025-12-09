@@ -378,7 +378,7 @@ function BasicConversationDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
@@ -570,7 +570,7 @@ function EmptyStateFillInputDemo() {
             title="Start a conversation with Atlas"
             icon={<IconMessageCircle className="h-12 w-12" />}
           >
-            <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+            <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
               <Suggestion
                 suggestion="Are there any anomalies, risks, or non-conformances identified?"
                 onClick={handleSuggestion}
@@ -628,7 +628,7 @@ function EmptyStateSubmitDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   onClick={handleSuggestion}
@@ -832,7 +832,7 @@ export function BasicConversationDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
@@ -1026,7 +1026,7 @@ export function EmptyStateSubmitDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   onClick={handleSuggestion}
@@ -1123,7 +1123,7 @@ function EmptyStateFillInputDemo() {
             title="Start a conversation with Atlas"
             icon={<IconMessageCircle className="h-12 w-12" />}
           >
-            <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+            <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
               <Suggestion
                 suggestion="Are there any anomalies, risks, or non-conformances identified?"
                 onClick={handleSuggestion}
