@@ -16,7 +16,6 @@ import Image from 'next/image';
 import auraLogo from '@/../public/aura-logo.png';
 import {
   IconBrandGithub,
-  IconContrast,
   IconMenu2,
   IconMoon,
   IconSun,
@@ -44,7 +43,6 @@ function ThemeToggleGroup() {
   const themes = [
     { name: 'light', icon: IconSun, label: 'Light' },
     { name: 'dark', icon: IconMoon, label: 'Dark' },
-    { name: 'contrast', icon: IconContrast, label: 'High contrast' },
   ];
 
   return (

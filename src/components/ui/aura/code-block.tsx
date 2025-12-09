@@ -127,7 +127,7 @@ export const CodeBlock = ({
     >
       <div
         className={cn(
-          'group/code-block relative w-full overflow-hidden rounded-md border bg-background text-foreground',
+          'group/code-block relative w-full overflow-hidden rounded-md bg-background text-foreground',
           className
         )}
         {...props}
@@ -152,10 +152,10 @@ export const CodeBlock = ({
             dangerouslySetInnerHTML={{ __html: darkHtml }}
           />
           {isCollapsed && (
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-white/70 to-white dark:via-background/70 dark:to-background" />
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-card/70 to-card" />
           )}
           {children && (
-            <div className="absolute top-2 right-2 flex items-center gap-2 opacity-0 transition-opacity group-hover/code-block:opacity-100">
+            <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover/code-block:flex">
               {children}
             </div>
           )}
