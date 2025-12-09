@@ -224,6 +224,15 @@
   --color-decorative-foreground-sky: var(--decorative-foreground-sky);
   --color-decorative-foreground-gray: var(--decorative-foreground-gray);
 
+  /* Gradient tokens */
+  --color-gradient-nordic: var(--gradient-nordic);
+  --color-gradient-aurora: var(--gradient-aurora);
+  --color-gradient-dusk: var(--gradient-dusk);
+  --color-gradient-equinox: var(--gradient-equinox);
+  --color-gradient-summer: var(--gradient-summer);
+  --color-gradient-spring: var(--gradient-spring);
+  --color-gradient-fall: var(--gradient-fall);
+
   --radius-none: 0px;
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -549,6 +558,15 @@
   --decorative-foreground-sky: var(--sky-600);
   --decorative-foreground-gray: var(--gray-600);
 
+  /* Gradient tokens */
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-50) 0%, var(--nordic-400) 44%, var(--nordic-200) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-50) 0%, var(--aurora-400) 50%, var(--aurora-200) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-50) 0%, var(--dusk-400) 48%, var(--dusk-200) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-600) 0%, var(--dusk-300) 40%, var(--aurora-50) 60%, var(--aurora-100) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-100) 0%, var(--dusk-50) 50%, var(--aurora-100) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-50) 0%, var(--nordic-100) 50%, var(--aurora-100) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-550) 0%, var(--dusk-550) 50%, var(--dusk-300) 100%);
+
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
@@ -632,6 +650,59 @@
   --decorative-foreground-orange: var(--orange-300);
   --decorative-foreground-sky: var(--sky-300);
   --decorative-foreground-gray: var(--gray-300);
+
+  /* Gradient tokens */
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-900) 0%, var(--nordic-600) 44%, var(--nordic-800) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-900) 0%, var(--aurora-600) 50%, var(--aurora-800) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-900) 0%, var(--dusk-600) 48%, var(--dusk-800) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-400) 0%, var(--dusk-700) 40%, var(--aurora-950) 60%, var(--aurora-900) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-900) 0%, var(--dusk-950) 50%, var(--aurora-900) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-950) 0%, var(--nordic-900) 50%, var(--aurora-900) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-450) 0%, var(--dusk-450) 50%, var(--dusk-700) 100%);
+
+  /* Charts (dark) */
+  --chart-fjord-solid: var(--fjord-300);
+  --chart-fjord-opacity-1: rgba(174, 189, 247, 0.8);
+  --chart-fjord-opacity-2: rgba(174, 189, 247, 0.65);
+  --chart-fjord-opacity-3: rgba(174, 189, 247, 0.5);
+  --chart-fjord-opacity-4: rgba(174, 189, 247, 0.35);
+  --chart-fjord-opacity-5: rgba(174, 189, 247, 0.2);
+  --chart-aurora-solid: var(--aurora-200);
+  --chart-aurora-opacity-1: rgba(171, 233, 56, 0.8);
+  --chart-aurora-opacity-2: rgba(171, 233, 56, 0.65);
+  --chart-aurora-opacity-3: rgba(171, 233, 56, 0.5);
+  --chart-aurora-opacity-4: rgba(171, 233, 56, 0.35);
+  --chart-aurora-opacity-5: rgba(171, 233, 56, 0.2);
+  --chart-nordic-solid: var(--nordic-200);
+  --chart-nordic-opacity-1: rgba(127, 233, 210, 0.8);
+  --chart-nordic-opacity-2: rgba(127, 233, 210, 0.65);
+  --chart-nordic-opacity-3: rgba(127, 233, 210, 0.5);
+  --chart-nordic-opacity-4: rgba(127, 233, 210, 0.35);
+  --chart-nordic-opacity-5: rgba(127, 233, 210, 0.2);
+  --chart-orange-solid: var(--orange-200);
+  --chart-orange-opacity-1: rgba(252, 205, 176, 0.8);
+  --chart-orange-opacity-2: rgba(252, 205, 176, 0.65);
+  --chart-orange-opacity-3: rgba(252, 205, 176, 0.5);
+  --chart-orange-opacity-4: rgba(252, 205, 176, 0.35);
+  --chart-orange-opacity-5: rgba(252, 205, 176, 0.2);
+  --chart-dusk-solid: var(--dusk-200);
+  --chart-dusk-opacity-1: rgba(232, 206, 236, 0.8);
+  --chart-dusk-opacity-2: rgba(232, 206, 236, 0.65);
+  --chart-dusk-opacity-3: rgba(232, 206, 236, 0.5);
+  --chart-dusk-opacity-4: rgba(232, 206, 236, 0.35);
+  --chart-dusk-opacity-5: rgba(232, 206, 236, 0.2);
+  --chart-lime-solid: var(--aurora-200);
+  --chart-lime-opacity-1: rgba(171, 233, 56, 0.8);
+  --chart-lime-opacity-2: rgba(171, 233, 56, 0.65);
+  --chart-lime-opacity-3: rgba(171, 233, 56, 0.5);
+  --chart-lime-opacity-4: rgba(171, 233, 56, 0.35);
+  --chart-lime-opacity-5: rgba(171, 233, 56, 0.2);
+  --chart-pink-solid: var(--dusk-200);
+  --chart-pink-opacity-1: rgba(232, 206, 236, 0.8);
+  --chart-pink-opacity-2: rgba(232, 206, 236, 0.65);
+  --chart-pink-opacity-3: rgba(232, 206, 236, 0.5);
+  --chart-pink-opacity-4: rgba(232, 206, 236, 0.35);
+  --chart-pink-opacity-5: rgba(232, 206, 236, 0.2);
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
