@@ -248,6 +248,7 @@
   --code-block-collapsed-height: 6.5rem;
   --code-block-fade-height: 0.9375rem;
   --message-content-max-width: 80%;
+  --alert-max-width: 620px;
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
