@@ -36,14 +36,12 @@ export const ConversationContent = ({
 export type ConversationEmptyStateProps = ComponentProps<'div'> & {
   title?: string;
   description?: string;
-  icon?: React.ReactNode;
 };
 
 export const ConversationEmptyState = ({
   className,
   title = 'No messages yet',
   description = '',
-  icon,
   children,
   ...props
 }: ConversationEmptyStateProps) => (
@@ -52,13 +50,14 @@ export const ConversationEmptyState = ({
     {...props}
   >
     <div className="max-w-[594px] w-full flex flex-col items-center justify-center text-center">
-      {icon && (
-        <div className="flex items-center justify-center w-[80px] h-[80px] bg-mountain rounded-lg mb-14">
-          {icon}
-        </div>
-      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/icon-conversationemptystate.png"
+        alt="Conversation icon"
+        className="w-[80px] h-[80px] mb-14"
+      />
       <div className="space-y-1 mb-14">
-        <h3 className="text-lg font-medium tracking-tightest">{title}</h3>
+        <h3 className="text-xl font-medium tracking-tightest">{title}</h3>
         {description && (
           <p className="text-muted-foreground text-sm">{description}</p>
         )}
