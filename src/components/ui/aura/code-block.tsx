@@ -135,7 +135,7 @@ export const CodeBlock = ({
         <div className="relative">
           <div
             className={cn(
-              'overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
+              'overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
               isCollapsed &&
                 'max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden'
             )}
@@ -144,7 +144,7 @@ export const CodeBlock = ({
           />
           <div
             className={cn(
-              'hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-background! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
+              'hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
               isCollapsed &&
                 'max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden'
             )}
