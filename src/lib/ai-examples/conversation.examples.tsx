@@ -415,7 +415,9 @@ function BasicConversationDemo() {
                   </MessageAvatar>
                   <MessageContent className="flex flex-col gap-2">
                     {isThinking ? (
-                      <Shimmer variant="nordic">{thinkingPhrases[phraseIndex]}</Shimmer>
+                      <Shimmer variant="nordic">
+                        {thinkingPhrases[phraseIndex]}
+                      </Shimmer>
                     ) : (
                       <>
                         <span className="text-muted-foreground text-sm">
@@ -492,8 +494,8 @@ function BasicConversationDemo() {
                             </MessageAction>
                             <MessageAction
                               size="icon-sm"
-                              label="Refresh"
-                              tooltip="Refresh"
+                              label="Retry"
+                              tooltip="Retry"
                             >
                               <IconRefresh className="w-3 h-3" />
                             </MessageAction>
@@ -899,7 +901,7 @@ export function BasicConversationDemo() {
                             >
                               <IconTool className="w-3 h-3" />
                             </MessageAction>
-                            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+                            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
                               <IconRefresh className="w-3 h-3" />
                             </MessageAction>
                           </MessageActions>
