@@ -378,10 +378,19 @@ function BasicConversationDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-wrap gap-2 justify-center pb-4">
-                <Suggestion suggestion="Are there any anomalies, risks, or non-conformances identified?" />
-                <Suggestion suggestion="What asset or equipment is being evaluated and what is its operational context?" />
-                <Suggestion suggestion="What are the current field conditions and observations recorded?" />
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+                <Suggestion
+                  suggestion="Are there any anomalies, risks, or non-conformances identified?"
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                />
+                <Suggestion
+                  suggestion="What asset or equipment is being evaluated and what is its operational context?"
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                />
+                <Suggestion
+                  suggestion="What are the current field conditions and observations recorded?"
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                />
               </div>
             </ConversationEmptyState>
           ) : (
@@ -561,18 +570,21 @@ function EmptyStateFillInputDemo() {
             title="Start a conversation with Atlas"
             icon={<IconMessageCircle className="h-12 w-12" />}
           >
-            <div className="flex flex-wrap gap-2 justify-center pb-4">
+            <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
               <Suggestion
                 suggestion="Are there any anomalies, risks, or non-conformances identified?"
                 onClick={handleSuggestion}
+                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What asset or equipment is being evaluated and what is its operational context?"
                 onClick={handleSuggestion}
+                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What are the current field conditions and observations recorded?"
                 onClick={handleSuggestion}
+                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
               />
             </div>
           </ConversationEmptyState>
@@ -616,18 +628,21 @@ function EmptyStateSubmitDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-wrap gap-2 justify-center pb-4">
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   onClick={handleSuggestion}
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What asset or equipment is being evaluated and what is its operational context?"
                   onClick={handleSuggestion}
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What are the current field conditions and observations recorded?"
                   onClick={handleSuggestion}
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
                 />
               </div>
             </ConversationEmptyState>
@@ -817,10 +832,19 @@ export function BasicConversationDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-wrap gap-2 justify-center pb-4">
-                <Suggestion suggestion="Are there any anomalies, risks, or non-conformances identified?" />
-                <Suggestion suggestion="What asset or equipment is being evaluated and what is its operational context?" />
-                <Suggestion suggestion="What are the current field conditions and observations recorded?" />
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
+                <Suggestion
+                  suggestion="Are there any anomalies, risks, or non-conformances identified?"
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                />
+                <Suggestion
+                  suggestion="What asset or equipment is being evaluated and what is its operational context?"
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                />
+                <Suggestion
+                  suggestion="What are the current field conditions and observations recorded?"
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
+                />
               </div>
             </ConversationEmptyState>
           ) : (
@@ -1002,18 +1026,21 @@ export function EmptyStateSubmitDemo() {
               title="Start a conversation with Atlas"
               icon={<IconMessageCircle className="h-12 w-12" />}
             >
-              <div className="flex flex-wrap gap-2 justify-center pb-4">
+              <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
                 <Suggestion
                   suggestion="Are there any anomalies, risks, or non-conformances identified?"
                   onClick={handleSuggestion}
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What asset or equipment is being evaluated and what is its operational context?"
                   onClick={handleSuggestion}
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
                 />
                 <Suggestion
                   suggestion="What are the current field conditions and observations recorded?"
                   onClick={handleSuggestion}
+                  className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
                 />
               </div>
             </ConversationEmptyState>
@@ -1096,18 +1123,21 @@ function EmptyStateFillInputDemo() {
             title="Start a conversation with Atlas"
             icon={<IconMessageCircle className="h-12 w-12" />}
           >
-            <div className="flex flex-wrap gap-2 justify-center pb-4">
+            <div className="flex flex-col flex-wrap gap-4 justify-left px-10 py-2">
               <Suggestion
                 suggestion="Are there any anomalies, risks, or non-conformances identified?"
                 onClick={handleSuggestion}
+                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What asset or equipment is being evaluated and what is its operational context?"
                 onClick={handleSuggestion}
+                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
               />
               <Suggestion
                 suggestion="What are the current field conditions and observations recorded?"
                 onClick={handleSuggestion}
+                className="block bg-card rounded-lg p-4 text-left text-base font-medium whitespace-normal"
               />
             </div>
           </ConversationEmptyState>
