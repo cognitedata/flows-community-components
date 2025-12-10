@@ -9,14 +9,18 @@ import type { MouseEventHandler } from 'react';
 import { cn } from '@/common/utils';
 import { Button } from '#aura/button';
 
+type AlertVariant = 'default' | 'secondary' | 'warning' | 'error';
+
 type AlertContextProps = {
   show: boolean;
   setShow: (show: boolean) => void;
+  variant: AlertVariant;
 };
 
 const AlertContext = React.createContext<AlertContextProps>({
   show: true,
   setShow: () => {},
+  variant: 'default',
 });
 
 const alertVariants = cva(
@@ -45,7 +49,7 @@ type AlertProps = React.ComponentProps<'div'> &
 
 function Alert({
   className,
-  variant,
+  variant = 'default',
   visible,
   defaultVisible = true,
   onClose,
@@ -63,7 +67,9 @@ function Alert({
   }
 
   return (
-    <AlertContext.Provider value={{ show, setShow }}>
+    <AlertContext.Provider
+      value={{ show, setShow, variant: variant as AlertVariant }}
+    >
       <div
         data-slot="alert"
         role="alert"
@@ -120,12 +126,21 @@ function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function AlertButton({ className, ...props }: React.ComponentProps<'button'>) {
+  const { variant } = React.useContext(AlertContext);
+
+  const hoverClasses: Record<AlertVariant, string> = {
+    default: 'hover:bg-undefined-hover',
+    secondary: 'hover:bg-neutral-hover',
+    warning: 'hover:bg-warning-hover',
+    error: 'hover:bg-destructive-hover',
+  };
+
   return (
     <Button
       data-slot="alert-button"
       variant="ghost"
       size="sm"
-      className={cn('text-foreground', className)}
+      className={cn('text-foreground', hoverClasses[variant], className)}
       {...props}
     />
   );

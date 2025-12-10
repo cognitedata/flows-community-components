@@ -27,12 +27,18 @@ function BasicDemo() {
           Please check your email and click the verification link to activate
           your account.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Verify account</AlertButton>
+        </AlertActions>
       </Alert>
       <Alert variant="secondary">
         <IconUser className="w-3.5 h-3.5 mt-0.5" />
         <AlertDescription>
           Changes will not be saved until you click &apos;Update&apos;.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Update</AlertButton>
+        </AlertActions>
       </Alert>
       <Alert
         variant="warning"
@@ -47,9 +53,7 @@ function BasicDemo() {
           your plan.
         </AlertDescription>
         <AlertActions>
-          <AlertButton className="text-card-foreground -ml-2.25">
-            Upgrade plan
-          </AlertButton>
+          <AlertButton className="-ml-2.25">Upgrade plan</AlertButton>
         </AlertActions>
       </Alert>
       <Alert variant="error">
@@ -106,12 +110,18 @@ export function BasicDemo() {
           Please check your email and click the verification link to activate
           your account.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Verify account</AlertButton>
+        </AlertActions>
       </Alert>
       <Alert variant="secondary">
         <IconUser className="w-3.5 h-3.5 mt-0.5" />
         <AlertDescription>
           Changes will not be saved until you click 'Update'.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Update</AlertButton>
+        </AlertActions>
       </Alert>
       <Alert
         variant="warning"
@@ -126,9 +136,7 @@ export function BasicDemo() {
           your plan.
         </AlertDescription>
         <AlertActions>
-          <AlertButton className="text-card-foreground -ml-2.25">
-            Upgrade plan
-          </AlertButton>
+          <AlertButton className="-ml-2.25">Upgrade plan</AlertButton>
         </AlertActions>
       </Alert>
       <Alert variant="error">
