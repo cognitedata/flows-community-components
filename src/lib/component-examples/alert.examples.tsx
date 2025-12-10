@@ -72,10 +72,6 @@ function BasicDemo() {
   );
 }
 
-function VariantsDemo() {
-  return <div className="space-y-4"></div>;
-}
-
 export const alertExamples: ComponentExamples = {
   basic: {
     title: 'Basic Alert',
@@ -153,15 +149,6 @@ export function BasicDemo() {
       </Alert>
     </div>
   )
-}`,
-  },
-  variants: {
-    title: 'Alert Variants',
-    description: 'Different alert styles for various contexts',
-    component: VariantsDemo,
-    difficulty: 'beginner',
-    code: `export function VariantsDemo() {
-  return <div className="space-y-4"></div>
 }`,
   },
 };
