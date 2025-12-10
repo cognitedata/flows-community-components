@@ -34,6 +34,12 @@ import {
   ToolOutput,
 } from '@/components/ui/aura/tool';
 import {
+  Reasoning,
+  ReasoningHeader,
+  ReasoningContent,
+  ReasoningItem,
+} from '@/components/ui/aura/reasoning';
+import {
   InlineCitation,
   InlineCitationLink,
 } from '@/components/ui/aura/inline-citation';
@@ -41,7 +47,7 @@ import {
   IconWheel,
   IconCopy,
   IconDownload,
-  IconTool,
+  IconBrain,
   IconRefresh,
   IconHash,
   IconAdjustments,
@@ -430,79 +436,77 @@ function BasicConversationDemo() {
                         </span>
                         <Response controls={false}>{streamedContent}</Response>
                         {isComplete && showTools && (
-                          <div className="flex flex-col gap-2">
-                            <hr className="my-3" />
-                            <h4 className="text-sm font-medium text-muted-foreground">
-                              Tool calls
-                            </h4>
-                            <Tool defaultOpen={false}>
-                              <ToolHeader
-                                title="Search database"
-                                type="tool-call"
-                              />
-                              <ToolContent>
-                                <ToolInput input={searchDatabaseInput} />
-                                <ToolOutput
-                                  output={searchDatabaseOutput}
-                                  errorText={undefined}
-                                />
-                              </ToolContent>
-                            </Tool>
-                            <Tool defaultOpen={false}>
-                              <ToolHeader
-                                title="Fetch sensor data"
-                                type="tool-call"
-                              />
-                              <ToolContent>
-                                <ToolInput input={fetchSensorDataInput} />
-                                <ToolOutput
-                                  output={fetchSensorDataOutput}
-                                  errorText={undefined}
-                                />
-                              </ToolContent>
-                            </Tool>
+                          <div className="flex flex-col gap-2 py-3">
+                            <Reasoning>
+                              <ReasoningHeader />
+                              <ReasoningContent>
+                                <ReasoningItem>
+                                  <Tool defaultOpen={false}>
+                                    <ToolHeader
+                                      title="Search database"
+                                      type="tool-call"
+                                    />
+                                    <ToolContent>
+                                      <ToolInput input={searchDatabaseInput} />
+                                      <ToolOutput
+                                        output={searchDatabaseOutput}
+                                        errorText={undefined}
+                                      />
+                                    </ToolContent>
+                                  </Tool>
+                                </ReasoningItem>
+                                <ReasoningItem>
+                                  <Tool defaultOpen={false}>
+                                    <ToolHeader
+                                      title="Fetch sensor data"
+                                      type="tool-call"
+                                    />
+                                    <ToolContent>
+                                      <ToolInput input={fetchSensorDataInput} />
+                                      <ToolOutput
+                                        output={fetchSensorDataOutput}
+                                        errorText={undefined}
+                                      />
+                                    </ToolContent>
+                                  </Tool>
+                                </ReasoningItem>
+                              </ReasoningContent>
+                            </Reasoning>
                           </div>
                         )}
                         {isComplete && (
-                          <MessageActions>
+                          <MessageActions className="justify-between">
+                            <div className="flex items-center gap-2">
+                              <MessageAction
+                                size="icon-sm"
+                                label="Copy"
+                                tooltip="Copy"
+                              >
+                                <IconCopy className="w-3 h-3" />
+                              </MessageAction>
+                              <MessageAction
+                                size="icon-sm"
+                                label="Download"
+                                tooltip="Download"
+                              >
+                                <IconDownload className="w-3 h-3" />
+                              </MessageAction>
+                              <MessageAction
+                                size="icon-sm"
+                                label="Retry"
+                                tooltip="Retry"
+                              >
+                                <IconRefresh className="w-3 h-3" />
+                              </MessageAction>
+                            </div>
                             <MessageAction
-                              size="icon-sm"
-                              label="Copy"
-                              tooltip="Copy"
-                            >
-                              <IconCopy className="w-3 h-3" />
-                            </MessageAction>
-                            <MessageAction
-                              size="icon-sm"
-                              label="Download"
-                              tooltip="Download"
-                            >
-                              <IconDownload className="w-3 h-3" />
-                            </MessageAction>
-                            <MessageAction
-                              size="icon-sm"
-                              label={
-                                showTools
-                                  ? 'Hide tool calls'
-                                  : 'Show tool calls'
-                              }
-                              tooltip={
-                                showTools
-                                  ? 'Hide tool calls'
-                                  : 'Show tool calls'
-                              }
+                              size="sm"
                               onClick={() => setShowTools(!showTools)}
                               data-active={showTools}
                               className="data-[active=true]:bg-accent"
                             >
-                              <IconTool className="w-3 h-3" />
-                            </MessageAction>
-                            <MessageAction
-                              size="icon-sm"
-                              label="Retry"
-                              tooltip="Retry"
-                            >
-                              <IconRefresh className="w-3 h-3" />
+                              <IconBrain className="w-3.5 h-3.5" />
+                              {showTools ? 'Hide reasoning' : 'Show reasoning'}
                             </MessageAction>
                           </MessageActions>
                         )}
@@ -711,6 +715,12 @@ import {
   ToolOutput,
 } from "@/components/ai-elements/cognite/tool"
 import {
+  Reasoning,
+  ReasoningHeader,
+  ReasoningContent,
+  ReasoningItem,
+} from "@/components/ai-elements/cognite/reasoning"
+import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
@@ -726,7 +736,7 @@ import {
   IconWheel,
   IconCopy,
   IconDownload,
-  IconTool,
+  IconBrain,
   IconRefresh,
   IconHash,
   IconAdjustments,
@@ -874,47 +884,53 @@ export function BasicConversationDemo() {
                         </span>
                         <Response controls={false}>{streamedContent}</Response>
                         {isComplete && showTools && (
-                          <div className="flex flex-col gap-2">
-                            <hr className="my-3" />
-                            <h4 className="text-sm font-medium text-muted-foreground">
-                              Tool calls
-                            </h4>
-                            <Tool defaultOpen={false}>
-                              <ToolHeader title="Search database" type="tool-call" />
-                              <ToolContent>
-                                <ToolInput input={searchDatabaseInput} />
-                                <ToolOutput output={searchDatabaseOutput} errorText={undefined} />
-                              </ToolContent>
-                            </Tool>
-                            <Tool defaultOpen={false}>
-                              <ToolHeader title="Fetch sensor data" type="tool-call" />
-                              <ToolContent>
-                                <ToolInput input={fetchSensorDataInput} />
-                                <ToolOutput output={fetchSensorDataOutput} errorText={undefined} />
-                              </ToolContent>
-                            </Tool>
+                          <div className="flex flex-col gap-2 py-3">
+                            <Reasoning>
+                              <ReasoningHeader />
+                              <ReasoningContent>
+                                <ReasoningItem>
+                                  <Tool defaultOpen={false}>
+                                    <ToolHeader title="Search database" type="tool-call" />
+                                    <ToolContent>
+                                      <ToolInput input={searchDatabaseInput} />
+                                      <ToolOutput output={searchDatabaseOutput} errorText={undefined} />
+                                    </ToolContent>
+                                  </Tool>
+                                </ReasoningItem>
+                                <ReasoningItem>
+                                  <Tool defaultOpen={false}>
+                                    <ToolHeader title="Fetch sensor data" type="tool-call" />
+                                    <ToolContent>
+                                      <ToolInput input={fetchSensorDataInput} />
+                                      <ToolOutput output={fetchSensorDataOutput} errorText={undefined} />
+                                    </ToolContent>
+                                  </Tool>
+                                </ReasoningItem>
+                              </ReasoningContent>
+                            </Reasoning>
                           </div>
                         )}
                         {isComplete && (
-                          <MessageActions>
-                            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-                              <IconCopy className="w-3 h-3" />
-                            </MessageAction>
-                            <MessageAction size="icon-sm" label="Download" tooltip="Download">
-                              <IconDownload className="w-3 h-3" />
-                            </MessageAction>
+                          <MessageActions className="justify-between">
+                            <div className="flex items-center gap-2">
+                              <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+                                <IconCopy className="w-3 h-3" />
+                              </MessageAction>
+                              <MessageAction size="icon-sm" label="Download" tooltip="Download">
+                                <IconDownload className="w-3 h-3" />
+                              </MessageAction>
+                              <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
+                                <IconRefresh className="w-3 h-3" />
+                              </MessageAction>
+                            </div>
                             <MessageAction
-                              size="icon-sm"
-                              label={showTools ? "Hide tool calls" : "Show tool calls"}
-                              tooltip={showTools ? "Hide tool calls" : "Show tool calls"}
+                              size="sm"
                               onClick={() => setShowTools(!showTools)}
                               data-active={showTools}
                               className="data-[active=true]:bg-accent"
                             >
-                              <IconTool className="w-3 h-3" />
-                            </MessageAction>
-                            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-                              <IconRefresh className="w-3 h-3" />
+                              <IconBrain className="w-3.5 h-3.5" />
+                              {showTools ? "Hide reasoning" : "Show reasoning"}
                             </MessageAction>
                           </MessageActions>
                         )}
