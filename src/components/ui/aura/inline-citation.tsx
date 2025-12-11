@@ -32,10 +32,7 @@ export const InlineCitation = ({
   ...props
 }: InlineCitationProps) => (
   <span
-    className={cn(
-      'group inline-flex items-stretch items-center gap-1',
-      className
-    )}
+    className={cn('group inline-flex items-center gap-1', className)}
     {...props}
   />
 );
@@ -81,13 +78,13 @@ export const InlineCitationCardTrigger = ({
   <HoverCardTrigger asChild>
     <Badge
       className={cn(
-        'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-fjord dark:bg-fjord-900 px-1 text-sm leading-4.5 font-medium text-fjord-700 dark:text-fjord-300 whitespace-nowrap gap-1 transition-[color,box-shadow]',
-        '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
+        'ml-1 inline-flex items-center justify-center rounded-md border border-transparent bg-decorative-background-fjord px-1 text-sm leading-4.5 font-medium text-decorative-foreground-fjord whitespace-nowrap gap-1 transition-[color,box-shadow]',
+        '[&>svg]:size-3 [&>svg]:pointer-events-none',
         className
       )}
       {...props}
     >
-      {Icon && <Icon className="size-3.5" />}
+      {Icon && <Icon className="size-3" />}
       {sources[0] ? (
         <>
           {new URL(sources[0]).hostname}{' '}
@@ -328,11 +325,11 @@ export const InlineCitationLink = ({
 
   const variantStyles = {
     mountain:
-      'bg-mountain hover:bg-mountain-100 dark:bg-mountain-900 dark:hover:bg-mountain-800 text-mountain-600 dark:text-mountain-300',
+      'bg-decorative-background-mountain hover:bg-decorative-background-hover-mountain text-decorative-foreground-mountain',
     nordic:
-      'bg-nordic hover:bg-nordic-100 dark:bg-nordic-900 dark:hover:bg-nordic-800 text-nordic-600 dark:text-nordic-300',
+      'bg-decorative-background-nordic hover:bg-decorative-background-hover-nordic text-decorative-foreground-nordic',
     fjord:
-      'bg-fjord hover:bg-fjord-100 dark:bg-fjord-900 dark:hover:bg-fjord-800 text-fjord-700 dark:text-fjord-300',
+      'bg-decorative-background-fjord hover:bg-decorative-background-hover-fjord text-decorative-foreground-fjord',
   };
 
   return (
@@ -346,12 +343,12 @@ export const InlineCitationLink = ({
       <Badge
         className={cn(
           'inline-flex items-center justify-center rounded-md border border-transparent px-1 text-sm leading-4.5 font-medium whitespace-nowrap gap-1 transition-colors',
-          '[&>svg]:size-3.5 [&>svg]:pointer-events-none',
+          '[&>svg]:size-3 [&>svg]:pointer-events-none',
           variantStyles[variant],
           className
         )}
       >
-        {Icon && <Icon className="size-3.5" />}
+        {Icon && <Icon className="size-3" />}
         {children ?? hostname}
       </Badge>
     </a>

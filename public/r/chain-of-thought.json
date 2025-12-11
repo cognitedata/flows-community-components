@@ -5,7 +5,12 @@
   "title": "Chain of Thought",
   "description": "AI chain of thought component for displaying reasoning steps.",
   "dependencies": [
+    "@radix-ui/react-use-controllable-state",
     "@tabler/icons-react"
+  ],
+  "registryDependencies": [
+    "badge",
+    "collapsible"
   ],
   "files": [
     {
