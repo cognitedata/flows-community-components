@@ -133,7 +133,7 @@ export const Suggestion = (props: SuggestionProps) => {
     return (
       <Button
         className={cn(
-          'h-9 bg-background text-sm leading-4.5 tracking-normal px-3 py-2.25',
+          'min-h-9 h-auto bg-background text-sm leading-4.5 tracking-normal px-3 py-2.25',
           className
         )}
         onClick={handleClick}
