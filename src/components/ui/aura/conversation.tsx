@@ -49,12 +49,12 @@ export const ConversationEmptyState = ({
     className={cn('flex flex-col items-center gap-3 size-full p-10', className)}
     {...props}
   >
-    <div className="max-w-[594px] w-full flex flex-col items-center justify-center text-center">
+    <div className="max-w-150 w-full flex flex-col items-center justify-center text-center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/icon-conversationemptystate.png"
         alt="Conversation icon"
-        className="w-[80px] h-[80px] mb-14"
+        className="size-20 mb-14"
       />
       <div className="space-y-1 mb-14">
         <h3 className="text-xl font-medium tracking-tightest">{title}</h3>
