@@ -224,6 +224,15 @@
   --color-decorative-foreground-sky: var(--decorative-foreground-sky);
   --color-decorative-foreground-gray: var(--decorative-foreground-gray);
 
+  /* Gradient tokens */
+  --color-gradient-nordic: var(--gradient-nordic);
+  --color-gradient-aurora: var(--gradient-aurora);
+  --color-gradient-dusk: var(--gradient-dusk);
+  --color-gradient-equinox: var(--gradient-equinox);
+  --color-gradient-summer: var(--gradient-summer);
+  --color-gradient-spring: var(--gradient-spring);
+  --color-gradient-fall: var(--gradient-fall);
+
   --radius-none: 0px;
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -245,7 +254,7 @@
   --radius: 0.375rem; /* 6px - default radius, maps to radius-md */
   --font-inter: 'Inter', sans-serif;
   --font-source-code-pro: 'Source Code Pro', monospace;
-  --code-block-collapsed-height: 3.125rem;
+  --code-block-collapsed-height: 6.5rem;
   --code-block-fade-height: 0.9375rem;
   --message-content-max-width: 80%;
 
@@ -328,7 +337,7 @@
   --dusk-600: rgb(153, 64, 166);
   --dusk-650: rgb(133, 55, 144);
   --dusk-700: rgb(104, 44, 113);
-  --dusk-800: rgb(55, 23, 60);
+  --dusk-800: rgb(74, 31, 80);
   --dusk-900: rgb(55, 23, 60);
   --dusk-950: rgb(28, 12, 31);
 
@@ -496,7 +505,6 @@
   --muted-foreground: var(--mountain-600);
   --accent: var(--mountain-50);
   --accent-foreground: var(--mountain-950);
-  --accent-alt: var(--mountain-200);
   --mountain: var(--mountain-50);
   --mountain-foreground: var(--mountain-950);
   --foreground-link: var(--fjord-550);
@@ -520,56 +528,6 @@
   --disabled: var(--mountain-50);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
-
-  /* Inverted tokens */
-  --inverted: var(--mountain-900);
-  --inverted-foreground: var(--mountain-50);
-  --inverted-foreground-muted: var(--mountain-300);
-  --inverted-destructive-foreground: var(--red-300);
-  --inverted-success-foreground: var(--green-300);
-  /* Charts (light) */
-  --chart-fjord-solid: var(--fjord-600);
-  --chart-fjord-opacity-1: rgba(47, 85, 234, 0.8);
-  --chart-fjord-opacity-2: rgba(47, 85, 234, 0.65);
-  --chart-fjord-opacity-3: rgba(47, 85, 234, 0.5);
-  --chart-fjord-opacity-4: rgba(47, 85, 234, 0.35);
-  --chart-fjord-opacity-5: rgba(47, 85, 234, 0.2);
-  --chart-aurora-solid: var(--aurora-600);
-  --chart-aurora-opacity-1: rgba(77, 112, 12, 0.8);
-  --chart-aurora-opacity-2: rgba(77, 112, 12, 0.65);
-  --chart-aurora-opacity-3: rgba(77, 112, 12, 0.5);
-  --chart-aurora-opacity-4: rgba(77, 112, 12, 0.35);
-  --chart-aurora-opacity-5: rgba(77, 112, 12, 0.2);
-  --chart-nordic-solid: var(--nordic-600);
-  --chart-nordic-opacity-1: rgba(20, 115, 94, 0.8);
-  --chart-nordic-opacity-2: rgba(20, 115, 94, 0.65);
-  --chart-nordic-opacity-3: rgba(20, 115, 94, 0.5);
-  --chart-nordic-opacity-4: rgba(20, 115, 94, 0.35);
-  --chart-nordic-opacity-5: rgba(20, 115, 94, 0.2);
-  --chart-orange-solid: var(--orange-600);
-  --chart-orange-opacity-1: rgba(173, 69, 6, 0.8);
-  --chart-orange-opacity-2: rgba(173, 69, 6, 0.65);
-  --chart-orange-opacity-3: rgba(173, 69, 6, 0.5);
-  --chart-orange-opacity-4: rgba(173, 69, 6, 0.35);
-  --chart-orange-opacity-5: rgba(173, 69, 6, 0.2);
-  --chart-dusk-solid: var(--dusk-600);
-  --chart-dusk-opacity-1: rgba(153, 64, 166, 0.8);
-  --chart-dusk-opacity-2: rgba(153, 64, 166, 0.65);
-  --chart-dusk-opacity-3: rgba(153, 64, 166, 0.5);
-  --chart-dusk-opacity-4: rgba(153, 64, 166, 0.35);
-  --chart-dusk-opacity-5: rgba(153, 64, 166, 0.2);
-  --chart-lime-solid: var(--aurora-600);
-  --chart-lime-opacity-1: rgba(77, 112, 12, 0.8);
-  --chart-lime-opacity-2: rgba(77, 112, 12, 0.65);
-  --chart-lime-opacity-3: rgba(77, 112, 12, 0.5);
-  --chart-lime-opacity-4: rgba(77, 112, 12, 0.35);
-  --chart-lime-opacity-5: rgba(77, 112, 12, 0.2);
-  --chart-pink-solid: var(--dusk-600);
-  --chart-pink-opacity-1: rgba(153, 64, 166, 0.8);
-  --chart-pink-opacity-2: rgba(153, 64, 166, 0.65);
-  --chart-pink-opacity-3: rgba(153, 64, 166, 0.5);
-  --chart-pink-opacity-4: rgba(153, 64, 166, 0.35);
-  --chart-pink-opacity-5: rgba(153, 64, 166, 0.2);
 
   /* Decorative tokens */
   --decorative-background-mountain: var(--mountain-50);
@@ -599,6 +557,15 @@
   --decorative-foreground-orange: var(--orange-600);
   --decorative-foreground-sky: var(--sky-600);
   --decorative-foreground-gray: var(--gray-600);
+
+  /* Gradient tokens */
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-50) 0%, var(--nordic-400) 44%, var(--nordic-200) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-50) 0%, var(--aurora-400) 50%, var(--aurora-200) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-50) 0%, var(--dusk-400) 48%, var(--dusk-200) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-600) 0%, var(--dusk-300) 40%, var(--aurora-50) 60%, var(--aurora-100) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-100) 0%, var(--dusk-50) 50%, var(--aurora-100) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-50) 0%, var(--nordic-100) 50%, var(--aurora-100) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-550) 0%, var(--dusk-550) 50%, var(--dusk-300) 100%);
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
@@ -631,7 +598,6 @@
   --muted-foreground: var(--mountain-300);
   --accent: var(--mountain-700);
   --accent-foreground: var(--mountain-50);
-  --accent-alt: var(--mountain-650);
   --mountain: var(--mountain-800);
   --mountain-foreground: var(--mountain-50);
   --foreground-link: var(--fjord-550);
@@ -655,13 +621,6 @@
   --disabled: var(--mountain-800);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
-
-  /* Inverted tokens */
-  --inverted: var(--mountain-900);
-  --inverted-foreground: var(--mountain-50);
-  --inverted-foreground-muted: var(--mountain-300);
-  --inverted-destructive-foreground: var(--red-300);
-  --inverted-success-foreground: var(--green-300);
 
   /* Decorative tokens */
   --decorative-background-mountain: var(--mountain-800);
@@ -691,6 +650,15 @@
   --decorative-foreground-orange: var(--orange-300);
   --decorative-foreground-sky: var(--sky-300);
   --decorative-foreground-gray: var(--gray-300);
+
+  /* Gradient tokens */
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-900) 0%, var(--nordic-600) 44%, var(--nordic-800) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-900) 0%, var(--aurora-600) 50%, var(--aurora-800) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-900) 0%, var(--dusk-600) 48%, var(--dusk-800) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-400) 0%, var(--dusk-700) 40%, var(--aurora-950) 60%, var(--aurora-900) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-900) 0%, var(--dusk-950) 50%, var(--aurora-900) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-950) 0%, var(--nordic-900) 50%, var(--aurora-900) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-450) 0%, var(--dusk-450) 50%, var(--dusk-700) 100%);
 
   /* Charts (dark) */
   --chart-fjord-solid: var(--fjord-300);
@@ -745,40 +713,6 @@
   --sidebar-accent-foreground: var(--mountain-white);
   --sidebar-border: var(--mountain-800);
   --sidebar-ring: var(--gray-300);
-}
-
-.contrast {
-  --background: #000000; /* Pure black */
-  --foreground: #ffffff; /* Pure white */
-  --card: var(--onyx-900);
-  --card-foreground: #ffffff;
-  --popover: var(--onyx-900);
-  --popover-foreground: #ffffff;
-  --primary: #ffffff; /* Pure white for primary */
-  --primary-foreground: #000000; /* Pure black for primary text */
-  --secondary: var(--onyx-800);
-  --secondary-foreground: #ffffff;
-  --muted: var(--onyx-700);
-  --muted-foreground: var(--onyx-200);
-  --accent: var(--onyx-800);
-  --accent-foreground: #ffffff;
-  --destructive: #ff0000; /* High contrast red */
-  --border: var(--onyx-700);
-  --input: var(--onyx-800);
-  --ring: #ffffff;
-  --chart-1: #ffffff;
-  --chart-2: var(--neon-300);
-  --chart-3: var(--onyx-400);
-  --chart-4: var(--onyx-600);
-  --chart-5: var(--onyx-200);
-  --sidebar: var(--onyx-900);
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #ffffff;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: var(--onyx-800);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: var(--onyx-700);
-  --sidebar-ring: #ffffff;
 }
 
 @layer base {

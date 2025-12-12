@@ -192,17 +192,17 @@ function BasicConversationDemo() {
           ) : (
             visibleMessages.map(({ key, value, name, avatar, isResponse }) => (
               <Message key={key} isResponse={isResponse}>
-                <MessageAvatar
-                  avatarUrl={avatar}
-                  name={name}
-                  variant={isResponse ? 'nordic' : undefined}
-                >
-                  {isResponse && (
+                {isResponse && (
+                  <MessageAvatar
+                    avatarUrl={avatar}
+                    name={name}
+                    variant="nordic"
+                  >
                     <MessageAvatarIcon>
                       <IconWheel />
                     </MessageAvatarIcon>
-                  )}
-                </MessageAvatar>
+                  </MessageAvatar>
+                )}
                 <MessageContent
                   className={isResponse ? 'flex flex-col gap-2' : undefined}
                 >
@@ -312,17 +312,17 @@ export function BasicConversationDemo() {
           ) : (
             visibleMessages.map(({ key, value, name, avatar, isResponse }) => (
               <Message key={key} isResponse={isResponse}>
-                <MessageAvatar
-                  avatarUrl={avatar}
-                  name={name}
-                  variant={isResponse ? "nordic" : undefined}
-                >
-                  {isResponse && (
+                {isResponse && (
+                  <MessageAvatar
+                    avatarUrl={avatar}
+                    name={name}
+                    variant="nordic"
+                  >
                     <MessageAvatarIcon>
                       <IconWheel />
                     </MessageAvatarIcon>
-                  )}
-                </MessageAvatar>
+                  </MessageAvatar>
+                )}
                 <MessageContent className={isResponse ? "flex flex-col gap-2" : undefined}>
                   {value}
                   {isResponse && (

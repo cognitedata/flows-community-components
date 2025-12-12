@@ -1,7 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { IconCheck as Check, IconCopy as Copy, IconDownload as Download } from '@tabler/icons-react';
+import {
+  IconCheck as Check,
+  IconCopy as Copy,
+  IconDownload as Download,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/aura/button';
 import {
@@ -13,29 +17,18 @@ import {
 } from '@/components/ui/aura/card';
 
 const colors = {
-  blue: [
-    { name: 'Blue 50', value: '#eff6ff', hex: '#eff6ff' },
-    { name: 'Blue 100', value: '#dbeafe', hex: '#dbeafe' },
-    { name: 'Blue 200', value: '#bfdbfe', hex: '#bfdbfe' },
-    { name: 'Blue 300', value: '#93c5fd', hex: '#93c5fd' },
-    { name: 'Blue 400', value: '#60a5fa', hex: '#60a5fa' },
-    { name: 'Blue 500', value: '#3b82f6', hex: '#3b82f6' },
-    { name: 'Blue 600', value: '#2563eb', hex: '#2563eb' },
-    { name: 'Blue 700', value: '#1d4ed8', hex: '#1d4ed8' },
-    { name: 'Blue 800', value: '#1e40af', hex: '#1e40af' },
-    { name: 'Blue 900', value: '#1e3a8a', hex: '#1e3a8a' },
-  ],
-  neon: [
-    { name: 'Neon 50', value: '#FCFF99', hex: '#FCFF99' },
-    { name: 'Neon 100', value: '#F8FF66', hex: '#F8FF66' },
-    { name: 'Neon 200', value: '#F2FF33', hex: '#F2FF33' },
-    { name: 'Neon 300', value: '#EBFF00', hex: '#EBFF00' },
-    { name: 'Neon 400', value: '#D6E600', hex: '#D6E600' },
-    { name: 'Neon 500', value: '#B3CC00', hex: '#B3CC00' },
-    { name: 'Neon 600', value: '#8FB300', hex: '#8FB300' },
-    { name: 'Neon 700', value: '#6B9900', hex: '#6B9900' },
-    { name: 'Neon 800', value: '#467F00', hex: '#467F00' },
-    { name: 'Neon 900', value: '#2B6600', hex: '#2B6600' },
+  mountain: [
+    { name: 'Mountain 50', value: 'rgb(241, 242, 243)', hex: '#f1f2f3' },
+    { name: 'Mountain 100', value: 'rgb(228, 230, 232)', hex: '#e4e6e8' },
+    { name: 'Mountain 200', value: 'rgb(212, 215, 217)', hex: '#d4d7d9' },
+    { name: 'Mountain 300', value: 'rgb(187, 192, 196)', hex: '#bbc0c4' },
+    { name: 'Mountain 400', value: 'rgb(165, 171, 177)', hex: '#a5abb1' },
+    { name: 'Mountain 500', value: 'rgb(124, 134, 142)', hex: '#7c868e' },
+    { name: 'Mountain 600', value: 'rgb(94, 102, 109)', hex: '#5e666d' },
+    { name: 'Mountain 700', value: 'rgb(64, 70, 74)', hex: '#40464a' },
+    { name: 'Mountain 800', value: 'rgb(45, 49, 52)', hex: '#2d3134' },
+    { name: 'Mountain 900', value: 'rgb(33, 36, 38)', hex: '#212426' },
+    { name: 'Mountain 950', value: 'rgb(17, 18, 19)', hex: '#111213' },
   ],
   slate: [
     { name: 'Slate 50', value: '#f8fafc', hex: '#f8fafc' },
@@ -49,28 +42,68 @@ const colors = {
     { name: 'Slate 800', value: '#1e293b', hex: '#1e293b' },
     { name: 'Slate 900', value: '#0f172a', hex: '#0f172a' },
   ],
-  onyx: [
-    { name: 'Onyx 50', value: '#fafafa', hex: '#fafafa' },
-    { name: 'Onyx 100', value: '#f5f5f5', hex: '#f5f5f5' },
-    { name: 'Onyx 200', value: '#e5e5e5', hex: '#e5e5e5' },
-    { name: 'Onyx 300', value: '#d4d4d4', hex: '#d4d4d4' },
-    { name: 'Onyx 400', value: '#a3a3a3', hex: '#a3a3a3' },
-    { name: 'Onyx 500', value: '#737373', hex: '#737373' },
-    { name: 'Onyx 600', value: '#525252', hex: '#525252' },
-    { name: 'Onyx 700', value: '#404040', hex: '#404040' },
-    { name: 'Onyx 800', value: '#262626', hex: '#262626' },
-    { name: 'Onyx 900', value: '#171717', hex: '#171717' },
+  fjord: [
+    { name: 'Fjord 50', value: 'rgb(239, 242, 253)', hex: '#eff2fd' },
+    { name: 'Fjord 100', value: 'rgb(223, 229, 252)', hex: '#dfe5fc' },
+    { name: 'Fjord 200', value: 'rgb(204, 213, 250)', hex: '#ccd5fa' },
+    { name: 'Fjord 300', value: 'rgb(174, 189, 247)', hex: '#aebdf7' },
+    { name: 'Fjord 400', value: 'rgb(147, 167, 244)', hex: '#93a7f4' },
+    { name: 'Fjord 500', value: 'rgb(95, 125, 239)', hex: '#5f7def' },
+    { name: 'Fjord 600', value: 'rgb(47, 85, 234)', hex: '#2f55ea' },
+    { name: 'Fjord 700', value: 'rgb(18, 52, 182)', hex: '#1234b6' },
+    { name: 'Fjord 800', value: 'rgb(13, 37, 130)', hex: '#0d2582' },
+    { name: 'Fjord 900', value: 'rgb(10, 28, 97)', hex: '#0a1c61' },
+    { name: 'Fjord 950', value: 'rgb(5, 15, 51)', hex: '#050f33' },
+  ],
+  nordic: [
+    { name: 'Nordic 50', value: 'rgb(218, 249, 242)', hex: '#daf9f2' },
+    { name: 'Nordic 100', value: 'rgb(180, 242, 229)', hex: '#b4f2e5' },
+    { name: 'Nordic 200', value: 'rgb(127, 233, 210)', hex: '#7fe9d2' },
+    { name: 'Nordic 300', value: 'rgb(37, 215, 176)', hex: '#25d7b0' },
+    { name: 'Nordic 400', value: 'rgb(33, 192, 157)', hex: '#21c09d' },
+    { name: 'Nordic 500', value: 'rgb(26, 150, 122)', hex: '#1a967a' },
+    { name: 'Nordic 600', value: 'rgb(20, 115, 94)', hex: '#14735e' },
+    { name: 'Nordic 700', value: 'rgb(13, 78, 64)', hex: '#0d4e40' },
+    { name: 'Nordic 800', value: 'rgb(10, 55, 45)', hex: '#0a372d' },
+    { name: 'Nordic 900', value: 'rgb(7, 41, 34)', hex: '#072922' },
+    { name: 'Nordic 950', value: 'rgb(4, 21, 17)', hex: '#041511' },
+  ],
+  aurora: [
+    { name: 'Aurora 50', value: 'rgb(231, 249, 198)', hex: '#e7f9c6' },
+    { name: 'Aurora 100', value: 'rgb(207, 243, 141)', hex: '#cff38d' },
+    { name: 'Aurora 200', value: 'rgb(171, 233, 56)', hex: '#abe938' },
+    { name: 'Aurora 300', value: 'rgb(144, 210, 23)', hex: '#90d217' },
+    { name: 'Aurora 400', value: 'rgb(129, 188, 20)', hex: '#81bc14' },
+    { name: 'Aurora 500', value: 'rgb(100, 146, 16)', hex: '#649210' },
+    { name: 'Aurora 600', value: 'rgb(77, 112, 12)', hex: '#4d700c' },
+    { name: 'Aurora 700', value: 'rgb(52, 76, 8)', hex: '#344c08' },
+    { name: 'Aurora 800', value: 'rgb(37, 54, 6)', hex: '#253606' },
+    { name: 'Aurora 900', value: 'rgb(27, 40, 4)', hex: '#1b2804' },
+    { name: 'Aurora 950', value: 'rgb(14, 20, 2)', hex: '#0e1402' },
+  ],
+  dusk: [
+    { name: 'Dusk 50', value: 'rgb(248, 239, 249)', hex: '#f8eff9' },
+    { name: 'Dusk 100', value: 'rgb(241, 225, 243)', hex: '#f1e1f3' },
+    { name: 'Dusk 200', value: 'rgb(232, 206, 236)', hex: '#e8ceec' },
+    { name: 'Dusk 300', value: 'rgb(219, 177, 225)', hex: '#dbb1e1' },
+    { name: 'Dusk 400', value: 'rgb(207, 151, 215)', hex: '#cf97d7' },
+    { name: 'Dusk 500', value: 'rgb(183, 101, 196)', hex: '#b765c4' },
+    { name: 'Dusk 600', value: 'rgb(153, 64, 166)', hex: '#9940a6' },
+    { name: 'Dusk 700', value: 'rgb(104, 44, 113)', hex: '#682c71' },
+    { name: 'Dusk 800', value: 'rgb(55, 23, 60)', hex: '#37173c' },
+    { name: 'Dusk 900', value: 'rgb(55, 23, 60)', hex: '#37173c' },
+    { name: 'Dusk 950', value: 'rgb(28, 12, 31)', hex: '#1c0c1f' },
   ],
 };
 
 const typography = [
-  { name: 'Display large', size: '4rem', weight: '700', lineHeight: '1.1' },
-  { name: 'Display medium', size: '3rem', weight: '700', lineHeight: '1.2' },
-  { name: 'Heading 1', size: '2.25rem', weight: '600', lineHeight: '1.3' },
-  { name: 'Heading 2', size: '1.875rem', weight: '600', lineHeight: '1.3' },
-  { name: 'Body large', size: '1.125rem', weight: '400', lineHeight: '1.6' },
-  { name: 'Body medium', size: '1rem', weight: '400', lineHeight: '1.6' },
-  { name: 'Body small', size: '0.875rem', weight: '400', lineHeight: '1.5' },
+  { name: 'Heading 1', size: '2.25rem', weight: '700', lineHeight: '2.75rem' },
+  { name: 'Heading 2', size: '1.75rem', weight: '700', lineHeight: '2rem' },
+  { name: 'Heading 3', size: '1.5rem', weight: '600', lineHeight: '1.75rem' },
+  { name: 'Heading 4', size: '1.25rem', weight: '500', lineHeight: '1.5rem' },
+  { name: 'Heading 5', size: '1.125rem', weight: '500', lineHeight: '1.5rem' },
+  { name: 'Heading 6', size: '1rem', weight: '500', lineHeight: '1.25rem' },
+  { name: 'Paragraph', size: '1rem', weight: '400', lineHeight: '1.75rem' },
 ];
 
 const spacing = [

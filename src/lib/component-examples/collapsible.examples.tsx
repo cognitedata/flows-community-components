@@ -14,7 +14,7 @@ function BasicDemo() {
         <CollapsibleTrigger asChild>
           <Button
             variant="ghost"
-            className="text-base leading-20 tracking-tighter"
+            className="text-base leading-5 tracking-tighter"
           >
             <span>
               What’s the difference between Collapsible and Accordion?
@@ -24,8 +24,8 @@ function BasicDemo() {
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2 px-3">
           Collapsibles work independently—multiple can be open at once. The
-          shadcn collapsible is for independent sections. Use accordion patterns
-          when you want mutually exclusive content areas.
+          Collapsible component is for independent sections. Use accordion
+          patterns when you want mutually exclusive content areas.
         </CollapsibleContent>
       </Collapsible>
     </div>
@@ -53,12 +53,17 @@ export function BasicDemo() {
     <div className="space-y-4 w-[490px]">
       <Collapsible defaultOpen className="w-[490px] space-y-2">
         <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-base">
-            <span>What’s the difference between Collapsible and Accordion?</span>
+          <Button
+            variant="ghost"
+            className="text-base leading-5 tracking-tighter"
+          >
+            <span>
+              What's the difference between Collapsible and Accordion?
+            </span>
             <ChevronsUpDown className="h-4 w-4" />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="space-y-2">
+        <CollapsibleContent className="space-y-2 px-3">
           Collapsibles work independently—multiple can be open at once. The shadcn collapsible is for independent sections. Use accordion patterns when you want mutually exclusive content areas.
         </CollapsibleContent>
       </Collapsible>
@@ -123,7 +128,7 @@ function CollapsibleContent({
     <CollapsiblePrimitive.CollapsibleContent
       data-slot="collapsible-content"
       className={cn(
-        'border-none outline-none text-muted-foreground text-base leading-20 tracking-tightest px-3 w-full min-w-0 overflow-x-hidden box-border *:max-w-full *:box-border',
+        'border-none outline-none text-muted-foreground text-base leading-5 tracking-tightest px-3 w-full min-w-0 overflow-x-hidden box-border *:max-w-full *:box-border',
         className
       )}
       {...props}

@@ -32,6 +32,7 @@ export interface HelperTextProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof helperTextVariants> {
   isError?: boolean;
+  isSuccess?: boolean;
   icon?: React.ReactNode;
 }
 
@@ -39,11 +40,18 @@ function HelperText({
   className,
   size = 'sm',
   isError = false,
+  isSuccess = false,
   icon,
   children,
   ...props
 }: HelperTextProps) {
   const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
+
+  const textColor = isError
+    ? 'text-destructive-foreground'
+    : isSuccess
+      ? 'text-success-foreground'
+      : 'text-muted-foreground';
 
   const iconWithClasses = displayIcon
     ? React.cloneElement(
@@ -52,7 +60,7 @@ function HelperText({
           className: cn(
             helperTextIconVariants({ size }),
             size === 'sm' && 'mt-0.25',
-            isError ? 'text-destructive-foreground' : 'text-muted-foreground',
+            textColor,
             (displayIcon as React.ReactElement<{ className?: string }>).props
               ?.className
           ),
@@ -63,13 +71,7 @@ function HelperText({
   return (
     <div className={cn(helperTextVariants({ size }), className)} {...props}>
       {iconWithClasses}
-      <span
-        className={
-          isError ? 'text-destructive-foreground' : 'text-muted-foreground'
-        }
-      >
-        {children}
-      </span>
+      <span className={textColor}>{children}</span>
     </div>
   );
 }

@@ -17,29 +17,62 @@ import {
   MessageAction,
 } from '@/components/ui/aura/message';
 import {
+  InlineCitation,
+  InlineCitationLink,
+} from '@/components/ui/aura/inline-citation';
+import {
   IconWheel,
   IconCopy,
   IconDownload,
   IconTool,
   IconRefresh,
+  IconHash,
+  IconFile,
+  IconPhoto,
+  IconTimeline,
 } from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 
 const assistantResponses = [
   {
     id: '1',
-    content:
-      'According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period.',
+    content: (
+      <>
+        According to the time series, vibration amplitude has been rising
+        steadily since 03:00. The motor temperature also increased by 8°C over
+        the same period.
+      </>
+    ),
   },
   {
     id: '2',
-    content:
-      'I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM.',
+    content: (
+      <span>
+        I analyzed the sensor data and found that vibration levels on{' '}
+        <InlineCitation>
+          <InlineCitationLink
+            href="https://example.com/pump/21PT1019"
+            target="_blank"
+            icon={IconHash}
+            variant="nordic"
+          >
+            21PT1019
+          </InlineCitationLink>
+        </InlineCitation>{' '}
+        exceeded normal thresholds at 03:15. This correlates with a 12% increase
+        in RPM.
+      </span>
+    ),
   },
   {
     id: '3',
-    content:
-      'The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment.',
+    content: (
+      <>
+        The abnormal vibration pattern suggests potential bearing wear.
+        Historical data shows similar patterns preceded maintenance events on
+        comparable equipment.
+      </>
+    ),
   },
 ];
 
@@ -47,9 +80,21 @@ function BranchDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          What&apos;s causing the abnormal vibration levels on pump 21PT1019?
+          <span>
+            What&apos;s causing the abnormal vibration levels on pump{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>
+            ?
+          </span>
         </MessageContent>
       </Message>
 
@@ -64,6 +109,35 @@ function BranchDemo() {
               </MessageAvatar>
               <MessageContent className="flex flex-col gap-2">
                 {response.content}
+                <div className="flex flex-row gap-2">
+                  <InlineCitation>
+                    <InlineCitationLink
+                      href="https://example.com/chart/timeline"
+                      target="_blank"
+                      icon={IconTimeline}
+                    >
+                      Time series
+                    </InlineCitationLink>
+                  </InlineCitation>
+                  <InlineCitation>
+                    <InlineCitationLink
+                      href="https://example.com/image/pumpB.jpg"
+                      target="_blank"
+                      icon={IconPhoto}
+                    >
+                      pumpB.jpg
+                    </InlineCitationLink>
+                  </InlineCitation>
+                  <InlineCitation>
+                    <InlineCitationLink
+                      href="https://example.com/documentation.pdf"
+                      target="_blank"
+                      icon={IconFile}
+                    >
+                      pumpB.pdf
+                    </InlineCitationLink>
+                  </InlineCitation>
+                </div>
                 <MessageActions>
                   <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                     <IconCopy className="w-3 h-3" />
@@ -129,11 +203,28 @@ import {
   MessageActions,
   MessageAction,
 } from "@/components/ai-elements/cognite/message"
-import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh } from "@tabler/icons-react"
+import {
+  InlineCitation,
+  InlineCitationLink,
+} from "@/components/ai-elements/cognite/inline-citation"
+import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh, IconHash, IconFile, IconPhoto, IconTimeline } from "@tabler/icons-react"
 
 const assistantResponses = [
   { id: "1", content: "According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period." },
-  { id: "2", content: "I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM." },
+  {
+    id: "2",
+    content: (
+      <span>
+        I analyzed the sensor data and found that vibration levels on{' '}
+        <InlineCitation>
+          <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
+            21PT1019
+          </InlineCitationLink>
+        </InlineCitation>
+        {' '}exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM.
+      </span>
+    ),
+  },
   { id: "3", content: "The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment." },
 ]
 
@@ -141,9 +232,20 @@ export function BranchDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
         <MessageContent>
-          What's causing the abnormal vibration levels on pump 21PT1019?
+          <span>
+            What's causing the abnormal vibration levels on pump{' '}
+            <InlineCitation>
+              <InlineCitationLink
+                href="https://example.com/pump/21PT1019"
+                target="_blank"
+                icon={IconHash}
+                variant="nordic"
+              >
+                21PT1019
+              </InlineCitationLink>
+            </InlineCitation>?
+          </span>
         </MessageContent>
       </Message>
 
@@ -158,6 +260,23 @@ export function BranchDemo() {
               </MessageAvatar>
               <MessageContent className="flex flex-col gap-2">
                 {response.content}
+                <div className="flex flex-row gap-2">
+                  <InlineCitation>
+                    <InlineCitationLink href="https://example.com/chart/timeline" target="_blank" icon={IconTimeline}>
+                      Time series
+                    </InlineCitationLink>
+                  </InlineCitation>
+                  <InlineCitation>
+                    <InlineCitationLink href="https://example.com/image/pumpB.jpg" target="_blank" icon={IconPhoto}>
+                      pumpB.jpg
+                    </InlineCitationLink>
+                  </InlineCitation>
+                  <InlineCitation>
+                    <InlineCitationLink href="https://example.com/documentation.pdf" target="_blank" icon={IconFile}>
+                      pumpB.pdf
+                    </InlineCitationLink>
+                  </InlineCitation>
+                </div>
                 <MessageActions>
                   <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
                     <IconCopy className="w-3 h-3" />
