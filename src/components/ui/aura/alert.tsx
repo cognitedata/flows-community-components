@@ -9,18 +9,22 @@ import type { MouseEventHandler } from 'react';
 import { cn } from '@/common/utils';
 import { Button } from '#aura/button';
 
+type AlertVariant = 'default' | 'secondary' | 'warning' | 'error';
+
 type AlertContextProps = {
   show: boolean;
   setShow: (show: boolean) => void;
+  variant: AlertVariant;
 };
 
 const AlertContext = React.createContext<AlertContextProps>({
   show: true,
   setShow: () => {},
+  variant: 'default',
 });
 
 const alertVariants = cva(
-  'relative w-full max-w-[var(--alert-max-width)] rounded-md border pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 gap-0.70 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
+  'relative w-full rounded-md border pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
   {
     variants: {
       variant: {
@@ -45,7 +49,7 @@ type AlertProps = React.ComponentProps<'div'> &
 
 function Alert({
   className,
-  variant,
+  variant = 'default',
   visible,
   defaultVisible = true,
   onClose,
@@ -63,7 +67,9 @@ function Alert({
   }
 
   return (
-    <AlertContext.Provider value={{ show, setShow }}>
+    <AlertContext.Provider
+      value={{ show, setShow, variant: variant as AlertVariant }}
+    >
       <div
         data-slot="alert"
         role="alert"
@@ -111,7 +117,7 @@ function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="alert-actions"
       className={cn(
-        'col-start-2 flex flex-wrap items-start gap-2 -ml-2 pt-1',
+        'col-start-2 flex flex-wrap items-start gap-2 pt-1',
         className
       )}
       {...props}
@@ -120,12 +126,21 @@ function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function AlertButton({ className, ...props }: React.ComponentProps<'button'>) {
+  const { variant } = React.useContext(AlertContext);
+
+  const hoverClasses: Record<AlertVariant, string> = {
+    default: 'hover:bg-undefined-hover',
+    secondary: 'hover:bg-neutral-hover',
+    warning: 'hover:bg-warning-hover',
+    error: 'hover:bg-destructive-hover',
+  };
+
   return (
     <Button
       data-slot="alert-button"
       variant="ghost"
       size="sm"
-      className={cn('text-foreground', className)}
+      className={cn('text-foreground', hoverClasses[variant], className)}
       {...props}
     />
   );
