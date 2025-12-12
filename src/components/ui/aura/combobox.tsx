@@ -65,7 +65,7 @@ export function Combobox() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-50 justify-between"
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
@@ -73,7 +73,7 @@ export function Combobox() {
           <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-50 p-0">
         <Command>
           <CommandInput placeholder="Search framework..." />
           <CommandList>
@@ -141,7 +141,7 @@ export function ComboboxCustom({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn('w-[200px] justify-between', className)}
+          className={cn('w-50 justify-between', className)}
         >
           {selectedValue
             ? options.find((option) => option.value === selectedValue)?.label
@@ -149,7 +149,7 @@ export function ComboboxCustom({
           <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-50 p-0">
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
           <CommandList>
