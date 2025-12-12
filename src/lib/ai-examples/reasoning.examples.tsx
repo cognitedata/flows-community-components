@@ -93,6 +93,37 @@ function BasicReasoningDemo() {
   );
 }
 
+function SingleToolCallReasoningDemo() {
+  return (
+    <Reasoning>
+      <ReasoningHeader />
+      <ReasoningContent>
+        <ReasoningItem>
+          <Tool>
+            <ToolHeader title="Look up asset details" type="tool-call" />
+            <ToolContent>
+              <ToolInput
+                input={{
+                  assetId: 1,
+                }}
+              />
+              <ToolOutput
+                output={{
+                  id: 1,
+                  name: 'Pump 21PT1019',
+                  building: 'A',
+                  status: 'online',
+                }}
+                errorText={undefined}
+              />
+            </ToolContent>
+          </Tool>
+        </ReasoningItem>
+      </ReasoningContent>
+    </Reasoning>
+  );
+}
+
 export const reasoningExamples: ComponentExamples = {
   basic: {
     title: 'Reasoning with Multiple Tools',
@@ -182,6 +213,58 @@ export function BasicReasoningDemo() {
                   anomalies: 3,
                   severity: 'high',
                   recommendation: 'Schedule maintenance within 24 hours',
+                }}
+                errorText={undefined}
+              />
+            </ToolContent>
+          </Tool>
+        </ReasoningItem>
+      </ReasoningContent>
+    </Reasoning>
+  )
+}`,
+  },
+  singleToolCall: {
+    title: 'Reasoning with a Single Tool Call',
+    description:
+      'A reasoning section with one tool call (no connector decorations)',
+    component: SingleToolCallReasoningDemo,
+    difficulty: 'beginner',
+    code: `"use client"
+import {
+  Reasoning,
+  ReasoningHeader,
+  ReasoningContent,
+  ReasoningItem,
+} from "@/components/ui/aura/reasoning"
+import {
+  Tool,
+  ToolHeader,
+  ToolContent,
+  ToolInput,
+  ToolOutput,
+} from "@/components/ui/aura/tool"
+
+export function SingleToolCallReasoningDemo() {
+  return (
+    <Reasoning>
+      <ReasoningHeader />
+      <ReasoningContent>
+        <ReasoningItem>
+          <Tool>
+            <ToolHeader title="Look up asset details" type="tool-call" />
+            <ToolContent>
+              <ToolInput
+                input={{
+                  assetId: 1,
+                }}
+              />
+              <ToolOutput
+                output={{
+                  id: 1,
+                  name: 'Pump 21PT1019',
+                  building: 'A',
+                  status: 'online',
                 }}
                 errorText={undefined}
               />

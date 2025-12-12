@@ -2,7 +2,15 @@
 
 import { cn } from '@/common/utils';
 import { IconBrain } from '@tabler/icons-react';
-import type { ComponentProps } from 'react';
+import {
+  Children,
+  createContext,
+  useContext,
+  type ComponentProps,
+} from 'react';
+
+const ReasoningDecorationsContext = createContext<boolean>(true);
+const useReasoningDecorations = () => useContext(ReasoningDecorationsContext);
 
 export type ReasoningProps = ComponentProps<'div'>;
 
@@ -48,18 +56,37 @@ export const ReasoningContent = ({
   children,
   ...props
 }: ReasoningContentProps) => (
-  <div
-    className={cn(
-      'relative flex flex-col gap-0 pl-3.75',
-      // Vertical line using ::before
-      'before:absolute before:left-1.75 before:top-4 before:bottom-4 before:w-px before:bg-border',
-      className
-    )}
-    {...props}
+  <ReasoningDecorationsContext.Provider
+    value={Children.toArray(children).filter(Boolean).length > 1}
   >
-    {children}
-  </div>
+    <ReasoningContentInner className={className} {...props}>
+      {children}
+    </ReasoningContentInner>
+  </ReasoningDecorationsContext.Provider>
 );
+
+const ReasoningContentInner = ({
+  className,
+  children,
+  ...props
+}: ReasoningContentProps) => {
+  const showDecorations = useReasoningDecorations();
+
+  return (
+    <div
+      className={cn(
+        'relative flex flex-col gap-0 pl-3.75',
+        showDecorations &&
+          // Vertical line using ::before
+          'before:absolute before:left-1.75 before:top-4 before:bottom-4 before:w-px before:bg-border',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 export type ReasoningItemProps = ComponentProps<'div'>;
 
@@ -67,16 +94,21 @@ export const ReasoningItem = ({
   className,
   children,
   ...props
-}: ReasoningItemProps) => (
-  <div
-    className={cn(
-      'relative',
-      // Dot using ::before
-      'before:absolute before:-left-2.5 before:top-3.75 before:size-1.25 before:rounded-full before:bg-border',
-      className
-    )}
-    {...props}
-  >
-    {children}
-  </div>
-);
+}: ReasoningItemProps) => {
+  const showDecorations = useReasoningDecorations();
+
+  return (
+    <div
+      className={cn(
+        'relative',
+        showDecorations &&
+          // Dot using ::before
+          'before:absolute before:-left-2.5 before:top-3.75 before:size-1.25 before:rounded-full before:bg-border',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
