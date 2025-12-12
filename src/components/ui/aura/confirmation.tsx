@@ -61,9 +61,7 @@ export const Confirmation = ({
   );
 
   const helperTextToRender =
-    state === 'approval-requested' && helperText !== false
-      ? (helperText ?? defaultHelperText)
-      : null;
+    helperText === false ? null : (helperText ?? defaultHelperText);
 
   return (
     <ConfirmationContext.Provider value={{ approval, state }}>
