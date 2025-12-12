@@ -862,7 +862,10 @@
         "@tabler/icons-react"
       ],
       "registryDependencies": [
-        "button"
+        "alert",
+        "button",
+        "collapsible",
+        "helper-text"
       ],
       "files": [
         {

@@ -1,7 +1,12 @@
 'use client';
 
-import { Alert, AlertDescription } from '@/components/ui/aura/alert';
+import { Alert } from '@/components/ui/aura/alert';
 import { Button } from '@/components/ui/aura/button';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/aura/collapsible';
 import { HelperText } from '@/components/ui/aura/helper-text';
 import { cn } from '@/common/utils';
 import {
@@ -10,7 +15,7 @@ import {
   type ReactNode,
   useContext,
 } from 'react';
-import { IconAlertTriangle } from '@tabler/icons-react';
+import { IconAlertTriangle, IconSelector } from '@tabler/icons-react';
 
 type ApprovalType = {
   approved?: boolean;
@@ -61,7 +66,9 @@ export const Confirmation = ({
   );
 
   const helperTextToRender =
-    helperText === false ? null : (helperText ?? defaultHelperText);
+    state !== 'approval-requested' || helperText === false
+      ? null
+      : (helperText ?? defaultHelperText);
 
   return (
     <ConfirmationContext.Provider value={{ approval, state }}>
@@ -72,20 +79,44 @@ export const Confirmation = ({
         )}
         {...props}
       >
-        {children}
+        <Collapsible className="flex flex-col gap-2">{children}</Collapsible>
         {helperTextToRender}
       </Alert>
     </ConfirmationContext.Provider>
   );
 };
 
-export type ConfirmationTitleProps = ComponentProps<typeof AlertDescription>;
+export type ConfirmationContentTriggerProps = ComponentProps<typeof Button>;
 
-export const ConfirmationTitle = ({
+export const ConfirmationContentTrigger = ({
+  className,
+  children,
+  ...props
+}: ConfirmationContentTriggerProps) => (
+  <CollapsibleTrigger asChild>
+    <Button
+      variant="ghost"
+      className={cn(
+        'w-full justify-between text-base leading-5 tracking-tighter',
+        className
+      )}
+      {...props}
+    >
+      <span>{children}</span>
+      <IconSelector className="h-4 w-4" />
+    </Button>
+  </CollapsibleTrigger>
+);
+
+export type ConfirmationContentProps = ComponentProps<
+  typeof CollapsibleContent
+>;
+
+export const ConfirmationContent = ({
   className,
   ...props
-}: ConfirmationTitleProps) => (
-  <AlertDescription className={cn('inline', className)} {...props} />
+}: ConfirmationContentProps) => (
+  <CollapsibleContent className={cn('px-3', className)} {...props} />
 );
 
 export type ConfirmationRequestProps = {
