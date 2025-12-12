@@ -4,6 +4,15 @@
   "type": "registry:component",
   "title": "Date Picker",
   "description": "Date Picker component.",
+  "dependencies": [
+    "date-fns",
+    "@tabler/icons-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "calendar",
+    "popover"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/date-picker.tsx",

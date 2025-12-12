@@ -11,213 +11,105 @@ import {
 import {
   Message,
   MessageAvatar,
+  MessageAvatarIcon,
   MessageContent,
+  MessageActions,
+  MessageAction,
 } from '@/components/ui/aura/message';
+import {
+  IconWheel,
+  IconCopy,
+  IconDownload,
+  IconTool,
+  IconRefresh,
+} from '@tabler/icons-react';
 import type { ComponentExamples } from '@/lib/component-examples/types';
-import { nanoid } from 'nanoid';
 
-const userMessages = [
+const assistantResponses = [
   {
-    id: nanoid(),
-    content: 'What are the key strategies for optimising React performance?',
+    id: '1',
+    content:
+      'According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period.',
   },
   {
-    id: nanoid(),
-    content: 'How can I improve the performance of my React application?',
+    id: '2',
+    content:
+      'I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM.',
   },
   {
-    id: nanoid(),
-    content: 'What performance optimisation techniques should I use in React?',
+    id: '3',
+    content:
+      'The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment.',
   },
 ];
 
-const assistantMessages = [
-  {
-    id: nanoid(),
-    content:
-      "Here's the first response to your question. This approach focuses on performance optimisation.",
-  },
-  {
-    id: nanoid(),
-    content:
-      "Here's an alternative response. This approach emphasises code readability and maintainability over pure performance.",
-  },
-  {
-    id: nanoid(),
-    content:
-      "And here's a third option. This balanced approach considers both performance and maintainability, making it suitable for most use cases.",
-  },
-];
-
-function ConversationDemo() {
+function BranchDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {userMessages.map((message) => (
-            <Message key={message.id}>
-              <MessageAvatar avatarUrl="/user-avatar2.png" name="Hayden Bleasel" />
-              <MessageContent>{message.content}</MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-        <BranchSelector from="user">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
-      </Branch>
+    <div className="flex flex-col space-y-4 w-full gap-2">
+      <Message>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
+        <MessageContent>
+          What&apos;s causing the abnormal vibration levels on pump 21PT1019?
+        </MessageContent>
+      </Message>
 
       <Branch defaultBranch={0}>
         <BranchMessages>
-          {assistantMessages.map((message) => (
-            <Message isResponse={true} key={message.id}>
-              <MessageAvatar
-                variant="fjord"
-                avatarUrl="https://github.com/openai.png"
-                name="AI"
-              />
-              <MessageContent>{message.content}</MessageContent>
+          {assistantResponses.map((response) => (
+            <Message isResponse={true} key={response.id}>
+              <MessageAvatar variant="nordic">
+                <MessageAvatarIcon>
+                  <IconWheel />
+                </MessageAvatarIcon>
+              </MessageAvatar>
+              <MessageContent className="flex flex-col gap-2">
+                {response.content}
+                <MessageActions>
+                  <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+                    <IconCopy className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Download"
+                    tooltip="Download"
+                  >
+                    <IconDownload className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Explain Tool Call(s)"
+                    tooltip="Explain Tool Call(s)"
+                  >
+                    <IconTool className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Refresh"
+                    tooltip="Refresh"
+                  >
+                    <IconRefresh className="w-3 h-3" />
+                  </MessageAction>
+                  <BranchSelector from="assistant" className="px-0">
+                    <BranchPrevious />
+                    <BranchPage />
+                    <BranchNext />
+                  </BranchSelector>
+                </MessageActions>
+              </MessageContent>
             </Message>
           ))}
         </BranchMessages>
-        <BranchSelector from="assistant">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
-      </Branch>
-    </div>
-  );
-}
-
-function UserBranchDemo() {
-  return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {userMessages.map((message) => (
-            <Message key={message.id}>
-              <MessageAvatar avatarUrl="/user-avatar2.png" name="Hayden Bleasel" />
-              <MessageContent>{message.content}</MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-        <BranchSelector from="user">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
-      </Branch>
-    </div>
-  );
-}
-
-function AssistantBranchDemo() {
-  return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {assistantMessages.map((message) => (
-            <Message isResponse={true} key={message.id}>
-              <MessageAvatar
-                variant="fjord"
-                avatarUrl="https://github.com/openai.png"
-                name="AI"
-              />
-              <MessageContent>{message.content}</MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-        <BranchSelector from="assistant">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
       </Branch>
     </div>
   );
 }
 
 export const branchExamples: ComponentExamples = {
-  conversation: {
-    title: 'Conversation',
+  basic: {
+    title: 'Branch',
     description:
-      'Full conversation with branched user prompts and assistant responses',
-    component: ConversationDemo,
-    difficulty: 'intermediate',
-    code: `"use client"
-
-import {
-  Branch,
-  BranchMessages,
-  BranchSelector,
-  BranchPrevious,
-  BranchNext,
-  BranchPage,
-} from "@/components/ai-elements/cognite/branch"
-import {
-  Message,
-  MessageAvatar,
-  MessageContent,
-} from "@/components/ai-elements/cognite/message"
-import { nanoid } from "nanoid"
-
-const userMessages = [
-  { id: nanoid(), content: "What are the key strategies for optimising React performance?" },
-  { id: nanoid(), content: "How can I improve the performance of my React application?" },
-  { id: nanoid(), content: "What performance optimisation techniques should I use in React?" },
-]
-
-const assistantMessages = [
-  { id: nanoid(), content: "Here's the first response to your question. This approach focuses on performance optimisation." },
-  { id: nanoid(), content: "Here's an alternative response. This approach emphasises code readability and maintainability over pure performance." },
-  { id: nanoid(), content: "And here's a third option. This balanced approach considers both performance and maintainability, making it suitable for most use cases." },
-]
-
-export function ConversationDemo() {
-  return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {userMessages.map((message) => (
-            <Message key={message.id}>
-              <MessageAvatar avatarUrl="/user-avatar.png" name="Hayden Bleasel" />
-              <MessageContent>{message.content}</MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-        <BranchSelector from="user">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
-      </Branch>
-
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {assistantMessages.map((message) => (
-            <Message isResponse={true} key={message.id}>
-              <MessageAvatar variant="fjord" avatarUrl="https://github.com/openai.png" name="AI" />
-              <MessageContent>{message.content}</MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-        <BranchSelector from="assistant">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
-      </Branch>
-    </div>
-  )
-}`,
-  },
-
-  user: {
-    title: 'User Branch',
-    description: 'Branching user prompts in a conversation',
-    component: UserBranchDemo,
+      'Navigate between multiple AI response variations using branch controls',
+    component: BranchDemo,
     difficulty: 'beginner',
     code: `"use client"
 
@@ -232,84 +124,63 @@ import {
 import {
   Message,
   MessageAvatar,
+  MessageAvatarIcon,
   MessageContent,
+  MessageActions,
+  MessageAction,
 } from "@/components/ai-elements/cognite/message"
-import { nanoid } from "nanoid"
+import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh } from "@tabler/icons-react"
 
-const userMessages = [
-  { id: nanoid(), content: "What are the key strategies for optimising React performance?" },
-  { id: nanoid(), content: "How can I improve the performance of my React application?" },
-  { id: nanoid(), content: "What performance optimisation techniques should I use in React?" },
+const assistantResponses = [
+  { id: "1", content: "According to the time series, vibration amplitude has been rising steadily since 03:00. The motor temperature also increased by 8°C over the same period." },
+  { id: "2", content: "I analyzed the sensor data and found that vibration levels on 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM." },
+  { id: "3", content: "The abnormal vibration pattern suggests potential bearing wear. Historical data shows similar patterns preceded maintenance events on comparable equipment." },
 ]
 
-export function UserBranchDemo() {
+export function BranchDemo() {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
+    <div className="flex flex-col space-y-4 w-full gap-2">
+      <Message>
+        <MessageAvatar avatarUrl="/user-avatar2.png" name="John Doe" />
+        <MessageContent>
+          What's causing the abnormal vibration levels on pump 21PT1019?
+        </MessageContent>
+      </Message>
+
       <Branch defaultBranch={0}>
         <BranchMessages>
-          {userMessages.map((message) => (
-            <Message key={message.id}>
-              <MessageAvatar avatarUrl="/user-avatar.png" name="Hayden Bleasel" />
-              <MessageContent>{message.content}</MessageContent>
+          {assistantResponses.map((response) => (
+            <Message isResponse={true} key={response.id}>
+              <MessageAvatar variant="nordic">
+                <MessageAvatarIcon>
+                  <IconWheel />
+                </MessageAvatarIcon>
+              </MessageAvatar>
+              <MessageContent className="flex flex-col gap-2">
+                {response.content}
+                <MessageActions>
+                  <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
+                    <IconCopy className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction size="icon-sm" label="Download" tooltip="Download">
+                    <IconDownload className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
+                    <IconTool className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+                    <IconRefresh className="w-3 h-3" />
+                  </MessageAction>
+                  <BranchSelector from="assistant" className="px-0">
+                    <BranchPrevious />
+                    <BranchPage />
+                    <BranchNext />
+                  </BranchSelector>
+                </MessageActions>
+              </MessageContent>
             </Message>
           ))}
         </BranchMessages>
-        <BranchSelector from="user">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
-      </Branch>
-    </div>
-  )
-}`,
-  },
-
-  assistant: {
-    title: 'Assistant Branch',
-    description: 'Branching assistant responses in a conversation',
-    component: AssistantBranchDemo,
-    difficulty: 'beginner',
-    code: `"use client"
-
-import {
-  Branch,
-  BranchMessages,
-  BranchSelector,
-  BranchPrevious,
-  BranchNext,
-  BranchPage,
-} from "@/components/ai-elements/cognite/branch"
-import {
-  Message,
-  MessageAvatar,
-  MessageContent,
-} from "@/components/ai-elements/cognite/message"
-import { nanoid } from "nanoid"
-
-const assistantMessages = [
-  { id: nanoid(), content: "Here's the first response to your question. This approach focuses on performance optimisation." },
-  { id: nanoid(), content: "Here's an alternative response. This approach emphasises code readability and maintainability over pure performance." },
-  { id: nanoid(), content: "And here's a third option. This balanced approach considers both performance and maintainability, making it suitable for most use cases." },
-]
-
-export function AssistantBranchDemo() {
-  return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-6 w-full">
-      <Branch defaultBranch={0}>
-        <BranchMessages>
-          {assistantMessages.map((message) => (
-            <Message isResponse={true} key={message.id}>
-              <MessageAvatar variant="fjord" avatarUrl="https://github.com/openai.png" name="AI" />
-              <MessageContent>{message.content}</MessageContent>
-            </Message>
-          ))}
-        </BranchMessages>
-        <BranchSelector from="assistant">
-          <BranchPrevious />
-          <BranchPage />
-          <BranchNext />
-        </BranchSelector>
       </Branch>
     </div>
   )
@@ -322,5 +193,5 @@ export const branchMeta = {
   name: 'Branch',
   description:
     'Manages multiple versions of AI messages, allowing users to navigate between different response branches.',
-  importPath: '@/components/ui/aura/branch',
+  importPath: '@/components/ai-elements/cognite/branch',
 };

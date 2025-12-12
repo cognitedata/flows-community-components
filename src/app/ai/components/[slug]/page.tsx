@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+import { promises as fs } from 'fs';
+import path from 'path';
 import { Button } from '@/components/ui/aura/button';
 import { Badge } from '@/components/ui/aura/badge';
 import Link from 'next/link';
@@ -8,6 +10,7 @@ import { AIExamplesRenderer } from '@/components/ai-examples-renderer';
 import { AICodeExamplesRenderer } from '@/components/ai-code-examples-renderer';
 import { getAIComponentStatus } from '@/lib/ai-component-status';
 import { getAIComponentMeta } from '@/lib/ai-component-registry';
+import { InstallationCommand } from '@/components/installation-command';
 
 interface ComponentPageProps {
   params: Promise<{
@@ -62,6 +65,22 @@ function toTitleCase(str: string): string {
     .join(' ');
 }
 
+// Helper function to get component dependencies from registry
+async function getComponentDependencies(slug: string): Promise<string[]> {
+  try {
+    const registryPath = path.join(process.cwd(), 'registry.template.json');
+    const registryContent = await fs.readFile(registryPath, 'utf-8');
+    const registry = JSON.parse(registryContent);
+
+    const component = registry.items?.find(
+      (item: { name: string }) => item.name === slug
+    );
+    return component?.dependencies || [];
+  } catch {
+    return [];
+  }
+}
+
 export async function generateMetadata({ params }: ComponentPageProps) {
   const { slug } = await params;
   const meta = await getAIComponentMeta(slug);
@@ -90,6 +109,25 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   const description =
     meta?.description ||
     'AI element component for building conversational interfaces';
+
+  // Get component dependencies from registry
+  const dependencies = await getComponentDependencies(slug);
+
+  // Get component source code for manual installation
+  let componentCode = '';
+  try {
+    const componentPath = path.join(
+      process.cwd(),
+      'src',
+      'components',
+      'ui',
+      'aura',
+      `${slug}.tsx`
+    );
+    componentCode = await fs.readFile(componentPath, 'utf-8');
+  } catch {
+    // Component code not found, leave empty
+  }
 
   return (
     <div className="px-3 py-8">
@@ -172,12 +210,11 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             {/* Installation Section */}
             <section id="installation" className="scroll-mt-20 mt-12">
               <h2 className="text-2xl font-bold mb-6">Installation</h2>
-              <div className="space-y-4">
-                <p className="text-muted-foreground">
-                  AI elements are included in the project. Copy the component
-                  source code to use it.
-                </p>
-              </div>
+              <InstallationCommand
+                component={slug}
+                dependencies={dependencies}
+                componentCode={componentCode}
+              />
             </section>
 
             {/* Usage Section */}
