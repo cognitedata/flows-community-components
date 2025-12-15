@@ -303,9 +303,15 @@ function TypographyRow({ item }: { item: (typeof typographyScale)[0] }) {
 
 export default function TypographyPage() {
   const sections = [
-    { title: 'Text' as const },
-    { title: 'Marketing' as const },
-    { title: 'Code' as const },
+    { title: 'Text' as const, description: 'Regular text typography' as const },
+    {
+      title: 'Marketing' as const,
+      description: 'Marketing typography for marketing pages' as const,
+    },
+    {
+      title: 'Code' as const,
+      description: 'Code typography for code blocks' as const,
+    },
   ];
 
   return (
@@ -319,12 +325,8 @@ export default function TypographyPage() {
 
       {sections.map((section) => (
         <div key={section.title} className="space-y-0">
-          <div className="flex items-center justify-between rounded-xl border bg-card px-6 py-4">
-            <h2 className="text-3xl font-medium tracking-tight">
-              {section.title}
-            </h2>
-          </div>
-
+          <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
+          <p className="text-muted-foreground">{section.description}</p>
           <div className="divide-y divide-border">
             {typographyScale
               .filter((item) => item.section === section.title)
