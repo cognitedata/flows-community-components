@@ -276,24 +276,26 @@ const typographyScale = [
 
 function TypographyRow({ item }: { item: (typeof typographyScale)[0] }) {
   return (
-    <div className="grid grid-cols-[280px_1fr] gap-8 py-8">
-      {/* Left column - style info */}
-      <div className="space-y-2">
-        <h3 className="text-2xl font-normal text-foreground">{item.name}</h3>
-        <p className="text-sm text-muted-foreground">
-          {item.fontFamily} {item.fontWeight}
-        </p>
-        <p className="text-sm text-muted-foreground">
-          {item.fontSize} size / {item.lineHeight} line height
-        </p>
-      </div>
+    <div className="py-8">
+      <h3 className="text-2xl font-normal text-foreground mb-6">{item.name}</h3>
+      <div className="grid grid-cols-[280px_1fr]  border-b border-border last:border-b-0">
+        {/* Left column - style info */}
+        <div className="space-y-2">
+          <p className="text-sm text-foreground">
+            {item.fontFamily} {item.fontWeight}
+          </p>
+          <p className="text-sm text-foreground">
+            {item.fontSize} size / {item.lineHeight} line height
+          </p>
+        </div>
 
-      {/* Right column - sample and usage */}
-      <div className="space-y-2 flex flex-col justify-center">
-        <p className={`text-foreground ${item.tailwindClass}`}>
-          The quick brown fox jumps over the lazy dog.
-        </p>
-        <p className="text-sm text-muted-foreground">{item.usage}</p>
+        {/* Right column - sample and usage */}
+        <div className="space-y-2 flex flex-col justify-center">
+          <p className={`text-foreground ${item.tailwindClass}`}>
+            The quick brown fox jumps over the lazy dog.
+          </p>
+          <p className="text-base text-muted-foreground">{item.usage}</p>
+        </div>
       </div>
     </div>
   );
