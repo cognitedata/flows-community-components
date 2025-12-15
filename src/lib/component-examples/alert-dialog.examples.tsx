@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/aura/alert-dialog';
 import type { ComponentExamples } from './types';
+import { IconCheck } from '@tabler/icons-react';
 
 function BasicDemo() {
   return (
@@ -18,19 +19,19 @@ function BasicDemo() {
       <div className="space-y-2">
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="destructive">Delete Account</Button>
+            <Button>Export</Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogTitle>Export all data?</AlertDialogTitle>
               <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
+                This will export all your data to a CSV file. The process may
+                take a few moments depending on the amount of data.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
+              <AlertDialogAction>Export</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -39,18 +40,21 @@ function BasicDemo() {
       <div className="space-y-2">
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="outline">Show Info</Button>
+            <Button variant="outline">Example</Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Information</AlertDialogTitle>
+              <AlertDialogTitle>Add a title here</AlertDialogTitle>
               <AlertDialogDescription>
-                This is an informational alert dialog. You can use it to display
-                important information to users.
+                And add a detailed description here.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogAction>Got it</AlertDialogAction>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>
+                <IconCheck />
+                Button text
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
