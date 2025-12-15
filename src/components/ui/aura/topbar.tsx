@@ -8,7 +8,7 @@ import { cn } from '@/common/utils';
 import { Breadcrumb } from '@/components/ui/aura/breadcrumb';
 import { SidebarProvider, SidebarInset } from '@/components/ui/aura/sidebar';
 import { Button } from '@/components/ui/aura/button';
-import { SwapSlot } from '@/components/ui/aura/swap-slot';
+// import { SwapSlot } from '@/components/ui/aura/swap-slot';
 
 // Topbar wrapper component
 function Topbar({ className, ...props }: ComponentProps<'div'>) {
@@ -102,18 +102,18 @@ function TopbarBreadcrumbs({
 }
 
 // Topbar swap slot wrapper
-function TopbarSwapSlot({
-  className,
-  ...props
-}: ComponentProps<typeof SwapSlot>) {
-  return (
-    <SwapSlot
-      data-slot="topbar-swap-slot"
-      className={cn('', className)}
-      {...props}
-    />
-  );
-}
+// function TopbarSwapSlot({
+//   className,
+//   ...props
+// }: ComponentProps<typeof SwapSlot>) {
+//   return (
+//     <SwapSlot
+//       data-slot="topbar-swap-slot"
+//       className={cn('', className)}
+//       {...props}
+//     />
+//   );
+// }
 
 // Topbar action button wrapper
 function TopbarAction({
@@ -136,6 +136,6 @@ export {
   TopbarWithSidebar,
   TopbarContent,
   TopbarBreadcrumbs,
-  TopbarSwapSlot,
+  // TopbarSwapSlot,
   TopbarAction,
 };

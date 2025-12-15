@@ -15,12 +15,14 @@ import {
   BreadcrumbPage,
 } from '@/components/ui/aura/breadcrumb';
 import { Button } from '@/components/ui/aura/button';
-import { SwapSlot } from '@/components/ui/aura/swap-slot';
+// import { SwapSlot } from '@/components/ui/aura/swap-slot';
 import {
   IconHome,
   IconShare,
   IconLayoutSidebar,
   IconPlus,
+  IconDownload,
+  IconEdit,
 } from '@tabler/icons-react';
 import type { ComponentExamples } from './types';
 
@@ -51,11 +53,11 @@ function BasicDemo() {
         </TopbarLeft>
         <TopbarCenter />
         <TopbarRight>
-          <TopbarSwapSlot>
+          {/* <TopbarSwapSlot>
             <SwapSlot className="border-2 border-dashed border-primary/40 rounded flex items-center justify-center w-[122px] h-[28px]">
               <span className="text-xs text-muted-foreground">Slot</span>
             </SwapSlot>
-          </TopbarSwapSlot>
+          </TopbarSwapSlot> */}
           <Button size="sm">
             <IconPlus />
             Button
@@ -69,6 +71,51 @@ function BasicDemo() {
   );
 }
 
+function EosTopbar() {
+  return (
+    <div className="w-full border rounded-lg overflow-hidden">
+      <Topbar>
+        <TopbarLeft>
+          <Button variant="ghost" size="icon">
+            <IconLayoutSidebar className="h-4 w-4" />
+          </Button>
+          <TopbarBreadcrumbs>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">
+                  <IconHome className="h-4 w-4" />
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Atlas</BreadcrumbPage>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage> Abnormal vibration on 21PT1019</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </TopbarBreadcrumbs>
+        </TopbarLeft>
+        <TopbarCenter />
+        <TopbarRight>
+          <Button variant="ghost" size="sm">
+            <IconDownload className="h-4 w-4" />
+            Download
+          </Button>
+          <Button size="sm">
+            <IconEdit className="h-4 w-4" />
+            New chat
+          </Button>
+          {/* <TopbarSwapSlot> */}
+          {/* <SwapSlot className="border-2 border-dashed border-primary/40 rounded flex items-center justify-center w-[122px] h-[28px]">
+              <span className="text-xs text-muted-foreground">Slot</span>
+            </SwapSlot> */}
+          {/* </TopbarSwapSlot> */}
+        </TopbarRight>
+      </Topbar>
+    </div>
+  );
+}
 export const topbarExamples: ComponentExamples = {
   basic: {
     title: 'Basic Topbar',
@@ -92,7 +139,7 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/aura/breadcrumb"
-import { SwapSlot } from "@/components/ui/aura/swap-slot"
+// import { SwapSlot } from "@/components/ui/aura/swap-slot"
 import { IconHome, IconSearch, IconApps, IconLayoutSidebar } from "@tabler/icons-react"
 
 export function BasicDemo() {
@@ -135,6 +182,51 @@ export function BasicDemo() {
     </Topbar>
   )
 }`,
+  },
+  eos: {
+    title: 'EOS Topbar',
+    description:
+      'A topbar with breadcrumbs on the left, empty center, and actions on the right',
+    component: EosTopbar,
+    difficulty: 'beginner',
+    code: `import {
+      Topbar,
+      TopbarLeft,
+      TopbarCenter,
+      TopbarRight,
+      TopbarBreadcrumbs,
+      TopbarSwapSlot,
+      TopbarAction,
+    } from "@/components/ui/aura/topbar"
+    import {
+      BreadcrumbList,
+      BreadcrumbItem,
+      BreadcrumbLink,
+      BreadcrumbSeparator,
+      BreadcrumbPage,
+    } from "@/components/ui/aura/breadcrumb"
+    import { SwapSlot } from "@/components/ui/aura/swap-slot"
+    import { IconHome, IconSearch, IconApps, IconLayoutSidebar } from "@tabler/icons-react"
+    export function EosTopbar() {
+      return (
+        <Topbar>
+          <TopbarLeft>
+            <Button variant="ghost" size="icon">
+              <IconLayoutSidebar className="h-4 w-4" />
+            </Button>
+          </TopbarLeft>
+          <TopbarCenter />
+          <TopbarRight>
+            <TopbarSwapSlot>
+              <SwapSlot className="border-2 border-dashed border-primary/40 rounded flex items-center justify-center w-[122px] h-[28px]">
+                <span className="text-xs text-muted-foreground">Slot</span>
+              </SwapSlot>
+            </TopbarSwapSlot>
+          </TopbarRight>
+        </Topbar>
+      );
+    }
+  }`,
   },
 };
 
