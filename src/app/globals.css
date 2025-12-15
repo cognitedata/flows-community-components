@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Code+Pro:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Source+Code+Pro:wght@200..900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -11,6 +11,7 @@
 @theme inline {
   /* Typography scale overrides - font sizes */
   --text-2xs: 0.625rem; /* 10px */
+  --text-2xl: 1.5rem; /* 24px (TW default is 24px) */
   --text-3xl: 1.75rem; /* 28px (TW default is 30px) */
   --text-4xl: 2rem; /* 32px (TW default is 36px) */
   --text-5xl: 2.25rem; /* 36px (TW default is 48px) */
@@ -24,9 +25,11 @@
   --text-xl--line-height: 1.5rem; /* 24px (TW default is 28px) */
   --text-2xl--line-height: 1.75rem; /* 28px (TW default is 32px) */
   --text-3xl--line-height: 2rem; /* 32px (TW default is 36px) */
+  --text-4xl--line-height: 2.5rem; /* 40px (TW default is 40px) */
   --text-5xl--line-height: 2.75rem; /* 44px (TW default is 1) */
 
   --font-sans: var(--font-inter);
+  --font-marketing: var(--font-space-grotesk);
   --font-mono: var(--font-source-code-pro);
   --tracking-tight: -0.04px;
   --tracking-tighter: -0.08px;
@@ -258,6 +261,7 @@
 :root {
   --radius: 0.375rem; /* 6px - default radius, maps to radius-md */
   --font-inter: 'Inter', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
   --font-source-code-pro: 'Source Code Pro', monospace;
   --code-block-collapsed-height: 6.5rem;
   --code-block-fade-height: 0.9375rem;
