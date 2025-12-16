@@ -158,8 +158,8 @@ function BranchDemo() {
                   </MessageAction>
                   <MessageAction
                     size="icon-sm"
-                    label="Refresh"
-                    tooltip="Refresh"
+                    label="Retry"
+                    tooltip="Retry"
                   >
                     <IconRefresh className="w-3 h-3" />
                   </MessageAction>
@@ -287,7 +287,7 @@ export function BranchDemo() {
                   <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
                     <IconTool className="w-3 h-3" />
                   </MessageAction>
-                  <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+                  <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
                     <IconRefresh className="w-3 h-3" />
                   </MessageAction>
                   <BranchSelector from="assistant" className="px-0">

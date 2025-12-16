@@ -1099,14 +1099,9 @@
       "name": "reasoning",
       "type": "registry:component",
       "title": "Reasoning",
-      "description": "AI reasoning component for displaying reasoning processes.",
+      "description": "A container component for displaying AI reasoning steps with connected tool calls.",
       "dependencies": [
-        "@radix-ui/react-use-controllable-state",
-        "@tabler/icons-react",
-        "streamdown"
-      ],
-      "registryDependencies": [
-        "collapsible"
+        "@tabler/icons-react"
       ],
       "files": [
         {
