@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/aura/button';
 import { cn } from '@/common/utils';
 import type { Element } from 'hast';
-import { IconCheck, IconChevronDown, IconCopy } from '@tabler/icons-react';
+import { IconCheck, IconCopy, IconSelector } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -236,12 +236,7 @@ export const CodeBlockCollapseButton = ({
       variant="secondary"
       {...props}
     >
-      {children ?? (
-        <IconChevronDown
-          size={14}
-          className={cn('transition-transform', !isCollapsed && 'rotate-180')}
-        />
-      )}
+      {children ?? <IconSelector size={14} />}
     </Button>
   );
 };
