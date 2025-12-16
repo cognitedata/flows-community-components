@@ -498,7 +498,7 @@
   --primary-foreground: var(--mountain-50);
   --secondary: var(--mountain-100);
   --secondary-hover: var(--mountain-200);
-  --secondary-foreground: var(--mountain-900);
+  --secondary-foreground: var(--mountain-800);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-300);
   --tertiary-foreground: var(--mountain-white);
@@ -533,6 +533,18 @@
   --disabled: var(--mountain-50);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
+
+  /* Toggled tokens */
+  --toggled: var(--gray-100);
+  --toggled-foreground: var(--gray-700);
+  --toggled-hover: var(--gray-200);
+
+  /* Inverted tokens */
+  --inverted: var(--mountain-900);
+  --inverted-foreground: var(--mountain-50);
+  --inverted-foreground-muted: var(--mountain-300);
+  --inverted-destructive-foreground: var(--red-300);
+  --inverted-success-foreground: var(--green-300);
 
   /* Decorative tokens */
   --decorative-background-mountain: var(--mountain-50);
@@ -575,9 +587,9 @@
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
-  --sidebar-primary: var(--gray-550);
+  --sidebar-primary: var(--mountain-600);
   --sidebar-primary-foreground: var(--mountain-white);
-  --sidebar-accent: var(--gray-800);
+  --sidebar-accent: var(--mountain-700);
   --sidebar-accent-foreground: var(--mountain-white);
   --sidebar-border: var(--mountain-800);
   --sidebar-ring: var(--gray-300);
@@ -595,7 +607,7 @@
   --primary-foreground: var(--mountain-950);
   --secondary: var(--mountain-700);
   --secondary-hover: var(--mountain-600);
-  --secondary-foreground: var(--mountain-100);
+  --secondary-foreground: var(--mountain-50);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-700);
   --tertiary-foreground: var(--mountain-white);
@@ -608,7 +620,7 @@
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-700);
   --input: var(--mountain-900);
-  --ring: var(--gray-400);
+  --ring: var(--gray-300);
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
@@ -630,6 +642,18 @@
   --disabled: var(--mountain-800);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
+
+  /* Toggled tokens */
+  --toggled: var(--gray-900);
+  --toggled-foreground: var(--gray-200);
+  --toggled-hover: var(--gray-800);
+
+  /* Inverted tokens */
+  --inverted: var(--mountain-900);
+  --inverted-foreground: var(--mountain-50);
+  --inverted-foreground-muted: var(--mountain-300);
+  --inverted-destructive-foreground: var(--red-300);
+  --inverted-success-foreground: var(--green-300);
 
   /* Decorative tokens */
   --decorative-background-mountain: var(--mountain-800);
@@ -716,9 +740,9 @@
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
-  --sidebar-primary: var(--gray-550);
+  --sidebar-primary: var(--mountain-600);
   --sidebar-primary-foreground: var(--mountain-white);
-  --sidebar-accent: var(--gray-800);
+  --sidebar-accent: var(--mountain-700);
   --sidebar-accent-foreground: var(--mountain-white);
   --sidebar-border: var(--mountain-800);
   --sidebar-ring: var(--gray-300);
