@@ -74,7 +74,7 @@ function BasicActionsDemo() {
                   >
                     <IconTool className="w-3 h-3" />
                   </Action>
-                  <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+                  <Action size="icon-sm" label="Retry" tooltip="Retry">
                     <IconRefresh className="w-3 h-3" />
                   </Action>
                   <BranchSelector from="assistant" className="px-0">
@@ -148,7 +148,7 @@ export function BasicActionsDemo() {
                   <Action size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
                     <IconTool className="w-3 h-3" />
                   </Action>
-                  <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+                  <Action size="icon-sm" label="Retry" tooltip="Retry">
                     <IconRefresh className="w-3 h-3" />
                   </Action>
                   <BranchSelector from="assistant" className="px-0">

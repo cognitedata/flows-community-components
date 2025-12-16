@@ -22,7 +22,7 @@ export function DatePicker() {
         <Button
           variant={'outline'}
           className={cn(
-            'w-[240px] justify-start text-left font-normal',
+            'w-60 justify-start text-left font-normal',
             !date && 'text-muted-foreground'
           )}
         >
@@ -72,7 +72,7 @@ export function DatePickerCustom({
         <Button
           variant={'outline'}
           className={cn(
-            'w-[240px] justify-start text-left font-normal',
+            'w-60 justify-start text-left font-normal',
             !selectedDate && 'text-muted-foreground',
             className
           )}
@@ -137,7 +137,7 @@ export function DateRangePicker({
         <Button
           variant={'outline'}
           className={cn(
-            'w-[240px] justify-start text-left font-normal',
+            'w-60 justify-start text-left font-normal',
             !selectedRange.from && 'text-muted-foreground',
             className
           )}

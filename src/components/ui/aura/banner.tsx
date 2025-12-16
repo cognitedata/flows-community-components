@@ -67,7 +67,7 @@ export const Banner = ({
     <BannerContext.Provider value={{ show, setShow, variant }}>
       <div
         className={cn(
-          'flex w-full min-h-[44px] items-center gap-2 px-3.5 py-2',
+          'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
           variantClasses[variant],
           inset && 'rounded-lg',
           className

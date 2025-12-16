@@ -259,6 +259,10 @@
   --code-block-fade-height: 0.9375rem;
   --message-content-max-width: 80%;
 
+  /* Component-specific sizing */
+  --alert-icon-width: calc(var(--spacing) * 4); /* 16px - width of icon column in alert grid */
+  --drawer-max-height: 80vh; /* Maximum height for top/bottom drawers */
+
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
   --mountain-black: rgb(0, 0, 0);
