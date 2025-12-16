@@ -149,7 +149,7 @@ export default function HomePage() {
 
           {/* Alert Banner */}
           <div className="max-w-2xl mx-auto">
-            <Alert variant="destructive" className="text-left">
+            <Alert variant="error" className="text-left">
               <AlertTriangle className="h-4 w-4" />
               <AlertTitle className="font-bold">Aura is still in active development</AlertTitle>
               <AlertDescription>

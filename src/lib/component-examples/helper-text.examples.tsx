@@ -87,6 +87,11 @@ function StatesDemo() {
       </div>
 
       <div className="space-y-2">
+        <h3 className="text-sm font-semibold">Success State</h3>
+        <HelperText isSuccess>Password is strong and valid</HelperText>
+      </div>
+
+      <div className="space-y-2">
         <h3 className="text-sm font-semibold">Character Count</h3>
         <HelperText>245 characters remaining</HelperText>
       </div>
@@ -155,7 +160,7 @@ function CustomIconsDemo() {
 
       <div className="space-y-2">
         <h3 className="text-sm font-semibold">Success with Custom Icon</h3>
-        <HelperText icon={<IconCircleCheck />}>
+        <HelperText icon={<IconCircleCheck />} isSuccess>
           Your password meets all requirements
         </HelperText>
       </div>
@@ -338,6 +343,11 @@ export function StatesDemo() {
       </div>
 
       <div className="space-y-2">
+        <h3 className="text-sm font-semibold">Success State</h3>
+        <HelperText isSuccess>Password is strong and valid</HelperText>
+      </div>
+
+      <div className="space-y-2">
         <h3 className="text-sm font-semibold">Character Count</h3>
         <HelperText>245 characters remaining</HelperText>
       </div>
@@ -388,7 +398,7 @@ export function CustomIconsDemo() {
 
       <div className="space-y-2">
         <h3 className="text-sm font-semibold">Success with Custom Icon</h3>
-        <HelperText icon={<IconCircleCheck />}>
+        <HelperText icon={<IconCircleCheck />} isSuccess>
           Your password meets all requirements
         </HelperText>
       </div>
@@ -416,7 +426,7 @@ export const helperTextMeta = {
   description:
     'A text component for displaying helper messages and error messages below form fields. Supports custom icons and automatically shows an error icon when in error state.',
   llmUsage:
-    'Use `<HelperText>` to provide additional information or guidance below form fields. Set `isError={true}` to display error messages with red text and a default error icon. Pass a custom `icon` prop to override the default icon or add an icon to non-error states. Use `size="xs"` for compact layouts or omit for default `"sm"` size.',
+    'Use `<HelperText>` to provide additional information or guidance below form fields. Set `isError={true}` to display error messages with red text and a default error icon, or `isSuccess={true}` to display success messages with green text. Pass a custom `icon` prop to override the default icon or add an icon to non-error states. Use `size="xs"` for compact layouts or omit for default `"sm"` size.',
   importPath: '@/components/ui/aura/helper-text',
   apiReference: {
     props: [
@@ -435,6 +445,14 @@ export const helperTextMeta = {
         required: false,
         description:
           'When true, displays the text in red and shows an error icon by default (unless a custom icon is provided)',
+      },
+      {
+        name: 'isSuccess',
+        type: 'boolean',
+        default: 'false',
+        required: false,
+        description:
+          'When true, displays the text in green for success states. Does not show a default icon (provide a custom icon via the icon prop)',
       },
       {
         name: 'icon',
