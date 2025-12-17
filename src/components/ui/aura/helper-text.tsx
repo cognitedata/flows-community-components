@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconExclamationCircle } from '@tabler/icons-react';
 
 const helperTextVariants = cva('flex flex-row justify-start items-start', {
@@ -29,7 +29,8 @@ const helperTextIconVariants = cva('shrink-0', {
 });
 
 export interface HelperTextProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof helperTextVariants> {
   isError?: boolean;
   isSuccess?: boolean;

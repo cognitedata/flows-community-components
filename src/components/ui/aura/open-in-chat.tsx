@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/aura/dropdown-menu';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import {
   IconChevronDown,
   IconExternalLink,

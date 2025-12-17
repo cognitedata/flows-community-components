@@ -5,7 +5,7 @@ import {
   InlineCitationLink,
   type InlineCitationLinkProps,
 } from '@/components/ui/aura/inline-citation';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconMist } from '@tabler/icons-react';
 import type { ComponentProps, ReactNode } from 'react';
 

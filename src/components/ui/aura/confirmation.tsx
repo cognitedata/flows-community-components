@@ -8,7 +8,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
 import { HelperText } from '@/components/ui/aura/helper-text';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import {
   type ComponentProps,
   createContext,

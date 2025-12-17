@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { IconLayoutSidebarLeftCollapse } from '@tabler/icons-react';
 
 import { useIsMobile } from '@/hooks/use-mobile';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/aura/button';
 import { Input } from '@/components/ui/aura/input';
 import { Separator } from '@/components/ui/aura/separator';

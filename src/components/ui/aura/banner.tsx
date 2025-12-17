@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { Button } from '@/components/ui/aura/button';
 import { Badge } from '@/components/ui/aura/badge';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 
 type BannerVariant = 'default' | 'neutral' | 'destructive' | 'warning';
 

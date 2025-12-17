@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { IconChevronDown } from '@tabler/icons-react';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Icon } from '@tabler/icons-react';
 
 function Accordion({

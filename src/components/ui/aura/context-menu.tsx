@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu';
 import { IconCheck, IconChevronRight, IconCircle } from '@tabler/icons-react';
 
-import { cn, getPortalContainer } from '@/common/utils';
+import { cn, getPortalContainer } from '@/lib/utils';
 
 function ContextMenu({
   ...props
@@ -32,7 +32,11 @@ function ContextMenuPortal({
   ...props
 }: React.ComponentProps<typeof ContextMenuPrimitive.Portal>) {
   return (
-    <ContextMenuPrimitive.Portal data-slot="context-menu-portal" {...props} container={getPortalContainer()}/>
+    <ContextMenuPrimitive.Portal
+      data-slot="context-menu-portal"
+      {...props}
+      container={getPortalContainer()}
+    />
   );
 }
 

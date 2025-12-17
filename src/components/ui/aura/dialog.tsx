@@ -4,8 +4,8 @@ import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { IconX } from '@tabler/icons-react';
 
-import { cn } from '@/common/utils';
-import { getPortalContainer } from '@/common/utils';
+import { cn } from '@/lib/utils';
+import { getPortalContainer } from '@/lib/utils';
 
 function Dialog({
   ...props
@@ -22,7 +22,13 @@ function DialogTrigger({
 function DialogPortal({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
-  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} container={getPortalContainer()}/>;
+  return (
+    <DialogPrimitive.Portal
+      data-slot="dialog-portal"
+      {...props}
+      container={getPortalContainer()}
+    />
+  );
 }
 
 function DialogClose({

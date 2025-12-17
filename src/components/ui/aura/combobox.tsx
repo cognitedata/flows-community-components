@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { IconCheck, IconCaretUpDown } from '@tabler/icons-react';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/aura/button';
 import {
   Command,

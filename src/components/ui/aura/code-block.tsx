@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/aura/button';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { Element } from 'hast';
 import { IconCheck, IconCopy, IconSelector } from '@tabler/icons-react';
 import {

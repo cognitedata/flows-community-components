@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { HelperText } from './helper-text';
 
 interface InputProps extends React.ComponentProps<'input'> {

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconBrain } from '@tabler/icons-react';
 import {
   Children,
