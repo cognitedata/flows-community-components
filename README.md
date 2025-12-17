@@ -20,6 +20,16 @@ Or add to existing project:
 npx shadcn add [component-name]
 ```
 
+### Optional: Install shadcn MCP server for Cursor
+
+This lets Cursor integrate with shadcn tooling via MCP.
+
+```bash
+npx shadcn@latest mcp
+```
+
+<a href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add shadcn MCP server to Cursor" height="32" /></a>
+
 ## Development
 
 Start the development server:

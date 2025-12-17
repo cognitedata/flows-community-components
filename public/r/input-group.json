@@ -8,9 +8,10 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "button",
-    "input",
-    "textarea"
+    "@aura/css",
+    "@aura/button",
+    "@aura/input",
+    "@aura/textarea"
   ],
   "files": [
     {

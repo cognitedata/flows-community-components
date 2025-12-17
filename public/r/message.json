@@ -8,7 +8,8 @@
     "ai"
   ],
   "registryDependencies": [
-    "avatar"
+    "@aura/css",
+    "@aura/avatar"
   ],
   "files": [
     {

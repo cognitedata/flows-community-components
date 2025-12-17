@@ -19,6 +19,6 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@cognite/aura": "https://cognitedata.github.io/aura/r/{name}.json"
+    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
   }
 }

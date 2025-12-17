@@ -4,6 +4,9 @@
   "type": "registry:component",
   "title": "Node",
   "description": "AI node component for flow diagrams.",
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/node.tsx",

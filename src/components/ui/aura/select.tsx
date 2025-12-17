@@ -10,7 +10,7 @@ import {
   IconExclamationCircle,
 } from '@tabler/icons-react';
 
-import { cn } from '@/common/utils';
+import { cn, getPortalContainer } from '@/common/utils';
 
 type SelectContextValue = {
   isOpen: boolean;
@@ -132,7 +132,7 @@ function SelectContent({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
-    <SelectPrimitive.Portal>
+    <SelectPrimitive.Portal container={getPortalContainer()}>
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(

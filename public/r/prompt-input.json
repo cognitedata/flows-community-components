@@ -5,8 +5,9 @@
   "title": "Prompt Input",
   "description": "AI prompt input component for user prompts.",
   "registryDependencies": [
-    "textarea",
-    "button"
+    "@aura/css",
+    "@aura/textarea",
+    "@aura/button"
   ],
   "files": [
     {

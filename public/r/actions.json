@@ -8,8 +8,9 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "button",
-    "tooltip"
+    "@aura/css",
+    "@aura/button",
+    "@aura/tooltip"
   ],
   "files": [
     {

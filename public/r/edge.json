@@ -4,6 +4,9 @@
   "type": "registry:component",
   "title": "Edge",
   "description": "AI edge component for flow diagrams.",
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/edge.tsx",

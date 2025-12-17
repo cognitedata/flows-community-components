@@ -9,9 +9,10 @@
     "tokenlens"
   ],
   "registryDependencies": [
-    "button",
-    "hover-card",
-    "progress"
+    "@aura/css",
+    "@aura/button",
+    "@aura/hover-card",
+    "@aura/progress"
   ],
   "files": [
     {
