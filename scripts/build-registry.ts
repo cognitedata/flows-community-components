@@ -45,7 +45,7 @@ const registryTemplate = path.join(__dirname, '../registry.template.json');
 const registryOutput = path.join(__dirname, '../registry.json');
 
 // Registry metadata (shadcn validates registry namespaces start with "@")
-const registryName = '@cognite/aura';
+const registryName = '@aura';
 const registryHomepage = 'https://cognitedata.github.io/aura/';
 // Registry namespace used when emitting registryDependencies (consumer registry alias)
 const registryDependencyNamespace = '@aura';
