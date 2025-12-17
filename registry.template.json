@@ -736,10 +736,10 @@
       "title": "Confirmation",
       "description": "AI confirmation component for user confirmations.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["button"],
+      "registryDependencies": ["alert", "button", "collapsible", "helper-text"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/confirmation.tsx",
+          "path": "src/components/ui/aura/confirmation.tsx",
           "type": "registry:component"
         }
       ]
@@ -940,9 +940,8 @@
       "name": "reasoning",
       "type": "registry:component",
       "title": "Reasoning",
-      "description": "AI reasoning component for displaying reasoning processes.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react", "streamdown"],
-      "registryDependencies": ["collapsible"],
+      "description": "A container component for displaying AI reasoning steps with connected tool calls.",
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ai-elements/cognite/reasoning.tsx",

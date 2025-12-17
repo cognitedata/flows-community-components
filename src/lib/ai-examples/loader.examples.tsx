@@ -43,19 +43,19 @@ function WithShimmerDemo() {
     <div className="space-y-4">
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={16} />
-        <Shimmer className="text-sm">
+        <Shimmer variant="nordic" className="text-sm">
           Analyzing vibration data from pump 21PT1019...
         </Shimmer>
       </div>
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={16} />
-        <Shimmer className="text-sm">
+        <Shimmer variant="nordic" className="text-sm">
           Generating maintenance recommendations...
         </Shimmer>
       </div>
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={16} />
-        <Shimmer className="text-sm">Processing sensor readings...</Shimmer>
+        <Shimmer variant="nordic" className="text-sm">Processing sensor readings...</Shimmer>
       </div>
     </div>
   );
@@ -67,7 +67,7 @@ function ContentLoadingDemo() {
       <div className="p-6 border rounded-lg space-y-4">
         <div className="flex items-center gap-3">
           <Loader size={20} />
-          <Shimmer as="h3" className="text-base font-semibold">
+          <Shimmer variant="nordic" as="h3" className="text-base font-semibold">
             Loading analysis results
           </Shimmer>
         </div>
@@ -81,7 +81,7 @@ function ContentLoadingDemo() {
       <div className="p-6 border rounded-lg space-y-4">
         <div className="flex items-center gap-3">
           <Loader size={20} />
-          <Shimmer as="h3" className="text-base font-semibold">
+          <Shimmer variant="nordic" as="h3" className="text-base font-semibold">
             Retrieving historical maintenance records
           </Shimmer>
         </div>
@@ -160,19 +160,19 @@ export function WithShimmerDemo() {
     <div className="space-y-4">
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={16} />
-        <Shimmer className="text-sm">
+        <Shimmer variant="nordic" className="text-sm">
           Analyzing vibration data from pump 21PT1019...
         </Shimmer>
       </div>
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={16} />
-        <Shimmer className="text-sm">
+        <Shimmer variant="nordic" className="text-sm">
           Generating maintenance recommendations...
         </Shimmer>
       </div>
       <div className="p-4 border rounded-lg flex items-center gap-3">
         <Loader size={16} />
-        <Shimmer className="text-sm">
+        <Shimmer variant="nordic" className="text-sm">
           Processing sensor readings...
         </Shimmer>
       </div>
@@ -195,7 +195,7 @@ export function ContentLoadingDemo() {
       <div className="p-6 border rounded-lg space-y-4">
         <div className="flex items-center gap-3">
           <Loader size={20} />
-          <Shimmer as="h3" className="text-base font-semibold">
+          <Shimmer variant="nordic" as="h3" className="text-base font-semibold">
             Loading analysis results
           </Shimmer>
         </div>
@@ -209,7 +209,7 @@ export function ContentLoadingDemo() {
       <div className="p-6 border rounded-lg space-y-4">
         <div className="flex items-center gap-3">
           <Loader size={20} />
-          <Shimmer as="h3" className="text-base font-semibold">
+          <Shimmer variant="nordic" as="h3" className="text-base font-semibold">
             Retrieving historical maintenance records
           </Shimmer>
         </div>

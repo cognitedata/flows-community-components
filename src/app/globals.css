@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Source+Code+Pro:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Source+Code+Pro:wght@200..900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -11,6 +11,7 @@
 @theme inline {
   /* Typography scale overrides - font sizes */
   --text-2xs: 0.625rem; /* 10px */
+  --text-2xl: 1.5rem; /* 24px (TW default is 24px) */
   --text-3xl: 1.75rem; /* 28px (TW default is 30px) */
   --text-4xl: 2rem; /* 32px (TW default is 36px) */
   --text-5xl: 2.25rem; /* 36px (TW default is 48px) */
@@ -24,26 +25,20 @@
   --text-xl--line-height: 1.5rem; /* 24px (TW default is 28px) */
   --text-2xl--line-height: 1.75rem; /* 28px (TW default is 32px) */
   --text-3xl--line-height: 2rem; /* 32px (TW default is 36px) */
+  --text-4xl--line-height: 2.5rem; /* 40px (TW default is 40px) */
   --text-5xl--line-height: 2.75rem; /* 44px (TW default is 1) */
 
   --font-sans: var(--font-inter);
+  --font-marketing: var(--font-space-grotesk);
   --font-mono: var(--font-source-code-pro);
   --tracking-tight: -0.04px;
   --tracking-tighter: -0.08px;
   --tracking-tightest: -0.1px;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* tooltips; small containers */
-  --shadow-default: /* menus; popovers; hover cards */
-    0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: /* sonner; temporary elements */
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: /* modals; dialogs without backdrop overlay */
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: /* modals; dialogs with backdrop overlay */
-    0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* menus; popovers; hover cards */
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* sonner; temporary elements */
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* modals; dialogs without backdrop overlay */
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* modals; dialogs with backdrop overlay */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -71,8 +66,9 @@
   --color-mountain: var(--mountain);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-hover: var(--secondary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
@@ -87,12 +83,16 @@
   --color-foreground-link: var(--foreground-link);
   --color-backdrop: var(--backdrop);
   --color-warning: var(--warning);
+  --color-warning-hover: var(--warning-hover);
   --color-warning-foreground: var(--warning-foreground);
   --color-success: var(--success);
+  --color-success-hover: var(--success-hover);
   --color-success-foreground: var(--success-foreground);
   --color-neutral: var(--neutral);
+  --color-neutral-hover: var(--neutral-hover);
   --color-neutral-foreground: var(--neutral-foreground);
   --color-undefined: var(--undefined);
+  --color-undefined-hover: var(--undefined-hover);
   --color-undefined-foreground: var(--undefined-foreground);
   --color-disabled: var(--disabled);
   --color-disabled-foreground: var(--disabled-foreground);
@@ -253,10 +253,15 @@
 :root {
   --radius: 0.375rem; /* 6px - default radius, maps to radius-md */
   --font-inter: 'Inter', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
   --font-source-code-pro: 'Source Code Pro', monospace;
   --code-block-collapsed-height: 6.5rem;
   --code-block-fade-height: 0.9375rem;
   --message-content-max-width: 80%;
+
+  /* Component-specific sizing */
+  --alert-icon-width: calc(var(--spacing) * 4); /* 16px - width of icon column in alert grid */
+  --drawer-max-height: 80vh; /* Maximum height for top/bottom drawers */
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
@@ -497,7 +502,7 @@
   --primary-foreground: var(--mountain-50);
   --secondary: var(--mountain-100);
   --secondary-hover: var(--mountain-200);
-  --secondary-foreground: var(--mountain-900);
+  --secondary-foreground: var(--mountain-800);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-300);
   --tertiary-foreground: var(--mountain-white);
@@ -518,16 +523,32 @@
   --destructive-hover: var(--red-100);
   --destructive-foreground: var(--red-500);
   --warning: var(--amber-50);
+  --warning-hover: var(--amber-100);
   --warning-foreground: var(--amber-500);
   --success: var(--green-50);
+  --success-hover: var(--green-100);
   --success-foreground: var(--green-500);
   --neutral: var(--blue-50);
+  --neutral-hover: var(--blue-100);
   --neutral-foreground: var(--blue-500);
   --undefined: var(--mountain-50);
+  --undefined-hover: var(--mountain-100);
   --undefined-foreground: var(--mountain-700);
   --disabled: var(--mountain-50);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
+
+  /* Toggled tokens */
+  --toggled: var(--gray-100);
+  --toggled-foreground: var(--gray-700);
+  --toggled-hover: var(--gray-200);
+
+  /* Inverted tokens */
+  --inverted: var(--mountain-900);
+  --inverted-foreground: var(--mountain-50);
+  --inverted-foreground-muted: var(--mountain-300);
+  --inverted-destructive-foreground: var(--red-300);
+  --inverted-success-foreground: var(--green-300);
 
   /* Decorative tokens */
   --decorative-background-mountain: var(--mountain-50);
@@ -570,9 +591,9 @@
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
-  --sidebar-primary: var(--gray-550);
+  --sidebar-primary: var(--mountain-600);
   --sidebar-primary-foreground: var(--mountain-white);
-  --sidebar-accent: var(--gray-800);
+  --sidebar-accent: var(--mountain-700);
   --sidebar-accent-foreground: var(--mountain-white);
   --sidebar-border: var(--mountain-800);
   --sidebar-ring: var(--gray-300);
@@ -590,7 +611,7 @@
   --primary-foreground: var(--mountain-950);
   --secondary: var(--mountain-700);
   --secondary-hover: var(--mountain-600);
-  --secondary-foreground: var(--mountain-100);
+  --secondary-foreground: var(--mountain-50);
   --tertiary: var(--gray-550);
   --tertiary-hover: var(--gray-700);
   --tertiary-foreground: var(--mountain-white);
@@ -603,7 +624,7 @@
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-700);
   --input: var(--mountain-900);
-  --ring: var(--gray-400);
+  --ring: var(--gray-300);
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
@@ -611,16 +632,32 @@
   --destructive-hover: var(--red-700);
   --destructive-foreground: var(--red-300);
   --warning: var(--amber-800);
+  --warning-hover: var(--amber-700);
   --warning-foreground: var(--amber-300);
   --success: var(--green-800);
+  --success-hover: var(--green-700);
   --success-foreground: var(--green-300);
   --neutral: var(--blue-800);
+  --neutral-hover: var(--blue-700);
   --neutral-foreground: var(--blue-300);
   --undefined: var(--mountain-800);
+  --undefined-hover: var(--mountain-700);
   --undefined-foreground: var(--mountain-300);
   --disabled: var(--mountain-800);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
+
+  /* Toggled tokens */
+  --toggled: var(--gray-900);
+  --toggled-foreground: var(--gray-200);
+  --toggled-hover: var(--gray-800);
+
+  /* Inverted tokens */
+  --inverted: var(--mountain-900);
+  --inverted-foreground: var(--mountain-50);
+  --inverted-foreground-muted: var(--mountain-300);
+  --inverted-destructive-foreground: var(--red-300);
+  --inverted-success-foreground: var(--green-300);
 
   /* Decorative tokens */
   --decorative-background-mountain: var(--mountain-800);
@@ -707,9 +744,9 @@
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
-  --sidebar-primary: var(--gray-550);
+  --sidebar-primary: var(--mountain-600);
   --sidebar-primary-foreground: var(--mountain-white);
-  --sidebar-accent: var(--gray-800);
+  --sidebar-accent: var(--mountain-700);
   --sidebar-accent-foreground: var(--mountain-white);
   --sidebar-border: var(--mountain-800);
   --sidebar-ring: var(--gray-300);
