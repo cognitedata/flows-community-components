@@ -73,6 +73,7 @@ const miscRegistryItems: RegistryItem[] = [
     title: 'CSS',
     description:
       'Installs Aura global styles (import once in your app entrypoint).',
+    dependencies: ['tw-animate-css'],
     files: [
       {
         path: 'src/app/globals.css',
