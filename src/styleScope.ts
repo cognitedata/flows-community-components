@@ -1,5 +1,7 @@
 // used both at runtime and build time
-module.exports = {
+const styleScope = {
   styleScope: 'eos-style-scope',
   portalContainer: 'eos-portal-container',
 };
+
+export default styleScope;
