@@ -15,12 +15,16 @@ export function cn(...inputs: ClassValue[]) {
  * from the shell app's container query context.
  * The result is cached to avoid side effects on subsequent calls during React renders.
  */
-export const getPortalContainer = (): HTMLElement => {
+export const getPortalContainer = (): HTMLElement | undefined => {
   if (portalContainer) {
     return portalContainer;
   }
 
-  let container = document.getElementById(styleScope.portalContainer);
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
+
+  let container = document?.getElementById(styleScope.portalContainer);
 
   if (!container) {
     container = document.createElement('div');

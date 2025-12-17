@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as MenubarPrimitive from '@radix-ui/react-menubar';
 import { IconCheck, IconChevronRight, IconCircle } from '@tabler/icons-react';
 
-import { cn } from '@/common/utils';
+import { cn, getPortalContainer } from '@/common/utils';
 
 type MenubarSize = 'default' | 'sm';
 
@@ -43,7 +43,7 @@ function MenubarGroup({
 function MenubarPortal({
   ...props
 }: React.ComponentProps<typeof MenubarPrimitive.Portal>) {
-  return <MenubarPrimitive.Portal data-slot="menubar-portal" {...props} />;
+  return <MenubarPrimitive.Portal data-slot="menubar-portal" {...props} container={getPortalContainer()}/>;
 }
 
 function MenubarRadioGroup({
