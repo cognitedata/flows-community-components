@@ -5,7 +5,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { ToolUIPart } from 'ai';
 import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
 import { Button } from '@/components/ui/aura/button';

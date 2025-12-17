@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { IconCheck, IconChevronRight, IconCircle } from '@tabler/icons-react';
 
-import { cn, getPortalContainer } from '@/common/utils';
+import { cn, getPortalContainer } from '@/lib/utils';
 
 function DropdownMenu({
   ...props
@@ -16,7 +16,11 @@ function DropdownMenuPortal({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Portal>) {
   return (
-    <DropdownMenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} container={getPortalContainer()}/>
+    <DropdownMenuPrimitive.Portal
+      data-slot="dropdown-menu-portal"
+      {...props}
+      container={getPortalContainer()}
+    />
   );
 }
 

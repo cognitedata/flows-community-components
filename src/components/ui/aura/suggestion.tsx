@@ -13,7 +13,7 @@ import {
   SelectTrigger as SelectTriggerPrimitive,
   SelectValue as SelectValuePrimitive,
 } from '@/components/ui/aura/select';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { ComponentProps, ReactNode } from 'react';
 
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;

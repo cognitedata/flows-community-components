@@ -5,7 +5,7 @@ import {
   IconDots,
 } from '@tabler/icons-react';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/aura/button';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {

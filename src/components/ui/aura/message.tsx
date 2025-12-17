@@ -17,7 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/aura/tooltip';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { FileUIPart, UIMessage } from 'ai';
 import {
   IconChevronLeft,

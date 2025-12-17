@@ -10,7 +10,7 @@ import {
   IconExclamationCircle,
 } from '@tabler/icons-react';
 
-import { cn, getPortalContainer } from '@/common/utils';
+import { cn, getPortalContainer } from '@/lib/utils';
 
 type SelectContextValue = {
   isOpen: boolean;

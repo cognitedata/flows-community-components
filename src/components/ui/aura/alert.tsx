@@ -6,7 +6,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { IconX } from '@tabler/icons-react';
 import type { MouseEventHandler } from 'react';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button } from '#aura/button';
 
 type AlertVariant = 'default' | 'secondary' | 'warning' | 'error';

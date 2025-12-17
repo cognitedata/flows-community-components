@@ -8,7 +8,7 @@ import {
 } from '@tabler/icons-react';
 import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/aura/button';
 
 function Calendar({
