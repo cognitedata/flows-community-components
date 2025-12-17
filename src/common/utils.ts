@@ -31,6 +31,7 @@ export const getPortalContainer = (): HTMLElement | undefined => {
     container.id = styleScope.portalContainer;
     container.className = styleScope.styleScope;
     container.style.position = 'fixed';
+    container.style.zIndex = '1000';
     document.body.appendChild(container);
   }
 
