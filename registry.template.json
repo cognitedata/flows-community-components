@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "shadcn",
-  "homepage": "https://ui.shadcn.com",
+  "name": "@cognite/aura",
+  "homepage": "https://cognitedata.github.io/aura/",
   "items": [
     {
       "name": "accordion",

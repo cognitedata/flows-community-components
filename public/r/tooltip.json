@@ -7,6 +7,9 @@
   "dependencies": [
     "@radix-ui/react-tooltip"
   ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/tooltip.tsx",

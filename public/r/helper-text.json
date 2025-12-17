@@ -8,6 +8,9 @@
     "class-variance-authority",
     "@tabler/icons-react"
   ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/helper-text.tsx",

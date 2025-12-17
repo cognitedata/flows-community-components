@@ -9,8 +9,9 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "badge",
-    "collapsible"
+    "@aura/css",
+    "@aura/badge",
+    "@aura/collapsible"
   ],
   "files": [
     {

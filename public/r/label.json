@@ -7,6 +7,9 @@
   "dependencies": [
     "@radix-ui/react-label"
   ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/label.tsx",

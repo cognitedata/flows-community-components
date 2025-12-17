@@ -7,6 +7,9 @@
   "dependencies": [
     "@tabler/icons-react"
   ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/task.tsx",

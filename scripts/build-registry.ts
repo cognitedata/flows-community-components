@@ -19,6 +19,7 @@ const __dirname = path.dirname(__filename);
 // Type definitions for registry structure
 interface RegistryFile {
   path: string;
+  target?: string;
   type: string;
 }
 
@@ -42,6 +43,45 @@ interface Registry {
 const uiCogniteDir = path.join(__dirname, '../src/components/ui/aura');
 const registryTemplate = path.join(__dirname, '../registry.template.json');
 const registryOutput = path.join(__dirname, '../registry.json');
+
+// Registry metadata (shadcn validates registry namespaces start with "@")
+const registryName = '@cognite/aura';
+const registryHomepage = 'https://cognitedata.github.io/aura/';
+// Registry namespace used when emitting registryDependencies (consumer registry alias)
+const registryDependencyNamespace = '@aura';
+
+/**
+ * Misc "file" items that should always be present in the registry output.
+ *
+ * These are not components (no .tsx), but supporting files consumers may want to install.
+ * Add more items here as needed.
+ */
+const miscRegistryItems: RegistryItem[] = [
+  {
+    name: 'theme',
+    type: 'registry:file',
+    title: 'Theme',
+    description: 'Theme component.',
+    files: [
+      { path: 'src/styleScope.ts', type: 'registry:item' },
+      { path: 'src/styleScope.d.ts', type: 'registry:item' },
+    ],
+  },
+  {
+    name: 'css',
+    type: 'registry:component',
+    title: 'CSS',
+    description:
+      'Installs Aura global styles (import once in your app entrypoint).',
+    files: [
+      {
+        path: 'src/app/globals.css',
+        target: 'src/styles.css',
+        type: 'registry:component',
+      },
+    ],
+  },
+];
 
 // Get all components from ui/cognite directory
 function getComponents(): string[] {
@@ -148,8 +188,22 @@ function buildRegistry(template: Registry, components: string[]): Registry {
       // All paths point to src/components/ui/aura/
       const componentPath = getComponentPath(item.name);
 
+      const registryDependenciesRaw =
+        item.type === 'registry:component' && item.name !== 'css'
+          ? Array.from(new Set(['css', ...(item.registryDependencies ?? [])]))
+          : item.registryDependencies;
+
+      const registryDependencies = registryDependenciesRaw?.map((dep) => {
+        // If already qualified (e.g. "@aura/button") leave it alone
+        if (dep.includes('/')) {
+          return dep;
+        }
+        return `${registryDependencyNamespace}/${dep}`;
+      });
+
       return {
         ...item,
+        registryDependencies,
         files: item.files.map((file: RegistryFile) => ({
           ...file,
           path: componentPath,
@@ -157,9 +211,16 @@ function buildRegistry(template: Registry, components: string[]): Registry {
       };
     });
 
+  const miscItemNames = new Set(miscRegistryItems.map((i) => i.name));
+  const filteredWithoutMiscNameClashes = filteredItems.filter(
+    (i) => !miscItemNames.has(i.name)
+  );
+
   return {
     ...template,
-    items: filteredItems,
+    name: registryName,
+    homepage: registryHomepage,
+    items: [...miscRegistryItems, ...filteredWithoutMiscNameClashes],
   };
 }
 

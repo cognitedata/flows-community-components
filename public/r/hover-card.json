@@ -7,6 +7,9 @@
   "dependencies": [
     "@radix-ui/react-hover-card"
   ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/hover-card.tsx",

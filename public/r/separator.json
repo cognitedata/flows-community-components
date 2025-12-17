@@ -7,6 +7,9 @@
   "dependencies": [
     "@radix-ui/react-separator"
   ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/separator.tsx",

@@ -4,6 +4,9 @@
   "type": "registry:component",
   "title": "Shimmer",
   "description": "AI shimmer loading effect component.",
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/shimmer.tsx",
