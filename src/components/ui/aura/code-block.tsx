@@ -137,7 +137,7 @@ export const CodeBlock = ({
             className={cn(
               'overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
               isCollapsed &&
-                'max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden'
+                'max-h-(--code-block-collapsed-height) [&>pre]:overflow-hidden'
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: html }}
@@ -146,13 +146,13 @@ export const CodeBlock = ({
             className={cn(
               'hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm',
               isCollapsed &&
-                'max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden'
+                'max-h-(--code-block-collapsed-height) [&>pre]:overflow-hidden'
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: darkHtml }}
           />
           {isCollapsed && (
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-card/70 to-card" />
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-(--code-block-fade-height) bg-linear-to-b from-transparent via-background/70 to-background" />
           )}
           {children && (
             <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover/code-block:flex">
