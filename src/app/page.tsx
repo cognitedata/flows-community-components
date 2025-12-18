@@ -77,15 +77,16 @@ const existingProjectSteps: Step[] = [
     code: 'npx shadcn@latest mcp',
     extra: (
       <a
-        href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://cursor.com/deeplink/mcp-install-dark.svg"
-          alt="Add shadcn MCP server to Cursor"
-          height={32}
-        />
+      href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://cursor.com/deeplink/mcp-install-dark.svg"
+        alt="Add shadcn MCP server to Cursor"
+        height={32}
+      />
       </a>
     ),
   },
