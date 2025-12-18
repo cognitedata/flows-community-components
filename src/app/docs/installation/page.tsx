@@ -192,7 +192,9 @@ export default function InstallationPage() {
           {/* Optional: MCP */}
           <Card>
             <CardHeader>
-              <CardTitle>Optional: Install shadcn MCP server for Cursor</CardTitle>
+              <CardTitle>
+                Optional: Install shadcn MCP server for Cursor
+              </CardTitle>
               <CardDescription>
                 This lets Cursor integrate with shadcn tooling via MCP.
               </CardDescription>
@@ -206,6 +208,7 @@ export default function InstallationPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="https://cursor.com/deeplink/mcp-install-dark.svg"
                   alt="Add shadcn MCP server to Cursor"
