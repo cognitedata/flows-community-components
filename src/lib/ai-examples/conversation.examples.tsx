@@ -52,6 +52,9 @@ import {
   IconHash,
   IconAdjustments,
   IconChevronDown,
+  IconCheck,
+  IconChevronLeft,
+  IconChevronRight,
 } from '@tabler/icons-react';
 import { Suggestion } from '@/components/ui/aura/suggestion';
 import { usePromptInputController } from '@/components/ui/aura/prompt-input';
@@ -296,6 +299,17 @@ const responseTokens = [
   ' tolerances.',
 ];
 
+// Alternative response for branch 2 - same as branch 1 but with a marker at the end
+const responseTokensAlt = [
+  ...responseTokens,
+  '\n\n',
+  '**this',
+  ' is',
+  ' a',
+  ' different',
+  ' version**',
+];
+
 type ConversationPhase =
   | 'empty'
   | 'userMessage'
@@ -309,6 +323,13 @@ function BasicConversationDemo() {
   const [thinkingSeconds, setThinkingSeconds] = useState(0);
   const [streamedContent, setStreamedContent] = useState('');
   const [showTools, setShowTools] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [currentBranch, setCurrentBranch] = useState(1);
+  const [hasRetried, setHasRetried] = useState(false);
+  const [storedResponses, setStoredResponses] = useState<{
+    [key: number]: string;
+  }>({});
+  const totalBranches = 2;
 
   // Derive shimmer phrase from thinking seconds (changes every 3 seconds)
   const phraseIndex = Math.min(Math.floor(thinkingSeconds / 3), 2);
@@ -351,28 +372,79 @@ function BasicConversationDemo() {
   useEffect(() => {
     if (phase !== 'streaming') return;
 
+    // Use different tokens based on current branch
+    const tokens = currentBranch === 1 ? responseTokens : responseTokensAlt;
+
     let currentContent = '';
     let index = 0;
 
     const interval = setInterval(() => {
-      if (index < responseTokens.length) {
-        currentContent += responseTokens[index];
+      if (index < tokens.length) {
+        currentContent += tokens[index];
         setStreamedContent(currentContent);
         index++;
       } else {
         clearInterval(interval);
+        // Store the completed response for this branch
+        setStoredResponses((prev) => ({
+          ...prev,
+          [currentBranch]: currentContent,
+        }));
         setPhase('complete');
       }
     }, 50);
 
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, currentBranch]);
 
   const showUserMessage = phase !== 'empty';
   const showAssistantMessage =
     phase === 'thinking' || phase === 'streaming' || phase === 'complete';
   const isThinking = phase === 'thinking';
   const isComplete = phase === 'complete';
+
+  // Get the content to display - either streaming or stored response
+  const displayContent =
+    phase === 'streaming'
+      ? streamedContent
+      : storedResponses[currentBranch] || streamedContent;
+
+  // Handler for copy button
+  const handleCopy = () => {
+    navigator.clipboard.writeText(displayContent);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Handler for download button
+  const handleDownload = () => {
+    const blob = new Blob([''], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'response.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Handler for retry button
+  const handleRetry = () => {
+    // Mark that retry has been clicked
+    setHasRetried(true);
+    // Move to the next branch (or create a new one)
+    const nextBranch = currentBranch === 1 ? 2 : 1;
+    setCurrentBranch(nextBranch);
+    // Reset and restart from streaming phase
+    setStreamedContent('');
+    setPhase('streaming');
+  };
+
+  // Handler for pagination - just switch branches
+  const handleBranchChange = (branch: number) => {
+    setCurrentBranch(branch);
+  };
 
   return (
     <div className="h-[900px] w-full border rounded-lg relative flex flex-col">
@@ -434,7 +506,7 @@ function BasicConversationDemo() {
                         <span className="text-muted-foreground text-sm">
                           Thought for {thinkingSeconds} seconds
                         </span>
-                        <Response controls={false}>{streamedContent}</Response>
+                        <Response controls={false}>{displayContent}</Response>
                         {isComplete && showTools && (
                           <div className="flex flex-col gap-2 py-3">
                             <Reasoning>
@@ -480,14 +552,20 @@ function BasicConversationDemo() {
                               <MessageAction
                                 size="icon-sm"
                                 label="Copy"
-                                tooltip="Copy"
+                                tooltip={copied ? 'Copied!' : 'Copy'}
+                                onClick={handleCopy}
                               >
-                                <IconCopy className="w-3 h-3" />
+                                {copied ? (
+                                  <IconCheck className="w-3 h-3" />
+                                ) : (
+                                  <IconCopy className="w-3 h-3" />
+                                )}
                               </MessageAction>
                               <MessageAction
                                 size="icon-sm"
                                 label="Download"
                                 tooltip="Download"
+                                onClick={handleDownload}
                               >
                                 <IconDownload className="w-3 h-3" />
                               </MessageAction>
@@ -495,9 +573,31 @@ function BasicConversationDemo() {
                                 size="icon-sm"
                                 label="Retry"
                                 tooltip="Retry"
+                                onClick={handleRetry}
                               >
                                 <IconRefresh className="w-3 h-3" />
                               </MessageAction>
+                              {hasRetried && (
+                                <div className="flex items-center gap-1 text-xs text-muted-foreground px-2">
+                                  <button
+                                    onClick={() => handleBranchChange(1)}
+                                    className="hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                                    disabled={currentBranch === 1}
+                                  >
+                                    <IconChevronLeft className="w-3 h-3" />
+                                  </button>
+                                  <span>
+                                    {currentBranch}/{totalBranches}
+                                  </span>
+                                  <button
+                                    onClick={() => handleBranchChange(2)}
+                                    className="hover:text-foreground transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                                    disabled={currentBranch === 2}
+                                  >
+                                    <IconChevronRight className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              )}
                             </div>
                             <MessageAction
                               size="sm"
