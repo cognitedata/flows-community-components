@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { cloneElement, type HTMLAttributes, type ReactNode, type ReactElement } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
@@ -30,11 +30,11 @@ const helperTextIconVariants = cva('shrink-0', {
 
 export interface HelperTextProps
   extends
-    React.HTMLAttributes<HTMLDivElement>,
+    HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof helperTextVariants> {
   isError?: boolean;
   isSuccess?: boolean;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 }
 
 function HelperText({
@@ -55,14 +55,14 @@ function HelperText({
       : 'text-muted-foreground';
 
   const iconWithClasses = displayIcon
-    ? React.cloneElement(
-        displayIcon as React.ReactElement<{ className?: string }>,
+    ? cloneElement(
+        displayIcon as ReactElement<{ className?: string }>,
         {
           className: cn(
             helperTextIconVariants({ size }),
             size === 'sm' && 'mt-0.25',
             textColor,
-            (displayIcon as React.ReactElement<{ className?: string }>).props
+            (displayIcon as ReactElement<{ className?: string }>).props
               ?.className
           ),
         }

@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import { IconCheck, IconCaretUpDown } from '@tabler/icons-react';
 
 import { cn } from '@/lib/utils';
@@ -55,8 +55,8 @@ const frameworks = [
 ];
 
 export function Combobox() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -124,8 +124,8 @@ export function ComboboxCustom({
   emptyText = 'No option found.',
   className,
 }: ComboboxProps) {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(value || '');
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(value || '');
 
   const handleValueChange = (newValue: string) => {
     const finalValue = newValue === selectedValue ? '' : newValue;
