@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { createContext, useContext, useMemo, type ComponentProps, type ReactNode } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import {
@@ -16,10 +16,10 @@ type SelectContextValue = {
   isOpen: boolean;
 };
 
-const SelectContext = React.createContext<SelectContextValue | null>(null);
+const SelectContext = createContext<SelectContextValue | null>(null);
 
 const useSelect = () => {
-  const context = React.useContext(SelectContext);
+  const context = useContext(SelectContext);
   if (!context) {
     throw new Error('Select components must be used within Select');
   }
@@ -31,14 +31,14 @@ function Select({
   defaultOpen = false,
   onOpenChange,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root>) {
+}: ComponentProps<typeof SelectPrimitive.Root>) {
   const [isOpen, setIsOpen] = useControllableState({
     prop: open,
     defaultProp: defaultOpen,
     onChange: onOpenChange,
   });
 
-  const selectContext = React.useMemo(
+  const selectContext = useMemo(
     () => ({ isOpen: isOpen ?? false }),
     [isOpen]
   );
@@ -57,15 +57,15 @@ function Select({
 
 function SelectGroup({
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Group>) {
+}: ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
 function SelectValue({
   icon,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Value> & {
-  icon?: React.ReactNode;
+}: ComponentProps<typeof SelectPrimitive.Value> & {
+  icon?: ReactNode;
 }) {
   if (icon) {
     return (
@@ -84,7 +84,7 @@ function SelectTrigger({
   children,
   errorMessage,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
+}: ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: 'sm' | 'default';
   errorMessage?: string;
 }) {
@@ -130,7 +130,7 @@ function SelectContent({
   position = 'popper',
   align = 'center',
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content>) {
+}: ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Portal container={getPortalContainer()}>
       <SelectPrimitive.Content
@@ -164,7 +164,7 @@ function SelectContent({
 function SelectLabel({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Label>) {
+}: ComponentProps<typeof SelectPrimitive.Label>) {
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
@@ -179,8 +179,8 @@ function SelectItem({
   children,
   icon,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item> & {
-  icon?: React.ReactNode;
+}: ComponentProps<typeof SelectPrimitive.Item> & {
+  icon?: ReactNode;
 }) {
   return (
     <SelectPrimitive.Item
@@ -205,7 +205,7 @@ function SelectItem({
 function SelectSeparator({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Separator>) {
+}: ComponentProps<typeof SelectPrimitive.Separator>) {
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
@@ -218,7 +218,7 @@ function SelectSeparator({
 function SelectScrollUpButton({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
+}: ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
   return (
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
@@ -236,7 +236,7 @@ function SelectScrollUpButton({
 function SelectScrollDownButton({
   className,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
+}: ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
   return (
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"

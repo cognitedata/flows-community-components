@@ -9,7 +9,7 @@ import {
 import { ScrollArea } from '@/components/ui/aura/scroll-area';
 import { cn } from '@/lib/utils';
 import { IconChevronDown, IconPaperclip } from '@tabler/icons-react';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 export type QueueMessagePart = {
   type: string;
@@ -231,7 +231,7 @@ export const QueueSectionTrigger = ({
 export type QueueSectionLabelProps = ComponentProps<'span'> & {
   count?: number;
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 };
 
 export const QueueSectionLabel = ({

@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns';
 import { IconCalendar } from '@tabler/icons-react';
 
@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/aura/popover';
 
 export function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = useState<Date>();
 
   return (
     <Popover>
@@ -57,7 +57,7 @@ export function DatePickerCustom({
   className,
   disabled = false,
 }: DatePickerProps) {
-  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
     date
   );
 
@@ -118,7 +118,7 @@ export function DateRangePicker({
   className,
   disabled = false,
 }: DateRangePickerProps) {
-  const [selectedRange, setSelectedRange] = React.useState<{
+  const [selectedRange, setSelectedRange] = useState<{
     from: Date | undefined;
     to?: Date | undefined;
   }>({ from, to });

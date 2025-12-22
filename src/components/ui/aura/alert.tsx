@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { createContext, useContext, type ComponentProps } from 'react';
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { IconX } from '@tabler/icons-react';
@@ -17,7 +17,7 @@ type AlertContextProps = {
   variant: AlertVariant;
 };
 
-const AlertContext = React.createContext<AlertContextProps>({
+const AlertContext = createContext<AlertContextProps>({
   show: true,
   setShow: () => {},
   variant: 'default',
@@ -40,7 +40,7 @@ const alertVariants = cva(
   }
 );
 
-type AlertProps = React.ComponentProps<'div'> &
+type AlertProps = ComponentProps<'div'> &
   VariantProps<typeof alertVariants> & {
     visible?: boolean;
     defaultVisible?: boolean;
@@ -83,7 +83,7 @@ function Alert({
   );
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertTitle({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="alert-title"
@@ -99,7 +99,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<'div'>) {
 function AlertDescription({
   className,
   ...props
-}: React.ComponentProps<'div'>) {
+}: ComponentProps<'div'>) {
   return (
     <div
       data-slot="alert-description"
@@ -112,7 +112,7 @@ function AlertDescription({
   );
 }
 
-function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertActions({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="alert-actions"
@@ -125,8 +125,8 @@ function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function AlertButton({ className, ...props }: React.ComponentProps<'button'>) {
-  const { variant } = React.useContext(AlertContext);
+function AlertButton({ className, ...props }: ComponentProps<'button'>) {
+  const { variant } = useContext(AlertContext);
 
   const hoverClasses: Record<AlertVariant, string> = {
     default: 'hover:bg-undefined-hover',
@@ -150,8 +150,8 @@ function AlertClose({
   className,
   onClick,
   ...props
-}: React.ComponentProps<'button'>) {
-  const { setShow } = React.useContext(AlertContext);
+}: ComponentProps<'button'>) {
+  const { setShow } = useContext(AlertContext);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     setShow(false);
