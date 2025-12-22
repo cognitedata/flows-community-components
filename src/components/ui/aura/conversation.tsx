@@ -6,7 +6,7 @@ import { IconArrowDown } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import { useCallback } from 'react';
 import { StickToBottom, useStickToBottomContext } from 'use-stick-to-bottom';
-import conversationEmptyStateIcon from '@/../public/icon-conversationemptystate.png';
+import { ConversationEmptyStateIcon } from './icon-conversation-empty-state';
 
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
 
@@ -51,12 +51,7 @@ export const ConversationEmptyState = ({
     {...props}
   >
     <div className="max-w-150 w-full flex flex-col items-center justify-center text-center">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={conversationEmptyStateIcon.src}
-        alt="Conversation icon"
-        className="size-20 mb-14"
-      />
+      <ConversationEmptyStateIcon className="size-20 mb-14" />
       <div className="space-y-1 mb-14">
         <h3 className="text-xl font-medium tracking-tightest">{title}</h3>
         {description && (

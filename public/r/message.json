@@ -5,11 +5,16 @@
   "title": "Message",
   "description": "An AI chat message component with avatar support for user and assistant roles.",
   "dependencies": [
-    "ai"
+    "ai",
+    "@tabler/icons-react",
+    "streamdown"
   ],
   "registryDependencies": [
     "@aura/css",
-    "@aura/avatar"
+    "@aura/avatar",
+    "@aura/button",
+    "@aura/button-group",
+    "@aura/tooltip"
   ],
   "files": [
     {

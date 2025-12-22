@@ -4,8 +4,12 @@
   "type": "registry:component",
   "title": "Node",
   "description": "AI node component for flow diagrams.",
+  "dependencies": [
+    "@xyflow/react"
+  ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/card"
   ],
   "files": [
     {

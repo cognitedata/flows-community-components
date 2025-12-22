@@ -4,6 +4,9 @@
   "type": "registry:component",
   "title": "Controls",
   "description": "AI controls component for interface controls.",
+  "dependencies": [
+    "@xyflow/react"
+  ],
   "registryDependencies": [
     "@aura/css"
   ],

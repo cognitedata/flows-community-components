@@ -8,7 +8,11 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/button",
+    "@aura/card",
+    "@aura/collapsible",
+    "@aura/shimmer"
   ],
   "files": [
     {

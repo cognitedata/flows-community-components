@@ -4,8 +4,14 @@
   "type": "registry:component",
   "title": "Alert",
   "description": "Alert component.",
+  "dependencies": [
+    "@radix-ui/react-use-controllable-state",
+    "class-variance-authority",
+    "@tabler/icons-react"
+  ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/button"
   ],
   "files": [
     {

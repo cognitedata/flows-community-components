@@ -4,8 +4,12 @@
   "type": "registry:component",
   "title": "Canvas",
   "description": "AI canvas component for drawing and visualization.",
+  "dependencies": [
+    "@xyflow/react"
+  ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/controls"
   ],
   "files": [
     {

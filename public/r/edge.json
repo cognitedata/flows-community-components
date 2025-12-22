@@ -4,6 +4,9 @@
   "type": "registry:component",
   "title": "Edge",
   "description": "AI edge component for flow diagrams.",
+  "dependencies": [
+    "@xyflow/react"
+  ],
   "registryDependencies": [
     "@aura/css"
   ],
