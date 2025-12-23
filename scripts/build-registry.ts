@@ -91,7 +91,10 @@ function getComponents(): string[] {
   if (fs.existsSync(uiCogniteDir)) {
     const uiFiles = fs
       .readdirSync(uiCogniteDir)
-      .filter((file: string) => file.endsWith('.tsx'))
+      .filter(
+        (file: string) =>
+          file.endsWith('.tsx') && file !== 'reasoning-original.tsx'
+      )
       .map((file: string) => file.replace('.tsx', ''));
 
     if (uiFiles.length > 0) {
