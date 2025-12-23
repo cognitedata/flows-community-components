@@ -997,6 +997,7 @@
       "type": "registry:component",
       "title": "Shimmer",
       "description": "AI shimmer loading effect component.",
+      "dependencies": ["framer-motion"],
       "files": [
         {
           "path": "src/components/ui/aura/shimmer.tsx",
