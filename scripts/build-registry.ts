@@ -159,7 +159,7 @@ function getComponentPath(componentName: string): string {
 // Filter registry to only include specified components and update file paths
 function buildRegistry(template: Registry, components: string[]): Registry {
   // First, collect all components including their registry dependencies
-  const allComponentsToInclude = new Set<string>(components);
+  const allComponentsToInclude = new Set<string>();
 
   // For each component found, recursively collect its registry dependencies
   for (const componentName of components) {
@@ -205,10 +205,18 @@ function buildRegistry(template: Registry, components: string[]): Registry {
       return {
         ...item,
         registryDependencies,
-        files: item.files.map((file: RegistryFile) => ({
-          ...file,
-          path: componentPath,
-        })),
+        files: item.files.map((file: RegistryFile) => {
+          // Only overwrite the path if it's the main component file
+          // (matching the component name)
+          const isMainFile =
+            file.path.endsWith(`${item.name}.tsx`) &&
+            file.type === 'registry:component';
+
+          return {
+            ...file,
+            path: isMainFile ? componentPath : file.path,
+          };
+        }),
       };
     });
 

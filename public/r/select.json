@@ -6,6 +6,7 @@
   "description": "A select dropdown with custom trigger, content, and indicator states.",
   "dependencies": [
     "@radix-ui/react-select",
+    "@radix-ui/react-use-controllable-state",
     "@tabler/icons-react"
   ],
   "registryDependencies": [

@@ -8,7 +8,10 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/button",
+    "@aura/command",
+    "@aura/popover"
   ],
   "files": [
     {

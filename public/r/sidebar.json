@@ -5,12 +5,19 @@
   "title": "Sidebar",
   "description": "Sidebar component.",
   "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority",
     "@tabler/icons-react"
   ],
   "registryDependencies": [
     "@aura/css",
+    "@aura/button",
+    "@aura/input",
+    "@aura/separator",
     "@aura/sheet",
-    "@aura/skeleton"
+    "@aura/skeleton",
+    "@aura/tooltip",
+    "@aura/use-mobile"
   ],
   "files": [
     {

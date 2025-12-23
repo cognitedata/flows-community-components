@@ -5,6 +5,7 @@
   "title": "Radio Group",
   "description": "Radio Group component.",
   "dependencies": [
+    "@radix-ui/react-radio-group",
     "@tabler/icons-react"
   ],
   "registryDependencies": [

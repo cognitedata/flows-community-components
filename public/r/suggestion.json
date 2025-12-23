@@ -6,7 +6,9 @@
   "description": "AI suggestion component for displaying suggestions.",
   "registryDependencies": [
     "@aura/css",
-    "@aura/button"
+    "@aura/button",
+    "@aura/scroll-area",
+    "@aura/select"
   ],
   "files": [
     {

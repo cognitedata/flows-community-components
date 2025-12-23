@@ -5,7 +5,10 @@
   "title": "Code Block",
   "description": "AI code block component with syntax highlighting.",
   "dependencies": [
-    "@tabler/icons-react"
+    "@tabler/icons-react",
+    "shiki",
+    "hast",
+    "@types/hast"
   ],
   "registryDependencies": [
     "@aura/css",
