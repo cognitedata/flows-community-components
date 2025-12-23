@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "@cognite/aura",
+  "name": "@aura",
   "homepage": "https://cognitedata.github.io/aura/",
   "items": [
     {
