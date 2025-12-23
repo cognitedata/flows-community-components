@@ -189,11 +189,25 @@ export const CodeBlockCopyButton = ({
     }
 
     try {
+      // Check for permission explicitly if the browser supports it
+      if (navigator.permissions && navigator.permissions.query) {
+        const permissionStatus = await navigator.permissions.query({
+          name: 'clipboard-write' as PermissionName,
+        });
+
+        if (permissionStatus.state === 'denied') {
+          onError?.(new Error('Clipboard access denied by browser policy'));
+          return;
+        }
+      }
+
       await navigator.clipboard.writeText(copyText);
       setIsCopied(true);
       onCopy?.();
       setTimeout(() => setIsCopied(false), timeout);
     } catch (error) {
+      // This will catch the "Violation" or "NotAllowedError"
+      console.warn('Clipboard write failed:', error);
       onError?.(error as Error);
     }
   };

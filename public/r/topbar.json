@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "src/components/ui/aura/topbar.tsx",
-      "content": "// Custom component - Topbar\n// TODO: Implement topbar component\n",
+      "content": "import type { ComponentProps } from 'react';\n\nexport const Topbar = ({ ...props }: ComponentProps<'div'>) => {\n  return <div {...props} />;\n};\n",
       "type": "registry:component"
     }
   ]

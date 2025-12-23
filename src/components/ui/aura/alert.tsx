@@ -7,7 +7,7 @@ import { IconX } from '@tabler/icons-react';
 import type { MouseEventHandler } from 'react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '#aura/button';
+import { Button } from '@/components/ui/aura/button';
 
 type AlertVariant = 'default' | 'secondary' | 'warning' | 'error';
 
@@ -96,10 +96,7 @@ function AlertTitle({ className, ...props }: ComponentProps<'div'>) {
   );
 }
 
-function AlertDescription({
-  className,
-  ...props
-}: ComponentProps<'div'>) {
+function AlertDescription({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="alert-description"

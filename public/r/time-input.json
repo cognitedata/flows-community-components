@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "src/components/ui/aura/time-input.tsx",
-      "content": "// Custom component - TimeInput\n// TODO: Implement time input component\n",
+      "content": "import type { ComponentProps } from 'react';\n\nexport const TimeInput = ({ ...props }: ComponentProps<'div'>) => {\n  return <div {...props} />;\n};\n",
       "type": "registry:component"
     }
   ]
