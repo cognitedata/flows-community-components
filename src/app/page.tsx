@@ -105,8 +105,8 @@ const existingProjectSteps: Step[] = [
     icon: Download,
     title: 'Install components',
     description:
-      'Use the shadcn CLI with the @aura prefix to install components',
-    code: 'pnpm dlx shadcn@latest add @aura/button',
+      'Install individual components or the entire library at once',
+    code: 'pnpm dlx shadcn@latest add @aura/aura',
   },
 ];
 

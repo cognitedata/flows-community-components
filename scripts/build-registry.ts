@@ -225,11 +225,31 @@ function buildRegistry(template: Registry, components: string[]): Registry {
     (i) => !miscItemNames.has(i.name)
   );
 
+  const finalItems = [...miscRegistryItems, ...filteredWithoutMiscNameClashes];
+
+  // Create a meta-component that includes all components
+  // This allows 'npx shadcn add @aura/aura' to install everything
+  const allItemNames = finalItems.map((i) => i.name);
+  const auraMetaItem: RegistryItem = {
+    name: 'aura',
+    type: 'registry:component',
+    title: 'Aura',
+    description: 'Installs all components from the Aura registry.',
+    registryDependencies: allItemNames.map((name) => {
+      // If already qualified (e.g. "@aura/button") leave it alone
+      if (name.includes('/')) {
+        return name;
+      }
+      return `${registryDependencyNamespace}/${name}`;
+    }),
+    files: [],
+  };
+
   return {
     ...template,
     name: registryName,
     homepage: registryHomepage,
-    items: [...miscRegistryItems, ...filteredWithoutMiscNameClashes],
+    items: [auraMetaItem, ...finalItems],
   };
 }
 

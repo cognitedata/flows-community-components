@@ -413,17 +413,22 @@ export function SwitchDemo() {
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle>Getting started</CardTitle>
-                <CardDescription>
-                  Install and import components into your React application
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <h4 className="font-semibold">Installation</h4>
-                  <CodeBlock code="pnpm dlx shadcn@latest add @aura/button @aura/input @aura/label @aura/card @aura/switch" />
-                </div>
+            <CardHeader>
+              <CardTitle>Getting started</CardTitle>
+              <CardDescription>
+                Install all components in one go or pick what you need
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="font-semibold">Installation (All components)</h4>
+                <CodeBlock code="pnpm dlx shadcn@latest add @aura/aura" />
+              </div>
+
+              <div className="space-y-2">
+                <h4 className="font-semibold">Installation (Specific components)</h4>
+                <CodeBlock code="pnpm dlx shadcn@latest add @aura/button @aura/input" />
+              </div>
 
                 <div className="space-y-2">
                   <h4 className="font-semibold">Import</h4>

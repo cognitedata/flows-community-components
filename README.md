@@ -17,7 +17,11 @@ npx cognite-create@latest
 Or add to existing project:
 
 ```bash
-npx shadcn add [component-name]
+# Install everything
+pnpm dlx shadcn@latest add @aura/aura
+
+# Install specific components
+pnpm dlx shadcn@latest add @aura/button @aura/input
 ```
 
 ### Optional: Install shadcn MCP server for Cursor

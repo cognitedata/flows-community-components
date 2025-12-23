@@ -218,6 +218,49 @@ export default function InstallationPage() {
             </CardContent>
           </Card>
 
+          {/* Components Installation */}
+          <div className="space-y-8">
+            <h2 className="text-3xl font-bold">Components</h2>
+            <Card>
+              <CardHeader>
+                <CardTitle>Installing Components</CardTitle>
+                <CardDescription>
+                  You can install all Aura components at once or pick only the
+                  ones you need.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-3">
+                  <h4 className="font-semibold">Option 1: Install All</h4>
+                  <p className="text-sm text-muted-foreground">
+                    The fastest way to get started with the full design system.
+                  </p>
+                  <CodeBlock
+                    code="pnpm dlx shadcn@latest add @aura/aura"
+                    language="bash"
+                  >
+                    <CodeBlockCopyButton />
+                  </CodeBlock>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-semibold">
+                    Option 2: Specific Components
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    Install only the components you need for your project.
+                  </p>
+                  <CodeBlock
+                    code="pnpm dlx shadcn@latest add @aura/button @aura/input"
+                    language="bash"
+                  >
+                    <CodeBlockCopyButton />
+                  </CodeBlock>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Usage */}
           <div className="space-y-6">
             <h2 className="text-3xl font-bold">Usage</h2>
