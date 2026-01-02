@@ -24,12 +24,43 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './dropdown-menu';
-import { IconAdjustments, IconAlertTriangle, IconChevronDown } from '@tabler/icons-react';
+import {
+  IconAdjustments,
+  IconAlertTriangle,
+  IconChevronDown,
+} from '@tabler/icons-react';
 
 const meta: Meta<typeof PromptInput> = {
-  title: 'AI/PromptInput',
+  title: 'AI/Prompt Input',
   component: PromptInput,
   tags: ['autodocs'],
+  argTypes: {
+    accept: {
+      control: 'text',
+      description: 'File types to accept (e.g., "image/*")',
+    },
+    multiple: {
+      control: 'boolean',
+      description: 'Allow multiple file uploads',
+    },
+    globalDrop: {
+      control: 'boolean',
+      description: 'Accept drops anywhere on document',
+    },
+    maxFiles: {
+      control: 'number',
+      description: 'Maximum number of files',
+    },
+    maxFileSize: {
+      control: 'number',
+      description: 'Maximum file size in bytes',
+    },
+    helperText: {
+      control: false,
+      description:
+        'Helper text below input (false to hide, ReactNode for custom)',
+    },
+  },
   parameters: {
     layout: 'centered',
   },
@@ -38,23 +69,35 @@ const meta: Meta<typeof PromptInput> = {
 export default meta;
 type Story = StoryObj<typeof PromptInput>;
 
-function AttachmentTools() {
+function AttachmentTools({
+  model,
+  setModel,
+}: {
+  model: string;
+  setModel: (model: string) => void;
+}) {
   return (
     <>
-      <PromptInputButton size="icon-sm">
+      <PromptInputButton size="icon-sm" aria-label="Settings">
         <IconAdjustments />
       </PromptInputButton>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm">
-            Agent model
+            {model}
             <IconChevronDown />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>GPT-4</DropdownMenuItem>
-          <DropdownMenuItem>GPT-3.5</DropdownMenuItem>
-          <DropdownMenuItem>Claude</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setModel('GPT-4')}>
+            GPT-4
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setModel('GPT-3.5')}>
+            GPT-3.5
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setModel('Claude')}>
+            Claude
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>
@@ -62,13 +105,14 @@ function AttachmentTools() {
 }
 
 /**
- * Full-featured prompt input with attachments, speech-to-text, and model selection
+ * Basic prompt input with attachments and default helper text
  * Matches the basic example from prompt-input.examples.tsx
  */
 export const Basic: Story = {
   render: function PromptInputBasicStory() {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
 
     const handleSubmit = (message: PromptInputMessage) => {
       const hasText = Boolean(message.text);
@@ -85,24 +129,21 @@ export const Basic: Story = {
 
     return (
       <PromptInputProvider>
-        <PromptInput onSubmit={handleSubmit} accept="image/*" multiple className="w-[500px]">
+        <PromptInput
+          onSubmit={handleSubmit}
+          accept="image/*"
+          multiple
+          className="w-[500px]"
+        >
           <PromptInputBody>
             <PromptInputAttachments>
               {(attachment) => <PromptInputAttachment data={attachment} />}
             </PromptInputAttachments>
-            <PromptInputTextarea
-              ref={textareaRef}
-              placeholder="Type your message..."
-            />
+            <PromptInputTextarea placeholder="Type your message..." />
           </PromptInputBody>
           <PromptInputFooter>
-            <PromptInputTools>
-              <AttachmentTools />
-            </PromptInputTools>
-            <div className="flex flex-row gap-2">
-              <PromptInputSpeechButton textareaRef={textareaRef} />
-              <PromptInputSubmit className="size-7" status={status} />
-            </div>
+            <PromptInputTools />
+            <PromptInputSubmit className="size-7" status={status} />
           </PromptInputFooter>
         </PromptInput>
       </PromptInputProvider>
@@ -116,8 +157,9 @@ export const Basic: Story = {
  */
 export const NoHelperText: Story = {
   render: function PromptInputNoHelperTextStory() {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
 
     const handleSubmit = (message: PromptInputMessage) => {
       const hasText = Boolean(message.text);
@@ -145,19 +187,11 @@ export const NoHelperText: Story = {
             <PromptInputAttachments>
               {(attachment) => <PromptInputAttachment data={attachment} />}
             </PromptInputAttachments>
-            <PromptInputTextarea
-              ref={textareaRef}
-              placeholder="Type your message..."
-            />
+            <PromptInputTextarea placeholder="Type your message..." />
           </PromptInputBody>
           <PromptInputFooter>
-            <PromptInputTools>
-              <AttachmentTools />
-            </PromptInputTools>
-            <div className="flex flex-row gap-2">
-              <PromptInputSpeechButton textareaRef={textareaRef} />
-              <PromptInputSubmit className="size-7" status={status} />
-            </div>
+            <PromptInputTools />
+            <PromptInputSubmit className="size-7" status={status} />
           </PromptInputFooter>
         </PromptInput>
       </PromptInputProvider>
@@ -171,8 +205,9 @@ export const NoHelperText: Story = {
  */
 export const CustomHelperText: Story = {
   render: function PromptInputCustomHelperTextStory() {
-    const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
 
     const handleSubmit = (message: PromptInputMessage) => {
       const hasText = Boolean(message.text);
@@ -204,19 +239,11 @@ export const CustomHelperText: Story = {
             <PromptInputAttachments>
               {(attachment) => <PromptInputAttachment data={attachment} />}
             </PromptInputAttachments>
-            <PromptInputTextarea
-              ref={textareaRef}
-              placeholder="Type your message..."
-            />
+            <PromptInputTextarea placeholder="Type your message..." />
           </PromptInputBody>
           <PromptInputFooter>
-            <PromptInputTools>
-              <AttachmentTools />
-            </PromptInputTools>
-            <div className="flex flex-row gap-2">
-              <PromptInputSpeechButton textareaRef={textareaRef} />
-              <PromptInputSubmit className="size-7" status={status} />
-            </div>
+            <PromptInputTools />
+            <PromptInputSubmit className="size-7" status={status} />
           </PromptInputFooter>
         </PromptInput>
       </PromptInputProvider>
@@ -230,11 +257,7 @@ export const CustomHelperText: Story = {
 export const SubmittedState: Story = {
   render: () => (
     <PromptInputProvider>
-      <PromptInput
-        onSubmit={() => {}}
-        className="w-[500px]"
-        helperText={false}
-      >
+      <PromptInput onSubmit={() => {}} className="w-[500px]" helperText={false}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type a message..." disabled />
         </PromptInputBody>
@@ -253,11 +276,7 @@ export const SubmittedState: Story = {
 export const StreamingState: Story = {
   render: () => (
     <PromptInputProvider>
-      <PromptInput
-        onSubmit={() => {}}
-        className="w-[500px]"
-        helperText={false}
-      >
+      <PromptInput onSubmit={() => {}} className="w-[500px]" helperText={false}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type a message..." disabled />
         </PromptInputBody>
@@ -293,20 +312,38 @@ export const Minimal: Story = {
 };
 
 /**
- * Interactive playground
+ * Prompt input with advanced tools: settings button, agent dropdown, and speech-to-text
+ * Demonstrates all available features
  */
-export const Playground: Story = {
-  render: function PromptInputPlaygroundStory() {
+export const WithAdvancedTools: Story = {
+  render: function PromptInputWithAdvancedToolsStory() {
+    const [model, setModel] = useState('Agent model');
+    const [status, setStatus] = useState<
+      'submitted' | 'streaming' | 'ready' | 'error'
+    >('ready');
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const handleSubmit = (message: PromptInputMessage) => {
+      const hasText = Boolean(message.text);
+      const hasAttachments = Boolean(message.files?.length);
+
+      if (!(hasText || hasAttachments)) {
+        return;
+      }
+
+      setStatus('submitted');
+      setTimeout(() => setStatus('streaming'), 200);
+      setTimeout(() => setStatus('ready'), 2000);
+    };
 
     return (
       <PromptInputProvider>
         <PromptInput
-          onSubmit={(message) => {
-            console.log('Submitted:', message);
-            alert(`Submitted: ${message.text}`);
-          }}
+          onSubmit={handleSubmit}
+          accept="image/*"
+          multiple
           className="w-[500px]"
+          helperText={false}
         >
           <PromptInputBody>
             <PromptInputAttachments>
@@ -314,16 +351,16 @@ export const Playground: Story = {
             </PromptInputAttachments>
             <PromptInputTextarea
               ref={textareaRef}
-              placeholder="Type something and press Enter..."
+              placeholder="Type your message..."
             />
           </PromptInputBody>
           <PromptInputFooter>
             <PromptInputTools>
-              <AttachmentTools />
+              <AttachmentTools model={model} setModel={setModel} />
             </PromptInputTools>
             <div className="flex flex-row gap-2">
               <PromptInputSpeechButton textareaRef={textareaRef} />
-              <PromptInputSubmit className="size-7" />
+              <PromptInputSubmit className="size-7" status={status} />
             </div>
           </PromptInputFooter>
         </PromptInput>
