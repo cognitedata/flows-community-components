@@ -7,9 +7,9 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
 import { ScrollArea } from '@/components/ui/aura/scroll-area';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconChevronDown, IconPaperclip } from '@tabler/icons-react';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
 export type QueueMessagePart = {
   type: string;
@@ -176,7 +176,7 @@ export const QueueItemFile = ({
     {...props}
   >
     <IconPaperclip size={12} />
-    <span className="max-w-[100px] truncate">{children}</span>
+    <span className="max-w-25 truncate">{children}</span>
   </span>
 );
 
@@ -231,7 +231,7 @@ export const QueueSectionTrigger = ({
 export type QueueSectionLabelProps = ComponentProps<'span'> & {
   count?: number;
   label: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
 };
 
 export const QueueSectionLabel = ({

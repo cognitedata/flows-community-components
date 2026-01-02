@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface NavigationItem {
@@ -132,6 +132,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/components/sonner', label: 'Sonner' },
       { href: '/primitives/components/swap-slot', label: 'Swap slot' },
       { href: '/primitives/components/switch', label: 'Switch' },
+      { href: '/primitives/components/table', label: 'Table' },
       { href: '/primitives/components/tabs', label: 'Tabs' },
       { href: '/primitives/components/textarea', label: 'Textarea' },
       { href: '/primitives/components/time-input', label: 'Time input' },
@@ -166,17 +167,20 @@ const aiNavigation: NavigationItem[] = [
     label: 'Shad CN',
     isSubsection: true,
     children: [
-      { href: '/ai/components/actions', label: 'Actions' },
-      // { href: "/ai/components/branch", label: "Branch" },
+      // { href: '/ai/components/actions', label: 'Actions' },
+      { href: '/ai/components/branch', label: 'Branch' },
       { href: '/ai/components/code-block', label: 'Code block' },
+      { href: '/ai/components/confirmation', label: 'Confirmation' },
       { href: '/ai/components/conversation', label: 'Conversation' },
       // { href: "/ai/components/image", label: "Image" },
-      // { href: '/ai/components/inline-citation', label: 'Inline citation' },
+      { href: '/ai/components/inline-citation', label: 'Inline Citation' },
       { href: '/ai/components/loader', label: 'Loader' },
       { href: '/ai/components/message', label: 'Message' },
       { href: '/ai/components/prompt-input', label: 'Prompt input' },
       { href: '/ai/components/reasoning', label: 'Reasoning' },
+      // { href: '/ai/components/reasoning-original', label: 'Reasoning (Original)' },
       { href: '/ai/components/response', label: 'Response' },
+      { href: '/ai/components/shimmer', label: 'Shimmer' },
       { href: '/ai/components/sources', label: 'Sources' },
       { href: '/ai/components/suggestion', label: 'Suggestion' },
       // { href: "/ai/components/task", label: "Task" },

@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/aura/card';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Handle, Position } from '@xyflow/react';
 import type { ComponentProps } from 'react';
 

@@ -1,188 +1,114 @@
 'use client';
 
-import { useControllableState } from '@radix-ui/react-use-controllable-state';
+import { cn } from '@/lib/utils';
+import { IconBrain } from '@tabler/icons-react';
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/aura/collapsible';
-import { cn } from '@/common/utils';
-import { IconSelector } from '@tabler/icons-react';
-import type { ComponentProps } from 'react';
-import {
+  Children,
   createContext,
-  memo,
-  startTransition,
   useContext,
-  useEffect,
-  useState,
+  type ComponentProps,
 } from 'react';
-import { Streamdown } from 'streamdown';
-import { Shimmer } from './shimmer';
 
-type ReasoningContextValue = {
-  isStreaming: boolean;
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
-  duration: number | undefined;
-};
+const ReasoningDecorationsContext = createContext<boolean>(true);
+const useReasoningDecorations = () => useContext(ReasoningDecorationsContext);
 
-const ReasoningContext = createContext<ReasoningContextValue | null>(null);
+export type ReasoningProps = ComponentProps<'div'>;
 
-const useReasoning = () => {
-  const context = useContext(ReasoningContext);
-  if (!context) {
-    throw new Error('Reasoning components must be used within Reasoning');
-  }
-  return context;
-};
-
-export type ReasoningProps = ComponentProps<typeof Collapsible> & {
-  isStreaming?: boolean;
-  open?: boolean;
-  defaultOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  duration?: number;
-};
-
-const AUTO_CLOSE_DELAY = 1000;
-const MS_IN_S = 1000;
-
-export const Reasoning = memo(
-  ({
-    className,
-    isStreaming = false,
-    open,
-    defaultOpen = true,
-    onOpenChange,
-    duration: durationProp,
-    children,
-    ...props
-  }: ReasoningProps) => {
-    const [isOpen, setIsOpen] = useControllableState({
-      prop: open,
-      defaultProp: defaultOpen,
-      onChange: onOpenChange,
-    });
-    const [duration, setDuration] = useControllableState({
-      prop: durationProp,
-      defaultProp: undefined,
-    });
-
-    const [hasAutoClosed, setHasAutoClosed] = useState(false);
-    const [startTime, setStartTime] = useState<number | null>(null);
-
-    // Track duration when streaming starts and ends
-    useEffect(() => {
-      if (isStreaming) {
-        if (startTime === null) {
-          startTransition(() => {
-            setStartTime(Date.now());
-          });
-        }
-      } else if (startTime !== null) {
-        startTransition(() => {
-          setDuration(Math.ceil((Date.now() - startTime) / MS_IN_S));
-          setStartTime(null);
-        });
-      }
-    }, [isStreaming, startTime, setDuration]);
-
-    // Auto-open when streaming starts, auto-close when streaming ends (once only)
-    useEffect(() => {
-      if (defaultOpen && !isStreaming && isOpen && !hasAutoClosed) {
-        // Add a small delay before closing to allow user to see the content
-        const timer = setTimeout(() => {
-          setIsOpen(false);
-          setHasAutoClosed(true);
-        }, AUTO_CLOSE_DELAY);
-
-        return () => clearTimeout(timer);
-      }
-    }, [isStreaming, isOpen, defaultOpen, setIsOpen, hasAutoClosed]);
-
-    const handleOpenChange = (newOpen: boolean) => {
-      setIsOpen(newOpen);
-    };
-
-    return (
-      <ReasoningContext.Provider
-        value={{ isStreaming, isOpen, setIsOpen, duration }}
-      >
-        <Collapsible
-          className={cn('not-prose mb-4', className)}
-          onOpenChange={handleOpenChange}
-          open={isOpen}
-          {...props}
-        >
-          {children}
-        </Collapsible>
-      </ReasoningContext.Provider>
-    );
-  }
+export const Reasoning = ({
+  className,
+  children,
+  ...props
+}: ReasoningProps) => (
+  <div
+    className={cn('relative flex w-full flex-col gap-2 not-prose', className)}
+    {...props}
+  >
+    {children}
+  </div>
 );
 
-export type ReasoningTriggerProps = ComponentProps<typeof CollapsibleTrigger>;
-
-const getThinkingMessage = (isStreaming: boolean, duration?: number) => {
-  if (isStreaming || duration === 0 || duration === undefined) {
-    return <Shimmer duration={1}>Atlas thinking...</Shimmer>;
-  }
-  return <p>Atlas reasoning</p>;
+export type ReasoningHeaderProps = ComponentProps<'div'> & {
+  title?: string;
 };
 
-export const ReasoningTrigger = memo(
-  ({ className, children, ...props }: ReasoningTriggerProps) => {
-    const { isStreaming, duration } = useReasoning();
-    const isThinking = isStreaming || duration === 0 || duration === undefined;
-
-    return (
-      <CollapsibleTrigger
-        className={cn(
-          'flex w-full items-center gap-2 text-foreground text-base leading-5 tracking-tightest transition-colors hover:text-muted-foreground',
-          className
-        )}
-        {...props}
-      >
-        {children ?? (
-          <>
-            {isThinking ? (
-              <span className="italic">
-                {getThinkingMessage(isStreaming, duration)}
-              </span>
-            ) : (
-              <span>Atlas reasoning</span>
-            )}
-            {!isThinking && (
-              <IconSelector className="size-4 transition-transform" />
-            )}
-          </>
-        )}
-      </CollapsibleTrigger>
-    );
-  }
+export const ReasoningHeader = ({
+  className,
+  title = 'Reasoning',
+  children,
+  ...props
+}: ReasoningHeaderProps) => (
+  <div
+    className={cn(
+      'flex items-center gap-2 text-base leading-5 tracking-tighter text-muted-foreground',
+      className
+    )}
+    {...props}
+  >
+    <IconBrain className="size-4 shrink-0" />
+    {children ?? <span>{title}</span>}
+  </div>
 );
 
-export type ReasoningContentProps = ComponentProps<
-  typeof CollapsibleContent
-> & {
-  children: string;
-};
+export type ReasoningContentProps = ComponentProps<'div'>;
 
-export const ReasoningContent = memo(
-  ({ className, children, ...props }: ReasoningContentProps) => (
-    <CollapsibleContent
+export const ReasoningContent = ({
+  className,
+  children,
+  ...props
+}: ReasoningContentProps) => (
+  <ReasoningDecorationsContext.Provider
+    value={Children.toArray(children).filter(Boolean).length > 1}
+  >
+    <ReasoningContentInner className={className} {...props}>
+      {children}
+    </ReasoningContentInner>
+  </ReasoningDecorationsContext.Provider>
+);
+
+const ReasoningContentInner = ({
+  className,
+  children,
+  ...props
+}: ReasoningContentProps) => {
+  const showDecorations = useReasoningDecorations();
+
+  return (
+    <div
       className={cn(
-        'mt-3.5 [&>*:not(:last-child)]:mb-2 text-sm leading-4.5 tracking-tight text-muted-foreground outline-none data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 data-[state=closed]:animate-out data-[state=open]:animate-in',
+        'relative flex flex-col gap-0 pl-3.75',
+        showDecorations &&
+          // Vertical line using ::before
+          'before:absolute before:left-1.75 before:top-4 before:bottom-4 before:w-px before:bg-border',
         className
       )}
       {...props}
     >
-      <Streamdown>{children}</Streamdown>
-    </CollapsibleContent>
-  )
-);
+      {children}
+    </div>
+  );
+};
 
-Reasoning.displayName = 'Reasoning';
-ReasoningTrigger.displayName = 'ReasoningTrigger';
-ReasoningContent.displayName = 'ReasoningContent';
+export type ReasoningItemProps = ComponentProps<'div'>;
+
+export const ReasoningItem = ({
+  className,
+  children,
+  ...props
+}: ReasoningItemProps) => {
+  const showDecorations = useReasoningDecorations();
+
+  return (
+    <div
+      className={cn(
+        'relative',
+        showDecorations &&
+          // Dot using ::before
+          'before:absolute before:-left-2.5 before:top-3.75 before:size-1.25 before:rounded-full before:bg-border',
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
