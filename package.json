@@ -95,6 +95,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@storybook/addon-a11y": "^10.0.2",
     "@storybook/addon-docs": "^10.0.2",
+    "@storybook/addon-mcp": "^0.1.6",
     "@storybook/addon-onboarding": "^10.0.2",
     "@storybook/addon-vitest": "^10.0.2",
     "@storybook/nextjs": "^10.0.2",
