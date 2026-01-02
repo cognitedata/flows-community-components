@@ -1186,6 +1186,7 @@ export const PromptInputSpeechButton = ({
       )}
       disabled={!recognition}
       onClick={toggleListening}
+      aria-label={isListening ? 'Stop recording' : 'Start voice input'}
       {...props}
     >
       <IconMicrophone className="size-4" />
