@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/aura/dropdown-menu';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import {
   IconChevronDown,
   IconExternalLink,
@@ -208,7 +208,7 @@ export type OpenInContentProps = ComponentProps<typeof DropdownMenuContent>;
 export const OpenInContent = ({ className, ...props }: OpenInContentProps) => (
   <DropdownMenuContent
     align="start"
-    className={cn('w-[240px]', className)}
+    className={cn('w-60', className)}
     {...props}
   />
 );

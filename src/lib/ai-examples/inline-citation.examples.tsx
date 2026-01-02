@@ -223,7 +223,7 @@ function InMessageDemo() {
             >
               <IconTool className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
               <IconRefresh className="w-3 h-3" />
             </MessageAction>
           </MessageActions>
@@ -455,7 +455,7 @@ export function InMessageDemo() {
             >
               <IconTool className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Refresh" tooltip="Refresh">
+            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
               <IconRefresh className="w-3 h-3" />
             </MessageAction>
           </MessageActions>

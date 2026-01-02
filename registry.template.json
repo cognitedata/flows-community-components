@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "shadcn",
-  "homepage": "https://ui.shadcn.com",
+  "name": "@aura",
+  "homepage": "https://cognitedata.github.io/aura/",
   "items": [
     {
       "name": "accordion",
@@ -21,6 +21,12 @@
       "type": "registry:component",
       "title": "Alert",
       "description": "Alert component.",
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "class-variance-authority",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/components/ui/aura/alert.tsx",
@@ -153,6 +159,7 @@
       "type": "registry:component",
       "title": "Chart",
       "description": "Chart component.",
+      "dependencies": ["recharts"],
       "files": [
         {
           "path": "src/components/ui/aura/chart.tsx",
@@ -192,6 +199,7 @@
       "title": "Combobox",
       "description": "Combobox component.",
       "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button", "command", "popover"],
       "files": [
         {
           "path": "src/components/ui/aura/combobox.tsx",
@@ -205,6 +213,7 @@
       "title": "Command",
       "description": "Command component.",
       "dependencies": ["cmdk", "@tabler/icons-react"],
+      "registryDependencies": ["dialog"],
       "files": [
         {
           "path": "src/components/ui/aura/command.tsx",
@@ -346,13 +355,13 @@
       "type": "registry:component",
       "title": "Pagination",
       "description": "Pagination component.",
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/aura/pagination.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "popover",
@@ -385,13 +394,13 @@
       "type": "registry:component",
       "title": "Radio Group",
       "description": "Radio Group component.",
+      "dependencies": ["@radix-ui/react-radio-group", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/aura/radio-group.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "scroll-area",
@@ -411,7 +420,11 @@
       "type": "registry:component",
       "title": "Select",
       "description": "A select dropdown with custom trigger, content, and indicator states.",
-      "dependencies": ["@radix-ui/react-select", "@tabler/icons-react"],
+      "dependencies": [
+        "@radix-ui/react-select",
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/select.tsx",
@@ -450,14 +463,18 @@
       "type": "registry:component",
       "title": "Sidebar",
       "description": "Sidebar component.",
-      "registryDependencies": ["sheet", "skeleton"],
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": ["button", "input", "separator", "sheet", "skeleton", "tooltip", "use-mobile"],
       "files": [
         {
           "path": "src/components/ui/aura/sidebar.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "skeleton",
@@ -659,7 +676,7 @@
       "registryDependencies": ["button", "tooltip"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/actions.tsx",
+          "path": "src/components/ui/aura/actions.tsx",
           "type": "registry:component"
         }
       ]
@@ -669,13 +686,14 @@
       "type": "registry:component",
       "title": "Artifact",
       "description": "AI artifact component for displaying generated content.",
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button", "tooltip"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/artifact.tsx",
+          "path": "src/components/ui/aura/artifact.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "branch",
@@ -685,7 +703,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/branch.tsx",
+          "path": "src/components/ui/aura/branch.tsx",
           "type": "registry:component"
         }
       ]
@@ -695,9 +713,11 @@
       "type": "registry:component",
       "title": "Canvas",
       "description": "AI canvas component for drawing and visualization.",
+      "dependencies": ["@xyflow/react"],
+      "registryDependencies": ["controls"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/canvas.tsx",
+          "path": "src/components/ui/aura/canvas.tsx",
           "type": "registry:component"
         }
       ]
@@ -711,7 +731,7 @@
       "registryDependencies": ["badge", "collapsible"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/chain-of-thought.tsx",
+          "path": "src/components/ui/aura/chain-of-thought.tsx",
           "type": "registry:component"
         }
       ]
@@ -721,11 +741,11 @@
       "type": "registry:component",
       "title": "Code Block",
       "description": "AI code block component with syntax highlighting.",
-      "dependencies": ["@tabler/icons-react"],
+      "dependencies": ["@tabler/icons-react", "shiki", "hast", "@types/hast"],
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/code-block.tsx",
+          "path": "src/components/ui/aura/code-block.tsx",
           "type": "registry:component"
         }
       ]
@@ -736,10 +756,10 @@
       "title": "Confirmation",
       "description": "AI confirmation component for user confirmations.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["button"],
+      "registryDependencies": ["alert", "button", "collapsible", "helper-text"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/confirmation.tsx",
+          "path": "src/components/ui/aura/confirmation.tsx",
           "type": "registry:component"
         }
       ]
@@ -749,9 +769,10 @@
       "type": "registry:component",
       "title": "Connection",
       "description": "AI connection component for flow diagrams.",
+      "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/connection.tsx",
+          "path": "src/components/ui/aura/connection.tsx",
           "type": "registry:component"
         }
       ]
@@ -765,7 +786,7 @@
       "registryDependencies": ["button", "hover-card", "progress"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/context.tsx",
+          "path": "src/components/ui/aura/context.tsx",
           "type": "registry:component"
         }
       ]
@@ -775,9 +796,10 @@
       "type": "registry:component",
       "title": "Controls",
       "description": "AI controls component for interface controls.",
+      "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/controls.tsx",
+          "path": "src/components/ui/aura/controls.tsx",
           "type": "registry:component"
         }
       ]
@@ -791,7 +813,11 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/conversation.tsx",
+          "path": "src/components/ui/aura/conversation.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/aura/icon-conversation-empty-state.tsx",
           "type": "registry:component"
         }
       ]
@@ -801,9 +827,10 @@
       "type": "registry:component",
       "title": "Edge",
       "description": "AI edge component for flow diagrams.",
+      "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/edge.tsx",
+          "path": "src/components/ui/aura/edge.tsx",
           "type": "registry:component"
         }
       ]
@@ -816,7 +843,7 @@
       "dependencies": ["ai"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/image.tsx",
+          "path": "src/components/ui/aura/image.tsx",
           "type": "registry:component"
         }
       ]
@@ -829,7 +856,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/inline-citation.tsx",
+          "path": "src/components/ui/aura/inline-citation.tsx",
           "type": "registry:component"
         }
       ]
@@ -841,7 +868,7 @@
       "description": "AI loader component for loading states.",
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/loader.tsx",
+          "path": "src/components/ui/aura/loader.tsx",
           "type": "registry:component"
         }
       ]
@@ -851,11 +878,11 @@
       "type": "registry:component",
       "title": "Message",
       "description": "An AI chat message component with avatar support for user and assistant roles.",
-      "dependencies": ["ai"],
-      "registryDependencies": ["avatar"],
+      "dependencies": ["ai", "@tabler/icons-react", "streamdown"],
+      "registryDependencies": ["avatar", "button", "button-group", "tooltip"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/message.tsx",
+          "path": "src/components/ui/aura/message.tsx",
           "type": "registry:component"
         }
       ]
@@ -865,9 +892,11 @@
       "type": "registry:component",
       "title": "Node",
       "description": "AI node component for flow diagrams.",
+      "dependencies": ["@xyflow/react"],
+      "registryDependencies": ["card"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/node.tsx",
+          "path": "src/components/ui/aura/node.tsx",
           "type": "registry:component"
         }
       ]
@@ -877,13 +906,13 @@
       "type": "registry:component",
       "title": "Open in Chat",
       "description": "AI open in chat component.",
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/open-in-chat.tsx",
+          "path": "src/components/ui/aura/open-in-chat.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "panel",
@@ -892,7 +921,7 @@
       "description": "AI panel component for side panels.",
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/panel.tsx",
+          "path": "src/components/ui/aura/panel.tsx",
           "type": "registry:component"
         }
       ]
@@ -902,23 +931,25 @@
       "type": "registry:component",
       "title": "Plan",
       "description": "AI plan component for displaying execution plans.",
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["button", "card", "collapsible", "shimmer"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/plan.tsx",
+          "path": "src/components/ui/aura/plan.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "prompt-input",
       "type": "registry:component",
       "title": "Prompt Input",
       "description": "AI prompt input component for user prompts.",
-      "registryDependencies": ["textarea", "button"],
+      "dependencies": ["nanoid", "@tabler/icons-react"],
+      "registryDependencies": ["textarea", "button", "command", "dropdown-menu", "helper-text", "hover-card", "input-group", "select"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/prompt-input.tsx",
+          "path": "src/components/ui/aura/prompt-input.tsx",
           "type": "registry:component"
         }
       ]
@@ -928,24 +959,23 @@
       "type": "registry:component",
       "title": "Queue",
       "description": "AI queue component for managing task queues.",
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/queue.tsx",
+          "path": "src/components/ui/aura/queue.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "reasoning",
       "type": "registry:component",
       "title": "Reasoning",
-      "description": "AI reasoning component for displaying reasoning processes.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react", "streamdown"],
-      "registryDependencies": ["collapsible"],
+      "description": "A container component for displaying AI reasoning steps with connected tool calls.",
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/reasoning.tsx",
+          "path": "src/components/ui/aura/reasoning.tsx",
           "type": "registry:component"
         }
       ]
@@ -957,7 +987,7 @@
       "description": "AI response component for displaying AI responses.",
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/response.tsx",
+          "path": "src/components/ui/aura/response.tsx",
           "type": "registry:component"
         }
       ]
@@ -967,9 +997,10 @@
       "type": "registry:component",
       "title": "Shimmer",
       "description": "AI shimmer loading effect component.",
+      "dependencies": ["framer-motion"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/shimmer.tsx",
+          "path": "src/components/ui/aura/shimmer.tsx",
           "type": "registry:component"
         }
       ]
@@ -979,23 +1010,23 @@
       "type": "registry:component",
       "title": "Sources",
       "description": "AI sources component for displaying source references.",
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/sources.tsx",
+          "path": "src/components/ui/aura/sources.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "suggestion",
       "type": "registry:component",
       "title": "Suggestion",
       "description": "AI suggestion component for displaying suggestions.",
-      "registryDependencies": ["button"],
+      "registryDependencies": ["button", "scroll-area", "select"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/suggestion.tsx",
+          "path": "src/components/ui/aura/suggestion.tsx",
           "type": "registry:component"
         }
       ]
@@ -1005,13 +1036,13 @@
       "type": "registry:component",
       "title": "Task",
       "description": "AI task component for displaying tasks.",
+      "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/task.tsx",
+          "path": "src/components/ui/aura/task.tsx",
           "type": "registry:component"
         }
-      ],
-      "dependencies": ["@tabler/icons-react"]
+      ]
     },
     {
       "name": "tool",
@@ -1021,7 +1052,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/tool.tsx",
+          "path": "src/components/ui/aura/tool.tsx",
           "type": "registry:component"
         }
       ]
@@ -1031,10 +1062,23 @@
       "type": "registry:component",
       "title": "Toolbar",
       "description": "AI toolbar component.",
+      "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ai-elements/cognite/toolbar.tsx",
+          "path": "src/components/ui/aura/toolbar.tsx",
           "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "Use Mobile",
+      "description": "A hook to detect if the device is mobile.",
+      "files": [
+        {
+          "path": "src/hooks/use-mobile.ts",
+          "type": "registry:hook"
         }
       ]
     }

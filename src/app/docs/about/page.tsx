@@ -91,7 +91,7 @@ export default function Home() {
   return (
     <div className="px-3 py-16">
       <div className="max-w-4xl mx-auto">
-        <Alert variant="destructive" className="mb-8">
+        <Alert variant="error" className="mb-8">
           <AlertTriangle className="h-4 w-4" />
           <AlertTitle className="font-bold">
             Aura is still in active development

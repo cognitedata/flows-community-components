@@ -4,6 +4,12 @@
   "type": "registry:component",
   "title": "Connection",
   "description": "AI connection component for flow diagrams.",
+  "dependencies": [
+    "@xyflow/react"
+  ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/connection.tsx",
