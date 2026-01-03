@@ -10,8 +10,6 @@ import {
   PromptInputSubmit,
   PromptInputFooter,
   PromptInputTools,
-  PromptInputAttachment,
-  PromptInputAttachments,
   PromptInputSpeechButton,
   PromptInputButton,
   type PromptInputMessage,
@@ -35,34 +33,93 @@ const meta: Meta<typeof PromptInput> = {
   component: PromptInput,
   tags: ['autodocs'],
   argTypes: {
-    accept: {
-      control: 'text',
-      description: 'File types to accept (e.g., "image/*")',
-    },
-    multiple: {
-      control: 'boolean',
-      description: 'Allow multiple file uploads',
-    },
-    globalDrop: {
-      control: 'boolean',
-      description: 'Accept drops anywhere on document',
-    },
-    maxFiles: {
-      control: 'number',
-      description: 'Maximum number of files',
-    },
-    maxFileSize: {
-      control: 'number',
-      description: 'Maximum file size in bytes',
-    },
+    // Display & behavior
     helperText: {
       control: false,
       description:
-        'Helper text below input (false to hide, ReactNode for custom)',
+        'Helper text below input. Set to false to hide, ReactNode for custom content',
+      table: {
+        category: 'Display',
+        type: { summary: 'ReactNode | false' },
+      },
+    },
+    className: {
+      control: 'text',
+      description: 'CSS classes for styling',
+      table: {
+        category: 'Display',
+      },
+    },
+
+    // Events
+    onSubmit: {
+      action: 'submitted',
+      description: 'Callback when form is submitted',
+      table: {
+        category: 'Events',
+        type: {
+          summary: '(message: PromptInputMessage, event: FormEvent) => void',
+        },
+      },
+    },
+
+    // File upload controls (hidden until implemented)
+    accept: {
+      control: false,
+      description: 'File types to accept (e.g., "image/*", "video/*")',
+      table: {
+        category: 'File Upload (Coming Soon)',
+      },
+    },
+    multiple: {
+      control: false,
+      description: 'Allow multiple file uploads',
+      table: {
+        category: 'File Upload (Coming Soon)',
+      },
+    },
+    globalDrop: {
+      control: false,
+      description: 'Accept drops anywhere on document',
+      table: {
+        category: 'File Upload (Coming Soon)',
+      },
+    },
+    maxFiles: {
+      control: false,
+      description: 'Maximum number of files',
+      table: {
+        category: 'File Upload (Coming Soon)',
+      },
+    },
+    maxFileSize: {
+      control: false,
+      description: 'Maximum file size in bytes',
+      table: {
+        category: 'File Upload (Coming Soon)',
+      },
+    },
+    onError: {
+      control: false,
+      description: 'Callback when file upload error occurs',
+      table: {
+        category: 'File Upload (Coming Soon)',
+      },
+    },
+
+    // Internal
+    syncHiddenInput: {
+      control: false,
+      table: {
+        category: 'Internal',
+      },
     },
   },
   parameters: {
     layout: 'centered',
+    actions: {
+      handles: ['submit', 'error'],
+    },
   },
 };
 
@@ -109,12 +166,21 @@ function AttachmentTools({
  * Matches the basic example from prompt-input.examples.tsx
  */
 export const Basic: Story = {
-  render: function PromptInputBasicStory() {
+  args: {
+    className: 'w-[500px]',
+  },
+  render: function PromptInputBasicStory(args) {
     const [status, setStatus] = useState<
       'submitted' | 'streaming' | 'ready' | 'error'
     >('ready');
 
-    const handleSubmit = (message: PromptInputMessage) => {
+    const handleSubmit = (
+      message: PromptInputMessage,
+      event: React.FormEvent<HTMLFormElement>
+    ) => {
+      // Call the action logger if provided
+      args.onSubmit?.(message, event);
+
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -129,16 +195,8 @@ export const Basic: Story = {
 
     return (
       <PromptInputProvider>
-        <PromptInput
-          onSubmit={handleSubmit}
-          accept="image/*"
-          multiple
-          className="w-[500px]"
-        >
+        <PromptInput {...args} onSubmit={handleSubmit}>
           <PromptInputBody>
-            <PromptInputAttachments>
-              {(attachment) => <PromptInputAttachment data={attachment} />}
-            </PromptInputAttachments>
             <PromptInputTextarea placeholder="Type your message..." />
           </PromptInputBody>
           <PromptInputFooter>
@@ -156,12 +214,21 @@ export const Basic: Story = {
  * Matches the noHelperText example from prompt-input.examples.tsx
  */
 export const NoHelperText: Story = {
-  render: function PromptInputNoHelperTextStory() {
+  args: {
+    helperText: false,
+    className: 'w-[500px]',
+  },
+  render: function PromptInputNoHelperTextStory(args) {
     const [status, setStatus] = useState<
       'submitted' | 'streaming' | 'ready' | 'error'
     >('ready');
 
-    const handleSubmit = (message: PromptInputMessage) => {
+    const handleSubmit = (
+      message: PromptInputMessage,
+      event: React.FormEvent<HTMLFormElement>
+    ) => {
+      args.onSubmit?.(message, event);
+
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -176,17 +243,8 @@ export const NoHelperText: Story = {
 
     return (
       <PromptInputProvider>
-        <PromptInput
-          onSubmit={handleSubmit}
-          accept="image/*"
-          multiple
-          helperText={false}
-          className="w-[500px]"
-        >
+        <PromptInput {...args} onSubmit={handleSubmit}>
           <PromptInputBody>
-            <PromptInputAttachments>
-              {(attachment) => <PromptInputAttachment data={attachment} />}
-            </PromptInputAttachments>
             <PromptInputTextarea placeholder="Type your message..." />
           </PromptInputBody>
           <PromptInputFooter>
@@ -204,12 +262,20 @@ export const NoHelperText: Story = {
  * Matches the customHelperText example from prompt-input.examples.tsx
  */
 export const CustomHelperText: Story = {
-  render: function PromptInputCustomHelperTextStory() {
+  args: {
+    className: 'w-[500px]',
+  },
+  render: function PromptInputCustomHelperTextStory(args) {
     const [status, setStatus] = useState<
       'submitted' | 'streaming' | 'ready' | 'error'
     >('ready');
 
-    const handleSubmit = (message: PromptInputMessage) => {
+    const handleSubmit = (
+      message: PromptInputMessage,
+      event: React.FormEvent<HTMLFormElement>
+    ) => {
+      args.onSubmit?.(message, event);
+
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -225,20 +291,15 @@ export const CustomHelperText: Story = {
     return (
       <PromptInputProvider>
         <PromptInput
+          {...args}
           onSubmit={handleSubmit}
-          accept="image/*"
-          multiple
           helperText={
             <HelperText size="xs" icon={<IconAlertTriangle />}>
               This is experimental. Use with caution.
             </HelperText>
           }
-          className="w-[500px]"
         >
           <PromptInputBody>
-            <PromptInputAttachments>
-              {(attachment) => <PromptInputAttachment data={attachment} />}
-            </PromptInputAttachments>
             <PromptInputTextarea placeholder="Type your message..." />
           </PromptInputBody>
           <PromptInputFooter>
@@ -257,7 +318,7 @@ export const CustomHelperText: Story = {
 export const SubmittedState: Story = {
   render: () => (
     <PromptInputProvider>
-      <PromptInput onSubmit={() => {}} className="w-[500px]" helperText={false}>
+      <PromptInput onSubmit={() => {}} className="w-[500px]">
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type a message..." disabled />
         </PromptInputBody>
@@ -276,7 +337,7 @@ export const SubmittedState: Story = {
 export const StreamingState: Story = {
   render: () => (
     <PromptInputProvider>
-      <PromptInput onSubmit={() => {}} className="w-[500px]" helperText={false}>
+      <PromptInput onSubmit={() => {}} className="w-[500px]">
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type a message..." disabled />
         </PromptInputBody>
@@ -298,7 +359,6 @@ export const Minimal: Story = {
       <PromptInput
         onSubmit={(message) => console.log('Submitted:', message)}
         className="w-[400px]"
-        helperText={false}
       >
         <PromptInputBody>
           <PromptInputTextarea placeholder="Message..." />
@@ -316,14 +376,22 @@ export const Minimal: Story = {
  * Demonstrates all available features
  */
 export const WithAdvancedTools: Story = {
-  render: function PromptInputWithAdvancedToolsStory() {
+  args: {
+    className: 'w-[500px]',
+  },
+  render: function PromptInputWithAdvancedToolsStory(args) {
     const [model, setModel] = useState('Agent model');
     const [status, setStatus] = useState<
       'submitted' | 'streaming' | 'ready' | 'error'
     >('ready');
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleSubmit = (message: PromptInputMessage) => {
+    const handleSubmit = (
+      message: PromptInputMessage,
+      event: React.FormEvent<HTMLFormElement>
+    ) => {
+      args.onSubmit?.(message, event);
+
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -338,17 +406,8 @@ export const WithAdvancedTools: Story = {
 
     return (
       <PromptInputProvider>
-        <PromptInput
-          onSubmit={handleSubmit}
-          accept="image/*"
-          multiple
-          className="w-[500px]"
-          helperText={false}
-        >
+        <PromptInput {...args} onSubmit={handleSubmit}>
           <PromptInputBody>
-            <PromptInputAttachments>
-              {(attachment) => <PromptInputAttachment data={attachment} />}
-            </PromptInputAttachments>
             <PromptInputTextarea
               ref={textareaRef}
               placeholder="Type your message..."
