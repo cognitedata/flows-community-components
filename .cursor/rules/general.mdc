@@ -2,9 +2,6 @@
 alwaysApply: true
 ---
 
-Whenever you work on a component, make sure:
-- registry.template.json is updated too, including any dependencies the component needs
-- Check whether we need to update the .stories.tsx Storybook story with new functionality
-
+Whenever you encounter a component, to evaluate it or update it, make sure registry.template.json is updated too, including any dependencies the component needs
 Never use React.useState, use useState and import { useState } from 'react'; - the same applies for similar imports
 reasoning-old.tsx isn't redundant, it will be used in the future
