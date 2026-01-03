@@ -6,10 +6,9 @@ const config: StorybookConfig = {
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   "addons": [
-    "@storybook/addon-essentials", // Includes docs, controls, actions, viewport, backgrounds, etc.
-    "@storybook/addon-onboarding",
+    "@storybook/addon-docs",
+    "@storybook/addon-interactions",
     "@storybook/addon-a11y",
-    "@storybook/addon-vitest",
     {
       name: "@storybook/addon-mcp",
       options: {

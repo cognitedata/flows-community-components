@@ -896,6 +896,7 @@ export const PromptInputTextarea = ({
         'field-sizing-content max-h-48 min-h-18 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5',
         className
       )}
+      data-testid="prompt-input-textarea"
       name="message"
       onCompositionEnd={() => setIsComposing(false)}
       onCompositionStart={() => setIsComposing(true)}
@@ -1054,6 +1055,8 @@ export const PromptInputSubmit = ({
     <InputGroupButton
       aria-label="Submit"
       className={cn(className)}
+      data-status={status}
+      data-testid="prompt-input-submit"
       size={size}
       type="submit"
       variant={variant}
