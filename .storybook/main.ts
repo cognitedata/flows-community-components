@@ -7,13 +7,24 @@ const config: StorybookConfig = {
   ],
   "addons": [
     "@storybook/addon-docs",
-    "@storybook/addon-onboarding",
+    "@storybook/addon-interactions",
     "@storybook/addon-a11y",
-    "@storybook/addon-vitest"
+    {
+      name: "@storybook/addon-mcp",
+      options: {
+        toolsets: {
+          dev: true,  // Story URLs and UI building instructions
+          docs: true, // Component documentation
+        },
+      },
+    },
   ],
   "framework": {
     "name": "@storybook/nextjs",
     "options": {}
+  },
+  "features": {
+    experimentalComponentsManifest: true, // Required for docs toolset
   },
   "staticDirs": [
     "../public"
