@@ -69,12 +69,4 @@ See [PUBLISHING_WORKFLOW.md](PUBLISHING_WORKFLOW.md) for the complete workflow.
 
 ## Storybook
 
-To generate Storybook stories from component examples:
-
-```bash
-pnpm generate-stories
-```
-
-The script extracts individual component instances marked with `{/* @storybook */}` comments in the examples files in `src/components/ui/cognite/*.stories.tsx` and `src/components/ai-elements/cognite/*.stories.tsx`. Use `{/* @storybook: name=CustomName */}` to specify a custom story name.
-
-Note: You may need to restart Storybook after generating stories for changes to appear.
+This branch contains the base Storybook configuration. Individual component stories are maintained in separate `storybook-*-story` branches.
