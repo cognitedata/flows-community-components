@@ -113,7 +113,7 @@ export function WithFooterDemo() {
 export const cardMeta = {
   name: 'Card',
   description:
-    'A flexible card component with header, content, and footer sections for organizing and displaying content.',
+    'A flexible card component with header, content, and footer sections for organizing and displaying content in a visually appealing way',
   llmUsage:
     'When creating content containers, use `<Card>` with `<CardHeader>`, `<CardContent>`, and `<CardFooter>` subcomponents. Use `<CardTitle>` and `<CardDescription>` for header content.',
   importPath: '@/components/ui/aura/card',
