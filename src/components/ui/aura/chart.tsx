@@ -1,17 +1,26 @@
 'use client';
 
-import * as React from 'react';
+import {
+  createContext,
+  useContext,
+  useId,
+  useMemo,
+  type ReactNode,
+  type ComponentType,
+  type ComponentProps,
+  type CSSProperties,
+} from 'react';
 import * as RechartsPrimitive from 'recharts';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const;
 
 export type ChartConfig = {
   [k in string]: {
-    label?: React.ReactNode;
-    icon?: React.ComponentType;
+    label?: ReactNode;
+    icon?: ComponentType;
   } & (
     | { color?: string; theme?: never }
     | { color?: never; theme: Record<keyof typeof THEMES, string> }
@@ -22,10 +31,10 @@ type ChartContextProps = {
   config: ChartConfig;
 };
 
-const ChartContext = React.createContext<ChartContextProps | null>(null);
+const ChartContext = createContext<ChartContextProps | null>(null);
 
 function useChart() {
-  const context = React.useContext(ChartContext);
+  const context = useContext(ChartContext);
 
   if (!context) {
     throw new Error('useChart must be used within a <ChartContainer />');
@@ -40,13 +49,13 @@ function ChartContainer({
   children,
   config,
   ...props
-}: React.ComponentProps<'div'> & {
+}: ComponentProps<'div'> & {
   config: ChartConfig;
-  children: React.ComponentProps<
+  children: ComponentProps<
     typeof RechartsPrimitive.ResponsiveContainer
   >['children'];
 }) {
-  const uniqueId = React.useId();
+  const uniqueId = useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`;
 
   return (
@@ -116,10 +125,10 @@ type TooltipPayloadItem = {
 };
 
 type ChartTooltipContentProps = Omit<
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip>,
+  ComponentProps<typeof RechartsPrimitive.Tooltip>,
   'content'
 > &
-  React.ComponentProps<'div'> & {
+  ComponentProps<'div'> & {
     hideLabel?: boolean;
     hideIndicator?: boolean;
     indicator?: 'line' | 'dot' | 'dashed';
@@ -146,7 +155,7 @@ function ChartTooltipContent({
 }: ChartTooltipContentProps) {
   const { config } = useChart();
 
-  const tooltipLabel = React.useMemo(() => {
+  const tooltipLabel = useMemo(() => {
     if (hideLabel || !payload?.length) {
       return null;
     }
@@ -191,7 +200,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        'border-border/50 bg-background grid min-w-[8rem] items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
+        'border-border/50 bg-background grid min-w-32 items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl',
         className
       )}
     >
@@ -228,11 +237,11 @@ function ChartTooltipContent({
                       !hideIndicator && (
                         <div
                           className={cn(
-                            'shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)',
+                            'shrink-0 rounded-sm border-(--color-border) bg-(--color-bg)',
                             {
                               'h-2.5 w-2.5': indicator === 'dot',
                               'w-1': indicator === 'line',
-                              'w-0 border-[1.5px] border-dashed bg-transparent':
+                              'w-0 border border-dashed bg-transparent':
                                 indicator === 'dashed',
                               'my-0.5': nestLabel && indicator === 'dashed',
                             }
@@ -241,7 +250,7 @@ function ChartTooltipContent({
                             {
                               '--color-bg': indicatorColor,
                               '--color-border': indicatorColor,
-                            } as React.CSSProperties
+                            } as CSSProperties
                           }
                         />
                       )
@@ -284,7 +293,7 @@ type LegendPayloadItem = {
   [key: string]: unknown;
 };
 
-type ChartLegendContentProps = React.ComponentProps<'div'> & {
+type ChartLegendContentProps = ComponentProps<'div'> & {
   hideIcon?: boolean;
   nameKey?: string;
   payload?: LegendPayloadItem[];
@@ -329,7 +338,7 @@ function ChartLegendContent({
                 <itemConfig.icon />
               ) : (
                 <div
-                  className="h-2 w-2 shrink-0 rounded-[2px]"
+                  className="h-2 w-2 shrink-0 rounded-sm"
                   style={{
                     backgroundColor: item.color,
                   }}

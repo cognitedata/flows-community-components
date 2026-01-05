@@ -2,43 +2,71 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  AlertActions,
+  AlertButton,
 } from '@/components/ui/aura/alert';
 import {
-  IconAlertCircle as AlertCircle,
-  IconTerminal2 as Terminal,
+  IconUser,
+  IconInfoCircle,
+  IconAlertTriangle,
+  IconAlertHexagon,
 } from '@tabler/icons-react';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
-    <div className="space-y-4">
-      <Alert>
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>Heads up!</AlertTitle>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+      <Alert
+        onClose={() => {
+          console.log('close');
+        }}
+      >
+        <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
+        <AlertTitle>Account verification required</AlertTitle>
         <AlertDescription>
-          You can add components to your app using the cli.
+          Please check your email and click the verification link to activate
+          your account.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Verify account</AlertButton>
+        </AlertActions>
       </Alert>
-    </div>
-  );
-}
-
-function VariantsDemo() {
-  return (
-    <div className="space-y-4">
-      <Alert>
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>Default Alert</AlertTitle>
+      <Alert variant="secondary">
+        <IconUser className="w-3.5 h-3.5 mt-0.5" />
         <AlertDescription>
-          This is a default alert with normal styling.
+          Changes will not be saved until you click &apos;Update&apos;.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Update</AlertButton>
+        </AlertActions>
       </Alert>
-      <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
+      <Alert
+        variant="warning"
+        onClose={() => {
+          console.log('close');
+        }}
+      >
+        <IconAlertTriangle className="w-3.5 h-3.5 mt-0.5" />
+        <AlertTitle>Storage almost full</AlertTitle>
         <AlertDescription>
-          Your session has expired. Please log in again.
+          You&apos;re using 90% of your available storage. Consider upgrading
+          your plan.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Upgrade plan</AlertButton>
+        </AlertActions>
+      </Alert>
+      <Alert variant="error">
+        <IconAlertHexagon className="w-3.5 h-3.5 mt-0.5" />
+        <AlertTitle>Unable to connect data</AlertTitle>
+        <AlertDescription>
+          Verify you have the correct ID and try again.
+        </AlertDescription>
+        <AlertActions>
+          <AlertButton className="text-card-foreground -ml-2.25">
+            Try again
+          </AlertButton>
+        </AlertActions>
       </Alert>
     </div>
   );
@@ -47,61 +75,81 @@ function VariantsDemo() {
 export const alertExamples: ComponentExamples = {
   basic: {
     title: 'Basic Alert',
-    description: 'A simple alert with title and description',
+    description: 'Alerts with different variants and actions',
     component: BasicDemo,
     difficulty: 'beginner',
-    code: `
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/aura/alert';
-import { IconTerminal2 as Terminal } from '@tabler/icons-react';
+    code: `import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  AlertActions,
+  AlertButton,
+} from '@/components/ui/aura/alert'
+import {
+  IconUser,
+  IconInfoCircle,
+  IconAlertTriangle,
+  IconAlertHexagon,
+} from '@tabler/icons-react'
 
 export function BasicDemo() {
   return (
-    <div className="space-y-4">
-      <Alert>
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>Heads up!</AlertTitle>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+      <Alert
+        onClose={() => {
+          console.log('close')
+        }}
+      >
+        <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
+        <AlertTitle>Account verification required</AlertTitle>
         <AlertDescription>
-          You can add components to your app using the cli.
+          Please check your email and click the verification link to activate
+          your account.
         </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Verify account</AlertButton>
+        </AlertActions>
+      </Alert>
+      <Alert variant="secondary">
+        <IconUser className="w-3.5 h-3.5 mt-0.5" />
+        <AlertDescription>
+          Changes will not be saved until you click 'Update'.
+        </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Update</AlertButton>
+        </AlertActions>
+      </Alert>
+      <Alert
+        variant="warning"
+        onClose={() => {
+          console.log('close')
+        }}
+      >
+        <IconAlertTriangle className="w-3.5 h-3.5 mt-0.5" />
+        <AlertTitle>Storage almost full</AlertTitle>
+        <AlertDescription>
+          You're using 90% of your available storage. Consider upgrading
+          your plan.
+        </AlertDescription>
+        <AlertActions>
+          <AlertButton className="-ml-2.25">Upgrade plan</AlertButton>
+        </AlertActions>
+      </Alert>
+      <Alert variant="error">
+        <IconAlertHexagon className="w-3.5 h-3.5 mt-0.5" />
+        <AlertTitle>Unable to connect data</AlertTitle>
+        <AlertDescription>
+          Verify you have the correct ID and try again.
+        </AlertDescription>
+        <AlertActions>
+          <AlertButton className="text-card-foreground -ml-2.25">
+            Try again
+          </AlertButton>
+        </AlertActions>
       </Alert>
     </div>
-  );
-}
-`,
-  },
-  variants: {
-    title: 'Alert Variants',
-    description: 'Different alert styles for various contexts',
-    component: VariantsDemo,
-    difficulty: 'beginner',
-    code: `
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/aura/alert';
-import {
-  IconAlertCircle as AlertCircle,
-  IconTerminal2 as Terminal,
-} from '@tabler/icons-react';
-
-export function VariantsDemo() {
-  return (
-    <div className="space-y-4">
-      <Alert>
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>Default Alert</AlertTitle>
-        <AlertDescription>
-          This is a default alert with normal styling.
-        </AlertDescription>
-      </Alert>
-      <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>
-          Your session has expired. Please log in again.
-        </AlertDescription>
-      </Alert>
-    </div>
-  );
-}
-`,
+  )
+}`,
   },
 };
 

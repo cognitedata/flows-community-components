@@ -35,7 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/aura/select';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { ChatStatus, FileUIPart } from 'ai';
 import {
   IconInfoCircle,
@@ -1186,6 +1186,7 @@ export const PromptInputSpeechButton = ({
       )}
       disabled={!recognition}
       onClick={toggleListening}
+      aria-label={isListening ? 'Stop recording' : 'Start voice input'}
       {...props}
     >
       <IconMicrophone className="size-4" />

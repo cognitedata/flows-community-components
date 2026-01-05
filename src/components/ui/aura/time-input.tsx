@@ -1,2 +1,5 @@
-// Custom component - TimeInput
-// TODO: Implement time input component
+import type { ComponentProps } from 'react';
+
+export const TimeInput = ({ ...props }: ComponentProps<'div'>) => {
+  return <div {...props} />;
+};

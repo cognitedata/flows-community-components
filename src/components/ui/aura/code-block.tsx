@@ -1,13 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/aura/button';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { Element } from 'hast';
-import {
-  IconCheck as CheckIcon,
-  IconCopy as CopyIcon,
-  IconSelector as ChevronsUpDown,
-} from '@tabler/icons-react';
+import { IconCheck, IconCopy, IconSelector } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -121,11 +117,17 @@ export const CodeBlock = ({
 
   return (
     <CodeBlockContext.Provider
-      value={{ code, copyText: textToCopy, isCollapsed, setIsCollapsed, lineCount }}
+      value={{
+        code,
+        copyText: textToCopy,
+        isCollapsed,
+        setIsCollapsed,
+        lineCount,
+      }}
     >
       <div
         className={cn(
-          'group relative w-full overflow-hidden rounded-md border bg-background text-foreground',
+          'group/code-block relative w-full overflow-hidden rounded-md bg-background text-foreground',
           className
         )}
         {...props}
@@ -150,10 +152,10 @@ export const CodeBlock = ({
             dangerouslySetInnerHTML={{ __html: darkHtml }}
           />
           {isCollapsed && (
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-white/70 to-white dark:via-background/70 dark:to-background" />
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-card/70 to-card" />
           )}
           {children && (
-            <div className="absolute top-2 right-2 flex items-center gap-2">
+            <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover/code-block:flex">
               {children}
             </div>
           )}
@@ -187,23 +189,37 @@ export const CodeBlockCopyButton = ({
     }
 
     try {
+      // Check for permission explicitly if the browser supports it
+      if (navigator.permissions && navigator.permissions.query) {
+        const permissionStatus = await navigator.permissions.query({
+          name: 'clipboard-write' as PermissionName,
+        });
+
+        if (permissionStatus.state === 'denied') {
+          onError?.(new Error('Clipboard access denied by browser policy'));
+          return;
+        }
+      }
+
       await navigator.clipboard.writeText(copyText);
       setIsCopied(true);
       onCopy?.();
       setTimeout(() => setIsCopied(false), timeout);
     } catch (error) {
+      // This will catch the "Violation" or "NotAllowedError"
+      console.warn('Clipboard write failed:', error);
       onError?.(error as Error);
     }
   };
 
-  const Icon = isCopied ? CheckIcon : CopyIcon;
+  const Icon = isCopied ? IconCheck : IconCopy;
 
   return (
     <Button
       className={cn('shrink-0', className)}
       onClick={copyToClipboard}
       size="icon"
-      variant="ghost"
+      variant="secondary"
       {...props}
     >
       {children ?? <Icon size={14} />}
@@ -231,10 +247,10 @@ export const CodeBlockCollapseButton = ({
       className={cn('shrink-0', className)}
       onClick={() => setIsCollapsed(!isCollapsed)}
       size="icon"
-      variant="ghost"
+      variant="secondary"
       {...props}
     >
-      {children ?? <ChevronsUpDown size={14} />}
+      {children ?? <IconSelector size={14} />}
     </Button>
   );
 };
