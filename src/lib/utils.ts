@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import styleScope from '../styleScope';
+import styleScope from '@/styleScope';
 
 let portalContainer: HTMLElement | null = null;
 

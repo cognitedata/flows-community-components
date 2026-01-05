@@ -955,7 +955,7 @@
       "type": "registry:component",
       "title": "Prompt Input",
       "description": "AI prompt input component for user prompts.",
-      "dependencies": ["nanoid", "@tabler/icons-react"],
+      "dependencies": ["ai", "nanoid", "@tabler/icons-react"],
       "registryDependencies": ["textarea", "button", "command", "dropdown-menu", "helper-text", "hover-card", "input-group", "select"],
       "files": [
         {
