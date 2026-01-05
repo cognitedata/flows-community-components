@@ -141,7 +141,7 @@ export type PromptInputProviderProps = PropsWithChildren<{
 
 /**
  * Optional global provider that lifts PromptInput state outside of PromptInput.
- * If you don't use it, PromptInput stays fully self-managed.
+ * If you don't use it, PromptInput stays fully self-managed without any global state.
  */
 export function PromptInputProvider({
   initialInput: initialTextInput = '',
