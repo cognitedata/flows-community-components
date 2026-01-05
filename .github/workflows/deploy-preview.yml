@@ -104,6 +104,8 @@ jobs:
           script: |
             const branchName = '${{ steps.branch.outputs.name }}';
             const previewUrl = `https://cognitedata.github.io/aura/branches/${branchName}/`;
+            const commitSha = context.sha;
+            const timestamp = new Date().toISOString();
 
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -113,16 +115,16 @@ jobs:
 
             const botComment = comments.find(comment =>
               comment.user.type === 'Bot' &&
-              comment.body.includes('Preview deployment')
+              comment.body.includes('Aura preview')
             );
 
-            const body = `### Preview deployment
+            const body = `## 🚀 Aura preview
 
-            Preview URL: ${previewUrl}
+The latest version is available for testing: [🔗 Preview](${previewUrl})
 
-            > **Status:** Deploying... preview will be live in ~2-3 minutes.
+_Commit:_ ${commitSha}
 
-            _Built: ${new Date().toISOString()}_`;
+_Updated:_ \`${timestamp}\``;
 
             if (botComment) {
               await github.rest.issues.updateComment({
