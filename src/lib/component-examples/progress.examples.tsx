@@ -8,7 +8,7 @@ function BasicDemo() {
       <Label>Files uploaded</Label>
       <div className="w-[394px] flex items-center justify-between gap-2">
         <Progress value={30} />
-        <span className="text-muted-foreground text-sm leading-18 tracking-tight">
+        <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">
           30%
         </span>
       </div>

@@ -7,7 +7,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import {
   IconBrain,
   IconChevronDown,

@@ -4,6 +4,12 @@
   "type": "registry:component",
   "title": "Edge",
   "description": "AI edge component for flow diagrams.",
+  "dependencies": [
+    "@xyflow/react"
+  ],
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/edge.tsx",
