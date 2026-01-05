@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { cloneElement, type HTMLAttributes, type ReactNode, type ReactElement } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconExclamationCircle } from '@tabler/icons-react';
 
 const helperTextVariants = cva('flex flex-row justify-start items-start', {
@@ -29,31 +29,40 @@ const helperTextIconVariants = cva('shrink-0', {
 });
 
 export interface HelperTextProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof helperTextVariants> {
   isError?: boolean;
-  icon?: React.ReactNode;
+  isSuccess?: boolean;
+  icon?: ReactNode;
 }
 
 function HelperText({
   className,
   size = 'sm',
   isError = false,
+  isSuccess = false,
   icon,
   children,
   ...props
 }: HelperTextProps) {
   const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
 
+  const textColor = isError
+    ? 'text-destructive-foreground'
+    : isSuccess
+      ? 'text-success-foreground'
+      : 'text-muted-foreground';
+
   const iconWithClasses = displayIcon
-    ? React.cloneElement(
-        displayIcon as React.ReactElement<{ className?: string }>,
+    ? cloneElement(
+        displayIcon as ReactElement<{ className?: string }>,
         {
           className: cn(
             helperTextIconVariants({ size }),
             size === 'sm' && 'mt-0.25',
-            isError ? 'text-destructive-foreground' : 'text-muted-foreground',
-            (displayIcon as React.ReactElement<{ className?: string }>).props
+            textColor,
+            (displayIcon as ReactElement<{ className?: string }>).props
               ?.className
           ),
         }
@@ -63,13 +72,7 @@ function HelperText({
   return (
     <div className={cn(helperTextVariants({ size }), className)} {...props}>
       {iconWithClasses}
-      <span
-        className={
-          isError ? 'text-destructive-foreground' : 'text-muted-foreground'
-        }
-      >
-        {children}
-      </span>
+      <span className={textColor}>{children}</span>
     </div>
   );
 }

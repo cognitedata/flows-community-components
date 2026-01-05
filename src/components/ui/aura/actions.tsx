@@ -7,7 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/aura/tooltip';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';
 
 export type ActionsProps = ComponentProps<'div'>;

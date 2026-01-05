@@ -13,12 +13,12 @@
   "iconLibrary": "tabler",
   "aliases": {
     "components": "@/components",
-    "utils": "/common/utils",
+    "utils": "@/lib/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
   "registries": {
-    "@cognite/aura": "https://cognitedata.github.io/aura/r/{name}.json"
+    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
   }
 }

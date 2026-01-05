@@ -4,10 +4,13 @@
   "type": "registry:component",
   "title": "Swap Slot",
   "description": "Swap Slot component.",
+  "registryDependencies": [
+    "@aura/css"
+  ],
   "files": [
     {
       "path": "src/components/ui/aura/swap-slot.tsx",
-      "content": "// Custom component - SwapSlot\n// TODO: Implement swap slot component\n",
+      "content": "import type { ComponentProps, ReactNode } from 'react';\n\nexport interface SwapSlotProps extends ComponentProps<'div'> {\n  defaultSlot?: ReactNode;\n  activeSlot?: ReactNode;\n}\n\nexport const SwapSlot = ({\n  defaultSlot,\n  activeSlot,\n  children,\n  ...props\n}: SwapSlotProps) => {\n  return <div {...props}>{activeSlot ?? defaultSlot ?? children}</div>;\n};\n",
       "type": "registry:component"
     }
   ]

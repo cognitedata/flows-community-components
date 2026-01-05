@@ -1,46 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aura
 
-## Getting Started
+> Cognite's AI-native design system inspired by fractal intelligence and adaptive by nature.
 
-First, run the development server:
+**⚠️ Active Development**: Aura is a prototype changing fast. For exploration and prototyping only, not production use.
+
+**[Documentation](https://cognitedata.github.io/aura/)** • **[Components](https://cognitedata.github.io/aura/)** • **[GitHub](https://github.com/cognitedata/aura)**
+
+## Quick Start
+
+Create a new project with Aura:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx cognite-create@latest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or add to existing project:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npx shadcn add [component-name]
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Optional: Install shadcn MCP server for Cursor
 
-## Learn More
+This lets Cursor integrate with shadcn tooling via MCP.
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx shadcn@latest mcp
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<a href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add shadcn MCP server to Cursor" height="32" /></a>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Development
 
-## Deploy on Vercel
+Start the development server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For cache issues, run:
 
-## Publishing ShadCN Library
+```bash
+pnpm clean:dev
+```
 
-Running this command will publish all components referenced in registry.json with their dependencies.
+See [DEVELOPMENT.md](DEVELOPMENT.md) for detailed setup and [PUBLISHING_WORKFLOW.md](PUBLISHING_WORKFLOW.md) for component publishing.
+
+## What's Inside
+
+**80+ React components** built for industrial AI applications:
+
+- **Primitives**: Buttons, inputs, badges, cards, dialogs
+- **AI Components**: Conversation, message, reasoning, chain-of-thought, artifacts
+- **Data Visualization**: Charts, tables, node graphs
+- **Layouts**: Sidebars, topbars, panels, templates
+
+Built with React 19, Next.js 16, TypeScript, Tailwind CSS 4, and Radix UI.
+
+## Publishing Components
+
+Build and publish components to the registry:
 
 ```bash
 pnpm registry:build
 ```
 
-v0.0.1
+See [PUBLISHING_WORKFLOW.md](PUBLISHING_WORKFLOW.md) for the complete workflow.
