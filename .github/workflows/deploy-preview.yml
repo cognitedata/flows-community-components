@@ -103,7 +103,7 @@ jobs:
         with:
           script: |
             const branchName = '${{ steps.branch.outputs.name }}';
-            const previewUrl = `https://cognitedata.github.io/aura/branches/${branchName}/`;
+            const previewUrl = 'https://cognitedata.github.io/aura/branches/' + branchName + '/';
             const commitSha = context.sha;
             const timestamp = new Date().toISOString();
 
@@ -118,13 +118,15 @@ jobs:
               comment.body.includes('Aura preview')
             );
 
-            const body = `## 🚀 Aura preview
-
-The latest version is available for testing: [🔗 Preview](${previewUrl})
-
-_Commit:_ ${commitSha}
-
-_Updated:_ \`${timestamp}\``;
+            const body = [
+              '## 🚀 Aura preview',
+              '',
+              'The latest version is available for testing: [🔗 Preview](' + previewUrl + ')',
+              '',
+              '_Commit:_ ' + commitSha,
+              '',
+              '_Updated:_ `' + timestamp + '`'
+            ].join('\n');
 
             if (botComment) {
               await github.rest.issues.updateComment({
