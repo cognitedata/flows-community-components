@@ -89,7 +89,7 @@ export const collapsibleCode = `
 
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 
-import { cn } from '@/common/utils';
+import { cn } from "@/lib/utils"
 
 function Collapsible({
   className,
