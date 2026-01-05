@@ -21,7 +21,8 @@
     "registry:build-all": "tsx scripts/build-registry.ts --all && npm run registry:clean && shadcn build",
     "registry:clean": "rm -rf public/r && mkdir -p public/r",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o out/storybook"
+    "build-storybook": "storybook build -o out/storybook",
+    "generate-stories": "tsx scripts/generate-stories.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.69",
@@ -94,13 +95,11 @@
     "@eslint/eslintrc": "^3.3.1",
     "@storybook/addon-a11y": "^10.0.2",
     "@storybook/addon-docs": "^10.0.2",
-    "@storybook/addon-interactions": "^8.6.14",
-    "@storybook/addon-mcp": "^0.1.6",
+    "@storybook/addon-onboarding": "^10.0.2",
     "@storybook/addon-vitest": "^10.0.2",
-    "@storybook/jest": "^0.2.3",
     "@storybook/nextjs": "^10.0.2",
     "@storybook/react": "^10.1.2",
-    "@storybook/testing-library": "^0.2.2",
+    "@storybook/test": "^8.6.14",
     "@tailwindcss/postcss": "^4.1.17",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
