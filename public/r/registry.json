@@ -85,7 +85,8 @@
       ],
       "registryDependencies": [
         "@aura/css",
-        "@aura/button"
+        "@aura/button",
+        "@aura/lib-utils"
       ],
       "files": [
         {
@@ -350,14 +351,15 @@
         "@radix-ui/react-context-menu",
         "@tabler/icons-react"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/context-menu.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -391,14 +393,15 @@
         "@radix-ui/react-dialog",
         "@tabler/icons-react"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/dialog.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -409,14 +412,15 @@
       "dependencies": [
         "vaul"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/drawer.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -428,14 +432,15 @@
         "@radix-ui/react-dropdown-menu",
         "@tabler/icons-react"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -514,14 +519,15 @@
         "@radix-ui/react-menubar",
         "@tabler/icons-react"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/menubar.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -550,14 +556,15 @@
       "dependencies": [
         "@radix-ui/react-popover"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/popover.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -625,14 +632,15 @@
         "@radix-ui/react-use-controllable-state",
         "@tabler/icons-react"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/select.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -662,14 +670,15 @@
         "@radix-ui/react-dialog",
         "@tabler/icons-react"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/sheet.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -855,14 +864,15 @@
       "dependencies": [
         "@radix-ui/react-tooltip"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/tooltip.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -908,14 +918,15 @@
       "dependencies": [
         "@radix-ui/react-hover-card"
       ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/hover-card.tsx",
           "type": "registry:component"
         }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -1336,6 +1347,7 @@
       "title": "Prompt Input",
       "description": "AI prompt input component for user prompts.",
       "dependencies": [
+        "ai",
         "nanoid",
         "@tabler/icons-react"
       ],
@@ -1525,6 +1537,33 @@
         {
           "path": "src/hooks/use-mobile.ts",
           "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "style-scope",
+      "type": "registry:lib",
+      "title": "Style Scope",
+      "description": "Style scope configuration for portal containers.",
+      "files": [
+        {
+          "path": "src/styleScope.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "lib-utils",
+      "type": "registry:lib",
+      "title": "Library Utils",
+      "description": "Utility functions including getPortalContainer for Radix UI portals.",
+      "registryDependencies": [
+        "@aura/style-scope"
+      ],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib"
         }
       ]
     }
