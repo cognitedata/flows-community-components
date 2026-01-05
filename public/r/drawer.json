@@ -8,7 +8,8 @@
     "vaul"
   ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/lib-utils"
   ],
   "files": [
     {

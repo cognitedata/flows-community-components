@@ -8,7 +8,8 @@
     "@radix-ui/react-popover"
   ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/lib-utils"
   ],
   "files": [
     {

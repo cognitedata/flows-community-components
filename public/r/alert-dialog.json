@@ -9,7 +9,8 @@
   ],
   "registryDependencies": [
     "@aura/css",
-    "@aura/button"
+    "@aura/button",
+    "@aura/lib-utils"
   ],
   "files": [
     {
