@@ -15,7 +15,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconSelector } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import { createContext, useContext } from 'react';

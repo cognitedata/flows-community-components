@@ -1,12 +1,15 @@
-import * as React from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 
-import { cn } from '@/common/utils';
-
-function SwapSlot({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
-  return <div data-slot="swap-slot" className={cn(className)} {...props} />;
+export interface SwapSlotProps extends ComponentProps<'div'> {
+  defaultSlot?: ReactNode;
+  activeSlot?: ReactNode;
 }
 
-export { SwapSlot };
+export const SwapSlot = ({
+  defaultSlot,
+  activeSlot,
+  children,
+  ...props
+}: SwapSlotProps) => {
+  return <div {...props}>{activeSlot ?? defaultSlot ?? children}</div>;
+};

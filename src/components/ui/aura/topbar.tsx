@@ -1,2 +1,5 @@
-// Custom component - Topbar
-// TODO: Implement topbar component
+import type { ComponentProps } from 'react';
+
+export const Topbar = ({ ...props }: ComponentProps<'div'>) => {
+  return <div {...props} />;
+};

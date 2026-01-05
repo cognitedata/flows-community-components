@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Source_Code_Pro } from 'next/font/google';
+import { Inter, Source_Code_Pro, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navigation } from '@/components/navigation';
@@ -13,6 +13,11 @@ const inter = Inter({
 
 const sourceCodePro = Source_Code_Pro({
   variable: '--font-source-code-pro',
+  subsets: ['latin'],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
   subsets: ['latin'],
 });
 
@@ -30,14 +35,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${sourceCodePro.variable} antialiased`}
+        className={`${inter.variable} ${sourceCodePro.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
-          themes={['light', 'dark', 'contrast']}
+          themes={['light', 'dark']}
         >
           <div className="relative flex min-h-screen flex-col">
             <TopbarVisibility>

@@ -1,10 +1,10 @@
 'use client';
 
-import * as React from 'react';
+import { useState } from 'react';
 import { format } from 'date-fns';
 import { IconCalendar } from '@tabler/icons-react';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/aura/button';
 import { Calendar } from '@/components/ui/aura/calendar';
 import {
@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/aura/popover';
 
 export function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = useState<Date>();
 
   return (
     <Popover>
@@ -22,7 +22,7 @@ export function DatePicker() {
         <Button
           variant={'outline'}
           className={cn(
-            'w-[240px] justify-start text-left font-normal',
+            'w-60 justify-start text-left font-normal',
             !date && 'text-muted-foreground'
           )}
         >
@@ -57,7 +57,7 @@ export function DatePickerCustom({
   className,
   disabled = false,
 }: DatePickerProps) {
-  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
     date
   );
 
@@ -72,7 +72,7 @@ export function DatePickerCustom({
         <Button
           variant={'outline'}
           className={cn(
-            'w-[240px] justify-start text-left font-normal',
+            'w-60 justify-start text-left font-normal',
             !selectedDate && 'text-muted-foreground',
             className
           )}
@@ -118,7 +118,7 @@ export function DateRangePicker({
   className,
   disabled = false,
 }: DateRangePickerProps) {
-  const [selectedRange, setSelectedRange] = React.useState<{
+  const [selectedRange, setSelectedRange] = useState<{
     from: Date | undefined;
     to?: Date | undefined;
   }>({ from, to });
@@ -137,7 +137,7 @@ export function DateRangePicker({
         <Button
           variant={'outline'}
           className={cn(
-            'w-[240px] justify-start text-left font-normal',
+            'w-60 justify-start text-left font-normal',
             !selectedRange.from && 'text-muted-foreground',
             className
           )}
