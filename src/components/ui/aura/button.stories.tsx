@@ -458,11 +458,8 @@ export const Disabled: Story = {
     // Verify all buttons are disabled
     for (const button of buttons) {
       await expect(button).toBeDisabled();
+      await expect(button).toHaveClass('disabled:pointer-events-none');
     }
-
-    // Try to click (should not work)
-    await userEvent.click(buttons[0]);
-    await expect(buttons[0]).toBeDisabled();
   },
 };
 
