@@ -52,6 +52,10 @@ const badgeVariants = cva(
   }
 );
 
+/**
+ * A versatile badge component for labels, status indicators, and tags.
+ * Supports multiple colour variants, outline/background styles, and dot indicators.
+ */
 function Badge({
   className,
   variant,
