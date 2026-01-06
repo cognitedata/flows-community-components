@@ -5,19 +5,24 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { ToolUIPart } from 'ai';
-import { IconChevronDown } from '@tabler/icons-react';
+import { IconSelector as ChevronsUpDown } from '@tabler/icons-react';
+import { Button } from '@/components/ui/aura/button';
 import type { ComponentProps, ReactNode } from 'react';
 import { isValidElement } from 'react';
-import { CodeBlock } from './code-block';
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from './code-block';
 
 export type ToolProps = ComponentProps<typeof Collapsible>;
 
 export const Tool = ({ className, ...props }: ToolProps) => (
   <Collapsible
     className={cn(
-      'group not-prose mb-4 w-full  bg-background rounded-md',
+      'group not-prose w-full bg-background rounded-md flex flex-col gap-2',
       className
     )}
     {...props}
@@ -36,19 +41,14 @@ export const ToolHeader = ({
   type,
   ...props
 }: ToolHeaderProps) => (
-  <CollapsibleTrigger
-    className={cn(
-      'w-full h-9 flex items-center justify-between rounded-md px-3 py-2.25 hover:bg-accent',
-      className
-    )}
-    {...props}
-  >
-    <div className="flex items-center gap-2">
-      <span className="font-normal text-base leading-5 tracking-tightest">
-        {title ?? type.split('-').slice(1).join('-')}
-      </span>
-    </div>
-    <IconChevronDown className="size-4 text-foreground transition-transform group-data-[state=open]:rotate-180" />
+  <CollapsibleTrigger className={className} {...props} asChild>
+    <Button
+      variant="ghost"
+      className="w-full justify-between text-base leading-5 tracking-tighter"
+    >
+      <span>{title ?? type.split('-').slice(1).join('-')}</span>
+      <ChevronsUpDown className="h-4 w-4" />
+    </Button>
   </CollapsibleTrigger>
 );
 
@@ -57,7 +57,7 @@ export type ToolContentProps = ComponentProps<typeof CollapsibleContent>;
 export const ToolContent = ({ className, ...props }: ToolContentProps) => (
   <CollapsibleContent
     className={cn(
-      'data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 text-popover-foreground outline-none data-[state=closed]:animate-out data-[state=open]:animate-in',
+      'flex flex-col gap-4 py-3 text-popover-foreground outline-none',
       className
     )}
     {...props}
@@ -69,12 +69,22 @@ export type ToolInputProps = ComponentProps<'div'> & {
 };
 
 export const ToolInput = ({ className, input, ...props }: ToolInputProps) => (
-  <div className={cn('space-y-2 overflow-hidden p-4', className)} {...props}>
-    <h4 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+  <div
+    className={cn('space-y-2 overflow-hidden px-3.25', className)}
+    {...props}
+  >
+    <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
       Parameters
     </h4>
     <div className="rounded-md bg-muted/50">
-      <CodeBlock code={JSON.stringify(input, null, 2)} language="json" />
+      <CodeBlock
+        code={JSON.stringify(input, null, 2)}
+        language="json"
+        collapsed
+      >
+        <CodeBlockCopyButton />
+        <CodeBlockCollapseButton />
+      </CodeBlock>
     </div>
   </div>
 );
@@ -96,17 +106,25 @@ export const ToolOutput = ({
 
   let Output = <div>{output as ReactNode}</div>;
 
-  if (typeof output === 'object' && !isValidElement(output)) {
+  const codeContent =
+    typeof output === 'object' && !isValidElement(output)
+      ? JSON.stringify(output, null, 2)
+      : typeof output === 'string'
+        ? output
+        : undefined;
+
+  if (codeContent) {
     Output = (
-      <CodeBlock code={JSON.stringify(output, null, 2)} language="json" />
+      <CodeBlock code={codeContent} language="json" collapsed>
+        <CodeBlockCopyButton />
+        <CodeBlockCollapseButton />
+      </CodeBlock>
     );
-  } else if (typeof output === 'string') {
-    Output = <CodeBlock code={output} language="json" />;
   }
 
   return (
-    <div className={cn('space-y-2 p-4', className)} {...props}>
-      <h4 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+    <div className={cn('space-y-2 px-3.25', className)} {...props}>
+      <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
         {errorText ? 'Error' : 'Result'}
       </h4>
       <div

@@ -14,6 +14,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -26,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       - name: Install Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
@@ -42,7 +43,7 @@ jobs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Setup pnpm cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -57,7 +58,7 @@ jobs:
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
       - name: Restore cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5
         with:
           path: |
             .next/cache
@@ -71,6 +72,76 @@ jobs:
         run: pnpm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
+
+      - name: Prepare branches directory
+        run: mkdir -p out/branches
+
+      - name: Download branch preview artifacts
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            // List all artifacts
+            const { data: { artifacts } } = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100,
+            });
+
+            // Filter for branch previews (not expired)
+            const branchArtifacts = artifacts.filter(a =>
+              a.name.startsWith('branch-preview-') && !a.expired
+            );
+
+            console.log(`Found ${branchArtifacts.length} branch preview artifacts`);
+
+            const manifest = { branches: [] };
+
+            for (const artifact of branchArtifacts) {
+              const branchName = artifact.name.replace('branch-preview-', '');
+              console.log(`Downloading ${artifact.name}...`);
+
+              try {
+                const { data } = await github.rest.actions.downloadArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                  archive_format: 'zip',
+                });
+
+                const zipPath = `/tmp/${artifact.name}.zip`;
+                fs.writeFileSync(zipPath, Buffer.from(data));
+
+                const branchDir = `out/branches/${branchName}`;
+                fs.mkdirSync(branchDir, { recursive: true });
+                execSync(`unzip -o ${zipPath} -d ${branchDir}`);
+
+                // Read branch metadata if available
+                const metaPath = `${branchDir}/_branch-meta.json`;
+                let branchMeta = { name: branchName, updated: artifact.updated_at };
+
+                if (fs.existsSync(metaPath)) {
+                  try {
+                    const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+                    branchMeta = { ...meta, updated: artifact.updated_at };
+                    fs.unlinkSync(metaPath); // Remove meta file from output
+                  } catch (e) {
+                    console.log(`Could not read metadata for ${branchName}`);
+                  }
+                }
+
+                manifest.branches.push(branchMeta);
+                console.log(`Extracted ${artifact.name} to ${branchDir}`);
+              } catch (e) {
+                console.log(`Failed to download ${artifact.name}: ${e.message}`);
+              }
+            }
+
+            // Write manifest
+            fs.writeFileSync('out/branches/manifest.json', JSON.stringify(manifest, null, 2));
+            console.log(`Manifest: ${manifest.branches.length} branches`);
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4

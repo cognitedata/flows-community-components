@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/aura/button';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { UIMessage } from 'ai';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import type { ComponentProps, HTMLAttributes, ReactElement } from 'react';
@@ -204,12 +204,12 @@ export const BranchPage = ({ className, ...props }: BranchPageProps) => {
   return (
     <span
       className={cn(
-        'font-medium text-muted-foreground text-xs tabular-nums',
+        'font-medium text-muted-foreground text-sm leading-4.5 tabular-nums',
         className
       )}
       {...props}
     >
-      {currentBranch + 1} of {totalBranches}
+      {currentBranch + 1}/{totalBranches}
     </span>
   );
 };

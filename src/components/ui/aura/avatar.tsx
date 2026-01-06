@@ -1,10 +1,10 @@
 'use client';
 
-import * as React from 'react';
+import type { ComponentProps, HTMLAttributes } from 'react';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 
 const avatarVariants = cva(
   'group relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border',
@@ -45,7 +45,7 @@ function Avatar({
   variant,
   sizes,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root> &
+}: ComponentProps<typeof AvatarPrimitive.Root> &
   VariantProps<typeof avatarVariants>) {
   return (
     <AvatarPrimitive.Root
@@ -59,7 +59,7 @@ function Avatar({
 function AvatarImage({
   className,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+}: ComponentProps<typeof AvatarPrimitive.Image>) {
   return (
     <>
       <AvatarPrimitive.Image
@@ -79,7 +79,7 @@ function AvatarImage({
 function AvatarFallback({
   className,
   ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+}: ComponentProps<typeof AvatarPrimitive.Fallback>) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
@@ -95,7 +95,7 @@ function AvatarFallback({
 function AvatarIcon({
   className,
   ...props
-}: React.HTMLAttributes<HTMLSpanElement>) {
+}: HTMLAttributes<HTMLSpanElement>) {
   return (
     <span
       data-slot="avatar-icon"
