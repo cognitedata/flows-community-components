@@ -66,7 +66,3 @@ pnpm registry:build
 ```
 
 See [PUBLISHING_WORKFLOW.md](PUBLISHING_WORKFLOW.md) for the complete workflow.
-
-## Storybook
-
-This branch contains the base Storybook configuration. Individual component stories are maintained in separate `storybook-*-story` branches.
