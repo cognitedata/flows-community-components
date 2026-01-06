@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { Button } from '@/components/ui/aura/button';
 import { Badge } from '@/components/ui/aura/badge';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 
 type BannerVariant = 'default' | 'neutral' | 'destructive' | 'warning';
 
@@ -67,7 +67,7 @@ export const Banner = ({
     <BannerContext.Provider value={{ show, setShow, variant }}>
       <div
         className={cn(
-          'flex w-full min-h-[44px] items-center gap-2 px-3.5 py-2',
+          'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
           variantClasses[variant],
           inset && 'rounded-lg',
           className

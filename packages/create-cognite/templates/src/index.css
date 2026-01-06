@@ -791,6 +791,11 @@
 }
 
 @layer utilities {
+  /* Ensure exit animations keep their end state when Radix components close */
+  [data-state='closed'] {
+    --tw-animation-fill-mode: forwards;
+  }
+  
   @keyframes accordion-down {
     from {
       height: 0;

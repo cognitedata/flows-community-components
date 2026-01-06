@@ -4,8 +4,6 @@ import {
   TopbarCenter,
   TopbarRight,
   TopbarBreadcrumbs,
-  TopbarSwapSlot,
-  TopbarAction,
 } from '@/components/ui/aura/topbar';
 import {
   BreadcrumbList,

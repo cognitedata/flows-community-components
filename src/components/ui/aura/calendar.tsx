@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useRef, useEffect, type ComponentProps } from 'react';
 import {
   IconChevronDown,
   IconChevronLeft,
@@ -8,7 +8,7 @@ import {
 } from '@tabler/icons-react';
 import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker';
 
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/aura/button';
 
 function Calendar({
@@ -20,8 +20,8 @@ function Calendar({
   formatters,
   components,
   ...props
-}: React.ComponentProps<typeof DayPicker> & {
-  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
+}: ComponentProps<typeof DayPicker> & {
+  buttonVariant?: ComponentProps<typeof Button>['variant'];
 }) {
   const defaultClassNames = getDefaultClassNames();
 
@@ -87,7 +87,7 @@ function Calendar({
         table: 'w-full border-collapse',
         weekdays: cn('flex', defaultClassNames.weekdays),
         weekday: cn(
-          'text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none',
+          'text-muted-foreground rounded-md flex-1 font-normal text-base select-none',
           defaultClassNames.weekday
         ),
         week: cn('flex w-full mt-2', defaultClassNames.week),
@@ -96,7 +96,7 @@ function Calendar({
           defaultClassNames.week_number_header
         ),
         week_number: cn(
-          'text-[0.8rem] select-none text-muted-foreground',
+          'text-base select-none text-muted-foreground',
           defaultClassNames.week_number
         ),
         day: cn(
@@ -177,11 +177,11 @@ function CalendarDayButton({
   day,
   modifiers,
   ...props
-}: React.ComponentProps<typeof DayButton>) {
+}: ComponentProps<typeof DayButton>) {
   const defaultClassNames = getDefaultClassNames();
 
-  const ref = React.useRef<HTMLButtonElement>(null);
-  React.useEffect(() => {
+  const ref = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
     if (modifiers.focused) ref.current?.focus();
   }, [modifiers.focused]);
 
