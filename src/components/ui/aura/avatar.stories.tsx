@@ -100,8 +100,6 @@ export const Default: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     // Find the avatar by its data-slot attribute
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
@@ -136,8 +134,6 @@ export const WithIcon: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
 
@@ -170,8 +166,6 @@ export const WithImage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
 
@@ -227,8 +221,6 @@ export const AllVariants: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(8);
 
@@ -292,8 +284,6 @@ export const AllVariantsWithIcons: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(7);
 
@@ -329,8 +319,6 @@ export const AllSizes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
 
@@ -374,8 +362,6 @@ export const ImagesAllSizes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const images = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
     await expect(images.length).toBe(3);
 
@@ -480,8 +466,6 @@ export const AvatarGroup: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     // Should have 5 avatars initially (4 visible + 1 overflow)
     await expect(avatars.length).toBeGreaterThanOrEqual(5);
@@ -580,8 +564,6 @@ export const AvatarGroupSmall: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(5);
 
@@ -697,8 +679,6 @@ export const Accessibility: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const images = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
     await expect(images.length).toBe(3);
 
@@ -735,8 +715,6 @@ export const EdgeCaseEmpty: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
 
@@ -774,8 +752,6 @@ export const EdgeCaseLongText: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const fallbacks = canvasElement.querySelectorAll(
       '[data-slot="avatar-fallback"]'
     );
@@ -819,8 +795,6 @@ export const EdgeCaseSpecialCharacters: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(5);
 
@@ -864,8 +838,6 @@ export const EdgeCaseSingleCharacter: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const fallbacks = canvasElement.querySelectorAll(
       '[data-slot="avatar-fallback"]'
     );
@@ -907,8 +879,6 @@ export const EdgeCaseNumbers: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const fallbacks = canvasElement.querySelectorAll(
       '[data-slot="avatar-fallback"]'
     );
@@ -948,8 +918,6 @@ export const EdgeCaseTinyWithText: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
 
@@ -996,8 +964,6 @@ export const EdgeCaseFailedImage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     // Wait for images to fail loading and fallback to show
     await waitFor(
       () => {
@@ -1049,8 +1015,6 @@ export const EdgeCaseComplexIcons: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     const avatarIcons = canvasElement.querySelectorAll(
       '[data-slot="avatar-icon"]'
     );
