@@ -37,6 +37,10 @@ const buttonVariants = cva(
   }
 );
 
+/**
+ * Button component for user interactions and actions.
+ * Supports multiple variants, sizes, and can render as a child component using Radix UI Slot.
+ */
 function Button({
   className,
   variant,
@@ -45,6 +49,11 @@ function Button({
   ...props
 }: ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
+    /**
+     * Change the default rendered element for the one passed as a child,
+     * merging their props and behavior using Radix UI Slot.
+     * @default false
+     */
     asChild?: boolean;
   }) {
   const Comp = asChild ? Slot : 'button';
