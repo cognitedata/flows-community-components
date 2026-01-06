@@ -5,7 +5,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/aura/collapsible';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconChevronDown, IconSearch } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 
