@@ -7,6 +7,7 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
+  MessageResponse,
   MessageBranch,
   MessageBranchContent,
   MessageBranchSelector,
@@ -15,7 +16,6 @@ import {
   MessageBranchPage,
 } from '@/components/ui/aura/message';
 import type { ComponentExamples } from '@/lib/component-examples/types';
-import { Response } from '@/components/ui/aura/response';
 import {
   CodeBlock,
   CodeBlockCopyButton,
@@ -114,11 +114,11 @@ function MessageDemo() {
                 </MessageAvatarIcon>
               </MessageAvatar>
               <MessageContent className="flex flex-col gap-2">
-                <Response>
+                <MessageResponse>
                   {isStreaming && index === currentBranchIndex
                     ? streamedContent
                     : branch || ''}
-                </Response>
+                </MessageResponse>
                 {(!isStreaming || index !== currentBranchIndex) && (
                   <MessageActions>
                     <MessageAction
@@ -289,7 +289,7 @@ import {
   MessageBranchNext,
   MessageBranchPage,
 } from "@/components/ai-elements/cognite/message"
-import { Response } from "@/components/ai-elements/cognite/response"
+import { MessageResponse } from "@/components/ai-elements/cognite/message"
 import { useState } from "react"
 import { IconWheel, IconCopy, IconDownload, IconRefresh, IconCheck } from "@tabler/icons-react"
 
@@ -375,11 +375,11 @@ export function MessageDemo() {
                 </MessageAvatarIcon>
               </MessageAvatar>
               <MessageContent className="flex flex-col gap-2">
-                <Response>
+                <MessageResponse>
                   {isStreaming && index === currentBranchIndex
                     ? streamedContent
                     : branch || ''}
-                </Response>
+                </MessageResponse>
                 {(!isStreaming || index !== currentBranchIndex) && (
                   <MessageActions>
                     <MessageAction

@@ -116,11 +116,6 @@ export default function AIPage() {
       description: 'Reasoning visualisation',
     },
     {
-      slug: 'response',
-      name: 'Response',
-      description: 'Response display component',
-    },
-    {
       slug: 'shimmer',
       name: 'Shimmer',
       description: 'Loading shimmer effects',
