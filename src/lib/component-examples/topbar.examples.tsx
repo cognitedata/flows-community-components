@@ -15,28 +15,43 @@ import {
 import { Button } from '@/components/ui/aura/button';
 // import { SwapSlot } from '@/components/ui/aura/swap-slot';
 import {
+  IconChartBar as BarChart3,
+  IconFileText as FileText,
   IconHome,
-  IconShare,
   IconLayoutSidebar,
   IconPlus,
   IconDownload,
   IconEdit,
+  IconSettings as Settings,
+  IconShare,
+  IconHomeFilled,
+  IconUsers as Users,
 } from '@tabler/icons-react';
+import {
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+} from '@/components/ui/aura/sidebar';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
-    <div className="w-full border rounded-lg overflow-hidden">
+    <div className="w-full  overflow-hidden">
       <Topbar>
         <TopbarLeft>
-          <Button variant="ghost" size="icon">
-            <IconLayoutSidebar className="h-4 w-4" />
+          <Button variant="ghost" size="icon-sm">
+            <IconLayoutSidebar className="h-4.5 w-4.5" />
           </Button>
           <TopbarBreadcrumbs>
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink href="/">
-                  <IconHome className="h-4 w-4" />
+                  <IconHomeFilled className="h-4 w-4" />
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
@@ -51,16 +66,11 @@ function BasicDemo() {
         </TopbarLeft>
         <TopbarCenter />
         <TopbarRight>
-          {/* <TopbarSwapSlot>
-            <SwapSlot className="border-2 border-dashed border-primary/40 rounded flex items-center justify-center w-[122px] h-[28px]">
-              <span className="text-xs text-muted-foreground">Slot</span>
-            </SwapSlot>
-          </TopbarSwapSlot> */}
           <Button size="sm">
             <IconPlus />
             Button
           </Button>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon-sm">
             <IconShare className="h-4 w-4" />
           </Button>
         </TopbarRight>
@@ -81,15 +91,15 @@ function EosTopbar() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink href="/">
-                  <IconHome className="h-4 w-4" />
+                  <IconHomeFilled className="h-4 w-4" />
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbPage>Atlas</BreadcrumbPage>
+                <BreadcrumbPage>Canvas</BreadcrumbPage>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage> Abnormal vibration on 21PT1019</BreadcrumbPage>
+                <BreadcrumbPage>RCA 21PT1019</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </TopbarBreadcrumbs>
@@ -111,6 +121,110 @@ function EosTopbar() {
           {/* </TopbarSwapSlot> */}
         </TopbarRight>
       </Topbar>
+    </div>
+  );
+}
+
+function TopbarWithSidebarDemo() {
+  return (
+    <div className="relative h-[400px] w-full border rounded-lg overflow-hidden">
+      <SidebarProvider>
+        <div className="flex h-full w-full flex-col bg-background">
+          <Topbar>
+            <TopbarLeft>
+              <Button variant="ghost" size="icon">
+                <IconLayoutSidebar className="h-4 w-4" />
+              </Button>
+              <TopbarBreadcrumbs>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/">
+                      <IconHomeFilled className="h-4 w-4" />
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Projects</BreadcrumbPage>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Topbar with Sidebar</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </TopbarBreadcrumbs>
+            </TopbarLeft>
+            <TopbarCenter />
+            <TopbarRight>
+              <Button size="sm">
+                <IconPlus className="h-4 w-4" />
+                New item
+              </Button>
+              <Button variant="ghost" size="icon">
+                <IconShare className="h-4 w-4" />
+              </Button>
+            </TopbarRight>
+          </Topbar>
+          <div className="flex flex-1">
+            <div className="w-64 bg-sidebar text-sidebar-foreground border-r">
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Platform</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton isActive>
+                          <IconHomeFilled className="h-4 w-4" />
+                          <span>Overview</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <Users className="h-4 w-4" />
+                          <span>Users</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <FileText className="h-4 w-4" />
+                          <span>Documents</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <BarChart3 className="h-4 w-4" />
+                          <span>Layout</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Account</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <Settings className="h-4 w-4" />
+                          <span>Settings</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </SidebarContent>
+            </div>
+            <div className="flex-1 p-4">
+              <h3 className="text-sm font-semibold mb-1">
+                Topbar and Sidebar working together
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                This example shows a typical application layout with a static
+                sidebar on the left and a topbar above the main content area.
+              </p>
+            </div>
+          </div>
+        </div>
+      </SidebarProvider>
     </div>
   );
 }
@@ -152,7 +266,7 @@ export function BasicDemo() {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink href="/">
-                <IconHome className="h-4 w-4" />
+                <IconHomeFilled className="h-4 w-4" />
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
@@ -225,6 +339,151 @@ export function BasicDemo() {
       );
     }
   }`,
+  },
+  withSidebar: {
+    title: 'Topbar with Sidebar layout',
+    description:
+      'A layout where the Topbar sits above the main content area next to a static Sidebar.',
+    component: TopbarWithSidebarDemo,
+    difficulty: 'intermediate',
+    code: `import {
+  Topbar,
+  TopbarLeft,
+  TopbarCenter,
+  TopbarRight,
+  TopbarBreadcrumbs,
+} from "@/components/ui/aura/topbar"
+import {
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/aura/breadcrumb"
+import {
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+} from "@/components/ui/aura/sidebar"
+import { Button } from "@/components/ui/aura/button"
+import {
+  IconChartBar as BarChart3,
+  IconFileText as FileText,
+  IconHome,
+  IconPlus,
+  IconSettings as Settings,
+  IconShare,
+  IconUsers as Users,
+} from "@tabler/icons-react"
+
+export function TopbarWithSidebarDemo() {
+  return (
+    <div className="relative h-[400px] w-full border rounded-lg overflow-hidden">
+      <SidebarProvider>
+        <div className="flex h-full w-full flex-col bg-background">
+          <Topbar>
+            <TopbarLeft>
+              <Button variant="ghost" size="icon">
+                <IconLayoutSidebar className="h-4 w-4" />
+              </Button>
+              <TopbarBreadcrumbs>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/">
+                      <IconHomeFilled className="h-4 w-4" />
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Projects</BreadcrumbPage>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Topbar with Sidebar</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </TopbarBreadcrumbs>
+            </TopbarLeft>
+            <TopbarCenter />
+            <TopbarRight>
+              <Button size="sm">
+                <IconPlus className="h-4 w-4" />
+                New item
+              </Button>
+              <Button variant="ghost" size="icon">
+                <IconShare className="h-4 w-4" />
+              </Button>
+            </TopbarRight>
+          </Topbar>
+          <div className="flex flex-1">
+            <div className="w-64 bg-sidebar text-sidebar-foreground border-r">
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Platform</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton isActive>
+                          <IconHomeFilled className="h-4 w-4" />
+                          <span>Overview</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <Users className="h-4 w-4" />
+                          <span>Users</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <FileText className="h-4 w-4" />
+                          <span>Documents</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <BarChart3 className="h-4 w-4" />
+                          <span>Layout</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Account</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <Settings className="h-4 w-4" />
+                          <span>Settings</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </SidebarContent>
+            </div>
+            <div className="flex-1 p-4">
+              <h3 className="text-sm font-semibold mb-1">
+                Topbar and Sidebar working together
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                This example shows a typical application layout with a static
+                sidebar on the left and a topbar above the main content area.
+              </p>
+            </div>
+          </div>
+        </div>
+      </SidebarProvider>
+    </div>
+  )
+}`,
   },
 };
 

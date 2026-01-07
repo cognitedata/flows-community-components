@@ -29,7 +29,7 @@ function TopbarLeft({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="topbar-left"
-      className={cn('flex items-center gap-4', className)}
+      className={cn('flex items-center', className)}
       {...props}
     />
   );
