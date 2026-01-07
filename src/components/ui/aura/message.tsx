@@ -376,12 +376,12 @@ export const MessageBranchPage = ({
   return (
     <ButtonGroupText
       className={cn(
-        'border-none bg-transparent text-muted-foreground shadow-none',
+        'border-none bg-transparent text-muted-foreground shadow-none px-2',
         className
       )}
       {...props}
     >
-      {currentBranch + 1} of {totalBranches}
+      {currentBranch + 1}/{totalBranches}
     </ButtonGroupText>
   );
 };
