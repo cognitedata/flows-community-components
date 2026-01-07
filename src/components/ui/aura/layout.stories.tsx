@@ -20,25 +20,25 @@ import {
  * ## Key Concepts
  *
  * 1. **Container Query Context**: Wrap content with `@container` to enable responsive behaviour
- * 2. **Responsive Grid**: Use `grid grid-cols-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12`
- * 3. **Column Spanning**: Use responsive spans like `col-span-4 @[769px]:col-span-6`
+ * 2. **Responsive Grid**: Use `grid grid-cols-4 @sm:grid-cols-8 @md:grid-cols-12`
+ * 3. **Column Spanning**: Use responsive spans like `col-span-4 @md:col-span-6`
  *
  * ## Breakpoints
  *
- * | Name | Min | Max | Columns | Gutter | Margin |
- * |------|-----|-----|---------|--------|--------|
- * | sm   | 320px | 640px | 4 | 8px | 16px |
- * | md   | 641px | 768px | 8 | 8px | 16px |
- * | lg   | 769px | 1024px | 12 | 16px | 12px |
- * | xl   | 1025px | 1280px | 12 | 16px | 12px |
+ * | Name | Min | Columns | Gutter | Margin |
+ * |------|-----|---------|--------|--------|
+ * | sm   | 640px | 8 | 8px | 16px |
+ * | md   | 768px | 12 | 16px | 12px |
+ * | lg   | 1024px | 12 | 16px | 12px |
+ * | xl   | 1280px | 12 | 16px | 12px |
  *
  * ## Usage
  *
  * ```tsx
  * <div className="@container">
- *   <div className="grid grid-cols-4 gap-2 @[641px]:grid-cols-8 @[769px]:grid-cols-12 @[769px]:gap-4">
- *     <div className="col-span-4 @[769px]:col-span-8">Main</div>
- *     <div className="col-span-4 @[769px]:col-span-4">Sidebar</div>
+ *   <div className="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
+ *     <div className="col-span-4 @md:col-span-8">Main</div>
+ *     <div className="col-span-4 @md:col-span-4">Sidebar</div>
  *   </div>
  * </div>
  * ```
@@ -229,22 +229,22 @@ export const InteractiveDemo: Story = {
         <div className="@container p-4" data-testid="grid-demo">
           {/* Current breakpoint indicator */}
           <div className="mb-4 p-2 bg-muted rounded text-sm font-mono">
-            <span className="@[1025px]:hidden @[769px]:hidden @[641px]:hidden">
-              sm (≤640px) — 4 columns
+            <span className="@sm:hidden">
+              Base (&lt;640px) — 4 columns
             </span>
-            <span className="hidden @[641px]:inline @[769px]:hidden">
-              md (641-768px) — 8 columns
+            <span className="hidden @sm:inline @md:hidden">
+              sm (640-767px) — 8 columns
             </span>
-            <span className="hidden @[769px]:inline @[1025px]:hidden">
-              lg (769-1024px) — 12 columns
+            <span className="hidden @md:inline @lg:hidden">
+              md (768-1023px) — 12 columns
             </span>
-            <span className="hidden @[1025px]:inline">
-              xl (≥1025px) — 12 columns
+            <span className="hidden @lg:inline">
+              lg+ (≥1024px) — 12 columns
             </span>
           </div>
 
           {/* Responsive grid */}
-          <div className="grid grid-cols-4 gap-2 @[641px]:grid-cols-8 @[769px]:grid-cols-12 @[769px]:gap-4">
+          <div className="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
             {Array.from({ length: 12 }).map((_, i) => (
               <div
                 key={i}
@@ -297,9 +297,9 @@ export const ColumnSpans: Story = {
           </div>
           <p className="text-sm text-muted-foreground mb-3">{span.description}</p>
           <div className="flex flex-wrap gap-2 text-xs font-mono">
-            <code className="bg-muted px-2 py-1 rounded">sm: {span.sm}</code>
-            <code className="bg-muted px-2 py-1 rounded">md: @[641px]:{span.md}</code>
-            <code className="bg-muted px-2 py-1 rounded">lg: @[769px]:{span.lg}</code>
+            <code className="bg-muted px-2 py-1 rounded">base: {span.sm}</code>
+            <code className="bg-muted px-2 py-1 rounded">@sm: {span.md}</code>
+            <code className="bg-muted px-2 py-1 rounded">@md: {span.lg}</code>
           </div>
         </div>
       ))}
@@ -392,11 +392,11 @@ export const SidebarLeftLayout: Story = {
   },
   render: () => (
     <div className="@container min-h-screen bg-background">
-      <div className="grid grid-cols-4 gap-2 px-4 py-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12 @[769px]:gap-4 @[769px]:px-3">
+      <div className="grid grid-cols-4 gap-2 px-4 py-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3">
         {/* Sidebar */}
         <aside
           data-testid="sidebar"
-          className="col-span-4 @[641px]:col-span-2 @[769px]:col-span-3 bg-muted rounded-lg p-4"
+          className="col-span-4 @sm:col-span-2 @md:col-span-3 bg-muted rounded-lg p-4"
         >
           <h2 className="font-medium mb-4">Navigation</h2>
           <nav className="space-y-2">
@@ -415,7 +415,7 @@ export const SidebarLeftLayout: Story = {
         {/* Main content */}
         <main
           data-testid="main-content"
-          className="col-span-4 @[641px]:col-span-6 @[769px]:col-span-9"
+          className="col-span-4 @sm:col-span-6 @md:col-span-9"
         >
           <div className="border border-border rounded-lg p-6">
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
@@ -455,13 +455,13 @@ export const CardGridLayout: Story = {
     <div className="@container min-h-screen bg-background p-4">
       <div
         data-testid="card-grid"
-        className="grid grid-cols-4 gap-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12"
+        className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12"
       >
         {[1, 2, 3, 4, 5, 6].map((i) => (
           <div
             key={i}
             data-testid={`card-${i}`}
-            className="col-span-4 @[641px]:col-span-4 @[769px]:col-span-4 bg-card border border-border rounded-lg p-4"
+            className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card border border-border rounded-lg p-4"
           >
             <div className="aspect-video bg-muted rounded-md mb-3" />
             <h3 className="font-medium mb-1">Card {i}</h3>
@@ -497,7 +497,7 @@ export const DashboardLayout: Story = {
   },
   render: () => (
     <div className="@container min-h-screen bg-background p-4" data-testid="dashboard">
-      <div className="grid grid-cols-4 gap-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12">
+      <div className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
         {/* Metrics row */}
         {[
           { label: 'Users', value: '12,345', change: '+12%' },
@@ -507,7 +507,7 @@ export const DashboardLayout: Story = {
         ].map((metric, i) => (
           <div
             key={i}
-            className="col-span-2 @[641px]:col-span-2 @[769px]:col-span-3 bg-card border border-border rounded-lg p-4"
+            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card border border-border rounded-lg p-4"
           >
             <p className="text-sm text-muted-foreground">{metric.label}</p>
             <p className="text-2xl font-bold">{metric.value}</p>
@@ -518,7 +518,7 @@ export const DashboardLayout: Story = {
         {/* Chart area */}
         <div
           data-testid="chart-area"
-          className="col-span-4 @[641px]:col-span-8 @[769px]:col-span-12 bg-card border border-border rounded-lg p-4 min-h-64"
+          className="col-span-4 @sm:col-span-8 @md:col-span-12 bg-card border border-border rounded-lg p-4 min-h-64"
         >
           <h3 className="font-medium mb-4">Analytics Overview</h3>
           <div className="h-48 bg-muted rounded-md flex items-center justify-center text-muted-foreground">
@@ -609,4 +609,3 @@ export const CodeExamples: Story = {
     </div>
   ),
 };
-

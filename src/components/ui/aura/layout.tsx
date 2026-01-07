@@ -12,8 +12,8 @@
  *
  * Usage:
  * 1. Wrap content in a container query context: `@container`
- * 2. Apply responsive grid classes: `grid grid-cols-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12`
- * 3. Use column spanning: `col-span-4 @[769px]:col-span-6`
+ * 2. Apply responsive grid classes: `grid grid-cols-4 @sm:grid-cols-8 @md:grid-cols-12`
+ * 3. Use column spanning: `col-span-4 @md:col-span-6`
  */
 
 // =============================================================================
@@ -30,6 +30,10 @@ export interface LayoutBreakpoint {
   description: string;
 }
 
+/**
+ * Breakpoints aligned with Tailwind's default container query breakpoints.
+ * These match the standard sm/md/lg/xl values for consistency.
+ */
 export const layoutBreakpoints: LayoutBreakpoint[] = [
   {
     name: 'sm',
@@ -42,7 +46,7 @@ export const layoutBreakpoints: LayoutBreakpoint[] = [
   },
   {
     name: 'md',
-    min: 641,
+    min: 640,
     max: 768,
     columns: 8,
     gutter: 8,
@@ -51,7 +55,7 @@ export const layoutBreakpoints: LayoutBreakpoint[] = [
   },
   {
     name: 'lg',
-    min: 769,
+    min: 768,
     max: 1024,
     columns: 12,
     gutter: 16,
@@ -60,7 +64,7 @@ export const layoutBreakpoints: LayoutBreakpoint[] = [
   },
   {
     name: 'xl',
-    min: 1025,
+    min: 1024,
     max: 1280,
     columns: 12,
     gutter: 16,
@@ -80,30 +84,34 @@ export interface ContainerQueryClass {
   description: string;
 }
 
+/**
+ * Container query prefixes using Tailwind's named breakpoints.
+ * Use these instead of arbitrary pixel values for cleaner, more maintainable code.
+ */
 export const containerQueryClasses: ContainerQueryClass[] = [
   {
     breakpoint: 'sm',
-    minWidth: 320,
-    prefix: '@[320px]:',
-    description: 'Applies when container is at least 320px wide',
+    minWidth: 640,
+    prefix: '@sm:',
+    description: 'Applies when container is at least 640px wide',
   },
   {
     breakpoint: 'md',
-    minWidth: 641,
-    prefix: '@[641px]:',
-    description: 'Applies when container is at least 641px wide',
+    minWidth: 768,
+    prefix: '@md:',
+    description: 'Applies when container is at least 768px wide',
   },
   {
     breakpoint: 'lg',
-    minWidth: 769,
-    prefix: '@[769px]:',
-    description: 'Applies when container is at least 769px wide',
+    minWidth: 1024,
+    prefix: '@lg:',
+    description: 'Applies when container is at least 1024px wide',
   },
   {
     breakpoint: 'xl',
-    minWidth: 1025,
-    prefix: '@[1025px]:',
-    description: 'Applies when container is at least 1025px wide',
+    minWidth: 1280,
+    prefix: '@xl:',
+    description: 'Applies when container is at least 1280px wide',
   },
 ];
 
@@ -127,8 +135,7 @@ export const gridPatterns = {
   responsiveGrid: {
     name: 'Responsive Grid',
     description: 'Full responsive grid that adapts across all breakpoints',
-    class:
-      'grid grid-cols-4 gap-2 px-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12 @[769px]:gap-4 @[769px]:px-3',
+    class: 'grid grid-cols-4 gap-2 px-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3',
     usage: 'Main content grid that adapts from 4 to 8 to 12 columns',
   },
   simpleGrid: {
@@ -219,40 +226,39 @@ export const layoutCompositions = {
   sidebarLeft: {
     name: 'Sidebar Left',
     description: 'Fixed sidebar on left, flexible main content',
-    sidebar: 'col-span-4 @[641px]:col-span-2 @[769px]:col-span-3',
-    main: 'col-span-4 @[641px]:col-span-6 @[769px]:col-span-9',
+    sidebar: 'col-span-4 @sm:col-span-2 @md:col-span-3',
+    main: 'col-span-4 @sm:col-span-6 @md:col-span-9',
     usage: 'Navigation panels, settings pages',
   },
   sidebarRight: {
     name: 'Sidebar Right',
     description: 'Flexible main content, fixed sidebar on right',
-    main: 'col-span-4 @[641px]:col-span-6 @[769px]:col-span-9',
-    sidebar: 'col-span-4 @[641px]:col-span-2 @[769px]:col-span-3',
+    main: 'col-span-4 @sm:col-span-6 @md:col-span-9',
+    sidebar: 'col-span-4 @sm:col-span-2 @md:col-span-3',
     usage: 'Detail panels, contextual information',
   },
   twoColumn: {
     name: 'Two Column',
     description: 'Equal width columns',
-    column: 'col-span-4 @[641px]:col-span-4 @[769px]:col-span-6',
+    column: 'col-span-4 @sm:col-span-4 @md:col-span-6',
     usage: 'Comparison views, side-by-side content',
   },
   threeColumn: {
     name: 'Three Column',
     description: 'Three equal columns, stacked on mobile',
-    column: 'col-span-4 @[641px]:col-span-4 @[769px]:col-span-4',
+    column: 'col-span-4 @sm:col-span-4 @md:col-span-4',
     usage: 'Card grids, feature lists',
   },
   fourColumn: {
     name: 'Four Column',
     description: 'Four equal columns, two on tablet, stacked on mobile',
-    column: 'col-span-4 @[641px]:col-span-4 @[769px]:col-span-3',
+    column: 'col-span-4 @sm:col-span-4 @md:col-span-3',
     usage: 'Metric dashboards, icon grids',
   },
   contentCentered: {
     name: 'Centered Content',
     description: 'Narrow centered content with gutters',
-    container:
-      'col-span-4 @[641px]:col-span-6 @[641px]:col-start-2 @[769px]:col-span-8 @[769px]:col-start-3',
+    container: 'col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3',
     usage: 'Article content, forms, focused reading',
   },
 } as const;
@@ -280,7 +286,7 @@ export function getContainerPrefix(breakpoint: string): string {
  * Generate responsive column span classes
  */
 export function getResponsiveSpan(sm: number, md: number, lg: number): string {
-  return `col-span-${sm} @[641px]:col-span-${md} @[769px]:col-span-${lg}`;
+  return `col-span-${sm} @sm:col-span-${md} @md:col-span-${lg}`;
 }
 
 // =============================================================================
@@ -291,24 +297,24 @@ export const layoutExamples = {
   basicGrid: `
 <!-- Basic responsive grid -->
 <div class="@container">
-  <div class="grid grid-cols-4 gap-2 px-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12 @[769px]:gap-4 @[769px]:px-3">
-    <div class="col-span-4 @[769px]:col-span-12">Full width header</div>
-    <div class="col-span-4 @[641px]:col-span-6 @[769px]:col-span-9">Main content</div>
-    <div class="col-span-4 @[641px]:col-span-2 @[769px]:col-span-3">Sidebar</div>
+  <div class="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
+    <div class="col-span-4 @md:col-span-12">Full width header</div>
+    <div class="col-span-4 @sm:col-span-6 @md:col-span-9">Main content</div>
+    <div class="col-span-4 @sm:col-span-2 @md:col-span-3">Sidebar</div>
   </div>
 </div>`,
 
   sidebarLayout: `
 <!-- Sidebar layout with container queries -->
 <div class="@container">
-  <div class="grid grid-cols-4 gap-2 @[641px]:grid-cols-8 @[769px]:grid-cols-12 @[769px]:gap-4">
-    <!-- Sidebar: 4 cols on sm, 2 on md, 3 on lg -->
-    <aside class="col-span-4 @[641px]:col-span-2 @[769px]:col-span-3 bg-muted p-4 rounded-lg">
+  <div class="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
+    <!-- Sidebar: 4 cols on mobile, 2 on sm, 3 on md+ -->
+    <aside class="col-span-4 @sm:col-span-2 @md:col-span-3 bg-muted p-4 rounded-lg">
       <nav>Navigation</nav>
     </aside>
 
-    <!-- Main: 4 cols on sm, 6 on md, 9 on lg -->
-    <main class="col-span-4 @[641px]:col-span-6 @[769px]:col-span-9">
+    <!-- Main: 4 cols on mobile, 6 on sm, 9 on md+ -->
+    <main class="col-span-4 @sm:col-span-6 @md:col-span-9">
       <article>Main content</article>
     </main>
   </div>
@@ -317,15 +323,15 @@ export const layoutExamples = {
   cardGrid: `
 <!-- Three-column card grid -->
 <div class="@container">
-  <div class="grid grid-cols-4 gap-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12">
-    <!-- Cards stack on sm, 2 cols on md, 3 cols on lg -->
-    <div class="col-span-4 @[641px]:col-span-4 @[769px]:col-span-4 bg-card p-4 rounded-lg border">
+  <div class="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
+    <!-- Cards stack on mobile, 2 cols on sm, 3 cols on md+ -->
+    <div class="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card p-4 rounded-lg border">
       Card 1
     </div>
-    <div class="col-span-4 @[641px]:col-span-4 @[769px]:col-span-4 bg-card p-4 rounded-lg border">
+    <div class="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card p-4 rounded-lg border">
       Card 2
     </div>
-    <div class="col-span-4 @[641px]:col-span-4 @[769px]:col-span-4 bg-card p-4 rounded-lg border">
+    <div class="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card p-4 rounded-lg border">
       Card 3
     </div>
   </div>
@@ -334,8 +340,8 @@ export const layoutExamples = {
   centeredContent: `
 <!-- Centered narrow content -->
 <div class="@container">
-  <div class="grid grid-cols-4 gap-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12">
-    <article class="col-span-4 @[641px]:col-span-6 @[641px]:col-start-2 @[769px]:col-span-8 @[769px]:col-start-3">
+  <div class="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
+    <article class="col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3">
       <h1 class="text-3xl font-bold mb-4">Article Title</h1>
       <p class="text-base text-muted-foreground">
         Centered content that maintains readable line lengths.
@@ -363,27 +369,27 @@ export const layoutExamples = {
   dashboardLayout: `
 <!-- Dashboard with metrics and content -->
 <div class="@container">
-  <div class="grid grid-cols-4 gap-4 @[641px]:grid-cols-8 @[769px]:grid-cols-12">
-    <!-- Metrics row: 2 cols on sm, 4 cols on md/lg -->
-    <div class="col-span-2 @[641px]:col-span-2 @[769px]:col-span-3 bg-card p-4 rounded-lg border">
+  <div class="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
+    <!-- Metrics row: 2 cols on mobile, spans adjust on larger containers -->
+    <div class="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card p-4 rounded-lg border">
       <p class="text-sm text-muted-foreground">Users</p>
       <p class="text-2xl font-bold">12,345</p>
     </div>
-    <div class="col-span-2 @[641px]:col-span-2 @[769px]:col-span-3 bg-card p-4 rounded-lg border">
+    <div class="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card p-4 rounded-lg border">
       <p class="text-sm text-muted-foreground">Revenue</p>
       <p class="text-2xl font-bold">$45,678</p>
     </div>
-    <div class="col-span-2 @[641px]:col-span-2 @[769px]:col-span-3 bg-card p-4 rounded-lg border">
+    <div class="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card p-4 rounded-lg border">
       <p class="text-sm text-muted-foreground">Orders</p>
       <p class="text-2xl font-bold">890</p>
     </div>
-    <div class="col-span-2 @[641px]:col-span-2 @[769px]:col-span-3 bg-card p-4 rounded-lg border">
+    <div class="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card p-4 rounded-lg border">
       <p class="text-sm text-muted-foreground">Growth</p>
       <p class="text-2xl font-bold text-green-600">+12%</p>
     </div>
 
     <!-- Main chart area -->
-    <div class="col-span-4 @[641px]:col-span-8 @[769px]:col-span-12 bg-card p-4 rounded-lg border min-h-64">
+    <div class="col-span-4 @sm:col-span-8 @md:col-span-12 bg-card p-4 rounded-lg border min-h-64">
       Chart placeholder
     </div>
   </div>
