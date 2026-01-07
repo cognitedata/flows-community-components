@@ -3,7 +3,6 @@ import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import {
   layoutBreakpoints,
-  containerQueryClasses,
   gridPatterns,
   columnSpans,
   layoutCompositions,
@@ -25,12 +24,13 @@ import {
  *
  * ## Breakpoints
  *
- * | Name | Min | Columns | Gutter | Margin |
- * |------|-----|---------|--------|--------|
- * | sm   | 640px | 8 | 8px | 16px |
- * | md   | 768px | 12 | 16px | 12px |
- * | lg   | 1024px | 12 | 16px | 12px |
- * | xl   | 1280px | 12 | 16px | 12px |
+ * | Name | Range         | Columns | Prefix |
+ * |------|---------------|---------|--------|
+ * | base | 0-639px       | 4       | (none) |
+ * | sm   | 640-767px     | 8       | @sm:   |
+ * | md   | 768-1023px    | 12      | @md:   |
+ * | lg   | 1024-1280px   | 12      | @lg:   |
+ * | xl   | 1281-1536px   | 12      | @xl:   |
  *
  * ## Usage
  *
@@ -74,8 +74,9 @@ export const Breakpoints: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(layoutBreakpoints.length).toBe(4);
+    await expect(layoutBreakpoints.length).toBe(5);
 
+    await expect(canvas.getByTestId('breakpoint-base')).toBeInTheDocument();
     await expect(canvas.getByTestId('breakpoint-sm')).toBeInTheDocument();
     await expect(canvas.getByTestId('breakpoint-md')).toBeInTheDocument();
     await expect(canvas.getByTestId('breakpoint-lg')).toBeInTheDocument();
@@ -143,7 +144,7 @@ export const ContainerQueries: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(containerQueryClasses.length).toBe(4);
+    await expect(layoutBreakpoints.length).toBe(5);
     await expect(canvas.getByTestId('container-queries')).toBeInTheDocument();
   },
   render: () => (
@@ -165,18 +166,18 @@ export const ContainerQueries: Story = {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {containerQueryClasses.map((cq) => (
-              <tr key={cq.breakpoint}>
-                <td className="py-2 pr-4 font-medium">{cq.breakpoint}</td>
-                <td className="py-2 pr-4">{cq.minWidth}px</td>
+            {layoutBreakpoints.map((bp) => (
+              <tr key={bp.name}>
+                <td className="py-2 pr-4 font-medium">{bp.name}</td>
+                <td className="py-2 pr-4">{bp.min}px</td>
                 <td className="py-2 pr-4">
                   <code className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded">
-                    {cq.prefix}
+                    {bp.prefix || '(base)'}
                   </code>
                 </td>
                 <td className="py-2">
                   <code className="text-xs font-mono text-muted-foreground">
-                    {cq.prefix}grid-cols-8
+                    {bp.prefix}grid-cols-{bp.columns}
                   </code>
                 </td>
               </tr>
@@ -297,9 +298,9 @@ export const ColumnSpans: Story = {
           </div>
           <p className="text-sm text-muted-foreground mb-3">{span.description}</p>
           <div className="flex flex-wrap gap-2 text-xs font-mono">
-            <code className="bg-muted px-2 py-1 rounded">base: {span.sm}</code>
-            <code className="bg-muted px-2 py-1 rounded">@sm: {span.md}</code>
-            <code className="bg-muted px-2 py-1 rounded">@md: {span.lg}</code>
+            <code className="bg-muted px-2 py-1 rounded">base: {span.base}</code>
+            <code className="bg-muted px-2 py-1 rounded">@sm: {span.sm}</code>
+            <code className="bg-muted px-2 py-1 rounded">@md: {span.md}</code>
           </div>
         </div>
       ))}

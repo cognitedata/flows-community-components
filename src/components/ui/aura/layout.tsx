@@ -8,7 +8,7 @@
  * Key Concepts:
  * - **Container Queries**: Layouts respond to their container's width, not the viewport
  * - **CSS Grid**: 12-column grid system with responsive breakpoints
- * - **Fluid Layouts**: Content adapts between min and max widths at each breakpoint
+ * - **Mobile-first**: Base styles apply to smallest screens, breakpoints add styles as width increases
  *
  * Usage:
  * 1. Wrap content in a container query context: `@container`
@@ -23,95 +23,78 @@
 export interface LayoutBreakpoint {
   name: string;
   min: number;
-  max: number;
+  max: number | null;
   columns: number;
   gutter: number;
   margin: number;
-  description: string;
-}
-
-/**
- * Breakpoints aligned with Tailwind's default container query breakpoints.
- * These match the standard sm/md/lg/xl values for consistency.
- */
-export const layoutBreakpoints: LayoutBreakpoint[] = [
-  {
-    name: 'sm',
-    min: 320,
-    max: 640,
-    columns: 4,
-    gutter: 8,
-    margin: 16,
-    description: 'Mobile devices, narrow containers',
-  },
-  {
-    name: 'md',
-    min: 640,
-    max: 768,
-    columns: 8,
-    gutter: 8,
-    margin: 16,
-    description: 'Tablets, medium containers',
-  },
-  {
-    name: 'lg',
-    min: 768,
-    max: 1024,
-    columns: 12,
-    gutter: 16,
-    margin: 12,
-    description: 'Laptops, large containers',
-  },
-  {
-    name: 'xl',
-    min: 1024,
-    max: 1280,
-    columns: 12,
-    gutter: 16,
-    margin: 12,
-    description: 'Desktops, extra large containers',
-  },
-];
-
-// =============================================================================
-// Container Query Classes
-// =============================================================================
-
-export interface ContainerQueryClass {
-  breakpoint: string;
-  minWidth: number;
   prefix: string;
   description: string;
 }
 
 /**
- * Container query prefixes using Tailwind's named breakpoints.
- * Use these instead of arbitrary pixel values for cleaner, more maintainable code.
+ * Layout breakpoints for the Aura design system.
+ *
+ * Uses Tailwind's standard container query breakpoints for consistency.
+ * Mobile-first: base styles (no prefix) apply below 640px.
+ *
+ * | Breakpoint | Range         | Columns | Prefix |
+ * |------------|---------------|---------|--------|
+ * | base       | 0-639px       | 4       | (none) |
+ * | sm         | 640-767px     | 8       | @sm:   |
+ * | md         | 768-1023px    | 12      | @md:   |
+ * | lg         | 1024-1280px   | 12      | @lg:   |
+ * | xl         | 1281-1536px   | 12      | @xl:   |
  */
-export const containerQueryClasses: ContainerQueryClass[] = [
+export const layoutBreakpoints: LayoutBreakpoint[] = [
   {
-    breakpoint: 'sm',
-    minWidth: 640,
+    name: 'base',
+    min: 0,
+    max: 639,
+    columns: 4,
+    gutter: 8,
+    margin: 16,
+    prefix: '',
+    description: 'Mobile devices, narrow containers. No prefix needed.',
+  },
+  {
+    name: 'sm',
+    min: 640,
+    max: 767,
+    columns: 8,
+    gutter: 8,
+    margin: 16,
     prefix: '@sm:',
-    description: 'Applies when container is at least 640px wide',
+    description: 'Tablets, medium containers.',
   },
   {
-    breakpoint: 'md',
-    minWidth: 768,
+    name: 'md',
+    min: 768,
+    max: 1023,
+    columns: 12,
+    gutter: 16,
+    margin: 12,
     prefix: '@md:',
-    description: 'Applies when container is at least 768px wide',
+    description: 'Laptops, large containers.',
   },
   {
-    breakpoint: 'lg',
-    minWidth: 1024,
+    name: 'lg',
+    min: 1024,
+    max: 1280,
+    columns: 12,
+    gutter: 16,
+    margin: 16,
     prefix: '@lg:',
-    description: 'Applies when container is at least 1024px wide',
+    description: 'Desktops, large containers.',
   },
   {
-    breakpoint: 'xl',
-    minWidth: 1280,
+    name: 'xl',
+    min: 1281,
+    max: 1536,
+    columns: 12,
+    gutter: 16,
+    margin: 16,
     prefix: '@xl:',
-    description: 'Applies when container is at least 1280px wide',
+    description: 'Wide desktops, extra large containers.',
   },
 ];
 
@@ -135,7 +118,8 @@ export const gridPatterns = {
   responsiveGrid: {
     name: 'Responsive Grid',
     description: 'Full responsive grid that adapts across all breakpoints',
-    class: 'grid grid-cols-4 gap-2 px-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3',
+    class:
+      'grid grid-cols-4 gap-2 px-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3',
     usage: 'Main content grid that adapts from 4 to 8 to 12 columns',
   },
   simpleGrid: {
@@ -153,9 +137,9 @@ export const gridPatterns = {
 export interface ColumnSpan {
   name: string;
   fraction: string;
+  base: string;
   sm: string;
   md: string;
-  lg: string;
   description: string;
 }
 
@@ -163,57 +147,57 @@ export const columnSpans: ColumnSpan[] = [
   {
     name: 'Full Width',
     fraction: '12/12',
-    sm: 'col-span-4',
-    md: 'col-span-8',
-    lg: 'col-span-12',
+    base: 'col-span-4',
+    sm: 'col-span-8',
+    md: 'col-span-12',
     description: 'Spans entire width at all breakpoints',
   },
   {
     name: 'Three Quarters',
     fraction: '9/12',
-    sm: 'col-span-3',
-    md: 'col-span-6',
-    lg: 'col-span-9',
+    base: 'col-span-3',
+    sm: 'col-span-6',
+    md: 'col-span-9',
     description: 'Main content area in sidebar layouts',
   },
   {
     name: 'Two Thirds',
     fraction: '8/12',
-    sm: 'col-span-4',
-    md: 'col-span-5',
-    lg: 'col-span-8',
+    base: 'col-span-4',
+    sm: 'col-span-5',
+    md: 'col-span-8',
     description: 'Primary content with secondary sidebar',
   },
   {
     name: 'Half',
     fraction: '6/12',
+    base: 'col-span-4',
     sm: 'col-span-4',
-    md: 'col-span-4',
-    lg: 'col-span-6',
+    md: 'col-span-6',
     description: 'Equal two-column layout',
   },
   {
     name: 'One Third',
     fraction: '4/12',
-    sm: 'col-span-4',
-    md: 'col-span-3',
-    lg: 'col-span-4',
+    base: 'col-span-4',
+    sm: 'col-span-3',
+    md: 'col-span-4',
     description: 'Three-column layout items',
   },
   {
     name: 'One Quarter',
     fraction: '3/12',
+    base: 'col-span-2',
     sm: 'col-span-2',
-    md: 'col-span-2',
-    lg: 'col-span-3',
+    md: 'col-span-3',
     description: 'Four-column layout items, sidebars',
   },
   {
     name: 'One Sixth',
     fraction: '2/12',
+    base: 'col-span-2',
     sm: 'col-span-2',
     md: 'col-span-2',
-    lg: 'col-span-2',
     description: 'Six-column layout items, narrow elements',
   },
 ];
@@ -258,7 +242,8 @@ export const layoutCompositions = {
   contentCentered: {
     name: 'Centered Content',
     description: 'Narrow centered content with gutters',
-    container: 'col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3',
+    container:
+      'col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3',
     usage: 'Article content, forms, focused reading',
   },
 } as const;
@@ -278,15 +263,19 @@ export function getBreakpoint(name: string): LayoutBreakpoint | undefined {
  * Get container query prefix for a breakpoint
  */
 export function getContainerPrefix(breakpoint: string): string {
-  const cq = containerQueryClasses.find((c) => c.breakpoint === breakpoint);
-  return cq?.prefix ?? '';
+  const bp = layoutBreakpoints.find((b) => b.name === breakpoint);
+  return bp?.prefix ?? '';
 }
 
 /**
  * Generate responsive column span classes
  */
-export function getResponsiveSpan(sm: number, md: number, lg: number): string {
-  return `col-span-${sm} @sm:col-span-${md} @md:col-span-${lg}`;
+export function getResponsiveSpan(
+  base: number,
+  sm: number,
+  md: number
+): string {
+  return `col-span-${base} @sm:col-span-${sm} @md:col-span-${md}`;
 }
 
 // =============================================================================
