@@ -88,7 +88,7 @@ export const Breakpoints: Story = {
         <div
           key={bp.name}
           data-testid={`breakpoint-${bp.name}`}
-          className="rounded-lg overflow-hidden"
+          className="border border-border rounded-lg overflow-hidden"
         >
           <div className="bg-indigo-100 dark:bg-indigo-900/30 px-4 py-3">
             <h3 className="text-lg font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">
@@ -289,7 +289,7 @@ export const ColumnSpans: Story = {
         <div
           key={span.name}
           data-testid={`span-${span.name.toLowerCase().replace(/\s/g, '-')}`}
-          className="rounded-lg p-4"
+          className="border border-border rounded-lg p-4"
         >
           <div className="flex items-baseline justify-between mb-3">
             <h4 className="font-medium">{span.name}</h4>
@@ -343,7 +343,7 @@ export const Compositions: Story = {
         <div
           key={key}
           data-testid={`composition-${key}`}
-          className="rounded-lg overflow-hidden"
+          className="border border-border rounded-lg overflow-hidden"
         >
           <div className="bg-muted px-4 py-3 border-b border-border">
             <h4 className="font-medium">{comp.name}</h4>
@@ -423,7 +423,7 @@ export const SidebarLeftLayout: Story = {
           data-testid="main-content"
           className="col-span-4 @sm:col-span-6 @md:col-span-9"
         >
-          <div className="rounded-lg p-6">
+          <div className="border border-border rounded-lg p-6">
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
             <p className="text-muted-foreground">
               This area expands to fill the remaining space. On mobile, the
@@ -900,7 +900,7 @@ export const GridPatternsReference: Story = {
         <div
           key={key}
           data-testid={`pattern-${key}`}
-          className="rounded-lg p-4"
+          className="border border-border rounded-lg p-4"
         >
           <h4 className="font-medium">{pattern.name}</h4>
           <p className="text-sm text-muted-foreground mb-2">
