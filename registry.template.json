@@ -678,20 +678,6 @@
       ]
     },
     {
-      "name": "actions",
-      "type": "registry:component",
-      "title": "Actions",
-      "description": "AI actions component for displaying action buttons.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["button", "tooltip"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/actions.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "artifact",
       "type": "registry:component",
       "title": "Artifact",
