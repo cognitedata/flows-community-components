@@ -448,7 +448,7 @@ export const CardGridLayout: Story = {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByTestId('card-grid')).toBeInTheDocument();
-    const cards = canvas.getAllByTestId(/^card-/);
+    const cards = canvas.getAllByTestId(/^card-\d+$/);
     await expect(cards.length).toBe(6);
   },
   render: () => (
