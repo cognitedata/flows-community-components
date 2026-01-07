@@ -49,6 +49,7 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from '@/components/ui/aura/inline-citation';
+import { Sources, Source } from '@/components/ui/aura/sources';
 import {
   IconWheel,
   IconCopy,
@@ -58,6 +59,10 @@ import {
   IconHash,
   IconAdjustments,
   IconChevronDown,
+  IconChartLine,
+  IconPhoto,
+  IconFile,
+  IconBriefcase,
 } from '@tabler/icons-react';
 import { Suggestion } from '@/components/ui/aura/suggestion';
 import { usePromptInputController } from '@/components/ui/aura/prompt-input';
@@ -623,6 +628,34 @@ function BasicConversationDemo() {
                                 ? branch
                                 : branch || ''}
                             </MessageResponse>
+                            {isComplete && index === currentBranchIndex && (
+                              <Sources>
+                                <Source
+                                  href="https://example.com/21PT2019"
+                                  title="21PT1019"
+                                  icon={IconChartLine}
+                                  target="_blank"
+                                />
+                                <Source
+                                  href="https://example.com/pumpB.img"
+                                  title="pumpB.img"
+                                  icon={IconPhoto}
+                                  target="_blank"
+                                />
+                                <Source
+                                  href="https://example.com/PumpB.pdf"
+                                  title="PumpB.pdf"
+                                  icon={IconFile}
+                                  target="_blank"
+                                />
+                                <Source
+                                  href="https://example.com/120_oaoXR"
+                                  title="120_oaoXR"
+                                  icon={IconBriefcase}
+                                  target="_blank"
+                                />
+                              </Sources>
+                            )}
                             {isComplete &&
                               showTools &&
                               index === currentBranchIndex && (
@@ -953,6 +986,7 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
+import { Sources, Source } from "@/components/ai-elements/cognite/sources"
 import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
 import { Button } from "@/components/ui/aura/button"
 import {
@@ -970,6 +1004,10 @@ import {
   IconHash,
   IconAdjustments,
   IconChevronDown,
+  IconChartLine,
+  IconPhoto,
+  IconFile,
+  IconBriefcase,
 } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
 
@@ -1112,6 +1150,34 @@ export function BasicConversationDemo() {
                           Thought for {thinkingSeconds} seconds
                         </span>
                         <MessageResponse controls={false}>{streamedContent}</MessageResponse>
+                        {isComplete && (
+                          <Sources>
+                            <Source
+                              href="https://example.com/21PT2019"
+                              title="21PT1019"
+                              icon={IconChartLine}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/pumpB.img"
+                              title="pumpB.img"
+                              icon={IconPhoto}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/PumpB.pdf"
+                              title="PumpB.pdf"
+                              icon={IconFile}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/120_oaoXR"
+                              title="120_oaoXR"
+                              icon={IconBriefcase}
+                              target="_blank"
+                            />
+                          </Sources>
+                        )}
                         {isComplete && showTools && (
                           <div className="flex flex-col gap-2 py-3">
                             <Reasoning>
