@@ -88,7 +88,7 @@ export const Breakpoints: Story = {
         <div
           key={bp.name}
           data-testid={`breakpoint-${bp.name}`}
-          className="border border-border rounded-lg overflow-hidden"
+          className="rounded-lg overflow-hidden"
         >
           <div className="bg-indigo-100 dark:bg-indigo-900/30 px-4 py-3">
             <h3 className="text-lg font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">
@@ -151,8 +151,9 @@ export const ContainerQueries: Story = {
     <div className="space-y-6" data-testid="container-queries">
       <div className="bg-muted/50 p-4 rounded-lg">
         <p className="text-sm">
-          <strong>Important:</strong> Container queries require a containment context.
-          Add <code className="bg-muted px-1 rounded">@container</code> to the parent element.
+          <strong>Important:</strong> Container queries require a containment
+          context. Add <code className="bg-muted px-1 rounded">@container</code>{' '}
+          to the parent element.
         </p>
       </div>
       <div className="overflow-x-auto">
@@ -215,7 +216,7 @@ export const InteractiveDemo: Story = {
     await expect(canvas.getByTestId('grid-demo')).toBeInTheDocument();
   },
   render: () => (
-    <div className="p-8 bg-muted/30 min-h-screen">
+    <div className="p-8 min-h-screen">
       <div className="mb-4">
         <h3 className="text-lg font-medium">Resize the container below</h3>
         <p className="text-sm text-muted-foreground">
@@ -230,9 +231,7 @@ export const InteractiveDemo: Story = {
         <div className="@container p-4" data-testid="grid-demo">
           {/* Current breakpoint indicator */}
           <div className="mb-4 p-2 bg-muted rounded text-sm font-mono">
-            <span className="@sm:hidden">
-              Base (&lt;640px) — 4 columns
-            </span>
+            <span className="@sm:hidden">Base (&lt;640px) — 4 columns</span>
             <span className="hidden @sm:inline @md:hidden">
               sm (640-767px) — 8 columns
             </span>
@@ -290,15 +289,21 @@ export const ColumnSpans: Story = {
         <div
           key={span.name}
           data-testid={`span-${span.name.toLowerCase().replace(/\s/g, '-')}`}
-          className="border border-border rounded-lg p-4"
+          className="rounded-lg p-4"
         >
           <div className="flex items-baseline justify-between mb-3">
             <h4 className="font-medium">{span.name}</h4>
-            <span className="text-sm text-muted-foreground">{span.fraction}</span>
+            <span className="text-sm text-muted-foreground">
+              {span.fraction}
+            </span>
           </div>
-          <p className="text-sm text-muted-foreground mb-3">{span.description}</p>
+          <p className="text-sm text-muted-foreground mb-3">
+            {span.description}
+          </p>
           <div className="flex flex-wrap gap-2 text-xs font-mono">
-            <code className="bg-muted px-2 py-1 rounded">base: {span.base}</code>
+            <code className="bg-muted px-2 py-1 rounded">
+              base: {span.base}
+            </code>
             <code className="bg-muted px-2 py-1 rounded">@sm: {span.sm}</code>
             <code className="bg-muted px-2 py-1 rounded">@md: {span.md}</code>
           </div>
@@ -338,7 +343,7 @@ export const Compositions: Story = {
         <div
           key={key}
           data-testid={`composition-${key}`}
-          className="border border-border rounded-lg overflow-hidden"
+          className="rounded-lg overflow-hidden"
         >
           <div className="bg-muted px-4 py-3 border-b border-border">
             <h4 className="font-medium">{comp.name}</h4>
@@ -418,11 +423,11 @@ export const SidebarLeftLayout: Story = {
           data-testid="main-content"
           className="col-span-4 @sm:col-span-6 @md:col-span-9"
         >
-          <div className="border border-border rounded-lg p-6">
+          <div className="rounded-lg p-6">
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
             <p className="text-muted-foreground">
-              This area expands to fill the remaining space. On mobile, the sidebar
-              stacks above the main content.
+              This area expands to fill the remaining space. On mobile, the
+              sidebar stacks above the main content.
             </p>
           </div>
         </main>
@@ -462,12 +467,13 @@ export const CardGridLayout: Story = {
           <div
             key={i}
             data-testid={`card-${i}`}
-            className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card border border-border rounded-lg p-4"
+            className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card rounded-lg p-4"
           >
             <div className="aspect-video bg-muted rounded-md mb-3" />
             <h3 className="font-medium mb-1">Card {i}</h3>
             <p className="text-sm text-muted-foreground">
-              Cards stack on mobile, show 2 per row on tablet, and 3 per row on desktop.
+              Cards stack on mobile, show 2 per row on tablet, and 3 per row on
+              desktop.
             </p>
           </div>
         ))}
@@ -497,7 +503,10 @@ export const DashboardLayout: Story = {
     await expect(canvas.getByTestId('chart-area')).toBeInTheDocument();
   },
   render: () => (
-    <div className="@container min-h-screen bg-background p-4" data-testid="dashboard">
+    <div
+      className="@container min-h-screen bg-background p-4"
+      data-testid="dashboard"
+    >
       <div className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
         {/* Metrics row */}
         {[
@@ -508,7 +517,7 @@ export const DashboardLayout: Story = {
         ].map((metric, i) => (
           <div
             key={i}
-            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card border border-border rounded-lg p-4"
+            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card rounded-lg p-4"
           >
             <p className="text-sm text-muted-foreground">{metric.label}</p>
             <p className="text-2xl font-bold">{metric.value}</p>
@@ -519,7 +528,7 @@ export const DashboardLayout: Story = {
         {/* Chart area */}
         <div
           data-testid="chart-area"
-          className="col-span-4 @sm:col-span-8 @md:col-span-12 bg-card border border-border rounded-lg p-4 min-h-64"
+          className="col-span-4 @sm:col-span-8 @md:col-span-12 bg-card rounded-lg p-4 min-h-64"
         >
           <h3 className="font-medium mb-4">Analytics Overview</h3>
           <div className="h-48 bg-muted rounded-md flex items-center justify-center text-muted-foreground">
@@ -549,13 +558,15 @@ export const ComprehensiveDashboard: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByTestId('comprehensive-dashboard')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('comprehensive-dashboard')
+    ).toBeInTheDocument();
     await expect(canvas.getByTestId('status-cards')).toBeInTheDocument();
     await expect(canvas.getByTestId('main-chart')).toBeInTheDocument();
   },
   render: () => (
     <div
-      className="@container min-h-screen bg-muted/30 p-4"
+      className="@container min-h-screen p-4"
       data-testid="comprehensive-dashboard"
     >
       <div className="grid grid-cols-4 gap-3 @sm:grid-cols-8 @md:grid-cols-12 @lg:gap-4">
@@ -571,10 +582,7 @@ export const ComprehensiveDashboard: Story = {
             { status: 'Warning', id: 'P-401', variant: 'warning' },
             { status: 'Warning', id: 'P-401', variant: 'warning' },
           ].map((item, i) => (
-            <div
-              key={i}
-              className="bg-card rounded-lg p-3"
-            >
+            <div key={i} className="bg-card rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
                 <div
                   className={`w-2 h-2 rounded-full ${
@@ -594,7 +602,7 @@ export const ComprehensiveDashboard: Story = {
         {[1, 2, 3, 4].map((i) => (
           <div
             key={`ok-${i}`}
-            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card border border-border rounded-lg p-3"
+            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card rounded-lg p-3"
           >
             <div className="flex items-center gap-2 mb-1">
               <div className="w-2 h-2 rounded-full bg-success" />
@@ -628,7 +636,7 @@ export const ComprehensiveDashboard: Story = {
         {[1, 2, 3].map((i) => (
           <div
             key={`ok2-${i}`}
-            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card border border-border rounded-lg p-3"
+            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card rounded-lg p-3"
           >
             <div className="flex items-center gap-2 mb-1">
               <div className="w-2 h-2 rounded-full bg-success" />
@@ -646,28 +654,32 @@ export const ComprehensiveDashboard: Story = {
             <button className="text-muted-foreground">⋮</button>
           </div>
           <div className="space-y-2">
-            {['Pump P-401', 'Pump P-402', 'Compressor C-101', 'Heat Exchanger E-301', 'Reactor R-501'].map(
-              (label, row) => (
-                <div key={label} className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground w-28 truncate">
-                    {label}
-                  </span>
-                  <div className="flex gap-1 flex-1">
-                    {[1, 2, 3, 4, 5].map((col) => (
-                      <div
-                        key={col}
-                        className="flex-1 h-6 rounded"
-                        style={{
-                          backgroundColor: `hsl(217, 91%, ${
-                            30 + Math.random() * 50
-                          }%)`,
-                        }}
-                      />
-                    ))}
-                  </div>
+            {[
+              'Pump P-401',
+              'Pump P-402',
+              'Compressor C-101',
+              'Heat Exchanger E-301',
+              'Reactor R-501',
+            ].map((label) => (
+              <div key={label} className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground w-28 truncate">
+                  {label}
+                </span>
+                <div className="flex gap-1 flex-1">
+                  {[1, 2, 3, 4, 5].map((col) => (
+                    <div
+                      key={col}
+                      className="flex-1 h-6 rounded"
+                      style={{
+                        backgroundColor: `hsl(217, 91%, ${
+                          30 + Math.random() * 50
+                        }%)`,
+                      }}
+                    />
+                  ))}
                 </div>
-              )
-            )}
+              </div>
+            ))}
           </div>
           <div className="flex gap-4 mt-3 text-xs text-muted-foreground">
             {['Vibration', 'Temp', 'Pressure', 'Efficiency', 'Flow rate'].map(
@@ -688,12 +700,18 @@ export const ComprehensiveDashboard: Story = {
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Chart title</h3>
-              <p className="text-xs text-muted-foreground">January - June 2024</p>
+              <p className="text-xs text-muted-foreground">
+                January - June 2024
+              </p>
             </div>
             <button className="text-muted-foreground">⋮</button>
           </div>
           <div className="h-40 bg-gradient-to-t from-primary/20 to-transparent rounded-md mb-3 relative">
-            <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 100 40"
+              preserveAspectRatio="none"
+            >
               <path
                 d="M0,35 Q10,30 20,32 T40,25 T60,28 T80,20 T100,22"
                 fill="none"
@@ -751,7 +769,9 @@ export const ComprehensiveDashboard: Story = {
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h3 className="font-medium">Tree title</h3>
-                <p className="text-xs text-muted-foreground">January - June 2024</p>
+                <p className="text-xs text-muted-foreground">
+                  January - June 2024
+                </p>
               </div>
               <button className="text-muted-foreground">⋮</button>
             </div>
@@ -787,12 +807,18 @@ export const ComprehensiveDashboard: Story = {
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Chart title</h3>
-              <p className="text-xs text-muted-foreground">January - June 2024</p>
+              <p className="text-xs text-muted-foreground">
+                January - June 2024
+              </p>
             </div>
             <button className="text-muted-foreground">⋮</button>
           </div>
           <div className="h-48 bg-gradient-to-t from-success/20 to-transparent rounded-md relative">
-            <svg className="w-full h-full" viewBox="0 0 200 50" preserveAspectRatio="none">
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 200 50"
+              preserveAspectRatio="none"
+            >
               <path
                 d="M0,45 Q20,40 40,42 T80,35 T120,38 T160,30 T200,32"
                 fill="hsl(var(--success)/0.3)"
@@ -825,7 +851,9 @@ export const ComprehensiveDashboard: Story = {
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Image widget</h3>
-              <p className="text-xs text-muted-foreground">January - June 2024</p>
+              <p className="text-xs text-muted-foreground">
+                January - June 2024
+              </p>
             </div>
             <button className="text-muted-foreground">⋮</button>
           </div>
@@ -872,10 +900,12 @@ export const GridPatternsReference: Story = {
         <div
           key={key}
           data-testid={`pattern-${key}`}
-          className="border border-border rounded-lg p-4"
+          className="rounded-lg p-4"
         >
           <h4 className="font-medium">{pattern.name}</h4>
-          <p className="text-sm text-muted-foreground mb-2">{pattern.description}</p>
+          <p className="text-sm text-muted-foreground mb-2">
+            {pattern.description}
+          </p>
           <code className="text-xs font-mono bg-muted px-2 py-1 rounded block overflow-x-auto">
             {pattern.class}
           </code>
@@ -903,14 +933,24 @@ export const CodeExamples: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByTestId('code-example-basicGrid')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-sidebarLayout')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-cardGrid')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-basicGrid')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-sidebarLayout')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-cardGrid')
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="code-examples">
       {Object.entries(layoutExamples).map(([name, code]) => (
-        <div key={name} className="space-y-2" data-testid={`code-example-${name}`}>
+        <div
+          key={name}
+          className="space-y-2"
+          data-testid={`code-example-${name}`}
+        >
           <h3 className="text-lg font-medium capitalize">
             {name.replace(/([A-Z])/g, ' $1').trim()}
           </h3>
