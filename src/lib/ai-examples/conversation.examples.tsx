@@ -13,6 +13,7 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
+  MessageResponse,
 } from '@/components/ui/aura/message';
 import {
   PromptInput,
@@ -25,7 +26,6 @@ import {
   PromptInputButton,
 } from '@/components/ui/aura/prompt-input';
 import { Shimmer } from '@/components/ui/aura/shimmer';
-import { Response } from '@/components/ui/aura/response';
 import {
   Tool,
   ToolHeader,
@@ -434,7 +434,9 @@ function BasicConversationDemo() {
                         <span className="text-muted-foreground text-sm">
                           Thought for {thinkingSeconds} seconds
                         </span>
-                        <Response controls={false}>{streamedContent}</Response>
+                        <MessageResponse controls={false}>
+                          {streamedContent}
+                        </MessageResponse>
                         {isComplete && showTools && (
                           <div className="flex flex-col gap-2 py-3">
                             <Reasoning>
@@ -694,6 +696,7 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
+  MessageResponse,
 } from "@/components/ai-elements/cognite/message"
 import {
   PromptInput,
@@ -706,7 +709,6 @@ import {
   PromptInputButton,
 } from "@/components/ai-elements/cognite/prompt-input"
 import { Shimmer } from "@/components/ai-elements/cognite/shimmer"
-import { Response } from "@/components/ai-elements/cognite/response"
 import {
   Tool,
   ToolHeader,
@@ -882,7 +884,7 @@ export function BasicConversationDemo() {
                         <span className="text-muted-foreground text-sm">
                           Thought for {thinkingSeconds} seconds
                         </span>
-                        <Response controls={false}>{streamedContent}</Response>
+                        <MessageResponse controls={false}>{streamedContent}</MessageResponse>
                         {isComplete && showTools && (
                           <div className="flex flex-col gap-2 py-3">
                             <Reasoning>

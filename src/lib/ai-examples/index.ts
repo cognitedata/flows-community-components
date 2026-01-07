@@ -7,7 +7,6 @@ import { actionsExamples } from './actions.examples';
 import { loaderExamples } from './loader.examples';
 import { suggestionExamples } from './suggestion.examples';
 import { sourcesExamples } from './sources.examples';
-import { responseExamples } from './response.examples';
 import { panelExamples } from './panel.examples';
 import { shimmerExamples } from './shimmer.examples';
 import { inlineCitationExamples } from './inline-citation.examples';
@@ -40,7 +39,6 @@ export const aiExamples = {
   loader: loaderExamples,
   suggestion: suggestionExamples,
   sources: sourcesExamples,
-  response: responseExamples,
   panel: panelExamples,
   shimmer: shimmerExamples,
   'inline-citation': inlineCitationExamples,
