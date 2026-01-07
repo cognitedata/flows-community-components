@@ -573,7 +573,7 @@ export const ComprehensiveDashboard: Story = {
           ].map((item, i) => (
             <div
               key={i}
-              className="bg-card border border-border rounded-lg p-3"
+              className="bg-card rounded-lg p-3"
             >
               <div className="flex items-center gap-2 mb-1">
                 <div
@@ -605,7 +605,7 @@ export const ComprehensiveDashboard: Story = {
         ))}
 
         {/* Row 3: Large metric card + more OK cards */}
-        <div className="col-span-4 @sm:col-span-4 @md:col-span-3 bg-card border border-border rounded-lg p-4">
+        <div className="col-span-4 @sm:col-span-4 @md:col-span-3 bg-card rounded-lg p-4">
           <div className="flex items-baseline gap-2 mb-2">
             <span className="text-4xl font-bold">4.2</span>
             <div>
@@ -640,7 +640,7 @@ export const ComprehensiveDashboard: Story = {
 
         {/* Main content area: Heatmap + Chart + Sidebar widgets */}
         {/* Heatmap - left column */}
-        <div className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card border border-border rounded-lg p-4">
+        <div className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-4">
             <h3 className="font-medium">Heatmap title</h3>
             <button className="text-muted-foreground">⋮</button>
@@ -683,7 +683,7 @@ export const ComprehensiveDashboard: Story = {
         {/* Main chart - center */}
         <div
           data-testid="main-chart"
-          className="col-span-4 @sm:col-span-4 @md:col-span-5 bg-card border border-border rounded-lg p-4"
+          className="col-span-4 @sm:col-span-4 @md:col-span-5 bg-card rounded-lg p-4"
         >
           <div className="flex justify-between items-start mb-2">
             <div>
@@ -732,7 +732,7 @@ export const ComprehensiveDashboard: Story = {
         {/* Right sidebar widgets */}
         <div className="col-span-4 @sm:col-span-8 @md:col-span-3 space-y-3 @lg:space-y-4">
           {/* Progress card */}
-          <div className="bg-card border border-border rounded-lg p-4">
+          <div className="bg-card rounded-lg p-4">
             <h3 className="font-medium">Progress title</h3>
             <p className="text-xs text-muted-foreground mb-3">
               8 of 12 tasks complete
@@ -747,7 +747,7 @@ export const ComprehensiveDashboard: Story = {
           </div>
 
           {/* Tree view card */}
-          <div className="bg-card border border-border rounded-lg p-4">
+          <div className="bg-card rounded-lg p-4">
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h3 className="font-medium">Tree title</h3>
@@ -783,7 +783,7 @@ export const ComprehensiveDashboard: Story = {
         </div>
 
         {/* Bottom row: Large chart + Image widget */}
-        <div className="col-span-4 @sm:col-span-8 @md:col-span-8 bg-card border border-border rounded-lg p-4">
+        <div className="col-span-4 @sm:col-span-8 @md:col-span-8 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Chart title</h3>
@@ -821,7 +821,7 @@ export const ComprehensiveDashboard: Story = {
           </div>
         </div>
 
-        <div className="col-span-4 @sm:col-span-8 @md:col-span-4 bg-card border border-border rounded-lg p-4">
+        <div className="col-span-4 @sm:col-span-8 @md:col-span-4 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="font-medium">Image widget</h3>
