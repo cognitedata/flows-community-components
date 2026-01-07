@@ -531,6 +531,318 @@ export const DashboardLayout: Story = {
   ),
 };
 
+/**
+ * Comprehensive dashboard with various widget sizes.
+ * Demonstrates how a real dashboard with mixed card sizes adapts across breakpoints.
+ */
+export const ComprehensiveDashboard: Story = {
+  name: 'Example: Comprehensive Dashboard',
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        story:
+          'A realistic dashboard layout with status cards, metrics, charts, and widgets of varying sizes. Resize to see how the grid adapts.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByTestId('comprehensive-dashboard')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-cards')).toBeInTheDocument();
+    await expect(canvas.getByTestId('main-chart')).toBeInTheDocument();
+  },
+  render: () => (
+    <div
+      className="@container min-h-screen bg-muted/30 p-4"
+      data-testid="comprehensive-dashboard"
+    >
+      <div className="grid grid-cols-4 gap-3 @sm:grid-cols-8 @md:grid-cols-12 @lg:gap-4">
+        {/* Row 1: Status cards - 5 small cards across on desktop */}
+        <div
+          data-testid="status-cards"
+          className="col-span-4 @sm:col-span-8 @md:col-span-12 grid grid-cols-2 gap-3 @sm:grid-cols-3 @md:grid-cols-5 @lg:gap-4"
+        >
+          {[
+            { status: 'Critical', id: 'P-401', variant: 'destructive' },
+            { status: 'Critical', id: 'P-401', variant: 'destructive' },
+            { status: 'Warning', id: 'P-401', variant: 'warning' },
+            { status: 'Warning', id: 'P-401', variant: 'warning' },
+            { status: 'Warning', id: 'P-401', variant: 'warning' },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="bg-card border border-border rounded-lg p-3"
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <div
+                  className={`w-2 h-2 rounded-full ${
+                    item.variant === 'destructive'
+                      ? 'bg-destructive'
+                      : 'bg-warning'
+                  }`}
+                />
+                <span className="text-sm font-medium">{item.status}</span>
+              </div>
+              <p className="text-xs text-muted-foreground">{item.id}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Row 2: OK status cards - 4 across */}
+        {[1, 2, 3, 4].map((i) => (
+          <div
+            key={`ok-${i}`}
+            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card border border-border rounded-lg p-3"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-2 h-2 rounded-full bg-success" />
+              <span className="text-sm font-medium">Ok</span>
+            </div>
+            <p className="text-xs text-muted-foreground">P-401</p>
+          </div>
+        ))}
+
+        {/* Row 3: Large metric card + more OK cards */}
+        <div className="col-span-4 @sm:col-span-4 @md:col-span-3 bg-card border border-border rounded-lg p-4">
+          <div className="flex items-baseline gap-2 mb-2">
+            <span className="text-4xl font-bold">4.2</span>
+            <div>
+              <p className="text-sm font-medium">Bar</p>
+              <p className="text-xs text-muted-foreground">V-192</p>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground mb-3">Since 2hrs ago</p>
+          <div className="h-12 bg-muted rounded flex items-end justify-around px-1">
+            {[40, 60, 45, 70, 55, 80, 65, 50, 75, 60, 85, 70].map((h, i) => (
+              <div
+                key={i}
+                className="w-1.5 bg-primary/60 rounded-t"
+                style={{ height: `${h}%` }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {[1, 2, 3].map((i) => (
+          <div
+            key={`ok2-${i}`}
+            className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card border border-border rounded-lg p-3"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-2 h-2 rounded-full bg-success" />
+              <span className="text-sm font-medium">Ok</span>
+            </div>
+            <p className="text-xs text-muted-foreground">P-401</p>
+          </div>
+        ))}
+
+        {/* Main content area: Heatmap + Chart + Sidebar widgets */}
+        {/* Heatmap - left column */}
+        <div className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card border border-border rounded-lg p-4">
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="font-medium">Heatmap title</h3>
+            <button className="text-muted-foreground">⋮</button>
+          </div>
+          <div className="space-y-2">
+            {['Pump P-401', 'Pump P-402', 'Compressor C-101', 'Heat Exchanger E-301', 'Reactor R-501'].map(
+              (label, row) => (
+                <div key={label} className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground w-28 truncate">
+                    {label}
+                  </span>
+                  <div className="flex gap-1 flex-1">
+                    {[1, 2, 3, 4, 5].map((col) => (
+                      <div
+                        key={col}
+                        className="flex-1 h-6 rounded"
+                        style={{
+                          backgroundColor: `hsl(217, 91%, ${
+                            30 + Math.random() * 50
+                          }%)`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+          <div className="flex gap-4 mt-3 text-xs text-muted-foreground">
+            {['Vibration', 'Temp', 'Pressure', 'Efficiency', 'Flow rate'].map(
+              (label) => (
+                <span key={label} className="flex-1 text-center truncate">
+                  {label}
+                </span>
+              )
+            )}
+          </div>
+        </div>
+
+        {/* Main chart - center */}
+        <div
+          data-testid="main-chart"
+          className="col-span-4 @sm:col-span-4 @md:col-span-5 bg-card border border-border rounded-lg p-4"
+        >
+          <div className="flex justify-between items-start mb-2">
+            <div>
+              <h3 className="font-medium">Chart title</h3>
+              <p className="text-xs text-muted-foreground">January - June 2024</p>
+            </div>
+            <button className="text-muted-foreground">⋮</button>
+          </div>
+          <div className="h-40 bg-gradient-to-t from-primary/20 to-transparent rounded-md mb-3 relative">
+            <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
+              <path
+                d="M0,35 Q10,30 20,32 T40,25 T60,28 T80,20 T100,22"
+                fill="none"
+                stroke="hsl(var(--primary))"
+                strokeWidth="0.5"
+              />
+              <path
+                d="M0,38 Q10,35 20,36 T40,32 T60,34 T80,28 T100,30"
+                fill="none"
+                stroke="hsl(var(--primary)/0.5)"
+                strokeWidth="0.5"
+              />
+            </svg>
+          </div>
+          <div className="flex items-center gap-4 text-xs">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-primary rounded" />
+              <span>unit</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-primary/50 rounded" />
+              <span>unit</span>
+            </div>
+          </div>
+          <div className="mt-3 pt-3 border-t border-border">
+            <p className="text-sm">
+              Trending up by 5.2% this month{' '}
+              <span className="text-success">↗</span>
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Total visitors for the last 6 months
+            </p>
+          </div>
+        </div>
+
+        {/* Right sidebar widgets */}
+        <div className="col-span-4 @sm:col-span-8 @md:col-span-3 space-y-3 @lg:space-y-4">
+          {/* Progress card */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h3 className="font-medium">Progress title</h3>
+            <p className="text-xs text-muted-foreground mb-3">
+              8 of 12 tasks complete
+            </p>
+            <div className="h-2 bg-muted rounded-full overflow-hidden mb-2">
+              <div className="h-full bg-primary w-2/3 rounded-full" />
+            </div>
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>On track for completion by Friday</span>
+              <span>0%</span>
+            </div>
+          </div>
+
+          {/* Tree view card */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <h3 className="font-medium">Tree title</h3>
+                <p className="text-xs text-muted-foreground">January - June 2024</p>
+              </div>
+              <button className="text-muted-foreground">⋮</button>
+            </div>
+            <div className="space-y-1 text-sm">
+              <div className="flex items-center gap-2">
+                <span>∧</span>
+                <span>Process unit 21</span>
+                <span className="ml-auto text-warning">⚠</span>
+              </div>
+              <div className="pl-4 space-y-1">
+                <div className="flex items-center gap-2">
+                  <span>∨</span>
+                  <span className="text-muted-foreground">Feed system</span>
+                </div>
+                <div className="pl-4 space-y-1 text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <span>Feed Pump A</span>
+                    <span className="ml-auto text-warning">⚠</span>
+                  </div>
+                  <div>Feed Pump B</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>∨</span>
+                  <span className="text-muted-foreground">Drain system</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom row: Large chart + Image widget */}
+        <div className="col-span-4 @sm:col-span-8 @md:col-span-8 bg-card border border-border rounded-lg p-4">
+          <div className="flex justify-between items-start mb-2">
+            <div>
+              <h3 className="font-medium">Chart title</h3>
+              <p className="text-xs text-muted-foreground">January - June 2024</p>
+            </div>
+            <button className="text-muted-foreground">⋮</button>
+          </div>
+          <div className="h-48 bg-gradient-to-t from-success/20 to-transparent rounded-md relative">
+            <svg className="w-full h-full" viewBox="0 0 200 50" preserveAspectRatio="none">
+              <path
+                d="M0,45 Q20,40 40,42 T80,35 T120,38 T160,30 T200,32"
+                fill="hsl(var(--success)/0.3)"
+                stroke="hsl(var(--success))"
+                strokeWidth="0.3"
+              />
+              <path
+                d="M0,48 Q20,45 40,46 T80,42 T120,44 T160,38 T200,40"
+                fill="hsl(var(--primary)/0.2)"
+                stroke="hsl(var(--primary))"
+                strokeWidth="0.3"
+              />
+            </svg>
+          </div>
+          <div className="flex items-center gap-4 mt-3 text-xs">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-primary rounded" />
+              <span>unit</span>
+              <span className="text-muted-foreground">number</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-success rounded" />
+              <span>unit</span>
+              <span className="text-muted-foreground">number</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-span-4 @sm:col-span-8 @md:col-span-4 bg-card border border-border rounded-lg p-4">
+          <div className="flex justify-between items-start mb-2">
+            <div>
+              <h3 className="font-medium">Image widget</h3>
+              <p className="text-xs text-muted-foreground">January - June 2024</p>
+            </div>
+            <button className="text-muted-foreground">⋮</button>
+          </div>
+          <div
+            className="h-40 rounded-md"
+            style={{
+              backgroundImage:
+                'repeating-conic-gradient(hsl(var(--muted)) 0% 25%, transparent 0% 50%)',
+              backgroundSize: '16px 16px',
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  ),
+};
+
 // =============================================================================
 // Reference Stories
 // =============================================================================
