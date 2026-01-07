@@ -251,7 +251,8 @@ export const layoutCompositions = {
   contentCentered: {
     name: 'Centered Content',
     description: 'Narrow centered content with gutters',
-    container: 'col-span-4 @[641px]:col-span-6 @[641px]:col-start-2 @[769px]:col-span-8 @[769px]:col-start-3',
+    container:
+      'col-span-4 @[641px]:col-span-6 @[641px]:col-start-2 @[769px]:col-span-8 @[769px]:col-start-3',
     usage: 'Article content, forms, focused reading',
   },
 } as const;
@@ -305,7 +306,7 @@ export const layoutExamples = {
     <aside class="col-span-4 @[641px]:col-span-2 @[769px]:col-span-3 bg-muted p-4 rounded-lg">
       <nav>Navigation</nav>
     </aside>
-    
+
     <!-- Main: 4 cols on sm, 6 on md, 9 on lg -->
     <main class="col-span-4 @[641px]:col-span-6 @[769px]:col-span-9">
       <article>Main content</article>
@@ -380,7 +381,7 @@ export const layoutExamples = {
       <p class="text-sm text-muted-foreground">Growth</p>
       <p class="text-2xl font-bold text-green-600">+12%</p>
     </div>
-    
+
     <!-- Main chart area -->
     <div class="col-span-4 @[641px]:col-span-8 @[769px]:col-span-12 bg-card p-4 rounded-lg border min-h-64">
       Chart placeholder
@@ -391,4 +392,3 @@ export const layoutExamples = {
 
 export type GridPattern = keyof typeof gridPatterns;
 export type LayoutComposition = keyof typeof layoutCompositions;
-
