@@ -13,6 +13,12 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
 } from '@/components/ui/aura/message';
 import {
   PromptInput,
@@ -296,6 +302,113 @@ const responseTokens = [
   ' tolerances.',
 ];
 
+const responseTokens2 = [
+  'After',
+  ' conducting',
+  ' a',
+  ' detailed',
+  ' frequency',
+  ' spectrum',
+  ' analysis',
+  ' of',
+  ' pump',
+  ' **21PT1019**,',
+  ' the',
+  ' vibration',
+  ' patterns',
+  ' indicate',
+  ' a',
+  ' different',
+  ' root',
+  ' cause',
+  ' than',
+  ' initially',
+  ' suspected.',
+  '\n\n',
+  'The',
+  ' frequency',
+  ' analysis',
+  ' reveals',
+  ' dominant',
+  ' peaks',
+  ' at',
+  ' 1x',
+  ' running',
+  ' speed',
+  ' (',
+  '47.5',
+  ' Hz',
+  '),',
+  ' which',
+  ' is',
+  ' characteristic',
+  ' of',
+  ' mechanical',
+  ' imbalance',
+  ' rather',
+  ' than',
+  ' bearing',
+  ' wear.',
+  ' The',
+  ' amplitude',
+  ' progression',
+  ' shows:',
+  '\n\n',
+  '| Time',
+  ' Period',
+  ' | Imbalance',
+  ' Severity',
+  ' | Recommended',
+  ' Action',
+  ' |',
+  '\n',
+  '|------------|-------------------|-------------------|',
+  '\n',
+  '| 00:00-02:00',
+  ' | Acceptable',
+  ' | Monitor',
+  ' |',
+  '\n',
+  '| 02:00-04:00',
+  ' | Moderate',
+  ' | Plan',
+  ' Balancing',
+  ' |',
+  '\n',
+  '| 04:00-06:00',
+  ' | Severe',
+  ' | Immediate',
+  ' Action',
+  ' |',
+  '\n\n',
+  'This',
+  ' suggests',
+  ' the',
+  ' impeller',
+  ' may',
+  ' have',
+  ' accumulated',
+  ' debris',
+  ' or',
+  ' experienced',
+  ' erosion,',
+  ' causing',
+  ' mass',
+  ' imbalance.',
+  ' I',
+  ' recommend',
+  ' an',
+  ' immediate',
+  ' impeller',
+  ' inspection',
+  ' and',
+  ' dynamic',
+  ' balancing',
+  ' within',
+  ' 24',
+  ' hours.',
+];
+
 type ConversationPhase =
   | 'empty'
   | 'userMessage'
@@ -307,8 +420,11 @@ type ConversationPhase =
 function BasicConversationDemo() {
   const [phase, setPhase] = useState<ConversationPhase>('empty');
   const [thinkingSeconds, setThinkingSeconds] = useState(0);
-  const [streamedContent, setStreamedContent] = useState('');
   const [showTools, setShowTools] = useState(false);
+  const [branches, setBranches] = useState<string[]>(['']); // Initialize with empty string for first branch
+  const [showBranchNav, setShowBranchNav] = useState(false);
+  const [isRetrying, setIsRetrying] = useState(false);
+  const [currentBranchIndex, setCurrentBranchIndex] = useState(0);
 
   // Derive shimmer phrase from thinking seconds (changes every 3 seconds)
   const phraseIndex = Math.min(Math.floor(thinkingSeconds / 3), 2);
@@ -357,16 +473,70 @@ function BasicConversationDemo() {
     const interval = setInterval(() => {
       if (index < responseTokens.length) {
         currentContent += responseTokens[index];
-        setStreamedContent(currentContent);
+        setBranches([currentContent]); // Update first branch with streaming content
         index++;
       } else {
         clearInterval(interval);
+        setBranches([responseTokens.join('')]);
         setPhase('complete');
       }
     }, 50);
 
     return () => clearInterval(interval);
   }, [phase]);
+
+  const handleRetry = () => {
+    if (branches.length >= 2 || isRetrying) return;
+
+    // Set up the new branch with first token immediately
+    const newBranchIndex = 1;
+    const firstToken = responseTokens2[0];
+
+    setBranches((prev) => [...prev, firstToken]);
+    setCurrentBranchIndex(newBranchIndex);
+    setIsRetrying(true);
+
+    // Continue streaming the rest
+    let currentContent = firstToken;
+    let index = 1;
+
+    const interval = setInterval(() => {
+      if (index < responseTokens2.length) {
+        currentContent += responseTokens2[index];
+        setBranches((prev) => {
+          const updated = [...prev];
+          updated[newBranchIndex] = currentContent;
+          return updated;
+        });
+        index++;
+      } else {
+        clearInterval(interval);
+        setBranches((prev) => {
+          const updated = [...prev];
+          updated[newBranchIndex] = responseTokens2.join('');
+          return updated;
+        });
+        setShowBranchNav(true);
+        setIsRetrying(false);
+      }
+    }, 50);
+  };
+
+  const handleCopy = () => {
+    const currentBranch = branches[currentBranchIndex] || '';
+    navigator.clipboard.writeText(currentBranch);
+  };
+
+  const handleDownload = () => {
+    const currentBranch = branches[currentBranchIndex] || '';
+    const blob = new Blob([currentBranch], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'response.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const showUserMessage = phase !== 'empty';
   const showAssistantMessage =
@@ -418,102 +588,161 @@ function BasicConversationDemo() {
               )}
 
               {showAssistantMessage && (
-                <Message isResponse={true}>
-                  <MessageAvatar variant="nordic">
-                    <MessageAvatarIcon>
-                      <IconWheel />
-                    </MessageAvatarIcon>
-                  </MessageAvatar>
-                  <MessageContent className="flex flex-col gap-2">
+                <MessageBranch
+                  key={`branch-${currentBranchIndex}`}
+                  defaultBranch={currentBranchIndex}
+                >
+                  <MessageBranchContent>
                     {isThinking ? (
-                      <Shimmer variant="nordic">
-                        {thinkingPhrases[phraseIndex]}
-                      </Shimmer>
+                      <Message isResponse={true}>
+                        <MessageAvatar variant="nordic">
+                          <MessageAvatarIcon>
+                            <IconWheel />
+                          </MessageAvatarIcon>
+                        </MessageAvatar>
+                        <MessageContent className="flex flex-col gap-2">
+                          <Shimmer variant="nordic">
+                            {thinkingPhrases[phraseIndex]}
+                          </Shimmer>
+                        </MessageContent>
+                      </Message>
                     ) : (
-                      <>
-                        <span className="text-muted-foreground text-sm">
-                          Thought for {thinkingSeconds} seconds
-                        </span>
-                        <Response controls={false}>{streamedContent}</Response>
-                        {isComplete && showTools && (
-                          <div className="flex flex-col gap-2 py-3">
-                            <Reasoning>
-                              <ReasoningHeader />
-                              <ReasoningContent>
-                                <ReasoningItem>
-                                  <Tool defaultOpen={false}>
-                                    <ToolHeader
-                                      title="Search database"
-                                      type="tool-call"
-                                    />
-                                    <ToolContent>
-                                      <ToolInput input={searchDatabaseInput} />
-                                      <ToolOutput
-                                        output={searchDatabaseOutput}
-                                        errorText={undefined}
+                      branches.map((branch, index) => (
+                        <Message key={index} isResponse={true}>
+                          <MessageAvatar variant="nordic">
+                            <MessageAvatarIcon>
+                              <IconWheel />
+                            </MessageAvatarIcon>
+                          </MessageAvatar>
+                          <MessageContent className="flex flex-col gap-2">
+                            <span className="text-muted-foreground text-sm">
+                              Thought for {thinkingSeconds} seconds
+                            </span>
+                            <Response controls={false}>
+                              {isRetrying && index === currentBranchIndex
+                                ? branch
+                                : branch || ''}
+                            </Response>
+                            {isComplete &&
+                              showTools &&
+                              index === currentBranchIndex && (
+                                <div className="flex flex-col gap-2 py-3">
+                                  <Reasoning>
+                                    <ReasoningHeader />
+                                    <ReasoningContent>
+                                      <ReasoningItem>
+                                        <Tool defaultOpen={false}>
+                                          <ToolHeader
+                                            title="Search database"
+                                            type="tool-call"
+                                          />
+                                          <ToolContent>
+                                            <ToolInput
+                                              input={searchDatabaseInput}
+                                            />
+                                            <ToolOutput
+                                              output={searchDatabaseOutput}
+                                              errorText={undefined}
+                                            />
+                                          </ToolContent>
+                                        </Tool>
+                                      </ReasoningItem>
+                                      <ReasoningItem>
+                                        <Tool defaultOpen={false}>
+                                          <ToolHeader
+                                            title="Fetch sensor data"
+                                            type="tool-call"
+                                          />
+                                          <ToolContent>
+                                            <ToolInput
+                                              input={fetchSensorDataInput}
+                                            />
+                                            <ToolOutput
+                                              output={fetchSensorDataOutput}
+                                              errorText={undefined}
+                                            />
+                                          </ToolContent>
+                                        </Tool>
+                                      </ReasoningItem>
+                                    </ReasoningContent>
+                                  </Reasoning>
+                                </div>
+                              )}
+                            {isComplete && !isRetrying && (
+                              <MessageActions className="justify-between">
+                                <div className="flex items-center gap-2">
+                                  <MessageAction
+                                    size="icon-sm"
+                                    label="Copy"
+                                    tooltip="Copy"
+                                    onClick={handleCopy}
+                                  >
+                                    <IconCopy className="w-3 h-3" />
+                                  </MessageAction>
+                                  <MessageAction
+                                    size="icon-sm"
+                                    label="Download"
+                                    tooltip="Download"
+                                    onClick={handleDownload}
+                                  >
+                                    <IconDownload className="w-3 h-3" />
+                                  </MessageAction>
+                                  <MessageAction
+                                    size="icon-sm"
+                                    label="Retry"
+                                    tooltip="Retry"
+                                    onClick={handleRetry}
+                                    disabled={
+                                      branches.length >= 2 || isRetrying
+                                    }
+                                  >
+                                    <IconRefresh className="w-3 h-3" />
+                                  </MessageAction>
+                                  {showBranchNav && (
+                                    <MessageBranchSelector
+                                      from="assistant"
+                                      className="px-0"
+                                    >
+                                      <MessageBranchPrevious
+                                        onClick={() =>
+                                          setCurrentBranchIndex(
+                                            Math.max(0, currentBranchIndex - 1)
+                                          )
+                                        }
                                       />
-                                    </ToolContent>
-                                  </Tool>
-                                </ReasoningItem>
-                                <ReasoningItem>
-                                  <Tool defaultOpen={false}>
-                                    <ToolHeader
-                                      title="Fetch sensor data"
-                                      type="tool-call"
-                                    />
-                                    <ToolContent>
-                                      <ToolInput input={fetchSensorDataInput} />
-                                      <ToolOutput
-                                        output={fetchSensorDataOutput}
-                                        errorText={undefined}
+                                      <MessageBranchPage />
+                                      <MessageBranchNext
+                                        onClick={() =>
+                                          setCurrentBranchIndex(
+                                            Math.min(
+                                              branches.length - 1,
+                                              currentBranchIndex + 1
+                                            )
+                                          )
+                                        }
                                       />
-                                    </ToolContent>
-                                  </Tool>
-                                </ReasoningItem>
-                              </ReasoningContent>
-                            </Reasoning>
-                          </div>
-                        )}
-                        {isComplete && (
-                          <MessageActions className="justify-between">
-                            <div className="flex items-center gap-2">
-                              <MessageAction
-                                size="icon-sm"
-                                label="Copy"
-                                tooltip="Copy"
-                              >
-                                <IconCopy className="w-3 h-3" />
-                              </MessageAction>
-                              <MessageAction
-                                size="icon-sm"
-                                label="Download"
-                                tooltip="Download"
-                              >
-                                <IconDownload className="w-3 h-3" />
-                              </MessageAction>
-                              <MessageAction
-                                size="icon-sm"
-                                label="Retry"
-                                tooltip="Retry"
-                              >
-                                <IconRefresh className="w-3 h-3" />
-                              </MessageAction>
-                            </div>
-                            <MessageAction
-                              size="sm"
-                              onClick={() => setShowTools(!showTools)}
-                              data-active={showTools}
-                              className="data-[active=true]:bg-accent"
-                            >
-                              <IconBrain className="w-3.5 h-3.5" />
-                              {showTools ? 'Hide reasoning' : 'Show reasoning'}
-                            </MessageAction>
-                          </MessageActions>
-                        )}
-                      </>
+                                    </MessageBranchSelector>
+                                  )}
+                                </div>
+                                <MessageAction
+                                  size="sm"
+                                  onClick={() => setShowTools(!showTools)}
+                                  data-active={showTools}
+                                  className="data-[active=true]:bg-accent"
+                                >
+                                  <IconBrain className="w-3.5 h-3.5" />
+                                  {showTools
+                                    ? 'Hide reasoning'
+                                    : 'Show reasoning'}
+                                </MessageAction>
+                              </MessageActions>
+                            )}
+                          </MessageContent>
+                        </Message>
+                      ))
                     )}
-                  </MessageContent>
-                </Message>
+                  </MessageBranchContent>
+                </MessageBranch>
               )}
             </>
           )}
