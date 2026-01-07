@@ -332,16 +332,17 @@ export const StatusIndicators: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText('Success')).toBeInTheDocument();
-    await expect(canvas.getByText('Warning')).toBeInTheDocument();
-    await expect(canvas.getByText('Error')).toBeInTheDocument();
-    await expect(canvas.getByText('Info')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-success')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-warning')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-error')).toBeInTheDocument();
+    await expect(canvas.getByTestId('status-info')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-4" data-testid="status-indicators">
       {colorPatterns.statusIndicators.patterns.map((pattern) => (
         <div
           key={pattern.status}
+          data-testid={`status-${pattern.status}`}
           className={`${pattern.background} ${pattern.foreground} border ${pattern.border} p-4 rounded-md`}
         >
           <p className="font-medium capitalize">{pattern.status}</p>
@@ -458,14 +459,14 @@ export const DataVisualisationColors: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText('Categorical')).toBeInTheDocument();
-    await expect(canvas.getByText('Sequential')).toBeInTheDocument();
-    await expect(canvas.getByText('Diverging')).toBeInTheDocument();
+    await expect(canvas.getByTestId('dataviz-categorical')).toBeInTheDocument();
+    await expect(canvas.getByTestId('dataviz-sequential')).toBeInTheDocument();
+    await expect(canvas.getByTestId('dataviz-diverging')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="data-visualisation">
       {colorPatterns.dataVisualisation.patterns.map((pattern) => (
-        <div key={pattern.name} className="space-y-2">
+        <div key={pattern.name} className="space-y-2" data-testid={`dataviz-${pattern.name}`}>
           <div>
             <h4 className="text-sm font-medium capitalize">{pattern.name}</h4>
             <p className="text-xs text-muted-foreground">{pattern.usage}</p>
@@ -505,11 +506,11 @@ export const AllPalettesReference: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all categories are present
-    await expect(canvas.getByText('Base')).toBeInTheDocument();
-    await expect(canvas.getByText('Decorative')).toBeInTheDocument();
-    await expect(canvas.getByText('Semantic')).toBeInTheDocument();
-    await expect(canvas.getByText('Extended')).toBeInTheDocument();
+    // Verify all categories are present using testids
+    await expect(canvas.getByTestId('category-base')).toBeInTheDocument();
+    await expect(canvas.getByTestId('category-decorative')).toBeInTheDocument();
+    await expect(canvas.getByTestId('category-semantic')).toBeInTheDocument();
+    await expect(canvas.getByTestId('category-extended')).toBeInTheDocument();
 
     // Verify total palette count
     await expect(colorPalettes.length).toBe(14);
@@ -518,7 +519,7 @@ export const AllPalettesReference: Story = {
     <div className="space-y-12" data-testid="all-palettes-reference">
       {(['base', 'decorative', 'semantic', 'extended'] as const).map(
         (category) => (
-          <section key={category}>
+          <section key={category} data-testid={`category-${category}`}>
             <h2 className="text-2xl font-medium capitalize mb-6">{category}</h2>
             <div className="space-y-8">
               {getColorsByCategory(category).map((palette) => (
@@ -607,16 +608,16 @@ export const CodeExamples: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText('Buttons')).toBeInTheDocument();
-    await expect(canvas.getByText('Alerts')).toBeInTheDocument();
-    await expect(canvas.getByText('Cards')).toBeInTheDocument();
-    await expect(canvas.getByText('Forms')).toBeInTheDocument();
-    await expect(canvas.getByText('Badges')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-buttons')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-alerts')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-cards')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-forms')).toBeInTheDocument();
+    await expect(canvas.getByTestId('example-badges')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="code-examples">
       {Object.entries(colorExamples).map(([name, code]) => (
-        <div key={name} className="space-y-2">
+        <div key={name} className="space-y-2" data-testid={`example-${name}`}>
           <h3 className="text-lg font-medium capitalize">{name}</h3>
           <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
             <code className="text-sm font-mono">{code.trim()}</code>
