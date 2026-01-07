@@ -46,7 +46,6 @@ function BasicActionsDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>Hello, how are you?</MessageContent>
       </Message>
 
@@ -75,7 +74,7 @@ function BasicActionsDemo() {
                   >
                     <IconTool className="w-3 h-3" />
                   </Action>
-                  <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+                  <Action size="icon-sm" label="Retry" tooltip="Retry">
                     <IconRefresh className="w-3 h-3" />
                   </Action>
                   <BranchSelector from="assistant" className="px-0">
@@ -123,7 +122,6 @@ export function BasicActionsDemo() {
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
-        <MessageAvatar avatarUrl="/user-avatar2.png" name="User" />
         <MessageContent>
           Hello, how are you?
         </MessageContent>
@@ -150,7 +148,7 @@ export function BasicActionsDemo() {
                   <Action size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
                     <IconTool className="w-3 h-3" />
                   </Action>
-                  <Action size="icon-sm" label="Refresh" tooltip="Refresh">
+                  <Action size="icon-sm" label="Retry" tooltip="Retry">
                     <IconRefresh className="w-3 h-3" />
                   </Action>
                   <BranchSelector from="assistant" className="px-0">

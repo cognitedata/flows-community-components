@@ -1,11 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/aura/button';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconArrowDown } from '@tabler/icons-react';
 import type { ComponentProps } from 'react';
 import { useCallback } from 'react';
 import { StickToBottom, useStickToBottomContext } from 'use-stick-to-bottom';
+import { ConversationEmptyStateIcon } from './icon-conversation-empty-state';
 
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
 
@@ -28,7 +29,7 @@ export const ConversationContent = ({
   ...props
 }: ConversationContentProps) => (
   <StickToBottom.Content
-    className={cn('flex flex-col gap-8 p-4', className)}
+    className={cn('flex flex-col gap-8 p-3', className)}
     {...props}
   />
 );
@@ -36,35 +37,29 @@ export const ConversationContent = ({
 export type ConversationEmptyStateProps = ComponentProps<'div'> & {
   title?: string;
   description?: string;
-  icon?: React.ReactNode;
 };
 
 export const ConversationEmptyState = ({
   className,
   title = 'No messages yet',
-  description = 'Start a conversation to see messages here',
-  icon,
+  description = '',
   children,
   ...props
 }: ConversationEmptyStateProps) => (
   <div
-    className={cn(
-      'flex size-full flex-col items-center justify-center gap-3 p-8 text-center',
-      className
-    )}
+    className={cn('flex flex-col items-center gap-3 size-full p-10', className)}
     {...props}
   >
-    {children ?? (
-      <>
-        {icon && <div className="text-muted-foreground">{icon}</div>}
-        <div className="space-y-1">
-          <h3 className="font-medium text-sm">{title}</h3>
-          {description && (
-            <p className="text-muted-foreground text-sm">{description}</p>
-          )}
-        </div>
-      </>
-    )}
+    <div className="max-w-150 w-full flex flex-col items-center justify-center text-center">
+      <ConversationEmptyStateIcon className="size-20 mb-14" />
+      <div className="space-y-1 mb-14">
+        <h3 className="text-xl font-medium tracking-tightest">{title}</h3>
+        {description && (
+          <p className="text-muted-foreground text-sm">{description}</p>
+        )}
+      </div>
+      {children}
+    </div>
   </div>
 );
 

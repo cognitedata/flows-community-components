@@ -43,6 +43,7 @@ interface Step {
   description: string;
   code?: string;
   language?: BundledLanguage;
+  extra?: React.ReactNode;
 }
 
 const newProjectSteps: Step[] = [
@@ -67,6 +68,27 @@ const existingProjectSteps: Step[] = [
     title: 'Initialize shadcn',
     description: "If you haven't already, initialize shadcn-ui in your project",
     code: 'npx shadcn@latest init',
+  },
+  {
+    icon: Sparkles,
+    title: 'Install shadcn MCP for Cursor',
+    description:
+      'Optional, but recommended: install the shadcn MCP server so Cursor can integrate with shadcn tooling.',
+    code: 'npx shadcn@latest mcp',
+    extra: (
+      <a
+      href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://cursor.com/deeplink/mcp-install-dark.svg"
+        alt="Add shadcn MCP server to Cursor"
+        height={32}
+      />
+      </a>
+    ),
   },
   {
     icon: Settings,
@@ -149,7 +171,7 @@ export default function HomePage() {
 
           {/* Alert Banner */}
           <div className="max-w-2xl mx-auto">
-            <Alert variant="destructive" className="text-left">
+            <Alert variant="error" className="text-left">
               <AlertTriangle className="h-4 w-4" />
               <AlertTitle className="font-bold">Aura is still in active development</AlertTitle>
               <AlertDescription>
@@ -262,14 +284,21 @@ export default function HomePage() {
                             </div>
                           </div>
                         </CardHeader>
-                        {step.code && (
+                        {(step.code || step.extra) && (
                           <CardContent className="pl-0 md:pl-22">
-                            <CodeBlock
-                              code={step.code}
-                              language={step.language || 'bash'}
-                            >
-                              <CodeBlockCopyButton />
-                            </CodeBlock>
+                            {step.code && (
+                              <CodeBlock
+                                code={step.code}
+                                language={step.language || 'bash'}
+                              >
+                                <CodeBlockCopyButton />
+                              </CodeBlock>
+                            )}
+                            {step.extra && (
+                              <div className={step.code ? 'pt-4' : undefined}>
+                                {step.extra}
+                              </div>
+                            )}
                           </CardContent>
                         )}
                       </Card>
@@ -307,14 +336,21 @@ export default function HomePage() {
                             </div>
                           </div>
                         </CardHeader>
-                        {step.code && (
+                        {(step.code || step.extra) && (
                           <CardContent className="pl-0 md:pl-22">
-                            <CodeBlock
-                              code={step.code}
-                              language={step.language || 'bash'}
-                            >
-                              <CodeBlockCopyButton />
-                            </CodeBlock>
+                            {step.code && (
+                              <CodeBlock
+                                code={step.code}
+                                language={step.language || 'bash'}
+                              >
+                                <CodeBlockCopyButton />
+                              </CodeBlock>
+                            )}
+                            {step.extra && (
+                              <div className={step.code ? 'pt-4' : undefined}>
+                                {step.extra}
+                              </div>
+                            )}
                           </CardContent>
                         )}
                       </Card>
