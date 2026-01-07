@@ -14,11 +14,6 @@ import { CodeExample } from '@/components/code-example';
 export default function AIPage() {
   const components = [
     {
-      slug: 'actions',
-      name: 'Actions',
-      description: 'Action buttons for AI interfaces',
-    },
-    {
       slug: 'artifact',
       name: 'Artifact',
       description: 'Display AI-generated artifacts',
