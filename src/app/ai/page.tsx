@@ -24,11 +24,6 @@ export default function AIPage() {
       description: 'Display AI-generated artifacts',
     },
     {
-      slug: 'branch',
-      name: 'Branch',
-      description: 'Branch conversation elements',
-    },
-    {
       slug: 'canvas',
       name: 'Canvas',
       description: 'Interactive canvas for AI outputs',

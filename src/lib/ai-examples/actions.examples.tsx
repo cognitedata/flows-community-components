@@ -6,15 +6,13 @@ import {
   MessageContent,
   MessageAvatar,
   MessageAvatarIcon,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
 } from '@/components/ui/aura/message';
-import {
-  Branch,
-  BranchMessages,
-  BranchSelector,
-  BranchPrevious,
-  BranchNext,
-  BranchPage,
-} from '@/components/ui/aura/branch';
 import {
   IconCopy,
   IconDownload,
@@ -49,8 +47,8 @@ function BasicActionsDemo() {
         <MessageContent>Hello, how are you?</MessageContent>
       </Message>
 
-      <Branch defaultBranch={0}>
-        <BranchMessages>
+      <MessageBranch defaultBranch={0}>
+        <MessageBranchContent>
           {assistantResponses.map((response) => (
             <Message isResponse={true} key={response.id}>
               <MessageAvatar variant="fjord">
@@ -77,17 +75,17 @@ function BasicActionsDemo() {
                   <Action size="icon-sm" label="Retry" tooltip="Retry">
                     <IconRefresh className="w-3 h-3" />
                   </Action>
-                  <BranchSelector from="assistant" className="px-0">
-                    <BranchPrevious />
-                    <BranchPage />
-                    <BranchNext />
-                  </BranchSelector>
+                  <MessageBranchSelector from="assistant" className="px-0">
+                    <MessageBranchPrevious />
+                    <MessageBranchPage />
+                    <MessageBranchNext />
+                  </MessageBranchSelector>
                 </Actions>
               </MessageContent>
             </Message>
           ))}
-        </BranchMessages>
-      </Branch>
+        </MessageBranchContent>
+      </MessageBranch>
     </div>
   );
 }
@@ -101,15 +99,18 @@ export const actionsExamples: ComponentExamples = {
     code: `"use client"
 
 import { Actions, Action } from "@/components/ai-elements/cognite/actions"
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon } from "@/components/ai-elements/cognite/message"
 import {
-  Branch,
-  BranchMessages,
-  BranchSelector,
-  BranchPrevious,
-  BranchNext,
-  BranchPage,
-} from "@/components/ai-elements/cognite/branch"
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
+} from "@/components/ai-elements/cognite/message"
 import { IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
 
 const assistantResponses = [
@@ -127,8 +128,8 @@ export function BasicActionsDemo() {
         </MessageContent>
       </Message>
 
-      <Branch defaultBranch={0}>
-        <BranchMessages>
+      <MessageBranch defaultBranch={0}>
+        <MessageBranchContent>
           {assistantResponses.map((response) => (
             <Message isResponse={true} key={response.id}>
               <MessageAvatar variant="fjord">
@@ -151,17 +152,17 @@ export function BasicActionsDemo() {
                   <Action size="icon-sm" label="Retry" tooltip="Retry">
                     <IconRefresh className="w-3 h-3" />
                   </Action>
-                  <BranchSelector from="assistant" className="px-0">
-                    <BranchPrevious />
-                    <BranchPage />
-                    <BranchNext />
-                  </BranchSelector>
+                  <MessageBranchSelector from="assistant" className="px-0">
+                    <MessageBranchPrevious />
+                    <MessageBranchPage />
+                    <MessageBranchNext />
+                  </MessageBranchSelector>
                 </Actions>
               </MessageContent>
             </Message>
           ))}
-        </BranchMessages>
-      </Branch>
+        </MessageBranchContent>
+      </MessageBranch>
     </div>
   )
 }`,
