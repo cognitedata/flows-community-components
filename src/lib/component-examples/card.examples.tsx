@@ -15,15 +15,13 @@ import {
   IconGauge,
   IconReportAnalytics,
   IconCube,
-  IconRocket,
 } from '@tabler/icons-react';
 import Image from 'next/image';
-import { Input } from '@/components/ui/aura/input';
-import { Label } from '@/components/ui/aura/label';
+import { SwapSlot } from '@/components/ui/aura/swap-slot';
 
 function BasicDemo() {
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-[362px]">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>21PT1019</CardTitle>
@@ -51,7 +49,7 @@ function BasicDemo() {
 
 function TextInFooterDemo() {
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-[362px]">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>21PT1019</CardTitle>
@@ -81,7 +79,7 @@ function BadgeInHeaderDemo() {
         <div className="flex items-center justify-between">
           <div className="flex gap-1.5">
             <Badge variant="mountain">
-              <IconCube size={16} />
+              <IconCube size={12} />
             </Badge>
             <CardTitle>Skarv</CardTitle>
           </div>
@@ -91,8 +89,8 @@ function BadgeInHeaderDemo() {
         </div>
         <CardDescription>Point cloud scene</CardDescription>
       </CardHeader>
-      <CardContent className="gap-2">
-        <div className="text-base text-secondary-foreground tracking-tightest">
+      <CardContent className="">
+        <div className="text-base text-secondary-foreground tracking-tightest pb-2">
           Model ID: 4602269428617841
         </div>
         <Image
@@ -103,39 +101,19 @@ function BadgeInHeaderDemo() {
         />
       </CardContent>
       <CardFooter>
-        <Button variant="secondary">View scene</Button>
+        <Button variant="secondary" size="sm">
+          View scene
+        </Button>
       </CardFooter>
     </Card>
   );
 }
 
-// Imput component still draft
-// function SignUpCardDemo() {
-//   return (
-//     <Card className="w-full max-w-sm">
-//       <CardHeader>
-//         <Badge variant="mountain">
-//           <IconRocket size={16} />
-//         </Badge>
-//         <CardTitle>Sign in</CardTitle>
-//       </CardHeader>
-//       <CardContent className="gap-2">
-//         <div>
-//           <Label htmlFor="email">Email address</Label>
-//           <Input type="email" id="email" placeholder="email@example.com" />
-//         </div>
-//         <div>
-//           <Label htmlFor="password">Password</Label>
-//           <Input type="password" id="password" placeholder="*********" />
-//         </div>
-//       </CardContent>
-//     </Card>
-//   );
-// }
+//Input example coming soon. Input component still draft.
 
 function CardHoverDemo() {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-[362px]">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex gap-1.5">
@@ -149,17 +127,17 @@ function CardHoverDemo() {
       </CardHeader>
       <CardContent className="gap-2">
         <div className="text-base text-secondary-foreground tracking-tightest">
-          Model ID: 4602269428617841
+          Description
         </div>
-        <Image
-          src="/card-example.png"
-          alt="card example"
-          width={330}
-          height={200}
-        />
+        {/* Swapslot coming soon. Implementation pending. */}
       </CardContent>
-      <CardFooter>
-        <Button variant="secondary">View scene</Button>
+      <CardFooter className="gap-1 flex-col">
+        <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
+          Trending up by 5.2% this month <IconChartLine size={16} />
+        </div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">
+          No alerts
+        </div>
       </CardFooter>
     </Card>
   );
