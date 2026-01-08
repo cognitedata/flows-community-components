@@ -87,14 +87,17 @@ export const Basic: Story = {
     await userEvent.hover(button);
 
     // Wait for tooltip to appear (tooltip is rendered in a portal, so search in document)
+    // Use getAllByText to handle multiple instances, then check for visible one
     const tooltipBody = within(document.body);
     await waitFor(
       () => {
-        const tooltip = tooltipBody.queryByText(
+        const tooltips = tooltipBody.getAllByText(
           'Publishing will make it available to all users'
         );
-        expect(tooltip).toBeInTheDocument();
-        expect(tooltip).toBeVisible();
+        // Check that at least one tooltip exists and is visible
+        expect(tooltips.length).toBeGreaterThan(0);
+        // Check the first tooltip is visible
+        expect(tooltips[0]).toBeVisible();
       },
       { timeout: 3000 }
     );
