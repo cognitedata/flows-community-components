@@ -77,17 +77,19 @@ function BadgeInHeaderDemo() {
     <Card className="w-full max-w-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <div className="flex gap-1.5">
+          <div className="flex gap-1.5 items-baseline">
             <Badge variant="mountain">
               <IconCube size={12} />
             </Badge>
-            <CardTitle>Skarv</CardTitle>
+            <div>
+              <CardTitle>Skarv</CardTitle>
+              <CardDescription>Point cloud scene</CardDescription>
+            </div>
           </div>
           <Button variant="ghost" size="icon-sm">
             <IconDotsVertical />
           </Button>
         </div>
-        <CardDescription>Point cloud scene</CardDescription>
       </CardHeader>
       <CardContent className="">
         <div className="text-base text-secondary-foreground tracking-tightest pb-2">
@@ -116,14 +118,16 @@ function CardHoverDemo() {
     <Card className="w-[362px]">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <div className="flex gap-1.5">
+          <div className="flex gap-1.5 items-baseline">
             <Badge variant="mountain">
-              <IconCube size={16} />
+              <IconCube size={12} />
             </Badge>
-            <CardTitle>Title</CardTitle>
+            <div>
+              <CardTitle>Title</CardTitle>
+              <CardDescription>Subtitle</CardDescription>
+            </div>
           </div>
         </div>
-        <CardDescription>Subtitle</CardDescription>
       </CardHeader>
       <CardContent className="gap-2">
         <div className="text-base text-secondary-foreground tracking-tightest">
