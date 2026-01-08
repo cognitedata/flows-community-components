@@ -86,15 +86,17 @@ export const Basic: Story = {
     // Hover over the button
     await userEvent.hover(button);
 
-    // Wait for tooltip to appear
+    // Wait for tooltip to appear (tooltip is rendered in a portal, so search in document)
+    const tooltipBody = within(document.body);
     await waitFor(
       () => {
-        const tooltip = canvas.getByText(
+        const tooltip = tooltipBody.queryByText(
           'Publishing will make it available to all users'
         );
         expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toBeVisible();
       },
-      { timeout: 500 }
+      { timeout: 3000 }
     );
 
     // Move away to hide tooltip
@@ -172,12 +174,15 @@ export const PositionTop: Story = {
     const button = canvas.getByRole('button');
     await userEvent.hover(button);
 
+    // Wait for tooltip to appear (tooltip is rendered in a portal)
+    const tooltipBody = within(document.body);
     await waitFor(
       () => {
-        const tooltip = canvas.getByText('This is a helpful message');
+        const tooltip = tooltipBody.queryByText('This is a helpful message');
         expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toBeVisible();
       },
-      { timeout: 500 }
+      { timeout: 3000 }
     );
   },
   render: () => (
