@@ -74,14 +74,14 @@ function TextInFooterDemo() {
 
 function BadgeInHeaderDemo() {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-[362px]">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between ">
           <div className="flex gap-1.5 items-baseline">
             <Badge variant="mountain">
               <IconCube size={12} />
             </Badge>
-            <div>
+            <div className="flex flex-col gap-1.5">
               <CardTitle>Skarv</CardTitle>
               <CardDescription>Point cloud scene</CardDescription>
             </div>
