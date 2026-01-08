@@ -1,6 +1,6 @@
-import type { Preview } from '@storybook/nextjs'
-import { useEffect } from 'react'
-import '../src/app/globals.css'
+import type { Preview } from '@storybook/nextjs';
+import React, { useEffect } from 'react';
+import '../src/app/globals.css';
 
 const preview: Preview = {
   parameters: {
@@ -33,20 +33,38 @@ const preview: Preview = {
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme || 'light';
-      
+
       useEffect(() => {
-        // Apply theme class to the document for proper CSS variable inheritance
+        // Apply theme class to the preview document
         const root = document.documentElement;
         if (theme === 'dark') {
           root.classList.add('dark');
         } else {
           root.classList.remove('dark');
         }
+
+        // Try to apply theme to the parent Storybook manager frame
+        try {
+          const parentDoc = window.parent?.document;
+          if (parentDoc && parentDoc !== document) {
+            const parentRoot = parentDoc.documentElement;
+            parentRoot.setAttribute('data-theme', theme);
+            if (theme === 'dark') {
+              parentRoot.classList.add('dark');
+            } else {
+              parentRoot.classList.remove('dark');
+            }
+          }
+        } catch {
+          // Cross-origin restriction - ignore
+        }
       }, [theme]);
 
       return (
-        <div 
-          className={`min-h-screen p-4 ${theme === 'dark' ? 'dark bg-background text-foreground' : 'bg-background text-foreground'}`}
+        <div
+          className={
+            theme === 'dark' ? 'dark text-foreground' : 'text-foreground'
+          }
         >
           <Story />
         </div>
