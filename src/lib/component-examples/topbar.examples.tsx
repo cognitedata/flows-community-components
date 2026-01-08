@@ -81,7 +81,7 @@ function BasicDemo() {
 
 function EosTopbar() {
   return (
-    <div className="w-full border rounded-lg overflow-hidden">
+    <div className="w-full rounded-lg overflow-hidden">
       <Topbar>
         <TopbarLeft>
           <Button variant="ghost" size="icon">
@@ -127,7 +127,7 @@ function EosTopbar() {
 
 function TopbarWithSidebarDemo() {
   return (
-    <div className="relative h-[400px] w-full border rounded-lg overflow-hidden">
+    <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
       <SidebarProvider>
         <div className="flex h-full w-full flex-col bg-background">
           <Topbar>
@@ -383,7 +383,7 @@ import {
 
 export function TopbarWithSidebarDemo() {
   return (
-    <div className="relative h-[400px] w-full border rounded-lg overflow-hidden">
+    <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
       <SidebarProvider>
         <div className="flex h-full w-full flex-col bg-background">
           <Topbar>
