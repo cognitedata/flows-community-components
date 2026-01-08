@@ -5,4 +5,24 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  
+  /* Ensure the story root container fills the space */
+  #storybook-root {
+    height: 100%;
+    min-height: 100vh;
+  }
+  
+  /* Dark mode styles - only applied when html has .dark class */
+  html.dark body,
+  html.dark #storybook-root {
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+  
+  /* Light mode styles */
+  html:not(.dark) body,
+  html:not(.dark) #storybook-root {
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
 </style>

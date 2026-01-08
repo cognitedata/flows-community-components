@@ -977,18 +977,6 @@
       ]
     },
     {
-      "name": "response",
-      "type": "registry:component",
-      "title": "Response",
-      "description": "AI response component for displaying AI responses.",
-      "files": [
-        {
-          "path": "src/components/ui/aura/response.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "shimmer",
       "type": "registry:component",
       "title": "Shimmer",
