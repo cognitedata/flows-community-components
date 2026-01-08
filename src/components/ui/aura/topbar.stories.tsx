@@ -347,13 +347,17 @@ export const WithSidebar: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find sidebar menu items
-    const menuItems = canvas.getAllByRole('menuitem');
-    await expect(menuItems.length).toBeGreaterThan(0);
+    // Verify sidebar content is present
+    const sidebarLabel = canvas.getByText('Platform');
+    await expect(sidebarLabel).toBeInTheDocument();
 
-    // Find the active menu item
+    // Find the active menu item text (SidebarMenuButton renders as buttons, not menuitems)
     const activeItem = canvas.getByText('Overview');
     await expect(activeItem).toBeInTheDocument();
+
+    // Verify other sidebar menu items are present
+    const usersItem = canvas.getByText('Users');
+    await expect(usersItem).toBeInTheDocument();
   },
   render: function TopbarWithSidebarStory() {
     return (
@@ -475,18 +479,36 @@ export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find and click the "New Item" button
+    // Find and click the "New Item" button by its text content
     const newItemButton = canvas.getByRole('button', { name: /new item/i });
     await expect(newItemButton).toBeInTheDocument();
     await userEvent.click(newItemButton);
 
-    // Find and click the share button
+    // Wait for state update to verify the click worked
+    await waitFor(
+      () => {
+        const clickedText = canvas.getByText(/last clicked: new-item/i);
+        expect(clickedText).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
+
+    // Find and click the share button by its aria-label
     const shareButton = canvas.getByRole('button', { name: /share/i });
     await expect(shareButton).toBeInTheDocument();
     await userEvent.click(shareButton);
 
-    // Find and click breadcrumb links
-    const homeLink = canvas.getByRole('link');
+    // Wait for state update to verify the click worked
+    await waitFor(
+      () => {
+        const clickedText = canvas.getByText(/last clicked: share/i);
+        expect(clickedText).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
+
+    // Find and click the home breadcrumb link by aria-label
+    const homeLink = canvas.getByRole('link', { name: /home/i });
     await expect(homeLink).toBeInTheDocument();
     await userEvent.click(homeLink);
   },
@@ -508,7 +530,11 @@ export const Interactive: Story = {
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/" onClick={() => setClicked('home')}>
+                  <BreadcrumbLink
+                    href="/"
+                    onClick={() => setClicked('home')}
+                    aria-label="Home"
+                  >
                     <IconHomeFilled className="h-4 w-4" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -527,10 +553,7 @@ export const Interactive: Story = {
             )}
           </TopbarCenter>
           <TopbarRight>
-            <Button
-              size="sm"
-              onClick={() => setClicked('new-item')}
-            >
+            <Button size="sm" onClick={() => setClicked('new-item')}>
               <IconPlus />
               New Item
             </Button>
@@ -611,4 +634,3 @@ export const LongBreadcrumb: Story = {
     );
   },
 };
-
