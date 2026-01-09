@@ -69,7 +69,8 @@ const meta: Meta<typeof Shimmer> = {
     },
     spread: {
       control: 'number',
-      description: 'Spread multiplier for shimmer effect (based on text length)',
+      description:
+        'Spread multiplier for shimmer effect (based on text length)',
       table: {
         category: 'Animation',
         type: { summary: 'number' },
@@ -86,6 +87,14 @@ const meta: Meta<typeof Shimmer> = {
   },
   parameters: {
     layout: 'centered',
+    // Disable color-contrast rule for Shimmer stories.
+    // The component uses bg-clip-text with gradients, which automated
+    // a11y tools cannot analyse. The text is visible via the gradient.
+    a11y: {
+      config: {
+        rules: [{ id: 'color-contrast', enabled: false }],
+      },
+    },
   },
 };
 
@@ -146,24 +155,41 @@ export const GradientVariants: Story = {
 };
 
 /**
- * Different HTML element types
+ * Different HTML element types with appropriate typography
  */
 export const ElementTypes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Shimmer effect applied to different HTML element types.',
+        story:
+          'Shimmer effect applied to different HTML element types with appropriate typography styling.',
       },
     },
   },
   render: () => (
-    <div className="w-full flex flex-col items-start gap-4">
-      <Shimmer as="p">Paragraph text with shimmer</Shimmer>
-      <Shimmer as="span">Span text with shimmer</Shimmer>
-      <Shimmer as="h1">Heading 1 with shimmer</Shimmer>
-      <Shimmer as="h2">Heading 2 with shimmer</Shimmer>
-      <Shimmer as="h3">Heading 3 with shimmer</Shimmer>
-      <Shimmer as="div">Div element with shimmer</Shimmer>
+    <div className="w-full flex flex-col items-start gap-6">
+      <Shimmer as="h1" className="text-4xl font-bold tracking-tight">
+        Heading 1 with shimmer
+      </Shimmer>
+      <Shimmer as="h2" className="text-2xl font-semibold">
+        Heading 2 with shimmer
+      </Shimmer>
+      <Shimmer as="h3" className="text-xl font-medium">
+        Heading 3 with shimmer
+      </Shimmer>
+      <Shimmer as="p" className="text-base">
+        Paragraph text with shimmer effect applied.
+      </Shimmer>
+      <p className="text-base">
+        Inline text with a{' '}
+        <Shimmer as="span" className="font-medium">
+          shimmer span
+        </Shimmer>{' '}
+        inside it.
+      </p>
+      <Shimmer as="div" className="text-sm text-muted-foreground">
+        Div element styled as secondary text
+      </Shimmer>
     </div>
   ),
 };
@@ -257,10 +283,16 @@ export const InlineUsage: Story = {
         ready shortly.
       </p>
       <p className="text-base">
-        Status: <Shimmer as="span" variant="aurora">Analyzing data</Shimmer>
+        Status:{' '}
+        <Shimmer as="span" variant="aurora">
+          Analyzing data
+        </Shimmer>
       </p>
       <p className="text-base">
-        Loading <Shimmer as="span" variant="nordic">configuration</Shimmer>{' '}
+        Loading{' '}
+        <Shimmer as="span" variant="nordic">
+          configuration
+        </Shimmer>{' '}
         files...
       </p>
     </div>
@@ -299,8 +331,7 @@ export const LoadingStates: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Shimmer effects used in realistic loading state scenarios.',
+        story: 'Shimmer effects used in realistic loading state scenarios.',
       },
     },
   },
@@ -330,4 +361,3 @@ export const LoadingStates: Story = {
     </div>
   ),
 };
-
