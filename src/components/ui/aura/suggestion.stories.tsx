@@ -53,11 +53,14 @@ const meta: Meta<typeof Suggestion> = {
     },
     variant: {
       control: 'select',
-      options: ['ghost', 'outline', 'default', 'secondary', 'destructive'],
-      description: 'Button variant (button mode only)',
+      options: ['ghost', 'outline'],
+      description:
+        'Button variant (button mode only). Only ghost and outline are supported as Suggestions are designed to have light backgrounds with dark text.',
       table: {
         category: 'Button Mode',
-        type: { summary: 'ghost | outline | default | secondary | destructive' },
+        type: {
+          summary: 'ghost | outline',
+        },
         defaultValue: { summary: 'ghost' },
       },
     },
@@ -176,30 +179,12 @@ export const WithScrollableWrapper: Story = {
 
     return (
       <Suggestions className="w-[500px]">
-        <Suggestion
-          suggestion="Suggestion 1"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="Suggestion 2"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="Suggestion 3"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="Suggestion 4"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="Suggestion 5"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="Suggestion 6"
-          onClick={handleSuggestion}
-        />
+        <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 2" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 3" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 4" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 5" onClick={handleSuggestion} />
+        <Suggestion suggestion="Suggestion 6" onClick={handleSuggestion} />
       </Suggestions>
     );
   },
@@ -207,12 +192,16 @@ export const WithScrollableWrapper: Story = {
 
 /**
  * Button variants
+ * Only ghost (default) and outline are supported. Other Button variants
+ * (default, secondary, destructive) are not supported as Suggestions
+ * are designed to have light backgrounds with dark text.
  */
 export const ButtonVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Suggestion buttons with different variants.',
+        story:
+          'Suggestion buttons with supported variants. Only ghost (default) and outline are available.',
       },
     },
   },
@@ -224,23 +213,13 @@ export const ButtonVariants: Story = {
     return (
       <div className="flex flex-wrap gap-2">
         <Suggestion
-          suggestion="Ghost variant"
+          suggestion="Ghost variant (default)"
           variant="ghost"
           onClick={handleSuggestion}
         />
         <Suggestion
           suggestion="Outline variant"
           variant="outline"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="Default variant"
-          variant="default"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="Secondary variant"
-          variant="secondary"
           onClick={handleSuggestion}
         />
       </div>
@@ -281,6 +260,9 @@ export const SelectMode: Story = {
       },
       { timeout: 1000 }
     );
+
+    // Close dropdown to remove aria-hidden from root (prevents a11y violation)
+    await userEvent.keyboard('{Escape}');
   },
   render: function SuggestionSelectStory(args) {
     const handleSuggestion = (value: string) => {
@@ -289,7 +271,7 @@ export const SelectMode: Story = {
 
     return (
       <Suggestion onValueChange={handleSuggestion}>
-        <SuggestionTrigger>
+        <SuggestionTrigger aria-label="Select a suggestion">
           <SuggestionValue placeholder="AI prompt suggestion 2" />
         </SuggestionTrigger>
         <SuggestionContent>
@@ -316,8 +298,7 @@ export const Grouped: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Organised suggestions with categories, labels, and separators.',
+        story: 'Organised suggestions with categories, labels, and separators.',
       },
     },
   },
@@ -328,7 +309,7 @@ export const Grouped: Story = {
 
     return (
       <Suggestion onValueChange={handleSuggestion}>
-        <SuggestionTrigger>
+        <SuggestionTrigger aria-label="Select a suggestion">
           <SuggestionValue placeholder="AI prompt suggestion 3" />
         </SuggestionTrigger>
         <SuggestionContent>
@@ -382,10 +363,12 @@ export const InteractiveSelect: Story = {
     return (
       <div className="space-y-4">
         <Suggestion onValueChange={handleSuggestion}>
-          <SuggestionTrigger>
+          <SuggestionTrigger aria-label="Select a query">
             <SuggestionValue
               placeholder={
-                selectedValue ? `Selected: ${selectedValue}` : 'Select a query...'
+                selectedValue
+                  ? `Selected: ${selectedValue}`
+                  : 'Select a query...'
               }
             />
           </SuggestionTrigger>
@@ -434,7 +417,7 @@ export const MultipleSelects: Story = {
     return (
       <div className="flex flex-col gap-4">
         <Suggestion onValueChange={handleSuggestion1}>
-          <SuggestionTrigger>
+          <SuggestionTrigger aria-label="Select equipment query">
             <SuggestionValue placeholder="Select equipment query..." />
           </SuggestionTrigger>
           <SuggestionContent>
@@ -448,7 +431,7 @@ export const MultipleSelects: Story = {
         </Suggestion>
 
         <Suggestion onValueChange={handleSuggestion2}>
-          <SuggestionTrigger>
+          <SuggestionTrigger aria-label="Select data query">
             <SuggestionValue placeholder="Select data query..." />
           </SuggestionTrigger>
           <SuggestionContent>
@@ -488,16 +471,10 @@ export const MixedModes: Story = {
 
     return (
       <div className="flex flex-wrap items-center gap-2">
-        <Suggestion
-          suggestion="Quick action 1"
-          onClick={handleButtonClick}
-        />
-        <Suggestion
-          suggestion="Quick action 2"
-          onClick={handleButtonClick}
-        />
+        <Suggestion suggestion="Quick action 1" onClick={handleButtonClick} />
+        <Suggestion suggestion="Quick action 2" onClick={handleButtonClick} />
         <Suggestion onValueChange={handleSelectChange}>
-          <SuggestionTrigger>
+          <SuggestionTrigger aria-label="More options">
             <SuggestionValue placeholder="More options..." />
           </SuggestionTrigger>
           <SuggestionContent>
@@ -513,4 +490,3 @@ export const MixedModes: Story = {
     );
   },
 };
-
