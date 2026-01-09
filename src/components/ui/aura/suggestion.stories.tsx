@@ -253,7 +253,7 @@ export const SelectMode: Story = {
     // Wait for dropdown to open and find an item
     await waitFor(
       () => {
-        const item = within(document.body).queryByText(
+        const item = within(document.body).getByText(
           'Show me the pressure on valve 10'
         );
         expect(item).toBeInTheDocument();
@@ -261,8 +261,19 @@ export const SelectMode: Story = {
       { timeout: 1000 }
     );
 
-    // Close dropdown to remove aria-hidden from root (prevents a11y violation)
-    await userEvent.keyboard('{Escape}');
+    // Click the item to select it
+    const item = within(document.body).getByText(
+      'Show me the pressure on valve 10'
+    );
+    await userEvent.click(item);
+
+    // Dropdown should close automatically after selection
+    await waitFor(
+      () => {
+        expect(trigger).toHaveAttribute('data-state', 'closed');
+      },
+      { timeout: 500 }
+    );
   },
   render: function SuggestionSelectStory(args) {
     const handleSuggestion = (value: string) => {
@@ -283,6 +294,95 @@ export const SelectMode: Story = {
           </SuggestionItem>
           <SuggestionItem icon={<IconChartLine className="size-4" />}>
             Display temperature trends for zone A
+          </SuggestionItem>
+        </SuggestionContent>
+      </Suggestion>
+    );
+  },
+};
+
+/**
+ * Tests keyboard interactions for select mode
+ */
+export const KeyboardInteractions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tests keyboard navigation: Arrow keys to navigate, Enter to select, Escape to close.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Find and focus the trigger
+    const trigger = canvas.getByRole('combobox');
+    await expect(trigger).toBeInTheDocument();
+    trigger.focus();
+
+    // Open dropdown with Enter key
+    await userEvent.keyboard('{Enter}');
+
+    // Wait for dropdown to open
+    await waitFor(
+      () => {
+        expect(trigger).toHaveAttribute('data-state', 'open');
+      },
+      { timeout: 500 }
+    );
+
+    // Navigate down with arrow key
+    await userEvent.keyboard('{ArrowDown}');
+
+    // Select with Enter
+    await userEvent.keyboard('{Enter}');
+
+    // Dropdown should close
+    await waitFor(
+      () => {
+        expect(trigger).toHaveAttribute('data-state', 'closed');
+      },
+      { timeout: 500 }
+    );
+
+    // Open again to test Escape
+    await userEvent.keyboard('{Enter}');
+    await waitFor(
+      () => {
+        expect(trigger).toHaveAttribute('data-state', 'open');
+      },
+      { timeout: 500 }
+    );
+
+    // Close with Escape
+    await userEvent.keyboard('{Escape}');
+    await waitFor(
+      () => {
+        expect(trigger).toHaveAttribute('data-state', 'closed');
+      },
+      { timeout: 500 }
+    );
+  },
+  render: function SuggestionKeyboardStory(args) {
+    const handleSuggestion = (value: string) => {
+      args.onValueChange?.(value);
+    };
+
+    return (
+      <Suggestion onValueChange={handleSuggestion}>
+        <SuggestionTrigger aria-label="Select a suggestion">
+          <SuggestionValue placeholder="Use keyboard to navigate..." />
+        </SuggestionTrigger>
+        <SuggestionContent>
+          <SuggestionItem icon={<IconGauge className="size-4" />}>
+            First option
+          </SuggestionItem>
+          <SuggestionItem icon={<IconActivity className="size-4" />}>
+            Second option
+          </SuggestionItem>
+          <SuggestionItem icon={<IconChartLine className="size-4" />}>
+            Third option
           </SuggestionItem>
         </SuggestionContent>
       </Suggestion>
@@ -348,9 +448,50 @@ export const InteractiveSelect: Story = {
     docs: {
       description: {
         story:
-          'Select mode suggestion with state management to show selected value.',
+          'Select mode suggestion with state management to show selected value. Tests selecting an item and verifying the UI updates.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Find the trigger button
+    const trigger = canvas.getByRole('combobox');
+    await expect(trigger).toBeInTheDocument();
+
+    // Verify initial state - no selection message
+    expect(canvas.queryByText(/Last selected:/)).not.toBeInTheDocument();
+
+    // Click to open dropdown
+    await userEvent.click(trigger);
+
+    // Wait for dropdown to open
+    await waitFor(
+      () => {
+        const item = within(document.body).getByText(
+          "What's the status of pump 3?"
+        );
+        expect(item).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
+
+    // Select the second item
+    const item = within(document.body).getByText(
+      "What's the status of pump 3?"
+    );
+    await userEvent.click(item);
+
+    // Verify the selection is displayed
+    await waitFor(
+      () => {
+        const selectionText = canvas.getByText(
+          /Last selected: What's the status of pump 3\?/
+        );
+        expect(selectionText).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
   },
   render: function SuggestionInteractiveStory(args) {
     const [selectedValue, setSelectedValue] = useState<string>('');
