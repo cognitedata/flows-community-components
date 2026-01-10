@@ -1,6 +1,9 @@
+'use client';
+
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { expect } from '@storybook/jest';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { useState } from 'react';
 import { Badge } from './badge';
 import {
   IconAlertHexagon,
@@ -104,6 +107,16 @@ const meta: Meta<typeof Badge> = {
         defaultValue: { summary: 'false' },
       },
     },
+    size: {
+      control: 'select',
+      options: ['default', 'icon'],
+      description: 'Size variant for the badge',
+      table: {
+        category: 'Appearance',
+        type: { summary: "'default' | 'icon'" },
+        defaultValue: { summary: 'default' },
+      },
+    },
     className: {
       control: 'text',
       description: 'Additional CSS classes',
@@ -115,6 +128,9 @@ const meta: Meta<typeof Badge> = {
   },
   parameters: {
     layout: 'centered',
+    actions: {
+      handles: ['click', 'keydown'],
+    },
   },
 };
 
@@ -538,6 +554,101 @@ export const AllVariants: Story = {
 };
 
 /**
+ * Icon Sizes - showing the difference between default and icon size variants
+ */
+export const IconSizes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <div>
+        <p className="text-sm text-muted-foreground mb-3">
+          Default size with text + icon
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="mountain">
+            <IconHexagon className="size-3" />
+            Plans
+          </Badge>
+          <Badge variant="fjord">
+            <IconStar className="size-3" />
+            Featured
+          </Badge>
+          <Badge variant="aurora">
+            <IconCircleCheck className="size-3" />
+            Complete
+          </Badge>
+          <Badge variant="dusk">
+            <IconUser className="size-3" />
+            Admin
+          </Badge>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-3">
+          Default size with icon only (rectangular)
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="mountain">
+            <IconHexagon className="size-3" />
+          </Badge>
+          <Badge variant="fjord">
+            <IconStar className="size-3" />
+          </Badge>
+          <Badge variant="aurora">
+            <IconCircleCheck className="size-3" />
+          </Badge>
+          <Badge variant="dusk">
+            <IconUser className="size-3" />
+          </Badge>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-3">
+          Icon size (square, optimised for icon-only badges)
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="mountain" size="icon">
+            <IconHexagon className="size-3" />
+          </Badge>
+          <Badge variant="fjord" size="icon">
+            <IconStar className="size-3" />
+          </Badge>
+          <Badge variant="aurora" size="icon">
+            <IconCircleCheck className="size-3" />
+          </Badge>
+          <Badge variant="dusk" size="icon">
+            <IconUser className="size-3" />
+          </Badge>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The `size` prop controls the padding and shape of the badge. Use `size="icon"` for icon-only badges to achieve a square, balanced appearance with equal padding on all sides. The default size uses horizontal padding optimised for text content.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
+
+    // Find badges with icon size
+    const iconSizeBadges = Array.from(badges).filter((badge) =>
+      badge.classList.contains('rounded-md')
+    );
+
+    // Verify icon size badges have correct styling
+    iconSizeBadges.forEach((badge) => {
+      expect(badge).toHaveClass('p-0.75');
+      expect(badge).toHaveClass('rounded-md');
+    });
+
+    await expect(iconSizeBadges.length).toBeGreaterThan(0);
+  },
+};
+
+/**
  * Interactive playground for testing different configurations.
  * Use the controls below to experiment with all available props.
  */
@@ -690,47 +801,152 @@ export const DotIndicators: Story = {
 };
 
 /**
- * Click Interaction - testing interactive badges
+ * Click Interaction - testing interactive badges with state feedback
  */
 export const ClickInteraction: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge
-        variant="closable"
-        onClick={() => alert('Badge clicked!')}
-        className="cursor-pointer"
-      >
-        Clickable
-        <IconX className="size-3" />
-      </Badge>
-      <Badge
-        variant="closable"
-        onClick={() => alert('Filter removed')}
-        className="cursor-pointer"
-      >
-        Filter: Status
-        <IconX className="size-3" />
-      </Badge>
-    </div>
-  ),
   parameters: {
     docs: {
       description: {
         story:
-          'Interactive badges that respond to click events. The `closable` variant includes hover states and cursor styling. Commonly used for removable tags, filters, or dismissible notifications.',
+          'Interactive badges that respond to click events. The `closable` variant includes hover states and cursor styling. Commonly used for removable tags, filters, or dismissible notifications. This story tests actual click interactions with state updates.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Clickable');
 
+    // Find and verify initial state
+    const badge = canvas.getByTestId('closable-badge');
     await expect(badge).toBeInTheDocument();
     await expect(badge).toHaveClass('cursor-pointer');
 
     // Test hover interaction
     await userEvent.hover(badge);
     await expect(badge).toHaveClass('hover:bg-secondary-hover');
+
+    // Test click interaction
+    await userEvent.click(badge);
+    await waitFor(() => {
+      expect(canvas.getByText('Clicked!')).toBeInTheDocument();
+    });
+
+    // Click again to toggle back
+    await userEvent.click(badge);
+    await waitFor(() => {
+      expect(canvas.getByText('Click me')).toBeInTheDocument();
+    });
+  },
+  render: function ClickInteractionStory() {
+    const [clicked, setClicked] = useState(false);
+
+    return (
+      <div className="flex flex-wrap gap-4 items-center">
+        <Badge
+          variant="closable"
+          onClick={() => setClicked(!clicked)}
+          className="cursor-pointer"
+          data-testid="closable-badge"
+        >
+          {clicked ? 'Clicked!' : 'Click me'}
+          <IconX className="size-3" />
+        </Badge>
+        <span className="text-sm text-muted-foreground">
+          State: {clicked ? 'Active' : 'Inactive'}
+        </span>
+      </div>
+    );
+  },
+};
+
+/**
+ * Keyboard Interactions - testing keyboard navigation and activation
+ */
+export const KeyboardInteractions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tests keyboard interactions for interactive badges. Focus with Tab, activate with Enter or Space. Essential for accessibility compliance.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Tab to focus the first badge
+    await userEvent.tab();
+    const firstBadge = canvas.getByTestId('keyboard-badge-1');
+    await waitFor(() => {
+      expect(firstBadge).toHaveFocus();
+    });
+
+    // Press Enter to activate
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(canvas.getByText('Badge 1: Active')).toBeInTheDocument();
+    });
+
+    // Tab to second badge
+    await userEvent.tab();
+    const secondBadge = canvas.getByTestId('keyboard-badge-2');
+    await waitFor(() => {
+      expect(secondBadge).toHaveFocus();
+    });
+
+    // Press Space to activate
+    await userEvent.keyboard(' ');
+    await waitFor(() => {
+      expect(canvas.getByText('Badge 2: Active')).toBeInTheDocument();
+    });
+  },
+  render: function KeyboardInteractionsStory() {
+    const [badge1Active, setBadge1Active] = useState(false);
+    const [badge2Active, setBadge2Active] = useState(false);
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap gap-2">
+          <Badge
+            variant="closable"
+            role="button"
+            tabIndex={0}
+            data-testid="keyboard-badge-1"
+            aria-label="Toggle badge 1"
+            onClick={() => setBadge1Active(!badge1Active)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setBadge1Active(!badge1Active);
+              }
+            }}
+          >
+            Badge 1
+            <IconX className="size-3" aria-hidden="true" />
+          </Badge>
+          <Badge
+            variant="closable"
+            role="button"
+            tabIndex={0}
+            data-testid="keyboard-badge-2"
+            aria-label="Toggle badge 2"
+            onClick={() => setBadge2Active(!badge2Active)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setBadge2Active(!badge2Active);
+              }
+            }}
+          >
+            Badge 2
+            <IconX className="size-3" aria-hidden="true" />
+          </Badge>
+        </div>
+        <div className="text-sm text-muted-foreground">
+          <p>Badge 1: {badge1Active ? 'Active' : 'Inactive'}</p>
+          <p>Badge 2: {badge2Active ? 'Active' : 'Inactive'}</p>
+        </div>
+      </div>
+    );
   },
 };
 
@@ -738,6 +954,43 @@ export const ClickInteraction: Story = {
  * Accessibility - ARIA labels and semantic usage
  */
 export const Accessibility: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Accessibility features for badges include proper ARIA labels, semantic roles, keyboard navigation support, and icon hiding. Interactive badges should have role="button" and keyboard handlers.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Check ARIA labels are present and accessible
+    await waitFor(() => {
+      expect(canvas.getByLabelText('Status: Completed')).toBeInTheDocument();
+      expect(canvas.getByLabelText('Status: Failed')).toBeInTheDocument();
+      expect(canvas.getByLabelText('Urgent notification')).toBeInTheDocument();
+    });
+
+    // Check keyboard navigation on interactive badge
+    const interactiveBadge = canvas.getByRole('button', {
+      name: /Remove tag: JavaScript/i,
+    });
+    await expect(interactiveBadge).toBeInTheDocument();
+    await expect(interactiveBadge).toHaveAttribute('tabIndex', '0');
+
+    // Test keyboard focus
+    await userEvent.tab();
+    await userEvent.tab();
+    await userEvent.tab(); // Tab to the interactive badge
+    await waitFor(() => {
+      expect(interactiveBadge).toHaveFocus();
+    });
+
+    // Verify icons are hidden from screen readers
+    const icons = canvasElement.querySelectorAll('svg[aria-hidden="true"]');
+    await expect(icons.length).toBeGreaterThan(0);
+  },
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap gap-2">
@@ -766,32 +1019,6 @@ export const Accessibility: Story = {
       </Badge>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Accessibility features for badges include proper ARIA labels, semantic roles, keyboard navigation support, and icon hiding. Interactive badges should have role="button" and keyboard handlers.',
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check ARIA labels
-    const completedBadge = canvas.getByLabelText('Status: Completed');
-    await expect(completedBadge).toBeInTheDocument();
-
-    // Check keyboard navigation on interactive badge
-    const interactiveBadge = canvas.getByRole('button', {
-      name: /Remove tag: JavaScript/i,
-    });
-    await expect(interactiveBadge).toBeInTheDocument();
-    await expect(interactiveBadge).toHaveAttribute('tabIndex', '0');
-
-    // Test keyboard interaction
-    interactiveBadge.focus();
-    await expect(interactiveBadge).toHaveFocus();
-  },
 };
 
 /**
@@ -938,22 +1165,22 @@ export const EdgeCaseSpecialCharacters: Story = {
 };
 
 /**
- * Edge Case: Icon Only
+ * Edge Case: Icon Only (with proper accessibility)
  */
 export const EdgeCaseIconOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="success">
-        <IconCircleCheck className="size-3" />
+      <Badge variant="success" size="icon" aria-label="Success">
+        <IconCircleCheck className="size-3" aria-hidden="true" />
       </Badge>
-      <Badge variant="error">
-        <IconAlertHexagon className="size-3" />
+      <Badge variant="error" size="icon" aria-label="Error">
+        <IconAlertHexagon className="size-3" aria-hidden="true" />
       </Badge>
-      <Badge variant="warning">
-        <IconAlertTriangle className="size-3" />
+      <Badge variant="warning" size="icon" aria-label="Warning">
+        <IconAlertTriangle className="size-3" aria-hidden="true" />
       </Badge>
-      <Badge variant="inProgress">
-        <IconInnerShadowTopLeft className="size-3" />
+      <Badge variant="inProgress" size="icon" aria-label="In progress">
+        <IconInnerShadowTopLeft className="size-3" aria-hidden="true" />
       </Badge>
     </div>
   ),
@@ -961,18 +1188,27 @@ export const EdgeCaseIconOnly: Story = {
     docs: {
       description: {
         story:
-          'Badges containing only icons, no text. Ensure proper ARIA labels are provided for accessibility when using icon-only badges.',
+          'Icon-only badges with proper accessibility. Each badge has an `aria-label` for screen readers and icons are marked `aria-hidden="true"`. Uses `size="icon"` for square proportions.',
       },
     },
   },
   play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
 
-    // Each badge should have an icon
+    // Each badge should have an icon and aria-label
     badges.forEach((badge) => {
       const icon = badge.querySelector('svg');
       expect(icon).toBeInTheDocument();
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(badge).toHaveAttribute('aria-label');
     });
+
+    // Verify specific labels
+    await expect(canvas.getByLabelText('Success')).toBeInTheDocument();
+    await expect(canvas.getByLabelText('Error')).toBeInTheDocument();
+    await expect(canvas.getByLabelText('Warning')).toBeInTheDocument();
+    await expect(canvas.getByLabelText('In progress')).toBeInTheDocument();
   },
 };
 
