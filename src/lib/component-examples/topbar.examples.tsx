@@ -13,6 +13,17 @@ import {
   BreadcrumbPage,
 } from '@/components/ui/aura/breadcrumb';
 import { Button } from '@/components/ui/aura/button';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/aura/alert-dialog';
 // import { SwapSlot } from '@/components/ui/aura/swap-slot';
 import {
   IconChartBar as BarChart3,
@@ -110,15 +121,28 @@ function EosTopbar() {
             <IconDownload className="h-4 w-4" />
             Download
           </Button>
-          <Button size="sm">
-            <IconEdit className="h-4 w-4" />
-            New chat
-          </Button>
-          {/* <TopbarSwapSlot> */}
-          {/* <SwapSlot className="border-2 border-dashed border-primary/40 rounded flex items-center justify-center w-[122px] h-[28px]">
-              <span className="text-xs text-muted-foreground">Slot</span>
-            </SwapSlot> */}
-          {/* </TopbarSwapSlot> */}
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button size="sm">
+                <IconEdit className="h-4 w-4" />
+                New chat
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will start a fresh conversation. Your current chat
+                  history will be saved and you can access it later from the
+                  sidebar.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Start new chat</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </TopbarRight>
       </Topbar>
     </div>
@@ -298,47 +322,93 @@ export function BasicDemo() {
   eos: {
     title: 'EOS Topbar',
     description:
-      'A topbar with breadcrumbs on the left, empty center, and actions on the right',
+      'A topbar with breadcrumbs, download button, and new chat action with confirmation dialog',
     component: EosTopbar,
-    difficulty: 'beginner',
+    difficulty: 'intermediate',
     code: `import {
-      Topbar,
-      TopbarLeft,
-      TopbarCenter,
-      TopbarRight,
-      TopbarBreadcrumbs,
-      TopbarSwapSlot,
-      TopbarAction,
-    } from "@/components/ui/aura/topbar"
-    import {
-      BreadcrumbList,
-      BreadcrumbItem,
-      BreadcrumbLink,
-      BreadcrumbSeparator,
-      BreadcrumbPage,
-    } from "@/components/ui/aura/breadcrumb"
-    import { SwapSlot } from "@/components/ui/aura/swap-slot"
-    import { IconHome, IconSearch, IconApps, IconLayoutSidebar } from "@tabler/icons-react"
-    export function EosTopbar() {
-      return (
-        <Topbar>
-          <TopbarLeft>
-            <Button variant="ghost" size="icon">
-              <IconLayoutSidebar className="h-4 w-4" />
+  Topbar,
+  TopbarLeft,
+  TopbarCenter,
+  TopbarRight,
+  TopbarBreadcrumbs,
+} from "@/components/ui/aura/topbar"
+import {
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/aura/breadcrumb"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/aura/alert-dialog"
+import { Button } from "@/components/ui/aura/button"
+import { IconLayoutSidebar, IconHomeFilled, IconDownload, IconEdit } from "@tabler/icons-react"
+
+export function EosTopbar() {
+  return (
+    <Topbar>
+      <TopbarLeft>
+        <Button variant="ghost" size="icon">
+          <IconLayoutSidebar className="h-4 w-4" />
+        </Button>
+        <TopbarBreadcrumbs>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">
+                <IconHomeFilled className="h-4 w-4" />
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbPage>Canvas</BreadcrumbPage>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>RCA 21PT1019</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </TopbarBreadcrumbs>
+      </TopbarLeft>
+      <TopbarCenter />
+      <TopbarRight>
+        <Button variant="ghost" size="sm">
+          <IconDownload className="h-4 w-4" />
+          Download
+        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button size="sm">
+              <IconEdit className="h-4 w-4" />
+              New chat
             </Button>
-          </TopbarLeft>
-          <TopbarCenter />
-          <TopbarRight>
-            <TopbarSwapSlot>
-              <SwapSlot className="border-2 border-dashed border-primary/40 rounded flex items-center justify-center w-[122px] h-[28px]">
-                <span className="text-xs text-muted-foreground">Slot</span>
-              </SwapSlot>
-            </TopbarSwapSlot>
-          </TopbarRight>
-        </Topbar>
-      );
-    }
-  }`,
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This will start a fresh conversation. Your current chat
+                history will be saved and you can access it later from the
+                sidebar.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Start new chat</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </TopbarRight>
+    </Topbar>
+  );
+}`,
   },
   withSidebar: {
     title: 'Topbar with Sidebar layout',
