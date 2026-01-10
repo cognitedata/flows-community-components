@@ -22,7 +22,7 @@ function BasicDemo() {
         <p className="text-base tracking-tightest font-normal text-secondary-foreground">
           Description
         </p>
-        <SwapSlot className="flex items-center gap-2 rounded-md border border-dashed border-ring p-4 h-[72px]"></SwapSlot>
+        <SwapSlot className="h-18" />
       </CardContent>
       <CardFooter className="flex gap-2 p-4 pt-0">
         <Badge>Badge</Badge>
