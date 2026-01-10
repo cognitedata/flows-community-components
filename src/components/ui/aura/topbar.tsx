@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { type ComponentProps } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 
@@ -8,7 +7,6 @@ import { cn } from '@/lib/utils';
 import { Breadcrumb } from '@/components/ui/aura/breadcrumb';
 import { SidebarProvider, SidebarInset } from '@/components/ui/aura/sidebar';
 import { Button } from '@/components/ui/aura/button';
-// import { SwapSlot } from '@/components/ui/aura/swap-slot';
 
 // Topbar wrapper component
 function Topbar({ className, ...props }: ComponentProps<'div'>) {
