@@ -489,6 +489,146 @@ export const DataTablePattern: Story = {
   ),
 };
 
+/**
+ * AI chat response pattern with modest hierarchy and vertical rhythm.
+ * Typography is subordinate to the chat UI, using smaller heading sizes (h1=text-xl, h2=text-lg).
+ * Includes proper spacing for natural reading flow within a conversational context.
+ * This pattern is used by the MessageResponse component with Streamdown for markdown rendering.
+ */
+export const AIChatResponsePattern: Story = {
+  name: 'Pattern: AI Chat Response',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates typography hierarchy for AI-generated responses within a chat interface. Uses a modest scale (h1=text-xl, h2=text-lg) appropriate for content subordinate to the chat UI. Includes vertical rhythm (margins) for natural reading flow. Used by MessageResponse component.',
+      },
+    },
+  },
+  render: () => (
+    <div className="max-w-prose bg-muted/30 rounded-lg p-6">
+      <div>
+        <h2 className="text-lg font-medium tracking-tightest mt-4 mb-1">
+          Using the API
+        </h2>
+        <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+          To get started, you&apos;ll need to authenticate with your API key.
+          Here&apos;s a quick overview:
+        </p>
+        <ul className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
+          <li className="py-0">Generate an API key from your dashboard</li>
+          <li className="py-0">
+            Include it in the{' '}
+            <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+              Authorization
+            </code>{' '}
+            header
+          </li>
+          <li className="py-0">Make requests to the API endpoint</li>
+        </ul>
+        <blockquote className="my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic">
+          <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+            Keep your API keys secure and never commit them to version control.
+          </p>
+        </blockquote>
+        <hr className="my-4 border-border" />
+        <h3 className="text-base font-medium tracking-tighter mt-4 mb-1">
+          Example Request
+        </h3>
+        <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+          Here&apos;s how to make your first request using{' '}
+          <strong className="font-medium">fetch</strong> or{' '}
+          <em className="italic">curl</em>. The API returns JSON responses with
+          proper error handling.
+        </p>
+        <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+          For more details, visit the{' '}
+          <a
+            className="text-foreground-link no-underline hover:underline underline-offset-4"
+            href="https://example.com"
+          >
+            full documentation
+          </a>
+          .
+        </p>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Documentation page pattern with larger hierarchy for standalone content.
+ * Typography dominates the page using larger heading sizes (h1=text-4xl, h2=text-2xl).
+ * Designed for full-page documentation, guides, or long-form articles where content is primary.
+ */
+export const DocumentationPagePattern: Story = {
+  name: 'Pattern: Documentation Page',
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates typography hierarchy for standalone documentation or article pages. Uses a larger scale (h1=text-4xl, h2=text-2xl) appropriate for primary content that dominates the page. Suitable for full-page docs, guides, or long-form articles.',
+      },
+    },
+  },
+  render: () => (
+    <article className="max-w-3xl mx-auto py-8">
+      <h1 className="text-4xl font-medium mt-0 mb-4">Getting Started</h1>
+      <p className="text-base font-normal leading-7 mt-0 mb-4">
+        This guide will walk you through the basics of setting up and using our
+        platform. Follow each section carefully to ensure a smooth setup
+        process.
+      </p>
+
+      <h2 className="text-2xl font-medium mt-8 mb-2">Installation</h2>
+      <p className="text-base font-normal leading-7 mt-0 mb-4">
+        First, install the required dependencies using your package manager. We
+        support npm, yarn, and pnpm.
+      </p>
+      <ul className="ml-6 mb-4 list-disc text-base font-normal">
+        <li>Node.js 18 or higher</li>
+        <li>npm, yarn, or pnpm</li>
+        <li>A modern browser (Chrome, Firefox, Safari, or Edge)</li>
+      </ul>
+
+      <h3 className="text-xl font-medium mt-6 mb-2">Configuration</h3>
+      <p className="text-base font-normal leading-7 mt-0 mb-4">
+        Create a configuration file in your project root. This file controls how
+        the application behaves in different environments.
+      </p>
+
+      <blockquote className="my-4 pl-4 border-l-2 border-l-border text-base text-muted-foreground italic">
+        Remember to add your config file to{' '}
+        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold not-italic">
+          .gitignore
+        </code>{' '}
+        if it contains sensitive information.
+      </blockquote>
+
+      <h4 className="text-lg font-medium mt-4 mb-1">Environment Variables</h4>
+      <p className="text-base font-normal leading-7 mt-0 mb-4">
+        Set up your environment variables in a{' '}
+        <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+          .env
+        </code>{' '}
+        file. Never commit this file to your repository.
+      </p>
+
+      <h2 className="text-2xl font-medium mt-8 mb-2">Next Steps</h2>
+      <p className="text-base font-normal leading-7 mt-0 mb-4">
+        Once you&apos;ve completed the installation, you can proceed to
+        configure your first project. Check out our tutorials for hands-on
+        examples.
+      </p>
+      <ol className="ml-6 mb-4 list-decimal text-base font-normal">
+        <li>Complete the quick start tutorial</li>
+        <li>Explore the component library</li>
+        <li>Review best practices and patterns</li>
+      </ol>
+    </article>
+  ),
+};
+
 // =============================================================================
 // Full Page Example
 // =============================================================================
@@ -846,7 +986,10 @@ export const FullPageExample: Story = {
             </div>
 
             {/* Form */}
-            <div className="rounded-lg border border-border p-6 space-y-4" data-testid="subscribe-form">
+            <div
+              className="rounded-lg border border-border p-6 space-y-4"
+              data-testid="subscribe-form"
+            >
               <div>
                 <h3 className="text-lg font-medium">Subscribe</h3>
                 <p className="text-sm font-normal text-muted-foreground">
@@ -1013,7 +1156,7 @@ export const PatternReference: Story = {
 
     // Verify all patterns are rendered
     const patternCount = Object.keys(typographyPatterns).length;
-    await expect(patternCount).toBe(8);
+    await expect(patternCount).toBe(10);
 
     // Verify specific patterns exist
     await expect(canvas.getByText('Page Header')).toBeInTheDocument();
@@ -1024,6 +1167,8 @@ export const PatternReference: Story = {
     await expect(canvas.getByText('Article Body')).toBeInTheDocument();
     await expect(canvas.getByText('Marketing Hero')).toBeInTheDocument();
     await expect(canvas.getByText('Data Table')).toBeInTheDocument();
+    await expect(canvas.getByText('AI Chat Response')).toBeInTheDocument();
+    await expect(canvas.getByText('Documentation Page')).toBeInTheDocument();
 
     // Verify element roles are shown
     await expect(canvas.getAllByText('title:').length).toBeGreaterThan(0);
