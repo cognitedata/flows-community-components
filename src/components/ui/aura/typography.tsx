@@ -291,15 +291,22 @@ export type TypographyItem = (typeof typographyScale)[number];
 /**
  * Get all typography items for a specific section
  */
-export function getTypographyBySection(section: TypographySection): TypographyItem[] {
+export function getTypographyBySection(
+  section: TypographySection
+): TypographyItem[] {
   return typographyScale.filter((t) => t.section === section);
 }
 
 /**
  * Find a typography item by name and optional section
  */
-export function findTypography(name: string, section?: TypographySection): TypographyItem | undefined {
-  return typographyScale.find((t) => t.name === name && (!section || t.section === section));
+export function findTypography(
+  name: string,
+  section?: TypographySection
+): TypographyItem | undefined {
+  return typographyScale.find(
+    (t) => t.name === name && (!section || t.section === section)
+  );
 }
 
 /**
@@ -336,7 +343,11 @@ export const typographyPatterns = {
     name: 'Page Header',
     description: 'Standard page header with title and subtitle',
     elements: [
-      { role: 'title', class: 'text-4xl font-medium', description: 'Main page title' },
+      {
+        role: 'title',
+        class: 'text-4xl font-medium',
+        description: 'Main page title',
+      },
       {
         role: 'subtitle',
         class: 'text-lg font-normal text-muted-foreground',
@@ -357,7 +368,11 @@ export const typographyPatterns = {
     name: 'Section Header',
     description: 'Section divider with heading and optional description',
     elements: [
-      { role: 'heading', class: 'text-2xl font-medium', description: 'Section heading' },
+      {
+        role: 'heading',
+        class: 'text-2xl font-medium',
+        description: 'Section heading',
+      },
       {
         role: 'description',
         class: 'text-sm font-normal text-muted-foreground',
@@ -378,7 +393,11 @@ export const typographyPatterns = {
     name: 'Card',
     description: 'Card with title, description, and metadata',
     elements: [
-      { role: 'title', class: 'text-lg font-medium', description: 'Card title' },
+      {
+        role: 'title',
+        class: 'text-lg font-medium',
+        description: 'Card title',
+      },
       {
         role: 'description',
         class: 'text-sm font-normal text-muted-foreground',
@@ -406,7 +425,11 @@ export const typographyPatterns = {
     name: 'List Item',
     description: 'List item with title and secondary text',
     elements: [
-      { role: 'title', class: 'text-base font-medium', description: 'Primary text' },
+      {
+        role: 'title',
+        class: 'text-base font-medium',
+        description: 'Primary text',
+      },
       {
         role: 'secondary',
         class: 'text-sm font-normal text-muted-foreground',
@@ -427,8 +450,16 @@ export const typographyPatterns = {
     name: 'Form Field',
     description: 'Form field with label, input, and helper text',
     elements: [
-      { role: 'label', class: 'text-sm font-medium', description: 'Field label' },
-      { role: 'input', class: 'text-base font-normal', description: 'Input text' },
+      {
+        role: 'label',
+        class: 'text-sm font-medium',
+        description: 'Field label',
+      },
+      {
+        role: 'input',
+        class: 'text-base font-normal',
+        description: 'Input text',
+      },
       {
         role: 'helper',
         class: 'text-xs font-normal text-muted-foreground',
@@ -451,10 +482,26 @@ export const typographyPatterns = {
     name: 'Article Body',
     description: 'Long-form content with headings and paragraphs',
     elements: [
-      { role: 'h1', class: 'text-3xl font-medium', description: 'Article title' },
-      { role: 'h2', class: 'text-2xl font-medium', description: 'Section heading' },
-      { role: 'h3', class: 'text-xl font-medium', description: 'Subsection heading' },
-      { role: 'body', class: 'text-base font-normal', description: 'Body paragraphs' },
+      {
+        role: 'h1',
+        class: 'text-3xl font-medium',
+        description: 'Article title',
+      },
+      {
+        role: 'h2',
+        class: 'text-2xl font-medium',
+        description: 'Section heading',
+      },
+      {
+        role: 'h3',
+        class: 'text-xl font-medium',
+        description: 'Subsection heading',
+      },
+      {
+        role: 'body',
+        class: 'text-base font-normal',
+        description: 'Body paragraphs',
+      },
       {
         role: 'caption',
         class: 'text-sm font-normal text-muted-foreground',
@@ -487,7 +534,11 @@ export const typographyPatterns = {
     name: 'Marketing Hero',
     description: 'Hero section for marketing pages',
     elements: [
-      { role: 'headline', class: 'font-marketing text-5xl font-bold', description: 'Main headline' },
+      {
+        role: 'headline',
+        class: 'font-marketing text-5xl font-bold',
+        description: 'Main headline',
+      },
       {
         role: 'subheadline',
         class: 'text-xl font-normal text-muted-foreground',
@@ -508,7 +559,11 @@ export const typographyPatterns = {
     name: 'Data Table',
     description: 'Table with headers and data cells',
     elements: [
-      { role: 'header', class: 'text-xs font-medium uppercase', description: 'Column headers' },
+      {
+        role: 'header',
+        class: 'text-xs font-medium uppercase',
+        description: 'Column headers',
+      },
       { role: 'cell', class: 'text-sm font-normal', description: 'Data cells' },
       {
         role: 'cellSecondary',
@@ -554,7 +609,8 @@ export const typographyPatterns = {
     name: 'AI Chat Response',
     description:
       'Typography hierarchy for AI-generated responses within a chat interface. Uses a modest scale appropriate for content that is subordinate to the chat UI. Includes vertical rhythm (margins) for natural reading flow.',
-    context: 'Used by MessageResponse component with Streamdown for markdown rendering',
+    context:
+      'Used by MessageResponse component with Streamdown for markdown rendering',
     elements: [
       {
         role: 'h1',
@@ -583,22 +639,26 @@ export const typographyPatterns = {
       },
       {
         role: 'ul',
-        class: 'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest',
+        class:
+          'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest',
         description: 'Unordered list (12px bottom, 8px top padding)',
       },
       {
         role: 'ol',
-        class: 'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-decimal text-base font-normal tracking-tightest',
+        class:
+          'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-decimal text-base font-normal tracking-tightest',
         description: 'Ordered list (12px bottom, 8px top padding)',
       },
       {
         role: 'li',
         class: 'py-0',
-        description: 'List item (no vertical padding, spacing controlled by parent)',
+        description:
+          'List item (no vertical padding, spacing controlled by parent)',
       },
       {
         role: 'blockquote',
-        class: 'my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic',
+        class:
+          'my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic',
         description: 'Quoted text (12px vertical, left border accent)',
       },
       {
@@ -618,12 +678,14 @@ export const typographyPatterns = {
       },
       {
         role: 'a',
-        class: 'text-foreground-link no-underline hover:underline underline-offset-4',
+        class:
+          'text-foreground-link no-underline hover:underline underline-offset-4',
         description: 'Hyperlink',
       },
       {
         role: 'code (inline)',
-        class: 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
+        class:
+          'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
         description: 'Inline code snippet',
       },
     ],
@@ -704,12 +766,14 @@ export const typographyPatterns = {
       },
       {
         role: 'blockquote',
-        class: 'my-4 pl-4 border-l-2 border-l-border text-base text-muted-foreground italic',
+        class:
+          'my-4 pl-4 border-l-2 border-l-border text-base text-muted-foreground italic',
         description: 'Quoted text (16px vertical, thicker left border)',
       },
       {
         role: 'code (inline)',
-        class: 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
+        class:
+          'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
         description: 'Inline code snippet',
       },
     ],
@@ -718,7 +782,7 @@ export const typographyPatterns = {
   <p class="text-base font-normal leading-7 mt-0 mb-4">
     This guide will walk you through the basics of setting up and using our platform.
   </p>
-  
+
   <h2 class="text-2xl font-medium mt-8 mb-2">Installation</h2>
   <p class="text-base font-normal leading-7 mt-0 mb-4">
     First, install the required dependencies using your package manager:
@@ -738,7 +802,7 @@ export const typographyPatterns = {
   <p className="text-base font-normal leading-7 mt-0 mb-4">
     This guide will walk you through the basics of setting up and using our platform.
   </p>
-  
+
   <h2 className="text-2xl font-medium mt-8 mb-2">Installation</h2>
   <p className="text-base font-normal leading-7 mt-0 mb-4">
     First, install the required dependencies using your package manager:
@@ -757,4 +821,3 @@ export const typographyPatterns = {
 } as const;
 
 export type TypographyPattern = keyof typeof typographyPatterns;
-
