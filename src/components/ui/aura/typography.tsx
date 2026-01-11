@@ -316,6 +316,20 @@ export const typographyExamples = typographyScale.map((t) => ({
  *
  * These patterns show how to combine typography variants for common UI scenarios.
  * Use these as recipes when building interfaces.
+ *
+ * ## Important: Semantic-agnostic approach
+ *
+ * The Aura typography scale (text-xs, text-sm, text-base, etc.) is intentionally
+ * decoupled from HTML semantics (h1, h2, p, etc.). This allows flexibility:
+ * different contexts require different hierarchies.
+ *
+ * For example:
+ * - In an AI chat response, h1 might be text-xl (modest, subordinate to chat UI)
+ * - In a documentation page, h1 might be text-4xl (dominant, primary content)
+ * - In a dashboard card, h1 might be text-lg (compact, space-efficient)
+ *
+ * These patterns document **context-specific** mappings, not universal rules.
+ * Choose heading sizes based on your content's hierarchy depth and visual prominence.
  */
 export const typographyPatterns = {
   pageHeader: {
@@ -534,6 +548,211 @@ export const typographyPatterns = {
     </tr>
   </tbody>
 </table>`,
+  },
+
+  aiChatResponse: {
+    name: 'AI Chat Response',
+    description:
+      'Typography hierarchy for AI-generated responses within a chat interface. Uses a modest scale appropriate for content that is subordinate to the chat UI. Includes vertical rhythm (margins) for natural reading flow.',
+    context: 'Used by MessageResponse component with Streamdown for markdown rendering',
+    elements: [
+      {
+        role: 'h1',
+        class: 'text-xl font-medium tracking-tightest mt-0 mb-2',
+        description: 'Top-level heading (0px top, 8px bottom)',
+      },
+      {
+        role: 'h2',
+        class: 'text-lg font-medium tracking-tightest mt-4 mb-1',
+        description: 'Section heading (16px top, 4px bottom)',
+      },
+      {
+        role: 'h3',
+        class: 'text-base font-medium tracking-tighter mt-4 mb-1',
+        description: 'Subsection heading (16px top, 4px bottom)',
+      },
+      {
+        role: 'h4',
+        class: 'text-sm font-medium tracking-normal mt-2 mb-0',
+        description: 'Minor heading (8px top, 0px bottom)',
+      },
+      {
+        role: 'p',
+        class: 'text-base font-normal leading-7 tracking-tightest mt-2 mb-3',
+        description: 'Body paragraph (8px top, 12px bottom, 28px line-height)',
+      },
+      {
+        role: 'ul',
+        class: 'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest',
+        description: 'Unordered list (12px bottom, 8px top padding)',
+      },
+      {
+        role: 'ol',
+        class: 'ml-8.25 mb-3 pt-2 pl-0 pb-0 list-decimal text-base font-normal tracking-tightest',
+        description: 'Ordered list (12px bottom, 8px top padding)',
+      },
+      {
+        role: 'li',
+        class: 'py-0',
+        description: 'List item (no vertical padding, spacing controlled by parent)',
+      },
+      {
+        role: 'blockquote',
+        class: 'my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic',
+        description: 'Quoted text (12px vertical, left border accent)',
+      },
+      {
+        role: 'hr',
+        class: 'my-4 border-border',
+        description: 'Horizontal divider (16px vertical)',
+      },
+      {
+        role: 'strong',
+        class: 'font-medium',
+        description: 'Bold/emphasis text',
+      },
+      {
+        role: 'em',
+        class: 'italic',
+        description: 'Italic text',
+      },
+      {
+        role: 'a',
+        class: 'text-foreground-link no-underline hover:underline underline-offset-4',
+        description: 'Hyperlink',
+      },
+      {
+        role: 'code (inline)',
+        class: 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
+        description: 'Inline code snippet',
+      },
+    ],
+    htmlExample: `<div class="max-w-prose">
+  <h2 class="text-lg font-medium tracking-tightest mt-4 mb-1">Using the API</h2>
+  <p class="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+    To get started, you'll need to authenticate with your API key. Here's a quick overview:
+  </p>
+  <ul class="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
+    <li class="py-0">Generate an API key from your dashboard</li>
+    <li class="py-0">Include it in the <code class="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">Authorization</code> header</li>
+    <li class="py-0">Make requests to the API endpoint</li>
+  </ul>
+  <blockquote class="my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic">
+    <p class="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+      Keep your API keys secure and never commit them to version control.
+    </p>
+  </blockquote>
+</div>`,
+    jsxExample: `<div className="max-w-prose">
+  <h2 className="text-lg font-medium tracking-tightest mt-4 mb-1">Using the API</h2>
+  <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+    To get started, you'll need to authenticate with your API key. Here's a quick overview:
+  </p>
+  <ul className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
+    <li className="py-0">Generate an API key from your dashboard</li>
+    <li className="py-0">Include it in the <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">Authorization</code> header</li>
+    <li className="py-0">Make requests to the API endpoint</li>
+  </ul>
+  <blockquote className="my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic">
+    <p className="text-base font-normal leading-7 tracking-tightest mt-2 mb-3">
+      Keep your API keys secure and never commit them to version control.
+    </p>
+  </blockquote>
+</div>`,
+  },
+
+  documentationPage: {
+    name: 'Documentation Page',
+    description:
+      'Typography hierarchy for standalone documentation or article pages. Uses a larger scale appropriate for primary content that dominates the page.',
+    context: 'For full-page documentation, guides, or long-form articles',
+    elements: [
+      {
+        role: 'h1',
+        class: 'text-4xl font-medium mt-0 mb-4',
+        description: 'Page title (0px top, 16px bottom)',
+      },
+      {
+        role: 'h2',
+        class: 'text-2xl font-medium mt-8 mb-2',
+        description: 'Major section heading (32px top, 8px bottom)',
+      },
+      {
+        role: 'h3',
+        class: 'text-xl font-medium mt-6 mb-2',
+        description: 'Subsection heading (24px top, 8px bottom)',
+      },
+      {
+        role: 'h4',
+        class: 'text-lg font-medium mt-4 mb-1',
+        description: 'Minor heading (16px top, 4px bottom)',
+      },
+      {
+        role: 'p',
+        class: 'text-base font-normal leading-7 mt-0 mb-4',
+        description: 'Body paragraph (0px top, 16px bottom, 28px line-height)',
+      },
+      {
+        role: 'ul',
+        class: 'ml-6 mb-4 list-disc text-base font-normal',
+        description: 'Unordered list (16px bottom)',
+      },
+      {
+        role: 'ol',
+        class: 'ml-6 mb-4 list-decimal text-base font-normal',
+        description: 'Ordered list (16px bottom)',
+      },
+      {
+        role: 'blockquote',
+        class: 'my-4 pl-4 border-l-2 border-l-border text-base text-muted-foreground italic',
+        description: 'Quoted text (16px vertical, thicker left border)',
+      },
+      {
+        role: 'code (inline)',
+        class: 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
+        description: 'Inline code snippet',
+      },
+    ],
+    htmlExample: `<article class="max-w-3xl mx-auto py-8">
+  <h1 class="text-4xl font-medium mt-0 mb-4">Getting Started</h1>
+  <p class="text-base font-normal leading-7 mt-0 mb-4">
+    This guide will walk you through the basics of setting up and using our platform.
+  </p>
+  
+  <h2 class="text-2xl font-medium mt-8 mb-2">Installation</h2>
+  <p class="text-base font-normal leading-7 mt-0 mb-4">
+    First, install the required dependencies using your package manager:
+  </p>
+  <ul class="ml-6 mb-4 list-disc text-base font-normal">
+    <li>Node.js 18 or higher</li>
+    <li>npm or yarn</li>
+  </ul>
+
+  <h3 class="text-xl font-medium mt-6 mb-2">Configuration</h3>
+  <p class="text-base font-normal leading-7 mt-0 mb-4">
+    Create a configuration file in your project root.
+  </p>
+</article>`,
+    jsxExample: `<article className="max-w-3xl mx-auto py-8">
+  <h1 className="text-4xl font-medium mt-0 mb-4">Getting Started</h1>
+  <p className="text-base font-normal leading-7 mt-0 mb-4">
+    This guide will walk you through the basics of setting up and using our platform.
+  </p>
+  
+  <h2 className="text-2xl font-medium mt-8 mb-2">Installation</h2>
+  <p className="text-base font-normal leading-7 mt-0 mb-4">
+    First, install the required dependencies using your package manager:
+  </p>
+  <ul className="ml-6 mb-4 list-disc text-base font-normal">
+    <li>Node.js 18 or higher</li>
+    <li>npm or yarn</li>
+  </ul>
+
+  <h3 className="text-xl font-medium mt-6 mb-2">Configuration</h3>
+  <p className="text-base font-normal leading-7 mt-0 mb-4">
+    Create a configuration file in your project root.
+  </p>
+</article>`,
   },
 } as const;
 
