@@ -447,8 +447,107 @@ const MessageResponseCode = ({
   );
 };
 
-// Memoised components object to prevent unnecessary re-renders
+// Component overrides for Streamdown elements with Aura styling
 const messageResponseComponents = {
+  // Headings
+  h1: ({ children }: { children?: ReactNode }) => (
+    <h1 className="mt-0 mb-2 scroll-m-20 text-xl font-medium tracking-tightest">
+      {children}
+    </h1>
+  ),
+  h2: ({ children }: { children?: ReactNode }) => (
+    <h2 className="mt-4 mb-1 scroll-m-20 text-lg font-medium tracking-tightest">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }: { children?: ReactNode }) => (
+    <h3 className="mt-4 mb-1 scroll-m-20 text-base font-medium tracking-tighter">
+      {children}
+    </h3>
+  ),
+  h4: ({ children }: { children?: ReactNode }) => (
+    <h4 className="mt-2 mb-0 scroll-m-20 text-sm font-medium tracking-normal">
+      {children}
+    </h4>
+  ),
+  h5: ({ children }: { children?: ReactNode }) => (
+    <h5 className="mt-0 mb-0 scroll-m-20 text-xs font-medium tracking-tighter">
+      {children}
+    </h5>
+  ),
+  h6: ({ children }: { children?: ReactNode }) => (
+    <h6 className="mt-0 mb-0 scroll-m-20 text-2xs font-medium tracking-tighter">
+      {children}
+    </h6>
+  ),
+  // Paragraph
+  p: ({ children }: { children?: ReactNode }) => (
+    <p className="mt-2 mb-3 text-base font-normal leading-7 tracking-tightest">
+      {children}
+    </p>
+  ),
+  // Text formatting
+  strong: ({ children }: { children?: ReactNode }) => (
+    <strong className="font-medium">{children}</strong>
+  ),
+  em: ({ children }: { children?: ReactNode }) => (
+    <em className="italic">{children}</em>
+  ),
+  // Lists
+  ul: ({ children }: { children?: ReactNode }) => (
+    <ul className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
+      {children}
+    </ul>
+  ),
+  ol: ({ children }: { children?: ReactNode }) => (
+    <ol className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-decimal text-base font-normal tracking-tightest">
+      {children}
+    </ol>
+  ),
+  li: ({ children }: { children?: ReactNode }) => (
+    <li className="py-0">{children}</li>
+  ),
+  // Blockquote
+  blockquote: ({ children }: { children?: ReactNode }) => (
+    <blockquote className="my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic">
+      {children}
+    </blockquote>
+  ),
+  // Horizontal rule
+  hr: () => <hr className="my-4 border-border" />,
+  // Links
+  a: ({
+    children,
+    href,
+    ...props
+  }: {
+    children?: ReactNode;
+    href?: string;
+  }) => (
+    <a
+      className="text-foreground-link no-underline hover:underline underline-offset-4"
+      href={href}
+      {...props}
+    >
+      {children}
+    </a>
+  ),
+  // Tables
+  table: ({ children }: { children?: ReactNode }) => (
+    <table className="my-6 w-full">{children}</table>
+  ),
+  thead: ({ children }: { children?: ReactNode }) => <thead>{children}</thead>,
+  tbody: ({ children }: { children?: ReactNode }) => <tbody>{children}</tbody>,
+  tr: ({ children }: { children?: ReactNode }) => (
+    <tr className="m-0 border-t p-0 even:bg-muted">{children}</tr>
+  ),
+  th: ({ children }: { children?: ReactNode }) => (
+    <th className="border px-4 py-2 text-left font-bold">{children}</th>
+  ),
+  td: ({ children }: { children?: ReactNode }) => (
+    <td className="border px-4 py-2 text-left">{children}</td>
+  ),
+  // Code - uses custom CodeBlock component for code blocks, standard styling for inline code
   code: MessageResponseCode,
 };
 
@@ -456,35 +555,7 @@ export const MessageResponse = memo(
   ({ className, components, ...props }: MessageResponseProps) => (
     <Streamdown
       className={cn(
-        'size-full',
-        // Headings
-        '[&_h1]:mt-0 [&_h1]:mb-2 [&_h1]:scroll-m-20 [&_h1]:text-xl [&_h1]:font-medium [&_h1]:tracking-tightest',
-        '[&_h2]:mt-4 [&_h2]:mb-1 [&_h2]:scroll-m-20 [&_h2]:text-lg [&_h2]:font-medium [&_h2]:tracking-tightest',
-        '[&_h3]:mt-4 [&_h3]:mb-1 [&_h3]:scroll-m-20 [&_h3]:text-base [&_h3]:font-medium [&_h3]:tracking-tighter',
-        '[&_h4]:mt-2 [&_h4]:mb-0 [&_h4]:scroll-m-20 [&_h4]:text-sm [&_h4]:font-medium [&_h4]:tracking-normal',
-        '[&_h5]:mt-0 [&_h5]:mb-0 [&_h5]:scroll-m-20 [&_h5]:text-xs [&_h5]:font-medium [&_h5]:tracking-tighter',
-        '[&_h6]:mt-0 [&_h6]:mb-0 [&_h6]:scroll-m-20 [&_h6]:text-2xs [&_h6]:font-medium [&_h6]:tracking-tighter',
-        // Paragraphs and text formatting
-        '[&_p]:mt-2 [&_p]:mb-3 [&_p]:leading-7 [&_p]:text-base [&_p]:font-normal [&_p]:tracking-tightest',
-        '[&_strong]:font-medium [&_b]:font-medium',
-        '[&_em]:italic [&_i]:italic',
-        // Lists
-        '[&_ul]:ml-8.25 [&_ul]:mb-3 [&_ul]:pt-2 [&_ul]:pl-0 [&_ul]:pb-0 [&_ul]:list-disc [&_ul]:text-base [&_ul]:font-normal [&_ul]:tracking-tightest',
-        '[&_ol]:ml-8.25 [&_ol]:mb-3 [&_ol]:pt-2 [&_ol]:pl-0 [&_ol]:pb-0 [&_ol]:list-decimal [&_ol]:text-base [&_ol]:font-normal [&_ol]:tracking-tightest',
-        '[&_li]:py-0',
-        // Blockquotes and horizontal rules
-        '[&_blockquote]:my-3 [&_blockquote]:pr-2 [&_blockquote]:pl-2 [&_blockquote]:border-l [&_blockquote]:border-l-border [&_blockquote]:text-sm [&_blockquote]:text-muted-foreground [&_blockquote]:font-normal [&_blockquote]:tracking-tight [&_blockquote]:not-italic',
-        '[&_blockquote_p]:text-sm [&_blockquote_p]:tracking-tight',
-        '[&_hr]:my-4 [&_hr]:border-border',
-        // Links
-        '[&_a]:text-foreground-link [&_a]:no-underline [&_a]:hover:underline [&_a]:underline-offset-4',
-        // Tables
-        '[&_table]:my-6 [&_table]:w-full',
-        '[&_tr]:m-0 [&_tr]:border-t [&_tr]:p-0 [&_tr]:even:bg-muted',
-        '[&_th]:border [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:font-bold',
-        '[&_td]:border [&_td]:px-4 [&_td]:py-2 [&_td]:text-left',
-        // First and last child margin resets
-        '[&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
+        'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
         className
       )}
       components={{ ...messageResponseComponents, ...components }}
