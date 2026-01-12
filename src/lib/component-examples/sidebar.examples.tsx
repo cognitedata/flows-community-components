@@ -62,7 +62,7 @@ function BasicDemo() {
                   <span>Valhall</span>
                 </SidebarProjectSelector>
                 <SidebarSearch>
-                  <IconSearch className="h-4 w-4" />
+                  <IconSearch className="h-4.5 w-4.5" />
                   <span>Search</span>
                 </SidebarSearch>
               </SidebarHeader>
@@ -84,7 +84,7 @@ function BasicDemo() {
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Canvas">
-                        <IconChevronLeft className="h-4 w-4" />
+                        <IconChevronLeft className="h-4.5 w-4.5" />
                         <span>Canvas</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -119,7 +119,7 @@ function BasicDemo() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarPinnedApps>
-                <SwapSlot className="h-[381px]"></SwapSlot>
+                <SwapSlot className="flex-1"></SwapSlot>
                 <SidebarGeneralPages>
                   <SidebarMenu>
                     <SidebarMenuItem>
@@ -229,7 +229,9 @@ function CollapsedDemo() {
                   </SidebarMenu>
                 </SidebarMainPages>
                 <SidebarPinnedApps>
-                  <div className="text-sm font-medium pb-1">Pinned apps</div>
+                  <div className="text-sm font-medium pb-1 group-data-[collapsible=icon]:hidden">
+                    Pinned apps
+                  </div>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="App" size="default">
                       <IconPointFilled className="h-4 w-4" />
@@ -249,7 +251,7 @@ function CollapsedDemo() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarPinnedApps>
-                <SwapSlot className="h-[381px]"></SwapSlot>
+                <SwapSlot className="flex-1"></SwapSlot>
                 <SidebarGeneralPages>
                   <SidebarMenu>
                     <SidebarMenuItem>
