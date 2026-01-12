@@ -828,6 +828,24 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
+// Sidebar Footer component (used both inside Header and as standalone)
+function SidebarHeaderInsert({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="sidebar-header-insert"
+      data-sidebar="header"
+      className={cn(
+        'flex items-center gap-2 group-data-[collapsible=icon]:mb-3',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
 // Sidebar User Profile component (alias for Footer when used in Header context)
 const SidebarUserProfile = SidebarFooter;
 
@@ -843,6 +861,7 @@ export {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarInput,
+  SidebarHeaderInsert,
   SidebarInset,
   SidebarMainPages,
   SidebarMenu,

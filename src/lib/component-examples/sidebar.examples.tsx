@@ -11,6 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarHeaderInsert,
   SidebarProvider,
   SidebarFooter,
   SidebarTrigger,
@@ -43,7 +44,7 @@ function BasicDemo() {
           <div className="flex h-full w-full">
             <Sidebar>
               <SidebarHeader>
-                <SidebarFooter>
+                <SidebarHeaderInsert>
                   <Avatar sizes="default">
                     <AvatarFallback>AK</AvatarFallback>
                   </Avatar>
@@ -55,7 +56,7 @@ function BasicDemo() {
                       Industrial tools
                     </div>
                   </div>
-                </SidebarFooter>
+                </SidebarHeaderInsert>
 
                 <SidebarProjectSelector>
                   <IconMapPinFilled className="h-4 w-4" />
