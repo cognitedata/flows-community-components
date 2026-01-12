@@ -69,24 +69,14 @@ const ReasoningContentInner = ({
   className,
   children,
   ...props
-}: ReasoningContentProps) => {
-  const showDecorations = useReasoningDecorations();
-
-  return (
-    <div
-      className={cn(
-        'relative flex flex-col gap-0 pl-3.75',
-        showDecorations &&
-          // Vertical line using ::before
-          'before:absolute before:left-1.75 before:top-4 before:bottom-4 before:w-px before:bg-border',
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+}: ReasoningContentProps) => (
+  <div
+    className={cn('relative flex flex-col gap-0 pl-3.75', className)}
+    {...props}
+  >
+    {children}
+  </div>
+);
 
 export type ReasoningItemProps = ComponentProps<'div'>;
 
@@ -101,9 +91,14 @@ export const ReasoningItem = ({
     <div
       className={cn(
         'relative',
-        showDecorations &&
+        showDecorations && [
           // Dot using ::before
-          'before:absolute before:-left-2.5 before:top-3.75 before:size-1.25 before:rounded-full before:bg-border',
+          'before:absolute before:-left-2.5 before:top-3.75 before:z-10 before:size-1.25 before:rounded-full before:bg-border',
+          // Vertical line segment using ::after
+          'after:absolute after:-left-2 after:top-0 after:bottom-0 after:w-px after:bg-border',
+          'first:after:top-4',
+          'last:after:bottom-auto last:after:h-4',
+        ],
         className
       )}
       {...props}
