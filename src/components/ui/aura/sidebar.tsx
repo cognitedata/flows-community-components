@@ -425,7 +425,7 @@ function SidebarGroupContent({ className, ...props }: ComponentProps<'div'>) {
   );
 }
 
-function SidebarMenu({ className, ...props }: ComponentProps<'ul'>) {
+function SidebarMenu({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="sidebar-menu"
@@ -441,7 +441,7 @@ function SidebarMenuItem({
   'data-slot': dataSlot = 'sidebar-menu-item',
   'data-sidebar': dataSidebar = 'menu-item',
   ...props
-}: React.ComponentProps<'li'> & {
+}: React.ComponentProps<'div'> & {
   'data-slot'?: string;
   'data-sidebar'?: string;
 }) {
@@ -627,7 +627,7 @@ function SidebarMenuSub({ className, ...props }: ComponentProps<'ul'>) {
 }
 
 // SidebarMenuSubItem uses the same implementation as SidebarMenuItem
-function SidebarMenuSubItem({ className, ...props }: ComponentProps<'li'>) {
+function SidebarMenuSubItem({ className, ...props }: ComponentProps<'div'>) {
   return (
     <SidebarMenuItem
       data-slot="sidebar-menu-sub-item"
