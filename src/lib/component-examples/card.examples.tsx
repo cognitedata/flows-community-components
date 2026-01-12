@@ -81,7 +81,7 @@ function BadgeInHeaderDemo() {
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex gap-1.5 items-baseline">
-            <Badge variant="mountain" size="icon">
+            <Badge variant="mountain">
               <IconCube size={12} />
             </Badge>
             <div className="flex flex-col gap-1.5">
@@ -122,7 +122,7 @@ function CardHoverDemo() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex gap-1.5 items-baseline">
-            <Badge variant="mountain" size="icon">
+            <Badge variant="mountain">
               <IconCube size={12} />
             </Badge>
             <div className="flex flex-col gap-1.5">
@@ -260,7 +260,7 @@ export function BadgeInHeaderDemo() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex gap-1.5">
-            <Badge variant="mountain" size="icon">
+            <Badge variant="mountain">
               <IconCube size={12} />
             </Badge>
             <CardTitle>Skarv</CardTitle>
