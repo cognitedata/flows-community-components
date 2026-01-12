@@ -64,7 +64,7 @@ function BasicDemo() {
           <TopbarBreadcrumbs>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/">
+                <BreadcrumbLink href="/" aria-label="Go to home">
                   <IconHomeFilled className="h-4 w-4" />
                 </BreadcrumbLink>
               </BreadcrumbItem>
@@ -104,7 +104,7 @@ function EosTopbar() {
           <TopbarBreadcrumbs>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/">
+                <BreadcrumbLink href="/" aria-label="Go to home">
                   <IconHomeFilled className="h-4 w-4" />
                 </BreadcrumbLink>
               </BreadcrumbItem>
@@ -175,109 +175,103 @@ function SidebarPanel({ children }: { children: ReactNode }) {
   );
 }
 
-function SidebarContentWrapper({ children }: { children: ReactNode }) {
-  return <>{children}</>;
-}
-
 function TopbarWithSidebarDemo() {
   return (
     <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
       <SidebarProvider>
-        <SidebarContentWrapper>
-          <div className="flex h-full w-full bg-background">
-            <SidebarPanel>
-              <SidebarContent>
-                <SidebarGroup>
-                  <SidebarGroupLabel>Platform</SidebarGroupLabel>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton isActive>
-                          <IconHomeFilled className="h-4 w-4" />
-                          <span>Overview</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton>
-                          <Users className="h-4 w-4" />
-                          <span>Users</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton>
-                          <FileText className="h-4 w-4" />
-                          <span>Documents</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton>
-                          <BarChart3 className="h-4 w-4" />
-                          <span>Layout</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-                <SidebarGroup>
-                  <SidebarGroupLabel>Account</SidebarGroupLabel>
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      <SidebarMenuItem>
-                        <SidebarMenuButton>
-                          <Settings className="h-4 w-4" />
-                          <span>Settings</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              </SidebarContent>
-            </SidebarPanel>
-            <div className="flex flex-1 flex-col">
-              <Topbar>
-                <TopbarLeft>
-                  <SidebarToggleButton />
-                  <TopbarBreadcrumbs>
-                    <BreadcrumbList>
-                      <BreadcrumbItem>
-                        <BreadcrumbLink href="/">
-                          <IconHomeFilled className="h-4 w-4" />
-                        </BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage>Projects</BreadcrumbPage>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage>Topbar with Sidebar</BreadcrumbPage>
-                      </BreadcrumbItem>
-                    </BreadcrumbList>
-                  </TopbarBreadcrumbs>
-                </TopbarLeft>
-                <TopbarCenter />
-                <TopbarRight>
-                  <Button size="sm">
-                    <IconPlus className="h-4 w-4" />
-                    New item
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    <IconShare className="h-4 w-4" />
-                  </Button>
-                </TopbarRight>
-              </Topbar>
-              <div className="flex-1 p-4">
-                <h3 className="text-sm font-semibold mb-1">
-                  Topbar and Sidebar working together
-                </h3>
-                <p className="text-xs text-muted-foreground">
-                  This example shows a typical application layout with a static
-                  sidebar on the left and a topbar above the main content area.
-                </p>
-              </div>
+        <div className="flex h-full w-full bg-background">
+          <SidebarPanel>
+            <SidebarContent>
+              <SidebarGroup>
+                <SidebarGroupLabel>Platform</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive>
+                        <IconHomeFilled className="h-4 w-4" />
+                        <span>Overview</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton>
+                        <Users className="h-4 w-4" />
+                        <span>Users</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton>
+                        <FileText className="h-4 w-4" />
+                        <span>Documents</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton>
+                        <BarChart3 className="h-4 w-4" />
+                        <span>Layout</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+              <SidebarGroup>
+                <SidebarGroupLabel>Account</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton>
+                        <Settings className="h-4 w-4" />
+                        <span>Settings</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+          </SidebarPanel>
+          <div className="flex flex-1 flex-col">
+            <Topbar>
+              <TopbarLeft>
+                <SidebarToggleButton />
+                <TopbarBreadcrumbs>
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink href="/" aria-label="Go to home">
+                        <IconHomeFilled className="h-4 w-4" />
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>Projects</BreadcrumbPage>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>Topbar with Sidebar</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </TopbarBreadcrumbs>
+              </TopbarLeft>
+              <TopbarCenter />
+              <TopbarRight>
+                <Button size="sm">
+                  <IconPlus className="h-4 w-4" />
+                  New item
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <IconShare className="h-4 w-4" />
+                </Button>
+              </TopbarRight>
+            </Topbar>
+            <div className="flex-1 p-4">
+              <h3 className="text-sm font-semibold mb-1">
+                Topbar and Sidebar working together
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                This example shows a typical application layout with a static
+                sidebar on the left and a topbar above the main content area.
+              </p>
             </div>
           </div>
-        </SidebarContentWrapper>
+        </div>
       </SidebarProvider>
     </div>
   );
@@ -319,7 +313,7 @@ export function BasicDemo() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">
+              <BreadcrumbLink href="/" aria-label="Go to home">
                 <IconHomeFilled className="h-4 w-4" />
               </BreadcrumbLink>
             </BreadcrumbItem>
@@ -390,16 +384,16 @@ export function EosTopbar() {
         <Button variant="ghost" size="icon">
           <IconLayoutSidebar className="h-4 w-4" />
         </Button>
-        <TopbarBreadcrumbs>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">
-                <IconHomeFilled className="h-4 w-4" />
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbPage>Canvas</BreadcrumbPage>
-            </BreadcrumbItem>
+          <TopbarBreadcrumbs>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/" aria-label="Go to home">
+                  <IconHomeFilled className="h-4 w-4" />
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Canvas</BreadcrumbPage>
+              </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage>RCA 21PT1019</BreadcrumbPage>
@@ -544,7 +538,7 @@ export function TopbarWithSidebarDemo() {
                 <TopbarBreadcrumbs>
                   <BreadcrumbList>
                     <BreadcrumbItem>
-                      <BreadcrumbLink href="/">
+                      <BreadcrumbLink href="/" aria-label="Go to home">
                         <IconHomeFilled className="h-4 w-4" />
                       </BreadcrumbLink>
                     </BreadcrumbItem>

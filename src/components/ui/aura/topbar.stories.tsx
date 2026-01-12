@@ -101,7 +101,7 @@ export const Basic: Story = {
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/">
+                  <BreadcrumbLink href="/" aria-label="Go to home">
                     <IconHomeFilled className="h-4 w-4" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -153,7 +153,7 @@ export const WithCenterContent: Story = {
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/">
+                  <BreadcrumbLink href="/" aria-label="Go to home">
                     <IconHomeFilled className="h-4 w-4" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -205,7 +205,7 @@ export const EosStyle: Story = {
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/">
+                  <BreadcrumbLink href="/" aria-label="Go to home">
                     <IconHomeFilled className="h-4 w-4" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -255,7 +255,7 @@ export const Minimal: Story = {
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/">
+                  <BreadcrumbLink href="/" aria-label="Go to home">
                     <IconHomeFilled className="h-4 w-4" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -296,7 +296,7 @@ export const WithMultipleActions: Story = {
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/">
+                  <BreadcrumbLink href="/" aria-label="Go to home">
                     <IconHomeFilled className="h-4 w-4" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -372,7 +372,7 @@ export const WithSidebar: Story = {
                 <TopbarBreadcrumbs>
                   <BreadcrumbList>
                     <BreadcrumbItem>
-                      <BreadcrumbLink href="/">
+                      <BreadcrumbLink href="/" aria-label="Go to home">
                         <IconHomeFilled className="h-4 w-4" />
                       </BreadcrumbLink>
                     </BreadcrumbItem>
@@ -610,7 +610,7 @@ export const LongBreadcrumb: Story = {
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/">
+                  <BreadcrumbLink href="/" aria-label="Go to home">
                     <IconHomeFilled className="h-4 w-4" />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
