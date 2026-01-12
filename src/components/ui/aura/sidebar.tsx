@@ -320,10 +320,7 @@ function SidebarInset({ className, ...props }: ComponentProps<'main'>) {
   );
 }
 
-function SidebarInput({
-  className,
-  ...props
-}: ComponentProps<typeof Input>) {
+function SidebarInput({ className, ...props }: ComponentProps<typeof Input>) {
   return (
     <Input
       data-slot="sidebar-input"
@@ -417,10 +414,7 @@ function SidebarGroupAction({
   );
 }
 
-function SidebarGroupContent({
-  className,
-  ...props
-}: ComponentProps<'div'>) {
+function SidebarGroupContent({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="sidebar-group-content"
@@ -437,7 +431,7 @@ function SidebarMenu({ className, ...props }: ComponentProps<'ul'>) {
       data-slot="sidebar-menu"
       data-sidebar="menu"
       className={cn(
-        'flex w-full min-w-0 flex-col gap-0.75 group-data-[collapsible=icon]:gap-0.5',
+        'flex w-full min-w-0 flex-col gap-1 group-data-[collapsible=icon]:gap-0.5',
         className
       )}
       {...props}
@@ -568,10 +562,7 @@ function SidebarMenuAction({
   );
 }
 
-function SidebarMenuBadge({
-  className,
-  ...props
-}: ComponentProps<'div'>) {
+function SidebarMenuBadge({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="sidebar-menu-badge"
@@ -598,9 +589,7 @@ function SidebarMenuSkeleton({
   showIcon?: boolean;
 }) {
   // Random width between 50 to 90%.
-  const [width] = useState(
-    () => `${Math.floor(Math.random() * 40) + 50}%`
-  );
+  const [width] = useState(() => `${Math.floor(Math.random() * 40) + 50}%`);
 
   return (
     <div
@@ -641,10 +630,7 @@ function SidebarMenuSub({ className, ...props }: ComponentProps<'ul'>) {
 }
 
 // SidebarMenuSubItem uses the same implementation as SidebarMenuItem
-function SidebarMenuSubItem({
-  className,
-  ...props
-}: ComponentProps<'li'>) {
+function SidebarMenuSubItem({ className, ...props }: ComponentProps<'li'>) {
   return (
     <SidebarMenuItem
       data-slot="sidebar-menu-sub-item"
@@ -713,7 +699,7 @@ function SidebarProjectSelector({
       data-slot="sidebar-project-selector"
       data-sidebar="project-selector"
       className={cn(
-        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-8 w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-8 w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 h-[36px]',
         'group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-2!',
         '[&>span:last-child]:truncate',
         className
@@ -737,7 +723,7 @@ function SidebarSearch({
       data-slot="sidebar-search"
       data-sidebar="search"
       className={cn(
-        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-8 w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-[36px] w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
         'group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-2!',
         '[&>span:last-child]:truncate',
         className
@@ -754,7 +740,7 @@ function SidebarPages({ className, ...props }: React.ComponentProps<'div'>) {
       data-slot="sidebar-pages"
       data-sidebar="pages"
       className={cn(
-        'flex min-h-0 flex-1 flex-col gap-4 overflow-auto',
+        'flex min-h-0 flex-1 flex-col gap-3 overflow-auto',
         className
       )}
       {...props}
@@ -822,7 +808,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<'div'>) {
       data-slot="sidebar-header"
       data-sidebar="header"
       className={cn(
-        'flex flex-col gap-2 group-data-[collapsible=icon]:gap-1',
+        'flex flex-col gap-1 group-data-[collapsible=icon]:gap-1',
         className
       )}
       {...props}

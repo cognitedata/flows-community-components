@@ -1,14 +1,12 @@
 import {
   Sidebar,
   SidebarHeader,
-  SidebarBrand,
   SidebarProjectSelector,
   SidebarSearch,
   SidebarPages,
   SidebarMainPages,
   SidebarPinnedApps,
   SidebarGeneralPages,
-  SidebarUserProfile,
   SidebarSeparator,
   SidebarMenu,
   SidebarMenuButton,
@@ -50,7 +48,7 @@ function BasicDemo() {
                     <AvatarFallback>AK</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
-                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                    <div className="text-xs font-medium tracking-tightesttext-sidebar-foreground truncate">
                       AkerBP-DEV
                     </div>
                     <div className="text-xs text-sidebar-foreground/70 truncate">
@@ -183,7 +181,7 @@ function CollapsedDemo() {
                     <AvatarFallback>AK</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
-                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                    <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                       AkerBP-DEV
                     </div>
                     <div className="text-xs text-sidebar-foreground/70 truncate">
@@ -231,6 +229,7 @@ function CollapsedDemo() {
                   </SidebarMenu>
                 </SidebarMainPages>
                 <SidebarPinnedApps>
+                  <div className="text-sm font-medium pb-1">Pinned apps</div>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="App" size="default">
                       <IconPointFilled className="h-4 w-4" />
