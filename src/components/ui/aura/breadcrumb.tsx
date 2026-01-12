@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { IconSlash, IconDots } from '@tabler/icons-react';
+import { IconDots } from '@tabler/icons-react';
 
 import { cn } from '@/lib/utils';
 
@@ -56,7 +56,10 @@ function BreadcrumbPage({ className, ...props }: ComponentProps<'span'>) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn('text-foreground font-normal', className)}
+      className={cn(
+        'text-foreground font-medium tracking-normal text-sm leading-1',
+        className
+      )}
       {...props}
     />
   );
@@ -75,7 +78,9 @@ function BreadcrumbSeparator({
       className={cn('[&>svg]:size-3.5', className)}
       {...props}
     >
-      {children ?? <IconSlash />}
+      {children ?? (
+        <img src="/slash.svg" alt="forward slash" className="h-4 w-4" />
+      )}
     </li>
   );
 }
