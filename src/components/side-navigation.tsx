@@ -79,7 +79,7 @@ const overviewNavigation: NavigationItem[] = docsNavigation;
 const primitivesNavigation: NavigationItem[] = [
   {
     href: '#',
-    label: 'Styling & assets',
+    label: 'Foundations',
     isSubsection: true,
     children: [
       { href: '/primitives/colors', label: 'Colors' },
@@ -94,7 +94,7 @@ const primitivesNavigation: NavigationItem[] = [
   },
   {
     href: '#',
-    label: 'Components',
+    label: 'Primitives',
     isSubsection: true,
     children: [
       { href: '/primitives/components/accordion', label: 'Accordion' },
@@ -143,15 +143,15 @@ const primitivesNavigation: NavigationItem[] = [
   },
 ];
 
-const blocksNavigation: NavigationItem[] = [
-  { href: '/blocks', label: 'About' },
+const patternsNavigation: NavigationItem[] = [
+  { href: '/patterns', label: 'About' },
   {
     href: '#',
-    label: 'Blocks',
+    label: 'Patterns',
     isSubsection: true,
     children: [
-      { href: '/blocks/agent-chat', label: 'Agent chat' },
-      { href: '/blocks/dashboards', label: 'Dashboards' },
+      { href: '/patterns/agent-chat', label: 'Agent chat' },
+      { href: '/patterns/dashboards', label: 'Dashboards' },
       { href: '/eos/shift-handover-app', label: 'Shift handover' },
     ],
   },
@@ -214,7 +214,7 @@ export const navigationMap = {
   docs: docsNavigation,
   overview: overviewNavigation, // Keep for backward compatibility
   primitives: primitivesNavigation,
-  blocks: blocksNavigation,
+  patterns: patternsNavigation,
   sandbox: sandboxNavigation,
   ai: aiNavigation,
 };
