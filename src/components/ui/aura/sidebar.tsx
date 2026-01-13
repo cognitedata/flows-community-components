@@ -19,12 +19,6 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/aura/button';
 import { Input } from '@/components/ui/aura/input';
 import { Separator } from '@/components/ui/aura/separator';
-import { SwapSlot } from '@/components/ui/aura/swap-slot';
-import {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-} from '@/components/ui/aura/avatar';
 import {
   Sheet,
   SheetContent,
@@ -689,7 +683,6 @@ function SidebarProjectSelector({
   ...props
 }: React.ComponentProps<'button'> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : 'button';
-  const { state } = useSidebar();
 
   return (
     <Comp
@@ -713,7 +706,6 @@ function SidebarSearch({
   ...props
 }: React.ComponentProps<'button'> & { asChild?: boolean }) {
   const Comp = asChild ? Slot : 'button';
-  const { state } = useSidebar();
 
   return (
     <Comp
