@@ -14,6 +14,24 @@ import {
   IconHeart,
 } from '@tabler/icons-react';
 
+/**
+ * Helper function to get the correct image path for Storybook.
+ * Handles both local development and deployed Storybook with base paths.
+ */
+const getImagePath = (filename: string): string => {
+  if (typeof window === 'undefined') return `/${filename}`;
+
+  try {
+    const pathname = (window.parent?.location || window.location).pathname;
+    const match = pathname.match(/^(\/aura\/branches\/[^/]+\/storybook)/);
+    if (match) return `${match[1]}/${filename}`;
+  } catch {
+    // Cross-origin or other access issues - fall back to absolute path
+  }
+
+  return `/${filename}`;
+};
+
 const meta: Meta<typeof Avatar> = {
   title: 'UI/Avatar',
   component: Avatar,
@@ -105,7 +123,9 @@ export const Default: Story = {
     await expect(avatar).toBeInTheDocument();
 
     // Verify fallback text is present
-    const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
+    const fallback = canvasElement.querySelector(
+      '[data-slot="avatar-fallback"]'
+    );
     await expect(fallback).toHaveTextContent('AB');
   },
 };
@@ -149,7 +169,7 @@ export const WithIcon: Story = {
 export const WithImage: Story = {
   render: (args) => (
     <Avatar {...args}>
-      <AvatarImage src="/user-avatar2.png" alt="User avatar" />
+      <AvatarImage src={getImagePath('user-avatar2.png')} alt="User avatar" />
       <AvatarFallback>PJ</AvatarFallback>
     </Avatar>
   ),
@@ -340,15 +360,24 @@ export const ImagesAllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="fjord" sizes="default">
-        <AvatarImage src="/user-avatar2.png" alt="Large avatar" />
+        <AvatarImage
+          src={getImagePath('user-avatar2.png')}
+          alt="Large avatar"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xsm">
-        <AvatarImage src="/user-avatar2.png" alt="Medium avatar" />
+        <AvatarImage
+          src={getImagePath('user-avatar2.png')}
+          alt="Medium avatar"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xxsm">
-        <AvatarImage src="/user-avatar2.png" alt="Small avatar" />
+        <AvatarImage
+          src={getImagePath('user-avatar2.png')}
+          alt="Small avatar"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
     </div>
@@ -384,7 +413,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
       >
-        <AvatarImage src="/user-avatar3.png" alt="User 1" />
+        <AvatarImage src={getImagePath('user-avatar3.png')} alt="User 1" />
         <AvatarFallback>NC</AvatarFallback>
       </Avatar>
       <Avatar
@@ -392,7 +421,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-2 border-2 border-background"
       >
-        <AvatarImage src="/user-avatar4.png" alt="User 2" />
+        <AvatarImage src={getImagePath('user-avatar4.png')} alt="User 2" />
         <AvatarFallback>AR</AvatarFallback>
       </Avatar>
       <Avatar
@@ -400,7 +429,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-3 border-2 border-background"
       >
-        <AvatarImage src="/user-avatar5.png" alt="User 3" />
+        <AvatarImage src={getImagePath('user-avatar5.png')} alt="User 3" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar
@@ -408,7 +437,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-4 border-2 border-background"
       >
-        <AvatarImage src="/user-avatar6.png" alt="User 4" />
+        <AvatarImage src={getImagePath('user-avatar6.png')} alt="User 4" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
@@ -472,17 +501,23 @@ export const AvatarGroup: Story = {
 
     // Find the overflow avatar and hover it
     const overflowAvatar = Array.from(avatars).find((avatar) =>
-      avatar.querySelector('[data-slot="avatar-fallback"]')?.textContent?.includes('+4')
+      avatar
+        .querySelector('[data-slot="avatar-fallback"]')
+        ?.textContent?.includes('+4')
     );
 
     if (overflowAvatar) {
       await userEvent.hover(overflowAvatar as Element);
-      
+
       // Wait for hover card to appear
-      await waitFor(() => {
-        const hoverCard = canvasElement.ownerDocument.querySelector('[role="dialog"]');
-        expect(hoverCard).toBeInTheDocument();
-      }, { timeout: 500 });
+      await waitFor(
+        () => {
+          const hoverCard =
+            canvasElement.ownerDocument.querySelector('[role="dialog"]');
+          expect(hoverCard).toBeInTheDocument();
+        },
+        { timeout: 500 }
+      );
     }
   },
 };
@@ -636,11 +671,15 @@ export const ClickInteraction: Story = {
 
     // Click first avatar
     await userEvent.click(avatar1);
-    await waitFor(() => expect(clickedText).toHaveTextContent('Clicked: User 1'));
+    await waitFor(() =>
+      expect(clickedText).toHaveTextContent('Clicked: User 1')
+    );
 
     // Click second avatar
     await userEvent.click(avatar2);
-    await waitFor(() => expect(clickedText).toHaveTextContent('Clicked: User 2'));
+    await waitFor(() =>
+      expect(clickedText).toHaveTextContent('Clicked: User 2')
+    );
   },
 };
 
@@ -652,15 +691,21 @@ export const Accessibility: Story = {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
         <Avatar variant="nordic">
-          <AvatarImage src="/user-avatar2.png" alt="John Doe's avatar" />
+          <AvatarImage
+            src={getImagePath('user-avatar2.png')}
+            alt="John Doe's avatar"
+          />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <Avatar variant="fjord">
-          <AvatarImage src="/user-avatar3.png" alt="Jane Smith's avatar" />
+          <AvatarImage
+            src={getImagePath('user-avatar3.png')}
+            alt="Jane Smith's avatar"
+          />
           <AvatarFallback>JS</AvatarFallback>
         </Avatar>
         <Avatar variant="aurora">
-          <AvatarImage src="/user-avatar4.png" alt="" />
+          <AvatarImage src={getImagePath('user-avatar4.png')} alt="" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
@@ -937,20 +982,23 @@ export const EdgeCaseFailedImage: Story = {
     <div className="flex items-center gap-4">
       <Avatar variant="nordic">
         <AvatarImage
-          src="/nonexistent-image-1.png"
+          src={getImagePath('nonexistent-image-1.png')}
           alt="Failed to load"
         />
         <AvatarFallback>FL</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord">
         <AvatarImage
-          src="/nonexistent-image-2.png"
+          src={getImagePath('nonexistent-image-2.png')}
           alt="Failed to load"
         />
         <AvatarFallback>ER</AvatarFallback>
       </Avatar>
       <Avatar variant="aurora">
-        <AvatarImage src="/nonexistent-image-3.png" alt="Failed to load" />
+        <AvatarImage
+          src={getImagePath('nonexistent-image-3.png')}
+          alt="Failed to load"
+        />
         <AvatarFallback>BR</AvatarFallback>
       </Avatar>
     </div>
@@ -1120,15 +1168,15 @@ export const VisualRegression: Story = {
         </h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
-            <AvatarImage src="/user-avatar2.png" alt="User" />
+            <AvatarImage src={getImagePath('user-avatar2.png')} alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar variant="nordic">
-            <AvatarImage src="/user-avatar3.png" alt="User" />
+            <AvatarImage src={getImagePath('user-avatar3.png')} alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar variant="fjord">
-            <AvatarImage src="/user-avatar4.png" alt="User" />
+            <AvatarImage src={getImagePath('user-avatar4.png')} alt="User" />
             <AvatarFallback>FJ</AvatarFallback>
           </Avatar>
         </div>
