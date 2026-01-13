@@ -4,15 +4,13 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { useState } from 'react';
+import { cn } from '@/lib/utils';
 import {
   Topbar,
   TopbarLeft,
   TopbarCenter,
   TopbarRight,
   TopbarBreadcrumbs,
-  TopbarAction,
-  TopbarWithSidebar,
-  TopbarContent,
 } from './topbar';
 import {
   BreadcrumbList,
@@ -196,7 +194,7 @@ export const EosStyle: Story = {
   },
   render: function TopbarEosStyleStory() {
     return (
-      <div className="w-full border rounded-lg overflow-hidden">
+      <div className="w-full rounded-lg overflow-hidden">
         <Topbar>
           <TopbarLeft>
             <Button variant="ghost" size="icon" aria-label="Toggle sidebar">
@@ -360,93 +358,107 @@ export const WithSidebar: Story = {
     await expect(usersItem).toBeInTheDocument();
   },
   render: function TopbarWithSidebarStory() {
+    const [state, setState] = useState<'expanded' | 'collapsed'>('expanded');
+
     return (
-      <div className="relative h-[400px] w-full border rounded-lg overflow-hidden">
+      <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
         <SidebarProvider>
-          <div className="flex h-full w-full flex-col bg-background">
-            <Topbar>
-              <TopbarLeft>
-                <Button variant="ghost" size="icon" aria-label="Toggle sidebar">
-                  <IconLayoutSidebar className="h-4 w-4" />
-                </Button>
-                <TopbarBreadcrumbs>
-                  <BreadcrumbList>
-                    <BreadcrumbItem>
-                      <BreadcrumbLink href="/" aria-label="Go to home">
-                        <IconHomeFilled className="h-4 w-4" />
-                      </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Projects</BreadcrumbPage>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>Topbar with Sidebar</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </TopbarBreadcrumbs>
-              </TopbarLeft>
-              <TopbarCenter />
-              <TopbarRight>
-                <Button size="sm">
-                  <IconPlus className="h-4 w-4" />
-                  New item
-                </Button>
-                <Button variant="ghost" size="icon" aria-label="Share">
-                  <IconShare className="h-4 w-4" />
-                </Button>
-              </TopbarRight>
-            </Topbar>
-            <div className="flex flex-1">
-              <div className="w-64 bg-sidebar text-sidebar-foreground border-r">
-                <SidebarContent>
-                  <SidebarGroup>
-                    <SidebarGroupLabel>Platform</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                      <SidebarMenu>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton isActive>
-                            <IconHomeFilled className="h-4 w-4" />
-                            <span>Overview</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton>
-                            <IconUsers className="h-4 w-4" />
-                            <span>Users</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton>
-                            <IconFileText className="h-4 w-4" />
-                            <span>Documents</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
+          <div className="flex h-full w-full bg-background">
+            <div
+              className={cn(
+                'w-64 bg-sidebar text-sidebar-foreground border-r transition-all duration-200',
+                state === 'collapsed' && 'w-0 overflow-hidden'
+              )}
+            >
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Platform</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton isActive>
+                          <IconHomeFilled className="h-4 w-4" />
+                          <span>Overview</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <IconUsers className="h-4 w-4" />
+                          <span>Users</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <IconFileText className="h-4 w-4" />
+                          <span>Documents</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
                         <SidebarMenuItem>
                           <SidebarMenuButton>
                             <BarChart3 className="h-4 w-4" />
-                            <span>Analytics</span>
+                            <span>Layout</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
-                      </SidebarMenu>
-                    </SidebarGroupContent>
-                  </SidebarGroup>
-                  <SidebarGroup>
-                    <SidebarGroupLabel>Account</SidebarGroupLabel>
-                    <SidebarGroupContent>
-                      <SidebarMenu>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton>
-                            <IconSettings className="h-4 w-4" />
-                            <span>Settings</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      </SidebarMenu>
-                    </SidebarGroupContent>
-                  </SidebarGroup>
-                </SidebarContent>
-              </div>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+                <SidebarGroup>
+                  <SidebarGroupLabel>Account</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton>
+                          <IconSettings className="h-4 w-4" />
+                          <span>Settings</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              </SidebarContent>
+            </div>
+            <div className="flex flex-1 flex-col">
+              <Topbar>
+                <TopbarLeft>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Toggle sidebar"
+                    onClick={() =>
+                      setState(state === 'expanded' ? 'collapsed' : 'expanded')
+                    }
+                  >
+                    <IconLayoutSidebar className="h-4 w-4" />
+                  </Button>
+                  <TopbarBreadcrumbs>
+                    <BreadcrumbList>
+                      <BreadcrumbItem>
+                        <BreadcrumbLink href="/" aria-label="Go to home">
+                          <IconHomeFilled className="h-4 w-4" />
+                        </BreadcrumbLink>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>Projects</BreadcrumbPage>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>Topbar with Sidebar</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </BreadcrumbList>
+                  </TopbarBreadcrumbs>
+                </TopbarLeft>
+                <TopbarCenter />
+                <TopbarRight>
+                  <Button size="sm">
+                    <IconPlus className="h-4 w-4" />
+                    New item
+                  </Button>
+                  <Button variant="ghost" size="icon" aria-label="Share">
+                    <IconShare className="h-4 w-4" />
+                  </Button>
+                </TopbarRight>
+              </Topbar>
               <div className="flex-1 p-4">
                 <h3 className="text-sm font-semibold mb-1">
                   Topbar and Sidebar working together

@@ -28,7 +28,6 @@ import {
 import {
   IconChartBar as BarChart3,
   IconFileText as FileText,
-  IconHome,
   IconLayoutSidebar,
   IconPlus,
   IconDownload,
@@ -55,7 +54,7 @@ import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
-    <div className="w-full  overflow-hidden">
+    <div className="w-full overflow-hidden">
       <Topbar>
         <TopbarLeft>
           <Button variant="ghost" size="icon-sm">

@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { IconDots } from '@tabler/icons-react';
+import { IconDots, IconSlash } from '@tabler/icons-react';
 
 import { cn } from '@/lib/utils';
 
@@ -78,9 +78,7 @@ function BreadcrumbSeparator({
       className={cn('[&>svg]:size-3.5', className)}
       {...props}
     >
-      {children ?? (
-        <img src="/slash.svg" alt="forward slash" className="h-4 w-4" />
-      )}
+      {children ?? <IconSlash size={14} className="text-muted-foreground" />}
     </li>
   );
 }
