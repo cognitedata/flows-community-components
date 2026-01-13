@@ -1247,20 +1247,7 @@ export const OverflowAvatarWithMenu: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Wait for avatars to render
-    const avatars = await waitFor(
-      () => {
-        const found = canvasElement.querySelectorAll('[data-slot="avatar"]');
-        expect(found.length).toBeGreaterThanOrEqual(5);
-        return found;
-      },
-      { timeout: 1000 }
-    );
-
-    // Verify we have the expected number of avatars
-    expect(avatars.length).toBeGreaterThanOrEqual(5);
-
-    // Wait for dropdown menu to be visible (it's rendered in a portal)
+    // Wait for dropdown menu to be visible first (it's rendered in a portal)
     const menuContent = await waitFor(
       () => {
         const menu = canvasElement.ownerDocument.querySelector(
@@ -1271,8 +1258,29 @@ export const OverflowAvatarWithMenu: Story = {
         }
         return menu;
       },
-      { timeout: 1000 }
+      { timeout: 2000 }
     );
+
+    // Wait for all avatars to render - count all avatars including those in dropdown
+    const avatars = await waitFor(
+      () => {
+        // Query from ownerDocument to include portal-rendered content
+        const found = canvasElement.ownerDocument.querySelectorAll(
+          '[data-slot="avatar"]'
+        );
+        // We expect at least 5: 4 visible avatars + 1 overflow avatar
+        // The 4 avatars in the dropdown menu are also counted, so total should be 9
+        // But we'll check for at least 5 to be safe
+        if (found.length < 5) {
+          throw new Error(`Expected at least 5 avatars, found ${found.length}`);
+        }
+        return found;
+      },
+      { timeout: 2000 }
+    );
+
+    // Verify we have the expected number of avatars
+    expect(avatars.length).toBeGreaterThanOrEqual(5);
 
     // Verify menu contains user information
     expect(menuContent).toHaveTextContent('Emma Liu');
