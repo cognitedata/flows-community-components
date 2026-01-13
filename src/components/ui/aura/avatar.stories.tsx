@@ -193,12 +193,24 @@ export const WithImage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatar = canvasElement.querySelector('[data-slot="avatar"]');
-    await expect(avatar).toBeInTheDocument();
+    const avatar = await waitFor(
+      () => {
+        const found = canvasElement.querySelector('[data-slot="avatar"]');
+        expect(found).toBeInTheDocument();
+        return found;
+      },
+      { timeout: 1000 }
+    );
 
-    // Verify image element exists
-    const image = canvasElement.querySelector('[data-slot="avatar-image"]');
-    await expect(image).toBeInTheDocument();
+    // Wait for image element to appear (Radix Avatar only renders it when image loads)
+    const image = await waitFor(
+      () => {
+        const found = canvasElement.querySelector('[data-slot="avatar-image"]');
+        expect(found).toBeInTheDocument();
+        return found;
+      },
+      { timeout: 2000 }
+    );
 
     // Test hover interaction
     if (avatar) {
@@ -398,23 +410,36 @@ export const ImagesAllSizes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
+    // First verify we have 3 avatars
+    const avatars = await waitFor(
+      () => {
+        const found = canvasElement.querySelectorAll('[data-slot="avatar"]');
+        expect(found.length).toBe(3);
+        return found;
+      },
+      { timeout: 1000 }
+    );
+
     // Wait for images to be in the DOM (they may be loading)
+    // Radix Avatar only renders the image element when the image successfully loads
     const images = await waitFor(
       () => {
         const found = canvasElement.querySelectorAll(
           '[data-slot="avatar-image"]'
         );
-        expect(found.length).toBe(3);
+        if (found.length < 3) {
+          throw new Error(`Expected 3 images, found ${found.length}`);
+        }
         return found;
       },
-      { timeout: 2000 }
+      { timeout: 5000 } // Increased timeout to 5 seconds for image loading
     );
 
     // Verify we have 3 images
     expect(images.length).toBe(3);
 
     // Test hover on first avatar
-    const firstAvatar = canvasElement.querySelector('[data-slot="avatar"]');
+    const firstAvatar = avatars[0];
     if (firstAvatar) {
       await userEvent.hover(firstAvatar as Element);
     }
