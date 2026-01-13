@@ -312,7 +312,9 @@ export const PriorityOrder: Story = {
   render: () => (
     <div className="space-y-4 w-[400px]">
       <div className="space-y-2">
-        <h3 className="font-semibold text-sm">1. With all three (activeSlot wins)</h3>
+        <h3 className="font-semibold text-sm">
+          1. With all three (activeSlot wins)
+        </h3>
         <SwapSlot
           defaultSlot={<span>Default Slot</span>}
           activeSlot={<span className="text-success">Active Slot</span>}
@@ -321,7 +323,9 @@ export const PriorityOrder: Story = {
         </SwapSlot>
       </div>
       <div className="space-y-2">
-        <h3 className="font-semibold text-sm">2. With defaultSlot and children (defaultSlot wins)</h3>
+        <h3 className="font-semibold text-sm">
+          2. With defaultSlot and children (defaultSlot wins)
+        </h3>
         <SwapSlot defaultSlot={<span>Default Slot</span>}>
           <span>Children</span>
         </SwapSlot>
@@ -360,7 +364,7 @@ export const WithComplexContent: Story = {
             <div className="flex flex-col gap-2 w-full">
               <div className="flex items-center justify-between">
                 <span className="font-medium">Default State</span>
-                <Badge variant="outline">Inactive</Badge>
+                <Badge variant="archived">Inactive</Badge>
               </div>
               <p className="text-sm text-muted-foreground">
                 This is the default slot with complex content including badges
@@ -412,17 +416,13 @@ export const WithComplexContent: Story = {
  */
 export const EmptyState: Story = {
   render: () => (
-    <SwapSlot className="w-[400px] h-20">
-      {/* Intentionally empty */}
-    </SwapSlot>
+    <SwapSlot className="w-[400px] h-20">{/* Intentionally empty */}</SwapSlot>
   ),
   parameters: {
     docs: {
       description: {
-        story:
-          'Empty swap slot showing just the container with dashed border.',
+        story: 'Empty swap slot showing just the container with dashed border.',
       },
     },
   },
 };
-
