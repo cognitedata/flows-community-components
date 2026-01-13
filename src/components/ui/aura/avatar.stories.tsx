@@ -398,8 +398,20 @@ export const ImagesAllSizes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const images = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
-    await expect(images.length).toBe(3);
+    // Wait for images to be in the DOM (they may be loading)
+    const images = await waitFor(
+      () => {
+        const found = canvasElement.querySelectorAll(
+          '[data-slot="avatar-image"]'
+        );
+        expect(found.length).toBe(3);
+        return found;
+      },
+      { timeout: 2000 }
+    );
+
+    // Verify we have 3 images
+    expect(images.length).toBe(3);
 
     // Test hover on first avatar
     const firstAvatar = canvasElement.querySelector('[data-slot="avatar"]');
@@ -1210,27 +1222,36 @@ export const OverflowAvatarWithMenu: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    // Should have 5 avatars initially (4 visible + 1 overflow)
-    await expect(avatars.length).toBeGreaterThanOrEqual(5);
+    // Wait for avatars to render
+    const avatars = await waitFor(
+      () => {
+        const found = canvasElement.querySelectorAll('[data-slot="avatar"]');
+        expect(found.length).toBeGreaterThanOrEqual(5);
+        return found;
+      },
+      { timeout: 1000 }
+    );
 
-    // Wait for dropdown menu to be visible
-    await waitFor(
+    // Verify we have the expected number of avatars
+    expect(avatars.length).toBeGreaterThanOrEqual(5);
+
+    // Wait for dropdown menu to be visible (it's rendered in a portal)
+    const menuContent = await waitFor(
       () => {
         const menu = canvasElement.ownerDocument.querySelector(
           '[data-slot="dropdown-menu-content"]'
         );
-        expect(menu).toBeInTheDocument();
+        if (!menu) {
+          throw new Error('Menu not found');
+        }
+        return menu;
       },
-      { timeout: 500 }
+      { timeout: 1000 }
     );
 
     // Verify menu contains user information
-    const menuContent = canvasElement.ownerDocument.querySelector(
-      '[data-slot="dropdown-menu-content"]'
-    );
-    await expect(menuContent).toHaveTextContent('Emma Liu');
-    await expect(menuContent).toHaveTextContent('James Kim');
+    expect(menuContent).toHaveTextContent('Emma Liu');
+    expect(menuContent).toHaveTextContent('James Kim');
   },
 };
 
