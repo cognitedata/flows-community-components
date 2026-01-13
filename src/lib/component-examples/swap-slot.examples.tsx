@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/aura/card';
 import { Badge } from '@/components/ui/aura/badge';
 import type { ComponentExamples } from './types';
-import { IconFileText } from '@tabler/icons-react';
 
 function BasicDemo() {
   return (
