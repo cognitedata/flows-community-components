@@ -7,6 +7,13 @@ import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from './avatar';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from './dropdown-menu';
+import {
   IconWheel,
   IconUser,
   IconRobot,
@@ -772,27 +779,84 @@ export const EdgeCaseEmpty: Story = {
 };
 
 /**
- * Edge case: Very long text overflow.
+ * Edge case: Text overflow with varying character counts.
+ * Shows how avatars handle different text lengths. Text beyond 2-3 characters
+ * will overflow and be clipped. Consider limiting input or using smaller font
+ * sizes for longer text.
  */
 export const EdgeCaseLongText: Story = {
   render: () => (
-    <div className="flex items-center gap-4">
-      <Avatar variant="default">
-        <AvatarFallback>ABCDEFGH</AvatarFallback>
-      </Avatar>
-      <Avatar variant="nordic" sizes="xsm">
-        <AvatarFallback>ABCDEFGH</AvatarFallback>
-      </Avatar>
-      <Avatar variant="fjord" sizes="xxsm">
-        <AvatarFallback>ABCDEFGH</AvatarFallback>
-      </Avatar>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium text-foreground">
+          Character count variations (default size)
+        </p>
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col items-center gap-1">
+            <Avatar variant="default">
+              <AvatarFallback className="text-sm">A</AvatarFallback>
+            </Avatar>
+            <span className="text-xs text-muted-foreground">1 char</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Avatar variant="nordic">
+              <AvatarFallback className="text-sm">AB</AvatarFallback>
+            </Avatar>
+            <span className="text-xs text-muted-foreground">2 chars</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Avatar variant="fjord">
+              <AvatarFallback className="text-xs">ABC</AvatarFallback>
+            </Avatar>
+            <span className="text-xs text-muted-foreground">
+              3 chars (smaller)
+            </span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Avatar variant="aurora">
+              <AvatarFallback className="text-xs">ABCD</AvatarFallback>
+            </Avatar>
+            <span className="text-xs text-muted-foreground">
+              4 chars (overflow)
+            </span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <Avatar variant="dusk">
+              <AvatarFallback className="text-xs">ABCDE</AvatarFallback>
+            </Avatar>
+            <span className="text-xs text-muted-foreground">
+              5+ chars (clipped)
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="text-sm font-medium text-foreground">
+          Without font size adjustment (text overflows)
+        </p>
+        <div className="flex items-center gap-4">
+          <Avatar variant="default">
+            <AvatarFallback>ABCDEFGH</AvatarFallback>
+          </Avatar>
+          <Avatar variant="nordic" sizes="xsm">
+            <AvatarFallback>ABCDEFGH</AvatarFallback>
+          </Avatar>
+          <Avatar variant="fjord" sizes="xxsm">
+            <AvatarFallback>ABCDEFGH</AvatarFallback>
+          </Avatar>
+        </div>
+        <p className="text-xs text-muted-foreground max-w-md">
+          Long text overflows and gets clipped. Best practice: limit to 1-2
+          characters or use smaller font size (text-xs) for 3+ characters.
+        </p>
+      </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with very long fallback text. The text will overflow but typically avatars show 1-3 characters.',
+          'Edge case: Avatars with varying text lengths. Text beyond 2-3 characters will overflow. Consider limiting input to 1-2 characters or using smaller font sizes (text-xs) for longer text.',
       },
     },
   },
@@ -800,11 +864,13 @@ export const EdgeCaseLongText: Story = {
     const fallbacks = canvasElement.querySelectorAll(
       '[data-slot="avatar-fallback"]'
     );
-    await expect(fallbacks.length).toBe(3);
+    await expect(fallbacks.length).toBeGreaterThanOrEqual(3);
 
-    // Verify long text is present
-    const firstFallback = fallbacks[0];
-    await expect(firstFallback).toHaveTextContent('ABCDEFGH');
+    // Verify long text is present (in the examples without adjustment)
+    const longTextAvatars = Array.from(fallbacks).filter((fb) =>
+      fb.textContent?.includes('ABCDEFGH')
+    );
+    await expect(longTextAvatars.length).toBeGreaterThanOrEqual(3);
   },
 };
 
@@ -1022,6 +1088,149 @@ export const EdgeCaseFailedImage: Story = {
       },
       { timeout: 2000 }
     );
+  },
+};
+
+/**
+ * Overflow avatar with dropdown menu showing additional users.
+ * Demonstrates how to display additional avatars in a menu when
+ * there are too many to show in the main group.
+ */
+export const OverflowAvatarWithMenu: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center">
+        <Avatar
+          variant="nordic"
+          sizes="default"
+          className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
+        >
+          <AvatarImage src={getImagePath('user-avatar3.png')} alt="User 1" />
+          <AvatarFallback>NC</AvatarFallback>
+        </Avatar>
+        <Avatar
+          variant="default"
+          sizes="default"
+          className="relative -ml-1 z-2 border-2 border-background"
+        >
+          <AvatarImage src={getImagePath('user-avatar4.png')} alt="User 2" />
+          <AvatarFallback>AR</AvatarFallback>
+        </Avatar>
+        <Avatar
+          variant="default"
+          sizes="default"
+          className="relative -ml-1 z-3 border-2 border-background"
+        >
+          <AvatarImage src={getImagePath('user-avatar5.png')} alt="User 3" />
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <Avatar
+          variant="default"
+          sizes="default"
+          className="relative -ml-1 z-4 border-2 border-background"
+        >
+          <AvatarImage src={getImagePath('user-avatar6.png')} alt="User 4" />
+          <AvatarFallback>PJ</AvatarFallback>
+        </Avatar>
+        <DropdownMenu defaultOpen>
+          <DropdownMenuTrigger asChild>
+            <Avatar
+              variant="overflow"
+              sizes="default"
+              className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
+            >
+              <AvatarFallback>+4</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-2 py-1.5">
+              4 more people
+            </DropdownMenuLabel>
+            <div className="p-1 space-y-1">
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                <Avatar variant="aurora" sizes="xsm">
+                  <AvatarFallback>EL</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">Emma Liu</span>
+                  <span className="text-xs text-muted-foreground">
+                    emma.liu@cognite.com
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                <Avatar variant="dusk" sizes="xsm">
+                  <AvatarFallback>JK</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">James Kim</span>
+                  <span className="text-xs text-muted-foreground">
+                    james.kim@cognite.com
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                <Avatar variant="orange" sizes="xsm">
+                  <AvatarFallback>SB</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">Sarah Brown</span>
+                  <span className="text-xs text-muted-foreground">
+                    sarah.brown@cognite.com
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                <Avatar variant="sky" sizes="xsm">
+                  <AvatarFallback>MT</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">Michael Torres</span>
+                  <span className="text-xs text-muted-foreground">
+                    michael.torres@cognite.com
+                  </span>
+                </div>
+              </div>
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <p className="text-xs text-muted-foreground max-w-md">
+        Click the overflow avatar (+4) to see additional users in a dropdown
+        menu. Each user is displayed with their avatar, name, and email address.
+      </p>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Overflow avatar with dropdown menu showing additional users. Demonstrates how to display extra avatars in a menu when space is limited. The menu is opened by default in this story to show the layout.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    // Should have 5 avatars initially (4 visible + 1 overflow)
+    await expect(avatars.length).toBeGreaterThanOrEqual(5);
+
+    // Wait for dropdown menu to be visible
+    await waitFor(
+      () => {
+        const menu = canvasElement.ownerDocument.querySelector(
+          '[data-slot="dropdown-menu-content"]'
+        );
+        expect(menu).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+
+    // Verify menu contains user information
+    const menuContent = canvasElement.ownerDocument.querySelector(
+      '[data-slot="dropdown-menu-content"]'
+    );
+    await expect(menuContent).toHaveTextContent('Emma Liu');
+    await expect(menuContent).toHaveTextContent('James Kim');
   },
 };
 
