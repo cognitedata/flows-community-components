@@ -12,6 +12,7 @@ function TooltipProvider({
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
+      data-testid="tooltip-provider"
       delayDuration={delayDuration}
       {...props}
     />
@@ -23,7 +24,7 @@ function Tooltip({
 }: ComponentProps<typeof TooltipPrimitive.Root>) {
   return (
     <TooltipProvider>
-      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+      <TooltipPrimitive.Root data-slot="tooltip" data-testid="tooltip" {...props} />
     </TooltipProvider>
   );
 }
@@ -31,7 +32,7 @@ function Tooltip({
 function TooltipTrigger({
   ...props
 }: ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" data-testid="tooltip-trigger" {...props} />;
 }
 
 function TooltipContent({
@@ -45,6 +46,7 @@ function TooltipContent({
     <TooltipPrimitive.Portal container={getPortalContainer()}>
       <TooltipPrimitive.Content
         data-slot="tooltip-content"
+        data-testid="tooltip-content"
         sideOffset={sideOffset}
         side={side}
         className={cn(
