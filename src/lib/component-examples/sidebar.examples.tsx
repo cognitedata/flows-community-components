@@ -1,12 +1,12 @@
 import {
   Sidebar,
   SidebarHeader,
+  SidebarContent,
   SidebarProjectSelector,
   SidebarSearch,
   SidebarPages,
   SidebarMainPages,
   SidebarPinnedApps,
-  SidebarGeneralPages,
   SidebarSeparator,
   SidebarMenu,
   SidebarMenuButton,
@@ -16,7 +16,6 @@ import {
   SidebarFooter,
   SidebarTrigger,
 } from '@/components/ui/aura/sidebar';
-import { SwapSlot } from '@/components/ui/aura/swap-slot';
 import {
   Avatar,
   AvatarImage,
@@ -39,8 +38,8 @@ import type { ComponentExamples } from './types';
 function BasicDemo() {
   return (
     <div className="space-y-4">
-      <div className="relative h-[996px] w-full border rounded-lg overflow-hidden">
-        <SidebarProvider className="h-[996px]">
+      <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+        <SidebarProvider className="min-h-0 h-[996px]">
           <div className="flex h-full w-full">
             <Sidebar>
               <SidebarHeader>
@@ -68,60 +67,63 @@ function BasicDemo() {
                 </SidebarSearch>
               </SidebarHeader>
               <SidebarSeparator />
-              <SidebarPages>
-                <SidebarMainPages>
-                  <SidebarMenu>
+              <SidebarContent>
+                <SidebarPages>
+                  <SidebarMainPages>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Home" size="default">
+                          <IconHomeFilled className="h-4 w-4" />
+                          <span>Home</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton isActive tooltip="Atlas">
+                          <IconWorld className="h-4 w-4" />
+                          <span>Atlas</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Canvas">
+                          <IconChevronLeft className="h-4.5 w-4.5" />
+                          <span>Canvas</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Charts">
+                          <IconBoltFilled className="h-4 w-4" />
+                          <span>Charts</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarMainPages>
+                  <SidebarPinnedApps>
+                    <div className="tracking-normal text-sm font-medium">
+                      Pinned apps
+                    </div>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Home" size="default">
-                        <IconHomeFilled className="h-4 w-4" />
-                        <span>Home</span>
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>App</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton isActive tooltip="Atlas">
-                        <IconWorld className="h-4 w-4" />
-                        <span>Atlas</span>
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>App</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Canvas">
-                        <IconChevronLeft className="h-4.5 w-4.5" />
-                        <span>Canvas</span>
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>App</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Charts">
-                        <IconBoltFilled className="h-4 w-4" />
-                        <span>Charts</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </SidebarMainPages>
-                <SidebarPinnedApps>
-                  <div className="tracking-normal text-sm font-medium">
-                    Pinned apps
-                  </div>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Home" size="default">
-                      <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton isActive tooltip="Atlas">
-                      <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Canvas">
-                      <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarPinnedApps>
-                <SwapSlot className="flex-1"></SwapSlot>
-                <SidebarGeneralPages>
+                  </SidebarPinnedApps>
+                </SidebarPages>
+              </SidebarContent>
+              <SidebarFooter>
+                <div className="flex flex-col gap-3 w-full">
                   <SidebarMenu>
                     <SidebarMenuItem>
                       <SidebarMenuButton>
@@ -142,25 +144,25 @@ function BasicDemo() {
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   </SidebarMenu>
-                </SidebarGeneralPages>
-                <SidebarFooter>
-                  <Avatar sizes="default">
-                    <AvatarImage
-                      src="/user-avatar2.png"
-                      alt="Elizabeth Fitzgerald"
-                    />
-                    <AvatarFallback>EF</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col min-w-0">
-                    <div className="text-sm font-medium text-sidebar-foreground truncate">
-                      Elizabeth Fitzgerald
-                    </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">
-                      AkerBP
+                  <div className="flex items-center gap-2">
+                    <Avatar sizes="default">
+                      <AvatarImage
+                        src="/user-avatar2.png"
+                        alt="Elizabeth Fitzgerald"
+                      />
+                      <AvatarFallback>EF</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col min-w-0">
+                      <div className="text-sm font-medium text-sidebar-foreground truncate">
+                        Elizabeth Fitzgerald
+                      </div>
+                      <div className="text-xs text-sidebar-foreground/70 truncate">
+                        AkerBP
+                      </div>
                     </div>
                   </div>
-                </SidebarFooter>
-              </SidebarPages>
+                </div>
+              </SidebarFooter>
             </Sidebar>
           </div>
         </SidebarProvider>
@@ -172,12 +174,12 @@ function BasicDemo() {
 function CollapsedDemo() {
   return (
     <div className="space-y-4">
-      <div className="relative h-[996px] w-full border rounded-lg overflow-hidden">
-        <SidebarProvider defaultOpen={false} className="h-[996px]">
+      <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+        <SidebarProvider defaultOpen={false} className="min-h-0 h-[996px]">
           <div className="flex h-full w-full">
             <Sidebar collapsible="icon">
               <SidebarHeader>
-                <SidebarFooter>
+                <SidebarHeaderInsert>
                   <Avatar sizes="default">
                     <AvatarFallback>AK</AvatarFallback>
                   </Avatar>
@@ -189,7 +191,7 @@ function CollapsedDemo() {
                       Industrial tools
                     </div>
                   </div>
-                </SidebarFooter>
+                </SidebarHeaderInsert>
                 <SidebarProjectSelector>
                   <IconMapPinFilled className="h-4 w-4" />
                   <span>Valhall</span>
@@ -200,60 +202,63 @@ function CollapsedDemo() {
                 </SidebarSearch>
               </SidebarHeader>
               <SidebarSeparator />
-              <SidebarPages>
-                <SidebarMainPages>
-                  <SidebarMenu>
+              <SidebarContent>
+                <SidebarPages>
+                  <SidebarMainPages>
+                    <SidebarMenu>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Home" size="default">
+                          <IconHomeFilled className="h-4 w-4" />
+                          <span>Home</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton isActive tooltip="Atlas">
+                          <IconWorld className="h-4 w-4" />
+                          <span>Atlas</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Canvas">
+                          <IconChevronLeft className="h-4 w-4" />
+                          <span>Canvas</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Charts">
+                          <IconBoltFilled className="h-4 w-4" />
+                          <span>Charts</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    </SidebarMenu>
+                  </SidebarMainPages>
+                  <SidebarPinnedApps>
+                    <div className="text-sm font-medium pb-1 group-data-[collapsible=icon]:hidden">
+                      Pinned apps
+                    </div>
                     <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Home" size="default">
-                        <IconHomeFilled className="h-4 w-4" />
-                        <span>Home</span>
+                      <SidebarMenuButton tooltip="App" size="default">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>App</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton isActive tooltip="Atlas">
-                        <IconWorld className="h-4 w-4" />
-                        <span>Atlas</span>
+                      <SidebarMenuButton tooltip="App">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>App</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Canvas">
-                        <IconChevronLeft className="h-4 w-4" />
-                        <span>Canvas</span>
+                      <SidebarMenuButton tooltip="App">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>App</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Charts">
-                        <IconBoltFilled className="h-4 w-4" />
-                        <span>Charts</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </SidebarMainPages>
-                <SidebarPinnedApps>
-                  <div className="text-sm font-medium pb-1 group-data-[collapsible=icon]:hidden">
-                    Pinned apps
-                  </div>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="App" size="default">
-                      <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="App">
-                      <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="App">
-                      <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarPinnedApps>
-                <SwapSlot className="flex-1"></SwapSlot>
-                <SidebarGeneralPages>
+                  </SidebarPinnedApps>
+                </SidebarPages>
+              </SidebarContent>
+              <SidebarFooter>
+                <div className="flex flex-col gap-3 w-full">
                   <SidebarMenu>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="App library">
@@ -274,25 +279,25 @@ function CollapsedDemo() {
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   </SidebarMenu>
-                </SidebarGeneralPages>
-                <SidebarFooter>
-                  <Avatar sizes="default">
-                    <AvatarImage
-                      src="/user-avatar2.png"
-                      alt="Elizabeth Fitzgerald"
-                    />
-                    <AvatarFallback>EF</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col min-w-0">
-                    <div className="text-sm font-medium text-sidebar-foreground truncate">
-                      Elizabeth Fitzgerald
-                    </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">
-                      AkerBP
+                  <div className="flex items-center gap-2">
+                    <Avatar sizes="default">
+                      <AvatarImage
+                        src="/user-avatar2.png"
+                        alt="Elizabeth Fitzgerald"
+                      />
+                      <AvatarFallback>EF</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col min-w-0">
+                      <div className="text-sm font-medium text-sidebar-foreground truncate">
+                        Elizabeth Fitzgerald
+                      </div>
+                      <div className="text-xs text-sidebar-foreground/70 truncate">
+                        AkerBP
+                      </div>
                     </div>
                   </div>
-                </SidebarFooter>
-              </SidebarPages>
+                </div>
+              </SidebarFooter>
             </Sidebar>
             <div className="flex-1 p-4">
               <SidebarTrigger />
@@ -319,6 +324,7 @@ export const sidebarExamples: ComponentExamples = {
     code: `import {
   Sidebar,
   SidebarHeader,
+  SidebarContent,
   SidebarFooter,
   SidebarProjectSelector,
   SidebarSearch,
@@ -326,24 +332,22 @@ export const sidebarExamples: ComponentExamples = {
   SidebarMainPages,
   SidebarPinnedApps,
   SidebarGeneralPages,
-  SidebarUserProfile,
   SidebarSeparator,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
 } from '@/components/ui/aura/sidebar';
-import { SwapSlot } from '@/components/ui/aura/swap-slot';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/aura/avatar';
 import {
   IconMapPinFilled,
   IconSearch,
   IconHomeFilled,
-  IconWorldFilled,
+  IconWorld,
   IconChevronLeft,
   IconBoltFilled,
   IconAppsFilled,
-  IconHelpFilled,
+  IconHelp,
   IconBellFilled,
 } from '@tabler/icons-react';
 
@@ -352,53 +356,63 @@ export function BasicDemo() {
     <SidebarProvider>
       <div className="flex h-full w-full">
         <Sidebar>
-          <SidebarBrand>
-            <div className="flex flex-col">
-              <div className="text-lg font-semibold">AkerBP</div>
-              <div className="text-xs text-muted-foreground">Industrial tools</div>
-            </div>
-          </SidebarBrand>
-          <SidebarProjectSelector>
-            <IconMapPin className="h-4 w-4" />
-            <span>Valhall</span>
-          </SidebarProjectSelector>
-          <SidebarSearch placeholder="Search" />
+          <SidebarHeader>
+            {/* Brand, project selector, search */}
+          </SidebarHeader>
           <SidebarSeparator />
-          <SidebarPages>
-            <SidebarMainPages>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    <IconHome className="h-4 w-4" />
-                    <span>Home</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton isActive>
-                    <IconWorld className="h-4 w-4" />
-                    <span>Atlas</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarMainPages>
-            <SidebarPinnedApps>
-              <SwapSlot>
+          <SidebarContent>
+            <SidebarPages>
+              <SidebarMainPages>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <IconHomeFilled className="h-4 w-4" />
+                      <span>Home</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton isActive>
+                      <IconWorld className="h-4 w-4" />
+                      <span>Atlas</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarMainPages>
+              <SidebarPinnedApps>
                 {/* Pinned apps content */}
-              </SwapSlot>
-            </SidebarPinnedApps>
-            <SidebarGeneralPages>
+              </SidebarPinnedApps>
+            </SidebarPages>
+          </SidebarContent>
+          <SidebarFooter>
+            <div className="flex flex-col gap-3 w-full">
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton>
-                    <IconApps className="h-4 w-4" />
+                    <IconAppsFilled className="h-4 w-4" />
                     <span>App library</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton>
+                    <IconHelp className="h-4 w-4" />
+                    <span>Help</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton>
+                    <IconBellFilled className="h-4 w-4" />
+                    <span>Notifications</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
-            </SidebarGeneralPages>
-          </SidebarPages>
-          <SidebarSeparator />
-       
+              <div className="flex items-center gap-2">
+                <Avatar>
+                  <AvatarFallback>EF</AvatarFallback>
+                </Avatar>
+                <div>Elizabeth Fitzgerald</div>
+              </div>
+            </div>
+          </SidebarFooter>
         </Sidebar>
         {/* Main content */}
       </div>
@@ -415,6 +429,7 @@ export function BasicDemo() {
     code: `import {
   Sidebar,
   SidebarHeader,
+  SidebarContent,
   SidebarFooter,
   SidebarProjectSelector,
   SidebarSearch,
@@ -435,11 +450,7 @@ import {
   IconSearch,
   IconHomeFilled,
   IconWorld,
-  IconChevronLeft,
-  IconBoltFilled,
   IconAppsFilled,
-  IconHelp,
-  IconBellFilled,
   IconPointFilled,
 } from '@tabler/icons-react';
 
@@ -449,47 +460,39 @@ export function CollapsedDemo() {
       <div className="flex h-full w-full">
         <Sidebar collapsible="icon">
           <SidebarHeader>
-            <SidebarFooter>
-              <Avatar sizes="default">
-                <AvatarFallback>AK</AvatarFallback>
-              </Avatar>
-            </SidebarFooter>
-            <SidebarProjectSelector>
-              <IconMapPinFilled className="h-4 w-4" />
-              <span>Valhall</span>
-            </SidebarProjectSelector>
-            <SidebarSearch>
-              <IconSearch className="h-4 w-4" />
-              <span>Search</span>
-            </SidebarSearch>
+            {/* Brand, project selector, search */}
           </SidebarHeader>
           <SidebarSeparator />
-          <SidebarPages>
-            <SidebarMainPages>
-              <SidebarMenu>
+          <SidebarContent>
+            <SidebarPages>
+              <SidebarMainPages>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Home">
+                      <IconHomeFilled className="h-4 w-4" />
+                      <span>Home</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton isActive tooltip="Atlas">
+                      <IconWorld className="h-4 w-4" />
+                      <span>Atlas</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarMainPages>
+              <SidebarPinnedApps>
                 <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Home">
-                    <IconHomeFilled className="h-4 w-4" />
-                    <span>Home</span>
+                  <SidebarMenuButton tooltip="App">
+                    <IconPointFilled className="h-4 w-4" />
+                    <span>App</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton isActive tooltip="Atlas">
-                    <IconWorld className="h-4 w-4" />
-                    <span>Atlas</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarMainPages>
-            <SidebarPinnedApps>
-              <SidebarMenuItem>
-                <SidebarMenuButton tooltip="App">
-                  <IconPointFilled className="h-4 w-4" />
-                  <span>App</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarPinnedApps>
-            <SidebarGeneralPages>
+              </SidebarPinnedApps>
+            </SidebarPages>
+          </SidebarContent>
+          <SidebarFooter>
+            <div className="flex flex-col gap-3 w-full">
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="App library">
@@ -497,14 +500,26 @@ export function CollapsedDemo() {
                     <span>App library</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Help">
+                    <IconHelp className="h-4 w-4" />
+                    <span>Help</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Notifications">
+                    <IconBellFilled className="h-4 w-4" />
+                    <span>Notifications</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
-            </SidebarGeneralPages>
-            <SidebarFooter>
-              <Avatar sizes="default">
-                <AvatarFallback>EF</AvatarFallback>
-              </Avatar>
-            </SidebarFooter>
-          </SidebarPages>
+              <div className="flex items-center gap-2">
+                <Avatar>
+                  <AvatarFallback>EF</AvatarFallback>
+                </Avatar>
+              </div>
+            </div>
+          </SidebarFooter>
         </Sidebar>
         <div className="flex-1 p-4">
           <SidebarTrigger />

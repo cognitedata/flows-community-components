@@ -232,7 +232,7 @@ function Sidebar({
           // Adjust the padding for floating and inset variants.
           variant === 'floating' || variant === 'inset'
             ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
-            : 'group-data-[side=left]:border-r group-data-[side=right]:border-l',
+            : '',
           className
         )}
         {...props}
@@ -240,7 +240,10 @@ function Sidebar({
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
-          className="bg-sidebar rounded-lg p-2 gap-3 group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+          className={cn(
+            'bg-sidebar rounded-lg p-2 gap-3 flex h-full w-full flex-col',
+            'group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm'
+          )}
         >
           {children}
         </div>
@@ -333,7 +336,7 @@ function SidebarSeparator({
     <Separator
       data-slot="sidebar-separator"
       data-sidebar="separator"
-      className={cn('bg-sidebar-border mx-2 w-auto', className)}
+      className={cn('bg-sidebar-border w-auto', className)}
       {...props}
     />
   );
@@ -345,7 +348,7 @@ function SidebarContent({ className, ...props }: ComponentProps<'div'>) {
       data-slot="sidebar-content"
       data-sidebar="content"
       className={cn(
-        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden',
+        'flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden group-data-[collapsible=icon]:gap-0',
         className
       )}
       {...props}
@@ -689,7 +692,7 @@ function SidebarProjectSelector({
       data-slot="sidebar-project-selector"
       data-sidebar="project-selector"
       className={cn(
-        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-8 w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 h-[36px]',
+        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-9 w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
         'group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-2!',
         '[&>span:last-child]:truncate',
         className
@@ -712,7 +715,7 @@ function SidebarSearch({
       data-slot="sidebar-search"
       data-sidebar="search"
       className={cn(
-        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-[36px] w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+        'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex h-9 w-full items-center gap-2 px-2 text-sm outline-hidden transition-[width,height,padding] focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
         'group-data-[collapsible=icon]:size-9! group-data-[collapsible=icon]:p-2!',
         '[&>span:last-child]:truncate',
         className
