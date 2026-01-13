@@ -156,27 +156,39 @@ export const BannerActions = ({ className, ...props }: BannerActionsProps) => (
 export type BannerActionProps = ComponentProps<typeof Button>;
 
 export const BannerAction = ({
-  variant = 'outline',
+  variant = 'ghost',
   size = 'sm',
   className,
   ...props
-}: BannerActionProps) => (
-  <Button
-    className={cn(
-      'shrink-0 bg-transparent hover:bg-background/10 hover:text-background',
-      className
-    )}
-    size={size}
-    variant={variant}
-    {...props}
-  />
-);
+}: BannerActionProps) => {
+  const { variant: bannerVariant } = useContext(BannerContext);
+
+  const hoverClasses: Record<BannerVariant, string> = {
+    default: 'hover:bg-undefined-hover',
+    neutral: 'hover:bg-neutral-hover',
+    destructive: 'hover:bg-destructive-hover',
+    warning: 'hover:bg-warning-hover',
+  };
+
+  return (
+    <Button
+      className={cn(
+        'shrink-0 text-foreground',
+        hoverClasses[bannerVariant],
+        className
+      )}
+      size={size}
+      variant={variant}
+      {...props}
+    />
+  );
+};
 
 export type BannerCloseProps = ComponentProps<typeof Button>;
 
 export const BannerClose = ({
   variant = 'ghost',
-  size = 'icon',
+  size = 'icon-sm',
   onClick,
   className,
   ...props
@@ -191,7 +203,7 @@ export const BannerClose = ({
   return (
     <Button
       className={cn(
-        'shrink-0 bg-transparent hover:bg-background/10 hover:text-background',
+        'shrink-0 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-foreground',
         className
       )}
       onClick={handleClick}
@@ -199,7 +211,7 @@ export const BannerClose = ({
       variant={variant}
       {...props}
     >
-      <IconX size={18} />
+      <IconX className="h-3.5 w-3.5" />
     </Button>
   );
 };
