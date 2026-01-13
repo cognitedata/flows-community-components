@@ -50,6 +50,10 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
+// =============================================================================
+// Basic Variants
+// =============================================================================
+
 /**
  * Default primary button style
  */
@@ -156,6 +160,10 @@ export const Link: Story = {
     children: 'Link Button',
   },
 };
+
+// =============================================================================
+// Documentation Examples (shown in docs pages)
+// =============================================================================
 
 /**
  * Button variants showcase with icons
@@ -538,6 +546,33 @@ export const MainComponent: Story = {
 };
 
 /**
+ * Button states - disabled and loading
+ */
+export const ButtonStates: Story = {
+  name: 'Button States',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled and loading states.',
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-wrap gap-3">
+      <Button disabled variant="secondary">Disabled</Button>
+      <Button disabled variant="secondary">
+        <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
+        Loading...
+      </Button>
+    </div>
+  ),
+};
+
+// =============================================================================
+// Additional Stories
+// =============================================================================
+
+/**
  * All button variants displayed together
  */
 export const AllVariants: Story = {
@@ -707,29 +742,6 @@ export const Loading: Story = {
 };
 
 /**
- * Button states - disabled and loading
- */
-export const ButtonStates: Story = {
-  name: 'Button States',
-  parameters: {
-    docs: {
-      description: {
-        story: 'Disabled and loading states.',
-      },
-    },
-  },
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Button disabled variant="secondary">Disabled</Button>
-      <Button disabled variant="secondary">
-        <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
-        Loading...
-      </Button>
-    </div>
-  ),
-};
-
-/**
  * Button examples in context
  */
 export const InContext: Story = {
@@ -786,20 +798,4 @@ export const Playground: Story = {
     children: 'Click me',
     disabled: false,
   },
-};
-
-// =============================================================================
-// Component Metadata (used by docs pages)
-// =============================================================================
-
-/**
- * Metadata for the Button component - used by documentation pages
- */
-export const ButtonMetadata = {
-  name: 'Button',
-  description:
-    'A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.',
-  llmUsage:
-    "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
-  importPath: '@/components/ui/aura/button',
 };

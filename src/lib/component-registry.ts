@@ -1,51 +1,53 @@
-import { type ComponentMeta } from './component-examples/types';
 import { hasStoryRenderer } from './stories-registry';
 
+export interface ComponentMeta {
+  name: string;
+  description: string;
+  llmUsage?: string;
+  importPath?: string;
+}
+
 /**
- * Gets component metadata from the appropriate source.
+ * Get component metadata.
  *
- * For components using portable stories (listed in stories-registry.ts),
- * metadata is loaded from the stories file.
+ * For components using portable stories (in storyRenderers), metadata is loaded
+ * from the component's metadata file (e.g., button/button.metadata.ts).
  *
- * For other components, metadata is loaded from the examples file.
+ * For legacy components, metadata is loaded from component-examples/*.examples.tsx.
  */
 export async function getComponentMeta(
   slug: string
 ): Promise<ComponentMeta | null> {
-  // Convert slug to camelCase for the export name (e.g., "alert-dialog" -> "alertDialog")
   const camelCaseSlug = slug.replace(/-([a-z])/g, (_, letter) =>
     letter.toUpperCase()
   );
-
-  // Convert slug to PascalCase for stories (e.g., "alert-dialog" -> "AlertDialog")
   const pascalCaseSlug =
     camelCaseSlug.charAt(0).toUpperCase() + camelCaseSlug.slice(1);
 
-  // Check if this component uses portable stories
+  // Check if this component uses portable stories (folder structure)
   if (hasStoryRenderer(slug)) {
     try {
-      // Load metadata from stories file (uses PascalCase + Metadata: ButtonMetadata, AlertDialogMetadata, etc.)
-      const storiesModule = await import(
-        `@/components/ui/aura/${slug}.stories`
+      // Load from the new folder structure with metadata file
+      const metadataModule = await import(
+        `@/components/ui/aura/${slug}/${slug}.metadata`
       );
-      const meta = storiesModule[`${pascalCaseSlug}Metadata`];
+      const meta = metadataModule[`${pascalCaseSlug}Metadata`];
       if (meta) {
         return meta;
       }
-    } catch (error) {
-      console.warn(`Could not load stories metadata for ${slug}:`, error);
+    } catch {
+      // Fall through to legacy lookup
     }
   }
 
-  // Fall back to examples file
+  // Fall back to old examples file for legacy components
   try {
     const examplesModule = await import(
       `./component-examples/${slug}.examples`
     );
     const meta = examplesModule[`${camelCaseSlug}Meta`];
     return meta || null;
-  } catch (error) {
-    console.warn(`Could not load metadata for ${slug}:`, error);
+  } catch {
     return null;
   }
 }
