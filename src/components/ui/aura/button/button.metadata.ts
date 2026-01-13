@@ -1,31 +1,40 @@
+import type { ComponentMetadata } from '@/lib/component-metadata.types';
+
 /**
  * Button Component Metadata
  *
  * This metadata is used by the documentation system to generate
  * component documentation pages and provide context for LLMs.
  */
-export const ButtonMetadata = {
-  /** Display name of the component */
+export const ButtonMetadata: ComponentMetadata = {
   name: 'Button',
 
-  /** Brief description of the component's purpose */
   description:
     'A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.',
 
-  /** Instructions for LLMs on how to use this component */
   llmUsage:
     "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
 
-  /** Import path for the component */
   importPath: '@/components/ui/aura/button',
 
-  /** Available variants */
-  variants: ['default', 'destructive', 'secondary', 'outline', 'ghost', 'link'] as const,
+  docsStories: [
+    {
+      storyKey: 'ButtonVariants',
+      title: 'Button Variants',
+      description: 'Different visual styles for various use cases.',
+    },
+    {
+      storyKey: 'MainComponent',
+      title: 'Main Component',
+      description: 'Available size and variation options with normal, hover, and disabled states.',
+    },
+    {
+      storyKey: 'ButtonStates',
+      title: 'Button States',
+      description: 'Disabled and loading states.',
+    },
+  ],
 
-  /** Available sizes */
-  sizes: ['default', 'sm', 'lg', 'icon', 'icon-sm', 'icon-lg'] as const,
-
-  /** Code examples for documentation */
   codeExamples: [
     {
       title: 'Button Variants',
@@ -99,6 +108,3 @@ export function ButtonStatesDemo() {
     },
   ],
 };
-
-/** Type for the metadata structure */
-export type ButtonMetadataType = typeof ButtonMetadata;

@@ -8,7 +8,7 @@ import { CodeExamplesRenderer } from '@/components/code-examples-renderer';
 import { getComponentStatus } from '@/lib/component-status';
 import { InstallationCommand } from '@/components/installation-command';
 import { getComponentMeta } from '@/lib/component-registry';
-import { storyRenderers } from '@/lib/stories-registry';
+import { componentsWithStories } from '@/lib/stories-registry';
 
 interface ComponentPageProps {
   params: Promise<{
@@ -27,8 +27,8 @@ export async function generateStaticParams() {
 
   const slugs = new Set<string>();
 
-  // Add slugs from story-based components
-  for (const slug of Object.keys(storyRenderers)) {
+  // Add slugs from story-based components (new folder structure)
+  for (const slug of componentsWithStories) {
     slugs.add(slug);
   }
 

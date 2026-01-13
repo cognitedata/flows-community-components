@@ -1,48 +1,60 @@
-import type { ComponentType } from 'react';
-import { ButtonStoriesRenderer, buttonCodeExamples } from '@/components/button-stories-renderer';
-
 /**
- * Registry mapping component slugs to their Storybook-based renderers.
+ * Stories Registry
  *
- * Components in this registry use Portable Stories (composeStories) to render
- * Storybook stories directly in the docs pages. This eliminates duplication
- * between Storybook and docs.
- *
- * Components NOT in this registry will fall back to the old examples system
- * (component-examples/*.examples.tsx).
+ * Tracks which components use the new folder structure with portable stories.
+ * Components listed here will use GenericStoriesRenderer instead of the legacy
+ * examples system.
  */
-export const storyRenderers: Record<string, ComponentType> = {
-  button: ButtonStoriesRenderer,
-  // Add more components as they're migrated to portable stories:
-  // card: CardStoriesRenderer,
-  // badge: BadgeStoriesRenderer,
-};
 
 /**
- * Registry mapping component slugs to their code examples
+ * Set of component slugs that use the folder structure with portable stories.
+ * Add a component slug here when it's migrated to the new structure:
+ *   src/components/ui/aura/{slug}/
+ *     ├── index.tsx
+ *     ├── {slug}.tsx
+ *     ├── {slug}.stories.tsx
+ *     ├── {slug}.test.tsx
+ *     └── {slug}.metadata.ts
  */
-export const storyCodeExamplesRegistry: Record<string, Array<{ title: string; code: string }>> = {
-  button: buttonCodeExamples,
-  // Add more as components are migrated
-};
+export const componentsWithStories = new Set<string>([
+  'button',
+  // Add more components as they're migrated:
+  // 'card',
+  // 'badge',
+  // 'input',
+]);
 
 /**
- * Check if a component has a story-based renderer
+ * Check if a component uses the portable stories system
  */
 export function hasStoryRenderer(slug: string): boolean {
-  return slug in storyRenderers;
+  return componentsWithStories.has(slug);
 }
 
 /**
- * Get the story renderer for a component, if it exists
+ * Get code examples for a component from its metadata file.
+ * Returns null if the component doesn't use the folder structure.
  */
-export function getStoryRenderer(slug: string): ComponentType | null {
-  return storyRenderers[slug] || null;
-}
+export async function getStoryCodeExamples(
+  slug: string
+): Promise<Array<{ title: string; code: string }> | null> {
+  if (!hasStoryRenderer(slug)) {
+    return null;
+  }
 
-/**
- * Get the code examples for a story-based component
- */
-export function getStoryCodeExamples(slug: string): Array<{ title: string; code: string }> | null {
-  return storyCodeExamplesRegistry[slug] || null;
+  try {
+    const pascalCaseSlug = slug
+      .split('-')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join('');
+
+    const metadataModule = await import(
+      `@/components/ui/aura/${slug}/${slug}.metadata`
+    );
+    const metadata = metadataModule[`${pascalCaseSlug}Metadata`];
+
+    return metadata?.codeExamples || null;
+  } catch {
+    return null;
+  }
 }

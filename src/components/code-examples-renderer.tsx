@@ -1,23 +1,54 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import {
   getComponentExamples,
   type ComponentExample,
 } from '@/lib/component-examples';
 import { CodeExample } from './code-example';
-import { getStoryCodeExamples } from '@/lib/stories-registry';
+import { hasStoryRenderer, getStoryCodeExamples } from '@/lib/stories-registry';
 
 interface CodeExamplesRendererProps {
   slug: string;
 }
 
+interface CodeExampleData {
+  title: string;
+  code: string;
+}
+
 export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
-  // Check for story-based code examples first
-  const storyCodeExamples = getStoryCodeExamples(slug);
-  if (storyCodeExamples && storyCodeExamples.length > 0) {
+  const [storyExamples, setStoryExamples] = useState<CodeExampleData[] | null>(null);
+  const [loading, setLoading] = useState(hasStoryRenderer(slug));
+
+  useEffect(() => {
+    if (!hasStoryRenderer(slug)) return;
+
+    async function loadExamples() {
+      const examples = await getStoryCodeExamples(slug);
+      setStoryExamples(examples);
+      setLoading(false);
+    }
+
+    loadExamples();
+  }, [slug]);
+
+  // Loading state for story-based components
+  if (loading) {
     return (
       <div className="space-y-4">
-        {storyCodeExamples.map((example, index) => (
+        {[1, 2].map((i) => (
+          <div key={i} className="h-32 bg-muted/20 rounded-lg animate-pulse" />
+        ))}
+      </div>
+    );
+  }
+
+  // Render story-based code examples
+  if (storyExamples && storyExamples.length > 0) {
+    return (
+      <div className="space-y-4">
+        {storyExamples.map((example, index) => (
           <CodeExample key={index} title={example.title} code={example.code} />
         ))}
       </div>
