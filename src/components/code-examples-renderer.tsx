@@ -5,12 +5,26 @@ import {
   type ComponentExample,
 } from '@/lib/component-examples';
 import { CodeExample } from './code-example';
+import { getStoryCodeExamples } from '@/lib/stories-registry';
 
 interface CodeExamplesRendererProps {
   slug: string;
 }
 
 export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
+  // Check for story-based code examples first
+  const storyCodeExamples = getStoryCodeExamples(slug);
+  if (storyCodeExamples && storyCodeExamples.length > 0) {
+    return (
+      <div className="space-y-4">
+        {storyCodeExamples.map((example, index) => (
+          <CodeExample key={index} title={example.title} code={example.code} />
+        ))}
+      </div>
+    );
+  }
+
+  // Fall back to old examples system
   const examples = getComponentExamples(slug);
 
   if (!examples) {

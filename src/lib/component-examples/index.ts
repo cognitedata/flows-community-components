@@ -7,7 +7,7 @@ import { avatarExamples } from './avatar.examples';
 import { badgeExamples } from './badge.examples';
 import { bannerExamples, bannerMeta } from './banner.examples';
 import { breadcrumbExamples } from './breadcrumb.examples';
-import { buttonExamples } from './button.examples';
+// button uses portable stories - see stories-registry.ts and button.stories.tsx
 import { calendarExamples } from './calendar.examples';
 import { cardExamples } from './card.examples';
 import { checkboxExamples } from './checkbox.examples';
@@ -52,7 +52,7 @@ export const componentExamples = {
   badge: badgeExamples,
   banner: bannerExamples,
   breadcrumb: breadcrumbExamples,
-  button: buttonExamples,
+  // button uses portable stories - see stories-registry.ts
   calendar: calendarExamples,
   card: cardExamples,
   checkbox: checkboxExamples,

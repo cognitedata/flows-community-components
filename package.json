@@ -109,8 +109,8 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "chromatic": "^13.3.4",
     "@vitejs/plugin-react": "^5.1.1",
+    "chromatic": "^13.3.4",
     "eslint": "^9.39.1",
     "eslint-config-next": "16.0.10",
     "eslint-plugin-storybook": "^10.0.2",
@@ -125,6 +125,7 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "core-js-pure",
       "esbuild",
       "msw",
       "sharp"

@@ -4,6 +4,7 @@ import {
   getComponentExamples,
   type ComponentExample,
 } from '@/lib/component-examples';
+import { getStoryRenderer } from '@/lib/stories-registry';
 import { ExamplePreview } from './example-preview';
 
 interface ComponentExamplesRendererProps {
@@ -13,6 +14,13 @@ interface ComponentExamplesRendererProps {
 export function ComponentExamplesRenderer({
   slug,
 }: ComponentExamplesRendererProps) {
+  // Check if this component has a story-based renderer (portable stories)
+  const StoryRenderer = getStoryRenderer(slug);
+  if (StoryRenderer) {
+    return <StoryRenderer />;
+  }
+
+  // Fall back to the old examples system
   const examples = getComponentExamples(slug);
 
   if (!examples) {
