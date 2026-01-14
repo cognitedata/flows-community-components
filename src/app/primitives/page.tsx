@@ -65,7 +65,7 @@ function ComponentDemo({
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="py-6 text-left">
         <div className="flex items-center justify-between">
           <div>
             <CardTitle>{title}</CardTitle>
@@ -87,7 +87,7 @@ function ComponentDemo({
           </div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pb-6">
         {showCode ? (
           <CodeBlock code={code} />
         ) : (
@@ -261,13 +261,13 @@ export function SwitchDemo() {
                 code={cardCode}
               >
                 <Card className="w-full max-w-sm">
-                  <CardHeader>
+                  <CardHeader className="py-6 text-left">
                     <CardTitle>Card title</CardTitle>
                     <CardDescription>
                       This is a description of the card content.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pb-6">
                     <p className="text-sm text-muted-foreground">
                       Card content goes here. You can put any elements inside.
                     </p>
@@ -287,7 +287,7 @@ export function SwitchDemo() {
             </div>
 
             <Card>
-              <CardContent className="p-8">
+              <CardContent className="p-8 pb-6">
                 <div className="grid gap-8">
                   {/* Button Variants */}
                   <div className="space-y-4">
@@ -336,10 +336,10 @@ export function SwitchDemo() {
 
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
-                <CardHeader>
+                <CardHeader className="py-6 text-left">
                   <CardTitle>Do&apos;s</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3 pb-6">
                   <div className="flex items-start space-x-2">
                     <span className="text-green-500 mt-1">✓</span>
                     <span className="text-sm">
@@ -368,10 +368,10 @@ export function SwitchDemo() {
               </Card>
 
               <Card>
-                <CardHeader>
+                <CardHeader className="py-6 text-left">
                   <CardTitle>Don&apos;ts</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3 pb-6">
                   <div className="flex items-start space-x-2">
                     <span className="text-destructive mt-1">✗</span>
                     <span className="text-sm">
@@ -413,13 +413,13 @@ export function SwitchDemo() {
             </div>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="py-6 text-left">
                 <CardTitle>Getting started</CardTitle>
                 <CardDescription>
                   Install and import components into your React application
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 pb-6">
                 <div className="space-y-2">
                   <h4 className="font-semibold">Installation</h4>
                   <CodeBlock code="pnpm dlx shadcn@latest add @aura/button @aura/input @aura/label @aura/card @aura/switch" />

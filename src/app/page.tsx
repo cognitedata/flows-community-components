@@ -223,7 +223,7 @@ export default function HomePage() {
         id="quick-start"
         className="relative z-10 min-h-screen bg-background/80 backdrop-blur-3xl py-24 sm:py-32"
       >
-        <div className="container mx-auto px-4 max-w-5xl">
+        <div className="container mx-auto px-6 sm:px-8 md:px-10 lg:px-12 max-w-5xl">
           <div className="space-y-16">
             <div className="text-center space-y-4">
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
@@ -264,7 +264,7 @@ export default function HomePage() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors">
-                        <CardHeader>
+                        <CardHeader className="py-6">
                           <div className="flex flex-col md:flex-row md:items-start gap-6">
                             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                               <step.icon className="h-6 w-6 text-primary" />
@@ -285,7 +285,7 @@ export default function HomePage() {
                           </div>
                         </CardHeader>
                         {(step.code || step.extra) && (
-                          <CardContent className="pl-0 md:pl-22">
+                          <CardContent className="pb-6">
                             {step.code && (
                               <CodeBlock
                                 code={step.code}
@@ -316,7 +316,7 @@ export default function HomePage() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors">
-                        <CardHeader>
+                        <CardHeader className="py-6">
                           <div className="flex flex-col md:flex-row md:items-start gap-6">
                             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
                               <step.icon className="h-6 w-6 text-primary" />
@@ -337,7 +337,7 @@ export default function HomePage() {
                           </div>
                         </CardHeader>
                         {(step.code || step.extra) && (
-                          <CardContent className="pl-0 md:pl-22">
+                          <CardContent className="pb-6">
                             {step.code && (
                               <CodeBlock
                                 code={step.code}

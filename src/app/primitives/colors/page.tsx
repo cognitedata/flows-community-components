@@ -450,14 +450,14 @@ function ColorPalette({ palette }: { palette: (typeof colorPalettes)[0] }) {
 
   return (
     <Card className="w-full">
-      <CardHeader>
+      <CardHeader className="py-6">
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl">{palette.name}</CardTitle>
           {getCategoryBadge(palette.category)}
         </div>
         <p className="text-sm text-muted-foreground">{palette.description}</p>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pb-6">
         <div className="grid grid-cols-7 gap-2">
           {palette.colors.map((color) => (
             <ColorSwatch

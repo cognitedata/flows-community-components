@@ -76,13 +76,13 @@ export default function InstallationPage() {
 
           {/* Prerequisites */}
           <Card>
-            <CardHeader>
+            <CardHeader className="py-6">
               <CardTitle>Prerequisites</CardTitle>
               <CardDescription>
                 Make sure you have the following installed on your machine
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pb-6">
               <ul className="space-y-2">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4" />
@@ -128,7 +128,7 @@ export default function InstallationPage() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <Card>
-                    <CardHeader>
+                    <CardHeader className="py-6">
                       <div className="flex items-start gap-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                           <step.icon className="h-5 w-5 text-primary" />
@@ -147,14 +147,14 @@ export default function InstallationPage() {
                       </div>
                     </CardHeader>
                     {step.code && (
-                      <CardContent>
+                      <CardContent className="pb-6">
                         <CodeBlock code={step.code} language="bash">
                           <CodeBlockCopyButton />
                         </CodeBlock>
                       </CardContent>
                     )}
                     {step.configStep && (
-                      <CardContent>
+                      <CardContent className="pb-6">
                         <div className="space-y-4">
                           <p className="text-sm text-muted-foreground">
                             Add the following to your{' '}
@@ -191,7 +191,7 @@ export default function InstallationPage() {
 
           {/* Optional: MCP */}
           <Card>
-            <CardHeader>
+            <CardHeader className="py-6">
               <CardTitle>
                 Optional: Install shadcn MCP server for Cursor
               </CardTitle>
@@ -199,7 +199,7 @@ export default function InstallationPage() {
                 This lets Cursor integrate with shadcn tooling via MCP.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 pb-6">
               <CodeBlock code={'npx shadcn@latest mcp'} language="bash">
                 <CodeBlockCopyButton />
               </CodeBlock>
@@ -222,14 +222,14 @@ export default function InstallationPage() {
           <div className="space-y-6">
             <h2 className="text-3xl font-bold">Usage</h2>
             <Card>
-              <CardHeader>
+              <CardHeader className="py-6">
                 <CardTitle>Adding Components</CardTitle>
                 <CardDescription>
                   Components are designed to be copied and pasted into your
                   project
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 pb-6">
                 <p className="text-sm text-muted-foreground">
                   Browse the component documentation, find the component you
                   need, and copy the code directly into your project. Each
@@ -238,7 +238,7 @@ export default function InstallationPage() {
                 </p>
                 <div className="flex gap-4">
                   <Button asChild>
-                    <Link href="/docs">
+                    <Link href="/primitives">
                       Browse Components
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -257,7 +257,7 @@ export default function InstallationPage() {
             <div className="grid md:grid-cols-2 gap-6">
               <Card className="hover:shadow-lg transition-shadow">
                 <Link href="/primitives/components/button">
-                  <CardHeader>
+                  <CardHeader className="py-6">
                     <CardTitle>Explore Components</CardTitle>
                     <CardDescription>
                       Browse our library of production-ready components
@@ -267,7 +267,7 @@ export default function InstallationPage() {
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
                 <Link href="/primitives">
-                  <CardHeader>
+                  <CardHeader className="py-6">
                     <CardTitle>Design System</CardTitle>
                     <CardDescription>
                       Learn about our design tokens, colors, and guidelines
@@ -277,7 +277,7 @@ export default function InstallationPage() {
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
                 <Link href="/tokens">
-                  <CardHeader>
+                  <CardHeader className="py-6">
                     <CardTitle>Design Tokens</CardTitle>
                     <CardDescription>
                       Explore our color palette and typography system
@@ -287,7 +287,7 @@ export default function InstallationPage() {
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
                 <Link href="/blocks">
-                  <CardHeader>
+                  <CardHeader className="py-6">
                     <CardTitle>Example Blocks</CardTitle>
                     <CardDescription>
                       Check out pre-built blocks and templates
