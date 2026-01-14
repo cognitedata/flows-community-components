@@ -762,6 +762,10 @@
 }
 
 @layer utilities {
+  [data-state='closed'] {
+    --tw-animation-fill-mode: forwards;
+  }
+  
   @keyframes accordion-down {
     from {
       height: 0;
