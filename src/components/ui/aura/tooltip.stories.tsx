@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { useState } from 'react';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import {
   Tooltip,
   TooltipContent,
@@ -722,14 +723,6 @@ export const ControlledState: Story = {
 
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex gap-2">
-          <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
-            Open tooltip
-          </Button>
-          <Button onClick={() => setIsOpen(false)} variant="outline" size="sm">
-            Close tooltip
-          </Button>
-        </div>
         <TooltipProvider>
           <Tooltip open={isOpen} onOpenChange={setIsOpen}>
             <TooltipTrigger asChild>
@@ -740,6 +733,14 @@ export const ControlledState: Story = {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+        <div className="flex gap-2">
+          <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
+            Open tooltip
+          </Button>
+          <Button onClick={() => setIsOpen(false)} variant="outline" size="sm">
+            Close tooltip
+          </Button>
+        </div>
       </div>
     );
   },
@@ -753,7 +754,7 @@ export const WithDelay: Story = {
     docs: {
       description: {
         story:
-          'Tooltip with a 500ms delay before appearing. Tests delayDuration prop.',
+          'Tooltip with a 1500ms delay before appearing. Tests delayDuration prop.',
       },
     },
   },
@@ -776,19 +777,22 @@ export const WithDelay: Story = {
         const tooltip = tooltipBody.queryByTestId('tooltip-content');
         expect(tooltip).toBeVisible();
       },
-      { timeout: 1000 }
+      { timeout: 2000 }
     );
   },
-  render: () => (
-    <TooltipProvider delayDuration={500}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover me (with delay)</Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          This tooltip appears after a 500ms delay
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  ),
+  render: () => {
+    const TooltipRoot = TooltipPrimitive.Root;
+    return (
+      <TooltipProvider delayDuration={1500}>
+        <TooltipRoot>
+          <TooltipTrigger asChild>
+            <Button variant="outline">Hover me (with delay)</Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            This tooltip appears after a 1500ms delay
+          </TooltipContent>
+        </TooltipRoot>
+      </TooltipProvider>
+    );
+  },
 };
