@@ -125,7 +125,7 @@ export const Basic: Story = {
     <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
       <SidebarProvider className="min-h-0 h-[996px]">
         <div className="flex h-full w-full">
-          <Sidebar>
+          <Sidebar collapsible="icon">
             <SidebarHeader>
               <SidebarHeaderInsert data-testid="sidebar-header-insert">
                 <Avatar sizes="default">
@@ -182,7 +182,7 @@ export const Basic: Story = {
                   </SidebarMenu>
                 </SidebarMainPages>
                 <SidebarPinnedApps>
-                  <div className="tracking-normal text-sm font-medium">
+                  <div className="text-sm font-medium pb-1 group-data-[collapsible=icon]:hidden">
                     Pinned apps
                   </div>
                   <SidebarMenuItem>
@@ -453,7 +453,7 @@ export const MinimalContent: Story = {
     <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
       <SidebarProvider className="min-h-0 h-[996px]">
         <div className="flex h-full w-full">
-          <Sidebar>
+          <Sidebar collapsible="icon">
             <SidebarHeader>
               <SidebarHeaderInsert>
                 <Avatar sizes="default">
