@@ -427,11 +427,11 @@ export const FAQ: Story = {
   render: () => (
     <div className="space-y-2 w-[500px]">
       <h2 className="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
-      
+
       <Collapsible className="space-y-2">
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">
-            <span>What's the difference between Collapsible and Accordion?</span>
+            <span>What&apos;s the difference between Collapsible and Accordion?</span>
             <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
           </Button>
         </CollapsibleTrigger>
