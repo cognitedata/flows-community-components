@@ -52,7 +52,8 @@ export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
           composedStories: composed as Record<string, ComponentType>,
         });
       } catch (err) {
-        setError(`Failed to load stories for ${slug}: ${err}`);
+        console.error(`Failed to load stories for ${slug}:`, err);
+        setError(`Failed to load stories for ${slug}.`);
       }
     }
 

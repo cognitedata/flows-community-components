@@ -35,7 +35,11 @@ export async function getComponentMeta(
       if (meta) {
         return meta;
       }
-    } catch {
+    } catch (error) {
+      console.warn(
+        `Could not load portable-story metadata for ${slug}:`,
+        error
+      );
       // Fall through to legacy lookup
     }
   }
@@ -47,7 +51,8 @@ export async function getComponentMeta(
     );
     const meta = examplesModule[`${camelCaseSlug}Meta`];
     return meta || null;
-  } catch {
+  } catch (error) {
+    console.warn(`Could not load legacy metadata for ${slug}:`, error);
     return null;
   }
 }

@@ -54,7 +54,8 @@ export async function getStoryCodeExamples(
     const metadata = metadataModule[`${pascalCaseSlug}Metadata`];
 
     return metadata?.codeExamples || null;
-  } catch {
+  } catch (error) {
+    console.error(`Failed to get story code examples for '${slug}':`, error);
     return null;
   }
 }
