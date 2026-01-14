@@ -18,7 +18,6 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/aura/tooltip';
 import { cn } from '@/lib/utils';
