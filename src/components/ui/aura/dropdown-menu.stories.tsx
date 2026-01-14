@@ -226,17 +226,17 @@ export const WithLabelsAndSeparators: Story = {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <IconUser aria-hidden="true" focusable={false} />
+            <IconUser aria-hidden="true" />
             Profile
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconSettings aria-hidden="true" focusable={false} />
+            <IconSettings aria-hidden="true" />
             Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <IconLogout aria-hidden="true" focusable={false} />
+          <IconLogout aria-hidden="true" />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -747,9 +747,11 @@ export const UserDetails: Story = {
     await expect(userEmail).toBeInTheDocument();
     await expect(userEmail).toBeVisible();
 
-    // Verify avatar is present
-    const avatar = within(document.body).getByAltText('User');
-    await expect(avatar).toBeInTheDocument();
+    // Verify avatar is present (check by data-slot since image might not load in test)
+    await waitFor(() => {
+      const avatar = document.querySelector('[data-slot="avatar"]');
+      expect(avatar).toBeInTheDocument();
+    }, { timeout: 1000 });
 
     // Verify menu items are accessible
     const profileItem = within(document.body).getByRole('menuitem', {
