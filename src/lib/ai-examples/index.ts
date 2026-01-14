@@ -3,7 +3,6 @@
 import { messageExamples } from './message.examples';
 import { conversationExamples } from './conversation.examples';
 import { artifactExamples } from './artifact.examples';
-import { actionsExamples } from './actions.examples';
 import { loaderExamples } from './loader.examples';
 import { suggestionExamples } from './suggestion.examples';
 import { sourcesExamples } from './sources.examples';
@@ -34,7 +33,6 @@ export const aiExamples = {
   message: messageExamples,
   conversation: conversationExamples,
   artifact: artifactExamples,
-  actions: actionsExamples,
   loader: loaderExamples,
   suggestion: suggestionExamples,
   sources: sourcesExamples,

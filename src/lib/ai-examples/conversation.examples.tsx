@@ -13,12 +13,7 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
-  MessageBranch,
-  MessageBranchContent,
-  MessageBranchSelector,
-  MessageBranchPrevious,
-  MessageBranchNext,
-  MessageBranchPage,
+  MessageResponse,
 } from '@/components/ui/aura/message';
 import {
   PromptInput,
@@ -31,7 +26,6 @@ import {
   PromptInputButton,
 } from '@/components/ui/aura/prompt-input';
 import { Shimmer } from '@/components/ui/aura/shimmer';
-import { Response } from '@/components/ui/aura/response';
 import {
   Tool,
   ToolHeader,
@@ -49,6 +43,7 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from '@/components/ui/aura/inline-citation';
+import { Sources, Source } from '@/components/ui/aura/sources';
 import {
   IconWheel,
   IconCopy,
@@ -58,6 +53,10 @@ import {
   IconHash,
   IconAdjustments,
   IconChevronDown,
+  IconChartLine,
+  IconPhoto,
+  IconFile,
+  IconBriefcase,
 } from '@tabler/icons-react';
 import { Suggestion } from '@/components/ui/aura/suggestion';
 import { usePromptInputController } from '@/components/ui/aura/prompt-input';
@@ -420,11 +419,8 @@ type ConversationPhase =
 function BasicConversationDemo() {
   const [phase, setPhase] = useState<ConversationPhase>('empty');
   const [thinkingSeconds, setThinkingSeconds] = useState(0);
+  const [streamedContent, setStreamedContent] = useState('');
   const [showTools, setShowTools] = useState(false);
-  const [branches, setBranches] = useState<string[]>(['']); // Initialize with empty string for first branch
-  const [showBranchNav, setShowBranchNav] = useState(false);
-  const [isRetrying, setIsRetrying] = useState(false);
-  const [currentBranchIndex, setCurrentBranchIndex] = useState(0);
 
   // Derive shimmer phrase from thinking seconds (changes every 3 seconds)
   const phraseIndex = Math.min(Math.floor(thinkingSeconds / 3), 2);
@@ -473,70 +469,17 @@ function BasicConversationDemo() {
     const interval = setInterval(() => {
       if (index < responseTokens.length) {
         currentContent += responseTokens[index];
-        setBranches([currentContent]); // Update first branch with streaming content
+        setStreamedContent(currentContent);
         index++;
       } else {
         clearInterval(interval);
-        setBranches([responseTokens.join('')]);
+        setStreamedContent(responseTokens.join(''));
         setPhase('complete');
       }
     }, 50);
 
     return () => clearInterval(interval);
   }, [phase]);
-
-  const handleRetry = () => {
-    if (branches.length >= 2 || isRetrying) return;
-
-    // Set up the new branch with first token immediately
-    const newBranchIndex = 1;
-    const firstToken = responseTokens2[0];
-
-    setBranches((prev) => [...prev, firstToken]);
-    setCurrentBranchIndex(newBranchIndex);
-    setIsRetrying(true);
-
-    // Continue streaming the rest
-    let currentContent = firstToken;
-    let index = 1;
-
-    const interval = setInterval(() => {
-      if (index < responseTokens2.length) {
-        currentContent += responseTokens2[index];
-        setBranches((prev) => {
-          const updated = [...prev];
-          updated[newBranchIndex] = currentContent;
-          return updated;
-        });
-        index++;
-      } else {
-        clearInterval(interval);
-        setBranches((prev) => {
-          const updated = [...prev];
-          updated[newBranchIndex] = responseTokens2.join('');
-          return updated;
-        });
-        setShowBranchNav(true);
-        setIsRetrying(false);
-      }
-    }, 50);
-  };
-
-  const handleCopy = () => {
-    const currentBranch = branches[currentBranchIndex] || '';
-    navigator.clipboard.writeText(currentBranch);
-  };
-
-  const handleDownload = () => {
-    const currentBranch = branches[currentBranchIndex] || '';
-    const blob = new Blob([currentBranch], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'response.txt';
-    a.click();
-    URL.revokeObjectURL(url);
-  };
 
   const showUserMessage = phase !== 'empty';
   const showAssistantMessage =
@@ -588,161 +531,132 @@ function BasicConversationDemo() {
               )}
 
               {showAssistantMessage && (
-                <MessageBranch
-                  key={`branch-${currentBranchIndex}`}
-                  defaultBranch={currentBranchIndex}
-                >
-                  <MessageBranchContent>
+                <Message isResponse={true}>
+                  <MessageAvatar variant="nordic">
+                    <MessageAvatarIcon>
+                      <IconWheel />
+                    </MessageAvatarIcon>
+                  </MessageAvatar>
+                  <MessageContent className="flex flex-col gap-2">
                     {isThinking ? (
-                      <Message isResponse={true}>
-                        <MessageAvatar variant="nordic">
-                          <MessageAvatarIcon>
-                            <IconWheel />
-                          </MessageAvatarIcon>
-                        </MessageAvatar>
-                        <MessageContent className="flex flex-col gap-2">
-                          <Shimmer variant="nordic">
-                            {thinkingPhrases[phraseIndex]}
-                          </Shimmer>
-                        </MessageContent>
-                      </Message>
+                      <Shimmer variant="nordic">
+                        {thinkingPhrases[phraseIndex]}
+                      </Shimmer>
                     ) : (
-                      branches.map((branch, index) => (
-                        <Message key={index} isResponse={true}>
-                          <MessageAvatar variant="nordic">
-                            <MessageAvatarIcon>
-                              <IconWheel />
-                            </MessageAvatarIcon>
-                          </MessageAvatar>
-                          <MessageContent className="flex flex-col gap-2">
-                            <span className="text-muted-foreground text-sm">
-                              Thought for {thinkingSeconds} seconds
-                            </span>
-                            <Response controls={false}>
-                              {isRetrying && index === currentBranchIndex
-                                ? branch
-                                : branch || ''}
-                            </Response>
-                            {isComplete &&
-                              showTools &&
-                              index === currentBranchIndex && (
-                                <div className="flex flex-col gap-2 py-3">
-                                  <Reasoning>
-                                    <ReasoningHeader />
-                                    <ReasoningContent>
-                                      <ReasoningItem>
-                                        <Tool defaultOpen={false}>
-                                          <ToolHeader
-                                            title="Search database"
-                                            type="tool-call"
-                                          />
-                                          <ToolContent>
-                                            <ToolInput
-                                              input={searchDatabaseInput}
-                                            />
-                                            <ToolOutput
-                                              output={searchDatabaseOutput}
-                                              errorText={undefined}
-                                            />
-                                          </ToolContent>
-                                        </Tool>
-                                      </ReasoningItem>
-                                      <ReasoningItem>
-                                        <Tool defaultOpen={false}>
-                                          <ToolHeader
-                                            title="Fetch sensor data"
-                                            type="tool-call"
-                                          />
-                                          <ToolContent>
-                                            <ToolInput
-                                              input={fetchSensorDataInput}
-                                            />
-                                            <ToolOutput
-                                              output={fetchSensorDataOutput}
-                                              errorText={undefined}
-                                            />
-                                          </ToolContent>
-                                        </Tool>
-                                      </ReasoningItem>
-                                    </ReasoningContent>
-                                  </Reasoning>
-                                </div>
-                              )}
-                            {isComplete && !isRetrying && (
-                              <MessageActions className="justify-between">
-                                <div className="flex items-center gap-2">
-                                  <MessageAction
-                                    size="icon-sm"
-                                    label="Copy"
-                                    tooltip="Copy"
-                                    onClick={handleCopy}
-                                  >
-                                    <IconCopy className="w-3 h-3" />
-                                  </MessageAction>
-                                  <MessageAction
-                                    size="icon-sm"
-                                    label="Download"
-                                    tooltip="Download"
-                                    onClick={handleDownload}
-                                  >
-                                    <IconDownload className="w-3 h-3" />
-                                  </MessageAction>
-                                  <MessageAction
-                                    size="icon-sm"
-                                    label="Retry"
-                                    tooltip="Retry"
-                                    onClick={handleRetry}
-                                    disabled={
-                                      branches.length >= 2 || isRetrying
-                                    }
-                                  >
-                                    <IconRefresh className="w-3 h-3" />
-                                  </MessageAction>
-                                  {showBranchNav && (
-                                    <MessageBranchSelector
-                                      from="assistant"
-                                      className="px-0"
-                                    >
-                                      <MessageBranchPrevious
-                                        onClick={() =>
-                                          setCurrentBranchIndex(
-                                            Math.max(0, currentBranchIndex - 1)
-                                          )
-                                        }
+                      <>
+                        <span className="text-muted-foreground text-sm">
+                          Thought for {thinkingSeconds} seconds
+                        </span>
+                        <MessageResponse controls={false}>
+                          {streamedContent}
+                        </MessageResponse>
+                        {isComplete && (
+                          <Sources className="flex flex-col gap-2 py-3">
+                            <Source
+                              href="https://example.com/21PT2019"
+                              title="21PT1019"
+                              icon={IconChartLine}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/pumpB.img"
+                              title="pumpB.img"
+                              icon={IconPhoto}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/PumpB.pdf"
+                              title="PumpB.pdf"
+                              icon={IconFile}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/120_oaoXR"
+                              title="120_oaoXR"
+                              icon={IconBriefcase}
+                              target="_blank"
+                            />
+                          </Sources>
+                        )}
+                        {isComplete && showTools && (
+                          <div className="flex flex-col gap-2 py-3">
+                            <Reasoning>
+                              <ReasoningHeader />
+                              <ReasoningContent>
+                                <ReasoningItem>
+                                  <Tool defaultOpen={false}>
+                                    <ToolHeader
+                                      title="Search database"
+                                      type="tool-call"
+                                    />
+                                    <ToolContent>
+                                      <ToolInput input={searchDatabaseInput} />
+                                      <ToolOutput
+                                        output={searchDatabaseOutput}
+                                        errorText={undefined}
                                       />
-                                      <MessageBranchPage />
-                                      <MessageBranchNext
-                                        onClick={() =>
-                                          setCurrentBranchIndex(
-                                            Math.min(
-                                              branches.length - 1,
-                                              currentBranchIndex + 1
-                                            )
-                                          )
-                                        }
+                                    </ToolContent>
+                                  </Tool>
+                                </ReasoningItem>
+                                <ReasoningItem>
+                                  <Tool defaultOpen={false}>
+                                    <ToolHeader
+                                      title="Fetch sensor data"
+                                      type="tool-call"
+                                    />
+                                    <ToolContent>
+                                      <ToolInput input={fetchSensorDataInput} />
+                                      <ToolOutput
+                                        output={fetchSensorDataOutput}
+                                        errorText={undefined}
                                       />
-                                    </MessageBranchSelector>
-                                  )}
-                                </div>
-                                <MessageAction
-                                  size="sm"
-                                  onClick={() => setShowTools(!showTools)}
-                                  data-active={showTools}
-                                  className="data-[active=true]:bg-accent"
-                                >
-                                  <IconBrain className="w-3.5 h-3.5" />
-                                  {showTools
-                                    ? 'Hide reasoning'
-                                    : 'Show reasoning'}
-                                </MessageAction>
-                              </MessageActions>
-                            )}
-                          </MessageContent>
-                        </Message>
-                      ))
+                                    </ToolContent>
+                                  </Tool>
+                                </ReasoningItem>
+                              </ReasoningContent>
+                            </Reasoning>
+                          </div>
+                        )}
+                        {isComplete && (
+                          <MessageActions className="justify-between">
+                            <div className="flex items-center gap-2">
+                              <MessageAction
+                                size="icon-sm"
+                                label="Copy"
+                                tooltip="Copy"
+                              >
+                                <IconCopy className="w-3 h-3" />
+                              </MessageAction>
+                              <MessageAction
+                                size="icon-sm"
+                                label="Download"
+                                tooltip="Download"
+                              >
+                                <IconDownload className="w-3 h-3" />
+                              </MessageAction>
+                              <MessageAction
+                                size="icon-sm"
+                                label="Retry"
+                                tooltip="Retry"
+                              >
+                                <IconRefresh className="w-3 h-3" />
+                              </MessageAction>
+                            </div>
+                            <MessageAction
+                              size="sm"
+                              onClick={() => setShowTools(!showTools)}
+                              data-active={showTools}
+                              className="data-[active=true]:bg-accent"
+                            >
+                              <IconBrain className="w-3.5 h-3.5" />
+                              {showTools ? 'Hide reasoning' : 'Show reasoning'}
+                            </MessageAction>
+                          </MessageActions>
+                        )}
+                      </>
                     )}
-                  </MessageBranchContent>
-                </MessageBranch>
+                  </MessageContent>
+                </Message>
               )}
             </>
           )}
@@ -923,6 +837,7 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
+  MessageResponse,
 } from "@/components/ai-elements/cognite/message"
 import {
   PromptInput,
@@ -935,7 +850,6 @@ import {
   PromptInputButton,
 } from "@/components/ai-elements/cognite/prompt-input"
 import { Shimmer } from "@/components/ai-elements/cognite/shimmer"
-import { Response } from "@/components/ai-elements/cognite/response"
 import {
   Tool,
   ToolHeader,
@@ -953,6 +867,7 @@ import {
   InlineCitation,
   InlineCitationLink,
 } from "@/components/ai-elements/cognite/inline-citation"
+import { Sources, Source } from "@/components/ai-elements/cognite/sources"
 import { Suggestion } from "@/components/ai-elements/cognite/suggestion"
 import { Button } from "@/components/ui/aura/button"
 import {
@@ -970,6 +885,10 @@ import {
   IconHash,
   IconAdjustments,
   IconChevronDown,
+  IconChartLine,
+  IconPhoto,
+  IconFile,
+  IconBriefcase,
 } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
 
@@ -1111,7 +1030,35 @@ export function BasicConversationDemo() {
                         <span className="text-muted-foreground text-sm">
                           Thought for {thinkingSeconds} seconds
                         </span>
-                        <Response controls={false}>{streamedContent}</Response>
+                        <MessageResponse controls={false}>{streamedContent}</MessageResponse>
+                        {isComplete && (
+                          <Sources className="flex flex-col gap-2 py-3">
+                            <Source
+                              href="https://example.com/21PT2019"
+                              title="21PT1019"
+                              icon={IconChartLine}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/pumpB.img"
+                              title="pumpB.img"
+                              icon={IconPhoto}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/PumpB.pdf"
+                              title="PumpB.pdf"
+                              icon={IconFile}
+                              target="_blank"
+                            />
+                            <Source
+                              href="https://example.com/120_oaoXR"
+                              title="120_oaoXR"
+                              icon={IconBriefcase}
+                              target="_blank"
+                            />
+                          </Sources>
+                        )}
                         {isComplete && showTools && (
                           <div className="flex flex-col gap-2 py-3">
                             <Reasoning>

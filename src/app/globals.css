@@ -697,50 +697,6 @@
   --gradient-spring: linear-gradient(-100deg, var(--aurora-950) 0%, var(--nordic-900) 50%, var(--aurora-900) 100%);
   --gradient-fall: linear-gradient(-100deg, var(--fjord-450) 0%, var(--dusk-450) 50%, var(--dusk-700) 100%);
 
-  /* Charts (dark) */
-  --chart-fjord-solid: var(--fjord-300);
-  --chart-fjord-opacity-1: rgba(174, 189, 247, 0.8);
-  --chart-fjord-opacity-2: rgba(174, 189, 247, 0.65);
-  --chart-fjord-opacity-3: rgba(174, 189, 247, 0.5);
-  --chart-fjord-opacity-4: rgba(174, 189, 247, 0.35);
-  --chart-fjord-opacity-5: rgba(174, 189, 247, 0.2);
-  --chart-aurora-solid: var(--aurora-200);
-  --chart-aurora-opacity-1: rgba(171, 233, 56, 0.8);
-  --chart-aurora-opacity-2: rgba(171, 233, 56, 0.65);
-  --chart-aurora-opacity-3: rgba(171, 233, 56, 0.5);
-  --chart-aurora-opacity-4: rgba(171, 233, 56, 0.35);
-  --chart-aurora-opacity-5: rgba(171, 233, 56, 0.2);
-  --chart-nordic-solid: var(--nordic-200);
-  --chart-nordic-opacity-1: rgba(127, 233, 210, 0.8);
-  --chart-nordic-opacity-2: rgba(127, 233, 210, 0.65);
-  --chart-nordic-opacity-3: rgba(127, 233, 210, 0.5);
-  --chart-nordic-opacity-4: rgba(127, 233, 210, 0.35);
-  --chart-nordic-opacity-5: rgba(127, 233, 210, 0.2);
-  --chart-orange-solid: var(--orange-200);
-  --chart-orange-opacity-1: rgba(252, 205, 176, 0.8);
-  --chart-orange-opacity-2: rgba(252, 205, 176, 0.65);
-  --chart-orange-opacity-3: rgba(252, 205, 176, 0.5);
-  --chart-orange-opacity-4: rgba(252, 205, 176, 0.35);
-  --chart-orange-opacity-5: rgba(252, 205, 176, 0.2);
-  --chart-dusk-solid: var(--dusk-200);
-  --chart-dusk-opacity-1: rgba(232, 206, 236, 0.8);
-  --chart-dusk-opacity-2: rgba(232, 206, 236, 0.65);
-  --chart-dusk-opacity-3: rgba(232, 206, 236, 0.5);
-  --chart-dusk-opacity-4: rgba(232, 206, 236, 0.35);
-  --chart-dusk-opacity-5: rgba(232, 206, 236, 0.2);
-  --chart-lime-solid: var(--aurora-200);
-  --chart-lime-opacity-1: rgba(171, 233, 56, 0.8);
-  --chart-lime-opacity-2: rgba(171, 233, 56, 0.65);
-  --chart-lime-opacity-3: rgba(171, 233, 56, 0.5);
-  --chart-lime-opacity-4: rgba(171, 233, 56, 0.35);
-  --chart-lime-opacity-5: rgba(171, 233, 56, 0.2);
-  --chart-pink-solid: var(--dusk-200);
-  --chart-pink-opacity-1: rgba(232, 206, 236, 0.8);
-  --chart-pink-opacity-2: rgba(232, 206, 236, 0.65);
-  --chart-pink-opacity-3: rgba(232, 206, 236, 0.5);
-  --chart-pink-opacity-4: rgba(232, 206, 236, 0.35);
-  --chart-pink-opacity-5: rgba(232, 206, 236, 0.2);
-
   /* Sidebar */
   --sidebar: var(--mountain-900);
   --sidebar-foreground: var(--mountain-100);
@@ -762,6 +718,10 @@
 }
 
 @layer utilities {
+  [data-state='closed'] {
+    --tw-animation-fill-mode: forwards;
+  }
+  
   @keyframes accordion-down {
     from {
       height: 0;

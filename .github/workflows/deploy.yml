@@ -95,11 +95,20 @@ jobs:
               a.name.startsWith('branch-preview-') && !a.expired
             );
 
-            console.log(`Found ${branchArtifacts.length} branch preview artifacts`);
+            // Deduplicate: keep only the most recent artifact per branch name
+            // (API returns newest first, so first occurrence wins)
+            const seen = new Set();
+            const latestBranchArtifacts = branchArtifacts.filter(a => {
+              if (seen.has(a.name)) return false;
+              seen.add(a.name);
+              return true;
+            });
+
+            console.log(`Found ${latestBranchArtifacts.length} branch preview artifacts (${branchArtifacts.length} total, deduplicated)`);
 
             const manifest = { branches: [] };
 
-            for (const artifact of branchArtifacts) {
+            for (const artifact of latestBranchArtifacts) {
               const branchName = artifact.name.replace('branch-preview-', '');
               console.log(`Downloading ${artifact.name}...`);
 
