@@ -14,9 +14,9 @@ import {
 } from '@/components/ui/aura/avatar';
 import {
   IconUser,
-  IconSettings,
   IconHelp,
   IconBell,
+  IconSettingsFilled,
 } from '@tabler/icons-react';
 
 function BasicDemo() {
@@ -27,8 +27,8 @@ function BasicDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] p-0">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 pt-1 pb-1 border-b border-border">
+          <DropdownMenuContent className="w-[280px]">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 ">
               <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
@@ -42,13 +42,13 @@ function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuLabel>
-            <div className="p-1">
+            <div className="px-1 pt-1">
               <DropdownMenuItem>
                 <IconUser />
                 Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <IconSettings />
+                <IconSettingsFilled />
                 Settings
               </DropdownMenuItem>
 
