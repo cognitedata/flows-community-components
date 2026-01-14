@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const avatarVariants = cva(
-  'group relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border',
+  'group/avatar relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border',
   {
     variants: {
       variant: {
@@ -69,7 +69,7 @@ function AvatarImage({
       />
       <span
         data-slot="avatar-image-backdrop"
-        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none"
+        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
         aria-hidden="true"
       />
     </>
