@@ -1,24 +1,73 @@
+import { SwapSlot } from '@/components/ui/aura/swap-slot';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
+import { Badge } from '@/components/ui/aura/badge';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
   return (
-    <div className="space-y-3">
-      <div className="rounded-md border p-4 text-center">
-        <p className="text-sm text-muted-foreground">
-          Swap Slot component coming soon
+    <Card className="w-[412px] max-w-md">
+      <CardHeader className="p-4 pb-0">
+        <CardTitle>Title</CardTitle>
+        <CardDescription>Subtitle</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2 p-4">
+        <p className="text-base tracking-tightest font-normal text-secondary-foreground">
+          Description
         </p>
-      </div>
-    </div>
+        <SwapSlot className="h-18" />
+      </CardContent>
+      <CardFooter className="flex gap-2 p-4 pt-0">
+        <Badge>Badge</Badge>
+        <Badge variant="success">Badge</Badge>
+        <Badge variant="sky">Badge</Badge>
+      </CardFooter>
+    </Card>
   );
 }
 
 export const swapSlotExamples: ComponentExamples = {
   basic: {
-    title: 'Swap Slot (Coming Soon)',
-    description: 'Custom swap slot component - implementation pending',
+    title: 'Basic Swap Slot',
+    description: 'Swap slot used within a card with custom content',
     component: BasicDemo,
-    difficulty: 'intermediate',
-    code: `// Swap Slot component - implementation coming soon`,
+    difficulty: 'beginner',
+    code: `import { SwapSlot } from '@/components/ui/aura/swap-slot';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
+import { Badge } from '@/components/ui/aura/badge';
+
+function Example() {
+  return (
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <CardTitle>Title</CardTitle>
+        <CardDescription>Subtitle</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <p className="text-sm text-muted-foreground">Description</p>
+        <SwapSlot className="flex items-center gap-2 rounded-md border p-4 h-[72px]"></SwapSlot>
+      </CardContent>
+      <CardFooter className="flex gap-2">
+        <Badge>Badge</Badge>
+        <Badge variant="success">Badge</Badge>
+        <Badge variant="sky">Badge</Badge>
+      </CardFooter>
+    </Card>
+  );
+}`,
   },
 };
 
@@ -26,8 +75,8 @@ export const swapSlotExamples: ComponentExamples = {
 export const swapSlotMeta = {
   name: 'Swap Slot',
   description:
-    'Custom component for swapping content slots (implementation pending).',
+    'A flexible container component that serves as a placeholder for any content. Consumers can slot in any components or content they need.',
   llmUsage:
-    'Swap slot component is a custom component - implementation details coming soon.',
+    'Swap slot is a simple container component that accepts any children and can be styled with className. It provides a flexible slot for designers and developers to insert any content they need.',
   importPath: '@/components/ui/aura/swap-slot',
 };

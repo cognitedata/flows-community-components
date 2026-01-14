@@ -874,8 +874,8 @@
       "type": "registry:component",
       "title": "Message",
       "description": "An AI chat message component with avatar support for user and assistant roles.",
-      "dependencies": ["ai", "@tabler/icons-react", "streamdown"],
-      "registryDependencies": ["avatar", "button", "button-group", "tooltip"],
+      "dependencies": ["ai", "@tabler/icons-react", "streamdown", "shiki"],
+      "registryDependencies": ["avatar", "button", "button-group", "code-block", "tooltip"],
       "files": [
         {
           "path": "src/components/ui/aura/message.tsx",
@@ -1050,6 +1050,30 @@
       "files": [
         {
           "path": "src/components/ui/aura/toolbar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "effects",
+      "type": "registry:component",
+      "title": "Effects",
+      "description": "Effect definitions including shadows, focus rings, border radii, and transitions for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/effects.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "layout",
+      "type": "registry:component",
+      "title": "Layout",
+      "description": "Layout system with responsive grid definitions, container queries, and breakpoint patterns for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/layout.tsx",
           "type": "registry:component"
         }
       ]

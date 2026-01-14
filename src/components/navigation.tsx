@@ -20,7 +20,7 @@ import {
 const navItems = [
   { href: '/primitives', label: 'Primitives' },
   { href: '/ai', label: 'AI' },
-  { href: '/blocks', label: 'Blocks' },
+  { href: '/patterns', label: 'Patterns' },
   { href: '/eos', label: 'Templates' },
 ];
 

@@ -7,7 +7,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const avatarVariants = cva(
-  'group relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border',
+  'group/avatar relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border',
   {
     variants: {
       variant: {
@@ -40,6 +40,10 @@ const avatarVariants = cva(
   }
 );
 
+/**
+ * Avatar component for displaying user profile images, initials, or icons.
+ * Supports multiple color variants, three sizes, and composable sub-components.
+ */
 function Avatar({
   className,
   variant,
@@ -56,6 +60,11 @@ function Avatar({
   );
 }
 
+/**
+ * AvatarImage displays the user's profile image.
+ * Falls back to AvatarFallback if the image fails to load.
+ * Includes a hover darkening effect.
+ */
 function AvatarImage({
   className,
   ...props
@@ -69,13 +78,17 @@ function AvatarImage({
       />
       <span
         data-slot="avatar-image-backdrop"
-        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none"
+        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
         aria-hidden="true"
       />
     </>
   );
 }
 
+/**
+ * AvatarFallback displays when the image is loading or fails to load.
+ * Typically shows user initials or a placeholder.
+ */
 function AvatarFallback({
   className,
   ...props
@@ -92,6 +105,10 @@ function AvatarFallback({
   );
 }
 
+/**
+ * AvatarIcon displays an icon instead of an image or initials.
+ * Useful for system users, bots, or special entity types.
+ */
 function AvatarIcon({
   className,
   ...props
