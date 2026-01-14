@@ -1,6 +1,6 @@
 import { SectionLayout } from '@/components/section-layout';
 
-export default function BlocksLayout({
+export default function PatternsLayout({
   children,
 }: {
   children: React.ReactNode;
