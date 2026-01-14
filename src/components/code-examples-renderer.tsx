@@ -48,8 +48,12 @@ export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
   if (storyExamples && storyExamples.length > 0) {
     return (
       <div className="space-y-4">
-        {storyExamples.map((example, index) => (
-          <CodeExample key={index} title={example.title} code={example.code} />
+        {storyExamples.map((example) => (
+          <CodeExample
+            key={example.title}
+            title={example.title}
+            code={example.code}
+          />
         ))}
       </div>
     );

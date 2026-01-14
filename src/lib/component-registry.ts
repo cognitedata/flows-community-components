@@ -1,4 +1,5 @@
 import { hasStoryRenderer } from './stories-registry';
+import { slugToPascalCase } from './utils';
 
 export interface ComponentMeta {
   name: string;
@@ -18,11 +19,9 @@ export interface ComponentMeta {
 export async function getComponentMeta(
   slug: string
 ): Promise<ComponentMeta | null> {
-  const camelCaseSlug = slug.replace(/-([a-z])/g, (_, letter) =>
-    letter.toUpperCase()
-  );
-  const pascalCaseSlug =
-    camelCaseSlug.charAt(0).toUpperCase() + camelCaseSlug.slice(1);
+  const pascalCaseSlug = slugToPascalCase(slug);
+  const camelCaseSlug =
+    pascalCaseSlug.charAt(0).toLowerCase() + pascalCaseSlug.slice(1);
 
   // Check if this component uses portable stories (folder structure)
   if (hasStoryRenderer(slug)) {

@@ -4,6 +4,7 @@ import { useEffect, useState, type ComponentType } from 'react';
 import { composeStories } from '@storybook/react';
 import { ExamplePreview } from './example-preview';
 import type { DocsStory } from '@/lib/component-metadata.types';
+import { slugToPascalCase } from '@/lib/utils';
 
 interface GenericStoriesRendererProps {
   slug: string;
@@ -32,10 +33,7 @@ export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
         ]);
 
         // Get the PascalCase metadata export name
-        const pascalCaseSlug = slug
-          .split('-')
-          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-          .join('');
+        const pascalCaseSlug = slugToPascalCase(slug);
         
         const metadata = metadataModule[`${pascalCaseSlug}Metadata`];
         

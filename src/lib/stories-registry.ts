@@ -5,6 +5,7 @@
  * Components listed here will use GenericStoriesRenderer instead of the legacy
  * examples system.
  */
+import { slugToPascalCase } from '@/lib/utils';
 
 /**
  * Set of component slugs that use the folder structure with portable stories.
@@ -43,10 +44,7 @@ export async function getStoryCodeExamples(
   }
 
   try {
-    const pascalCaseSlug = slug
-      .split('-')
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join('');
+    const pascalCaseSlug = slugToPascalCase(slug);
 
     const metadataModule = await import(
       `@/components/ui/aura/${slug}/${slug}.metadata`

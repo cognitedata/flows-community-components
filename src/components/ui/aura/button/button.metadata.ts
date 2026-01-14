@@ -19,19 +19,24 @@ export const ButtonMetadata: ComponentMetadata = {
 
   docsStories: [
     {
-      storyKey: 'ButtonVariants',
+      storyKey: 'AllVariants',
       title: 'Button Variants',
       description: 'Different visual styles for various use cases.',
     },
     {
-      storyKey: 'MainComponent',
-      title: 'Main Component',
-      description: 'Available size and variation options with normal, hover, and disabled states.',
+      storyKey: 'AllSizes',
+      title: 'Button Sizes',
+      description: 'Available size options for different contexts.',
     },
     {
-      storyKey: 'ButtonStates',
-      title: 'Button States',
-      description: 'Disabled and loading states.',
+      storyKey: 'Disabled',
+      title: 'Disabled State',
+      description: 'An example of buttons in a disabled state.',
+    },
+    {
+      storyKey: 'Loading',
+      title: 'Loading State',
+      description: 'An example of buttons in a loading state.',
     },
   ],
 
