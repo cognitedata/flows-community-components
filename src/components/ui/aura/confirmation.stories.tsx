@@ -70,6 +70,9 @@ const meta: Meta<typeof Confirmation> = {
   },
   parameters: {
     layout: 'centered',
+    actions: {
+      handles: ['openChanged'],
+    },
   },
 };
 
@@ -95,15 +98,24 @@ export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the trigger button
+    // Accessibility: Verify trigger button exists and has proper attributes
     const trigger = canvas.getByTestId('confirmation-trigger');
     await expect(trigger).toBeInTheDocument();
+    await expect(trigger).toHaveAttribute('aria-expanded');
 
-    // Find action buttons
+    // Accessibility: Verify action buttons have proper labels and types
     const allowOnceButton = canvas.getByTestId('action-allow-once');
     await expect(allowOnceButton).toBeInTheDocument();
+    await expect(allowOnceButton).toHaveAttribute('type', 'button');
+    await expect(allowOnceButton).toHaveTextContent('Allow once');
 
-    // Click "Allow once" to approve
+    const skipButton = canvas.getByTestId('action-skip');
+    await expect(skipButton).toHaveTextContent('Skip');
+
+    const alwaysAllowButton = canvas.getByTestId('action-always-allow');
+    await expect(alwaysAllowButton).toHaveTextContent('Always allow');
+
+    // Test: Click "Allow once" to approve
     await userEvent.click(allowOnceButton);
 
     // Wait for the accepted state to show
@@ -113,6 +125,11 @@ export const Interactive: Story = {
       },
       { timeout: 500 }
     );
+
+    // Verify accepted message content
+    await expect(
+      canvas.getByText('Permission allowed once')
+    ).toBeInTheDocument();
 
     // Click reset to go back to approval-requested
     const resetButton = canvas.getByTestId('reset-button');
@@ -126,9 +143,9 @@ export const Interactive: Story = {
       { timeout: 500 }
     );
 
-    // Now test the reject flow
-    const skipButton = canvas.getByTestId('action-skip');
-    await userEvent.click(skipButton);
+    // Test: Now test the reject flow
+    const skipButtonAgain = canvas.getByTestId('action-skip');
+    await userEvent.click(skipButtonAgain);
 
     // Wait for the rejected state to show
     await waitFor(
@@ -137,6 +154,9 @@ export const Interactive: Story = {
       },
       { timeout: 500 }
     );
+
+    // Verify rejected message content
+    await expect(canvas.getByText('Permission skipped')).toBeInTheDocument();
   },
   render: function InteractiveStory(args) {
     const [approval, setApproval] = useState<{
@@ -733,10 +753,12 @@ export const WithCodeBlock: Story = {
     const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
     await userEvent.click(trigger);
 
-    // Wait for code block to be visible
+    // Wait for code block content to be visible (check for code element)
     await waitFor(
       () => {
-        expect(canvas.getByText(/analyzeTimeSeries/i)).toBeInTheDocument();
+        const codeBlock = canvasElement.querySelector('pre code');
+        expect(codeBlock).toBeInTheDocument();
+        expect(codeBlock).toHaveTextContent('analyzeTimeSeries');
       },
       { timeout: 500 }
     );
@@ -806,14 +828,14 @@ console.log(result.trends, result.seasonality);`;
 };
 
 /**
- * Tests collapsible content toggle interaction
+ * Tests collapsible content toggle interaction and chevron animation
  */
 export const CollapsibleInteraction: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Tests the collapsible content toggle. Click the trigger to expand/collapse the content.',
+          'Tests the collapsible content toggle with chevron rotation animation. Click the trigger to expand/collapse the content and watch the chevron rotate.',
       },
     },
   },
@@ -823,6 +845,13 @@ export const CollapsibleInteraction: Story = {
     // Find the trigger button
     const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
     await expect(trigger).toBeInTheDocument();
+
+    // Verify button has accessible attributes
+    await expect(trigger).toHaveAttribute('aria-expanded');
+
+    // Find the chevron icon
+    const chevron = trigger.querySelector('svg');
+    await expect(chevron).toBeInTheDocument();
 
     // Initially content might be collapsed - click to toggle
     await userEvent.click(trigger);
@@ -837,8 +866,19 @@ export const CollapsibleInteraction: Story = {
       { timeout: 500 }
     );
 
+    // Verify trigger shows expanded state
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
     // Click again to collapse
     await userEvent.click(trigger);
+
+    // Verify trigger shows collapsed state
+    await waitFor(
+      () => {
+        expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      },
+      { timeout: 500 }
+    );
   },
   render: () => (
     <div className="w-[500px]">
@@ -866,6 +906,135 @@ export const CollapsibleInteraction: Story = {
       </Confirmation>
     </div>
   ),
+};
+
+/**
+ * Tests keyboard navigation and accessibility
+ * Verifies Space/Enter activate buttons, Tab navigation works
+ */
+export const KeyboardNavigation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Tests keyboard navigation: Tab to navigate between buttons, Space/Enter to activate. Ensures full keyboard accessibility.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Find the trigger button
+    const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
+    
+    // Focus the trigger
+    trigger.focus();
+    await expect(trigger).toHaveFocus();
+
+    // Press Space to expand
+    await userEvent.keyboard(' ');
+
+    // Wait for content to be visible
+    await waitFor(
+      () => {
+        expect(
+          canvas.getByText(/analyze patterns in your time series/i)
+        ).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+
+    // Tab to first action button (Skip)
+    await userEvent.tab();
+    const skipButton = canvas.getByText('Skip');
+    await expect(skipButton).toHaveFocus();
+
+    // Tab to second action button (Allow once)
+    await userEvent.tab();
+    const allowOnceButton = canvas.getByText('Allow once');
+    await expect(allowOnceButton).toHaveFocus();
+
+    // Tab to third action button (Always allow)
+    await userEvent.tab();
+    const alwaysAllowButton = canvas.getByText('Always allow');
+    await expect(alwaysAllowButton).toHaveFocus();
+
+    // Press Enter on Always allow
+    await userEvent.keyboard('{Enter}');
+
+    // Wait for accepted state
+    await waitFor(
+      () => {
+        expect(canvas.getByText('Permission allowed always')).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+  },
+  render: function KeyboardNavigationStory() {
+    const [approval, setApproval] = useState<{
+      approved?: boolean;
+      always?: boolean;
+    }>({});
+    const [state, setState] = useState<string>('approval-requested');
+
+    const handleAlwaysAllow = () => {
+      setApproval({ approved: true, always: true });
+      setState('output-available');
+    };
+
+    return (
+      <div className="w-[500px]">
+        <Confirmation approval={approval} state={state}>
+          <ConfirmationContentTrigger>
+            Atlas needs your permission to run tool &quot;Analyze time series&quot;
+          </ConfirmationContentTrigger>
+          <ConfirmationContent>
+            <p className="text-sm text-muted-foreground">
+              This tool will analyze patterns in your time series data to identify
+              trends, seasonality, and anomalies.
+            </p>
+          </ConfirmationContent>
+          <ConfirmationRequest>
+            <ConfirmationActions className="w-full flex justify-between">
+              <ConfirmationAction variant="ghost">Skip</ConfirmationAction>
+              <div className="flex gap-1">
+                <ConfirmationAction variant="ghost">Allow once</ConfirmationAction>
+                <ConfirmationAction variant="outline" onClick={handleAlwaysAllow}>
+                  Always allow
+                </ConfirmationAction>
+              </div>
+            </ConfirmationActions>
+          </ConfirmationRequest>
+          <ConfirmationAccepted>
+            {approval.always ? (
+              <HelperText
+                size="xs"
+                icon={<IconCircleCheck />}
+                isSuccess
+                className="self-end"
+              >
+                Permission allowed always
+              </HelperText>
+            ) : (
+              <HelperText
+                size="xs"
+                icon={<IconCheck />}
+                isSuccess
+                className="self-end"
+              >
+                Permission allowed once
+              </HelperText>
+            )}
+          </ConfirmationAccepted>
+          <ConfirmationRejected>
+            <HelperText size="xs" icon={<IconX />} isError className="self-end">
+              Permission skipped
+            </HelperText>
+          </ConfirmationRejected>
+        </Confirmation>
+      </div>
+    );
+  },
 };
 
 /**

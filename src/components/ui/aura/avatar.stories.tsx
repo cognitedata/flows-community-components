@@ -11,7 +11,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
 } from './dropdown-menu';
 import {
   IconWheel,
@@ -203,7 +202,7 @@ export const WithImage: Story = {
     );
 
     // Wait for image element to appear (Radix Avatar only renders it when image loads)
-    const image = await waitFor(
+    await waitFor(
       () => {
         const found = canvasElement.querySelector('[data-slot="avatar-image"]');
         expect(found).toBeInTheDocument();
