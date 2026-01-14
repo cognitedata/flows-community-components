@@ -21,7 +21,7 @@ const blockCategories = [
     title: 'Agent chat',
     description:
       'Interactive AI chat interfaces with real-time responses, typing indicators, and message threading.',
-    href: '/blocks/agent-chat',
+    href: '/patterns/agent-chat',
     features: [
       'Typing indicators',
       'Message threading',
@@ -35,7 +35,7 @@ const blockCategories = [
     title: 'Dashboards',
     description:
       'Dynamic data visualization blocks with charts, KPIs, and real-time updates.',
-    href: '/blocks/dashboards',
+    href: '/patterns/dashboards',
     features: [
       'Live charts',
       'KPI cards',
@@ -60,7 +60,7 @@ const blockCategories = [
   },
 ];
 
-export default function BlocksPage() {
+export default function PatternsPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
