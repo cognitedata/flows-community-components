@@ -8,9 +8,14 @@ import {
   MessageActions,
   MessageAction,
   MessageResponse,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
 } from '@/components/ui/aura/message';
 import type { ComponentExamples } from '@/lib/component-examples/types';
-import { Response } from '@/components/ui/aura/response';
 import {
   CodeBlock,
   CodeBlockCopyButton,
@@ -19,66 +24,35 @@ import { useState } from 'react';
 import {
   IconCopy,
   IconDownload,
-  IconRefresh,
   IconWheel,
   IconCheck,
+  IconRefresh,
 } from '@tabler/icons-react';
 
 function MessageDemo() {
+  const [copied, setCopied] = useState(false);
   const [branches, setBranches] = useState<string[]>([
     'I analyzed the sensor data and found vibration levels on pump 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.',
   ]);
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [streamedContent, setStreamedContent] = useState('');
-  const [showBranchNav, setShowBranchNav] = useState(false);
   const [currentBranchIndex, setCurrentBranchIndex] = useState(0);
-  const [copied, setCopied] = useState(false);
 
-  const alternativeResponse =
-    'Based on the time series analysis, pump 21PT1019 showed elevated vibration patterns starting at 03:15. The root cause appears to be mechanical imbalance, indicated by the frequency spectrum showing peaks at 1x running speed.';
+  const alternativeResponse = 'Based on the time series analysis, pump 21PT1019 showed elevated vibration patterns starting at 03:15. The root cause appears to be mechanical imbalance, indicated by the frequency spectrum showing peaks at 1x running speed.';
 
   const handleRetry = () => {
-    if (branches.length >= 2 || isStreaming) return;
-
-    // Add empty placeholder and switch to it
-    setBranches([...branches, '']);
-    setCurrentBranchIndex(branches.length); // Switch to new branch (index 1)
-    setIsStreaming(true);
-    setStreamedContent('');
-
-    // Simulate streaming into the new branch
-    const words = alternativeResponse.split(' ');
-    let currentIndex = 0;
-
-    const interval = setInterval(() => {
-      if (currentIndex < words.length) {
-        setStreamedContent((prev) =>
-          prev ? `${prev} ${words[currentIndex]}` : words[currentIndex]
-        );
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-        setIsStreaming(false);
-        // Update the branch with final content
-        setBranches((prev) => {
-          const updated = [...prev];
-          updated[updated.length - 1] = alternativeResponse;
-          return updated;
-        });
-        setShowBranchNav(true);
-      }
-    }, 50);
+    if (branches.length >= 2) return;
+    setBranches([...branches, alternativeResponse]);
+    setCurrentBranchIndex(1);
   };
 
   const handleCopy = () => {
-    const currentBranch = branches[currentBranchIndex] || '';
+    const currentBranch = branches[currentBranchIndex];
     navigator.clipboard.writeText(currentBranch);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDownload = () => {
-    const currentBranch = branches[currentBranchIndex] || '';
+    const currentBranch = branches[currentBranchIndex];
     const blob = new Blob([currentBranch], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -97,8 +71,9 @@ function MessageDemo() {
       </Message>
 
       <MessageBranch
-        key={`branch-${currentBranchIndex}`}
+        key={branches.length}
         defaultBranch={currentBranchIndex}
+        onBranchChange={(index) => setCurrentBranchIndex(index)}
       >
         <MessageBranchContent>
           {branches.map((branch, index) => (
@@ -109,51 +84,45 @@ function MessageDemo() {
                 </MessageAvatarIcon>
               </MessageAvatar>
               <MessageContent className="flex flex-col gap-2">
-                <Response>
-                  {isStreaming && index === currentBranchIndex
-                    ? streamedContent
-                    : branch || ''}
-                </Response>
-                {(!isStreaming || index !== currentBranchIndex) && (
-                  <MessageActions>
-                    <MessageAction
-                      size="icon-sm"
-                      label={copied ? 'Copied' : 'Copy'}
-                      tooltip={copied ? 'Copied' : 'Copy'}
-                      onClick={handleCopy}
-                    >
-                      {copied ? (
-                        <IconCheck className="w-3 h-3" />
-                      ) : (
-                        <IconCopy className="w-3 h-3" />
-                      )}
-                    </MessageAction>
-                    <MessageAction
-                      size="icon-sm"
-                      label="Download"
-                      tooltip="Download"
-                      onClick={handleDownload}
-                    >
-                      <IconDownload className="w-3 h-3" />
-                    </MessageAction>
-                    <MessageAction
-                      size="icon-sm"
-                      label="Retry"
-                      tooltip="Retry"
-                      onClick={handleRetry}
-                      disabled={branches.length >= 2 || isStreaming}
-                    >
-                      <IconRefresh className="w-3 h-3" />
-                    </MessageAction>
-                    {showBranchNav && (
-                      <MessageBranchSelector from="assistant" className="px-0">
-                        <MessageBranchPrevious />
-                        <MessageBranchPage />
-                        <MessageBranchNext />
-                      </MessageBranchSelector>
+                <MessageResponse>{branch}</MessageResponse>
+                <MessageActions>
+                  <MessageAction
+                    size="icon-sm"
+                    label={copied ? 'Copied' : 'Copy'}
+                    tooltip={copied ? 'Copied' : 'Copy'}
+                    onClick={handleCopy}
+                  >
+                    {copied ? (
+                      <IconCheck className="w-3 h-3" />
+                    ) : (
+                      <IconCopy className="w-3 h-3" />
                     )}
-                  </MessageActions>
-                )}
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Download"
+                    tooltip="Download"
+                    onClick={handleDownload}
+                  >
+                    <IconDownload className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Retry"
+                    tooltip="Retry"
+                    onClick={handleRetry}
+                    disabled={branches.length >= 2}
+                  >
+                    <IconRefresh className="w-3 h-3" />
+                  </MessageAction>
+                  {branches.length > 1 && (
+                    <MessageBranchSelector from="assistant" className="px-0">
+                      <MessageBranchPrevious />
+                      <MessageBranchPage />
+                      <MessageBranchNext />
+                    </MessageBranchSelector>
+                  )}
+                </MessageActions>
               </MessageContent>
             </Message>
           ))}
@@ -350,9 +319,6 @@ Inline maths example: The sum formula is $$\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
-            </MessageAction>
           </MessageActions>
         </MessageContent>
       </Message>
@@ -376,6 +342,7 @@ import {
   MessageAvatarIcon,
   MessageActions,
   MessageAction,
+  MessageResponse,
   MessageBranch,
   MessageBranchContent,
   MessageBranchSelector,
@@ -383,65 +350,33 @@ import {
   MessageBranchNext,
   MessageBranchPage,
 } from "@/components/ai-elements/cognite/message"
-import { Response } from "@/components/ai-elements/cognite/response"
 import { useState } from "react"
-import { IconWheel, IconCopy, IconDownload, IconRefresh, IconCheck } from "@tabler/icons-react"
+import { IconWheel, IconCopy, IconDownload, IconCheck, IconRefresh } from "@tabler/icons-react"
 
 export function MessageDemo() {
+  const [copied, setCopied] = useState(false)
   const [branches, setBranches] = useState<string[]>([
     'I analyzed the sensor data and found vibration levels on pump 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.',
   ])
-  const [isStreaming, setIsStreaming] = useState(false)
-  const [streamedContent, setStreamedContent] = useState('')
-  const [showBranchNav, setShowBranchNav] = useState(false)
   const [currentBranchIndex, setCurrentBranchIndex] = useState(0)
-  const [copied, setCopied] = useState(false)
 
-  const alternativeResponse =
-    'Based on the time series analysis, pump 21PT1019 showed elevated vibration patterns starting at 03:15. The root cause appears to be mechanical imbalance, indicated by the frequency spectrum showing peaks at 1x running speed.'
+  const alternativeResponse = 'Based on the time series analysis, pump 21PT1019 showed elevated vibration patterns starting at 03:15. The root cause appears to be mechanical imbalance, indicated by the frequency spectrum showing peaks at 1x running speed.'
 
   const handleRetry = () => {
-    if (branches.length >= 2 || isStreaming) return
-
-    // Add empty placeholder and switch to it
-    setBranches([...branches, ''])
-    setCurrentBranchIndex(branches.length)
-    setIsStreaming(true)
-    setStreamedContent('')
-
-    // Simulate streaming
-    const words = alternativeResponse.split(' ')
-    let currentIndex = 0
-
-    const interval = setInterval(() => {
-      if (currentIndex < words.length) {
-        setStreamedContent((prev) =>
-          prev ? \`\${prev} \${words[currentIndex]}\` : words[currentIndex]
-        )
-        currentIndex++
-      } else {
-        clearInterval(interval)
-        setIsStreaming(false)
-        // Update the branch with final content
-        setBranches((prev) => {
-          const updated = [...prev]
-          updated[updated.length - 1] = alternativeResponse
-          return updated
-        })
-        setShowBranchNav(true)
-      }
-    }, 50)
+    if (branches.length >= 2) return
+    setBranches([...branches, alternativeResponse])
+    setCurrentBranchIndex(1)
   }
 
   const handleCopy = () => {
-    const currentBranch = branches[currentBranchIndex] || ''
+    const currentBranch = branches[currentBranchIndex]
     navigator.clipboard.writeText(currentBranch)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
   const handleDownload = () => {
-    const currentBranch = branches[currentBranchIndex] || ''
+    const currentBranch = branches[currentBranchIndex]
     const blob = new Blob([currentBranch], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -459,7 +394,11 @@ export function MessageDemo() {
         </MessageContent>
       </Message>
 
-      <MessageBranch key={\`branch-\${currentBranchIndex}\`} defaultBranch={currentBranchIndex}>
+      <MessageBranch
+        key={branches.length}
+        defaultBranch={currentBranchIndex}
+        onBranchChange={(index) => setCurrentBranchIndex(index)}
+      >
         <MessageBranchContent>
           {branches.map((branch, index) => (
             <Message key={index} isResponse={true}>
@@ -469,25 +408,20 @@ export function MessageDemo() {
                 </MessageAvatarIcon>
               </MessageAvatar>
               <MessageContent className="flex flex-col gap-2">
-                <Response>
-                  {isStreaming && index === currentBranchIndex
-                    ? streamedContent
-                    : branch || ''}
-                </Response>
-                {(!isStreaming || index !== currentBranchIndex) && (
-                  <MessageActions>
-                    <MessageAction
-                      size="icon-sm"
-                      label={copied ? 'Copied' : 'Copy'}
-                      tooltip={copied ? 'Copied' : 'Copy'}
-                      onClick={handleCopy}
-                    >
-                      {copied ? (
-                        <IconCheck className="w-3 h-3" />
-                      ) : (
-                        <IconCopy className="w-3 h-3" />
-                      )}
-                    </MessageAction>
+                <MessageResponse>{branch}</MessageResponse>
+                <MessageActions>
+                  <MessageAction
+                    size="icon-sm"
+                    label={copied ? 'Copied' : 'Copy'}
+                    tooltip={copied ? 'Copied' : 'Copy'}
+                    onClick={handleCopy}
+                  >
+                    {copied ? (
+                      <IconCheck className="w-3 h-3" />
+                    ) : (
+                      <IconCopy className="w-3 h-3" />
+                    )}
+                  </MessageAction>
                   <MessageAction
                     size="icon-sm"
                     label="Download"
@@ -501,19 +435,18 @@ export function MessageDemo() {
                     label="Retry"
                     tooltip="Retry"
                     onClick={handleRetry}
-                    disabled={branches.length >= 2 || isStreaming}
+                    disabled={branches.length >= 2}
                   >
                     <IconRefresh className="w-3 h-3" />
                   </MessageAction>
-                  {showBranchNav && (
+                  {branches.length > 1 && (
                     <MessageBranchSelector from="assistant" className="px-0">
                       <MessageBranchPrevious />
                       <MessageBranchPage />
                       <MessageBranchNext />
                     </MessageBranchSelector>
                   )}
-                  </MessageActions>
-                )}
+                </MessageActions>
               </MessageContent>
             </Message>
           ))}
@@ -646,7 +579,7 @@ export function Counter() {
     component: MessageResponseDemo,
     difficulty: 'intermediate',
     code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction, MessageResponse } from "@/components/ui/aura/message"
-import { IconWheel, IconCopy, IconRefresh } from "@tabler/icons-react"
+import { IconWheel, IconCopy } from "@tabler/icons-react"
 
 export function MessageResponseDemo() {
   const markdownContent = \`# Heading 1
@@ -736,9 +669,6 @@ Inline maths example: The sum formula is $$\\\\sum_{i=1}^{n} i = \\\\frac{n(n+1)
           <MessageActions>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
             </MessageAction>
           </MessageActions>
         </MessageContent>
