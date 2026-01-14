@@ -1214,7 +1214,7 @@ export const OverflowAvatarWithMenu: Story = {
           <AvatarImage src={getImagePath('user-avatar6.png')} alt="User 4" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <DropdownMenu defaultOpen>
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar
               variant="overflow"
@@ -1287,7 +1287,7 @@ export const OverflowAvatarWithMenu: Story = {
     docs: {
       description: {
         story:
-          'Overflow avatar with dropdown menu showing additional users. Demonstrates how to display extra avatars in a menu when space is limited. The menu is opened by default in this story to show the layout.',
+          'Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.',
       },
     },
   },
