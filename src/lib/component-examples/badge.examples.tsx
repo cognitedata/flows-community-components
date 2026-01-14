@@ -6,8 +6,11 @@ import {
   IconAlertTriangle,
   IconArchive,
   IconCircleCheck,
+  IconCube,
   IconHexagon,
   IconInnerShadowTopLeft,
+  IconSettings,
+  IconStar,
   IconX,
 } from '@tabler/icons-react';
 
@@ -202,6 +205,50 @@ function BuildingBlocksDemo() {
   );
 }
 
+function SizesDemo() {
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">Default size (with text)</p>
+        <div className="flex flex-wrap gap-3">
+          <Badge variant="mountain">
+            <IconCube size={12} />
+            3D Model
+          </Badge>
+          <Badge variant="fjord">
+            <IconStar size={12} />
+            Featured
+          </Badge>
+          <Badge variant="aurora">
+            <IconSettings size={12} />
+            Settings
+          </Badge>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">Icon size (icon-only, square)</p>
+        <div className="flex flex-wrap gap-3">
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+          <Badge variant="fjord" size="icon">
+            <IconStar size={12} />
+          </Badge>
+          <Badge variant="aurora" size="icon">
+            <IconSettings size={12} />
+          </Badge>
+          <Badge variant="nordic" size="icon">
+            <IconHexagon size={12} />
+          </Badge>
+          <Badge variant="dusk" size="icon">
+            <IconCircleCheck size={12} />
+          </Badge>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export const badgeExamples: ComponentExamples = {
   variants: {
     title: 'Badge Variants',
@@ -270,6 +317,60 @@ export function VariantsDemo() {
           <IconArchive size={12} />
           Archived
         </Badge>
+      </div>
+    </div>
+  )
+}`,
+  },
+
+  sizes: {
+    title: 'Badge Sizes',
+    description:
+      'Badges support different sizes. Use default for badges with text, or icon for square icon-only badges.',
+    component: SizesDemo,
+    difficulty: 'beginner',
+    code: `import { Badge } from "@/components/ui/aura/badge"
+import { IconCube, IconStar, IconSettings, IconHexagon, IconCircleCheck } from "@tabler/icons-react"
+
+export function SizesDemo() {
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">Default size (with text)</p>
+        <div className="flex flex-wrap gap-3">
+          <Badge variant="mountain">
+            <IconCube size={12} />
+            3D Model
+          </Badge>
+          <Badge variant="fjord">
+            <IconStar size={12} />
+            Featured
+          </Badge>
+          <Badge variant="aurora">
+            <IconSettings size={12} />
+            Settings
+          </Badge>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-2">Icon size (icon-only, square)</p>
+        <div className="flex flex-wrap gap-3">
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+          <Badge variant="fjord" size="icon">
+            <IconStar size={12} />
+          </Badge>
+          <Badge variant="aurora" size="icon">
+            <IconSettings size={12} />
+          </Badge>
+          <Badge variant="nordic" size="icon">
+            <IconHexagon size={12} />
+          </Badge>
+          <Badge variant="dusk" size="icon">
+            <IconCircleCheck size={12} />
+          </Badge>
+        </div>
       </div>
     </div>
   )
