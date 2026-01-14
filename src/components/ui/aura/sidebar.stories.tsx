@@ -20,6 +20,7 @@ import {
   SidebarHeaderInsert,
   SidebarProvider,
   SidebarTrigger,
+  SidebarGroupLabel,
 } from './sidebar';
 import { Avatar, AvatarImage, AvatarFallback } from './avatar';
 import {
@@ -182,9 +183,9 @@ export const Basic: Story = {
                   </SidebarMenu>
                 </SidebarMainPages>
                 <SidebarPinnedApps>
-                  <div className="text-sm font-medium pb-1 group-data-[collapsible=icon]:hidden">
+                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm text-sidebar-foreground">
                     Pinned apps
-                  </div>
+                  </SidebarGroupLabel>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="App" size="default">
                       <IconPointFilled className="h-4 w-4" />
@@ -354,9 +355,9 @@ export const Collapsed: Story = {
                   </SidebarMenu>
                 </SidebarMainPages>
                 <SidebarPinnedApps>
-                  <div className="text-sm font-medium pb-1 group-data-[collapsible=icon]:hidden">
+                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm text-sidebar-foreground">
                     Pinned apps
-                  </div>
+                  </SidebarGroupLabel>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="App" size="default">
                       <IconPointFilled className="h-4 w-4" />
