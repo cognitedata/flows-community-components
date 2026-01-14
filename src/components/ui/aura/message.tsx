@@ -12,6 +12,10 @@ import {
   ButtonGroupText,
 } from '@/components/ui/aura/button-group';
 import {
+  CodeBlock,
+  CodeBlockCopyButton,
+} from '@/components/ui/aura/code-block';
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -25,15 +29,22 @@ import {
   IconPaperclip,
   IconX,
 } from '@tabler/icons-react';
-import type { ComponentProps, HTMLAttributes, ReactElement } from 'react';
+import type {
+  ComponentProps,
+  HTMLAttributes,
+  ReactElement,
+  ReactNode,
+} from 'react';
 import {
   createContext,
+  isValidElement,
   memo,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
+import type { BundledLanguage } from 'shiki';
 import { Streamdown } from 'streamdown';
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
@@ -388,13 +399,167 @@ export const MessageBranchPage = ({
 
 export type MessageResponseProps = ComponentProps<typeof Streamdown>;
 
+// Custom code component that uses Aura's CodeBlock for code blocks
+type MessageResponseCodeProps = {
+  className?: string;
+  children?: ReactNode;
+};
+
+const MessageResponseCode = ({
+  className,
+  children,
+}: MessageResponseCodeProps) => {
+  // Extract language from className (e.g., "language-typescript" -> "typescript")
+  const languageMatch = className?.match(/language-(\w+)/);
+  const language = languageMatch?.[1] as BundledLanguage | undefined;
+
+  // Extract code text - Streamdown passes either a string or a single nested element
+  let codeText = '';
+  if (typeof children === 'string') {
+    codeText = children;
+  } else if (isValidElement(children)) {
+    const props = children.props as { children?: string };
+    if (typeof props.children === 'string') {
+      codeText = props.children;
+    }
+  }
+
+  // Check if this is a code block (has language) or inline code
+  const isCodeBlock = !!language;
+
+  if (isCodeBlock) {
+    return (
+      <CodeBlock
+        code={codeText}
+        language={language}
+        className="my-4 rounded-md border border-border"
+      >
+        <CodeBlockCopyButton />
+      </CodeBlock>
+    );
+  }
+
+  // Inline code - render with standard styling
+  return (
+    <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+      {children}
+    </code>
+  );
+};
+
+// Component overrides for Streamdown elements with Aura styling
+const messageResponseComponents = {
+  // Headings
+  h1: ({ children }: { children?: ReactNode }) => (
+    <h1 className="mt-0 mb-2 scroll-m-20 text-xl font-medium tracking-tightest">
+      {children}
+    </h1>
+  ),
+  h2: ({ children }: { children?: ReactNode }) => (
+    <h2 className="mt-4 mb-1 scroll-m-20 text-lg font-medium tracking-tightest">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }: { children?: ReactNode }) => (
+    <h3 className="mt-4 mb-1 scroll-m-20 text-base font-medium tracking-tighter">
+      {children}
+    </h3>
+  ),
+  h4: ({ children }: { children?: ReactNode }) => (
+    <h4 className="mt-2 mb-0 scroll-m-20 text-sm font-medium tracking-normal">
+      {children}
+    </h4>
+  ),
+  h5: ({ children }: { children?: ReactNode }) => (
+    <h5 className="mt-0 mb-0 scroll-m-20 text-xs font-medium tracking-tighter">
+      {children}
+    </h5>
+  ),
+  h6: ({ children }: { children?: ReactNode }) => (
+    <h6 className="mt-0 mb-0 scroll-m-20 text-2xs font-medium tracking-tighter">
+      {children}
+    </h6>
+  ),
+  // Paragraph
+  p: ({ children }: { children?: ReactNode }) => (
+    <p className="mt-2 mb-3 text-base font-normal leading-7 tracking-tightest">
+      {children}
+    </p>
+  ),
+  // Text formatting
+  strong: ({ children }: { children?: ReactNode }) => (
+    <strong className="font-medium">{children}</strong>
+  ),
+  em: ({ children }: { children?: ReactNode }) => (
+    <em className="italic">{children}</em>
+  ),
+  // Lists
+  ul: ({ children }: { children?: ReactNode }) => (
+    <ul className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
+      {children}
+    </ul>
+  ),
+  ol: ({ children }: { children?: ReactNode }) => (
+    <ol className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-decimal text-base font-normal tracking-tightest">
+      {children}
+    </ol>
+  ),
+  li: ({ children }: { children?: ReactNode }) => (
+    <li className="py-0">{children}</li>
+  ),
+  // Blockquote
+  blockquote: ({ children }: { children?: ReactNode }) => (
+    <blockquote className="my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic">
+      {children}
+    </blockquote>
+  ),
+  // Horizontal rule
+  hr: () => <hr className="my-4 border-border" />,
+  // Links
+  a: ({
+    children,
+    href,
+    ...props
+  }: {
+    children?: ReactNode;
+    href?: string;
+  }) => (
+    <a
+      className="text-foreground-link no-underline hover:underline underline-offset-4"
+      href={href}
+      {...props}
+    >
+      {children}
+    </a>
+  ),
+  // Tables
+  table: ({ children }: { children?: ReactNode }) => (
+    <table className="my-6 w-full">{children}</table>
+  ),
+  thead: ({ children }: { children?: ReactNode }) => <thead>{children}</thead>,
+  tbody: ({ children }: { children?: ReactNode }) => <tbody>{children}</tbody>,
+  tr: ({ children }: { children?: ReactNode }) => (
+    <tr className="m-0 border-t p-0 even:bg-muted">{children}</tr>
+  ),
+  th: ({ children }: { children?: ReactNode }) => (
+    <th className="border px-4 py-2 text-left font-bold">{children}</th>
+  ),
+  td: ({ children }: { children?: ReactNode }) => (
+    <td className="border px-4 py-2 text-left">{children}</td>
+  ),
+  // Code - uses custom CodeBlock component for code blocks, standard styling for inline code
+  code: MessageResponseCode,
+};
+
 export const MessageResponse = memo(
-  ({ className, ...props }: MessageResponseProps) => (
+  ({ className, components, ...props }: MessageResponseProps) => (
     <Streamdown
       className={cn(
         'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
         className
       )}
+      components={{ ...messageResponseComponents, ...components }}
+      controls={false}
       {...props}
     />
   ),
