@@ -1401,21 +1401,6 @@
       ]
     },
     {
-      "name": "response",
-      "type": "registry:component",
-      "title": "Response",
-      "description": "AI response component for displaying AI responses.",
-      "files": [
-        {
-          "path": "src/components/ui/aura/response.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ]
-    },
-    {
       "name": "shimmer",
       "type": "registry:component",
       "title": "Shimmer",
@@ -1516,6 +1501,21 @@
       "files": [
         {
           "path": "src/components/ui/aura/toolbar.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "layout",
+      "type": "registry:component",
+      "title": "Layout",
+      "description": "Layout system with responsive grid definitions, container queries, and breakpoint patterns for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/layout.tsx",
           "type": "registry:component"
         }
       ],
