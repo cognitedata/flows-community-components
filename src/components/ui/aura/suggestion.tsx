@@ -72,7 +72,8 @@ export type SuggestionProps =
       suggestion: string;
       onClick?: (suggestion: string) => void;
       onValueChange?: never;
-      variant?: 'ghost' | 'outline' | 'default' | 'secondary' | 'destructive';
+      /** Only ghost and outline variants are supported. Suggestions are designed to have secondary backgrounds with primary text. */
+      variant?: 'ghost' | 'outline';
       size?: 'sm' | 'default' | 'lg' | 'icon';
     })
   | (ComponentProps<'div'> & {
@@ -129,7 +130,7 @@ export const Suggestion = (props: SuggestionProps) => {
       size = 'sm',
       ...buttonProps
     } = restProps as {
-      variant?: 'ghost' | 'outline' | 'default' | 'secondary' | 'destructive';
+      variant?: 'ghost' | 'outline';
       size?: 'sm' | 'default' | 'lg' | 'icon';
     } & Omit<ComponentProps<typeof Button>, 'onClick' | 'variant' | 'size'>;
 
