@@ -443,7 +443,7 @@ function BasicConversationDemo() {
                           {streamedContent}
                         </MessageResponse>
                         {isComplete && (
-                          <Sources>
+                          <Sources className="flex flex-col gap-2 py-3">
                             <Source
                               href="https://example.com/21PT2019"
                               title="21PT1019"
@@ -924,7 +924,7 @@ export function BasicConversationDemo() {
                         </span>
                         <MessageResponse controls={false}>{streamedContent}</MessageResponse>
                         {isComplete && (
-                          <Sources>
+                          <Sources className="flex flex-col gap-2 py-3">
                             <Source
                               href="https://example.com/21PT2019"
                               title="21PT1019"
