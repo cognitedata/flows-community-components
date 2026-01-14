@@ -1,0 +1,250 @@
+<style>
+  /* Brand logo size */
+  .sidebar-header img {
+    width: 45px !important;
+    height: 45px !important;
+    object-fit: contain;
+  }
+  
+  /* Dark theme - only apply when data-theme="dark" or .dark class is present */
+  html[data-theme="dark"],
+  html.dark {
+    color-scheme: dark;
+  }
+  
+  /* Main app background */
+  html[data-theme="dark"] body,
+  html.dark body {
+    background-color: #1c1c1c !important;
+  }
+  
+  /* Sidebar container */
+  html[data-theme="dark"] nav,
+  html.dark nav {
+    background-color: #1c1c1c !important;
+  }
+  
+  /* Main content area */
+  html[data-theme="dark"] main,
+  html.dark main {
+    background-color: #1c1c1c !important;
+  }
+  
+  /* All sections */
+  html[data-theme="dark"] section,
+  html.dark section {
+    background-color: #1c1c1c !important;
+  }
+  
+  /* ===== SIDEBAR "LEVEL UP" CARD ===== */
+  html[data-theme="dark"] [class*="upgrade"],
+  html[data-theme="dark"] [class*="Upgrade"],
+  html[data-theme="dark"] [class*="notification"],
+  html[data-theme="dark"] [class*="Notification"],
+  html[data-theme="dark"] [class*="highlight"],
+  html.dark [class*="upgrade"],
+  html.dark [class*="Upgrade"],
+  html.dark [class*="notification"],
+  html.dark [class*="Notification"],
+  html.dark [class*="highlight"] {
+    background-color: #262626 !important;
+    border-color: #404040 !important;
+  }
+  
+  /* Target the Level up card specifically - it's usually in an aside or special container */
+  html[data-theme="dark"] aside,
+  html.dark aside {
+    background-color: #262626 !important;
+    border-color: #404040 !important;
+  }
+  
+  html[data-theme="dark"] aside *,
+  html.dark aside * {
+    color: #a1a1aa !important;
+    border-color: #404040 !important;
+  }
+  
+  /* ===== ADDONS PANEL (Controls, Actions, etc.) ===== */
+  html[data-theme="dark"] [role="tabpanel"],
+  html.dark [role="tabpanel"] {
+    background-color: #1c1c1c !important;
+  }
+  
+  /* Tab list */
+  html[data-theme="dark"] [role="tablist"],
+  html.dark [role="tablist"] {
+    background-color: #1c1c1c !important;
+    border-color: #333 !important;
+  }
+  
+  /* Individual tabs */
+  html[data-theme="dark"] [role="tab"],
+  html.dark [role="tab"] {
+    color: #a1a1aa !important;
+    background-color: transparent !important;
+  }
+  
+  html[data-theme="dark"] [role="tab"][aria-selected="true"],
+  html.dark [role="tab"][aria-selected="true"] {
+    color: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+  }
+  
+  /* ===== TABLES (Controls panel) ===== */
+  html[data-theme="dark"] table,
+  html.dark table {
+    background-color: #1c1c1c !important;
+  }
+  
+  html[data-theme="dark"] th,
+  html.dark th {
+    background-color: #1c1c1c !important;
+    color: #a1a1aa !important;
+    border-color: #333 !important;
+  }
+  
+  html[data-theme="dark"] td,
+  html.dark td {
+    background-color: #1c1c1c !important;
+    color: #e4e4e7 !important;
+    border-color: #333 !important;
+  }
+  
+  html[data-theme="dark"] tr,
+  html.dark tr {
+    background-color: #1c1c1c !important;
+    border-color: #333 !important;
+  }
+  
+  html[data-theme="dark"] tr:hover,
+  html.dark tr:hover {
+    background-color: #262626 !important;
+  }
+  
+  /* ===== FORM CONTROLS ===== */
+  html[data-theme="dark"] input,
+  html[data-theme="dark"] textarea,
+  html[data-theme="dark"] select,
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    background-color: #262626 !important;
+    border-color: #404040 !important;
+    color: #fafafa !important;
+  }
+  
+  html[data-theme="dark"] input::placeholder,
+  html.dark input::placeholder {
+    color: #71717a !important;
+  }
+  
+  /* Toggle buttons (False/True) */
+  html[data-theme="dark"] [role="button"],
+  html.dark [role="button"] {
+    background-color: #333 !important;
+    color: #a1a1aa !important;
+    border-color: #404040 !important;
+  }
+  
+  html[data-theme="dark"] [role="button"][aria-pressed="true"],
+  html[data-theme="dark"] [role="button"]:active,
+  html.dark [role="button"][aria-pressed="true"],
+  html.dark [role="button"]:active {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+  
+  /* ===== TEXT COLOURS ===== */
+  html[data-theme="dark"] h1,
+  html[data-theme="dark"] h2,
+  html[data-theme="dark"] h3,
+  html[data-theme="dark"] h4,
+  html.dark h1,
+  html.dark h2,
+  html.dark h3,
+  html.dark h4 {
+    color: #fafafa !important;
+  }
+  
+  html[data-theme="dark"] p,
+  html[data-theme="dark"] label,
+  html.dark p,
+  html.dark label {
+    color: #a1a1aa !important;
+  }
+  
+  /* Sidebar text */
+  html[data-theme="dark"] nav span,
+  html[data-theme="dark"] nav button,
+  html[data-theme="dark"] nav a,
+  html.dark nav span,
+  html.dark nav button,
+  html.dark nav a {
+    color: #a1a1aa !important;
+  }
+  
+  /* Sidebar selected state */
+  html[data-theme="dark"] nav [data-selected="true"],
+  html[data-theme="dark"] nav [aria-selected="true"],
+  html.dark nav [data-selected="true"],
+  html.dark nav [aria-selected="true"] {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+  }
+  
+  html[data-theme="dark"] nav [data-selected="true"] span,
+  html[data-theme="dark"] nav [aria-selected="true"] span,
+  html.dark nav [data-selected="true"] span,
+  html.dark nav [aria-selected="true"] span {
+    color: #ffffff !important;
+  }
+  
+  /* ===== BORDERS ===== */
+  html[data-theme="dark"] nav,
+  html.dark nav {
+    border-color: #333 !important;
+  }
+  
+  /* ===== TOOLBAR ===== */
+  html[data-theme="dark"] [role="toolbar"],
+  html.dark [role="toolbar"] {
+    background-color: #1c1c1c !important;
+    border-color: #333 !important;
+  }
+  
+  html[data-theme="dark"] [role="toolbar"] button,
+  html.dark [role="toolbar"] button {
+    color: #a1a1aa !important;
+  }
+  
+  html[data-theme="dark"] [role="toolbar"] button:hover,
+  html.dark [role="toolbar"] button:hover {
+    color: #fafafa !important;
+  }
+  
+  /* ===== GENERIC DIV BACKGROUNDS ===== */
+  /* Target common Storybook panel classes */
+  html[data-theme="dark"] [class*="panel"],
+  html[data-theme="dark"] [class*="Panel"],
+  html.dark [class*="panel"],
+  html.dark [class*="Panel"] {
+    background-color: #1c1c1c !important;
+  }
+  
+  /* ===== SCROLLBAR ===== */
+  html[data-theme="dark"] *,
+  html.dark * {
+    scrollbar-color: #404040 #1c1c1c;
+  }
+  
+  html[data-theme="dark"] *::-webkit-scrollbar,
+  html.dark *::-webkit-scrollbar {
+    background-color: #1c1c1c;
+  }
+  
+  html[data-theme="dark"] *::-webkit-scrollbar-thumb,
+  html.dark *::-webkit-scrollbar-thumb {
+    background-color: #404040;
+    border-radius: 4px;
+  }
+</style>

@@ -286,7 +286,7 @@ export default function InstallationPage() {
                 </Link>
               </Card>
               <Card className="hover:shadow-lg transition-shadow">
-                <Link href="/blocks">
+                <Link href="/patterns">
                   <CardHeader>
                     <CardTitle>Example Blocks</CardTitle>
                     <CardDescription>

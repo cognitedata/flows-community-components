@@ -16,10 +16,10 @@ function BasicDemo() {
           </PopoverTrigger>
           <PopoverContent>
             <div className="space-y-2">
-              <h4 className="font-medium text-popover-foreground text-base leading-5 tracking-tighter mb-2">
+              <h3 className="font-medium text-popover-foreground text-base line-height-18 tracking-tighter mb-2">
                 Get started with Atlas
-              </h4>
-              <p className="text-sm font-normal text-muted-foreground leading-4.5 tracking-tight">
+              </h3>
+              <p className="text-sm font-normal text-muted-foreground tracking-tight">
                 Cognite Atlas AI helps you create and manage industrial AI
                 agents that solve your specific business needs
               </p>
