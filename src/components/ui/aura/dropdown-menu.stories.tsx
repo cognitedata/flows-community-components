@@ -274,7 +274,7 @@ export const WithCheckboxItems: Story = {
     );
 
     // Verify initial state shows 2 notifications selected
-    const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+    const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
     expect(outputDiv?.textContent).toContain('2');
     expect(outputDiv?.textContent).toContain('notification');
     expect(outputDiv?.textContent).toContain('selected');
@@ -297,7 +297,7 @@ export const WithCheckboxItems: Story = {
 
     // Verify count updated to 1 notification selected
     await waitFor(() => {
-      const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+      const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
       expect(outputDiv?.textContent).toContain('1');
       expect(outputDiv?.textContent).toContain('notification');
       expect(outputDiv?.textContent).toContain('selected');
@@ -315,7 +315,7 @@ export const WithCheckboxItems: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground" data-testid="checkbox-output">
           {selectedCount} notification{selectedCount !== 1 ? 's' : ''} selected:
           <ul className="mt-2 space-y-1">
             {checkedItems.emails && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Email notifications</li>}
@@ -391,7 +391,7 @@ export const WithRadioGroup: Story = {
     const canvas = within(canvasElement);
 
     // Verify initial selection
-    const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+    const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
     expect(outputDiv?.textContent).toContain('Current view:');
     expect(outputDiv?.textContent).toContain('grid');
 
@@ -427,7 +427,7 @@ export const WithRadioGroup: Story = {
 
     // Verify selection updated
     await waitFor(() => {
-      const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+      const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
       expect(outputDiv?.textContent).toContain('Current view:');
       expect(outputDiv?.textContent).toContain('list');
     });
@@ -437,7 +437,7 @@ export const WithRadioGroup: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-muted-foreground" data-testid="radio-output">
           Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
         <DropdownMenu {...args}>
@@ -738,6 +738,65 @@ export const ComplexInteractive: Story = {
           'Complex example combining checkboxes, radio groups, and actions. Shows full state management.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open menu
+    const trigger = canvas.getByRole('button', { name: /preferences/i });
+    await userEvent.click(trigger);
+
+    // Wait for menu to open
+    await waitFor(
+      () => {
+        const menu = canvasElement.ownerDocument.querySelector(
+          '[data-slot="dropdown-menu-content"]'
+        );
+        expect(menu).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
+
+    // Test checkbox interaction - toggle email notification
+    const menuDoc = canvasElement.ownerDocument;
+    const checkboxItems = menuDoc.querySelectorAll(
+      '[data-slot="dropdown-menu-checkbox-item"]'
+    );
+    expect(checkboxItems.length).toBeGreaterThanOrEqual(3);
+
+    // Click first checkbox (email)
+    await userEvent.click(checkboxItems[0] as Element);
+
+    // Test radio interaction - change theme
+    const radioItems = menuDoc.querySelectorAll(
+      '[data-slot="dropdown-menu-radio-item"]'
+    );
+    expect(radioItems.length).toBeGreaterThanOrEqual(3);
+
+    // Click second radio (dark)
+    await userEvent.click(radioItems[1] as Element);
+
+    // Menu should still be open
+    await waitFor(() => {
+      const menu = menuDoc.querySelector('[data-slot="dropdown-menu-content"]');
+      expect(menu).toBeInTheDocument();
+    });
+
+    // Test action item - click reset
+    const resetItem = menuDoc.querySelector(
+      '[data-slot="dropdown-menu-item"]:has-text("Reset to defaults")'
+    );
+    const items = menuDoc.querySelectorAll('[data-slot="dropdown-menu-item"]');
+    let resetButton: Element | null = null;
+    items.forEach((item) => {
+      if (item.textContent?.includes('Reset to defaults')) {
+        resetButton = item;
+      }
+    });
+    
+    if (resetButton) {
+      await userEvent.click(resetButton);
+    }
   },
   render: function ComplexInteractiveStory(args) {
     const [notifications, setNotifications] = useState({

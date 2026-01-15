@@ -10,6 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSectionLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from './types';
@@ -88,11 +89,9 @@ function UserDetailsDemo() {
             <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                User settings
-              </div>
-            </DropdownMenuLabel>
+            <DropdownMenuSectionLabel>
+              User settings
+            </DropdownMenuSectionLabel>
             <div>
               <DropdownMenuItem>
                 <IconUser />
@@ -193,11 +192,9 @@ function RadioGroupDemo() {
             <Button>Open Radio Group Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[270px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                Radio group
-              </div>
-            </DropdownMenuLabel>
+            <DropdownMenuSectionLabel>
+              Radio group
+            </DropdownMenuSectionLabel>
             <DropdownMenuRadioGroup
               value={viewMode}
               onValueChange={setViewMode}
@@ -331,7 +328,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
+  DropdownMenuSectionLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu"
 import {
@@ -350,11 +347,9 @@ function UserDetailsDemo() {
             <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                User settings
-              </div>
-            </DropdownMenuLabel>
+            <DropdownMenuSectionLabel>
+              User settings
+            </DropdownMenuSectionLabel>
             <div>
               <DropdownMenuItem>
                 <IconUser />
@@ -470,7 +465,7 @@ import { Button } from "@/components/ui/aura/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
+  DropdownMenuSectionLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
@@ -487,11 +482,9 @@ function RadioGroupDemo() {
             <Button>Open Radio Group Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[270px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                Radio group
-              </div>
-            </DropdownMenuLabel>
+            <DropdownMenuSectionLabel>
+              Radio group
+            </DropdownMenuSectionLabel>
             <DropdownMenuRadioGroup
               value={viewMode}
               onValueChange={setViewMode}
