@@ -775,14 +775,14 @@ export const WithCheckboxes: Story = {
                         >
                           <div
                             className={cn(
-                              'flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border border-input p-0.5',
+                              'flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border border-input p-1',
                               isSelected
                                 ? 'bg-foreground border-foreground text-background dark:bg-foreground dark:text-background'
                                 : 'bg-background'
                             )}
                             aria-hidden="true"
                           >
-                            {isSelected && <IconCheck className="h-2.5 w-2.5 text-current stroke-[3]" />}
+                            {isSelected && <IconCheck className="h-2 w-2 text-current stroke-[4]" />}
                           </div>
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {option.label}
