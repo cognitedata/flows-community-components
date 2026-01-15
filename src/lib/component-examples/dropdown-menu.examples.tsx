@@ -85,7 +85,7 @@ function UserDetailsDemo() {
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>Open User DetailsMenu</Button>
+            <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
             <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
