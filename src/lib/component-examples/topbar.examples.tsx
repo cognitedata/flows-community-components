@@ -288,8 +288,6 @@ export const topbarExamples: ComponentExamples = {
   TopbarCenter,
   TopbarRight,
   TopbarBreadcrumbs,
-  TopbarSwapSlot,
-  TopbarAction,
 } from "@/components/ui/aura/topbar"
 import {
   BreadcrumbList,
@@ -298,47 +296,51 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/aura/breadcrumb"
-// import { SwapSlot } from "@/components/ui/aura/swap-slot"
-import { IconHome, IconSearch, IconApps, IconLayoutSidebar } from "@tabler/icons-react"
+import { Button } from "@/components/ui/aura/button"
+import {
+  IconLayoutSidebar,
+  IconPlus,
+  IconShare,
+  IconHomeFilled,
+} from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
-    <Topbar>
-      <TopbarLeft>
-        <TopbarBreadcrumbs>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <IconLayoutSidebar className="h-4 w-4" />
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/" aria-label="Go to home">
-                <IconHomeFilled className="h-4 w-4" />
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Application / My dashboard</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </TopbarBreadcrumbs>
-      </TopbarLeft>
-      <TopbarCenter />
-      <TopbarRight>
-        <TopbarSwapSlot>
-          <SwapSlot className="h-8 w-20 border-2 border-dashed border-primary/40 rounded">
-            Slot
-          </SwapSlot>
-        </TopbarSwapSlot>
-        <TopbarAction>
-          <IconApps className="h-4 w-4" />
-          Button
-        </TopbarAction>
-        <TopbarAction variant="ghost" size="icon">
-          <IconSearch className="h-4 w-4" />
-        </TopbarAction>
-      </TopbarRight>
-    </Topbar>
+    <div className="w-full overflow-hidden">
+      <Topbar>
+        <TopbarLeft>
+          <Button variant="ghost" size="icon-sm">
+            <IconLayoutSidebar className="h-4.5 w-4.5" />
+          </Button>
+          <TopbarBreadcrumbs>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/" aria-label="Go to home">
+                  <IconHomeFilled className="h-4 w-4" />
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbPage>Application</BreadcrumbPage>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>My dashboard</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </TopbarBreadcrumbs>
+        </TopbarLeft>
+        <TopbarCenter />
+        <TopbarRight>
+          <Button size="sm">
+            <IconPlus />
+            Button
+          </Button>
+          <Button variant="ghost" size="icon-sm">
+            <IconShare className="h-4 w-4" />
+          </Button>
+        </TopbarRight>
+      </Topbar>
+    </div>
   )
 }`,
   },
@@ -378,11 +380,12 @@ import { IconLayoutSidebar, IconHomeFilled, IconDownload, IconEdit } from "@tabl
 
 export function EosTopbar() {
   return (
-    <Topbar>
-      <TopbarLeft>
-        <Button variant="ghost" size="icon">
-          <IconLayoutSidebar className="h-4 w-4" />
-        </Button>
+    <div className="w-full rounded-lg overflow-hidden">
+      <Topbar>
+        <TopbarLeft>
+          <Button variant="ghost" size="icon">
+            <IconLayoutSidebar className="h-4 w-4" />
+          </Button>
           <TopbarBreadcrumbs>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -393,44 +396,45 @@ export function EosTopbar() {
               <BreadcrumbItem>
                 <BreadcrumbPage>Canvas</BreadcrumbPage>
               </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>RCA 21PT1019</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </TopbarBreadcrumbs>
-      </TopbarLeft>
-      <TopbarCenter />
-      <TopbarRight>
-        <Button variant="ghost" size="sm">
-          <IconDownload className="h-4 w-4" />
-          Download
-        </Button>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button size="sm">
-              <IconEdit className="h-4 w-4" />
-              New chat
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This will start a fresh conversation. Your current chat
-                history will be saved and you can access it later from the
-                sidebar.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Start new chat</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </TopbarRight>
-    </Topbar>
-  );
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>RCA 21PT1019</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </TopbarBreadcrumbs>
+        </TopbarLeft>
+        <TopbarCenter />
+        <TopbarRight>
+          <Button variant="ghost" size="sm">
+            <IconDownload className="h-4 w-4" />
+            Download
+          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button size="sm">
+                <IconEdit className="h-4 w-4" />
+                New chat
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will start a fresh conversation. Your current chat
+                  history will be saved and you can access it later from the
+                  sidebar.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Start new chat</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </TopbarRight>
+      </Topbar>
+    </div>
+  )
 }`,
   },
   withSidebar: {
@@ -453,8 +457,8 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/aura/breadcrumb"
+import { Button } from "@/components/ui/aura/button"
 import {
-  Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -463,26 +467,50 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/aura/sidebar"
-import { Button } from "@/components/ui/aura/button"
 import {
   IconChartBar as BarChart3,
   IconFileText as FileText,
-  IconHome,
   IconHomeFilled,
   IconPlus,
   IconSettings as Settings,
   IconShare,
   IconUsers as Users,
+  IconLayoutSidebar,
 } from "@tabler/icons-react"
+import { cn } from "@/lib/utils"
+import type { ReactNode } from "react"
+
+function SidebarToggleButton() {
+  const { toggleSidebar } = useSidebar()
+  return (
+    <Button variant="ghost" size="icon" onClick={toggleSidebar}>
+      <IconLayoutSidebar className="h-4 w-4" />
+    </Button>
+  )
+}
+
+function SidebarPanel({ children }: { children: ReactNode }) {
+  const { state } = useSidebar()
+  return (
+    <div
+      className={cn(
+        "w-64 bg-sidebar text-sidebar-foreground border-r transition-all duration-200",
+        state === "collapsed" && "w-0 overflow-hidden"
+      )}
+    >
+      {children}
+    </div>
+  )
+}
 
 export function TopbarWithSidebarDemo() {
   return (
     <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
       <SidebarProvider>
         <div className="flex h-full w-full bg-background">
-          <Sidebar>
+          <SidebarPanel>
             <SidebarContent>
               <SidebarGroup>
                 <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -529,11 +557,11 @@ export function TopbarWithSidebarDemo() {
                 </SidebarGroupContent>
               </SidebarGroup>
             </SidebarContent>
-          </Sidebar>
+          </SidebarPanel>
           <div className="flex flex-1 flex-col">
             <Topbar>
               <TopbarLeft>
-                <SidebarTrigger />
+                <SidebarToggleButton />
                 <TopbarBreadcrumbs>
                   <BreadcrumbList>
                     <BreadcrumbItem>

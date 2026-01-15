@@ -79,7 +79,10 @@
       "type": "registry:component",
       "title": "Banner",
       "description": "A banner component for displaying important messages with icon, title, status, and actions.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
       "registryDependencies": ["button", "badge"],
       "files": [
         {
@@ -476,7 +479,15 @@
         "class-variance-authority",
         "@tabler/icons-react"
       ],
-      "registryDependencies": ["button", "input", "separator", "sheet", "skeleton", "tooltip", "use-mobile"],
+      "registryDependencies": [
+        "button",
+        "input",
+        "separator",
+        "sheet",
+        "skeleton",
+        "tooltip",
+        "use-mobile"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/sidebar.tsx",
@@ -627,7 +638,9 @@
       "name": "topbar",
       "type": "registry:component",
       "title": "Topbar",
-      "description": "Topbar component.",
+      "description": "A flexible topbar component with breadcrumbs, center space, and action buttons. Integrates with the Sidebar component for full layout support.",
+      "dependencies": ["@radix-ui/react-slot"],
+      "registryDependencies": ["breadcrumb", "sidebar", "button", "lib-utils"],
       "files": [
         {
           "path": "src/components/ui/aura/topbar.tsx",
@@ -737,7 +750,10 @@
       "type": "registry:component",
       "title": "Chain of Thought",
       "description": "AI chain of thought component for displaying reasoning steps.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
       "registryDependencies": ["badge", "collapsible"],
       "files": [
         {
@@ -956,7 +972,16 @@
       "title": "Prompt Input",
       "description": "AI prompt input component for user prompts.",
       "dependencies": ["ai", "nanoid", "@tabler/icons-react"],
-      "registryDependencies": ["textarea", "button", "command", "dropdown-menu", "helper-text", "hover-card", "input-group", "select"],
+      "registryDependencies": [
+        "textarea",
+        "button",
+        "command",
+        "dropdown-menu",
+        "helper-text",
+        "hover-card",
+        "input-group",
+        "select"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/prompt-input.tsx",
