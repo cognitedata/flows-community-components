@@ -52,25 +52,23 @@ function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuHeader>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
 
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -251,7 +249,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuHeader,
   DropdownMenuTrigger,
-  DropdownMenuGroup,
 } from "@/components/ui/aura/dropdown-menu"
 import {
   Avatar,
@@ -288,25 +285,23 @@ function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuHeader>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
 
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

@@ -217,24 +217,22 @@ export const WithUserLabel: Story = {
               </span>
             </div>
           </DropdownMenuHeader>
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <IconUser />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconSettingsFilled />
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconBell />
-              Notifications
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <IconHelp />
-              Help
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
+          <DropdownMenuItem>
+            <IconUser />
+            Profile
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <IconSettingsFilled />
+            Settings
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <IconBell />
+            Notifications
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <IconHelp />
+            Help
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );

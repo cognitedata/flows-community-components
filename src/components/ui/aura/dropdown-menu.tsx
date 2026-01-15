@@ -184,15 +184,12 @@ function DropdownMenuLabel({
   );
 }
 
-function DropdownMenuHeader({
-  className,
-  ...props
-}: ComponentProps<'div'>) {
+function DropdownMenuHeader({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="dropdown-menu-header"
       className={cn(
-        'flex flex-row items-center gap-2 border-b border-border px-2 py-2 pointer-events-none',
+        '-mx-1 -mt-1 mb-1 flex flex-row items-center gap-2 border-b border-border px-2 py-2 pointer-events-none',
         className
       )}
       {...props}
