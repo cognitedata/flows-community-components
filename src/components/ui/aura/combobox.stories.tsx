@@ -435,22 +435,22 @@ export const WithAddNew: Story = {
                       ))}
                     </CommandGroup>
                   )}
-                  {canAddUser && (
-                    <div className="p-2 border-t">
-                      <Button
-                        variant="secondary"
-                        className="w-full h-[36px]"
-                        onClick={handleAddUser}
-                      >
-                        <IconPlus className="h-3.5 w-3.5 " />
-                        Add {searchValue.trim()}
-                      </Button>
-                    </div>
-                  )}
                   {filteredUsers.length === 0 && !canAddUser && searchValue && (
                     <CommandEmpty>No user found.</CommandEmpty>
                   )}
                 </CommandList>
+                {canAddUser && (
+                  <div className="p-2 border-t">
+                    <Button
+                      variant="secondary"
+                      className="w-full h-[36px]"
+                      onClick={handleAddUser}
+                    >
+                      <IconPlus className="h-3.5 w-3.5 " />
+                      Add {searchValue.trim()}
+                    </Button>
+                  </div>
+                )}
               </Command>
             </PopoverContent>
           </Popover>
