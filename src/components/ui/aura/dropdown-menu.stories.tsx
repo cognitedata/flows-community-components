@@ -20,7 +20,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DropdownMenuGroup,
-  DropdownMenuSectionLabel,
 } from './dropdown-menu';
 import { Avatar, AvatarImage, AvatarFallback } from './avatar';
 import {
