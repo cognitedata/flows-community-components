@@ -776,13 +776,13 @@ export const ComplexInteractive: Story = {
     // Click second radio (dark)
     await userEvent.click(radioItems[1] as Element);
 
-    // Menu should still be open
+    // Menu should still be open after interactions
     await waitFor(() => {
       const menu = menuDoc.querySelector('[data-slot="dropdown-menu-content"]');
       expect(menu).toBeInTheDocument();
     });
 
-    // Test action item - click reset
+    // Verify reset button exists (but don't click it as it closes the menu)
     const items = menuDoc.querySelectorAll('[data-slot="dropdown-menu-item"]');
     let resetButton: Element | null = null;
     items.forEach((item) => {
@@ -790,10 +790,7 @@ export const ComplexInteractive: Story = {
         resetButton = item;
       }
     });
-
-    if (resetButton) {
-      await userEvent.click(resetButton);
-    }
+    expect(resetButton).toBeInTheDocument();
   },
   render: function ComplexInteractiveStory(args) {
     const [notifications, setNotifications] = useState({
