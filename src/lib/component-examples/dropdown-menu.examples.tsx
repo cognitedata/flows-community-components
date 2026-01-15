@@ -1,9 +1,15 @@
+'use client';
+
+import { useState } from 'react';
 import { Button } from '@/components/ui/aura/button';
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from './types';
@@ -17,6 +23,7 @@ import {
   IconHelp,
   IconBell,
   IconSettingsFilled,
+  IconTrash,
 } from '@tabler/icons-react';
 
 function BasicDemo() {
@@ -111,6 +118,85 @@ function UserDetailsDemo() {
     </div>
   );
 }
+function CheckboxItemDemo() {
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Checkbox Item Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[280px] px-1">
+            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  );
+}
+
+function RadioGroupDemo() {
+  const [viewMode, setViewMode] = useState('label');
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Radio Group Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[270px] px-1">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
+              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
+                Radio group
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuRadioGroup
+              value={viewMode}
+              onValueChange={setViewMode}
+            >
+              <DropdownMenuRadioItem value="label">Label</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="list">List</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="table">Table</DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  );
+}
+
+function DestructiveDemo() {
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[200px] px-1">
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem variant="destructive">
+              <IconTrash />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  );
+}
 
 export const dropdownMenuExamples: ComponentExamples = {
   basic: {
@@ -134,12 +220,12 @@ import {
 } from "@/components/ui/aura/avatar"
 import {
   IconUser,
-  IconSettings,
+  IconSettingsFilled,
   IconHelp,
   IconBell,
 } from "@tabler/icons-react"
 
-export function BasicDemo() {
+function BasicDemo() {
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
@@ -147,8 +233,8 @@ export function BasicDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] p-0">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 pt-1 pb-1 border-b border-border">
+          <DropdownMenuContent className="w-[280px]">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border ">
               <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
@@ -162,13 +248,13 @@ export function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuLabel>
-            <div className="p-1">
+            <div className="px-1 pt-1">
               <DropdownMenuItem>
                 <IconUser />
                 Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <IconSettings />
+                <IconSettingsFilled />
                 Settings
               </DropdownMenuItem>
 
@@ -189,7 +275,7 @@ export function BasicDemo() {
         Click buttons to open interactive dropdown menus.
       </p>
     </div>
-  )
+  );
 }`,
   },
   userDetails: {
@@ -250,6 +336,134 @@ function UserDetailsDemo() {
       </div>
     </div>
   );
+}`,
+  },
+  checkboxItem: {
+    title: 'Checkbox Item Demo',
+    description: 'Display checkbox items in a dropdown menu',
+    component: CheckboxItemDemo,
+    difficulty: 'intermediate',
+    code: `import { Button } from "@/components/ui/aura/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/aura/dropdown-menu"
+
+function CheckboxItemDemo() {
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Checkbox Item Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[280px] px-1">
+            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  );
+}`,
+  },
+  radioGroup: {
+    title: 'Radio Group Demo',
+    description:
+      'Display radio group items for single selection in a dropdown menu',
+    component: RadioGroupDemo,
+    difficulty: 'intermediate',
+    code: `import { useState } from "react"
+import { Button } from "@/components/ui/aura/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/aura/dropdown-menu"
+
+function RadioGroupDemo() {
+  const [viewMode, setViewMode] = useState("label")
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Radio Group Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[270px] px-1">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
+              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
+                Radio group
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuRadioGroup
+              value={viewMode}
+              onValueChange={setViewMode}
+            >
+              <DropdownMenuRadioItem value="label">Label</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="list">List</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="table">Table</DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  );
+}`,
+  },
+  destructive: {
+    title: 'Destructive Option Demo',
+    description: 'Display a dropdown menu with a destructive action option',
+    component: DestructiveDemo,
+    difficulty: 'beginner',
+    code: `import { Button } from "@/components/ui/aura/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/aura/dropdown-menu"
+import {
+  IconUser,
+  IconSettingsFilled,
+  IconTrash,
+} from "@tabler/icons-react"
+
+function DestructiveDemo() {
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[200px] px-1">
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem variant="destructive">
+              <IconTrash />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
+  )
 }`,
   },
 };
