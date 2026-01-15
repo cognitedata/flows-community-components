@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -26,6 +26,13 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+  isCurrentPage?: boolean;
+  isEllipsis?: boolean;
+};
+
 const meta: Meta<typeof Breadcrumb> = {
   title: 'UI/Breadcrumb',
   component: Breadcrumb,
@@ -39,7 +46,18 @@ const meta: Meta<typeof Breadcrumb> = {
         category: 'Display',
       },
     },
-  },
+    // Playground controls
+    items: {
+      control: 'object',
+      description: 'Array of breadcrumb items to display',
+      table: {
+        category: 'Playground',
+        type: {
+          summary: 'BreadcrumbItem[]',
+        },
+      },
+    },
+  } as any,
   parameters: {
     layout: 'centered',
     docs: {
@@ -52,7 +70,7 @@ const meta: Meta<typeof Breadcrumb> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Breadcrumb>;
+type Story = StoryObj<typeof Breadcrumb & { items?: BreadcrumbItem[] }>;
 
 /**
  * Basic breadcrumb navigation.
@@ -191,6 +209,39 @@ export const WithLongPath: Story = {
           'Breadcrumb with a longer navigation path showing multiple hierarchy levels (5 levels). Tests how the component handles extended paths.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify breadcrumb structure
+    const nav = canvas.getByLabelText('breadcrumb');
+    await expect(nav).toBeInTheDocument();
+
+    // Verify links are present and have correct href
+    const homeLink = canvas.getByRole('link', { name: 'Home' });
+    await expect(homeLink).toBeInTheDocument();
+    await expect(homeLink).toHaveAttribute('href', '/');
+
+    const docsLink = canvas.getByRole('link', { name: 'Documentation' });
+    await expect(docsLink).toBeInTheDocument();
+    await expect(docsLink).toHaveAttribute('href', '/docs');
+
+    const componentsLink = canvas.getByRole('link', { name: 'Components' });
+    await expect(componentsLink).toBeInTheDocument();
+    await expect(componentsLink).toHaveAttribute('href', '/docs/components');
+
+    const navigationLink = canvas.getByRole('link', { name: 'Navigation' });
+    await expect(navigationLink).toBeInTheDocument();
+    await expect(navigationLink).toHaveAttribute(
+      'href',
+      '/docs/components/navigation'
+    );
+
+    // Verify current page
+    const currentPage = canvas.getByRole('link', { name: 'Breadcrumb' });
+    await expect(currentPage).toBeInTheDocument();
+    await expect(currentPage).toHaveAttribute('aria-current', 'page');
+    await expect(currentPage).toHaveAttribute('aria-disabled', 'true');
   },
   render: function BreadcrumbWithLongPathStory() {
     return (
@@ -444,6 +495,7 @@ export const Interactive: Story = {
     // Verify current page
     const currentPage = canvas.getByRole('link', { name: 'Breadcrumb' });
     await expect(currentPage).toHaveAttribute('aria-current', 'page');
+    await expect(currentPage).toHaveAttribute('aria-disabled', 'true');
   },
   render: function BreadcrumbInteractiveStory() {
     return (
@@ -555,6 +607,7 @@ export const Complex: Story = {
     // Verify current page
     const currentPage = canvas.getByRole('link', { name: 'Edit User' });
     await expect(currentPage).toHaveAttribute('aria-current', 'page');
+    await expect(currentPage).toHaveAttribute('aria-disabled', 'true');
   },
   render: function BreadcrumbComplexStory() {
     return (
@@ -591,7 +644,13 @@ export const Complex: Story = {
  * Interactive playground for testing breadcrumb props.
  */
 export const Playground: Story = {
-  args: {},
+  args: {
+    items: [
+      { label: 'Home', href: '/' },
+      { label: 'Documentation', href: '/docs' },
+      { label: 'Breadcrumb', isCurrentPage: true },
+    ] as BreadcrumbItem[],
+  } as any,
   parameters: {
     docs: {
       description: {
@@ -600,24 +659,44 @@ export const Playground: Story = {
       },
     },
   },
-  render: function BreadcrumbPlaygroundStory() {
+  render: function BreadcrumbPlaygroundStory(args) {
+    const { items, ...breadcrumbProps } = args as typeof args & {
+      items?: BreadcrumbItem[];
+    };
+    const breadcrumbItems = items || [];
+
     return (
-      <Breadcrumb>
+      <Breadcrumb {...breadcrumbProps}>
         <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/docs">Documentation</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-          </BreadcrumbItem>
+          {breadcrumbItems.map((item, index) => {
+            if (item.isEllipsis) {
+              return (
+                <React.Fragment key={`ellipsis-${index}`}>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbEllipsis />
+                  </BreadcrumbItem>
+                </React.Fragment>
+              );
+            }
+
+            return (
+              <React.Fragment key={`item-${index}`}>
+                {index > 0 && <BreadcrumbSeparator />}
+                <BreadcrumbItem>
+                  {item.isCurrentPage ? (
+                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink href={item.href || '#'}>
+                      {item.label}
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+              </React.Fragment>
+            );
+          })}
         </BreadcrumbList>
       </Breadcrumb>
     );
   },
 };
-
