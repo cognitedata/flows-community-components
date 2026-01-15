@@ -204,20 +204,18 @@ export const WithUserLabel: Story = {
           <Button>User Menu</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-72">
-          <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border" tabIndex={-1}>
-            <div className="flex flex-row items-center gap-2 pointer-events-none">
-              <Avatar variant="default">
-                <AvatarImage src="/user-avatar2.png" alt="" />
-                <AvatarFallback>JS</AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <div className="text-base tracking-tighter font-medium">
-                  Jane Smith
-                </div>
-                <span className="text-sm font-normal tracking-tight text-muted-foreground">
-                  jane.smith@cognite.com
-                </span>
+          <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border pointer-events-none">
+            <Avatar variant="default">
+              <AvatarImage src="/user-avatar2.png" alt="" />
+              <AvatarFallback>JS</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <div className="text-base tracking-tighter font-medium">
+                Jane Smith
               </div>
+              <span className="text-sm font-normal tracking-tight text-muted-foreground">
+                jane.smith@cognite.com
+              </span>
             </div>
           </DropdownMenuLabel>
           <div className="px-1 pt-1">
