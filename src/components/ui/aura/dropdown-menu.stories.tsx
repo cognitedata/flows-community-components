@@ -497,6 +497,11 @@ export const WithDestructiveAction: Story = {
 
     return (
       <div className="space-y-4">
+        {action && (
+          <div className="text-sm text-muted-foreground">
+            Last action: {action}
+          </div>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button>Actions</Button>
@@ -520,11 +525,6 @@ export const WithDestructiveAction: Story = {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        {action && (
-          <div className="text-sm text-muted-foreground">
-            Last action: {action}
-          </div>
-        )}
       </div>
     );
   },
@@ -727,6 +727,34 @@ export const ComplexInteractive: Story = {
 
     return (
       <div className="space-y-6 w-80">
+        <div className="space-y-3 text-sm">
+          <div>
+            <span className="font-medium">Notifications:</span>{' '}
+            <span className="text-muted-foreground">
+              {notificationCount} type{notificationCount !== 1 ? 's' : ''} enabled
+            </span>
+            {notificationCount > 0 && (
+              <ul className="mt-1 ml-4 space-y-0.5 text-muted-foreground">
+                {notifications.email && <li>• Email</li>}
+                {notifications.push && <li>• Push</li>}
+                {notifications.sms && <li>• SMS</li>}
+              </ul>
+            )}
+          </div>
+
+          <div>
+            <span className="font-medium">Theme:</span>{' '}
+            <span className="text-muted-foreground capitalize">{theme}</span>
+          </div>
+
+          {lastAction && (
+            <div className="pt-2 border-t">
+              <span className="font-medium">Last action:</span>{' '}
+              <span className="text-muted-foreground">{lastAction}</span>
+            </div>
+          )}
+        </div>
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-full">
@@ -782,34 +810,6 @@ export const ComplexInteractive: Story = {
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
-
-        <div className="space-y-3 text-sm">
-          <div>
-            <span className="font-medium">Notifications:</span>{' '}
-            <span className="text-muted-foreground">
-              {notificationCount} type{notificationCount !== 1 ? 's' : ''} enabled
-            </span>
-            {notificationCount > 0 && (
-              <ul className="mt-1 ml-4 space-y-0.5 text-muted-foreground">
-                {notifications.email && <li>• Email</li>}
-                {notifications.push && <li>• Push</li>}
-                {notifications.sms && <li>• SMS</li>}
-              </ul>
-            )}
-          </div>
-
-          <div>
-            <span className="font-medium">Theme:</span>{' '}
-            <span className="text-muted-foreground capitalize">{theme}</span>
-          </div>
-
-          {lastAction && (
-            <div className="pt-2 border-t">
-              <span className="font-medium">Last action:</span>{' '}
-              <span className="text-muted-foreground">{lastAction}</span>
-            </div>
-          )}
-        </div>
       </div>
     );
   },
