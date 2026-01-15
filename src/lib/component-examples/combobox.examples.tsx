@@ -775,7 +775,7 @@ function FocusedDemo() {
                     </span>
                     <IconCheck
                       className={cn(
-                        'h-4 w-4 shrink-0',
+                        'mr-2 h-4 w-4 shrink-0',
                         value === option.value ? 'opacity-100' : 'opacity-0'
                       )}
                     />
@@ -847,7 +847,7 @@ function ValidationDemo() {
                     </span>
                     <IconCheck
                       className={cn(
-                        'h-4 w-4 shrink-0',
+                        'mr-2 h-4 w-4 shrink-0',
                         value === option.value ? 'opacity-100' : 'opacity-0'
                       )}
                     />
@@ -1861,7 +1861,7 @@ export function FocusedDemo() {
                     </span>
                     <IconCheck
                       className={cn(
-                        'h-4 w-4 shrink-0',
+                        'mr-2 h-4 w-4 shrink-0',
                         value === option.value ? 'opacity-100' : 'opacity-0'
                       )}
                     />
@@ -1958,7 +1958,7 @@ export function ValidationDemo() {
                     </span>
                     <IconCheck
                       className={cn(
-                        'h-4 w-4 shrink-0',
+                        'mr-2 h-4 w-4 shrink-0',
                         value === option.value ? 'opacity-100' : 'opacity-0'
                       )}
                     />
