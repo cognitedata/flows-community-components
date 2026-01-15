@@ -567,9 +567,9 @@ export default function ThemingPage() {
         color: hsl(${theme.foreground});
         border-radius: 0.5rem;
       }
-      
+
       /* Use ShadCN's semantic tokens correctly - target Tailwind classes */
-      
+
       /* Primary colors */
       .theme-preview [class*="bg-primary"] {
         background-color: hsl(${theme.primary}) !important;
@@ -580,7 +580,7 @@ export default function ThemingPage() {
       .theme-preview [class*="text-primary"]:not([class*="foreground"]) {
         color: hsl(${theme.primary}) !important;
       }
-      
+
       /* Secondary colors */
       .theme-preview [class*="bg-secondary"] {
         background-color: hsl(${theme.secondary}) !important;
@@ -588,7 +588,7 @@ export default function ThemingPage() {
       .theme-preview [class*="text-secondary-foreground"] {
         color: hsl(${theme.secondaryForeground}) !important;
       }
-      
+
       /* Accent colors */
       .theme-preview [class*="bg-accent"] {
         background-color: hsl(${theme.accent}) !important;
@@ -596,18 +596,18 @@ export default function ThemingPage() {
       .theme-preview [class*="text-accent-foreground"] {
         color: hsl(${theme.accentForeground}) !important;
       }
-      
+
       /* Ghost buttons - transparent by default, accent on hover */
       .theme-preview button[class*="hover:bg-accent"]:not(:hover) {
         background-color: transparent !important;
         color: hsl(${theme.foreground}) !important;
       }
-      
+
       .theme-preview button[class*="hover:bg-accent"]:hover {
         background-color: hsl(${theme.accent}) !important;
         color: hsl(${theme.accentForeground}) !important;
       }
-      
+
       /* Destructive colors */
       .theme-preview [class*="bg-destructive"] {
         background-color: hsl(${theme.destructive}) !important;
@@ -615,7 +615,7 @@ export default function ThemingPage() {
       .theme-preview [class*="text-destructive-foreground"] {
         color: hsl(${theme.destructiveForeground}) !important;
       }
-      
+
       /* Background & foreground */
       .theme-preview [class*="bg-background"] {
         background-color: hsl(${theme.background}) !important;
@@ -623,7 +623,7 @@ export default function ThemingPage() {
       .theme-preview [class*="text-foreground"] {
         color: hsl(${theme.foreground}) !important;
       }
-      
+
       /* Card colors */
       .theme-preview [class*="bg-card"] {
         background-color: hsl(${theme.card}) !important;
@@ -631,7 +631,7 @@ export default function ThemingPage() {
       .theme-preview [class*="text-card-foreground"] {
         color: hsl(${theme.cardForeground}) !important;
       }
-      
+
       /* Muted colors */
       .theme-preview [class*="bg-muted"] {
         background-color: hsl(${theme.muted}) !important;
@@ -639,7 +639,7 @@ export default function ThemingPage() {
       .theme-preview [class*="text-muted-foreground"] {
         color: hsl(${theme.mutedForeground}) !important;
       }
-      
+
       /* Border & input colors */
       .theme-preview [class*="border-border"] {
         border-color: hsl(${theme.border}) !important;
@@ -650,12 +650,12 @@ export default function ThemingPage() {
       .theme-preview [class*="bg-input"] {
         background-color: hsl(${theme.input}) !important;
       }
-      
+
       /* Ring colors */
       .theme-preview [class*="ring-ring"] {
         --tw-ring-color: hsl(${theme.ring}) !important;
       }
-      
+
       /* Semantic status colors for badges, alerts, etc. */
       .theme-preview [class*="text-green-"] {
         color: hsl(120 60% 50%) !important;
@@ -666,7 +666,7 @@ export default function ThemingPage() {
       .theme-preview [class*="border-green-"] {
         border-color: hsl(120 60% 50%) !important;
       }
-      
+
       .theme-preview [class*="text-yellow-"] {
         color: hsl(45 90% 40%) !important;
       }
@@ -676,7 +676,7 @@ export default function ThemingPage() {
       .theme-preview [class*="border-yellow-"] {
         border-color: hsl(45 90% 40%) !important;
       }
-      
+
       .theme-preview [class*="text-blue-"] {
         color: hsl(210 100% 50%) !important;
       }
@@ -686,7 +686,7 @@ export default function ThemingPage() {
       .theme-preview [class*="border-blue-"] {
         border-color: hsl(210 100% 50%) !important;
       }
-      
+
       .theme-preview [class*="text-red-"] {
         color: hsl(${theme.destructive}) !important;
       }
@@ -696,20 +696,20 @@ export default function ThemingPage() {
       .theme-preview [class*="border-red-"] {
         border-color: hsl(${theme.destructive}) !important;
       }
-      
+
       /* Fix outline buttons - target the specific border class */
       .theme-preview button[class*="border"][class*="bg-background"] {
         border-color: hsl(${theme.border}) !important;
         background-color: hsl(${theme.background}) !important;
         color: hsl(${theme.foreground}) !important;
       }
-      
+
       .theme-preview button[class*="border"][class*="bg-background"]:hover {
         background-color: hsl(${theme.accent}) !important;
         color: hsl(${theme.accentForeground}) !important;
       }
-      
-      
+
+
       /* Remove all browser styling from color inputs */
       .color-picker-input {
         -webkit-appearance: none;
@@ -726,27 +726,27 @@ export default function ThemingPage() {
         border-radius: 0.375rem;
         transition: border-color 0.2s ease;
       }
-      
+
       .color-picker-input:focus {
         border-color: hsl(${theme.ring});
         box-shadow: 0 0 0 2px hsl(${theme.ring}/0.2);
       }
-      
+
       .color-picker-input::-webkit-color-swatch-wrapper {
         padding: 0;
         border: none;
       }
-      
+
       .color-picker-input::-webkit-color-swatch {
         border: none;
         border-radius: 0.375rem;
       }
-      
+
       .color-picker-input::-moz-color-swatch {
         border: none;
         border-radius: 0.375rem;
       }
-      
+
       .color-picker-input::-moz-focus-inner {
         border: 0;
         padding: 0;
@@ -1377,7 +1377,7 @@ export default function ThemingPage() {
                               accentForeground: preset.accentForeground,
                             });
                           }}
-                          className="w-full h-8 rounded-md border border-input hover:ring-2 hover:ring-ring/50 transition-all duration-200 overflow-hidden"
+                          className="w-full h-8 rounded-md border border-input hover:ring-2 hover:ring-ring-shadow transition-all duration-200 overflow-hidden"
                         >
                           <div className="w-full h-full flex">
                             <div
@@ -2200,9 +2200,7 @@ export default function ThemingPage() {
                           <CardContent>
                             <div className="text-2xl font-bold">8,432</div>
                             <p className="text-xs text-muted-foreground flex items-center">
-                              <span className="text-red-600 mr-1">
-                                ↘ -2.1%
-                              </span>
+                              <span className="text-red-600 mr-1">↘ -2.1%</span>
                               from last month
                             </p>
                           </CardContent>
