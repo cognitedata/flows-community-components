@@ -79,7 +79,7 @@ jobs:
           EOF
 
       - name: Upload preview artifact
-        uses: actions/upload-artifact@834a144ee995460fba8ed112a2fc961b36a5ec5a # v4
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: branch-preview-${{ steps.branch.outputs.name }}
           path: out
@@ -87,7 +87,7 @@ jobs:
           overwrite: true
 
       - name: Trigger deploy workflow
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             await github.rest.actions.createWorkflowDispatch({
@@ -99,7 +99,7 @@ jobs:
             console.log('Triggered deploy workflow');
 
       - name: Comment on PR
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const branchName = '${{ steps.branch.outputs.name }}';
