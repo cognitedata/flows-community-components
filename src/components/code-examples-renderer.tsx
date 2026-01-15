@@ -45,16 +45,26 @@ export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
   }
 
   // Render story-based code examples
-  if (storyExamples && storyExamples.length > 0) {
+  if (storyExamples) {
+    if (storyExamples.length > 0) {
+      return (
+        <div className="space-y-4">
+          {storyExamples.map((example) => (
+            <CodeExample
+              key={example.title}
+              title={example.title}
+              code={example.code}
+            />
+          ))}
+        </div>
+      );
+    }
+
     return (
-      <div className="space-y-4">
-        {storyExamples.map((example) => (
-          <CodeExample
-            key={example.title}
-            title={example.title}
-            code={example.code}
-          />
-        ))}
+      <div className="p-6 border rounded-lg bg-muted/20">
+        <p className="text-sm text-muted-foreground">
+          No code examples available for this component yet.
+        </p>
       </div>
     );
   }
