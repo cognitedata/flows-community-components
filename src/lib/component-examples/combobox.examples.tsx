@@ -6,6 +6,7 @@ import {
   IconPlus,
   IconSelector,
   IconUser,
+  IconX,
 } from '@tabler/icons-react';
 import { Label } from '@/components/ui/aura/label';
 import { Avatar, AvatarFallback } from '@/components/ui/aura/avatar';
@@ -295,6 +296,146 @@ function AddUsersDemo() {
                 {filteredUsers.length === 0 && !canAddUser && searchValue && (
                   <CommandEmpty>No user found.</CommandEmpty>
                 )}
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}
+
+const dataTypes = [
+  { value: 'asset', label: 'Asset' },
+  { value: 'event', label: 'Event' },
+  { value: 'observation', label: 'Observation' },
+  { value: 'time-series', label: 'Time series' },
+  { value: 'work-order', label: 'Work order' },
+  { value: 'document', label: 'Document' },
+  { value: 'file', label: 'File' },
+  { value: 'sequence', label: 'Sequence' },
+];
+
+function MultiSelectDemo() {
+  const [open, setOpen] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>([
+    'event',
+    'observation',
+    'time-series',
+    'work-order',
+    'document',
+  ]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const filteredDataTypes = dataTypes.filter((type) =>
+    type.label.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const selectedDataTypes = dataTypes.filter((type) =>
+    selectedValues.includes(type.value)
+  );
+
+  const visibleSelected = selectedDataTypes.slice(0, 2);
+  const remainingCount = selectedDataTypes.length - 2;
+
+  const handleToggle = (value: string) => {
+    setSelectedValues((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+
+  const handleRemove = (value: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setSelectedValues((prev) => prev.filter((v) => v !== value));
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[380px]">
+        <Label className="m-0 p-0">Data type</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+            >
+              <div className="flex items-center gap-1.5 flex-wrap flex-1">
+                {visibleSelected.map((type) => (
+                  <Badge
+                    key={type.value}
+                    variant="secondary"
+                    className="flex items-center gap-1 pr-0.5"
+                  >
+                    <span className="text-sm">{type.label}</span>
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      onClick={(e) => handleRemove(type.value, e)}
+                      onMouseDown={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleRemove(type.value, e as any);
+                        }
+                      }}
+                      className="ml-0.5 rounded-sm hover:bg-secondary-hover p-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
+                      <IconX className="h-3 w-3" />
+                    </span>
+                  </Badge>
+                ))}
+                {remainingCount > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    + {remainingCount} more
+                  </span>
+                )}
+                {selectedDataTypes.length === 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    Select data types...
+                  </span>
+                )}
+              </div>
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[380px] p-0">
+            <Command shouldFilter={false}>
+              <CommandInput
+                placeholder="Search data type..."
+                value={searchValue}
+                onValueChange={setSearchValue}
+                className="h-10"
+              />
+              <CommandList>
+                <CommandGroup className="px-1 py-0 mt-1">
+                  {filteredDataTypes.map((type) => {
+                    const isSelected = selectedValues.includes(type.value);
+                    return (
+                      <CommandItem
+                        key={type.value}
+                        value={type.value}
+                        onSelect={() => handleToggle(type.value)}
+                        className="flex justify-between h-[36px] pr-0"
+                      >
+                        <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                          {type.label}
+                        </span>
+                        <IconCheck
+                          className={cn(
+                            'mr-2 h-4 w-4',
+                            isSelected ? 'opacity-100' : 'opacity-0'
+                          )}
+                        />
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
               </CommandList>
             </Command>
           </PopoverContent>
@@ -622,6 +763,173 @@ export function AddUsersDemo() {
       <p className="text-sm text-muted-foreground">
         Search for users or add new ones that don't exist in the list.
       </p>
+    </div>
+  );
+}`,
+  },
+  multiSelect: {
+    title: 'Multi-Select Combobox',
+    description: 'Select multiple items with tags and remove functionality',
+    component: MultiSelectDemo,
+    difficulty: 'advanced',
+    code: `import { useState } from 'react';
+import { IconCheck, IconSelector, IconX } from '@tabler/icons-react';
+import { Label } from '@/components/ui/aura/label';
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+import { cn } from '@/lib/utils';
+
+const dataTypes = [
+  { value: 'asset', label: 'Asset' },
+  { value: 'event', label: 'Event' },
+  { value: 'observation', label: 'Observation' },
+  { value: 'time-series', label: 'Time series' },
+  { value: 'work-order', label: 'Work order' },
+  { value: 'document', label: 'Document' },
+  { value: 'file', label: 'File' },
+  { value: 'sequence', label: 'Sequence' },
+];
+
+export function MultiSelectDemo() {
+  const [open, setOpen] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>([
+    'event',
+    'observation',
+    'asset',
+    'time-series',
+    'work-order',
+    'document',
+  ]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const filteredDataTypes = dataTypes.filter((type) =>
+    type.label.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const selectedDataTypes = dataTypes.filter((type) =>
+    selectedValues.includes(type.value)
+  );
+
+  const visibleSelected = selectedDataTypes.slice(0, 2);
+  const remainingCount = selectedDataTypes.length - 2;
+
+  const handleToggle = (value: string) => {
+    setSelectedValues((prev) =>
+      prev.includes(value)
+        ? prev.filter((v) => v !== value)
+        : [...prev, value]
+    );
+  };
+
+  const handleRemove = (value: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setSelectedValues((prev) => prev.filter((v) => v !== value));
+  };
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[380px]">
+        <Label className="m-0 p-0">Data type</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+            >
+              <div className="flex items-center gap-1.5 flex-wrap flex-1">
+                {visibleSelected.map((type) => (
+                  <Badge
+                    key={type.value}
+                    variant="secondary"
+                    className="flex items-center gap-1 pr-0.5"
+                  >
+                    <span className="text-sm">{type.label}</span>
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      onClick={(e) => handleRemove(type.value, e)}
+                      onMouseDown={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          handleRemove(type.value, e as any);
+                        }
+                      }}
+                      className="ml-0.5 rounded-sm hover:bg-secondary-hover p-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
+                    >
+                      <IconX className="h-3 w-3" />
+                    </span>
+                  </Badge>
+                ))}
+                {remainingCount > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    + {remainingCount} more
+                  </span>
+                )}
+                {selectedDataTypes.length === 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    Select data types...
+                  </span>
+                )}
+              </div>
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[380px] p-0">
+            <Command shouldFilter={false}>
+              <CommandInput
+                placeholder="Search data type..."
+                value={searchValue}
+                onValueChange={setSearchValue}
+                className="h-10"
+              />
+              <CommandList>
+                <CommandGroup className="px-1 py-0 mt-1">
+                  {filteredDataTypes.map((type) => {
+                    const isSelected = selectedValues.includes(type.value);
+                    return (
+                      <CommandItem
+                        key={type.value}
+                        value={type.value}
+                        onSelect={() => handleToggle(type.value)}
+                        className="flex justify-between h-[36px] pr-0"
+                      >
+                        <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                          {type.label}
+                        </span>
+                        <IconCheck
+                          className={cn(
+                            'mr-2 h-4 w-4',
+                            isSelected ? 'opacity-100' : 'opacity-0'
+                          )}
+                        />
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
   );
 }`,
