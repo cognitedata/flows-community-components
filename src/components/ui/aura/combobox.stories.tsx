@@ -1067,6 +1067,8 @@ export const WithError: Story = {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
 
+    const selectedUser = users.find((user) => user.value === value);
+
     return (
       <div className="grid w-full max-w-sm items-center gap-1">
         <Label className="m-0 p-0">User</Label>
@@ -1086,7 +1088,7 @@ export const WithError: Story = {
               aria-invalid={true}
               className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
             >
-              <span>{value || 'Select user...'}</span>
+              <span>{selectedUser ? selectedUser.label : 'Select user...'}</span>
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
