@@ -1292,7 +1292,29 @@ export const OverflowAvatarWithMenu: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Wait for dropdown menu to be visible first (it's rendered in a portal)
+    const canvas = within(canvasElement);
+
+    // Wait for avatars to render first
+    const avatars = await waitFor(
+      () => {
+        const found = canvasElement.querySelectorAll('[data-slot="avatar"]');
+        // We expect at least 5: 4 visible avatars + 1 overflow avatar
+        if (found.length < 5) {
+          throw new Error(`Expected at least 5 avatars, found ${found.length}`);
+        }
+        return found;
+      },
+      { timeout: 2000 }
+    );
+
+    // Verify initial avatars are rendered
+    expect(avatars.length).toBeGreaterThanOrEqual(5);
+
+    // Find and click the overflow avatar (+4)
+    const overflowAvatar = canvas.getByText('+4');
+    await userEvent.click(overflowAvatar);
+
+    // Wait for dropdown menu to open (it's rendered in a portal)
     const menuContent = await waitFor(
       () => {
         const menu = canvasElement.ownerDocument.querySelector(
@@ -1306,30 +1328,11 @@ export const OverflowAvatarWithMenu: Story = {
       { timeout: 2000 }
     );
 
-    // Wait for all avatars to render - count all avatars including those in dropdown
-    const avatars = await waitFor(
-      () => {
-        // Query from ownerDocument to include portal-rendered content
-        const found = canvasElement.ownerDocument.querySelectorAll(
-          '[data-slot="avatar"]'
-        );
-        // We expect at least 4: 4 visible avatars (overflow might be in HoverCard)
-        // The 4 avatars in the dropdown menu are also counted, so total could be more
-        // But we'll check for at least 4 to be safe
-        if (found.length < 4) {
-          throw new Error(`Expected at least 4 avatars, found ${found.length}`);
-        }
-        return found;
-      },
-      { timeout: 2000 }
-    );
-
-    // Verify we have the expected number of avatars
-    expect(avatars.length).toBeGreaterThanOrEqual(4);
-
     // Verify menu contains user information
-    expect(menuContent).toHaveTextContent('Emma Liu');
-    expect(menuContent).toHaveTextContent('James Kim');
+    await waitFor(() => {
+      expect(menuContent).toHaveTextContent('Emma Liu');
+      expect(menuContent).toHaveTextContent('James Kim');
+    });
   },
 };
 
