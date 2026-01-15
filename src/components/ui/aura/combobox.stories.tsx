@@ -782,7 +782,7 @@ export const WithCheckboxes: Story = {
                             )}
                             aria-hidden="true"
                           >
-                            {isSelected && <IconCheck className="h-3 w-3" />}
+                            {isSelected && <IconCheck className="h-3 w-3 text-current" />}
                           </div>
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {option.label}
