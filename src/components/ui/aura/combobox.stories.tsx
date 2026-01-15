@@ -352,7 +352,7 @@ export const WithAddNew: Story = {
       setUserList([...userList, newUser]);
       setValue(newUser.value);
       setSearchValue('');
-      setOpen(false);
+      // Keep combobox open to show the newly added item
     };
 
     return (
