@@ -176,7 +176,7 @@ export const BannerAction = ({
   const { variant: bannerVariant } = useContext(BannerContext);
 
   const hoverClasses: Record<BannerVariant, string> = {
-    default: 'hover:bg-undefined-hover',
+    default: 'hover:bg-accent',
     neutral: 'hover:bg-neutral-hover',
     destructive: 'hover:bg-destructive-hover',
     warning: 'hover:bg-warning-hover',
