@@ -82,7 +82,7 @@ function UserDetailsDemo() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
             <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="ext-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
+              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
                 User settings
               </div>
             </DropdownMenuLabel>
@@ -211,8 +211,6 @@ import {
   IconBell,
   IconHelp,
 } from "@tabler/icons-react"
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/aura/avatar';
-import * as React from 'react';
 
 function UserDetailsDemo() {
   return (
@@ -222,11 +220,13 @@ function UserDetailsDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open User DetailsMenu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 ">
-              <div>User Details</div>
+          <DropdownMenuContent className="w-[280px] px-1">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
+              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
+                User settings
+              </div>
             </DropdownMenuLabel>
-            <div className="px-1 pt-1">
+            <div>
               <DropdownMenuItem>
                 <IconUser />
                 Profile
