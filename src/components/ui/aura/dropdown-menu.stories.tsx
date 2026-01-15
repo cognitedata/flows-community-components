@@ -313,7 +313,6 @@ export const WithCheckboxItems: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-64">
             <DropdownMenuLabel>Notification Preferences</DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <div className="px-1">
               <DropdownMenuCheckboxItem
                 checked={checkedItems.emails}
@@ -403,7 +402,7 @@ export const WithRadioGroup: Story = {
     const radioItems = menuDoc.querySelectorAll(
       '[data-slot="dropdown-menu-radio-item"]'
     );
-    
+
     // Click the second radio item (List)
     await userEvent.click(radioItems[1] as Element);
 
@@ -432,7 +431,6 @@ export const WithRadioGroup: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>Display Mode</DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <DropdownMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
               <DropdownMenuRadioItem value="grid">
                 Grid view
@@ -484,7 +482,7 @@ export const WithDestructiveAction: Story = {
           '[data-slot="dropdown-menu-content"]'
         );
         expect(menu).toHaveTextContent('Delete');
-        
+
         // Verify destructive variant
         const deleteItem = canvasElement.ownerDocument.querySelector(
           '[data-variant="destructive"]'
