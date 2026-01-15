@@ -932,7 +932,10 @@ function CheckboxDemo() {
                         onSelect={() => handleToggle(option.value)}
                         className="flex items-center gap-2 h-[36px]"
                       >
-                        <Checkbox checked={isSelected} className="data-[state=checked]:!bg-foreground data-[state=checked]:!border-foreground data-[state=checked]:!text-background dark:data-[state=checked]:!bg-foreground" />
+                        <Checkbox 
+                          checked={isSelected} 
+                          className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:border-foreground dark:data-[state=checked]:text-background [&[data-state=checked]]:bg-foreground [&[data-state=checked]]:border-foreground [&[data-state=checked]]:text-background" 
+                        />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                           {option.label}
                         </span>
@@ -2066,7 +2069,10 @@ export function CheckboxDemo() {
                         onSelect={() => handleToggle(option.value)}
                         className="flex items-center gap-2 h-[36px]"
                       >
-                        <Checkbox checked={isSelected} className="data-[state=checked]:!bg-foreground data-[state=checked]:!border-foreground data-[state=checked]:!text-background dark:data-[state=checked]:!bg-foreground" />
+                        <Checkbox 
+                          checked={isSelected} 
+                          className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:border-foreground dark:data-[state=checked]:text-background [&[data-state=checked]]:bg-foreground [&[data-state=checked]]:border-foreground [&[data-state=checked]]:text-background" 
+                        />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                           {option.label}
                         </span>
