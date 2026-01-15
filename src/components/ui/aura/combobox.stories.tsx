@@ -221,7 +221,7 @@ export const Basic: Story = {
                 <IconSelector className="h-4 w-4 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0">
+            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -387,7 +387,7 @@ export const WithAddNew: Story = {
                 <IconSelector className="h-4 w-4 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0">
+            <PopoverContent className="w-[380px] p-0" aria-label="User selection with add new">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search users..."
@@ -607,7 +607,7 @@ export const MultiSelect: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0">
+            <PopoverContent className="w-[380px] p-0" aria-label="Data type selection">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search data type..."
@@ -744,7 +744,7 @@ export const WithCheckboxes: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0">
+            <PopoverContent className="w-[380px] p-0" aria-label="Preferences selection">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search preferences..."
@@ -864,7 +864,7 @@ export const KeyboardNavigation: Story = {
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0">
+            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -956,7 +956,7 @@ export const EmptyState: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0">
+            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -1028,7 +1028,7 @@ export const Disabled: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0">
+            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -1092,7 +1092,7 @@ export const WithError: Story = {
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[380px] p-0">
+          <PopoverContent className="w-[380px] p-0" aria-label="User selection">
             <Command>
               <CommandInput placeholder="Search users..." />
               <CommandList>
@@ -1181,7 +1181,7 @@ export const ComplexInteractive: Story = {
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[300px] p-0">
+          <PopoverContent className="w-[300px] p-0" aria-label="View selection">
             <Command>
               <CommandInput placeholder="Search views..." />
               <CommandList>
