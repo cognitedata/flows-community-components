@@ -14,6 +14,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuGroup,
 } from './dropdown-menu';
 import { Button } from './button';
 import {
@@ -218,7 +219,7 @@ export const WithUserLabel: Story = {
               </span>
             </div>
           </DropdownMenuLabel>
-          <div className="px-1 pt-1">
+          <DropdownMenuGroup className="px-1">
             <DropdownMenuItem>
               <IconUser />
               Profile
@@ -235,7 +236,7 @@ export const WithUserLabel: Story = {
               <IconHelp />
               Help
             </DropdownMenuItem>
-          </div>
+          </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -333,7 +334,7 @@ export const WithCheckboxItems: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-64">
             <DropdownMenuLabel>Notification Preferences</DropdownMenuLabel>
-            <div className="px-1">
+            <DropdownMenuGroup className="px-1">
               <DropdownMenuCheckboxItem
                 checked={checkedItems.emails}
                 onCheckedChange={(checked) =>
@@ -366,7 +367,7 @@ export const WithCheckboxItems: Story = {
               >
                 Security alerts
               </DropdownMenuCheckboxItem>
-            </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -842,7 +843,7 @@ export const ComplexInteractive: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-80">
             <DropdownMenuLabel>Notification Settings</DropdownMenuLabel>
-            <div className="px-1">
+            <DropdownMenuGroup className="px-1">
               <DropdownMenuCheckboxItem
                 checked={notifications.email}
                 onCheckedChange={(checked) =>
@@ -867,7 +868,7 @@ export const ComplexInteractive: Story = {
               >
                 SMS notifications
               </DropdownMenuCheckboxItem>
-            </div>
+            </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
 
@@ -880,12 +881,12 @@ export const ComplexInteractive: Story = {
 
             <DropdownMenuSeparator />
 
-            <div className="px-1">
+            <DropdownMenuGroup className="px-1">
               <DropdownMenuItem onClick={() => setLastAction('Reset preferences')}>
                 <IconSettingsFilled />
                 Reset to defaults
               </DropdownMenuItem>
-            </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

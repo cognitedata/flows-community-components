@@ -12,6 +12,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSectionLabel,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
 } from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from './types';
 import {
@@ -50,7 +51,7 @@ function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuLabel>
-            <div className="px-1 pt-1">
+            <DropdownMenuGroup className="px-1">
               <DropdownMenuItem>
                 <IconUser />
                 Profile
@@ -68,7 +69,7 @@ function BasicDemo() {
                 <IconHelp />
                 Help
               </DropdownMenuItem>
-            </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -90,7 +91,7 @@ function UserDetailsDemo() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
             <DropdownMenuSectionLabel>User settings</DropdownMenuSectionLabel>
-            <div>
+            <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUser />
                 Profile
@@ -108,7 +109,7 @@ function UserDetailsDemo() {
                 <IconHelp />
                 Help
               </DropdownMenuItem>
-            </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -248,6 +249,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
 } from "@/components/ui/aura/dropdown-menu"
 import {
   Avatar,
@@ -284,7 +286,7 @@ function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuLabel>
-            <div className="px-1 pt-1">
+            <DropdownMenuGroup className="px-1">
               <DropdownMenuItem>
                 <IconUser />
                 Profile
@@ -302,7 +304,7 @@ function BasicDemo() {
                 <IconHelp />
                 Help
               </DropdownMenuItem>
-            </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -326,6 +328,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSectionLabel,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
 } from "@/components/ui/aura/dropdown-menu"
 import {
   IconUser,
@@ -346,7 +349,7 @@ function UserDetailsDemo() {
             <DropdownMenuSectionLabel>
               User settings
             </DropdownMenuSectionLabel>
-            <div>
+            <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUser />
                 Profile
@@ -364,7 +367,7 @@ function UserDetailsDemo() {
                 <IconHelp />
                 Help
               </DropdownMenuItem>
-            </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
