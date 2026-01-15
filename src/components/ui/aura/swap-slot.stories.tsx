@@ -397,17 +397,17 @@ export const PriorityOrder: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     
-    // Test priority 1: activeSlot wins over all
+    // Test priority 1: activeSlot wins over all (only Active Slot should show)
     const activeSlot = canvas.getByText('Active Slot');
     await expect(activeSlot).toBeInTheDocument();
     
-    // Test priority 2: defaultSlot wins over children
-    const defaultSlots = canvas.getAllByText('Default Slot');
-    await expect(defaultSlots.length).toBeGreaterThanOrEqual(2);
+    // Test priority 2: defaultSlot wins over children (only 1 Default Slot visible in scenario 2)
+    const defaultSlot = canvas.getByText('Default Slot');
+    await expect(defaultSlot).toBeInTheDocument();
     
-    // Test priority 3: children is shown when nothing else
-    const children = canvas.getAllByText('Children');
-    await expect(children.length).toBeGreaterThanOrEqual(1);
+    // Test priority 3: children is shown when nothing else (only 1 Children visible in scenario 3)
+    const children = canvas.getByText('Children');
+    await expect(children).toBeInTheDocument();
   },
   render: function PriorityOrderStory() {
     return (
