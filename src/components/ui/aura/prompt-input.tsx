@@ -35,7 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/aura/select';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { ChatStatus, FileUIPart } from 'ai';
 import {
   IconInfoCircle,
@@ -260,6 +260,10 @@ export type PromptInputAttachmentProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
 };
 
+/**
+ * Displays a single attachment with preview on hover and remove button.
+ * Use as children of PromptInputAttachments render function.
+ */
 export function PromptInputAttachment({
   data,
   className,
@@ -356,6 +360,10 @@ export type PromptInputAttachmentsProps = Omit<
   children: (attachment: FileUIPart & { id: string }) => ReactNode;
 };
 
+/**
+ * Renders the list of attached files. Takes a render function as children.
+ * Place inside PromptInputBody before PromptInputTextarea.
+ */
 export function PromptInputAttachments({
   children,
 }: PromptInputAttachmentsProps) {
@@ -425,6 +433,11 @@ export type PromptInputProps = Omit<
   helperText?: ReactNode | false;
 };
 
+/**
+ * AI chat input component with file attachments, drag-and-drop, and customizable helper text.
+ * Supports image uploads, paste functionality, and integrates with speech-to-text and model selection tools.
+ * Must be wrapped in PromptInputProvider for full functionality.
+ */
 export const PromptInput = ({
   className,
   accept,
@@ -787,6 +800,9 @@ export const PromptInput = ({
 
 export type PromptInputBodyProps = HTMLAttributes<HTMLDivElement>;
 
+/**
+ * Container for the main input area, including attachments display and textarea.
+ */
 export const PromptInputBody = ({
   className,
   ...props
@@ -798,6 +814,10 @@ export type PromptInputTextareaProps = ComponentProps<
   typeof InputGroupTextarea
 >;
 
+/**
+ * Auto-growing textarea for message input. Supports Enter to submit, Shift+Enter for new line,
+ * and Backspace to remove last attachment when empty. Handles image paste automatically.
+ */
 export const PromptInputTextarea = ({
   onChange,
   className,
@@ -876,6 +896,7 @@ export const PromptInputTextarea = ({
         'field-sizing-content max-h-48 min-h-18 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5',
         className
       )}
+      data-testid="prompt-input-textarea"
       name="message"
       onCompositionEnd={() => setIsComposing(false)}
       onCompositionStart={() => setIsComposing(true)}
@@ -909,6 +930,9 @@ export type PromptInputFooterProps = Omit<
   'align'
 >;
 
+/**
+ * Footer section for tools and submit button. Use PromptInputTools and PromptInputSubmit as children.
+ */
 export const PromptInputFooter = ({
   className,
   ...props
@@ -922,6 +946,10 @@ export const PromptInputFooter = ({
 
 export type PromptInputToolsProps = HTMLAttributes<HTMLDivElement>;
 
+/**
+ * Container for tool buttons like settings, model selector, or custom actions.
+ * Place on the left side of PromptInputFooter.
+ */
 export const PromptInputTools = ({
   className,
   ...props
@@ -931,6 +959,10 @@ export const PromptInputTools = ({
 
 export type PromptInputButtonProps = ComponentProps<typeof InputGroupButton>;
 
+/**
+ * Button component for custom tool actions. Use inside PromptInputTools.
+ * Automatically sizes based on content (icon-only or with text).
+ */
 export const PromptInputButton = ({
   variant = 'ghost',
   className,
@@ -997,6 +1029,10 @@ export type PromptInputSubmitProps = ComponentProps<typeof InputGroupButton> & {
   status?: ChatStatus;
 };
 
+/**
+ * Submit button with loading states. Shows different icons for ready, submitted, streaming, and error states.
+ * Use on the right side of PromptInputFooter.
+ */
 export const PromptInputSubmit = ({
   className,
   variant = 'default',
@@ -1019,6 +1055,8 @@ export const PromptInputSubmit = ({
     <InputGroupButton
       aria-label="Submit"
       className={cn(className)}
+      data-status={status}
+      data-testid="prompt-input-submit"
       size={size}
       type="submit"
       variant={variant}
@@ -1090,6 +1128,10 @@ export type PromptInputSpeechButtonProps = ComponentProps<
   onTranscriptionChange?: (text: string) => void;
 };
 
+/**
+ * Speech-to-text button using Web Speech API. Transcribes voice input to the textarea.
+ * Requires a ref to the PromptInputTextarea. Button pulses while listening.
+ */
 export const PromptInputSpeechButton = ({
   className,
   textareaRef,
@@ -1186,6 +1228,7 @@ export const PromptInputSpeechButton = ({
       )}
       disabled={!recognition}
       onClick={toggleListening}
+      aria-label={isListening ? 'Stop recording' : 'Start voice input'}
       {...props}
     >
       <IconMicrophone className="size-4" />

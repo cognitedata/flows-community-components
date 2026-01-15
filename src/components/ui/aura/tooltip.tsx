@@ -1,17 +1,18 @@
 'use client';
 
-import * as React from 'react';
+import type { ComponentProps } from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
-import { cn } from '@/common/utils';
+import { cn, getPortalContainer } from '@/lib/utils';
 
 function TooltipProvider({
   delayDuration = 0,
   ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
+}: ComponentProps<typeof TooltipPrimitive.Provider>) {
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
+      data-testid="tooltip-provider"
       delayDuration={delayDuration}
       {...props}
     />
@@ -20,18 +21,18 @@ function TooltipProvider({
 
 function Tooltip({
   ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Root>) {
+}: ComponentProps<typeof TooltipPrimitive.Root>) {
   return (
     <TooltipProvider>
-      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+      <TooltipPrimitive.Root data-slot="tooltip" data-testid="tooltip" {...props} />
     </TooltipProvider>
   );
 }
 
 function TooltipTrigger({
   ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+}: ComponentProps<typeof TooltipPrimitive.Trigger>) {
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" data-testid="tooltip-trigger" {...props} />;
 }
 
 function TooltipContent({
@@ -40,11 +41,12 @@ function TooltipContent({
   side = 'top',
   children,
   ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Content>) {
+}: ComponentProps<typeof TooltipPrimitive.Content>) {
   return (
-    <TooltipPrimitive.Portal>
+    <TooltipPrimitive.Portal container={getPortalContainer()}>
       <TooltipPrimitive.Content
         data-slot="tooltip-content"
+        data-testid="tooltip-content"
         sideOffset={sideOffset}
         side={side}
         className={cn(

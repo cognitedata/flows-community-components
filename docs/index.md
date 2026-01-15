@@ -30,7 +30,7 @@ Install components from the published registry:
 
 ```bash
 # Install a specific component
-npx shadcn add @cognite/aura/button
+npx shadcn add @aura/button
 
 # The CLI will automatically install dependencies
 ```

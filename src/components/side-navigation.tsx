@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface NavigationItem {
@@ -79,14 +79,14 @@ const overviewNavigation: NavigationItem[] = docsNavigation;
 const primitivesNavigation: NavigationItem[] = [
   {
     href: '#',
-    label: 'Styling & assets',
+    label: 'Foundations',
     isSubsection: true,
     children: [
       { href: '/primitives/colors', label: 'Colors' },
       { href: '/primitives/effects', label: 'Effects' },
       // { href: '/primitives/icons', label: 'Icons' },
       // { href: '/primitives/illustrations', label: 'Illustrations' },
-      // { href: '/primitives/layouts', label: 'Layouts' },
+      { href: '/primitives/layouts', label: 'Layouts' },
       // { href: '/primitives/motion-design', label: 'Motion design' },
       // { href: '/primitives/theming', label: 'Theming' },
       { href: '/primitives/typography', label: 'Typography' },
@@ -94,7 +94,7 @@ const primitivesNavigation: NavigationItem[] = [
   },
   {
     href: '#',
-    label: 'Components',
+    label: 'Primitives',
     isSubsection: true,
     children: [
       { href: '/primitives/components/accordion', label: 'Accordion' },
@@ -143,15 +143,15 @@ const primitivesNavigation: NavigationItem[] = [
   },
 ];
 
-const blocksNavigation: NavigationItem[] = [
-  { href: '/blocks', label: 'About' },
+const patternsNavigation: NavigationItem[] = [
+  { href: '/patterns', label: 'About' },
   {
     href: '#',
-    label: 'Blocks',
+    label: 'Patterns',
     isSubsection: true,
     children: [
-      { href: '/blocks/agent-chat', label: 'Agent chat' },
-      { href: '/blocks/dashboards', label: 'Dashboards' },
+      { href: '/patterns/agent-chat', label: 'Agent chat' },
+      { href: '/patterns/dashboards', label: 'Dashboards' },
       { href: '/eos/shift-handover-app', label: 'Shift handover' },
     ],
   },
@@ -170,6 +170,7 @@ const aiNavigation: NavigationItem[] = [
       // { href: '/ai/components/actions', label: 'Actions' },
       { href: '/ai/components/branch', label: 'Branch' },
       { href: '/ai/components/code-block', label: 'Code block' },
+      { href: '/ai/components/confirmation', label: 'Confirmation' },
       { href: '/ai/components/conversation', label: 'Conversation' },
       // { href: "/ai/components/image", label: "Image" },
       { href: '/ai/components/inline-citation', label: 'Inline Citation' },
@@ -177,7 +178,7 @@ const aiNavigation: NavigationItem[] = [
       { href: '/ai/components/message', label: 'Message' },
       { href: '/ai/components/prompt-input', label: 'Prompt input' },
       { href: '/ai/components/reasoning', label: 'Reasoning' },
-      { href: '/ai/components/response', label: 'Response' },
+      // { href: '/ai/components/reasoning-original', label: 'Reasoning (Original)' },
       { href: '/ai/components/shimmer', label: 'Shimmer' },
       { href: '/ai/components/sources', label: 'Sources' },
       { href: '/ai/components/suggestion', label: 'Suggestion' },
@@ -213,7 +214,7 @@ export const navigationMap = {
   docs: docsNavigation,
   overview: overviewNavigation, // Keep for backward compatibility
   primitives: primitivesNavigation,
-  blocks: blocksNavigation,
+  patterns: patternsNavigation,
   sandbox: sandboxNavigation,
   ai: aiNavigation,
 };

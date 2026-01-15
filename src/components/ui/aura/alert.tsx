@@ -1,13 +1,13 @@
 'use client';
 
-import * as React from 'react';
+import { createContext, useContext, type ComponentProps } from 'react';
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { IconX } from '@tabler/icons-react';
 import type { MouseEventHandler } from 'react';
 
-import { cn } from '@/common/utils';
-import { Button } from '#aura/button';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/aura/button';
 
 type AlertVariant = 'default' | 'secondary' | 'warning' | 'error';
 
@@ -17,14 +17,14 @@ type AlertContextProps = {
   variant: AlertVariant;
 };
 
-const AlertContext = React.createContext<AlertContextProps>({
+const AlertContext = createContext<AlertContextProps>({
   show: true,
   setShow: () => {},
   variant: 'default',
 });
 
 const alertVariants = cva(
-  'relative w-full rounded-md border pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
+  'relative w-full rounded-md border pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[var(--alert-icon-width)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current',
   {
     variants: {
       variant: {
@@ -40,7 +40,7 @@ const alertVariants = cva(
   }
 );
 
-type AlertProps = React.ComponentProps<'div'> &
+type AlertProps = ComponentProps<'div'> &
   VariantProps<typeof alertVariants> & {
     visible?: boolean;
     defaultVisible?: boolean;
@@ -83,7 +83,7 @@ function Alert({
   );
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertTitle({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="alert-title"
@@ -96,10 +96,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function AlertDescription({
-  className,
-  ...props
-}: React.ComponentProps<'div'>) {
+function AlertDescription({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="alert-description"
@@ -112,7 +109,7 @@ function AlertDescription({
   );
 }
 
-function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertActions({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       data-slot="alert-actions"
@@ -125,8 +122,8 @@ function AlertActions({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function AlertButton({ className, ...props }: React.ComponentProps<'button'>) {
-  const { variant } = React.useContext(AlertContext);
+function AlertButton({ className, ...props }: ComponentProps<'button'>) {
+  const { variant } = useContext(AlertContext);
 
   const hoverClasses: Record<AlertVariant, string> = {
     default: 'hover:bg-undefined-hover',
@@ -150,8 +147,8 @@ function AlertClose({
   className,
   onClick,
   ...props
-}: React.ComponentProps<'button'>) {
-  const { setShow } = React.useContext(AlertContext);
+}: ComponentProps<'button'>) {
+  const { setShow } = useContext(AlertContext);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     setShow(false);

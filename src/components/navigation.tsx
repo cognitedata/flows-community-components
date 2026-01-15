@@ -5,13 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/aura/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/aura/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/aura/sheet';
 import Image from 'next/image';
 import auraLogo from '@/../public/aura-logo.png';
 import {
@@ -24,7 +20,7 @@ import {
 const navItems = [
   { href: '/primitives', label: 'Primitives' },
   { href: '/ai', label: 'AI' },
-  { href: '/blocks', label: 'Blocks' },
+  { href: '/patterns', label: 'Patterns' },
   { href: '/eos', label: 'Templates' },
 ];
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { cn } from '@/common/utils';
-import { motion } from 'motion/react';
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 import { type CSSProperties, type ElementType, memo, useMemo } from 'react';
 
 export type TextShimmerProps = {
@@ -87,7 +87,7 @@ const ShimmerComponent = ({
         backgroundPosition: ['100% center, center', '0% center, center'],
       }}
       className={cn(
-        'relative inline-block px-4 py-2 bg-clip-text text-transparent rounded-md',
+        'relative inline-block bg-clip-text text-transparent rounded-md',
         className
       )}
       style={

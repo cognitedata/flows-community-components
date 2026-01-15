@@ -1,6 +1,17 @@
 'use client';
 
-import * as React from 'react';
+import {
+  createContext,
+  useContext,
+  Children,
+  isValidElement,
+  useState,
+  useCallback,
+  useMemo,
+  type ComponentProps,
+  type ReactNode,
+} from 'react';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/aura/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/aura/scroll-area';
 import {
@@ -13,8 +24,6 @@ import {
   SelectTrigger as SelectTriggerPrimitive,
   SelectValue as SelectValuePrimitive,
 } from '@/components/ui/aura/select';
-import { cn } from '@/common/utils';
-import type { ComponentProps, ReactNode } from 'react';
 
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 
@@ -36,12 +45,10 @@ type SuggestionContextValue = {
   onItemSelect: (value: string) => void;
 };
 
-const SuggestionContext = React.createContext<SuggestionContextValue | null>(
-  null
-);
+const SuggestionContext = createContext<SuggestionContextValue | null>(null);
 
 const useSuggestion = () => {
-  const context = React.useContext(SuggestionContext);
+  const context = useContext(SuggestionContext);
   if (!context) {
     throw new Error('Suggestion components must be used within Suggestion');
   }
@@ -51,8 +58,8 @@ const useSuggestion = () => {
 // Helper to detect if children contain SuggestionTrigger
 const hasSuggestionTrigger = (children: ReactNode): boolean => {
   let hasTrigger = false;
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && child.type === SuggestionTrigger) {
+  Children.forEach(children, (child) => {
+    if (isValidElement(child) && child.type === SuggestionTrigger) {
       hasTrigger = true;
     }
   });
@@ -65,7 +72,8 @@ export type SuggestionProps =
       suggestion: string;
       onClick?: (suggestion: string) => void;
       onValueChange?: never;
-      variant?: 'ghost' | 'outline' | 'default' | 'secondary' | 'destructive';
+      /** Only ghost and outline variants are supported. Suggestions are designed to have secondary backgrounds with primary text. */
+      variant?: 'ghost' | 'outline';
       size?: 'sm' | 'default' | 'lg' | 'icon';
     })
   | (ComponentProps<'div'> & {
@@ -86,13 +94,13 @@ export const Suggestion = (props: SuggestionProps) => {
     ...restProps
   } = props;
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   // Detect mode based on children
   const isSelectMode = hasSuggestionTrigger(children as ReactNode);
 
   // Handle item selection for Select mode
-  const handleValueChange = React.useCallback(
+  const handleValueChange = useCallback(
     (value: string) => {
       if (value) {
         onValueChange?.(value);
@@ -102,7 +110,7 @@ export const Suggestion = (props: SuggestionProps) => {
     [onValueChange]
   );
 
-  const handleItemSelect = React.useCallback(
+  const handleItemSelect = useCallback(
     (value: string) => {
       onValueChange?.(value);
       setOpen(false); // Auto-close after selection
@@ -110,7 +118,7 @@ export const Suggestion = (props: SuggestionProps) => {
     [onValueChange]
   );
 
-  const suggestionContext = React.useMemo(
+  const suggestionContext = useMemo(
     () => ({ onItemSelect: handleItemSelect }),
     [handleItemSelect]
   );
@@ -122,7 +130,7 @@ export const Suggestion = (props: SuggestionProps) => {
       size = 'sm',
       ...buttonProps
     } = restProps as {
-      variant?: 'ghost' | 'outline' | 'default' | 'secondary' | 'destructive';
+      variant?: 'ghost' | 'outline';
       size?: 'sm' | 'default' | 'lg' | 'icon';
     } & Omit<ComponentProps<typeof Button>, 'onClick' | 'variant' | 'size'>;
 
@@ -235,7 +243,7 @@ export const SuggestionItem = ({
   const { onItemSelect } = useSuggestion();
 
   // Extract text content from children to use as value
-  const textValue = React.useMemo(() => {
+  const textValue = useMemo(() => {
     if (typeof children === 'string') {
       return children;
     }

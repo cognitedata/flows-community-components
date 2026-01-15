@@ -1,9 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/aura/button';
-import { cn } from '@/common/utils';
+import { cn } from '@/lib/utils';
 import type { Element } from 'hast';
-import { IconCheck, IconChevronDown, IconCopy } from '@tabler/icons-react';
+import { IconCheck, IconCopy, IconSelector } from '@tabler/icons-react';
 import {
   type ComponentProps,
   createContext,
@@ -127,7 +127,7 @@ export const CodeBlock = ({
     >
       <div
         className={cn(
-          'group relative w-full overflow-hidden rounded-md bg-background text-foreground',
+          'group/code-block relative w-full overflow-hidden rounded-md bg-background text-foreground',
           className
         )}
         {...props}
@@ -155,7 +155,7 @@ export const CodeBlock = ({
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-card/70 to-card" />
           )}
           {children && (
-            <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover:flex">
+            <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover/code-block:flex">
               {children}
             </div>
           )}
@@ -189,11 +189,25 @@ export const CodeBlockCopyButton = ({
     }
 
     try {
+      // Check for permission explicitly if the browser supports it
+      if (navigator.permissions && navigator.permissions.query) {
+        const permissionStatus = await navigator.permissions.query({
+          name: 'clipboard-write' as PermissionName,
+        });
+
+        if (permissionStatus.state === 'denied') {
+          onError?.(new Error('Clipboard access denied by browser policy'));
+          return;
+        }
+      }
+
       await navigator.clipboard.writeText(copyText);
       setIsCopied(true);
       onCopy?.();
       setTimeout(() => setIsCopied(false), timeout);
     } catch (error) {
+      // This will catch the "Violation" or "NotAllowedError"
+      console.warn('Clipboard write failed:', error);
       onError?.(error as Error);
     }
   };
@@ -236,12 +250,7 @@ export const CodeBlockCollapseButton = ({
       variant="secondary"
       {...props}
     >
-      {children ?? (
-        <IconChevronDown
-          size={14}
-          className={cn('transition-transform', !isCollapsed && 'rotate-180')}
-        />
-      )}
+      {children ?? <IconSelector size={14} />}
     </Button>
   );
 };
