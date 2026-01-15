@@ -24,7 +24,6 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from './avatar';
 import {
   IconUser,
-  IconSettings,
   IconSettingsFilled,
   IconBell,
   IconHelp,
@@ -254,7 +253,7 @@ export const WithLabelsAndSeparators: Story = {
             Profile
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconSettings aria-hidden="true" />
+            <IconSettingsFilled aria-hidden="true" />
             Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -607,7 +606,7 @@ export const WithSubmenu: Story = {
         </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <IconSettings aria-hidden="true" />
+          <IconSettingsFilled aria-hidden="true" />
           Settings
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -667,15 +666,15 @@ export const Destructive: Story = {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[200px] px-1">
         <DropdownMenuItem>
-          <IconUser />
+          <IconUser aria-hidden="true" />
           Profile
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <IconSettingsFilled />
+          <IconSettingsFilled aria-hidden="true" />
           Settings
         </DropdownMenuItem>
         <DropdownMenuItem variant="destructive">
-          <IconTrash />
+          <IconTrash aria-hidden="true" />
           Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -812,19 +811,19 @@ export const UserDetails: Story = {
         </DropdownMenuLabel>
         <div>
           <DropdownMenuItem>
-            <IconUser />
+            <IconUser aria-hidden="true" />
             Profile
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconSettingsFilled />
+            <IconSettingsFilled aria-hidden="true" />
             Settings
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconBell />
+            <IconBell aria-hidden="true" />
             Notifications
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconHelp />
+            <IconHelp aria-hidden="true" />
             Help
           </DropdownMenuItem>
         </div>
@@ -917,7 +916,7 @@ export const Complex: Story = {
               <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <IconSettings aria-hidden="true" />
+              <IconSettingsFilled aria-hidden="true" />
               Settings
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
