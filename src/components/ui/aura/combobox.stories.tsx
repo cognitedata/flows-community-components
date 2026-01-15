@@ -1175,7 +1175,7 @@ export const ComplexInteractive: Story = {
               aria-expanded={open}
               className="w-full justify-between"
             >
-              {selectedItem ? selectedItem.label : 'Select view...'}
+              <span>{selectedItem ? selectedItem.label : 'Select view...'}</span>
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
