@@ -19,7 +19,7 @@ jobs:
           echo "name=$SAFE_BRANCH" >> $GITHUB_OUTPUT
 
       - name: Delete preview artifact
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const artifactName = 'branch-preview-${{ steps.branch.outputs.name }}';
@@ -48,7 +48,7 @@ jobs:
             }
 
       - name: Trigger deploy workflow
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             await github.rest.actions.createWorkflowDispatch({

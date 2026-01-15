@@ -155,6 +155,18 @@
       ]
     },
     {
+      "name": "colors",
+      "type": "registry:component",
+      "title": "Colors",
+      "description": "Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/colors.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "chart",
       "type": "registry:component",
       "title": "Chart",
@@ -874,8 +886,8 @@
       "type": "registry:component",
       "title": "Message",
       "description": "An AI chat message component with avatar support for user and assistant roles.",
-      "dependencies": ["ai", "@tabler/icons-react", "streamdown"],
-      "registryDependencies": ["avatar", "button", "button-group", "tooltip"],
+      "dependencies": ["ai", "@tabler/icons-react", "streamdown", "shiki"],
+      "registryDependencies": ["avatar", "button", "button-group", "code-block", "tooltip"],
       "files": [
         {
           "path": "src/components/ui/aura/message.tsx",
@@ -1050,6 +1062,18 @@
       "files": [
         {
           "path": "src/components/ui/aura/toolbar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "effects",
+      "type": "registry:component",
+      "title": "Effects",
+      "description": "Effect definitions including shadows, focus rings, border radii, and transitions for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/effects.tsx",
           "type": "registry:component"
         }
       ]
