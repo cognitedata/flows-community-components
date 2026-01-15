@@ -25,18 +25,3 @@ export interface CodeExample {
   code: string;
 }
 
-/** Component metadata structure */
-export interface ComponentMetadata {
-  /** Display name of the component */
-  name: string;
-  /** Brief description of the component's purpose */
-  description: string;
-  /** Instructions for LLMs on how to use this component */
-  llmUsage?: string;
-  /** Import path for the component */
-  importPath?: string;
-  /** Stories to display in the docs page */
-  docsStories?: DocsStory[];
-  /** Code examples for documentation */
-  codeExamples?: CodeExample[];
-}

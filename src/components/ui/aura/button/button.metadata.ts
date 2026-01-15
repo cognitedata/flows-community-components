@@ -1,4 +1,4 @@
-import type { ComponentMetadata } from '@/lib/component-metadata.types';
+import type { ComponentMeta } from '@/lib/component-examples';
 
 /**
  * Button Component Metadata
@@ -6,7 +6,7 @@ import type { ComponentMetadata } from '@/lib/component-metadata.types';
  * This metadata is used by the documentation system to generate
  * component documentation pages and provide context for LLMs.
  */
-export const ButtonMetadata: ComponentMetadata = {
+export const ButtonMetadata: ComponentMeta = {
   name: 'Button',
 
   description:

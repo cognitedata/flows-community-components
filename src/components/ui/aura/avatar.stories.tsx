@@ -11,7 +11,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
 } from './dropdown-menu';
 import {
   IconWheel,
@@ -203,7 +202,7 @@ export const WithImage: Story = {
     );
 
     // Wait for image element to appear (Radix Avatar only renders it when image loads)
-    const image = await waitFor(
+    await waitFor(
       () => {
         const found = canvasElement.querySelector('[data-slot="avatar-image"]');
         expect(found).toBeInTheDocument();
@@ -1350,7 +1349,8 @@ export const EdgeCaseComplexIcons: Story = {
       </Avatar>
       <Avatar variant="fjord">
         <AvatarIcon>
-          <svg width="20" height="20" viewBox="0 0 20 20">
+          <svg width="20" height="20" viewBox="0 0 20 20" role="img" aria-label="Avatar icon">
+            <title>Avatar icon</title>
             <circle cx="10" cy="10" r="8" fill="currentColor" opacity="0.3" />
             <circle cx="10" cy="10" r="4" fill="currentColor" />
           </svg>

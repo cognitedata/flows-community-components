@@ -1,12 +1,6 @@
+import type { ComponentMeta } from './component-examples';
 import { hasStoryRenderer } from './stories-registry';
 import { slugToPascalCase } from './utils';
-
-export interface ComponentMeta {
-  name: string;
-  description: string;
-  llmUsage?: string;
-  importPath?: string;
-}
 
 /**
  * Get component metadata.
