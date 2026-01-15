@@ -246,7 +246,7 @@ export const WithCheckboxItems: Story = {
     docs: {
       description: {
         story:
-          'Dropdown menu with checkbox items. Menu stays open when toggling checkboxes. Shows selected items below.',
+          'Dropdown menu with checkbox items. Menu stays open when toggling checkboxes. Shows selected items above for better visibility.',
       },
     },
   },
@@ -304,6 +304,15 @@ export const WithCheckboxItems: Story = {
 
     return (
       <div className="space-y-4">
+        <div className="text-sm text-muted-foreground">
+          {selectedCount} notification{selectedCount !== 1 ? 's' : ''} selected:
+          <ul className="mt-2 space-y-1">
+            {checkedItems.emails && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Email notifications</li>}
+            {checkedItems.messages && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Direct messages</li>}
+            {checkedItems.updates && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Product updates</li>}
+            {checkedItems.security && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Security alerts</li>}
+          </ul>
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
@@ -349,15 +358,6 @@ export const WithCheckboxItems: Story = {
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
-        <div className="text-sm text-muted-foreground">
-          {selectedCount} notification{selectedCount !== 1 ? 's' : ''} selected:
-          <ul className="mt-2 space-y-1">
-            {checkedItems.emails && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Email notifications</li>}
-            {checkedItems.messages && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Direct messages</li>}
-            {checkedItems.updates && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Product updates</li>}
-            {checkedItems.security && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Security alerts</li>}
-          </ul>
-        </div>
       </div>
     );
   },
@@ -372,7 +372,7 @@ export const WithRadioGroup: Story = {
     docs: {
       description: {
         story:
-          'Dropdown menu with radio group items. Menu stays open when selecting options. Shows current selection below.',
+          'Dropdown menu with radio group items. Menu stays open when selecting options. Shows current selection above for better visibility.',
       },
     },
   },
@@ -422,6 +422,9 @@ export const WithRadioGroup: Story = {
 
     return (
       <div className="space-y-4">
+        <div className="text-sm text-muted-foreground">
+          Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
@@ -447,9 +450,6 @@ export const WithRadioGroup: Story = {
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
-        <div className="text-sm text-muted-foreground">
-          Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
-        </div>
       </div>
     );
   },
