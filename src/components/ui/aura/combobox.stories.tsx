@@ -16,7 +16,6 @@ import { Label } from './label';
 import { Avatar, AvatarFallback } from './avatar';
 import { Badge } from './badge';
 import { Button } from './button';
-import { Checkbox } from './checkbox';
 import { HelperText } from './helper-text';
 import {
   Command,
@@ -668,15 +667,15 @@ const options = [
 ];
 
 /**
- * Combobox with visible checkboxes
- * Tests checkbox interaction and multi-select with visual indicators
+ * Combobox with visible checkbox indicators
+ * Tests multi-select with visual checkbox-style indicators
  */
 export const WithCheckboxes: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Multi-select combobox with visible checkboxes. Tests checkbox state, interaction, and accessibility.',
+          'Multi-select combobox with visual checkbox indicators. The checkmarks are purely visual - interaction is handled by the CommandItem.',
       },
     },
   },
@@ -689,21 +688,21 @@ export const WithCheckboxes: Story = {
     await userEvent.click(trigger);
 
     await waitFor(() => {
-      const checkboxes = canvasElement.ownerDocument.querySelectorAll(
-        '[data-slot="checkbox"]'
+      const commandItems = canvasElement.ownerDocument.querySelectorAll(
+        '[data-slot="command-item"]'
       );
-      expect(checkboxes.length).toBeGreaterThanOrEqual(5);
+      expect(commandItems.length).toBeGreaterThanOrEqual(5);
     });
 
-    // Verify checked states
-    const checkboxes = canvasElement.ownerDocument.querySelectorAll(
-      '[data-slot="checkbox"]'
+    // Verify command items are present and can be interacted with
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
     );
 
-    // First two should be checked (notifications, marketing)
-    expect(checkboxes[0]).toHaveAttribute('data-state', 'checked');
-    expect(checkboxes[1]).toHaveAttribute('data-state', 'checked');
-    expect(checkboxes[2]).toHaveAttribute('data-state', 'unchecked');
+    // First two should be selected (notifications, marketing)
+    expect(commandItems[0]).toHaveAttribute('aria-selected', 'true');
+    expect(commandItems[1]).toHaveAttribute('aria-selected', 'true');
+    expect(commandItems[2]).toHaveAttribute('aria-selected', 'false');
   },
   render: function WithCheckboxesStory(args) {
     const [open, setOpen] = useState(false);
@@ -774,12 +773,17 @@ export const WithCheckboxes: Story = {
                           onSelect={() => handleToggle(option.value)}
                           className="flex items-center gap-2 h-[36px]"
                         >
-                          <Checkbox
-                            checked={isSelected}
-                            tabIndex={-1}
+                          <div
+                            className={cn(
+                              'flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border border-input',
+                              isSelected
+                                ? 'bg-foreground border-foreground text-background dark:bg-foreground dark:text-background'
+                                : 'bg-background'
+                            )}
                             aria-hidden="true"
-                            className="pointer-events-none data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:text-background"
-                          />
+                          >
+                            {isSelected && <IconCheck className="h-3 w-3" />}
+                          </div>
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {option.label}
                           </span>
