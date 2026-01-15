@@ -194,12 +194,12 @@ export const Basic: Story = {
         <div className="space-y-2 w-[380px]">
           <Label className="m-0 p-0">User</Label>
           <Popover
+            {...args}
             open={open}
             onOpenChange={(newOpen) => {
               setOpen(newOpen);
               args.onOpenChange?.(newOpen);
             }}
-            {...args}
           >
             <PopoverTrigger asChild className="py-1 px-1">
               <Button
@@ -364,12 +364,12 @@ export const WithAddNew: Story = {
         <div className="space-y-2 w-[380px]">
           <Label className="m-0 p-0">User</Label>
           <Popover
+            {...args}
             open={open}
             onOpenChange={(newOpen) => {
               setOpen(newOpen);
               args.onOpenChange?.(newOpen);
             }}
-            {...args}
           >
             <PopoverTrigger asChild className="py-1 px-1">
               <Button
@@ -483,7 +483,7 @@ export const MultiSelect: Story = {
     const canvas = within(canvasElement);
 
     const trigger = canvas.getByRole('combobox');
-    
+
     // Verify initial selected values shown
     await expect(trigger).toHaveTextContent('Event');
     await expect(trigger).toHaveTextContent('Observation');
@@ -502,7 +502,7 @@ export const MultiSelect: Story = {
     const commandItems = canvasElement.ownerDocument.querySelectorAll(
       '[data-slot="command-item"]'
     );
-    
+
     // Click first item (should toggle selection)
     if (commandItems[0]) {
       await userEvent.click(commandItems[0] as Element);
@@ -555,12 +555,12 @@ export const MultiSelect: Story = {
         <div className="space-y-2 w-[380px]">
           <Label className="m-0 p-0">Data type</Label>
           <Popover
+            {...args}
             open={open}
             onOpenChange={(newOpen) => {
               setOpen(newOpen);
               args.onOpenChange?.(newOpen);
             }}
-            {...args}
           >
             <PopoverTrigger asChild>
               <Button
@@ -693,7 +693,7 @@ export const WithCheckboxes: Story = {
     const checkboxes = canvasElement.ownerDocument.querySelectorAll(
       '[data-slot="checkbox"]'
     );
-    
+
     // First two should be checked (notifications, marketing)
     expect(checkboxes[0]).toHaveAttribute('data-state', 'checked');
     expect(checkboxes[1]).toHaveAttribute('data-state', 'checked');
@@ -726,12 +726,12 @@ export const WithCheckboxes: Story = {
         <div className="space-y-2 w-[380px]">
           <Label className="m-0 p-0">Preferences</Label>
           <Popover
+            {...args}
             open={open}
             onOpenChange={(newOpen) => {
               setOpen(newOpen);
               args.onOpenChange?.(newOpen);
             }}
-            {...args}
           >
             <PopoverTrigger asChild>
               <Button
@@ -820,7 +820,7 @@ export const KeyboardNavigation: Story = {
 
     // Press ArrowDown to navigate items
     await userEvent.keyboard('{ArrowDown}');
-    
+
     await waitFor(() => {
       const selectedItem = canvasElement.ownerDocument.querySelector(
         '[data-selected="true"]'
@@ -850,12 +850,12 @@ export const KeyboardNavigation: Story = {
         <div className="space-y-2 w-[380px]">
           <Label className="m-0 p-0">User</Label>
           <Popover
+            {...args}
             open={open}
             onOpenChange={(newOpen) => {
               setOpen(newOpen);
               args.onOpenChange?.(newOpen);
             }}
-            {...args}
           >
             <PopoverTrigger asChild>
               <Button
@@ -940,12 +940,12 @@ export const EmptyState: Story = {
         <div className="space-y-2 w-[380px]">
           <Label className="m-0 p-0">User</Label>
           <Popover
+            {...args}
             open={open}
             onOpenChange={(newOpen) => {
               setOpen(newOpen);
               args.onOpenChange?.(newOpen);
             }}
-            {...args}
           >
             <PopoverTrigger asChild>
               <Button
@@ -991,11 +991,13 @@ export const Disabled: Story = {
 
     const trigger = canvas.getByRole('combobox');
     await expect(trigger).toBeDisabled();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 
-    // Verify clicking doesn't open
-    await userEvent.click(trigger);
+    // Verify styles indicate disabled state
+    const styles = window.getComputedStyle(trigger);
+    expect(styles.pointerEvents).toBe('none');
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // Verify popover is not open
     const input = canvasElement.ownerDocument.querySelector(
       '[data-slot="command-input"]'
     );
@@ -1009,12 +1011,12 @@ export const Disabled: Story = {
         <div className="space-y-2 w-[380px]">
           <Label className="m-0 p-0">User</Label>
           <Popover
+            {...args}
             open={open}
             onOpenChange={(newOpen) => {
               setOpen(newOpen);
               args.onOpenChange?.(newOpen);
             }}
-            {...args}
           >
             <PopoverTrigger asChild>
               <Button
@@ -1073,12 +1075,12 @@ export const WithError: Story = {
       <div className="grid w-full max-w-sm items-center gap-1">
         <Label className="m-0 p-0">User</Label>
         <Popover
+          {...args}
           open={open}
           onOpenChange={(newOpen) => {
             setOpen(newOpen);
             args.onOpenChange?.(newOpen);
           }}
-          {...args}
         >
           <PopoverTrigger asChild>
             <Button
@@ -1163,12 +1165,12 @@ export const ComplexInteractive: Story = {
       <div className="space-y-3 w-[300px]">
         <Label className="m-0 p-0">View</Label>
         <Popover
+          {...args}
           open={open}
           onOpenChange={(newOpen) => {
             setOpen(newOpen);
             args.onOpenChange?.(newOpen);
           }}
-          {...args}
         >
           <PopoverTrigger asChild>
             <Button
