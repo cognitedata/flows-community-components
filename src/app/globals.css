@@ -631,6 +631,7 @@
   --destructive: var(--red-800);
   --destructive-hover: var(--red-700);
   --destructive-foreground: var(--red-300);
+  --destructive-shadow: var(--red-700);
   --warning: var(--amber-800);
   --warning-hover: var(--amber-700);
   --warning-foreground: var(--amber-300);
