@@ -35,7 +35,7 @@ function BasicDemo() {
           <BreadcrumbLink href="/canvas">Canvas</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbItem>
+        <BreadcrumbItem className="has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-1">
               <BreadcrumbPage>Test canvas</BreadcrumbPage>
@@ -73,12 +73,25 @@ export const breadcrumbExamples: ComponentExamples = {
     difficulty: 'beginner',
     code: `import {
   Breadcrumb,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/aura/breadcrumb"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from "@/components/ui/aura/dropdown-menu"
+import {
+  IconPencil,
+  IconTag,
+  IconCircleArrowDown,
+  IconTrash,
+} from "@tabler/icons-react"
 
 export function BasicDemo() {
   return (
@@ -88,12 +101,36 @@ export function BasicDemo() {
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-        </BreadcrumbItem>
+        <BreadcrumbEllipsis />
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+          <BreadcrumbLink href="/canvas">Canvas</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem className="has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1">
+              <BreadcrumbPage>Test canvas</BreadcrumbPage>
+              <span className="sr-only">Toggle menu</span>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-[280px] p-0">
+              <div className="p-1">
+                <DropdownMenuItem className="p-2">
+                  <IconPencil /> Rename
+                </DropdownMenuItem>
+                <DropdownMenuItem className="p-2">
+                  <IconTag /> Add tags
+                </DropdownMenuItem>
+                <DropdownMenuItem className="p-2">
+                  <IconCircleArrowDown /> Download as PDF
+                </DropdownMenuItem>
+                <DropdownMenuItem variant="destructive" className="p-2">
+                  <IconTrash />
+                  Delete
+                </DropdownMenuItem>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
