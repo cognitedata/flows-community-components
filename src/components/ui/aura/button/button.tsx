@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-transparent text-sm font-medium transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-transparent text-sm font-medium transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-2 aria-invalid:focus-visible:ring-destructive-shadow dark:aria-invalid:focus-visible:ring-shadow aria-invalid:border-destructive-foreground dark:aria-invalid:border-destructive-background",
   {
     variants: {
       variant: {
@@ -49,17 +49,18 @@ type ButtonProps = ComponentProps<'button'> &
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : 'button';
+    const Comp = asChild ? Slot : 'button';
 
-  return (
-    <Comp
-      ref={ref}
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  );
-});
+    return (
+      <Comp
+        ref={ref}
+        data-slot="button"
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...props}
+      />
+    );
+  }
+);
 
 Button.displayName = 'Button';
 

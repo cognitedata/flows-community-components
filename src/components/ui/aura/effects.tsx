@@ -43,21 +43,24 @@ export const shadows: Shadow[] = [
     name: 'shadow-md',
     cssVar: '--shadow-md',
     tailwindClass: 'shadow-md',
-    value: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+    value:
+      '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
     usage: 'Toast notifications (sonner), temporary elements',
   },
   {
     name: 'shadow-lg',
     cssVar: '--shadow-lg',
     tailwindClass: 'shadow-lg',
-    value: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+    value:
+      '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
     usage: 'Modals and dialogs without backdrop overlay',
   },
   {
     name: 'shadow-xl',
     cssVar: '--shadow-xl',
     tailwindClass: 'shadow-xl',
-    value: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    value:
+      '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
     usage: 'Modals and dialogs with backdrop overlay, highest elevation',
   },
 ];
@@ -77,7 +80,7 @@ export const focusRings: FocusRing[] = [
   {
     name: 'focus',
     tailwindClasses:
-      'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring',
+      'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
     usage: 'Keyboard focus for default interactive elements',
     description:
       'Standard focus ring using the theme ring colour. Apply to buttons, inputs, links, and other interactive elements.',
@@ -300,7 +303,7 @@ export const effectPatterns = {
     name: 'Input Focus',
     description: 'Focus state for form inputs',
     classes:
-      'transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring',
+      'transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
     usage: 'Text inputs, textareas, select elements',
   },
   linkHover: {
@@ -356,9 +359,7 @@ export function getShadow(name: string): Shadow | undefined {
  * Get a border radius by name
  */
 export function getRadius(name: string): BorderRadius | undefined {
-  return borderRadii.find(
-    (r) => r.name === name || r.tailwindClass === name
-  );
+  return borderRadii.find((r) => r.name === name || r.tailwindClass === name);
 }
 
 /**
@@ -368,7 +369,9 @@ export function getFocusRingClasses(
   variant: 'default' | 'destructive' = 'default'
 ): string {
   const ring = focusRings.find((r) =>
-    variant === 'destructive' ? r.name === 'focus-destructive' : r.name === 'focus'
+    variant === 'destructive'
+      ? r.name === 'focus-destructive'
+      : r.name === 'focus'
   );
   return ring?.tailwindClasses ?? '';
 }
@@ -396,7 +399,7 @@ export const effectExamples = {
 
   focusRings: `
 <!-- Button with focus ring -->
-<button class="px-4 py-2 bg-primary text-primary-foreground rounded-md focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring outline-none">
+<button class="px-4 py-2 bg-primary text-primary-foreground rounded-md focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring outline-none">
   Click me
 </button>
 
@@ -406,7 +409,7 @@ export const effectExamples = {
 </button>
 
 <!-- Input with focus ring -->
-<input class="border border-border rounded-md px-3 py-2 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-1 outline-none" />`,
+<input class="border border-border rounded-md px-3 py-2 focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-1 outline-none" />`,
 
   borderRadius: `
 <!-- Badge with subtle rounding -->
@@ -462,12 +465,12 @@ export const effectExamples = {
 <!-- Complete interactive card example -->
 <button class="
   group
-  rounded-lg border border-border p-4 
+  rounded-lg border border-border p-4
   bg-card text-card-foreground
   shadow-sm
   transition-all
   hover:shadow-md hover:border-border/80
-  focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring
+  focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring
   outline-none
 ">
   <h3 class="font-medium">Card Title</h3>
@@ -476,12 +479,12 @@ export const effectExamples = {
 
 <!-- Complete button example -->
 <button class="
-  px-4 py-2 
+  px-4 py-2
   rounded-md
   bg-primary text-primary-foreground
   transition-colors
   hover:bg-primary-hover
-  focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring
+  focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring
   disabled:opacity-50 disabled:cursor-not-allowed
   outline-none
 ">
@@ -490,4 +493,3 @@ export const effectExamples = {
 };
 
 export type EffectPattern = keyof typeof effectPatterns;
-
