@@ -258,7 +258,7 @@ function DropdownMenuSectionLabel({
     <div
       data-slot="dropdown-menu-section-label"
       className={cn(
-        'px-2 py-1.5 text-sm text-muted-foreground dark:text-muted-foreground',
+        'px-2 py-1 text-sm text-muted-foreground dark:text-muted-foreground',
         className
       )}
       {...props}
