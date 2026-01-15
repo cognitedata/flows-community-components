@@ -10,6 +10,7 @@ import {
   type MouseEventHandler,
   useContext,
 } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/aura/button';
 import { Badge } from '@/components/ui/aura/badge';
 import { cn } from '@/lib/utils';
@@ -28,13 +29,34 @@ export const BannerContext = createContext<BannerContextProps>({
   variant: 'default',
 });
 
-export type BannerProps = HTMLAttributes<HTMLDivElement> & {
-  visible?: boolean;
-  defaultVisible?: boolean;
-  onClose?: () => void;
-  inset?: boolean;
-  variant?: BannerVariant;
-};
+const bannerVariants = cva(
+  'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
+  {
+    variants: {
+      variant: {
+        default: 'bg-mountain text-foreground',
+        neutral: 'bg-neutral text-foreground',
+        destructive: 'bg-destructive text-foreground',
+        warning: 'bg-warning text-foreground',
+      },
+      inset: {
+        true: 'rounded-lg',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      inset: false,
+    },
+  }
+);
+
+export type BannerProps = HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof bannerVariants> & {
+    visible?: boolean;
+    defaultVisible?: boolean;
+    onClose?: () => void;
+  };
 
 export const Banner = ({
   children,
@@ -56,22 +78,12 @@ export const Banner = ({
     return null;
   }
 
-  const variantClasses: Record<BannerVariant, string> = {
-    default: 'bg-mountain text-foreground',
-    neutral: 'bg-neutral text-foreground',
-    destructive: 'bg-destructive text-foreground',
-    warning: 'bg-warning text-foreground',
-  };
-
   return (
-    <BannerContext.Provider value={{ show, setShow, variant }}>
+    <BannerContext.Provider
+      value={{ show, setShow, variant: variant as BannerVariant }}
+    >
       <div
-        className={cn(
-          'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
-          variantClasses[variant],
-          inset && 'rounded-lg',
-          className
-        )}
+        className={cn(bannerVariants({ variant, inset }), className)}
         {...props}
       >
         {children}
@@ -211,7 +223,7 @@ export const BannerClose = ({
       variant={variant}
       {...props}
     >
-      <IconX className="h-3.5 w-3.5" />
+      <IconX size={14} />
     </Button>
   );
 };

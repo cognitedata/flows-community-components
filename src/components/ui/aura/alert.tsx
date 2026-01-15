@@ -167,7 +167,7 @@ function AlertClose({
       onClick={handleClick}
       {...props}
     >
-      <IconX className="h-3.5 w-3.5" />
+      <IconX size={14} />
       <span className="sr-only">Close</span>
     </Button>
   );
