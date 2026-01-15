@@ -38,6 +38,7 @@ import {
   IconUsers as Users,
 } from '@tabler/icons-react';
 import {
+  Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -46,10 +47,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  useSidebar,
+  SidebarTrigger,
 } from '@/components/ui/aura/sidebar';
-import type { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
 import type { ComponentExamples } from './types';
 
 function BasicDemo() {
@@ -151,35 +150,12 @@ function EosTopbar() {
   );
 }
 
-function SidebarToggleButton() {
-  const { toggleSidebar } = useSidebar();
-  return (
-    <Button variant="ghost" size="icon" onClick={toggleSidebar}>
-      <IconLayoutSidebar className="h-4 w-4" />
-    </Button>
-  );
-}
-
-function SidebarPanel({ children }: { children: ReactNode }) {
-  const { state } = useSidebar();
-  return (
-    <div
-      className={cn(
-        'w-64 bg-sidebar text-sidebar-foreground border-r transition-all duration-200',
-        state === 'collapsed' && 'w-0 overflow-hidden'
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
 function TopbarWithSidebarDemo() {
   return (
     <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
       <SidebarProvider>
         <div className="flex h-full w-full bg-background">
-          <SidebarPanel>
+          <Sidebar>
             <SidebarContent>
               <SidebarGroup>
                 <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -226,11 +202,11 @@ function TopbarWithSidebarDemo() {
                 </SidebarGroupContent>
               </SidebarGroup>
             </SidebarContent>
-          </SidebarPanel>
+          </Sidebar>
           <div className="flex flex-1 flex-col">
             <Topbar>
               <TopbarLeft>
-                <SidebarToggleButton />
+                <SidebarTrigger />
                 <TopbarBreadcrumbs>
                   <BreadcrumbList>
                     <BreadcrumbItem>
@@ -459,6 +435,7 @@ import {
 } from "@/components/ui/aura/breadcrumb"
 import { Button } from "@/components/ui/aura/button"
 import {
+  Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
@@ -467,7 +444,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  useSidebar,
+  SidebarTrigger,
 } from "@/components/ui/aura/sidebar"
 import {
   IconChartBar as BarChart3,
@@ -477,40 +454,14 @@ import {
   IconSettings as Settings,
   IconShare,
   IconUsers as Users,
-  IconLayoutSidebar,
 } from "@tabler/icons-react"
-import { cn } from "@/lib/utils"
-import type { ReactNode } from "react"
-
-function SidebarToggleButton() {
-  const { toggleSidebar } = useSidebar()
-  return (
-    <Button variant="ghost" size="icon" onClick={toggleSidebar}>
-      <IconLayoutSidebar className="h-4 w-4" />
-    </Button>
-  )
-}
-
-function SidebarPanel({ children }: { children: ReactNode }) {
-  const { state } = useSidebar()
-  return (
-    <div
-      className={cn(
-        "w-64 bg-sidebar text-sidebar-foreground border-r transition-all duration-200",
-        state === "collapsed" && "w-0 overflow-hidden"
-      )}
-    >
-      {children}
-    </div>
-  )
-}
 
 export function TopbarWithSidebarDemo() {
   return (
     <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
       <SidebarProvider>
         <div className="flex h-full w-full bg-background">
-          <SidebarPanel>
+          <Sidebar>
             <SidebarContent>
               <SidebarGroup>
                 <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -557,11 +508,11 @@ export function TopbarWithSidebarDemo() {
                 </SidebarGroupContent>
               </SidebarGroup>
             </SidebarContent>
-          </SidebarPanel>
+          </Sidebar>
           <div className="flex flex-1 flex-col">
             <Topbar>
               <TopbarLeft>
-                <SidebarToggleButton />
+                <SidebarTrigger />
                 <TopbarBreadcrumbs>
                   <BreadcrumbList>
                     <BreadcrumbItem>
