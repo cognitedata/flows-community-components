@@ -205,8 +205,8 @@ export const WithUserLabel: Story = {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-72">
           <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border">
-            <Avatar variant="default">
-              <AvatarImage src="/user-avatar2.png" alt="User" />
+            <Avatar variant="default" tabIndex={-1}>
+              <AvatarImage src="/user-avatar2.png" alt="User" tabIndex={-1} />
               <AvatarFallback>JS</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
