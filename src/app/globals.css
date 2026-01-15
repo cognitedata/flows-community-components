@@ -55,10 +55,12 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-ring-shadow: var(--ring-shadow);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-destructive-shadow: var(--destructive-shadow);
   --color-destructive-hover: var(--destructive-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -516,12 +518,14 @@
   --border: var(--mountain-100);
   --input: var(--mountain-100);
   --ring: var(--gray-600);
+  --ring-shadow: var(--gray-300);
   --backdrop: rgba(2, 6, 23, 0.2);
 
   /* Status tokens */
   --destructive: var(--red-50);
   --destructive-hover: var(--red-100);
   --destructive-foreground: var(--red-500);
+  --destructive-shadow: var(--red-300);
   --warning: var(--amber-50);
   --warning-hover: var(--amber-100);
   --warning-foreground: var(--amber-500);
@@ -625,6 +629,7 @@
   --border: var(--mountain-700);
   --input: var(--mountain-900);
   --ring: var(--gray-300);
+  --ring-shadow: var(--gray-700);
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
@@ -722,7 +727,7 @@
   [data-state='closed'] {
     --tw-animation-fill-mode: forwards;
   }
-  
+
   @keyframes accordion-down {
     from {
       height: 0;
