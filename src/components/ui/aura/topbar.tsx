@@ -44,7 +44,7 @@ function TopbarCenter({ className, ...props }: ComponentProps<'div'>) {
   );
 }
 
-// Topbar right section (for SwapSlot and buttons)
+// Topbar right section (for action buttons)
 function TopbarRight({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
@@ -99,20 +99,6 @@ function TopbarBreadcrumbs({
   );
 }
 
-// Topbar swap slot wrapper
-// function TopbarSwapSlot({
-//   className,
-//   ...props
-// }: ComponentProps<typeof SwapSlot>) {
-//   return (
-//     <SwapSlot
-//       data-slot="topbar-swap-slot"
-//       className={cn('', className)}
-//       {...props}
-//     />
-//   );
-// }
-
 // Topbar action button wrapper
 function TopbarAction({
   className,
@@ -134,6 +120,5 @@ export {
   TopbarWithSidebar,
   TopbarContent,
   TopbarBreadcrumbs,
-  // TopbarSwapSlot,
   TopbarAction,
 };

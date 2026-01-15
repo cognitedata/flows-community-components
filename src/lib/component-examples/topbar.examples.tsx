@@ -24,7 +24,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/aura/alert-dialog';
-// import { SwapSlot } from '@/components/ui/aura/swap-slot';
 import {
   IconChartBar as BarChart3,
   IconFileText as FileText,
@@ -566,6 +565,6 @@ export const topbarMeta = {
   description:
     'A flexible topbar component with breadcrumbs, center space, and action buttons. Integrates with the Sidebar component for full layout support.',
   llmUsage:
-    'Use Topbar for application headers. Include TopbarLeft with TopbarBreadcrumbs for navigation, TopbarCenter for optional content, and TopbarRight with TopbarSwapSlot and TopbarAction for actions. Wrap with TopbarWithSidebar and TopbarContent when using with Sidebar.',
+    'Use Topbar for application headers. Include TopbarLeft with TopbarBreadcrumbs for navigation, TopbarCenter for optional content, and TopbarRight with TopbarAction for actions. Wrap with TopbarWithSidebar and TopbarContent when using with Sidebar.',
   importPath: '@/components/ui/aura/topbar',
 };
