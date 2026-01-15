@@ -676,7 +676,7 @@ export const WithCheckboxes: Story = {
     docs: {
       description: {
         story:
-          'Multi-select combobox with visual checkbox indicators. The checkmarks are purely visual - interaction is handled by the CommandItem.',
+          'Multi-select combobox with checkbox indicators. Demonstrates using the Checkbox component within CommandItem for visual consistency.',
       },
     },
   },
@@ -1178,7 +1178,7 @@ export const ComplexInteractive: Story = {
     const commandItems = canvasElement.ownerDocument.querySelectorAll(
       '[data-slot="command-item"]'
     );
-    
+
     // Click first item from first section
     await userEvent.click(commandItems[0] as Element);
 
