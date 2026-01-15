@@ -35,6 +35,11 @@ const meta: Meta<typeof DropdownMenu> = {
   title: 'UI/Dropdown Menu',
   component: DropdownMenu,
   tags: ['autodocs'],
+  args: {
+    // Set modal to false for Storybook to avoid aria-hidden violations
+    // In real apps, modal defaults to true (Radix UI default)
+    modal: false,
+  },
   argTypes: {
     // State
     open: {
@@ -56,7 +61,7 @@ const meta: Meta<typeof DropdownMenu> = {
     },
     modal: {
       control: 'boolean',
-      description: 'Whether the dropdown is modal',
+      description: 'Whether the dropdown is modal (blocks interaction with other content)',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
