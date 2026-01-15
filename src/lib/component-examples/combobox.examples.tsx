@@ -487,7 +487,6 @@ const users = [
   {
     value: 'michael-jordan',
     label: 'Michael Jordan',
-    image: '/users/michael-jordan.png',
     initials: 'PJ',
     position: 'Shooting guard',
   },
@@ -715,6 +714,7 @@ export function AddUsersDemo() {
                 placeholder="Search users..."
                 value={searchValue}
                 onValueChange={setSearchValue}
+                className="h-10"
               />
               <CommandList>
                 {filteredUsers.length > 0 && (
@@ -751,13 +751,13 @@ export function AddUsersDemo() {
                   </CommandGroup>
                 )}
                 {canAddUser && (
-                  <div className="p-1 border-t">
+                  <div className="p-2 border-t">
                     <Button
                       variant="secondary"
-                      className="w-full justify-start h-[36px]"
+                      className="w-full h-[36px]"
                       onClick={handleAddUser}
                     >
-                      <IconPlus className="h-4 w-4 mr-2" />
+                      <IconPlus className="h-3.5 w-3.5 " />
                       Add {searchValue.trim()}
                     </Button>
                   </div>
