@@ -539,7 +539,7 @@ export const KeyboardNavigation: Story = {
     docs: {
       description: {
         story:
-          'Tests keyboard navigation: Space/Enter to open, Arrow keys to navigate, Enter to select, Esc to close.',
+          'Tests keyboard navigation: Space/Enter to open, Arrow keys (not Tab) to navigate between items, Enter to select, Esc to close. Tab key moves focus out of the menu.',
       },
     },
   },
@@ -588,26 +588,35 @@ export const KeyboardNavigation: Story = {
     );
   },
   render: function KeyboardNavigationStory() {
+    const [selectedItem, setSelectedItem] = useState<string>('');
+
     return (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button>Keyboard Test</Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
-          <DropdownMenuItem>
-            <IconUser />
-            First Item
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <IconSettingsFilled />
-            Second Item
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <IconBell />
-            Third Item
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="space-y-4">
+        {selectedItem && (
+          <div className="text-sm text-muted-foreground">
+            Selected: <span className="font-medium text-foreground">{selectedItem}</span>
+          </div>
+        )}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button>Keyboard Test</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuItem onClick={() => setSelectedItem('First Item')}>
+              <IconUser />
+              First Item
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setSelectedItem('Second Item')}>
+              <IconSettingsFilled />
+              Second Item
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setSelectedItem('Third Item')}>
+              <IconBell />
+              Third Item
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     );
   },
 };
