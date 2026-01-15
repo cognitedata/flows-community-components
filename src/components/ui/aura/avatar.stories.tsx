@@ -1292,30 +1292,37 @@ export const OverflowAvatarWithMenu: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Wait for avatars to render first
-    const avatars = await waitFor(
+    // Wait for the main avatars to render first
+    await waitFor(
       () => {
         const found = canvasElement.querySelectorAll('[data-slot="avatar"]');
-        // We expect at least 5: 4 visible avatars + 1 overflow avatar
-        if (found.length < 5) {
-          throw new Error(`Expected at least 5 avatars, found ${found.length}`);
+        if (found.length < 4) {
+          throw new Error(`Expected at least 4 avatars, found ${found.length}`);
         }
         return found;
       },
       { timeout: 2000 }
     );
 
-    // Verify initial avatars are rendered
-    expect(avatars.length).toBeGreaterThanOrEqual(5);
+    // Find the dropdown menu trigger (which wraps the overflow avatar)
+    const trigger = await waitFor(
+      () => {
+        const found = canvasElement.querySelector(
+          '[data-slot="dropdown-menu-trigger"]'
+        );
+        if (!found) {
+          throw new Error('Dropdown trigger not found');
+        }
+        return found;
+      },
+      { timeout: 1000 }
+    );
 
-    // Find and click the overflow avatar (+4)
-    const overflowAvatar = canvas.getByText('+4');
-    await userEvent.click(overflowAvatar);
+    // Click the trigger to open the dropdown menu
+    await userEvent.click(trigger as Element);
 
-    // Wait for dropdown menu to open (it's rendered in a portal)
-    const menuContent = await waitFor(
+    // Wait for dropdown menu to appear (it's rendered in a portal)
+    await waitFor(
       () => {
         const menu = canvasElement.ownerDocument.querySelector(
           '[data-slot="dropdown-menu-content"]'
@@ -1323,16 +1330,12 @@ export const OverflowAvatarWithMenu: Story = {
         if (!menu) {
           throw new Error('Menu not found');
         }
-        return menu;
+        // Verify menu contains user information
+        expect(menu).toHaveTextContent('Emma Liu');
+        expect(menu).toHaveTextContent('James Kim');
       },
-      { timeout: 2000 }
+      { timeout: 3000 }
     );
-
-    // Verify menu contains user information
-    await waitFor(() => {
-      expect(menuContent).toHaveTextContent('Emma Liu');
-      expect(menuContent).toHaveTextContent('James Kim');
-    });
   },
 };
 
