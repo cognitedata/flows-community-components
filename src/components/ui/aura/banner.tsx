@@ -196,11 +196,10 @@ export const BannerAction = ({
   );
 };
 
-export type BannerCloseProps = ComponentProps<typeof Button>;
+export type BannerCloseProps = Omit<ComponentProps<typeof Button>, 'size'>;
 
 export const BannerClose = ({
   variant = 'ghost',
-  size = 'icon-sm',
   onClick,
   className,
   ...props
@@ -219,7 +218,6 @@ export const BannerClose = ({
         className
       )}
       onClick={handleClick}
-      size={size}
       variant={variant}
       {...props}
     >
