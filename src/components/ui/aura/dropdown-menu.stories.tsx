@@ -783,9 +783,6 @@ export const ComplexInteractive: Story = {
     });
 
     // Test action item - click reset
-    const resetItem = menuDoc.querySelector(
-      '[data-slot="dropdown-menu-item"]:has-text("Reset to defaults")'
-    );
     const items = menuDoc.querySelectorAll('[data-slot="dropdown-menu-item"]');
     let resetButton: Element | null = null;
     items.forEach((item) => {
@@ -793,7 +790,7 @@ export const ComplexInteractive: Story = {
         resetButton = item;
       }
     });
-    
+
     if (resetButton) {
       await userEvent.click(resetButton);
     }

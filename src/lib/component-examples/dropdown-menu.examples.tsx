@@ -89,9 +89,7 @@ function UserDetailsDemo() {
             <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuSectionLabel>
-              User settings
-            </DropdownMenuSectionLabel>
+            <DropdownMenuSectionLabel>User settings</DropdownMenuSectionLabel>
             <div>
               <DropdownMenuItem>
                 <IconUser />
@@ -192,9 +190,7 @@ function RadioGroupDemo() {
             <Button>Open Radio Group Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[270px] px-1">
-            <DropdownMenuSectionLabel>
-              Radio group
-            </DropdownMenuSectionLabel>
+            <DropdownMenuSectionLabel>Radio group</DropdownMenuSectionLabel>
             <DropdownMenuRadioGroup
               value={viewMode}
               onValueChange={setViewMode}
