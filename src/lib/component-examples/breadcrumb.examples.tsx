@@ -52,8 +52,8 @@ function BasicDemo() {
                 <DropdownMenuItem className="p-2">
                   <IconCircleArrowDown /> Download as PDF
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-destructive-foreground p-2">
-                  <IconTrash className="text-destructive-foreground hover:text-destructive-foreground" />
+                <DropdownMenuItem variant="destructive" className="p-2">
+                  <IconTrash />
                   Delete
                 </DropdownMenuItem>
               </div>
