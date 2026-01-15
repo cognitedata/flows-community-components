@@ -16,6 +16,7 @@ import { Label } from './label';
 import { Avatar, AvatarFallback } from './avatar';
 import { Badge } from './badge';
 import { Button } from './button';
+import { Checkbox } from './checkbox';
 import { HelperText } from './helper-text';
 import {
   Command,
@@ -773,17 +774,10 @@ export const WithCheckboxes: Story = {
                           onSelect={() => handleToggle(option.value)}
                           className="flex items-center gap-2 h-[36px]"
                         >
-                          <div
-                            className={cn(
-                              'grid place-content-center size-4 shrink-0 rounded-sm border border-input',
-                              isSelected
-                                ? 'bg-foreground border-foreground text-background dark:bg-foreground dark:text-background'
-                                : 'bg-background'
-                            )}
-                            aria-hidden="true"
-                          >
-                            {isSelected && <IconCheck className="size-3.5 text-current" />}
-                          </div>
+                          <Checkbox
+                            checked={isSelected}
+                            className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:text-background"
+                          />
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {option.label}
                           </span>
@@ -939,11 +933,11 @@ export const EmptyState: Story = {
     await userEvent.click(trigger);
 
     await waitFor(() => {
-      const emptyItem = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-item"][data-disabled="true"]'
+      const emptyElement = canvasElement.ownerDocument.querySelector(
+        '[data-slot="command-empty"]'
       );
-      expect(emptyItem).toBeInTheDocument();
-      expect(emptyItem).toHaveTextContent('No users available');
+      expect(emptyElement).toBeInTheDocument();
+      expect(emptyElement).toHaveTextContent('No users available');
     });
   },
   render: function EmptyStateStory(args) {
@@ -979,11 +973,7 @@ export const EmptyState: Story = {
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
-                  <CommandGroup className="px-1 pt-0 pb-1 mt-1">
-                    <CommandItem disabled className="justify-center text-center">
-                      No users available
-                    </CommandItem>
-                  </CommandGroup>
+                  <CommandEmpty>No users available</CommandEmpty>
                 </CommandList>
               </Command>
             </PopoverContent>
@@ -1168,6 +1158,34 @@ export const ComplexInteractive: Story = {
           'Complex example with multiple sections, separators, and icons. Shows full combobox capabilities.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open combobox
+    const trigger = canvas.getByRole('combobox');
+    await userEvent.click(trigger);
+
+    // Wait for menu to open
+    await waitFor(() => {
+      const commandItems = canvasElement.ownerDocument.querySelectorAll(
+        '[data-slot="command-item"]'
+      );
+      expect(commandItems.length).toBeGreaterThanOrEqual(10);
+    });
+
+    // Test selection from first group
+    const commandItems = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="command-item"]'
+    );
+    
+    // Click first item from first section
+    await userEvent.click(commandItems[0] as Element);
+
+    // Verify selection persisted
+    await waitFor(() => {
+      expect(trigger).toHaveTextContent('Menu item 1');
+    });
   },
   render: function ComplexInteractiveStory(args) {
     const [open, setOpen] = useState(false);

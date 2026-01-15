@@ -144,54 +144,21 @@ function BasicDemo() {
   );
 }
 
-const initialUsers = [
-  {
-    value: 'dennis-rodman',
-    label: 'Dennis Rodman',
-    initials: 'DR',
-    position: 'Power forward',
-  },
-  {
-    value: 'luc-longley',
-    label: 'Luc Longley',
-    initials: 'LL',
-    position: 'Center',
-  },
-  {
-    value: 'michael-jordan',
-    label: 'Michael Jordan',
-    initials: 'MJ',
-    position: 'Shooting guard',
-  },
-  {
-    value: 'ron-harper',
-    label: 'Ron Harper',
-    initials: 'RH',
-    position: 'Point guard',
-  },
-  {
-    value: 'scottie-pippen',
-    label: 'Scottie Pippen',
-    initials: 'SP',
-    position: 'Small forward',
-  },
-];
-
 function AddUsersDemo() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('michael-jordan');
-  const [users, setUsers] = useState(initialUsers);
+  const [userList, setUserList] = useState(users);
   const [searchValue, setSearchValue] = useState('');
 
-  const selectedUser = users.find((user) => user.value === value);
+  const selectedUser = userList.find((user) => user.value === value);
 
-  const filteredUsers = users.filter((user) =>
+  const filteredUsers = userList.filter((user) =>
     user.label.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   const canAddUser =
     searchValue.trim() &&
-    !users.some(
+    !userList.some(
       (user) => user.label.toLowerCase() === searchValue.toLowerCase().trim()
     );
 
@@ -211,7 +178,7 @@ function AddUsersDemo() {
       position: 'Player',
     };
 
-    setUsers([...users, newUser]);
+    setUserList([...userList, newUser]);
     setValue(newUser.value);
     setSearchValue('');
     setOpen(false);
@@ -451,21 +418,21 @@ function MultiSelectDemo() {
   );
 }
 
+const simpleMenuItems = Array.from({ length: 5 }, (_, i) => ({
+  value: `item-${i + 1}`,
+  label: `Menu item ${i + 1}`,
+}));
+
+const simpleSecondMenuItems = Array.from({ length: 5 }, (_, i) => ({
+  value: `second-item-${i + 1}`,
+  label: `Menu item ${i + 6}`,
+}));
+
+const simpleAllItems = [...simpleMenuItems, ...simpleSecondMenuItems];
+
 function SimpleDemo() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-
-  const menuItems = Array.from({ length: 5 }, (_, i) => ({
-    value: `item-${i + 1}`,
-    label: `Menu item ${i + 1}`,
-  }));
-
-  const secondMenuItems = Array.from({ length: 5 }, (_, i) => ({
-    value: `second-item-${i + 1}`,
-    label: `Menu item ${i + 6}`,
-  }));
-
-  const allItems = [...menuItems, ...secondMenuItems];
 
   return (
     <div className="space-y-3">
@@ -480,7 +447,7 @@ function SimpleDemo() {
               className="w-full justify-between"
             >
               {value
-                ? allItems.find((item) => item.value === value)?.label
+                ? simpleAllItems.find((item) => item.value === value)?.label
                 : 'Select view...'}
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
@@ -491,7 +458,7 @@ function SimpleDemo() {
               <CommandList>
                 <CommandEmpty>No view found.</CommandEmpty>
                 <CommandGroup heading="Section label">
-                  {menuItems.map((item) => (
+                  {simpleMenuItems.map((item) => (
                     <CommandItem
                       key={item.value}
                       value={item.value}
@@ -506,7 +473,7 @@ function SimpleDemo() {
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Section label">
-                  {secondMenuItems.map((item) => (
+                  {simpleSecondMenuItems.map((item) => (
                     <CommandItem
                       key={item.value}
                       value={item.value}
@@ -528,21 +495,22 @@ function SimpleDemo() {
     </div>
   );
 }
+
+const iconMenuItems = Array.from({ length: 5 }, (_, i) => ({
+  value: `item-${i + 1}`,
+  label: `Menu item ${i + 1}`,
+}));
+
+const iconSecondMenuItems = Array.from({ length: 5 }, (_, i) => ({
+  value: `second-item-${i + 1}`,
+  label: `Menu item ${i + 6}`,
+}));
+
+const iconAllItems = [...iconMenuItems, ...iconSecondMenuItems];
+
 function SimpleWithIconDemo() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-
-  const menuItems = Array.from({ length: 5 }, (_, i) => ({
-    value: `item-${i + 1}`,
-    label: `Menu item ${i + 1}`,
-  }));
-
-  const secondMenuItems = Array.from({ length: 5 }, (_, i) => ({
-    value: `second-item-${i + 1}`,
-    label: `Menu item ${i + 6}`,
-  }));
-
-  const allItems = [...menuItems, ...secondMenuItems];
 
   return (
     <div className="space-y-3">
@@ -557,7 +525,7 @@ function SimpleWithIconDemo() {
               className="w-full justify-between"
             >
               {value
-                ? allItems.find((item) => item.value === value)?.label
+                ? iconAllItems.find((item) => item.value === value)?.label
                 : 'Select view...'}
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
@@ -568,7 +536,7 @@ function SimpleWithIconDemo() {
               <CommandList>
                 <CommandEmpty>No view found.</CommandEmpty>
                 <CommandGroup heading="Section label">
-                  {menuItems.map((item) => (
+                  {iconMenuItems.map((item) => (
                     <CommandItem
                       key={item.value}
                       value={item.value}
@@ -584,7 +552,7 @@ function SimpleWithIconDemo() {
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Section label">
-                  {secondMenuItems.map((item) => (
+                  {iconSecondMenuItems.map((item) => (
                     <CommandItem
                       key={item.value}
                       value={item.value}
