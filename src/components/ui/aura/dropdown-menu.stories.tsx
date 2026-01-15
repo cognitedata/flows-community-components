@@ -197,9 +197,9 @@ export const WithUserLabel: Story = {
       { timeout: 1000 }
     );
   },
-  render: function WithUserLabelStory() {
+  render: function WithUserLabelStory(args) {
     return (
-      <DropdownMenu>
+      <DropdownMenu {...args}>
         <DropdownMenuTrigger asChild>
           <Button>User Menu</Button>
         </DropdownMenuTrigger>
@@ -303,7 +303,7 @@ export const WithCheckboxItems: Story = {
       expect(outputDiv?.textContent).toContain('selected');
     });
   },
-  render: function WithCheckboxItemsStory() {
+  render: function WithCheckboxItemsStory(args) {
     const [checkedItems, setCheckedItems] = useState({
       emails: true,
       messages: true,
@@ -324,7 +324,7 @@ export const WithCheckboxItems: Story = {
             {checkedItems.security && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Security alerts</li>}
           </ul>
         </div>
-        <DropdownMenu>
+        <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               Filters
@@ -432,7 +432,7 @@ export const WithRadioGroup: Story = {
       expect(outputDiv?.textContent).toContain('list');
     });
   },
-  render: function WithRadioGroupStory() {
+  render: function WithRadioGroupStory(args) {
     const [viewMode, setViewMode] = useState('grid');
 
     return (
@@ -440,7 +440,7 @@ export const WithRadioGroup: Story = {
         <div className="text-sm text-muted-foreground">
           Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
-        <DropdownMenu>
+        <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               Change View
@@ -507,7 +507,7 @@ export const WithDestructiveAction: Story = {
       { timeout: 1000 }
     );
   },
-  render: function WithDestructiveActionStory() {
+  render: function WithDestructiveActionStory(args) {
     const [action, setAction] = useState<string>('');
 
     return (
@@ -517,7 +517,7 @@ export const WithDestructiveAction: Story = {
             Last action: {action}
           </div>
         )}
-        <DropdownMenu>
+        <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
             <Button>Actions</Button>
           </DropdownMenuTrigger>
@@ -602,7 +602,7 @@ export const KeyboardNavigation: Story = {
       { timeout: 1000 }
     );
   },
-  render: function KeyboardNavigationStory() {
+  render: function KeyboardNavigationStory(args) {
     const [selectedItem, setSelectedItem] = useState<string>('');
 
     return (
@@ -612,7 +612,7 @@ export const KeyboardNavigation: Story = {
             Selected: <span className="font-medium text-foreground">{selectedItem}</span>
           </div>
         )}
-        <DropdownMenu>
+        <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
             <Button>Keyboard Test</Button>
           </DropdownMenuTrigger>
@@ -665,9 +665,9 @@ export const EmptyMenu: Story = {
       { timeout: 1000 }
     );
   },
-  render: function EmptyMenuStory() {
+  render: function EmptyMenuStory(args) {
     return (
-      <DropdownMenu>
+      <DropdownMenu {...args}>
         <DropdownMenuTrigger asChild>
           <Button>Empty Menu</Button>
         </DropdownMenuTrigger>
@@ -710,9 +710,9 @@ export const DisabledTrigger: Story = {
     const styles = window.getComputedStyle(trigger);
     expect(styles.pointerEvents).toBe('none');
   },
-  render: function DisabledTriggerStory() {
+  render: function DisabledTriggerStory(args) {
     return (
-      <DropdownMenu>
+      <DropdownMenu {...args}>
         <DropdownMenuTrigger asChild>
           <Button disabled>Disabled Menu</Button>
         </DropdownMenuTrigger>
@@ -739,7 +739,7 @@ export const ComplexInteractive: Story = {
       },
     },
   },
-  render: function ComplexInteractiveStory() {
+  render: function ComplexInteractiveStory(args) {
     const [notifications, setNotifications] = useState({
       email: true,
       push: false,
@@ -780,7 +780,7 @@ export const ComplexInteractive: Story = {
           )}
         </div>
 
-        <DropdownMenu>
+        <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-full">
               Preferences
