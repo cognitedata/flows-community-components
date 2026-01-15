@@ -228,8 +228,8 @@ export const Basic: Story = {
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
-                  <CommandEmpty>No user found.</CommandEmpty>
                   <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                    <CommandEmpty>No user found.</CommandEmpty>
                     {users.map((user) => (
                       <CommandItem
                         key={user.value}
@@ -436,7 +436,9 @@ export const WithAddNew: Story = {
                     </CommandGroup>
                   )}
                   {filteredUsers.length === 0 && !canAddUser && searchValue && (
-                    <CommandEmpty>No user found.</CommandEmpty>
+                    <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                      <CommandEmpty>No user found.</CommandEmpty>
+                    </CommandGroup>
                   )}
                 </CommandList>
                 {canAddUser && (
@@ -880,8 +882,8 @@ export const KeyboardNavigation: Story = {
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
-                  <CommandEmpty>No user found.</CommandEmpty>
                   <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                    <CommandEmpty>No user found.</CommandEmpty>
                     {simpleUsers.map((user) => (
                       <CommandItem
                         key={user.value}
@@ -973,7 +975,9 @@ export const EmptyState: Story = {
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
-                  <CommandEmpty>No users available</CommandEmpty>
+                  <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                    <CommandEmpty>No users available</CommandEmpty>
+                  </CommandGroup>
                 </CommandList>
               </Command>
             </PopoverContent>
@@ -1046,7 +1050,9 @@ export const Disabled: Story = {
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
-                  <CommandEmpty>No user found.</CommandEmpty>
+                  <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                    <CommandEmpty>No user found.</CommandEmpty>
+                  </CommandGroup>
                 </CommandList>
               </Command>
             </PopoverContent>
@@ -1111,8 +1117,8 @@ export const WithError: Story = {
             <Command>
               <CommandInput placeholder="Search users..." />
               <CommandList>
-                <CommandEmpty>No user found.</CommandEmpty>
                 <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                  <CommandEmpty>No user found.</CommandEmpty>
                   {users.slice(0, 3).map((user) => (
                     <CommandItem
                       key={user.value}
@@ -1201,7 +1207,9 @@ export const ComplexInteractive: Story = {
             <Command>
               <CommandInput placeholder="Search views..." />
               <CommandList>
-                <CommandEmpty>No view found.</CommandEmpty>
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                  <CommandEmpty>No view found.</CommandEmpty>
+                </CommandGroup>
                 <CommandGroup heading="Section label" className="px-1 pt-0 pb-1 mt-1">
                   {menuItems.map((item) => (
                     <CommandItem
