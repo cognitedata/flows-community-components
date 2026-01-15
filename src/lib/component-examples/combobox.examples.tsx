@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import {
   IconCheck,
+  IconGrid3x3,
   IconPlus,
   IconSelector,
   IconUser,
@@ -12,6 +13,8 @@ import { Label } from '@/components/ui/aura/label';
 import { Avatar, AvatarFallback } from '@/components/ui/aura/avatar';
 import { Badge } from '@/components/ui/aura/badge';
 import { Button } from '@/components/ui/aura/button';
+import { Checkbox } from '@/components/ui/aura/checkbox';
+import { HelperText } from '@/components/ui/aura/helper-text';
 import {
   Command,
   CommandEmpty,
@@ -19,6 +22,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from '@/components/ui/aura/command';
 import {
   Popover,
@@ -431,6 +435,490 @@ function MultiSelectDemo() {
                             isSelected ? 'opacity-100' : 'opacity-0'
                           )}
                         />
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}
+
+function SimpleDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+
+  const menuItems = Array.from({ length: 5 }, (_, i) => ({
+    value: `item-${i + 1}`,
+    label: 'Menu item',
+  }));
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[300px]">
+        <Label className="m-0 p-0">View</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              {value
+                ? menuItems.find((item) => item.value === value)?.label
+                : 'Select view...'}
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[300px] p-0">
+            <Command>
+              <CommandInput placeholder="Search views..." />
+              <CommandList>
+                <CommandEmpty>No view found.</CommandEmpty>
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={item.value}
+                      value={item.value}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={`second-${item.value}`}
+                      value={`second-${item.value}`}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <IconGrid3x3 className="h-4 w-4" />
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}
+function SimpleWithIconDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+
+  const menuItems = Array.from({ length: 5 }, (_, i) => ({
+    value: `item-${i + 1}`,
+    label: 'Menu item',
+  }));
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[300px]">
+        <Label className="m-0 p-0">View</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              {value
+                ? menuItems.find((item) => item.value === value)?.label
+                : 'Select view...'}
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[300px] p-0">
+            <Command>
+              <CommandInput placeholder="Search views..." />
+              <CommandList>
+                <CommandEmpty>No view found.</CommandEmpty>
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={item.value}
+                      value={item.value}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <IconGrid3x3 className="h-4 w-4" />
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={`second-${item.value}`}
+                      value={`second-${item.value}`}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <IconGrid3x3 className="h-4 w-4" />
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}
+
+const teamMembers = [
+  {
+    value: 'alice',
+    label: 'Alice Johnson',
+    initials: 'AJ',
+    email: 'alice@example.com',
+  },
+  {
+    value: 'bob',
+    label: 'Bob Smith',
+    initials: 'BS',
+    email: 'bob@example.com',
+  },
+  {
+    value: 'charlie',
+    label: 'Charlie Brown',
+    initials: 'CB',
+    email: 'charlie@example.com',
+  },
+  {
+    value: 'diana',
+    label: 'Diana Prince',
+    initials: 'DP',
+    email: 'diana@example.com',
+  },
+  {
+    value: 'eve',
+    label: 'Eve Wilson',
+    initials: 'EW',
+    email: 'eve@example.com',
+  },
+];
+
+function AvatarDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('alice');
+
+  const selectedMember = teamMembers.find((member) => member.value === value);
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[380px]">
+        <Label className="m-0 p-0">Team Member</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              <div className="flex items-center gap-2">
+                {selectedMember && (
+                  <>
+                    <Avatar sizes="xsm" variant="fjord">
+                      <AvatarFallback>{selectedMember.initials}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-base tracking-tightest font-normal text-foreground">
+                      {selectedMember.label}
+                    </span>
+                  </>
+                )}
+                {!selectedMember && (
+                  <span className="text-sm text-muted-foreground">
+                    Select team member...
+                  </span>
+                )}
+              </div>
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[380px] p-0">
+            <Command>
+              <CommandInput placeholder="Search team members..." />
+              <CommandList>
+                <CommandEmpty>No team member found.</CommandEmpty>
+                <CommandGroup className="px-1 py-0 mt-1">
+                  {teamMembers.map((member) => (
+                    <CommandItem
+                      key={member.value}
+                      value={member.value}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                      className="flex items-center gap-2 h-[36px] pr-0"
+                    >
+                      <Avatar sizes="xsm" variant="fjord">
+                        <AvatarFallback>{member.initials}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col flex-1 min-w-0">
+                        <span className="text-base tracking-tightest font-normal text-foreground">
+                          {member.label}
+                        </span>
+                      </div>
+                      <IconCheck
+                        className={cn(
+                          'h-4 w-4 shrink-0',
+                          value === member.value ? 'opacity-100' : 'opacity-0'
+                        )}
+                      />
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}
+
+function FocusedDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('option-1');
+
+  const options = [
+    { value: 'option-1', label: 'Description' },
+    { value: 'option-2', label: 'Option 2' },
+    { value: 'option-3', label: 'Option 3' },
+  ];
+
+  const selectedOption = options.find((option) => option.value === value);
+
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1">
+      <Label className="m-0 p-0">Label</Label>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-ring"
+            autoFocus
+          >
+            <div className="flex items-center gap-2">
+              <IconGrid3x3 className="h-4 w-4" />
+              <span className="text-base tracking-tightest font-normal text-foreground">
+                {selectedOption?.label || 'Select option...'}
+              </span>
+            </div>
+            <IconSelector className="h-4 w-4 opacity-50 shrink-0" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[380px] p-0">
+          <Command>
+            <CommandInput placeholder="Search..." />
+            <CommandList>
+              <CommandEmpty>No option found.</CommandEmpty>
+              <CommandGroup className="px-1 py-0 mt-1">
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? '' : currentValue);
+                      setOpen(false);
+                    }}
+                    className="flex items-center gap-2 h-[36px] pr-0"
+                  >
+                    <IconGrid3x3 className="h-4 w-4" />
+                    <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                      {option.label}
+                    </span>
+                    <IconCheck
+                      className={cn(
+                        'h-4 w-4 shrink-0',
+                        value === option.value ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      <HelperText>Help text</HelperText>
+    </div>
+  );
+}
+
+function ValidationDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const errorMessage = 'Help text';
+
+  const options = [
+    { value: 'option-1', label: 'Description' },
+    { value: 'option-2', label: 'Option 2' },
+    { value: 'option-3', label: 'Option 3' },
+  ];
+
+  const selectedOption = options.find((option) => option.value === value);
+
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1">
+      <Label className="m-0 p-0">Label</Label>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            aria-invalid={true}
+            className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
+          >
+            <div className="flex items-center gap-2">
+              <IconGrid3x3 className="h-4 w-4" />
+              <span className="text-base tracking-tightest font-normal text-foreground">
+                {selectedOption?.label || 'Select option...'}
+              </span>
+            </div>
+            <IconSelector className="h-4 w-4 opacity-50 shrink-0" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[380px] p-0">
+          <Command>
+            <CommandInput placeholder="Search..." />
+            <CommandList>
+              <CommandEmpty>No option found.</CommandEmpty>
+              <CommandGroup className="px-1 py-0 mt-1">
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? '' : currentValue);
+                      setOpen(false);
+                    }}
+                    className="flex items-center gap-2 h-[36px] pr-0"
+                  >
+                    <IconGrid3x3 className="h-4 w-4" />
+                    <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                      {option.label}
+                    </span>
+                    <IconCheck
+                      className={cn(
+                        'h-4 w-4 shrink-0',
+                        value === option.value ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      <HelperText isError>{errorMessage}</HelperText>
+    </div>
+  );
+}
+
+function CheckboxDemo() {
+  const [open, setOpen] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>([
+    'notifications',
+    'marketing',
+  ]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const options = [
+    { value: 'notifications', label: 'Email notifications' },
+    { value: 'marketing', label: 'Marketing emails' },
+    { value: 'updates', label: 'Product updates' },
+    { value: 'security', label: 'Security alerts' },
+    { value: 'newsletter', label: 'Newsletter' },
+  ];
+
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const handleToggle = (value: string) => {
+    setSelectedValues((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+
+  const selectedLabels = options
+    .filter((option) => selectedValues.includes(option.value))
+    .map((option) => option.label);
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[380px]">
+        <Label className="m-0 p-0">Preferences</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+            >
+              <span className="text-sm text-muted-foreground">
+                {selectedLabels.length > 0
+                  ? `${selectedLabels.length} selected`
+                  : 'Select preferences...'}
+              </span>
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[380px] p-0">
+            <Command shouldFilter={false}>
+              <CommandInput
+                placeholder="Search preferences..."
+                value={searchValue}
+                onValueChange={setSearchValue}
+                className="h-10"
+              />
+              <CommandList>
+                <CommandGroup className="px-1 py-0 mt-1">
+                  {filteredOptions.map((option) => {
+                    const isSelected = selectedValues.includes(option.value);
+                    return (
+                      <CommandItem
+                        key={option.value}
+                        value={option.value}
+                        onSelect={() => handleToggle(option.value)}
+                        className="flex items-center gap-2 h-[36px] pr-0"
+                      >
+                        <Checkbox checked={isSelected} />
+                        <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                          {option.label}
+                        </span>
                       </CommandItem>
                     );
                   })}
@@ -931,6 +1419,640 @@ export function MultiSelectDemo() {
                             isSelected ? 'opacity-100' : 'opacity-0'
                           )}
                         />
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}`,
+  },
+  simple: {
+    title: 'Simple Combobox',
+    description: 'A simple combobox with sections',
+    component: SimpleDemo,
+    difficulty: 'beginner',
+    code: `import { useState } from 'react';
+import { IconSelector } from '@tabler/icons-react';
+import { Label } from '@/components/ui/aura/label';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+
+const menuItems = Array.from({ length: 5 }, (_, i) => ({
+  value: \`item-\${i + 1}\`,
+  label: 'Menu item',
+}));
+
+export function SimpleDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[300px]">
+        <Label className="m-0 p-0">View</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              {value
+                ? menuItems.find((item) => item.value === value)?.label
+                : 'Select view...'}
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[300px] p-0">
+            <Command>
+              <CommandInput placeholder="Search views..." />
+              <CommandList>
+                <CommandEmpty>No view found.</CommandEmpty>
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={item.value}
+                      value={item.value}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={\`second-\${item.value}\`}
+                      value={\`second-\${item.value}\`}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <IconGrid3x3 className="h-4 w-4" />
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}`,
+  },
+  simpleWithIcon: {
+    title: 'Simple with Icon Combobox',
+    description: 'A simple combobox with sections and icons',
+    component: SimpleWithIconDemo,
+    difficulty: 'beginner',
+    code: `import { useState } from 'react';
+import { IconGrid3x3, IconSelector } from '@tabler/icons-react';
+import { Label } from '@/components/ui/aura/label';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+
+const menuItems = Array.from({ length: 5 }, (_, i) => ({
+  value: \`item-\${i + 1}\`,
+  label: 'Menu item',
+}));
+
+export function SimpleWithIconDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[300px]">
+        <Label className="m-0 p-0">View</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              {value
+                ? menuItems.find((item) => item.value === value)?.label
+                : 'Select view...'}
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[300px] p-0">
+            <Command>
+              <CommandInput placeholder="Search views..." />
+              <CommandList>
+                <CommandEmpty>No view found.</CommandEmpty>
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={item.value}
+                      value={item.value}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <IconGrid3x3 className="h-4 w-4" />
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandSeparator />
+                <CommandGroup heading="Section label">
+                  {menuItems.map((item) => (
+                    <CommandItem
+                      key={\`second-\${item.value}\`}
+                      value={\`second-\${item.value}\`}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                    >
+                      <IconGrid3x3 className="h-4 w-4" />
+                      {item.label}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}`,
+  },
+  avatar: {
+    title: 'Avatar Combobox',
+    description: 'A combobox with avatars for user selection',
+    component: AvatarDemo,
+    difficulty: 'intermediate',
+    code: `import { useState } from 'react';
+import { IconCheck, IconSelector } from '@tabler/icons-react';
+import { Label } from '@/components/ui/aura/label';
+import { Avatar, AvatarFallback } from '@/components/ui/aura/avatar';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+import { cn } from '@/lib/utils';
+
+const teamMembers = [
+  {
+    value: 'alice',
+    label: 'Alice Johnson',
+    initials: 'AJ',
+    email: 'alice@example.com',
+  },
+  {
+    value: 'bob',
+    label: 'Bob Smith',
+    initials: 'BS',
+    email: 'bob@example.com',
+  },
+  {
+    value: 'charlie',
+    label: 'Charlie Brown',
+    initials: 'CB',
+    email: 'charlie@example.com',
+  },
+  {
+    value: 'diana',
+    label: 'Diana Prince',
+    initials: 'DP',
+    email: 'diana@example.com',
+  },
+  {
+    value: 'eve',
+    label: 'Eve Wilson',
+    initials: 'EW',
+    email: 'eve@example.com',
+  },
+];
+
+export function AvatarDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('alice');
+
+  const selectedMember = teamMembers.find((member) => member.value === value);
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[380px]">
+        <Label className="m-0 p-0">Team Member</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              <div className="flex items-center gap-2">
+                {selectedMember && (
+                  <>
+                    <Avatar sizes="xsm" variant="fjord">
+                      <AvatarFallback>{selectedMember.initials}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-base tracking-tightest font-normal text-foreground">
+                      {selectedMember.label}
+                    </span>
+                  </>
+                )}
+                {!selectedMember && (
+                  <span className="text-sm text-muted-foreground">
+                    Select team member...
+                  </span>
+                )}
+              </div>
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[380px] p-0">
+            <Command>
+              <CommandInput placeholder="Search team members..." />
+              <CommandList>
+                <CommandEmpty>No team member found.</CommandEmpty>
+                <CommandGroup className="px-1 py-0 mt-1">
+                  {teamMembers.map((member) => (
+                    <CommandItem
+                      key={member.value}
+                      value={member.value}
+                      onSelect={(currentValue) => {
+                        setValue(currentValue === value ? '' : currentValue);
+                        setOpen(false);
+                      }}
+                      className="flex items-center gap-2 h-[36px] pr-0"
+                    >
+                      <Avatar sizes="xsm" variant="fjord">
+                        <AvatarFallback>{member.initials}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col flex-1 min-w-0">
+                        <span className="text-base tracking-tightest font-normal text-foreground">
+                          {member.label}
+                        </span>
+                        <span className="text-sm text-muted-foreground truncate">
+                          {member.email}
+                        </span>
+                      </div>
+                      <IconCheck
+                        className={cn(
+                          'h-4 w-4 shrink-0',
+                          value === member.value ? 'opacity-100' : 'opacity-0'
+                        )}
+                      />
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      </div>
+    </div>
+  );
+}`,
+  },
+  focused: {
+    title: 'Focused Combobox',
+    description: 'A combobox in focused state with blue border',
+    component: FocusedDemo,
+    difficulty: 'beginner',
+    code: `import { useState } from 'react';
+import { IconCheck, IconGrid3x3, IconSelector } from '@tabler/icons-react';
+import { Label } from '@/components/ui/aura/label';
+import { Button } from '@/components/ui/aura/button';
+import { HelperText } from '@/components/ui/aura/helper-text';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+import { cn } from '@/lib/utils';
+
+const options = [
+  { value: 'option-1', label: 'Description' },
+  { value: 'option-2', label: 'Option 2' },
+  { value: 'option-3', label: 'Option 3' },
+];
+
+export function FocusedDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('option-1');
+
+  const selectedOption = options.find((option) => option.value === value);
+
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1">
+      <Label className="m-0 p-0">Label</Label>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-ring"
+            autoFocus
+          >
+            <div className="flex items-center gap-2">
+              <IconGrid3x3 className="h-4 w-4" />
+              <span className="text-base tracking-tightest font-normal text-foreground">
+                {selectedOption?.label || 'Select option...'}
+              </span>
+            </div>
+            <IconSelector className="h-4 w-4 opacity-50 shrink-0" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[380px] p-0">
+          <Command>
+            <CommandInput placeholder="Search..." />
+            <CommandList>
+              <CommandEmpty>No option found.</CommandEmpty>
+              <CommandGroup className="px-1 py-0 mt-1">
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? '' : currentValue);
+                      setOpen(false);
+                    }}
+                    className="flex items-center gap-2 h-[36px] pr-0"
+                  >
+                    <IconGrid3x3 className="h-4 w-4" />
+                    <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                      {option.label}
+                    </span>
+                    <IconCheck
+                      className={cn(
+                        'h-4 w-4 shrink-0',
+                        value === option.value ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      <HelperText>Help text</HelperText>
+    </div>
+  );
+}`,
+  },
+  validation: {
+    title: 'Validation Combobox',
+    description: 'A combobox with error state and validation message',
+    component: ValidationDemo,
+    difficulty: 'beginner',
+    code: `import { useState } from 'react';
+import { IconCheck, IconGrid3x3, IconSelector } from '@tabler/icons-react';
+import { Label } from '@/components/ui/aura/label';
+import { Button } from '@/components/ui/aura/button';
+import { HelperText } from '@/components/ui/aura/helper-text';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+import { cn } from '@/lib/utils';
+
+const options = [
+  { value: 'option-1', label: 'Description' },
+  { value: 'option-2', label: 'Option 2' },
+  { value: 'option-3', label: 'Option 3' },
+];
+
+export function ValidationDemo() {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+  const errorMessage = 'Help text';
+
+  const selectedOption = options.find((option) => option.value === value);
+
+  return (
+    <div className="grid w-full max-w-sm items-center gap-1">
+      <Label className="m-0 p-0">Label</Label>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            aria-invalid={true}
+            className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
+          >
+            <div className="flex items-center gap-2">
+              <IconGrid3x3 className="h-4 w-4" />
+              <span className="text-base tracking-tightest font-normal text-foreground">
+                {selectedOption?.label || 'Select option...'}
+              </span>
+            </div>
+            <IconSelector className="h-4 w-4 opacity-50 shrink-0" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[380px] p-0">
+          <Command>
+            <CommandInput placeholder="Search..." />
+            <CommandList>
+              <CommandEmpty>No option found.</CommandEmpty>
+              <CommandGroup className="px-1 py-0 mt-1">
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.value}
+                    value={option.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? '' : currentValue);
+                      setOpen(false);
+                    }}
+                    className="flex items-center gap-2 h-[36px] pr-0"
+                  >
+                    <IconGrid3x3 className="h-4 w-4" />
+                    <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                      {option.label}
+                    </span>
+                    <IconCheck
+                      className={cn(
+                        'h-4 w-4 shrink-0',
+                        value === option.value ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      <HelperText isError>{errorMessage}</HelperText>
+    </div>
+  );
+}`,
+  },
+  checkbox: {
+    title: 'Checkbox Combobox',
+    description: 'A multi-select combobox with visible checkboxes',
+    component: CheckboxDemo,
+    difficulty: 'intermediate',
+    code: `import { useState } from 'react';
+import { IconSelector } from '@tabler/icons-react';
+import { Label } from '@/components/ui/aura/label';
+import { Button } from '@/components/ui/aura/button';
+import { Checkbox } from '@/components/ui/aura/checkbox';
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/aura/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/aura/popover';
+
+const options = [
+  { value: 'notifications', label: 'Email notifications' },
+  { value: 'marketing', label: 'Marketing emails' },
+  { value: 'updates', label: 'Product updates' },
+  { value: 'security', label: 'Security alerts' },
+  { value: 'newsletter', label: 'Newsletter' },
+];
+
+export function CheckboxDemo() {
+  const [open, setOpen] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>([
+    'notifications',
+    'marketing',
+  ]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  const handleToggle = (value: string) => {
+    setSelectedValues((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+
+  const selectedLabels = options
+    .filter((option) => selectedValues.includes(option.value))
+    .map((option) => option.label);
+
+  return (
+    <div className="space-y-3">
+      <div className="space-y-2 w-[380px]">
+        <Label className="m-0 p-0">Preferences</Label>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+            >
+              <span className="text-sm text-muted-foreground">
+                {selectedLabels.length > 0
+                  ? \`\${selectedLabels.length} selected\`
+                  : 'Select preferences...'}
+              </span>
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[380px] p-0">
+            <Command shouldFilter={false}>
+              <CommandInput
+                placeholder="Search preferences..."
+                value={searchValue}
+                onValueChange={setSearchValue}
+                className="h-10"
+              />
+              <CommandList>
+                <CommandGroup className="px-1 py-0 mt-1">
+                  {filteredOptions.map((option) => {
+                    const isSelected = selectedValues.includes(option.value);
+                    return (
+                      <CommandItem
+                        key={option.value}
+                        value={option.value}
+                        onSelect={() => handleToggle(option.value)}
+                        className="flex items-center gap-2 h-[36px] pr-0"
+                      >
+                        <Checkbox checked={isSelected} />
+                        <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
+                          {option.label}
+                        </span>
                       </CommandItem>
                     );
                   })}
