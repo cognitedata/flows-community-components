@@ -119,6 +119,12 @@ function UserDetailsDemo() {
   );
 }
 function CheckboxItemDemo() {
+  const [showStatusBar, setShowStatusBar] = useState(true);
+  const [showActivityBar, setShowActivityBar] = useState(false);
+  const [showPanel, setShowPanel] = useState(true);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [showMinimap, setShowMinimap] = useState(false);
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
@@ -127,11 +133,36 @@ function CheckboxItemDemo() {
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showStatusBar}
+              onCheckedChange={setShowStatusBar}
+            >
+              Status Bar
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showActivityBar}
+              onCheckedChange={setShowActivityBar}
+            >
+              Activity Bar
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showPanel}
+              onCheckedChange={setShowPanel}
+            >
+              Panel
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showSidebar}
+              onCheckedChange={setShowSidebar}
+            >
+              Sidebar
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showMinimap}
+              onCheckedChange={setShowMinimap}
+            >
+              Minimap
+            </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -343,7 +374,8 @@ function UserDetailsDemo() {
     description: 'Display checkbox items in a dropdown menu',
     component: CheckboxItemDemo,
     difficulty: 'intermediate',
-    code: `import { Button } from "@/components/ui/aura/button"
+    code: `import { useState } from "react"
+import { Button } from "@/components/ui/aura/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -352,6 +384,12 @@ import {
 } from "@/components/ui/aura/dropdown-menu"
 
 function CheckboxItemDemo() {
+  const [showStatusBar, setShowStatusBar] = useState(true)
+  const [showActivityBar, setShowActivityBar] = useState(false)
+  const [showPanel, setShowPanel] = useState(true)
+  const [showSidebar, setShowSidebar] = useState(true)
+  const [showMinimap, setShowMinimap] = useState(false)
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
@@ -360,16 +398,41 @@ function CheckboxItemDemo() {
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showStatusBar}
+              onCheckedChange={setShowStatusBar}
+            >
+              Status Bar
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showActivityBar}
+              onCheckedChange={setShowActivityBar}
+            >
+              Activity Bar
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showPanel}
+              onCheckedChange={setShowPanel}
+            >
+              Panel
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showSidebar}
+              onCheckedChange={setShowSidebar}
+            >
+              Sidebar
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={showMinimap}
+              onCheckedChange={setShowMinimap}
+            >
+              Minimap
+            </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
     </div>
-  );
+  )
 }`,
   },
   radioGroup: {
