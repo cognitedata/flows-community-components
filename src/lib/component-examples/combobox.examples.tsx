@@ -219,7 +219,7 @@ function AddUsersDemo() {
 
   return (
     <div className="space-y-3">
-      <div className="space-y-2 w-[270px]">
+      <div className="space-y-2 w-[380px]">
         <Label className="m-0 p-0">User</Label>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild className="py-1 px-1">
@@ -242,7 +242,7 @@ function AddUsersDemo() {
               <IconSelector className="h-4 w-4 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[270px] p-0">
+          <PopoverContent className="w-[380px] p-0">
             <Command shouldFilter={false}>
               <CommandInput
                 placeholder="Search users..."
@@ -460,6 +460,13 @@ function SimpleDemo() {
     label: 'Menu item',
   }));
 
+  const secondMenuItems = Array.from({ length: 5 }, (_, i) => ({
+    value: `second-item-${i + 1}`,
+    label: 'Menu item',
+  }));
+
+  const allItems = [...menuItems, ...secondMenuItems];
+
   return (
     <div className="space-y-3">
       <div className="space-y-2 w-[300px]">
@@ -473,7 +480,7 @@ function SimpleDemo() {
               className="w-full justify-between"
             >
               {value
-                ? menuItems.find((item) => item.value === value)?.label
+                ? allItems.find((item) => item.value === value)?.label
                 : 'Select view...'}
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
@@ -499,10 +506,10 @@ function SimpleDemo() {
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Section label">
-                  {menuItems.map((item) => (
+                  {secondMenuItems.map((item) => (
                     <CommandItem
-                      key={`second-${item.value}`}
-                      value={`second-${item.value}`}
+                      key={item.value}
+                      value={item.value}
                       onSelect={(currentValue) => {
                         setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
@@ -690,7 +697,7 @@ function AvatarDemo() {
                       </div>
                       <IconCheck
                         className={cn(
-                          'h-4 w-4 shrink-0',
+                          'mr-2 h-4 w-4 shrink-0',
                           value === member.value ? 'opacity-100' : 'opacity-0'
                         )}
                       />
@@ -916,9 +923,9 @@ function CheckboxDemo() {
                         key={option.value}
                         value={option.value}
                         onSelect={() => handleToggle(option.value)}
-                        className="flex items-center gap-2 h-[36px] pr-0"
+                        className="flex items-center gap-2 h-[36px]"
                       >
-                        <Checkbox checked={isSelected} />
+                        <Checkbox checked={isSelected} className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground" />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                           {option.label}
                         </span>
@@ -1751,7 +1758,7 @@ export function AvatarDemo() {
                       </div>
                       <IconCheck
                         className={cn(
-                          'h-4 w-4 shrink-0',
+                          'mr-2 h-4 w-4 shrink-0',
                           value === member.value ? 'opacity-100' : 'opacity-0'
                         )}
                       />
@@ -2050,9 +2057,9 @@ export function CheckboxDemo() {
                         key={option.value}
                         value={option.value}
                         onSelect={() => handleToggle(option.value)}
-                        className="flex items-center gap-2 h-[36px] pr-0"
+                        className="flex items-center gap-2 h-[36px]"
                       >
-                        <Checkbox checked={isSelected} />
+                        <Checkbox checked={isSelected} className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground" />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                           {option.label}
                         </span>
