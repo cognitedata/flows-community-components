@@ -155,6 +155,18 @@
       ]
     },
     {
+      "name": "colors",
+      "type": "registry:component",
+      "title": "Colors",
+      "description": "Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/colors.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "chart",
       "type": "registry:component",
       "title": "Chart",

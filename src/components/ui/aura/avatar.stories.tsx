@@ -11,7 +11,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
 } from './dropdown-menu';
 import {
   IconWheel,
@@ -203,7 +202,7 @@ export const WithImage: Story = {
     );
 
     // Wait for image element to appear (Radix Avatar only renders it when image loads)
-    const image = await waitFor(
+    await waitFor(
       () => {
         const found = canvasElement.querySelector('[data-slot="avatar-image"]');
         expect(found).toBeInTheDocument();
@@ -1215,7 +1214,7 @@ export const OverflowAvatarWithMenu: Story = {
           <AvatarImage src={getImagePath('user-avatar6.png')} alt="User 4" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
-        <DropdownMenu defaultOpen>
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar
               variant="overflow"
@@ -1288,35 +1287,15 @@ export const OverflowAvatarWithMenu: Story = {
     docs: {
       description: {
         story:
-          'Overflow avatar with dropdown menu showing additional users. Demonstrates how to display extra avatars in a menu when space is limited. The menu is opened by default in this story to show the layout.',
+          'Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    // Wait for dropdown menu to be visible first (it's rendered in a portal)
-    const menuContent = await waitFor(
+    // Wait for the main avatars to render first
+    await waitFor(
       () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        if (!menu) {
-          throw new Error('Menu not found');
-        }
-        return menu;
-      },
-      { timeout: 2000 }
-    );
-
-    // Wait for all avatars to render - count all avatars including those in dropdown
-    const avatars = await waitFor(
-      () => {
-        // Query from ownerDocument to include portal-rendered content
-        const found = canvasElement.ownerDocument.querySelectorAll(
-          '[data-slot="avatar"]'
-        );
-        // We expect at least 4: 4 visible avatars (overflow might be in HoverCard)
-        // The 4 avatars in the dropdown menu are also counted, so total could be more
-        // But we'll check for at least 4 to be safe
+        const found = canvasElement.querySelectorAll('[data-slot="avatar"]');
         if (found.length < 4) {
           throw new Error(`Expected at least 4 avatars, found ${found.length}`);
         }
@@ -1325,12 +1304,38 @@ export const OverflowAvatarWithMenu: Story = {
       { timeout: 2000 }
     );
 
-    // Verify we have the expected number of avatars
-    expect(avatars.length).toBeGreaterThanOrEqual(4);
+    // Find the dropdown menu trigger (which wraps the overflow avatar)
+    const trigger = await waitFor(
+      () => {
+        const found = canvasElement.querySelector(
+          '[data-slot="dropdown-menu-trigger"]'
+        );
+        if (!found) {
+          throw new Error('Dropdown trigger not found');
+        }
+        return found;
+      },
+      { timeout: 1000 }
+    );
 
-    // Verify menu contains user information
-    expect(menuContent).toHaveTextContent('Emma Liu');
-    expect(menuContent).toHaveTextContent('James Kim');
+    // Click the trigger to open the dropdown menu
+    await userEvent.click(trigger as Element);
+
+    // Wait for dropdown menu to appear (it's rendered in a portal)
+    await waitFor(
+      () => {
+        const menu = canvasElement.ownerDocument.querySelector(
+          '[data-slot="dropdown-menu-content"]'
+        );
+        if (!menu) {
+          throw new Error('Menu not found');
+        }
+        // Verify menu contains user information
+        expect(menu).toHaveTextContent('Emma Liu');
+        expect(menu).toHaveTextContent('James Kim');
+      },
+      { timeout: 3000 }
+    );
   },
 };
 
