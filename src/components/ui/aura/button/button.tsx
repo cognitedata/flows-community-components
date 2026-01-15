@@ -39,6 +39,11 @@ const buttonVariants = cva(
 
 type ButtonProps = ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
+    /**
+     * Change the default rendered element for the one passed as a child,
+     * merging their props and behavior using Radix UI Slot.
+     * @default false
+     */
     asChild?: boolean;
   };
 
