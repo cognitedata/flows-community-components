@@ -25,12 +25,7 @@ export async function generateStaticParams() {
     'component-examples'
   );
 
-  const slugs = new Set<string>();
-
-  // Add slugs from story-based components (new folder structure)
-  for (const slug of componentsWithStories) {
-    slugs.add(slug);
-  }
+  const slugs = new Set<string>(componentsWithStories);
 
   // Add slugs from examples files
   try {
