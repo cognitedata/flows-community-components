@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react';
+import { forwardRef, type ComponentProps } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
@@ -37,17 +37,7 @@ const buttonVariants = cva(
   }
 );
 
-/**
- * Button component for user interactions and actions.
- * Supports multiple variants, sizes, and can render as a child component using Radix UI Slot.
- */
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: ComponentProps<'button'> &
+type ButtonProps = ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     /**
      * Change the default rendered element for the one passed as a child,
@@ -55,16 +45,22 @@ function Button({
      * @default false
      */
     asChild?: boolean;
-  }) {
+  };
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
   const Comp = asChild ? Slot : 'button';
 
   return (
     <Comp
+      ref={ref}
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
   );
-}
+});
+
+Button.displayName = 'Button';
 
 export { Button, buttonVariants };
