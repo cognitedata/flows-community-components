@@ -13,6 +13,7 @@ import {
   DropdownMenuSectionLabel,
   DropdownMenuTrigger,
   DropdownMenuGroup,
+  DropdownMenuHeader,
 } from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from './types';
 import {
@@ -37,7 +38,7 @@ function BasicDemo() {
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border ">
+            <DropdownMenuHeader>
               <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
@@ -50,7 +51,7 @@ function BasicDemo() {
                   jane.smith@cognite.com
                 </span>
               </div>
-            </DropdownMenuLabel>
+            </DropdownMenuHeader>
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUser />
@@ -248,6 +249,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuHeader,
   DropdownMenuTrigger,
   DropdownMenuGroup,
 } from "@/components/ui/aura/dropdown-menu"
@@ -272,7 +274,7 @@ function BasicDemo() {
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border ">
+            <DropdownMenuHeader>
               <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
@@ -285,7 +287,7 @@ function BasicDemo() {
                   jane.smith@cognite.com
                 </span>
               </div>
-            </DropdownMenuLabel>
+            </DropdownMenuHeader>
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUser />

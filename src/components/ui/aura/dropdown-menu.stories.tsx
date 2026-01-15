@@ -15,13 +15,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuGroup,
+  DropdownMenuHeader,
 } from './dropdown-menu';
 import { Button } from './button';
-import {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-} from './avatar';
+import { Avatar, AvatarImage, AvatarFallback } from './avatar';
 import {
   IconUser,
   IconHelp,
@@ -62,7 +59,8 @@ const meta: Meta<typeof DropdownMenu> = {
     },
     modal: {
       control: 'boolean',
-      description: 'Whether the dropdown is modal (blocks interaction with other content)',
+      description:
+        'Whether the dropdown is modal (blocks interaction with other content)',
       table: {
         category: 'Behavior',
         type: { summary: 'boolean' },
@@ -205,7 +203,7 @@ export const WithUserLabel: Story = {
           <Button>User Menu</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-72">
-          <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border pointer-events-none">
+          <DropdownMenuHeader>
             <Avatar variant="default">
               <AvatarImage src="/user-avatar2.png" alt="" />
               <AvatarFallback>JS</AvatarFallback>
@@ -218,7 +216,7 @@ export const WithUserLabel: Story = {
                 jane.smith@cognite.com
               </span>
             </div>
-          </DropdownMenuLabel>
+          </DropdownMenuHeader>
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <IconUser />
@@ -275,7 +273,9 @@ export const WithCheckboxItems: Story = {
     );
 
     // Verify initial state shows 2 notifications selected
-    const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
+    const outputDiv = canvasElement.querySelector(
+      '[data-testid="checkbox-output"]'
+    );
     expect(outputDiv?.textContent).toContain('2');
     expect(outputDiv?.textContent).toContain('notification');
     expect(outputDiv?.textContent).toContain('selected');
@@ -298,7 +298,9 @@ export const WithCheckboxItems: Story = {
 
     // Verify count updated to 1 notification selected
     await waitFor(() => {
-      const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
+      const outputDiv = canvasElement.querySelector(
+        '[data-testid="checkbox-output"]'
+      );
       expect(outputDiv?.textContent).toContain('1');
       expect(outputDiv?.textContent).toContain('notification');
       expect(outputDiv?.textContent).toContain('selected');
@@ -316,13 +318,33 @@ export const WithCheckboxItems: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="text-sm text-muted-foreground" data-testid="checkbox-output">
+        <div
+          className="text-sm text-muted-foreground"
+          data-testid="checkbox-output"
+        >
           {selectedCount} notification{selectedCount !== 1 ? 's' : ''} selected:
           <ul className="mt-2 space-y-1">
-            {checkedItems.emails && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Email notifications</li>}
-            {checkedItems.messages && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Direct messages</li>}
-            {checkedItems.updates && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Product updates</li>}
-            {checkedItems.security && <li className="flex items-center gap-2"><IconCheck className="size-3 text-success" /> Security alerts</li>}
+            {checkedItems.emails && (
+              <li className="flex items-center gap-2">
+                <IconCheck className="size-3 text-success" /> Email
+                notifications
+              </li>
+            )}
+            {checkedItems.messages && (
+              <li className="flex items-center gap-2">
+                <IconCheck className="size-3 text-success" /> Direct messages
+              </li>
+            )}
+            {checkedItems.updates && (
+              <li className="flex items-center gap-2">
+                <IconCheck className="size-3 text-success" /> Product updates
+              </li>
+            )}
+            {checkedItems.security && (
+              <li className="flex items-center gap-2">
+                <IconCheck className="size-3 text-success" /> Security alerts
+              </li>
+            )}
           </ul>
         </div>
         <DropdownMenu {...args}>
@@ -392,7 +414,9 @@ export const WithRadioGroup: Story = {
     const canvas = within(canvasElement);
 
     // Verify initial selection
-    const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
+    const outputDiv = canvasElement.querySelector(
+      '[data-testid="radio-output"]'
+    );
     expect(outputDiv?.textContent).toContain('Current view:');
     expect(outputDiv?.textContent).toContain('grid');
 
@@ -428,7 +452,9 @@ export const WithRadioGroup: Story = {
 
     // Verify selection updated
     await waitFor(() => {
-      const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
+      const outputDiv = canvasElement.querySelector(
+        '[data-testid="radio-output"]'
+      );
       expect(outputDiv?.textContent).toContain('Current view:');
       expect(outputDiv?.textContent).toContain('list');
     });
@@ -438,8 +464,14 @@ export const WithRadioGroup: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="text-sm text-muted-foreground" data-testid="radio-output">
-          Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
+        <div
+          className="text-sm text-muted-foreground"
+          data-testid="radio-output"
+        >
+          Current view:{' '}
+          <span className="font-medium text-foreground capitalize">
+            {viewMode}
+          </span>
         </div>
         <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
@@ -450,7 +482,10 @@ export const WithRadioGroup: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>Display Mode</DropdownMenuLabel>
-            <DropdownMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
+            <DropdownMenuRadioGroup
+              value={viewMode}
+              onValueChange={setViewMode}
+            >
               <DropdownMenuRadioItem value="grid">
                 Grid view
               </DropdownMenuRadioItem>
@@ -610,7 +645,8 @@ export const KeyboardNavigation: Story = {
       <div className="space-y-4">
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
-            Selected: <span className="font-medium text-foreground">{selectedItem}</span>
+            Selected:{' '}
+            <span className="font-medium text-foreground">{selectedItem}</span>
           </div>
         )}
         <DropdownMenu {...args}>
@@ -644,7 +680,8 @@ export const EmptyMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Edge case: Dropdown menu with no available items, showing disabled placeholder.',
+        story:
+          'Edge case: Dropdown menu with no available items, showing disabled placeholder.',
       },
     },
   },
@@ -802,7 +839,8 @@ export const ComplexInteractive: Story = {
     const [theme, setTheme] = useState('light');
     const [lastAction, setLastAction] = useState('');
 
-    const notificationCount = Object.values(notifications).filter(Boolean).length;
+    const notificationCount =
+      Object.values(notifications).filter(Boolean).length;
 
     return (
       <div className="space-y-6 w-80">
@@ -810,7 +848,8 @@ export const ComplexInteractive: Story = {
           <div>
             <span className="font-medium">Notifications:</span>{' '}
             <span className="text-muted-foreground">
-              {notificationCount} type{notificationCount !== 1 ? 's' : ''} enabled
+              {notificationCount} type{notificationCount !== 1 ? 's' : ''}{' '}
+              enabled
             </span>
             {notificationCount > 0 && (
               <ul className="mt-1 ml-4 space-y-0.5 text-muted-foreground">
@@ -876,13 +915,17 @@ export const ComplexInteractive: Story = {
             <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
               <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="system">
+                System
+              </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
 
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => setLastAction('Reset preferences')}>
+              <DropdownMenuItem
+                onClick={() => setLastAction('Reset preferences')}
+              >
                 <IconSettingsFilled />
                 Reset to defaults
               </DropdownMenuItem>
