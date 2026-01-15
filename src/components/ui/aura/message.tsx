@@ -12,6 +12,10 @@ import {
   ButtonGroupText,
 } from '@/components/ui/aura/button-group';
 import {
+  CodeBlock,
+  CodeBlockCopyButton,
+} from '@/components/ui/aura/code-block';
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -33,12 +37,14 @@ import type {
 } from 'react';
 import {
   createContext,
+  isValidElement,
   memo,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
+import type { BundledLanguage } from 'shiki';
 import { Streamdown } from 'streamdown';
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
@@ -393,6 +399,54 @@ export const MessageBranchPage = ({
 
 export type MessageResponseProps = ComponentProps<typeof Streamdown>;
 
+// Custom code component that uses Aura's CodeBlock for code blocks
+type MessageResponseCodeProps = {
+  className?: string;
+  children?: ReactNode;
+};
+
+const MessageResponseCode = ({
+  className,
+  children,
+}: MessageResponseCodeProps) => {
+  // Extract language from className (e.g., "language-typescript" -> "typescript")
+  const languageMatch = className?.match(/language-(\w+)/);
+  const language = languageMatch?.[1] as BundledLanguage | undefined;
+
+  // Extract code text - Streamdown passes either a string or a single nested element
+  let codeText = '';
+  if (typeof children === 'string') {
+    codeText = children;
+  } else if (isValidElement(children)) {
+    const props = children.props as { children?: string };
+    if (typeof props.children === 'string') {
+      codeText = props.children;
+    }
+  }
+
+  // Check if this is a code block (has language) or inline code
+  const isCodeBlock = !!language;
+
+  if (isCodeBlock) {
+    return (
+      <CodeBlock
+        code={codeText}
+        language={language}
+        className="my-4 rounded-md border border-border"
+      >
+        <CodeBlockCopyButton />
+      </CodeBlock>
+    );
+  }
+
+  // Inline code - render with standard styling
+  return (
+    <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+      {children}
+    </code>
+  );
+};
+
 // Component overrides for Streamdown elements with Aura styling
 const messageResponseComponents = {
   // Headings
@@ -493,12 +547,8 @@ const messageResponseComponents = {
   td: ({ children }: { children?: ReactNode }) => (
     <td className="border px-4 py-2 text-left">{children}</td>
   ),
-  // Code (inline code - Streamdown handles code blocks separately)
-  code: ({ children }: { children?: ReactNode }) => (
-    <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-      {children}
-    </code>
-  ),
+  // Code - uses custom CodeBlock component for code blocks, standard styling for inline code
+  code: MessageResponseCode,
 };
 
 export const MessageResponse = memo(
