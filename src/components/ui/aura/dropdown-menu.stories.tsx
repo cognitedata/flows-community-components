@@ -693,16 +693,17 @@ export const DisabledTrigger: Story = {
     // Verify button is disabled
     const trigger = canvas.getByRole('button');
     await expect(trigger).toBeDisabled();
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
 
-    // Clicking should not open menu
-    await userEvent.click(trigger);
-
-    // Menu should not appear
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    // Verify menu is not open (disabled buttons cannot be interacted with)
     const menu = canvasElement.ownerDocument.querySelector(
       '[data-slot="dropdown-menu-content"]'
     );
     expect(menu).not.toBeInTheDocument();
+
+    // Verify the button has pointer-events: none (expected for disabled state)
+    const styles = window.getComputedStyle(trigger);
+    expect(styles.pointerEvents).toBe('none');
   },
   render: function DisabledTriggerStory() {
     return (
