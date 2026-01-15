@@ -51,7 +51,7 @@ function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuGroup className="px-1">
+            <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUser />
                 Profile
@@ -89,7 +89,7 @@ function UserDetailsDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
+          <DropdownMenuContent className="w-[280px]">
             <DropdownMenuSectionLabel>User settings</DropdownMenuSectionLabel>
             <DropdownMenuGroup>
               <DropdownMenuItem>
@@ -132,7 +132,7 @@ function CheckboxItemDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
+          <DropdownMenuContent className="w-[280px]">
             <DropdownMenuCheckboxItem
               checked={checkedItems.item1}
               onCheckedChange={(checked) =>
@@ -190,7 +190,7 @@ function RadioGroupDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Radio Group Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[270px] px-1">
+          <DropdownMenuContent className="w-[270px]">
             <DropdownMenuSectionLabel>Radio group</DropdownMenuSectionLabel>
             <DropdownMenuRadioGroup
               value={viewMode}
@@ -215,7 +215,7 @@ function DestructiveDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[200px] px-1">
+          <DropdownMenuContent className="w-[200px]">
             <DropdownMenuItem>
               <IconUser />
               Profile
@@ -286,7 +286,7 @@ function BasicDemo() {
                 </span>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuGroup className="px-1">
+            <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUser />
                 Profile
@@ -345,7 +345,7 @@ function UserDetailsDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
+          <DropdownMenuContent className="w-[280px]">
             <DropdownMenuSectionLabel>
               User settings
             </DropdownMenuSectionLabel>
@@ -405,7 +405,7 @@ function CheckboxItemDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
+          <DropdownMenuContent className="w-[280px]">
             <DropdownMenuCheckboxItem
               checked={checkedItems.item1}
               onCheckedChange={(checked) =>
@@ -480,7 +480,7 @@ function RadioGroupDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Radio Group Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[270px] px-1">
+          <DropdownMenuContent className="w-[270px]">
             <DropdownMenuSectionLabel>
               Radio group
             </DropdownMenuSectionLabel>
@@ -525,7 +525,7 @@ function DestructiveDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[200px] px-1">
+          <DropdownMenuContent className="w-[200px]">
             <DropdownMenuItem>
               <IconUser />
               Profile
