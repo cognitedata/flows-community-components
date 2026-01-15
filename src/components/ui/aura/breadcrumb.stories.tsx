@@ -1,8 +1,9 @@
 'use client';
 
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { within, userEvent } from '@storybook/testing-library';
+import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import { useState } from 'react';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -12,6 +13,18 @@ import {
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
 } from './breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from './dropdown-menu';
+import {
+  IconPencil,
+  IconTag,
+  IconCircleArrowDown,
+  IconTrash,
+} from '@tabler/icons-react';
 
 const meta: Meta<typeof Breadcrumb> = {
   title: 'UI/Breadcrumb',
@@ -50,7 +63,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          'Basic breadcrumb navigation showing the path to the current page. Uses BreadcrumbLink for navigable items and BreadcrumbPage for the current page.',
+          'Basic breadcrumb navigation showing the path to the current page. Includes ellipsis for collapsed intermediate items and a dropdown menu on the current page for actions.',
       },
     },
   },
@@ -66,29 +79,99 @@ export const Basic: Story = {
     await expect(homeLink).toBeInTheDocument();
     await expect(homeLink).toHaveAttribute('href', '/');
 
-    const componentsLink = canvas.getByRole('link', { name: 'Components' });
-    await expect(componentsLink).toBeInTheDocument();
-    await expect(componentsLink).toHaveAttribute('href', '/components');
+    const canvasLink = canvas.getByRole('link', { name: 'Canvas' });
+    await expect(canvasLink).toBeInTheDocument();
+    await expect(canvasLink).toHaveAttribute('href', '/canvas');
 
-    // Verify current page has aria-current
-    const currentPage = canvas.getByRole('link', { name: 'Breadcrumb' });
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
-    await expect(currentPage).toHaveAttribute('aria-disabled', 'true');
+    // Verify ellipsis element is present
+    const ellipsis = canvasElement.querySelector(
+      '[data-slot="breadcrumb-ellipsis"]'
+    );
+    await expect(ellipsis).toBeInTheDocument();
+
+    // Verify current page with dropdown
+    const currentPage = canvas.getByRole('button', { name: /Test canvas/i });
+    await expect(currentPage).toBeInTheDocument();
+
+    // Click to open the dropdown menu
+    await userEvent.click(currentPage);
+
+    // Wait for menu to appear (menu is rendered in a portal, so check document)
+    await waitFor(
+      () => {
+        const menu = document.querySelector(
+          '[data-slot="dropdown-menu-content"]'
+        );
+        expect(menu).toBeInTheDocument();
+        expect(menu).toBeVisible();
+      },
+      { timeout: 1000 }
+    );
+
+    // Verify dropdown menu items (menu is in portal, so use document.body)
+    const renameOption = within(document.body).getByRole('menuitem', {
+      name: /Rename/i,
+    });
+    await expect(renameOption).toBeInTheDocument();
+
+    const addTagsOption = within(document.body).getByRole('menuitem', {
+      name: /Add tags/i,
+    });
+    await expect(addTagsOption).toBeInTheDocument();
+
+    const downloadOption = within(document.body).getByRole('menuitem', {
+      name: /Download as PDF/i,
+    });
+    await expect(downloadOption).toBeInTheDocument();
+
+    const deleteOption = within(document.body).getByRole('menuitem', {
+      name: /Delete/i,
+    });
+    await expect(deleteOption).toBeInTheDocument();
   },
-  render: function BreadcrumbBasicStory() {
+  render: function BreadcrumbBasicStory(args) {
+    const [pageName, setPageName] = useState('Test canvas');
+
     return (
-      <Breadcrumb>
+      <Breadcrumb {...args}>
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-          </BreadcrumbItem>
+          <BreadcrumbEllipsis />
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+            <BreadcrumbLink href="/canvas">Canvas</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem className="has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1">
+                <BreadcrumbPage>{pageName}</BreadcrumbPage>
+                <span className="sr-only">Toggle menu</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-[280px] p-0">
+                <div className="p-1">
+                  <DropdownMenuItem
+                    className="p-2"
+                    onClick={() => setPageName('Renamed canvas')}
+                  >
+                    <IconPencil /> Rename
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="p-2">
+                    <IconTag /> Add tags
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="p-2">
+                    <IconCircleArrowDown /> Download as PDF
+                  </DropdownMenuItem>
+                  <DropdownMenuItem variant="destructive" className="p-2">
+                    <IconTrash />
+                    Delete
+                  </DropdownMenuItem>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
