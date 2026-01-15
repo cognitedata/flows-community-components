@@ -35,7 +35,7 @@ function BasicDemo() {
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border ">
+            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border">
               <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
