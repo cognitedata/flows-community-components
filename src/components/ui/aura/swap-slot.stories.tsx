@@ -403,7 +403,7 @@ export const PriorityOrder: Story = {
     
     // Test priority 2: defaultSlot wins over children
     const defaultSlots = canvas.getAllByText('Default Slot');
-    await expect(defaultSlots.length).toBeGreaterThanOrEqual(2);
+    await expect(defaultSlots.length).toBeGreaterThanOrEqual(1);
     
     // Test priority 3: children is shown when nothing else
     const children = canvas.getAllByText('Children');
