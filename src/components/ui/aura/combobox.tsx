@@ -73,7 +73,7 @@ export function Combobox() {
           <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-50 p-0">
+      <PopoverContent className="w-50 p-0" aria-label="Select framework">
         <Command>
           <CommandInput placeholder="Search framework..." />
           <CommandList>
@@ -113,6 +113,10 @@ export interface ComboboxProps {
   searchPlaceholder?: string;
   emptyText?: string;
   className?: string;
+  id?: string;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+  popoverAriaLabel?: string;
 }
 
 export function ComboboxCustom({
@@ -123,6 +127,10 @@ export function ComboboxCustom({
   searchPlaceholder = 'Search...',
   emptyText = 'No option found.',
   className,
+  id,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  popoverAriaLabel,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value || '');
@@ -141,15 +149,24 @@ export function ComboboxCustom({
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          id={id}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
           className={cn('w-50 justify-between', className)}
         >
           {selectedValue
             ? options.find((option) => option.value === selectedValue)?.label
             : placeholder}
-          <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <IconCaretUpDown
+            className="ml-2 h-4 w-4 shrink-0 opacity-50"
+            aria-hidden="true"
+          />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-50 p-0">
+      <PopoverContent
+        className="w-50 p-0"
+        aria-label={popoverAriaLabel || placeholder}
+      >
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
           <CommandList>
