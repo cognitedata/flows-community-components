@@ -85,7 +85,7 @@ function UserDetailsDemo() {
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>Open User DetailsMenu</Button>
+            <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
             <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
@@ -119,6 +119,14 @@ function UserDetailsDemo() {
   );
 }
 function CheckboxItemDemo() {
+  const [checkedItems, setCheckedItems] = useState({
+    item1: true,
+    item2: true,
+    item3: false,
+    item4: false,
+    item5: false,
+  });
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
@@ -127,11 +135,46 @@ function CheckboxItemDemo() {
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item1}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item1: checked }))
+              }
+            >
+              Option 1
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item2}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item2: checked }))
+              }
+            >
+              Option 2
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item3}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item3: checked }))
+              }
+            >
+              Option 3
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item4}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item4: checked }))
+              }
+            >
+              Option 4
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item5}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item5: checked }))
+              }
+            >
+              Option 5
+            </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -304,7 +347,7 @@ function UserDetailsDemo() {
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>Open User DetailsMenu</Button>
+            <Button>Open User Details Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
             <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
@@ -343,7 +386,8 @@ function UserDetailsDemo() {
     description: 'Display checkbox items in a dropdown menu',
     component: CheckboxItemDemo,
     difficulty: 'intermediate',
-    code: `import { Button } from "@/components/ui/aura/button"
+    code: `import { useState } from "react"
+import { Button } from "@/components/ui/aura/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -352,6 +396,14 @@ import {
 } from "@/components/ui/aura/dropdown-menu"
 
 function CheckboxItemDemo() {
+  const [checkedItems, setCheckedItems] = useState({
+    item1: true,
+    item2: true,
+    item3: false,
+    item4: false,
+    item5: false,
+  })
+
   return (
     <div className="space-y-4">
       <div className="flex gap-2">
@@ -360,16 +412,51 @@ function CheckboxItemDemo() {
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem checked>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Label</DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item1}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item1: checked }))
+              }
+            >
+              Option 1
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item2}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item2: checked }))
+              }
+            >
+              Option 2
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item3}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item3: checked }))
+              }
+            >
+              Option 3
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item4}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item4: checked }))
+              }
+            >
+              Option 4
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuCheckboxItem
+              checked={checkedItems.item5}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item5: checked }))
+              }
+            >
+              Option 5
+            </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
     </div>
-  );
+  )
 }`,
   },
   radioGroup: {
