@@ -101,7 +101,7 @@ function BasicDemo() {
               <CommandInput placeholder="Search users..." />
               <CommandList>
                 <CommandEmpty>No user found.</CommandEmpty>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {users.map((user) => (
                     <CommandItem
                       key={user.value}
@@ -252,7 +252,7 @@ function AddUsersDemo() {
               />
               <CommandList>
                 {filteredUsers.length > 0 && (
-                  <CommandGroup className="px-1 py-0 mt-1">
+                  <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                     {filteredUsers.map((user) => (
                       <CommandItem
                         key={user.value}
@@ -419,7 +419,7 @@ function MultiSelectDemo() {
                 className="h-10"
               />
               <CommandList>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {filteredDataTypes.map((type) => {
                     const isSelected = selectedValues.includes(type.value);
                     return (
@@ -683,7 +683,7 @@ function AvatarDemo() {
               <CommandInput placeholder="Search team members..." />
               <CommandList>
                 <CommandEmpty>No team member found.</CommandEmpty>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {teamMembers.map((member) => (
                     <CommandItem
                       key={member.value}
@@ -758,7 +758,7 @@ function FocusedDemo() {
             <CommandInput placeholder="Search..." />
             <CommandList>
               <CommandEmpty>No option found.</CommandEmpty>
-              <CommandGroup className="px-1 py-0 mt-1">
+              <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                 {options.map((option) => (
                   <CommandItem
                     key={option.value}
@@ -830,7 +830,7 @@ function ValidationDemo() {
             <CommandInput placeholder="Search..." />
             <CommandList>
               <CommandEmpty>No option found.</CommandEmpty>
-              <CommandGroup className="px-1 py-0 mt-1">
+              <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                 {options.map((option) => (
                   <CommandItem
                     key={option.value}
@@ -922,7 +922,7 @@ function CheckboxDemo() {
                 className="h-10"
               />
               <CommandList>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {filteredOptions.map((option) => {
                     const isSelected = selectedValues.includes(option.value);
                     return (
@@ -1045,7 +1045,7 @@ export function BasicDemo() {
               <CommandInput placeholder="Search users..." />
               <CommandList>
                 <CommandEmpty>No user found.</CommandEmpty>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {users.map((user) => (
                     <CommandItem
                       key={user.value}
@@ -1223,7 +1223,7 @@ export function AddUsersDemo() {
               />
               <CommandList>
                 {filteredUsers.length > 0 && (
-                  <CommandGroup className="px-1 py-0 mt-1">
+                  <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                     {filteredUsers.map((user) => (
                       <CommandItem
                         key={user.value}
@@ -1420,7 +1420,7 @@ export function MultiSelectDemo() {
                 className="h-10"
               />
               <CommandList>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {filteredDataTypes.map((type) => {
                     const isSelected = selectedValues.includes(type.value);
                     return (
@@ -1744,7 +1744,7 @@ export function AvatarDemo() {
               <CommandInput placeholder="Search team members..." />
               <CommandList>
                 <CommandEmpty>No team member found.</CommandEmpty>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {teamMembers.map((member) => (
                     <CommandItem
                       key={member.value}
@@ -1844,7 +1844,7 @@ export function FocusedDemo() {
             <CommandInput placeholder="Search..." />
             <CommandList>
               <CommandEmpty>No option found.</CommandEmpty>
-              <CommandGroup className="px-1 py-0 mt-1">
+              <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                 {options.map((option) => (
                   <CommandItem
                     key={option.value}
@@ -1941,7 +1941,7 @@ export function ValidationDemo() {
             <CommandInput placeholder="Search..." />
             <CommandList>
               <CommandEmpty>No option found.</CommandEmpty>
-              <CommandGroup className="px-1 py-0 mt-1">
+              <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                 {options.map((option) => (
                   <CommandItem
                     key={option.value}
@@ -2056,7 +2056,7 @@ export function CheckboxDemo() {
                 className="h-10"
               />
               <CommandList>
-                <CommandGroup className="px-1 py-0 mt-1">
+                <CommandGroup className="px-1 pt-0 pb-1 mt-1">
                   {filteredOptions.map((option) => {
                     const isSelected = selectedValues.includes(option.value);
                     return (
