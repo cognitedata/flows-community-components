@@ -457,12 +457,12 @@ function SimpleDemo() {
 
   const menuItems = Array.from({ length: 5 }, (_, i) => ({
     value: `item-${i + 1}`,
-    label: 'Menu item',
+    label: `Menu item ${i + 1}`,
   }));
 
   const secondMenuItems = Array.from({ length: 5 }, (_, i) => ({
     value: `second-item-${i + 1}`,
-    label: 'Menu item',
+    label: `Menu item ${i + 6}`,
   }));
 
   const allItems = [...menuItems, ...secondMenuItems];
@@ -534,8 +534,15 @@ function SimpleWithIconDemo() {
 
   const menuItems = Array.from({ length: 5 }, (_, i) => ({
     value: `item-${i + 1}`,
-    label: 'Menu item',
+    label: `Menu item ${i + 1}`,
   }));
+
+  const secondMenuItems = Array.from({ length: 5 }, (_, i) => ({
+    value: `second-item-${i + 1}`,
+    label: `Menu item ${i + 6}`,
+  }));
+
+  const allItems = [...menuItems, ...secondMenuItems];
 
   return (
     <div className="space-y-3">
@@ -550,7 +557,7 @@ function SimpleWithIconDemo() {
               className="w-full justify-between"
             >
               {value
-                ? menuItems.find((item) => item.value === value)?.label
+                ? allItems.find((item) => item.value === value)?.label
                 : 'Select view...'}
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
@@ -577,10 +584,10 @@ function SimpleWithIconDemo() {
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Section label">
-                  {menuItems.map((item) => (
+                  {secondMenuItems.map((item) => (
                     <CommandItem
-                      key={`second-${item.value}`}
-                      value={`second-${item.value}`}
+                      key={item.value}
+                      value={item.value}
                       onSelect={(currentValue) => {
                         setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
