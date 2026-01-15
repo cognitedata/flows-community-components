@@ -60,7 +60,7 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<'span'>) {
       aria-disabled="true"
       aria-current="page"
       className={cn(
-        'text-foreground font-medium text-sm tracking-tight hover:text-foreground hover:bg-accent rounded-sm',
+        'text-foreground font-medium text-sm tracking-tight',
         className
       )}
       {...props}
