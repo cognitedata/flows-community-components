@@ -12,6 +12,8 @@ import {
   IconSettings,
   IconSend,
   IconLoader2,
+  IconBookmark,
+  IconExternalLink,
 } from '@tabler/icons-react';
 
 const meta: Meta<typeof Button> = {
@@ -266,13 +268,28 @@ export const Link: Story = {
  */
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-wrap items-center gap-4">
-      <Button variant="default">Default</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="link">Link</Button>
+    <div className="flex flex-wrap items-center justify-center gap-3">
+      <Button size="icon" aria-label="Add">
+        <IconPlus className="size-4" />
+      </Button>
+      <Button size="icon" variant="secondary" aria-label="Bookmark">
+        <IconBookmark className="size-4" />
+      </Button>
+      <Button size="icon" variant="destructive" aria-label="Delete">
+        <IconTrash className="size-4" />
+      </Button>
+      <Button>
+        <IconPlus className="size-4" />
+        Add data
+      </Button>
+      <Button variant="secondary">
+        Explore more
+        <IconExternalLink className="size-4" />
+      </Button>
+      <Button variant="destructive">
+        <IconTrash className="size-4" />
+        Delete
+      </Button>
     </div>
   ),
   parameters: {
@@ -292,6 +309,120 @@ export const AllVariants: Story = {
 
     // Test first button is clickable
     await userEvent.click(buttons[0]);
+  },
+};
+
+/**
+ * Main component overview with size + variant combinations.
+ */
+export const MainComponent: Story = {
+  render: () => {
+    const variants = [
+      'default',
+      'secondary',
+      'outline',
+      'ghost',
+      'destructive',
+      'link',
+    ] as const;
+    const sizePairs = [
+      { label: 'default' },
+      { label: 'sm' },
+      { label: 'lg' },
+    ] as const;
+
+    const activeWrapperClassByVariant = {
+      default: '[&>button]:bg-primary-hover dark:[&>button]:bg-primary-hover',
+      secondary:
+        '[&>button]:bg-secondary-hover dark:[&>button]:bg-secondary-hover',
+      outline: '[&>button]:bg-accent dark:[&>button]:bg-input/50',
+      ghost: '[&>button]:bg-accent dark:[&>button]:bg-accent/50',
+      destructive:
+        '[&>button]:bg-destructive-hover dark:[&>button]:bg-destructive-hover',
+      link: '[&>button]:bg-accent/50 dark:[&>button]:bg-accent/30 [&>button]:underline',
+    } as const;
+
+    return (
+      <div className="flex flex-wrap gap-3 flex-col w-full">
+        {variants.map((variant) => (
+          <div key={variant} className="flex flex-wrap items-center gap-3 w-full">
+            {sizePairs.map(({ label }) => (
+              <div key={`${variant}-${label}`} className="contents">
+                <Button variant={variant} size={label}>
+                  <IconPlus className="size-4" />
+                  Button
+                </Button>
+                <div className={activeWrapperClassByVariant[variant]}>
+                  <Button variant={variant} size={label}>
+                    <IconPlus className="size-4" />
+                    Button
+                  </Button>
+                </div>
+                <Button variant={variant} size={label} disabled>
+                  <IconPlus className="size-4" />
+                  Button
+                </Button>
+                <div className={activeWrapperClassByVariant[variant]}>
+                  <Button variant={variant} size={label}>
+                    <IconPlus className="size-4" />
+                  </Button>
+                </div>
+                <Button variant={variant} size={label}>
+                  <IconPlus className="size-4" />
+                </Button>
+                <Button variant={variant} size={label} disabled>
+                  <IconPlus className="size-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comprehensive overview of size and variant combinations for the main button component.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = canvas.getAllByRole('button');
+    await expect(buttons.length).toBeGreaterThan(10);
+  },
+};
+
+/**
+ * Disabled and loading states.
+ */
+export const ButtonStates: Story = {
+  render: () => (
+    <div className="flex items-center justify-center py-4">
+      <div className="flex flex-wrap gap-3">
+        <Button disabled>Disabled</Button>
+        <Button disabled>
+          <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
+          Loading...
+        </Button>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Disabled and loading states.',
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = canvas.getAllByRole('button');
+    await expect(buttons).toHaveLength(2);
+    await expect(buttons[0]).toBeDisabled();
+    await expect(buttons[1]).toBeDisabled();
   },
 };
 

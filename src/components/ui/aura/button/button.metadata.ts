@@ -24,19 +24,14 @@ export const ButtonMetadata: ComponentMetadata = {
       description: 'Different visual styles for various use cases.',
     },
     {
-      storyKey: 'AllSizes',
-      title: 'Button Sizes',
-      description: 'Available size options for different contexts.',
+      storyKey: 'MainComponent',
+      title: 'Main Component',
+      description: 'Available size and variation options.',
     },
     {
-      storyKey: 'Disabled',
-      title: 'Disabled State',
-      description: 'An example of buttons in a disabled state.',
-    },
-    {
-      storyKey: 'Loading',
-      title: 'Loading State',
-      description: 'An example of buttons in a loading state.',
+      storyKey: 'ButtonStates',
+      title: 'Button States',
+      description: 'Disabled and loading states',
     },
   ],
 
