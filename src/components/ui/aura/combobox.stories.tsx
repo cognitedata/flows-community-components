@@ -209,13 +209,15 @@ export const Basic: Story = {
                 className="w-full justify-between"
               >
                 <div className="flex items-center gap-2">
-                  {selectedUser && (
+                  {selectedUser ? (
                     <>
                       <IconUser />
                       <span className="text-base tracking-tightest font-normal text-foreground">
                         {selectedUser.label}
                       </span>
                     </>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">Select user...</span>
                   )}
                 </div>
                 <IconSelector className="h-4 w-4 opacity-50" />
@@ -375,13 +377,15 @@ export const WithAddNew: Story = {
                 className="w-full justify-between"
               >
                 <div className="flex items-center gap-2">
-                  {selectedUser && (
+                  {selectedUser ? (
                     <>
                       <IconUser />
                       <span className="text-base tracking-tightest font-normal text-foreground">
                         {selectedUser.label}
                       </span>
                     </>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">Select user...</span>
                   )}
                 </div>
                 <IconSelector className="h-4 w-4 opacity-50" />
