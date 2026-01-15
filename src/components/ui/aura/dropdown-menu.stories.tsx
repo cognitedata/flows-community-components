@@ -643,7 +643,7 @@ export const EmptyMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Edge case: Dropdown menu with no items.',
+        story: 'Edge case: Dropdown menu with no available items, showing disabled placeholder.',
       },
     },
   },
@@ -672,9 +672,9 @@ export const EmptyMenu: Story = {
           <Button>Empty Menu</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
-          <div className="px-2 py-6 text-sm text-muted-foreground text-center">
+          <DropdownMenuItem disabled className="justify-center">
             No items available
-          </div>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
