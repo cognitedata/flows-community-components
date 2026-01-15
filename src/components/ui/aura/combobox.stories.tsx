@@ -854,15 +854,15 @@ export const KeyboardNavigation: Story = {
             }}
           >
             <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                className="w-full justify-between"
-              >
-                {selectedUser ? selectedUser.label : 'Select user...'}
-                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-              </Button>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-full justify-between"
+            >
+              <span>{selectedUser ? selectedUser.label : 'Select user...'}</span>
+              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+            </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[380px] p-0">
               <Command>
@@ -1086,7 +1086,7 @@ export const WithError: Story = {
               aria-invalid={true}
               className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
             >
-              {value || 'Select user...'}
+              <span>{value || 'Select user...'}</span>
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
