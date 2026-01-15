@@ -36,31 +36,31 @@ const users = [
   {
     value: 'dennis-rodman',
     label: 'Dennis Rodman',
-    initials: 'PJ',
+    initials: 'DR',
     position: 'Power forward',
   },
   {
     value: 'luc-longley',
     label: 'Luc Longley',
-    initials: 'PJ',
+    initials: 'LL',
     position: 'Center',
   },
   {
     value: 'michael-jordan',
     label: 'Michael Jordan',
-    initials: 'PJ',
+    initials: 'MJ',
     position: 'Shooting guard',
   },
   {
     value: 'ron-harper',
     label: 'Ron Harper',
-    initials: 'PJ',
+    initials: 'RH',
     position: 'Point guard',
   },
   {
     value: 'scottie-pippen',
     label: 'Scottie Pippen',
-    initials: 'PJ',
+    initials: 'SP',
     position: 'Small forward',
   },
 ];
@@ -983,31 +983,31 @@ const users = [
   {
     value: 'dennis-rodman',
     label: 'Dennis Rodman',
-    initials: 'PJ',
+    initials: 'DR',
     position: 'Power forward',
   },
   {
     value: 'luc-longley',
     label: 'Luc Longley',
-    initials: 'PJ',
+    initials: 'LL',
     position: 'Center',
   },
   {
     value: 'michael-jordan',
     label: 'Michael Jordan',
-    initials: 'PJ',
+    initials: 'MJ',
     position: 'Shooting guard',
   },
   {
     value: 'ron-harper',
     label: 'Ron Harper',
-    initials: 'PJ',
+    initials: 'RH',
     position: 'Point guard',
   },
   {
     value: 'scottie-pippen',
     label: 'Scottie Pippen',
-    initials: 'PJ',
+    initials: 'SP',
     position: 'Small forward',
   },
 ];

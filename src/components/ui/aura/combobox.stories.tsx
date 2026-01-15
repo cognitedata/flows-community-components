@@ -1184,7 +1184,7 @@ export const ComplexInteractive: Story = {
     }));
 
     const allItems = [...menuItems, ...secondMenuItems];
-    const selectedItem = allItems.find((item) => item.label === value);
+    const selectedItem = allItems.find((item) => item.value === value);
 
     return (
       <div className="space-y-3 w-[300px]">
@@ -1220,7 +1220,7 @@ export const ComplexInteractive: Story = {
                   {menuItems.map((item) => (
                     <CommandItem
                       key={item.value}
-                      value={item.label}
+                      value={item.value}
                       onSelect={(currentValue) => {
                         setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
@@ -1235,7 +1235,7 @@ export const ComplexInteractive: Story = {
                   {secondMenuItems.map((item) => (
                     <CommandItem
                       key={item.value}
-                      value={item.label}
+                      value={item.value}
                       onSelect={(currentValue) => {
                         setValue(currentValue === value ? '' : currentValue);
                         setOpen(false);
