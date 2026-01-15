@@ -82,7 +82,7 @@ function UserDetailsDemo() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px] px-1">
             <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="ext-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
+              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
                 User settings
               </div>
             </DropdownMenuLabel>
