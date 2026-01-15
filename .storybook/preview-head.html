@@ -1,0 +1,106 @@
+<style>
+  /* Ensure Storybook's body inherits the design system styles */
+  body {
+    font-family: 'Inter', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Story root container */
+  #storybook-root {
+    height: 100%;
+  }
+  
+  /* ===== DARK MODE STYLES ===== */
+  html.dark {
+    color-scheme: dark;
+  }
+  
+  html.dark body {
+    background-color: transparent !important;
+    color: #fafafa !important;
+  }
+  
+  html.dark #storybook-root {
+    background-color: transparent !important;
+    color: #fafafa !important;
+  }
+  
+  /* Docs page wrapper - the outer container */
+  html.dark .sbdocs-wrapper,
+  html.dark .sbdocs,
+  html.dark [class*="sbdocs-wrapper"],
+  html.dark #storybook-docs {
+    background-color: #0f0f0f !important;
+    color: #fafafa !important;
+  }
+  
+  /* Docs content area */
+  html.dark .sbdocs-content,
+  html.dark [class*="sbdocs-content"] {
+    background-color: #0f0f0f !important;
+  }
+  
+  /* Docs headings */
+  html.dark .sbdocs h1,
+  html.dark .sbdocs h2,
+  html.dark .sbdocs h3,
+  html.dark .sbdocs-wrapper h1,
+  html.dark .sbdocs-wrapper h2,
+  html.dark .sbdocs-wrapper h3 {
+    color: #fafafa !important;
+  }
+  
+  /* Docs text */
+  html.dark .sbdocs p,
+  html.dark .sbdocs span,
+  html.dark .sbdocs li,
+  html.dark .sbdocs-wrapper p,
+  html.dark .sbdocs-wrapper span {
+    color: #a1a1aa !important;
+  }
+  
+  /* Docs links */
+  html.dark .sbdocs a,
+  html.dark .sbdocs-wrapper a {
+    color: #60a5fa !important;
+  }
+  
+  /* Story preview container in docs */
+  html.dark .docs-story,
+  html.dark [class*="docs-story"] {
+    background-color: #0f0f0f !important;
+    border-color: #262626 !important;
+  }
+  
+  /* Code blocks in docs */
+  html.dark .sbdocs pre,
+  html.dark .sbdocs code {
+    background-color: #171717 !important;
+    color: #e4e4e7 !important;
+  }
+  
+  /* Tables in docs */
+  html.dark .sbdocs table,
+  html.dark .sbdocs th,
+  html.dark .sbdocs td {
+    border-color: #262626 !important;
+  }
+  
+  html.dark .sbdocs th {
+    background-color: #171717 !important;
+    color: #fafafa !important;
+  }
+  
+  html.dark .sbdocs td {
+    background-color: #0f0f0f !important;
+    color: #a1a1aa !important;
+  }
+  
+  /* ===== LIGHT MODE STYLES ===== */
+  html:not(.dark) body,
+  html:not(.dark) #storybook-root {
+    background-color: transparent !important;
+    color: hsl(var(--foreground)) !important;
+  }
+</style>
