@@ -62,7 +62,7 @@ function DropdownMenuGroup({
   return (
     <DropdownMenuPrimitive.Group
       data-slot="dropdown-menu-group"
-      className={cn('pt-1', className)}
+      className={cn('', className)}
       {...props}
     />
   );
@@ -176,7 +176,7 @@ function DropdownMenuLabel({
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        '-mx-1 -mt-1 mb-1 px-2 py-1 pb-1.75 text-sm border-b border-border font-medium data-inset:pl-8 text-popover-foreground dark:text-popover-foreground',
+        '-mx-1 -mt-1 mb-1 px-2 py-1.5 text-sm border-b border-border font-medium data-inset:pl-8 text-popover-foreground dark:text-popover-foreground',
         className
       )}
       {...props}

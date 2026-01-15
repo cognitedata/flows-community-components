@@ -7,12 +7,10 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSectionLabel,
   DropdownMenuTrigger,
-  DropdownMenuGroup,
   DropdownMenuHeader,
 } from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from './types';
@@ -90,25 +88,23 @@ function UserDetailsDemo() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px]">
             <DropdownMenuSectionLabel>User settings</DropdownMenuSectionLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
 
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -325,7 +321,6 @@ import {
   DropdownMenuItem,
   DropdownMenuSectionLabel,
   DropdownMenuTrigger,
-  DropdownMenuGroup,
 } from "@/components/ui/aura/dropdown-menu"
 import {
   IconUser,
@@ -346,25 +341,23 @@ function UserDetailsDemo() {
             <DropdownMenuSectionLabel>
               User settings
             </DropdownMenuSectionLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
 
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
