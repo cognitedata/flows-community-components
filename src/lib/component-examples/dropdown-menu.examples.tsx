@@ -84,10 +84,23 @@ function UserDetailsDemo() {
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>Open User Details Menu</Button>
+            <Button>User Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuSectionLabel>User settings</DropdownMenuSectionLabel>
+          <DropdownMenuContent className="w-72">
+            <DropdownMenuHeader>
+              <Avatar variant="default">
+                <AvatarImage src="/user-avatar2.png" alt="User" />
+                <AvatarFallback>JS</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <div className="text-base tracking-tighter font-medium">
+                  Jane Smith
+                </div>
+                <span className="text-sm font-normal tracking-tight text-muted-foreground">
+                  jane.smith@cognite.com
+                </span>
+              </div>
+            </DropdownMenuHeader>
             <DropdownMenuItem>
               <IconUser />
               Profile
@@ -96,7 +109,6 @@ function UserDetailsDemo() {
               <IconSettingsFilled />
               Settings
             </DropdownMenuItem>
-
             <DropdownMenuItem>
               <IconBell />
               Notifications
@@ -311,7 +323,7 @@ function BasicDemo() {
   },
   userDetails: {
     title: 'User Details Demo',
-    description: 'Display user details in a dropdown menu',
+    description: 'Dropdown menu with user avatar and details in header',
     component: UserDetailsDemo,
     difficulty: 'intermediate',
     code: `import { Button } from "@/components/ui/aura/button"
@@ -319,9 +331,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSectionLabel,
+  DropdownMenuHeader,
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu"
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from "@/components/ui/aura/avatar"
 import {
   IconUser,
   IconSettingsFilled,
@@ -335,12 +352,23 @@ function UserDetailsDemo() {
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>Open User Details Menu</Button>
+            <Button>User Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuSectionLabel>
-              User settings
-            </DropdownMenuSectionLabel>
+          <DropdownMenuContent className="w-72">
+            <DropdownMenuHeader>
+              <Avatar variant="default">
+                <AvatarImage src="/user-avatar2.png" alt="User" />
+                <AvatarFallback>JS</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <div className="text-base tracking-tighter font-medium">
+                  Jane Smith
+                </div>
+                <span className="text-sm font-normal tracking-tight text-muted-foreground">
+                  jane.smith@cognite.com
+                </span>
+              </div>
+            </DropdownMenuHeader>
             <DropdownMenuItem>
               <IconUser />
               Profile
@@ -349,7 +377,6 @@ function UserDetailsDemo() {
               <IconSettingsFilled />
               Settings
             </DropdownMenuItem>
-
             <DropdownMenuItem>
               <IconBell />
               Notifications
