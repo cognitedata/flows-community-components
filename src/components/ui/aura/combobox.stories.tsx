@@ -695,15 +695,23 @@ export const WithCheckboxes: Story = {
       expect(commandItems.length).toBeGreaterThanOrEqual(5);
     });
 
-    // Verify command items are present and can be interacted with
+    // Verify checkboxes - first two should be checked (notifications, marketing)
+    const checkboxes = canvasElement.ownerDocument.querySelectorAll(
+      '[data-slot="checkbox"]'
+    );
+    expect(checkboxes[0]).toHaveAttribute('data-state', 'checked');
+    expect(checkboxes[1]).toHaveAttribute('data-state', 'checked');
+    expect(checkboxes[2]).toHaveAttribute('data-state', 'unchecked');
+
+    // Test toggling a checkbox
     const commandItems = canvasElement.ownerDocument.querySelectorAll(
       '[data-slot="command-item"]'
     );
+    await userEvent.click(commandItems[2] as Element);
 
-    // First two should be selected (notifications, marketing)
-    expect(commandItems[0]).toHaveAttribute('aria-selected', 'true');
-    expect(commandItems[1]).toHaveAttribute('aria-selected', 'true');
-    expect(commandItems[2]).toHaveAttribute('aria-selected', 'false');
+    await waitFor(() => {
+      expect(trigger).toHaveTextContent('3 selected');
+    });
   },
   render: function WithCheckboxesStory(args) {
     const [open, setOpen] = useState(false);
