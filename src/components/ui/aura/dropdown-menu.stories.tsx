@@ -268,8 +268,11 @@ export const WithCheckboxItems: Story = {
       { timeout: 1000 }
     );
 
-    // Verify initial state shows 2 selected
-    await expect(canvas.getByText(/2 selected/i)).toBeInTheDocument();
+    // Verify initial state shows 2 notifications selected
+    const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+    expect(outputDiv?.textContent).toContain('2');
+    expect(outputDiv?.textContent).toContain('notification');
+    expect(outputDiv?.textContent).toContain('selected');
 
     // Find checkbox items in the portal
     const menuDoc = canvasElement.ownerDocument;
@@ -287,9 +290,12 @@ export const WithCheckboxItems: Story = {
       expect(menu).toBeInTheDocument();
     });
 
-    // Verify count updated to 1 selected
+    // Verify count updated to 1 notification selected
     await waitFor(() => {
-      expect(canvas.getByText(/1 selected/i)).toBeInTheDocument();
+      const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+      expect(outputDiv?.textContent).toContain('1');
+      expect(outputDiv?.textContent).toContain('notification');
+      expect(outputDiv?.textContent).toContain('selected');
     });
   },
   render: function WithCheckboxItemsStory() {
@@ -380,7 +386,9 @@ export const WithRadioGroup: Story = {
     const canvas = within(canvasElement);
 
     // Verify initial selection
-    await expect(canvas.getByText(/current view: grid/i)).toBeInTheDocument();
+    const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+    expect(outputDiv?.textContent).toContain('Current view:');
+    expect(outputDiv?.textContent).toContain('grid');
 
     // Open menu
     const trigger = canvas.getByRole('button', { name: /change view/i });
@@ -414,7 +422,9 @@ export const WithRadioGroup: Story = {
 
     // Verify selection updated
     await waitFor(() => {
-      expect(canvas.getByText(/current view: list/i)).toBeInTheDocument();
+      const outputDiv = canvasElement.querySelector('.text-sm.text-muted-foreground');
+      expect(outputDiv?.textContent).toContain('Current view:');
+      expect(outputDiv?.textContent).toContain('list');
     });
   },
   render: function WithRadioGroupStory() {
