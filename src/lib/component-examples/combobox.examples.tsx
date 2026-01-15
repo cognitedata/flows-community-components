@@ -347,7 +347,10 @@ function MultiSelectDemo() {
     );
   };
 
-  const handleRemove = (value: string, e: React.MouseEvent) => {
+  const handleRemove = (
+    value: string,
+    e: React.MouseEvent | React.KeyboardEvent
+  ) => {
     e.stopPropagation();
     e.preventDefault();
     setSelectedValues((prev) => prev.filter((v) => v !== value));
@@ -384,7 +387,7 @@ function MultiSelectDemo() {
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           e.preventDefault();
-                          handleRemove(type.value, e as any);
+                          handleRemove(type.value, e);
                         }
                       }}
                       className="ml-0.5 rounded-sm hover:bg-secondary-hover p-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
@@ -1331,7 +1334,10 @@ export function MultiSelectDemo() {
     );
   };
 
-  const handleRemove = (value: string, e: React.MouseEvent) => {
+  const handleRemove = (
+    value: string,
+    e: React.MouseEvent | React.KeyboardEvent
+  ) => {
     e.stopPropagation();
     e.preventDefault();
     setSelectedValues((prev) => prev.filter((v) => v !== value));
@@ -1368,7 +1374,7 @@ export function MultiSelectDemo() {
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           e.preventDefault();
-                          handleRemove(type.value, e as any);
+                          handleRemove(type.value, e);
                         }
                       }}
                       className="ml-0.5 rounded-sm hover:bg-secondary-hover p-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
@@ -1741,9 +1747,6 @@ export function AvatarDemo() {
                       <div className="flex flex-col flex-1 min-w-0">
                         <span className="text-base tracking-tightest font-normal text-foreground">
                           {member.label}
-                        </span>
-                        <span className="text-sm text-muted-foreground truncate">
-                          {member.email}
                         </span>
                       </div>
                       <IconCheck
