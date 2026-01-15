@@ -591,6 +591,7 @@ export const MultiSelect: Story = {
                             handleRemove(type.value, e);
                           }
                         }}
+                        aria-label={`Remove ${type.label}`}
                         className="ml-0.5 rounded-sm hover:bg-secondary-hover p-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
                       >
                         <IconX className="h-3 w-3" />
