@@ -219,7 +219,7 @@ export const WithUserLabel: Story = {
               </span>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuGroup className="px-1">
+          <DropdownMenuGroup>
             <DropdownMenuItem>
               <IconUser />
               Profile
@@ -334,7 +334,7 @@ export const WithCheckboxItems: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-64">
             <DropdownMenuLabel>Notification Preferences</DropdownMenuLabel>
-            <DropdownMenuGroup className="px-1">
+            <DropdownMenuGroup>
               <DropdownMenuCheckboxItem
                 checked={checkedItems.emails}
                 onCheckedChange={(checked) =>
@@ -843,7 +843,7 @@ export const ComplexInteractive: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-80">
             <DropdownMenuLabel>Notification Settings</DropdownMenuLabel>
-            <DropdownMenuGroup className="px-1">
+            <DropdownMenuGroup>
               <DropdownMenuCheckboxItem
                 checked={notifications.email}
                 onCheckedChange={(checked) =>
@@ -881,7 +881,7 @@ export const ComplexInteractive: Story = {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuGroup className="px-1">
+            <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => setLastAction('Reset preferences')}>
                 <IconSettingsFilled />
                 Reset to defaults
