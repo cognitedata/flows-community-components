@@ -303,12 +303,8 @@ export const WithAddNew: Story = {
     await userEvent.clear(searchInput);
     await userEvent.type(searchInput, 'Steve Kerr');
 
-    // Wait for "Add" button to appear
+    // Wait for "Add" button to appear by checking button text content
     await waitFor(() => {
-      const addButton = canvasElement.ownerDocument.querySelector(
-        'button:has-text("Add Steve Kerr")'
-      );
-      // We know button exists if we can find the text
       const buttons = canvasElement.ownerDocument.querySelectorAll('button');
       let found = false;
       buttons.forEach((btn) => {
