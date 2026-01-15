@@ -935,11 +935,11 @@ export const EmptyState: Story = {
     await userEvent.click(trigger);
 
     await waitFor(() => {
-      const empty = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-empty"]'
+      const emptyItem = canvasElement.ownerDocument.querySelector(
+        '[data-slot="command-item"][data-disabled="true"]'
       );
-      expect(empty).toBeInTheDocument();
-      expect(empty).toHaveTextContent('No users available');
+      expect(emptyItem).toBeInTheDocument();
+      expect(emptyItem).toHaveTextContent('No users available');
     });
   },
   render: function EmptyStateStory(args) {
@@ -976,7 +976,9 @@ export const EmptyState: Story = {
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
                   <CommandGroup className="px-1 pt-0 pb-1 mt-1">
-                    <CommandEmpty>No users available</CommandEmpty>
+                    <CommandItem disabled className="justify-center text-center">
+                      No users available
+                    </CommandItem>
                   </CommandGroup>
                 </CommandList>
               </Command>
