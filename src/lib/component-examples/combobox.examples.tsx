@@ -934,7 +934,7 @@ function CheckboxDemo() {
                       >
                         <Checkbox
                           checked={isSelected}
-                          className="data-[state=checked]:!bg-foreground data-[state=checked]:!border-foreground data-[state=checked]:!text-background dark:data-[state=checked]:!bg-foreground dark:data-[state=checked]:!text-background"
+                          className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:text-background"
                         />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                           {option.label}
@@ -2071,7 +2071,7 @@ export function CheckboxDemo() {
                       >
                         <Checkbox
                           checked={isSelected}
-                          className="data-[state=checked]:!bg-foreground data-[state=checked]:!border-foreground data-[state=checked]:!text-background dark:data-[state=checked]:!bg-foreground dark:data-[state=checked]:!text-background"
+                          className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:text-background"
                         />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                           {option.label}
