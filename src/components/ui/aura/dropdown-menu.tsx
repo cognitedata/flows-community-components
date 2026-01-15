@@ -56,10 +56,15 @@ function DropdownMenuContent({
 }
 
 function DropdownMenuGroup({
+  className,
   ...props
 }: ComponentProps<typeof DropdownMenuPrimitive.Group>) {
   return (
-    <DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />
+    <DropdownMenuPrimitive.Group
+      data-slot="dropdown-menu-group"
+      className={cn('pt-1', className)}
+      {...props}
+    />
   );
 }
 
@@ -258,7 +263,7 @@ function DropdownMenuSectionLabel({
     <div
       data-slot="dropdown-menu-section-label"
       className={cn(
-        'px-2 pt-1.5 pb-1 text-sm text-muted-foreground dark:text-muted-foreground',
+        'px-2 py-1 text-sm text-muted-foreground dark:text-muted-foreground',
         className
       )}
       {...props}
