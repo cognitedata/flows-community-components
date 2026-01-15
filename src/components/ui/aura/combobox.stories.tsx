@@ -206,6 +206,7 @@ export const Basic: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
                 className="w-full justify-between"
               >
                 <div className="flex items-center gap-2">
@@ -374,6 +375,7 @@ export const WithAddNew: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
                 className="w-full justify-between"
               >
                 <div className="flex items-center gap-2">
@@ -567,6 +569,7 @@ export const MultiSelect: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                aria-label="Select data types"
                 className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
               >
                 <div className="flex items-center gap-1.5 flex-wrap flex-1">
@@ -739,6 +742,7 @@ export const WithCheckboxes: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                aria-label="Select preferences"
                 className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
               >
                 <span className="text-sm text-muted-foreground">
@@ -863,6 +867,7 @@ export const KeyboardNavigation: Story = {
               variant="outline"
               role="combobox"
               aria-expanded={open}
+              aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
               className="w-full justify-between"
             >
               <span>{selectedUser ? selectedUser.label : 'Select user...'}</span>
@@ -953,6 +958,7 @@ export const EmptyState: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                aria-label="Select user"
                 className="w-full justify-between"
               >
                 <span className="text-sm text-muted-foreground">
@@ -1024,6 +1030,7 @@ export const Disabled: Story = {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
+                aria-label="Select user"
                 className="w-full justify-between"
                 disabled
               >
@@ -1091,6 +1098,7 @@ export const WithError: Story = {
               role="combobox"
               aria-expanded={open}
               aria-invalid={true}
+              aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : 'Select user'}
               className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
             >
               <span>{selectedUser ? selectedUser.label : 'Select user...'}</span>
@@ -1180,6 +1188,7 @@ export const ComplexInteractive: Story = {
               variant="outline"
               role="combobox"
               aria-expanded={open}
+              aria-label={selectedItem ? `Selected view: ${selectedItem.label}` : 'Select view'}
               className="w-full justify-between"
             >
               <span>{selectedItem ? selectedItem.label : 'Select view...'}</span>
