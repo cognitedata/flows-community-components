@@ -178,19 +178,19 @@ export const Basic: Story = {
         </DropdownMenuLabel>
         <div className="px-1 pt-1">
           <DropdownMenuItem>
-            <IconUser />
+            <IconUser aria-hidden="true" />
             Profile
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconSettingsFilled />
+            <IconSettingsFilled aria-hidden="true" />
             Settings
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconBell />
+            <IconBell aria-hidden="true" />
             Notifications
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <IconHelp />
+            <IconHelp aria-hidden="true" />
             Help
           </DropdownMenuItem>
         </div>

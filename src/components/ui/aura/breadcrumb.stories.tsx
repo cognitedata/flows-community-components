@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import React, { useState } from 'react';
+import { useState, Fragment } from 'react';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -175,16 +175,16 @@ export const Basic: Story = {
                     className="p-2"
                     onClick={() => setPageName('Renamed canvas')}
                   >
-                    <IconPencil /> Rename
+                    <IconPencil aria-hidden="true" /> Rename
                   </DropdownMenuItem>
                   <DropdownMenuItem className="p-2">
-                    <IconTag /> Add tags
+                    <IconTag aria-hidden="true" /> Add tags
                   </DropdownMenuItem>
                   <DropdownMenuItem className="p-2">
-                    <IconCircleArrowDown /> Download as PDF
+                    <IconCircleArrowDown aria-hidden="true" /> Download as PDF
                   </DropdownMenuItem>
                   <DropdownMenuItem variant="destructive" className="p-2">
-                    <IconTrash />
+                    <IconTrash aria-hidden="true" />
                     Delete
                   </DropdownMenuItem>
                 </div>
@@ -671,17 +671,17 @@ export const Playground: Story = {
           {breadcrumbItems.map((item, index) => {
             if (item.isEllipsis) {
               return (
-                <React.Fragment key={`ellipsis-${index}`}>
+                <Fragment key={`ellipsis-${index}`}>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem>
                     <BreadcrumbEllipsis />
                   </BreadcrumbItem>
-                </React.Fragment>
+                </Fragment>
               );
             }
 
             return (
-              <React.Fragment key={`item-${index}`}>
+              <Fragment key={`item-${index}`}>
                 {index > 0 && <BreadcrumbSeparator />}
                 <BreadcrumbItem>
                   {item.isCurrentPage ? (
@@ -692,7 +692,7 @@ export const Playground: Story = {
                     </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-              </React.Fragment>
+              </Fragment>
             );
           })}
         </BreadcrumbList>
