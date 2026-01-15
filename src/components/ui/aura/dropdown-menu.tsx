@@ -90,6 +90,7 @@ function DropdownMenuCheckboxItem({
   className,
   children,
   checked,
+  onSelect,
   ...props
 }: ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>) {
   return (
@@ -100,6 +101,11 @@ function DropdownMenuCheckboxItem({
         className
       )}
       checked={checked}
+      onSelect={(e) => {
+        // Prevent menu from closing when checkbox is toggled
+        e.preventDefault();
+        onSelect?.(e);
+      }}
       {...props}
     >
       <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
@@ -126,6 +132,7 @@ function DropdownMenuRadioGroup({
 function DropdownMenuRadioItem({
   className,
   children,
+  onSelect,
   ...props
 }: ComponentProps<typeof DropdownMenuPrimitive.RadioItem>) {
   return (
@@ -135,6 +142,11 @@ function DropdownMenuRadioItem({
         "focus:bg-accent focus:text-accent-foreground h-9 relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
+      onSelect={(e) => {
+        // Prevent menu from closing when radio item is selected
+        e.preventDefault();
+        onSelect?.(e);
+      }}
       {...props}
     >
       <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
