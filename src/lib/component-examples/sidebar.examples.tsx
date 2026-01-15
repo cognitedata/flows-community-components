@@ -99,7 +99,7 @@ function BasicDemo() {
                     </SidebarMenu>
                   </SidebarMainPages>
                   <SidebarPinnedApps>
-                    <SidebarGroupLabel className="h-auto p-0 text-sm text-sidebar-foreground tracking-normal">
+                    <SidebarGroupLabel className="h-auto p-0 text-sm font-medium text-sidebar-foreground tracking-normal">
                       Pinned apps
                     </SidebarGroupLabel>
                     <SidebarMenuItem>
@@ -234,7 +234,7 @@ function CollapsedDemo() {
                     </SidebarMenu>
                   </SidebarMainPages>
                   <SidebarPinnedApps>
-                    <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm text-sidebar-foreground">
+                    <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm font-medium text-sidebar-foreground">
                       Pinned apps
                     </SidebarGroupLabel>
                     <SidebarMenuItem>
