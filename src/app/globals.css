@@ -633,7 +633,7 @@
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
-  --destructive: var(--red-800);
+  --destructive: var(--red-500);
   --destructive-hover: var(--red-700);
   --destructive-foreground: var(--red-300);
   --destructive-shadow: var(--red-300);
