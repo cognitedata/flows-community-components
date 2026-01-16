@@ -22,7 +22,7 @@ import {
 } from '@tabler/icons-react';
 
 const meta: Meta<typeof Banner> = {
-  title: 'UI/Banner',
+  title: 'Primitives/Banner',
   component: Banner,
   tags: ['autodocs'],
   argTypes: {

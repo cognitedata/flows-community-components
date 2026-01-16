@@ -35,7 +35,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const meta: Meta<typeof Popover> = {
-  title: 'UI/Combobox',
+  title: 'Primitives/Combobox',
   component: Popover,
   tags: ['autodocs'],
   argTypes: {

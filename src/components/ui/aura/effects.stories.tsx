@@ -47,7 +47,7 @@ import { cn } from '@/lib/utils';
  * ```
  */
 const meta: Meta = {
-  title: 'Primitives/Effects',
+  title: 'Layouts/Effects',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

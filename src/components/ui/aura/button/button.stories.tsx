@@ -17,7 +17,7 @@ import {
 } from '@tabler/icons-react';
 
 const meta: Meta<typeof Button> = {
-  title: 'UI/Button',
+  title: 'Primitives/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {
