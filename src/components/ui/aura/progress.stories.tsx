@@ -64,21 +64,22 @@ export const Basic: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Verify progress bar container exists
-    const progress = canvasElement.querySelector('[data-slot="progress"]');
-    await expect(progress).toBeInTheDocument();
+    const canvas = within(canvasElement);
+
+    // Test from user's perspective by querying for ARIA role
+    const progressbar = canvas.getByRole('progressbar', {
+      name: 'Progress: 50%',
+    });
+    await expect(progressbar).toBeInTheDocument();
+
+    // Verify accessibility attributes
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '50');
 
     // Verify progress indicator exists
     const indicator = canvasElement.querySelector(
       '[data-slot="progress-indicator"]'
     );
     await expect(indicator).toBeInTheDocument();
-
-    // Verify aria-label is set correctly
-    await expect(progress).toHaveAttribute('aria-label', 'Progress: 50%');
-
-    // Verify default styling classes
-    await expect(progress).toHaveClass('w-[400px]');
   },
 };
 
@@ -98,18 +99,23 @@ export const DifferentValues: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all progress bars are rendered
+    // Verify all progress bars are rendered with correct values
+    const progressbars = canvas.getAllByRole('progressbar');
+    await expect(progressbars).toHaveLength(5);
+
+    // Verify each progress bar has correct aria-valuenow
+    await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '0');
+    await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '25');
+    await expect(progressbars[2]).toHaveAttribute('aria-valuenow', '50');
+    await expect(progressbars[3]).toHaveAttribute('aria-valuenow', '75');
+    await expect(progressbars[4]).toHaveAttribute('aria-valuenow', '100');
+
+    // Verify all labels are rendered
     await expect(canvas.getByText('0% Complete')).toBeInTheDocument();
     await expect(canvas.getByText('25% Complete')).toBeInTheDocument();
     await expect(canvas.getByText('50% Complete')).toBeInTheDocument();
     await expect(canvas.getByText('75% Complete')).toBeInTheDocument();
     await expect(canvas.getByText('100% Complete')).toBeInTheDocument();
-
-    // Verify all progress indicators exist
-    const indicators = canvasElement.querySelectorAll(
-      '[data-slot="progress-indicator"]'
-    );
-    await expect(indicators).toHaveLength(5);
   },
   render: () => (
     <div className="space-y-4 w-[400px]">
@@ -174,11 +180,12 @@ export const WithLabel: Story = {
     // Verify percentage display
     await expect(canvas.getByText('30%')).toBeInTheDocument();
 
-    // Verify progress bar exists
-    const indicator = canvasElement.querySelector(
-      '[data-slot="progress-indicator"]'
-    );
-    await expect(indicator).toBeInTheDocument();
+    // Verify progress bar with accessibility attributes
+    const progressbar = canvas.getByRole('progressbar', {
+      name: 'Files uploaded: 30%',
+    });
+    await expect(progressbar).toBeInTheDocument();
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '30');
   },
   render: () => (
     <div className="space-y-2 w-[400px]">
@@ -216,30 +223,38 @@ export const Animated: Story = {
     // Verify loading text is present
     await expect(canvas.getByText('Loading...')).toBeInTheDocument();
 
-    // Wait for progress to start incrementing
+    // Wait for the progress bar to appear and value to update
     await waitFor(
       () => {
-        const progressText = canvas.getByText(/^\d+%$/);
-        expect(progressText).toBeInTheDocument();
+        // The aria-label is dynamic, so we find the progressbar by role
+        const progressbar = canvas.getByRole('progressbar');
+        expect(progressbar).toBeInTheDocument();
+        const ariaValueNow = progressbar.getAttribute('aria-valuenow');
+        expect(ariaValueNow).not.toBeNull();
+        expect(parseInt(ariaValueNow || '0')).toBeGreaterThanOrEqual(0);
       },
       { timeout: 1000 }
     );
 
-    // Verify progress indicator exists and is animating
-    const indicator = canvasElement.querySelector(
-      '[data-slot="progress-indicator"]'
+    // Get initial progress value
+    const progressbar = canvas.getByRole('progressbar');
+    const initialValue = parseInt(
+      progressbar.getAttribute('aria-valuenow') || '0'
     );
-    await expect(indicator).toBeInTheDocument();
 
-    // Wait for progress to increase
+    // Wait for progress to actually increase
     await waitFor(
       () => {
-        const progressText = canvas.getByText(/^\d+%$/);
-        const value = parseInt(progressText.textContent || '0');
-        expect(value).toBeGreaterThan(0);
+        const currentValue = parseInt(
+          canvas.getByRole('progressbar').getAttribute('aria-valuenow') || '0'
+        );
+        expect(currentValue).toBeGreaterThan(initialValue);
       },
-      { timeout: 1500 }
+      { timeout: 1000 }
     );
+
+    // Verify text display also updates
+    await expect(canvas.getByText('10%')).toBeInTheDocument();
   },
   render: function AnimatedProgressStory() {
     const [progress, setProgress] = useState(0);
@@ -300,11 +315,12 @@ export const FileUpload: Story = {
     await expect(canvas.getByText('30%')).toBeInTheDocument();
     await expect(canvas.getByText('90%')).toBeInTheDocument();
 
-    // Verify all progress indicators exist
-    const indicators = canvasElement.querySelectorAll(
-      '[data-slot="progress-indicator"]'
-    );
-    await expect(indicators).toHaveLength(3);
+    // Verify all progress bars with accessibility attributes
+    const progressbars = canvas.getAllByRole('progressbar');
+    await expect(progressbars).toHaveLength(3);
+    await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '65');
+    await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '30');
+    await expect(progressbars[2]).toHaveAttribute('aria-valuenow', '90');
   },
   render: () => (
     <div className="space-y-4 w-[400px]">
@@ -360,13 +376,18 @@ export const Interactive: Story = {
     await expect(decrementButton).toBeInTheDocument();
     await expect(resetButton).toBeInTheDocument();
 
+    // Get progressbar for accessibility testing
+    const progressbar = canvas.getByRole('progressbar');
+
     // Verify initial state (50%)
     await expect(canvas.getByText('50%')).toBeInTheDocument();
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '50');
 
     // Test incrementing
     await userEvent.click(incrementButton);
     await waitFor(
       () => {
+        expect(progressbar).toHaveAttribute('aria-valuenow', '60');
         expect(canvas.getByText('60%')).toBeInTheDocument();
       },
       { timeout: 300 }
@@ -376,6 +397,7 @@ export const Interactive: Story = {
     await userEvent.click(decrementButton);
     await waitFor(
       () => {
+        expect(progressbar).toHaveAttribute('aria-valuenow', '50');
         expect(canvas.getByText('50%')).toBeInTheDocument();
       },
       { timeout: 300 }
@@ -385,16 +407,11 @@ export const Interactive: Story = {
     await userEvent.click(resetButton);
     await waitFor(
       () => {
+        expect(progressbar).toHaveAttribute('aria-valuenow', '0');
         expect(canvas.getByText('0%')).toBeInTheDocument();
       },
       { timeout: 300 }
     );
-
-    // Verify progress indicator still exists
-    const indicator = canvasElement.querySelector(
-      '[data-slot="progress-indicator"]'
-    );
-    await expect(indicator).toBeInTheDocument();
   },
   render: function InteractiveProgressStory() {
     const [progress, setProgress] = useState(50);
@@ -454,9 +471,12 @@ export const Indeterminate: Story = {
     // Verify indeterminate indicator (—)
     await expect(canvas.getByText('—')).toBeInTheDocument();
 
-    // Verify progress bar exists
-    const progress = canvasElement.querySelector('[data-slot="progress"]');
-    await expect(progress).toBeInTheDocument();
+    // Verify progress bar with accessibility attributes
+    const progressbar = canvas.getByRole('progressbar', {
+      name: 'Processing progress',
+    });
+    await expect(progressbar).toBeInTheDocument();
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '0');
   },
   render: () => (
     <div className="space-y-4 w-[400px]">
@@ -493,11 +513,12 @@ export const Complete: Story = {
     // Verify 100% display
     await expect(canvas.getByText('100%')).toBeInTheDocument();
 
-    // Verify progress indicator is fully filled
-    const indicator = canvasElement.querySelector(
-      '[data-slot="progress-indicator"]'
-    );
-    await expect(indicator).toBeInTheDocument();
+    // Verify progress bar is at 100% with accessibility attributes
+    const progressbar = canvas.getByRole('progressbar', {
+      name: 'Upload complete: 100%',
+    });
+    await expect(progressbar).toBeInTheDocument();
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '100');
   },
   render: () => (
     <div className="space-y-2 w-[400px]">
@@ -544,11 +565,13 @@ export const Multiple: Story = {
     await expect(canvas.getByText('12%')).toBeInTheDocument();
     await expect(canvas.getByText('100%')).toBeInTheDocument();
 
-    // Verify all progress indicators exist
-    const indicators = canvasElement.querySelectorAll(
-      '[data-slot="progress-indicator"]'
-    );
-    await expect(indicators).toHaveLength(4);
+    // Verify all progress bars with accessibility attributes
+    const progressbars = canvas.getAllByRole('progressbar');
+    await expect(progressbars).toHaveLength(4);
+    await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '45');
+    await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '78');
+    await expect(progressbars[2]).toHaveAttribute('aria-valuenow', '12');
+    await expect(progressbars[3]).toHaveAttribute('aria-valuenow', '100');
   },
   render: () => (
     <div className="space-y-4 w-[400px]">
