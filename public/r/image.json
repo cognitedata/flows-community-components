@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "image",
-  "type": "registry:component",
   "title": "Image",
   "description": "AI image component for displaying generated images.",
   "dependencies": [
@@ -16,5 +15,6 @@
       "content": "import { cn } from '@/lib/utils';\nimport type { Experimental_GeneratedImage } from 'ai';\n\nexport type ImageProps = Experimental_GeneratedImage & {\n  className?: string;\n  alt?: string;\n};\n\nexport const Image = ({ base64, mediaType, ...props }: ImageProps) => (\n  // eslint-disable-next-line @next/next/no-img-element\n  <img\n    {...props}\n    alt={props.alt}\n    className={cn(\n      'h-auto max-w-full overflow-hidden rounded-md',\n      props.className\n    )}\n    src={`data:${mediaType};base64,${base64}`}\n  />\n);\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

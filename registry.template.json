@@ -109,7 +109,8 @@
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/aura/button.tsx",
+          "path": "src/components/ui/aura/button/button.tsx",
+          "target": "src/components/ui/aura/button.tsx",
           "type": "registry:component"
         }
       ]

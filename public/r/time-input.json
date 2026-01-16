@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "time-input",
-  "type": "registry:component",
   "title": "Time Input",
   "description": "Time Input component.",
   "registryDependencies": [
@@ -13,5 +12,6 @@
       "content": "import type { ComponentProps } from 'react';\n\nexport const TimeInput = ({ ...props }: ComponentProps<'div'>) => {\n  return <div {...props} />;\n};\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }
