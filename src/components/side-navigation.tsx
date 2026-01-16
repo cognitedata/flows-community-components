@@ -144,7 +144,6 @@ const primitivesNavigation: NavigationItem[] = [
 ];
 
 const patternsNavigation: NavigationItem[] = [
-  { href: '/patterns', label: 'About' },
   {
     href: '#',
     label: 'Patterns',
@@ -152,7 +151,6 @@ const patternsNavigation: NavigationItem[] = [
     children: [
       { href: '/patterns/agent-chat', label: 'Agent chat' },
       { href: '/patterns/dashboards', label: 'Dashboards' },
-      { href: '/eos/shift-handover-app', label: 'Shift handover' },
     ],
   },
 ];
