@@ -20,6 +20,7 @@ import { dialogExamples } from './dialog.examples';
 import { drawerExamples } from './drawer.examples';
 import { dropdownMenuExamples } from './dropdown-menu.examples';
 import { helperTextExamples, helperTextMeta } from './helper-text.examples';
+import { hoverCardExamples, hoverCardMeta } from './hover-card.examples';
 import { inputExamples } from './input.examples';
 import { kbdExamples } from './kbd.examples';
 import { labelExamples } from './label.examples';
@@ -65,6 +66,7 @@ export const componentExamples = {
   drawer: drawerExamples,
   'dropdown-menu': dropdownMenuExamples,
   'helper-text': helperTextExamples,
+  'hover-card': hoverCardExamples,
   input: inputExamples,
   kbd: kbdExamples,
   label: labelExamples,
@@ -96,6 +98,7 @@ export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
   banner: bannerMeta,
   'helper-text': helperTextMeta,
+  'hover-card': hoverCardMeta,
   table: tableMeta,
   // Other components will be added here as they're migrated
 };
