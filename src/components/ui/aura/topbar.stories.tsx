@@ -219,7 +219,7 @@ export const EosStyle: Story = {
   },
   render: function TopbarEosStyleStory() {
     return (
-      <div className="w-full rounded-lg overflow-hidden">
+      <div className="w-full">
         <Topbar>
           <TopbarLeft>
             <Button variant="ghost" size="icon" aria-label="Toggle sidebar">
