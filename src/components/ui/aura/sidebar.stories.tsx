@@ -82,6 +82,12 @@ const meta: Meta<typeof Sidebar> = {
   },
   parameters: {
     layout: 'fullscreen',
+    viewport: {
+      defaultViewport: 'responsive',
+    },
+    chromatic: {
+      viewports: [1200],
+    },
     docs: {
       description: {
         component:
@@ -123,7 +129,7 @@ export const Basic: Story = {
     await expect(footer).toBeInTheDocument();
   },
   render: () => (
-    <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+    <div className="relative h-[996px] w-full min-w-[1200px] rounded-lg overflow-hidden">
       <SidebarProvider className="min-h-0 h-[996px]">
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
