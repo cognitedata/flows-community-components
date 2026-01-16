@@ -84,6 +84,68 @@ export default meta;
 type Story = StoryObj<typeof HoverCard>;
 
 /**
+ * Helper function to test hover interactions
+ * Reduces code duplication across multiple stories
+ */
+async function testHoverInteraction(
+  canvasElement: HTMLElement,
+  triggerName: RegExp,
+  contentText: RegExp,
+  timeout = 1500
+) {
+  const canvas = within(canvasElement);
+  const body = within(document.body);
+
+  const trigger = canvas.getByRole('button', { name: triggerName });
+  await expect(trigger).toBeInTheDocument();
+
+  await userEvent.hover(trigger);
+
+  await waitFor(
+    async () => {
+      const hoverCard = body.getByText(contentText);
+      await expect(hoverCard).toBeInTheDocument();
+    },
+    { timeout }
+  );
+
+  await userEvent.unhover(trigger);
+}
+
+/**
+ * User data for MultipleInList story
+ */
+const SAMPLE_USERS = [
+  {
+    name: 'Sarah Johnson',
+    handle: '@sarah',
+    role: 'Product Designer',
+    avatar: 'https://i.pravatar.cc/150?img=1',
+    bio: 'Passionate about creating intuitive and delightful user experiences. Leading the design system initiative.',
+    team: 'Design Team',
+    joined: 'Joined March 2023',
+  },
+  {
+    name: 'Michael Chen',
+    handle: '@michael',
+    role: 'Frontend Engineer',
+    avatar: 'https://i.pravatar.cc/150?img=2',
+    bio: 'Full-stack developer specialising in React and TypeScript. Building scalable web applications.',
+    team: 'Engineering Team',
+    joined: 'Joined January 2022',
+  },
+  {
+    name: 'Emily Rodriguez',
+    handle: '@emily',
+    role: 'UX Researcher',
+    avatar: 'https://i.pravatar.cc/150?img=3',
+    bio: 'Uncovering user insights through research and data analysis. Advocate for evidence-based design.',
+    team: 'Research Team',
+    joined: 'Joined July 2023',
+  },
+];
+
+/**
  * Basic hover card with user profile information
  * Matches the basic example from hover-card.examples.tsx
  */
@@ -97,28 +159,11 @@ export const Basic: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    // Find the trigger button
-    const trigger = canvas.getByRole('button', { name: /@nextjs/i });
-    await expect(trigger).toBeInTheDocument();
-
-    // Hover over the trigger
-    await userEvent.hover(trigger);
-
-    // Wait for hover card to appear (accounting for openDelay)
-    // Note: Hover card content is rendered in a portal outside canvasElement
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/The React Framework/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /@nextjs/i,
+      /The React Framework/i
     );
-
-    // Unhover to close
-    await userEvent.unhover(trigger);
   },
   render: function HoverCardBasicStory(args) {
     return (
@@ -164,34 +209,19 @@ export const WithBadges: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
     // Test hovering on Product Manager
-    const pmButton = canvas.getByRole('button', { name: /Product Manager/i });
-    await expect(pmButton).toBeInTheDocument();
-    await userEvent.hover(pmButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/Lead product strategy and roadmap/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Product Manager/i,
+      /Lead product strategy and roadmap/i
     );
-    await userEvent.unhover(pmButton);
 
     // Test hovering on Senior Developer
-    const devButton = canvas.getByRole('button', { name: /Senior Developer/i });
-    await expect(devButton).toBeInTheDocument();
-    await userEvent.hover(devButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/Full-stack engineer specialising/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Senior Developer/i,
+      /Full-stack engineer specialising/i
     );
-    await userEvent.unhover(devButton);
   },
   render: () => (
     <div className="flex justify-center items-center gap-4 min-h-[300px]">
@@ -248,20 +278,11 @@ export const TopPosition: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    const trigger = canvas.getByRole('button', { name: /Hover me - Top/i });
-    await expect(trigger).toBeInTheDocument();
-    await userEvent.hover(trigger);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears above the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Hover me - Top/i,
+      /appears above the trigger/i
     );
-    await userEvent.unhover(trigger);
   },
   render: () => (
     <div className="flex justify-center items-center min-h-[300px]">
@@ -294,20 +315,11 @@ export const RightPosition: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    const trigger = canvas.getByRole('button', { name: /Hover me - Right/i });
-    await expect(trigger).toBeInTheDocument();
-    await userEvent.hover(trigger);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears to the right of the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Hover me - Right/i,
+      /appears to the right of the trigger/i
     );
-    await userEvent.unhover(trigger);
   },
   render: () => (
     <div className="flex justify-center items-center min-h-[300px]">
@@ -340,20 +352,11 @@ export const BottomPosition: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    const trigger = canvas.getByRole('button', { name: /Hover me - Bottom/i });
-    await expect(trigger).toBeInTheDocument();
-    await userEvent.hover(trigger);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears below the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Hover me - Bottom/i,
+      /appears below the trigger/i
     );
-    await userEvent.unhover(trigger);
   },
   render: () => (
     <div className="flex justify-center items-center min-h-[300px]">
@@ -386,20 +389,11 @@ export const LeftPosition: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    const trigger = canvas.getByRole('button', { name: /Hover me - Left/i });
-    await expect(trigger).toBeInTheDocument();
-    await userEvent.hover(trigger);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears to the left of the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Hover me - Left/i,
+      /appears to the left of the trigger/i
     );
-    await userEvent.unhover(trigger);
   },
   render: () => (
     <div className="flex justify-center items-center min-h-[300px]">
@@ -433,7 +427,6 @@ export const AllPositions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     // Test that all four buttons are present
     const topButton = canvas.getByRole('button', { name: /Top position/i });
@@ -446,49 +439,27 @@ export const AllPositions: Story = {
     await expect(bottomButton).toBeInTheDocument();
     await expect(leftButton).toBeInTheDocument();
 
-    // Test hovering on top position
-    await userEvent.hover(topButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears above the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    // Test hovering on all four positions
+    await testHoverInteraction(
+      canvasElement,
+      /Top position/i,
+      /appears above the trigger/i
     );
-    await userEvent.unhover(topButton);
-
-    // Test hovering on right position
-    await userEvent.hover(rightButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears to the right of the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Right position/i,
+      /appears to the right of the trigger/i
     );
-    await userEvent.unhover(rightButton);
-
-    // Test hovering on bottom position
-    await userEvent.hover(bottomButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears below the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Bottom position/i,
+      /appears below the trigger/i
     );
-    await userEvent.unhover(bottomButton);
-
-    // Test hovering on left position
-    await userEvent.hover(leftButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/appears to the left of the trigger/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Left position/i,
+      /appears to the left of the trigger/i
     );
-    await userEvent.unhover(leftButton);
   },
   render: () => (
     <div className="flex flex-col items-center justify-center gap-16 min-h-[500px] py-8">
@@ -636,20 +607,11 @@ export const ControlledWithCustomDelays: Story = {
  */
 export const Minimal: Story = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    const trigger = canvas.getByRole('button', { name: /Hover for info/i });
-    await expect(trigger).toBeInTheDocument();
-    await userEvent.hover(trigger);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/Simple contextual information/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Hover for info/i,
+      /Simple contextual information/i
     );
-    await userEvent.unhover(trigger);
   },
   render: () => (
     <div className="flex justify-center items-center min-h-[300px]">
@@ -677,137 +639,81 @@ export const MultipleInList: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    // Test hovering on first user
-    const firstUserButton = canvas.getByRole('button', { name: /Sarah Johnson/i });
-    await expect(firstUserButton).toBeInTheDocument();
-    await userEvent.hover(firstUserButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/Product Designer/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    // Test hovering on all three users
+    await testHoverInteraction(
+      canvasElement,
+      /Sarah Johnson/i,
+      /Product Designer/i
     );
-    await userEvent.unhover(firstUserButton);
-
-    // Test hovering on second user
-    const secondUserButton = canvas.getByRole('button', { name: /Michael Chen/i });
-    await expect(secondUserButton).toBeInTheDocument();
-    await userEvent.hover(secondUserButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/Frontend Engineer/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Michael Chen/i,
+      /Frontend Engineer/i
     );
-    await userEvent.unhover(secondUserButton);
-
-    // Test hovering on third user
-    const thirdUserButton = canvas.getByRole('button', { name: /Emily Rodriguez/i });
-    await expect(thirdUserButton).toBeInTheDocument();
-    await userEvent.hover(thirdUserButton);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/UX Researcher/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 1500 }
+    await testHoverInteraction(
+      canvasElement,
+      /Emily Rodriguez/i,
+      /UX Researcher/i
     );
-    await userEvent.unhover(thirdUserButton);
   },
   render: () => {
-    const users = [
-      {
-        name: 'Sarah Johnson',
-        handle: '@sarah',
-        role: 'Product Designer',
-        avatar: 'https://i.pravatar.cc/150?img=1',
-        bio: 'Passionate about creating intuitive and delightful user experiences. Leading the design system initiative.',
-        team: 'Design Team',
-        joined: 'Joined March 2023',
-      },
-      {
-        name: 'Michael Chen',
-        handle: '@michael',
-        role: 'Frontend Engineer',
-        avatar: 'https://i.pravatar.cc/150?img=2',
-        bio: 'Full-stack developer specialising in React and TypeScript. Building scalable web applications.',
-        team: 'Engineering Team',
-        joined: 'Joined January 2022',
-      },
-      {
-        name: 'Emily Rodriguez',
-        handle: '@emily',
-        role: 'UX Researcher',
-        avatar: 'https://i.pravatar.cc/150?img=3',
-        bio: 'Uncovering user insights through research and data analysis. Advocate for evidence-based design.',
-        team: 'Research Team',
-        joined: 'Joined July 2023',
-      },
-    ];
-
     return (
       <div className="flex flex-col gap-3 min-h-[300px] p-4">
-        {users.map((user) => (
-          <div
-            key={user.handle}
-            className="flex items-center gap-3 p-3 rounded-lg border"
-          >
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <button
-                  type="button"
-                  className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-                >
-                  <Avatar>
-                    <AvatarImage src={user.avatar} />
-                    <AvatarFallback>
-                      {user.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="text-left">
-                    <p className="text-sm font-medium">{user.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {user.handle}
-                    </p>
-                  </div>
-                </button>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-80">
-                <div className="flex gap-4">
-                  <Avatar className="h-12 w-12">
-                    <AvatarImage src={user.avatar} />
-                    <AvatarFallback>
-                      {user.name
-                        .split(' ')
-                        .map((n) => n[0])
-                        .join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-2 flex-1">
-                    <div>
-                      <h4 className="text-sm font-semibold">{user.name}</h4>
-                      <p className="text-sm text-muted-foreground">{user.role}</p>
+        {SAMPLE_USERS.map((user) => {
+          const initials = user.name
+            .split(' ')
+            .map((n) => n[0])
+            .join('');
+
+          return (
+            <div
+              key={user.handle}
+              className="flex items-center gap-3 p-3 rounded-lg border"
+            >
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <button
+                    type="button"
+                    className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                  >
+                    <Avatar>
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback>{initials}</AvatarFallback>
+                    </Avatar>
+                    <div className="text-left">
+                      <p className="text-sm font-medium">{user.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {user.handle}
+                      </p>
                     </div>
-                    <p className="text-sm">{user.bio}</p>
-                    <div className="flex items-center gap-4 pt-1 text-xs text-muted-foreground">
-                      <span>{user.team}</span>
-                      <span>•</span>
-                      <span>{user.joined}</span>
+                  </button>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-80">
+                  <div className="flex gap-4">
+                    <Avatar className="h-12 w-12">
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback>{initials}</AvatarFallback>
+                    </Avatar>
+                    <div className="space-y-2 flex-1">
+                      <div>
+                        <h4 className="text-sm font-semibold">{user.name}</h4>
+                        <p className="text-sm text-muted-foreground">
+                          {user.role}
+                        </p>
+                      </div>
+                      <p className="text-sm">{user.bio}</p>
+                      <div className="flex items-center gap-4 pt-1 text-xs text-muted-foreground">
+                        <span>{user.team}</span>
+                        <span>•</span>
+                        <span>{user.joined}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-          </div>
-        ))}
+                </HoverCardContent>
+              </HoverCard>
+            </div>
+          );
+        })}
       </div>
     );
   },
