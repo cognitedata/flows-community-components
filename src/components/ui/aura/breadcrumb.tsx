@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { IconChevronRight, IconDots } from '@tabler/icons-react';
+import { IconDots, IconSlash } from '@tabler/icons-react';
 
 import { cn } from '@/lib/utils';
 
@@ -13,7 +13,7 @@ function BreadcrumbList({ className, ...props }: ComponentProps<'ol'>) {
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm wrap-break-word sm:gap-2.5',
+        'text-muted-foreground flex flex-wrap items-center text-sm wrap-break-word ',
         className
       )}
       {...props}
@@ -25,7 +25,7 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<'li'>) {
   return (
     <li
       data-slot="breadcrumb-item"
-      className={cn('inline-flex items-center gap-1.5', className)}
+      className={cn('inline-flex items-center p-1', className)}
       {...props}
     />
   );
@@ -56,7 +56,10 @@ function BreadcrumbPage({ className, ...props }: ComponentProps<'span'>) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn('text-foreground font-normal', className)}
+      className={cn(
+        'text-foreground font-medium tracking-normal text-sm leading-1',
+        className
+      )}
       {...props}
     />
   );
@@ -75,15 +78,12 @@ function BreadcrumbSeparator({
       className={cn('[&>svg]:size-3.5', className)}
       {...props}
     >
-      {children ?? <IconChevronRight />}
+      {children ?? <IconSlash size={14} className="text-muted-foreground" />}
     </li>
   );
 }
 
-function BreadcrumbEllipsis({
-  className,
-  ...props
-}: ComponentProps<'span'>) {
+function BreadcrumbEllipsis({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="breadcrumb-ellipsis"
