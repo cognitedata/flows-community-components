@@ -328,15 +328,15 @@ export const ListItemPattern: Story = {
   name: 'Pattern: List Item',
   render: () => (
     <div className="max-w-md divide-y divide-border">
-      {['Design Review', 'API Integration', 'User Testing'].map((item, i) => (
-        <div key={item} className="flex flex-col py-3">
-          <span className="text-base font-medium">{item}</span>
+      {[
+        { title: 'Design Review', secondary: 'Due tomorrow' },
+        { title: 'API Integration', secondary: 'In progress' },
+        { title: 'User Testing', secondary: 'Scheduled for next week' },
+      ].map((item) => (
+        <div key={item.title} className="flex flex-col py-3">
+          <span className="text-base font-medium">{item.title}</span>
           <span className="text-sm font-normal text-muted-foreground">
-            {i === 0
-              ? 'Due tomorrow'
-              : i === 1
-                ? 'In progress'
-                : 'Scheduled for next week'}
+            {item.secondary}
           </span>
         </div>
       ))}
@@ -1120,8 +1120,8 @@ export const TailwindClassReference: Story = {
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
-          {typographyScale.map((t, i) => (
-            <tr key={`${t.section}-${t.name}-${i}`}>
+          {typographyScale.map((t) => (
+            <tr key={t.tailwindClass}>
               <td className="py-2 pr-4 text-muted-foreground">{t.section}</td>
               <td className="py-2 pr-4">{t.name}</td>
               <td className="py-2 pr-4">
