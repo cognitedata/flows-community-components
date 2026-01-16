@@ -98,6 +98,7 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(document.body);
 
     // Find the trigger button
     const trigger = canvas.getByRole('button', { name: /@nextjs/i });
@@ -107,12 +108,13 @@ export const Basic: Story = {
     await userEvent.hover(trigger);
 
     // Wait for hover card to appear (accounting for openDelay)
+    // Note: Hover card content is rendered in a portal outside canvasElement
     await waitFor(
       async () => {
-        const hoverCard = canvas.getByText(/The React Framework/i);
+        const hoverCard = body.getByText(/The React Framework/i);
         await expect(hoverCard).toBeInTheDocument();
       },
-      { timeout: 1000 }
+      { timeout: 1500 }
     );
 
     // Unhover to close
@@ -337,6 +339,7 @@ export const AllPositions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(document.body);
 
     // Test that all four buttons are present
     const topButton = canvas.getByRole('button', { name: /Top position/i });
@@ -353,12 +356,45 @@ export const AllPositions: Story = {
     await userEvent.hover(topButton);
     await waitFor(
       async () => {
-        const hoverCard = canvas.getByText(/appears above the trigger/i);
+        const hoverCard = body.getByText(/appears above the trigger/i);
         await expect(hoverCard).toBeInTheDocument();
       },
-      { timeout: 1000 }
+      { timeout: 1500 }
     );
     await userEvent.unhover(topButton);
+
+    // Test hovering on right position
+    await userEvent.hover(rightButton);
+    await waitFor(
+      async () => {
+        const hoverCard = body.getByText(/appears to the right of the trigger/i);
+        await expect(hoverCard).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
+    await userEvent.unhover(rightButton);
+
+    // Test hovering on bottom position
+    await userEvent.hover(bottomButton);
+    await waitFor(
+      async () => {
+        const hoverCard = body.getByText(/appears below the trigger/i);
+        await expect(hoverCard).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
+    await userEvent.unhover(bottomButton);
+
+    // Test hovering on left position
+    await userEvent.hover(leftButton);
+    await waitFor(
+      async () => {
+        const hoverCard = body.getByText(/appears to the left of the trigger/i);
+        await expect(hoverCard).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
+    await userEvent.unhover(leftButton);
   },
   render: () => (
     <div className="flex flex-col items-center justify-center gap-16 min-h-[500px] py-8">
@@ -507,6 +543,49 @@ export const MultipleInList: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    // Test hovering on first user
+    const firstUserButton = canvas.getByRole('button', { name: /Sarah Johnson/i });
+    await expect(firstUserButton).toBeInTheDocument();
+    await userEvent.hover(firstUserButton);
+    await waitFor(
+      async () => {
+        const hoverCard = body.getByText(/Product Designer/i);
+        await expect(hoverCard).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
+    await userEvent.unhover(firstUserButton);
+
+    // Test hovering on second user
+    const secondUserButton = canvas.getByRole('button', { name: /Michael Chen/i });
+    await expect(secondUserButton).toBeInTheDocument();
+    await userEvent.hover(secondUserButton);
+    await waitFor(
+      async () => {
+        const hoverCard = body.getByText(/Frontend Engineer/i);
+        await expect(hoverCard).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
+    await userEvent.unhover(secondUserButton);
+
+    // Test hovering on third user
+    const thirdUserButton = canvas.getByRole('button', { name: /Emily Rodriguez/i });
+    await expect(thirdUserButton).toBeInTheDocument();
+    await userEvent.hover(thirdUserButton);
+    await waitFor(
+      async () => {
+        const hoverCard = body.getByText(/UX Researcher/i);
+        await expect(hoverCard).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
+    await userEvent.unhover(thirdUserButton);
+  },
   render: () => {
     const users = [
       {
@@ -514,18 +593,27 @@ export const MultipleInList: Story = {
         handle: '@sarah',
         role: 'Product Designer',
         avatar: 'https://i.pravatar.cc/150?img=1',
+        bio: 'Passionate about creating intuitive and delightful user experiences. Leading the design system initiative.',
+        team: 'Design Team',
+        joined: 'Joined March 2023',
       },
       {
         name: 'Michael Chen',
         handle: '@michael',
         role: 'Frontend Engineer',
         avatar: 'https://i.pravatar.cc/150?img=2',
+        bio: 'Full-stack developer specialising in React and TypeScript. Building scalable web applications.',
+        team: 'Engineering Team',
+        joined: 'Joined January 2022',
       },
       {
         name: 'Emily Rodriguez',
         handle: '@emily',
         role: 'UX Researcher',
         avatar: 'https://i.pravatar.cc/150?img=3',
+        bio: 'Uncovering user insights through research and data analysis. Advocate for evidence-based design.',
+        team: 'Research Team',
+        joined: 'Joined July 2023',
       },
     ];
 
@@ -557,8 +645,8 @@ export const MultipleInList: Story = {
                 </button>
               </HoverCardTrigger>
               <HoverCardContent className="w-80">
-                <div className="flex justify-between space-x-4">
-                  <Avatar>
+                <div className="flex gap-4">
+                  <Avatar className="h-12 w-12">
                     <AvatarImage src={user.avatar} />
                     <AvatarFallback>
                       {user.name
@@ -567,13 +655,16 @@ export const MultipleInList: Story = {
                         .join('')}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="space-y-1">
-                    <h4 className="text-sm font-semibold">{user.name}</h4>
-                    <p className="text-sm text-muted-foreground">{user.role}</p>
-                    <div className="flex items-center pt-2">
-                      <span className="text-xs text-muted-foreground">
-                        {user.handle}
-                      </span>
+                  <div className="space-y-2 flex-1">
+                    <div>
+                      <h4 className="text-sm font-semibold">{user.name}</h4>
+                      <p className="text-sm text-muted-foreground">{user.role}</p>
+                    </div>
+                    <p className="text-sm">{user.bio}</p>
+                    <div className="flex items-center gap-4 pt-1 text-xs text-muted-foreground">
+                      <span>{user.team}</span>
+                      <span>•</span>
+                      <span>{user.joined}</span>
                     </div>
                   </div>
                 </div>
