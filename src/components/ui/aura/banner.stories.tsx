@@ -272,7 +272,7 @@ export const MultipleActions: Story = {
       <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
       <BannerActions>
         <BannerAction>
-          <IconCopy className="h-4 w-4" />
+          <IconCopy size={16} />
           <span>Duplicate</span>
         </BannerAction>
         <BannerAction>Edit</BannerAction>
@@ -304,8 +304,7 @@ export const Dismissible: Story = {
     await expect(bannerTitle).toBeInTheDocument();
 
     // Verify close button is present
-    const closeButtons = canvas.getAllByRole('button');
-    const closeButton = closeButtons.find((btn) => btn.textContent === '');
+    const closeButton = canvas.getByRole('button', { name: 'Close banner' });
     await expect(closeButton).toBeInTheDocument();
 
     // Verify action button
@@ -477,7 +476,7 @@ export const ReadOnlyWarning: Story = {
       <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
       <BannerActions>
         <BannerAction>
-          <IconCopy className="h-4 w-4" />
+          <IconCopy size={16} />
           <span>Duplicate</span>
         </BannerAction>
       </BannerActions>

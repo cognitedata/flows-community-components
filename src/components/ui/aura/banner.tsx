@@ -165,6 +165,13 @@ export const BannerActions = ({ className, ...props }: BannerActionsProps) => (
   />
 );
 
+const hoverClasses: Record<BannerVariant, string> = {
+  default: 'hover:bg-mountain-hover',
+  neutral: 'hover:bg-neutral-hover',
+  destructive: 'hover:bg-destructive-hover',
+  warning: 'hover:bg-warning-hover',
+};
+
 export type BannerActionProps = ComponentProps<typeof Button>;
 
 export const BannerAction = ({
@@ -174,13 +181,6 @@ export const BannerAction = ({
   ...props
 }: BannerActionProps) => {
   const { variant: bannerVariant } = useContext(BannerContext);
-
-  const hoverClasses: Record<BannerVariant, string> = {
-    default: 'hover:bg-undefined-hover',
-    neutral: 'hover:bg-neutral-hover',
-    destructive: 'hover:bg-destructive-hover',
-    warning: 'hover:bg-warning-hover',
-  };
 
   return (
     <Button
@@ -206,13 +206,6 @@ export const BannerClose = ({
 }: BannerCloseProps) => {
   const { setShow, variant: bannerVariant } = useContext(BannerContext);
 
-  const hoverClasses: Record<BannerVariant, string> = {
-    default: 'hover:bg-undefined-hover',
-    neutral: 'hover:bg-neutral-hover',
-    destructive: 'hover:bg-destructive-hover',
-    warning: 'hover:bg-warning-hover',
-  };
-
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     setShow(false);
     onClick?.(e);
@@ -221,12 +214,13 @@ export const BannerClose = ({
   return (
     <Button
       className={cn(
-        'shrink-0 h-7 w-7 p-0 opacity-70 hover:opacity-100 text-foreground rounded-sm',
+        'shrink-0 opacity-70 hover:opacity-100 text-foreground rounded-sm',
         hoverClasses[bannerVariant],
         className
       )}
       onClick={handleClick}
       variant={variant}
+      size="icon-sm"
       aria-label="Close banner"
       {...props}
     >
