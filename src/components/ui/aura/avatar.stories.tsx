@@ -39,7 +39,7 @@ const getImagePath = (filename: string): string => {
 };
 
 const meta: Meta<typeof Avatar> = {
-  title: 'UI/Avatar',
+  title: 'Primitives/Avatar',
   component: Avatar,
   tags: ['autodocs'],
   argTypes: {
@@ -1355,7 +1355,8 @@ export const EdgeCaseComplexIcons: Story = {
       </Avatar>
       <Avatar variant="fjord">
         <AvatarIcon>
-          <svg width="20" height="20" viewBox="0 0 20 20">
+          <svg width="20" height="20" viewBox="0 0 20 20" role="img" aria-label="Avatar icon">
+            <title>Avatar icon</title>
             <circle cx="10" cy="10" r="8" fill="currentColor" opacity="0.3" />
             <circle cx="10" cy="10" r="4" fill="currentColor" />
           </svg>

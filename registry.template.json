@@ -79,7 +79,7 @@
       "type": "registry:component",
       "title": "Banner",
       "description": "A banner component for displaying important messages with icon, title, status, and actions.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
+      "dependencies": ["@radix-ui/react-use-controllable-state", "class-variance-authority", "@tabler/icons-react"],
       "registryDependencies": ["button", "badge"],
       "files": [
         {
@@ -109,7 +109,8 @@
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/aura/button.tsx",
+          "path": "src/components/ui/aura/button/button.tsx",
+          "target": "src/components/ui/aura/button.tsx",
           "type": "registry:component"
         }
       ]
@@ -648,6 +649,18 @@
       ]
     },
     {
+      "name": "typography",
+      "type": "registry:component",
+      "title": "Typography",
+      "description": "Typography scale definitions, utilities, and composition patterns for the Aura design system. Includes structured data for LLM consumption with HTML/JSX examples.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/typography.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:component",
       "title": "Carousel",
@@ -699,19 +712,6 @@
       "files": [
         {
           "path": "src/components/ui/aura/artifact.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "branch",
-      "type": "registry:component",
-      "title": "Branch",
-      "description": "AI conversation branch component.",
-      "dependencies": ["@tabler/icons-react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/branch.tsx",
           "type": "registry:component"
         }
       ]

@@ -44,7 +44,7 @@ import {
  * ```
  */
 const meta: Meta = {
-  title: 'Primitives/Layout',
+  title: 'Layouts/Layout',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

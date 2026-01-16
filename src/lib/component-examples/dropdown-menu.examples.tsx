@@ -7,10 +7,11 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSectionLabel,
   DropdownMenuTrigger,
+  DropdownMenuHeader,
 } from '@/components/ui/aura/dropdown-menu';
 import type { ComponentExamples } from './types';
 import {
@@ -35,7 +36,7 @@ function BasicDemo() {
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border">
+            <DropdownMenuHeader>
               <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
@@ -48,26 +49,24 @@ function BasicDemo() {
                   jane.smith@cognite.com
                 </span>
               </div>
-            </DropdownMenuLabel>
-            <div className="px-1 pt-1">
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
+            </DropdownMenuHeader>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
 
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </div>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -85,33 +84,39 @@ function UserDetailsDemo() {
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>Open User Details Menu</Button>
+            <Button>User Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                User settings
+          <DropdownMenuContent className="w-72">
+            <DropdownMenuHeader>
+              <Avatar variant="default">
+                <AvatarImage src="/user-avatar2.png" alt="User" />
+                <AvatarFallback>JS</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <div className="text-base tracking-tighter font-medium">
+                  Jane Smith
+                </div>
+                <span className="text-sm font-normal tracking-tight text-muted-foreground">
+                  jane.smith@cognite.com
+                </span>
               </div>
-            </DropdownMenuLabel>
-            <div>
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
-
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </div>
+            </DropdownMenuHeader>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -180,12 +185,8 @@ function RadioGroupDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Radio Group Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[270px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                Radio group
-              </div>
-            </DropdownMenuLabel>
+          <DropdownMenuContent className="w-[270px]">
+            <DropdownMenuSectionLabel>Radio group</DropdownMenuSectionLabel>
             <DropdownMenuRadioGroup
               value={viewMode}
               onValueChange={setViewMode}
@@ -209,7 +210,7 @@ function DestructiveDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[200px] px-1">
+          <DropdownMenuContent className="w-[200px]">
             <DropdownMenuItem>
               <IconUser />
               Profile
@@ -242,6 +243,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuHeader,
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu"
 import {
@@ -265,7 +267,7 @@ function BasicDemo() {
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-[280px]">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-b border-border ">
+            <DropdownMenuHeader>
               <Avatar variant="default">
                 <AvatarImage src="/user-avatar2.png" alt="User" />
                 <AvatarFallback>JD</AvatarFallback>
@@ -278,26 +280,24 @@ function BasicDemo() {
                   jane.smith@cognite.com
                 </span>
               </div>
-            </DropdownMenuLabel>
-            <div className="px-1 pt-1">
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
+            </DropdownMenuHeader>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
 
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </div>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -311,7 +311,7 @@ function BasicDemo() {
   },
   userDetails: {
     title: 'User Details Demo',
-    description: 'Display user details in a dropdown menu',
+    description: 'Dropdown menu with user avatar and details in header',
     component: UserDetailsDemo,
     difficulty: 'intermediate',
     code: `import { Button } from "@/components/ui/aura/button"
@@ -319,9 +319,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
+  DropdownMenuHeader,
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu"
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from "@/components/ui/aura/avatar"
 import {
   IconUser,
   IconSettingsFilled,
@@ -335,33 +340,39 @@ function UserDetailsDemo() {
       <div className="flex gap-2">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>Open User DetailsMenu</Button>
+            <Button>User Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                User settings
+          <DropdownMenuContent className="w-72">
+            <DropdownMenuHeader>
+              <Avatar variant="default">
+                <AvatarImage src="/user-avatar2.png" alt="User" />
+                <AvatarFallback>JS</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <div className="text-base tracking-tighter font-medium">
+                  Jane Smith
+                </div>
+                <span className="text-sm font-normal tracking-tight text-muted-foreground">
+                  jane.smith@cognite.com
+                </span>
               </div>
-            </DropdownMenuLabel>
-            <div>
-              <DropdownMenuItem>
-                <IconUser />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconSettingsFilled />
-                Settings
-              </DropdownMenuItem>
-
-              <DropdownMenuItem>
-                <IconBell />
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconHelp />
-                Help
-              </DropdownMenuItem>
-            </div>
+            </DropdownMenuHeader>
+            <DropdownMenuItem>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -446,7 +457,7 @@ import { Button } from "@/components/ui/aura/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
+  DropdownMenuSectionLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
@@ -462,12 +473,10 @@ function RadioGroupDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Radio Group Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[270px] px-1">
-            <DropdownMenuLabel className="flex flex-row items-center gap-2 border-none pb-1">
-              <div className="text-sm font-normal tracking-tight text-muted-foreground dark:text-muted-foreground">
-                Radio group
-              </div>
-            </DropdownMenuLabel>
+          <DropdownMenuContent className="w-[270px]">
+            <DropdownMenuSectionLabel>
+              Radio group
+            </DropdownMenuSectionLabel>
             <DropdownMenuRadioGroup
               value={viewMode}
               onValueChange={setViewMode}
@@ -509,7 +518,7 @@ function DestructiveDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[200px] px-1">
+          <DropdownMenuContent className="w-[200px]">
             <DropdownMenuItem>
               <IconUser />
               Profile

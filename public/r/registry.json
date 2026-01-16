@@ -183,7 +183,8 @@
       ],
       "files": [
         {
-          "path": "src/components/ui/aura/button.tsx",
+          "path": "src/components/ui/aura/button/button.tsx",
+          "target": "src/components/ui/aura/button.tsx",
           "type": "registry:component"
         }
       ],
@@ -906,6 +907,21 @@
       ]
     },
     {
+      "name": "typography",
+      "type": "registry:component",
+      "title": "Typography",
+      "description": "Typography scale definitions, utilities, and composition patterns for the Aura design system. Includes structured data for LLM consumption with HTML/JSX examples.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/typography.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
       "name": "carousel",
       "type": "registry:component",
       "title": "Carousel",
@@ -983,24 +999,6 @@
           "path": "src/components/ui/aura/artifact.tsx",
           "type": "registry:component"
         }
-      ]
-    },
-    {
-      "name": "branch",
-      "type": "registry:component",
-      "title": "Branch",
-      "description": "AI conversation branch component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/branch.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": [
-        "@aura/css"
       ]
     },
     {
@@ -1246,13 +1244,15 @@
       "dependencies": [
         "ai",
         "@tabler/icons-react",
-        "streamdown"
+        "streamdown",
+        "shiki"
       ],
       "registryDependencies": [
         "@aura/css",
         "@aura/avatar",
         "@aura/button",
         "@aura/button-group",
+        "@aura/code-block",
         "@aura/tooltip"
       ],
       "files": [
@@ -1501,6 +1501,21 @@
       "files": [
         {
           "path": "src/components/ui/aura/toolbar.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "effects",
+      "type": "registry:component",
+      "title": "Effects",
+      "description": "Effect definitions including shadows, focus rings, border radii, and transitions for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/effects.tsx",
           "type": "registry:component"
         }
       ],

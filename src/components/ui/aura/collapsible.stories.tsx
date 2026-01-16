@@ -13,7 +13,7 @@ import { Button } from './button';
 import { IconChevronDown, IconSelector } from '@tabler/icons-react';
 
 const meta: Meta<typeof Collapsible> = {
-  title: 'AI/Collapsible',
+  title: 'Primitives/Collapsible',
   component: Collapsible,
   tags: ['autodocs'],
   argTypes: {
@@ -427,7 +427,7 @@ export const FAQ: Story = {
   render: () => (
     <div className="space-y-2 w-[500px]">
       <h2 className="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
-      
+
       <Collapsible className="space-y-2">
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">

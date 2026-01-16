@@ -144,7 +144,6 @@ const primitivesNavigation: NavigationItem[] = [
 ];
 
 const patternsNavigation: NavigationItem[] = [
-  { href: '/patterns', label: 'About' },
   {
     href: '#',
     label: 'Patterns',
@@ -152,7 +151,6 @@ const patternsNavigation: NavigationItem[] = [
     children: [
       { href: '/patterns/agent-chat', label: 'Agent chat' },
       { href: '/patterns/dashboards', label: 'Dashboards' },
-      { href: '/eos/shift-handover-app', label: 'Shift handover' },
     ],
   },
 ];
@@ -167,12 +165,9 @@ const aiNavigation: NavigationItem[] = [
     label: 'Shad CN',
     isSubsection: true,
     children: [
-      // { href: '/ai/components/actions', label: 'Actions' },
-      { href: '/ai/components/branch', label: 'Branch' },
       { href: '/ai/components/code-block', label: 'Code block' },
       { href: '/ai/components/confirmation', label: 'Confirmation' },
       { href: '/ai/components/conversation', label: 'Conversation' },
-      // { href: "/ai/components/image", label: "Image" },
       { href: '/ai/components/inline-citation', label: 'Inline Citation' },
       { href: '/ai/components/loader', label: 'Loader' },
       { href: '/ai/components/message', label: 'Message' },
@@ -182,7 +177,6 @@ const aiNavigation: NavigationItem[] = [
       { href: '/ai/components/shimmer', label: 'Shimmer' },
       { href: '/ai/components/sources', label: 'Sources' },
       { href: '/ai/components/suggestion', label: 'Suggestion' },
-      // { href: "/ai/components/task", label: "Task" },
       { href: '/ai/components/tool', label: 'Tool' },
     ],
   },

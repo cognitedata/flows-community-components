@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "reasoning",
-  "type": "registry:component",
   "title": "Reasoning",
   "description": "A container component for displaying AI reasoning steps with connected tool calls.",
   "dependencies": [
@@ -16,5 +15,6 @@
       "content": "'use client';\n\nimport { cn } from '@/lib/utils';\nimport { IconBrain } from '@tabler/icons-react';\nimport {\n  Children,\n  createContext,\n  useContext,\n  type ComponentProps,\n} from 'react';\n\nconst ReasoningDecorationsContext = createContext<boolean>(true);\nconst useReasoningDecorations = () => useContext(ReasoningDecorationsContext);\n\nexport type ReasoningProps = ComponentProps<'div'>;\n\nexport const Reasoning = ({\n  className,\n  children,\n  ...props\n}: ReasoningProps) => (\n  <div\n    className={cn('relative flex w-full flex-col gap-2 not-prose', className)}\n    {...props}\n  >\n    {children}\n  </div>\n);\n\nexport type ReasoningHeaderProps = ComponentProps<'div'> & {\n  title?: string;\n};\n\nexport const ReasoningHeader = ({\n  className,\n  title = 'Reasoning',\n  children,\n  ...props\n}: ReasoningHeaderProps) => (\n  <div\n    className={cn(\n      'flex items-center gap-2 text-base leading-5 tracking-tighter text-muted-foreground',\n      className\n    )}\n    {...props}\n  >\n    <IconBrain className=\"size-4 shrink-0\" />\n    {children ?? <span>{title}</span>}\n  </div>\n);\n\nexport type ReasoningContentProps = ComponentProps<'div'>;\n\nexport const ReasoningContent = ({\n  className,\n  children,\n  ...props\n}: ReasoningContentProps) => (\n  <ReasoningDecorationsContext.Provider\n    value={Children.toArray(children).filter(Boolean).length > 1}\n  >\n    <ReasoningContentInner className={className} {...props}>\n      {children}\n    </ReasoningContentInner>\n  </ReasoningDecorationsContext.Provider>\n);\n\nconst ReasoningContentInner = ({\n  className,\n  children,\n  ...props\n}: ReasoningContentProps) => (\n  <div\n    className={cn('relative flex flex-col gap-0 pl-3.75', className)}\n    {...props}\n  >\n    {children}\n  </div>\n);\n\nexport type ReasoningItemProps = ComponentProps<'div'>;\n\nexport const ReasoningItem = ({\n  className,\n  children,\n  ...props\n}: ReasoningItemProps) => {\n  const showDecorations = useReasoningDecorations();\n\n  return (\n    <div\n      className={cn(\n        'relative',\n        showDecorations && [\n          // Dot using ::before\n          'before:absolute before:-left-2.5 before:top-3.75 before:z-10 before:size-1.25 before:rounded-full before:bg-border',\n          // Vertical line segment using ::after\n          'after:absolute after:-left-2 after:top-0 after:bottom-0 after:w-px after:bg-border',\n          'first:after:top-4',\n          'last:after:bottom-auto last:after:h-4',\n        ],\n        className\n      )}\n      {...props}\n    >\n      {children}\n    </div>\n  );\n};\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

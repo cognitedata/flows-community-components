@@ -8,138 +8,176 @@ import {
   MessageActions,
   MessageAction,
   MessageResponse,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
 } from '@/components/ui/aura/message';
 import type { ComponentExamples } from '@/lib/component-examples/types';
 import {
-  InlineCitation,
-  InlineCitationLink,
-} from '@/components/ui/aura/inline-citation';
-import {
-  IconHash,
-  IconFile,
-  IconPhoto,
-  IconTimeline,
-  IconCopy,
-  IconDownload,
-  IconTool,
-  IconRefresh,
-  IconWheel,
-} from '@tabler/icons-react';
-import {
   CodeBlock,
-  CodeBlockCollapseButton,
   CodeBlockCopyButton,
 } from '@/components/ui/aura/code-block';
+import { useState } from 'react';
+import {
+  IconCopy,
+  IconDownload,
+  IconWheel,
+  IconCheck,
+  IconRefresh,
+} from '@tabler/icons-react';
 
-function Demo() {
+function MessageDemo() {
+  const [copied, setCopied] = useState(false);
+  const [branches, setBranches] = useState<string[]>([
+    'I analyzed the sensor data and found vibration levels on pump 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.',
+  ]);
+  const [currentBranchIndex, setCurrentBranchIndex] = useState(0);
+
+  const alternativeResponse = 'Based on the time series analysis, pump 21PT1019 showed elevated vibration patterns starting at 03:15. The root cause appears to be mechanical imbalance, indicated by the frequency spectrum showing peaks at 1x running speed.';
+
+  const handleRetry = () => {
+    if (branches.length >= 2) return;
+    setBranches([...branches, alternativeResponse]);
+    setCurrentBranchIndex(1);
+  };
+
+  const handleCopy = () => {
+    const currentBranch = branches[currentBranchIndex];
+    navigator.clipboard.writeText(currentBranch);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const currentBranch = branches[currentBranchIndex];
+    const blob = new Blob([currentBranch], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'response.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
         <MessageContent>
-          <span>
-            There are abnormal vibration levels on{' '}
-            <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/pump/21PT1019"
-                target="_blank"
-                icon={IconHash}
-                variant="nordic"
-              >
-                21PT1019
-              </InlineCitationLink>
-            </InlineCitation>
-          </span>
+          What caused the vibration spike on pump 21PT1019?
         </MessageContent>
       </Message>
 
-      <Message isResponse={true}>
-        <MessageAvatar variant="nordic">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
-        <MessageContent className="flex flex-col gap-2">
-          <span>
-            I analyzed the sensor data and found that vibration levels on{' '}
-            <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/pump/21PT1019"
-                target="_blank"
-                icon={IconHash}
-                variant="nordic"
-              >
-                21PT1019
-              </InlineCitationLink>
-            </InlineCitation>{' '}
-            exceeded normal thresholds at 03:15. This correlates with a 12%
-            increase in RPM during that window.
-          </span>
-          <div className="flex flex-row gap-2">
-            <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/chart/timeline"
-                target="_blank"
-                icon={IconTimeline}
-              >
-                Time series
-              </InlineCitationLink>
-            </InlineCitation>
-            <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/image/image1.jpg"
-                target="_blank"
-                icon={IconPhoto}
-              >
-                pumpB.jpg
-              </InlineCitationLink>
-            </InlineCitation>
-            <InlineCitation>
-              <InlineCitationLink
-                href="https://example.com/documentation.pdf"
-                target="_blank"
-                icon={IconFile}
-              >
-                pumpB.pdf
-              </InlineCitationLink>
-            </InlineCitation>
-          </div>
-          <MessageActions>
-            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Download" tooltip="Download">
-              <IconDownload className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction
-              size="icon-sm"
-              label="Explain Tool Call(s)"
-              tooltip="Explain Tool Call(s)"
-            >
-              <IconTool className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
-            </MessageAction>
-          </MessageActions>
-        </MessageContent>
-      </Message>
+      <MessageBranch
+        key={branches.length}
+        defaultBranch={currentBranchIndex}
+        onBranchChange={(index) => setCurrentBranchIndex(index)}
+      >
+        <MessageBranchContent>
+          {branches.map((branch, index) => (
+            <Message key={index} isResponse={true}>
+              <MessageAvatar variant="nordic">
+                <MessageAvatarIcon>
+                  <IconWheel />
+                </MessageAvatarIcon>
+              </MessageAvatar>
+              <MessageContent className="flex flex-col gap-2">
+                <MessageResponse>{branch}</MessageResponse>
+                <MessageActions>
+                  <MessageAction
+                    size="icon-sm"
+                    label={copied ? 'Copied' : 'Copy'}
+                    tooltip={copied ? 'Copied' : 'Copy'}
+                    onClick={handleCopy}
+                  >
+                    {copied ? (
+                      <IconCheck className="w-3 h-3" />
+                    ) : (
+                      <IconCopy className="w-3 h-3" />
+                    )}
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Download"
+                    tooltip="Download"
+                    onClick={handleDownload}
+                  >
+                    <IconDownload className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Retry"
+                    tooltip="Retry"
+                    onClick={handleRetry}
+                    disabled={branches.length >= 2}
+                  >
+                    <IconRefresh className="w-3 h-3" />
+                  </MessageAction>
+                  {branches.length > 1 && (
+                    <MessageBranchSelector from="assistant" className="px-0">
+                      <MessageBranchPrevious />
+                      <MessageBranchPage />
+                      <MessageBranchNext />
+                    </MessageBranchSelector>
+                  )}
+                </MessageActions>
+              </MessageContent>
+            </Message>
+          ))}
+        </MessageBranchContent>
+      </MessageBranch>
     </div>
   );
 }
 
 function WithCodeBlockDemo() {
-  const code = `async function analyzeVibrationData(timeseriesId: string) {
-  const data = await fetchTimeseries(timeseriesId);
-  const anomalies = detectAnomalies(data);
+  const [copied, setCopied] = useState(false);
 
-  return anomalies.filter(a => a.severity > 0.8);
+  const codeExample = `import { useState } from 'react';
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <p className="text-lg">Count: {count}</p>
+      <div className="flex gap-2">
+        <button onClick={() => setCount(count - 1)}>
+          Decrement
+        </button>
+        <button onClick={() => setCount(count + 1)}>
+          Increment
+        </button>
+      </div>
+    </div>
+  );
 }`;
+
+  const fullResponse = `Here&apos;s a React component example that demonstrates state management:\n\n${codeExample}\n\nThis component uses the useState hook to track a count value and provides buttons to increment or decrement it.`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(fullResponse);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([fullResponse], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'response.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message isResponse={false}>
+      <Message>
         <MessageContent>
-          Can you show me how to analyze vibration data using TypeScript?
+          Can you show me a simple React counter component?
         </MessageContent>
       </Message>
 
@@ -150,31 +188,40 @@ function WithCodeBlockDemo() {
           </MessageAvatarIcon>
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
-          <CodeBlock
-            code={code}
-            language="typescript"
-            showLineNumbers
-            className="-mt-1"
-          >
-            <CodeBlockCopyButton />
-            <CodeBlockCollapseButton />
-          </CodeBlock>
+          <div className="flex flex-col gap-3">
+            <p className="text-sm">
+              Here&apos;s a React component example that demonstrates state
+              management:
+            </p>
+            <CodeBlock code={codeExample} language="tsx" showLineNumbers>
+              <CodeBlockCopyButton />
+            </CodeBlock>
+            <p className="text-sm text-muted-foreground">
+              This component uses the <code className="text-xs">useState</code>{' '}
+              hook to track a count value and provides buttons to increment or
+              decrement it.
+            </p>
+          </div>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Download" tooltip="Download">
-              <IconDownload className="w-3 h-3" />
+            <MessageAction
+              size="icon-sm"
+              label={copied ? 'Copied' : 'Copy'}
+              tooltip={copied ? 'Copied' : 'Copy'}
+              onClick={handleCopy}
+            >
+              {copied ? (
+                <IconCheck className="w-3 h-3" />
+              ) : (
+                <IconCopy className="w-3 h-3" />
+              )}
             </MessageAction>
             <MessageAction
               size="icon-sm"
-              label="Explain Tool Call(s)"
-              tooltip="Explain Tool Call(s)"
+              label="Download"
+              tooltip="Download"
+              onClick={handleDownload}
             >
-              <IconTool className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
+              <IconDownload className="w-3 h-3" />
             </MessageAction>
           </MessageActions>
         </MessageContent>
@@ -272,9 +319,6 @@ Inline maths example: The sum formula is $$\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
             </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
-            </MessageAction>
           </MessageActions>
         </MessageContent>
       </Message>
@@ -283,114 +327,201 @@ Inline maths example: The sum formula is $$\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}
 }
 
 export const messageExamples: ComponentExamples = {
-  contained: {
+  basic: {
     title: 'Message',
     description:
-      'Messages with background containers for clear visual separation',
-    component: Demo,
-    difficulty: 'beginner',
+      'Chat messages with Copy, Download, and Retry actions. Click Retry to generate an alternative response and navigate between branches.',
+    component: MessageDemo,
+    difficulty: 'intermediate',
     code: `"use client"
 
-import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
 import {
-  InlineCitation,
-  InlineCitationLink,
-} from "@/components/ui/aura/inline-citation"
-import { IconHash, IconFile, IconPhoto, IconTimeline, IconCopy, IconDownload, IconTool, IconRefresh, IconWheel } from "@tabler/icons-react"
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageActions,
+  MessageAction,
+  MessageResponse,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
+} from "@/components/ai-elements/cognite/message"
+import { useState } from "react"
+import { IconWheel, IconCopy, IconDownload, IconCheck, IconRefresh } from "@tabler/icons-react"
 
-export function Demo() {
+export function MessageDemo() {
+  const [copied, setCopied] = useState(false)
+  const [branches, setBranches] = useState<string[]>([
+    'I analyzed the sensor data and found vibration levels on pump 21PT1019 exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.',
+  ])
+  const [currentBranchIndex, setCurrentBranchIndex] = useState(0)
+
+  const alternativeResponse = 'Based on the time series analysis, pump 21PT1019 showed elevated vibration patterns starting at 03:15. The root cause appears to be mechanical imbalance, indicated by the frequency spectrum showing peaks at 1x running speed.'
+
+  const handleRetry = () => {
+    if (branches.length >= 2) return
+    setBranches([...branches, alternativeResponse])
+    setCurrentBranchIndex(1)
+  }
+
+  const handleCopy = () => {
+    const currentBranch = branches[currentBranchIndex]
+    navigator.clipboard.writeText(currentBranch)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleDownload = () => {
+    const currentBranch = branches[currentBranchIndex]
+    const blob = new Blob([currentBranch], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'response.txt'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
       <Message>
         <MessageContent>
-          <span>
-            There are abnormal vibration levels on{' '}
-            <InlineCitation>
-              <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
-                21PT1019
-              </InlineCitationLink>
-            </InlineCitation>
-          </span>
+          What caused the vibration spike on pump 21PT1019?
         </MessageContent>
       </Message>
 
-      <Message isResponse={true}>
-        <MessageAvatar variant="nordic">
-          <MessageAvatarIcon>
-            <IconWheel />
-          </MessageAvatarIcon>
-        </MessageAvatar>
-        <MessageContent className="flex flex-col gap-2">
-          <span>
-            I analyzed the sensor data and found that vibration levels on{' '}
-            <InlineCitation>
-              <InlineCitationLink href="https://example.com/pump/21PT1019" target="_blank" icon={IconHash} variant="nordic">
-                21PT1019
-              </InlineCitationLink>
-            </InlineCitation>
-            {' '}exceeded normal thresholds at 03:15. This correlates with a 12% increase in RPM during that window.
-          </span>
-          <div className="flex flex-row gap-2">
-            <InlineCitation>
-              <InlineCitationLink href="https://example.com/chart/timeline" target="_blank" icon={IconTimeline}>
-                Time series
-              </InlineCitationLink>
-            </InlineCitation>
-            <InlineCitation>
-              <InlineCitationLink href="https://example.com/image/image1.jpg" target="_blank" icon={IconPhoto}>
-                pumpB.jpg
-              </InlineCitationLink>
-            </InlineCitation>
-            <InlineCitation>
-              <InlineCitationLink href="https://example.com/documentation.pdf" target="_blank" icon={IconFile}>
-                pumpB.pdf
-              </InlineCitationLink>
-            </InlineCitation>
-          </div>
-          <MessageActions>
-            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Download" tooltip="Download">
-              <IconDownload className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
-              <IconTool className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
-            </MessageAction>
-          </MessageActions>
-        </MessageContent>
-      </Message>
+      <MessageBranch
+        key={branches.length}
+        defaultBranch={currentBranchIndex}
+        onBranchChange={(index) => setCurrentBranchIndex(index)}
+      >
+        <MessageBranchContent>
+          {branches.map((branch, index) => (
+            <Message key={index} isResponse={true}>
+              <MessageAvatar variant="nordic">
+                <MessageAvatarIcon>
+                  <IconWheel />
+                </MessageAvatarIcon>
+              </MessageAvatar>
+              <MessageContent className="flex flex-col gap-2">
+                <MessageResponse>{branch}</MessageResponse>
+                <MessageActions>
+                  <MessageAction
+                    size="icon-sm"
+                    label={copied ? 'Copied' : 'Copy'}
+                    tooltip={copied ? 'Copied' : 'Copy'}
+                    onClick={handleCopy}
+                  >
+                    {copied ? (
+                      <IconCheck className="w-3 h-3" />
+                    ) : (
+                      <IconCopy className="w-3 h-3" />
+                    )}
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Download"
+                    tooltip="Download"
+                    onClick={handleDownload}
+                  >
+                    <IconDownload className="w-3 h-3" />
+                  </MessageAction>
+                  <MessageAction
+                    size="icon-sm"
+                    label="Retry"
+                    tooltip="Retry"
+                    onClick={handleRetry}
+                    disabled={branches.length >= 2}
+                  >
+                    <IconRefresh className="w-3 h-3" />
+                  </MessageAction>
+                  {branches.length > 1 && (
+                    <MessageBranchSelector from="assistant" className="px-0">
+                      <MessageBranchPrevious />
+                      <MessageBranchPage />
+                      <MessageBranchNext />
+                    </MessageBranchSelector>
+                  )}
+                </MessageActions>
+              </MessageContent>
+            </Message>
+          ))}
+        </MessageBranchContent>
+      </MessageBranch>
     </div>
   )
 }`,
   },
-
   withCodeBlock: {
-    title: 'Message with Code Block',
+    title: 'With Code Block',
     description:
-      'Assistant message containing a code block with syntax highlighting',
+      'Message with CodeBlock component for syntax-highlighted code, showing only Copy and Download actions.',
     component: WithCodeBlockDemo,
     difficulty: 'beginner',
-    code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction } from "@/components/ui/aura/message"
-import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "@/components/ui/aura/code-block"
-import { IconWheel, IconCopy, IconDownload, IconTool, IconRefresh } from "@tabler/icons-react"
+    code: `"use client"
+
+import {
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageActions,
+  MessageAction,
+} from "@/components/ai-elements/cognite/message"
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ai-elements/cognite/code-block"
+import { useState } from "react"
+import { IconWheel, IconCopy, IconDownload, IconCheck } from "@tabler/icons-react"
 
 export function WithCodeBlockDemo() {
-  const code = \`async function analyzeVibrationData(timeseriesId: string) {
-  const data = await fetchTimeseries(timeseriesId);
-  const anomalies = detectAnomalies(data);
+  const [copied, setCopied] = useState(false)
 
-  return anomalies.filter(a => a.severity > 0.8);
+  const codeExample = \`import { useState } from 'react';
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <p className="text-lg">Count: {count}</p>
+      <div className="flex gap-2">
+        <button onClick={() => setCount(count - 1)}>
+          Decrement
+        </button>
+        <button onClick={() => setCount(count + 1)}>
+          Increment
+        </button>
+      </div>
+    </div>
+  );
 }\`
+
+  const fullResponse = \`Here&apos;s a React component example that demonstrates state management:\\n\\n\${codeExample}\\n\\nThis component uses the useState hook to track a count value and provides buttons to increment or decrement it.\`
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(fullResponse)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleDownload = () => {
+    const blob = new Blob([fullResponse], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'response.txt'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
 
   return (
     <div className="flex flex-col space-y-4 w-full gap-2">
-      <Message isResponse={false}>
+      <Message>
         <MessageContent>
-          Can you show me how to analyze vibration data using TypeScript?
+          Can you show me a simple React counter component?
         </MessageContent>
       </Message>
 
@@ -401,27 +532,37 @@ export function WithCodeBlockDemo() {
           </MessageAvatarIcon>
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
-          <CodeBlock
-            code={code}
-            language="typescript"
-            showLineNumbers
-            className="-mt-1"
-          >
-            <CodeBlockCopyButton />
-            <CodeBlockCollapseButton />
-          </CodeBlock>
+          <div className="flex flex-col gap-3">
+            <p className="text-sm">
+              Here&apos;s a React component example that demonstrates state management:
+            </p>
+            <CodeBlock code={codeExample} language="tsx" showLineNumbers>
+              <CodeBlockCopyButton />
+            </CodeBlock>
+            <p className="text-sm text-muted-foreground">
+              This component uses the <code className="text-xs">useState</code> hook to track a count value and provides buttons to increment or decrement it.
+            </p>
+          </div>
           <MessageActions>
-            <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
-              <IconCopy className="w-3 h-3" />
+            <MessageAction
+              size="icon-sm"
+              label={copied ? 'Copied' : 'Copy'}
+              tooltip={copied ? 'Copied' : 'Copy'}
+              onClick={handleCopy}
+            >
+              {copied ? (
+                <IconCheck className="w-3 h-3" />
+              ) : (
+                <IconCopy className="w-3 h-3" />
+              )}
             </MessageAction>
-            <MessageAction size="icon-sm" label="Download" tooltip="Download">
+            <MessageAction
+              size="icon-sm"
+              label="Download"
+              tooltip="Download"
+              onClick={handleDownload}
+            >
               <IconDownload className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Explain Tool Call(s)" tooltip="Explain Tool Call(s)">
-              <IconTool className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
             </MessageAction>
           </MessageActions>
         </MessageContent>
@@ -438,7 +579,7 @@ export function WithCodeBlockDemo() {
     component: MessageResponseDemo,
     difficulty: 'intermediate',
     code: `import { Message, MessageContent, MessageAvatar, MessageAvatarIcon, MessageActions, MessageAction, MessageResponse } from "@/components/ui/aura/message"
-import { IconWheel, IconCopy, IconRefresh } from "@tabler/icons-react"
+import { IconWheel, IconCopy } from "@tabler/icons-react"
 
 export function MessageResponseDemo() {
   const markdownContent = \`# Heading 1
@@ -528,9 +669,6 @@ Inline maths example: The sum formula is $$\\\\sum_{i=1}^{n} i = \\\\frac{n(n+1)
           <MessageActions>
             <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
               <IconCopy className="w-3 h-3" />
-            </MessageAction>
-            <MessageAction size="icon-sm" label="Retry" tooltip="Retry">
-              <IconRefresh className="w-3 h-3" />
             </MessageAction>
           </MessageActions>
         </MessageContent>
