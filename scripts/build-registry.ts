@@ -85,22 +85,48 @@ const miscRegistryItems: RegistryItem[] = [
 ];
 
 // Get all components from ui/cognite directory
+// Supports both flat files (component.tsx) and folder-based components (component/component.tsx)
 function getComponents(): string[] {
   const components: string[] = [];
 
   if (fs.existsSync(uiCogniteDir)) {
-    const uiFiles = fs
-      .readdirSync(uiCogniteDir)
-      .filter(
-        (file: string) =>
-          file.endsWith('.tsx') && file !== 'reasoning-original.tsx'
-      )
-      .map((file: string) => file.replace('.tsx', ''));
+    const entries = fs.readdirSync(uiCogniteDir, { withFileTypes: true });
 
-    if (uiFiles.length > 0) {
-      console.log(`\n✅ Found ${uiFiles.length} component(s) in ui/cognite:\n`);
-      uiFiles.forEach((file: string) => console.log(`   - ${file}`));
-      components.push(...uiFiles);
+    // Get flat .tsx files (excluding reasoning-original.tsx)
+    const flatFiles = entries
+      .filter(
+        (entry) =>
+          entry.isFile() &&
+          entry.name.endsWith('.tsx') &&
+          entry.name !== 'reasoning-original.tsx'
+      )
+      .map((entry) => entry.name.replace('.tsx', ''));
+
+    // Get folder-based components (folders containing componentName/componentName.tsx)
+    const folderComponents = entries
+      .filter((entry) => entry.isDirectory())
+      .filter((entry) => {
+        const componentFile = path.join(
+          uiCogniteDir,
+          entry.name,
+          `${entry.name}.tsx`
+        );
+        return fs.existsSync(componentFile);
+      })
+      .map((entry) => entry.name);
+
+    // Combine both, avoiding duplicates (folder takes precedence)
+    const allComponents = [
+      ...flatFiles.filter((name) => !folderComponents.includes(name)),
+      ...folderComponents,
+    ];
+
+    if (allComponents.length > 0) {
+      console.log(
+        `\n✅ Found ${allComponents.length} component(s) in ui/cognite:\n`
+      );
+      allComponents.forEach((file: string) => console.log(`   - ${file}`));
+      components.push(...allComponents);
     }
   }
 
@@ -154,8 +180,22 @@ function collectRegistryDependencies(
   }
 }
 
-// Get the file path for a component (always cognite)
+// Get the file path for a component
+// Checks if component is in a subfolder first, falls back to flat file
 function getComponentPath(componentName: string): string {
+  const subfolderPath = path.join(
+    uiCogniteDir,
+    componentName,
+    `${componentName}.tsx`
+  );
+  if (fs.existsSync(subfolderPath)) {
+    return `src/components/ui/aura/${componentName}/${componentName}.tsx`;
+  }
+  return `src/components/ui/aura/${componentName}.tsx`;
+}
+
+// Get the target path for a component (always flat for installation)
+function getComponentTargetPath(componentName: string): string {
   return `src/components/ui/aura/${componentName}.tsx`;
 }
 
@@ -209,15 +249,40 @@ function buildRegistry(template: Registry, components: string[]): Registry {
         ...item,
         registryDependencies,
         files: item.files.map((file: RegistryFile) => {
-          // Only overwrite the path if it's the main component file
+          // If file already has a target, preserve both path and target as-is
+          // (this means it was manually configured for a subfolder component)
+          if (file.target) {
+            return file;
+          }
+
+          // Only update the path if it's the main component file
           // (matching the component name)
           const isMainFile =
             file.path.endsWith(`${item.name}.tsx`) &&
             file.type === 'registry:component';
 
+          if (!isMainFile) {
+            return file;
+          }
+
+          // Check if this is a subfolder component
+          const actualPath = getComponentPath(item.name);
+          const targetPath = getComponentTargetPath(item.name);
+          const isSubfolder = actualPath !== targetPath;
+
+          if (isSubfolder) {
+            // Subfolder component: set path to actual location and target to flat location
+            return {
+              ...file,
+              path: actualPath,
+              target: targetPath,
+            };
+          }
+
+          // Flat component: just update the path
           return {
             ...file,
-            path: isMainFile ? componentPath : file.path,
+            path: actualPath,
           };
         }),
       };
