@@ -1,10 +1,11 @@
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
+  BreadcrumbEllipsisButton,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
+  BreadcrumbPageButton,
   BreadcrumbSeparator,
 } from '@/components/ui/aura/breadcrumb';
 import type { ComponentExamples } from './types';
@@ -29,17 +30,33 @@ function BasicDemo() {
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbEllipsis />
+        <BreadcrumbEllipsis>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <BreadcrumbEllipsisButton />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <a href="/projects">Projects</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/teams">Teams</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/workspaces">Workspaces</a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbEllipsis>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href="/canvas">Canvas</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbItem className="has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground">
+        <BreadcrumbItem>
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1">
-              <BreadcrumbPage>Test canvas</BreadcrumbPage>
-              <span className="sr-only">Toggle menu</span>
+            <DropdownMenuTrigger asChild>
+              <BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-[280px] p-0">
               <div className="p-1">
@@ -74,10 +91,11 @@ export const breadcrumbExamples: ComponentExamples = {
     code: `import {
   Breadcrumb,
   BreadcrumbEllipsis,
+  BreadcrumbEllipsisButton,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
+  BreadcrumbPageButton,
   BreadcrumbSeparator,
 } from "@/components/ui/aura/breadcrumb"
 import {
@@ -101,17 +119,33 @@ export function BasicDemo() {
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbEllipsis />
+        <BreadcrumbEllipsis>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <BreadcrumbEllipsisButton />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <a href="/projects">Projects</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/teams">Teams</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/workspaces">Workspaces</a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbEllipsis>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href="/canvas">Canvas</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbItem className="has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground">
+        <BreadcrumbItem>
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1">
-              <BreadcrumbPage>Test canvas</BreadcrumbPage>
-              <span className="sr-only">Toggle menu</span>
+            <DropdownMenuTrigger asChild>
+              <BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-[280px] p-0">
               <div className="p-1">
