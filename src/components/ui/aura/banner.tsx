@@ -166,7 +166,7 @@ export const BannerActions = ({ className, ...props }: BannerActionsProps) => (
 );
 
 const hoverClasses: Record<BannerVariant, string> = {
-  default: 'hover:bg-mountain-hover',
+  default: 'hover:bg-undefined-hover',
   neutral: 'hover:bg-neutral-hover',
   destructive: 'hover:bg-destructive-hover',
   warning: 'hover:bg-warning-hover',
