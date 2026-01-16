@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/aura/button';
 import { IconChevronDown, IconSelector } from '@tabler/icons-react';
 
 const meta: Meta<typeof Collapsible> = {
-  title: 'AI/Collapsible',
+  title: 'Primitives/Collapsible',
   component: Collapsible,
   tags: ['autodocs'],
   argTypes: {

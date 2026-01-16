@@ -16,8 +16,8 @@ function VariantsDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
-            <Copy />
+          <BannerAction>
+            <Copy size={16} />
             <span>Duplicate</span>
           </BannerAction>
         </BannerActions>
@@ -28,7 +28,7 @@ function VariantsDemo() {
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
-          <BannerAction variant="ghost">Request review</BannerAction>
+          <BannerAction>Request review</BannerAction>
         </BannerActions>
       </Banner>
     </div>
@@ -42,10 +42,10 @@ function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>
@@ -55,10 +55,10 @@ function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>
@@ -68,10 +68,10 @@ function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>
@@ -81,10 +81,10 @@ function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>
@@ -118,8 +118,8 @@ export function VariantsDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
-            <Copy />
+          <BannerAction>
+            <Copy size={16} />
             <span>Duplicate</span>
           </BannerAction>
         </BannerActions>
@@ -130,7 +130,7 @@ export function VariantsDemo() {
         <BannerTitle>Workflow has been published.</BannerTitle>
         <BannerStatus>Published</BannerStatus>
         <BannerActions>
-          <BannerAction variant="ghost">Request review</BannerAction>
+          <BannerAction>Request review</BannerAction>
         </BannerActions>
       </Banner>
     </div>
@@ -161,10 +161,10 @@ export function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>
@@ -174,10 +174,10 @@ export function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>
@@ -187,10 +187,10 @@ export function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>
@@ -200,10 +200,10 @@ export function MainComponentDemo() {
         <BannerIcon icon={Info} />
         <BannerTitle>Banner title</BannerTitle>
         <BannerActions>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
-          <BannerAction variant="ghost">
+          <BannerAction>
             <span>Button</span>
           </BannerAction>
         </BannerActions>

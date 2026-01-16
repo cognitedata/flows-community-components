@@ -23,7 +23,7 @@ import {
 } from '@tabler/icons-react';
 
 const meta: Meta<typeof Card> = {
-  title: 'UI/Card',
+  title: 'Primitives/Card',
   component: Card,
   tags: ['autodocs'],
   decorators: [

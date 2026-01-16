@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "topbar",
+  "title": "Topbar",
+  "description": "A flexible topbar component with breadcrumbs, center space, and action buttons. Integrates with the Sidebar component for full layout support.",
+  "dependencies": [
+    "@radix-ui/react-slot"
+  ],
+  "registryDependencies": [
+    "@aura/css",
+    "@aura/breadcrumb",
+    "@aura/sidebar",
+    "@aura/button",
+    "@aura/lib-utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/aura/topbar/topbar.tsx",
+      "content": "'use client';\n\nimport { type ComponentProps } from 'react';\nimport { Slot } from '@radix-ui/react-slot';\n\nimport { cn } from '@/lib/utils';\nimport { Breadcrumb } from '@/components/ui/aura/breadcrumb';\nimport { SidebarProvider, SidebarInset } from '@/components/ui/aura/sidebar';\nimport { Button } from '@/components/ui/aura/button';\n\n// Topbar wrapper component\nfunction Topbar({ className, ...props }: ComponentProps<'div'>) {\n  return (\n    <div\n      data-slot=\"topbar\"\n      className={cn(\n        'flex h-11 w-full items-center border-b bg-background px-3 py-2',\n        className\n      )}\n      {...props}\n    />\n  );\n}\n\n// Topbar left section (for breadcrumbs)\nfunction TopbarLeft({ className, ...props }: ComponentProps<'div'>) {\n  return (\n    <div\n      data-slot=\"topbar-left\"\n      className={cn('flex items-center', className)}\n      {...props}\n    />\n  );\n}\n\n// Topbar center section\nfunction TopbarCenter({ className, ...props }: ComponentProps<'div'>) {\n  return (\n    <div\n      data-slot=\"topbar-center\"\n      className={cn('flex flex-1 items-center justify-center', className)}\n      {...props}\n    />\n  );\n}\n\n// Topbar right section (for action buttons)\nfunction TopbarRight({ className, ...props }: ComponentProps<'div'>) {\n  return (\n    <div\n      data-slot=\"topbar-right\"\n      className={cn('flex items-center gap-2', className)}\n      {...props}\n    />\n  );\n}\n\n// Topbar with sidebar integration\nfunction TopbarWithSidebar({\n  className,\n  children,\n  ...props\n}: ComponentProps<'div'>) {\n  return (\n    <SidebarProvider>\n      <div\n        data-slot=\"topbar-with-sidebar\"\n        className={cn('flex min-h-screen w-full', className)}\n        {...props}\n      >\n        {children}\n      </div>\n    </SidebarProvider>\n  );\n}\n\n// Topbar content wrapper (main page content area)\nfunction TopbarContent({ className, ...props }: ComponentProps<'main'>) {\n  return (\n    <SidebarInset\n      data-slot=\"topbar-content\"\n      className={cn('flex flex-col', className)}\n      {...props}\n    />\n  );\n}\n\n// Topbar breadcrumbs wrapper\nfunction TopbarBreadcrumbs({\n  className,\n  ...props\n}: ComponentProps<typeof Breadcrumb>) {\n  return (\n    <Breadcrumb\n      data-slot=\"topbar-breadcrumbs\"\n      className={className}\n      {...props}\n    />\n  );\n}\n\n// Topbar action button wrapper\nfunction TopbarAction({\n  className,\n  asChild = false,\n  ...props\n}: ComponentProps<typeof Button> & { asChild?: boolean }) {\n  const Comp = asChild ? Slot : Button;\n\n  return (\n    <Comp data-slot=\"topbar-action\" className={className} {...props} />\n  );\n}\n\nexport {\n  Topbar,\n  TopbarLeft,\n  TopbarCenter,\n  TopbarRight,\n  TopbarWithSidebar,\n  TopbarContent,\n  TopbarBreadcrumbs,\n  TopbarAction,\n};\n",
+      "type": "registry:component",
+      "target": "src/components/ui/aura/topbar.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

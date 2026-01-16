@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/aura/input';
 import { Label } from '@/components/ui/aura/label';
 
 const meta: Meta<typeof Popover> = {
-  title: 'UI/Popover',
+  title: 'Primitives/Popover',
   component: Popover,
   tags: ['autodocs'],
   argTypes: {

@@ -79,7 +79,7 @@
       "type": "registry:component",
       "title": "Banner",
       "description": "A banner component for displaying important messages with icon, title, status, and actions.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
+      "dependencies": ["@radix-ui/react-use-controllable-state", "class-variance-authority", "@tabler/icons-react"],
       "registryDependencies": ["button", "badge"],
       "files": [
         {
@@ -109,7 +109,8 @@
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/aura/button.tsx",
+          "path": "src/components/ui/aura/button/button.tsx",
+          "target": "src/components/ui/aura/button.tsx",
           "type": "registry:component"
         }
       ]
@@ -488,7 +489,15 @@
         "class-variance-authority",
         "@tabler/icons-react"
       ],
-      "registryDependencies": ["button", "input", "separator", "sheet", "skeleton", "tooltip", "use-mobile"],
+      "registryDependencies": [
+        "button",
+        "input",
+        "separator",
+        "sheet",
+        "skeleton",
+        "tooltip",
+        "use-mobile"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/sidebar.tsx",
@@ -639,10 +648,24 @@
       "name": "topbar",
       "type": "registry:component",
       "title": "Topbar",
-      "description": "Topbar component.",
+      "description": "A flexible topbar component with breadcrumbs, center space, and action buttons. Integrates with the Sidebar component for full layout support.",
+      "dependencies": ["@radix-ui/react-slot"],
+      "registryDependencies": ["breadcrumb", "sidebar", "button", "lib-utils"],
       "files": [
         {
           "path": "src/components/ui/aura/topbar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typography",
+      "type": "registry:component",
+      "title": "Typography",
+      "description": "Typography scale definitions, utilities, and composition patterns for the Aura design system. Includes structured data for LLM consumption with HTML/JSX examples.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/typography.tsx",
           "type": "registry:component"
         }
       ]
@@ -722,7 +745,10 @@
       "type": "registry:component",
       "title": "Chain of Thought",
       "description": "AI chain of thought component for displaying reasoning steps.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
       "registryDependencies": ["badge", "collapsible"],
       "files": [
         {
@@ -808,11 +834,13 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/aura/conversation.tsx",
+          "path": "src/components/ui/aura/conversation/conversation.tsx",
+          "target": "src/components/ui/aura/conversation.tsx",
           "type": "registry:component"
         },
         {
-          "path": "src/components/ui/aura/icon-conversation-empty-state.tsx",
+          "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
+          "target": "src/components/ui/aura/icon-conversation-empty-state.tsx",
           "type": "registry:component"
         }
       ]
@@ -941,7 +969,16 @@
       "title": "Prompt Input",
       "description": "AI prompt input component for user prompts.",
       "dependencies": ["ai", "nanoid", "@tabler/icons-react"],
-      "registryDependencies": ["textarea", "button", "command", "dropdown-menu", "helper-text", "hover-card", "input-group", "select"],
+      "registryDependencies": [
+        "textarea",
+        "button",
+        "command",
+        "dropdown-menu",
+        "helper-text",
+        "hover-card",
+        "input-group",
+        "select"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/prompt-input.tsx",
