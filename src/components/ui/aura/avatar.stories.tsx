@@ -39,7 +39,7 @@ const getImagePath = (filename: string): string => {
 };
 
 const meta: Meta<typeof Avatar> = {
-  title: 'UI/Avatar',
+  title: 'Primitives/Avatar',
   component: Avatar,
   tags: ['autodocs'],
   argTypes: {

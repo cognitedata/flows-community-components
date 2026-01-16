@@ -37,7 +37,7 @@ import {
 } from '@tabler/icons-react';
 
 const meta: Meta<typeof Sidebar> = {
-  title: 'UI/Sidebar',
+  title: 'Primitives/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
   argTypes: {
