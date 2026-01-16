@@ -10,6 +10,7 @@ import {
   type MouseEventHandler,
   useContext,
 } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/components/ui/aura/button';
 import { Badge } from '@/components/ui/aura/badge';
 import { cn } from '@/lib/utils';
@@ -28,13 +29,34 @@ export const BannerContext = createContext<BannerContextProps>({
   variant: 'default',
 });
 
-export type BannerProps = HTMLAttributes<HTMLDivElement> & {
-  visible?: boolean;
-  defaultVisible?: boolean;
-  onClose?: () => void;
-  inset?: boolean;
-  variant?: BannerVariant;
-};
+const bannerVariants = cva(
+  'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
+  {
+    variants: {
+      variant: {
+        default: 'bg-mountain text-foreground',
+        neutral: 'bg-neutral text-foreground',
+        destructive: 'bg-destructive text-foreground',
+        warning: 'bg-warning text-foreground',
+      },
+      inset: {
+        true: 'rounded-lg',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      inset: false,
+    },
+  }
+);
+
+export type BannerProps = HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof bannerVariants> & {
+    visible?: boolean;
+    defaultVisible?: boolean;
+    onClose?: () => void;
+  };
 
 export const Banner = ({
   children,
@@ -56,22 +78,12 @@ export const Banner = ({
     return null;
   }
 
-  const variantClasses: Record<BannerVariant, string> = {
-    default: 'bg-mountain text-foreground',
-    neutral: 'bg-neutral text-foreground',
-    destructive: 'bg-destructive text-foreground',
-    warning: 'bg-warning text-foreground',
-  };
-
   return (
-    <BannerContext.Provider value={{ show, setShow, variant }}>
+    <BannerContext.Provider
+      value={{ show, setShow, variant: variant as BannerVariant }}
+    >
       <div
-        className={cn(
-          'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
-          variantClasses[variant],
-          inset && 'rounded-lg',
-          className
-        )}
+        className={cn(bannerVariants({ variant, inset }), className)}
         {...props}
       >
         {children}
@@ -153,35 +165,46 @@ export const BannerActions = ({ className, ...props }: BannerActionsProps) => (
   />
 );
 
+const hoverClasses: Record<BannerVariant, string> = {
+  default: 'hover:bg-undefined-hover',
+  neutral: 'hover:bg-neutral-hover',
+  destructive: 'hover:bg-destructive-hover',
+  warning: 'hover:bg-warning-hover',
+};
+
 export type BannerActionProps = ComponentProps<typeof Button>;
 
 export const BannerAction = ({
-  variant = 'outline',
+  variant = 'ghost',
   size = 'sm',
   className,
   ...props
-}: BannerActionProps) => (
-  <Button
-    className={cn(
-      'shrink-0 bg-transparent hover:bg-background/10 hover:text-background',
-      className
-    )}
-    size={size}
-    variant={variant}
-    {...props}
-  />
-);
+}: BannerActionProps) => {
+  const { variant: bannerVariant } = useContext(BannerContext);
 
-export type BannerCloseProps = ComponentProps<typeof Button>;
+  return (
+    <Button
+      className={cn(
+        'shrink-0 text-foreground',
+        hoverClasses[bannerVariant],
+        className
+      )}
+      size={size}
+      variant={variant}
+      {...props}
+    />
+  );
+};
+
+export type BannerCloseProps = Omit<ComponentProps<typeof Button>, 'size'>;
 
 export const BannerClose = ({
   variant = 'ghost',
-  size = 'icon',
   onClick,
   className,
   ...props
 }: BannerCloseProps) => {
-  const { setShow } = useContext(BannerContext);
+  const { setShow, variant: bannerVariant } = useContext(BannerContext);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     setShow(false);
@@ -191,15 +214,17 @@ export const BannerClose = ({
   return (
     <Button
       className={cn(
-        'shrink-0 bg-transparent hover:bg-background/10 hover:text-background',
+        'shrink-0 opacity-70 hover:opacity-100 text-foreground rounded-sm',
+        hoverClasses[bannerVariant],
         className
       )}
       onClick={handleClick}
-      size={size}
       variant={variant}
+      size="icon-sm"
+      aria-label="Close banner"
       {...props}
     >
-      <IconX size={18} />
+      <IconX size={14} />
     </Button>
   );
 };
