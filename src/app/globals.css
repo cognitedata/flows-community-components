@@ -517,7 +517,7 @@
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-100);
   --input: var(--mountain-100);
-  --ring: var(--gray-600);
+  --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
   --backdrop: rgba(2, 6, 23, 0.2);
 
@@ -628,14 +628,15 @@
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-700);
   --input: var(--mountain-900);
-  --ring: var(--gray-300);
-  --ring-shadow: var(--gray-700);
+  --ring: var(--gray-500);
+  --ring-shadow: var(--gray-300);
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
   --destructive: var(--red-500);
   --destructive-hover: var(--red-700);
   --destructive-foreground: var(--red-300);
+  --destructive-shadow: var(--red-300);
   --warning: var(--amber-800);
   --warning-hover: var(--amber-700);
   --warning-foreground: var(--amber-300);
