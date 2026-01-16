@@ -292,8 +292,7 @@ export const Dismissible: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Banner with a close button. Click the X to dismiss the banner.',
+        story: 'Banner with a close button. Click the X to dismiss the banner.',
       },
     },
   },
@@ -558,8 +557,7 @@ export const ErrorNotification: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Destructive banner showing an error state with retry action.',
+        story: 'Destructive banner showing an error state with retry action.',
       },
     },
   },
