@@ -1,12 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  getComponentExamples,
-  type ComponentExample,
-} from '@/lib/component-examples';
 import { CodeExample } from './code-example';
-import { hasStoryRenderer, getStoryCodeExamples } from '@/lib/stories-registry';
+import { getStoryCodeExamples } from '@/lib/stories-registry';
 
 interface CodeExamplesRendererProps {
   slug: string;
@@ -17,13 +13,17 @@ interface CodeExampleData {
   code: string;
 }
 
+/**
+ * Renders code examples from component metadata.
+ *
+ * All components use the portable stories system and load code examples
+ * from their metadata files.
+ */
 export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
   const [storyExamples, setStoryExamples] = useState<CodeExampleData[] | null>(null);
-  const [loading, setLoading] = useState(hasStoryRenderer(slug));
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!hasStoryRenderer(slug)) return;
-
     async function loadExamples() {
       const examples = await getStoryCodeExamples(slug);
       setStoryExamples(examples);
@@ -33,7 +33,7 @@ export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
     loadExamples();
   }, [slug]);
 
-  // Loading state for story-based components
+  // Loading state
   if (loading) {
     return (
       <div className="space-y-4">
@@ -45,50 +45,25 @@ export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
   }
 
   // Render story-based code examples
-  if (storyExamples) {
-    if (storyExamples.length > 0) {
-      return (
-        <div className="space-y-4">
-          {storyExamples.map((example) => (
-            <CodeExample
-              key={example.title}
-              title={example.title}
-              code={example.code}
-            />
-          ))}
-        </div>
-      );
-    }
-
+  if (storyExamples && storyExamples.length > 0) {
     return (
-      <div className="p-6 border rounded-lg bg-muted/20">
-        <p className="text-sm text-muted-foreground">
-          No code examples available for this component yet.
-        </p>
-      </div>
-    );
-  }
-
-  // Fall back to old examples system
-  const examples = getComponentExamples(slug);
-
-  if (!examples) {
-    return (
-      <div className="p-6 border rounded-lg bg-muted/20">
-        <p className="text-sm text-muted-foreground">
-          No code examples available for this component yet.
-        </p>
+      <div className="space-y-4">
+        {storyExamples.map((example) => (
+          <CodeExample
+            key={example.title}
+            title={example.title}
+            code={example.code}
+          />
+        ))}
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
-      {Object.entries(examples).map(
-        ([key, example]: [string, ComponentExample]) => (
-          <CodeExample key={key} title={example.title} code={example.code} />
-        )
-      )}
+    <div className="p-6 border rounded-lg bg-muted/20">
+      <p className="text-sm text-muted-foreground">
+        No code examples available for this component yet.
+      </p>
     </div>
   );
 }

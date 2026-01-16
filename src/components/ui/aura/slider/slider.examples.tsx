@@ -1,0 +1,55 @@
+import { Slider } from '@/components/ui/aura/slider';
+import { Label } from '@/components/ui/aura/label';
+import type { ComponentExamples } from '@/lib/component-examples/types';
+
+function BasicDemo() {
+  return (
+    <div className="space-y-4 w-full max-w-sm">
+      <div className="space-y-2">
+        <Label>Volume</Label>
+        <Slider defaultValue={[50]} max={100} step={1} />
+      </div>
+      <div className="space-y-2">
+        <Label>Brightness</Label>
+        <Slider defaultValue={[75]} max={100} step={1} />
+      </div>
+    </div>
+  );
+}
+
+export const sliderExamples: ComponentExamples = {
+  basic: {
+    title: 'Basic Slider',
+    description:
+      'An input where the user selects a value from within a given range',
+    component: BasicDemo,
+    difficulty: 'beginner',
+    code: `import { Slider } from "@/components/ui/aura/slider"
+import { Label } from "@/components/ui/aura/label"
+
+export function BasicDemo() {
+  return (
+    <div className="space-y-4 w-full max-w-sm">
+      <div className="space-y-2">
+        <Label>Volume</Label>
+        <Slider defaultValue={[50]} max={100} step={1} />
+      </div>
+      <div className="space-y-2">
+        <Label>Brightness</Label>
+        <Slider defaultValue={[75]} max={100} step={1} />
+      </div>
+    </div>
+  )
+}`,
+  },
+};
+
+// Component metadata - single source of truth for API documentation
+export const sliderMeta = {
+  name: 'Slider',
+  description:
+    'An input where the user selects a value from within a given range.',
+  llmUsage:
+    'When creating range inputs, use `<Slider>` for selecting numeric values within a range.',
+  importPath: '@/components/ui/aura/slider',
+};

@@ -11,7 +11,7 @@
       "dependencies": ["@radix-ui/react-accordion", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/accordion.tsx",
+          "path": "src/components/ui/aura/accordion/accordion.tsx",
           "type": "registry:component"
         }
       ]
@@ -29,7 +29,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/aura/alert.tsx",
+          "path": "src/components/ui/aura/alert/alert.tsx",
           "type": "registry:component"
         }
       ]
@@ -43,7 +43,7 @@
       "registryDependencies": ["button", "lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/alert-dialog.tsx",
+          "path": "src/components/ui/aura/alert-dialog/alert-dialog.tsx",
           "type": "registry:component"
         }
       ]
@@ -56,7 +56,7 @@
       "dependencies": ["@radix-ui/react-avatar", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/aura/avatar.tsx",
+          "path": "src/components/ui/aura/avatar/avatar.tsx",
           "type": "registry:component"
         }
       ]
@@ -69,7 +69,7 @@
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/aura/badge.tsx",
+          "path": "src/components/ui/aura/badge/badge.tsx",
           "type": "registry:component"
         }
       ]
@@ -83,7 +83,7 @@
       "registryDependencies": ["button", "badge"],
       "files": [
         {
-          "path": "src/components/ui/aura/banner.tsx",
+          "path": "src/components/ui/aura/banner/banner.tsx",
           "type": "registry:component"
         }
       ]
@@ -96,7 +96,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/breadcrumb.tsx",
+          "path": "src/components/ui/aura/breadcrumb/breadcrumb.tsx",
           "type": "registry:component"
         }
       ]
@@ -109,7 +109,7 @@
       "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/aura/button.tsx",
+          "path": "src/components/ui/aura/button/button.tsx",
           "type": "registry:component"
         }
       ]
@@ -123,7 +123,7 @@
       "registryDependencies": ["separator"],
       "files": [
         {
-          "path": "src/components/ui/aura/button-group.tsx",
+          "path": "src/components/ui/aura/button-group/button-group.tsx",
           "type": "registry:component"
         }
       ]
@@ -137,7 +137,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/aura/calendar.tsx",
+          "path": "src/components/ui/aura/calendar/calendar.tsx",
           "type": "registry:component"
         }
       ]
@@ -149,7 +149,7 @@
       "description": "A flexible card layout with header, content, action, and footer slots.",
       "files": [
         {
-          "path": "src/components/ui/aura/card.tsx",
+          "path": "src/components/ui/aura/card/card.tsx",
           "type": "registry:component"
         }
       ]
@@ -161,7 +161,7 @@
       "description": "Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.",
       "files": [
         {
-          "path": "src/components/ui/aura/colors.tsx",
+          "path": "src/components/ui/aura/colors/colors.tsx",
           "type": "registry:component"
         }
       ]
@@ -174,7 +174,7 @@
       "dependencies": ["recharts"],
       "files": [
         {
-          "path": "src/components/ui/aura/chart.tsx",
+          "path": "src/components/ui/aura/chart/chart.tsx",
           "type": "registry:component"
         }
       ]
@@ -187,7 +187,7 @@
       "dependencies": ["@radix-ui/react-checkbox", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/checkbox.tsx",
+          "path": "src/components/ui/aura/checkbox/checkbox.tsx",
           "type": "registry:component"
         }
       ]
@@ -200,7 +200,7 @@
       "dependencies": ["@radix-ui/react-collapsible"],
       "files": [
         {
-          "path": "src/components/ui/aura/collapsible.tsx",
+          "path": "src/components/ui/aura/collapsible/collapsible.tsx",
           "type": "registry:component"
         }
       ]
@@ -214,7 +214,7 @@
       "registryDependencies": ["button", "command", "popover"],
       "files": [
         {
-          "path": "src/components/ui/aura/combobox.tsx",
+          "path": "src/components/ui/aura/combobox/combobox.tsx",
           "type": "registry:component"
         }
       ]
@@ -228,7 +228,7 @@
       "registryDependencies": ["dialog"],
       "files": [
         {
-          "path": "src/components/ui/aura/command.tsx",
+          "path": "src/components/ui/aura/command/command.tsx",
           "type": "registry:component"
         }
       ]
@@ -242,7 +242,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/context-menu.tsx",
+          "path": "src/components/ui/aura/context-menu/context-menu.tsx",
           "type": "registry:component"
         }
       ]
@@ -256,7 +256,7 @@
       "registryDependencies": ["button", "calendar", "popover"],
       "files": [
         {
-          "path": "src/components/ui/aura/date-picker.tsx",
+          "path": "src/components/ui/aura/date-picker/date-picker.tsx",
           "type": "registry:component"
         }
       ]
@@ -270,7 +270,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/dialog.tsx",
+          "path": "src/components/ui/aura/dialog/dialog.tsx",
           "type": "registry:component"
         }
       ]
@@ -284,7 +284,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/drawer.tsx",
+          "path": "src/components/ui/aura/drawer/drawer.tsx",
           "type": "registry:component"
         }
       ]
@@ -298,7 +298,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/dropdown-menu.tsx",
+          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
           "type": "registry:component"
         }
       ]
@@ -311,7 +311,7 @@
       "dependencies": ["class-variance-authority", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/helper-text.tsx",
+          "path": "src/components/ui/aura/helper-text/helper-text.tsx",
           "type": "registry:component"
         }
       ]
@@ -323,7 +323,7 @@
       "description": "A styled text input with focus, disabled, and invalid states.",
       "files": [
         {
-          "path": "src/components/ui/aura/input.tsx",
+          "path": "src/components/ui/aura/input/input.tsx",
           "type": "registry:component"
         }
       ]
@@ -335,7 +335,7 @@
       "description": "Kbd component.",
       "files": [
         {
-          "path": "src/components/ui/aura/kbd.tsx",
+          "path": "src/components/ui/aura/kbd/kbd.tsx",
           "type": "registry:component"
         }
       ]
@@ -348,7 +348,7 @@
       "dependencies": ["@radix-ui/react-label"],
       "files": [
         {
-          "path": "src/components/ui/aura/label.tsx",
+          "path": "src/components/ui/aura/label/label.tsx",
           "type": "registry:component"
         }
       ]
@@ -362,7 +362,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/menubar.tsx",
+          "path": "src/components/ui/aura/menubar/menubar.tsx",
           "type": "registry:component"
         }
       ]
@@ -375,7 +375,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/pagination.tsx",
+          "path": "src/components/ui/aura/pagination/pagination.tsx",
           "type": "registry:component"
         }
       ]
@@ -389,7 +389,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/popover.tsx",
+          "path": "src/components/ui/aura/popover/popover.tsx",
           "type": "registry:component"
         }
       ]
@@ -402,7 +402,7 @@
       "dependencies": ["@radix-ui/react-progress"],
       "files": [
         {
-          "path": "src/components/ui/aura/progress.tsx",
+          "path": "src/components/ui/aura/progress/progress.tsx",
           "type": "registry:component"
         }
       ]
@@ -415,7 +415,7 @@
       "dependencies": ["@radix-ui/react-radio-group", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/radio-group.tsx",
+          "path": "src/components/ui/aura/radio-group/radio-group.tsx",
           "type": "registry:component"
         }
       ]
@@ -428,7 +428,7 @@
       "dependencies": ["@radix-ui/react-scroll-area"],
       "files": [
         {
-          "path": "src/components/ui/aura/scroll-area.tsx",
+          "path": "src/components/ui/aura/scroll-area/scroll-area.tsx",
           "type": "registry:component"
         }
       ]
@@ -446,7 +446,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/select.tsx",
+          "path": "src/components/ui/aura/select/select.tsx",
           "type": "registry:component"
         }
       ]
@@ -459,7 +459,7 @@
       "dependencies": ["@radix-ui/react-separator"],
       "files": [
         {
-          "path": "src/components/ui/aura/separator.tsx",
+          "path": "src/components/ui/aura/separator/separator.tsx",
           "type": "registry:component"
         }
       ]
@@ -473,7 +473,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/sheet.tsx",
+          "path": "src/components/ui/aura/sheet/sheet.tsx",
           "type": "registry:component"
         }
       ]
@@ -491,7 +491,7 @@
       "registryDependencies": ["button", "input", "separator", "sheet", "skeleton", "tooltip", "use-mobile"],
       "files": [
         {
-          "path": "src/components/ui/aura/sidebar.tsx",
+          "path": "src/components/ui/aura/sidebar/sidebar.tsx",
           "type": "registry:component"
         }
       ]
@@ -503,7 +503,7 @@
       "description": "Skeleton placeholders for representing loading UI states.",
       "files": [
         {
-          "path": "src/components/ui/aura/skeleton.tsx",
+          "path": "src/components/ui/aura/skeleton/skeleton.tsx",
           "type": "registry:component"
         }
       ]
@@ -516,7 +516,7 @@
       "dependencies": ["@radix-ui/react-slider"],
       "files": [
         {
-          "path": "src/components/ui/aura/slider.tsx",
+          "path": "src/components/ui/aura/slider/slider.tsx",
           "type": "registry:component"
         }
       ]
@@ -529,7 +529,7 @@
       "dependencies": ["next-themes", "sonner", "@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/sonner.tsx",
+          "path": "src/components/ui/aura/sonner-toast/sonner-toast.tsx",
           "type": "registry:component"
         }
       ]
@@ -541,7 +541,7 @@
       "description": "Swap Slot component.",
       "files": [
         {
-          "path": "src/components/ui/aura/swap-slot.tsx",
+          "path": "src/components/ui/aura/swap-slot/swap-slot.tsx",
           "type": "registry:component"
         }
       ]
@@ -554,7 +554,7 @@
       "dependencies": ["@radix-ui/react-switch"],
       "files": [
         {
-          "path": "src/components/ui/aura/switch.tsx",
+          "path": "src/components/ui/aura/switch/switch.tsx",
           "type": "registry:component"
         }
       ]
@@ -567,7 +567,7 @@
       "dependencies": ["@radix-ui/react-tabs"],
       "files": [
         {
-          "path": "src/components/ui/aura/tabs.tsx",
+          "path": "src/components/ui/aura/tabs/tabs.tsx",
           "type": "registry:component"
         }
       ]
@@ -579,7 +579,7 @@
       "description": "A responsive table component for displaying tabular data with support for headers, bodies, footers, and captions.",
       "files": [
         {
-          "path": "src/components/ui/aura/table.tsx",
+          "path": "src/components/ui/aura/table/table.tsx",
           "type": "registry:component"
         }
       ]
@@ -591,7 +591,7 @@
       "description": "A styled textarea with invalid, focus, and disabled states.",
       "files": [
         {
-          "path": "src/components/ui/aura/textarea.tsx",
+          "path": "src/components/ui/aura/textarea/textarea.tsx",
           "type": "registry:component"
         }
       ]
@@ -603,7 +603,7 @@
       "description": "Time Input component.",
       "files": [
         {
-          "path": "src/components/ui/aura/time-input.tsx",
+          "path": "src/components/ui/aura/time-input/time-input.tsx",
           "type": "registry:component"
         }
       ]
@@ -616,7 +616,7 @@
       "dependencies": ["@radix-ui/react-toggle", "class-variance-authority"],
       "files": [
         {
-          "path": "src/components/ui/aura/toggle.tsx",
+          "path": "src/components/ui/aura/toggle/toggle.tsx",
           "type": "registry:component"
         }
       ]
@@ -630,7 +630,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/tooltip.tsx",
+          "path": "src/components/ui/aura/tooltip/tooltip.tsx",
           "type": "registry:component"
         }
       ]
@@ -642,7 +642,7 @@
       "description": "Topbar component.",
       "files": [
         {
-          "path": "src/components/ui/aura/topbar.tsx",
+          "path": "src/components/ui/aura/topbar/topbar.tsx",
           "type": "registry:component"
         }
       ]
@@ -656,7 +656,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/aura/carousel.tsx",
+          "path": "src/components/ui/aura/carousel/carousel.tsx",
           "type": "registry:component"
         }
       ]
@@ -670,7 +670,7 @@
       "registryDependencies": ["lib-utils"],
       "files": [
         {
-          "path": "src/components/ui/aura/hover-card.tsx",
+          "path": "src/components/ui/aura/hover-card/hover-card.tsx",
           "type": "registry:component"
         }
       ]
@@ -684,7 +684,7 @@
       "registryDependencies": ["button", "input", "textarea"],
       "files": [
         {
-          "path": "src/components/ui/aura/input-group.tsx",
+          "path": "src/components/ui/aura/input-group/input-group.tsx",
           "type": "registry:component"
         }
       ]
@@ -698,7 +698,7 @@
       "registryDependencies": ["button", "tooltip"],
       "files": [
         {
-          "path": "src/components/ui/aura/artifact.tsx",
+          "path": "src/components/ui/aura/artifact/artifact.tsx",
           "type": "registry:component"
         }
       ]
@@ -711,7 +711,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/branch.tsx",
+          "path": "src/components/ui/aura/branch/branch.tsx",
           "type": "registry:component"
         }
       ]
@@ -725,7 +725,7 @@
       "registryDependencies": ["controls"],
       "files": [
         {
-          "path": "src/components/ui/aura/canvas.tsx",
+          "path": "src/components/ui/aura/canvas/canvas.tsx",
           "type": "registry:component"
         }
       ]
@@ -739,7 +739,7 @@
       "registryDependencies": ["badge", "collapsible"],
       "files": [
         {
-          "path": "src/components/ui/aura/chain-of-thought.tsx",
+          "path": "src/components/ui/aura/chain-of-thought/chain-of-thought.tsx",
           "type": "registry:component"
         }
       ]
@@ -753,7 +753,7 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/aura/code-block.tsx",
+          "path": "src/components/ui/aura/code-block/code-block.tsx",
           "type": "registry:component"
         }
       ]
@@ -767,7 +767,7 @@
       "registryDependencies": ["alert", "button", "collapsible", "helper-text"],
       "files": [
         {
-          "path": "src/components/ui/aura/confirmation.tsx",
+          "path": "src/components/ui/aura/confirmation/confirmation.tsx",
           "type": "registry:component"
         }
       ]
@@ -780,7 +780,7 @@
       "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ui/aura/connection.tsx",
+          "path": "src/components/ui/aura/connection/connection.tsx",
           "type": "registry:component"
         }
       ]
@@ -794,7 +794,7 @@
       "registryDependencies": ["button", "hover-card", "progress"],
       "files": [
         {
-          "path": "src/components/ui/aura/context.tsx",
+          "path": "src/components/ui/aura/context/context.tsx",
           "type": "registry:component"
         }
       ]
@@ -807,7 +807,7 @@
       "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ui/aura/controls.tsx",
+          "path": "src/components/ui/aura/controls/controls.tsx",
           "type": "registry:component"
         }
       ]
@@ -821,11 +821,11 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/aura/conversation.tsx",
+          "path": "src/components/ui/aura/conversation/conversation.tsx",
           "type": "registry:component"
         },
         {
-          "path": "src/components/ui/aura/icon-conversation-empty-state.tsx",
+          "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
           "type": "registry:component"
         }
       ]
@@ -838,7 +838,7 @@
       "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ui/aura/edge.tsx",
+          "path": "src/components/ui/aura/edge/edge.tsx",
           "type": "registry:component"
         }
       ]
@@ -851,7 +851,7 @@
       "dependencies": ["ai"],
       "files": [
         {
-          "path": "src/components/ui/aura/image.tsx",
+          "path": "src/components/ui/aura/image/image.tsx",
           "type": "registry:component"
         }
       ]
@@ -864,7 +864,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/inline-citation.tsx",
+          "path": "src/components/ui/aura/inline-citation/inline-citation.tsx",
           "type": "registry:component"
         }
       ]
@@ -876,7 +876,7 @@
       "description": "AI loader component for loading states.",
       "files": [
         {
-          "path": "src/components/ui/aura/loader.tsx",
+          "path": "src/components/ui/aura/loader/loader.tsx",
           "type": "registry:component"
         }
       ]
@@ -890,7 +890,7 @@
       "registryDependencies": ["avatar", "button", "button-group", "code-block", "tooltip"],
       "files": [
         {
-          "path": "src/components/ui/aura/message.tsx",
+          "path": "src/components/ui/aura/message/message.tsx",
           "type": "registry:component"
         }
       ]
@@ -904,7 +904,7 @@
       "registryDependencies": ["card"],
       "files": [
         {
-          "path": "src/components/ui/aura/node.tsx",
+          "path": "src/components/ui/aura/node/node.tsx",
           "type": "registry:component"
         }
       ]
@@ -917,7 +917,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/open-in-chat.tsx",
+          "path": "src/components/ui/aura/open-in-chat/open-in-chat.tsx",
           "type": "registry:component"
         }
       ]
@@ -929,7 +929,7 @@
       "description": "AI panel component for side panels.",
       "files": [
         {
-          "path": "src/components/ui/aura/panel.tsx",
+          "path": "src/components/ui/aura/panel/panel.tsx",
           "type": "registry:component"
         }
       ]
@@ -943,7 +943,7 @@
       "registryDependencies": ["button", "card", "collapsible", "shimmer"],
       "files": [
         {
-          "path": "src/components/ui/aura/plan.tsx",
+          "path": "src/components/ui/aura/plan/plan.tsx",
           "type": "registry:component"
         }
       ]
@@ -957,7 +957,7 @@
       "registryDependencies": ["textarea", "button", "command", "dropdown-menu", "helper-text", "hover-card", "input-group", "select"],
       "files": [
         {
-          "path": "src/components/ui/aura/prompt-input.tsx",
+          "path": "src/components/ui/aura/prompt-input/prompt-input.tsx",
           "type": "registry:component"
         }
       ]
@@ -970,7 +970,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/queue.tsx",
+          "path": "src/components/ui/aura/queue/queue.tsx",
           "type": "registry:component"
         }
       ]
@@ -983,7 +983,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/reasoning.tsx",
+          "path": "src/components/ui/aura/reasoning/reasoning.tsx",
           "type": "registry:component"
         }
       ]
@@ -996,7 +996,7 @@
       "dependencies": ["framer-motion"],
       "files": [
         {
-          "path": "src/components/ui/aura/shimmer.tsx",
+          "path": "src/components/ui/aura/shimmer/shimmer.tsx",
           "type": "registry:component"
         }
       ]
@@ -1009,7 +1009,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/sources.tsx",
+          "path": "src/components/ui/aura/sources/sources.tsx",
           "type": "registry:component"
         }
       ]
@@ -1022,7 +1022,7 @@
       "registryDependencies": ["button", "scroll-area", "select"],
       "files": [
         {
-          "path": "src/components/ui/aura/suggestion.tsx",
+          "path": "src/components/ui/aura/suggestion/suggestion.tsx",
           "type": "registry:component"
         }
       ]
@@ -1035,7 +1035,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/task.tsx",
+          "path": "src/components/ui/aura/task/task.tsx",
           "type": "registry:component"
         }
       ]
@@ -1048,7 +1048,7 @@
       "dependencies": ["@tabler/icons-react"],
       "files": [
         {
-          "path": "src/components/ui/aura/tool.tsx",
+          "path": "src/components/ui/aura/tool/tool.tsx",
           "type": "registry:component"
         }
       ]
@@ -1061,7 +1061,7 @@
       "dependencies": ["@xyflow/react"],
       "files": [
         {
-          "path": "src/components/ui/aura/toolbar.tsx",
+          "path": "src/components/ui/aura/toolbar/toolbar.tsx",
           "type": "registry:component"
         }
       ]
@@ -1073,7 +1073,7 @@
       "description": "Effect definitions including shadows, focus rings, border radii, and transitions for the Aura design system.",
       "files": [
         {
-          "path": "src/components/ui/aura/effects.tsx",
+          "path": "src/components/ui/aura/effects/effects.tsx",
           "type": "registry:component"
         }
       ]
@@ -1085,7 +1085,7 @@
       "description": "Layout system with responsive grid definitions, container queries, and breakpoint patterns for the Aura design system.",
       "files": [
         {
-          "path": "src/components/ui/aura/layout.tsx",
+          "path": "src/components/ui/aura/layout/layout.tsx",
           "type": "registry:component"
         }
       ]

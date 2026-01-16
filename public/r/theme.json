@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme",
-  "type": "registry:file",
   "title": "Theme",
   "description": "Theme component.",
   "files": [
@@ -15,5 +14,6 @@
       "content": "declare const styleScope: {\n  styleScope: string;\n  portalContainer: string;\n};\n\nexport = styleScope;\n",
       "type": "registry:item"
     }
-  ]
+  ],
+  "type": "registry:file"
 }
