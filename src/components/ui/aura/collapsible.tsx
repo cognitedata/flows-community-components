@@ -25,7 +25,7 @@ function CollapsibleTrigger({
   return (
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
-      className={cn('', className)}
+      className={cn('group/collapsible-trigger', className)}
       {...props}
     />
   );
