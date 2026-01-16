@@ -124,11 +124,13 @@ function UserDetailsDemo() {
   );
 }
 function CheckboxItemDemo() {
-  const [showStatusBar, setShowStatusBar] = useState(true);
-  const [showActivityBar, setShowActivityBar] = useState(false);
-  const [showPanel, setShowPanel] = useState(true);
-  const [showSidebar, setShowSidebar] = useState(true);
-  const [showMinimap, setShowMinimap] = useState(false);
+  const [checkedItems, setCheckedItems] = useState({
+    item1: true,
+    item2: true,
+    item3: false,
+    item4: false,
+    item5: false,
+  });
 
   return (
     <div className="space-y-4">
@@ -137,36 +139,46 @@ function CheckboxItemDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
+          <DropdownMenuContent className="w-[280px]">
             <DropdownMenuCheckboxItem
-              checked={showStatusBar}
-              onCheckedChange={setShowStatusBar}
+              checked={checkedItems.item1}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item1: checked }))
+              }
             >
-              Status Bar
+              Option 1
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showActivityBar}
-              onCheckedChange={setShowActivityBar}
+              checked={checkedItems.item2}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item2: checked }))
+              }
             >
-              Activity Bar
+              Option 2
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showPanel}
-              onCheckedChange={setShowPanel}
+              checked={checkedItems.item3}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item3: checked }))
+              }
             >
-              Panel
+              Option 3
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showSidebar}
-              onCheckedChange={setShowSidebar}
+              checked={checkedItems.item4}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item4: checked }))
+              }
             >
-              Sidebar
+              Option 4
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showMinimap}
-              onCheckedChange={setShowMinimap}
+              checked={checkedItems.item5}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item5: checked }))
+              }
             >
-              Minimap
+              Option 5
             </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -395,11 +407,13 @@ import {
 } from "@/components/ui/aura/dropdown-menu"
 
 function CheckboxItemDemo() {
-  const [showStatusBar, setShowStatusBar] = useState(true)
-  const [showActivityBar, setShowActivityBar] = useState(false)
-  const [showPanel, setShowPanel] = useState(true)
-  const [showSidebar, setShowSidebar] = useState(true)
-  const [showMinimap, setShowMinimap] = useState(false)
+  const [checkedItems, setCheckedItems] = useState({
+    item1: true,
+    item2: true,
+    item3: false,
+    item4: false,
+    item5: false,
+  })
 
   return (
     <div className="space-y-4">
@@ -408,36 +422,46 @@ function CheckboxItemDemo() {
           <DropdownMenuTrigger asChild>
             <Button>Open Checkbox Item Menu</Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[280px] px-1">
+          <DropdownMenuContent className="w-[280px]">
             <DropdownMenuCheckboxItem
-              checked={showStatusBar}
-              onCheckedChange={setShowStatusBar}
+              checked={checkedItems.item1}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item1: checked }))
+              }
             >
-              Status Bar
+              Option 1
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showActivityBar}
-              onCheckedChange={setShowActivityBar}
+              checked={checkedItems.item2}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item2: checked }))
+              }
             >
-              Activity Bar
+              Option 2
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showPanel}
-              onCheckedChange={setShowPanel}
+              checked={checkedItems.item3}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item3: checked }))
+              }
             >
-              Panel
+              Option 3
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showSidebar}
-              onCheckedChange={setShowSidebar}
+              checked={checkedItems.item4}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item4: checked }))
+              }
             >
-              Sidebar
+              Option 4
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
-              checked={showMinimap}
-              onCheckedChange={setShowMinimap}
+              checked={checkedItems.item5}
+              onCheckedChange={(checked) =>
+                setCheckedItems((prev) => ({ ...prev, item5: checked }))
+              }
             >
-              Minimap
+              Option 5
             </DropdownMenuCheckboxItem>
           </DropdownMenuContent>
         </DropdownMenu>
