@@ -77,7 +77,7 @@ jobs:
         run: mkdir -p out/branches
 
       - name: Download branch preview artifacts
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         with:
           script: |
             const fs = require('fs');
@@ -95,11 +95,20 @@ jobs:
               a.name.startsWith('branch-preview-') && !a.expired
             );
 
-            console.log(`Found ${branchArtifacts.length} branch preview artifacts`);
+            // Deduplicate: keep only the most recent artifact per branch name
+            // (API returns newest first, so first occurrence wins)
+            const seen = new Set();
+            const latestBranchArtifacts = branchArtifacts.filter(a => {
+              if (seen.has(a.name)) return false;
+              seen.add(a.name);
+              return true;
+            });
+
+            console.log(`Found ${latestBranchArtifacts.length} branch preview artifacts (${branchArtifacts.length} total, deduplicated)`);
 
             const manifest = { branches: [] };
 
-            for (const artifact of branchArtifacts) {
+            for (const artifact of latestBranchArtifacts) {
               const branchName = artifact.name.replace('branch-preview-', '');
               console.log(`Downloading ${artifact.name}...`);
 

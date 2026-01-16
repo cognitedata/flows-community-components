@@ -20,8 +20,7 @@ import {
 const navItems = [
   { href: '/primitives', label: 'Primitives' },
   { href: '/ai', label: 'AI' },
-  { href: '/blocks', label: 'Blocks' },
-  { href: '/eos', label: 'Templates' },
+  { href: '/patterns', label: 'Patterns' },
 ];
 
 function ThemeToggleGroup() {

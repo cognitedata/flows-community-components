@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "style-scope",
-  "type": "registry:lib",
   "title": "Style Scope",
   "description": "Style scope configuration for portal containers.",
   "files": [
@@ -10,5 +9,6 @@
       "content": "// used both at runtime and build time\nconst styleScope = {\n  styleScope: 'eos-style-scope',\n  portalContainer: 'eos-portal-container',\n};\n\nexport default styleScope;\n",
       "type": "registry:lib"
     }
-  ]
+  ],
+  "type": "registry:lib"
 }

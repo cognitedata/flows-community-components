@@ -1,7 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "topbar",
-  "type": "registry:component",
   "title": "Topbar",
   "description": "Topbar component.",
   "registryDependencies": [
@@ -13,5 +12,6 @@
       "content": "import type { ComponentProps } from 'react';\n\nexport const Topbar = ({ ...props }: ComponentProps<'div'>) => {\n  return <div {...props} />;\n};\n",
       "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

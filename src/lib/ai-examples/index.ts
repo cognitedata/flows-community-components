@@ -3,16 +3,13 @@
 import { messageExamples } from './message.examples';
 import { conversationExamples } from './conversation.examples';
 import { artifactExamples } from './artifact.examples';
-import { actionsExamples } from './actions.examples';
 import { loaderExamples } from './loader.examples';
 import { suggestionExamples } from './suggestion.examples';
 import { sourcesExamples } from './sources.examples';
-import { responseExamples } from './response.examples';
 import { panelExamples } from './panel.examples';
 import { shimmerExamples } from './shimmer.examples';
 import { inlineCitationExamples } from './inline-citation.examples';
 import { imageExamples } from './image.examples';
-import { branchExamples } from './branch.examples';
 import { canvasExamples } from './canvas.examples';
 import { chainOfThoughtExamples } from './chain-of-thought.examples';
 import { codeBlockExamples } from './code-block.examples';
@@ -36,16 +33,13 @@ export const aiExamples = {
   message: messageExamples,
   conversation: conversationExamples,
   artifact: artifactExamples,
-  actions: actionsExamples,
   loader: loaderExamples,
   suggestion: suggestionExamples,
   sources: sourcesExamples,
-  response: responseExamples,
   panel: panelExamples,
   shimmer: shimmerExamples,
   'inline-citation': inlineCitationExamples,
   image: imageExamples,
-  branch: branchExamples,
   canvas: canvasExamples,
   'chain-of-thought': chainOfThoughtExamples,
   'code-block': codeBlockExamples,

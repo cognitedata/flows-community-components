@@ -67,7 +67,7 @@ function CommandInput({
   return (
     <div
       data-slot="command-input-wrapper"
-      className="flex h-9 items-center gap-2 border-b px-2"
+      className="flex h-10 items-center gap-2 border-b px-2"
     >
       <IconSearch className="size-4 shrink-0 opacity-50" />
       <CommandPrimitive.Input
@@ -155,10 +155,7 @@ function CommandItem({
   );
 }
 
-function CommandShortcut({
-  className,
-  ...props
-}: ComponentProps<'span'>) {
+function CommandShortcut({ className, ...props }: ComponentProps<'span'>) {
   return (
     <span
       data-slot="command-shortcut"
