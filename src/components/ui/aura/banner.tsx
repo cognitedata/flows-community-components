@@ -176,7 +176,7 @@ export const BannerAction = ({
   const { variant: bannerVariant } = useContext(BannerContext);
 
   const hoverClasses: Record<BannerVariant, string> = {
-    default: 'hover:bg-accent',
+    default: 'hover:bg-undefined-hover',
     neutral: 'hover:bg-neutral-hover',
     destructive: 'hover:bg-destructive-hover',
     warning: 'hover:bg-warning-hover',
@@ -204,7 +204,14 @@ export const BannerClose = ({
   className,
   ...props
 }: BannerCloseProps) => {
-  const { setShow } = useContext(BannerContext);
+  const { setShow, variant: bannerVariant } = useContext(BannerContext);
+
+  const hoverClasses: Record<BannerVariant, string> = {
+    default: 'hover:bg-undefined-hover',
+    neutral: 'hover:bg-neutral-hover',
+    destructive: 'hover:bg-destructive-hover',
+    warning: 'hover:bg-warning-hover',
+  };
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     setShow(false);
@@ -214,11 +221,13 @@ export const BannerClose = ({
   return (
     <Button
       className={cn(
-        'shrink-0 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-foreground',
+        'shrink-0 h-7 w-7 p-0 opacity-70 hover:opacity-100 text-foreground rounded-sm',
+        hoverClasses[bannerVariant],
         className
       )}
       onClick={handleClick}
       variant={variant}
+      aria-label="Close banner"
       {...props}
     >
       <IconX size={14} />
