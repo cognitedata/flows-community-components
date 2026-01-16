@@ -16,7 +16,7 @@ const preview: Preview = {
     layout: 'padded',
     options: {
       storySort: {
-        order: ['Primitives', 'AI'],
+        order: ['Layouts', 'Primitives', 'AI'],
       },
     },
   },
