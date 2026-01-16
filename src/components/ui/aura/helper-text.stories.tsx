@@ -415,13 +415,15 @@ export const InteractiveFormExample: Story = {
   },
   render: function InteractiveFormExampleStory() {
     const [email, setEmail] = useState('');
-    const [showError, setShowError] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
+    const [status, setStatus] = useState<'idle' | 'error' | 'success'>('idle');
 
     const validateEmail = (value: string) => {
+      if (value.length === 0) {
+        setStatus('idle');
+        return;
+      }
       const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      setShowError(value.length > 0 && !isValid);
-      setShowSuccess(value.length > 0 && isValid);
+      setStatus(isValid ? 'success' : 'error');
     };
 
     return (
@@ -437,17 +439,17 @@ export const InteractiveFormExample: Story = {
             validateEmail(e.target.value);
           }}
         />
-        {!showError && !showSuccess && (
+        {status === 'idle' && (
           <HelperText size="sm">
             Enter your email to receive notifications.
           </HelperText>
         )}
-        {showError && (
+        {status === 'error' && (
           <HelperText size="sm" isError>
             Please enter a valid email address.
           </HelperText>
         )}
-        {showSuccess && (
+        {status === 'success' && (
           <HelperText size="sm" isSuccess icon={<IconCircleCheck />}>
             Email format is valid.
           </HelperText>
