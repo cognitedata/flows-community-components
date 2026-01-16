@@ -30,7 +30,7 @@ import {
 } from '@tabler/icons-react';
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: 'UI/Dropdown Menu',
+  title: 'Primitives/Dropdown Menu',
   component: DropdownMenu,
   tags: ['autodocs'],
   args: {

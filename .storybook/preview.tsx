@@ -14,6 +14,11 @@ const preview: Preview = {
       disable: true,
     },
     layout: 'padded',
+    options: {
+      storySort: {
+        order: ['Primitives', 'AI'],
+      },
+    },
   },
   globalTypes: {
     theme: {

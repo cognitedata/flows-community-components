@@ -19,7 +19,7 @@ import {
 } from '@tabler/icons-react';
 
 const meta: Meta<typeof Tooltip> = {
-  title: 'UI/Tooltip',
+  title: 'Primitives/Tooltip',
   component: Tooltip,
   tags: ['autodocs'],
   decorators: [
