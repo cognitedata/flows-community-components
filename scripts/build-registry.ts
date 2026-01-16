@@ -229,9 +229,6 @@ function buildRegistry(template: Registry, components: string[]): Registry {
   const filteredItems = template.items
     .filter((item: RegistryItem) => allComponentsToInclude.has(item.name))
     .map((item: RegistryItem) => {
-      // All paths point to src/components/ui/aura/
-      const componentPath = getComponentPath(item.name);
-
       const registryDependenciesRaw =
         item.type === 'registry:component' && item.name !== 'css'
           ? Array.from(new Set(['css', ...(item.registryDependencies ?? [])]))
