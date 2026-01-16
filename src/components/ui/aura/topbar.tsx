@@ -93,7 +93,7 @@ function TopbarBreadcrumbs({
   return (
     <Breadcrumb
       data-slot="topbar-breadcrumbs"
-      className={cn('', className)}
+      className={className}
       {...props}
     />
   );
@@ -108,7 +108,7 @@ function TopbarAction({
   const Comp = asChild ? Slot : Button;
 
   return (
-    <Comp data-slot="topbar-action" className={cn('', className)} {...props} />
+    <Comp data-slot="topbar-action" className={className} {...props} />
   );
 }
 

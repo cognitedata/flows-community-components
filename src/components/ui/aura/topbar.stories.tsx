@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
 import {
   Topbar,
   TopbarLeft,
@@ -20,6 +19,18 @@ import {
   BreadcrumbPage,
 } from './breadcrumb';
 import { Button } from './button';
+import { Avatar, AvatarFallback, AvatarImage } from './avatar';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from './alert-dialog';
 import {
   IconLayoutSidebar,
   IconHomeFilled,
@@ -33,7 +44,11 @@ import {
   IconChartBar as BarChart3,
 } from '@tabler/icons-react';
 import {
+  Sidebar,
+  SidebarHeader,
+  SidebarHeaderInsert,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -41,10 +56,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarTrigger,
+  SidebarInset,
 } from './sidebar';
 
 const meta: Meta<typeof Topbar> = {
-  title: 'UI/Topbar',
+  title: 'Primitives/Topbar',
   component: Topbar,
   tags: ['autodocs'],
   argTypes: {
@@ -188,9 +205,17 @@ export const EosStyle: Story = {
     docs: {
       description: {
         story:
-          'EOS-style topbar with download and edit actions, typically used in canvas applications.',
+          'EOS-style topbar with download and edit actions, typically used in canvas applications. The "New chat" button triggers an AlertDialog.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify the New chat button exists and is interactable
+    const newChatButton = canvas.getByRole('button', { name: /new chat/i });
+    await expect(newChatButton).toBeInTheDocument();
+    await expect(newChatButton).toBeEnabled();
   },
   render: function TopbarEosStyleStory() {
     return (
@@ -223,10 +248,27 @@ export const EosStyle: Story = {
               <IconDownload className="h-4 w-4" />
               Download
             </Button>
-            <Button size="sm">
-              <IconEdit className="h-4 w-4" />
-              New chat
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button size="sm">
+                  <IconEdit className="h-4 w-4" />
+                  New chat
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will create a new chat session. Your current chat will
+                    be saved.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </TopbarRight>
         </Topbar>
       </div>
@@ -338,67 +380,81 @@ export const WithSidebar: Story = {
     docs: {
       description: {
         story:
-          'Complete layout with Topbar and Sidebar working together. Shows a typical application structure.',
+          'Complete layout with Topbar and Sidebar working together. Features a collapsible sidebar with icon mode and SidebarTrigger button in the topbar. Inspired by the Sidebar component\'s own pattern.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
+    // Verify topbar is rendered with sidebar trigger
+    const sidebarTrigger = canvas.getByRole('button', { name: /toggle sidebar/i });
+    await expect(sidebarTrigger).toBeInTheDocument();
+
     // Verify sidebar content is present
     const sidebarLabel = canvas.getByText('Platform');
     await expect(sidebarLabel).toBeInTheDocument();
 
-    // Find the active menu item text (SidebarMenuButton renders as buttons, not menuitems)
+    // Find the active menu item text
     const activeItem = canvas.getByText('Overview');
     await expect(activeItem).toBeInTheDocument();
 
-    // Verify other sidebar menu items are present
-    const usersItem = canvas.getByText('Users');
-    await expect(usersItem).toBeInTheDocument();
+    // Click the sidebar toggle button to collapse
+    await userEvent.click(sidebarTrigger);
+
+    // Sidebar content should still exist (just visually hidden/collapsed)
+    await expect(sidebarLabel).toBeInTheDocument();
   },
   render: function TopbarWithSidebarStory() {
-    const [state, setState] = useState<'expanded' | 'collapsed'>('expanded');
-
     return (
-      <div className="relative h-[400px] w-full rounded-lg overflow-hidden">
+      <div className="relative h-[600px] w-full rounded-lg overflow-hidden">
         <SidebarProvider>
-          <div className="flex h-full w-full bg-background">
-            <div
-              className={cn(
-                'w-64 bg-sidebar text-sidebar-foreground border-r transition-all duration-200',
-                state === 'collapsed' && 'w-0 overflow-hidden'
-              )}
-            >
+          <div className="flex h-full w-full">
+            <Sidebar collapsible="icon">
+              <SidebarHeader>
+                <SidebarHeaderInsert>
+                  <Avatar sizes="default">
+                    <AvatarFallback>AK</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0 group-data-[collapsible=icon]:hidden">
+                    <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
+                      AkerBP-DEV
+                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      Industrial tools
+                    </div>
+                  </div>
+                </SidebarHeaderInsert>
+              </SidebarHeader>
               <SidebarContent>
                 <SidebarGroup>
                   <SidebarGroupLabel>Platform</SidebarGroupLabel>
                   <SidebarGroupContent>
                     <SidebarMenu>
                       <SidebarMenuItem>
-                        <SidebarMenuButton isActive>
+                        <SidebarMenuButton isActive tooltip="Overview">
                           <IconHomeFilled className="h-4 w-4" />
                           <span>Overview</span>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="Users">
                           <IconUsers className="h-4 w-4" />
                           <span>Users</span>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="Documents">
                           <IconFileText className="h-4 w-4" />
                           <span>Documents</span>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <SidebarMenuButton>
-                            <BarChart3 className="h-4 w-4" />
-                            <span>Layout</span>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
+                      <SidebarMenuItem>
+                        <SidebarMenuButton tooltip="Layout">
+                          <BarChart3 className="h-4 w-4" />
+                          <span>Layout</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
                     </SidebarMenu>
                   </SidebarGroupContent>
                 </SidebarGroup>
@@ -407,7 +463,7 @@ export const WithSidebar: Story = {
                   <SidebarGroupContent>
                     <SidebarMenu>
                       <SidebarMenuItem>
-                        <SidebarMenuButton>
+                        <SidebarMenuButton tooltip="Settings">
                           <IconSettings className="h-4 w-4" />
                           <span>Settings</span>
                         </SidebarMenuButton>
@@ -416,20 +472,27 @@ export const WithSidebar: Story = {
                   </SidebarGroupContent>
                 </SidebarGroup>
               </SidebarContent>
-            </div>
-            <div className="flex flex-1 flex-col">
+              <SidebarFooter>
+                <div className="flex items-center gap-2">
+                  <Avatar sizes="default">
+                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarFallback>EF</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0 group-data-[collapsible=icon]:hidden">
+                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                      Elizabeth Fitzgerald
+                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
+                  </div>
+                </div>
+              </SidebarFooter>
+            </Sidebar>
+            <SidebarInset>
               <Topbar>
                 <TopbarLeft>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label="Toggle sidebar"
-                    onClick={() =>
-                      setState(state === 'expanded' ? 'collapsed' : 'expanded')
-                    }
-                  >
-                    <IconLayoutSidebar className="h-4 w-4" />
-                  </Button>
+                  <SidebarTrigger />
                   <TopbarBreadcrumbs>
                     <BreadcrumbList>
                       <BreadcrumbItem>
@@ -459,16 +522,29 @@ export const WithSidebar: Story = {
                   </Button>
                 </TopbarRight>
               </Topbar>
-              <div className="flex-1 p-4">
-                <h3 className="text-sm font-semibold mb-1">
-                  Topbar and Sidebar working together
-                </h3>
-                <p className="text-xs text-muted-foreground">
-                  This example shows a typical application layout with a static
-                  sidebar on the left and a topbar above the main content area.
+              <div className="flex-1 p-6 overflow-auto">
+                <h1 className="text-2xl font-bold mb-4">
+                  Topbar with Sidebar Layout
+                </h1>
+                <p className="text-muted-foreground mb-4">
+                  Click the sidebar toggle button in the topbar to collapse/expand
+                  the sidebar. When collapsed, the sidebar shows in icon mode with
+                  tooltips.
                 </p>
+                <div className="space-y-4">
+                  <div className="p-4 border rounded-lg">
+                    <h2 className="font-semibold mb-2">Features</h2>
+                    <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                      <li>Collapsible sidebar with icon mode</li>
+                      <li>SidebarTrigger integrated in topbar</li>
+                      <li>Breadcrumb navigation</li>
+                      <li>Action buttons</li>
+                      <li>User profile in sidebar footer</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
+            </SidebarInset>
           </div>
         </SidebarProvider>
       </div>
@@ -489,52 +565,47 @@ export const Interactive: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    try {
-      const canvas = within(canvasElement);
+    const canvas = within(canvasElement);
 
-      // Wait for component to be ready
-      await waitFor(
-        () => {
-          expect(
-            canvas.getByRole('button', { name: /new item/i })
-          ).toBeInTheDocument();
-        },
-        { timeout: 5000 }
-      );
+    // Wait for component to be ready
+    await waitFor(
+      () => {
+        expect(
+          canvas.getByRole('button', { name: /new item/i })
+        ).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-      // Click New Item button
-      const newItemButton = canvas.getByRole('button', { name: /new item/i });
-      await userEvent.click(newItemButton);
+    // Click New Item button
+    const newItemButton = canvas.getByRole('button', { name: /new item/i });
+    await userEvent.click(newItemButton);
 
-      // Verify state update
-      await waitFor(
-        () => {
-          expect(
-            canvas.getByText(/last clicked: new-item/i)
-          ).toBeInTheDocument();
-        },
-        { timeout: 5000 }
-      );
+    // Verify state update
+    await waitFor(
+      () => {
+        expect(
+          canvas.getByText(/last clicked: new-item/i)
+        ).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-      // Click Share button
-      const shareButton = canvas.getByRole('button', { name: /share/i });
-      await userEvent.click(shareButton);
+    // Click Share button
+    const shareButton = canvas.getByRole('button', { name: /share/i });
+    await userEvent.click(shareButton);
 
-      // Verify state update
-      await waitFor(
-        () => {
-          expect(canvas.getByText(/last clicked: share/i)).toBeInTheDocument();
-        },
-        { timeout: 5000 }
-      );
+    // Verify state update
+    await waitFor(
+      () => {
+        expect(canvas.getByText(/last clicked: share/i)).toBeInTheDocument();
+      },
+      { timeout: 5000 }
+    );
 
-      // Click Home link
-      const homeLink = canvas.getByRole('link', { name: /home/i });
-      await userEvent.click(homeLink);
-    } catch (error) {
-      // Log error but don't fail the story
-      console.error('Interactive story play function error:', error);
-    }
+    // Click Home link
+    const homeLink = canvas.getByRole('link', { name: /home/i });
+    await userEvent.click(homeLink);
   },
   render: function TopbarInteractiveStory() {
     const [clicked, setClicked] = useState<string | null>(null);
