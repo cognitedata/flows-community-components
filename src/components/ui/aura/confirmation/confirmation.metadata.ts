@@ -13,21 +13,4 @@ export const ConfirmationMetadata: ComponentMeta = {
   llmUsage:
     'Use `<Confirmation>` with `<ConfirmationRequest>`, `<ConfirmationAccepted>`, `<ConfirmationRejected>`, and `<ConfirmationActions>` for AI approval flows.',
   importPath: '@/components/ui/aura/confirmation',
-  docsStories: [
-    {
-      storyKey: 'AwaitingApproval',
-      title: 'Awaiting Approval',
-      description: 'Confirmation in pending state.',
-    },
-    {
-      storyKey: 'Approved',
-      title: 'Approved State',
-      description: 'Confirmation after approval.',
-    },
-    {
-      storyKey: 'Rejected',
-      title: 'Rejected State',
-      description: 'Confirmation after rejection.',
-    },
-  ],
 };

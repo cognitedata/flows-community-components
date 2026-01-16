@@ -5,7 +5,4 @@ export const MenubarMetadata: ComponentMeta = {
   description: 'A horizontal menu bar component built on Radix Menubar primitives.',
   llmUsage: 'Use `<Menubar>` with `<MenubarMenu>`, `<MenubarTrigger>`, and `<MenubarContent>` for app menus.',
   importPath: '@/components/ui/aura/menubar',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Menubar', description: 'Basic menu bar.' },
-  ],
 };

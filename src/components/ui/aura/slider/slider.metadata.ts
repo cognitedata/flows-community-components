@@ -5,7 +5,4 @@ export const SliderMetadata: ComponentMeta = {
   description: 'A range slider component built on Radix Slider.',
   llmUsage: 'Use `<Slider defaultValue={[50]} max={100}>` for range input.',
   importPath: '@/components/ui/aura/slider',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Slider', description: 'Basic range slider.' },
-  ],
 };

@@ -13,21 +13,4 @@ export const SidebarMetadata: ComponentMeta = {
   llmUsage:
     'Use `<SidebarProvider>` to wrap your app, then `<Sidebar>` with `<SidebarContent>`, `<SidebarMenu>`, and `<SidebarMenuItem>` for navigation.',
   importPath: '@/components/ui/aura/sidebar',
-  docsStories: [
-    {
-      storyKey: 'Default',
-      title: 'Default Sidebar',
-      description: 'Basic sidebar with menu items.',
-    },
-    {
-      storyKey: 'Collapsible',
-      title: 'Collapsible Sidebar',
-      description: 'Sidebar with collapse functionality.',
-    },
-    {
-      storyKey: 'WithSubmenu',
-      title: 'With Submenu',
-      description: 'Sidebar with nested menu items.',
-    },
-  ],
 };

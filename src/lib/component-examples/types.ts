@@ -1,6 +1,6 @@
 // Type definitions for component examples system
 
-import { CodeExample, DocsStory } from "../component-metadata.types";
+import type { CodeExample } from "../component-metadata.types";
 
 export interface ComponentExample {
   title: string;
@@ -34,6 +34,5 @@ export interface ComponentMeta {
   };
   relatedComponents?: string[];
   notes?: string[];
-  docsStories?: DocsStory[];
   codeExamples?: CodeExample[];
 }

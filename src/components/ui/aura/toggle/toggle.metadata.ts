@@ -5,7 +5,4 @@ export const ToggleMetadata: ComponentMeta = {
   description: 'A toggle button component with multiple variants.',
   llmUsage: 'Use `<Toggle pressed={pressed} onPressedChange={setPressed}>` for toggle buttons.',
   importPath: '@/components/ui/aura/toggle',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Toggle', description: 'Basic toggle button.' },
-  ],
 };

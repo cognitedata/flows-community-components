@@ -4,5 +4,4 @@ export const MessageMetadata: ComponentMeta = {
   name: 'Message',
   description: 'Components for displaying AI chat messages with avatars and actions.',
   importPath: '@/components/ui/aura/message',
-  docsStories: [{ storyKey: 'Default', title: 'Default Message', description: 'Chat message.' }],
 };

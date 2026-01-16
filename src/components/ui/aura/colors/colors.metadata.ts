@@ -13,16 +13,4 @@ export const ColorsMetadata: ComponentMeta = {
   llmUsage:
     'Use `getColorsByCategory()` to get palettes by category (base, decorative, semantic, extended). Use `getCssVar()` and `getTailwindClass()` for programmatic color access.',
   importPath: '@/components/ui/aura/colors',
-  docsStories: [
-    {
-      storyKey: 'Palettes',
-      title: 'Color Palettes',
-      description: 'All available color palettes organized by category.',
-    },
-    {
-      storyKey: 'SemanticTokens',
-      title: 'Semantic Tokens',
-      description: 'Background, foreground, and border color tokens.',
-    },
-  ],
 };

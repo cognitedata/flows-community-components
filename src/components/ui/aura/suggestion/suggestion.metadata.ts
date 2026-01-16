@@ -13,21 +13,4 @@ export const SuggestionMetadata: ComponentMeta = {
   llmUsage:
     'Use `<Suggestion suggestion="text" onClick={fn}>` for button mode, or `<Suggestion onValueChange={fn}>` with `<SuggestionTrigger>` and `<SuggestionContent>` for dropdown mode.',
   importPath: '@/components/ui/aura/suggestion',
-  docsStories: [
-    {
-      storyKey: 'Basic',
-      title: 'Basic Suggestions',
-      description: 'Simple button-style suggestions.',
-    },
-    {
-      storyKey: 'Select',
-      title: 'Select Suggestions',
-      description: 'Dropdown-style suggestions.',
-    },
-    {
-      storyKey: 'Grouped',
-      title: 'Grouped Suggestions',
-      description: 'Suggestions with categories.',
-    },
-  ],
 };

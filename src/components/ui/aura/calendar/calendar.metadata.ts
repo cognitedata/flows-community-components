@@ -5,7 +5,4 @@ export const CalendarMetadata: ComponentMeta = {
   description: 'A themable DayPicker calendar with custom navigation controls.',
   llmUsage: 'Use `<Calendar>` for date selection with mode="single" or mode="range".',
   importPath: '@/components/ui/aura/calendar',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Calendar', description: 'Basic calendar component.' },
-  ],
 };

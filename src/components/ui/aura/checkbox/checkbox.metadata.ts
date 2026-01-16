@@ -5,7 +5,4 @@ export const CheckboxMetadata: ComponentMeta = {
   description: 'A checkbox component styled with Radix Checkbox and Tabler icons.',
   llmUsage: 'Use `<Checkbox>` for boolean input with checked and onCheckedChange props.',
   importPath: '@/components/ui/aura/checkbox',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Checkbox', description: 'Basic checkbox.' },
-  ],
 };

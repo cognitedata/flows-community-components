@@ -13,21 +13,4 @@ export const DropdownMenuMetadata: ComponentMeta = {
   llmUsage:
     'Use `<DropdownMenu>` with `<DropdownMenuTrigger>`, `<DropdownMenuContent>`, and `<DropdownMenuItem>` for context actions.',
   importPath: '@/components/ui/aura/dropdown-menu',
-  docsStories: [
-    {
-      storyKey: 'Default',
-      title: 'Default Dropdown',
-      description: 'Basic dropdown menu with items.',
-    },
-    {
-      storyKey: 'WithSubmenus',
-      title: 'With Submenus',
-      description: 'Dropdown with nested submenus.',
-    },
-    {
-      storyKey: 'WithCheckboxes',
-      title: 'With Checkboxes',
-      description: 'Dropdown with checkbox items.',
-    },
-  ],
 };

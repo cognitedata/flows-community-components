@@ -5,7 +5,4 @@ export const CommandMetadata: ComponentMeta = {
   description: 'A command menu component for searchable command palettes, built with cmdk.',
   llmUsage: 'Use `<Command>` with `<CommandInput>`, `<CommandList>`, and `<CommandItem>` for command palettes.',
   importPath: '@/components/ui/aura/command',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Command', description: 'Basic command menu.' },
-  ],
 };

@@ -5,7 +5,4 @@ export const TopbarMetadata: ComponentMeta = {
   description: 'A top navigation bar component for application headers.',
   llmUsage: 'Use `<Topbar>` to create a top navigation bar with logo and navigation items.',
   importPath: '@/components/ui/aura/topbar',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Topbar', description: 'Basic top navigation bar.' },
-  ],
 };

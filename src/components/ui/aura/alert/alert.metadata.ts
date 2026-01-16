@@ -5,7 +5,4 @@ export const AlertMetadata: ComponentMeta = {
   description: 'A dismissible alert component with multiple variants for displaying messages.',
   llmUsage: 'Use `<Alert>` with `<AlertTitle>` and `<AlertDescription>` for informational messages.',
   importPath: '@/components/ui/aura/alert',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Alert', description: 'Basic alert component.' },
-  ],
 };

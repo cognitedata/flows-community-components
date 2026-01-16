@@ -13,21 +13,4 @@ export const CardMetadata: ComponentMeta = {
   llmUsage:
     'Use `<Card>` with `<CardHeader>`, `<CardTitle>`, `<CardDescription>`, `<CardContent>`, and `<CardFooter>` for structured content containers.',
   importPath: '@/components/ui/aura/card',
-  docsStories: [
-    {
-      storyKey: 'Default',
-      title: 'Default Card',
-      description: 'Basic card with header and content.',
-    },
-    {
-      storyKey: 'WithAction',
-      title: 'Card with Action',
-      description: 'Card with action button in header.',
-    },
-    {
-      storyKey: 'WithFooter',
-      title: 'Card with Footer',
-      description: 'Full card layout with footer.',
-    },
-  ],
 };

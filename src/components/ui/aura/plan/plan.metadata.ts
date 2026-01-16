@@ -4,5 +4,4 @@ export const PlanMetadata: ComponentMeta = {
   name: 'Plan',
   description: 'A collapsible card component for displaying AI plans and tasks.',
   importPath: '@/components/ui/aura/plan',
-  docsStories: [{ storyKey: 'Default', title: 'Default Plan', description: 'Plan display.' }],
 };

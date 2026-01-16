@@ -4,5 +4,4 @@ export const ContextMetadata: ComponentMeta = {
   name: 'Context',
   description: 'A hover card component for displaying AI context information.',
   importPath: '@/components/ui/aura/context',
-  docsStories: [{ storyKey: 'Default', title: 'Default Context', description: 'Context hover card.' }],
 };

@@ -13,21 +13,4 @@ export const EffectsMetadata: ComponentMeta = {
   llmUsage:
     'Use `getShadow()` for shadow values, `getRadius()` for border radius, and `getFocusRingClasses()` for accessible focus indicators.',
   importPath: '@/components/ui/aura/effects',
-  docsStories: [
-    {
-      storyKey: 'Shadows',
-      title: 'Shadows',
-      description: 'Available shadow/elevation levels.',
-    },
-    {
-      storyKey: 'BorderRadii',
-      title: 'Border Radii',
-      description: 'Corner rounding options.',
-    },
-    {
-      storyKey: 'FocusRings',
-      title: 'Focus Rings',
-      description: 'Keyboard focus indicators.',
-    },
-  ],
 };

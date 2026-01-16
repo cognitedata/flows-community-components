@@ -5,7 +5,4 @@ export const InputMetadata: ComponentMeta = {
   description: 'A styled text input component with focus and validation states.',
   llmUsage: 'Use `<Input>` for single-line text input fields.',
   importPath: '@/components/ui/aura/input',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Input', description: 'Basic text input.' },
-  ],
 };

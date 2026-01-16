@@ -5,7 +5,4 @@ export const SeparatorMetadata: ComponentMeta = {
   description: 'A visual separator for dividing content.',
   llmUsage: 'Use `<Separator>` with orientation="horizontal" or "vertical" to divide content.',
   importPath: '@/components/ui/aura/separator',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Separator', description: 'Basic separator.' },
-  ],
 };

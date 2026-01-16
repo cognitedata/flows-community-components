@@ -13,16 +13,4 @@ export const TooltipMetadata: ComponentMeta = {
   llmUsage:
     'Use `<Tooltip>` with `<TooltipTrigger>` and `<TooltipContent>` for contextual help text.',
   importPath: '@/components/ui/aura/tooltip',
-  docsStories: [
-    {
-      storyKey: 'Default',
-      title: 'Default Tooltip',
-      description: 'Basic tooltip on hover.',
-    },
-    {
-      storyKey: 'Positions',
-      title: 'Tooltip Positions',
-      description: 'Tooltip with different side positions.',
-    },
-  ],
 };

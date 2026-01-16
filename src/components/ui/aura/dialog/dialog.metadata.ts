@@ -5,7 +5,4 @@ export const DialogMetadata: ComponentMeta = {
   description: 'A modal dialog with overlay, content, and close affordances built on Radix Dialog.',
   llmUsage: 'Use `<Dialog>` with `<DialogTrigger>`, `<DialogContent>`, and `<DialogTitle>` for modals.',
   importPath: '@/components/ui/aura/dialog',
-  docsStories: [
-    { storyKey: 'Default', title: 'Default Dialog', description: 'Basic dialog modal.' },
-  ],
 };

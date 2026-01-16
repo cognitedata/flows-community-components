@@ -17,24 +17,6 @@ export const ButtonMetadata: ComponentMeta = {
 
   importPath: '@/components/ui/aura/button',
 
-  docsStories: [
-    {
-      storyKey: 'AllVariants',
-      title: 'Button Variants',
-      description: 'Different visual styles for various use cases.',
-    },
-    {
-      storyKey: 'MainComponent',
-      title: 'Main Component',
-      description: 'Available size and variation options.',
-    },
-    {
-      storyKey: 'ButtonStates',
-      title: 'Button States',
-      description: 'Disabled and loading states',
-    },
-  ],
-
   codeExamples: [
     {
       title: 'Button Variants',

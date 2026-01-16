@@ -13,21 +13,4 @@ export const AvatarMetadata: ComponentMeta = {
   llmUsage:
     'When displaying user avatars, use `<Avatar>` with `<AvatarImage>` and `<AvatarFallback>` for graceful degradation. Use `<AvatarIcon>` for icon-only avatars.',
   importPath: '@/components/ui/aura/avatar',
-  docsStories: [
-    {
-      storyKey: 'Default',
-      title: 'Default Avatar',
-      description: 'Basic avatar with fallback initials.',
-    },
-    {
-      storyKey: 'WithImage',
-      title: 'With Image',
-      description: 'Avatar with profile image and fallback.',
-    },
-    {
-      storyKey: 'Variants',
-      title: 'Color Variants',
-      description: 'Different color variants for visual distinction.',
-    },
-  ],
 };

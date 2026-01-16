@@ -13,21 +13,4 @@ export const LayoutMetadata: ComponentMeta = {
   llmUsage:
     'Use `getBreakpoint()` for breakpoint info, `gridPatterns` for common grid layouts, and `getResponsiveSpan()` for column spans.',
   importPath: '@/components/ui/aura/layout',
-  docsStories: [
-    {
-      storyKey: 'Breakpoints',
-      title: 'Breakpoints',
-      description: 'Container query breakpoints.',
-    },
-    {
-      storyKey: 'GridPatterns',
-      title: 'Grid Patterns',
-      description: 'Common grid layout patterns.',
-    },
-    {
-      storyKey: 'ColumnSpans',
-      title: 'Column Spans',
-      description: 'Responsive column spanning.',
-    },
-  ],
 };

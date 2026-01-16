@@ -13,16 +13,4 @@ export const CollapsibleMetadata: ComponentMeta = {
   llmUsage:
     'Use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>` for expandable sections.',
   importPath: '@/components/ui/aura/collapsible',
-  docsStories: [
-    {
-      storyKey: 'Default',
-      title: 'Default Collapsible',
-      description: 'Basic collapsible with trigger and content.',
-    },
-    {
-      storyKey: 'Controlled',
-      title: 'Controlled Collapsible',
-      description: 'Collapsible with external state control.',
-    },
-  ],
 };

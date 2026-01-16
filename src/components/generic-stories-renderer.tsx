@@ -3,52 +3,65 @@
 import { useEffect, useState, type ComponentType } from 'react';
 import { composeStories } from '@storybook/react';
 import { ExamplePreview } from './example-preview';
-import type { DocsStory } from '@/lib/component-metadata.types';
-import { slugToPascalCase } from '@/lib/utils';
 
 interface GenericStoriesRendererProps {
   slug: string;
 }
 
-interface LoadedStoryData {
-  docsStories: DocsStory[];
-  composedStories: Record<string, ComponentType>;
+interface StoryEntry {
+  key: string;
+  title: string;
+  Component: ComponentType;
+}
+
+/**
+ * Converts a PascalCase or camelCase story key to a human-readable title.
+ * E.g., "AllVariants" -> "All Variants", "WithLeftIcon" -> "With Left Icon"
+ */
+function storyKeyToTitle(key: string): string {
+  return key
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/^./, (str) => str.toUpperCase())
+    .trim();
 }
 
 /**
  * Generic renderer for component stories.
- * Dynamically loads stories and metadata based on the component slug.
+ * Dynamically loads and renders all stories from a component's stories file.
  */
 export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
-  const [storyData, setStoryData] = useState<LoadedStoryData | null>(null);
+  const [stories, setStories] = useState<StoryEntry[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadStories() {
       try {
-        // Dynamically import stories and metadata for this component
-        const [storiesModule, metadataModule] = await Promise.all([
-          import(`@/components/ui/aura/${slug}/${slug}.stories`),
-          import(`@/components/ui/aura/${slug}/${slug}.metadata`),
-        ]);
+        // Dynamically import stories for this component
+        const storiesModule = await import(
+          `@/components/ui/aura/${slug}/${slug}.stories`
+        );
 
-        // Get the PascalCase metadata export name
-        const pascalCaseSlug = slugToPascalCase(slug);
-        
-        const metadata = metadataModule[`${pascalCaseSlug}Metadata`];
-        
-        if (!metadata?.docsStories) {
-          setError(`No docsStories found in ${slug}.metadata.ts`);
+        // Compose stories using Storybook's portable stories API
+        const composed = composeStories(storiesModule) as Record<
+          string,
+          ComponentType
+        >;
+
+        // Convert to array of story entries
+        const storyEntries: StoryEntry[] = Object.entries(composed).map(
+          ([key, Component]) => ({
+            key,
+            title: storyKeyToTitle(key),
+            Component,
+          })
+        );
+
+        if (storyEntries.length === 0) {
+          setError(`No stories found in ${slug}.stories.tsx`);
           return;
         }
 
-        // Compose stories using Storybook's portable stories API
-        const composed = composeStories(storiesModule);
-
-        setStoryData({
-          docsStories: metadata.docsStories,
-          composedStories: composed as Record<string, ComponentType>,
-        });
+        setStories(storyEntries);
       } catch (err) {
         console.error(`Failed to load stories for ${slug}:`, err);
         setError(`Failed to load stories for ${slug}.`);
@@ -66,7 +79,7 @@ export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
     );
   }
 
-  if (!storyData) {
+  if (!stories) {
     return (
       <div className="space-y-6">
         {[1, 2, 3].map((i) => (
@@ -78,22 +91,13 @@ export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
 
   return (
     <div className="space-y-6">
-      {storyData.docsStories.map(({ storyKey, title, description }) => {
-        const Story = storyData.composedStories[storyKey];
-        if (!Story) {
-          console.warn(`Story "${storyKey}" not found for component "${slug}"`);
-          return null;
-        }
-
-        return (
-          <ExamplePreview
-            key={storyKey}
-            title={title}
-            description={description}
-            component={() => <Story />}
-          />
-        );
-      })}
+      {stories.map(({ key, title, Component }) => (
+        <ExamplePreview
+          key={key}
+          title={title}
+          component={() => <Component />}
+        />
+      ))}
     </div>
   );
 }
