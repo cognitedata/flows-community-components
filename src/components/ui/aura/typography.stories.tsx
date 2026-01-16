@@ -35,7 +35,7 @@ import { CodeBlock } from './code-block';
  * ```
  */
 const meta: Meta = {
-  title: 'Primitives/Typography',
+  title: 'Layouts/Typography',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
