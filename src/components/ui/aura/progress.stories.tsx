@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Progress } from './progress';
 import { Label } from './label';
 import { Button } from './button';
@@ -64,14 +64,21 @@ export const Basic: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    // Verify progress bar container exists
     const progress = canvasElement.querySelector('[data-slot="progress"]');
     await expect(progress).toBeInTheDocument();
 
+    // Verify progress indicator exists
     const indicator = canvasElement.querySelector(
       '[data-slot="progress-indicator"]'
     );
     await expect(indicator).toBeInTheDocument();
+
+    // Verify aria-label is set correctly
+    await expect(progress).toHaveAttribute('aria-label', 'Progress: 50%');
+
+    // Verify default styling classes
+    await expect(progress).toHaveClass('w-[400px]');
   },
 };
 
@@ -87,6 +94,22 @@ export const DifferentValues: Story = {
           'Progress bars showing different completion percentages: 0%, 25%, 50%, 75%, and 100%.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify all progress bars are rendered
+    await expect(canvas.getByText('0% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('25% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('50% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('75% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('100% Complete')).toBeInTheDocument();
+
+    // Verify all progress indicators exist
+    const indicators = canvasElement.querySelectorAll(
+      '[data-slot="progress-indicator"]'
+    );
+    await expect(indicators).toHaveLength(5);
   },
   render: () => (
     <div className="space-y-4 w-[400px]">
@@ -142,6 +165,21 @@ export const WithLabel: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify label is rendered
+    await expect(canvas.getByText('Files uploaded')).toBeInTheDocument();
+
+    // Verify percentage display
+    await expect(canvas.getByText('30%')).toBeInTheDocument();
+
+    // Verify progress bar exists
+    const indicator = canvasElement.querySelector(
+      '[data-slot="progress-indicator"]'
+    );
+    await expect(indicator).toBeInTheDocument();
+  },
   render: () => (
     <div className="space-y-2 w-[400px]">
       <Label>Files uploaded</Label>
@@ -175,15 +213,32 @@ export const Animated: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Wait for animation to start
+    // Verify loading text is present
+    await expect(canvas.getByText('Loading...')).toBeInTheDocument();
+
+    // Wait for progress to start incrementing
     await waitFor(
       () => {
-        const indicator = canvasElement.querySelector(
-          '[data-slot="progress-indicator"]'
-        );
-        expect(indicator).toBeInTheDocument();
+        const progressText = canvas.getByText(/^\d+%$/);
+        expect(progressText).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 1000 }
+    );
+
+    // Verify progress indicator exists and is animating
+    const indicator = canvasElement.querySelector(
+      '[data-slot="progress-indicator"]'
+    );
+    await expect(indicator).toBeInTheDocument();
+
+    // Wait for progress to increase
+    await waitFor(
+      () => {
+        const progressText = canvas.getByText(/^\d+%$/);
+        const value = parseInt(progressText.textContent || '0');
+        expect(value).toBeGreaterThan(0);
+      },
+      { timeout: 1500 }
     );
   },
   render: function AnimatedProgressStory() {
@@ -229,6 +284,27 @@ export const FileUpload: Story = {
           'Progress bar used in a file upload scenario, showing upload progress with file count.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify all file upload items are rendered
+    await expect(
+      canvas.getByText('Uploading document.pdf')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Uploading image.jpg')).toBeInTheDocument();
+    await expect(canvas.getByText('Uploading video.mp4')).toBeInTheDocument();
+
+    // Verify all percentages are displayed
+    await expect(canvas.getByText('65%')).toBeInTheDocument();
+    await expect(canvas.getByText('30%')).toBeInTheDocument();
+    await expect(canvas.getByText('90%')).toBeInTheDocument();
+
+    // Verify all progress indicators exist
+    const indicators = canvasElement.querySelectorAll(
+      '[data-slot="progress-indicator"]'
+    );
+    await expect(indicators).toHaveLength(3);
   },
   render: () => (
     <div className="space-y-4 w-[400px]">
@@ -278,19 +354,47 @@ export const Interactive: Story = {
 
     const incrementButton = canvas.getByRole('button', { name: /increment/i });
     const decrementButton = canvas.getByRole('button', { name: /decrement/i });
+    const resetButton = canvas.getByRole('button', { name: /reset/i });
 
     await expect(incrementButton).toBeInTheDocument();
     await expect(decrementButton).toBeInTheDocument();
+    await expect(resetButton).toBeInTheDocument();
+
+    // Verify initial state (50%)
+    await expect(canvas.getByText('50%')).toBeInTheDocument();
 
     // Test incrementing
     await userEvent.click(incrementButton);
     await waitFor(
       () => {
-        const progressText = canvas.getByText(/^\d+%$/);
-        expect(progressText).toBeInTheDocument();
+        expect(canvas.getByText('60%')).toBeInTheDocument();
       },
       { timeout: 300 }
     );
+
+    // Test decrementing
+    await userEvent.click(decrementButton);
+    await waitFor(
+      () => {
+        expect(canvas.getByText('50%')).toBeInTheDocument();
+      },
+      { timeout: 300 }
+    );
+
+    // Test reset
+    await userEvent.click(resetButton);
+    await waitFor(
+      () => {
+        expect(canvas.getByText('0%')).toBeInTheDocument();
+      },
+      { timeout: 300 }
+    );
+
+    // Verify progress indicator still exists
+    const indicator = canvasElement.querySelector(
+      '[data-slot="progress-indicator"]'
+    );
+    await expect(indicator).toBeInTheDocument();
   },
   render: function InteractiveProgressStory() {
     const [progress, setProgress] = useState(50);
@@ -341,6 +445,19 @@ export const Indeterminate: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify processing text is rendered
+    await expect(canvas.getByText('Processing...')).toBeInTheDocument();
+
+    // Verify indeterminate indicator (—)
+    await expect(canvas.getByText('—')).toBeInTheDocument();
+
+    // Verify progress bar exists
+    const progress = canvasElement.querySelector('[data-slot="progress"]');
+    await expect(progress).toBeInTheDocument();
+  },
   render: () => (
     <div className="space-y-4 w-[400px]">
       <div className="space-y-2">
@@ -367,6 +484,21 @@ export const Complete: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify completion text
+    await expect(canvas.getByText('Upload complete')).toBeInTheDocument();
+
+    // Verify 100% display
+    await expect(canvas.getByText('100%')).toBeInTheDocument();
+
+    // Verify progress indicator is fully filled
+    const indicator = canvasElement.querySelector(
+      '[data-slot="progress-indicator"]'
+    );
+    await expect(indicator).toBeInTheDocument();
+  },
   render: () => (
     <div className="space-y-2 w-[400px]">
       <div className="flex justify-between text-sm">
@@ -390,6 +522,33 @@ export const Multiple: Story = {
           'Multiple progress bars showing different tasks or items with varying completion states.',
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify all task labels are rendered
+    await expect(
+      canvas.getByText('Task 1: Data processing')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Task 2: Image optimization')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Task 3: File compression')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Task 4: Finalization')).toBeInTheDocument();
+
+    // Verify all percentages are displayed
+    await expect(canvas.getByText('45%')).toBeInTheDocument();
+    await expect(canvas.getByText('78%')).toBeInTheDocument();
+    await expect(canvas.getByText('12%')).toBeInTheDocument();
+    await expect(canvas.getByText('100%')).toBeInTheDocument();
+
+    // Verify all progress indicators exist
+    const indicators = canvasElement.querySelectorAll(
+      '[data-slot="progress-indicator"]'
+    );
+    await expect(indicators).toHaveLength(4);
   },
   render: () => (
     <div className="space-y-4 w-[400px]">
