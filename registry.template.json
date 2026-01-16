@@ -704,19 +704,6 @@
       ]
     },
     {
-      "name": "branch",
-      "type": "registry:component",
-      "title": "Branch",
-      "description": "AI conversation branch component.",
-      "dependencies": ["@tabler/icons-react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/branch.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "canvas",
       "type": "registry:component",
       "title": "Canvas",

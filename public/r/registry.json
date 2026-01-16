@@ -986,24 +986,6 @@
       ]
     },
     {
-      "name": "branch",
-      "type": "registry:component",
-      "title": "Branch",
-      "description": "AI conversation branch component.",
-      "dependencies": [
-        "@tabler/icons-react"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/branch.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ]
-    },
-    {
       "name": "canvas",
       "type": "registry:component",
       "title": "Canvas",
@@ -1246,13 +1228,15 @@
       "dependencies": [
         "ai",
         "@tabler/icons-react",
-        "streamdown"
+        "streamdown",
+        "shiki"
       ],
       "registryDependencies": [
         "@aura/css",
         "@aura/avatar",
         "@aura/button",
         "@aura/button-group",
+        "@aura/code-block",
         "@aura/tooltip"
       ],
       "files": [
@@ -1501,6 +1485,21 @@
       "files": [
         {
           "path": "src/components/ui/aura/toolbar.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "effects",
+      "type": "registry:component",
+      "title": "Effects",
+      "description": "Effect definitions including shadows, focus rings, border radii, and transitions for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/effects.tsx",
           "type": "registry:component"
         }
       ],

@@ -10,7 +10,6 @@ import { panelExamples } from './panel.examples';
 import { shimmerExamples } from './shimmer.examples';
 import { inlineCitationExamples } from './inline-citation.examples';
 import { imageExamples } from './image.examples';
-import { branchExamples } from './branch.examples';
 import { canvasExamples } from './canvas.examples';
 import { chainOfThoughtExamples } from './chain-of-thought.examples';
 import { codeBlockExamples } from './code-block.examples';
@@ -41,7 +40,6 @@ export const aiExamples = {
   shimmer: shimmerExamples,
   'inline-citation': inlineCitationExamples,
   image: imageExamples,
-  branch: branchExamples,
   canvas: canvasExamples,
   'chain-of-thought': chainOfThoughtExamples,
   'code-block': codeBlockExamples,
