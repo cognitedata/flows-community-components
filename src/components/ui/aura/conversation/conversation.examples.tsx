@@ -14,6 +14,12 @@ import {
   MessageActions,
   MessageAction,
   MessageResponse,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
 } from '@/components/ui/aura/message';
 import {
   PromptInput,
@@ -301,6 +307,113 @@ const responseTokens = [
   ' tolerances.',
 ];
 
+const responseTokens2 = [
+  'After',
+  ' conducting',
+  ' a',
+  ' detailed',
+  ' frequency',
+  ' spectrum',
+  ' analysis',
+  ' of',
+  ' pump',
+  ' **21PT1019**,',
+  ' the',
+  ' vibration',
+  ' patterns',
+  ' indicate',
+  ' a',
+  ' different',
+  ' root',
+  ' cause',
+  ' than',
+  ' initially',
+  ' suspected.',
+  '\n\n',
+  'The',
+  ' frequency',
+  ' analysis',
+  ' reveals',
+  ' dominant',
+  ' peaks',
+  ' at',
+  ' 1x',
+  ' running',
+  ' speed',
+  ' (',
+  '47.5',
+  ' Hz',
+  '),',
+  ' which',
+  ' is',
+  ' characteristic',
+  ' of',
+  ' mechanical',
+  ' imbalance',
+  ' rather',
+  ' than',
+  ' bearing',
+  ' wear.',
+  ' The',
+  ' amplitude',
+  ' progression',
+  ' shows:',
+  '\n\n',
+  '| Time',
+  ' Period',
+  ' | Imbalance',
+  ' Severity',
+  ' | Recommended',
+  ' Action',
+  ' |',
+  '\n',
+  '|------------|-------------------|-------------------|',
+  '\n',
+  '| 00:00-02:00',
+  ' | Acceptable',
+  ' | Monitor',
+  ' |',
+  '\n',
+  '| 02:00-04:00',
+  ' | Moderate',
+  ' | Plan',
+  ' Balancing',
+  ' |',
+  '\n',
+  '| 04:00-06:00',
+  ' | Severe',
+  ' | Immediate',
+  ' Action',
+  ' |',
+  '\n\n',
+  'This',
+  ' suggests',
+  ' the',
+  ' impeller',
+  ' may',
+  ' have',
+  ' accumulated',
+  ' debris',
+  ' or',
+  ' experienced',
+  ' erosion,',
+  ' causing',
+  ' mass',
+  ' imbalance.',
+  ' I',
+  ' recommend',
+  ' an',
+  ' immediate',
+  ' impeller',
+  ' inspection',
+  ' and',
+  ' dynamic',
+  ' balancing',
+  ' within',
+  ' 24',
+  ' hours.',
+];
+
 type ConversationPhase =
   | 'empty'
   | 'userMessage'
@@ -314,6 +427,9 @@ function BasicConversationDemo() {
   const [thinkingSeconds, setThinkingSeconds] = useState(0);
   const [streamedContent, setStreamedContent] = useState('');
   const [showTools, setShowTools] = useState(false);
+  const [branches, setBranches] = useState<string[]>(['']); // Initialize with empty string for first branch
+  const [currentBranchIndex, setCurrentBranchIndex] = useState(0);
+  const [isRetrying, setIsRetrying] = useState(false);
 
   // Derive shimmer phrase from thinking seconds (changes every 3 seconds)
   const phraseIndex = Math.min(Math.floor(thinkingSeconds / 3), 2);
@@ -358,26 +474,70 @@ function BasicConversationDemo() {
 
     let currentContent = '';
     let index = 0;
+    const tokens = isRetrying ? responseTokens2 : responseTokens;
 
     const interval = setInterval(() => {
-      if (index < responseTokens.length) {
-        currentContent += responseTokens[index];
+      if (index < tokens.length) {
+        currentContent += tokens[index];
         setStreamedContent(currentContent);
+        // Update the current branch
+        setBranches((prev) => {
+          const updated = [...prev];
+          updated[currentBranchIndex] = currentContent;
+          return updated;
+        });
         index++;
       } else {
         clearInterval(interval);
+        const finalContent = tokens.join('');
+        setStreamedContent(finalContent);
+        setBranches((prev) => {
+          const updated = [...prev];
+          updated[currentBranchIndex] = finalContent;
+          return updated;
+        });
         setPhase('complete');
+        setIsRetrying(false);
       }
     }, 50);
 
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, isRetrying, currentBranchIndex]);
+
+  const handleRetry = () => {
+    if (branches.length >= 2 || isRetrying || phase !== 'complete') return;
+
+    // Set up the new branch
+    const newBranchIndex = 1;
+    setBranches((prev) => [...prev, '']);
+    setCurrentBranchIndex(newBranchIndex);
+    setIsRetrying(true);
+    setPhase('streaming');
+    setStreamedContent('');
+  };
+
+  const handleCopy = () => {
+    const currentBranch = branches[currentBranchIndex] || streamedContent;
+    navigator.clipboard.writeText(currentBranch);
+  };
+
+  const handleDownload = () => {
+    const currentBranch = branches[currentBranchIndex] || streamedContent;
+    const blob = new Blob([currentBranch], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'response.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const showUserMessage = phase !== 'empty';
   const showAssistantMessage =
     phase === 'thinking' || phase === 'streaming' || phase === 'complete';
   const isThinking = phase === 'thinking';
   const isComplete = phase === 'complete';
+  const showBranchNav = branches.length > 1 && isComplete && !isRetrying;
 
   return (
     <div className="h-[900px] w-full border rounded-lg relative flex flex-col">
@@ -423,26 +583,33 @@ function BasicConversationDemo() {
               )}
 
               {showAssistantMessage && (
-                <Message isResponse={true}>
-                  <MessageAvatar variant="nordic">
-                    <MessageAvatarIcon>
-                      <IconWheel />
-                    </MessageAvatarIcon>
-                  </MessageAvatar>
-                  <MessageContent className="flex flex-col gap-2">
-                    {isThinking ? (
-                      <Shimmer variant="nordic">
-                        {thinkingPhrases[phraseIndex]}
-                      </Shimmer>
-                    ) : (
-                      <>
-                        <span className="text-muted-foreground text-sm">
-                          Thought for {thinkingSeconds} seconds
-                        </span>
-                        <MessageResponse controls={false}>
-                          {streamedContent}
-                        </MessageResponse>
-                        {isComplete && (
+                <MessageBranch
+                  key={branches.length}
+                  defaultBranch={currentBranchIndex}
+                  onBranchChange={(index) => setCurrentBranchIndex(index)}
+                >
+                  <MessageBranchContent>
+                    {branches.map((branch, index) => (
+                      <Message key={index} isResponse={true}>
+                        <MessageAvatar variant="nordic">
+                          <MessageAvatarIcon>
+                            <IconWheel />
+                          </MessageAvatarIcon>
+                        </MessageAvatar>
+                        <MessageContent className="flex flex-col gap-2">
+                          {(isThinking && index === currentBranchIndex) || (isRetrying && index === currentBranchIndex && !branch) ? (
+                            <Shimmer variant="nordic">
+                              {isRetrying ? 'Generating alternative response…' : thinkingPhrases[phraseIndex]}
+                            </Shimmer>
+                          ) : (
+                            <>
+                              <span className="text-muted-foreground text-sm">
+                                Thought for {thinkingSeconds} seconds
+                              </span>
+                              <MessageResponse controls={false}>
+                                {branch || (index === currentBranchIndex ? streamedContent : '')}
+                              </MessageResponse>
+                        {branch && !(phase === 'streaming' && index === currentBranchIndex) && (
                           <Sources className="flex flex-col gap-2 py-3">
                             <Source
                               href="https://example.com/21PT2019"
@@ -470,7 +637,7 @@ function BasicConversationDemo() {
                             />
                           </Sources>
                         )}
-                        {isComplete && showTools && (
+                        {branch && showTools && !(phase === 'streaming' && index === currentBranchIndex) && (
                           <div className="flex flex-col gap-2 py-3">
                             <Reasoning>
                               <ReasoningHeader />
@@ -509,13 +676,14 @@ function BasicConversationDemo() {
                             </Reasoning>
                           </div>
                         )}
-                        {isComplete && (
+                        {branch && !(phase === 'streaming' && index === currentBranchIndex) && (
                           <MessageActions className="justify-between">
                             <div className="flex items-center gap-2">
                               <MessageAction
                                 size="icon-sm"
                                 label="Copy"
                                 tooltip="Copy"
+                                onClick={handleCopy}
                               >
                                 <IconCopy className="w-3 h-3" />
                               </MessageAction>
@@ -523,6 +691,7 @@ function BasicConversationDemo() {
                                 size="icon-sm"
                                 label="Download"
                                 tooltip="Download"
+                                onClick={handleDownload}
                               >
                                 <IconDownload className="w-3 h-3" />
                               </MessageAction>
@@ -530,9 +699,21 @@ function BasicConversationDemo() {
                                 size="icon-sm"
                                 label="Retry"
                                 tooltip="Retry"
+                                onClick={handleRetry}
+                                disabled={branches.length >= 2 || isRetrying}
                               >
                                 <IconRefresh className="w-3 h-3" />
                               </MessageAction>
+                              {showBranchNav && (
+                                <MessageBranchSelector
+                                  from="assistant"
+                                  className="px-0"
+                                >
+                                  <MessageBranchPrevious />
+                                  <MessageBranchPage />
+                                  <MessageBranchNext />
+                                </MessageBranchSelector>
+                              )}
                             </div>
                             <MessageAction
                               size="sm"
@@ -549,6 +730,9 @@ function BasicConversationDemo() {
                     )}
                   </MessageContent>
                 </Message>
+                    ))}
+                  </MessageBranchContent>
+                </MessageBranch>
               )}
             </>
           )}

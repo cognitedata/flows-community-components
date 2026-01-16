@@ -15,6 +15,7 @@ import {
   SidebarProvider,
   SidebarFooter,
   SidebarTrigger,
+  SidebarGroupLabel,
 } from '@/components/ui/aura/sidebar';
 import {
   Avatar,
@@ -98,9 +99,9 @@ function BasicDemo() {
                     </SidebarMenu>
                   </SidebarMainPages>
                   <SidebarPinnedApps>
-                    <div className="tracking-normal text-sm font-medium">
+                    <SidebarGroupLabel className="h-auto p-0 text-sm font-medium text-sidebar-foreground tracking-normal">
                       Pinned apps
-                    </div>
+                    </SidebarGroupLabel>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Home" size="default">
                         <IconPointFilled className="h-4 w-4" />
@@ -233,9 +234,9 @@ function CollapsedDemo() {
                     </SidebarMenu>
                   </SidebarMainPages>
                   <SidebarPinnedApps>
-                    <div className="text-sm font-medium pb-1 group-data-[collapsible=icon]:hidden">
+                    <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm font-medium text-sidebar-foreground">
                       Pinned apps
-                    </div>
+                    </SidebarGroupLabel>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="App" size="default">
                         <IconPointFilled className="h-4 w-4" />

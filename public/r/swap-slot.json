@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "swap-slot",
+  "type": "registry:component",
+  "title": "Swap Slot",
+  "description": "Swap Slot component.",
+  "registryDependencies": [
+    "@aura/css"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/aura/swap-slot.tsx",
+      "content": "import type { ComponentProps, ReactNode } from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface SwapSlotProps extends ComponentProps<'div'> {\n  defaultSlot?: ReactNode;\n  activeSlot?: ReactNode;\n}\n\nexport const SwapSlot = ({\n  defaultSlot,\n  activeSlot,\n  className,\n  children,\n  ...props\n}: SwapSlotProps) => {\n  return (\n    <div\n      className={cn(\n        'w-full h-10 flex justify-center items-center gap-2 rounded-md border border-dashed border-ring p-4',\n        className\n      )}\n      {...props}\n    >\n      {activeSlot ?? defaultSlot ?? children}\n    </div>\n  );\n};\n",
+      "type": "registry:component"
+    }
+  ]
+}

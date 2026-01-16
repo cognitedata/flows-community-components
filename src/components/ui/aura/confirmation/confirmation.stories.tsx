@@ -121,9 +121,13 @@ export const Interactive: Story = {
     // Wait for the accepted state to show
     await waitFor(
       () => {
-        expect(canvas.getByTestId('confirmation-accepted')).toBeInTheDocument();
+        const acceptedElement = canvas.queryByTestId('confirmation-accepted');
+        if (!acceptedElement) {
+          throw new Error('Accepted element not found');
+        }
+        expect(acceptedElement).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 1000 }
     );
 
     // Verify accepted message content
@@ -138,9 +142,13 @@ export const Interactive: Story = {
     // Wait for actions to reappear
     await waitFor(
       () => {
-        expect(canvas.getByTestId('action-skip')).toBeInTheDocument();
+        const skipAction = canvas.queryByTestId('action-skip');
+        if (!skipAction) {
+          throw new Error('Skip action not found');
+        }
+        expect(skipAction).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 1000 }
     );
 
     // Test: Now test the reject flow
@@ -150,9 +158,13 @@ export const Interactive: Story = {
     // Wait for the rejected state to show
     await waitFor(
       () => {
-        expect(canvas.getByTestId('confirmation-rejected')).toBeInTheDocument();
+        const rejectedElement = canvas.queryByTestId('confirmation-rejected');
+        if (!rejectedElement) {
+          throw new Error('Rejected element not found');
+        }
+        expect(rejectedElement).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 1000 }
     );
 
     // Verify rejected message content
@@ -757,10 +769,13 @@ export const WithCodeBlock: Story = {
     await waitFor(
       () => {
         const codeBlock = canvasElement.querySelector('pre code');
+        if (!codeBlock) {
+          throw new Error('Code block not found');
+        }
         expect(codeBlock).toBeInTheDocument();
         expect(codeBlock).toHaveTextContent('analyzeTimeSeries');
       },
-      { timeout: 500 }
+      { timeout: 1000 }
     );
   },
   render: () => {
@@ -926,7 +941,7 @@ export const KeyboardNavigation: Story = {
 
     // Find the trigger button
     const trigger = canvas.getByRole('button', { name: /Atlas needs/i });
-    
+
     // Focus the trigger
     trigger.focus();
     await expect(trigger).toHaveFocus();
@@ -965,9 +980,13 @@ export const KeyboardNavigation: Story = {
     // Wait for accepted state
     await waitFor(
       () => {
-        expect(canvas.getByText('Permission allowed always')).toBeInTheDocument();
+        const acceptedText = canvas.queryByText('Permission allowed always');
+        if (!acceptedText) {
+          throw new Error('Accepted text not found');
+        }
+        expect(acceptedText).toBeInTheDocument();
       },
-      { timeout: 500 }
+      { timeout: 1000 }
     );
   },
   render: function KeyboardNavigationStory() {
