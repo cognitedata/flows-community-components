@@ -32,7 +32,7 @@ import { cn } from '@/lib/utils';
  * <div className="shadow-xl">Modal</div>
  *
  * // Focus rings for accessibility
- * <button className="focus-visible:ring focus-visible:ring-ring/50 focus-visible:border-ring">
+ * <button className="focus-visible:ring focus-visible:ring-ring-shadow focus-visible:border-ring">
  *   Focusable
  * </button>
  *
@@ -82,7 +82,9 @@ export const Shadows: Story = {
 
     // Check shadow elements are displayed using testids
     await expect(canvas.getByTestId('shadow-shadow-sm')).toBeInTheDocument();
-    await expect(canvas.getByTestId('shadow-shadow-default')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('shadow-shadow-default')
+    ).toBeInTheDocument();
     await expect(canvas.getByTestId('shadow-shadow-md')).toBeInTheDocument();
     await expect(canvas.getByTestId('shadow-shadow-lg')).toBeInTheDocument();
     await expect(canvas.getByTestId('shadow-shadow-xl')).toBeInTheDocument();
@@ -143,7 +145,9 @@ export const FocusRings: Story = {
     await expect(defaultButton).toBeInTheDocument();
 
     // Find and focus the destructive button
-    const destructiveButton = canvas.getByTestId('focus-ring-focus-destructive');
+    const destructiveButton = canvas.getByTestId(
+      'focus-ring-focus-destructive'
+    );
     await expect(destructiveButton).toBeInTheDocument();
   },
   render: () => (
@@ -204,7 +208,7 @@ export const RingWidths: Story = {
         Click or tab to see different ring widths:
       </p>
       {ringWidths.map((ring) => {
-        const ringClass = `focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:${ring.tailwindClass}`;
+        const ringClass = `focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:${ring.tailwindClass}`;
         return (
           <div key={ring.name} className="flex items-center gap-6">
             <button
@@ -264,12 +268,7 @@ export const BorderRadius: Story = {
             className="flex flex-col items-center gap-2"
             data-testid={`radius-${radius.name}`}
           >
-            <div
-              className={cn(
-                'w-16 h-16 bg-primary',
-                radius.tailwindClass
-              )}
-            />
+            <div className={cn('w-16 h-16 bg-primary', radius.tailwindClass)} />
             <div className="text-center">
               <p className="text-sm font-medium">{radius.name}</p>
               <p className="text-xs text-muted-foreground">{radius.value}</p>
@@ -454,7 +453,7 @@ export const InteractiveExamples: Story = {
               'px-4 py-2 rounded-md',
               'bg-primary text-primary-foreground',
               'transition-colors hover:bg-primary-hover',
-              'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring',
+              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
               'outline-none'
             )}
           >
@@ -465,7 +464,7 @@ export const InteractiveExamples: Story = {
               'px-4 py-2 rounded-md',
               'bg-muted text-foreground',
               'transition-colors hover:bg-accent',
-              'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring',
+              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
               'outline-none'
             )}
           >
@@ -495,7 +494,7 @@ export const InteractiveExamples: Story = {
               'bg-card border border-border',
               'shadow-sm',
               'transition-all hover:shadow-md hover:border-border/80',
-              'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring',
+              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
               'outline-none'
             )}
           >
@@ -512,9 +511,7 @@ export const InteractiveExamples: Story = {
             )}
           >
             <h4 className="font-medium">Elevated Card</h4>
-            <p className="text-sm text-muted-foreground mt-1">
-              Default shadow
-            </p>
+            <p className="text-sm text-muted-foreground mt-1">Default shadow</p>
           </div>
           <div
             className={cn(
@@ -543,7 +540,7 @@ export const InteractiveExamples: Story = {
               'bg-background border border-border',
               'text-foreground placeholder:text-muted-foreground',
               'transition-[color,box-shadow]',
-              'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-1',
+              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-1',
               'outline-none'
             )}
           />
@@ -653,8 +650,7 @@ export const RadiusReference: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Complete reference table of all border radius tokens.',
+        story: 'Complete reference table of all border radius tokens.',
       },
     },
   },
@@ -707,8 +703,7 @@ export const CodeExamples: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Copy-paste ready code examples for common effect patterns.',
+        story: 'Copy-paste ready code examples for common effect patterns.',
       },
     },
   },
@@ -716,15 +711,27 @@ export const CodeExamples: Story = {
     const canvas = within(canvasElement);
 
     // Check code example sections using testids
-    await expect(canvas.getByTestId('code-example-shadows')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-focusRings')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-borderRadius')).toBeInTheDocument();
-    await expect(canvas.getByTestId('code-example-transitions')).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-shadows')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-focusRings')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-borderRadius')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByTestId('code-example-transitions')
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="code-examples">
       {Object.entries(effectExamples).map(([name, code]) => (
-        <div key={name} className="space-y-2" data-testid={`code-example-${name}`}>
+        <div
+          key={name}
+          className="space-y-2"
+          data-testid={`code-example-${name}`}
+        >
           <h3 className="text-lg font-medium capitalize">
             {name.replace(/([A-Z])/g, ' $1').trim()}
           </h3>
@@ -736,4 +743,3 @@ export const CodeExamples: Story = {
     </div>
   ),
 };
-

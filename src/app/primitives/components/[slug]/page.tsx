@@ -8,6 +8,7 @@ import { CodeExamplesRenderer } from '@/components/code-examples-renderer';
 import { getComponentStatus } from '@/lib/component-status';
 import { InstallationCommand } from '@/components/installation-command';
 import { getComponentMeta } from '@/lib/component-registry';
+import { componentsWithStories } from '@/lib/stories-registry';
 
 interface ComponentPageProps {
   params: Promise<{
@@ -15,7 +16,7 @@ interface ComponentPageProps {
   }>;
 }
 
-// Generate static params from component examples files
+// Generate static params from component examples files AND story-based components
 export async function generateStaticParams() {
   const examplesDir = path.join(
     process.cwd(),
@@ -24,18 +25,24 @@ export async function generateStaticParams() {
     'component-examples'
   );
 
+  const slugs = new Set<string>(componentsWithStories);
+
+  // Add slugs from examples files
   try {
     const files = await fs.readdir(examplesDir);
     const exampleFiles = files.filter(
       (file) => file.endsWith('.examples.tsx') || file.endsWith('.examples.ts')
     );
 
-    return exampleFiles.map((file) => ({
-      slug: file.replace('.examples.tsx', '').replace('.examples.ts', ''),
-    }));
+    for (const file of exampleFiles) {
+      const slug = file.replace('.examples.tsx', '').replace('.examples.ts', '');
+      slugs.add(slug);
+    }
   } catch {
-    return [];
+    // Ignore errors reading examples directory
   }
+
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ComponentPageProps) {
