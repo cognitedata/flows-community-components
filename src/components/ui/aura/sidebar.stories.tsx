@@ -183,7 +183,7 @@ export const Basic: Story = {
                   </SidebarMenu>
                 </SidebarMainPages>
                 <SidebarPinnedApps>
-                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm text-sidebar-foreground tracking-normal">
+                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm font-medium text-sidebar-foreground">
                     Pinned apps
                   </SidebarGroupLabel>
                   <SidebarMenuItem>
@@ -355,7 +355,7 @@ export const Collapsed: Story = {
                   </SidebarMenu>
                 </SidebarMainPages>
                 <SidebarPinnedApps>
-                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm text-sidebar-foreground">
+                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm font-medium text-sidebar-foreground">
                     Pinned apps
                   </SidebarGroupLabel>
                   <SidebarMenuItem>

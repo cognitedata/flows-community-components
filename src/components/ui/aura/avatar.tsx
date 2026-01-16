@@ -40,6 +40,10 @@ const avatarVariants = cva(
   }
 );
 
+/**
+ * Avatar component for displaying user profile images, initials, or icons.
+ * Supports multiple color variants, three sizes, and composable sub-components.
+ */
 function Avatar({
   className,
   variant,
@@ -56,6 +60,11 @@ function Avatar({
   );
 }
 
+/**
+ * AvatarImage displays the user's profile image.
+ * Falls back to AvatarFallback if the image fails to load.
+ * Includes a hover darkening effect.
+ */
 function AvatarImage({
   className,
   ...props
@@ -76,6 +85,10 @@ function AvatarImage({
   );
 }
 
+/**
+ * AvatarFallback displays when the image is loading or fails to load.
+ * Typically shows user initials or a placeholder.
+ */
 function AvatarFallback({
   className,
   ...props
@@ -92,6 +105,10 @@ function AvatarFallback({
   );
 }
 
+/**
+ * AvatarIcon displays an icon instead of an image or initials.
+ * Useful for system users, bots, or special entity types.
+ */
 function AvatarIcon({
   className,
   ...props

@@ -6,7 +6,7 @@ const lightTheme = create({
   base: 'light',
   brandTitle: 'Aura',
   brandUrl: '/',
-  brandImage: '/aura-logo.png',
+  brandImage: './aura-logo.png',
 });
 
 // Create dark theme that matches the light version's structure
@@ -14,7 +14,7 @@ const darkTheme = create({
   base: 'dark',
   brandTitle: 'Aura',
   brandUrl: '/',
-  brandImage: '/aura-logo.png',
+  brandImage: './aura-logo.png',
   // App backgrounds
   appBg: '#1c1c1c',
   appContentBg: '#1c1c1c',

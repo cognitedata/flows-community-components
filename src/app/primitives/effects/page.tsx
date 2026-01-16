@@ -41,7 +41,7 @@ const focusRings = [
   {
     name: 'focus',
     tailwindClasses:
-      'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring',
+      'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
     usage: 'keyboard focus for default items',
   },
   {
@@ -99,7 +99,7 @@ function FocusRingSwatch({ focusRing }: { focusRing: (typeof focusRings)[0] }) {
 }
 
 function RingWidthSwatch({ ringWidth }: { ringWidth: (typeof ringWidths)[0] }) {
-  const ringClass = `focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:${ringWidth.name}`;
+  const ringClass = `focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:${ringWidth.name}`;
   return (
     <div className="flex items-center gap-6 py-4">
       <button

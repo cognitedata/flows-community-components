@@ -15,7 +15,7 @@ import {
   type ReactNode,
   useContext,
 } from 'react';
-import { IconAlertTriangle, IconSelector } from '@tabler/icons-react';
+import { IconAlertTriangle, IconChevronDown } from '@tabler/icons-react';
 
 type ApprovalType = {
   approved?: boolean;
@@ -79,7 +79,7 @@ export const Confirmation = ({
         )}
         {...props}
       >
-        <Collapsible className="flex flex-col gap-2">{children}</Collapsible>
+        <Collapsible className="flex flex-col gap-2 overflow-hidden">{children}</Collapsible>
         {helperTextToRender}
       </Alert>
     </ConfirmationContext.Provider>
@@ -97,13 +97,13 @@ export const ConfirmationContentTrigger = ({
     <Button
       variant="ghost"
       className={cn(
-        'w-full justify-between text-base leading-5 tracking-tighter',
+        'group/collapsible-trigger w-full justify-between text-base leading-5 tracking-tighter',
         className
       )}
       {...props}
     >
-      <span>{children}</span>
-      <IconSelector className="h-4 w-4" />
+      <span className="flex-1 min-w-0 text-left truncate">{children}</span>
+      <IconChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
     </Button>
   </CollapsibleTrigger>
 );
@@ -153,7 +153,7 @@ export const ConfirmationAccepted = ({
     return null;
   }
 
-  return children;
+  return <div className="flex justify-end">{children}</div>;
 };
 
 export type ConfirmationRejectedProps = {
@@ -175,7 +175,7 @@ export const ConfirmationRejected = ({
     return null;
   }
 
-  return children;
+  return <div className="flex justify-end">{children}</div>;
 };
 
 export type ConfirmationActionsProps = ComponentProps<'div'>;
