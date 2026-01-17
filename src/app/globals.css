@@ -68,16 +68,18 @@
   --color-mountain: var(--mountain);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary-hover: var(--secondary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary-hover: var(--secondary-hover);
   --color-tertiary: var(--tertiary);
   --color-tertiary-hover: var(--tertiary-hover);
   --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-toggled: var(--toggled);
+  --color-toggled-hover: var(--toggled-hover);
+  --color-toggled-foreground: var(--toggled-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -506,7 +508,7 @@
   --secondary-hover: var(--mountain-200);
   --secondary-foreground: var(--mountain-800);
   --tertiary: var(--gray-550);
-  --tertiary-hover: var(--gray-300);
+  --tertiary-hover: var(--gray-600);
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-50);
   --muted-foreground: var(--mountain-600);
@@ -542,7 +544,7 @@
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
 
-  /* Toggled tokens */
+  /* Toggled tokens (light mode) */
   --toggled: var(--gray-100);
   --toggled-foreground: var(--gray-700);
   --toggled-hover: var(--gray-200);
@@ -617,7 +619,7 @@
   --secondary-hover: var(--mountain-600);
   --secondary-foreground: var(--mountain-50);
   --tertiary: var(--gray-550);
-  --tertiary-hover: var(--gray-700);
+  --tertiary-hover: var(--gray-600);
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-700);
   --muted-foreground: var(--mountain-300);
@@ -653,10 +655,10 @@
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
 
-  /* Toggled tokens */
-  --toggled: var(--gray-900);
-  --toggled-foreground: var(--gray-200);
-  --toggled-hover: var(--gray-800);
+  /* Toggled tokens (dark mode) */
+  --toggled: var(--gray-650);
+  --toggled-foreground: var(--gray-50);
+  --toggled-hover: var(--gray-500);
 
   /* Inverted tokens */
   --inverted: var(--mountain-900);
