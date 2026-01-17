@@ -40,8 +40,8 @@ export function SectionLayout({ children, className }: SectionLayoutProps) {
         </div>
       </aside>
       {/* Main Content */}
-      <main className={cn('flex-1 min-w-0 pr-3 pt-6 pb-8', className)}>
-        {children}
+      <main className={cn('flex-1 min-w-0 pr-3', className)}>
+        <div className="max-w-4xl mx-auto pt-6 pb-8">{children}</div>
       </main>
     </div>
   );
