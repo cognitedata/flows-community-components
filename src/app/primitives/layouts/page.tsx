@@ -1005,11 +1005,11 @@ function InteractiveDemos({
   }, []);
 
   const getCurrentBreakpoint = () => {
-    if (width >= 1281) return '2xl';
-    if (width >= 1025) return 'xl';
-    if (width >= 769) return 'lg';
-    if (width >= 641) return 'md';
-    if (width >= 320) return 'sm';
+    if (width >= 1536) return '8xl';
+    if (width >= 1280) return '7xl';
+    if (width >= 1024) return '5xl';
+    if (width >= 768) return '3xl';
+    if (width >= 640) return '2xl';
     return 'base';
   };
 
