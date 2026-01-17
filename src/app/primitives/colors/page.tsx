@@ -486,7 +486,7 @@ export default function ColorsPage() {
   );
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
         <p className="text-lg text-muted-foreground mt-2">

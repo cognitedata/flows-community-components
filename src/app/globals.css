@@ -9,6 +9,10 @@
 @variant dark (.dark &);
 
 @theme inline {
+  /* Container query breakpoint overrides for layout system */
+  --container-2xl: 40rem; /* 640px - Override Tailwind's default 672px */
+  --container-8xl: 96rem; /* 1536px - Custom breakpoint for widest layouts */
+
   /* Typography scale overrides - font sizes */
   --text-2xs: 0.625rem; /* 10px */
   --text-2xl: 1.5rem; /* 24px (TW default is 24px) */
