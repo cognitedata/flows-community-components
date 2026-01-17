@@ -1,0 +1,102 @@
+
+import { useEffect, useState, type ComponentType } from 'react';
+import { composeStories } from '@storybook/react';
+import { ExamplePreview } from './example-preview';
+
+interface GenericStoriesRendererProps {
+  slug: string;
+}
+
+interface StoryEntry {
+  key: string;
+  title: string;
+  Component: ComponentType;
+}
+
+/**
+ * Converts a PascalCase or camelCase story key to a human-readable title.
+ * E.g., "AllVariants" -> "All Variants", "WithLeftIcon" -> "With Left Icon"
+ */
+function storyKeyToTitle(key: string): string {
+  return key
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/^./, (str) => str.toUpperCase())
+    .trim();
+}
+
+/**
+ * Generic renderer for component stories.
+ * Dynamically loads and renders all stories from a component's stories file.
+ */
+export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
+  const [stories, setStories] = useState<StoryEntry[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadStories() {
+      try {
+        // Dynamically import stories for this component
+        const storiesModule = await import(
+          `@/components/ui/aura/${slug}/${slug}.stories`
+        );
+
+        // Compose stories using Storybook's portable stories API
+        const composed = composeStories(storiesModule) as Record<
+          string,
+          ComponentType
+        >;
+
+        // Convert to array of story entries
+        const storyEntries: StoryEntry[] = Object.entries(composed).map(
+          ([key, Component]) => ({
+            key,
+            title: storyKeyToTitle(key),
+            Component,
+          })
+        );
+
+        if (storyEntries.length === 0) {
+          setError(`No stories found in ${slug}.stories.tsx`);
+          return;
+        }
+
+        setStories(storyEntries);
+      } catch (err) {
+        console.error(`Failed to load stories for ${slug}:`, err);
+        setError(`Failed to load stories for ${slug}.`);
+      }
+    }
+
+    loadStories();
+  }, [slug]);
+
+  if (error) {
+    return (
+      <div className="p-6 border rounded-lg bg-destructive/10 text-destructive">
+        <p className="text-sm">{error}</p>
+      </div>
+    );
+  }
+
+  if (!stories) {
+    return (
+      <div className="space-y-6">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="h-48 bg-muted/20 rounded-lg animate-pulse" />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {stories.map(({ key, title, Component }) => (
+        <ExamplePreview
+          key={key}
+          title={title}
+          component={() => <Component />}
+        />
+      ))}
+    </div>
+  );
+}
