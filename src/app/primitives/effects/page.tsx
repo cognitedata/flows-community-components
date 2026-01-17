@@ -123,7 +123,7 @@ function RingWidthSwatch({ ringWidth }: { ringWidth: (typeof ringWidths)[0] }) {
 
 export default function EffectsPage() {
   return (
-    <div className="space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Effects</h1>

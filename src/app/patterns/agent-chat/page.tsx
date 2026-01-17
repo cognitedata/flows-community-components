@@ -607,9 +607,14 @@ function BasicConversationDemo() {
                           </MessageAvatarIcon>
                         </MessageAvatar>
                         <MessageContent className="flex flex-col gap-2">
-                          {(isThinking && index === currentBranchIndex) || (isRetrying && index === currentBranchIndex && !branch) ? (
+                          {(isThinking && index === currentBranchIndex) ||
+                          (isRetrying &&
+                            index === currentBranchIndex &&
+                            !branch) ? (
                             <Shimmer variant="nordic">
-                              {isRetrying ? 'Generating alternative response…' : thinkingPhrases[phraseIndex]}
+                              {isRetrying
+                                ? 'Generating alternative response…'
+                                : thinkingPhrases[phraseIndex]}
                             </Shimmer>
                           ) : (
                             <>
@@ -617,129 +622,153 @@ function BasicConversationDemo() {
                                 Thought for {thinkingSeconds} seconds
                               </span>
                               <MessageResponse controls={false}>
-                                {branch || (index === currentBranchIndex ? streamedContent : '')}
+                                {branch ||
+                                  (index === currentBranchIndex
+                                    ? streamedContent
+                                    : '')}
                               </MessageResponse>
-                        {branch && !(phase === 'streaming' && index === currentBranchIndex) && (
-                          <Sources className="flex flex-col gap-2 py-3">
-                            <Source
-                              href="https://example.com/21PT2019"
-                              title="21PT1019"
-                              icon={IconChartLine}
-                              target="_blank"
-                            />
-                            <Source
-                              href="https://example.com/pumpB.img"
-                              title="pumpB.img"
-                              icon={IconPhoto}
-                              target="_blank"
-                            />
-                            <Source
-                              href="https://example.com/PumpB.pdf"
-                              title="PumpB.pdf"
-                              icon={IconFile}
-                              target="_blank"
-                            />
-                            <Source
-                              href="https://example.com/120_oaoXR"
-                              title="120_oaoXR"
-                              icon={IconBriefcase}
-                              target="_blank"
-                            />
-                          </Sources>
-                        )}
-                        {branch && showTools && !(phase === 'streaming' && index === currentBranchIndex) && (
-                          <div className="flex flex-col gap-2 py-3">
-                            <Reasoning>
-                              <ReasoningHeader />
-                              <ReasoningContent>
-                                <ReasoningItem>
-                                  <Tool defaultOpen={false}>
-                                    <ToolHeader
-                                      title="Search database"
-                                      type="tool-call"
+                              {branch &&
+                                !(
+                                  phase === 'streaming' &&
+                                  index === currentBranchIndex
+                                ) && (
+                                  <Sources className="flex flex-col gap-2 py-3">
+                                    <Source
+                                      href="https://example.com/21PT2019"
+                                      title="21PT1019"
+                                      icon={IconChartLine}
+                                      target="_blank"
                                     />
-                                    <ToolContent>
-                                      <ToolInput input={searchDatabaseInput} />
-                                      <ToolOutput
-                                        output={searchDatabaseOutput}
-                                        errorText={undefined}
-                                      />
-                                    </ToolContent>
-                                  </Tool>
-                                </ReasoningItem>
-                                <ReasoningItem>
-                                  <Tool defaultOpen={false}>
-                                    <ToolHeader
-                                      title="Fetch sensor data"
-                                      type="tool-call"
+                                    <Source
+                                      href="https://example.com/pumpB.img"
+                                      title="pumpB.img"
+                                      icon={IconPhoto}
+                                      target="_blank"
                                     />
-                                    <ToolContent>
-                                      <ToolInput input={fetchSensorDataInput} />
-                                      <ToolOutput
-                                        output={fetchSensorDataOutput}
-                                        errorText={undefined}
-                                      />
-                                    </ToolContent>
-                                  </Tool>
-                                </ReasoningItem>
-                              </ReasoningContent>
-                            </Reasoning>
-                          </div>
-                        )}
-                        {branch && !(phase === 'streaming' && index === currentBranchIndex) && (
-                          <MessageActions className="justify-between">
-                            <div className="flex items-center gap-2">
-                              <MessageAction
-                                size="icon-sm"
-                                label="Copy"
-                                tooltip="Copy"
-                                onClick={handleCopy}
-                              >
-                                <IconCopy className="w-3 h-3" />
-                              </MessageAction>
-                              <MessageAction
-                                size="icon-sm"
-                                label="Download"
-                                tooltip="Download"
-                                onClick={handleDownload}
-                              >
-                                <IconDownload className="w-3 h-3" />
-                              </MessageAction>
-                              <MessageAction
-                                size="icon-sm"
-                                label="Retry"
-                                tooltip="Retry"
-                                onClick={handleRetry}
-                                disabled={branches.length >= 2 || isRetrying}
-                              >
-                                <IconRefresh className="w-3 h-3" />
-                              </MessageAction>
-                              {showBranchNav && (
-                                <MessageBranchSelector
-                                  from="assistant"
-                                  className="px-0"
-                                >
-                                  <MessageBranchPrevious />
-                                  <MessageBranchPage />
-                                  <MessageBranchNext />
-                                </MessageBranchSelector>
-                              )}
-                            </div>
-                            <MessageAction
-                              size="sm"
-                              onClick={() => setShowTools(!showTools)}
-                              data-active={showTools}
-                              className="data-[active=true]:bg-accent"
-                            >
-                              <IconBrain className="w-3.5 h-3.5" />
-                              {showTools ? 'Hide reasoning' : 'Show reasoning'}
-                            </MessageAction>
-                          </MessageActions>
-                        )}
-                      </>
-                    )}
-                  </MessageContent>
-                </Message>
+                                    <Source
+                                      href="https://example.com/PumpB.pdf"
+                                      title="PumpB.pdf"
+                                      icon={IconFile}
+                                      target="_blank"
+                                    />
+                                    <Source
+                                      href="https://example.com/120_oaoXR"
+                                      title="120_oaoXR"
+                                      icon={IconBriefcase}
+                                      target="_blank"
+                                    />
+                                  </Sources>
+                                )}
+                              {branch &&
+                                showTools &&
+                                !(
+                                  phase === 'streaming' &&
+                                  index === currentBranchIndex
+                                ) && (
+                                  <div className="flex flex-col gap-2 py-3">
+                                    <Reasoning>
+                                      <ReasoningHeader />
+                                      <ReasoningContent>
+                                        <ReasoningItem>
+                                          <Tool defaultOpen={false}>
+                                            <ToolHeader
+                                              title="Search database"
+                                              type="tool-call"
+                                            />
+                                            <ToolContent>
+                                              <ToolInput
+                                                input={searchDatabaseInput}
+                                              />
+                                              <ToolOutput
+                                                output={searchDatabaseOutput}
+                                                errorText={undefined}
+                                              />
+                                            </ToolContent>
+                                          </Tool>
+                                        </ReasoningItem>
+                                        <ReasoningItem>
+                                          <Tool defaultOpen={false}>
+                                            <ToolHeader
+                                              title="Fetch sensor data"
+                                              type="tool-call"
+                                            />
+                                            <ToolContent>
+                                              <ToolInput
+                                                input={fetchSensorDataInput}
+                                              />
+                                              <ToolOutput
+                                                output={fetchSensorDataOutput}
+                                                errorText={undefined}
+                                              />
+                                            </ToolContent>
+                                          </Tool>
+                                        </ReasoningItem>
+                                      </ReasoningContent>
+                                    </Reasoning>
+                                  </div>
+                                )}
+                              {branch &&
+                                !(
+                                  phase === 'streaming' &&
+                                  index === currentBranchIndex
+                                ) && (
+                                  <MessageActions className="justify-between">
+                                    <div className="flex items-center gap-2">
+                                      <MessageAction
+                                        size="icon-sm"
+                                        label="Copy"
+                                        tooltip="Copy"
+                                        onClick={handleCopy}
+                                      >
+                                        <IconCopy className="w-3 h-3" />
+                                      </MessageAction>
+                                      <MessageAction
+                                        size="icon-sm"
+                                        label="Download"
+                                        tooltip="Download"
+                                        onClick={handleDownload}
+                                      >
+                                        <IconDownload className="w-3 h-3" />
+                                      </MessageAction>
+                                      <MessageAction
+                                        size="icon-sm"
+                                        label="Retry"
+                                        tooltip="Retry"
+                                        onClick={handleRetry}
+                                        disabled={
+                                          branches.length >= 2 || isRetrying
+                                        }
+                                      >
+                                        <IconRefresh className="w-3 h-3" />
+                                      </MessageAction>
+                                      {showBranchNav && (
+                                        <MessageBranchSelector
+                                          from="assistant"
+                                          className="px-0"
+                                        >
+                                          <MessageBranchPrevious />
+                                          <MessageBranchPage />
+                                          <MessageBranchNext />
+                                        </MessageBranchSelector>
+                                      )}
+                                    </div>
+                                    <MessageAction
+                                      size="sm"
+                                      onClick={() => setShowTools(!showTools)}
+                                      data-active={showTools}
+                                      className="data-[active=true]:bg-accent"
+                                    >
+                                      <IconBrain className="w-3.5 h-3.5" />
+                                      {showTools
+                                        ? 'Hide reasoning'
+                                        : 'Show reasoning'}
+                                    </MessageAction>
+                                  </MessageActions>
+                                )}
+                            </>
+                          )}
+                        </MessageContent>
+                      </Message>
                     ))}
                   </MessageBranchContent>
                 </MessageBranch>
@@ -799,48 +828,50 @@ function BasicConversationDemo() {
 
 export default function AgentChatPage() {
   return (
-    <div className="space-y-8">
-      {/* Page Header */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <MessageSquare className="h-6 w-6 text-primary" />
+    <div className="max-w-5xl mx-auto py-10">
+      <div className="space-y-8">
+        {/* Page Header */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <MessageSquare className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Agent chat</h1>
+              <p className="text-lg text-muted-foreground">
+                A complete AI conversation demonstrating all components working
+                together
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Agent chat</h1>
-            <p className="text-lg text-muted-foreground">
-              A complete AI conversation demonstrating all components working
-              together
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <Badge variant="secondary">Conversation</Badge>
+            <Badge variant="secondary">Message</Badge>
+            <Badge variant="secondary">PromptInput</Badge>
+            <Badge variant="secondary">Shimmer</Badge>
+            <Badge variant="secondary">Tool</Badge>
+            <Badge variant="secondary">Reasoning</Badge>
+            <Badge variant="secondary">InlineCitation</Badge>
+            <Badge variant="secondary">Sources</Badge>
+            <Badge variant="secondary">Suggestion</Badge>
+          </div>
+
+          <div className="bg-muted/50 border rounded-lg p-4">
+            <p className="text-sm text-muted-foreground">
+              This pattern showcases the full AI response flow: empty state with
+              suggestions, user messages with inline citations, thinking state
+              with shimmer, streaming responses, sources, expandable tool calls
+              with reasoning, and message actions. Watch the automatic demo play
+              out or click &quot;Replay demo&quot; to restart.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 flex-wrap">
-          <Badge variant="secondary">Conversation</Badge>
-          <Badge variant="secondary">Message</Badge>
-          <Badge variant="secondary">PromptInput</Badge>
-          <Badge variant="secondary">Shimmer</Badge>
-          <Badge variant="secondary">Tool</Badge>
-          <Badge variant="secondary">Reasoning</Badge>
-          <Badge variant="secondary">InlineCitation</Badge>
-          <Badge variant="secondary">Sources</Badge>
-          <Badge variant="secondary">Suggestion</Badge>
+        {/* Demo */}
+        <div>
+          <BasicConversationDemo />
         </div>
-
-        <div className="bg-muted/50 border rounded-lg p-4">
-          <p className="text-sm text-muted-foreground">
-            This pattern showcases the full AI response flow: empty state with
-            suggestions, user messages with inline citations, thinking state
-            with shimmer, streaming responses, sources, expandable tool calls with
-            reasoning, and message actions. Watch the automatic demo play out or
-            click &quot;Replay demo&quot; to restart.
-          </p>
-        </div>
-      </div>
-
-      {/* Demo */}
-      <div className="max-w-5xl">
-        <BasicConversationDemo />
       </div>
     </div>
   );
