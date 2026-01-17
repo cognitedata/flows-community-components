@@ -724,52 +724,54 @@ export default function DashboardsBlock() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <BarChart3 className="h-6 w-6 text-primary" />
+    <div className="max-w-5xl mx-auto py-10">
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <BarChart3 className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Dashboards</h1>
+              <p className="text-lg text-muted-foreground">
+                Modern data visualization cards with animations and interactive
+                elements
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Dashboards</h1>
-            <p className="text-lg text-muted-foreground">
-              Modern data visualization cards with animations and interactive
-              elements
-            </p>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Badge variant="secondary">Animated counters</Badge>
+              <Badge variant="secondary">Progress indicators</Badge>
+              <Badge variant="secondary">Real-time data</Badge>
+              <Badge variant="secondary">Interactive charts</Badge>
+            </div>
+            <Button
+              variant="outline"
+              onClick={restartDashboard}
+              className="flex items-center gap-2"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Replay
+            </Button>
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Badge variant="secondary">Animated counters</Badge>
-            <Badge variant="secondary">Progress indicators</Badge>
-            <Badge variant="secondary">Real-time data</Badge>
-            <Badge variant="secondary">Interactive charts</Badge>
-          </div>
-          <Button
-            variant="outline"
-            onClick={restartDashboard}
-            className="flex items-center gap-2"
-          >
-            <RefreshCw className="h-4 w-4" />
-            Replay
-          </Button>
+        {/* Equipment Uptime Chart */}
+        <EquipmentUptimeChart key={`equipment-${replayKey}`} />
+
+        {/* Charts Grid */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <TemperatureSensorChart key={`temperature-${replayKey}`} />
+          <AssetHealthChart key={`health-${replayKey}`} />
         </div>
-      </div>
 
-      {/* Equipment Uptime Chart */}
-      <EquipmentUptimeChart key={`equipment-${replayKey}`} />
-
-      {/* Charts Grid */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        <TemperatureSensorChart key={`temperature-${replayKey}`} />
-        <AssetHealthChart key={`health-${replayKey}`} />
-      </div>
-
-      {/* Data Cards Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {/* Cards will be added here */}
+        {/* Data Cards Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {/* Cards will be added here */}
+        </div>
       </div>
     </div>
   );

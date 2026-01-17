@@ -115,7 +115,7 @@ const sandboxNavigation: NavigationItem[] = [
 const aiNavigation: NavigationItem[] = [
   {
     href: '#',
-    label: 'Shad CN',
+    label: 'AI Chat',
     isSubsection: true,
     children: [
       { href: '/ai/components/code-block', label: 'Code block' },

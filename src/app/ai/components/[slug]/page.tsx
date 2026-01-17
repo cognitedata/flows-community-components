@@ -132,9 +132,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   return (
     <div className="px-3 py-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex gap-8">
+        <div className="flex gap-8 justify-center">
           {/* Main content */}
-          <div className="flex-1 max-w-4xl">
+          <div className="flex-1 max-w-4xl min-w-0">
             {/* Navigation */}
             <div className="flex items-center gap-4 mb-8">
               <Button variant="secondary" size="sm" asChild>
