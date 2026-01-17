@@ -5,6 +5,21 @@ import Link from 'next/link';
 import { CodeBlock } from '@/components/ui/aura/code-block';
 import { Card, CardContent } from '@/components/ui/aura/card';
 import { Button } from '@/components/ui/aura/button';
+import { Badge } from '@/components/ui/aura/badge';
+import {
+  Topbar,
+  TopbarLeft,
+  TopbarCenter,
+  TopbarRight,
+  TopbarBreadcrumbs,
+} from '@/components/ui/aura/topbar';
+import {
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from '@/components/ui/aura/breadcrumb';
 import {
   Conversation,
   ConversationContent,
@@ -63,6 +78,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/aura/dropdown-menu';
 import {
+  IconChartBar,
+  IconTrendingUp,
+  IconTrendingDown,
+  IconAlertTriangle,
+  IconAlertCircle,
+  IconCircleCheck,
+  IconClock,
+  IconCalendar,
   IconWheel,
   IconCopy,
   IconDownload,
@@ -83,6 +106,11 @@ const thinkingPhrases = [
   'Fetching sensor data…',
   'Formulating response…',
 ];
+
+// Static heatmap data for dashboard demos
+const heatmapData = Array.from({ length: 35 }).map(() =>
+  Math.floor(Math.random() * 4)
+);
 
 const searchDatabaseInput = {
   asset_id: '21PT1019',
@@ -957,8 +985,8 @@ function InteractiveDemos({
   demoType,
   setDemoType,
 }: {
-  demoType: 'chat' | 'dashboard';
-  setDemoType: (type: 'chat' | 'dashboard') => void;
+  demoType: 'chat' | 'dashboard1' | 'dashboard2';
+  setDemoType: (type: 'chat' | 'dashboard1' | 'dashboard2') => void;
 }) {
   const [width, setWidth] = useState(1200);
   const [showGrid, setShowGrid] = useState(false);
@@ -992,26 +1020,27 @@ function InteractiveDemos({
         <div className="flex items-center gap-4">
           <label className="text-sm font-medium">Layout type:</label>
           <div className="flex gap-2">
-            <button
-              onClick={() => setDemoType('dashboard')}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                demoType === 'dashboard'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted hover:bg-muted/80'
-              }`}
+            <Button
+              onClick={() => setDemoType('dashboard1')}
+              variant={demoType === 'dashboard1' ? 'default' : 'ghost'}
+              size="sm"
             >
-              Dashboard (12 cols)
-            </button>
-            <button
+              Dashboard 1
+            </Button>
+            <Button
+              onClick={() => setDemoType('dashboard2')}
+              variant={demoType === 'dashboard2' ? 'default' : 'ghost'}
+              size="sm"
+            >
+              Dashboard 2
+            </Button>
+            <Button
               onClick={() => setDemoType('chat')}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                demoType === 'chat'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted hover:bg-muted/80'
-              }`}
+              variant={demoType === 'chat' ? 'default' : 'ghost'}
+              size="sm"
             >
-              AI Chat (8 cols centered @ 5xl+)
-            </button>
+              AI Chat
+            </Button>
           </div>
         </div>
 
@@ -1054,87 +1083,468 @@ function InteractiveDemos({
           className="@container bg-background rounded-lg overflow-hidden transition-all duration-300 mx-auto relative"
           style={{ width: `${width}px`, maxWidth: '100%' }}
         >
-          {/* Grid with stepped max-widths using semantic Tailwind utilities */}
-          <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3 relative">
-            {/* Grid overlay (Ctrl+G toggle) */}
-            {showGrid && (
-              <div className="absolute inset-x-2 inset-y-6 grid grid-cols-12 gap-3 pointer-events-none z-10">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="bg-blue-500/10 border border-blue-500/30"
-                  />
-                ))}
+          {demoType === 'dashboard1' || demoType === 'dashboard2' ? (
+            <>
+              {/* TopBar spanning full width before grid */}
+              <Topbar>
+                <TopbarLeft>
+                  <TopbarBreadcrumbs>
+                    <BreadcrumbList>
+                      <BreadcrumbItem>
+                        <BreadcrumbLink href="#">Application</BreadcrumbLink>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>My dashboard</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </BreadcrumbList>
+                  </TopbarBreadcrumbs>
+                </TopbarLeft>
+                <TopbarCenter />
+                <TopbarRight>
+                  <Button variant="ghost" size="sm">
+                    <IconCalendar className="h-4 w-4 mr-2" />
+                    12/17/2024
+                  </Button>
+                  <Button size="sm">Button</Button>
+                </TopbarRight>
+              </Topbar>
+
+              {/* Grid with stepped max-widths using semantic Tailwind utilities */}
+              <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3 relative">
+                {/* Grid overlay (Ctrl+G toggle) */}
+                {showGrid && (
+                  <div className="absolute inset-x-2 inset-y-0 grid grid-cols-12 gap-3 pointer-events-none z-10">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="bg-blue-500/10 border border-blue-500/30"
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {demoType === 'dashboard1' ? (
+                  <>
+                    {/* Dashboard 1: Unified Grid - Status Cards */}
+
+                    {/* Dashboard 1: Unified Grid - Status Cards */}
+                    <Card className="col-span-12 @3xl:col-span-4">
+                      <CardContent>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              Critical
+                            </div>
+                            <div className="text-2xl font-bold">3</div>
+                          </div>
+                          <Badge
+                            variant="error"
+                            className="flex items-center gap-1"
+                          >
+                            <IconAlertTriangle className="h-3 w-3" />
+                            P-401
+                          </Badge>
+                        </div>
+                        <div className="mt-3 text-xs text-muted-foreground flex items-center gap-1">
+                          <IconTrendingUp className="h-3 w-3 text-destructive" />
+                          <span>Detected 5 min ago</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="col-span-12 @3xl:col-span-4">
+                      <CardContent>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              Warning
+                            </div>
+                            <div className="text-2xl font-bold">8</div>
+                          </div>
+                          <Badge className="flex items-center gap-1 bg-amber-500/10 text-amber-700 dark:text-amber-400">
+                            <IconAlertCircle className="h-3 w-3" />
+                            P-401
+                          </Badge>
+                        </div>
+                        <div className="mt-3 text-xs text-muted-foreground flex items-center gap-1">
+                          <IconClock className="h-3 w-3" />
+                          <span>Last updated 2hrs ago</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="col-span-12 @3xl:col-span-4">
+                      <CardContent>
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              Ok
+                            </div>
+                            <div className="text-2xl font-bold">42</div>
+                          </div>
+                          <Badge
+                            variant="secondary"
+                            className="flex items-center gap-1"
+                          >
+                            <IconCircleCheck className="h-3 w-3" />
+                            P-401
+                          </Badge>
+                        </div>
+                        <div className="mt-3 text-xs text-muted-foreground flex items-center gap-1">
+                          <IconTrendingDown className="h-3 w-3 text-green-600" />
+                          <span>Trending down</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* KPI Row - 4 cards */}
+                    <Card className="col-span-6 @3xl:col-span-3">
+                      <CardContent>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Bar Chart
+                        </div>
+                        <div className="text-lg font-semibold mb-2">
+                          4.2{' '}
+                          <span className="text-sm text-muted-foreground">
+                            V-192
+                          </span>
+                        </div>
+                        <div className="h-20 bg-linear-to-r from-blue-500/20 to-purple-500/20 rounded flex items-end p-2 gap-1">
+                          {[40, 65, 45, 80, 55, 70, 60].map((height, i) => (
+                            <div
+                              key={i}
+                              className="flex-1 bg-primary/60 rounded"
+                              style={{ height: `${height}%` }}
+                            />
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">
+                      <CardContent>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Heatmap
+                        </div>
+                        <div className="grid grid-cols-7 gap-1">
+                          {heatmapData.map((intensity, i) => (
+                            <div
+                              key={i}
+                              className="aspect-square rounded"
+                              style={{
+                                backgroundColor: `rgba(59, 130, 246, ${0.2 + intensity * 0.2})`,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="col-span-6 @3xl:col-span-3">
+                      <CardContent>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Progress
+                        </div>
+                        <div className="text-sm font-medium mb-2">
+                          8 of 12 tasks complete
+                        </div>
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-primary rounded-full"
+                            style={{ width: '67%' }}
+                          />
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-2">
+                          On track for completion by Friday
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">
+                      <CardContent>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Activity
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2">
+                            <IconCircleCheck className="h-4 w-4 text-green-600" />
+                            <span className="text-sm">Process unit 21</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <IconAlertTriangle className="h-4 w-4 text-amber-600" />
+                            <span className="text-sm">Feed Pump A</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <IconCircleCheck className="h-4 w-4 text-green-600" />
+                            <span className="text-sm">Drain system</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {/* Charts Row */}
+                    <Card className="col-span-12 @5xl:col-span-8">
+                      <CardContent>
+                        <div className="flex items-center justify-between mb-3">
+                          <div>
+                            <div className="text-sm font-medium">
+                              Trending up by 5.2% this month
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              Total visitors for the last 6 months
+                            </div>
+                          </div>
+                          <IconChartBar className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                        <div className="h-48 bg-linear-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded flex items-end p-4 gap-2">
+                          {[60, 45, 70, 55, 80, 65, 75, 85, 70, 90, 75, 80].map(
+                            (height, i) => (
+                              <div
+                                key={i}
+                                className="flex-1 bg-linear-to-t from-primary/80 to-primary/40 rounded"
+                                style={{ height: `${height}%` }}
+                              />
+                            )
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="col-span-12 @5xl:col-span-4 hidden @5xl:block">
+                      <CardContent>
+                        <div className="text-xs text-muted-foreground mb-2">
+                          Image widget
+                        </div>
+                        <div className="h-48 bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 rounded flex items-center justify-center">
+                          <IconPhoto className="h-12 w-12 text-muted-foreground" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </>
+                ) : (
+                  <>
+                    {/* Dashboard 2: Main Area (nested grid) */}
+                    <div className="col-span-12 @5xl:col-span-8 grid grid-cols-12 gap-3">
+                      {/* Status Cards inside main */}
+                      <Card className="col-span-12 @3xl:col-span-4">
+                        <CardContent>
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="text-sm text-muted-foreground mb-1">
+                                Critical
+                              </div>
+                              <div className="text-2xl font-bold">3</div>
+                            </div>
+                            <Badge variant="error">
+                              <IconAlertTriangle className="h-3 w-3 mr-1" />
+                              P-401
+                            </Badge>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="col-span-12 @3xl:col-span-4">
+                        <CardContent>
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="text-sm text-muted-foreground mb-1">
+                                Warning
+                              </div>
+                              <div className="text-2xl font-bold">8</div>
+                            </div>
+                            <Badge className="bg-amber-500/10 text-amber-700 dark:text-amber-400">
+                              <IconAlertCircle className="h-3 w-3 mr-1" />
+                              P-401
+                            </Badge>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="col-span-12 @3xl:col-span-4">
+                        <CardContent>
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="text-sm text-muted-foreground mb-1">
+                                Ok
+                              </div>
+                              <div className="text-2xl font-bold">42</div>
+                            </div>
+                            <Badge variant="secondary">
+                              <IconCircleCheck className="h-3 w-3 mr-1" />
+                              P-401
+                            </Badge>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Large chart in main */}
+                      <Card className="col-span-12">
+                        <CardContent>
+                          <div className="text-sm font-medium mb-2">
+                            Main Chart
+                          </div>
+                          <div className="h-48 bg-linear-to-br from-blue-500/10 to-purple-500/10 rounded flex items-end p-4 gap-1">
+                            {[60, 45, 70, 55, 80, 65, 75, 85].map(
+                              (height, i) => (
+                                <div
+                                  key={i}
+                                  className="flex-1 bg-primary/60 rounded"
+                                  style={{ height: `${height}%` }}
+                                />
+                              )
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Two smaller charts */}
+                      <Card className="col-span-12 @3xl:col-span-6">
+                        <CardContent>
+                          <div className="text-sm font-medium mb-2">
+                            Metric A
+                          </div>
+                          <div className="text-2xl font-bold mb-2">4.2k</div>
+                          <div className="h-20 bg-linear-to-r from-green-500/20 to-blue-500/20 rounded" />
+                        </CardContent>
+                      </Card>
+
+                      <Card className="col-span-12 @3xl:col-span-6">
+                        <CardContent>
+                          <div className="text-sm font-medium mb-2">
+                            Metric B
+                          </div>
+                          <div className="text-2xl font-bold mb-2">8.1k</div>
+                          <div className="h-20 bg-linear-to-r from-purple-500/20 to-pink-500/20 rounded" />
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    {/* Dashboard 2: Sidebar (collapses below main on small screens) */}
+                    <div className="col-span-12 @5xl:col-span-4 space-y-3">
+                      <Card>
+                        <CardContent>
+                          <div className="text-sm font-medium mb-3">
+                            Recent Activity
+                          </div>
+                          <div className="space-y-3">
+                            <div className="flex items-start gap-2">
+                              <IconClock className="h-4 w-4 text-muted-foreground mt-0.5" />
+                              <div>
+                                <div className="text-sm">
+                                  Pump B-401 maintenance
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  2 hours ago
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <IconAlertTriangle className="h-4 w-4 text-amber-600 mt-0.5" />
+                              <div>
+                                <div className="text-sm">Vibration warning</div>
+                                <div className="text-xs text-muted-foreground">
+                                  5 hours ago
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <IconCircleCheck className="h-4 w-4 text-green-600 mt-0.5" />
+                              <div>
+                                <div className="text-sm">
+                                  System check complete
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  1 day ago
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card>
+                        <CardContent>
+                          <div className="text-sm font-medium mb-3">
+                            Quick Stats
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-muted-foreground">
+                                Uptime
+                              </span>
+                              <span className="text-sm font-medium">99.8%</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-muted-foreground">
+                                Response
+                              </span>
+                              <span className="text-sm font-medium">1.2s</span>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm text-muted-foreground">
+                                Load
+                              </span>
+                              <span className="text-sm font-medium">67%</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card>
+                        <CardContent>
+                          <div className="text-sm font-medium mb-3">Alerts</div>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm">Critical</span>
+                              <Badge variant="error" className="text-xs">
+                                3
+                              </Badge>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm">Warnings</span>
+                              <Badge className="text-xs bg-amber-500/10 text-amber-700 dark:text-amber-400">
+                                8
+                              </Badge>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </>
+                )}
               </div>
-            )}
+            </>
+          ) : (
+            <>
+              {/* AI Chat: No TopBar, just grid */}
+              <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3 relative">
+                {/* Grid overlay (Ctrl+G toggle) */}
+                {showGrid && (
+                  <div className="absolute inset-x-2 inset-y-6 grid grid-cols-12 gap-3 pointer-events-none z-10">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="bg-blue-500/10 border border-blue-500/30"
+                      />
+                    ))}
+                  </div>
+                )}
 
-            {demoType === 'dashboard' ? (
-              <>
-                {/* Dashboard: Uses all 12 columns */}
-                {/* Row 1: Three equal cards */}
-                <Card className="col-span-4">
-                  <CardContent>
-                    <div className="text-xs text-muted-foreground mb-2">
-                      Card 1
-                    </div>
-                    <div className="h-24 bg-muted rounded" />
-                  </CardContent>
-                </Card>
-                <Card className="col-span-4">
-                  <CardContent>
-                    <div className="text-xs text-muted-foreground mb-2">
-                      Card 2
-                    </div>
-                    <div className="h-24 bg-muted rounded" />
-                  </CardContent>
-                </Card>
-                <Card className="col-span-4">
-                  <CardContent>
-                    <div className="text-xs text-muted-foreground mb-2">
-                      Card 3
-                    </div>
-                    <div className="h-24 bg-muted rounded" />
-                  </CardContent>
-                </Card>
-
-                {/* Row 2: Large chart + sidebar */}
-                <Card className="col-span-8">
-                  <CardContent>
-                    <div className="text-xs text-muted-foreground mb-2">
-                      Chart
-                    </div>
-                    <div className="h-48 bg-muted rounded" />
-                  </CardContent>
-                </Card>
-                <Card className="col-span-4">
-                  <CardContent>
-                    <div className="text-xs text-muted-foreground mb-2">
-                      Stats
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-8 bg-muted rounded" />
-                      <div className="h-8 bg-muted rounded" />
-                      <div className="h-8 bg-muted rounded" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </>
-            ) : (
-              <>
                 {/* AI Chat: Responsive - full width on small screens, centered 8 cols at 5xl+ */}
                 {/* Uses col-span-12 by default, then col-start-3 col-span-8 at @5xl: (1024px) */}
                 <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8 flex flex-col h-[800px]">
                   <AIChatDemo />
                 </div>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
       {/* Legend */}
       <div className="flex flex-wrap gap-4 text-sm">
-        {demoType === 'dashboard' && (
+        {(demoType === 'dashboard1' || demoType === 'dashboard2') && (
           <>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-background border border-border rounded" />
@@ -1157,19 +1567,58 @@ function InteractiveDemos({
   );
 }
 
-function CodeExample({ demoType }: { demoType: 'chat' | 'dashboard' }) {
-  // Dashboard Layout - Uses all 12 columns
-  const dashboardCode = `<div className="@container">
+function CodeExample({
+  demoType,
+}: {
+  demoType: 'chat' | 'dashboard1' | 'dashboard2';
+}) {
+  // Dashboard 1 Layout - Unified grid pattern
+  const dashboard1Code = `<div className="@container">
   <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3">
 
-    {/* Three equal cards - 4 columns each */}
-    <div className="col-span-4 bg-card rounded-lg p-4 border">Card 1</div>
-    <div className="col-span-4 bg-card rounded-lg p-4 border">Card 2</div>
-    <div className="col-span-4 bg-card rounded-lg p-4 border">Card 3</div>
+    {/* Status cards - 3 equal cards */}
+    <Card className="col-span-12 @3xl:col-span-4">{/* Critical alerts */}</Card>
+    <Card className="col-span-12 @3xl:col-span-4">{/* Warning alerts */}</Card>
+    <Card className="col-span-12 @3xl:col-span-4">{/* OK status */}</Card>
 
-    {/* Main content (8 cols) + Sidebar (4 cols) */}
-    <div className="col-span-8 bg-card rounded-lg p-4 border">Chart</div>
-    <div className="col-span-4 bg-card rounded-lg p-4 border">Stats</div>
+    {/* KPI Row - 4 cards, some hide at smaller sizes */}
+    <Card className="col-span-6 @3xl:col-span-3">{/* Bar chart */}</Card>
+    <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">{/* Heatmap */}</Card>
+    <Card className="col-span-6 @3xl:col-span-3">{/* Progress */}</Card>
+    <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">{/* Activity */}</Card>
+
+    {/* Large chart + optional image widget */}
+    <Card className="col-span-12 @5xl:col-span-8">{/* Main chart */}</Card>
+    <Card className="col-span-12 @5xl:col-span-4 hidden @5xl:block">{/* Image */}</Card>
+
+  </div>
+</div>`;
+
+  // Dashboard 2 Layout - Main + Sidebar with nested grids
+  const dashboard2Code = `<div className="@container">
+  <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3">
+
+    {/* Main area - nested 12-col grid */}
+    <div className="col-span-12 @5xl:col-span-8 grid grid-cols-12 gap-3">
+      {/* Status cards within main area */}
+      <Card className="col-span-12 @3xl:col-span-4">{/* Critical */}</Card>
+      <Card className="col-span-12 @3xl:col-span-4">{/* Warning */}</Card>
+      <Card className="col-span-12 @3xl:col-span-4">{/* OK */}</Card>
+
+      {/* Large chart */}
+      <Card className="col-span-12">{/* Main chart */}</Card>
+
+      {/* Two smaller charts */}
+      <Card className="col-span-12 @3xl:col-span-6">{/* Metric A */}</Card>
+      <Card className="col-span-12 @3xl:col-span-6">{/* Metric B */}</Card>
+    </div>
+
+    {/* Sidebar - collapses below main on smaller screens */}
+    <div className="col-span-12 @5xl:col-span-4 space-y-3">
+      <Card>{/* Recent activity */}</Card>
+      <Card>{/* Quick stats */}</Card>
+      <Card>{/* Alerts */}</Card>
+    </div>
 
   </div>
 </div>`;
@@ -1190,20 +1639,38 @@ function CodeExample({ demoType }: { demoType: 'chat' | 'dashboard' }) {
 
   return (
     <div className="space-y-6">
-      {demoType === 'dashboard' ? (
+      {demoType === 'dashboard1' && (
         <div>
-          <h3 className="text-lg font-semibold mb-2">Dashboard Layout</h3>
+          <h3 className="text-lg font-semibold mb-2">
+            Dashboard 1: Unified Grid
+          </h3>
           <p className="text-sm text-muted-foreground mb-3">
-            Uses all 12 columns for maximum content density
+            Single 12-column grid containing all cards. Cards hide at smaller
+            breakpoints to maintain usable layouts. Simpler structure but may
+            leave gaps when items hide.
           </p>
-          <CodeBlock code={dashboardCode} language="tsx" showLineNumbers />
+          <CodeBlock code={dashboard1Code} language="tsx" showLineNumbers />
         </div>
-      ) : (
+      )}
+      {demoType === 'dashboard2' && (
+        <div>
+          <h3 className="text-lg font-semibold mb-2">
+            Dashboard 2: Main + Sidebar
+          </h3>
+          <p className="text-sm text-muted-foreground mb-3">
+            Nested grid pattern with main content area (8 cols) and sidebar (4
+            cols). Sidebar collapses below main on smaller screens. More
+            predictable responsive behaviour with no gaps.
+          </p>
+          <CodeBlock code={dashboard2Code} language="tsx" showLineNumbers />
+        </div>
+      )}
+      {demoType === 'chat' && (
         <div>
           <h3 className="text-lg font-semibold mb-2">AI Chat Layout</h3>
           <p className="text-sm text-muted-foreground mb-3">
-            Responsive layout: 12 columns on mobile/tablet, 8 centered columns
-            on desktop (1024px+)
+            Responsive layout: 12 columns on mobile/tablet, 8 centred columns on
+            desktop (1024px+)
           </p>
           <CodeBlock code={chatCode} language="tsx" showLineNumbers />
           <p className="text-sm text-muted-foreground mt-3">
@@ -1275,7 +1742,9 @@ function KeyConcepts() {
 }
 
 export default function LayoutsPage() {
-  const [demoType, setDemoType] = useState<'chat' | 'dashboard'>('dashboard');
+  const [demoType, setDemoType] = useState<
+    'chat' | 'dashboard1' | 'dashboard2'
+  >('dashboard1');
 
   return (
     <div className="space-y-12">
@@ -1284,8 +1753,7 @@ export default function LayoutsPage() {
         <h1 className="text-3xl font-bold tracking-tight">Layouts</h1>
         <p className="text-lg text-muted-foreground mt-2">
           Container query-based responsive layout system with a unified
-          12-column grid across all breakpoints (base to 2xl), aligned with
-          Figma design specs
+          12-column grid across all breakpoints (base to 2xl)
         </p>
       </div>
 
@@ -1328,10 +1796,10 @@ export default function LayoutsPage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-semibold mb-2">Interactive Demos</h2>
           <p className="text-muted-foreground">
-            Explore two layout patterns: Dashboard uses all 12 columns for
-            content density, AI Chat uses 8 centered columns at larger screens
-            (1024px+) for focused reading. Use the slider to test responsiveness
-            and press Ctrl+G to toggle grid overlay.
+            Explore three layout patterns: Dashboard 1 (unified grid), Dashboard
+            2 (main + sidebar with nested grids), and AI Chat (8 centred columns
+            at 1024px+ for focused reading). Use the slider to test
+            responsiveness and press Ctrl+G to toggle grid overlay.
           </p>
         </div>
         {/* Break out of centered container to use full main width */}
