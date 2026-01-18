@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { CodeBlock } from '@/components/ui/aura/code-block';
+import {
+  CodeBlock,
+  CodeBlockCopyButton,
+  CodeBlockCollapseButton,
+} from '@/components/ui/aura/code-block';
 import { Card, CardContent } from '@/components/ui/aura/card';
 import { Button } from '@/components/ui/aura/button';
 import { Badge } from '@/components/ui/aura/badge';
@@ -295,7 +299,7 @@ function InteractiveDemos({
               </Topbar>
 
               {/* Grid with stepped max-widths using semantic Tailwind utilities */}
-              <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3 relative">
+              <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl relative">
                 {/* Grid overlay (Ctrl+G toggle) */}
                 {showGrid && (
                   <div className="absolute inset-x-2 inset-y-0 grid grid-cols-12 gap-3 pointer-events-none z-10">
@@ -702,7 +706,7 @@ function InteractiveDemos({
           ) : (
             <>
               {/* AI Chat: No TopBar, just grid */}
-              <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3 relative">
+              <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl relative">
                 {/* Grid overlay (Ctrl+G toggle) */}
                 {showGrid && (
                   <div className="absolute inset-x-2 inset-y-6 grid grid-cols-12 gap-3 pointer-events-none z-10">
@@ -762,7 +766,7 @@ function CodeExample({
 }) {
   // Dashboard 1 Layout - Unified grid pattern
   const dashboard1Code = `<div className="@container">
-  <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3">
+  <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl">
 
     {/* Status cards - 3 equal cards */}
     <Card className="col-span-12 @3xl:col-span-4">{/* Critical alerts */}</Card>
@@ -784,7 +788,7 @@ function CodeExample({
 
   // Dashboard 2 Layout - Main + Sidebar with nested grids
   const dashboard2Code = `<div className="@container">
-  <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3">
+  <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl">
 
     {/* Main area - nested 12-col grid */}
     <div className="col-span-12 @5xl:col-span-8 grid grid-cols-12 gap-3">
@@ -813,7 +817,7 @@ function CodeExample({
 
   // AI Chat Layout - Responsive 8/12 columns
   const chatCode = `<div className="@container">
-  <div className="mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl grid grid-cols-12 gap-3">
+  <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl">
 
     {/* Responsive: Full width (12 cols) below 1024px, centered 8 cols at 1024px+ */}
     <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8">
@@ -837,7 +841,10 @@ function CodeExample({
             breakpoints to maintain usable layouts. Simpler structure but may
             leave gaps when items hide.
           </p>
-          <CodeBlock code={dashboard1Code} language="tsx" showLineNumbers />
+          <CodeBlock code={dashboard1Code} language="tsx" showLineNumbers>
+            <CodeBlockCopyButton />
+            <CodeBlockCollapseButton />
+          </CodeBlock>
         </div>
       )}
       {demoType === 'dashboard2' && (
@@ -850,7 +857,10 @@ function CodeExample({
             cols). Sidebar collapses below main on smaller screens. More
             predictable responsive behaviour with no gaps.
           </p>
-          <CodeBlock code={dashboard2Code} language="tsx" showLineNumbers />
+          <CodeBlock code={dashboard2Code} language="tsx" showLineNumbers>
+            <CodeBlockCopyButton />
+            <CodeBlockCollapseButton />
+          </CodeBlock>
         </div>
       )}
       {demoType === 'chat' && (
@@ -860,7 +870,10 @@ function CodeExample({
             Responsive layout: 12 columns on mobile/tablet, 8 centred columns on
             desktop (1024px+)
           </p>
-          <CodeBlock code={chatCode} language="tsx" showLineNumbers />
+          <CodeBlock code={chatCode} language="tsx" showLineNumbers>
+            <CodeBlockCopyButton />
+            <CodeBlockCollapseButton />
+          </CodeBlock>
           <p className="text-sm text-muted-foreground mt-3">
             For complete implementation details and examples, see the{' '}
             <Link
@@ -879,7 +892,7 @@ function CodeExample({
 
 function KeyConcepts() {
   return (
-    <div className="grid gap-4 @sm:grid-cols-2">
+    <div className="grid gap-4 @2xl:grid-cols-2">
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Container Query Context</h4>
         <p className="text-sm text-muted-foreground mb-2">
@@ -910,19 +923,19 @@ function KeyConcepts() {
           quarter (3). All breakpoints use 12 columns.
         </p>
         <code className="text-xs bg-muted px-2 py-1 rounded block">
-          col-span-12 @sm:col-span-6 @md:col-span-4 @lg:col-span-3
+          col-span-12 @2xl:col-span-6 @3xl:col-span-4 @5xl:col-span-3
         </code>
       </div>
 
       <div className="p-4 border border-border rounded-lg">
-        <h4 className="font-medium mb-2">Centered Max-Width</h4>
+        <h4 className="font-medium mb-2">Centred Max-Width</h4>
         <p className="text-sm text-muted-foreground mb-2">
           Centre content with stepped max-widths for all breakpoints (base to
-          2xl).
+          8xl).
         </p>
         <code className="text-xs bg-muted px-2 py-1 rounded block">
-          mx-auto max-w-md @sm:max-w-2xl @md:max-w-4xl @lg:max-w-6xl
-          @xl:max-w-7xl
+          mx-auto max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl
+          @7xl:max-w-7xl @8xl:max-w-8xl
         </code>
       </div>
     </div>
