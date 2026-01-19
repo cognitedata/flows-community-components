@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const DropdownMenuMetadata: ComponentMeta = {
   name: 'DropdownMenu',
+  status: 'draft',
   description:
     'A dropdown menu with submenus, separators, and selection states, built on Radix Dropdown Menu primitives.',
   llmUsage:

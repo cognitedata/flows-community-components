@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const ButtonMetadata: ComponentMeta = {
   name: 'Button',
+  status: 'draft',
 
   description:
     'A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.',

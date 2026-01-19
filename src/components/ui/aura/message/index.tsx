@@ -15,7 +15,14 @@ export {
   MessageAction,
   MessageBranch,
   MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
   MessageResponse,
+  MessageAttachment,
+  MessageAttachments,
+  MessageToolbar,
 } from './message';
 export type {
   MessageProps,
@@ -26,5 +33,13 @@ export type {
   MessageActionProps,
   MessageBranchProps,
   MessageBranchContentProps,
+  MessageBranchSelectorProps,
+  MessageBranchPreviousProps,
+  MessageBranchNextProps,
+  MessageBranchPageProps,
+  MessageResponseProps,
+  MessageAttachmentProps,
+  MessageAttachmentsProps,
+  MessageToolbarProps,
 } from './message';
 export { MessageMetadata } from './message.metadata';

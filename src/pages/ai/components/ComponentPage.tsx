@@ -5,8 +5,8 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
 import { AIExamplesRenderer } from '@/components/ai-examples-renderer';
 import { AICodeExamplesRenderer } from '@/components/ai-code-examples-renderer';
-import { getAIComponentStatus } from '@/lib/ai-component-status';
-import { getAIComponentMeta } from '@/lib/ai-component-registry';
+import { getStatusMessage, getComponentStatusClasses, getStatusLabel, type ComponentStatusType } from '@/lib/component-status';
+import { getAIComponentMeta, type AIComponentMeta } from '@/lib/ai-component-registry';
 import { InstallationCommand } from '@/components/installation-command';
 import { useEffect, useState } from 'react';
 
@@ -54,10 +54,14 @@ function toTitleCase(str: string): string {
 export default function AIComponentPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [meta, setMeta] = useState<{ name: string; description: string } | null>(null);
+  const [meta, setMeta] = useState<AIComponentMeta | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Reset state when slug changes to avoid stale data
+    setMeta(null);
+    setLoading(true);
+
     async function loadMeta() {
       if (!slug) return;
       try {
@@ -99,7 +103,10 @@ export default function AIComponentPage() {
   }
 
   const componentName = meta?.name || toTitleCase(slug);
-  const componentStatus = getAIComponentStatus(slug);
+  const componentStatus: ComponentStatusType = meta?.status || 'draft';
+  const statusClasses = getComponentStatusClasses(componentStatus);
+  const statusLabel = getStatusLabel(componentStatus);
+  const statusMessage = getStatusMessage(componentStatus);
   const description =
     meta?.description ||
     'AI element component for building conversational interfaces';
@@ -127,32 +134,20 @@ export default function AIComponentPage() {
                     <Badge variant="default" outline>
                       AI Element
                     </Badge>
-                    {componentStatus === 'production' && (
-                      <Badge
-                        variant="default"
-                        className="bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
-                      >
-                        Production Ready
-                      </Badge>
-                    )}
-                    {componentStatus === 'draft' && (
-                      <Badge
-                        variant="secondary"
-                        className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800"
-                      >
-                        Draft
-                      </Badge>
-                    )}
+                    <Badge
+                      variant="secondary"
+                      className={statusClasses}
+                    >
+                      {statusLabel}
+                    </Badge>
                   </div>
                   <p className="text-xl text-muted-foreground mt-2">
                     {description}
                   </p>
-                  {componentStatus === 'draft' && (
-                    <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
-                      <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                        <strong>Note:</strong> This component is currently in
-                        draft status. It may not be production-ready and could
-                        undergo changes.
+                  {componentStatus !== 'production' && componentStatus !== 'done' && (
+                    <div className={`mt-3 p-3 rounded-lg border ${statusClasses}`}>
+                      <p className="text-sm">
+                        <strong>Note:</strong> {statusMessage}
                       </p>
                     </div>
                   )}

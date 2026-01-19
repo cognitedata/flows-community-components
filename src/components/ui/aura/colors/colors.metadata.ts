@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const ColorsMetadata: ComponentMeta = {
   name: 'Colors',
+  status: 'draft',
   description:
     'Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.',
   llmUsage:

@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const SwapSlotMetadata: ComponentMeta = {
   name: 'SwapSlot',
+  status: 'draft',
   description:
     'A container component that swaps between default and active slots, useful for showing different content based on state.',
   llmUsage:

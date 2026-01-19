@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const CollapsibleMetadata: ComponentMeta = {
   name: 'Collapsible',
+  status: 'draft',
   description:
     'An interactive component that expands/collapses content, built on Radix Collapsible primitives.',
   llmUsage:

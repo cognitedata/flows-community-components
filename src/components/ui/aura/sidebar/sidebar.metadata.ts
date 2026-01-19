@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const SidebarMetadata: ComponentMeta = {
   name: 'Sidebar',
+  status: 'draft',
   description:
     'A collapsible sidebar navigation component with support for mobile sheets, keyboard shortcuts, and nested menu structures.',
   llmUsage:

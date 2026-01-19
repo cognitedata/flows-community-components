@@ -30,6 +30,10 @@ export function AICodeExamplesRenderer({ slug }: AICodeExamplesRendererProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Reset state when slug changes to avoid stale data
+    setCodeExamples(null);
+    setLoading(true);
+
     async function loadExamples() {
       // Find the examples module for this slug
       // Path format varies: could be /src/..., @/..., or ../...

@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const ShimmerMetadata: ComponentMeta = {
   name: 'Shimmer',
+  status: 'draft',
   description:
     'An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.',
   llmUsage:

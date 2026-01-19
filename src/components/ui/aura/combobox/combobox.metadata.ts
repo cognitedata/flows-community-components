@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const ComboboxMetadata: ComponentMeta = {
   name: 'Combobox',
+  status: 'draft',
   description:
     'A searchable dropdown component combining input with a command menu, built with Radix Popover and cmdk.',
   llmUsage:

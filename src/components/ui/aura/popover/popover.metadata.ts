@@ -8,6 +8,7 @@ import type { ComponentMeta } from '@/lib/component-examples';
  */
 export const PopoverMetadata: ComponentMeta = {
   name: 'Popover',
+  status: 'draft',
   description:
     'A floating panel that displays content relative to a trigger, built on Radix Popover primitives.',
   llmUsage:

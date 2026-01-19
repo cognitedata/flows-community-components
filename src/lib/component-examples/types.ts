@@ -1,6 +1,7 @@
 // Type definitions for component examples system
 
 import type { CodeExample } from "../component-metadata.types";
+import type { ComponentStatusType } from "../component-status-config";
 
 export interface ComponentExample {
   title: string;
@@ -27,6 +28,8 @@ export interface PropDefinition {
 export interface ComponentMeta {
   name: string;
   description: string;
+  /** Component status - defaults to 'draft' if not specified */
+  status?: ComponentStatusType;
   llmUsage?: string;
   importPath: string;
   apiReference?: {

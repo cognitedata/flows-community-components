@@ -1,14 +1,16 @@
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Badge } from '@/components/ui/aura/badge';
 import { Button } from '@/components/ui/aura/button';
 import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
 import { ComponentExamplesRenderer } from '@/components/component-examples-renderer';
 import { CodeExamplesRenderer } from '@/components/code-examples-renderer';
-import { getComponentStatus } from '@/lib/component-status';
+import { getStatusMessage, getComponentStatusClasses, type ComponentStatusType } from '@/lib/component-status';
+import { getStatusLabel } from '@/lib/component-status';
 import { InstallationCommand } from '@/components/installation-command';
 import { getComponentMeta } from '@/lib/component-registry';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
+import type { ComponentMeta } from '@/lib/component-examples';
 
 function toTitleCase(str: string): string {
   return str
@@ -20,7 +22,7 @@ function toTitleCase(str: string): string {
 export default function ComponentPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [meta, setMeta] = useState<{ name: string; description: string } | null>(null);
+  const [meta, setMeta] = useState<ComponentMeta | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,7 +57,10 @@ export default function ComponentPage() {
   }
 
   const componentName = meta?.name || toTitleCase(slug);
-  const componentStatus = getComponentStatus(slug);
+  const componentStatus: ComponentStatusType = meta?.status || 'draft';
+  const statusClasses = getComponentStatusClasses(componentStatus);
+  const statusLabel = getStatusLabel(componentStatus);
+  const statusMessage = getStatusMessage(componentStatus);
   const description = meta?.description || 'Component documentation';
 
   return (
@@ -79,32 +84,20 @@ export default function ComponentPage() {
                   <div className="flex items-center gap-3 mb-2">
                     <h1 className="text-3xl font-bold">{componentName}</h1>
                     <Badge variant="secondary">Component</Badge>
-                    {componentStatus === 'production' && (
-                      <Badge
-                        variant="default"
-                        className="bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800"
-                      >
-                        Production Ready
-                      </Badge>
-                    )}
-                    {componentStatus === 'draft' && (
-                      <Badge
-                        variant="secondary"
-                        className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800"
-                      >
-                        Draft
-                      </Badge>
-                    )}
+                    <Badge
+                      variant="secondary"
+                      className={statusClasses}
+                    >
+                      {statusLabel}
+                    </Badge>
                   </div>
                   <p className="text-xl text-muted-foreground mt-2">
                     {description}
                   </p>
-                  {componentStatus === 'draft' && (
-                    <div className="mt-3 p-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950/20">
-                      <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                        <strong>Note:</strong> This component is currently in
-                        draft status. It may not be production-ready and could
-                        undergo changes.
+                  {componentStatus !== 'production' && componentStatus !== 'done' && (
+                    <div className={`mt-3 p-3 rounded-lg border ${statusClasses}`}>
+                      <p className="text-sm">
+                        <strong>Note:</strong> {statusMessage}
                       </p>
                     </div>
                   )}

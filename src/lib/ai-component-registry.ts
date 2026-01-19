@@ -1,3 +1,5 @@
+import type { ComponentStatusType } from './component-status-config';
+
 /**
  * AI Component metadata interface
  * Matches the structure of component-examples/types.ts ComponentMeta
@@ -5,6 +7,8 @@
 export interface AIComponentMeta {
   name: string;
   description: string;
+  /** Component status - defaults to 'draft' if not specified */
+  status?: ComponentStatusType;
   llmUsage?: string;
   importPath: string;
   apiReference?: {

@@ -36,6 +36,10 @@ export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Reset state when slug changes to avoid stale data
+    setStories(null);
+    setError(null);
+
     async function loadStories() {
       // Find the stories module for this slug
       // Path format varies: could be /src/..., @/..., or ../...
