@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o dist/storybook"
+    "build-storybook": "storybook build -o dist/storybook",
+    "registry:build": "npx tsx scripts/build-registry.ts && npx shadcn@latest build",
+    "registry:clean": "rm -f public/r/*.json"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -40,6 +42,7 @@
     "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@storybook/test": "^8.6.15",
     "@tabler/icons-react": "^3.36.1",
+    "@tailwindcss/vite": "^4.1.18",
     "@xyflow/react": "^12.10.0",
     "ai": "^6.0.40",
     "class-variance-authority": "^0.7.1",
@@ -48,6 +51,7 @@
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.26.2",
+    "lucide-react": "^0.562.0",
     "motion": "^12.26.2",
     "nanoid": "^5.1.6",
     "next-themes": "^0.4.6",
