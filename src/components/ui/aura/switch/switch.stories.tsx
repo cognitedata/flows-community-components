@@ -1,67 +1,67 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import { useState } from 'react';
-import { Switch } from './switch';
-import { Label } from '@/components/ui/aura/label';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { useState } from "react";
+import { Switch } from "./switch";
+import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Switch> = {
-  title: 'Primitives/Switch',
+  title: "Primitives/Switch",
   component: Switch,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     checked: {
-      control: 'boolean',
-      description: 'Controlled checked state',
+      control: "boolean",
+      description: "Controlled checked state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultChecked: {
-      control: 'boolean',
-      description: 'Default checked state (uncontrolled)',
+      control: "boolean",
+      description: "Default checked state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     disabled: {
-      control: 'boolean',
-      description: 'Disable the switch',
+      control: "boolean",
+      description: "Disable the switch",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     required: {
-      control: 'boolean',
-      description: 'Mark as required for form validation',
+      control: "boolean",
+      description: "Mark as required for form validation",
       table: {
-        category: 'Validation',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Validation",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     onCheckedChange: {
-      action: 'checkedChange',
-      description: 'Callback when checked state changes',
+      action: "checkedChange",
+      description: "Callback when checked state changes",
       table: {
-        category: 'Events',
-        type: { summary: '(checked: boolean) => void' },
+        category: "Events",
+        type: { summary: "(checked: boolean) => void" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -81,24 +81,24 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default switch in off state.',
+        story: "Default switch in off state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const switchEl = canvas.getByRole('switch');
+    const switchEl = canvas.getByRole("switch");
 
     await expect(switchEl).toBeInTheDocument();
-    await expect(switchEl).toHaveAttribute('data-state', 'unchecked');
+    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
 
     // Toggle on
     await userEvent.click(switchEl);
-    await expect(switchEl).toHaveAttribute('data-state', 'checked');
+    await expect(switchEl).toHaveAttribute("data-state", "checked");
 
     // Toggle off
     await userEvent.click(switchEl);
-    await expect(switchEl).toHaveAttribute('data-state', 'unchecked');
+    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
   },
 };
 
@@ -115,14 +115,14 @@ export const DefaultChecked: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Switch that starts in the on state.',
+        story: "Switch that starts in the on state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const switchEl = canvas.getByRole('switch');
-    await expect(switchEl).toHaveAttribute('data-state', 'checked');
+    const switchEl = canvas.getByRole("switch");
+    await expect(switchEl).toHaveAttribute("data-state", "checked");
   },
 };
 
@@ -149,13 +149,13 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Disabled switches in both on and off states.',
+        story: "Disabled switches in both on and off states.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const switches = canvas.getAllByRole('switch');
+    const switches = canvas.getAllByRole("switch");
     for (const switchEl of switches) {
       await expect(switchEl).toBeDisabled();
     }
@@ -172,11 +172,7 @@ export const Controlled: Story = {
     return (
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
-          <Switch
-            id="controlled-switch"
-            checked={enabled}
-            onCheckedChange={setEnabled}
-          />
+          <Switch id="controlled-switch" checked={enabled} onCheckedChange={setEnabled} />
           <Label htmlFor="controlled-switch">Airplane Mode</Label>
         </div>
         <div className="flex gap-2">
@@ -193,16 +189,14 @@ export const Controlled: Story = {
             Disable
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Status: {enabled ? 'Enabled' : 'Disabled'}
-        </p>
+        <p className="text-sm text-muted-foreground">Status: {enabled ? "Enabled" : "Disabled"}</p>
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Switch with externally controlled state.',
+        story: "Switch with externally controlled state.",
       },
     },
   },
@@ -210,19 +204,19 @@ export const Controlled: Story = {
     const canvas = within(canvasElement);
 
     // Click Enable button
-    const enableButton = canvas.getByText('Enable');
+    const enableButton = canvas.getByText("Enable");
     await userEvent.click(enableButton);
 
     // Verify switch is enabled
-    const switchEl = canvas.getByRole('switch');
-    await expect(switchEl).toHaveAttribute('data-state', 'checked');
+    const switchEl = canvas.getByRole("switch");
+    await expect(switchEl).toHaveAttribute("data-state", "checked");
 
     // Click Disable button
-    const disableButton = canvas.getByText('Disable');
+    const disableButton = canvas.getByText("Disable");
     await userEvent.click(disableButton);
 
     // Verify switch is disabled
-    await expect(switchEl).toHaveAttribute('data-state', 'unchecked');
+    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
   },
 };
 
@@ -247,53 +241,41 @@ export const SettingsForm: Story = {
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="notifications">Push Notifications</Label>
-            <p className="text-xs text-muted-foreground">
-              Receive notifications on your device.
-            </p>
+            <p className="text-xs text-muted-foreground">Receive notifications on your device.</p>
           </div>
           <Switch
             id="notifications"
             checked={settings.notifications}
-            onCheckedChange={updateSetting('notifications')}
+            onCheckedChange={updateSetting("notifications")}
           />
         </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="emails">Email Notifications</Label>
-            <p className="text-xs text-muted-foreground">
-              Receive updates via email.
-            </p>
+            <p className="text-xs text-muted-foreground">Receive updates via email.</p>
           </div>
-          <Switch
-            id="emails"
-            checked={settings.emails}
-            onCheckedChange={updateSetting('emails')}
-          />
+          <Switch id="emails" checked={settings.emails} onCheckedChange={updateSetting("emails")} />
         </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="marketing">Marketing Emails</Label>
-            <p className="text-xs text-muted-foreground">
-              Receive promotional content.
-            </p>
+            <p className="text-xs text-muted-foreground">Receive promotional content.</p>
           </div>
           <Switch
             id="marketing"
             checked={settings.marketing}
-            onCheckedChange={updateSetting('marketing')}
+            onCheckedChange={updateSetting("marketing")}
           />
         </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="analytics">Usage Analytics</Label>
-            <p className="text-xs text-muted-foreground">
-              Help improve our product.
-            </p>
+            <p className="text-xs text-muted-foreground">Help improve our product.</p>
           </div>
           <Switch
             id="analytics"
             checked={settings.analytics}
-            onCheckedChange={updateSetting('analytics')}
+            onCheckedChange={updateSetting("analytics")}
           />
         </div>
       </div>
@@ -302,7 +284,7 @@ export const SettingsForm: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple switches in a settings form layout.',
+        story: "Multiple switches in a settings form layout.",
       },
     },
   },
@@ -322,7 +304,7 @@ export const WithoutVisibleLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Switches without visible labels (using aria-label for accessibility).',
+        story: "Switches without visible labels (using aria-label for accessibility).",
       },
     },
   },
@@ -359,7 +341,7 @@ export const AllStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All switch states for comparison.',
+        story: "All switch states for comparison.",
       },
     },
   },
@@ -385,11 +367,15 @@ export const VisualRegression: Story = {
           </div>
           <div className="flex items-center space-x-2">
             <Switch id="vr-disabled" disabled />
-            <Label htmlFor="vr-disabled" className="opacity-50">Disabled</Label>
+            <Label htmlFor="vr-disabled" className="opacity-50">
+              Disabled
+            </Label>
           </div>
           <div className="flex items-center space-x-2">
             <Switch id="vr-disabled-on" disabled defaultChecked />
-            <Label htmlFor="vr-disabled-on" className="opacity-50">Disabled On</Label>
+            <Label htmlFor="vr-disabled-on" className="opacity-50">
+              Disabled On
+            </Label>
           </div>
         </div>
       </div>
@@ -408,7 +394,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -435,7 +421,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with switch props.',
+        story: "Interactive playground - use controls to experiment with switch props.",
       },
     },
   },

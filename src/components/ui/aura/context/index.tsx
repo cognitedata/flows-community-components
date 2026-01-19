@@ -15,7 +15,7 @@ export {
   ContextContentFooter,
   ContextInputUsage,
   ContextOutputUsage,
-} from './context';
+} from "./context";
 export type {
   ContextProps,
   ContextTriggerProps,
@@ -25,5 +25,5 @@ export type {
   ContextContentFooterProps,
   ContextInputUsageProps,
   ContextOutputUsageProps,
-} from './context';
-export { ContextMetadata } from './context.metadata';
+} from "./context";
+export { ContextMetadata } from "./context.metadata";

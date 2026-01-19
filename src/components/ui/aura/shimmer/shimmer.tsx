@@ -1,7 +1,6 @@
-
-import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-import { type CSSProperties, type ElementType, memo, useMemo } from 'react';
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { type CSSProperties, type ElementType, memo, useMemo } from "react";
 
 export type TextShimmerProps = {
   children: string;
@@ -9,15 +8,7 @@ export type TextShimmerProps = {
   className?: string;
   duration?: number;
   spread?: number;
-  variant?:
-    | 'default'
-    | 'nordic'
-    | 'aurora'
-    | 'dusk'
-    | 'equinox'
-    | 'summer'
-    | 'spring'
-    | 'fall';
+  variant?: "default" | "nordic" | "aurora" | "dusk" | "equinox" | "summer" | "spring" | "fall";
 };
 
 // Pre-create commonly used motion components outside of render
@@ -40,38 +31,35 @@ const motionComponentMap = {
 
 const ShimmerComponent = ({
   children,
-  as: Component = 'p',
+  as: Component = "p",
   className,
   duration = 2,
   spread = 2,
-  variant = 'default',
+  variant = "default",
 }: TextShimmerProps) => {
   // Use pre-created motion component or fallback to motion.p
   const MotionComponent =
     motionComponentMap[Component as keyof typeof motionComponentMap] || MotionP;
 
-  const dynamicSpread = useMemo(
-    () => (children?.length ?? 0) * spread,
-    [children, spread]
-  );
+  const dynamicSpread = useMemo(() => (children?.length ?? 0) * spread, [children, spread]);
 
   const backgroundImage = useMemo(() => {
     const shimmerBg =
-      'linear-gradient(90deg, transparent calc(50% - var(--spread)), rgba(255, 255, 255, 0.4), transparent calc(50% + var(--spread)))';
+      "linear-gradient(90deg, transparent calc(50% - var(--spread)), rgba(255, 255, 255, 0.4), transparent calc(50% + var(--spread)))";
 
-    if (variant === 'default') {
+    if (variant === "default") {
       return `${shimmerBg}, linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))`;
     }
 
     // Map variants to gradient tokens
     const gradientMap = {
-      nordic: 'var(--gradient-nordic)',
-      aurora: 'var(--gradient-aurora)',
-      dusk: 'var(--gradient-dusk)',
-      equinox: 'var(--gradient-equinox)',
-      summer: 'var(--gradient-summer)',
-      spring: 'var(--gradient-spring)',
-      fall: 'var(--gradient-fall)',
+      nordic: "var(--gradient-nordic)",
+      aurora: "var(--gradient-aurora)",
+      dusk: "var(--gradient-dusk)",
+      equinox: "var(--gradient-equinox)",
+      summer: "var(--gradient-summer)",
+      spring: "var(--gradient-spring)",
+      fall: "var(--gradient-fall)",
     };
 
     const gradient = gradientMap[variant as keyof typeof gradientMap];
@@ -83,23 +71,20 @@ const ShimmerComponent = ({
   return (
     <MotionComponent
       animate={{
-        backgroundPosition: ['100% center, center', '0% center, center'],
+        backgroundPosition: ["100% center, center", "0% center, center"],
       }}
-      className={cn(
-        'relative inline-block bg-clip-text text-transparent rounded-md',
-        className
-      )}
+      className={cn("relative inline-block bg-clip-text text-transparent rounded-md", className)}
       style={
         {
-          '--spread': `${dynamicSpread}px`,
+          "--spread": `${dynamicSpread}px`,
           backgroundImage,
-          backgroundSize: '250% 100%, 100% 100%',
+          backgroundSize: "250% 100%, 100% 100%",
         } as CSSProperties
       }
       transition={{
         repeat: Infinity,
         duration,
-        ease: 'linear',
+        ease: "linear",
       }}
     >
       {children}

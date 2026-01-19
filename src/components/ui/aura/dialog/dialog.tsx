@@ -1,50 +1,34 @@
+import type { ComponentProps } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { IconX } from "@tabler/icons-react";
 
-import type { ComponentProps } from 'react';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { IconX } from '@tabler/icons-react';
+import { cn } from "@/lib/utils";
+import { getPortalContainer } from "@/lib/utils";
 
-import { cn } from '@/lib/utils';
-import { getPortalContainer } from '@/lib/utils';
-
-function Dialog({
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Root>) {
+function Dialog({ ...props }: ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
-function DialogTrigger({
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Trigger>) {
+function DialogTrigger({ ...props }: ComponentProps<typeof DialogPrimitive.Trigger>) {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
 }
 
-function DialogPortal({
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Portal>) {
+function DialogPortal({ ...props }: ComponentProps<typeof DialogPrimitive.Portal>) {
   return (
-    <DialogPrimitive.Portal
-      data-slot="dialog-portal"
-      {...props}
-      container={getPortalContainer()}
-    />
+    <DialogPrimitive.Portal data-slot="dialog-portal" {...props} container={getPortalContainer()} />
   );
 }
 
-function DialogClose({
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Close>) {
+function DialogClose({ ...props }: ComponentProps<typeof DialogPrimitive.Close>) {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
 }
 
-function DialogOverlay({
-  className,
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Overlay>) {
+function DialogOverlay({ className, ...props }: ComponentProps<typeof DialogPrimitive.Overlay>) {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50',
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
         className
       )}
       {...props}
@@ -66,7 +50,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-1 px-5 py-5 mb-2.5 shadow-xl duration-200 sm:max-w-lg',
+          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-1 px-5 py-5 mb-2.5 shadow-xl duration-200 sm:max-w-lg",
           className
         )}
         {...props}
@@ -86,41 +70,32 @@ function DialogContent({
   );
 }
 
-function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
+function DialogHeader({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn(
-        'flex flex-col gap-2 text-center sm:text-left pb-2',
-        className
-      )}
+      className={cn("flex flex-col gap-2 text-center sm:text-left pb-2", className)}
       {...props}
     />
   );
 }
 
-function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
+function DialogFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn(
-        'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-3',
-        className
-      )}
+      className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end pt-3", className)}
       {...props}
     />
   );
 }
 
-function DialogTitle({
-  className,
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Title>) {
+function DialogTitle({ className, ...props }: ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
       className={cn(
-        'text-lg font-semibold text-foreground font-medium leading-6 tracking-tightest',
+        "text-lg font-semibold text-foreground font-medium leading-6 tracking-tightest",
         className
       )}
       {...props}
@@ -136,7 +111,7 @@ function DialogDescription({
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cn(
-        'text-muted-foreground text-base font-normal leading-5 tracking-tightest pt-2',
+        "text-muted-foreground text-base font-normal leading-5 tracking-tightest pt-2",
         className
       )}
       {...props}

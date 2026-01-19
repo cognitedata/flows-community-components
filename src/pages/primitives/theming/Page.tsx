@@ -1,37 +1,31 @@
-
-import { useState, useEffect, startTransition } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, startTransition } from "react";
+import { motion } from "framer-motion";
 import {
   IconEye as Eye,
   IconMoon as Moon,
   IconPalette as Palette,
   IconRotateClockwise as RotateCcw,
   IconSun as Sun,
-} from '@tabler/icons-react';
-import { Button } from '@/components/ui/aura/button';
+} from "@tabler/icons-react";
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/aura/card';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/aura/tabs';
-import { Input } from '@/components/ui/aura/input';
-import { Label } from '@/components/ui/aura/label';
-import { Badge } from '@/components/ui/aura/badge';
-import { CodeCopyButton } from '@/components/code-copy-button';
+} from "@/components/ui/aura/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
+import { Badge } from "@/components/ui/aura/badge";
+import { CodeCopyButton } from "@/components/code-copy-button";
 
 // Utility functions for color conversion
 function hslToHex(hsl: string): string {
-  const [h, s, l] = hsl.split(' ').map((val, idx) => {
+  const [h, s, l] = hsl.split(" ").map((val, idx) => {
     if (idx === 0) return parseFloat(val); // hue
-    return parseFloat(val.replace('%', '')) / 100; // saturation and lightness
+    return parseFloat(val.replace("%", "")) / 100; // saturation and lightness
   });
 
   const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -72,9 +66,9 @@ function hslToHex(hsl: string): string {
   g = Math.round((g + m) * 255);
   b = Math.round((b + m) * 255);
 
-  return `#${r.toString(16).padStart(2, '0')}${g
+  return `#${r.toString(16).padStart(2, "0")}${g
     .toString(16)
-    .padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 }
 
 function hexToHsl(hex: string): string {
@@ -368,122 +362,122 @@ export function Example() {
 
 // Default theme values - comprehensive like tweakcn.com
 const defaultLightTheme = {
-  primary: '222.2 84% 4.9%',
-  primaryForeground: '210 40% 98%',
-  secondary: '210 40% 96%',
-  secondaryForeground: '222.2 84% 4.9%',
-  accent: '210 40% 96%',
-  accentForeground: '222.2 84% 4.9%',
-  background: '0 0% 100%',
-  foreground: '222.2 84% 4.9%',
-  card: '0 0% 100%',
-  cardForeground: '222.2 84% 4.9%',
-  popover: '0 0% 100%',
-  popoverForeground: '222.2 84% 4.9%',
-  muted: '210 40% 96%',
-  mutedForeground: '215.4 16.3% 46.9%',
-  destructive: '0 84.2% 60.2%',
-  destructiveForeground: '210 40% 98%',
-  border: '214.3 31.8% 91.4%',
-  input: '214.3 31.8% 91.4%',
-  ring: '222.2 84% 4.9%',
+  primary: "222.2 84% 4.9%",
+  primaryForeground: "210 40% 98%",
+  secondary: "210 40% 96%",
+  secondaryForeground: "222.2 84% 4.9%",
+  accent: "210 40% 96%",
+  accentForeground: "222.2 84% 4.9%",
+  background: "0 0% 100%",
+  foreground: "222.2 84% 4.9%",
+  card: "0 0% 100%",
+  cardForeground: "222.2 84% 4.9%",
+  popover: "0 0% 100%",
+  popoverForeground: "222.2 84% 4.9%",
+  muted: "210 40% 96%",
+  mutedForeground: "215.4 16.3% 46.9%",
+  destructive: "0 84.2% 60.2%",
+  destructiveForeground: "210 40% 98%",
+  border: "214.3 31.8% 91.4%",
+  input: "214.3 31.8% 91.4%",
+  ring: "222.2 84% 4.9%",
 };
 
 const defaultDarkTheme = {
-  primary: '210 40% 98%',
-  primaryForeground: '222.2 84% 4.9%',
-  secondary: '222.2 84% 11%',
-  secondaryForeground: '210 40% 98%',
-  accent: '222.2 84% 11%',
-  accentForeground: '210 40% 98%',
-  background: '222.2 84% 4.9%',
-  foreground: '210 40% 98%',
-  card: '222.2 84% 4.9%',
-  cardForeground: '210 40% 98%',
-  popover: '222.2 84% 4.9%',
-  popoverForeground: '210 40% 98%',
-  muted: '222.2 84% 11%',
-  mutedForeground: '215 20.2% 65.1%',
-  destructive: '0 62.8% 30.6%',
-  destructiveForeground: '210 40% 98%',
-  border: '217.2 32.6% 17.5%',
-  input: '217.2 32.6% 17.5%',
-  ring: '212.7 26.8% 83.9%',
+  primary: "210 40% 98%",
+  primaryForeground: "222.2 84% 4.9%",
+  secondary: "222.2 84% 11%",
+  secondaryForeground: "210 40% 98%",
+  accent: "222.2 84% 11%",
+  accentForeground: "210 40% 98%",
+  background: "222.2 84% 4.9%",
+  foreground: "210 40% 98%",
+  card: "222.2 84% 4.9%",
+  cardForeground: "210 40% 98%",
+  popover: "222.2 84% 4.9%",
+  popoverForeground: "210 40% 98%",
+  muted: "222.2 84% 11%",
+  mutedForeground: "215 20.2% 65.1%",
+  destructive: "0 62.8% 30.6%",
+  destructiveForeground: "210 40% 98%",
+  border: "217.2 32.6% 17.5%",
+  input: "217.2 32.6% 17.5%",
+  ring: "212.7 26.8% 83.9%",
 };
 
 // Color presets for quick selection - fun themed combinations
 const colorPresets = [
   {
-    name: 'Nebula',
-    primary: '262 83% 58%', // Deep purple
-    primaryForeground: '210 40% 98%',
-    secondary: '200 100% 25%', // Dark teal
-    secondaryForeground: '210 40% 98%',
-    accent: '285 100% 75%', // Bright magenta
-    accentForeground: '222.2 84% 4.9%',
+    name: "Nebula",
+    primary: "262 83% 58%", // Deep purple
+    primaryForeground: "210 40% 98%",
+    secondary: "200 100% 25%", // Dark teal
+    secondaryForeground: "210 40% 98%",
+    accent: "285 100% 75%", // Bright magenta
+    accentForeground: "222.2 84% 4.9%",
   },
   {
-    name: 'Ocean breeze',
-    primary: '200 100% 50%', // Ocean blue
-    primaryForeground: '210 40% 98%',
-    secondary: '180 100% 85%', // Light cyan
-    secondaryForeground: '222.2 84% 4.9%',
-    accent: '220 100% 65%', // Sky blue
-    accentForeground: '210 40% 98%',
+    name: "Ocean breeze",
+    primary: "200 100% 50%", // Ocean blue
+    primaryForeground: "210 40% 98%",
+    secondary: "180 100% 85%", // Light cyan
+    secondaryForeground: "222.2 84% 4.9%",
+    accent: "220 100% 65%", // Sky blue
+    accentForeground: "210 40% 98%",
   },
   {
-    name: 'Sunset glow',
-    primary: '15 100% 60%', // Warm orange
-    primaryForeground: '210 40% 98%',
-    secondary: '45 100% 85%', // Light yellow
-    secondaryForeground: '222.2 84% 4.9%',
-    accent: '350 85% 65%', // Coral pink
-    accentForeground: '210 40% 98%',
+    name: "Sunset glow",
+    primary: "15 100% 60%", // Warm orange
+    primaryForeground: "210 40% 98%",
+    secondary: "45 100% 85%", // Light yellow
+    secondaryForeground: "222.2 84% 4.9%",
+    accent: "350 85% 65%", // Coral pink
+    accentForeground: "210 40% 98%",
   },
   {
-    name: 'Forest magic',
-    primary: '140 60% 40%', // Forest green
-    primaryForeground: '210 40% 98%',
-    secondary: '120 40% 80%', // Light sage
-    secondaryForeground: '222.2 84% 4.9%',
-    accent: '160 80% 60%', // Emerald
-    accentForeground: '210 40% 98%',
+    name: "Forest magic",
+    primary: "140 60% 40%", // Forest green
+    primaryForeground: "210 40% 98%",
+    secondary: "120 40% 80%", // Light sage
+    secondaryForeground: "222.2 84% 4.9%",
+    accent: "160 80% 60%", // Emerald
+    accentForeground: "210 40% 98%",
   },
   {
-    name: 'Royal crown',
-    primary: '240 100% 30%', // Royal blue
-    primaryForeground: '210 40% 98%',
-    secondary: '220 30% 90%', // Light blue-gray
-    secondaryForeground: '222.2 84% 4.9%',
-    accent: '280 100% 70%', // Royal purple
-    accentForeground: '210 40% 98%',
+    name: "Royal crown",
+    primary: "240 100% 30%", // Royal blue
+    primaryForeground: "210 40% 98%",
+    secondary: "220 30% 90%", // Light blue-gray
+    secondaryForeground: "222.2 84% 4.9%",
+    accent: "280 100% 70%", // Royal purple
+    accentForeground: "210 40% 98%",
   },
   {
-    name: 'Cherry blossom',
-    primary: '330 80% 60%', // Cherry pink
-    primaryForeground: '210 40% 98%',
-    secondary: '320 40% 90%', // Pale pink
-    secondaryForeground: '222.2 84% 4.9%',
-    accent: '340 100% 70%', // Hot pink
-    accentForeground: '210 40% 98%',
+    name: "Cherry blossom",
+    primary: "330 80% 60%", // Cherry pink
+    primaryForeground: "210 40% 98%",
+    secondary: "320 40% 90%", // Pale pink
+    secondaryForeground: "222.2 84% 4.9%",
+    accent: "340 100% 70%", // Hot pink
+    accentForeground: "210 40% 98%",
   },
   {
-    name: 'Midnight jazz',
-    primary: '220 30% 20%', // Dark blue-gray
-    primaryForeground: '210 40% 98%',
-    secondary: '200 20% 85%', // Light steel
-    secondaryForeground: '222.2 84% 4.9%',
-    accent: '45 100% 70%', // Jazz gold
-    accentForeground: '222.2 84% 4.9%',
+    name: "Midnight jazz",
+    primary: "220 30% 20%", // Dark blue-gray
+    primaryForeground: "210 40% 98%",
+    secondary: "200 20% 85%", // Light steel
+    secondaryForeground: "222.2 84% 4.9%",
+    accent: "45 100% 70%", // Jazz gold
+    accentForeground: "222.2 84% 4.9%",
   },
   {
-    name: 'Lavender fields',
-    primary: '270 50% 60%', // Soft purple
-    primaryForeground: '210 40% 98%',
-    secondary: '260 30% 90%', // Pale lavender
-    secondaryForeground: '222.2 84% 4.9%',
-    accent: '290 70% 70%', // Bright violet
-    accentForeground: '210 40% 98%',
+    name: "Lavender fields",
+    primary: "270 50% 60%", // Soft purple
+    primaryForeground: "210 40% 98%",
+    secondary: "260 30% 90%", // Pale lavender
+    secondaryForeground: "222.2 84% 4.9%",
+    accent: "290 70% 70%", // Bright violet
+    accentForeground: "210 40% 98%",
   },
 ];
 
@@ -516,13 +510,11 @@ export default function ThemingPage() {
   // Force re-render when theme changes
   useEffect(() => {
     // Force a reflow to ensure CSS variables are applied
-    const preview = document.querySelector(
-      '.theme-preview'
-    ) as HTMLElement | null;
+    const preview = document.querySelector(".theme-preview") as HTMLElement | null;
     if (preview) {
-      preview.style.opacity = '0.999';
+      preview.style.opacity = "0.999";
       setTimeout(() => {
-        preview.style.opacity = '1';
+        preview.style.opacity = "1";
       }, 1);
     }
   }, [theme]);
@@ -537,17 +529,17 @@ export default function ThemingPage() {
       setTheme((currentTheme) => ({
         ...currentTheme,
         // Only update system colors, preserve user's primary/secondary/accent
-        background: isDark ? '222.2 84% 4.9%' : '0 0% 100%',
-        foreground: isDark ? '210 40% 98%' : '222.2 84% 4.9%',
-        card: isDark ? '222.2 84% 4.9%' : '0 0% 100%',
-        cardForeground: isDark ? '210 40% 98%' : '222.2 84% 4.9%',
-        popover: isDark ? '222.2 84% 4.9%' : '0 0% 100%',
-        popoverForeground: isDark ? '210 40% 98%' : '222.2 84% 4.9%',
-        muted: isDark ? '222.2 84% 11%' : '210 40% 96%',
-        mutedForeground: isDark ? '215 20.2% 65.1%' : '215.4 16.3% 46.9%',
-        border: isDark ? '217.2 32.6% 17.5%' : '214.3 31.8% 91.4%',
-        input: isDark ? '217.2 32.6% 17.5%' : '214.3 31.8% 91.4%',
-        ring: isDark ? '212.7 26.8% 83.9%' : currentTheme.primary,
+        background: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
+        foreground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
+        card: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
+        cardForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
+        popover: isDark ? "222.2 84% 4.9%" : "0 0% 100%",
+        popoverForeground: isDark ? "210 40% 98%" : "222.2 84% 4.9%",
+        muted: isDark ? "222.2 84% 11%" : "210 40% 96%",
+        mutedForeground: isDark ? "215 20.2% 65.1%" : "215.4 16.3% 46.9%",
+        border: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
+        input: isDark ? "217.2 32.6% 17.5%" : "214.3 31.8% 91.4%",
+        ring: isDark ? "212.7 26.8% 83.9%" : currentTheme.primary,
       }));
     });
   }, [isDark]);
@@ -555,9 +547,8 @@ export default function ThemingPage() {
   // Inject CSS custom properties for live preview
   useEffect(() => {
     const style =
-      document.getElementById('theme-preview-styles') ||
-      document.createElement('style');
-    style.id = 'theme-preview-styles';
+      document.getElementById("theme-preview-styles") || document.createElement("style");
+    style.id = "theme-preview-styles";
 
     const cssVariables = `
       .theme-preview {
@@ -754,13 +745,13 @@ export default function ThemingPage() {
 
     style.textContent = cssVariables;
 
-    if (!document.getElementById('theme-preview-styles')) {
+    if (!document.getElementById("theme-preview-styles")) {
       document.head.appendChild(style);
     }
 
     return () => {
       // Cleanup on unmount
-      const existingStyle = document.getElementById('theme-preview-styles');
+      const existingStyle = document.getElementById("theme-preview-styles");
       if (existingStyle) {
         existingStyle.remove();
       }
@@ -778,12 +769,10 @@ export default function ThemingPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Theme configurator
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Theme configurator</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Customize your design system colors and see live previews across
-              components. Export ready-to-use code for your projects.
+              Customize your design system colors and see live previews across components. Export
+              ready-to-use code for your projects.
             </p>
           </div>
 
@@ -798,9 +787,7 @@ export default function ThemingPage() {
                   </div>
                   Color Settings
                 </CardTitle>
-                <CardDescription>
-                  Adjust your theme colors and see live updates
-                </CardDescription>
+                <CardDescription>Adjust your theme colors and see live updates</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
@@ -809,7 +796,7 @@ export default function ThemingPage() {
                     <Label>Theme Mode</Label>
                     <div className="flex gap-2">
                       <Button
-                        variant={!isDark ? 'default' : 'outline'}
+                        variant={!isDark ? "default" : "outline"}
                         size="sm"
                         onClick={() => setIsDark(false)}
                         className="flex-1"
@@ -818,7 +805,7 @@ export default function ThemingPage() {
                         Light
                       </Button>
                       <Button
-                        variant={isDark ? 'default' : 'outline'}
+                        variant={isDark ? "default" : "outline"}
                         size="sm"
                         onClick={() => setIsDark(true)}
                         className="flex-1"
@@ -850,9 +837,7 @@ export default function ThemingPage() {
                           <Input
                             id="primary"
                             value={theme.primary}
-                            onChange={(e) =>
-                              setTheme({ ...theme, primary: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, primary: e.target.value })}
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -860,9 +845,7 @@ export default function ThemingPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="primaryForeground">
-                          Primary foreground
-                        </Label>
+                        <Label htmlFor="primaryForeground">Primary foreground</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
@@ -913,9 +896,7 @@ export default function ThemingPage() {
                           <Input
                             id="secondary"
                             value={theme.secondary}
-                            onChange={(e) =>
-                              setTheme({ ...theme, secondary: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, secondary: e.target.value })}
                             placeholder="210 40% 96%"
                             className="flex-1"
                           />
@@ -923,9 +904,7 @@ export default function ThemingPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="secondaryForeground">
-                          Secondary foreground
-                        </Label>
+                        <Label htmlFor="secondaryForeground">Secondary foreground</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
@@ -976,9 +955,7 @@ export default function ThemingPage() {
                           <Input
                             id="accent"
                             value={theme.accent}
-                            onChange={(e) =>
-                              setTheme({ ...theme, accent: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, accent: e.target.value })}
                             placeholder="210 40% 96%"
                             className="flex-1"
                           />
@@ -986,9 +963,7 @@ export default function ThemingPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="accentForeground">
-                          Accent foreground
-                        </Label>
+                        <Label htmlFor="accentForeground">Accent foreground</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
@@ -1039,9 +1014,7 @@ export default function ThemingPage() {
                           <Input
                             id="background"
                             value={theme.background}
-                            onChange={(e) =>
-                              setTheme({ ...theme, background: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, background: e.target.value })}
                             placeholder="0 0% 100%"
                             className="flex-1"
                           />
@@ -1065,9 +1038,7 @@ export default function ThemingPage() {
                           <Input
                             id="foreground"
                             value={theme.foreground}
-                            onChange={(e) =>
-                              setTheme({ ...theme, foreground: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, foreground: e.target.value })}
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -1097,9 +1068,7 @@ export default function ThemingPage() {
                           <Input
                             id="card"
                             value={theme.card}
-                            onChange={(e) =>
-                              setTheme({ ...theme, card: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, card: e.target.value })}
                             placeholder="0 0% 100%"
                             className="flex-1"
                           />
@@ -1158,9 +1127,7 @@ export default function ThemingPage() {
                           <Input
                             id="muted"
                             value={theme.muted}
-                            onChange={(e) =>
-                              setTheme({ ...theme, muted: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, muted: e.target.value })}
                             placeholder="210 40% 96%"
                             className="flex-1"
                           />
@@ -1168,9 +1135,7 @@ export default function ThemingPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="mutedForeground">
-                          Muted foreground
-                        </Label>
+                        <Label htmlFor="mutedForeground">Muted foreground</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
@@ -1202,9 +1167,7 @@ export default function ThemingPage() {
 
                   {/* Destructive Colors */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-semibold">
-                      Destructive colors
-                    </h3>
+                    <h3 className="text-sm font-semibold">Destructive colors</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="destructive">Destructive</Label>
@@ -1236,9 +1199,7 @@ export default function ThemingPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="destructiveForeground">
-                          Destructive foreground
-                        </Label>
+                        <Label htmlFor="destructiveForeground">Destructive foreground</Label>
                         <div className="flex gap-2">
                           <input
                             type="color"
@@ -1270,9 +1231,7 @@ export default function ThemingPage() {
 
                   {/* Border & Input Colors */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-semibold">
-                      Border & input colors
-                    </h3>
+                    <h3 className="text-sm font-semibold">Border & input colors</h3>
                     <div className="grid grid-cols-3 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="border">Border</Label>
@@ -1291,9 +1250,7 @@ export default function ThemingPage() {
                           <Input
                             id="border"
                             value={theme.border}
-                            onChange={(e) =>
-                              setTheme({ ...theme, border: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, border: e.target.value })}
                             placeholder="214.3 31.8% 91.4%"
                             className="flex-1"
                           />
@@ -1317,9 +1274,7 @@ export default function ThemingPage() {
                           <Input
                             id="input"
                             value={theme.input}
-                            onChange={(e) =>
-                              setTheme({ ...theme, input: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, input: e.target.value })}
                             placeholder="214.3 31.8% 91.4%"
                             className="flex-1"
                           />
@@ -1343,9 +1298,7 @@ export default function ThemingPage() {
                           <Input
                             id="ring"
                             value={theme.ring}
-                            onChange={(e) =>
-                              setTheme({ ...theme, ring: e.target.value })
-                            }
+                            onChange={(e) => setTheme({ ...theme, ring: e.target.value })}
                             placeholder="222.2 84% 4.9%"
                             className="flex-1"
                           />
@@ -1361,9 +1314,7 @@ export default function ThemingPage() {
                   <div className="grid grid-cols-2 gap-3">
                     {colorPresets.map((preset) => (
                       <div key={preset.name} className="space-y-2">
-                        <div className="text-xs font-medium text-left">
-                          {preset.name}
-                        </div>
+                        <div className="text-xs font-medium text-left">{preset.name}</div>
                         <button
                           onClick={() => {
                             setTheme({
@@ -1409,11 +1360,7 @@ export default function ThemingPage() {
 
                 {/* Actions */}
                 <div className="flex gap-4 mt-6">
-                  <Button
-                    onClick={resetTheme}
-                    variant="outline"
-                    className="flex-1"
-                  >
+                  <Button onClick={resetTheme} variant="outline" className="flex-1">
                     <RotateCcw className="h-4 w-4 mr-2" />
                     Reset to Default
                   </Button>
@@ -1430,10 +1377,7 @@ export default function ThemingPage() {
                       <TabsTrigger value="install">Install</TabsTrigger>
                     </TabsList>
 
-                    <TabsContent
-                      value="css-variables"
-                      className="space-y-4 mt-6"
-                    >
+                    <TabsContent value="css-variables" className="space-y-4 mt-6">
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-medium">CSS Variables</h4>
@@ -1453,12 +1397,9 @@ export default function ThemingPage() {
                     <TabsContent value="tailwind" className="space-y-4 mt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-medium">
-                            Tailwind Configuration
-                          </h4>
+                          <h4 className="font-medium">Tailwind Configuration</h4>
                           <p className="text-sm text-muted-foreground">
-                            Replace your tailwind.config.js with this
-                            configuration
+                            Replace your tailwind.config.js with this configuration
                           </p>
                         </div>
                         <CodeCopyButton code={generateTailwindConfig(theme)} />
@@ -1535,8 +1476,7 @@ export default function ThemingPage() {
                   Live Preview
                 </CardTitle>
                 <CardDescription>
-                  See how your theme looks across different components and
-                  layouts
+                  See how your theme looks across different components and layouts
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1553,26 +1493,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          '--primary': theme.primary,
-                          '--primary-foreground': theme.primaryForeground,
-                          '--secondary': theme.secondary,
-                          '--secondary-foreground': theme.secondaryForeground,
-                          '--accent': theme.accent,
-                          '--accent-foreground': theme.accentForeground,
-                          '--background': theme.background,
-                          '--foreground': theme.foreground,
-                          '--card': theme.card,
-                          '--card-foreground': theme.cardForeground,
-                          '--popover': theme.popover,
-                          '--popover-foreground': theme.popoverForeground,
-                          '--muted': theme.muted,
-                          '--muted-foreground': theme.mutedForeground,
-                          '--destructive': theme.destructive,
-                          '--destructive-foreground':
-                            theme.destructiveForeground,
-                          '--border': theme.border,
-                          '--input': theme.input,
-                          '--ring': theme.ring,
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground": theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties
@@ -1592,9 +1531,7 @@ export default function ThemingPage() {
                                 <Button variant="secondary">Secondary</Button>
                                 <Button variant="outline">Outline</Button>
                                 <Button variant="ghost">Ghost</Button>
-                                <Button variant="destructive">
-                                  Destructive
-                                </Button>
+                                <Button variant="destructive">Destructive</Button>
                                 <Button variant="link">Link</Button>
                               </div>
                             </div>
@@ -1620,9 +1557,7 @@ export default function ThemingPage() {
                               <div className="flex flex-col gap-2">
                                 <Button>Normal</Button>
                                 <Button disabled>Disabled</Button>
-                                <Button className="opacity-75">
-                                  Loading...
-                                </Button>
+                                <Button className="opacity-75">Loading...</Button>
                               </div>
                             </div>
                           </div>
@@ -1630,9 +1565,7 @@ export default function ThemingPage() {
 
                         {/* Badges & Status */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold">
-                            Badges & Status
-                          </h3>
+                          <h3 className="text-lg font-semibold">Badges & Status</h3>
                           <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-3">
                               <h4 className="font-medium text-sm text-muted-foreground">
@@ -1653,18 +1586,10 @@ export default function ThemingPage() {
                                 Status Colors
                               </h4>
                               <div className="flex gap-2 flex-wrap">
-                                <Badge className="bg-green-100 text-green-800">
-                                  Success
-                                </Badge>
-                                <Badge className="bg-yellow-100 text-yellow-800">
-                                  Warning
-                                </Badge>
-                                <Badge className="bg-blue-100 text-blue-800">
-                                  Info
-                                </Badge>
-                                <Badge className="bg-red-100 text-red-800">
-                                  Error
-                                </Badge>
+                                <Badge className="bg-green-100 text-green-800">Success</Badge>
+                                <Badge className="bg-yellow-100 text-yellow-800">Warning</Badge>
+                                <Badge className="bg-blue-100 text-blue-800">Info</Badge>
+                                <Badge className="bg-red-100 text-red-800">Error</Badge>
                               </div>
                             </div>
                           </div>
@@ -1672,25 +1597,15 @@ export default function ThemingPage() {
 
                         {/* Form Elements */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold">
-                            Form Elements
-                          </h3>
+                          <h3 className="text-lg font-semibold">Form Elements</h3>
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div className="space-y-3">
-                              <h4 className="font-medium text-sm text-muted-foreground">
-                                Inputs
-                              </h4>
+                              <h4 className="font-medium text-sm text-muted-foreground">Inputs</h4>
                               <div className="space-y-2">
                                 <Input placeholder="Text input..." />
                                 <Input type="email" placeholder="Email..." />
-                                <Input
-                                  type="password"
-                                  placeholder="Password..."
-                                />
-                                <Input
-                                  disabled
-                                  placeholder="Disabled input..."
-                                />
+                                <Input type="password" placeholder="Password..." />
+                                <Input disabled placeholder="Disabled input..." />
                               </div>
                             </div>
 
@@ -1719,15 +1634,11 @@ export default function ThemingPage() {
 
                         {/* Cards & Containers */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold">
-                            Cards & Containers
-                          </h3>
+                          <h3 className="text-lg font-semibold">Cards & Containers</h3>
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <Card>
                               <CardHeader>
-                                <CardTitle className="text-sm">
-                                  Simple Card
-                                </CardTitle>
+                                <CardTitle className="text-sm">Simple Card</CardTitle>
                               </CardHeader>
                               <CardContent>
                                 <p className="text-sm text-muted-foreground">
@@ -1738,35 +1649,25 @@ export default function ThemingPage() {
 
                             <Card>
                               <CardHeader>
-                                <CardTitle className="text-sm">
-                                  Card with Badge
-                                </CardTitle>
+                                <CardTitle className="text-sm">Card with Badge</CardTitle>
                                 <Badge className="w-fit" variant="secondary">
                                   New
                                 </Badge>
                               </CardHeader>
                               <CardContent>
-                                <p className="text-sm">
-                                  Card with various elements.
-                                </p>
+                                <p className="text-sm">Card with various elements.</p>
                               </CardContent>
                             </Card>
 
                             <Card>
                               <CardHeader>
-                                <CardTitle className="text-sm">
-                                  Interactive Card
-                                </CardTitle>
+                                <CardTitle className="text-sm">Interactive Card</CardTitle>
                               </CardHeader>
                               <CardContent className="space-y-2">
                                 <Button size="sm" className="w-full">
                                   Action
                                 </Button>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  className="w-full"
-                                >
+                                <Button size="sm" variant="outline" className="w-full">
                                   Secondary
                                 </Button>
                               </CardContent>
@@ -1776,9 +1677,7 @@ export default function ThemingPage() {
 
                         {/* Navigation & Tabs */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold">
-                            Navigation & Tabs
-                          </h3>
+                          <h3 className="text-lg font-semibold">Navigation & Tabs</h3>
                           <div className="space-y-4">
                             <Tabs defaultValue="tab1" className="w-full">
                               <TabsList>
@@ -1790,8 +1689,7 @@ export default function ThemingPage() {
                                 <Card>
                                   <CardContent className="pt-6">
                                     <p className="text-sm">
-                                      Content for tab 1 with cards and themed
-                                      elements.
+                                      Content for tab 1 with cards and themed elements.
                                     </p>
                                   </CardContent>
                                 </Card>
@@ -1824,9 +1722,7 @@ export default function ThemingPage() {
                           <div className="space-y-3">
                             <div>
                               <h1 className="text-3xl font-bold">Heading 1</h1>
-                              <h2 className="text-2xl font-semibold">
-                                Heading 2
-                              </h2>
+                              <h2 className="text-2xl font-semibold">Heading 2</h2>
                               <h3 className="text-xl font-medium">Heading 3</h3>
                               <h4 className="text-lg">Heading 4</h4>
                             </div>
@@ -1837,18 +1733,14 @@ export default function ThemingPage() {
                               <p className="text-sm text-muted-foreground">
                                 Muted text for secondary information.
                               </p>
-                              <p className="text-xs">
-                                Small text for captions and details.
-                              </p>
+                              <p className="text-xs">Small text for captions and details.</p>
                             </div>
                           </div>
                         </div>
 
                         {/* Miscellaneous */}
                         <div className="space-y-4">
-                          <h3 className="text-lg font-semibold">
-                            Miscellaneous
-                          </h3>
+                          <h3 className="text-lg font-semibold">Miscellaneous</h3>
                           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div className="space-y-3">
                               <h4 className="font-medium text-sm text-muted-foreground">
@@ -1868,9 +1760,7 @@ export default function ThemingPage() {
                                 Backgrounds
                               </h4>
                               <div className="space-y-2">
-                                <div className="p-3 bg-muted rounded text-sm">
-                                  Muted background
-                                </div>
+                                <div className="p-3 bg-muted rounded text-sm">Muted background</div>
                                 <div className="p-3 bg-accent text-accent-foreground rounded text-sm">
                                   Accent background
                                 </div>
@@ -1901,26 +1791,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          '--primary': theme.primary,
-                          '--primary-foreground': theme.primaryForeground,
-                          '--secondary': theme.secondary,
-                          '--secondary-foreground': theme.secondaryForeground,
-                          '--accent': theme.accent,
-                          '--accent-foreground': theme.accentForeground,
-                          '--background': theme.background,
-                          '--foreground': theme.foreground,
-                          '--card': theme.card,
-                          '--card-foreground': theme.cardForeground,
-                          '--popover': theme.popover,
-                          '--popover-foreground': theme.popoverForeground,
-                          '--muted': theme.muted,
-                          '--muted-foreground': theme.mutedForeground,
-                          '--destructive': theme.destructive,
-                          '--destructive-foreground':
-                            theme.destructiveForeground,
-                          '--border': theme.border,
-                          '--input': theme.input,
-                          '--ring': theme.ring,
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground": theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties
@@ -1930,9 +1819,7 @@ export default function ThemingPage() {
                         <Card>
                           <CardHeader>
                             <CardTitle>Profile Card</CardTitle>
-                            <CardDescription>
-                              User profile information
-                            </CardDescription>
+                            <CardDescription>User profile information</CardDescription>
                           </CardHeader>
                           <CardContent>
                             <div className="flex items-center space-x-3">
@@ -1941,9 +1828,7 @@ export default function ThemingPage() {
                               </div>
                               <div>
                                 <p className="font-medium">John Doe</p>
-                                <p className="text-sm text-muted-foreground">
-                                  Product Manager
-                                </p>
+                                <p className="text-sm text-muted-foreground">Product Manager</p>
                               </div>
                             </div>
                           </CardContent>
@@ -1955,9 +1840,7 @@ export default function ThemingPage() {
                           </CardHeader>
                           <CardContent>
                             <div className="text-2xl font-bold">$12,345</div>
-                            <p className="text-xs text-muted-foreground">
-                              +20.1% from last month
-                            </p>
+                            <p className="text-xs text-muted-foreground">+20.1% from last month</p>
                             <div className="mt-2">
                               <Badge
                                 variant="default"
@@ -1977,15 +1860,11 @@ export default function ThemingPage() {
                           <CardContent>
                             <div className="space-y-3">
                               <div className="w-full h-24 bg-muted rounded-md flex items-center justify-center">
-                                <span className="text-muted-foreground">
-                                  Product Image
-                                </span>
+                                <span className="text-muted-foreground">Product Image</span>
                               </div>
                               <div>
                                 <h4 className="font-medium">Product Name</h4>
-                                <p className="text-sm text-muted-foreground">
-                                  Short description
-                                </p>
+                                <p className="text-sm text-muted-foreground">Short description</p>
                                 <p className="text-lg font-bold mt-1">$99.99</p>
                               </div>
                             </div>
@@ -2000,26 +1879,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          '--primary': theme.primary,
-                          '--primary-foreground': theme.primaryForeground,
-                          '--secondary': theme.secondary,
-                          '--secondary-foreground': theme.secondaryForeground,
-                          '--accent': theme.accent,
-                          '--accent-foreground': theme.accentForeground,
-                          '--background': theme.background,
-                          '--foreground': theme.foreground,
-                          '--card': theme.card,
-                          '--card-foreground': theme.cardForeground,
-                          '--popover': theme.popover,
-                          '--popover-foreground': theme.popoverForeground,
-                          '--muted': theme.muted,
-                          '--muted-foreground': theme.mutedForeground,
-                          '--destructive': theme.destructive,
-                          '--destructive-foreground':
-                            theme.destructiveForeground,
-                          '--border': theme.border,
-                          '--input': theme.input,
-                          '--ring': theme.ring,
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground": theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties
@@ -2029,17 +1907,12 @@ export default function ThemingPage() {
                         <Card>
                           <CardHeader>
                             <CardTitle>Login Form</CardTitle>
-                            <CardDescription>
-                              User authentication
-                            </CardDescription>
+                            <CardDescription>User authentication</CardDescription>
                           </CardHeader>
                           <CardContent className="space-y-4">
                             <div className="space-y-2">
                               <Label htmlFor="email">Email</Label>
-                              <Input
-                                id="email"
-                                placeholder="Enter your email"
-                              />
+                              <Input id="email" placeholder="Enter your email" />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="password">Password</Label>
@@ -2050,11 +1923,7 @@ export default function ThemingPage() {
                               />
                             </div>
                             <div className="flex items-center space-x-2">
-                              <input
-                                type="checkbox"
-                                id="remember"
-                                className="rounded"
-                              />
+                              <input type="checkbox" id="remember" className="rounded" />
                               <Label htmlFor="remember" className="text-sm">
                                 Remember me
                               </Label>
@@ -2069,9 +1938,7 @@ export default function ThemingPage() {
                         <Card>
                           <CardHeader>
                             <CardTitle>Contact Form</CardTitle>
-                            <CardDescription>
-                              Get in touch with us
-                            </CardDescription>
+                            <CardDescription>Get in touch with us</CardDescription>
                           </CardHeader>
                           <CardContent className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
@@ -2086,10 +1953,7 @@ export default function ThemingPage() {
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="contactEmail">Email</Label>
-                              <Input
-                                id="contactEmail"
-                                placeholder="john@example.com"
-                              />
+                              <Input id="contactEmail" placeholder="john@example.com" />
                             </div>
                             <div className="space-y-2">
                               <Label htmlFor="message">Message</Label>
@@ -2112,26 +1976,25 @@ export default function ThemingPage() {
                       className="theme-preview p-6 rounded-lg"
                       style={
                         {
-                          '--primary': theme.primary,
-                          '--primary-foreground': theme.primaryForeground,
-                          '--secondary': theme.secondary,
-                          '--secondary-foreground': theme.secondaryForeground,
-                          '--accent': theme.accent,
-                          '--accent-foreground': theme.accentForeground,
-                          '--background': theme.background,
-                          '--foreground': theme.foreground,
-                          '--card': theme.card,
-                          '--card-foreground': theme.cardForeground,
-                          '--popover': theme.popover,
-                          '--popover-foreground': theme.popoverForeground,
-                          '--muted': theme.muted,
-                          '--muted-foreground': theme.mutedForeground,
-                          '--destructive': theme.destructive,
-                          '--destructive-foreground':
-                            theme.destructiveForeground,
-                          '--border': theme.border,
-                          '--input': theme.input,
-                          '--ring': theme.ring,
+                          "--primary": theme.primary,
+                          "--primary-foreground": theme.primaryForeground,
+                          "--secondary": theme.secondary,
+                          "--secondary-foreground": theme.secondaryForeground,
+                          "--accent": theme.accent,
+                          "--accent-foreground": theme.accentForeground,
+                          "--background": theme.background,
+                          "--foreground": theme.foreground,
+                          "--card": theme.card,
+                          "--card-foreground": theme.cardForeground,
+                          "--popover": theme.popover,
+                          "--popover-foreground": theme.popoverForeground,
+                          "--muted": theme.muted,
+                          "--muted-foreground": theme.mutedForeground,
+                          "--destructive": theme.destructive,
+                          "--destructive-foreground": theme.destructiveForeground,
+                          "--border": theme.border,
+                          "--input": theme.input,
+                          "--ring": theme.ring,
                           backgroundColor: `hsl(${theme.background})`,
                           color: `hsl(${theme.foreground})`,
                         } as React.CSSProperties
@@ -2141,16 +2004,12 @@ export default function ThemingPage() {
                       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                         <Card>
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium">
-                              Total Revenue
-                            </CardTitle>
+                            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <div className="text-2xl font-bold">$45,231.89</div>
                             <p className="text-xs text-muted-foreground flex items-center">
-                              <span className="text-green-600 mr-1">
-                                ↗ +20.1%
-                              </span>
+                              <span className="text-green-600 mr-1">↗ +20.1%</span>
                               from last month
                             </p>
                           </CardContent>
@@ -2158,16 +2017,12 @@ export default function ThemingPage() {
 
                         <Card>
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium">
-                              Subscriptions
-                            </CardTitle>
+                            <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <div className="text-2xl font-bold">+2,350</div>
                             <p className="text-xs text-muted-foreground flex items-center">
-                              <span className="text-green-600 mr-1">
-                                ↗ +180.1%
-                              </span>
+                              <span className="text-green-600 mr-1">↗ +180.1%</span>
                               from last month
                             </p>
                           </CardContent>
@@ -2175,16 +2030,12 @@ export default function ThemingPage() {
 
                         <Card>
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium">
-                              Sales
-                            </CardTitle>
+                            <CardTitle className="text-sm font-medium">Sales</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <div className="text-2xl font-bold">+12,234</div>
                             <p className="text-xs text-muted-foreground flex items-center">
-                              <span className="text-green-600 mr-1">
-                                ↗ +19%
-                              </span>
+                              <span className="text-green-600 mr-1">↗ +19%</span>
                               from last month
                             </p>
                           </CardContent>
@@ -2192,9 +2043,7 @@ export default function ThemingPage() {
 
                         <Card>
                           <CardHeader className="pb-2">
-                            <CardTitle className="text-sm font-medium">
-                              Active Users
-                            </CardTitle>
+                            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
                           </CardHeader>
                           <CardContent>
                             <div className="text-2xl font-bold">8,432</div>
@@ -2211,9 +2060,7 @@ export default function ThemingPage() {
                         <Card>
                           <CardHeader>
                             <CardTitle>Recent Activity</CardTitle>
-                            <CardDescription>
-                              Latest user actions
-                            </CardDescription>
+                            <CardDescription>Latest user actions</CardDescription>
                           </CardHeader>
                           <CardContent>
                             <div className="space-y-3">
@@ -2223,9 +2070,7 @@ export default function ThemingPage() {
                                     JD
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">
-                                      John Doe
-                                    </p>
+                                    <p className="text-sm font-medium">John Doe</p>
                                     <p className="text-xs text-muted-foreground">
                                       Created new project
                                     </p>
@@ -2239,9 +2084,7 @@ export default function ThemingPage() {
                                     AS
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">
-                                      Alice Smith
-                                    </p>
+                                    <p className="text-sm font-medium">Alice Smith</p>
                                     <p className="text-xs text-muted-foreground">
                                       Updated settings
                                     </p>
@@ -2255,12 +2098,8 @@ export default function ThemingPage() {
                                     BJ
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">
-                                      Bob Johnson
-                                    </p>
-                                    <p className="text-xs text-muted-foreground">
-                                      Completed task
-                                    </p>
+                                    <p className="text-sm font-medium">Bob Johnson</p>
+                                    <p className="text-xs text-muted-foreground">Completed task</p>
                                   </div>
                                 </div>
                                 <Badge variant="secondary">1h ago</Badge>
@@ -2280,17 +2119,11 @@ export default function ThemingPage() {
                                 <span className="text-lg mb-1">+</span>
                                 <span className="text-xs">New Project</span>
                               </Button>
-                              <Button
-                                variant="outline"
-                                className="h-20 flex-col"
-                              >
+                              <Button variant="outline" className="h-20 flex-col">
                                 <span className="text-lg mb-1">📊</span>
                                 <span className="text-xs">View Reports</span>
                               </Button>
-                              <Button
-                                variant="secondary"
-                                className="h-20 flex-col"
-                              >
+                              <Button variant="secondary" className="h-20 flex-col">
                                 <span className="text-lg mb-1">👥</span>
                                 <span className="text-xs">Invite Users</span>
                               </Button>

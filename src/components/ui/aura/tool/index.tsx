@@ -12,12 +12,12 @@ export {
   ToolContent,
   ToolInput,
   ToolOutput,
-} from './tool';
+} from "./tool";
 export type {
   ToolProps,
   ToolHeaderProps,
   ToolContentProps,
   ToolInputProps,
   ToolOutputProps,
-} from './tool';
-export { ToolMetadata } from './tool.metadata';
+} from "./tool";
+export { ToolMetadata } from "./tool.metadata";

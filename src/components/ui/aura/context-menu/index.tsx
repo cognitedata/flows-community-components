@@ -29,5 +29,5 @@ export {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuRadioGroup,
-} from './context-menu';
-export { ContextMenuMetadata } from './context-menu.metadata';
+} from "./context-menu";
+export { ContextMenuMetadata } from "./context-menu.metadata";

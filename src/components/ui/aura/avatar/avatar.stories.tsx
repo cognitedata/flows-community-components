@@ -1,29 +1,22 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from './avatar';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/aura/hover-card';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "./avatar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuLabel,
-} from '@/components/ui/aura/dropdown-menu';
-import {
-  IconWheel,
-  IconUser,
-  IconRobot,
-  IconStar,
-  IconHeart,
-} from '@tabler/icons-react';
+} from "@/components/ui/aura/dropdown-menu";
+import { IconWheel, IconUser, IconRobot, IconStar, IconHeart } from "@tabler/icons-react";
 
 /**
  * Helper function to get the correct image path for Storybook.
  * Handles both local development and deployed Storybook with base paths.
  */
 const getImagePath = (filename: string): string => {
-  if (typeof window === 'undefined') return `/${filename}`;
+  if (typeof window === "undefined") return `/${filename}`;
 
   try {
     const pathname = (window.parent?.location || window.location).pathname;
@@ -37,62 +30,53 @@ const getImagePath = (filename: string): string => {
 };
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Primitives/Avatar',
+  title: "Primitives/Avatar",
   component: Avatar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     // Appearance
     variant: {
-      control: 'select',
-      options: [
-        'default',
-        'nordic',
-        'aurora',
-        'fjord',
-        'dusk',
-        'orange',
-        'sky',
-        'overflow',
-      ],
-      description: 'The color scheme variant of the avatar',
+      control: "select",
+      options: ["default", "nordic", "aurora", "fjord", "dusk", "orange", "sky", "overflow"],
+      description: "The color scheme variant of the avatar",
       table: {
-        category: 'Appearance',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
+        category: "Appearance",
+        type: { summary: "string" },
+        defaultValue: { summary: "default" },
       },
     },
     sizes: {
-      control: 'select',
-      options: ['default', 'xsm', 'xxsm'],
-      description: 'The size of the avatar',
+      control: "select",
+      options: ["default", "xsm", "xxsm"],
+      description: "The size of the avatar",
       table: {
-        category: 'Appearance',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
+        category: "Appearance",
+        type: { summary: "string" },
+        defaultValue: { summary: "default" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
 
     // Behavior
     onClick: {
-      action: 'clicked',
-      description: 'Callback fired when avatar is clicked',
+      action: "clicked",
+      description: "Callback fired when avatar is clicked",
       table: {
-        category: 'Events',
-        type: { summary: '(event: MouseEvent) => void' },
+        category: "Events",
+        type: { summary: "(event: MouseEvent) => void" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     actions: {
-      handles: ['click'],
+      handles: ["click"],
     },
   },
 };
@@ -110,14 +94,14 @@ export const Default: Story = {
     </Avatar>
   ),
   args: {
-    variant: 'default',
-    sizes: 'default',
+    variant: "default",
+    sizes: "default",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Default avatar displaying user initials. The fallback shows when no image is provided.',
+          "Default avatar displaying user initials. The fallback shows when no image is provided.",
       },
     },
   },
@@ -127,10 +111,8 @@ export const Default: Story = {
     await expect(avatar).toBeInTheDocument();
 
     // Verify fallback text is present
-    const fallback = canvasElement.querySelector(
-      '[data-slot="avatar-fallback"]'
-    );
-    await expect(fallback).toHaveTextContent('AB');
+    const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
+    await expect(fallback).toHaveTextContent("AB");
   },
 };
 
@@ -146,14 +128,14 @@ export const WithIcon: Story = {
     </Avatar>
   ),
   args: {
-    variant: 'fjord',
-    sizes: 'default',
+    variant: "fjord",
+    sizes: "default",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Avatar displaying an icon instead of initials. Useful for system users, bots, or special entities.',
+          "Avatar displaying an icon instead of initials. Useful for system users, bots, or special entities.",
       },
     },
   },
@@ -162,7 +144,7 @@ export const WithIcon: Story = {
     await expect(avatar).toBeInTheDocument();
 
     // Verify icon is present
-    const icon = avatar?.querySelector('svg');
+    const icon = avatar?.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -173,19 +155,19 @@ export const WithIcon: Story = {
 export const WithImage: Story = {
   render: (args) => (
     <Avatar {...args}>
-      <AvatarImage src={getImagePath('user-avatar2.png')} alt="User avatar" />
+      <AvatarImage src={getImagePath("user-avatar2.png")} alt="User avatar" />
       <AvatarFallback>PJ</AvatarFallback>
     </Avatar>
   ),
   args: {
-    variant: 'default',
-    sizes: 'default',
+    variant: "default",
+    sizes: "default",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Avatar with an image. Falls back to initials if the image fails to load. Hover to see the darkening effect.',
+          "Avatar with an image. Falls back to initials if the image fails to load. Hover to see the darkening effect.",
       },
     },
   },
@@ -261,9 +243,7 @@ export const AllVariants: Story = {
     await expect(avatars.length).toBe(8);
 
     // Verify each variant has text
-    const fallbacks = canvasElement.querySelectorAll(
-      '[data-slot="avatar-fallback"]'
-    );
+    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(8);
   },
 };
@@ -315,7 +295,7 @@ export const AllVariantsWithIcons: Story = {
     docs: {
       description: {
         story:
-          'All color variants displaying icons. Useful for differentiating user types, roles, or entities.',
+          "All color variants displaying icons. Useful for differentiating user types, roles, or entities.",
       },
     },
   },
@@ -350,7 +330,7 @@ export const AllSizes: Story = {
     docs: {
       description: {
         story:
-          'Available avatar sizes: default (36px), xsm (28px), and xxsm (20px). Choose based on context and space constraints.',
+          "Available avatar sizes: default (36px), xsm (28px), and xxsm (20px). Choose based on context and space constraints.",
       },
     },
   },
@@ -376,24 +356,15 @@ export const ImagesAllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="fjord" sizes="default">
-        <AvatarImage
-          src={getImagePath('user-avatar2.png')}
-          alt="Large avatar"
-        />
+        <AvatarImage src={getImagePath("user-avatar2.png")} alt="Large avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xsm">
-        <AvatarImage
-          src={getImagePath('user-avatar2.png')}
-          alt="Medium avatar"
-        />
+        <AvatarImage src={getImagePath("user-avatar2.png")} alt="Medium avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xxsm">
-        <AvatarImage
-          src={getImagePath('user-avatar2.png')}
-          alt="Small avatar"
-        />
+        <AvatarImage src={getImagePath("user-avatar2.png")} alt="Small avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
     </div>
@@ -402,7 +373,7 @@ export const ImagesAllSizes: Story = {
     docs: {
       description: {
         story:
-          'Avatar images at all sizes with fallback text. Hover to see the darkening effect on images.',
+          "Avatar images at all sizes with fallback text. Hover to see the darkening effect on images.",
       },
     },
   },
@@ -421,9 +392,7 @@ export const ImagesAllSizes: Story = {
     // Radix Avatar only renders the image element when the image successfully loads
     const images = await waitFor(
       () => {
-        const found = canvasElement.querySelectorAll(
-          '[data-slot="avatar-image"]'
-        );
+        const found = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
         if (found.length < 3) {
           throw new Error(`Expected 3 images, found ${found.length}`);
         }
@@ -454,7 +423,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
       >
-        <AvatarImage src={getImagePath('user-avatar3.png')} alt="User 1" />
+        <AvatarImage src={getImagePath("user-avatar3.png")} alt="User 1" />
         <AvatarFallback>NC</AvatarFallback>
       </Avatar>
       <Avatar
@@ -462,7 +431,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-2 border-2 border-background"
       >
-        <AvatarImage src={getImagePath('user-avatar4.png')} alt="User 2" />
+        <AvatarImage src={getImagePath("user-avatar4.png")} alt="User 2" />
         <AvatarFallback>AR</AvatarFallback>
       </Avatar>
       <Avatar
@@ -470,7 +439,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-3 border-2 border-background"
       >
-        <AvatarImage src={getImagePath('user-avatar5.png')} alt="User 3" />
+        <AvatarImage src={getImagePath("user-avatar5.png")} alt="User 3" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar
@@ -478,7 +447,7 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-4 border-2 border-background"
       >
-        <AvatarImage src={getImagePath('user-avatar6.png')} alt="User 4" />
+        <AvatarImage src={getImagePath("user-avatar6.png")} alt="User 4" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
@@ -493,9 +462,7 @@ export const AvatarGroup: Story = {
         </HoverCardTrigger>
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
-            <p className="text-xs text-muted-foreground font-medium">
-              4 more people
-            </p>
+            <p className="text-xs text-muted-foreground font-medium">4 more people</p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <Avatar variant="aurora" sizes="xsm">
@@ -531,7 +498,7 @@ export const AvatarGroup: Story = {
     docs: {
       description: {
         story:
-          'Stacked avatar group with negative margins and borders. The overflow avatar (+4) shows additional users in a hover card.',
+          "Stacked avatar group with negative margins and borders. The overflow avatar (+4) shows additional users in a hover card.",
       },
     },
   },
@@ -554,14 +521,10 @@ export const AvatarGroup: Story = {
     // Find the overflow avatar by its +4 text
     const overflowAvatar = await waitFor(
       () => {
-        const fallbacks = canvasElement.querySelectorAll(
-          '[data-slot="avatar-fallback"]'
-        );
-        const overflow = Array.from(fallbacks).find((fb) =>
-          fb.textContent?.includes('+4')
-        );
+        const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
+        const overflow = Array.from(fallbacks).find((fb) => fb.textContent?.includes("+4"));
         if (!overflow) {
-          throw new Error('Overflow avatar not found');
+          throw new Error("Overflow avatar not found");
         }
         // Return the parent avatar element
         return overflow.closest('[data-slot="avatar"]');
@@ -575,8 +538,7 @@ export const AvatarGroup: Story = {
       // Wait for hover card to appear
       await waitFor(
         () => {
-          const hoverCard =
-            canvasElement.ownerDocument.querySelector('[role="dialog"]');
+          const hoverCard = canvasElement.ownerDocument.querySelector('[role="dialog"]');
           expect(hoverCard).toBeInTheDocument();
         },
         { timeout: 500 }
@@ -605,11 +567,7 @@ export const AvatarGroupSmall: Story = {
       >
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
-      <Avatar
-        variant="dusk"
-        sizes="xsm"
-        className="relative -ml-1 z-3 border-2 border-background"
-      >
+      <Avatar variant="dusk" sizes="xsm" className="relative -ml-1 z-3 border-2 border-background">
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar
@@ -631,9 +589,7 @@ export const AvatarGroupSmall: Story = {
         </HoverCardTrigger>
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
-            <p className="text-xs text-muted-foreground font-medium">
-              4 more people
-            </p>
+            <p className="text-xs text-muted-foreground font-medium">4 more people</p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <Avatar variant="aurora" sizes="xsm">
@@ -657,7 +613,7 @@ export const AvatarGroupSmall: Story = {
     docs: {
       description: {
         story:
-          'Compact avatar group using the xsm size. Perfect for tight spaces or showing larger groups.',
+          "Compact avatar group using the xsm size. Perfect for tight spaces or showing larger groups.",
       },
     },
   },
@@ -678,7 +634,7 @@ export const AvatarGroupSmall: Story = {
 
     // All should be size-7 (xsm)
     const smallAvatars = Array.from(avatars).filter((avatar) =>
-      avatar.className.includes('size-7')
+      avatar.className.includes("size-7")
     );
     await expect(smallAvatars.length).toBeGreaterThan(0);
   },
@@ -694,33 +650,18 @@ export const ClickInteraction: Story = {
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
-          <Avatar
-            variant="nordic"
-            onClick={() => setClicked('User 1')}
-            data-testid="avatar-1"
-          >
+          <Avatar variant="nordic" onClick={() => setClicked("User 1")} data-testid="avatar-1">
             <AvatarFallback>U1</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="fjord"
-            onClick={() => setClicked('User 2')}
-            data-testid="avatar-2"
-          >
+          <Avatar variant="fjord" onClick={() => setClicked("User 2")} data-testid="avatar-2">
             <AvatarFallback>U2</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="aurora"
-            onClick={() => setClicked('User 3')}
-            data-testid="avatar-3"
-          >
+          <Avatar variant="aurora" onClick={() => setClicked("User 3")} data-testid="avatar-3">
             <AvatarFallback>U3</AvatarFallback>
           </Avatar>
         </div>
-        <div
-          data-testid="clicked-avatar"
-          className="text-sm text-muted-foreground"
-        >
-          {clicked ? `Clicked: ${clicked}` : 'Click an avatar'}
+        <div data-testid="clicked-avatar" className="text-sm text-muted-foreground">
+          {clicked ? `Clicked: ${clicked}` : "Click an avatar"}
         </div>
       </div>
     );
@@ -729,31 +670,27 @@ export const ClickInteraction: Story = {
     docs: {
       description: {
         story:
-          'Interactive avatars with click handlers. Avatars inherit the cursor-pointer class and can be clicked.',
+          "Interactive avatars with click handlers. Avatars inherit the cursor-pointer class and can be clicked.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const avatar1 = canvas.getByTestId('avatar-1');
-    const avatar2 = canvas.getByTestId('avatar-2');
-    const clickedText = canvas.getByTestId('clicked-avatar');
+    const avatar1 = canvas.getByTestId("avatar-1");
+    const avatar2 = canvas.getByTestId("avatar-2");
+    const clickedText = canvas.getByTestId("clicked-avatar");
 
     // Initial state
-    await expect(clickedText).toHaveTextContent('Click an avatar');
+    await expect(clickedText).toHaveTextContent("Click an avatar");
 
     // Click first avatar
     await userEvent.click(avatar1);
-    await waitFor(() =>
-      expect(clickedText).toHaveTextContent('Clicked: User 1')
-    );
+    await waitFor(() => expect(clickedText).toHaveTextContent("Clicked: User 1"));
 
     // Click second avatar
     await userEvent.click(avatar2);
-    await waitFor(() =>
-      expect(clickedText).toHaveTextContent('Clicked: User 2')
-    );
+    await waitFor(() => expect(clickedText).toHaveTextContent("Clicked: User 2"));
   },
 };
 
@@ -765,27 +702,21 @@ export const Accessibility: Story = {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
         <Avatar variant="nordic">
-          <AvatarImage
-            src={getImagePath('user-avatar2.png')}
-            alt="John Doe's avatar"
-          />
+          <AvatarImage src={getImagePath("user-avatar2.png")} alt="John Doe's avatar" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <Avatar variant="fjord">
-          <AvatarImage
-            src={getImagePath('user-avatar3.png')}
-            alt="Jane Smith's avatar"
-          />
+          <AvatarImage src={getImagePath("user-avatar3.png")} alt="Jane Smith's avatar" />
           <AvatarFallback>JS</AvatarFallback>
         </Avatar>
         <Avatar variant="aurora">
-          <AvatarImage src={getImagePath('user-avatar4.png')} alt="" />
+          <AvatarImage src={getImagePath("user-avatar4.png")} alt="" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
       <p className="text-xs text-muted-foreground max-w-md">
-        Avatar images should have descriptive alt text for screen readers. If
-        the avatar is decorative, use an empty alt attribute.
+        Avatar images should have descriptive alt text for screen readers. If the avatar is
+        decorative, use an empty alt attribute.
       </p>
     </div>
   ),
@@ -793,7 +724,7 @@ export const Accessibility: Story = {
     docs: {
       description: {
         story:
-          'Avatars with proper alt text for accessibility. Always include meaningful alt text for avatar images.',
+          "Avatars with proper alt text for accessibility. Always include meaningful alt text for avatar images.",
       },
     },
   },
@@ -801,9 +732,7 @@ export const Accessibility: Story = {
     // Wait for images to load and render
     const images = await waitFor(
       () => {
-        const found = canvasElement.querySelectorAll(
-          '[data-slot="avatar-image"]'
-        );
+        const found = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
         if (found.length < 3) {
           throw new Error(`Expected 3 images, found ${found.length}`);
         }
@@ -817,7 +746,7 @@ export const Accessibility: Story = {
     // Verify alt text exists
     const firstImage = images[0] as HTMLImageElement;
     await expect(firstImage.alt).toBeTruthy();
-    await expect(firstImage.alt).toContain('avatar');
+    await expect(firstImage.alt).toContain("avatar");
   },
 };
 
@@ -842,7 +771,7 @@ export const EdgeCaseEmpty: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with empty fallback text. They still render with the background color but no content.',
+          "Edge case: Avatars with empty fallback text. They still render with the background color but no content.",
       },
     },
   },
@@ -851,9 +780,7 @@ export const EdgeCaseEmpty: Story = {
     await expect(avatars.length).toBe(3);
 
     // Verify fallbacks exist but are empty
-    const fallbacks = canvasElement.querySelectorAll(
-      '[data-slot="avatar-fallback"]'
-    );
+    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(3);
   },
 };
@@ -888,25 +815,19 @@ export const EdgeCaseLongText: Story = {
             <Avatar variant="fjord">
               <AvatarFallback className="text-xs">ABC</AvatarFallback>
             </Avatar>
-            <span className="text-xs text-muted-foreground">
-              3 chars (smaller)
-            </span>
+            <span className="text-xs text-muted-foreground">3 chars (smaller)</span>
           </div>
           <div className="flex flex-col items-center gap-1">
             <Avatar variant="aurora">
               <AvatarFallback className="text-xs">ABCD</AvatarFallback>
             </Avatar>
-            <span className="text-xs text-muted-foreground">
-              4 chars (overflow)
-            </span>
+            <span className="text-xs text-muted-foreground">4 chars (overflow)</span>
           </div>
           <div className="flex flex-col items-center gap-1">
             <Avatar variant="dusk">
               <AvatarFallback className="text-xs">ABCDE</AvatarFallback>
             </Avatar>
-            <span className="text-xs text-muted-foreground">
-              5+ chars (clipped)
-            </span>
+            <span className="text-xs text-muted-foreground">5+ chars (clipped)</span>
           </div>
         </div>
       </div>
@@ -926,8 +847,8 @@ export const EdgeCaseLongText: Story = {
           </Avatar>
         </div>
         <p className="text-xs text-muted-foreground max-w-md">
-          Long text overflows and gets clipped. Best practice: limit to 1-2
-          characters or use smaller font size (text-xs) for 3+ characters.
+          Long text overflows and gets clipped. Best practice: limit to 1-2 characters or use
+          smaller font size (text-xs) for 3+ characters.
         </p>
       </div>
     </div>
@@ -936,19 +857,17 @@ export const EdgeCaseLongText: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with varying text lengths. Text beyond 2-3 characters will overflow. Consider limiting input to 1-2 characters or using smaller font sizes (text-xs) for longer text.',
+          "Edge case: Avatars with varying text lengths. Text beyond 2-3 characters will overflow. Consider limiting input to 1-2 characters or using smaller font sizes (text-xs) for longer text.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll(
-      '[data-slot="avatar-fallback"]'
-    );
+    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBeGreaterThanOrEqual(3);
 
     // Verify long text is present (in the examples without adjustment)
     const longTextAvatars = Array.from(fallbacks).filter((fb) =>
-      fb.textContent?.includes('ABCDEFGH')
+      fb.textContent?.includes("ABCDEFGH")
     );
     await expect(longTextAvatars.length).toBeGreaterThanOrEqual(3);
   },
@@ -981,7 +900,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with emojis, special characters, and unicode from various languages.',
+          "Edge case: Avatars with emojis, special characters, and unicode from various languages.",
       },
     },
   },
@@ -992,13 +911,13 @@ export const EdgeCaseSpecialCharacters: Story = {
     // Verify emoji avatar
     const emojiFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes('🎨'));
+    ).find((el) => el.textContent?.includes("🎨"));
     await expect(emojiFallback).toBeInTheDocument();
 
     // Verify Chinese characters
     const chineseFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes('中文'));
+    ).find((el) => el.textContent?.includes("中文"));
     await expect(chineseFallback).toBeInTheDocument();
   },
 };
@@ -1024,20 +943,18 @@ export const EdgeCaseSingleCharacter: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with single character fallback. Common for minimalist designs or single-name users.',
+          "Edge case: Avatars with single character fallback. Common for minimalist designs or single-name users.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll(
-      '[data-slot="avatar-fallback"]'
-    );
+    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(3);
 
     // Verify single characters
-    await expect(fallbacks[0]).toHaveTextContent('A');
-    await expect(fallbacks[1]).toHaveTextContent('Z');
-    await expect(fallbacks[2]).toHaveTextContent('M');
+    await expect(fallbacks[0]).toHaveTextContent("A");
+    await expect(fallbacks[1]).toHaveTextContent("Z");
+    await expect(fallbacks[2]).toHaveTextContent("M");
   },
 };
 
@@ -1065,21 +982,19 @@ export const EdgeCaseNumbers: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with numbers. Useful for rankings, counts, or numbered entities.',
+          "Edge case: Avatars with numbers. Useful for rankings, counts, or numbered entities.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll(
-      '[data-slot="avatar-fallback"]'
-    );
+    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
     await expect(fallbacks.length).toBe(4);
 
     // Verify numbers are rendered
-    await expect(fallbacks[0]).toHaveTextContent('1');
-    await expect(fallbacks[1]).toHaveTextContent('42');
-    await expect(fallbacks[2]).toHaveTextContent('999');
-    await expect(fallbacks[3]).toHaveTextContent('+99');
+    await expect(fallbacks[0]).toHaveTextContent("1");
+    await expect(fallbacks[1]).toHaveTextContent("42");
+    await expect(fallbacks[2]).toHaveTextContent("999");
+    await expect(fallbacks[3]).toHaveTextContent("+99");
   },
 };
 
@@ -1104,7 +1019,7 @@ export const EdgeCaseTinyWithText: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Very small avatars (xxsm - 20px) with increasing text lengths. Text may overflow or be cut off.',
+          "Edge case: Very small avatars (xxsm - 20px) with increasing text lengths. Text may overflow or be cut off.",
       },
     },
   },
@@ -1113,9 +1028,7 @@ export const EdgeCaseTinyWithText: Story = {
     await expect(avatars.length).toBe(3);
 
     // All should be xxsm size
-    const tinyAvatars = Array.from(avatars).filter((avatar) =>
-      avatar.className.includes('size-5')
-    );
+    const tinyAvatars = Array.from(avatars).filter((avatar) => avatar.className.includes("size-5"));
     await expect(tinyAvatars.length).toBe(3);
   },
 };
@@ -1127,24 +1040,15 @@ export const EdgeCaseFailedImage: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="nordic">
-        <AvatarImage
-          src={getImagePath('nonexistent-image-1.png')}
-          alt="Failed to load"
-        />
+        <AvatarImage src={getImagePath("nonexistent-image-1.png")} alt="Failed to load" />
         <AvatarFallback>FL</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord">
-        <AvatarImage
-          src={getImagePath('nonexistent-image-2.png')}
-          alt="Failed to load"
-        />
+        <AvatarImage src={getImagePath("nonexistent-image-2.png")} alt="Failed to load" />
         <AvatarFallback>ER</AvatarFallback>
       </Avatar>
       <Avatar variant="aurora">
-        <AvatarImage
-          src={getImagePath('nonexistent-image-3.png')}
-          alt="Failed to load"
-        />
+        <AvatarImage src={getImagePath("nonexistent-image-3.png")} alt="Failed to load" />
         <AvatarFallback>BR</AvatarFallback>
       </Avatar>
     </div>
@@ -1153,7 +1057,7 @@ export const EdgeCaseFailedImage: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with images that fail to load. The fallback text displays instead, demonstrating graceful degradation.',
+          "Edge case: Avatars with images that fail to load. The fallback text displays instead, demonstrating graceful degradation.",
       },
     },
   },
@@ -1161,9 +1065,7 @@ export const EdgeCaseFailedImage: Story = {
     // Wait for images to fail loading and fallback to show
     await waitFor(
       () => {
-        const fallbacks = canvasElement.querySelectorAll(
-          '[data-slot="avatar-fallback"]'
-        );
+        const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
         expect(fallbacks.length).toBe(3);
       },
       { timeout: 2000 }
@@ -1185,7 +1087,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
         >
-          <AvatarImage src={getImagePath('user-avatar3.png')} alt="User 1" />
+          <AvatarImage src={getImagePath("user-avatar3.png")} alt="User 1" />
           <AvatarFallback>NC</AvatarFallback>
         </Avatar>
         <Avatar
@@ -1193,7 +1095,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-2 border-2 border-background"
         >
-          <AvatarImage src={getImagePath('user-avatar4.png')} alt="User 2" />
+          <AvatarImage src={getImagePath("user-avatar4.png")} alt="User 2" />
           <AvatarFallback>AR</AvatarFallback>
         </Avatar>
         <Avatar
@@ -1201,7 +1103,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-3 border-2 border-background"
         >
-          <AvatarImage src={getImagePath('user-avatar5.png')} alt="User 3" />
+          <AvatarImage src={getImagePath("user-avatar5.png")} alt="User 3" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar
@@ -1209,7 +1111,7 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-4 border-2 border-background"
         >
-          <AvatarImage src={getImagePath('user-avatar6.png')} alt="User 4" />
+          <AvatarImage src={getImagePath("user-avatar6.png")} alt="User 4" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <DropdownMenu>
@@ -1233,9 +1135,7 @@ export const OverflowAvatarWithMenu: Story = {
                 </Avatar>
                 <div className="flex flex-col">
                   <span className="text-sm font-medium">Emma Liu</span>
-                  <span className="text-xs text-muted-foreground">
-                    emma.liu@cognite.com
-                  </span>
+                  <span className="text-xs text-muted-foreground">emma.liu@cognite.com</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
@@ -1244,9 +1144,7 @@ export const OverflowAvatarWithMenu: Story = {
                 </Avatar>
                 <div className="flex flex-col">
                   <span className="text-sm font-medium">James Kim</span>
-                  <span className="text-xs text-muted-foreground">
-                    james.kim@cognite.com
-                  </span>
+                  <span className="text-xs text-muted-foreground">james.kim@cognite.com</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
@@ -1255,9 +1153,7 @@ export const OverflowAvatarWithMenu: Story = {
                 </Avatar>
                 <div className="flex flex-col">
                   <span className="text-sm font-medium">Sarah Brown</span>
-                  <span className="text-xs text-muted-foreground">
-                    sarah.brown@cognite.com
-                  </span>
+                  <span className="text-xs text-muted-foreground">sarah.brown@cognite.com</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
@@ -1266,9 +1162,7 @@ export const OverflowAvatarWithMenu: Story = {
                 </Avatar>
                 <div className="flex flex-col">
                   <span className="text-sm font-medium">Michael Torres</span>
-                  <span className="text-xs text-muted-foreground">
-                    michael.torres@cognite.com
-                  </span>
+                  <span className="text-xs text-muted-foreground">michael.torres@cognite.com</span>
                 </div>
               </div>
             </div>
@@ -1276,8 +1170,8 @@ export const OverflowAvatarWithMenu: Story = {
         </DropdownMenu>
       </div>
       <p className="text-xs text-muted-foreground max-w-md">
-        Click the overflow avatar (+4) to see additional users in a dropdown
-        menu. Each user is displayed with their avatar, name, and email address.
+        Click the overflow avatar (+4) to see additional users in a dropdown menu. Each user is
+        displayed with their avatar, name, and email address.
       </p>
     </div>
   ),
@@ -1285,7 +1179,7 @@ export const OverflowAvatarWithMenu: Story = {
     docs: {
       description: {
         story:
-          'Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.',
+          "Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.",
       },
     },
   },
@@ -1305,11 +1199,9 @@ export const OverflowAvatarWithMenu: Story = {
     // Find the dropdown menu trigger (which wraps the overflow avatar)
     const trigger = await waitFor(
       () => {
-        const found = canvasElement.querySelector(
-          '[data-slot="dropdown-menu-trigger"]'
-        );
+        const found = canvasElement.querySelector('[data-slot="dropdown-menu-trigger"]');
         if (!found) {
-          throw new Error('Dropdown trigger not found');
+          throw new Error("Dropdown trigger not found");
         }
         return found;
       },
@@ -1326,11 +1218,11 @@ export const OverflowAvatarWithMenu: Story = {
           '[data-slot="dropdown-menu-content"]'
         );
         if (!menu) {
-          throw new Error('Menu not found');
+          throw new Error("Menu not found");
         }
         // Verify menu contains user information
-        expect(menu).toHaveTextContent('Emma Liu');
-        expect(menu).toHaveTextContent('James Kim');
+        expect(menu).toHaveTextContent("Emma Liu");
+        expect(menu).toHaveTextContent("James Kim");
       },
       { timeout: 3000 }
     );
@@ -1371,19 +1263,17 @@ export const EdgeCaseComplexIcons: Story = {
     docs: {
       description: {
         story:
-          'Edge case: Avatars with complex nested content in AvatarIcon, including multiple icons, custom SVGs, and text.',
+          "Edge case: Avatars with complex nested content in AvatarIcon, including multiple icons, custom SVGs, and text.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const avatarIcons = canvasElement.querySelectorAll(
-      '[data-slot="avatar-icon"]'
-    );
+    const avatarIcons = canvasElement.querySelectorAll('[data-slot="avatar-icon"]');
     await expect(avatarIcons.length).toBe(3);
 
     // Verify complex content exists
     const firstIcon = avatarIcons[0];
-    const stars = firstIcon.querySelectorAll('svg');
+    const stars = firstIcon.querySelectorAll("svg");
     await expect(stars.length).toBeGreaterThanOrEqual(2);
   },
 };
@@ -1396,9 +1286,7 @@ export const VisualRegression: Story = {
     <div className="flex flex-col gap-8 p-8">
       {/* All variants */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          All Variants
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
             <AvatarFallback>DF</AvatarFallback>
@@ -1429,9 +1317,7 @@ export const VisualRegression: Story = {
 
       {/* All sizes */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          All Sizes
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">All Sizes</h3>
         <div className="flex flex-wrap items-center gap-3">
           <Avatar variant="nordic" sizes="default">
             <AvatarFallback>LG</AvatarFallback>
@@ -1447,9 +1333,7 @@ export const VisualRegression: Story = {
 
       {/* With icons */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          With Icons
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
             <AvatarIcon>
@@ -1476,20 +1360,18 @@ export const VisualRegression: Story = {
 
       {/* With images */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          With Images
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">With Images</h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
-            <AvatarImage src={getImagePath('user-avatar2.png')} alt="User" />
+            <AvatarImage src={getImagePath("user-avatar2.png")} alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar variant="nordic">
-            <AvatarImage src={getImagePath('user-avatar3.png')} alt="User" />
+            <AvatarImage src={getImagePath("user-avatar3.png")} alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar variant="fjord">
-            <AvatarImage src={getImagePath('user-avatar4.png')} alt="User" />
+            <AvatarImage src={getImagePath("user-avatar4.png")} alt="User" />
             <AvatarFallback>FJ</AvatarFallback>
           </Avatar>
         </div>
@@ -1497,9 +1379,7 @@ export const VisualRegression: Story = {
 
       {/* Avatar group */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          Avatar Group
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">Avatar Group</h3>
         <div className="flex items-center">
           <Avatar
             variant="nordic"
@@ -1507,22 +1387,13 @@ export const VisualRegression: Story = {
           >
             <AvatarFallback>U1</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="fjord"
-            className="relative -ml-1 z-2 border-2 border-background"
-          >
+          <Avatar variant="fjord" className="relative -ml-1 z-2 border-2 border-background">
             <AvatarFallback>U2</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="aurora"
-            className="relative -ml-1 z-3 border-2 border-background"
-          >
+          <Avatar variant="aurora" className="relative -ml-1 z-3 border-2 border-background">
             <AvatarFallback>U3</AvatarFallback>
           </Avatar>
-          <Avatar
-            variant="overflow"
-            className="relative -ml-1 z-4 border-2 border-background"
-          >
+          <Avatar variant="overflow" className="relative -ml-1 z-4 border-2 border-background">
             <AvatarFallback>+5</AvatarFallback>
           </Avatar>
         </div>
@@ -1530,9 +1401,7 @@ export const VisualRegression: Story = {
 
       {/* Edge cases */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          Edge Cases
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">Edge Cases</h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
             <AvatarFallback></AvatarFallback>
@@ -1560,7 +1429,7 @@ export const VisualRegression: Story = {
     docs: {
       description: {
         story:
-          'Comprehensive visual overview of all avatar variants, sizes, and edge cases for visual regression testing in Chromatic.',
+          "Comprehensive visual overview of all avatar variants, sizes, and edge cases for visual regression testing in Chromatic.",
       },
     },
     chromatic: {
@@ -1579,14 +1448,14 @@ export const Playground: Story = {
     </Avatar>
   ),
   args: {
-    variant: 'nordic',
-    sizes: 'default',
+    variant: "nordic",
+    sizes: "default",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Interactive playground - use the controls below to experiment with all available avatar props and variants.',
+          "Interactive playground - use the controls below to experiment with all available avatar props and variants.",
       },
     },
   },

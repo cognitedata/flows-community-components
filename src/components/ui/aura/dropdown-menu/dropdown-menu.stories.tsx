@@ -1,7 +1,6 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,9 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuGroup,
   DropdownMenuHeader,
-} from './dropdown-menu';
-import { Button } from '@/components/ui/aura/button';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/aura/avatar';
+} from "./dropdown-menu";
+import { Button } from "@/components/ui/aura/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/aura/avatar";
 import {
   IconUser,
   IconHelp,
@@ -25,12 +24,12 @@ import {
   IconTrash,
   IconCheck,
   IconChevronDown,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: 'Primitives/Dropdown Menu',
+  title: "Primitives/Dropdown Menu",
   component: DropdownMenu,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
     // Set modal to false for Storybook to avoid aria-hidden violations
     // In real apps, modal defaults to true (Radix UI default)
@@ -39,47 +38,46 @@ const meta: Meta<typeof DropdownMenu> = {
   argTypes: {
     // State
     open: {
-      control: 'boolean',
-      description: 'Controlled open state',
+      control: "boolean",
+      description: "Controlled open state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultOpen: {
-      control: 'boolean',
-      description: 'Default open state (uncontrolled)',
+      control: "boolean",
+      description: "Default open state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     modal: {
-      control: 'boolean',
-      description:
-        'Whether the dropdown is modal (blocks interaction with other content)',
+      control: "boolean",
+      description: "Whether the dropdown is modal (blocks interaction with other content)",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
 
     // Events
     onOpenChange: {
-      action: 'openChanged',
-      description: 'Callback when open state changes',
+      action: "openChanged",
+      description: "Callback when open state changes",
       table: {
-        category: 'Events',
-        type: { summary: '(open: boolean) => void' },
+        category: "Events",
+        type: { summary: "(open: boolean) => void" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     actions: {
-      handles: ['click', 'openChanged'],
+      handles: ["click", "openChanged"],
     },
   },
 };
@@ -96,7 +94,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          'Basic dropdown menu with standard action items. Tests opening, clicking items, and accessibility.',
+          "Basic dropdown menu with standard action items. Tests opening, clicking items, and accessibility.",
       },
     },
   },
@@ -104,9 +102,9 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Find and verify trigger button
-    const trigger = canvas.getByRole('button', { name: /open menu/i });
+    const trigger = canvas.getByRole("button", { name: /open menu/i });
     await expect(trigger).toBeInTheDocument();
-    await expect(trigger).toHaveAttribute('aria-haspopup');
+    await expect(trigger).toHaveAttribute("aria-haspopup");
 
     // Click to open menu
     await userEvent.click(trigger);
@@ -118,7 +116,7 @@ export const Basic: Story = {
           '[data-slot="dropdown-menu-content"]'
         );
         if (!menu) {
-          throw new Error('Menu not found');
+          throw new Error("Menu not found");
         }
         expect(menu).toBeInTheDocument();
       },
@@ -129,9 +127,9 @@ export const Basic: Story = {
     const menuContent = canvasElement.ownerDocument.querySelector(
       '[data-slot="dropdown-menu-content"]'
     );
-    await expect(menuContent).toHaveTextContent('Profile');
-    await expect(menuContent).toHaveTextContent('Settings');
-    await expect(menuContent).toHaveTextContent('Help');
+    await expect(menuContent).toHaveTextContent("Profile");
+    await expect(menuContent).toHaveTextContent("Settings");
+    await expect(menuContent).toHaveTextContent("Help");
   },
   render: function BasicStory(args) {
     return (
@@ -170,8 +168,7 @@ export const WithUserLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Dropdown menu with rich label content including avatar and user information.',
+        story: "Dropdown menu with rich label content including avatar and user information.",
       },
     },
   },
@@ -179,7 +176,7 @@ export const WithUserLabel: Story = {
     const canvas = within(canvasElement);
 
     // Open menu
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await userEvent.click(trigger);
 
     // Wait for menu and verify label content
@@ -188,8 +185,8 @@ export const WithUserLabel: Story = {
         const menu = canvasElement.ownerDocument.querySelector(
           '[data-slot="dropdown-menu-content"]'
         );
-        expect(menu).toHaveTextContent('Jane Smith');
-        expect(menu).toHaveTextContent('jane.smith@cognite.com');
+        expect(menu).toHaveTextContent("Jane Smith");
+        expect(menu).toHaveTextContent("jane.smith@cognite.com");
       },
       { timeout: 1000 }
     );
@@ -207,9 +204,7 @@ export const WithUserLabel: Story = {
               <AvatarFallback>JS</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
-              <div className="text-base tracking-tighter font-medium">
-                Jane Smith
-              </div>
+              <div className="text-base tracking-tighter font-medium">Jane Smith</div>
               <span className="text-sm font-normal tracking-tight text-muted-foreground">
                 jane.smith@cognite.com
               </span>
@@ -246,7 +241,7 @@ export const WithCheckboxItems: Story = {
     docs: {
       description: {
         story:
-          'Dropdown menu with checkbox items. Menu stays open when toggling checkboxes. Shows selected items above for better visibility.',
+          "Dropdown menu with checkbox items. Menu stays open when toggling checkboxes. Shows selected items above for better visibility.",
       },
     },
   },
@@ -254,7 +249,7 @@ export const WithCheckboxItems: Story = {
     const canvas = within(canvasElement);
 
     // Open menu
-    const trigger = canvas.getByRole('button', { name: /filters/i });
+    const trigger = canvas.getByRole("button", { name: /filters/i });
     await userEvent.click(trigger);
 
     // Wait for menu
@@ -269,18 +264,14 @@ export const WithCheckboxItems: Story = {
     );
 
     // Verify initial state shows 2 notifications selected
-    const outputDiv = canvasElement.querySelector(
-      '[data-testid="checkbox-output"]'
-    );
-    expect(outputDiv?.textContent).toContain('2');
-    expect(outputDiv?.textContent).toContain('notification');
-    expect(outputDiv?.textContent).toContain('selected');
+    const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
+    expect(outputDiv?.textContent).toContain("2");
+    expect(outputDiv?.textContent).toContain("notification");
+    expect(outputDiv?.textContent).toContain("selected");
 
     // Find checkbox items in the portal
     const menuDoc = canvasElement.ownerDocument;
-    const checkboxItems = menuDoc.querySelectorAll(
-      '[data-slot="dropdown-menu-checkbox-item"]'
-    );
+    const checkboxItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-checkbox-item"]');
     expect(checkboxItems.length).toBeGreaterThanOrEqual(4);
 
     // Click first checkbox (should toggle it)
@@ -294,12 +285,10 @@ export const WithCheckboxItems: Story = {
 
     // Verify count updated to 1 notification selected
     await waitFor(() => {
-      const outputDiv = canvasElement.querySelector(
-        '[data-testid="checkbox-output"]'
-      );
-      expect(outputDiv?.textContent).toContain('1');
-      expect(outputDiv?.textContent).toContain('notification');
-      expect(outputDiv?.textContent).toContain('selected');
+      const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
+      expect(outputDiv?.textContent).toContain("1");
+      expect(outputDiv?.textContent).toContain("notification");
+      expect(outputDiv?.textContent).toContain("selected");
     });
   },
   render: function WithCheckboxItemsStory(args) {
@@ -314,16 +303,12 @@ export const WithCheckboxItems: Story = {
 
     return (
       <div className="space-y-4">
-        <div
-          className="text-sm text-muted-foreground"
-          data-testid="checkbox-output"
-        >
-          {selectedCount} notification{selectedCount !== 1 ? 's' : ''} selected:
+        <div className="text-sm text-muted-foreground" data-testid="checkbox-output">
+          {selectedCount} notification{selectedCount !== 1 ? "s" : ""} selected:
           <ul className="mt-2 space-y-1">
             {checkedItems.emails && (
               <li className="flex items-center gap-2">
-                <IconCheck className="size-3 text-success" /> Email
-                notifications
+                <IconCheck className="size-3 text-success" /> Email notifications
               </li>
             )}
             {checkedItems.messages && (
@@ -402,7 +387,7 @@ export const WithRadioGroup: Story = {
     docs: {
       description: {
         story:
-          'Dropdown menu with radio group items. Menu stays open when selecting options. Shows current selection above for better visibility.',
+          "Dropdown menu with radio group items. Menu stays open when selecting options. Shows current selection above for better visibility.",
       },
     },
   },
@@ -410,14 +395,12 @@ export const WithRadioGroup: Story = {
     const canvas = within(canvasElement);
 
     // Verify initial selection
-    const outputDiv = canvasElement.querySelector(
-      '[data-testid="radio-output"]'
-    );
-    expect(outputDiv?.textContent).toContain('Current view:');
-    expect(outputDiv?.textContent).toContain('grid');
+    const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
+    expect(outputDiv?.textContent).toContain("Current view:");
+    expect(outputDiv?.textContent).toContain("grid");
 
     // Open menu
-    const trigger = canvas.getByRole('button', { name: /change view/i });
+    const trigger = canvas.getByRole("button", { name: /change view/i });
     await userEvent.click(trigger);
 
     // Wait for menu
@@ -433,9 +416,7 @@ export const WithRadioGroup: Story = {
 
     // Find and click "List" radio item
     const menuDoc = canvasElement.ownerDocument;
-    const radioItems = menuDoc.querySelectorAll(
-      '[data-slot="dropdown-menu-radio-item"]'
-    );
+    const radioItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-radio-item"]');
 
     // Click the second radio item (List)
     await userEvent.click(radioItems[1] as Element);
@@ -448,26 +429,18 @@ export const WithRadioGroup: Story = {
 
     // Verify selection updated
     await waitFor(() => {
-      const outputDiv = canvasElement.querySelector(
-        '[data-testid="radio-output"]'
-      );
-      expect(outputDiv?.textContent).toContain('Current view:');
-      expect(outputDiv?.textContent).toContain('list');
+      const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
+      expect(outputDiv?.textContent).toContain("Current view:");
+      expect(outputDiv?.textContent).toContain("list");
     });
   },
   render: function WithRadioGroupStory(args) {
-    const [viewMode, setViewMode] = useState('grid');
+    const [viewMode, setViewMode] = useState("grid");
 
     return (
       <div className="space-y-4">
-        <div
-          className="text-sm text-muted-foreground"
-          data-testid="radio-output"
-        >
-          Current view:{' '}
-          <span className="font-medium text-foreground capitalize">
-            {viewMode}
-          </span>
+        <div className="text-sm text-muted-foreground" data-testid="radio-output">
+          Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
         <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
@@ -478,22 +451,11 @@ export const WithRadioGroup: Story = {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>Display Mode</DropdownMenuLabel>
-            <DropdownMenuRadioGroup
-              value={viewMode}
-              onValueChange={setViewMode}
-            >
-              <DropdownMenuRadioItem value="grid">
-                Grid view
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="list">
-                List view
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="table">
-                Table view
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="kanban">
-                Kanban board
-              </DropdownMenuRadioItem>
+            <DropdownMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
+              <DropdownMenuRadioItem value="grid">Grid view</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="list">List view</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="table">Table view</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="kanban">Kanban board</DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -511,7 +473,7 @@ export const WithDestructiveAction: Story = {
     docs: {
       description: {
         story:
-          'Dropdown menu with a destructive action item. Destructive items have warning styling.',
+          "Dropdown menu with a destructive action item. Destructive items have warning styling.",
       },
     },
   },
@@ -519,7 +481,7 @@ export const WithDestructiveAction: Story = {
     const canvas = within(canvasElement);
 
     // Open menu
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await userEvent.click(trigger);
 
     // Wait for menu and verify destructive item
@@ -528,7 +490,7 @@ export const WithDestructiveAction: Story = {
         const menu = canvasElement.ownerDocument.querySelector(
           '[data-slot="dropdown-menu-content"]'
         );
-        expect(menu).toHaveTextContent('Delete');
+        expect(menu).toHaveTextContent("Delete");
 
         // Verify destructive variant
         const deleteItem = canvasElement.ownerDocument.querySelector(
@@ -540,33 +502,26 @@ export const WithDestructiveAction: Story = {
     );
   },
   render: function WithDestructiveActionStory(args) {
-    const [action, setAction] = useState<string>('');
+    const [action, setAction] = useState<string>("");
 
     return (
       <div className="space-y-4">
-        {action && (
-          <div className="text-sm text-muted-foreground">
-            Last action: {action}
-          </div>
-        )}
+        {action && <div className="text-sm text-muted-foreground">Last action: {action}</div>}
         <DropdownMenu {...args}>
           <DropdownMenuTrigger asChild>
             <Button>Actions</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
-            <DropdownMenuItem onClick={() => setAction('Viewed profile')}>
+            <DropdownMenuItem onClick={() => setAction("Viewed profile")}>
               <IconUser />
               Profile
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setAction('Opened settings')}>
+            <DropdownMenuItem onClick={() => setAction("Opened settings")}>
               <IconSettingsFilled />
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              variant="destructive"
-              onClick={() => setAction('Deleted item')}
-            >
+            <DropdownMenuItem variant="destructive" onClick={() => setAction("Deleted item")}>
               <IconTrash />
               Delete
             </DropdownMenuItem>
@@ -586,7 +541,7 @@ export const KeyboardNavigation: Story = {
     docs: {
       description: {
         story:
-          'Tests keyboard navigation: Space/Enter to open, Arrow keys (not Tab) to navigate between items, Enter to select, Esc to close. Tab key moves focus out of the menu.',
+          "Tests keyboard navigation: Space/Enter to open, Arrow keys (not Tab) to navigate between items, Enter to select, Esc to close. Tab key moves focus out of the menu.",
       },
     },
   },
@@ -594,12 +549,12 @@ export const KeyboardNavigation: Story = {
     const canvas = within(canvasElement);
 
     // Find trigger
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     trigger.focus();
     await expect(trigger).toHaveFocus();
 
     // Press Enter to open
-    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard("{Enter}");
 
     // Wait for menu
     await waitFor(
@@ -613,15 +568,15 @@ export const KeyboardNavigation: Story = {
     );
 
     // Press ArrowDown to navigate
-    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard("{ArrowDown}");
     await waitFor(() => {
       const menuDoc = canvasElement.ownerDocument;
       const focused = menuDoc.activeElement;
-      expect(focused).toHaveAttribute('data-slot', 'dropdown-menu-item');
+      expect(focused).toHaveAttribute("data-slot", "dropdown-menu-item");
     });
 
     // Press Escape to close
-    await userEvent.keyboard('{Escape}');
+    await userEvent.keyboard("{Escape}");
 
     // Wait for menu to close
     await waitFor(
@@ -635,14 +590,13 @@ export const KeyboardNavigation: Story = {
     );
   },
   render: function KeyboardNavigationStory(args) {
-    const [selectedItem, setSelectedItem] = useState<string>('');
+    const [selectedItem, setSelectedItem] = useState<string>("");
 
     return (
       <div className="space-y-4">
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
-            Selected:{' '}
-            <span className="font-medium text-foreground">{selectedItem}</span>
+            Selected: <span className="font-medium text-foreground">{selectedItem}</span>
           </div>
         )}
         <DropdownMenu {...args}>
@@ -650,15 +604,15 @@ export const KeyboardNavigation: Story = {
             <Button>Keyboard Test</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuItem onClick={() => setSelectedItem('First Item')}>
+            <DropdownMenuItem onClick={() => setSelectedItem("First Item")}>
               <IconUser />
               First Item
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setSelectedItem('Second Item')}>
+            <DropdownMenuItem onClick={() => setSelectedItem("Second Item")}>
               <IconSettingsFilled />
               Second Item
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setSelectedItem('Third Item')}>
+            <DropdownMenuItem onClick={() => setSelectedItem("Third Item")}>
               <IconBell />
               Third Item
             </DropdownMenuItem>
@@ -676,8 +630,7 @@ export const EmptyMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Edge case: Dropdown menu with no available items, showing disabled placeholder.',
+        story: "Edge case: Dropdown menu with no available items, showing disabled placeholder.",
       },
     },
   },
@@ -685,7 +638,7 @@ export const EmptyMenu: Story = {
     const canvas = within(canvasElement);
 
     // Open menu
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await userEvent.click(trigger);
 
     // Menu should still render (empty)
@@ -722,7 +675,7 @@ export const DisabledTrigger: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Edge case: Dropdown menu with disabled trigger button.',
+        story: "Edge case: Dropdown menu with disabled trigger button.",
       },
     },
   },
@@ -730,19 +683,17 @@ export const DisabledTrigger: Story = {
     const canvas = within(canvasElement);
 
     // Verify button is disabled
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await expect(trigger).toBeDisabled();
-    await expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+    await expect(trigger).toHaveAttribute("aria-haspopup", "menu");
 
     // Verify menu is not open (disabled buttons cannot be interacted with)
-    const menu = canvasElement.ownerDocument.querySelector(
-      '[data-slot="dropdown-menu-content"]'
-    );
+    const menu = canvasElement.ownerDocument.querySelector('[data-slot="dropdown-menu-content"]');
     expect(menu).not.toBeInTheDocument();
 
     // Verify the button has pointer-events: none (expected for disabled state)
     const styles = window.getComputedStyle(trigger);
-    expect(styles.pointerEvents).toBe('none');
+    expect(styles.pointerEvents).toBe("none");
   },
   render: function DisabledTriggerStory(args) {
     return (
@@ -769,7 +720,7 @@ export const ComplexInteractive: Story = {
     docs: {
       description: {
         story:
-          'Complex example combining checkboxes, radio groups, and actions. Shows full state management.',
+          "Complex example combining checkboxes, radio groups, and actions. Shows full state management.",
       },
     },
   },
@@ -777,7 +728,7 @@ export const ComplexInteractive: Story = {
     const canvas = within(canvasElement);
 
     // Open menu
-    const trigger = canvas.getByRole('button', { name: /preferences/i });
+    const trigger = canvas.getByRole("button", { name: /preferences/i });
     await userEvent.click(trigger);
 
     // Wait for menu to open
@@ -793,18 +744,14 @@ export const ComplexInteractive: Story = {
 
     // Test checkbox interaction - toggle email notification
     const menuDoc = canvasElement.ownerDocument;
-    const checkboxItems = menuDoc.querySelectorAll(
-      '[data-slot="dropdown-menu-checkbox-item"]'
-    );
+    const checkboxItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-checkbox-item"]');
     expect(checkboxItems.length).toBeGreaterThanOrEqual(3);
 
     // Click first checkbox (email)
     await userEvent.click(checkboxItems[0] as Element);
 
     // Test radio interaction - change theme
-    const radioItems = menuDoc.querySelectorAll(
-      '[data-slot="dropdown-menu-radio-item"]'
-    );
+    const radioItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-radio-item"]');
     expect(radioItems.length).toBeGreaterThanOrEqual(3);
 
     // Click second radio (dark)
@@ -820,7 +767,7 @@ export const ComplexInteractive: Story = {
     const items = menuDoc.querySelectorAll('[data-slot="dropdown-menu-item"]');
     let resetButton: Element | null = null;
     items.forEach((item) => {
-      if (item.textContent?.includes('Reset to defaults')) {
+      if (item.textContent?.includes("Reset to defaults")) {
         resetButton = item;
       }
     });
@@ -832,20 +779,18 @@ export const ComplexInteractive: Story = {
       push: false,
       sms: false,
     });
-    const [theme, setTheme] = useState('light');
-    const [lastAction, setLastAction] = useState('');
+    const [theme, setTheme] = useState("light");
+    const [lastAction, setLastAction] = useState("");
 
-    const notificationCount =
-      Object.values(notifications).filter(Boolean).length;
+    const notificationCount = Object.values(notifications).filter(Boolean).length;
 
     return (
       <div className="space-y-6 w-80">
         <div className="space-y-3 text-sm">
           <div>
-            <span className="font-medium">Notifications:</span>{' '}
+            <span className="font-medium">Notifications:</span>{" "}
             <span className="text-muted-foreground">
-              {notificationCount} type{notificationCount !== 1 ? 's' : ''}{' '}
-              enabled
+              {notificationCount} type{notificationCount !== 1 ? "s" : ""} enabled
             </span>
             {notificationCount > 0 && (
               <ul className="mt-1 ml-4 space-y-0.5 text-muted-foreground">
@@ -857,13 +802,13 @@ export const ComplexInteractive: Story = {
           </div>
 
           <div>
-            <span className="font-medium">Theme:</span>{' '}
+            <span className="font-medium">Theme:</span>{" "}
             <span className="text-muted-foreground capitalize">{theme}</span>
           </div>
 
           {lastAction && (
             <div className="pt-2 border-t">
-              <span className="font-medium">Last action:</span>{' '}
+              <span className="font-medium">Last action:</span>{" "}
               <span className="text-muted-foreground">{lastAction}</span>
             </div>
           )}
@@ -911,17 +856,13 @@ export const ComplexInteractive: Story = {
             <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
               <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="system">
-                System
-              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
 
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem
-                onClick={() => setLastAction('Reset preferences')}
-              >
+              <DropdownMenuItem onClick={() => setLastAction("Reset preferences")}>
                 <IconSettingsFilled />
                 Reset to defaults
               </DropdownMenuItem>

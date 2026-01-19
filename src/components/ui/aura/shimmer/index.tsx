@@ -9,6 +9,6 @@
  *
  * <Shimmer variant="nordic">Loading...</Shimmer>
  */
-export { Shimmer } from './shimmer';
-export type { TextShimmerProps } from './shimmer';
-export { ShimmerMetadata } from './shimmer.metadata';
+export { Shimmer } from "./shimmer";
+export type { TextShimmerProps } from "./shimmer";
+export { ShimmerMetadata } from "./shimmer.metadata";

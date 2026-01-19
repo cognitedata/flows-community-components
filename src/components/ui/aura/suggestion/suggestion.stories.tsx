@@ -1,7 +1,6 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   Suggestion,
   Suggestions,
@@ -12,18 +11,13 @@ import {
   SuggestionSeparator,
   SuggestionTrigger,
   SuggestionValue,
-} from './suggestion';
-import {
-  IconActivity,
-  IconChartLine,
-  IconGauge,
-  IconHistory,
-} from '@tabler/icons-react';
+} from "./suggestion";
+import { IconActivity, IconChartLine, IconGauge, IconHistory } from "@tabler/icons-react";
 
 const meta: Meta<typeof Suggestion> = {
-  title: 'AI/Suggestion',
+  title: "AI/Suggestion",
   component: Suggestion,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <div className="p-8">
@@ -34,68 +28,68 @@ const meta: Meta<typeof Suggestion> = {
   argTypes: {
     // Button mode props
     suggestion: {
-      control: 'text',
-      description: 'Suggestion text for button mode',
+      control: "text",
+      description: "Suggestion text for button mode",
       table: {
-        category: 'Button Mode',
-        type: { summary: 'string' },
+        category: "Button Mode",
+        type: { summary: "string" },
       },
     },
     onClick: {
-      action: 'clicked',
-      description: 'Callback when suggestion button is clicked',
+      action: "clicked",
+      description: "Callback when suggestion button is clicked",
       table: {
-        category: 'Button Mode',
-        type: { summary: '(suggestion: string) => void' },
+        category: "Button Mode",
+        type: { summary: "(suggestion: string) => void" },
       },
     },
     variant: {
-      control: 'select',
-      options: ['ghost', 'outline'],
+      control: "select",
+      options: ["ghost", "outline"],
       description:
-        'Button variant (button mode only). Only ghost and outline are supported as Suggestions are designed to have light backgrounds with dark text.',
+        "Button variant (button mode only). Only ghost and outline are supported as Suggestions are designed to have light backgrounds with dark text.",
       table: {
-        category: 'Button Mode',
+        category: "Button Mode",
         type: {
-          summary: 'ghost | outline',
+          summary: "ghost | outline",
         },
-        defaultValue: { summary: 'ghost' },
+        defaultValue: { summary: "ghost" },
       },
     },
     size: {
-      control: 'select',
-      options: ['sm', 'default', 'lg', 'icon'],
-      description: 'Button size (button mode only)',
+      control: "select",
+      options: ["sm", "default", "lg", "icon"],
+      description: "Button size (button mode only)",
       table: {
-        category: 'Button Mode',
-        type: { summary: 'sm | default | lg | icon' },
-        defaultValue: { summary: 'sm' },
+        category: "Button Mode",
+        type: { summary: "sm | default | lg | icon" },
+        defaultValue: { summary: "sm" },
       },
     },
 
     // Select mode props
     onValueChange: {
-      action: 'value-changed',
-      description: 'Callback when suggestion value changes (select mode)',
+      action: "value-changed",
+      description: "Callback when suggestion value changes (select mode)",
       table: {
-        category: 'Select Mode',
-        type: { summary: '(value: string) => void' },
+        category: "Select Mode",
+        type: { summary: "(value: string) => void" },
       },
     },
 
     // Common props
     className: {
-      control: 'text',
-      description: 'CSS classes for styling',
+      control: "text",
+      description: "CSS classes for styling",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     actions: {
-      handles: ['click', 'value-changed'],
+      handles: ["click", "value-changed"],
     },
   },
 };
@@ -112,7 +106,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          'Basic button-style suggestions for quick queries. Tests clicking suggestions and onClick callback.',
+          "Basic button-style suggestions for quick queries. Tests clicking suggestions and onClick callback.",
       },
     },
   },
@@ -120,7 +114,7 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Find the first suggestion button
-    const suggestion1 = canvas.getByRole('button', {
+    const suggestion1 = canvas.getByRole("button", {
       name: /AI prompt suggestion 1/i,
     });
     await expect(suggestion1).toBeInTheDocument();
@@ -129,7 +123,7 @@ export const Basic: Story = {
     await userEvent.click(suggestion1);
 
     // Verify other suggestions are present
-    const suggestion2 = canvas.getByRole('button', {
+    const suggestion2 = canvas.getByRole("button", {
       name: /AI prompt suggestion 2/i,
     });
     await expect(suggestion2).toBeInTheDocument();
@@ -141,18 +135,9 @@ export const Basic: Story = {
 
     return (
       <div className="flex flex-wrap gap-2 max-w-[80%]">
-        <Suggestion
-          suggestion="AI prompt suggestion 1"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="AI prompt suggestion 2"
-          onClick={handleSuggestion}
-        />
-        <Suggestion
-          suggestion="AI prompt suggestion 3"
-          onClick={handleSuggestion}
-        />
+        <Suggestion suggestion="AI prompt suggestion 1" onClick={handleSuggestion} />
+        <Suggestion suggestion="AI prompt suggestion 2" onClick={handleSuggestion} />
+        <Suggestion suggestion="AI prompt suggestion 3" onClick={handleSuggestion} />
       </div>
     );
   },
@@ -165,8 +150,7 @@ export const WithScrollableWrapper: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Multiple suggestions wrapped in Suggestions component for horizontal scrolling.',
+        story: "Multiple suggestions wrapped in Suggestions component for horizontal scrolling.",
       },
     },
   },
@@ -199,7 +183,7 @@ export const ButtonVariants: Story = {
     docs: {
       description: {
         story:
-          'Suggestion buttons with supported variants. Only ghost (default) and outline are available.',
+          "Suggestion buttons with supported variants. Only ghost (default) and outline are available.",
       },
     },
   },
@@ -215,11 +199,7 @@ export const ButtonVariants: Story = {
           variant="ghost"
           onClick={handleSuggestion}
         />
-        <Suggestion
-          suggestion="Outline variant"
-          variant="outline"
-          onClick={handleSuggestion}
-        />
+        <Suggestion suggestion="Outline variant" variant="outline" onClick={handleSuggestion} />
       </div>
     );
   },
@@ -234,7 +214,7 @@ export const SelectMode: Story = {
     docs: {
       description: {
         story:
-          'Dropdown-style suggestions with multiple query options. Tests opening dropdown and selecting items.',
+          "Dropdown-style suggestions with multiple query options. Tests opening dropdown and selecting items.",
       },
     },
   },
@@ -242,7 +222,7 @@ export const SelectMode: Story = {
     const canvas = within(canvasElement);
 
     // Find the trigger button
-    const trigger = canvas.getByRole('combobox');
+    const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
 
     // Click to open dropdown
@@ -251,24 +231,20 @@ export const SelectMode: Story = {
     // Wait for dropdown to open and find an item
     await waitFor(
       () => {
-        const item = within(document.body).getByText(
-          'Show me the pressure on valve 10'
-        );
+        const item = within(document.body).getByText("Show me the pressure on valve 10");
         expect(item).toBeInTheDocument();
       },
       { timeout: 1000 }
     );
 
     // Click the item to select it
-    const item = within(document.body).getByText(
-      'Show me the pressure on valve 10'
-    );
+    const item = within(document.body).getByText("Show me the pressure on valve 10");
     await userEvent.click(item);
 
     // Dropdown should close automatically after selection
     await waitFor(
       () => {
-        expect(trigger).toHaveAttribute('data-state', 'closed');
+        expect(trigger).toHaveAttribute("data-state", "closed");
       },
       { timeout: 500 }
     );
@@ -307,7 +283,7 @@ export const KeyboardInteractions: Story = {
     docs: {
       description: {
         story:
-          'Tests keyboard navigation: Arrow keys to navigate, Enter to select, Escape to close.',
+          "Tests keyboard navigation: Arrow keys to navigate, Enter to select, Escape to close.",
       },
     },
   },
@@ -315,49 +291,49 @@ export const KeyboardInteractions: Story = {
     const canvas = within(canvasElement);
 
     // Find and focus the trigger
-    const trigger = canvas.getByRole('combobox');
+    const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
     trigger.focus();
 
     // Open dropdown with Enter key
-    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard("{Enter}");
 
     // Wait for dropdown to open
     await waitFor(
       () => {
-        expect(trigger).toHaveAttribute('data-state', 'open');
+        expect(trigger).toHaveAttribute("data-state", "open");
       },
       { timeout: 500 }
     );
 
     // Navigate down with arrow key
-    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard("{ArrowDown}");
 
     // Select with Enter
-    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard("{Enter}");
 
     // Dropdown should close
     await waitFor(
       () => {
-        expect(trigger).toHaveAttribute('data-state', 'closed');
+        expect(trigger).toHaveAttribute("data-state", "closed");
       },
       { timeout: 500 }
     );
 
     // Open again to test Escape
-    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard("{Enter}");
     await waitFor(
       () => {
-        expect(trigger).toHaveAttribute('data-state', 'open');
+        expect(trigger).toHaveAttribute("data-state", "open");
       },
       { timeout: 500 }
     );
 
     // Close with Escape
-    await userEvent.keyboard('{Escape}');
+    await userEvent.keyboard("{Escape}");
     await waitFor(
       () => {
-        expect(trigger).toHaveAttribute('data-state', 'closed');
+        expect(trigger).toHaveAttribute("data-state", "closed");
       },
       { timeout: 500 }
     );
@@ -373,15 +349,9 @@ export const KeyboardInteractions: Story = {
           <SuggestionValue placeholder="Use keyboard to navigate..." />
         </SuggestionTrigger>
         <SuggestionContent>
-          <SuggestionItem icon={<IconGauge className="size-4" />}>
-            First option
-          </SuggestionItem>
-          <SuggestionItem icon={<IconActivity className="size-4" />}>
-            Second option
-          </SuggestionItem>
-          <SuggestionItem icon={<IconChartLine className="size-4" />}>
-            Third option
-          </SuggestionItem>
+          <SuggestionItem icon={<IconGauge className="size-4" />}>First option</SuggestionItem>
+          <SuggestionItem icon={<IconActivity className="size-4" />}>Second option</SuggestionItem>
+          <SuggestionItem icon={<IconChartLine className="size-4" />}>Third option</SuggestionItem>
         </SuggestionContent>
       </Suggestion>
     );
@@ -396,7 +366,7 @@ export const Grouped: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Organised suggestions with categories, labels, and separators.',
+        story: "Organised suggestions with categories, labels, and separators.",
       },
     },
   },
@@ -446,7 +416,7 @@ export const InteractiveSelect: Story = {
     docs: {
       description: {
         story:
-          'Select mode suggestion with state management to show selected value. Tests selecting an item and verifying the UI updates.',
+          "Select mode suggestion with state management to show selected value. Tests selecting an item and verifying the UI updates.",
       },
     },
   },
@@ -454,7 +424,7 @@ export const InteractiveSelect: Story = {
     const canvas = within(canvasElement);
 
     // Find the trigger button
-    const trigger = canvas.getByRole('combobox');
+    const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
 
     // Verify initial state - no selection message
@@ -466,33 +436,27 @@ export const InteractiveSelect: Story = {
     // Wait for dropdown to open
     await waitFor(
       () => {
-        const item = within(document.body).getByText(
-          "What's the status of pump 3?"
-        );
+        const item = within(document.body).getByText("What's the status of pump 3?");
         expect(item).toBeInTheDocument();
       },
       { timeout: 1000 }
     );
 
     // Select the second item
-    const item = within(document.body).getByText(
-      "What's the status of pump 3?"
-    );
+    const item = within(document.body).getByText("What's the status of pump 3?");
     await userEvent.click(item);
 
     // Verify the selection is displayed
     await waitFor(
       () => {
-        const selectionText = canvas.getByText(
-          /Last selected: What's the status of pump 3\?/
-        );
+        const selectionText = canvas.getByText(/Last selected: What's the status of pump 3\?/);
         expect(selectionText).toBeInTheDocument();
       },
       { timeout: 500 }
     );
   },
   render: function SuggestionInteractiveStory(args) {
-    const [selectedValue, setSelectedValue] = useState<string>('');
+    const [selectedValue, setSelectedValue] = useState<string>("");
 
     const handleSuggestion = (value: string) => {
       setSelectedValue(value);
@@ -504,11 +468,7 @@ export const InteractiveSelect: Story = {
         <Suggestion onValueChange={handleSuggestion}>
           <SuggestionTrigger aria-label="Select a query">
             <SuggestionValue
-              placeholder={
-                selectedValue
-                  ? `Selected: ${selectedValue}`
-                  : 'Select a query...'
-              }
+              placeholder={selectedValue ? `Selected: ${selectedValue}` : "Select a query..."}
             />
           </SuggestionTrigger>
           <SuggestionContent>
@@ -524,9 +484,7 @@ export const InteractiveSelect: Story = {
           </SuggestionContent>
         </Suggestion>
         {selectedValue && (
-          <p className="text-sm text-muted-foreground">
-            Last selected: {selectedValue}
-          </p>
+          <p className="text-sm text-muted-foreground">Last selected: {selectedValue}</p>
         )}
       </div>
     );
@@ -540,7 +498,7 @@ export const MultipleSelects: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple select-mode suggestions displayed together.',
+        story: "Multiple select-mode suggestions displayed together.",
       },
     },
   },
@@ -594,8 +552,7 @@ export const MixedModes: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Combination of button-mode and select-mode suggestions in the same container.',
+        story: "Combination of button-mode and select-mode suggestions in the same container.",
       },
     },
   },

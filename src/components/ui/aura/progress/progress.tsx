@@ -1,19 +1,14 @@
+import type { ComponentProps } from "react";
+import * as ProgressPrimitive from "@radix-ui/react-progress";
 
-import type { ComponentProps } from 'react';
-import * as ProgressPrimitive from '@radix-ui/react-progress';
+import { cn } from "@/lib/utils";
 
-import { cn } from '@/lib/utils';
-
-function Progress({
-  className,
-  value,
-  ...props
-}: ComponentProps<typeof ProgressPrimitive.Root>) {
+function Progress({ className, value, ...props }: ComponentProps<typeof ProgressPrimitive.Root>) {
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
       className={cn(
-        'bg-accent text-accent-foreground relative h-2 w-full overflow-hidden rounded-full',
+        "bg-accent text-accent-foreground relative h-2 w-full overflow-hidden rounded-full",
         className
       )}
       value={value}

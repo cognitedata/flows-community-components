@@ -1,26 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import {
-  InlineCitation,
-  InlineCitationLink,
-  InlineCitationGroup,
-} from './inline-citation';
-import { IconBrandGithub, IconFileText, IconWorld } from '@tabler/icons-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { InlineCitation, InlineCitationLink, InlineCitationGroup } from "./inline-citation";
+import { IconBrandGithub, IconFileText, IconWorld } from "@tabler/icons-react";
 
 const meta: Meta<typeof InlineCitation> = {
-  title: 'AI/Inline Citation',
+  title: "AI/Inline Citation",
   component: InlineCitation,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -52,7 +48,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default inline citation with numbered reference.',
+        story: "Default inline citation with numbered reference.",
       },
     },
   },
@@ -76,7 +72,7 @@ export const WithTextLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Citation with descriptive text label.',
+        story: "Citation with descriptive text label.",
       },
     },
   },
@@ -110,7 +106,7 @@ export const MultipleCitations: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Paragraph with multiple inline citations.',
+        story: "Paragraph with multiple inline citations.",
       },
     },
   },
@@ -125,8 +121,8 @@ export const WithIcons: Story = {
       <p>
         GitHub repository
         <InlineCitation>
-          <InlineCitationLink 
-            href="https://github.com/example/repo" 
+          <InlineCitationLink
+            href="https://github.com/example/repo"
             variant="fjord"
             icon={IconBrandGithub}
           >
@@ -137,8 +133,8 @@ export const WithIcons: Story = {
       <p>
         Official documentation
         <InlineCitation>
-          <InlineCitationLink 
-            href="https://docs.example.com" 
+          <InlineCitationLink
+            href="https://docs.example.com"
             variant="mountain"
             icon={IconFileText}
           >
@@ -149,11 +145,7 @@ export const WithIcons: Story = {
       <p>
         Website
         <InlineCitation>
-          <InlineCitationLink 
-            href="https://example.com" 
-            variant="nordic"
-            icon={IconWorld}
-          >
+          <InlineCitationLink href="https://example.com" variant="nordic" icon={IconWorld}>
             site
           </InlineCitationLink>
         </InlineCitation>
@@ -163,7 +155,7 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Citations with custom icons.',
+        story: "Citations with custom icons.",
       },
     },
   },
@@ -175,9 +167,7 @@ export const WithIcons: Story = {
 export const CitationGroup: Story = {
   render: () => (
     <div className="space-y-4">
-      <p className="text-sm">
-        Related sources for this topic:
-      </p>
+      <p className="text-sm">Related sources for this topic:</p>
       <InlineCitationGroup>
         <InlineCitation>
           <InlineCitationLink href="https://example.com/1" variant="fjord">
@@ -200,7 +190,7 @@ export const CitationGroup: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Group of citations displayed together.',
+        story: "Group of citations displayed together.",
       },
     },
   },
@@ -215,31 +205,41 @@ export const ColorVariants: Story = {
       <p className="text-sm">
         Fjord variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="fjord">fjord</InlineCitationLink>
+          <InlineCitationLink href="#" variant="fjord">
+            fjord
+          </InlineCitationLink>
         </InlineCitation>
       </p>
       <p className="text-sm">
         Mountain variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="mountain">mountain</InlineCitationLink>
+          <InlineCitationLink href="#" variant="mountain">
+            mountain
+          </InlineCitationLink>
         </InlineCitation>
       </p>
       <p className="text-sm">
         Coral variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="nordic">nordic</InlineCitationLink>
+          <InlineCitationLink href="#" variant="nordic">
+            nordic
+          </InlineCitationLink>
         </InlineCitation>
       </p>
       <p className="text-sm">
         Sunset variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="fjord">fjord</InlineCitationLink>
+          <InlineCitationLink href="#" variant="fjord">
+            fjord
+          </InlineCitationLink>
         </InlineCitation>
       </p>
       <p className="text-sm">
         Forest variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="mountain">mountain</InlineCitationLink>
+          <InlineCitationLink href="#" variant="mountain">
+            mountain
+          </InlineCitationLink>
         </InlineCitation>
       </p>
     </div>
@@ -247,7 +247,7 @@ export const ColorVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Different color variant options for citations.',
+        story: "Different color variant options for citations.",
       },
     },
   },
@@ -262,22 +262,34 @@ export const InContext: Story = {
       <p>
         React is a JavaScript library for building user interfaces
         <InlineCitation>
-          <InlineCitationLink href="https://react.dev" variant="fjord">1</InlineCitationLink>
+          <InlineCitationLink href="https://react.dev" variant="fjord">
+            1
+          </InlineCitationLink>
         </InlineCitation>
         . It was developed by Facebook and is now maintained by Meta and the open-source community
         <InlineCitation>
-          <InlineCitationLink href="https://github.com/facebook/react" variant="mountain">2</InlineCitationLink>
+          <InlineCitationLink href="https://github.com/facebook/react" variant="mountain">
+            2
+          </InlineCitationLink>
         </InlineCitation>
         .
       </p>
       <p>
         React uses a virtual DOM to efficiently update the UI
         <InlineCitation>
-          <InlineCitationLink href="https://legacy.reactjs.org/docs/faq-internals.html" variant="nordic">3</InlineCitationLink>
+          <InlineCitationLink
+            href="https://legacy.reactjs.org/docs/faq-internals.html"
+            variant="nordic"
+          >
+            3
+          </InlineCitationLink>
         </InlineCitation>
-        . This approach minimizes direct manipulation of the actual DOM, resulting in better performance
+        . This approach minimizes direct manipulation of the actual DOM, resulting in better
+        performance
         <InlineCitation>
-          <InlineCitationLink href="https://example.com/perf" variant="fjord">4</InlineCitationLink>
+          <InlineCitationLink href="https://example.com/perf" variant="fjord">
+            4
+          </InlineCitationLink>
         </InlineCitation>
         .
       </p>
@@ -286,7 +298,7 @@ export const InContext: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Citations used naturally within paragraph content.',
+        story: "Citations used naturally within paragraph content.",
       },
     },
   },
@@ -304,7 +316,9 @@ export const VisualRegression: Story = {
         <p className="text-sm">
           Text with citation
           <InlineCitation>
-            <InlineCitationLink href="#" variant="fjord">1</InlineCitationLink>
+            <InlineCitationLink href="#" variant="fjord">
+              1
+            </InlineCitationLink>
           </InlineCitation>
           .
         </p>
@@ -316,11 +330,7 @@ export const VisualRegression: Story = {
         <p className="text-sm">
           Citation with icon
           <InlineCitation>
-            <InlineCitationLink 
-              href="#" 
-              variant="mountain"
-              icon={IconFileText}
-            >
+            <InlineCitationLink href="#" variant="mountain" icon={IconFileText}>
               docs
             </InlineCitationLink>
           </InlineCitation>
@@ -333,10 +343,14 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">Group</h3>
         <InlineCitationGroup>
           <InlineCitation>
-            <InlineCitationLink href="#" variant="fjord">1</InlineCitationLink>
+            <InlineCitationLink href="#" variant="fjord">
+              1
+            </InlineCitationLink>
           </InlineCitation>
           <InlineCitation>
-            <InlineCitationLink href="#" variant="nordic">2</InlineCitationLink>
+            <InlineCitationLink href="#" variant="nordic">
+              2
+            </InlineCitationLink>
           </InlineCitation>
         </InlineCitationGroup>
       </div>
@@ -345,7 +359,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Inline citations for visual regression testing.',
+        story: "Inline citations for visual regression testing.",
       },
     },
     chromatic: {
@@ -372,7 +386,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive inline citation example.',
+        story: "Interactive inline citation example.",
       },
     },
   },

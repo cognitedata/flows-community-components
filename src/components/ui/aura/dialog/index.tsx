@@ -24,5 +24,5 @@ export {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-} from './dialog';
-export { DialogMetadata } from './dialog.metadata';
+} from "./dialog";
+export { DialogMetadata } from "./dialog.metadata";

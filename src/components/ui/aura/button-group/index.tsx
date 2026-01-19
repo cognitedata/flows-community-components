@@ -12,5 +12,5 @@ export {
   ButtonGroupText,
   // eslint-disable-next-line react-refresh/only-export-components
   buttonGroupVariants,
-} from './button-group';
-export { ButtonGroupMetadata } from './button-group.metadata';
+} from "./button-group";
+export { ButtonGroupMetadata } from "./button-group.metadata";

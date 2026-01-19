@@ -9,7 +9,7 @@
  *
  * const mdBreakpoint = getBreakpoint('md');
  */
-export type { LayoutBreakpoint, ColumnSpan, GridPattern, LayoutComposition } from './layout';
+export type { LayoutBreakpoint, ColumnSpan, GridPattern, LayoutComposition } from "./layout";
 export {
   // eslint-disable-next-line react-refresh/only-export-components
   layoutBreakpoints,
@@ -27,5 +27,5 @@ export {
   getResponsiveSpan,
   // eslint-disable-next-line react-refresh/only-export-components
   layoutExamples,
-} from './layout';
-export { LayoutMetadata } from './layout.metadata';
+} from "./layout";
+export { LayoutMetadata } from "./layout.metadata";

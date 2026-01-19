@@ -1,45 +1,45 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent } from "@storybook/test";
+import { useState } from "react";
 import {
   ChainOfThought,
   ChainOfThoughtHeader,
   ChainOfThoughtContent,
   ChainOfThoughtStep,
-} from './chain-of-thought';
+} from "./chain-of-thought";
 
 const meta: Meta<typeof ChainOfThought> = {
-  title: 'AI/Chain of Thought',
+  title: "AI/Chain of Thought",
   component: ChainOfThought,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     defaultOpen: {
-      control: 'boolean',
-      description: 'Whether the content is open by default',
+      control: "boolean",
+      description: "Whether the content is open by default",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     open: {
-      control: 'boolean',
-      description: 'Controlled open state',
+      control: "boolean",
+      description: "Controlled open state",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
+        category: "Behavior",
+        type: { summary: "boolean" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -76,15 +76,15 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default collapsible chain of thought display.',
+        story: "Default collapsible chain of thought display.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Click to expand
-    const trigger = canvas.getByText('Thinking...');
+    const trigger = canvas.getByText("Thinking...");
     await userEvent.click(trigger);
   },
 };
@@ -112,7 +112,7 @@ export const OpenByDefault: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chain of thought that starts expanded.',
+        story: "Chain of thought that starts expanded.",
       },
     },
   },
@@ -158,7 +158,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chain of thought with controlled open state.',
+        story: "Chain of thought with controlled open state.",
       },
     },
   },
@@ -173,17 +173,17 @@ export const DetailedSteps: Story = {
       <ChainOfThoughtHeader>Analyzing Code</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
         <ChainOfThoughtStep label="Understanding the Problem">
-          <strong>Understanding the Problem:</strong> The user wants to implement 
-          a sorting function that handles edge cases like empty arrays and duplicates.
+          <strong>Understanding the Problem:</strong> The user wants to implement a sorting function
+          that handles edge cases like empty arrays and duplicates.
         </ChainOfThoughtStep>
         <ChainOfThoughtStep label="Evaluating Algorithms">
-          <strong>Evaluating Algorithms:</strong> QuickSort offers O(n log n) average 
-          case, MergeSort guarantees O(n log n) but uses more memory, and the built-in 
-          sort method is well-optimized for most cases.
+          <strong>Evaluating Algorithms:</strong> QuickSort offers O(n log n) average case,
+          MergeSort guarantees O(n log n) but uses more memory, and the built-in sort method is
+          well-optimized for most cases.
         </ChainOfThoughtStep>
         <ChainOfThoughtStep label="Implementation Decision">
-          <strong>Implementation Decision:</strong> Recommending the built-in sort 
-          with a custom comparator for simplicity and maintainability.
+          <strong>Implementation Decision:</strong> Recommending the built-in sort with a custom
+          comparator for simplicity and maintainability.
         </ChainOfThoughtStep>
       </ChainOfThoughtContent>
     </ChainOfThought>
@@ -191,7 +191,7 @@ export const DetailedSteps: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chain of thought with detailed, structured steps.',
+        story: "Chain of thought with detailed, structured steps.",
       },
     },
   },
@@ -205,21 +205,37 @@ export const ManySteps: Story = {
     <ChainOfThought defaultOpen>
       <ChainOfThoughtHeader>Extended Analysis</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep label="Parsing user request...">Parsing user request...</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Identifying key entities...">Identifying key entities...</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Searching codebase for context...">Searching codebase for context...</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Analyzing file dependencies...">Analyzing file dependencies...</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Evaluating potential solutions...">Evaluating potential solutions...</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Ranking solutions by efficiency...">Ranking solutions by efficiency...</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Generating implementation plan...">Generating implementation plan...</ChainOfThoughtStep>
-        <ChainOfThoughtStep label="Preparing final response...">Preparing final response...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Parsing user request...">
+          Parsing user request...
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Identifying key entities...">
+          Identifying key entities...
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Searching codebase for context...">
+          Searching codebase for context...
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Analyzing file dependencies...">
+          Analyzing file dependencies...
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Evaluating potential solutions...">
+          Evaluating potential solutions...
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Ranking solutions by efficiency...">
+          Ranking solutions by efficiency...
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Generating implementation plan...">
+          Generating implementation plan...
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Preparing final response...">
+          Preparing final response...
+        </ChainOfThoughtStep>
       </ChainOfThoughtContent>
     </ChainOfThought>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Chain of thought with many steps.',
+        story: "Chain of thought with many steps.",
       },
     },
   },
@@ -242,7 +258,7 @@ export const SingleStep: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chain of thought with a single step.',
+        story: "Chain of thought with a single step.",
       },
     },
   },
@@ -281,7 +297,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Chain of thought for visual regression testing.',
+        story: "Chain of thought for visual regression testing.",
       },
     },
     chromatic: {
@@ -310,7 +326,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive chain of thought example.',
+        story: "Interactive chain of thought example.",
       },
     },
   },

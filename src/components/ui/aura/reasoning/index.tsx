@@ -11,11 +11,11 @@ export {
   ReasoningHeader,
   ReasoningContent,
   ReasoningItem,
-} from './reasoning';
+} from "./reasoning";
 export type {
   ReasoningProps,
   ReasoningHeaderProps,
   ReasoningContentProps,
   ReasoningItemProps,
-} from './reasoning';
-export { ReasoningMetadata } from './reasoning.metadata';
+} from "./reasoning";
+export { ReasoningMetadata } from "./reasoning.metadata";

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "@storybook/test";
+import { useState } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -9,23 +9,23 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from './pagination';
+} from "./pagination";
 
 const meta: Meta<typeof Pagination> = {
-  title: 'Primitives/Pagination',
+  title: "Primitives/Pagination",
   component: Pagination,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -62,7 +62,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default pagination with page numbers.',
+        story: "Default pagination with page numbers.",
       },
     },
   },
@@ -72,7 +72,7 @@ export const Default: Story = {
 
     // Verify active page
     const activeLink = canvasElement.querySelector('[data-active="true"]');
-    await expect(activeLink).toHaveTextContent('2');
+    await expect(activeLink).toHaveTextContent("2");
   },
 };
 
@@ -118,7 +118,7 @@ export const WithEllipsis: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pagination with ellipsis for many pages.',
+        story: "Pagination with ellipsis for many pages.",
       },
     },
   },
@@ -142,11 +142,11 @@ export const Controlled: Story = {
         }
       } else {
         if (currentPage <= 3) {
-          pages.push(1, 2, 3, 4, '...', totalPages);
+          pages.push(1, 2, 3, 4, "...", totalPages);
         } else if (currentPage >= totalPages - 2) {
-          pages.push(1, '...', totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+          pages.push(1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
         } else {
-          pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+          pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
         }
       }
 
@@ -168,7 +168,7 @@ export const Controlled: Story = {
             </PaginationItem>
             {getPageNumbers().map((page, index) => (
               <PaginationItem key={index}>
-                {page === '...' ? (
+                {page === "..." ? (
                   <PaginationEllipsis />
                 ) : (
                   <PaginationLink
@@ -204,7 +204,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Fully controlled pagination with state management.',
+        story: "Fully controlled pagination with state management.",
       },
     },
   },
@@ -229,7 +229,7 @@ export const Simple: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Simple pagination with only previous and next buttons.',
+        story: "Simple pagination with only previous and next buttons.",
       },
     },
   },
@@ -271,7 +271,7 @@ export const FirstPage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pagination when on the first page (previous disabled).',
+        story: "Pagination when on the first page (previous disabled).",
       },
     },
   },
@@ -313,7 +313,7 @@ export const LastPage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Pagination when on the last page (next disabled).',
+        story: "Pagination when on the last page (next disabled).",
       },
     },
   },
@@ -341,7 +341,7 @@ export const Compact: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Compact pagination showing current position.',
+        story: "Compact pagination showing current position.",
       },
     },
   },
@@ -365,7 +365,9 @@ export const VisualRegression: Story = {
               <PaginationLink href="#">1</PaginationLink>
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink href="#" isActive>2</PaginationLink>
+              <PaginationLink href="#" isActive>
+                2
+              </PaginationLink>
             </PaginationItem>
             <PaginationItem>
               <PaginationLink href="#">3</PaginationLink>
@@ -392,7 +394,9 @@ export const VisualRegression: Story = {
               <PaginationEllipsis />
             </PaginationItem>
             <PaginationItem>
-              <PaginationLink href="#" isActive>5</PaginationLink>
+              <PaginationLink href="#" isActive>
+                5
+              </PaginationLink>
             </PaginationItem>
             <PaginationItem>
               <PaginationEllipsis />
@@ -426,7 +430,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -471,7 +475,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive pagination example.',
+        story: "Interactive pagination example.",
       },
     },
   },

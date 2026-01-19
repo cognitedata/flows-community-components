@@ -13,5 +13,5 @@
  *   <TooltipContent>Tooltip text</TooltipContent>
  * </Tooltip>
  */
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './tooltip';
-export { TooltipMetadata } from './tooltip.metadata';
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
+export { TooltipMetadata } from "./tooltip.metadata";

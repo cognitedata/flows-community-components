@@ -1,42 +1,40 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import { useState } from 'react';
-import {
-  Branch,
-  BranchMessages,
-  BranchMessage,
-  BranchNavigation,
-} from './branch';
-import { Message, MessageContent, MessageAvatar } from '@/components/ui/aura/message';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { useState } from "react";
+import { Branch, BranchMessages, BranchMessage, BranchNavigation } from "./branch";
+import { Message, MessageContent, MessageAvatar } from "@/components/ui/aura/message";
 
 const meta: Meta<typeof Branch> = {
-  title: 'AI/Branch',
+  title: "AI/Branch",
   component: Branch,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     defaultBranch: {
-      control: { type: 'number', min: 0 },
-      description: 'Default branch index to display',
+      control: { type: "number", min: 0 },
+      description: "Default branch index to display",
       table: {
-        category: 'Behavior',
-        type: { summary: 'number' },
-        defaultValue: { summary: '0' },
+        category: "Behavior",
+        type: { summary: "number" },
+        defaultValue: { summary: "0" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
-      <div className="w-[500px]" style={{ '--message-content-max-width': '400px' } as React.CSSProperties}>
+      <div
+        className="w-[500px]"
+        style={{ "--message-content-max-width": "400px" } as React.CSSProperties}
+      >
         <Story />
       </div>
     ),
@@ -84,15 +82,15 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default branch navigation for switching between response variants.',
+        story: "Default branch navigation for switching between response variants.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find navigation buttons
-    const buttons = canvas.getAllByRole('button');
+    const buttons = canvas.getAllByRole("button");
     expect(buttons.length).toBeGreaterThanOrEqual(2);
   },
 };
@@ -127,7 +125,7 @@ export const TwoBranches: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Branch with two response options.',
+        story: "Branch with two response options.",
       },
     },
   },
@@ -171,7 +169,7 @@ export const StartOnSecond: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Branch starting on a non-first branch.',
+        story: "Branch starting on a non-first branch.",
       },
     },
   },
@@ -216,7 +214,7 @@ export const WithCallback: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Branch with callback to track changes.',
+        story: "Branch with callback to track changes.",
       },
     },
   },
@@ -260,15 +258,15 @@ export const NavigationInteraction: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Click navigation arrows to cycle through branches.',
+        story: "Click navigation arrows to cycle through branches.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Navigate forward
-    const buttons = canvas.getAllByRole('button');
+    const buttons = canvas.getAllByRole("button");
     const nextButton = buttons[buttons.length - 1]; // Last button is typically next
     await userEvent.click(nextButton);
   },
@@ -309,7 +307,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Branch for visual regression testing.',
+        story: "Branch for visual regression testing.",
       },
     },
     chromatic: {
@@ -351,7 +349,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive branch example.',
+        story: "Interactive branch example.",
       },
     },
   },

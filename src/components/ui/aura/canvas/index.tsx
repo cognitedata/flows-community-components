@@ -6,5 +6,5 @@
  * @example
  * import { Canvas } from '@/components/ui/aura/canvas';
  */
-export { Canvas } from './canvas';
-export { CanvasMetadata } from './canvas.metadata';
+export { Canvas } from "./canvas";
+export { CanvasMetadata } from "./canvas.metadata";

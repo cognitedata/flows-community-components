@@ -12,6 +12,6 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
-} from './carousel';
-export type { CarouselApi } from './carousel';
-export { CarouselMetadata } from './carousel.metadata';
+} from "./carousel";
+export type { CarouselApi } from "./carousel";
+export { CarouselMetadata } from "./carousel.metadata";

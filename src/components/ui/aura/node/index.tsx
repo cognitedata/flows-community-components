@@ -14,7 +14,7 @@ export {
   NodeAction,
   NodeContent,
   NodeFooter,
-} from './node';
+} from "./node";
 export type {
   NodeProps,
   NodeHeaderProps,
@@ -23,5 +23,5 @@ export type {
   NodeActionProps,
   NodeContentProps,
   NodeFooterProps,
-} from './node';
-export { NodeMetadata } from './node.metadata';
+} from "./node";
+export { NodeMetadata } from "./node.metadata";

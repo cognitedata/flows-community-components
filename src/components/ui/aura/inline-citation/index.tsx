@@ -23,7 +23,7 @@ export {
   InlineCitationSource,
   InlineCitationQuote,
   InlineCitationLink,
-} from './inline-citation';
+} from "./inline-citation";
 export type {
   InlineCitationProps,
   InlineCitationGroupProps,
@@ -41,5 +41,5 @@ export type {
   InlineCitationSourceProps,
   InlineCitationQuoteProps,
   InlineCitationLinkProps,
-} from './inline-citation';
-export { InlineCitationMetadata } from './inline-citation.metadata';
+} from "./inline-citation";
+export { InlineCitationMetadata } from "./inline-citation.metadata";

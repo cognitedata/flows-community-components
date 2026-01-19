@@ -1,9 +1,9 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "@/lib/component-examples";
 
 export const SeparatorMetadata: ComponentMeta = {
-  name: 'Separator',
-  status: 'draft',
-  description: 'A visual separator for dividing content.',
+  name: "Separator",
+  status: "draft",
+  description: "A visual separator for dividing content.",
   llmUsage: 'Use `<Separator>` with orientation="horizontal" or "vertical" to divide content.',
-  importPath: '@/components/ui/aura/separator',
+  importPath: "@/components/ui/aura/separator",
 };

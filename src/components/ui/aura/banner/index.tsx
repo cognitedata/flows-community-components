@@ -20,7 +20,7 @@ export {
   BannerAction,
   BannerClose,
   BannerContext,
-} from './banner';
+} from "./banner";
 export type {
   BannerProps,
   BannerIconProps,
@@ -29,5 +29,5 @@ export type {
   BannerActionsProps,
   BannerActionProps,
   BannerCloseProps,
-} from './banner';
-export { BannerMetadata } from './banner.metadata';
+} from "./banner";
+export { BannerMetadata } from "./banner.metadata";

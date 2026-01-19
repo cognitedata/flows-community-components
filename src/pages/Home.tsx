@@ -1,27 +1,15 @@
-import { Button } from '@/components/ui/aura/button';
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/aura/card';
-import {
-  CodeBlock,
-  CodeBlockCopyButton,
-} from '@/components/ui/aura/code-block';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/aura/tabs';
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '@/components/ui/aura/alert';
-import { motion } from 'framer-motion';
+} from "@/components/ui/aura/card";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
+import { motion } from "framer-motion";
 import {
   IconAlertTriangle as AlertTriangle,
   IconArrowRight as ArrowRight,
@@ -30,10 +18,10 @@ import {
   IconSettings as Settings,
   IconSparkles as Sparkles,
   IconTerminal as Terminal,
-} from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import type { BundledLanguage } from 'shiki';
+} from "@tabler/icons-react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import type { BundledLanguage } from "shiki";
 
 interface Step {
   icon: React.ElementType;
@@ -47,63 +35,62 @@ interface Step {
 const newProjectSteps: Step[] = [
   {
     icon: Terminal,
-    title: 'Create your project',
+    title: "Create your project",
     description:
       'Start with a new Next.js project. You can name your project by appending the name to the command (e.g. my-app), or use "." to create it in the current directory.',
-    code: 'npx cognite-create@latest',
+    code: "npx cognite-create@latest",
   },
   {
     icon: Sparkles,
-    title: 'Start building with Cursor',
-    description: 'Ask Cursor AI to build your features using natural language',
-    code: 'Build me a timeseries dashboard',
+    title: "Start building with Cursor",
+    description: "Ask Cursor AI to build your features using natural language",
+    code: "Build me a timeseries dashboard",
   },
 ];
 
 const existingProjectSteps: Step[] = [
   {
     icon: Terminal,
-    title: 'Initialize shadcn',
+    title: "Initialize shadcn",
     description: "If you haven't already, initialize shadcn-ui in your project",
-    code: 'npx shadcn@latest init',
+    code: "npx shadcn@latest init",
   },
   {
     icon: Sparkles,
-    title: 'Install shadcn MCP for Cursor',
+    title: "Install shadcn MCP for Cursor",
     description:
-      'Optional, but recommended: install the shadcn MCP server so Cursor can integrate with shadcn tooling.',
-    code: 'npx shadcn@latest mcp',
+      "Optional, but recommended: install the shadcn MCP server so Cursor can integrate with shadcn tooling.",
+    code: "npx shadcn@latest mcp",
     extra: (
       <a
-      href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <img
-        src="https://cursor.com/deeplink/mcp-install-dark.svg"
-        alt="Add shadcn MCP server to Cursor"
-        height={32}
-      />
+        href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://cursor.com/deeplink/mcp-install-dark.svg"
+          alt="Add shadcn MCP server to Cursor"
+          height={32}
+        />
       </a>
     ),
   },
   {
     icon: Settings,
-    title: 'Configure registry',
-    description: 'Add the Aura registry to your components.json file',
+    title: "Configure registry",
+    description: "Add the Aura registry to your components.json file",
     code: `{
   "registries": {
     "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
   }
 }`,
-    language: 'json',
+    language: "json",
   },
   {
     icon: Download,
-    title: 'Install components',
-    description:
-      'Use the shadcn CLI with the @aura prefix to install components',
-    code: 'pnpm dlx shadcn@latest add @aura/button',
+    title: "Install components",
+    description: "Use the shadcn CLI with the @aura prefix to install components",
+    code: "pnpm dlx shadcn@latest add @aura/button",
   },
 ];
 
@@ -111,14 +98,14 @@ export default function HomePage() {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText('npx cognite-create@latest');
+    await navigator.clipboard.writeText("npx cognite-create@latest");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const scrollToQuickStart = () => {
-    const element = document.getElementById('quick-start');
-    element?.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById("quick-start");
+    element?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -128,7 +115,7 @@ export default function HomePage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-4xl text-center space-y-12"
         >
           {/* Hero Text */}
@@ -137,8 +124,8 @@ export default function HomePage() {
               Build with Aura
             </h1>
             <p className="text-xl sm:text-2xl max-w-2xl mx-auto leading-relaxed text-muted-foreground">
-              Aura is Cognite&apos;s AI-native design system inspired by fractal
-              intelligence and adaptive by nature.
+              Aura is Cognite&apos;s AI-native design system inspired by fractal intelligence and
+              adaptive by nature.
             </p>
           </div>
 
@@ -161,7 +148,7 @@ export default function HomePage() {
                   copyToClipboard();
                 }}
               >
-                {copied ? 'Copied!' : 'Copy'}
+                {copied ? "Copied!" : "Copy"}
               </Button>
             </div>
           </div>
@@ -172,7 +159,10 @@ export default function HomePage() {
               <AlertTriangle className="h-4 w-4" />
               <AlertTitle className="font-bold">Aura is still in active development</AlertTitle>
               <AlertDescription>
-                This site reflects a prototype that&apos;s changing fast. It&apos;s here for exploration and prototyping only, not production use. For feedback, hang tight — we&apos;re already working through major updates and will open structured feedback rounds once the foundation is more stable.
+                This site reflects a prototype that&apos;s changing fast. It&apos;s here for
+                exploration and prototyping only, not production use. For feedback, hang tight —
+                we&apos;re already working through major updates and will open structured feedback
+                rounds once the foundation is more stable.
               </AlertDescription>
             </Alert>
           </div>
@@ -208,7 +198,7 @@ export default function HomePage() {
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             <ChevronDown className="h-10 w-10 text-muted-foreground/70 hover:text-foreground transition-colors" />
           </motion.div>
@@ -223,12 +213,9 @@ export default function HomePage() {
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="space-y-16">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-                Quick Start
-              </h2>
+              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">Quick Start</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Get up and running with Aura in minutes. Choose your path to
-                start building.
+                Get up and running with Aura in minutes. Choose your path to start building.
               </p>
             </div>
 
@@ -257,7 +244,7 @@ export default function HomePage() {
                       key={step.title}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-100px' }}
+                      viewport={{ once: true, margin: "-100px" }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors">
@@ -271,9 +258,7 @@ export default function HomePage() {
                                 <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-muted px-2 text-xs font-medium text-muted-foreground">
                                   {index + 1}
                                 </span>
-                                <CardTitle className="text-xl">
-                                  {step.title}
-                                </CardTitle>
+                                <CardTitle className="text-xl">{step.title}</CardTitle>
                               </div>
                               <CardDescription className="text-base">
                                 {step.description}
@@ -284,17 +269,12 @@ export default function HomePage() {
                         {(step.code || step.extra) && (
                           <CardContent className="pl-0 md:pl-22">
                             {step.code && (
-                              <CodeBlock
-                                code={step.code}
-                                language={step.language || 'bash'}
-                              >
+                              <CodeBlock code={step.code} language={step.language || "bash"}>
                                 <CodeBlockCopyButton />
                               </CodeBlock>
                             )}
                             {step.extra && (
-                              <div className={step.code ? 'pt-4' : undefined}>
-                                {step.extra}
-                              </div>
+                              <div className={step.code ? "pt-4" : undefined}>{step.extra}</div>
                             )}
                           </CardContent>
                         )}
@@ -309,7 +289,7 @@ export default function HomePage() {
                       key={step.title}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-100px' }}
+                      viewport={{ once: true, margin: "-100px" }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors">
@@ -323,9 +303,7 @@ export default function HomePage() {
                                 <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-muted px-2 text-xs font-medium text-muted-foreground">
                                   {index + 1}
                                 </span>
-                                <CardTitle className="text-xl">
-                                  {step.title}
-                                </CardTitle>
+                                <CardTitle className="text-xl">{step.title}</CardTitle>
                               </div>
                               <CardDescription className="text-base">
                                 {step.description}
@@ -336,17 +314,12 @@ export default function HomePage() {
                         {(step.code || step.extra) && (
                           <CardContent className="pl-0 md:pl-22">
                             {step.code && (
-                              <CodeBlock
-                                code={step.code}
-                                language={step.language || 'bash'}
-                              >
+                              <CodeBlock code={step.code} language={step.language || "bash"}>
                                 <CodeBlockCopyButton />
                               </CodeBlock>
                             )}
                             {step.extra && (
-                              <div className={step.code ? 'pt-4' : undefined}>
-                                {step.extra}
-                              </div>
+                              <div className={step.code ? "pt-4" : undefined}>{step.extra}</div>
                             )}
                           </CardContent>
                         )}

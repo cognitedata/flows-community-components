@@ -12,5 +12,5 @@
  *   <PopoverContent>Popover content</PopoverContent>
  * </Popover>
  */
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from './popover';
-export { PopoverMetadata } from './popover.metadata';
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from "./popover";
+export { PopoverMetadata } from "./popover.metadata";

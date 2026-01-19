@@ -1,71 +1,78 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import { useState } from 'react';
-import { Toggle } from './toggle';
-import { IconBold, IconItalic, IconUnderline, IconAlignLeft, IconAlignCenter, IconAlignRight } from '@tabler/icons-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { useState } from "react";
+import { Toggle } from "./toggle";
+import {
+  IconBold,
+  IconItalic,
+  IconUnderline,
+  IconAlignLeft,
+  IconAlignCenter,
+  IconAlignRight,
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Toggle> = {
-  title: 'Primitives/Toggle',
+  title: "Primitives/Toggle",
   component: Toggle,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['default', 'outline'],
-      description: 'Visual style variant',
+      control: "select",
+      options: ["default", "outline"],
+      description: "Visual style variant",
       table: {
-        category: 'Appearance',
+        category: "Appearance",
         type: { summary: '"default" | "outline"' },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: "default" },
       },
     },
     size: {
-      control: 'select',
-      options: ['default', 'sm', 'lg'],
-      description: 'Size of the toggle',
+      control: "select",
+      options: ["default", "sm", "lg"],
+      description: "Size of the toggle",
       table: {
-        category: 'Appearance',
+        category: "Appearance",
         type: { summary: '"default" | "sm" | "lg"' },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: "default" },
       },
     },
     pressed: {
-      control: 'boolean',
-      description: 'Controlled pressed state',
+      control: "boolean",
+      description: "Controlled pressed state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultPressed: {
-      control: 'boolean',
-      description: 'Default pressed state (uncontrolled)',
+      control: "boolean",
+      description: "Default pressed state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     disabled: {
-      control: 'boolean',
-      description: 'Disable the toggle',
+      control: "boolean",
+      description: "Disable the toggle",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     onPressedChange: {
-      action: 'pressedChange',
-      description: 'Callback when pressed state changes',
+      action: "pressedChange",
+      description: "Callback when pressed state changes",
       table: {
-        category: 'Events',
-        type: { summary: '(pressed: boolean) => void' },
+        category: "Events",
+        type: { summary: "(pressed: boolean) => void" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -84,24 +91,24 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default toggle button with icon.',
+        story: "Default toggle button with icon.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggle = canvas.getByRole('button');
+    const toggle = canvas.getByRole("button");
 
     await expect(toggle).toBeInTheDocument();
-    await expect(toggle).toHaveAttribute('data-state', 'off');
+    await expect(toggle).toHaveAttribute("data-state", "off");
 
     // Click to toggle on
     await userEvent.click(toggle);
-    await expect(toggle).toHaveAttribute('data-state', 'on');
+    await expect(toggle).toHaveAttribute("data-state", "on");
 
     // Click to toggle off
     await userEvent.click(toggle);
-    await expect(toggle).toHaveAttribute('data-state', 'off');
+    await expect(toggle).toHaveAttribute("data-state", "off");
   },
 };
 
@@ -118,7 +125,7 @@ export const WithText: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Toggle with both icon and text.',
+        story: "Toggle with both icon and text.",
       },
     },
   },
@@ -136,7 +143,7 @@ export const Outline: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Toggle with outline variant styling.',
+        story: "Toggle with outline variant styling.",
       },
     },
   },
@@ -162,7 +169,7 @@ export const Sizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Toggle in different sizes.',
+        story: "Toggle in different sizes.",
       },
     },
   },
@@ -180,14 +187,14 @@ export const DefaultPressed: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Toggle that starts in pressed state.',
+        story: "Toggle that starts in pressed state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggle = canvas.getByRole('button');
-    await expect(toggle).toHaveAttribute('data-state', 'on');
+    const toggle = canvas.getByRole("button");
+    await expect(toggle).toHaveAttribute("data-state", "on");
   },
 };
 
@@ -208,13 +215,13 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Disabled toggles in both states.',
+        story: "Disabled toggles in both states.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const toggles = canvas.getAllByRole('button');
+    const toggles = canvas.getAllByRole("button");
     for (const toggle of toggles) {
       await expect(toggle).toBeDisabled();
     }
@@ -230,11 +237,7 @@ export const Controlled: Story = {
 
     return (
       <div className="space-y-4">
-        <Toggle
-          pressed={pressed}
-          onPressedChange={setPressed}
-          aria-label="Toggle bold"
-        >
+        <Toggle pressed={pressed} onPressedChange={setPressed} aria-label="Toggle bold">
           <IconBold className="size-4" />
           Bold
         </Toggle>
@@ -252,16 +255,14 @@ export const Controlled: Story = {
             Unpress
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Pressed: {pressed ? 'true' : 'false'}
-        </p>
+        <p className="text-sm text-muted-foreground">Pressed: {pressed ? "true" : "false"}</p>
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Controlled toggle with external state management.',
+        story: "Controlled toggle with external state management.",
       },
     },
   },
@@ -278,20 +279,10 @@ export const ToolbarExample: Story = {
 
     return (
       <div className="flex items-center gap-1 rounded-md border p-1">
-        <Toggle
-          pressed={bold}
-          onPressedChange={setBold}
-          aria-label="Toggle bold"
-          size="sm"
-        >
+        <Toggle pressed={bold} onPressedChange={setBold} aria-label="Toggle bold" size="sm">
           <IconBold className="size-4" />
         </Toggle>
-        <Toggle
-          pressed={italic}
-          onPressedChange={setItalic}
-          aria-label="Toggle italic"
-          size="sm"
-        >
+        <Toggle pressed={italic} onPressedChange={setItalic} aria-label="Toggle italic" size="sm">
           <IconItalic className="size-4" />
         </Toggle>
         <Toggle
@@ -308,7 +299,7 @@ export const ToolbarExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple toggles in a toolbar for text formatting.',
+        story: "Multiple toggles in a toolbar for text formatting.",
       },
     },
   },
@@ -319,29 +310,29 @@ export const ToolbarExample: Story = {
  */
 export const SingleSelectGroup: Story = {
   render: function SingleSelectToggle() {
-    const [alignment, setAlignment] = useState<'left' | 'center' | 'right'>('left');
+    const [alignment, setAlignment] = useState<"left" | "center" | "right">("left");
 
     return (
       <div className="flex items-center gap-1 rounded-md border p-1">
         <Toggle
-          pressed={alignment === 'left'}
-          onPressedChange={() => setAlignment('left')}
+          pressed={alignment === "left"}
+          onPressedChange={() => setAlignment("left")}
           aria-label="Align left"
           size="sm"
         >
           <IconAlignLeft className="size-4" />
         </Toggle>
         <Toggle
-          pressed={alignment === 'center'}
-          onPressedChange={() => setAlignment('center')}
+          pressed={alignment === "center"}
+          onPressedChange={() => setAlignment("center")}
           aria-label="Align center"
           size="sm"
         >
           <IconAlignCenter className="size-4" />
         </Toggle>
         <Toggle
-          pressed={alignment === 'right'}
-          onPressedChange={() => setAlignment('right')}
+          pressed={alignment === "right"}
+          onPressedChange={() => setAlignment("right")}
           aria-label="Align right"
           size="sm"
         >
@@ -353,7 +344,7 @@ export const SingleSelectGroup: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Toggle group with single selection for alignment options.',
+        story: "Toggle group with single selection for alignment options.",
       },
     },
   },
@@ -394,7 +385,7 @@ export const AllStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All toggle states for comparison.',
+        story: "All toggle states for comparison.",
       },
     },
   },
@@ -455,7 +446,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -469,8 +460,8 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    variant: 'default',
-    size: 'default',
+    variant: "default",
+    size: "default",
     disabled: false,
     defaultPressed: false,
   },
@@ -482,7 +473,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with toggle props.',
+        story: "Interactive playground - use controls to experiment with toggle props.",
       },
     },
   },

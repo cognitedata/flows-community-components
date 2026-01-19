@@ -1,6 +1,5 @@
-
-import { useControllableState } from '@radix-ui/react-use-controllable-state';
-import { IconX, type IconProps } from '@tabler/icons-react';
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
+import { IconX, type IconProps } from "@tabler/icons-react";
 import {
   type ComponentProps,
   type ComponentType,
@@ -8,13 +7,13 @@ import {
   type HTMLAttributes,
   type MouseEventHandler,
   useContext,
-} from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
-import { cn } from '@/lib/utils';
+} from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge";
+import { cn } from "@/lib/utils";
 
-type BannerVariant = 'default' | 'neutral' | 'destructive' | 'warning';
+type BannerVariant = "default" | "neutral" | "destructive" | "warning";
 
 type BannerContextProps = {
   show: boolean;
@@ -26,30 +25,27 @@ type BannerContextProps = {
 export const BannerContext = createContext<BannerContextProps>({
   show: true,
   setShow: () => {},
-  variant: 'default',
+  variant: "default",
 });
 
-const bannerVariants = cva(
-  'flex w-full min-h-11 items-center gap-2 px-3.5 py-2',
-  {
-    variants: {
-      variant: {
-        default: 'bg-mountain text-foreground',
-        neutral: 'bg-neutral text-foreground',
-        destructive: 'bg-destructive text-foreground',
-        warning: 'bg-warning text-foreground',
-      },
-      inset: {
-        true: 'rounded-lg',
-        false: '',
-      },
+const bannerVariants = cva("flex w-full min-h-11 items-center gap-2 px-3.5 py-2", {
+  variants: {
+    variant: {
+      default: "bg-mountain text-foreground",
+      neutral: "bg-neutral text-foreground",
+      destructive: "bg-destructive text-foreground",
+      warning: "bg-warning text-foreground",
     },
-    defaultVariants: {
-      variant: 'default',
-      inset: false,
+    inset: {
+      true: "rounded-lg",
+      false: "",
     },
-  }
-);
+  },
+  defaultVariants: {
+    variant: "default",
+    inset: false,
+  },
+});
 
 export type BannerProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof bannerVariants> & {
@@ -65,7 +61,7 @@ export const Banner = ({
   onClose,
   className,
   inset = false,
-  variant = 'default',
+  variant = "default",
   ...props
 }: BannerProps) => {
   const [show, setShow] = useControllableState({
@@ -79,13 +75,8 @@ export const Banner = ({
   }
 
   return (
-    <BannerContext.Provider
-      value={{ show, setShow, variant: variant as BannerVariant }}
-    >
-      <div
-        className={cn(bannerVariants({ variant, inset }), className)}
-        {...props}
-      >
+    <BannerContext.Provider value={{ show, setShow, variant: variant as BannerVariant }}>
+      <div className={cn(bannerVariants({ variant, inset }), className)} {...props}>
         {children}
       </div>
     </BannerContext.Provider>
@@ -98,21 +89,11 @@ export type BannerIconProps = HTMLAttributes<HTMLDivElement> & {
   icon: TablerIconComponent;
 };
 
-export const BannerIcon = ({
-  icon: Icon,
-  className,
-  ...props
-}: BannerIconProps) => {
+export const BannerIcon = ({ icon: Icon, className, ...props }: BannerIconProps) => {
   const { variant } = useContext(BannerContext);
 
   return (
-    <div
-      className={cn(
-        variant === 'neutral' && 'text-neutral-foreground',
-        className
-      )}
-      {...props}
-    >
+    <div className={cn(variant === "neutral" && "text-neutral-foreground", className)} {...props}>
       <Icon size={16} />
     </div>
   );
@@ -121,7 +102,7 @@ export const BannerIcon = ({
 export type BannerTitleProps = HTMLAttributes<HTMLParagraphElement>;
 
 export const BannerTitle = ({ className, ...props }: BannerTitleProps) => (
-  <p className={cn('text-sm tracking-tight', className)} {...props} />
+  <p className={cn("text-sm tracking-tight", className)} {...props} />
 );
 
 export type BannerStatusProps = ComponentProps<typeof Badge>;
@@ -134,14 +115,11 @@ export const BannerStatus = ({
 }: BannerStatusProps) => {
   const { variant: bannerVariant } = useContext(BannerContext);
 
-  const variantMap: Record<
-    BannerVariant,
-    'default' | 'warning' | 'error' | 'inProgress'
-  > = {
-    default: 'default',
-    neutral: 'inProgress',
-    destructive: 'error',
-    warning: 'warning',
+  const variantMap: Record<BannerVariant, "default" | "warning" | "error" | "inProgress"> = {
+    default: "default",
+    neutral: "inProgress",
+    destructive: "error",
+    warning: "warning",
   };
 
   const badgeVariant = variant ?? variantMap[bannerVariant];
@@ -150,7 +128,7 @@ export const BannerStatus = ({
     <Badge
       outline={outline}
       variant={badgeVariant}
-      className={cn('shrink-0', className)}
+      className={cn("shrink-0", className)}
       {...props}
     />
   );
@@ -159,24 +137,21 @@ export const BannerStatus = ({
 export type BannerActionsProps = HTMLAttributes<HTMLDivElement>;
 
 export const BannerActions = ({ className, ...props }: BannerActionsProps) => (
-  <div
-    className={cn('flex items-center gap-2 shrink-0 ml-auto', className)}
-    {...props}
-  />
+  <div className={cn("flex items-center gap-2 shrink-0 ml-auto", className)} {...props} />
 );
 
 const hoverClasses: Record<BannerVariant, string> = {
-  default: 'hover:bg-undefined-hover',
-  neutral: 'hover:bg-neutral-hover',
-  destructive: 'hover:bg-destructive-hover',
-  warning: 'hover:bg-warning-hover',
+  default: "hover:bg-undefined-hover",
+  neutral: "hover:bg-neutral-hover",
+  destructive: "hover:bg-destructive-hover",
+  warning: "hover:bg-warning-hover",
 };
 
 export type BannerActionProps = ComponentProps<typeof Button>;
 
 export const BannerAction = ({
-  variant = 'ghost',
-  size = 'sm',
+  variant = "ghost",
+  size = "sm",
   className,
   ...props
 }: BannerActionProps) => {
@@ -184,11 +159,7 @@ export const BannerAction = ({
 
   return (
     <Button
-      className={cn(
-        'shrink-0 text-foreground',
-        hoverClasses[bannerVariant],
-        className
-      )}
+      className={cn("shrink-0 text-foreground", hoverClasses[bannerVariant], className)}
       size={size}
       variant={variant}
       {...props}
@@ -196,10 +167,10 @@ export const BannerAction = ({
   );
 };
 
-export type BannerCloseProps = Omit<ComponentProps<typeof Button>, 'size'>;
+export type BannerCloseProps = Omit<ComponentProps<typeof Button>, "size">;
 
 export const BannerClose = ({
-  variant = 'ghost',
+  variant = "ghost",
   onClick,
   className,
   ...props
@@ -214,7 +185,7 @@ export const BannerClose = ({
   return (
     <Button
       className={cn(
-        'shrink-0 opacity-70 hover:opacity-100 text-foreground rounded-sm',
+        "shrink-0 opacity-70 hover:opacity-100 text-foreground rounded-sm",
         hoverClasses[bannerVariant],
         className
       )}

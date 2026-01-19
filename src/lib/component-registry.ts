@@ -1,24 +1,22 @@
-import type { ComponentMeta } from './component-examples';
-import { slugToPascalCase } from './utils';
+import type { ComponentMeta } from "./component-examples";
+import { slugToPascalCase } from "./utils";
 
 /**
  * Pre-load all metadata modules using Vite's glob import.
  * This allows Vite to statically analyze the imports at build time.
  */
 const metadataModules = import.meta.glob<{ [key: string]: ComponentMeta }>(
-  '@/components/ui/aura/*/*.metadata.ts',
+  "@/components/ui/aura/*/*.metadata.ts",
   { eager: false }
 );
 
 /**
  * Get component metadata from the component's metadata file.
- * 
+ *
  * Metadata is loaded from the component's folder structure
  * (e.g., button/button.metadata.ts).
  */
-export async function getComponentMeta(
-  slug: string
-): Promise<ComponentMeta | null> {
+export async function getComponentMeta(slug: string): Promise<ComponentMeta | null> {
   const pascalCaseSlug = slugToPascalCase(slug);
 
   try {
@@ -33,10 +31,7 @@ export async function getComponentMeta(
       }
     }
   } catch (error) {
-    console.warn(
-      `Could not load metadata for ${slug}:`,
-      error
-    );
+    console.warn(`Could not load metadata for ${slug}:`, error);
   }
 
   return null;

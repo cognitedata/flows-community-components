@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Canvas } from './canvas';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Canvas } from "./canvas";
 
 const meta: Meta<typeof Canvas> = {
-  title: 'AI/Canvas',
+  title: "AI/Canvas",
   component: Canvas,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof Canvas>;
 
 /**
  * Default canvas (requires ReactFlow).
- * 
+ *
  * Note: This component wraps ReactFlow and requires the ReactFlowProvider
  * to function properly in production.
  */
@@ -46,7 +46,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Canvas component for building node-based UIs. Requires ReactFlow context.',
+        story: "Canvas component for building node-based UIs. Requires ReactFlow context.",
       },
     },
   },
@@ -85,15 +85,15 @@ function FlowEditor() {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Canvas component provides a ready-to-use ReactFlow setup with 
-        customized defaults for building agent workflows and node graphs.
+        The Canvas component provides a ready-to-use ReactFlow setup with customized defaults for
+        building agent workflows and node graphs.
       </p>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Example showing how to use the Canvas component.',
+        story: "Example showing how to use the Canvas component.",
       },
     },
   },
@@ -137,7 +137,7 @@ export const FeatureOverview: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Overview of Canvas component features.',
+        story: "Overview of Canvas component features.",
       },
     },
   },

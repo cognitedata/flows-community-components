@@ -6,4 +6,4 @@ export type {
   ComponentExamples,
   ComponentMeta,
   PropDefinition,
-} from './types';
+} from "./types";

@@ -6,14 +6,14 @@
  */
 
 export type ComponentStatusType =
-  | 'draft'
-  | 'review'
-  | 'done'
-  | 'beta'
-  | 'production'
-  | 'deprecated'
-  | 'experimental'
-  | 'new';
+  | "draft"
+  | "review"
+  | "done"
+  | "beta"
+  | "production"
+  | "deprecated"
+  | "experimental"
+  | "new";
 
 export interface StatusConfig {
   label: string;
@@ -31,76 +31,76 @@ export interface StatusConfig {
  */
 export const STATUS_CONFIG: Record<ComponentStatusType, StatusConfig> = {
   draft: {
-    label: 'Draft',
-    color: '#854D0E',
-    colorDark: '#FACC15',
-    bgColor: '#FEF9C3',
-    bgColorDark: 'rgba(234, 179, 8, 0.2)',
-    borderColor: '#FDE047',
-    borderColorDark: '#854D0E',
+    label: "Draft",
+    color: "#854D0E",
+    colorDark: "#FACC15",
+    bgColor: "#FEF9C3",
+    bgColorDark: "rgba(234, 179, 8, 0.2)",
+    borderColor: "#FDE047",
+    borderColorDark: "#854D0E",
   },
   review: {
-    label: 'Review',
-    color: '#C2410C',
-    colorDark: '#FB923C',
-    bgColor: '#FFEDD5',
-    bgColorDark: 'rgba(249, 115, 22, 0.2)',
-    borderColor: '#FDBA74',
-    borderColorDark: '#C2410C',
+    label: "Review",
+    color: "#C2410C",
+    colorDark: "#FB923C",
+    bgColor: "#FFEDD5",
+    bgColorDark: "rgba(249, 115, 22, 0.2)",
+    borderColor: "#FDBA74",
+    borderColorDark: "#C2410C",
   },
   done: {
-    label: 'Done',
-    color: '#0F766E',
-    colorDark: '#2DD4BF',
-    bgColor: '#CCFBF1',
-    bgColorDark: 'rgba(20, 184, 166, 0.2)',
-    borderColor: '#5EEAD4',
-    borderColorDark: '#0F766E',
+    label: "Done",
+    color: "#0F766E",
+    colorDark: "#2DD4BF",
+    bgColor: "#CCFBF1",
+    bgColorDark: "rgba(20, 184, 166, 0.2)",
+    borderColor: "#5EEAD4",
+    borderColorDark: "#0F766E",
   },
   beta: {
-    label: 'Beta',
-    color: '#1D4ED8',
-    colorDark: '#60A5FA',
-    bgColor: '#DBEAFE',
-    bgColorDark: 'rgba(59, 130, 246, 0.2)',
-    borderColor: '#93C5FD',
-    borderColorDark: '#1D4ED8',
+    label: "Beta",
+    color: "#1D4ED8",
+    colorDark: "#60A5FA",
+    bgColor: "#DBEAFE",
+    bgColorDark: "rgba(59, 130, 246, 0.2)",
+    borderColor: "#93C5FD",
+    borderColorDark: "#1D4ED8",
   },
   production: {
-    label: 'Production',
-    color: '#166534',
-    colorDark: '#4ADE80',
-    bgColor: '#DCFCE7',
-    bgColorDark: 'rgba(34, 197, 94, 0.2)',
-    borderColor: '#86EFAC',
-    borderColorDark: '#166534',
+    label: "Production",
+    color: "#166534",
+    colorDark: "#4ADE80",
+    bgColor: "#DCFCE7",
+    bgColorDark: "rgba(34, 197, 94, 0.2)",
+    borderColor: "#86EFAC",
+    borderColorDark: "#166534",
   },
   deprecated: {
-    label: 'Deprecated',
-    color: '#B91C1C',
-    colorDark: '#F87171',
-    bgColor: '#FEE2E2',
-    bgColorDark: 'rgba(239, 68, 68, 0.2)',
-    borderColor: '#FCA5A5',
-    borderColorDark: '#B91C1C',
+    label: "Deprecated",
+    color: "#B91C1C",
+    colorDark: "#F87171",
+    bgColor: "#FEE2E2",
+    bgColorDark: "rgba(239, 68, 68, 0.2)",
+    borderColor: "#FCA5A5",
+    borderColorDark: "#B91C1C",
   },
   experimental: {
-    label: 'Experimental',
-    color: '#7E22CE',
-    colorDark: '#C084FC',
-    bgColor: '#F3E8FF',
-    bgColorDark: 'rgba(168, 85, 247, 0.2)',
-    borderColor: '#D8B4FE',
-    borderColorDark: '#7E22CE',
+    label: "Experimental",
+    color: "#7E22CE",
+    colorDark: "#C084FC",
+    bgColor: "#F3E8FF",
+    bgColorDark: "rgba(168, 85, 247, 0.2)",
+    borderColor: "#D8B4FE",
+    borderColorDark: "#7E22CE",
   },
   new: {
-    label: 'New',
-    color: '#0E7490',
-    colorDark: '#22D3EE',
-    bgColor: '#CFFAFE',
-    bgColorDark: 'rgba(6, 182, 212, 0.2)',
-    borderColor: '#67E8F9',
-    borderColorDark: '#0E7490',
+    label: "New",
+    color: "#0E7490",
+    colorDark: "#22D3EE",
+    bgColor: "#CFFAFE",
+    bgColorDark: "rgba(6, 182, 212, 0.2)",
+    borderColor: "#67E8F9",
+    borderColorDark: "#0E7490",
   },
 };
 

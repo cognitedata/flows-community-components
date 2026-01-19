@@ -1,38 +1,12 @@
-
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarIcon,
-  AvatarImage,
-} from '@/components/ui/aura/avatar';
-import { Button } from '@/components/ui/aura/button';
-import {
-  ButtonGroup,
-  ButtonGroupText,
-} from '@/components/ui/aura/button-group';
-import {
-  CodeBlock,
-  CodeBlockCopyButton,
-} from '@/components/ui/aura/code-block';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/aura/tooltip';
-import { cn } from '@/lib/utils';
-import type { FileUIPart, UIMessage } from 'ai';
-import {
-  IconChevronLeft,
-  IconChevronRight,
-  IconPaperclip,
-  IconX,
-} from '@tabler/icons-react';
-import type {
-  ComponentProps,
-  HTMLAttributes,
-  ReactElement,
-  ReactNode,
-} from 'react';
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
+import { Button } from "@/components/ui/aura/button";
+import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
+import { cn } from "@/lib/utils";
+import type { FileUIPart, UIMessage } from "ai";
+import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
+import type { ComponentProps, HTMLAttributes, ReactElement, ReactNode } from "react";
 import {
   createContext,
   isValidElement,
@@ -41,23 +15,19 @@ import {
   useEffect,
   useMemo,
   useState,
-} from 'react';
-import type { BundledLanguage } from 'shiki';
-import { Streamdown } from 'streamdown';
+} from "react";
+import type { BundledLanguage } from "shiki";
+import { Streamdown } from "streamdown";
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
   isResponse?: boolean;
 };
 
-export const Message = ({
-  className,
-  isResponse = false,
-  ...props
-}: MessageProps) => (
+export const Message = ({ className, isResponse = false, ...props }: MessageProps) => (
   <div
     className={cn(
-      'group flex w-full items-start justify-start gap-3 py-2 mb-0',
-      isResponse ? 'is-assistant items-start' : 'is-user flex-row-reverse',
+      "group flex w-full items-start justify-start gap-3 py-2 mb-0",
+      isResponse ? "is-assistant items-start" : "is-user flex-row-reverse",
       className
     )}
     {...props}
@@ -66,17 +36,13 @@ export const Message = ({
 
 export type MessageContentProps = HTMLAttributes<HTMLDivElement>;
 
-export const MessageContent = ({
-  children,
-  className,
-  ...props
-}: MessageContentProps) => (
+export const MessageContent = ({ children, className, ...props }: MessageContentProps) => (
   <div
     className={cn(
-      'is-user:dark flex flex-col gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest',
-      'max-w-[var(--message-content-max-width)]',
-      'group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground',
-      'group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1',
+      "is-user:dark flex flex-col gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest",
+      "max-w-[var(--message-content-max-width)]",
+      "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
+      "group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1",
       className
     )}
     {...props}
@@ -88,9 +54,9 @@ export const MessageContent = ({
 // Helper function to extract initials from a name
 function getInitials(name: string): string {
   return name
-    .split(' ')
+    .split(" ")
     .map((part) => part.charAt(0).toUpperCase())
-    .join('')
+    .join("")
     .slice(0, 2);
 }
 
@@ -108,24 +74,18 @@ export const MessageAvatar = ({
   sizes,
   ...props
 }: MessageAvatarProps) => {
-  const fallbackText = name ? getInitials(name) : 'ME';
+  const fallbackText = name ? getInitials(name) : "ME";
 
   return (
     <Avatar
-      className={cn('size-7 group-[.is-user]:mt-1', className)}
+      className={cn("size-7 group-[.is-user]:mt-1", className)}
       variant={variant}
       sizes={sizes}
       {...props}
     >
       {children || (
         <>
-          {avatarUrl && (
-            <AvatarImage
-              alt={name || ''}
-              className="mt-0 mb-0"
-              src={avatarUrl}
-            />
-          )}
+          {avatarUrl && <AvatarImage alt={name || ""} className="mt-0 mb-0" src={avatarUrl} />}
           <AvatarFallback>{fallbackText}</AvatarFallback>
         </>
       )}
@@ -135,18 +95,12 @@ export const MessageAvatar = ({
 
 export type MessageAvatarIconProps = ComponentProps<typeof AvatarIcon>;
 
-export const MessageAvatarIcon = (props: MessageAvatarIconProps) => (
-  <AvatarIcon {...props} />
-);
+export const MessageAvatarIcon = (props: MessageAvatarIconProps) => <AvatarIcon {...props} />;
 
-export type MessageActionsProps = ComponentProps<'div'>;
+export type MessageActionsProps = ComponentProps<"div">;
 
-export const MessageActions = ({
-  className,
-  children,
-  ...props
-}: MessageActionsProps) => (
-  <div className={cn('flex items-center gap-2', className)} {...props}>
+export const MessageActions = ({ className, children, ...props }: MessageActionsProps) => (
+  <div className={cn("flex items-center gap-2", className)} {...props}>
     {children}
   </div>
 );
@@ -161,16 +115,13 @@ export const MessageAction = ({
   children,
   label,
   className,
-  variant = 'ghost',
-  size = 'sm',
+  variant = "ghost",
+  size = "sm",
   ...props
 }: MessageActionProps) => {
   const button = (
     <Button
-      className={cn(
-        'relative icon-sm text-muted-foreground hover:text-foreground',
-        className
-      )}
+      className={cn("relative icon-sm text-muted-foreground hover:text-foreground", className)}
       size={size}
       type="button"
       variant={variant}
@@ -204,17 +155,13 @@ type MessageBranchContextType = {
   setBranches: (branches: ReactElement[]) => void;
 };
 
-const MessageBranchContext = createContext<MessageBranchContextType | null>(
-  null
-);
+const MessageBranchContext = createContext<MessageBranchContextType | null>(null);
 
 const useMessageBranch = () => {
   const context = useContext(MessageBranchContext);
 
   if (!context) {
-    throw new Error(
-      'MessageBranch components must be used within MessageBranch'
-    );
+    throw new Error("MessageBranch components must be used within MessageBranch");
   }
 
   return context;
@@ -240,14 +187,12 @@ export const MessageBranch = ({
   };
 
   const goToPrevious = () => {
-    const newBranch =
-      currentBranch > 0 ? currentBranch - 1 : branches.length - 1;
+    const newBranch = currentBranch > 0 ? currentBranch - 1 : branches.length - 1;
     handleBranchChange(newBranch);
   };
 
   const goToNext = () => {
-    const newBranch =
-      currentBranch < branches.length - 1 ? currentBranch + 1 : 0;
+    const newBranch = currentBranch < branches.length - 1 ? currentBranch + 1 : 0;
     handleBranchChange(newBranch);
   };
 
@@ -262,20 +207,14 @@ export const MessageBranch = ({
 
   return (
     <MessageBranchContext.Provider value={contextValue}>
-      <div
-        className={cn('grid w-full gap-2 [&>div]:pb-0', className)}
-        {...props}
-      />
+      <div className={cn("grid w-full gap-2 [&>div]:pb-0", className)} {...props} />
     </MessageBranchContext.Provider>
   );
 };
 
 export type MessageBranchContentProps = HTMLAttributes<HTMLDivElement>;
 
-export const MessageBranchContent = ({
-  children,
-  ...props
-}: MessageBranchContentProps) => {
+export const MessageBranchContent = ({ children, ...props }: MessageBranchContentProps) => {
   const { currentBranch, setBranches, branches } = useMessageBranch();
   const childrenArray = useMemo(
     () => (Array.isArray(children) ? children : [children]),
@@ -292,8 +231,8 @@ export const MessageBranchContent = ({
   return childrenArray.map((branch, index) => (
     <div
       className={cn(
-        'grid gap-2 overflow-hidden [&>div]:pb-0',
-        index === currentBranch ? 'block' : 'hidden'
+        "grid gap-2 overflow-hidden [&>div]:pb-0",
+        index === currentBranch ? "block" : "hidden"
       )}
       key={branch.key}
       {...props}
@@ -304,12 +243,10 @@ export const MessageBranchContent = ({
 };
 
 export type MessageBranchSelectorProps = HTMLAttributes<HTMLDivElement> & {
-  from: UIMessage['role'];
+  from: UIMessage["role"];
 };
 
-export const MessageBranchSelector = ({
-  ...props
-}: MessageBranchSelectorProps) => {
+export const MessageBranchSelector = ({ ...props }: MessageBranchSelectorProps) => {
   const { totalBranches } = useMessageBranch();
 
   // Don't render if there's only one branch
@@ -328,10 +265,7 @@ export const MessageBranchSelector = ({
 
 export type MessageBranchPreviousProps = ComponentProps<typeof Button>;
 
-export const MessageBranchPrevious = ({
-  children,
-  ...props
-}: MessageBranchPreviousProps) => {
+export const MessageBranchPrevious = ({ children, ...props }: MessageBranchPreviousProps) => {
   const { goToPrevious, totalBranches } = useMessageBranch();
 
   return (
@@ -351,10 +285,7 @@ export const MessageBranchPrevious = ({
 
 export type MessageBranchNextProps = ComponentProps<typeof Button>;
 
-export const MessageBranchNext = ({
-  children,
-  ...props
-}: MessageBranchNextProps) => {
+export const MessageBranchNext = ({ children, ...props }: MessageBranchNextProps) => {
   const { goToNext, totalBranches } = useMessageBranch();
 
   return (
@@ -374,18 +305,12 @@ export const MessageBranchNext = ({
 
 export type MessageBranchPageProps = HTMLAttributes<HTMLSpanElement>;
 
-export const MessageBranchPage = ({
-  className,
-  ...props
-}: MessageBranchPageProps) => {
+export const MessageBranchPage = ({ className, ...props }: MessageBranchPageProps) => {
   const { currentBranch, totalBranches } = useMessageBranch();
 
   return (
     <ButtonGroupText
-      className={cn(
-        'border-none bg-transparent text-muted-foreground shadow-none px-2',
-        className
-      )}
+      className={cn("border-none bg-transparent text-muted-foreground shadow-none px-2", className)}
       {...props}
     >
       {currentBranch + 1}/{totalBranches}
@@ -401,21 +326,18 @@ type MessageResponseCodeProps = {
   children?: ReactNode;
 };
 
-const MessageResponseCode = ({
-  className,
-  children,
-}: MessageResponseCodeProps) => {
+const MessageResponseCode = ({ className, children }: MessageResponseCodeProps) => {
   // Extract language from className (e.g., "language-typescript" -> "typescript")
   const languageMatch = className?.match(/language-(\w+)/);
   const language = languageMatch?.[1] as BundledLanguage | undefined;
 
   // Extract code text - Streamdown passes either a string or a single nested element
-  let codeText = '';
-  if (typeof children === 'string') {
+  let codeText = "";
+  if (typeof children === "string") {
     codeText = children;
   } else if (isValidElement(children)) {
     const props = children.props as { children?: string };
-    if (typeof props.children === 'string') {
+    if (typeof props.children === "string") {
       codeText = props.children;
     }
   }
@@ -447,48 +369,32 @@ const MessageResponseCode = ({
 const messageResponseComponents = {
   // Headings
   h1: ({ children }: { children?: ReactNode }) => (
-    <h1 className="mt-0 mb-2 scroll-m-20 text-xl font-medium tracking-tightest">
-      {children}
-    </h1>
+    <h1 className="mt-0 mb-2 scroll-m-20 text-xl font-medium tracking-tightest">{children}</h1>
   ),
   h2: ({ children }: { children?: ReactNode }) => (
-    <h2 className="mt-4 mb-1 scroll-m-20 text-lg font-medium tracking-tightest">
-      {children}
-    </h2>
+    <h2 className="mt-4 mb-1 scroll-m-20 text-lg font-medium tracking-tightest">{children}</h2>
   ),
   h3: ({ children }: { children?: ReactNode }) => (
-    <h3 className="mt-4 mb-1 scroll-m-20 text-base font-medium tracking-tighter">
-      {children}
-    </h3>
+    <h3 className="mt-4 mb-1 scroll-m-20 text-base font-medium tracking-tighter">{children}</h3>
   ),
   h4: ({ children }: { children?: ReactNode }) => (
-    <h4 className="mt-2 mb-0 scroll-m-20 text-sm font-medium tracking-normal">
-      {children}
-    </h4>
+    <h4 className="mt-2 mb-0 scroll-m-20 text-sm font-medium tracking-normal">{children}</h4>
   ),
   h5: ({ children }: { children?: ReactNode }) => (
-    <h5 className="mt-0 mb-0 scroll-m-20 text-xs font-medium tracking-tighter">
-      {children}
-    </h5>
+    <h5 className="mt-0 mb-0 scroll-m-20 text-xs font-medium tracking-tighter">{children}</h5>
   ),
   h6: ({ children }: { children?: ReactNode }) => (
-    <h6 className="mt-0 mb-0 scroll-m-20 text-2xs font-medium tracking-tighter">
-      {children}
-    </h6>
+    <h6 className="mt-0 mb-0 scroll-m-20 text-2xs font-medium tracking-tighter">{children}</h6>
   ),
   // Paragraph
   p: ({ children }: { children?: ReactNode }) => (
-    <p className="mt-2 mb-3 text-base font-normal leading-7 tracking-tightest">
-      {children}
-    </p>
+    <p className="mt-2 mb-3 text-base font-normal leading-7 tracking-tightest">{children}</p>
   ),
   // Text formatting
   strong: ({ children }: { children?: ReactNode }) => (
     <strong className="font-medium">{children}</strong>
   ),
-  em: ({ children }: { children?: ReactNode }) => (
-    <em className="italic">{children}</em>
-  ),
+  em: ({ children }: { children?: ReactNode }) => <em className="italic">{children}</em>,
   // Lists
   ul: ({ children }: { children?: ReactNode }) => (
     <ul className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
@@ -500,9 +406,7 @@ const messageResponseComponents = {
       {children}
     </ol>
   ),
-  li: ({ children }: { children?: ReactNode }) => (
-    <li className="py-0">{children}</li>
-  ),
+  li: ({ children }: { children?: ReactNode }) => <li className="py-0">{children}</li>,
   // Blockquote
   blockquote: ({ children }: { children?: ReactNode }) => (
     <blockquote className="my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic">
@@ -550,10 +454,7 @@ const messageResponseComponents = {
 export const MessageResponse = memo(
   ({ className, components, ...props }: MessageResponseProps) => (
     <Streamdown
-      className={cn(
-        'size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0',
-        className
-      )}
+      className={cn("size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0", className)}
       components={{ ...messageResponseComponents, ...components }}
       controls={false}
       {...props}
@@ -562,7 +463,7 @@ export const MessageResponse = memo(
   (prevProps, nextProps) => prevProps.children === nextProps.children
 );
 
-MessageResponse.displayName = 'MessageResponse';
+MessageResponse.displayName = "MessageResponse";
 
 export type MessageAttachmentProps = HTMLAttributes<HTMLDivElement> & {
   data: FileUIPart;
@@ -570,30 +471,18 @@ export type MessageAttachmentProps = HTMLAttributes<HTMLDivElement> & {
   onRemove?: () => void;
 };
 
-export function MessageAttachment({
-  data,
-  className,
-  onRemove,
-  ...props
-}: MessageAttachmentProps) {
-  const filename = data.filename || '';
-  const mediaType =
-    data.mediaType?.startsWith('image/') && data.url ? 'image' : 'file';
-  const isImage = mediaType === 'image';
-  const attachmentLabel = filename || (isImage ? 'Image' : 'Attachment');
+export function MessageAttachment({ data, className, onRemove, ...props }: MessageAttachmentProps) {
+  const filename = data.filename || "";
+  const mediaType = data.mediaType?.startsWith("image/") && data.url ? "image" : "file";
+  const isImage = mediaType === "image";
+  const attachmentLabel = filename || (isImage ? "Image" : "Attachment");
 
   return (
-    <div
-      className={cn(
-        'group relative size-24 overflow-hidden rounded-lg',
-        className
-      )}
-      {...props}
-    >
+    <div className={cn("group relative size-24 overflow-hidden rounded-lg", className)} {...props}>
       {isImage ? (
         <>
           <img
-            alt={filename || 'attachment'}
+            alt={filename || "attachment"}
             className="size-full object-cover"
             height={100}
             src={data.url}
@@ -648,44 +537,24 @@ export function MessageAttachment({
   );
 }
 
-export type MessageAttachmentsProps = ComponentProps<'div'>;
+export type MessageAttachmentsProps = ComponentProps<"div">;
 
-export function MessageAttachments({
-  children,
-  className,
-  ...props
-}: MessageAttachmentsProps) {
+export function MessageAttachments({ children, className, ...props }: MessageAttachmentsProps) {
   if (!children) {
     return null;
   }
 
   return (
-    <div
-      className={cn(
-        'ml-auto flex w-fit flex-wrap items-start gap-2',
-        className
-      )}
-      {...props}
-    >
+    <div className={cn("ml-auto flex w-fit flex-wrap items-start gap-2", className)} {...props}>
       {children}
     </div>
   );
 }
 
-export type MessageToolbarProps = ComponentProps<'div'>;
+export type MessageToolbarProps = ComponentProps<"div">;
 
-export const MessageToolbar = ({
-  className,
-  children,
-  ...props
-}: MessageToolbarProps) => (
-  <div
-    className={cn(
-      'mt-4 flex w-full items-center justify-between gap-4',
-      className
-    )}
-    {...props}
-  >
+export const MessageToolbar = ({ className, children, ...props }: MessageToolbarProps) => (
+  <div className={cn("mt-4 flex w-full items-center justify-between gap-4", className)} {...props}>
     {children}
   </div>
 );

@@ -1,10 +1,9 @@
+import { useState, type ComponentProps, type ChangeEvent } from "react";
 
-import { useState, type ComponentProps, type ChangeEvent } from 'react';
+import { cn } from "@/lib/utils";
+import { HelperText } from "@/components/ui/aura/helper-text";
 
-import { cn } from '@/lib/utils';
-import { HelperText } from '@/components/ui/aura/helper-text';
-
-interface TextareaProps extends ComponentProps<'textarea'> {
+interface TextareaProps extends ComponentProps<"textarea"> {
   maxChars?: number;
   errorMessage?: string;
   overLimitMessage?: string;
@@ -15,13 +14,13 @@ function Textarea({
   className,
   maxChars,
   errorMessage,
-  overLimitMessage = 'Too many characters',
+  overLimitMessage = "Too many characters",
   charactersLeftMessage = (remaining) => `${remaining} characters left`,
   ...props
 }: TextareaProps) {
   // Initialize character count from defaultValue or value
   const [charCount, setCharCount] = useState(() => {
-    const initialValue = props.defaultValue || props.value || '';
+    const initialValue = props.defaultValue || props.value || "";
     return String(initialValue).length;
   });
 
@@ -45,7 +44,7 @@ function Textarea({
         data-slot="textarea"
         aria-invalid={isInvalid ? true : undefined}
         className={cn(
-          'border-border placeholder:text-muted-foreground focus-visible:ring-ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive-foreground dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent p-1.75 text-base tracking-tightest leading-5 transition-[color] outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50',
+          "border-border placeholder:text-muted-foreground focus-visible:ring-ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive-foreground dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent p-1.75 text-base tracking-tightest leading-5 transition-[color] outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         onChange={handleChange}
@@ -54,9 +53,7 @@ function Textarea({
       {errorMessage && <HelperText isError>{errorMessage}</HelperText>}
       {maxChars !== undefined && (
         <HelperText isError={isOverLimit}>
-          {isOverLimit
-            ? overLimitMessage
-            : charactersLeftMessage(maxChars - charCount)}
+          {isOverLimit ? overLimitMessage : charactersLeftMessage(maxChars - charCount)}
         </HelperText>
       )}
     </>

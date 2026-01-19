@@ -1,32 +1,32 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
-import { Sources, Source, SourcesTitle } from './sources';
-import { IconBrandGithub, IconFileText, IconWorld } from '@tabler/icons-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
+import { Sources, Source, SourcesTitle } from "./sources";
+import { IconBrandGithub, IconFileText, IconWorld } from "@tabler/icons-react";
 
 const meta: Meta<typeof Sources> = {
-  title: 'AI/Sources',
+  title: "AI/Sources",
   component: Sources,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     title: {
-      control: { type: 'select' },
-      options: [undefined, true, false, 'Custom Title'],
-      description: 'Title above the sources list',
+      control: { type: "select" },
+      options: [undefined, true, false, "Custom Title"],
+      description: "Title above the sources list",
       table: {
-        category: 'Content',
-        type: { summary: 'ReactNode | boolean' },
+        category: "Content",
+        type: { summary: "ReactNode | boolean" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -54,13 +54,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default sources component with default title.',
+        story: "Default sources component with default title.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const title = canvas.getByText('Sources');
+    const title = canvas.getByText("Sources");
     await expect(title).toBeInTheDocument();
   },
 };
@@ -78,7 +78,7 @@ export const WithoutTitle: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Sources without the title section.',
+        story: "Sources without the title section.",
       },
     },
   },
@@ -98,7 +98,7 @@ export const CustomTitle: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Sources with a custom title.',
+        story: "Sources with a custom title.",
       },
     },
   },
@@ -110,27 +110,19 @@ export const CustomTitle: Story = {
 export const WithIcons: Story = {
   render: () => (
     <Sources>
-      <Source 
-        url="https://github.com/example/repo" 
-        title="GitHub Repository" 
-        icon={IconBrandGithub} 
+      <Source
+        url="https://github.com/example/repo"
+        title="GitHub Repository"
+        icon={IconBrandGithub}
       />
-      <Source 
-        url="https://example.com/docs" 
-        title="Documentation" 
-        icon={IconFileText} 
-      />
-      <Source 
-        url="https://example.com" 
-        title="Website" 
-        icon={IconWorld} 
-      />
+      <Source url="https://example.com/docs" title="Documentation" icon={IconFileText} />
+      <Source url="https://example.com" title="Website" icon={IconWorld} />
     </Sources>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Sources with custom icons.',
+        story: "Sources with custom icons.",
       },
     },
   },
@@ -153,7 +145,7 @@ export const ManySources: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Sources with multiple items that wrap.',
+        story: "Sources with multiple items that wrap.",
       },
     },
   },
@@ -171,7 +163,7 @@ export const SingleSource: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Sources with a single item.',
+        story: "Sources with a single item.",
       },
     },
   },
@@ -205,11 +197,7 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Sources>
-          <Source 
-            url="https://github.com" 
-            title="GitHub" 
-            icon={IconBrandGithub} 
-          />
+          <Source url="https://github.com" title="GitHub" icon={IconBrandGithub} />
         </Sources>
       </div>
     </div>
@@ -217,7 +205,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Sources for visual regression testing.',
+        story: "Sources for visual regression testing.",
       },
     },
     chromatic: {
@@ -239,7 +227,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive sources example.',
+        story: "Interactive sources example.",
       },
     },
   },

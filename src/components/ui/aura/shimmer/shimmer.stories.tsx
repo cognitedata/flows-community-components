@@ -1,12 +1,11 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
-import { Shimmer } from './shimmer';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
+import { Shimmer } from "./shimmer";
 
 const meta: Meta<typeof Shimmer> = {
-  title: 'AI/Shimmer',
+  title: "AI/Shimmer",
   component: Shimmer,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <div className="p-8">
@@ -17,80 +16,69 @@ const meta: Meta<typeof Shimmer> = {
   argTypes: {
     // Display & behavior
     children: {
-      control: 'text',
-      description: 'Text content to display with shimmer effect',
+      control: "text",
+      description: "Text content to display with shimmer effect",
       table: {
-        category: 'Display',
-        type: { summary: 'string' },
+        category: "Display",
+        type: { summary: "string" },
       },
     },
     as: {
-      control: 'select',
-      options: ['p', 'span', 'div', 'h1', 'h2', 'h3'],
-      description: 'HTML element type to render',
+      control: "select",
+      options: ["p", "span", "div", "h1", "h2", "h3"],
+      description: "HTML element type to render",
       table: {
-        category: 'Display',
-        type: { summary: 'ElementType' },
-        defaultValue: { summary: 'p' },
+        category: "Display",
+        type: { summary: "ElementType" },
+        defaultValue: { summary: "p" },
       },
     },
     variant: {
-      control: 'select',
-      options: [
-        'default',
-        'nordic',
-        'aurora',
-        'dusk',
-        'equinox',
-        'summer',
-        'spring',
-        'fall',
-      ],
-      description: 'Gradient variant for the shimmer effect',
+      control: "select",
+      options: ["default", "nordic", "aurora", "dusk", "equinox", "summer", "spring", "fall"],
+      description: "Gradient variant for the shimmer effect",
       table: {
-        category: 'Display',
+        category: "Display",
         type: {
-          summary:
-            'default | nordic | aurora | dusk | equinox | summer | spring | fall',
+          summary: "default | nordic | aurora | dusk | equinox | summer | spring | fall",
         },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: "default" },
       },
     },
     duration: {
-      control: 'number',
-      description: 'Animation duration in seconds',
+      control: "number",
+      description: "Animation duration in seconds",
       table: {
-        category: 'Animation',
-        type: { summary: 'number' },
-        defaultValue: { summary: '2' },
+        category: "Animation",
+        type: { summary: "number" },
+        defaultValue: { summary: "2" },
       },
     },
     spread: {
-      control: 'number',
-      description:
-        'Spread multiplier for shimmer effect (based on text length)',
+      control: "number",
+      description: "Spread multiplier for shimmer effect (based on text length)",
       table: {
-        category: 'Animation',
-        type: { summary: 'number' },
-        defaultValue: { summary: '2' },
+        category: "Animation",
+        type: { summary: "number" },
+        defaultValue: { summary: "2" },
       },
     },
     className: {
-      control: 'text',
-      description: 'CSS classes for styling',
+      control: "text",
+      description: "CSS classes for styling",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     // Disable color-contrast rule for Shimmer stories.
     // The component uses bg-clip-text with gradients, which automated
     // a11y tools cannot analyse. The text is visible via the gradient.
     a11y: {
       config: {
-        rules: [{ id: 'color-contrast', enabled: false }],
+        rules: [{ id: "color-contrast", enabled: false }],
       },
     },
   },
@@ -105,13 +93,13 @@ type Story = StoryObj<typeof Shimmer>;
  */
 export const Basic: Story = {
   args: {
-    children: 'Processing...',
+    children: "Processing...",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Basic shimmer effect for loading states. Tests that the shimmer animation is visible.',
+          "Basic shimmer effect for loading states. Tests that the shimmer animation is visible.",
       },
     },
   },
@@ -119,7 +107,7 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Find the shimmer text
-    const shimmer = canvas.getByText('Processing...');
+    const shimmer = canvas.getByText("Processing...");
     await expect(shimmer).toBeInTheDocument();
   },
   render: (args) => <Shimmer {...args} />,
@@ -134,7 +122,7 @@ export const GradientVariants: Story = {
     docs: {
       description: {
         story:
-          'Shimmer effects with seasonal and brand colour gradients. All available variants displayed together.',
+          "Shimmer effects with seasonal and brand colour gradients. All available variants displayed together.",
       },
     },
   },
@@ -160,7 +148,7 @@ export const ElementTypes: Story = {
     docs: {
       description: {
         story:
-          'Shimmer effect applied to different HTML element types with appropriate typography styling.',
+          "Shimmer effect applied to different HTML element types with appropriate typography styling.",
       },
     },
   },
@@ -179,10 +167,10 @@ export const ElementTypes: Story = {
         Paragraph text with shimmer effect applied.
       </Shimmer>
       <p className="text-base">
-        Inline text with a{' '}
+        Inline text with a{" "}
         <Shimmer as="span" className="font-medium">
           shimmer span
-        </Shimmer>{' '}
+        </Shimmer>{" "}
         inside it.
       </p>
       <Shimmer as="div" className="text-sm text-muted-foreground">
@@ -200,7 +188,7 @@ export const AnimationDurations: Story = {
     docs: {
       description: {
         story:
-          'Shimmer effects with different animation durations. Faster durations create more rapid shimmer effects.',
+          "Shimmer effects with different animation durations. Faster durations create more rapid shimmer effects.",
       },
     },
   },
@@ -222,7 +210,7 @@ export const SpreadValues: Story = {
     docs: {
       description: {
         story:
-          'Shimmer effects with different spread values. Higher spread creates a wider shimmer effect.',
+          "Shimmer effects with different spread values. Higher spread creates a wider shimmer effect.",
       },
     },
   },
@@ -244,19 +232,19 @@ export const LongText: Story = {
     docs: {
       description: {
         story:
-          'Shimmer effect on longer text content to demonstrate how the effect scales with text length.',
+          "Shimmer effect on longer text content to demonstrate how the effect scales with text length.",
       },
     },
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <Shimmer>
-        This is a longer piece of text that demonstrates how the shimmer effect
-        works with extended content.
+        This is a longer piece of text that demonstrates how the shimmer effect works with extended
+        content.
       </Shimmer>
       <Shimmer variant="aurora">
-        The shimmer animation smoothly transitions across the entire length of
-        the text, creating an engaging loading effect.
+        The shimmer animation smoothly transitions across the entire length of the text, creating an
+        engaging loading effect.
       </Shimmer>
     </div>
   ),
@@ -270,27 +258,26 @@ export const InlineUsage: Story = {
     docs: {
       description: {
         story:
-          'Shimmer effect used inline within other text content for progressive reveal effects.',
+          "Shimmer effect used inline within other text content for progressive reveal effects.",
       },
     },
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <p className="text-base">
-        Your request is <Shimmer as="span">processing</Shimmer> and will be
-        ready shortly.
+        Your request is <Shimmer as="span">processing</Shimmer> and will be ready shortly.
       </p>
       <p className="text-base">
-        Status:{' '}
+        Status:{" "}
         <Shimmer as="span" variant="aurora">
           Analyzing data
         </Shimmer>
       </p>
       <p className="text-base">
-        Loading{' '}
+        Loading{" "}
         <Shimmer as="span" variant="nordic">
           configuration
-        </Shimmer>{' '}
+        </Shimmer>{" "}
         files...
       </p>
     </div>
@@ -304,8 +291,7 @@ export const CustomStyling: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Shimmer effects with custom CSS classes for additional styling.',
+        story: "Shimmer effects with custom CSS classes for additional styling.",
       },
     },
   },
@@ -329,7 +315,7 @@ export const LoadingStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Shimmer effects used in realistic loading state scenarios.',
+        story: "Shimmer effects used in realistic loading state scenarios.",
       },
     },
   },
@@ -344,13 +330,13 @@ export const LoadingStates: Story = {
       <div className="space-y-2">
         <h3 className="text-lg font-semibold">System Status</h3>
         <p className="text-sm">
-          Current operation:{' '}
+          Current operation:{" "}
           <Shimmer as="span" variant="dusk">
             Data synchronization in progress
           </Shimmer>
         </p>
         <p className="text-sm">
-          Estimated time:{' '}
+          Estimated time:{" "}
           <Shimmer as="span" variant="equinox">
             Calculating...
           </Shimmer>

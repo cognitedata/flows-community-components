@@ -1,6 +1,6 @@
-import { useEffect, useState, type ComponentType } from 'react';
-import { composeStories } from '@storybook/react';
-import { ExamplePreview } from './example-preview';
+import { useEffect, useState, type ComponentType } from "react";
+import { composeStories } from "@storybook/react";
+import { ExamplePreview } from "./example-preview";
 
 interface StoriesRendererProps {
   slug: string;
@@ -14,7 +14,7 @@ interface StoryEntry {
 
 // Use import.meta.glob to let Vite know about all stories files at build time
 // Using relative path from this file for more reliable resolution
-const storiesModules = import.meta.glob('./ui/aura/*/*.stories.tsx');
+const storiesModules = import.meta.glob("./ui/aura/*/*.stories.tsx");
 
 /**
  * Converts a PascalCase or camelCase story key to a human-readable title.
@@ -22,7 +22,7 @@ const storiesModules = import.meta.glob('./ui/aura/*/*.stories.tsx');
  */
 function storyKeyToTitle(key: string): string {
   return key
-    .replace(/([A-Z])/g, ' $1')
+    .replace(/([A-Z])/g, " $1")
     .replace(/^./, (str) => str.toUpperCase())
     .trim();
 }
@@ -30,7 +30,7 @@ function storyKeyToTitle(key: string): string {
 /**
  * Unified renderer for component stories.
  * Dynamically loads and renders all stories from a component's stories file.
- * 
+ *
  * This is the consolidated renderer that replaces both AIExamplesRenderer
  * and ComponentExamplesRenderer after the migration from .examples.tsx to .stories.tsx.
  */
@@ -68,13 +68,11 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         ) as Record<string, ComponentType>;
 
         // Convert to array of story entries
-        const storyEntries: StoryEntry[] = Object.entries(composed).map(
-          ([key, Component]) => ({
-            key,
-            title: storyKeyToTitle(key),
-            Component,
-          })
-        );
+        const storyEntries: StoryEntry[] = Object.entries(composed).map(([key, Component]) => ({
+          key,
+          title: storyKeyToTitle(key),
+          Component,
+        }));
 
         if (storyEntries.length === 0) {
           setError(`No stories found in ${slug}.stories.tsx`);
@@ -120,11 +118,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
   return (
     <div className="space-y-6">
       {stories.map(({ key, title, Component }) => (
-        <ExamplePreview
-          key={key}
-          title={title}
-          component={() => <Component />}
-        />
+        <ExamplePreview key={key} title={title} component={() => <Component />} />
       ))}
     </div>
   );

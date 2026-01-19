@@ -24,5 +24,5 @@ export {
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
   BreadcrumbEllipsisButton,
-} from './breadcrumb';
-export { BreadcrumbMetadata } from './breadcrumb.metadata';
+} from "./breadcrumb";
+export { BreadcrumbMetadata } from "./breadcrumb.metadata";

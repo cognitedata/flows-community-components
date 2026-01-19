@@ -23,5 +23,5 @@ export {
   CommandItem,
   CommandShortcut,
   CommandSeparator,
-} from './command';
-export { CommandMetadata } from './command.metadata';
+} from "./command";
+export { CommandMetadata } from "./command.metadata";

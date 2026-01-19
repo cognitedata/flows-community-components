@@ -1,27 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
-import {
-  Reasoning,
-  ReasoningHeader,
-  ReasoningContent,
-  ReasoningItem,
-} from './reasoning';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "@storybook/test";
+import { Reasoning, ReasoningHeader, ReasoningContent, ReasoningItem } from "./reasoning";
 
 const meta: Meta<typeof Reasoning> = {
-  title: 'AI/Reasoning',
+  title: "AI/Reasoning",
   component: Reasoning,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -64,12 +59,12 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default reasoning component showing AI thought process.',
+        story: "Default reasoning component showing AI thought process.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const reasoning = canvasElement.querySelector('.flex.flex-col.gap-2');
+    const reasoning = canvasElement.querySelector(".flex.flex-col.gap-2");
     await expect(reasoning).toBeInTheDocument();
   },
 };
@@ -93,7 +88,7 @@ export const SingleStep: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning with a single step (no decorations).',
+        story: "Reasoning with a single step (no decorations).",
       },
     },
   },
@@ -128,7 +123,7 @@ export const CustomTitle: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning with a custom header title.',
+        story: "Reasoning with a custom header title.",
       },
     },
   },
@@ -146,8 +141,8 @@ export const DetailedReasoning: Story = {
           <div className="space-y-1">
             <p className="text-sm font-medium text-foreground">Understanding the Problem</p>
             <p className="text-sm text-muted-foreground">
-              The user wants to sort an array of numbers in ascending order. This is a 
-              classic algorithmic problem with multiple solutions.
+              The user wants to sort an array of numbers in ascending order. This is a classic
+              algorithmic problem with multiple solutions.
             </p>
           </div>
         </ReasoningItem>
@@ -155,9 +150,8 @@ export const DetailedReasoning: Story = {
           <div className="space-y-1">
             <p className="text-sm font-medium text-foreground">Evaluating Options</p>
             <p className="text-sm text-muted-foreground">
-              I can use: (1) Built-in sort method - simple but may not be fastest, 
-              (2) Quick sort - efficient average case O(n log n), 
-              (3) Merge sort - stable and guaranteed O(n log n).
+              I can use: (1) Built-in sort method - simple but may not be fastest, (2) Quick sort -
+              efficient average case O(n log n), (3) Merge sort - stable and guaranteed O(n log n).
             </p>
           </div>
         </ReasoningItem>
@@ -165,8 +159,8 @@ export const DetailedReasoning: Story = {
           <div className="space-y-1">
             <p className="text-sm font-medium text-foreground">Decision</p>
             <p className="text-sm text-muted-foreground">
-              For this use case, the built-in sort with a comparison function is most 
-              appropriate as it balances simplicity with good performance.
+              For this use case, the built-in sort with a comparison function is most appropriate as
+              it balances simplicity with good performance.
             </p>
           </div>
         </ReasoningItem>
@@ -176,7 +170,7 @@ export const DetailedReasoning: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Detailed reasoning with structured content in each step.',
+        story: "Detailed reasoning with structured content in each step.",
       },
     },
   },
@@ -214,7 +208,7 @@ export const ManySteps: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning with many steps showing the thought process.',
+        story: "Reasoning with many steps showing the thought process.",
       },
     },
   },
@@ -248,7 +242,7 @@ export const CustomHeader: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning with custom header content.',
+        story: "Reasoning with custom header content.",
       },
     },
   },
@@ -296,7 +290,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning components for visual regression testing.',
+        story: "Reasoning components for visual regression testing.",
       },
     },
     chromatic: {
@@ -314,14 +308,10 @@ export const Playground: Story = {
       <ReasoningHeader />
       <ReasoningContent>
         <ReasoningItem>
-          <p className="text-sm text-muted-foreground">
-            Playground reasoning step 1...
-          </p>
+          <p className="text-sm text-muted-foreground">Playground reasoning step 1...</p>
         </ReasoningItem>
         <ReasoningItem>
-          <p className="text-sm text-muted-foreground">
-            Playground reasoning step 2...
-          </p>
+          <p className="text-sm text-muted-foreground">Playground reasoning step 2...</p>
         </ReasoningItem>
       </ReasoningContent>
     </Reasoning>
@@ -329,7 +319,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive reasoning example.',
+        story: "Interactive reasoning example.",
       },
     },
   },

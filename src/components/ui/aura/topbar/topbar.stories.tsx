@@ -1,23 +1,16 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
-import {
-  Topbar,
-  TopbarLeft,
-  TopbarCenter,
-  TopbarRight,
-  TopbarBreadcrumbs,
-} from './topbar';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
+import { Topbar, TopbarLeft, TopbarCenter, TopbarRight, TopbarBreadcrumbs } from "./topbar";
 import {
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbSeparator,
   BreadcrumbPage,
-} from '../breadcrumb';
-import { Button } from '../button';
-import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
+} from "../breadcrumb";
+import { Button } from "../button";
+import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,7 +21,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../alert-dialog';
+} from "../alert-dialog";
 import {
   IconLayoutSidebar,
   IconHomeFilled,
@@ -40,7 +33,7 @@ import {
   IconUsers,
   IconFileText,
   IconChartBar as BarChart3,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 import {
   Sidebar,
   SidebarHeader,
@@ -56,23 +49,23 @@ import {
   SidebarProvider,
   SidebarTrigger,
   SidebarInset,
-} from '../sidebar';
+} from "../sidebar";
 
 const meta: Meta<typeof Topbar> = {
-  title: 'Primitives/Topbar',
+  title: "Primitives/Topbar",
   component: Topbar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'CSS classes for styling',
+      control: "text",
+      description: "CSS classes for styling",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
   },
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 };
 
@@ -88,7 +81,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          'Basic topbar with breadcrumbs on the left, empty center, and action buttons on the right.',
+          "Basic topbar with breadcrumbs on the left, empty center, and action buttons on the right.",
       },
     },
   },
@@ -96,11 +89,11 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Find the sidebar toggle button
-    const sidebarButton = canvas.getByRole('button', { name: /sidebar/i });
+    const sidebarButton = canvas.getByRole("button", { name: /sidebar/i });
     await expect(sidebarButton).toBeInTheDocument();
 
     // Find action buttons
-    const actionButtons = canvas.getAllByRole('button');
+    const actionButtons = canvas.getAllByRole("button");
     await expect(actionButtons.length).toBeGreaterThan(0);
   },
   render: function TopbarBasicStory() {
@@ -151,7 +144,7 @@ export const WithCenterContent: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Topbar with content in the center section.',
+        story: "Topbar with content in the center section.",
       },
     },
   },
@@ -211,7 +204,7 @@ export const EosStyle: Story = {
     const canvas = within(canvasElement);
 
     // Verify the New chat button exists and is interactable
-    const newChatButton = canvas.getByRole('button', { name: /new chat/i });
+    const newChatButton = canvas.getByRole("button", { name: /new chat/i });
     await expect(newChatButton).toBeInTheDocument();
     await expect(newChatButton).toBeEnabled();
   },
@@ -257,8 +250,7 @@ export const EosStyle: Story = {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Start a new chat?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will create a new chat session. Your current chat will
-                    be saved.
+                    This will create a new chat session. Your current chat will be saved.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -281,7 +273,7 @@ export const Minimal: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Minimal topbar with only breadcrumbs, no action buttons.',
+        story: "Minimal topbar with only breadcrumbs, no action buttons.",
       },
     },
   },
@@ -319,7 +311,7 @@ export const WithMultipleActions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Topbar with multiple action buttons in the right section.',
+        story: "Topbar with multiple action buttons in the right section.",
       },
     },
   },
@@ -378,7 +370,7 @@ export const WithSidebar: Story = {
     docs: {
       description: {
         story:
-          'Complete layout with Topbar and Sidebar working together. Features a collapsible sidebar with icon mode and SidebarTrigger button in the topbar. Inspired by the Sidebar component\'s own pattern.',
+          "Complete layout with Topbar and Sidebar working together. Features a collapsible sidebar with icon mode and SidebarTrigger button in the topbar. Inspired by the Sidebar component's own pattern.",
       },
     },
   },
@@ -386,15 +378,15 @@ export const WithSidebar: Story = {
     const canvas = within(canvasElement);
 
     // Verify topbar is rendered with sidebar trigger
-    const sidebarTrigger = canvas.getByRole('button', { name: /toggle sidebar/i });
+    const sidebarTrigger = canvas.getByRole("button", { name: /toggle sidebar/i });
     await expect(sidebarTrigger).toBeInTheDocument();
 
     // Verify sidebar content is present
-    const sidebarLabel = canvas.getByText('Platform');
+    const sidebarLabel = canvas.getByText("Platform");
     await expect(sidebarLabel).toBeInTheDocument();
 
     // Find the active menu item text
-    const activeItem = canvas.getByText('Overview');
+    const activeItem = canvas.getByText("Overview");
     await expect(activeItem).toBeInTheDocument();
 
     // Click the sidebar toggle button to collapse
@@ -480,9 +472,7 @@ export const WithSidebar: Story = {
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">
-                      AkerBP
-                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
                   </div>
                 </div>
               </SidebarFooter>
@@ -521,13 +511,10 @@ export const WithSidebar: Story = {
                 </TopbarRight>
               </Topbar>
               <div className="flex-1 p-6 overflow-auto">
-                <h1 className="text-2xl font-bold mb-4">
-                  Topbar with Sidebar Layout
-                </h1>
+                <h1 className="text-2xl font-bold mb-4">Topbar with Sidebar Layout</h1>
                 <p className="text-muted-foreground mb-4">
-                  Click the sidebar toggle button in the topbar to collapse/expand
-                  the sidebar. When collapsed, the sidebar shows in icon mode with
-                  tooltips.
+                  Click the sidebar toggle button in the topbar to collapse/expand the sidebar. When
+                  collapsed, the sidebar shows in icon mode with tooltips.
                 </p>
                 <div className="space-y-4">
                   <div className="p-4 border rounded-lg">
@@ -558,7 +545,7 @@ export const Interactive: Story = {
     docs: {
       description: {
         story:
-          'Interactive topbar demonstrating button clicks and navigation interactions. Click the buttons to see the state update in the center.',
+          "Interactive topbar demonstrating button clicks and navigation interactions. Click the buttons to see the state update in the center.",
       },
     },
   },
@@ -568,29 +555,25 @@ export const Interactive: Story = {
     // Wait for component to be ready
     await waitFor(
       () => {
-        expect(
-          canvas.getByRole('button', { name: /new item/i })
-        ).toBeInTheDocument();
+        expect(canvas.getByRole("button", { name: /new item/i })).toBeInTheDocument();
       },
       { timeout: 5000 }
     );
 
     // Click New Item button
-    const newItemButton = canvas.getByRole('button', { name: /new item/i });
+    const newItemButton = canvas.getByRole("button", { name: /new item/i });
     await userEvent.click(newItemButton);
 
     // Verify state update
     await waitFor(
       () => {
-        expect(
-          canvas.getByText(/last clicked: new-item/i)
-        ).toBeInTheDocument();
+        expect(canvas.getByText(/last clicked: new-item/i)).toBeInTheDocument();
       },
       { timeout: 5000 }
     );
 
     // Click Share button
-    const shareButton = canvas.getByRole('button', { name: /share/i });
+    const shareButton = canvas.getByRole("button", { name: /share/i });
     await userEvent.click(shareButton);
 
     // Verify state update
@@ -602,7 +585,7 @@ export const Interactive: Story = {
     );
 
     // Click Home link
-    const homeLink = canvas.getByRole('link', { name: /home/i });
+    const homeLink = canvas.getByRole("link", { name: /home/i });
     await userEvent.click(homeLink);
   },
   render: function TopbarInteractiveStory() {
@@ -616,7 +599,7 @@ export const Interactive: Story = {
               variant="ghost"
               size="icon-sm"
               aria-label="Toggle sidebar"
-              onClick={() => setClicked('sidebar')}
+              onClick={() => setClicked("sidebar")}
             >
               <IconLayoutSidebar className="h-4.5 w-4.5" />
             </Button>
@@ -627,7 +610,7 @@ export const Interactive: Story = {
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setClicked('home');
+                      setClicked("home");
                     }}
                     aria-label="Home"
                   >
@@ -643,13 +626,11 @@ export const Interactive: Story = {
           </TopbarLeft>
           <TopbarCenter>
             {clicked && (
-              <div className="text-xs text-muted-foreground">
-                Last clicked: {clicked}
-              </div>
+              <div className="text-xs text-muted-foreground">Last clicked: {clicked}</div>
             )}
           </TopbarCenter>
           <TopbarRight>
-            <Button size="sm" onClick={() => setClicked('new-item')}>
+            <Button size="sm" onClick={() => setClicked("new-item")}>
               <IconPlus />
               New Item
             </Button>
@@ -657,7 +638,7 @@ export const Interactive: Story = {
               variant="ghost"
               size="icon-sm"
               aria-label="Share"
-              onClick={() => setClicked('share')}
+              onClick={() => setClicked("share")}
             >
               <IconShare className="h-4 w-4" />
             </Button>
@@ -676,7 +657,7 @@ export const LongBreadcrumb: Story = {
     docs: {
       description: {
         story:
-          'Topbar with a long breadcrumb path demonstrating how it handles multiple levels of navigation.',
+          "Topbar with a long breadcrumb path demonstrating how it handles multiple levels of navigation.",
       },
     },
   },

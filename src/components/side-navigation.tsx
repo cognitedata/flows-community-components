@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { IconChevronRight } from '@tabler/icons-react';
+import * as React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { IconChevronRight } from "@tabler/icons-react";
 
 interface NavigationItem {
   href: string;
@@ -16,10 +16,10 @@ interface SideNavigationProps {
 }
 
 const docsNavigation: NavigationItem[] = [
-  { href: '/docs/installation', label: 'Installation' },
-  { href: '/docs/about', label: 'About' },
-  { href: '/docs/getting-started', label: 'Getting started' },
-  { href: '/docs/releases', label: 'Releases' },
+  { href: "/docs/installation", label: "Installation" },
+  { href: "/docs/about", label: "About" },
+  { href: "/docs/getting-started", label: "Getting started" },
+  { href: "/docs/releases", label: "Releases" },
 ];
 
 // Keep for backward compatibility during migration
@@ -27,80 +27,80 @@ const overviewNavigation: NavigationItem[] = docsNavigation;
 
 const primitivesNavigation: NavigationItem[] = [
   {
-    href: '#',
-    label: 'Foundations',
+    href: "#",
+    label: "Foundations",
     isSubsection: true,
     children: [
-      { href: '/primitives/colors', label: 'Colors' },
-      { href: '/primitives/effects', label: 'Effects' },
+      { href: "/primitives/colors", label: "Colors" },
+      { href: "/primitives/effects", label: "Effects" },
       // { href: '/primitives/icons', label: 'Icons' },
       // { href: '/primitives/illustrations', label: 'Illustrations' },
-      { href: '/primitives/layouts', label: 'Layouts' },
+      { href: "/primitives/layouts", label: "Layouts" },
       // { href: '/primitives/motion-design', label: 'Motion design' },
       // { href: '/primitives/theming', label: 'Theming' },
-      { href: '/primitives/typography', label: 'Typography' },
+      { href: "/primitives/typography", label: "Typography" },
     ],
   },
   {
-    href: '#',
-    label: 'Primitives',
+    href: "#",
+    label: "Primitives",
     isSubsection: true,
     children: [
-      { href: '/primitives/components/accordion', label: 'Accordion' },
-      { href: '/primitives/components/alert', label: 'Alert' },
-      { href: '/primitives/components/alert-dialog', label: 'Alert dialog' },
-      { href: '/primitives/components/avatar', label: 'Avatar' },
-      { href: '/primitives/components/badge', label: 'Badge' },
-      { href: '/primitives/components/banner', label: 'Banner' },
-      { href: '/primitives/components/breadcrumb', label: 'Breadcrumb' },
-      { href: '/primitives/components/button', label: 'Button' },
-      { href: '/primitives/components/calendar', label: 'Calendar' },
-      { href: '/primitives/components/card', label: 'Card' },
-      { href: '/primitives/components/checkbox', label: 'Checkbox' },
-      { href: '/primitives/components/collapsible', label: 'Collapsible' },
-      { href: '/primitives/components/combobox', label: 'Combobox' },
-      { href: '/primitives/components/command', label: 'Command' },
-      { href: '/primitives/components/context-menu', label: 'Context menu' },
-      { href: '/primitives/components/date-picker', label: 'Date picker' },
-      { href: '/primitives/components/dialog', label: 'Dialog' },
-      { href: '/primitives/components/drawer', label: 'Drawer' },
-      { href: '/primitives/components/dropdown-menu', label: 'Dropdown menu' },
-      { href: '/primitives/components/helper-text', label: 'Helper text' },
-      { href: '/primitives/components/hover-card', label: 'Hover card' },
-      { href: '/primitives/components/input', label: 'Input' },
-      { href: '/primitives/components/kbd', label: 'Kbd' },
-      { href: '/primitives/components/label', label: 'Label' },
-      { href: '/primitives/components/menubar', label: 'Menubar' },
-      { href: '/primitives/components/pagination', label: 'Pagination' },
-      { href: '/primitives/components/popover', label: 'Popover' },
-      { href: '/primitives/components/progress', label: 'Progress' },
-      { href: '/primitives/components/radio-group', label: 'Radio group' },
-      { href: '/primitives/components/select', label: 'Select' },
-      { href: '/primitives/components/separator', label: 'Separator' },
-      { href: '/primitives/components/sidebar', label: 'Sidebar' },
-      { href: '/primitives/components/slider', label: 'Slider' },
-      { href: '/primitives/components/sonner-toast', label: 'Sonner Toast' },
-      { href: '/primitives/components/swap-slot', label: 'Swap slot' },
-      { href: '/primitives/components/switch', label: 'Switch' },
-      { href: '/primitives/components/table', label: 'Table' },
-      { href: '/primitives/components/tabs', label: 'Tabs' },
-      { href: '/primitives/components/textarea', label: 'Textarea' },
-      { href: '/primitives/components/time-input', label: 'Time input' },
-      { href: '/primitives/components/toggle', label: 'Toggle' },
-      { href: '/primitives/components/tooltip', label: 'Tooltip' },
-      { href: '/primitives/components/topbar', label: 'Topbar' },
+      { href: "/primitives/components/accordion", label: "Accordion" },
+      { href: "/primitives/components/alert", label: "Alert" },
+      { href: "/primitives/components/alert-dialog", label: "Alert dialog" },
+      { href: "/primitives/components/avatar", label: "Avatar" },
+      { href: "/primitives/components/badge", label: "Badge" },
+      { href: "/primitives/components/banner", label: "Banner" },
+      { href: "/primitives/components/breadcrumb", label: "Breadcrumb" },
+      { href: "/primitives/components/button", label: "Button" },
+      { href: "/primitives/components/calendar", label: "Calendar" },
+      { href: "/primitives/components/card", label: "Card" },
+      { href: "/primitives/components/checkbox", label: "Checkbox" },
+      { href: "/primitives/components/collapsible", label: "Collapsible" },
+      { href: "/primitives/components/combobox", label: "Combobox" },
+      { href: "/primitives/components/command", label: "Command" },
+      { href: "/primitives/components/context-menu", label: "Context menu" },
+      { href: "/primitives/components/date-picker", label: "Date picker" },
+      { href: "/primitives/components/dialog", label: "Dialog" },
+      { href: "/primitives/components/drawer", label: "Drawer" },
+      { href: "/primitives/components/dropdown-menu", label: "Dropdown menu" },
+      { href: "/primitives/components/helper-text", label: "Helper text" },
+      { href: "/primitives/components/hover-card", label: "Hover card" },
+      { href: "/primitives/components/input", label: "Input" },
+      { href: "/primitives/components/kbd", label: "Kbd" },
+      { href: "/primitives/components/label", label: "Label" },
+      { href: "/primitives/components/menubar", label: "Menubar" },
+      { href: "/primitives/components/pagination", label: "Pagination" },
+      { href: "/primitives/components/popover", label: "Popover" },
+      { href: "/primitives/components/progress", label: "Progress" },
+      { href: "/primitives/components/radio-group", label: "Radio group" },
+      { href: "/primitives/components/select", label: "Select" },
+      { href: "/primitives/components/separator", label: "Separator" },
+      { href: "/primitives/components/sidebar", label: "Sidebar" },
+      { href: "/primitives/components/slider", label: "Slider" },
+      { href: "/primitives/components/sonner-toast", label: "Sonner Toast" },
+      { href: "/primitives/components/swap-slot", label: "Swap slot" },
+      { href: "/primitives/components/switch", label: "Switch" },
+      { href: "/primitives/components/table", label: "Table" },
+      { href: "/primitives/components/tabs", label: "Tabs" },
+      { href: "/primitives/components/textarea", label: "Textarea" },
+      { href: "/primitives/components/time-input", label: "Time input" },
+      { href: "/primitives/components/toggle", label: "Toggle" },
+      { href: "/primitives/components/tooltip", label: "Tooltip" },
+      { href: "/primitives/components/topbar", label: "Topbar" },
     ],
   },
 ];
 
 const patternsNavigation: NavigationItem[] = [
   {
-    href: '#',
-    label: 'Patterns',
+    href: "#",
+    label: "Patterns",
     isSubsection: true,
     children: [
-      { href: '/patterns/agent-chat', label: 'Agent chat' },
-      { href: '/patterns/dashboards', label: 'Dashboards' },
+      { href: "/patterns/agent-chat", label: "Agent chat" },
+      { href: "/patterns/dashboards", label: "Dashboards" },
     ],
   },
 ];
@@ -111,23 +111,23 @@ const sandboxNavigation: NavigationItem[] = [
 
 const aiNavigation: NavigationItem[] = [
   {
-    href: '#',
-    label: 'Shad CN',
+    href: "#",
+    label: "Shad CN",
     isSubsection: true,
     children: [
-      { href: '/ai/components/code-block', label: 'Code block' },
-      { href: '/ai/components/confirmation', label: 'Confirmation' },
-      { href: '/ai/components/conversation', label: 'Conversation' },
-      { href: '/ai/components/inline-citation', label: 'Inline Citation' },
-      { href: '/ai/components/loader', label: 'Loader' },
-      { href: '/ai/components/message', label: 'Message' },
-      { href: '/ai/components/prompt-input', label: 'Prompt input' },
-      { href: '/ai/components/reasoning', label: 'Reasoning' },
+      { href: "/ai/components/code-block", label: "Code block" },
+      { href: "/ai/components/confirmation", label: "Confirmation" },
+      { href: "/ai/components/conversation", label: "Conversation" },
+      { href: "/ai/components/inline-citation", label: "Inline Citation" },
+      { href: "/ai/components/loader", label: "Loader" },
+      { href: "/ai/components/message", label: "Message" },
+      { href: "/ai/components/prompt-input", label: "Prompt input" },
+      { href: "/ai/components/reasoning", label: "Reasoning" },
       // { href: '/ai/components/reasoning-original', label: 'Reasoning (Original)' },
-      { href: '/ai/components/shimmer', label: 'Shimmer' },
-      { href: '/ai/components/sources', label: 'Sources' },
-      { href: '/ai/components/suggestion', label: 'Suggestion' },
-      { href: '/ai/components/tool', label: 'Tool' },
+      { href: "/ai/components/shimmer", label: "Shimmer" },
+      { href: "/ai/components/sources", label: "Sources" },
+      { href: "/ai/components/suggestion", label: "Suggestion" },
+      { href: "/ai/components/tool", label: "Tool" },
     ],
   },
   // {
@@ -183,12 +183,7 @@ function NavigationGroup({
           className="flex items-center justify-between w-full text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-1.5 pr-1.5 hover:text-foreground transition-colors"
         >
           {item.label}
-          <IconChevronRight
-            className={cn(
-              'h-3 w-3 transition-transform',
-              isOpen && 'rotate-90'
-            )}
-          />
+          <IconChevronRight className={cn("h-3 w-3 transition-transform", isOpen && "rotate-90")} />
         </button>
         {isOpen && item.children && (
           <ul className="space-y-0.5 pl-2 border-l border-border">
@@ -208,11 +203,9 @@ function NavigationGroup({
       <Link
         to={item.href}
         className={cn(
-          'inline-flex text-xs py-1 px-2 rounded-sm transition-colors',
-          'hover:bg-accent hover:text-accent-foreground',
-          isActive
-            ? 'bg-accent text-accent-foreground font-medium'
-            : 'text-muted-foreground'
+          "inline-flex text-xs py-1 px-2 rounded-sm transition-colors",
+          "hover:bg-accent hover:text-accent-foreground",
+          isActive ? "bg-accent text-accent-foreground font-medium" : "text-muted-foreground"
         )}
       >
         {item.label}
@@ -223,7 +216,7 @@ function NavigationGroup({
 
 export function SideNavigation({ items, className }: SideNavigationProps) {
   return (
-    <nav className={cn('', className)}>
+    <nav className={cn("", className)}>
       <ul className="space-y-4">
         {items.map((item, index) => (
           <NavigationGroup key={index} item={item} />

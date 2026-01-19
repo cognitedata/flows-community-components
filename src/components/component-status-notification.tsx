@@ -1,10 +1,18 @@
-import { IconAlertCircle, IconCircleCheck, IconFlask, IconClock, IconBan, IconSparkles, IconStar } from '@tabler/icons-react';
+import {
+  IconAlertCircle,
+  IconCircleCheck,
+  IconFlask,
+  IconClock,
+  IconBan,
+  IconSparkles,
+  IconStar,
+} from "@tabler/icons-react";
 import {
   getStatusMessage,
   getComponentStatusClasses,
   getStatusLabel,
   type ComponentStatusType,
-} from '@/lib/component-status';
+} from "@/lib/component-status";
 
 interface ComponentStatusNotificationProps {
   status: ComponentStatusType;
@@ -21,9 +29,7 @@ const STATUS_ICONS: Record<ComponentStatusType, typeof IconCircleCheck> = {
   new: IconStar,
 };
 
-export function ComponentStatusNotification({
-  status,
-}: ComponentStatusNotificationProps) {
+export function ComponentStatusNotification({ status }: ComponentStatusNotificationProps) {
   const message = getStatusMessage(status);
   const classes = getComponentStatusClasses(status);
   const label = getStatusLabel(status);

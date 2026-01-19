@@ -1,9 +1,8 @@
+import { useState } from "react";
+import { IconCheck, IconCaretUpDown } from "@tabler/icons-react";
 
-import { useState } from 'react';
-import { IconCheck, IconCaretUpDown } from '@tabler/icons-react';
-
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/aura/button';
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/aura/button";
 import {
   Command,
   CommandEmpty,
@@ -11,51 +10,47 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/aura/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/aura/popover';
+} from "@/components/ui/aura/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
 
 const frameworks = [
   {
-    value: 'next.js',
-    label: 'Next.js',
+    value: "next.js",
+    label: "Next.js",
   },
   {
-    value: 'sveltekit',
-    label: 'SvelteKit',
+    value: "sveltekit",
+    label: "SvelteKit",
   },
   {
-    value: 'nuxt.js',
-    label: 'Nuxt.js',
+    value: "nuxt.js",
+    label: "Nuxt.js",
   },
   {
-    value: 'remix',
-    label: 'Remix',
+    value: "remix",
+    label: "Remix",
   },
   {
-    value: 'astro',
-    label: 'Astro',
+    value: "astro",
+    label: "Astro",
   },
   {
-    value: 'wordpress',
-    label: 'WordPress',
+    value: "wordpress",
+    label: "WordPress",
   },
   {
-    value: 'express.js',
-    label: 'Express.js',
+    value: "express.js",
+    label: "Express.js",
   },
   {
-    value: 'nest.js',
-    label: 'Nest.js',
+    value: "nest.js",
+    label: "Nest.js",
   },
 ];
 
 export function Combobox() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -68,7 +63,7 @@ export function Combobox() {
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
-            : 'Select framework...'}
+            : "Select framework..."}
           <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -83,14 +78,14 @@ export function Combobox() {
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue);
+                    setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >
                   <IconCheck
                     className={cn(
-                      'mr-2 h-4 w-4',
-                      value === framework.value ? 'opacity-100' : 'opacity-0'
+                      "mr-2 h-4 w-4",
+                      value === framework.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {framework.label}
@@ -118,16 +113,16 @@ export function ComboboxCustom({
   options,
   value,
   onValueChange,
-  placeholder = 'Select option...',
-  searchPlaceholder = 'Search...',
-  emptyText = 'No option found.',
+  placeholder = "Select option...",
+  searchPlaceholder = "Search...",
+  emptyText = "No option found.",
   className,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(value || '');
+  const [selectedValue, setSelectedValue] = useState(value || "");
 
   const handleValueChange = (newValue: string) => {
-    const finalValue = newValue === selectedValue ? '' : newValue;
+    const finalValue = newValue === selectedValue ? "" : newValue;
     setSelectedValue(finalValue);
     onValueChange?.(finalValue);
     setOpen(false);
@@ -140,7 +135,7 @@ export function ComboboxCustom({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn('w-50 justify-between', className)}
+          className={cn("w-50 justify-between", className)}
         >
           {selectedValue
             ? options.find((option) => option.value === selectedValue)?.label
@@ -155,17 +150,11 @@ export function ComboboxCustom({
             <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
-                <CommandItem
-                  key={option.value}
-                  value={option.value}
-                  onSelect={handleValueChange}
-                >
+                <CommandItem key={option.value} value={option.value} onSelect={handleValueChange}>
                   <IconCheck
                     className={cn(
-                      'mr-2 h-4 w-4',
-                      selectedValue === option.value
-                        ? 'opacity-100'
-                        : 'opacity-0'
+                      "mr-2 h-4 w-4",
+                      selectedValue === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {option.label}

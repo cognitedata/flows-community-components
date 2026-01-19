@@ -14,7 +14,7 @@ export {
   ChainOfThoughtSearchResult,
   ChainOfThoughtContent,
   ChainOfThoughtImage,
-} from './chain-of-thought';
+} from "./chain-of-thought";
 export type {
   ChainOfThoughtProps,
   ChainOfThoughtHeaderProps,
@@ -23,5 +23,5 @@ export type {
   ChainOfThoughtSearchResultProps,
   ChainOfThoughtContentProps,
   ChainOfThoughtImageProps,
-} from './chain-of-thought';
-export { ChainOfThoughtMetadata } from './chain-of-thought.metadata';
+} from "./chain-of-thought";
+export { ChainOfThoughtMetadata } from "./chain-of-thought.metadata";

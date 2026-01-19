@@ -1,5 +1,5 @@
-import type { ComponentStatusType } from './component-status-config';
-import { slugToPascalCase } from './utils';
+import type { ComponentStatusType } from "./component-status-config";
+import { slugToPascalCase } from "./utils";
 
 /**
  * AI Component metadata interface
@@ -28,7 +28,7 @@ export interface AIComponentMeta {
  * Pre-load all metadata modules using Vite's glob import.
  */
 const metadataModules = import.meta.glob<{ [key: string]: AIComponentMeta }>(
-  '@/components/ui/aura/*/*.metadata.ts',
+  "@/components/ui/aura/*/*.metadata.ts",
   { eager: false }
 );
 
@@ -37,9 +37,7 @@ const metadataModules = import.meta.glob<{ [key: string]: AIComponentMeta }>(
  * Metadata is loaded from the component's folder structure
  * (e.g., message/message.metadata.ts).
  */
-export async function getAIComponentMeta(
-  slug: string
-): Promise<AIComponentMeta | null> {
+export async function getAIComponentMeta(slug: string): Promise<AIComponentMeta | null> {
   const pascalCaseSlug = slugToPascalCase(slug);
 
   try {

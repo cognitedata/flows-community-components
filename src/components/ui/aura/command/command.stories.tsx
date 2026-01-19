@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   Command,
   CommandDialog,
@@ -11,24 +11,31 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from './command';
-import { IconCalculator, IconCalendar, IconMail, IconSettings, IconSparkles, IconUser } from '@tabler/icons-react';
+} from "./command";
+import {
+  IconCalculator,
+  IconCalendar,
+  IconMail,
+  IconSettings,
+  IconSparkles,
+  IconUser,
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Command> = {
-  title: 'Primitives/Command',
+  title: "Primitives/Command",
   component: Command,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -82,23 +89,23 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default command palette with grouped items and keyboard shortcuts.',
+        story: "Default command palette with grouped items and keyboard shortcuts.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the input
-    const input = canvas.getByPlaceholderText('Type a command or search...');
+    const input = canvas.getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();
 
     // Type to filter
-    await userEvent.type(input, 'cal');
+    await userEvent.type(input, "cal");
 
     // Verify filtering works
     await waitFor(() => {
-      const calendarItem = canvas.getByText('Calendar');
+      const calendarItem = canvas.getByText("Calendar");
       expect(calendarItem).toBeInTheDocument();
     });
   },
@@ -149,7 +156,7 @@ export const Dialog: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Command palette in a dialog/modal.',
+        story: "Command palette in a dialog/modal.",
       },
     },
   },
@@ -178,20 +185,20 @@ export const Filtering: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Command palette with filtering. Type to filter items.',
+        story: "Command palette with filtering. Type to filter items.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText('Search actions...');
+    const input = canvas.getByPlaceholderText("Search actions...");
 
     // Type to filter
-    await userEvent.type(input, 'settings');
+    await userEvent.type(input, "settings");
 
     // Verify only settings item shows
     await waitFor(() => {
-      const settingsItem = canvas.getByText('Open settings');
+      const settingsItem = canvas.getByText("Open settings");
       expect(settingsItem).toBeInTheDocument();
     });
   },
@@ -230,7 +237,7 @@ export const DisabledItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Command palette with some items disabled.',
+        story: "Command palette with some items disabled.",
       },
     },
   },
@@ -280,7 +287,7 @@ export const MultipleGroups: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Command palette with multiple grouped sections.',
+        story: "Command palette with multiple grouped sections.",
       },
     },
   },
@@ -312,7 +319,7 @@ export const CustomStyling: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Command palette with custom styling.',
+        story: "Command palette with custom styling.",
       },
     },
   },
@@ -349,7 +356,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Command palette for visual regression testing.',
+        story: "Command palette for visual regression testing.",
       },
     },
     chromatic: {
@@ -378,7 +385,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive command palette example.',
+        story: "Interactive command palette example.",
       },
     },
   },

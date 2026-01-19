@@ -1,52 +1,57 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
-import { IconArrowLeft } from '@tabler/icons-react';
-import { StoriesRenderer } from '@/components/stories-renderer';
-import { getStatusMessage, getComponentStatusClasses, getStatusLabel, type ComponentStatusType } from '@/lib/component-status';
-import { getAIComponentMeta, type AIComponentMeta } from '@/lib/ai-component-registry';
-import { InstallationCommand } from '@/components/installation-command';
-import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge";
+import { IconArrowLeft } from "@tabler/icons-react";
+import { StoriesRenderer } from "@/components/stories-renderer";
+import {
+  getStatusMessage,
+  getComponentStatusClasses,
+  getStatusLabel,
+  type ComponentStatusType,
+} from "@/lib/component-status";
+import { getAIComponentMeta, type AIComponentMeta } from "@/lib/ai-component-registry";
+import { InstallationCommand } from "@/components/installation-command";
+import { useEffect, useState } from "react";
 
 // List of valid AI component slugs
 const validSlugs = [
-  'actions',
-  'artifact',
-  'branch',
-  'canvas',
-  'chain-of-thought',
-  'code-block',
-  'confirmation',
-  'connection',
-  'context',
-  'controls',
-  'conversation',
-  'edge',
-  'image',
-  'inline-citation',
-  'loader',
-  'message',
-  'node',
-  'open-in-chat',
-  'panel',
-  'plan',
-  'prompt-input',
-  'queue',
-  'reasoning',
-  'response',
-  'shimmer',
-  'sources',
-  'suggestion',
-  'task',
-  'tool',
-  'toolbar',
+  "actions",
+  "artifact",
+  "branch",
+  "canvas",
+  "chain-of-thought",
+  "code-block",
+  "confirmation",
+  "connection",
+  "context",
+  "controls",
+  "conversation",
+  "edge",
+  "image",
+  "inline-citation",
+  "loader",
+  "message",
+  "node",
+  "open-in-chat",
+  "panel",
+  "plan",
+  "prompt-input",
+  "queue",
+  "reasoning",
+  "response",
+  "shimmer",
+  "sources",
+  "suggestion",
+  "task",
+  "tool",
+  "toolbar",
 ];
 
 function toTitleCase(str: string): string {
   return str
-    .split('-')
+    .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .join(" ");
 }
 
 export default function AIComponentPage() {
@@ -89,7 +94,7 @@ export default function AIComponentPage() {
       <div className="px-3 py-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-2xl font-bold">Component not found</h1>
-          <Button variant="secondary" size="sm" onClick={() => navigate('/ai')} className="mt-4">
+          <Button variant="secondary" size="sm" onClick={() => navigate("/ai")} className="mt-4">
             <IconArrowLeft className="h-4 w-4 mr-2" />
             Back to AI Elements
           </Button>
@@ -112,13 +117,12 @@ export default function AIComponentPage() {
   }
 
   const componentName = meta?.name || toTitleCase(slug);
-  const componentStatus: ComponentStatusType = meta?.status || 'draft';
+  const componentStatus: ComponentStatusType = meta?.status || "draft";
   const statusClasses = getComponentStatusClasses(componentStatus);
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
   const description =
-    meta?.description ||
-    'AI element component for building conversational interfaces';
+    meta?.description || "AI element component for building conversational interfaces";
 
   return (
     <div className="px-3 py-8">
@@ -128,7 +132,7 @@ export default function AIComponentPage() {
           <div className="flex-1 max-w-4xl">
             {/* Navigation */}
             <div className="flex items-center gap-4 mb-8">
-              <Button variant="secondary" size="sm" onClick={() => navigate('/ai')}>
+              <Button variant="secondary" size="sm" onClick={() => navigate("/ai")}>
                 <IconArrowLeft className="h-4 w-4 mr-2" />
                 Back to AI Elements
               </Button>
@@ -143,17 +147,12 @@ export default function AIComponentPage() {
                     <Badge variant="default" outline>
                       AI Element
                     </Badge>
-                    <Badge
-                      variant="secondary"
-                      className={statusClasses}
-                    >
+                    <Badge variant="secondary" className={statusClasses}>
                       {statusLabel}
                     </Badge>
                   </div>
-                  <p className="text-xl text-muted-foreground mt-2">
-                    {description}
-                  </p>
-                  {componentStatus !== 'production' && componentStatus !== 'done' && (
+                  <p className="text-xl text-muted-foreground mt-2">{description}</p>
+                  {componentStatus !== "production" && componentStatus !== "done" && (
                     <div className={`mt-3 p-3 rounded-lg border ${statusClasses}`}>
                       <p className="text-sm">
                         <strong>Note:</strong> {statusMessage}
@@ -173,11 +172,7 @@ export default function AIComponentPage() {
             {/* Installation Section */}
             <section id="installation" className="scroll-mt-20 mt-12">
               <h2 className="text-2xl font-bold mb-6">Installation</h2>
-              <InstallationCommand
-                component={slug}
-                dependencies={[]}
-                componentCode=""
-              />
+              <InstallationCommand component={slug} dependencies={[]} componentCode="" />
             </section>
 
             {/* Guidelines Section */}
@@ -185,9 +180,7 @@ export default function AIComponentPage() {
               <h2 className="text-2xl font-bold mb-6">Guidelines</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-green-700 dark:text-green-400">
-                    Do
-                  </h3>
+                  <h3 className="font-semibold text-green-700 dark:text-green-400">Do</h3>
                   <div className="p-4 rounded-lg border bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800">
                     <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
                       <li>Use consistent styling across AI components.</li>
@@ -198,16 +191,12 @@ export default function AIComponentPage() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-red-700 dark:text-red-400">
-                    Don&apos;t
-                  </h3>
+                  <h3 className="font-semibold text-red-700 dark:text-red-400">Don&apos;t</h3>
                   <div className="p-4 rounded-lg border bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-800">
                     <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
                       <li>Don&apos;t forget to handle error states.</li>
                       <li>Don&apos;t mix inconsistent message variants.</li>
-                      <li>
-                        Don&apos;t omit source attribution for AI content.
-                      </li>
+                      <li>Don&apos;t omit source attribution for AI content.</li>
                       <li>Don&apos;t override component internals directly.</li>
                     </ul>
                   </div>

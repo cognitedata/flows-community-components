@@ -12,9 +12,9 @@ export {
   CodeBlockCollapseButton,
   // eslint-disable-next-line react-refresh/only-export-components
   highlightCode,
-} from './code-block';
+} from "./code-block";
 export type {
   CodeBlockCopyButtonProps,
   CodeBlockCollapseButtonProps,
-} from './code-block';
-export { CodeBlockMetadata } from './code-block.metadata';
+} from "./code-block";
+export { CodeBlockMetadata } from "./code-block.metadata";

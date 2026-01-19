@@ -1,58 +1,58 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
-import { IconUser, IconSettings, IconBell, IconLock } from '@tabler/icons-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
+import { IconUser, IconSettings, IconBell, IconLock } from "@tabler/icons-react";
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Primitives/Tabs',
+  title: "Primitives/Tabs",
   component: Tabs,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     value: {
-      control: 'text',
-      description: 'Controlled active tab value',
+      control: "text",
+      description: "Controlled active tab value",
       table: {
-        category: 'State',
-        type: { summary: 'string' },
+        category: "State",
+        type: { summary: "string" },
       },
     },
     defaultValue: {
-      control: 'text',
-      description: 'Default active tab value (uncontrolled)',
+      control: "text",
+      description: "Default active tab value (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'string' },
+        category: "State",
+        type: { summary: "string" },
       },
     },
     orientation: {
-      control: 'select',
-      options: ['horizontal', 'vertical'],
-      description: 'Orientation of the tabs',
+      control: "select",
+      options: ["horizontal", "vertical"],
+      description: "Orientation of the tabs",
       table: {
-        category: 'Layout',
+        category: "Layout",
         type: { summary: '"horizontal" | "vertical"' },
-        defaultValue: { summary: 'horizontal' },
+        defaultValue: { summary: "horizontal" },
       },
     },
     onValueChange: {
-      action: 'valueChange',
-      description: 'Callback when active tab changes',
+      action: "valueChange",
+      description: "Callback when active tab changes",
       table: {
-        category: 'Events',
-        type: { summary: '(value: string) => void' },
+        category: "Events",
+        type: { summary: "(value: string) => void" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -78,26 +78,20 @@ export const Default: Story = {
         <TabsTrigger value="settings">Settings</TabsTrigger>
       </TabsList>
       <TabsContent value="account" className="p-4">
-        <p className="text-sm text-muted-foreground">
-          Make changes to your account settings here.
-        </p>
+        <p className="text-sm text-muted-foreground">Make changes to your account settings here.</p>
       </TabsContent>
       <TabsContent value="password" className="p-4">
-        <p className="text-sm text-muted-foreground">
-          Change your password and security settings.
-        </p>
+        <p className="text-sm text-muted-foreground">Change your password and security settings.</p>
       </TabsContent>
       <TabsContent value="settings" className="p-4">
-        <p className="text-sm text-muted-foreground">
-          Configure your application preferences.
-        </p>
+        <p className="text-sm text-muted-foreground">Configure your application preferences.</p>
       </TabsContent>
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Default tabs component with text-only triggers.',
+        story: "Default tabs component with text-only triggers.",
       },
     },
   },
@@ -105,18 +99,18 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Find tabs
-    const accountTab = canvas.getByRole('tab', { name: /account/i });
-    const passwordTab = canvas.getByRole('tab', { name: /password/i });
+    const accountTab = canvas.getByRole("tab", { name: /account/i });
+    const passwordTab = canvas.getByRole("tab", { name: /password/i });
 
     // Verify first tab is selected
-    await expect(accountTab).toHaveAttribute('data-state', 'active');
+    await expect(accountTab).toHaveAttribute("data-state", "active");
 
     // Click second tab
     await userEvent.click(passwordTab);
 
     // Verify second tab is selected
-    await expect(passwordTab).toHaveAttribute('data-state', 'active');
-    await expect(accountTab).toHaveAttribute('data-state', 'inactive');
+    await expect(passwordTab).toHaveAttribute("data-state", "active");
+    await expect(accountTab).toHaveAttribute("data-state", "inactive");
   },
 };
 
@@ -141,26 +135,20 @@ export const WithIcons: Story = {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="profile" className="p-4">
-        <p className="text-sm text-muted-foreground">
-          Manage your profile information.
-        </p>
+        <p className="text-sm text-muted-foreground">Manage your profile information.</p>
       </TabsContent>
       <TabsContent value="notifications" className="p-4">
-        <p className="text-sm text-muted-foreground">
-          Configure notification preferences.
-        </p>
+        <p className="text-sm text-muted-foreground">Configure notification preferences.</p>
       </TabsContent>
       <TabsContent value="security" className="p-4">
-        <p className="text-sm text-muted-foreground">
-          Update security settings.
-        </p>
+        <p className="text-sm text-muted-foreground">Update security settings.</p>
       </TabsContent>
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Tabs with icons alongside text labels.',
+        story: "Tabs with icons alongside text labels.",
       },
     },
   },
@@ -171,7 +159,7 @@ export const WithIcons: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledTabs() {
-    const [activeTab, setActiveTab] = useState('tab1');
+    const [activeTab, setActiveTab] = useState("tab1");
 
     return (
       <div className="space-y-4">
@@ -193,34 +181,32 @@ export const Controlled: Story = {
         </Tabs>
         <div className="flex gap-2">
           <button
-            onClick={() => setActiveTab('tab1')}
+            onClick={() => setActiveTab("tab1")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Go to Tab 1
           </button>
           <button
-            onClick={() => setActiveTab('tab2')}
+            onClick={() => setActiveTab("tab2")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Go to Tab 2
           </button>
           <button
-            onClick={() => setActiveTab('tab3')}
+            onClick={() => setActiveTab("tab3")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Go to Tab 3
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Active tab: {activeTab}
-        </p>
+        <p className="text-sm text-muted-foreground">Active tab: {activeTab}</p>
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Tabs with externally controlled state.',
+        story: "Tabs with externally controlled state.",
       },
     },
   },
@@ -253,13 +239,13 @@ export const DisabledTabs: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tabs with some triggers disabled.',
+        story: "Tabs with some triggers disabled.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const disabledTab = canvas.getAllByRole('tab')[1];
+    const disabledTab = canvas.getAllByRole("tab")[1];
     await expect(disabledTab).toBeDisabled();
   },
 };
@@ -290,22 +276,18 @@ export const RichContent: Story = {
       </TabsContent>
       <TabsContent value="analytics" className="p-4">
         <h3 className="font-medium">Analytics Dashboard</h3>
-        <p className="text-sm text-muted-foreground mt-2">
-          View detailed analytics and metrics.
-        </p>
+        <p className="text-sm text-muted-foreground mt-2">View detailed analytics and metrics.</p>
       </TabsContent>
       <TabsContent value="reports" className="p-4">
         <h3 className="font-medium">Reports</h3>
-        <p className="text-sm text-muted-foreground mt-2">
-          Generate and download reports.
-        </p>
+        <p className="text-sm text-muted-foreground mt-2">Generate and download reports.</p>
       </TabsContent>
     </Tabs>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Tabs with rich content including cards and statistics.',
+        story: "Tabs with rich content including cards and statistics.",
       },
     },
   },
@@ -342,7 +324,7 @@ export const FullWidth: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tabs with full-width trigger buttons.',
+        story: "Tabs with full-width trigger buttons.",
       },
     },
   },
@@ -413,7 +395,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -427,8 +409,8 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    defaultValue: 'tab1',
-    orientation: 'horizontal',
+    defaultValue: "tab1",
+    orientation: "horizontal",
   },
   render: (args) => (
     <Tabs {...args}>
@@ -451,7 +433,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with tabs props.',
+        story: "Interactive playground - use controls to experiment with tabs props.",
       },
     },
   },

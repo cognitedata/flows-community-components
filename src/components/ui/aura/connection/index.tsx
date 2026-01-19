@@ -6,5 +6,5 @@
  * @example
  * import { Connection } from '@/components/ui/aura/connection';
  */
-export { Connection } from './connection';
-export { ConnectionMetadata } from './connection.metadata';
+export { Connection } from "./connection";
+export { ConnectionMetadata } from "./connection.metadata";

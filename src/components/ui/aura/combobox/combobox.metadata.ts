@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "@/lib/component-examples";
 
 /**
  * Combobox Component Metadata
@@ -7,11 +7,11 @@ import type { ComponentMeta } from '@/lib/component-examples';
  * component documentation pages and provide context for LLMs.
  */
 export const ComboboxMetadata: ComponentMeta = {
-  name: 'Combobox',
-  status: 'draft',
+  name: "Combobox",
+  status: "draft",
   description:
-    'A searchable dropdown component combining input with a command menu, built with Radix Popover and cmdk.',
+    "A searchable dropdown component combining input with a command menu, built with Radix Popover and cmdk.",
   llmUsage:
-    'Use `<Combobox>` for simple framework selection or `<ComboboxCustom>` with custom options for more control.',
-  importPath: '@/components/ui/aura/combobox',
+    "Use `<Combobox>` for simple framework selection or `<ComboboxCustom>` with custom options for more control.",
+  importPath: "@/components/ui/aura/combobox",
 };

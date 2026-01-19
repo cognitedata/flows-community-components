@@ -32,5 +32,5 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DropdownMenuSectionLabel,
-} from './dropdown-menu';
-export { DropdownMenuMetadata } from './dropdown-menu.metadata';
+} from "./dropdown-menu";
+export { DropdownMenuMetadata } from "./dropdown-menu.metadata";

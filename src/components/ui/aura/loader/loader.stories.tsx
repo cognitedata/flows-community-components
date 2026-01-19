@@ -1,32 +1,32 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
-import { Loader } from './loader';
-import { Button } from '@/components/ui/aura/button';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "@storybook/test";
+import { Loader } from "./loader";
+import { Button } from "@/components/ui/aura/button";
 
 const meta: Meta<typeof Loader> = {
-  title: 'Primitives/Loader',
+  title: "Primitives/Loader",
   component: Loader,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     size: {
-      control: 'number',
-      description: 'Size of the loader in pixels',
+      control: "number",
+      description: "Size of the loader in pixels",
       table: {
-        category: 'Appearance',
-        type: { summary: 'number' },
-        defaultValue: { summary: '16' },
+        category: "Appearance",
+        type: { summary: "number" },
+        defaultValue: { summary: "16" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -41,12 +41,12 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default spinning loader.',
+        story: "Default spinning loader.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const loader = canvasElement.querySelector('.animate-spin');
+    const loader = canvasElement.querySelector(".animate-spin");
     await expect(loader).toBeInTheDocument();
   },
 };
@@ -82,7 +82,7 @@ export const Sizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader in different sizes.',
+        story: "Loader in different sizes.",
       },
     },
   },
@@ -111,7 +111,7 @@ export const InButton: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader used inside buttons to indicate loading state.',
+        story: "Loader used inside buttons to indicate loading state.",
       },
     },
   },
@@ -143,7 +143,7 @@ export const WithText: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader displayed alongside text.',
+        story: "Loader displayed alongside text.",
       },
     },
   },
@@ -164,7 +164,7 @@ export const Centered: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader centered in a container.',
+        story: "Loader centered in a container.",
       },
     },
   },
@@ -190,7 +190,7 @@ export const InCard: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader displayed in a card with skeleton content.',
+        story: "Loader displayed in a card with skeleton content.",
       },
     },
   },
@@ -204,9 +204,7 @@ export const Overlay: Story = {
     <div className="relative w-[300px] h-[200px] border rounded-lg">
       <div className="p-4">
         <h3 className="font-medium mb-2">Content Area</h3>
-        <p className="text-sm text-muted-foreground">
-          This content is being loaded or processed.
-        </p>
+        <p className="text-sm text-muted-foreground">This content is being loaded or processed.</p>
       </div>
       <div className="absolute inset-0 bg-background/80 flex items-center justify-center rounded-lg">
         <div className="flex flex-col items-center gap-2">
@@ -219,7 +217,7 @@ export const Overlay: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader as an overlay on content.',
+        story: "Loader as an overlay on content.",
       },
     },
   },
@@ -241,7 +239,7 @@ export const CustomColors: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader with custom colors using className.',
+        story: "Loader with custom colors using className.",
       },
     },
   },
@@ -264,7 +262,7 @@ export const Inline: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Loader used inline within text.',
+        story: "Loader used inline within text.",
       },
     },
   },
@@ -320,7 +318,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -341,7 +339,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with loader props.',
+        story: "Interactive playground - use controls to experiment with loader props.",
       },
     },
   },

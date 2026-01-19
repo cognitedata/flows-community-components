@@ -13,7 +13,7 @@ export {
   BranchPrevious,
   BranchNext,
   BranchPage,
-} from './branch';
+} from "./branch";
 export type {
   BranchProps,
   BranchMessagesProps,
@@ -21,5 +21,5 @@ export type {
   BranchPreviousProps,
   BranchNextProps,
   BranchPageProps,
-} from './branch';
-export { BranchMetadata } from './branch.metadata';
+} from "./branch";
+export { BranchMetadata } from "./branch.metadata";

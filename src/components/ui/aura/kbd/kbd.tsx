@@ -1,14 +1,14 @@
-import type { ComponentProps } from 'react';
-import { cn } from '@/lib/utils';
+import type { ComponentProps } from "react";
+import { cn } from "@/lib/utils";
 
-function Kbd({ className, ...props }: ComponentProps<'kbd'>) {
+function Kbd({ className, ...props }: ComponentProps<"kbd">) {
   return (
     <kbd
       data-slot="kbd"
       className={cn(
-        'bg-muted text-muted-foreground pointer-events-none inline-flex h-4 w-fit min-w-5 items-center justify-center gap-1 rounded-sm font-sans text-xs font-medium select-none tracking-tightest p-0.5',
+        "bg-muted text-muted-foreground pointer-events-none inline-flex h-4 w-fit min-w-5 items-center justify-center gap-1 rounded-sm font-sans text-xs font-medium select-none tracking-tightest p-0.5",
         "[&_svg:not([class*='size-'])]:size-3",
-        '[[data-slot=tooltip-content]_&]:bg-background/20 [[data-slot=tooltip-content]_&]:text-background dark:[[data-slot=tooltip-content]_&]:bg-background/10',
+        "[[data-slot=tooltip-content]_&]:bg-background/20 [[data-slot=tooltip-content]_&]:text-background dark:[[data-slot=tooltip-content]_&]:bg-background/10",
         className
       )}
       {...props}
@@ -16,11 +16,11 @@ function Kbd({ className, ...props }: ComponentProps<'kbd'>) {
   );
 }
 
-function KbdGroup({ className, ...props }: ComponentProps<'div'>) {
+function KbdGroup({ className, ...props }: ComponentProps<"div">) {
   return (
     <kbd
       data-slot="kbd-group"
-      className={cn('inline-flex items-center gap-1', className)}
+      className={cn("inline-flex items-center gap-1", className)}
       {...props}
     />
   );

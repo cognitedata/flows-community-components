@@ -1,25 +1,24 @@
-
-import { type CSSProperties } from 'react';
+import { type CSSProperties } from "react";
 import {
   IconAlertOctagon,
   IconAlertTriangle,
   IconCircleCheck,
   IconInfoCircle,
   IconLoader2,
-} from '@tabler/icons-react';
-import { useTheme } from 'next-themes';
-import { Toaster as Sonner, type ToasterProps } from 'sonner';
+} from "@tabler/icons-react";
+import { useTheme } from "next-themes";
+import { Toaster as Sonner, type ToasterProps } from "sonner";
 
 // Re-export the toast function from sonner
 // eslint-disable-next-line react-refresh/only-export-components
-export { toast } from 'sonner';
+export { toast } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = 'system' } = useTheme();
+  const { theme = "system" } = useTheme();
 
   return (
     <Sonner
-      theme={theme as ToasterProps['theme']}
+      theme={theme as ToasterProps["theme"]}
       className="toaster group"
       icons={{
         success: <IconCircleCheck className="size-4" />,
@@ -30,10 +29,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       style={
         {
-          '--normal-bg': 'var(--popover)',
-          '--normal-text': 'var(--popover-foreground)',
-          '--normal-border': 'var(--border)',
-          '--border-radius': 'var(--radius)',
+          "--normal-bg": "var(--popover)",
+          "--normal-text": "var(--popover-foreground)",
+          "--normal-border": "var(--border)",
+          "--border-radius": "var(--radius)",
         } as CSSProperties
       }
       {...props}

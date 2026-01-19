@@ -8,5 +8,5 @@
  *
  * <Switch checked={checked} onCheckedChange={setChecked} />
  */
-export { Switch } from './switch';
-export { SwitchMetadata } from './switch.metadata';
+export { Switch } from "./switch";
+export { SwitchMetadata } from "./switch.metadata";

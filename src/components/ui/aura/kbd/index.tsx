@@ -11,5 +11,5 @@
  *   <Kbd>K</Kbd>
  * </KbdGroup>
  */
-export { Kbd, KbdGroup } from './kbd';
-export { KbdMetadata } from './kbd.metadata';
+export { Kbd, KbdGroup } from "./kbd";
+export { KbdMetadata } from "./kbd.metadata";

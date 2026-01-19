@@ -13,5 +13,5 @@
  *   <TabsContent value="tab1">Content 1</TabsContent>
  * </Tabs>
  */
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
-export { TabsMetadata } from './tabs.metadata';
+export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
+export { TabsMetadata } from "./tabs.metadata";

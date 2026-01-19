@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import {
   Queue,
   QueueHeader,
@@ -8,23 +8,23 @@ import {
   QueueItemIndicator,
   QueueItemContent,
   QueueList,
-} from './queue';
+} from "./queue";
 
 const meta: Meta<typeof Queue> = {
-  title: 'AI/Queue',
+  title: "AI/Queue",
   component: Queue,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -72,13 +72,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default collapsible queue with task items.',
+        story: "Default collapsible queue with task items.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const header = canvas.getByText('Task Queue');
+    const header = canvas.getByText("Task Queue");
     await expect(header).toBeInTheDocument();
   },
 };
@@ -117,7 +117,7 @@ export const AllCompleted: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Queue with all tasks completed.',
+        story: "Queue with all tasks completed.",
       },
     },
   },
@@ -163,7 +163,7 @@ export const AllPending: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Queue with all tasks pending.',
+        story: "Queue with all tasks pending.",
       },
     },
   },
@@ -197,15 +197,15 @@ export const CollapsedByDefault: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Queue that starts in collapsed state.',
+        story: "Queue that starts in collapsed state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Click to expand
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await userEvent.click(trigger);
   },
 };
@@ -220,14 +220,14 @@ export const LongQueue: Story = {
       <QueueContent>
         <QueueList>
           {[
-            { title: 'Checkout repository', completed: true },
-            { title: 'Install dependencies', completed: true },
-            { title: 'Run linter', completed: true },
-            { title: 'Run type checker', completed: true },
-            { title: 'Build application', completed: false },
-            { title: 'Run unit tests', completed: false },
-            { title: 'Run integration tests', completed: false },
-            { title: 'Deploy to staging', completed: false },
+            { title: "Checkout repository", completed: true },
+            { title: "Install dependencies", completed: true },
+            { title: "Run linter", completed: true },
+            { title: "Run type checker", completed: true },
+            { title: "Build application", completed: false },
+            { title: "Run unit tests", completed: false },
+            { title: "Run integration tests", completed: false },
+            { title: "Deploy to staging", completed: false },
           ].map((task, i) => (
             <QueueItem key={i}>
               <div className="flex items-center gap-2">
@@ -243,7 +243,7 @@ export const LongQueue: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Queue with many items showing a build pipeline.',
+        story: "Queue with many items showing a build pipeline.",
       },
     },
   },
@@ -283,7 +283,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Queue for visual regression testing.',
+        story: "Queue for visual regression testing.",
       },
     },
     chromatic: {
@@ -321,7 +321,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive queue example.',
+        story: "Interactive queue example.",
       },
     },
   },

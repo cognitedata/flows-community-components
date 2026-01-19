@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   ContextMenu,
   ContextMenuCheckboxItem,
@@ -15,15 +15,15 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from './context-menu';
+} from "./context-menu";
 
 const meta: Meta<typeof ContextMenu> = {
-  title: 'Primitives/Context Menu',
+  title: "Primitives/Context Menu",
   component: ContextMenu,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -60,16 +60,16 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default context menu triggered by right-click.',
+        story: "Default context menu triggered by right-click.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByText('Right click here');
+    const trigger = canvas.getByText("Right click here");
 
     // Right-click to open context menu
-    await userEvent.pointer({ target: trigger, keys: '[MouseRight]' });
+    await userEvent.pointer({ target: trigger, keys: "[MouseRight]" });
 
     // Wait for menu to appear
     await waitFor(() => {
@@ -117,7 +117,7 @@ export const WithSubmenus: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context menu with nested submenus.',
+        story: "Context menu with nested submenus.",
       },
     },
   },
@@ -140,22 +140,13 @@ export const WithCheckboxItems: Story = {
         <ContextMenuContent className="w-64">
           <ContextMenuLabel>Appearance</ContextMenuLabel>
           <ContextMenuSeparator />
-          <ContextMenuCheckboxItem
-            checked={showStatusBar}
-            onCheckedChange={setShowStatusBar}
-          >
+          <ContextMenuCheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
             Status Bar
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem
-            checked={showActivityBar}
-            onCheckedChange={setShowActivityBar}
-          >
+          <ContextMenuCheckboxItem checked={showActivityBar} onCheckedChange={setShowActivityBar}>
             Activity Bar
           </ContextMenuCheckboxItem>
-          <ContextMenuCheckboxItem
-            checked={showPanel}
-            onCheckedChange={setShowPanel}
-          >
+          <ContextMenuCheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
             Panel
           </ContextMenuCheckboxItem>
         </ContextMenuContent>
@@ -165,7 +156,7 @@ export const WithCheckboxItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context menu with checkbox items for toggle options.',
+        story: "Context menu with checkbox items for toggle options.",
       },
     },
   },
@@ -176,7 +167,7 @@ export const WithCheckboxItems: Story = {
  */
 export const WithRadioGroup: Story = {
   render: function RadioContextMenu() {
-    const [person, setPerson] = useState('pedro');
+    const [person, setPerson] = useState("pedro");
 
     return (
       <ContextMenu>
@@ -198,7 +189,7 @@ export const WithRadioGroup: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context menu with radio group for single selection.',
+        story: "Context menu with radio group for single selection.",
       },
     },
   },
@@ -228,7 +219,7 @@ export const WithDestructiveItem: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context menu with a destructive delete action.',
+        story: "Context menu with a destructive delete action.",
       },
     },
   },
@@ -256,7 +247,7 @@ export const WithDisabledItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context menu with some items disabled.',
+        story: "Context menu with some items disabled.",
       },
     },
   },
@@ -267,7 +258,7 @@ export const WithDisabledItems: Story = {
  */
 export const FileManagerExample: Story = {
   render: function FileManagerContextMenu() {
-    const [viewMode, setViewMode] = useState('list');
+    const [viewMode, setViewMode] = useState("list");
 
     return (
       <ContextMenu>
@@ -320,7 +311,7 @@ export const FileManagerExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context menu example for a file manager application.',
+        story: "Context menu example for a file manager application.",
       },
     },
   },
@@ -348,7 +339,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context menu trigger for visual regression testing.',
+        story: "Context menu trigger for visual regression testing.",
       },
     },
     chromatic: {
@@ -384,7 +375,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive context menu example.',
+        story: "Interactive context menu example.",
       },
     },
   },

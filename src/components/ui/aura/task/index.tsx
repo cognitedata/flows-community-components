@@ -12,12 +12,12 @@ export {
   TaskContent,
   TaskItem,
   TaskItemFile,
-} from './task';
+} from "./task";
 export type {
   TaskProps,
   TaskTriggerProps,
   TaskContentProps,
   TaskItemProps,
   TaskItemFileProps,
-} from './task';
-export { TaskMetadata } from './task.metadata';
+} from "./task";
+export { TaskMetadata } from "./task.metadata";

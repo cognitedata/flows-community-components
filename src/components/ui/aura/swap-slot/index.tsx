@@ -9,6 +9,6 @@
  *
  * <SwapSlot defaultSlot={<Default />} activeSlot={<Active />} />
  */
-export { SwapSlot } from './swap-slot';
-export type { SwapSlotProps } from './swap-slot';
-export { SwapSlotMetadata } from './swap-slot.metadata';
+export { SwapSlot } from "./swap-slot";
+export type { SwapSlotProps } from "./swap-slot";
+export { SwapSlotMetadata } from "./swap-slot.metadata";

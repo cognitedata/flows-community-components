@@ -9,7 +9,14 @@
  *
  * const shadowValue = getShadow('shadow-md');
  */
-export type { Shadow, FocusRing, RingWidth, BorderRadius, Transition, EffectPattern } from './effects';
+export type {
+  Shadow,
+  FocusRing,
+  RingWidth,
+  BorderRadius,
+  Transition,
+  EffectPattern,
+} from "./effects";
 export {
   // eslint-disable-next-line react-refresh/only-export-components
   shadows,
@@ -31,5 +38,5 @@ export {
   getFocusRingClasses,
   // eslint-disable-next-line react-refresh/only-export-components
   effectExamples,
-} from './effects';
-export { EffectsMetadata } from './effects.metadata';
+} from "./effects";
+export { EffectsMetadata } from "./effects.metadata";

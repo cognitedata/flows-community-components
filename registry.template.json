@@ -79,7 +79,11 @@
       "type": "registry:component",
       "title": "Banner",
       "description": "A banner component for displaying important messages with icon, title, status, and actions.",
-      "dependencies": ["@radix-ui/react-use-controllable-state", "class-variance-authority", "@tabler/icons-react"],
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "class-variance-authority",
+        "@tabler/icons-react"
+      ],
       "registryDependencies": ["button", "badge"],
       "files": [
         {
@@ -484,11 +488,7 @@
       "type": "registry:component",
       "title": "Sidebar",
       "description": "Sidebar component.",
-      "dependencies": [
-        "@radix-ui/react-slot",
-        "class-variance-authority",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority", "@tabler/icons-react"],
       "registryDependencies": [
         "button",
         "input",
@@ -745,10 +745,7 @@
       "type": "registry:component",
       "title": "Chain of Thought",
       "description": "AI chain of thought component for displaying reasoning steps.",
-      "dependencies": [
-        "@radix-ui/react-use-controllable-state",
-        "@tabler/icons-react"
-      ],
+      "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
       "registryDependencies": ["badge", "collapsible"],
       "files": [
         {

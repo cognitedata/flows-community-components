@@ -1,39 +1,38 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
-import {
-  Message,
-  MessageContent,
-  MessageAvatar,
-} from './message';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "@storybook/test";
+import { Message, MessageContent, MessageAvatar } from "./message";
 
 const meta: Meta<typeof Message> = {
-  title: 'AI/Message',
+  title: "AI/Message",
   component: Message,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     isResponse: {
-      control: 'boolean',
-      description: 'Whether the message is from the AI assistant',
+      control: "boolean",
+      description: "Whether the message is from the AI assistant",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
-      <div className="w-[600px]" style={{ '--message-content-max-width': '500px' } as React.CSSProperties}>
+      <div
+        className="w-[600px]"
+        style={{ "--message-content-max-width": "500px" } as React.CSSProperties}
+      >
         <Story />
       </div>
     ),
@@ -58,12 +57,12 @@ export const UserMessage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Message from the user.',
+        story: "Message from the user.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('.is-user');
+    const message = canvasElement.querySelector(".is-user");
     await expect(message).toBeInTheDocument();
   },
 };
@@ -77,8 +76,8 @@ export const AssistantMessage: Story = {
       <MessageAvatar name="AI Assistant" />
       <MessageContent>
         <p>
-          Welcome! To get started, you can install the package using npm or yarn. 
-          First, run the installation command in your project directory.
+          Welcome! To get started, you can install the package using npm or yarn. First, run the
+          installation command in your project directory.
         </p>
       </MessageContent>
     </Message>
@@ -86,12 +85,12 @@ export const AssistantMessage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Message from the AI assistant.',
+        story: "Message from the AI assistant.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('.is-assistant');
+    const message = canvasElement.querySelector(".is-assistant");
     await expect(message).toBeInTheDocument();
   },
 };
@@ -112,7 +111,8 @@ export const Conversation: Story = {
         <MessageAvatar name="AI" />
         <MessageContent>
           <p>
-            Of course! Here&apos;s a simple sorting function using JavaScript&apos;s built-in sort method:
+            Of course! Here&apos;s a simple sorting function using JavaScript&apos;s built-in sort
+            method:
           </p>
           <pre className="bg-muted p-2 rounded-md text-sm mt-2">
             {`function sortArray(arr) {
@@ -131,9 +131,9 @@ export const Conversation: Story = {
         <MessageAvatar name="AI" />
         <MessageContent>
           <p>
-            The sort method takes a comparison function that determines the order. 
-            The function (a, b) =&gt; a - b returns a negative number if a should come before b, 
-            a positive number if b should come before a, and zero if they&apos;re equal.
+            The sort method takes a comparison function that determines the order. The function (a,
+            b) =&gt; a - b returns a negative number if a should come before b, a positive number if
+            b should come before a, and zero if they&apos;re equal.
           </p>
         </MessageContent>
       </Message>
@@ -142,7 +142,7 @@ export const Conversation: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'A conversation thread with multiple messages.',
+        story: "A conversation thread with multiple messages.",
       },
     },
   },
@@ -155,10 +155,7 @@ export const WithAvatarImage: Story = {
   render: () => (
     <div className="space-y-2">
       <Message isResponse={false}>
-        <MessageAvatar 
-          name="John Doe" 
-          avatarUrl="https://avatar.vercel.sh/john" 
-        />
+        <MessageAvatar name="John Doe" avatarUrl="https://avatar.vercel.sh/john" />
         <MessageContent>
           <p>This message has a custom avatar image.</p>
         </MessageContent>
@@ -174,7 +171,7 @@ export const WithAvatarImage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Messages with custom avatar images.',
+        story: "Messages with custom avatar images.",
       },
     },
   },
@@ -189,13 +186,13 @@ export const LongMessage: Story = {
       <MessageAvatar name="AI" />
       <MessageContent>
         <p>
-          This is a longer message that demonstrates how the component handles 
-          multiple paragraphs and extended content. The message component is designed 
-          to gracefully handle various content lengths while maintaining readability.
+          This is a longer message that demonstrates how the component handles multiple paragraphs
+          and extended content. The message component is designed to gracefully handle various
+          content lengths while maintaining readability.
         </p>
         <p className="mt-2">
-          Here&apos;s another paragraph to show the spacing between multiple blocks of text. 
-          This helps users read longer responses more easily.
+          Here&apos;s another paragraph to show the spacing between multiple blocks of text. This
+          helps users read longer responses more easily.
         </p>
         <ul className="list-disc pl-4 mt-2 space-y-1">
           <li>First point about something important</li>
@@ -208,7 +205,7 @@ export const LongMessage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'A longer message with multiple paragraphs and a list.',
+        story: "A longer message with multiple paragraphs and a list.",
       },
     },
   },
@@ -246,7 +243,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Messages for visual regression testing.',
+        story: "Messages for visual regression testing.",
       },
     },
     chromatic: {
@@ -264,16 +261,18 @@ export const Playground: Story = {
   },
   render: (args) => (
     <Message {...args}>
-      <MessageAvatar name={args.isResponse ? 'AI' : 'User'} />
+      <MessageAvatar name={args.isResponse ? "AI" : "User"} />
       <MessageContent>
-        <p>This is a sample message. Toggle isResponse to switch between user and assistant styling.</p>
+        <p>
+          This is a sample message. Toggle isResponse to switch between user and assistant styling.
+        </p>
       </MessageContent>
     </Message>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with message props.',
+        story: "Interactive playground - use controls to experiment with message props.",
       },
     },
   },

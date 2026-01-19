@@ -1,26 +1,20 @@
+import type { ComponentProps } from "react";
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { IconChevronDown } from "@tabler/icons-react";
 
-import type { ComponentProps } from 'react';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { IconChevronDown } from '@tabler/icons-react';
+import { cn } from "@/lib/utils";
+import { Icon } from "@tabler/icons-react";
 
-import { cn } from '@/lib/utils';
-import { Icon } from '@tabler/icons-react';
-
-function Accordion({
-  ...props
-}: ComponentProps<typeof AccordionPrimitive.Root>) {
+function Accordion({ ...props }: ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />;
 }
 
-function AccordionItem({
-  className,
-  ...props
-}: ComponentProps<typeof AccordionPrimitive.Item>) {
+function AccordionItem({ className, ...props }: ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cn(
-        'mt-2 first:mt-0 rounded-md hover:bg-accent data-[state=open]:bg-accent',
+        "mt-2 first:mt-0 rounded-md hover:bg-accent data-[state=open]:bg-accent",
         className
       )}
       {...props}
@@ -43,7 +37,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          'focus-visible:border-ring focus-visible:ring-ring-shadow flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
+          "focus-visible:border-ring focus-visible:ring-ring-shadow flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
           className
         )}
         {...props}
@@ -71,7 +65,7 @@ function AccordionContent({
       className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-base leading-5 tracking-tightest"
       {...props}
     >
-      <div className={cn('px-2 pb-2 pt-0', className)}>{children}</div>
+      <div className={cn("px-2 pb-2 pt-0", className)}>{children}</div>
     </AccordionPrimitive.Content>
   );
 }

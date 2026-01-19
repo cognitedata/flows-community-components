@@ -23,7 +23,7 @@ export {
   SuggestionGroup,
   SuggestionLabel,
   SuggestionSeparator,
-} from './suggestion';
+} from "./suggestion";
 export type {
   SuggestionsProps,
   SuggestionProps,
@@ -34,5 +34,5 @@ export type {
   SuggestionGroupProps,
   SuggestionLabelProps,
   SuggestionSeparatorProps,
-} from './suggestion';
-export { SuggestionMetadata } from './suggestion.metadata';
+} from "./suggestion";
+export { SuggestionMetadata } from "./suggestion.metadata";

@@ -1,8 +1,7 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, waitFor, within } from '@storybook/test';
-import { useState } from 'react';
-import { Badge } from './badge';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { useState } from "react";
+import { Badge } from "./badge";
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -13,121 +12,121 @@ import {
   IconX,
   IconUser,
   IconStar,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Badge> = {
-  title: 'Primitives/Badge',
+  title: "Primitives/Badge",
   component: Badge,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     // Appearance
     variant: {
-      control: 'select',
+      control: "select",
       options: [
-        'default',
-        'fjord',
-        'nordic',
-        'aurora',
-        'sky',
-        'dusk',
-        'orange',
-        'gray',
-        'mountain',
-        'secondary',
-        'error',
-        'warning',
-        'success',
-        'inProgress',
-        'archived',
-        'closable',
+        "default",
+        "fjord",
+        "nordic",
+        "aurora",
+        "sky",
+        "dusk",
+        "orange",
+        "gray",
+        "mountain",
+        "secondary",
+        "error",
+        "warning",
+        "success",
+        "inProgress",
+        "archived",
+        "closable",
       ],
-      description: 'Visual style variant of the badge',
+      description: "Visual style variant of the badge",
       table: {
-        category: 'Appearance',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'default' },
+        category: "Appearance",
+        type: { summary: "string" },
+        defaultValue: { summary: "default" },
       },
     },
     outline: {
-      control: 'boolean',
-      description: 'Display as an outlined badge with border only',
+      control: "boolean",
+      description: "Display as an outlined badge with border only",
       table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Appearance",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     background: {
-      control: 'boolean',
-      description: 'Whether to display background fill',
+      control: "boolean",
+      description: "Whether to display background fill",
       table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "Appearance",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
     dot: {
-      control: 'boolean',
-      description: 'Display as a circular dot indicator',
+      control: "boolean",
+      description: "Display as a circular dot indicator",
       table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Appearance",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     urgent: {
-      control: 'boolean',
-      description: 'Mark as urgent (applies to dot variant)',
+      control: "boolean",
+      description: "Mark as urgent (applies to dot variant)",
       table: {
-        category: 'Appearance',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Appearance",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
 
     // Content
     children: {
-      control: 'text',
-      description: 'Content to display inside the badge',
+      control: "text",
+      description: "Content to display inside the badge",
       table: {
-        category: 'Content',
-        type: { summary: 'ReactNode' },
+        category: "Content",
+        type: { summary: "ReactNode" },
       },
     },
 
     // Advanced
     asChild: {
-      control: 'boolean',
-      description: 'Render as child component using Radix Slot',
+      control: "boolean",
+      description: "Render as child component using Radix Slot",
       table: {
-        category: 'Advanced',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Advanced",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     size: {
-      control: 'select',
-      options: ['default', 'icon'],
-      description: 'Size variant for the badge',
+      control: "select",
+      options: ["default", "icon"],
+      description: "Size variant for the badge",
       table: {
-        category: 'Appearance',
+        category: "Appearance",
         type: { summary: "'default' | 'icon'" },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: "default" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Advanced',
-        type: { summary: 'string' },
+        category: "Advanced",
+        type: { summary: "string" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     actions: {
-      handles: ['click', 'keydown'],
+      handles: ["click", "keydown"],
     },
   },
 };
@@ -140,24 +139,24 @@ type Story = StoryObj<typeof Badge>;
  */
 export const Fjord: Story = {
   args: {
-    variant: 'fjord',
-    children: 'Observations',
+    variant: "fjord",
+    children: "Observations",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Fjord variant uses a blue colour scheme ideal for observations, data points, and informational content. This variant helps differentiate data-related badges in your interface.',
+          "Fjord variant uses a blue colour scheme ideal for observations, data points, and informational content. This variant helps differentiate data-related badges in your interface.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Observations');
+    const badge = canvas.getByText("Observations");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute('data-slot', 'badge');
-    await expect(badge).toHaveClass('bg-decorative-background-fjord');
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+    await expect(badge).toHaveClass("bg-decorative-background-fjord");
   },
 };
 
@@ -166,23 +165,23 @@ export const Fjord: Story = {
  */
 export const Aurora: Story = {
   args: {
-    variant: 'aurora',
-    children: 'Troubleshooting',
+    variant: "aurora",
+    children: "Troubleshooting",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Aurora variant features a vibrant colour scheme perfect for troubleshooting, alerts, and attention-grabbing labels. Use this when you need to highlight important information.',
+          "Aurora variant features a vibrant colour scheme perfect for troubleshooting, alerts, and attention-grabbing labels. Use this when you need to highlight important information.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Troubleshooting');
+    const badge = canvas.getByText("Troubleshooting");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('bg-decorative-background-aurora');
+    await expect(badge).toHaveClass("bg-decorative-background-aurora");
   },
 };
 
@@ -197,24 +196,24 @@ export const Mountain: Story = {
     </Badge>
   ),
   args: {
-    variant: 'mountain',
+    variant: "mountain",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Mountain variant uses a green colour scheme suitable for plans, goals, and growth-related content. Perfect for project statuses and achievement indicators. Can be combined with icons.',
+          "Mountain variant uses a green colour scheme suitable for plans, goals, and growth-related content. Perfect for project statuses and achievement indicators. Can be combined with icons.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Plans');
+    const badge = canvas.getByText("Plans");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('bg-decorative-background-mountain');
+    await expect(badge).toHaveClass("bg-decorative-background-mountain");
     // Verify icon is present
-    const icon = badge.querySelector('svg');
+    const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -224,23 +223,23 @@ export const Mountain: Story = {
  */
 export const Dusk: Story = {
   args: {
-    variant: 'dusk',
-    children: 'RCA',
+    variant: "dusk",
+    children: "RCA",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Dusk variant features a purple colour scheme ideal for Root Cause Analysis (RCA), investigative work, and analytical content. Use this variant to highlight review and analysis activities.',
+          "Dusk variant features a purple colour scheme ideal for Root Cause Analysis (RCA), investigative work, and analytical content. Use this variant to highlight review and analysis activities.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('RCA');
+    const badge = canvas.getByText("RCA");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('bg-decorative-background-dusk');
+    await expect(badge).toHaveClass("bg-decorative-background-dusk");
   },
 };
 
@@ -255,25 +254,25 @@ export const Secondary: Story = {
     </Badge>
   ),
   args: {
-    variant: 'secondary',
+    variant: "secondary",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Secondary variant provides a neutral, understated appearance for general-purpose badges. Ideal when you need to display information without drawing too much attention.',
+          "Secondary variant provides a neutral, understated appearance for general-purpose badges. Ideal when you need to display information without drawing too much attention.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Asset');
+    const badge = canvas.getByText("Asset");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('bg-secondary');
+    await expect(badge).toHaveClass("bg-secondary");
     // Verify rotated icon
-    const icon = badge.querySelector('svg');
-    await expect(icon).toHaveClass('rotate-90');
+    const icon = badge.querySelector("svg");
+    await expect(icon).toHaveClass("rotate-90");
   },
 };
 
@@ -288,24 +287,24 @@ export const Error: Story = {
     </Badge>
   ),
   args: {
-    variant: 'error',
+    variant: "error",
     background: false,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Error variant uses a red colour scheme to indicate errors, failures, and critical issues. This variant immediately draws attention to problems that need resolution. Shown here without background fill.',
+          "Error variant uses a red colour scheme to indicate errors, failures, and critical issues. This variant immediately draws attention to problems that need resolution. Shown here without background fill.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Error');
+    const badge = canvas.getByText("Error");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('bg-transparent');
-    await expect(badge).toHaveClass('text-destructive-foreground');
+    await expect(badge).toHaveClass("bg-transparent");
+    await expect(badge).toHaveClass("text-destructive-foreground");
   },
 };
 
@@ -320,24 +319,24 @@ export const ErrorOutline: Story = {
     </Badge>
   ),
   args: {
-    variant: 'error',
+    variant: "error",
     outline: true,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Error variant with outline styling for a more subtle approach to error indication. The outline prop removes the background and adds a border, making it less visually dominant while still conveying importance.',
+          "Error variant with outline styling for a more subtle approach to error indication. The outline prop removes the background and adds a border, making it less visually dominant while still conveying importance.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Error');
+    const badge = canvas.getByText("Error");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('border-current');
-    await expect(badge).toHaveClass('px-0.75');
+    await expect(badge).toHaveClass("border-current");
+    await expect(badge).toHaveClass("px-0.75");
   },
 };
 
@@ -352,25 +351,25 @@ export const Warning: Story = {
     </Badge>
   ),
   args: {
-    variant: 'warning',
+    variant: "warning",
     background: false,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Warning variant uses an orange/yellow colour scheme for warnings, cautions, and issues requiring attention but not critical. Use this when you want to alert users without causing alarm.',
+          "Warning variant uses an orange/yellow colour scheme for warnings, cautions, and issues requiring attention but not critical. Use this when you want to alert users without causing alarm.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Warning');
+    const badge = canvas.getByText("Warning");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('text-warning-foreground');
+    await expect(badge).toHaveClass("text-warning-foreground");
     // Verify alert icon is present
-    const icon = badge.querySelector('svg');
+    const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -386,23 +385,23 @@ export const WarningOutline: Story = {
     </Badge>
   ),
   args: {
-    variant: 'warning',
+    variant: "warning",
     outline: true,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Warning variant with outline styling provides a more subtle warning indicator. The outline prop makes it less prominent while still conveying caution.',
+          "Warning variant with outline styling provides a more subtle warning indicator. The outline prop makes it less prominent while still conveying caution.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Warning');
+    const badge = canvas.getByText("Warning");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('border-current');
+    await expect(badge).toHaveClass("border-current");
   },
 };
 
@@ -417,25 +416,25 @@ export const Success: Story = {
     </Badge>
   ),
   args: {
-    variant: 'success',
+    variant: "success",
     background: false,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Success variant uses a green colour scheme to indicate successful operations, completed tasks, and positive outcomes. Perfect for confirmations and achievement indicators.',
+          "Success variant uses a green colour scheme to indicate successful operations, completed tasks, and positive outcomes. Perfect for confirmations and achievement indicators.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Success');
+    const badge = canvas.getByText("Success");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('text-success-foreground');
+    await expect(badge).toHaveClass("text-success-foreground");
     // Verify check icon is present
-    const icon = badge.querySelector('svg');
+    const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -451,23 +450,23 @@ export const InProgress: Story = {
     </Badge>
   ),
   args: {
-    variant: 'inProgress',
+    variant: "inProgress",
     background: false,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'In Progress variant indicates ongoing operations, tasks in process, or active states. Use this to show users that something is currently happening or being worked on.',
+          "In Progress variant indicates ongoing operations, tasks in process, or active states. Use this to show users that something is currently happening or being worked on.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('In progress');
+    const badge = canvas.getByText("In progress");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('text-neutral-foreground');
+    await expect(badge).toHaveClass("text-neutral-foreground");
   },
 };
 
@@ -482,25 +481,25 @@ export const Archived: Story = {
     </Badge>
   ),
   args: {
-    variant: 'archived',
+    variant: "archived",
     background: false,
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Archived variant is designed for archived, inactive, or deprecated items. Use this to clearly indicate content that is no longer active but still accessible.',
+          "Archived variant is designed for archived, inactive, or deprecated items. Use this to clearly indicate content that is no longer active but still accessible.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText('Archived');
+    const badge = canvas.getByText("Archived");
 
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('text-undefined-foreground');
+    await expect(badge).toHaveClass("text-undefined-foreground");
     // Verify archive icon is present
-    const icon = badge.querySelector('svg');
+    const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -536,7 +535,7 @@ export const AllVariants: Story = {
     docs: {
       description: {
         story:
-          'Overview of all available badge variants showing the full colour palette and semantic options. Each variant is designed for specific use cases and contexts.',
+          "Overview of all available badge variants showing the full colour palette and semantic options. Each variant is designed for specific use cases and contexts.",
       },
     },
   },
@@ -544,10 +543,10 @@ export const AllVariants: Story = {
     const canvas = within(canvasElement);
 
     // Verify all variants render
-    await expect(canvas.getByText('Default')).toBeInTheDocument();
-    await expect(canvas.getByText('Fjord')).toBeInTheDocument();
-    await expect(canvas.getByText('Nordic')).toBeInTheDocument();
-    await expect(canvas.getByText('Closable')).toBeInTheDocument();
+    await expect(canvas.getByText("Default")).toBeInTheDocument();
+    await expect(canvas.getByText("Fjord")).toBeInTheDocument();
+    await expect(canvas.getByText("Nordic")).toBeInTheDocument();
+    await expect(canvas.getByText("Closable")).toBeInTheDocument();
   },
 };
 
@@ -558,9 +557,7 @@ export const IconSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-sm text-muted-foreground mb-3">
-          Default size with text + icon
-        </p>
+        <p className="text-sm text-muted-foreground mb-3">Default size with text + icon</p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">
             <IconHexagon className="size-3" />
@@ -633,13 +630,13 @@ export const IconSizes: Story = {
 
     // Find badges with icon size
     const iconSizeBadges = Array.from(badges).filter((badge) =>
-      badge.classList.contains('rounded-md')
+      badge.classList.contains("rounded-md")
     );
 
     // Verify icon size badges have correct styling
     iconSizeBadges.forEach((badge) => {
-      expect(badge).toHaveClass('p-0.75');
-      expect(badge).toHaveClass('rounded-md');
+      expect(badge).toHaveClass("p-0.75");
+      expect(badge).toHaveClass("rounded-md");
     });
 
     await expect(iconSizeBadges.length).toBeGreaterThan(0);
@@ -652,14 +649,14 @@ export const IconSizes: Story = {
  */
 export const Playground: Story = {
   args: {
-    variant: 'fjord',
-    children: 'Badge',
+    variant: "fjord",
+    children: "Badge",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Interactive playground for experimenting with all badge props. Use the controls panel to adjust variant, outline, background, dot, and other properties in real-time.',
+          "Interactive playground for experimenting with all badge props. Use the controls panel to adjust variant, outline, background, dot, and other properties in real-time.",
       },
     },
   },
@@ -690,7 +687,7 @@ export const OutlineStyle: Story = {
     docs: {
       description: {
         story:
-          'Outline styling removes the background fill and adds a coloured border. This creates a more subtle, lightweight appearance perfect for dense interfaces or when you need multiple badges without overwhelming the design.',
+          "Outline styling removes the background fill and adds a coloured border. This creates a more subtle, lightweight appearance perfect for dense interfaces or when you need multiple badges without overwhelming the design.",
       },
     },
   },
@@ -700,10 +697,10 @@ export const OutlineStyle: Story = {
 
     // Verify all outlined badges have border-current class
     badges.forEach((badge) => {
-      expect(badge).toHaveClass('border-current');
+      expect(badge).toHaveClass("border-current");
     });
 
-    await expect(canvas.getByText('Fjord')).toBeInTheDocument();
+    await expect(canvas.getByText("Fjord")).toBeInTheDocument();
   },
 };
 
@@ -732,7 +729,7 @@ export const NoBackground: Story = {
     docs: {
       description: {
         story:
-          'No background variant removes the background fill entirely, leaving only the coloured text. This creates the most minimal appearance, ideal for compact layouts or when layering badges over coloured surfaces.',
+          "No background variant removes the background fill entirely, leaving only the coloured text. This creates the most minimal appearance, ideal for compact layouts or when layering badges over coloured surfaces.",
       },
     },
   },
@@ -742,10 +739,10 @@ export const NoBackground: Story = {
 
     // Verify all badges have transparent background
     badges.forEach((badge) => {
-      expect(badge).toHaveClass('bg-transparent');
+      expect(badge).toHaveClass("bg-transparent");
     });
 
-    await expect(canvas.getByText('Dusk')).toBeInTheDocument();
+    await expect(canvas.getByText("Dusk")).toBeInTheDocument();
   },
 };
 
@@ -779,7 +776,7 @@ export const DotIndicators: Story = {
     docs: {
       description: {
         story:
-          'Dot indicators provide minimal status visualization. When empty, they render as small coloured dots. The `urgent` prop changes the colour to destructive red. Dots can also contain short content like numbers.',
+          "Dot indicators provide minimal status visualization. When empty, they render as small coloured dots. The `urgent` prop changes the colour to destructive red. Dots can also contain short content like numbers.",
       },
     },
   },
@@ -788,13 +785,13 @@ export const DotIndicators: Story = {
 
     // Verify dot badges have rounded class
     badges.forEach((badge) => {
-      expect(badge).toHaveClass('rounded-full');
+      expect(badge).toHaveClass("rounded-full");
     });
 
     // Check first dot is urgent and empty (size-2)
     const firstDot = badges[0] as HTMLElement;
-    await expect(firstDot).toHaveClass('size-2');
-    await expect(firstDot).toHaveClass('bg-destructive-foreground');
+    await expect(firstDot).toHaveClass("size-2");
+    await expect(firstDot).toHaveClass("bg-destructive-foreground");
   },
 };
 
@@ -806,7 +803,7 @@ export const ClickInteraction: Story = {
     docs: {
       description: {
         story:
-          'Interactive badges that respond to click events. The `closable` variant includes hover states and cursor styling. Commonly used for removable tags, filters, or dismissible notifications. This story tests actual click interactions with state updates.',
+          "Interactive badges that respond to click events. The `closable` variant includes hover states and cursor styling. Commonly used for removable tags, filters, or dismissible notifications. This story tests actual click interactions with state updates.",
       },
     },
   },
@@ -814,24 +811,24 @@ export const ClickInteraction: Story = {
     const canvas = within(canvasElement);
 
     // Find and verify initial state
-    const badge = canvas.getByTestId('closable-badge');
+    const badge = canvas.getByTestId("closable-badge");
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass('cursor-pointer');
+    await expect(badge).toHaveClass("cursor-pointer");
 
     // Test hover interaction
     await userEvent.hover(badge);
-    await expect(badge).toHaveClass('hover:bg-secondary-hover');
+    await expect(badge).toHaveClass("hover:bg-secondary-hover");
 
     // Test click interaction
     await userEvent.click(badge);
     await waitFor(() => {
-      expect(canvas.getByText('Clicked!')).toBeInTheDocument();
+      expect(canvas.getByText("Clicked!")).toBeInTheDocument();
     });
 
     // Click again to toggle back
     await userEvent.click(badge);
     await waitFor(() => {
-      expect(canvas.getByText('Click me')).toBeInTheDocument();
+      expect(canvas.getByText("Click me")).toBeInTheDocument();
     });
   },
   render: function ClickInteractionStory() {
@@ -845,11 +842,11 @@ export const ClickInteraction: Story = {
           className="cursor-pointer"
           data-testid="closable-badge"
         >
-          {clicked ? 'Clicked!' : 'Click me'}
+          {clicked ? "Clicked!" : "Click me"}
           <IconX className="size-3" />
         </Badge>
         <span className="text-sm text-muted-foreground">
-          State: {clicked ? 'Active' : 'Inactive'}
+          State: {clicked ? "Active" : "Inactive"}
         </span>
       </div>
     );
@@ -864,7 +861,7 @@ export const KeyboardInteractions: Story = {
     docs: {
       description: {
         story:
-          'Tests keyboard interactions for interactive badges. Focus with Tab, activate with Enter or Space. Essential for accessibility compliance.',
+          "Tests keyboard interactions for interactive badges. Focus with Tab, activate with Enter or Space. Essential for accessibility compliance.",
       },
     },
   },
@@ -873,28 +870,28 @@ export const KeyboardInteractions: Story = {
 
     // Tab to focus the first badge
     await userEvent.tab();
-    const firstBadge = canvas.getByTestId('keyboard-badge-1');
+    const firstBadge = canvas.getByTestId("keyboard-badge-1");
     await waitFor(() => {
       expect(firstBadge).toHaveFocus();
     });
 
     // Press Enter to activate
-    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard("{Enter}");
     await waitFor(() => {
-      expect(canvas.getByText('Badge 1: Active')).toBeInTheDocument();
+      expect(canvas.getByText("Badge 1: Active")).toBeInTheDocument();
     });
 
     // Tab to second badge
     await userEvent.tab();
-    const secondBadge = canvas.getByTestId('keyboard-badge-2');
+    const secondBadge = canvas.getByTestId("keyboard-badge-2");
     await waitFor(() => {
       expect(secondBadge).toHaveFocus();
     });
 
     // Press Space to activate
-    await userEvent.keyboard(' ');
+    await userEvent.keyboard(" ");
     await waitFor(() => {
-      expect(canvas.getByText('Badge 2: Active')).toBeInTheDocument();
+      expect(canvas.getByText("Badge 2: Active")).toBeInTheDocument();
     });
   },
   render: function KeyboardInteractionsStory() {
@@ -912,7 +909,7 @@ export const KeyboardInteractions: Story = {
             aria-label="Toggle badge 1"
             onClick={() => setBadge1Active(!badge1Active)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
+              if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 setBadge1Active(!badge1Active);
               }
@@ -929,7 +926,7 @@ export const KeyboardInteractions: Story = {
             aria-label="Toggle badge 2"
             onClick={() => setBadge2Active(!badge2Active)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
+              if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 setBadge2Active(!badge2Active);
               }
@@ -940,8 +937,8 @@ export const KeyboardInteractions: Story = {
           </Badge>
         </div>
         <div className="text-sm text-muted-foreground">
-          <p>Badge 1: {badge1Active ? 'Active' : 'Inactive'}</p>
-          <p>Badge 2: {badge2Active ? 'Active' : 'Inactive'}</p>
+          <p>Badge 1: {badge1Active ? "Active" : "Inactive"}</p>
+          <p>Badge 2: {badge2Active ? "Active" : "Inactive"}</p>
         </div>
       </div>
     );
@@ -965,17 +962,17 @@ export const Accessibility: Story = {
 
     // Check ARIA labels are present and accessible
     await waitFor(() => {
-      expect(canvas.getByLabelText('Status: Completed')).toBeInTheDocument();
-      expect(canvas.getByLabelText('Status: Failed')).toBeInTheDocument();
-      expect(canvas.getByLabelText('Urgent notification')).toBeInTheDocument();
+      expect(canvas.getByLabelText("Status: Completed")).toBeInTheDocument();
+      expect(canvas.getByLabelText("Status: Failed")).toBeInTheDocument();
+      expect(canvas.getByLabelText("Urgent notification")).toBeInTheDocument();
     });
 
     // Check keyboard navigation on interactive badge
-    const interactiveBadge = canvas.getByRole('button', {
+    const interactiveBadge = canvas.getByRole("button", {
       name: /Remove tag: JavaScript/i,
     });
     await expect(interactiveBadge).toBeInTheDocument();
-    await expect(interactiveBadge).toHaveAttribute('tabIndex', '0');
+    await expect(interactiveBadge).toHaveAttribute("tabIndex", "0");
 
     // Test keyboard focus
     await userEvent.tab();
@@ -1010,7 +1007,7 @@ export const Accessibility: Story = {
         role="button"
         tabIndex={0}
         aria-label="Remove tag: JavaScript"
-        onKeyDown={(e) => e.key === 'Enter' && alert('Tag removed')}
+        onKeyDown={(e) => e.key === "Enter" && alert("Tag removed")}
       >
         JavaScript
         <IconX className="size-3" aria-hidden="true" />
@@ -1057,7 +1054,7 @@ export const VisualRegression: Story = {
     docs: {
       description: {
         story:
-          'Baseline story for visual regression testing with Chromatic. Includes all major variants, styles, and configurations to detect unintended visual changes.',
+          "Baseline story for visual regression testing with Chromatic. Includes all major variants, styles, and configurations to detect unintended visual changes.",
       },
     },
   },
@@ -1083,7 +1080,7 @@ export const EdgeCaseEmpty: Story = {
     docs: {
       description: {
         story:
-          'Empty badges still render with minimal spacing. Consider using dot variant for truly minimal indicators.',
+          "Empty badges still render with minimal spacing. Consider using dot variant for truly minimal indicators.",
       },
     },
   },
@@ -1093,7 +1090,7 @@ export const EdgeCaseEmpty: Story = {
 
     // Empty badges should still have badge styling
     badges.forEach((badge) => {
-      expect(badge).toHaveClass('inline-flex');
+      expect(badge).toHaveClass("inline-flex");
     });
   },
 };
@@ -1105,8 +1102,8 @@ export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-2 max-w-md">
       <Badge variant="fjord">
-        This is an extremely long badge text that should demonstrate how the
-        component handles lengthy content
+        This is an extremely long badge text that should demonstrate how the component handles
+        lengthy content
       </Badge>
       <Badge variant="aurora" className="max-w-xs">
         Constrained width with very long text that might wrap or truncate
@@ -1117,7 +1114,7 @@ export const EdgeCaseLongText: Story = {
     docs: {
       description: {
         story:
-          'Very long text in badges. The component uses whitespace-nowrap by default, so content will extend. Add max-width and wrapping classes if needed.',
+          "Very long text in badges. The component uses whitespace-nowrap by default, so content will extend. Add max-width and wrapping classes if needed.",
       },
     },
   },
@@ -1126,7 +1123,7 @@ export const EdgeCaseLongText: Story = {
     const longBadge = canvas.getByText(/extremely long badge text/i);
 
     await expect(longBadge).toBeInTheDocument();
-    await expect(longBadge).toHaveClass('whitespace-nowrap');
+    await expect(longBadge).toHaveClass("whitespace-nowrap");
   },
 };
 
@@ -1136,19 +1133,19 @@ export const EdgeCaseLongText: Story = {
 export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="fjord">{'<HTML/>'}</Badge>
-      <Badge variant="aurora">{'Status: ⚠️'}</Badge>
-      <Badge variant="mountain">{'Quantity: 1,234'}</Badge>
-      <Badge variant="dusk">{'Price: $99.99'}</Badge>
-      <Badge variant="error">{'Error: #404'}</Badge>
-      <Badge variant="secondary">{'User: <script>'}</Badge>
+      <Badge variant="fjord">{"<HTML/>"}</Badge>
+      <Badge variant="aurora">{"Status: ⚠️"}</Badge>
+      <Badge variant="mountain">{"Quantity: 1,234"}</Badge>
+      <Badge variant="dusk">{"Price: $99.99"}</Badge>
+      <Badge variant="error">{"Error: #404"}</Badge>
+      <Badge variant="secondary">{"User: <script>"}</Badge>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          'Badges with special characters, emojis, HTML-like content, and various symbols. Content is safely rendered as text.',
+          "Badges with special characters, emojis, HTML-like content, and various symbols. Content is safely rendered as text.",
       },
     },
   },
@@ -1156,9 +1153,9 @@ export const EdgeCaseSpecialCharacters: Story = {
     const canvas = within(canvasElement);
 
     // Verify special characters are rendered properly
-    await expect(canvas.getByText('<HTML/>')).toBeInTheDocument();
-    await expect(canvas.getByText('Status: ⚠️')).toBeInTheDocument();
-    await expect(canvas.getByText('User: <script>')).toBeInTheDocument();
+    await expect(canvas.getByText("<HTML/>")).toBeInTheDocument();
+    await expect(canvas.getByText("Status: ⚠️")).toBeInTheDocument();
+    await expect(canvas.getByText("User: <script>")).toBeInTheDocument();
   },
 };
 
@@ -1196,17 +1193,17 @@ export const EdgeCaseIconOnly: Story = {
 
     // Each badge should have an icon and aria-label
     badges.forEach((badge) => {
-      const icon = badge.querySelector('svg');
+      const icon = badge.querySelector("svg");
       expect(icon).toBeInTheDocument();
-      expect(icon).toHaveAttribute('aria-hidden', 'true');
-      expect(badge).toHaveAttribute('aria-label');
+      expect(icon).toHaveAttribute("aria-hidden", "true");
+      expect(badge).toHaveAttribute("aria-label");
     });
 
     // Verify specific labels
-    await expect(canvas.getByLabelText('Success')).toBeInTheDocument();
-    await expect(canvas.getByLabelText('Error')).toBeInTheDocument();
-    await expect(canvas.getByLabelText('Warning')).toBeInTheDocument();
-    await expect(canvas.getByLabelText('In progress')).toBeInTheDocument();
+    await expect(canvas.getByLabelText("Success")).toBeInTheDocument();
+    await expect(canvas.getByLabelText("Error")).toBeInTheDocument();
+    await expect(canvas.getByLabelText("Warning")).toBeInTheDocument();
+    await expect(canvas.getByLabelText("In progress")).toBeInTheDocument();
   },
 };
 
@@ -1232,7 +1229,7 @@ export const EdgeCaseMixedContent: Story = {
     docs: {
       description: {
         story:
-          'Badges with mixed content including icons, text, and nested elements. The component handles complex children gracefully.',
+          "Badges with mixed content including icons, text, and nested elements. The component handles complex children gracefully.",
       },
     },
   },
@@ -1269,16 +1266,16 @@ export const EdgeCaseWidthConstraints: Story = {
     docs: {
       description: {
         story:
-          'Testing badge behaviour with various width constraints. Badges are naturally fit-content but can be adjusted with CSS classes.',
+          "Testing badge behaviour with various width constraints. Badges are naturally fit-content but can be adjusted with CSS classes.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fullWidthBadge = canvas.getByText('Full Width');
+    const fullWidthBadge = canvas.getByText("Full Width");
 
-    await expect(fullWidthBadge).toHaveClass('w-full');
-    await expect(fullWidthBadge).toHaveClass('justify-center');
+    await expect(fullWidthBadge).toHaveClass("w-full");
+    await expect(fullWidthBadge).toHaveClass("justify-center");
   },
 };
 
@@ -1309,7 +1306,7 @@ export const EdgeCaseGroupedBadges: Story = {
     docs: {
       description: {
         story:
-          'Multiple badges grouped together, simulating tag lists or filter sets. Demonstrates proper spacing and wrapping behaviour.',
+          "Multiple badges grouped together, simulating tag lists or filter sets. Demonstrates proper spacing and wrapping behaviour.",
       },
     },
   },
@@ -1343,7 +1340,7 @@ export const EdgeCaseTinyDots: Story = {
     docs: {
       description: {
         story:
-          'Multiple tiny dot indicators in sequence. Useful for showing presence, status, or notification counts in a minimal way.',
+          "Multiple tiny dot indicators in sequence. Useful for showing presence, status, or notification counts in a minimal way.",
       },
     },
   },
@@ -1352,8 +1349,8 @@ export const EdgeCaseTinyDots: Story = {
 
     // All dots should be tiny
     dots.forEach((dot) => {
-      expect(dot).toHaveClass('size-2');
-      expect(dot).toHaveClass('rounded-full');
+      expect(dot).toHaveClass("size-2");
+      expect(dot).toHaveClass("rounded-full");
     });
   },
 };

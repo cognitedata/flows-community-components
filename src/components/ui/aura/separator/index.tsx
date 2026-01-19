@@ -8,5 +8,5 @@
  *
  * <Separator orientation="horizontal" />
  */
-export { Separator } from './separator';
-export { SeparatorMetadata } from './separator.metadata';
+export { Separator } from "./separator";
+export { SeparatorMetadata } from "./separator.metadata";

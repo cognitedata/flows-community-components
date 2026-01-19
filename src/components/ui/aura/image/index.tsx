@@ -6,6 +6,6 @@
  * @example
  * import { Image } from '@/components/ui/aura/image';
  */
-export { Image } from './image';
-export type { ImageProps } from './image';
-export { ImageMetadata } from './image.metadata';
+export { Image } from "./image";
+export type { ImageProps } from "./image";
+export { ImageMetadata } from "./image.metadata";

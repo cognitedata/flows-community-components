@@ -1,30 +1,37 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Panel } from './panel';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Panel } from "./panel";
 
 const meta: Meta<typeof Panel> = {
-  title: 'AI/Panel',
+  title: "AI/Panel",
   component: Panel,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     position: {
-      control: 'select',
-      options: ['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'],
-      description: 'Position of the panel',
+      control: "select",
+      options: [
+        "top-left",
+        "top-center",
+        "top-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right",
+      ],
+      description: "Position of the panel",
       table: {
-        category: 'Layout',
-        type: { summary: 'string' },
+        category: "Layout",
+        type: { summary: "string" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -33,7 +40,7 @@ type Story = StoryObj<typeof Panel>;
 
 /**
  * Default panel (requires ReactFlow context).
- * 
+ *
  * Note: This component is a ReactFlow Panel wrapper and requires
  * a ReactFlow context to function properly.
  */
@@ -53,7 +60,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Panel component for ReactFlow canvases. Requires ReactFlow context.',
+        story: "Panel component for ReactFlow canvases. Requires ReactFlow context.",
       },
     },
   },
@@ -84,15 +91,15 @@ function FlowCanvas() {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Panel appears as a floating control panel on the ReactFlow canvas,
-        positioned according to the `position` prop.
+        The Panel appears as a floating control panel on the ReactFlow canvas, positioned according
+        to the `position` prop.
       </p>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Example showing how to use the Panel component with ReactFlow.',
+        story: "Example showing how to use the Panel component with ReactFlow.",
       },
     },
   },
@@ -112,7 +119,7 @@ export const StylingPreview: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Preview of Panel styling (without ReactFlow context).',
+        story: "Preview of Panel styling (without ReactFlow context).",
       },
     },
   },

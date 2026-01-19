@@ -10,10 +10,10 @@ export {
   Sources,
   SourcesTitle,
   Source,
-} from './sources';
+} from "./sources";
 export type {
   SourcesProps,
   SourcesTitleProps,
   SourceProps,
-} from './sources';
-export { SourcesMetadata } from './sources.metadata';
+} from "./sources";
+export { SourcesMetadata } from "./sources.metadata";

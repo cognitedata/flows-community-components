@@ -27,7 +27,7 @@ export {
   PromptInputButton,
   PromptInputSubmit,
   PromptInputSpeechButton,
-} from './prompt-input';
+} from "./prompt-input";
 
 // Attachment components
 export {
@@ -38,7 +38,7 @@ export {
   usePromptInputAttachments,
   // eslint-disable-next-line react-refresh/only-export-components
   useProviderAttachments,
-} from './prompt-input';
+} from "./prompt-input";
 
 // Action menu components
 export {
@@ -46,7 +46,7 @@ export {
   PromptInputActionMenuTrigger,
   PromptInputActionMenuContent,
   PromptInputActionMenuItem,
-} from './prompt-input';
+} from "./prompt-input";
 
 // Model select components
 export {
@@ -55,14 +55,14 @@ export {
   PromptInputModelSelectContent,
   PromptInputModelSelectItem,
   PromptInputModelSelectValue,
-} from './prompt-input';
+} from "./prompt-input";
 
 // Hover card components
 export {
   PromptInputHoverCard,
   PromptInputHoverCardTrigger,
   PromptInputHoverCardContent,
-} from './prompt-input';
+} from "./prompt-input";
 
 // Tab components
 export {
@@ -71,7 +71,7 @@ export {
   PromptInputTabLabel,
   PromptInputTabBody,
   PromptInputTabItem,
-} from './prompt-input';
+} from "./prompt-input";
 
 // Command components
 export {
@@ -82,11 +82,11 @@ export {
   PromptInputCommandGroup,
   PromptInputCommandItem,
   PromptInputCommandSeparator,
-} from './prompt-input';
+} from "./prompt-input";
 
 // Hooks
 // eslint-disable-next-line react-refresh/only-export-components
-export { usePromptInputController } from './prompt-input';
+export { usePromptInputController } from "./prompt-input";
 
 // Types
 export type {
@@ -131,6 +131,6 @@ export type {
   PromptInputCommandGroupProps,
   PromptInputCommandItemProps,
   PromptInputCommandSeparatorProps,
-} from './prompt-input';
+} from "./prompt-input";
 
-export { PromptInputMetadata } from './prompt-input.metadata';
+export { PromptInputMetadata } from "./prompt-input.metadata";

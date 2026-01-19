@@ -12,5 +12,5 @@
  *   <CollapsibleContent>Hidden content</CollapsibleContent>
  * </Collapsible>
  */
-export { Collapsible, CollapsibleTrigger, CollapsibleContent } from './collapsible';
-export { CollapsibleMetadata } from './collapsible.metadata';
+export { Collapsible, CollapsibleTrigger, CollapsibleContent } from "./collapsible";
+export { CollapsibleMetadata } from "./collapsible.metadata";

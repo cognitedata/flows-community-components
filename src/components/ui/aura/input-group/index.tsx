@@ -13,5 +13,5 @@ export {
   InputGroupText,
   InputGroupInput,
   InputGroupTextarea,
-} from './input-group';
-export { InputGroupMetadata } from './input-group.metadata';
+} from "./input-group";
+export { InputGroupMetadata } from "./input-group.metadata";

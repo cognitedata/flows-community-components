@@ -1,26 +1,22 @@
-
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   IconArrowRight as ArrowRight,
   IconCircleCheck as CheckCircle2,
   IconFileText as FileText,
   IconSparkles as Sparkles,
   IconTerminal as Terminal,
-} from '@tabler/icons-react';
-import { Button } from '@/components/ui/aura/button';
+} from "@tabler/icons-react";
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/aura/card';
-import { Badge } from '@/components/ui/aura/badge';
-import {
-  CodeBlock,
-  CodeBlockCopyButton,
-} from '@/components/ui/aura/code-block';
+} from "@/components/ui/aura/card";
+import { Badge } from "@/components/ui/aura/badge";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
 
 interface Step {
   icon: React.ComponentType<{ className?: string }>;
@@ -34,22 +30,22 @@ interface Step {
 const steps: Step[] = [
   {
     icon: Terminal,
-    title: 'Create your project',
-    description: 'Start with a new Next.js project or use your existing one',
-    code: 'npx cognite-create@latest',
+    title: "Create your project",
+    description: "Start with a new Next.js project or use your existing one",
+    code: "npx cognite-create@latest",
   },
   {
     icon: FileText,
-    title: 'Set up environment variables',
+    title: "Set up environment variables",
     description:
-      'Copy or create a .env file and add the environment variables from .env.example and configure them for your project',
+      "Copy or create a .env file and add the environment variables from .env.example and configure them for your project",
     code: `touch .env`,
   },
   {
     icon: Sparkles,
-    title: 'Start building with Cursor',
-    description: 'Ask Cursor AI to build your features using natural language',
-    code: 'Build me a timeseries dashboard',
+    title: "Start building with Cursor",
+    description: "Ask Cursor AI to build your features using natural language",
+    code: "Build me a timeseries dashboard",
   },
 ];
 
@@ -68,8 +64,8 @@ export default function InstallationPage() {
             <Badge className="mb-4">Getting Started</Badge>
             <h1 className="text-4xl md:text-6xl font-bold">Installation</h1>
             <p className="text-xl text-muted-foreground max-w-3xl">
-              Get started with Aura in minutes. Follow these steps to set up
-              your project and start building with our design system.
+              Get started with Aura in minutes. Follow these steps to set up your project and start
+              building with our design system.
             </p>
           </div>
 
@@ -86,7 +82,7 @@ export default function InstallationPage() {
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4" />
                   <span>
-                    Node.js 20 or later{' '}
+                    Node.js 20 or later{" "}
                     <a
                       href="https://nodejs.org/en/download/"
                       target="_blank"
@@ -100,7 +96,7 @@ export default function InstallationPage() {
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4" />
                   <span>
-                    Cursor AI Editor{' '}
+                    Cursor AI Editor{" "}
                     <a
                       href="https://www.cursor.com/"
                       target="_blank"
@@ -139,9 +135,7 @@ export default function InstallationPage() {
                             </span>
                           </div>
                           <CardTitle className="mt-1">{step.title}</CardTitle>
-                          <CardDescription className="mt-2">
-                            {step.description}
-                          </CardDescription>
+                          <CardDescription className="mt-2">{step.description}</CardDescription>
                         </div>
                       </div>
                     </CardHeader>
@@ -156,7 +150,7 @@ export default function InstallationPage() {
                       <CardContent>
                         <div className="space-y-4">
                           <p className="text-sm text-muted-foreground">
-                            Add the following to your{' '}
+                            Add the following to your{" "}
                             <code className="rounded bg-muted px-1.5 py-0.5">
                               tailwind.config.js
                             </code>
@@ -191,15 +185,13 @@ export default function InstallationPage() {
           {/* Optional: MCP */}
           <Card>
             <CardHeader>
-              <CardTitle>
-                Optional: Install shadcn MCP server for Cursor
-              </CardTitle>
+              <CardTitle>Optional: Install shadcn MCP server for Cursor</CardTitle>
               <CardDescription>
                 This lets Cursor integrate with shadcn tooling via MCP.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <CodeBlock code={'npx shadcn@latest mcp'} language="bash">
+              <CodeBlock code={"npx shadcn@latest mcp"} language="bash">
                 <CodeBlockCopyButton />
               </CodeBlock>
               <a
@@ -223,16 +215,14 @@ export default function InstallationPage() {
               <CardHeader>
                 <CardTitle>Adding Components</CardTitle>
                 <CardDescription>
-                  Components are designed to be copied and pasted into your
-                  project
+                  Components are designed to be copied and pasted into your project
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">
-                  Browse the component documentation, find the component you
-                  need, and copy the code directly into your project. Each
-                  component is self-contained and includes all necessary
-                  imports.
+                  Browse the component documentation, find the component you need, and copy the code
+                  directly into your project. Each component is self-contained and includes all
+                  necessary imports.
                 </p>
                 <div className="flex gap-4">
                   <Button asChild>
@@ -287,9 +277,7 @@ export default function InstallationPage() {
                 <Link to="/patterns">
                   <CardHeader>
                     <CardTitle>Example Blocks</CardTitle>
-                    <CardDescription>
-                      Check out pre-built blocks and templates
-                    </CardDescription>
+                    <CardDescription>Check out pre-built blocks and templates</CardDescription>
                   </CardHeader>
                 </Link>
               </Card>

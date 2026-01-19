@@ -14,4 +14,3 @@ export interface CodeExample {
   /** The actual code string */
   code: string;
 }
-

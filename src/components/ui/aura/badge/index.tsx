@@ -14,5 +14,5 @@ export {
   Badge,
   // eslint-disable-next-line react-refresh/only-export-components
   badgeVariants,
-} from './badge';
-export { BadgeMetadata } from './badge.metadata';
+} from "./badge";
+export { BadgeMetadata } from "./badge.metadata";

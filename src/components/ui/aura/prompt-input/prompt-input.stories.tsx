@@ -1,7 +1,6 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState, useRef } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState, useRef } from "react";
 import {
   PromptInput,
   PromptInputProvider,
@@ -13,25 +12,21 @@ import {
   PromptInputSpeechButton,
   PromptInputButton,
   type PromptInputMessage,
-} from './prompt-input';
-import { Button } from '@/components/ui/aura/button';
-import { HelperText } from '@/components/ui/aura/helper-text';
+} from "./prompt-input";
+import { Button } from "@/components/ui/aura/button";
+import { HelperText } from "@/components/ui/aura/helper-text";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
-import {
-  IconAdjustments,
-  IconAlertTriangle,
-  IconChevronDown,
-} from '@tabler/icons-react';
+} from "@/components/ui/aura/dropdown-menu";
+import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
 
 const meta: Meta<typeof PromptInput> = {
-  title: 'AI/Prompt Input',
+  title: "AI/Prompt Input",
   component: PromptInput,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <PromptInputProvider>
@@ -43,29 +38,28 @@ const meta: Meta<typeof PromptInput> = {
     // Display & behavior
     helperText: {
       control: false,
-      description:
-        'Helper text below input. Set to false to hide, ReactNode for custom content',
+      description: "Helper text below input. Set to false to hide, ReactNode for custom content",
       table: {
-        category: 'Display',
-        type: { summary: 'ReactNode | false' },
+        category: "Display",
+        type: { summary: "ReactNode | false" },
       },
     },
     className: {
-      control: 'text',
-      description: 'CSS classes for styling',
+      control: "text",
+      description: "CSS classes for styling",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
 
     // Events
     onSubmit: {
-      action: 'submitted',
-      description: 'Callback when form is submitted',
+      action: "submitted",
+      description: "Callback when form is submitted",
       table: {
-        category: 'Events',
+        category: "Events",
         type: {
-          summary: '(message: PromptInputMessage, event: FormEvent) => void',
+          summary: "(message: PromptInputMessage, event: FormEvent) => void",
         },
       },
     },
@@ -75,42 +69,42 @@ const meta: Meta<typeof PromptInput> = {
       control: false,
       description: 'File types to accept (e.g., "image/*", "video/*")',
       table: {
-        category: 'File Upload (Coming Soon)',
+        category: "File Upload (Coming Soon)",
       },
     },
     multiple: {
       control: false,
-      description: 'Allow multiple file uploads',
+      description: "Allow multiple file uploads",
       table: {
-        category: 'File Upload (Coming Soon)',
+        category: "File Upload (Coming Soon)",
       },
     },
     globalDrop: {
       control: false,
-      description: 'Accept drops anywhere on document',
+      description: "Accept drops anywhere on document",
       table: {
-        category: 'File Upload (Coming Soon)',
+        category: "File Upload (Coming Soon)",
       },
     },
     maxFiles: {
       control: false,
-      description: 'Maximum number of files',
+      description: "Maximum number of files",
       table: {
-        category: 'File Upload (Coming Soon)',
+        category: "File Upload (Coming Soon)",
       },
     },
     maxFileSize: {
       control: false,
-      description: 'Maximum file size in bytes',
+      description: "Maximum file size in bytes",
       table: {
-        category: 'File Upload (Coming Soon)',
+        category: "File Upload (Coming Soon)",
       },
     },
     onError: {
       control: false,
-      description: 'Callback when file upload error occurs',
+      description: "Callback when file upload error occurs",
       table: {
-        category: 'File Upload (Coming Soon)',
+        category: "File Upload (Coming Soon)",
       },
     },
 
@@ -118,14 +112,14 @@ const meta: Meta<typeof PromptInput> = {
     syncHiddenInput: {
       control: false,
       table: {
-        category: 'Internal',
+        category: "Internal",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     actions: {
-      handles: ['submit', 'error'],
+      handles: ["submit", "error"],
     },
   },
 };
@@ -153,15 +147,9 @@ function AttachmentTools({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setModel('GPT-4')}>
-            GPT-4
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setModel('GPT-3.5')}>
-            GPT-3.5
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setModel('Claude')}>
-            Claude
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setModel("GPT-4")}>GPT-4</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setModel("GPT-3.5")}>GPT-3.5</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setModel("Claude")}>Claude</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>
@@ -174,13 +162,13 @@ function AttachmentTools({
  */
 export const Basic: Story = {
   args: {
-    className: 'w-[500px]',
+    className: "w-[500px]",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Basic prompt input with default helper text. Tests typing, submission, and status changes.',
+          "Basic prompt input with default helper text. Tests typing, submission, and status changes.",
       },
     },
   },
@@ -188,22 +176,22 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Find the textarea
-    const textarea = canvas.getByTestId('prompt-input-textarea');
+    const textarea = canvas.getByTestId("prompt-input-textarea");
     await expect(textarea).toBeInTheDocument();
 
     // Type a message
-    await userEvent.type(textarea, 'Hello, world!', { delay: 50 });
-    await expect(textarea).toHaveValue('Hello, world!');
+    await userEvent.type(textarea, "Hello, world!", { delay: 50 });
+    await expect(textarea).toHaveValue("Hello, world!");
 
     // Find and click submit button
-    const submitButton = canvas.getByTestId('prompt-input-submit');
+    const submitButton = canvas.getByTestId("prompt-input-submit");
     await expect(submitButton).toBeInTheDocument();
     await userEvent.click(submitButton);
 
     // Wait for status change to submitted
     await waitFor(
       () => {
-        expect(submitButton).toHaveAttribute('data-status', 'submitted');
+        expect(submitButton).toHaveAttribute("data-status", "submitted");
       },
       { timeout: 300 }
     );
@@ -211,20 +199,15 @@ export const Basic: Story = {
     // Wait for status change to streaming
     await waitFor(
       () => {
-        expect(submitButton).toHaveAttribute('data-status', 'streaming');
+        expect(submitButton).toHaveAttribute("data-status", "streaming");
       },
       { timeout: 500 }
     );
   },
   render: function PromptInputBasicStory(args) {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (
-      message: PromptInputMessage,
-      event: React.FormEvent<HTMLFormElement>
-    ) => {
+    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
       // Call the action logger if provided
       args.onSubmit?.(message, event);
 
@@ -235,9 +218,9 @@ export const Basic: Story = {
         return;
       }
 
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
 
     return (
@@ -261,17 +244,12 @@ export const Basic: Story = {
 export const NoHelperText: Story = {
   args: {
     helperText: false,
-    className: 'w-[500px]',
+    className: "w-[500px]",
   },
   render: function PromptInputNoHelperTextStory(args) {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (
-      message: PromptInputMessage,
-      event: React.FormEvent<HTMLFormElement>
-    ) => {
+    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
       args.onSubmit?.(message, event);
 
       const hasText = Boolean(message.text);
@@ -281,9 +259,9 @@ export const NoHelperText: Story = {
         return;
       }
 
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
 
     return (
@@ -306,17 +284,12 @@ export const NoHelperText: Story = {
  */
 export const CustomHelperText: Story = {
   args: {
-    className: 'w-[500px]',
+    className: "w-[500px]",
   },
   render: function PromptInputCustomHelperTextStory(args) {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (
-      message: PromptInputMessage,
-      event: React.FormEvent<HTMLFormElement>
-    ) => {
+    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
       args.onSubmit?.(message, event);
 
       const hasText = Boolean(message.text);
@@ -326,9 +299,9 @@ export const CustomHelperText: Story = {
         return;
       }
 
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
 
     return (
@@ -394,17 +367,16 @@ export const ErrorState: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Shows the error state when a submission fails. Submit button displays an X icon.',
+        story: "Shows the error state when a submission fails. Submit button displays an X icon.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const submitButton = canvas.getByTestId('prompt-input-submit');
+    const submitButton = canvas.getByTestId("prompt-input-submit");
 
     // Verify error state is rendered correctly
-    await expect(submitButton).toHaveAttribute('data-status', 'error');
+    await expect(submitButton).toHaveAttribute("data-status", "error");
     await expect(submitButton).toBeInTheDocument();
   },
   render: () => (
@@ -425,10 +397,7 @@ export const ErrorState: Story = {
  */
 export const Minimal: Story = {
   render: () => (
-    <PromptInput
-      onSubmit={(message) => console.log('Submitted:', message)}
-      className="w-[400px]"
-    >
+    <PromptInput onSubmit={(message) => console.log("Submitted:", message)} className="w-[400px]">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Message..." />
       </PromptInputBody>
@@ -445,59 +414,53 @@ export const Minimal: Story = {
 export const KeyboardInteractions: Story = {
   args: {
     helperText: false,
-    className: 'w-[500px]',
+    className: "w-[500px]",
   },
   parameters: {
     docs: {
       description: {
-        story:
-          'Tests keyboard shortcuts: Enter to submit, Shift+Enter for new line.',
+        story: "Tests keyboard shortcuts: Enter to submit, Shift+Enter for new line.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByTestId('prompt-input-textarea');
+    const textarea = canvas.getByTestId("prompt-input-textarea");
 
     // Test Shift+Enter adds newline
-    await userEvent.type(textarea, 'Line 1', { delay: 50 });
-    await userEvent.keyboard('{Shift>}{Enter}{/Shift}');
-    await userEvent.type(textarea, 'Line 2', { delay: 50 });
-    await expect(textarea).toHaveValue('Line 1\nLine 2');
+    await userEvent.type(textarea, "Line 1", { delay: 50 });
+    await userEvent.keyboard("{Shift>}{Enter}{/Shift}");
+    await userEvent.type(textarea, "Line 2", { delay: 50 });
+    await expect(textarea).toHaveValue("Line 1\nLine 2");
 
     // Clear for next test
     await userEvent.clear(textarea);
 
     // Test Enter submits (when not empty)
-    await userEvent.type(textarea, 'Test message', { delay: 50 });
-    await userEvent.keyboard('{Enter}');
+    await userEvent.type(textarea, "Test message", { delay: 50 });
+    await userEvent.keyboard("{Enter}");
 
     // Check that submit was triggered
-    const submitButton = canvas.getByTestId('prompt-input-submit');
+    const submitButton = canvas.getByTestId("prompt-input-submit");
     await waitFor(
       () => {
-        expect(submitButton).toHaveAttribute('data-status', 'submitted');
+        expect(submitButton).toHaveAttribute("data-status", "submitted");
       },
       { timeout: 300 }
     );
   },
   render: function KeyboardInteractionsStory(args) {
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (
-      message: PromptInputMessage,
-      event: React.FormEvent<HTMLFormElement>
-    ) => {
+    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
       args.onSubmit?.(message, event);
 
       const hasText = Boolean(message.text);
       if (!hasText) return;
 
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
 
     return (
@@ -520,19 +483,14 @@ export const KeyboardInteractions: Story = {
  */
 export const WithAdvancedTools: Story = {
   args: {
-    className: 'w-[500px]',
+    className: "w-[500px]",
   },
   render: function PromptInputWithAdvancedToolsStory(args) {
-    const [model, setModel] = useState('Agent model');
-    const [status, setStatus] = useState<
-      'submitted' | 'streaming' | 'ready' | 'error'
-    >('ready');
+    const [model, setModel] = useState("Agent model");
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleSubmit = (
-      message: PromptInputMessage,
-      event: React.FormEvent<HTMLFormElement>
-    ) => {
+    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
       args.onSubmit?.(message, event);
 
       const hasText = Boolean(message.text);
@@ -542,18 +500,15 @@ export const WithAdvancedTools: Story = {
         return;
       }
 
-      setStatus('submitted');
-      setTimeout(() => setStatus('streaming'), 200);
-      setTimeout(() => setStatus('ready'), 2000);
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
     };
 
     return (
       <PromptInput {...args} onSubmit={handleSubmit}>
         <PromptInputBody>
-          <PromptInputTextarea
-            ref={textareaRef}
-            placeholder="Type your message..."
-          />
+          <PromptInputTextarea ref={textareaRef} placeholder="Type your message..." />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>

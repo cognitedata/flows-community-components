@@ -19,5 +19,5 @@ export {
   AvatarIcon,
   // eslint-disable-next-line react-refresh/only-export-components
   avatarVariants,
-} from './avatar';
-export { AvatarMetadata } from './avatar.metadata';
+} from "./avatar";
+export { AvatarMetadata } from "./avatar.metadata";

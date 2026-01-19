@@ -1,62 +1,45 @@
-import { Button } from '@/components/ui/aura/button';
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/aura/card';
-import { Badge } from '@/components/ui/aura/badge';
+} from "@/components/ui/aura/card";
+import { Badge } from "@/components/ui/aura/badge";
 import {
   IconArrowRight as ArrowRight,
   IconChartBar as BarChart3,
   IconMessageCircle as MessageSquare,
   IconUsers as Users,
-} from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
+} from "@tabler/icons-react";
+import { Link } from "react-router-dom";
 
 const blockCategories = [
   {
     icon: MessageSquare,
-    title: 'Agent chat',
+    title: "Agent chat",
     description:
-      'Interactive AI chat interfaces with real-time responses, typing indicators, and message threading.',
-    href: '/patterns/agent-chat',
-    features: [
-      'Typing indicators',
-      'Message threading',
-      'AI responses',
-      'Code highlighting',
-    ],
-    status: 'Interactive',
+      "Interactive AI chat interfaces with real-time responses, typing indicators, and message threading.",
+    href: "/patterns/agent-chat",
+    features: ["Typing indicators", "Message threading", "AI responses", "Code highlighting"],
+    status: "Interactive",
   },
   {
     icon: BarChart3,
-    title: 'Dashboards',
-    description:
-      'Dynamic data visualization blocks with charts, KPIs, and real-time updates.',
-    href: '/patterns/dashboards',
-    features: [
-      'Live charts',
-      'KPI cards',
-      'Data filtering',
-      'Responsive layouts',
-    ],
-    status: 'Interactive',
+    title: "Dashboards",
+    description: "Dynamic data visualization blocks with charts, KPIs, and real-time updates.",
+    href: "/patterns/dashboards",
+    features: ["Live charts", "KPI cards", "Data filtering", "Responsive layouts"],
+    status: "Interactive",
   },
   {
     icon: Users,
-    title: 'Shift handover',
-    description:
-      'Collaborative workflow blocks for team transitions and task management.',
-    href: '/eos/shift-handover-app',
-    features: [
-      'Task lists',
-      'Team updates',
-      'Status tracking',
-      'Notifications',
-    ],
-    status: 'Interactive',
+    title: "Shift handover",
+    description: "Collaborative workflow blocks for team transitions and task management.",
+    href: "/eos/shift-handover-app",
+    features: ["Task lists", "Team updates", "Status tracking", "Notifications"],
+    status: "Interactive",
   },
 ];
 
@@ -68,16 +51,15 @@ export default function PatternsPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">About</h1>
           <p className="text-lg text-muted-foreground mt-2">
-            Complete UI components with animations, interactions, and real-world
-            use cases
+            Complete UI components with animations, interactions, and real-world use cases
           </p>
         </div>
 
         <div className="bg-muted/50 border rounded-lg p-4">
           <p className="text-sm text-muted-foreground">
-            Each component demonstrates advanced interactions, micro-animations,
-            and state management patterns. Perfect for understanding how
-            components work together in real applications.
+            Each component demonstrates advanced interactions, micro-animations, and state
+            management patterns. Perfect for understanding how components work together in real
+            applications.
           </p>
         </div>
       </div>
@@ -105,9 +87,7 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 </div>
-                <CardDescription className="mt-2">
-                  {block.description}
-                </CardDescription>
+                <CardDescription className="mt-2">{block.description}</CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-4">
@@ -128,12 +108,7 @@ export default function PatternsPage() {
                 </div>
 
                 {/* CTA */}
-                <Button
-                  variant="secondary"
-                  asChild
-                  className="w-full"
-                  size="sm"
-                >
+                <Button variant="secondary" asChild className="w-full" size="sm">
                   <Link to={block.href}>
                     Explore component
                     <ArrowRight className="ml-2 h-4 w-4" />

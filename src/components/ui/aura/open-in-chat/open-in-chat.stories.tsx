@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import {
   OpenIn,
   OpenInTrigger,
@@ -7,24 +7,24 @@ import {
   OpenInChatGPT,
   OpenInClaude,
   OpenInT3,
-} from './open-in-chat';
+} from "./open-in-chat";
 
 const meta: Meta<typeof OpenIn> = {
-  title: 'AI/Open In Chat',
+  title: "AI/Open In Chat",
   component: OpenIn,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     query: {
-      control: 'text',
-      description: 'The query to open in the chat provider',
+      control: "text",
+      description: "The query to open in the chat provider",
       table: {
-        category: 'Content',
-        type: { summary: 'string' },
+        category: "Content",
+        type: { summary: "string" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -48,13 +48,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default open in chat dropdown with multiple provider options.',
+        story: "Default open in chat dropdown with multiple provider options.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await expect(trigger).toBeInTheDocument();
   },
 };
@@ -81,7 +81,7 @@ export const CustomQuery: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Open in chat with a specific query.',
+        story: "Open in chat with a specific query.",
       },
     },
   },
@@ -95,8 +95,8 @@ export const InContext: Story = {
     <div className="max-w-md p-4 border rounded-lg space-y-4">
       <h3 className="font-medium">Code Review Results</h3>
       <p className="text-sm text-muted-foreground">
-        Found 3 potential improvements in your code. Would you like to discuss 
-        these with an AI assistant?
+        Found 3 potential improvements in your code. Would you like to discuss these with an AI
+        assistant?
       </p>
       <div className="flex gap-2">
         <OpenIn query="Review this code and suggest improvements">
@@ -113,7 +113,7 @@ export const InContext: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Open in chat button used in context of a feature.',
+        story: "Open in chat button used in context of a feature.",
       },
     },
   },
@@ -136,15 +136,15 @@ export const DropdownInteraction: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Click to open the dropdown and see available providers.',
+        story: "Click to open the dropdown and see available providers.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Click to open dropdown
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await userEvent.click(trigger);
   },
 };
@@ -171,7 +171,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Open in chat for visual regression testing.',
+        story: "Open in chat for visual regression testing.",
       },
     },
     chromatic: {
@@ -185,7 +185,7 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    query: 'Playground query for testing',
+    query: "Playground query for testing",
   },
   render: (args) => (
     <OpenIn {...args}>
@@ -200,7 +200,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive open in chat example.',
+        story: "Interactive open in chat example.",
       },
     },
   },

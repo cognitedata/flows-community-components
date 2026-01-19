@@ -1,6 +1,5 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 import {
   Card,
   CardContent,
@@ -9,21 +8,21 @@ import {
   CardHeader,
   CardTitle,
   CardAction,
-} from './card';
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
+} from "./card";
+import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge";
 import {
   IconChartLine,
   IconDotsVertical,
   IconGauge,
   IconReportAnalytics,
   IconCube,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Card> = {
-  title: 'Primitives/Card',
+  title: "Primitives/Card",
   component: Card,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   decorators: [
     (Story) => (
       <div className="p-8">
@@ -33,15 +32,15 @@ const meta: Meta<typeof Card> = {
   ],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'CSS classes for styling',
+      control: "text",
+      description: "CSS classes for styling",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -57,7 +56,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          'Basic card with title, description, and footer badges. Tests card structure and content rendering.',
+          "Basic card with title, description, and footer badges. Tests card structure and content rendering.",
       },
     },
   },
@@ -65,11 +64,11 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Find the card title
-    const title = canvas.getByText('21PT1019');
+    const title = canvas.getByText("21PT1019");
     await expect(title).toBeInTheDocument();
 
     // Find the description
-    const description = canvas.getByText('Pressure over last 24 hours');
+    const description = canvas.getByText("Pressure over last 24 hours");
     await expect(description).toBeInTheDocument();
 
     // Find badges in footer
@@ -111,7 +110,7 @@ export const WithTextFooter: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Card with text content displayed in the footer instead of badges.',
+        story: "Card with text content displayed in the footer instead of badges.",
       },
     },
   },
@@ -131,9 +130,7 @@ export const WithTextFooter: Story = {
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">
-          No alerts
-        </div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
       </CardFooter>
     </Card>
   ),
@@ -148,7 +145,7 @@ export const WithBadgeInHeader: Story = {
     docs: {
       description: {
         story:
-          'Card with a badge displayed in the header alongside the title, and image content in the body.',
+          "Card with a badge displayed in the header alongside the title, and image content in the body.",
       },
     },
   },
@@ -196,7 +193,7 @@ export const WithHover: Story = {
     docs: {
       description: {
         story:
-          'Card with hover effect. The card background changes on hover to indicate interactivity.',
+          "Card with hover effect. The card background changes on hover to indicate interactivity.",
       },
     },
   },
@@ -216,17 +213,13 @@ export const WithHover: Story = {
         </div>
       </CardHeader>
       <CardContent className="gap-2">
-        <div className="text-base text-secondary-foreground tracking-tightest">
-          Description
-        </div>
+        <div className="text-base text-secondary-foreground tracking-tightest">Description</div>
       </CardContent>
       <CardFooter className="gap-1 flex-col">
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">
-          No alerts
-        </div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
       </CardFooter>
     </Card>
   ),
@@ -239,7 +232,7 @@ export const Minimal: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Minimal card with just a title and content section.',
+        story: "Minimal card with just a title and content section.",
       },
     },
   },
@@ -264,8 +257,7 @@ export const WithHeaderAction: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Card using CardAction component to place an action button in the header.',
+        story: "Card using CardAction component to place an action button in the header.",
       },
     },
   },
@@ -296,7 +288,7 @@ export const ContentOnly: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Card with only content section, no header or footer.',
+        story: "Card with only content section, no header or footer.",
       },
     },
   },
@@ -319,7 +311,7 @@ export const GridLayout: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple cards displayed in a grid layout.',
+        story: "Multiple cards displayed in a grid layout.",
       },
     },
   },
@@ -355,4 +347,3 @@ export const GridLayout: Story = {
     </div>
   ),
 };
-

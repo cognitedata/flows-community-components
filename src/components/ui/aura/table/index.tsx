@@ -28,5 +28,5 @@ export {
   TableRow,
   TableCell,
   TableCaption,
-} from './table';
-export { TableMetadata } from './table.metadata';
+} from "./table";
+export { TableMetadata } from "./table.metadata";

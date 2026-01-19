@@ -22,7 +22,7 @@ export {
   QueueSectionTrigger,
   QueueSectionLabel,
   QueueSectionContent,
-} from './queue';
+} from "./queue";
 export type {
   QueueProps,
   QueueMessage,
@@ -42,5 +42,5 @@ export type {
   QueueSectionTriggerProps,
   QueueSectionLabelProps,
   QueueSectionContentProps,
-} from './queue';
-export { QueueMetadata } from './queue.metadata';
+} from "./queue";
+export { QueueMetadata } from "./queue.metadata";

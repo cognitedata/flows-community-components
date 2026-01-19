@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-  title: 'AI/Connection',
-  tags: ['autodocs'],
+  title: "AI/Connection",
+  tags: ["autodocs"],
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -13,7 +13,7 @@ type Story = StoryObj;
 
 /**
  * Default connection line (requires ReactFlow context).
- * 
+ *
  * Note: The Connection component is a ReactFlow ConnectionLineComponent
  * that renders while the user is dragging to create a new connection.
  */
@@ -33,7 +33,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Connection line component for ReactFlow. Requires ReactFlow context.',
+        story: "Connection line component for ReactFlow. Requires ReactFlow context.",
       },
     },
   },
@@ -63,15 +63,15 @@ function FlowEditor() {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Connection component renders a bezier curve with a circle endpoint
-        while the user is dragging from a handle to create a new edge.
+        The Connection component renders a bezier curve with a circle endpoint while the user is
+        dragging from a handle to create a new edge.
       </p>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Example showing how to use the Connection component.',
+        story: "Example showing how to use the Connection component.",
       },
     },
   },
@@ -94,29 +94,22 @@ export const ConnectionPreview: Story = {
             strokeWidth="1"
           />
           {/* Source handle */}
-          <rect 
-            x="10" 
-            y="35" 
-            width="10" 
-            height="10" 
+          <rect
+            x="10"
+            y="35"
+            width="10"
+            height="10"
             rx="2"
             fill="hsl(var(--background))"
             stroke="hsl(var(--ring))"
             strokeWidth="1"
           />
           {/* Target cursor circle */}
-          <circle 
-            cx="230" 
-            cy="40" 
-            r="3" 
-            fill="white"
-            stroke="hsl(var(--ring))"
-            strokeWidth="1"
-          />
+          <circle cx="230" cy="40" r="3" fill="white" stroke="hsl(var(--ring))" strokeWidth="1" />
         </svg>
         <p className="text-xs text-muted-foreground mt-2">
-          The connection line shows a smooth bezier curve from the source handle 
-          to the cursor position, with a small circle at the end.
+          The connection line shows a smooth bezier curve from the source handle to the cursor
+          position, with a small circle at the end.
         </p>
       </div>
     </div>
@@ -124,7 +117,7 @@ export const ConnectionPreview: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Visual preview of the connection line component.',
+        story: "Visual preview of the connection line component.",
       },
     },
   },
@@ -143,21 +136,14 @@ export const VisualRegression: Story = {
           stroke="hsl(var(--ring))"
           strokeWidth="1"
         />
-        <circle 
-          cx="190" 
-          cy="30" 
-          r="3" 
-          fill="white"
-          stroke="hsl(var(--ring))"
-          strokeWidth="1"
-        />
+        <circle cx="190" cy="30" r="3" fill="white" stroke="hsl(var(--ring))" strokeWidth="1" />
       </svg>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Connection line for visual regression testing.',
+        story: "Connection line for visual regression testing.",
       },
     },
     chromatic: {

@@ -1,22 +1,21 @@
-
-import { useState } from 'react';
+import { useState } from "react";
 
 // Breakpoint definitions matching our layout system
 const breakpoints = [
-  { name: 'base', min: 0, max: 639, columns: 4, prefix: '(none)' },
-  { name: 'sm', min: 640, max: 767, columns: 8, prefix: '@sm:' },
-  { name: 'md', min: 768, max: 1023, columns: 12, prefix: '@md:' },
-  { name: 'lg', min: 1024, max: 1280, columns: 12, prefix: '@lg:' },
-  { name: 'xl', min: 1281, max: 1536, columns: 12, prefix: '@xl:' },
+  { name: "base", min: 0, max: 639, columns: 4, prefix: "(none)" },
+  { name: "sm", min: 640, max: 767, columns: 8, prefix: "@sm:" },
+  { name: "md", min: 768, max: 1023, columns: 12, prefix: "@md:" },
+  { name: "lg", min: 1024, max: 1280, columns: 12, prefix: "@lg:" },
+  { name: "xl", min: 1281, max: 1536, columns: 12, prefix: "@xl:" },
 ];
 
 // Max-width mappings (these are examples - adjust based on content needs)
 const maxWidths = [
-  { breakpoint: 'base', class: 'max-w-sm', description: '384px' },
-  { breakpoint: '@sm:', class: 'max-w-md', description: '448px' },
-  { breakpoint: '@md:', class: 'max-w-2xl', description: '672px' },
-  { breakpoint: '@lg:', class: 'max-w-4xl', description: '896px' },
-  { breakpoint: '@xl:', class: 'max-w-6xl', description: '1152px' },
+  { breakpoint: "base", class: "max-w-sm", description: "384px" },
+  { breakpoint: "@sm:", class: "max-w-md", description: "448px" },
+  { breakpoint: "@md:", class: "max-w-2xl", description: "672px" },
+  { breakpoint: "@lg:", class: "max-w-4xl", description: "896px" },
+  { breakpoint: "@xl:", class: "max-w-6xl", description: "1152px" },
 ];
 
 function BreakpointTable() {
@@ -40,9 +39,7 @@ function BreakpointTable() {
               </td>
               <td className="py-3 pr-4">{bp.columns}</td>
               <td className="py-3">
-                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
-                  {bp.prefix}
-                </code>
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{bp.prefix}</code>
               </td>
             </tr>
           ))}
@@ -67,14 +64,10 @@ function MaxWidthTable() {
           {maxWidths.map((mw) => (
             <tr key={mw.breakpoint}>
               <td className="py-3 pr-4">
-                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
-                  {mw.breakpoint}
-                </code>
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{mw.breakpoint}</code>
               </td>
               <td className="py-3 pr-4">
-                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">
-                  {mw.class}
-                </code>
+                <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{mw.class}</code>
               </td>
               <td className="py-3 text-muted-foreground">{mw.description}</td>
             </tr>
@@ -89,11 +82,11 @@ function InteractiveDemo() {
   const [width, setWidth] = useState(1200);
 
   const getCurrentBreakpoint = () => {
-    if (width >= 1281) return 'xl';
-    if (width >= 1024) return 'lg';
-    if (width >= 768) return 'md';
-    if (width >= 640) return 'sm';
-    return 'base';
+    if (width >= 1281) return "xl";
+    if (width >= 1024) return "lg";
+    if (width >= 768) return "md";
+    if (width >= 640) return "sm";
+    return "base";
   };
 
   return (
@@ -117,11 +110,10 @@ function InteractiveDemo() {
       {/* Interactive container - BLACK border (page/viewport) */}
       <div
         className="@container border-2 border-foreground rounded-lg overflow-hidden transition-all duration-300 mx-auto"
-        style={{ width: `${width}px`, maxWidth: '100%' }}
+        style={{ width: `${width}px`, maxWidth: "100%" }}
       >
         {/* GREY: Centered content wrapper - uses smaller max-widths to demonstrate centering */}
         <div className="mx-auto px-4 py-6 max-w-[280px] @sm:max-w-xs @md:max-w-sm @lg:max-w-md @xl:max-w-lg grid grid-cols-4 gap-3 @sm:grid-cols-8 @md:grid-cols-12 border-2 border-muted-foreground rounded m-4">
-          
           {/* RED: Row 1 - Two columns */}
           <div className="col-span-4 @sm:col-span-8 @md:col-span-12 grid grid-cols-2 gap-3 border-2 border-red-500 rounded p-2">
             {/* BLUE: Card 1 - no border */}
@@ -141,7 +133,6 @@ function InteractiveDemo() {
             <div className="text-xs text-muted-foreground mb-1">Full width content</div>
             <div className="h-16 bg-muted rounded" />
           </div>
-
         </div>
       </div>
 
@@ -205,13 +196,12 @@ function KeyConcepts() {
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Container Query Context</h4>
         <p className="text-sm text-muted-foreground mb-2">
-          Wrap content with <code className="bg-muted px-1 rounded">@container</code> to enable responsive behaviour based on container width, not viewport.
+          Wrap content with <code className="bg-muted px-1 rounded">@container</code> to enable
+          responsive behaviour based on container width, not viewport.
         </p>
-        <code className="text-xs bg-muted px-2 py-1 rounded block">
-          @container
-        </code>
+        <code className="text-xs bg-muted px-2 py-1 rounded block">@container</code>
       </div>
-      
+
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Responsive Grid</h4>
         <p className="text-sm text-muted-foreground mb-2">
@@ -221,7 +211,7 @@ function KeyConcepts() {
           grid grid-cols-4 @sm:grid-cols-8 @md:grid-cols-12
         </code>
       </div>
-      
+
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Column Spanning</h4>
         <p className="text-sm text-muted-foreground mb-2">
@@ -231,7 +221,7 @@ function KeyConcepts() {
           col-span-4 @sm:col-span-4 @md:col-span-6
         </code>
       </div>
-      
+
       <div className="p-4 border border-border rounded-lg">
         <h4 className="font-medium mb-2">Centered Max-Width</h4>
         <p className="text-sm text-muted-foreground mb-2">
@@ -260,9 +250,7 @@ export default function LayoutsPage() {
       <section className="space-y-6">
         <div>
           <h2 className="text-2xl font-semibold mb-2">Key Concepts</h2>
-          <p className="text-muted-foreground">
-            Core patterns for building responsive layouts
-          </p>
+          <p className="text-muted-foreground">Core patterns for building responsive layouts</p>
         </div>
         <KeyConcepts />
       </section>
@@ -282,9 +270,7 @@ export default function LayoutsPage() {
       <section className="space-y-6">
         <div>
           <h2 className="text-2xl font-semibold mb-2">Content Max-Widths</h2>
-          <p className="text-muted-foreground">
-            Stepped max-widths for centred content areas
-          </p>
+          <p className="text-muted-foreground">Stepped max-widths for centred content areas</p>
         </div>
         <MaxWidthTable />
       </section>

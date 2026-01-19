@@ -1,4 +1,4 @@
-import GuidesPage from '@/pages/guides/Page';
+import GuidesPage from "@/pages/guides/Page";
 
 export default function GettingStartedPage() {
   return <GuidesPage />;

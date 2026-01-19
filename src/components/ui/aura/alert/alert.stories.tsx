@@ -1,13 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
-import {
-  Alert,
-  AlertTitle,
-  AlertDescription,
-  AlertActions,
-  AlertButton,
-} from './alert';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
+import { Alert, AlertTitle, AlertDescription, AlertActions, AlertButton } from "./alert";
 import {
   IconInfoCircle,
   IconAlertTriangle,
@@ -15,63 +9,63 @@ import {
   IconUser,
   IconCheck,
   IconBell,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Alert> = {
-  title: 'Primitives/Alert',
+  title: "Primitives/Alert",
   component: Alert,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     // Appearance
     variant: {
-      control: 'select',
-      options: ['default', 'secondary', 'warning', 'error'],
-      description: 'The visual style variant of the alert',
+      control: "select",
+      options: ["default", "secondary", "warning", "error"],
+      description: "The visual style variant of the alert",
       table: {
-        category: 'Appearance',
+        category: "Appearance",
         type: { summary: '"default" | "secondary" | "warning" | "error"' },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: "default" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
 
     // State
     visible: {
-      control: 'boolean',
-      description: 'Controlled visibility state',
+      control: "boolean",
+      description: "Controlled visibility state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultVisible: {
-      control: 'boolean',
-      description: 'Default visibility state (uncontrolled)',
+      control: "boolean",
+      description: "Default visibility state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
 
     // Events
     onClose: {
-      action: 'closed',
-      description: 'Callback fired when alert is closed',
+      action: "closed",
+      description: "Callback fired when alert is closed",
       table: {
-        category: 'Events',
-        type: { summary: '() => void' },
+        category: "Events",
+        type: { summary: "() => void" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -104,7 +98,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default alert style with informational content.',
+        story: "Default alert style with informational content.",
       },
     },
   },
@@ -116,11 +110,11 @@ export const Default: Story = {
     await expect(alert).toBeInTheDocument();
 
     // Verify title and description
-    const title = canvas.getByText('Account verification required');
+    const title = canvas.getByText("Account verification required");
     await expect(title).toBeInTheDocument();
 
     // Verify action button
-    const button = canvas.getByRole('button', { name: /verify account/i });
+    const button = canvas.getByRole("button", { name: /verify account/i });
     await expect(button).toBeInTheDocument();
   },
 };
@@ -147,16 +141,14 @@ export const Dismissible: Story = {
       <Alert onClose={() => setVisible(false)}>
         <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
         <AlertTitle>Dismissible Alert</AlertTitle>
-        <AlertDescription>
-          Click the X button to dismiss this alert.
-        </AlertDescription>
+        <AlertDescription>Click the X button to dismiss this alert.</AlertDescription>
       </Alert>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Alert with a close button. Provide onClose prop to show the close button.',
+        story: "Alert with a close button. Provide onClose prop to show the close button.",
       },
     },
   },
@@ -164,7 +156,7 @@ export const Dismissible: Story = {
     const canvas = within(canvasElement);
 
     // Find close button
-    const closeButton = canvas.getByRole('button', { name: /close/i });
+    const closeButton = canvas.getByRole("button", { name: /close/i });
     await expect(closeButton).toBeInTheDocument();
 
     // Click close button
@@ -177,7 +169,7 @@ export const Dismissible: Story = {
     });
 
     // Click show again button
-    const showButton = canvas.getByText('Show Alert Again');
+    const showButton = canvas.getByText("Show Alert Again");
     await userEvent.click(showButton);
 
     // Verify alert is visible again
@@ -206,7 +198,7 @@ export const Secondary: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Secondary variant for less prominent notifications.',
+        story: "Secondary variant for less prominent notifications.",
       },
     },
   },
@@ -231,7 +223,7 @@ export const Warning: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Warning variant for cautionary messages that need attention.',
+        story: "Warning variant for cautionary messages that need attention.",
       },
     },
   },
@@ -245,9 +237,7 @@ export const Error: Story = {
     <Alert variant="error">
       <IconAlertHexagon className="w-3.5 h-3.5 mt-0.5" />
       <AlertTitle>Unable to connect data</AlertTitle>
-      <AlertDescription>
-        Verify you have the correct ID and try again.
-      </AlertDescription>
+      <AlertDescription>Verify you have the correct ID and try again.</AlertDescription>
       <AlertActions>
         <AlertButton className="text-card-foreground -ml-2.25">Try again</AlertButton>
       </AlertActions>
@@ -256,7 +246,7 @@ export const Error: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Error variant for critical issues that need immediate attention.',
+        story: "Error variant for critical issues that need immediate attention.",
       },
     },
   },
@@ -293,7 +283,7 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All available alert variants for comparison.',
+        story: "All available alert variants for comparison.",
       },
     },
   },
@@ -310,15 +300,13 @@ export const DescriptionOnly: Story = {
   render: () => (
     <Alert variant="secondary">
       <IconBell className="w-3.5 h-3.5 mt-0.5" />
-      <AlertDescription>
-        You have 3 new notifications waiting for you.
-      </AlertDescription>
+      <AlertDescription>You have 3 new notifications waiting for you.</AlertDescription>
     </Alert>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Alert can be used with just a description when a title is not needed.',
+        story: "Alert can be used with just a description when a title is not needed.",
       },
     },
   },
@@ -340,7 +328,7 @@ export const Success: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Success-style alert using the default variant with a green check icon.',
+        story: "Success-style alert using the default variant with a green check icon.",
       },
     },
   },
@@ -366,7 +354,7 @@ export const MultipleActions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Alert with multiple action buttons for user choice.',
+        story: "Alert with multiple action buttons for user choice.",
       },
     },
   },
@@ -374,8 +362,8 @@ export const MultipleActions: Story = {
     const canvas = within(canvasElement);
 
     // Verify both action buttons are present
-    const extendButton = canvas.getByRole('button', { name: /extend session/i });
-    const logoutButton = canvas.getByRole('button', { name: /log out/i });
+    const extendButton = canvas.getByRole("button", { name: /extend session/i });
+    const logoutButton = canvas.getByRole("button", { name: /log out/i });
 
     await expect(extendButton).toBeInTheDocument();
     await expect(logoutButton).toBeInTheDocument();
@@ -412,16 +400,14 @@ export const ControlledVisibility: Story = {
             This alert&apos;s visibility is controlled externally.
           </AlertDescription>
         </Alert>
-        <p className="text-sm text-muted-foreground">
-          Visible: {visible ? 'true' : 'false'}
-        </p>
+        <p className="text-sm text-muted-foreground">Visible: {visible ? "true" : "false"}</p>
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Alert visibility can be controlled externally using the visible prop.',
+        story: "Alert visibility can be controlled externally using the visible prop.",
       },
     },
   },
@@ -433,7 +419,7 @@ export const ControlledVisibility: Story = {
     await expect(alert).toBeInTheDocument();
 
     // Click hide button
-    const hideButton = canvas.getByText('Hide');
+    const hideButton = canvas.getByText("Hide");
     await userEvent.click(hideButton);
 
     // Verify alert is hidden
@@ -443,7 +429,7 @@ export const ControlledVisibility: Story = {
     });
 
     // Click show button
-    const showButton = canvas.getByText('Show');
+    const showButton = canvas.getByText("Show");
     await userEvent.click(showButton);
 
     // Verify alert is visible again
@@ -511,7 +497,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -532,7 +518,7 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    variant: 'default',
+    variant: "default",
     defaultVisible: true,
   },
   render: (args) => (
@@ -550,7 +536,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with alert props.',
+        story: "Interactive playground - use controls to experiment with alert props.",
       },
     },
   },

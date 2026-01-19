@@ -6,5 +6,5 @@
  * @example
  * import { Panel } from '@/components/ui/aura/panel';
  */
-export { Panel } from './panel';
-export { PanelMetadata } from './panel.metadata';
+export { Panel } from "./panel";
+export { PanelMetadata } from "./panel.metadata";

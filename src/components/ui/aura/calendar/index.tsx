@@ -8,5 +8,5 @@
  *
  * <Calendar mode="single" selected={date} onSelect={setDate} />
  */
-export { Calendar, CalendarDayButton } from './calendar';
-export { CalendarMetadata } from './calendar.metadata';
+export { Calendar, CalendarDayButton } from "./calendar";
+export { CalendarMetadata } from "./calendar.metadata";

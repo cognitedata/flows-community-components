@@ -9,9 +9,9 @@ export interface ComponentExample {
   component: React.ComponentType;
   code: string;
   tags?: string[];
-  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  difficulty?: "beginner" | "intermediate" | "advanced";
   notes?: string;
-  category?: 'usage' | 'variants' | 'advanced';
+  category?: "usage" | "variants" | "advanced";
 }
 
 export type ComponentExamples = Record<string, ComponentExample>;

@@ -1,46 +1,46 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
-import { Image } from './image';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
+import { Image } from "./image";
 
 const meta: Meta<typeof Image> = {
-  title: 'AI/Image',
+  title: "AI/Image",
   component: Image,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     base64: {
-      control: 'text',
-      description: 'Base64 encoded image data',
+      control: "text",
+      description: "Base64 encoded image data",
       table: {
-        category: 'Content',
-        type: { summary: 'string' },
+        category: "Content",
+        type: { summary: "string" },
       },
     },
     mediaType: {
-      control: 'text',
-      description: 'Media type of the image (e.g., image/png)',
+      control: "text",
+      description: "Media type of the image (e.g., image/png)",
       table: {
-        category: 'Content',
-        type: { summary: 'string' },
+        category: "Content",
+        type: { summary: "string" },
       },
     },
     alt: {
-      control: 'text',
-      description: 'Alternative text for the image',
+      control: "text",
+      description: "Alternative text for the image",
       table: {
-        category: 'Accessibility',
-        type: { summary: 'string' },
+        category: "Accessibility",
+        type: { summary: "string" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -48,13 +48,16 @@ export default meta;
 type Story = StoryObj<typeof Image>;
 
 // A simple 100x100 red square as base64 PNG (1x1 pixel scaled)
-const redSquareBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8BQzwAEjDAGVQ4APA0FA83H8ywAAAAASUVORK5CYII=';
+const redSquareBase64 =
+  "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mP8z8BQzwAEjDAGVQ4APA0FA83H8ywAAAAASUVORK5CYII=";
 
 // A simple blue gradient placeholder
-const blueGradientBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAP0lEQVQoU2NkYGD4z0ABYGJgYGBkoBBQbCCDk5MTI9WMpNhAhn/kG0gLI2l2Ry5IdEYiiSAlAyFCRFkIAACl1QgK+nBCGwAAAABJRU5ErkJggg==';
+const blueGradientBase64 =
+  "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAP0lEQVQoU2NkYGD4z0ABYGJgYGBkoBBQbCCDk5MTI9WMpNhAhn/kG0gLI2l2Ry5IdEYiiSAlAyFCRFkIAACl1QgK+nBCGwAAAABJRU5ErkJggg==";
 
 // A green square placeholder
-const greenSquareBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPj/nwENMNJMwXAAAMSmAgkXdLpnAAAAAElFTkSuQmCC';
+const greenSquareBase64 =
+  "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPj/nwENMNJMwXAAAMSmAgkXdLpnAAAAAElFTkSuQmCC";
 
 /**
  * Default AI-generated image.
@@ -71,13 +74,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default AI-generated image display.',
+        story: "Default AI-generated image display.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const image = canvas.getByRole('img');
+    const image = canvas.getByRole("img");
     await expect(image).toBeInTheDocument();
   },
 };
@@ -98,7 +101,7 @@ export const CustomSize: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Image with custom dimensions.',
+        story: "Image with custom dimensions.",
       },
     },
   },
@@ -136,7 +139,7 @@ export const MultipleImages: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple images in a gallery layout.',
+        story: "Multiple images in a gallery layout.",
       },
     },
   },
@@ -174,7 +177,7 @@ export const RoundedCorners: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Images with different border radius styles.',
+        story: "Images with different border radius styles.",
       },
     },
   },
@@ -196,15 +199,13 @@ export const InContext: Story = {
         className="w-full max-w-sm"
         uint8Array={new Uint8Array(0)}
       />
-      <p className="text-xs text-muted-foreground">
-        Generated using AI image model
-      </p>
+      <p className="text-xs text-muted-foreground">Generated using AI image model</p>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Image displayed in the context of a message.',
+        story: "Image displayed in the context of a message.",
       },
     },
   },
@@ -243,7 +244,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Images for visual regression testing.',
+        story: "Images for visual regression testing.",
       },
     },
     chromatic: {
@@ -258,15 +259,15 @@ export const VisualRegression: Story = {
 export const Playground: Story = {
   args: {
     base64: redSquareBase64,
-    mediaType: 'image/png',
-    alt: 'Playground image',
-    className: 'w-48 h-48',
+    mediaType: "image/png",
+    alt: "Playground image",
+    className: "w-48 h-48",
   },
   render: (args) => <Image {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Interactive image example - use controls to experiment.',
+        story: "Interactive image example - use controls to experiment.",
       },
     },
   },

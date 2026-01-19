@@ -1,31 +1,30 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
-import {
-  Conversation,
-  ConversationContent,
-  ConversationEmptyState,
-} from './conversation';
-import { Message, MessageContent, MessageAvatar } from '@/components/ui/aura/message';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
+import { Conversation, ConversationContent, ConversationEmptyState } from "./conversation";
+import { Message, MessageContent, MessageAvatar } from "@/components/ui/aura/message";
 
 const meta: Meta<typeof Conversation> = {
-  title: 'AI/Conversation',
+  title: "AI/Conversation",
   component: Conversation,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
   decorators: [
     (Story) => (
-      <div className="h-[400px] w-full" style={{ '--message-content-max-width': '500px' } as React.CSSProperties}>
+      <div
+        className="h-[400px] w-full"
+        style={{ "--message-content-max-width": "500px" } as React.CSSProperties}
+      >
         <Story />
       </div>
     ),
@@ -52,13 +51,13 @@ export const EmptyState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Conversation with empty state when no messages exist.',
+        story: "Conversation with empty state when no messages exist.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const title = canvas.getByText('Start a conversation');
+    const title = canvas.getByText("Start a conversation");
     await expect(title).toBeInTheDocument();
   },
 };
@@ -80,8 +79,8 @@ export const WithMessages: Story = {
           <MessageAvatar name="AI" />
           <MessageContent>
             <p>
-              To create a React component, you can use either a function component 
-              or a class component. Function components are recommended for most use cases.
+              To create a React component, you can use either a function component or a class
+              component. Function components are recommended for most use cases.
             </p>
           </MessageContent>
         </Message>
@@ -96,7 +95,7 @@ export const WithMessages: Story = {
           <MessageContent>
             <p>Here&apos;s a simple function component example:</p>
             <pre className="bg-muted p-2 rounded-md text-xs mt-2">
-{`function MyComponent({ name }) {
+              {`function MyComponent({ name }) {
   return <div>Hello, {name}!</div>;
 }`}
             </pre>
@@ -108,7 +107,7 @@ export const WithMessages: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Conversation with multiple messages.',
+        story: "Conversation with multiple messages.",
       },
     },
   },
@@ -129,9 +128,7 @@ export const CustomEmptyState: Story = {
             <button className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground">
               Get Started
             </button>
-            <button className="px-3 py-1.5 text-sm rounded-md border">
-              View FAQ
-            </button>
+            <button className="px-3 py-1.5 text-sm rounded-md border">View FAQ</button>
           </div>
         </ConversationEmptyState>
       </ConversationContent>
@@ -140,7 +137,7 @@ export const CustomEmptyState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Custom empty state with action buttons.',
+        story: "Custom empty state with action buttons.",
       },
     },
   },
@@ -165,8 +162,8 @@ export const LongConversation: Story = {
               <MessageAvatar name="AI" />
               <MessageContent>
                 <p>
-                  Response {i} from assistant. This is a longer response to demonstrate 
-                  how the conversation handles multiple messages and scrolling.
+                  Response {i} from assistant. This is a longer response to demonstrate how the
+                  conversation handles multiple messages and scrolling.
                 </p>
               </MessageContent>
             </Message>
@@ -178,7 +175,7 @@ export const LongConversation: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Long conversation with many messages (auto-scrolls to bottom).',
+        story: "Long conversation with many messages (auto-scrolls to bottom).",
       },
     },
   },
@@ -211,7 +208,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Conversation for visual regression testing.',
+        story: "Conversation for visual regression testing.",
       },
     },
     chromatic: {
@@ -237,7 +234,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive conversation example.',
+        story: "Interactive conversation example.",
       },
     },
   },

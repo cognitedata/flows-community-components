@@ -24,5 +24,5 @@ export {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
-} from './drawer';
-export { DrawerMetadata } from './drawer.metadata';
+} from "./drawer";
+export { DrawerMetadata } from "./drawer.metadata";

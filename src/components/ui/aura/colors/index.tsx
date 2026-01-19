@@ -10,7 +10,7 @@
  *
  * const decorativeColors = getColorsByCategory('decorative');
  */
-export type { ColorStop, ColorPalette, SemanticToken, ColorCategory, ColorPattern } from './colors';
+export type { ColorStop, ColorPalette, SemanticToken, ColorCategory, ColorPattern } from "./colors";
 export {
   // eslint-disable-next-line react-refresh/only-export-components
   colorPalettes,
@@ -30,5 +30,5 @@ export {
   getTailwindClass,
   // eslint-disable-next-line react-refresh/only-export-components
   colorExamples,
-} from './colors';
-export { ColorsMetadata } from './colors.metadata';
+} from "./colors";
+export { ColorsMetadata } from "./colors.metadata";

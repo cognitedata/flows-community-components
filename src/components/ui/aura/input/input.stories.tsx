@@ -1,72 +1,72 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import { useState } from 'react';
-import { Input } from './input';
-import { Label } from '@/components/ui/aura/label';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { useState } from "react";
+import { Input } from "./input";
+import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Input> = {
-  title: 'Primitives/Input',
+  title: "Primitives/Input",
   component: Input,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     // Form
     type: {
-      control: 'select',
-      options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search'],
-      description: 'The type of input',
+      control: "select",
+      options: ["text", "email", "password", "number", "tel", "url", "search"],
+      description: "The type of input",
       table: {
-        category: 'Form',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'text' },
+        category: "Form",
+        type: { summary: "string" },
+        defaultValue: { summary: "text" },
       },
     },
     placeholder: {
-      control: 'text',
-      description: 'Placeholder text',
+      control: "text",
+      description: "Placeholder text",
       table: {
-        category: 'Form',
-        type: { summary: 'string' },
+        category: "Form",
+        type: { summary: "string" },
       },
     },
     defaultValue: {
-      control: 'text',
-      description: 'Default value (uncontrolled)',
+      control: "text",
+      description: "Default value (uncontrolled)",
       table: {
-        category: 'Form',
-        type: { summary: 'string' },
+        category: "Form",
+        type: { summary: "string" },
       },
     },
 
     // State
     disabled: {
-      control: 'boolean',
-      description: 'Disable the input',
+      control: "boolean",
+      description: "Disable the input",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     errorMessage: {
-      control: 'text',
-      description: 'Error message to display',
+      control: "text",
+      description: "Error message to display",
       table: {
-        category: 'Validation',
-        type: { summary: 'string' },
+        category: "Validation",
+        type: { summary: "string" },
       },
     },
 
     // Styling
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -88,19 +88,19 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default text input with placeholder.',
+        story: "Default text input with placeholder.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText('Enter text...');
+    const input = canvas.getByPlaceholderText("Enter text...");
 
     await expect(input).toBeInTheDocument();
 
     // Type in input
-    await userEvent.type(input, 'Hello World');
-    await expect(input).toHaveValue('Hello World');
+    await userEvent.type(input, "Hello World");
+    await expect(input).toHaveValue("Hello World");
   },
 };
 
@@ -111,23 +111,19 @@ export const WithLabel: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="email">Email address</Label>
-      <Input
-        type="email"
-        id="email"
-        placeholder="michael.jordan@thebulls.com"
-      />
+      <Input type="email" id="email" placeholder="michael.jordan@thebulls.com" />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Input field with an associated label for accessibility.',
+        story: "Input field with an associated label for accessibility.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText('Email address');
+    const input = canvas.getByLabelText("Email address");
     await expect(input).toBeInTheDocument();
   },
 };
@@ -145,7 +141,7 @@ export const Password: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Password input with obscured text.',
+        story: "Password input with obscured text.",
       },
     },
   },
@@ -170,13 +166,13 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Disabled inputs prevent user interaction.',
+        story: "Disabled inputs prevent user interaction.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const inputs = canvas.getAllByRole('textbox');
+    const inputs = canvas.getAllByRole("textbox");
     for (const input of inputs) {
       await expect(input).toBeDisabled();
     }
@@ -201,13 +197,13 @@ export const WithError: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Input with validation error message displayed.',
+        story: "Input with validation error message displayed.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const errorText = canvas.getByText('Please enter a valid email address');
+    const errorText = canvas.getByText("Please enter a valid email address");
     await expect(errorText).toBeInTheDocument();
   },
 };
@@ -225,7 +221,7 @@ export const WithDefaultValue: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Input with a pre-filled default value.',
+        story: "Input with a pre-filled default value.",
       },
     },
   },
@@ -236,7 +232,7 @@ export const WithDefaultValue: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledInput() {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
 
     return (
       <div className="space-y-4">
@@ -251,43 +247,41 @@ export const Controlled: Story = {
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setValue('')}
+            onClick={() => setValue("")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Clear
           </button>
           <button
-            onClick={() => setValue('Hello!')}
+            onClick={() => setValue("Hello!")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set "Hello!"
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Value: {value || '(empty)'}
-        </p>
+        <p className="text-sm text-muted-foreground">Value: {value || "(empty)"}</p>
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Controlled input with external state management.',
+        story: "Controlled input with external state management.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText('Controlled input');
+    const input = canvas.getByLabelText("Controlled input");
 
     // Type in input
-    await userEvent.type(input, 'Test');
-    await expect(input).toHaveValue('Test');
+    await userEvent.type(input, "Test");
+    await expect(input).toHaveValue("Test");
 
     // Clear using button
-    const clearButton = canvas.getByText('Clear');
+    const clearButton = canvas.getByText("Clear");
     await userEvent.click(clearButton);
-    await expect(input).toHaveValue('');
+    await expect(input).toHaveValue("");
   },
 };
 
@@ -322,7 +316,7 @@ export const InputTypes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Various input types for different data formats.',
+        story: "Various input types for different data formats.",
       },
     },
   },
@@ -337,26 +331,16 @@ export const FormExample: Story = {
       className="space-y-4"
       onSubmit={(e) => {
         e.preventDefault();
-        alert('Form submitted!');
+        alert("Form submitted!");
       }}
     >
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="form-email">Email</Label>
-        <Input
-          id="form-email"
-          type="email"
-          placeholder="email@example.com"
-          required
-        />
+        <Input id="form-email" type="email" placeholder="email@example.com" required />
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="form-password">Password</Label>
-        <Input
-          id="form-password"
-          type="password"
-          placeholder="Enter password"
-          required
-        />
+        <Input id="form-password" type="password" placeholder="Enter password" required />
       </div>
       <button
         type="submit"
@@ -369,7 +353,7 @@ export const FormExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Complete form example with email and password inputs.',
+        story: "Complete form example with email and password inputs.",
       },
     },
   },
@@ -395,18 +379,14 @@ export const AllStates: Story = {
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="state-error">Error</Label>
-        <Input
-          id="state-error"
-          placeholder="Invalid input"
-          errorMessage="This field is required"
-        />
+        <Input id="state-error" placeholder="Invalid input" errorMessage="This field is required" />
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'All input states for comparison.',
+        story: "All input states for comparison.",
       },
     },
   },
@@ -453,7 +433,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -474,16 +454,16 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    type: 'text',
-    placeholder: 'Enter text...',
+    type: "text",
+    placeholder: "Enter text...",
     disabled: false,
-    errorMessage: '',
+    errorMessage: "",
   },
   render: (args) => <Input {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with input props.',
+        story: "Interactive playground - use controls to experiment with input props.",
       },
     },
   },

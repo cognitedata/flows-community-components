@@ -1,53 +1,49 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import { useState } from 'react';
-import {
-  Reasoning,
-  ReasoningTrigger,
-  ReasoningContent,
-} from './reasoning-original';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { useState } from "react";
+import { Reasoning, ReasoningTrigger, ReasoningContent } from "./reasoning-original";
 
 const meta: Meta<typeof Reasoning> = {
-  title: 'AI/Reasoning Original',
+  title: "AI/Reasoning Original",
   component: Reasoning,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     isStreaming: {
-      control: 'boolean',
-      description: 'Whether the reasoning is currently streaming',
+      control: "boolean",
+      description: "Whether the reasoning is currently streaming",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     defaultOpen: {
-      control: 'boolean',
-      description: 'Whether the content is open by default',
+      control: "boolean",
+      description: "Whether the content is open by default",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
     duration: {
-      control: { type: 'number', min: 0 },
-      description: 'Duration of the reasoning in milliseconds',
+      control: { type: "number", min: 0 },
+      description: "Duration of the reasoning in milliseconds",
       table: {
-        category: 'Display',
-        type: { summary: 'number' },
+        category: "Display",
+        type: { summary: "number" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -69,23 +65,22 @@ export const Default: Story = {
     <Reasoning>
       <ReasoningTrigger />
       <ReasoningContent>
-        First, I need to understand what the user is asking for. They want to 
-        implement a sorting function. Let me consider the options: quicksort, 
-        mergesort, or the built-in sort. For most use cases, the built-in sort 
-        with a custom comparator is the best choice.
+        First, I need to understand what the user is asking for. They want to implement a sorting
+        function. Let me consider the options: quicksort, mergesort, or the built-in sort. For most
+        use cases, the built-in sort with a custom comparator is the best choice.
       </ReasoningContent>
     </Reasoning>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Default collapsible reasoning display with expandable content.',
+        story: "Default collapsible reasoning display with expandable content.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     // Component should be visible
-    const container = canvasElement.querySelector('[data-slot]');
+    const container = canvasElement.querySelector("[data-slot]");
     expect(container).toBeInTheDocument();
   },
 };
@@ -98,15 +93,14 @@ export const Streaming: Story = {
     <Reasoning isStreaming>
       <ReasoningTrigger />
       <ReasoningContent>
-        Analyzing the request to understand what approach would be best for 
-        this problem...
+        Analyzing the request to understand what approach would be best for this problem...
       </ReasoningContent>
     </Reasoning>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning in streaming state with shimmer effect.',
+        story: "Reasoning in streaming state with shimmer effect.",
       },
     },
   },
@@ -120,15 +114,15 @@ export const WithDuration: Story = {
     <Reasoning duration={3500}>
       <ReasoningTrigger />
       <ReasoningContent>
-        This reasoning took 3.5 seconds to complete. The duration is displayed 
-        in the header when provided.
+        This reasoning took 3.5 seconds to complete. The duration is displayed in the header when
+        provided.
       </ReasoningContent>
     </Reasoning>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning with duration display.',
+        story: "Reasoning with duration display.",
       },
     },
   },
@@ -141,23 +135,21 @@ export const CollapsedByDefault: Story = {
   render: () => (
     <Reasoning defaultOpen={false}>
       <ReasoningTrigger />
-      <ReasoningContent>
-        This content starts collapsed. Click to expand.
-      </ReasoningContent>
+      <ReasoningContent>This content starts collapsed. Click to expand.</ReasoningContent>
     </Reasoning>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning that starts in collapsed state.',
+        story: "Reasoning that starts in collapsed state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Click to expand
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await userEvent.click(trigger);
   },
 };
@@ -187,9 +179,7 @@ export const Controlled: Story = {
         </div>
         <Reasoning open={open} onOpenChange={setOpen}>
           <ReasoningTrigger />
-          <ReasoningContent>
-            This reasoning component has controlled open state.
-          </ReasoningContent>
+          <ReasoningContent>This reasoning component has controlled open state.</ReasoningContent>
         </Reasoning>
       </div>
     );
@@ -197,7 +187,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning with controlled open state.',
+        story: "Reasoning with controlled open state.",
       },
     },
   },
@@ -211,32 +201,24 @@ export const LongContent: Story = {
     <Reasoning>
       <ReasoningTrigger />
       <ReasoningContent>
-        Let me break down this problem step by step.
-        
-        First, I need to understand the requirements. The user wants a function 
-        that can sort an array of numbers in ascending order. This seems 
-        straightforward, but there are several considerations.
-        
-        Second, I should evaluate the different sorting algorithms available. 
-        QuickSort has an average time complexity of O(n log n) but can degrade 
-        to O(n²) in worst case. MergeSort guarantees O(n log n) but requires 
-        additional memory. HeapSort is also O(n log n) and sorts in-place.
-        
-        Third, for JavaScript specifically, the built-in Array.sort() method is 
-        highly optimized and uses Timsort, which is a hybrid algorithm combining 
-        merge sort and insertion sort. It handles most real-world data very 
-        efficiently.
-        
-        Given these considerations, I recommend using the built-in sort with a 
-        custom comparator for numeric sorting, as (a, b) =&gt; a - b ensures correct 
-        numeric ordering instead of the default lexicographic sorting.
+        Let me break down this problem step by step. First, I need to understand the requirements.
+        The user wants a function that can sort an array of numbers in ascending order. This seems
+        straightforward, but there are several considerations. Second, I should evaluate the
+        different sorting algorithms available. QuickSort has an average time complexity of O(n log
+        n) but can degrade to O(n²) in worst case. MergeSort guarantees O(n log n) but requires
+        additional memory. HeapSort is also O(n log n) and sorts in-place. Third, for JavaScript
+        specifically, the built-in Array.sort() method is highly optimized and uses Timsort, which
+        is a hybrid algorithm combining merge sort and insertion sort. It handles most real-world
+        data very efficiently. Given these considerations, I recommend using the built-in sort with
+        a custom comparator for numeric sorting, as (a, b) =&gt; a - b ensures correct numeric
+        ordering instead of the default lexicographic sorting.
       </ReasoningContent>
     </Reasoning>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning with longer content.',
+        story: "Reasoning with longer content.",
       },
     },
   },
@@ -253,9 +235,7 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">Open</h3>
         <Reasoning>
           <ReasoningTrigger />
-          <ReasoningContent>
-            Open reasoning content.
-          </ReasoningContent>
+          <ReasoningContent>Open reasoning content.</ReasoningContent>
         </Reasoning>
       </div>
 
@@ -264,9 +244,7 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">Collapsed</h3>
         <Reasoning defaultOpen={false}>
           <ReasoningTrigger />
-          <ReasoningContent>
-            Collapsed content.
-          </ReasoningContent>
+          <ReasoningContent>Collapsed content.</ReasoningContent>
         </Reasoning>
       </div>
 
@@ -275,9 +253,7 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">With Duration</h3>
         <Reasoning duration={2500}>
           <ReasoningTrigger />
-          <ReasoningContent>
-            Content with duration.
-          </ReasoningContent>
+          <ReasoningContent>Content with duration.</ReasoningContent>
         </Reasoning>
       </div>
     </div>
@@ -285,7 +261,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Reasoning for visual regression testing.',
+        story: "Reasoning for visual regression testing.",
       },
     },
     chromatic: {
@@ -314,7 +290,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive reasoning example - use controls to experiment.',
+        story: "Interactive reasoning example - use controls to experiment.",
       },
     },
   },

@@ -8,5 +8,5 @@
  *
  * <Input placeholder="Enter text..." />
  */
-export { Input } from './input';
-export { InputMetadata } from './input.metadata';
+export { Input } from "./input";
+export { InputMetadata } from "./input.metadata";

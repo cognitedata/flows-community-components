@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { TimeInput } from './time-input';
+import type { Meta, StoryObj } from "@storybook/react";
+import { TimeInput } from "./time-input";
 
 const meta: Meta<typeof TimeInput> = {
-  title: 'Primitives/Time Input',
+  title: "Primitives/Time Input",
   component: TimeInput,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -36,7 +36,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Time input component (currently a placeholder).',
+        story: "Time input component (currently a placeholder).",
       },
     },
   },
@@ -59,7 +59,7 @@ export const Placeholder: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Placeholder showing the intended purpose of the Time Input component.',
+        story: "Placeholder showing the intended purpose of the Time Input component.",
       },
     },
   },

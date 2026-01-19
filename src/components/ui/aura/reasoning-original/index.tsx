@@ -10,10 +10,10 @@ export {
   Reasoning,
   ReasoningTrigger,
   ReasoningContent,
-} from './reasoning-original';
+} from "./reasoning-original";
 export type {
   ReasoningProps,
   ReasoningTriggerProps,
   ReasoningContentProps,
-} from './reasoning-original';
-export { ReasoningOriginalMetadata } from './reasoning-original.metadata';
+} from "./reasoning-original";
+export { ReasoningOriginalMetadata } from "./reasoning-original.metadata";

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,8 +10,8 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from './select';
-import { Label } from '@/components/ui/aura/label';
+} from "./select";
+import { Label } from "@/components/ui/aura/label";
 import {
   IconHome,
   IconMail,
@@ -19,77 +19,77 @@ import {
   IconUser,
   IconFile,
   IconFolder,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Select> = {
-  title: 'Primitives/Select',
+  title: "Primitives/Select",
   component: Select,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     // State
     open: {
-      control: 'boolean',
-      description: 'Controlled open state',
+      control: "boolean",
+      description: "Controlled open state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultOpen: {
-      control: 'boolean',
-      description: 'Default open state (uncontrolled)',
+      control: "boolean",
+      description: "Default open state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     value: {
-      control: 'text',
-      description: 'Controlled selected value',
+      control: "text",
+      description: "Controlled selected value",
       table: {
-        category: 'State',
-        type: { summary: 'string' },
+        category: "State",
+        type: { summary: "string" },
       },
     },
     defaultValue: {
-      control: 'text',
-      description: 'Default selected value (uncontrolled)',
+      control: "text",
+      description: "Default selected value (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'string' },
+        category: "State",
+        type: { summary: "string" },
       },
     },
     disabled: {
-      control: 'boolean',
-      description: 'Disable the select',
+      control: "boolean",
+      description: "Disable the select",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
 
     // Events
     onValueChange: {
-      action: 'valueChange',
-      description: 'Callback when value changes',
+      action: "valueChange",
+      description: "Callback when value changes",
       table: {
-        category: 'Events',
-        type: { summary: '(value: string) => void' },
+        category: "Events",
+        type: { summary: "(value: string) => void" },
       },
     },
     onOpenChange: {
-      action: 'openChange',
-      description: 'Callback when open state changes',
+      action: "openChange",
+      description: "Callback when open state changes",
       table: {
-        category: 'Events',
-        type: { summary: '(open: boolean) => void' },
+        category: "Events",
+        type: { summary: "(open: boolean) => void" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -115,7 +115,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default select dropdown for choosing from options.',
+        story: "Default select dropdown for choosing from options.",
       },
     },
   },
@@ -123,7 +123,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Find and click trigger
-    const trigger = canvas.getByRole('combobox');
+    const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
 
@@ -158,7 +158,7 @@ export const WithLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Select with an associated label for accessibility.',
+        story: "Select with an associated label for accessibility.",
       },
     },
   },
@@ -169,7 +169,7 @@ export const WithLabel: Story = {
  */
 export const WithIcons: Story = {
   render: function SelectWithIcons() {
-    const [value, setValue] = useState('settings');
+    const [value, setValue] = useState("settings");
 
     const iconMap: Record<string, React.ReactNode> = {
       user: <IconUser className="size-4" />,
@@ -183,10 +183,7 @@ export const WithIcons: Story = {
         <Label>Category</Label>
         <Select value={value} onValueChange={setValue}>
           <SelectTrigger className="w-[200px]">
-            <SelectValue
-              placeholder="Select..."
-              icon={value ? iconMap[value] : undefined}
-            />
+            <SelectValue placeholder="Select..." icon={value ? iconMap[value] : undefined} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="user" icon={<IconUser className="size-4" />}>
@@ -210,7 +207,7 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Select with icons in both trigger and items.',
+        story: "Select with icons in both trigger and items.",
       },
     },
   },
@@ -234,13 +231,13 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Disabled select that cannot be interacted with.',
+        story: "Disabled select that cannot be interacted with.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('combobox');
+    const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeDisabled();
   },
 };
@@ -270,7 +267,7 @@ export const WithError: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Select with validation error message.',
+        story: "Select with validation error message.",
       },
     },
   },
@@ -317,7 +314,7 @@ export const WithGroups: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Select with grouped items and separators.',
+        story: "Select with grouped items and separators.",
       },
     },
   },
@@ -342,7 +339,7 @@ export const WithDefaultValue: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Select with a pre-selected default value.',
+        story: "Select with a pre-selected default value.",
       },
     },
   },
@@ -353,7 +350,7 @@ export const WithDefaultValue: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledSelect() {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
 
     return (
       <div className="space-y-4">
@@ -369,34 +366,32 @@ export const Controlled: Story = {
         </Select>
         <div className="flex gap-2">
           <button
-            onClick={() => setValue('red')}
+            onClick={() => setValue("red")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Red
           </button>
           <button
-            onClick={() => setValue('green')}
+            onClick={() => setValue("green")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Green
           </button>
           <button
-            onClick={() => setValue('')}
+            onClick={() => setValue("")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Clear
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Selected: {value || '(none)'}
-        </p>
+        <p className="text-sm text-muted-foreground">Selected: {value || "(none)"}</p>
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Controlled select with external state management.',
+        story: "Controlled select with external state management.",
       },
     },
   },
@@ -426,7 +421,7 @@ export const DisabledItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Select with some items disabled.',
+        story: "Select with some items disabled.",
       },
     },
   },
@@ -461,7 +456,7 @@ export const SmallSize: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Select in different sizes.',
+        story: "Select in different sizes.",
       },
     },
   },
@@ -522,7 +517,7 @@ export const AllStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All select states for comparison.',
+        story: "All select states for comparison.",
       },
     },
   },
@@ -597,7 +592,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -629,7 +624,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with select props.',
+        story: "Interactive playground - use controls to experiment with select props.",
       },
     },
   },

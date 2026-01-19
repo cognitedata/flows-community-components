@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import {
   shadows,
   focusRings,
@@ -8,8 +8,8 @@ import {
   transitions,
   effectPatterns,
   effectExamples,
-} from './effects';
-import { cn } from '@/lib/utils';
+} from "./effects";
+import { cn } from "@/lib/utils";
 
 /**
  * # Aura Effects System
@@ -46,10 +46,10 @@ import { cn } from '@/lib/utils';
  * ```
  */
 const meta: Meta = {
-  title: 'Layouts/Effects',
-  tags: ['autodocs'],
+  title: "Layouts/Effects",
+  tags: ["autodocs"],
   parameters: {
-    layout: 'padded',
+    layout: "padded",
   },
 };
 
@@ -69,7 +69,7 @@ export const Shadows: Story = {
     docs: {
       description: {
         story:
-          'Box shadows create depth and hierarchy. Use shadow-sm for tooltips, shadow-default for menus, and shadow-xl for modals.',
+          "Box shadows create depth and hierarchy. Use shadow-sm for tooltips, shadow-default for menus, and shadow-xl for modals.",
       },
     },
   },
@@ -80,13 +80,11 @@ export const Shadows: Story = {
     await expect(shadows.length).toBe(5);
 
     // Check shadow elements are displayed using testids
-    await expect(canvas.getByTestId('shadow-shadow-sm')).toBeInTheDocument();
-    await expect(
-      canvas.getByTestId('shadow-shadow-default')
-    ).toBeInTheDocument();
-    await expect(canvas.getByTestId('shadow-shadow-md')).toBeInTheDocument();
-    await expect(canvas.getByTestId('shadow-shadow-lg')).toBeInTheDocument();
-    await expect(canvas.getByTestId('shadow-shadow-xl')).toBeInTheDocument();
+    await expect(canvas.getByTestId("shadow-shadow-sm")).toBeInTheDocument();
+    await expect(canvas.getByTestId("shadow-shadow-default")).toBeInTheDocument();
+    await expect(canvas.getByTestId("shadow-shadow-md")).toBeInTheDocument();
+    await expect(canvas.getByTestId("shadow-shadow-lg")).toBeInTheDocument();
+    await expect(canvas.getByTestId("shadow-shadow-xl")).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="shadows">
@@ -126,7 +124,7 @@ export const FocusRings: Story = {
     docs: {
       description: {
         story:
-          'Focus rings indicate keyboard focus for accessibility. Click or tab to the elements to see the rings. Use the default ring for most elements, destructive for error/delete actions.',
+          "Focus rings indicate keyboard focus for accessibility. Click or tab to the elements to see the rings. Use the default ring for most elements, destructive for error/delete actions.",
       },
     },
   },
@@ -137,16 +135,14 @@ export const FocusRings: Story = {
     await expect(focusRings.length).toBe(2);
 
     // Find and focus the first button
-    const defaultButton = canvas.getByTestId('focus-ring-focus');
+    const defaultButton = canvas.getByTestId("focus-ring-focus");
     await userEvent.click(defaultButton);
 
     // Verify button exists
     await expect(defaultButton).toBeInTheDocument();
 
     // Find and focus the destructive button
-    const destructiveButton = canvas.getByTestId(
-      'focus-ring-focus-destructive'
-    );
+    const destructiveButton = canvas.getByTestId("focus-ring-focus-destructive");
     await expect(destructiveButton).toBeInTheDocument();
   },
   render: () => (
@@ -159,7 +155,7 @@ export const FocusRings: Story = {
           <button
             data-testid={`focus-ring-${ring.name}`}
             className={cn(
-              'w-28 h-20 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]',
+              "w-28 h-20 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
               ring.tailwindClasses
             )}
             aria-label={`Demo ${ring.name} focus ring`}
@@ -185,7 +181,7 @@ export const RingWidths: Story = {
     docs: {
       description: {
         story:
-          'Different ring widths provide varying levels of emphasis. Use ring-1 for subtle focus, ring (3px) as default, and ring-4 for high importance.',
+          "Different ring widths provide varying levels of emphasis. Use ring-1 for subtle focus, ring (3px) as default, and ring-4 for high importance.",
       },
     },
   },
@@ -196,16 +192,14 @@ export const RingWidths: Story = {
     await expect(ringWidths.length).toBe(4);
 
     // Check ring width elements are displayed using testids
-    await expect(canvas.getByTestId('ring-width-ring-1')).toBeInTheDocument();
-    await expect(canvas.getByTestId('ring-width-ring-2')).toBeInTheDocument();
-    await expect(canvas.getByTestId('ring-width-ring')).toBeInTheDocument();
-    await expect(canvas.getByTestId('ring-width-ring-4')).toBeInTheDocument();
+    await expect(canvas.getByTestId("ring-width-ring-1")).toBeInTheDocument();
+    await expect(canvas.getByTestId("ring-width-ring-2")).toBeInTheDocument();
+    await expect(canvas.getByTestId("ring-width-ring")).toBeInTheDocument();
+    await expect(canvas.getByTestId("ring-width-ring-4")).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="ring-widths">
-      <p className="text-sm text-muted-foreground">
-        Click or tab to see different ring widths:
-      </p>
+      <p className="text-sm text-muted-foreground">Click or tab to see different ring widths:</p>
       {ringWidths.map((ring) => {
         const ringClass = `focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:${ring.tailwindClass}`;
         return (
@@ -213,7 +207,7 @@ export const RingWidths: Story = {
             <button
               data-testid={`ring-width-${ring.tailwindClass}`}
               className={cn(
-                'w-28 h-20 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]',
+                "w-28 h-20 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
                 ringClass
               )}
               aria-label={`Demo ${ring.name} ring width`}
@@ -243,7 +237,7 @@ export const BorderRadius: Story = {
     docs: {
       description: {
         story:
-          'Border radius tokens for consistent corner rounding. Use rounded-md for buttons/inputs, rounded-lg for cards, and rounded-full for avatars.',
+          "Border radius tokens for consistent corner rounding. Use rounded-md for buttons/inputs, rounded-lg for cards, and rounded-full for avatars.",
       },
     },
   },
@@ -254,9 +248,9 @@ export const BorderRadius: Story = {
     await expect(borderRadii.length).toBe(10);
 
     // Check specific radius elements using testids
-    await expect(canvas.getByTestId('radius-none')).toBeInTheDocument();
-    await expect(canvas.getByTestId('radius-md')).toBeInTheDocument();
-    await expect(canvas.getByTestId('radius-full')).toBeInTheDocument();
+    await expect(canvas.getByTestId("radius-none")).toBeInTheDocument();
+    await expect(canvas.getByTestId("radius-md")).toBeInTheDocument();
+    await expect(canvas.getByTestId("radius-full")).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="border-radius">
@@ -267,7 +261,7 @@ export const BorderRadius: Story = {
             className="flex flex-col items-center gap-2"
             data-testid={`radius-${radius.name}`}
           >
-            <div className={cn('w-16 h-16 bg-primary', radius.tailwindClass)} />
+            <div className={cn("w-16 h-16 bg-primary", radius.tailwindClass)} />
             <div className="text-center">
               <p className="text-sm font-medium">{radius.name}</p>
               <p className="text-xs text-muted-foreground">{radius.value}</p>
@@ -304,7 +298,7 @@ export const Transitions: Story = {
     docs: {
       description: {
         story:
-          'Transition utilities for smooth state changes. Use transition-colors for hovers, transition-transform for scale effects.',
+          "Transition utilities for smooth state changes. Use transition-colors for hovers, transition-transform for scale effects.",
       },
     },
   },
@@ -315,9 +309,9 @@ export const Transitions: Story = {
     await expect(transitions.length).toBe(7);
 
     // Check transition elements using testids
-    await expect(canvas.getByTestId('transition-default')).toBeInTheDocument();
-    await expect(canvas.getByTestId('transition-fast')).toBeInTheDocument();
-    await expect(canvas.getByTestId('transition-colors')).toBeInTheDocument();
+    await expect(canvas.getByTestId("transition-default")).toBeInTheDocument();
+    await expect(canvas.getByTestId("transition-fast")).toBeInTheDocument();
+    await expect(canvas.getByTestId("transition-colors")).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="transitions">
@@ -333,13 +327,11 @@ export const Transitions: Story = {
           >
             <div className="flex items-center justify-between">
               <h3 className="text-base font-medium">{transition.name}</h3>
-              <span className="text-xs text-muted-foreground">
-                {transition.duration}
-              </span>
+              <span className="text-xs text-muted-foreground">{transition.duration}</span>
             </div>
             <button
               className={cn(
-                'w-full py-2 px-4 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover',
+                "w-full py-2 px-4 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover",
                 transition.tailwindClasses
               )}
             >
@@ -364,12 +356,12 @@ export const Transitions: Story = {
  * Common effect patterns used throughout the design system.
  */
 export const EffectPatterns: Story = {
-  name: 'Pattern: Common Effects',
+  name: "Pattern: Common Effects",
   parameters: {
     docs: {
       description: {
         story:
-          'Pre-defined effect patterns for common UI interactions. Copy these patterns for consistent behaviour across your application.',
+          "Pre-defined effect patterns for common UI interactions. Copy these patterns for consistent behaviour across your application.",
       },
     },
   },
@@ -380,9 +372,9 @@ export const EffectPatterns: Story = {
     await expect(patternCount).toBe(9);
 
     // Check pattern elements using testids
-    await expect(canvas.getByTestId('pattern-buttonHover')).toBeInTheDocument();
-    await expect(canvas.getByTestId('pattern-cardHover')).toBeInTheDocument();
-    await expect(canvas.getByTestId('pattern-inputFocus')).toBeInTheDocument();
+    await expect(canvas.getByTestId("pattern-buttonHover")).toBeInTheDocument();
+    await expect(canvas.getByTestId("pattern-cardHover")).toBeInTheDocument();
+    await expect(canvas.getByTestId("pattern-inputFocus")).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-6" data-testid="effect-patterns">
@@ -394,9 +386,7 @@ export const EffectPatterns: Story = {
         >
           <div>
             <h3 className="text-base font-medium">{pattern.name}</h3>
-            <p className="text-sm text-muted-foreground">
-              {pattern.description}
-            </p>
+            <p className="text-sm text-muted-foreground">{pattern.description}</p>
           </div>
           <div className="flex items-center gap-4">
             <code className="text-xs font-mono text-muted-foreground bg-muted px-2 py-1 rounded flex-1 overflow-x-auto">
@@ -420,12 +410,12 @@ export const EffectPatterns: Story = {
  * Interactive examples demonstrating effects in context.
  */
 export const InteractiveExamples: Story = {
-  name: 'Pattern: Interactive Demo',
+  name: "Pattern: Interactive Demo",
   parameters: {
     docs: {
       description: {
         story:
-          'Interactive demonstration of effects. Hover, focus, and click the elements to see the effects in action.',
+          "Interactive demonstration of effects. Hover, focus, and click the elements to see the effects in action.",
       },
     },
   },
@@ -433,12 +423,12 @@ export const InteractiveExamples: Story = {
     const canvas = within(canvasElement);
 
     // Verify interactive elements exist
-    await expect(canvas.getByText('Primary Button')).toBeInTheDocument();
-    await expect(canvas.getByText('Destructive Button')).toBeInTheDocument();
-    await expect(canvas.getByText('Interactive Card')).toBeInTheDocument();
+    await expect(canvas.getByText("Primary Button")).toBeInTheDocument();
+    await expect(canvas.getByText("Destructive Button")).toBeInTheDocument();
+    await expect(canvas.getByText("Interactive Card")).toBeInTheDocument();
 
     // Test button hover interaction
-    const primaryButton = canvas.getByText('Primary Button');
+    const primaryButton = canvas.getByText("Primary Button");
     await userEvent.hover(primaryButton);
   },
   render: () => (
@@ -449,33 +439,33 @@ export const InteractiveExamples: Story = {
         <div className="flex gap-4">
           <button
             className={cn(
-              'px-4 py-2 rounded-md',
-              'bg-primary text-primary-foreground',
-              'transition-colors hover:bg-primary-hover',
-              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
-              'outline-none'
+              "px-4 py-2 rounded-md",
+              "bg-primary text-primary-foreground",
+              "transition-colors hover:bg-primary-hover",
+              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+              "outline-none"
             )}
           >
             Primary Button
           </button>
           <button
             className={cn(
-              'px-4 py-2 rounded-md',
-              'bg-muted text-foreground',
-              'transition-colors hover:bg-accent',
-              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
-              'outline-none'
+              "px-4 py-2 rounded-md",
+              "bg-muted text-foreground",
+              "transition-colors hover:bg-accent",
+              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+              "outline-none"
             )}
           >
             Secondary Button
           </button>
           <button
             className={cn(
-              'px-4 py-2 rounded-md',
-              'bg-destructive text-destructive-foreground',
-              'transition-colors hover:bg-destructive-hover',
-              'focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring',
-              'outline-none'
+              "px-4 py-2 rounded-md",
+              "bg-destructive text-destructive-foreground",
+              "transition-colors hover:bg-destructive-hover",
+              "focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring",
+              "outline-none"
             )}
           >
             Destructive Button
@@ -489,40 +479,24 @@ export const InteractiveExamples: Story = {
         <div className="grid grid-cols-3 gap-4">
           <button
             className={cn(
-              'p-4 rounded-lg text-left',
-              'bg-card border border-border',
-              'shadow-sm',
-              'transition-all hover:shadow-md hover:border-border/80',
-              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
-              'outline-none'
+              "p-4 rounded-lg text-left",
+              "bg-card border border-border",
+              "shadow-sm",
+              "transition-all hover:shadow-md hover:border-border/80",
+              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+              "outline-none"
             )}
           >
             <h4 className="font-medium">Interactive Card</h4>
-            <p className="text-sm text-muted-foreground mt-1">
-              Hover for shadow lift
-            </p>
+            <p className="text-sm text-muted-foreground mt-1">Hover for shadow lift</p>
           </button>
-          <div
-            className={cn(
-              'p-4 rounded-lg',
-              'bg-card border border-border',
-              'shadow-default'
-            )}
-          >
+          <div className={cn("p-4 rounded-lg", "bg-card border border-border", "shadow-default")}>
             <h4 className="font-medium">Elevated Card</h4>
             <p className="text-sm text-muted-foreground mt-1">Default shadow</p>
           </div>
-          <div
-            className={cn(
-              'p-4 rounded-lg',
-              'bg-card border border-border',
-              'shadow-xl'
-            )}
-          >
+          <div className={cn("p-4 rounded-lg", "bg-card border border-border", "shadow-xl")}>
             <h4 className="font-medium">Modal Card</h4>
-            <p className="text-sm text-muted-foreground mt-1">
-              Maximum elevation
-            </p>
+            <p className="text-sm text-muted-foreground mt-1">Maximum elevation</p>
           </div>
         </div>
       </section>
@@ -535,24 +509,24 @@ export const InteractiveExamples: Story = {
             type="text"
             placeholder="Default input"
             className={cn(
-              'px-3 py-2 rounded-md',
-              'bg-background border border-border',
-              'text-foreground placeholder:text-muted-foreground',
-              'transition-[color,box-shadow]',
-              'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-1',
-              'outline-none'
+              "px-3 py-2 rounded-md",
+              "bg-background border border-border",
+              "text-foreground placeholder:text-muted-foreground",
+              "transition-[color,box-shadow]",
+              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-1",
+              "outline-none"
             )}
           />
           <input
             type="text"
             placeholder="Error input"
             className={cn(
-              'px-3 py-2 rounded-md',
-              'bg-background border border-red-500',
-              'text-foreground placeholder:text-muted-foreground',
-              'transition-[color,box-shadow]',
-              'focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring-1',
-              'outline-none'
+              "px-3 py-2 rounded-md",
+              "bg-background border border-red-500",
+              "text-foreground placeholder:text-muted-foreground",
+              "transition-[color,box-shadow]",
+              "focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring-1",
+              "outline-none"
             )}
           />
         </div>
@@ -562,18 +536,10 @@ export const InteractiveExamples: Story = {
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Border Radius Examples</h3>
         <div className="flex items-center gap-4">
-          <span className="rounded-sm px-2 py-1 bg-muted text-sm">
-            rounded-sm
-          </span>
-          <span className="rounded-md px-2 py-1 bg-muted text-sm">
-            rounded-md
-          </span>
-          <span className="rounded-lg px-2 py-1 bg-muted text-sm">
-            rounded-lg
-          </span>
-          <span className="rounded-full px-3 py-1 bg-muted text-sm">
-            rounded-full
-          </span>
+          <span className="rounded-sm px-2 py-1 bg-muted text-sm">rounded-sm</span>
+          <span className="rounded-md px-2 py-1 bg-muted text-sm">rounded-md</span>
+          <span className="rounded-lg px-2 py-1 bg-muted text-sm">rounded-lg</span>
+          <span className="rounded-full px-3 py-1 bg-muted text-sm">rounded-full</span>
           <div className="rounded-full w-10 h-10 bg-primary flex items-center justify-center text-primary-foreground text-sm font-medium">
             AV
           </div>
@@ -591,22 +557,21 @@ export const InteractiveExamples: Story = {
  * Complete reference of all shadow values.
  */
 export const ShadowsReference: Story = {
-  name: 'Reference: Shadows',
+  name: "Reference: Shadows",
   parameters: {
     docs: {
       description: {
-        story:
-          'Complete reference table of all shadow tokens with their CSS values.',
+        story: "Complete reference table of all shadow tokens with their CSS values.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const table = canvas.getByRole('table');
+    const table = canvas.getByRole("table");
     await expect(table).toBeInTheDocument();
 
-    const rows = canvas.getAllByRole('row');
+    const rows = canvas.getAllByRole("row");
     await expect(rows.length).toBe(shadows.length + 1);
   },
   render: () => (
@@ -629,9 +594,7 @@ export const ShadowsReference: Story = {
                   {shadow.tailwindClass}
                 </code>
               </td>
-              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">
-                {shadow.cssVar}
-              </td>
+              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">{shadow.cssVar}</td>
               <td className="py-2 text-muted-foreground">{shadow.usage}</td>
             </tr>
           ))}
@@ -645,21 +608,21 @@ export const ShadowsReference: Story = {
  * Complete reference of all border radius values.
  */
 export const RadiusReference: Story = {
-  name: 'Reference: Border Radius',
+  name: "Reference: Border Radius",
   parameters: {
     docs: {
       description: {
-        story: 'Complete reference table of all border radius tokens.',
+        story: "Complete reference table of all border radius tokens.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const table = canvas.getByRole('table');
+    const table = canvas.getByRole("table");
     await expect(table).toBeInTheDocument();
 
-    const rows = canvas.getAllByRole('row');
+    const rows = canvas.getAllByRole("row");
     await expect(rows.length).toBe(borderRadii.length + 1);
   },
   render: () => (
@@ -682,9 +645,7 @@ export const RadiusReference: Story = {
                   {radius.tailwindClass}
                 </code>
               </td>
-              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">
-                {radius.value}
-              </td>
+              <td className="py-2 pr-4 text-muted-foreground text-xs font-mono">{radius.value}</td>
               <td className="py-2 text-muted-foreground">{radius.usage}</td>
             </tr>
           ))}
@@ -698,11 +659,11 @@ export const RadiusReference: Story = {
  * Code examples for common effect patterns.
  */
 export const CodeExamples: Story = {
-  name: 'Reference: Code Examples',
+  name: "Reference: Code Examples",
   parameters: {
     docs: {
       description: {
-        story: 'Copy-paste ready code examples for common effect patterns.',
+        story: "Copy-paste ready code examples for common effect patterns.",
       },
     },
   },
@@ -710,29 +671,17 @@ export const CodeExamples: Story = {
     const canvas = within(canvasElement);
 
     // Check code example sections using testids
-    await expect(
-      canvas.getByTestId('code-example-shadows')
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByTestId('code-example-focusRings')
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByTestId('code-example-borderRadius')
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByTestId('code-example-transitions')
-    ).toBeInTheDocument();
+    await expect(canvas.getByTestId("code-example-shadows")).toBeInTheDocument();
+    await expect(canvas.getByTestId("code-example-focusRings")).toBeInTheDocument();
+    await expect(canvas.getByTestId("code-example-borderRadius")).toBeInTheDocument();
+    await expect(canvas.getByTestId("code-example-transitions")).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8" data-testid="code-examples">
       {Object.entries(effectExamples).map(([name, code]) => (
-        <div
-          key={name}
-          className="space-y-2"
-          data-testid={`code-example-${name}`}
-        >
+        <div key={name} className="space-y-2" data-testid={`code-example-${name}`}>
           <h3 className="text-lg font-medium capitalize">
-            {name.replace(/([A-Z])/g, ' $1').trim()}
+            {name.replace(/([A-Z])/g, " $1").trim()}
           </h3>
           <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
             <code className="text-sm font-mono">{code.trim()}</code>

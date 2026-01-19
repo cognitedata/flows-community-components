@@ -3,12 +3,12 @@ interface AuraLogoProps {
   size?: number;
 }
 
-export function AuraLogo({ className = '', size = 32 }: AuraLogoProps) {
+export function AuraLogo({ className = "", size = 32 }: AuraLogoProps) {
   // Use consistent colors regardless of theme mode
   // Using dark/high contrast theme colors for all modes
   const colors = {
-    background: 'var(--aurora-lime-300)',
-    center: 'var(--aurora-lime-950)',
+    background: "var(--aurora-lime-300)",
+    center: "var(--aurora-lime-950)",
   };
 
   return (

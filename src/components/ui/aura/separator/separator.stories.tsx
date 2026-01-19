@@ -1,41 +1,41 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
-import { Separator } from './separator';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "@storybook/test";
+import { Separator } from "./separator";
 
 const meta: Meta<typeof Separator> = {
-  title: 'Primitives/Separator',
+  title: "Primitives/Separator",
   component: Separator,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     orientation: {
-      control: 'select',
-      options: ['horizontal', 'vertical'],
-      description: 'Orientation of the separator',
+      control: "select",
+      options: ["horizontal", "vertical"],
+      description: "Orientation of the separator",
       table: {
-        category: 'Layout',
+        category: "Layout",
         type: { summary: '"horizontal" | "vertical"' },
-        defaultValue: { summary: 'horizontal' },
+        defaultValue: { summary: "horizontal" },
       },
     },
     decorative: {
-      control: 'boolean',
-      description: 'Whether the separator is purely decorative',
+      control: "boolean",
+      description: "Whether the separator is purely decorative",
       table: {
-        category: 'Accessibility',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "Accessibility",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -50,30 +50,26 @@ export const Default: Story = {
     <div className="w-[300px]">
       <div className="space-y-1">
         <h4 className="text-sm font-medium">Section Title</h4>
-        <p className="text-sm text-muted-foreground">
-          Some content above the separator.
-        </p>
+        <p className="text-sm text-muted-foreground">Some content above the separator.</p>
       </div>
       <Separator className="my-4" />
       <div className="space-y-1">
         <h4 className="text-sm font-medium">Another Section</h4>
-        <p className="text-sm text-muted-foreground">
-          Some content below the separator.
-        </p>
+        <p className="text-sm text-muted-foreground">Some content below the separator.</p>
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Default horizontal separator dividing content sections.',
+        story: "Default horizontal separator dividing content sections.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const separator = canvasElement.querySelector('[data-slot="separator"]');
     await expect(separator).toBeInTheDocument();
-    await expect(separator).toHaveAttribute('data-orientation', 'horizontal');
+    await expect(separator).toHaveAttribute("data-orientation", "horizontal");
   },
 };
 
@@ -93,7 +89,7 @@ export const Vertical: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Vertical separator for inline content division.',
+        story: "Vertical separator for inline content division.",
       },
     },
   },
@@ -101,7 +97,7 @@ export const Vertical: Story = {
     const separators = canvasElement.querySelectorAll('[data-slot="separator"]');
     await expect(separators).toHaveLength(2);
     for (const sep of separators) {
-      await expect(sep).toHaveAttribute('data-orientation', 'vertical');
+      await expect(sep).toHaveAttribute("data-orientation", "vertical");
     }
   },
 };
@@ -132,7 +128,7 @@ export const InNavigation: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Vertical separators used in navigation.',
+        story: "Vertical separators used in navigation.",
       },
     },
   },
@@ -178,7 +174,7 @@ export const InCard: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Horizontal separators used within a card component.',
+        story: "Horizontal separators used within a card component.",
       },
     },
   },
@@ -195,9 +191,7 @@ export const WithText: Story = {
           <Separator className="w-full" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
+          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
     </div>
@@ -205,7 +199,7 @@ export const WithText: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Separator with centered text overlay.',
+        story: "Separator with centered text overlay.",
       },
     },
   },
@@ -219,30 +213,24 @@ export const InList: Story = {
     <div className="w-[300px] rounded-lg border">
       <div className="p-4">
         <h4 className="font-medium">Notifications</h4>
-        <p className="text-sm text-muted-foreground">
-          Manage your notification settings.
-        </p>
+        <p className="text-sm text-muted-foreground">Manage your notification settings.</p>
       </div>
       <Separator />
       <div className="p-4">
         <h4 className="font-medium">Privacy</h4>
-        <p className="text-sm text-muted-foreground">
-          Control your privacy preferences.
-        </p>
+        <p className="text-sm text-muted-foreground">Control your privacy preferences.</p>
       </div>
       <Separator />
       <div className="p-4">
         <h4 className="font-medium">Security</h4>
-        <p className="text-sm text-muted-foreground">
-          Update your security settings.
-        </p>
+        <p className="text-sm text-muted-foreground">Update your security settings.</p>
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Separators dividing list items.',
+        story: "Separators dividing list items.",
       },
     },
   },
@@ -275,7 +263,7 @@ export const CustomStyle: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Separators with custom styles applied.',
+        story: "Separators with custom styles applied.",
       },
     },
   },
@@ -323,7 +311,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -337,18 +325,18 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    orientation: 'horizontal',
+    orientation: "horizontal",
     decorative: true,
   },
   render: (args) => (
-    <div className={args.orientation === 'vertical' ? 'h-20' : 'w-[300px]'}>
+    <div className={args.orientation === "vertical" ? "h-20" : "w-[300px]"}>
       <Separator {...args} />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with separator props.',
+        story: "Interactive playground - use controls to experiment with separator props.",
       },
     },
   },

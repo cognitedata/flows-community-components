@@ -1,21 +1,16 @@
-import * as React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from 'next-themes';
-import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/aura/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/aura/sheet';
-import {
-  IconBrandGithub,
-  IconMenu2,
-  IconMoon,
-  IconSun,
-} from '@tabler/icons-react';
+import * as React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/aura/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/aura/sheet";
+import { IconBrandGithub, IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 
 const navItems = [
-  { href: '/primitives', label: 'Primitives' },
-  { href: '/ai', label: 'AI' },
-  { href: '/patterns', label: 'Patterns' },
+  { href: "/primitives", label: "Primitives" },
+  { href: "/ai", label: "AI" },
+  { href: "/patterns", label: "Patterns" },
 ];
 
 function ThemeToggleGroup() {
@@ -31,8 +26,8 @@ function ThemeToggleGroup() {
   }
 
   const themes = [
-    { name: 'light', icon: IconSun, label: 'Light' },
-    { name: 'dark', icon: IconMoon, label: 'Dark' },
+    { name: "light", icon: IconSun, label: "Light" },
+    { name: "dark", icon: IconMoon, label: "Dark" },
   ];
 
   return (
@@ -41,7 +36,7 @@ function ThemeToggleGroup() {
         <Button
           key={themeOption.name}
           size="sm"
-          variant={theme === themeOption.name ? 'default' : 'ghost'}
+          variant={theme === themeOption.name ? "default" : "ghost"}
           onClick={() => setTheme(themeOption.name)}
           className="h-8 w-8 p-0"
           title={themeOption.label}
@@ -69,15 +64,14 @@ export function Navigation() {
           <nav className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => {
               // Check if current pathname starts with the nav item href (for sub-routes)
-              const isActive =
-                pathname.startsWith(item.href) && pathname !== '/';
+              const isActive = pathname.startsWith(item.href) && pathname !== "/";
 
               return (
                 <Link key={item.href} to={item.href} className="relative">
                   <span
                     className={cn(
-                      'text-sm font-medium transition-colors hover:text-primary',
-                      isActive ? 'text-primary' : 'text-muted-foreground'
+                      "text-sm font-medium transition-colors hover:text-primary",
+                      isActive ? "text-primary" : "text-muted-foreground"
                     )}
                   >
                     {item.label}
@@ -88,7 +82,7 @@ export function Navigation() {
                       layoutId="activeTab"
                       initial={false}
                       transition={{
-                        type: 'spring',
+                        type: "spring",
                         stiffness: 500,
                         damping: 30,
                       }}
@@ -125,16 +119,15 @@ export function Navigation() {
             <SheetContent side="right" className="w-80">
               <div className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => {
-                  const isActive =
-                    pathname.startsWith(item.href) && pathname !== '/';
+                  const isActive = pathname.startsWith(item.href) && pathname !== "/";
 
                   return (
                     <Link
                       key={item.href}
                       to={item.href}
                       className={cn(
-                        'text-lg font-medium transition-colors hover:text-primary',
-                        isActive ? 'text-primary' : 'text-muted-foreground'
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        isActive ? "text-primary" : "text-muted-foreground"
                       )}
                     >
                       {item.label}

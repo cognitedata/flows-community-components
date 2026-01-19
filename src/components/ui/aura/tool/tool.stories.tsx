@@ -1,36 +1,30 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import {
-  Tool,
-  ToolHeader,
-  ToolContent,
-  ToolInput,
-  ToolOutput,
-} from './tool';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from "./tool";
 
 const meta: Meta<typeof Tool> = {
-  title: 'AI/Tool',
+  title: "AI/Tool",
   component: Tool,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     defaultOpen: {
-      control: 'boolean',
-      description: 'Whether the tool content is open by default',
+      control: "boolean",
+      description: "Whether the tool content is open by default",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
+        category: "Behavior",
+        type: { summary: "boolean" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -56,13 +50,13 @@ export const Default: Story = {
           input={{
             query: "button component",
             path: "src/components",
-            extensions: ["tsx", "ts"]
+            extensions: ["tsx", "ts"],
           }}
         />
         <ToolOutput
           output={[
             { file: "src/components/Button.tsx", matches: 5 },
-            { file: "src/components/IconButton.tsx", matches: 2 }
+            { file: "src/components/IconButton.tsx", matches: 2 },
           ]}
           errorText={undefined}
         />
@@ -72,13 +66,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default tool invocation with input parameters and output.',
+        story: "Default tool invocation with input parameters and output.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const header = canvas.getByText('search_files');
+    const header = canvas.getByText("search_files");
     await expect(header).toBeInTheDocument();
   },
 };
@@ -93,7 +87,7 @@ export const WithError: Story = {
       <ToolContent>
         <ToolInput
           input={{
-            path: "/nonexistent/file.txt"
+            path: "/nonexistent/file.txt",
           }}
         />
         <ToolOutput
@@ -106,7 +100,7 @@ export const WithError: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tool invocation that resulted in an error.',
+        story: "Tool invocation that resulted in an error.",
       },
     },
   },
@@ -123,32 +117,29 @@ export const CollapsedByDefault: Story = {
         <ToolInput
           input={{
             command: "npm install",
-            workingDirectory: "/project"
+            workingDirectory: "/project",
           }}
         />
-        <ToolOutput
-          output={{ success: true, duration: "2.5s" }}
-          errorText={undefined}
-        />
+        <ToolOutput output={{ success: true, duration: "2.5s" }} errorText={undefined} />
       </ToolContent>
     </Tool>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Tool that starts collapsed.',
+        story: "Tool that starts collapsed.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Click to expand
-    const trigger = canvas.getByText('execute_command');
+    const trigger = canvas.getByText("execute_command");
     await userEvent.click(trigger);
-    
+
     // Parameters should now be visible
-    const parametersHeading = canvas.getByText('Parameters');
+    const parametersHeading = canvas.getByText("Parameters");
     await expect(parametersHeading).toBeInTheDocument();
   },
 };
@@ -170,14 +161,14 @@ export const ComplexInput: Story = {
             headBranch: "feature/new-button",
             labels: ["enhancement", "ui"],
             reviewers: ["user1", "user2"],
-            draft: false
+            draft: false,
           }}
         />
         <ToolOutput
           output={{
             prNumber: 123,
             url: "https://github.com/owner/repo/pull/123",
-            status: "created"
+            status: "created",
           }}
           errorText={undefined}
         />
@@ -187,7 +178,7 @@ export const ComplexInput: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tool with complex nested input parameters.',
+        story: "Tool with complex nested input parameters.",
       },
     },
   },
@@ -203,35 +194,26 @@ export const MultipleTools: Story = {
         <ToolHeader title="list_directory" type="tool-invocation" />
         <ToolContent>
           <ToolInput input={{ path: "src/" }} />
-          <ToolOutput
-            output={["components/", "utils/", "hooks/"]}
-            errorText={undefined}
-          />
+          <ToolOutput output={["components/", "utils/", "hooks/"]} errorText={undefined} />
         </ToolContent>
       </Tool>
       <Tool defaultOpen={false}>
         <ToolHeader title="read_file" type="tool-invocation" />
         <ToolContent>
           <ToolInput input={{ path: "src/index.ts" }} />
-          <ToolOutput
-            output="export * from './components';"
-            errorText={undefined}
-          />
+          <ToolOutput output="export * from './components';" errorText={undefined} />
         </ToolContent>
       </Tool>
       <Tool>
         <ToolHeader title="write_file" type="tool-invocation" />
         <ToolContent>
-          <ToolInput 
-            input={{ 
+          <ToolInput
+            input={{
               path: "src/new-component.tsx",
-              content: "export const NewComponent = () => <div>Hello</div>;"
-            }} 
+              content: "export const NewComponent = () => <div>Hello</div>;",
+            }}
           />
-          <ToolOutput
-            output={{ success: true, bytesWritten: 52 }}
-            errorText={undefined}
-          />
+          <ToolOutput output={{ success: true, bytesWritten: 52 }} errorText={undefined} />
         </ToolContent>
       </Tool>
     </div>
@@ -239,7 +221,7 @@ export const MultipleTools: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple sequential tool invocations.',
+        story: "Multiple sequential tool invocations.",
       },
     },
   },
@@ -256,19 +238,39 @@ export const LargeOutput: Story = {
         <ToolInput
           input={{
             query: "useState",
-            fileTypes: ["tsx", "jsx"]
+            fileTypes: ["tsx", "jsx"],
           }}
         />
         <ToolOutput
           output={{
             totalMatches: 47,
             files: [
-              { path: "src/components/Form.tsx", line: 12, preview: "const [value, setValue] = useState('')" },
-              { path: "src/components/Modal.tsx", line: 8, preview: "const [isOpen, setIsOpen] = useState(false)" },
-              { path: "src/components/List.tsx", line: 15, preview: "const [items, setItems] = useState([])" },
-              { path: "src/hooks/useForm.ts", line: 5, preview: "const [formData, setFormData] = useState(initial)" },
-              { path: "src/pages/Home.tsx", line: 22, preview: "const [loading, setLoading] = useState(true)" }
-            ]
+              {
+                path: "src/components/Form.tsx",
+                line: 12,
+                preview: "const [value, setValue] = useState('')",
+              },
+              {
+                path: "src/components/Modal.tsx",
+                line: 8,
+                preview: "const [isOpen, setIsOpen] = useState(false)",
+              },
+              {
+                path: "src/components/List.tsx",
+                line: 15,
+                preview: "const [items, setItems] = useState([])",
+              },
+              {
+                path: "src/hooks/useForm.ts",
+                line: 5,
+                preview: "const [formData, setFormData] = useState(initial)",
+              },
+              {
+                path: "src/pages/Home.tsx",
+                line: 22,
+                preview: "const [loading, setLoading] = useState(true)",
+              },
+            ],
           }}
           errorText={undefined}
         />
@@ -278,7 +280,7 @@ export const LargeOutput: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tool with large structured output.',
+        story: "Tool with large structured output.",
       },
     },
   },
@@ -318,7 +320,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tools for visual regression testing.',
+        story: "Tools for visual regression testing.",
       },
     },
     chromatic: {
@@ -342,20 +344,17 @@ export const Playground: Story = {
           input={{
             param1: "value1",
             param2: 123,
-            param3: true
+            param3: true,
           }}
         />
-        <ToolOutput
-          output={{ status: "completed" }}
-          errorText={undefined}
-        />
+        <ToolOutput output={{ status: "completed" }} errorText={undefined} />
       </ToolContent>
     </Tool>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Interactive tool example.',
+        story: "Interactive tool example.",
       },
     },
   },

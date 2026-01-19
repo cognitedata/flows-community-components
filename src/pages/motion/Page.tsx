@@ -1,61 +1,57 @@
-
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import {
   IconArrowRight as ArrowRight,
   IconPlayerPlay as Play,
   IconRefresh as RotateCcw,
-} from '@tabler/icons-react';
-import { Button } from '@/components/ui/aura/button';
+} from "@tabler/icons-react";
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/aura/card';
+} from "@/components/ui/aura/card";
 
 const principles = [
   {
-    title: 'Purpose',
-    description:
-      'Every animation should have a clear purpose and enhance the user experience',
-    icon: '',
+    title: "Purpose",
+    description: "Every animation should have a clear purpose and enhance the user experience",
+    icon: "",
   },
   {
-    title: 'Personality',
-    description:
-      'Motion should reflect the brand personality while maintaining professionalism',
-    icon: '',
+    title: "Personality",
+    description: "Motion should reflect the brand personality while maintaining professionalism",
+    icon: "",
   },
   {
-    title: 'Performance',
-    description:
-      'Animations should be smooth, lightweight, and respect user preferences',
-    icon: '',
+    title: "Performance",
+    description: "Animations should be smooth, lightweight, and respect user preferences",
+    icon: "",
   },
 ];
 
 const easings = [
   {
-    name: 'Linear',
+    name: "Linear",
     value: [0, 0, 1, 1] as const,
-    description: 'Constant speed throughout',
+    description: "Constant speed throughout",
   },
   {
-    name: 'Ease out',
+    name: "Ease out",
     value: [0, 0, 0.2, 1] as const,
-    description: 'Fast start, slow finish',
+    description: "Fast start, slow finish",
   },
   {
-    name: 'Ease in',
+    name: "Ease in",
     value: [0.4, 0, 1, 1] as const,
-    description: 'Slow start, fast finish',
+    description: "Slow start, fast finish",
   },
   {
-    name: 'Ease in out',
+    name: "Ease in out",
     value: [0.4, 0, 0.2, 1] as const,
-    description: 'Slow start and finish',
+    description: "Slow start and finish",
   },
 ];
 
@@ -72,20 +68,13 @@ function AnimationDemo({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg">{title}</CardTitle>
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => setKey((prev) => prev + 1)}
-        >
+        <Button size="sm" variant="outline" onClick={() => setKey((prev) => prev + 1)}>
           <RotateCcw className="h-3 w-3 mr-1" />
           Replay
         </Button>
       </CardHeader>
       <CardContent>
-        <div
-          key={key}
-          className="flex items-center justify-center h-24 bg-muted/30 rounded-lg"
-        >
+        <div key={key} className="flex items-center justify-center h-24 bg-muted/30 rounded-lg">
           {children}
         </div>
       </CardContent>
@@ -108,13 +97,10 @@ export default function MotionPage() {
         >
           {/* Header */}
           <div className="text-center space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Motion guidelines
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold">Motion guidelines</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Thoughtful motion design creates delightful experiences that guide
-              users and provide feedback while maintaining performance and
-              accessibility.
+              Thoughtful motion design creates delightful experiences that guide users and provide
+              feedback while maintaining performance and accessibility.
             </p>
           </div>
 
@@ -123,8 +109,7 @@ export default function MotionPage() {
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-bold">Motion principles</h2>
               <p className="text-muted-foreground">
-                Core guidelines that inform all motion decisions in our design
-                system
+                Core guidelines that inform all motion decisions in our design system
               </p>
             </div>
 
@@ -141,9 +126,7 @@ export default function MotionPage() {
                       <CardTitle>{principle.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-muted-foreground">
-                        {principle.description}
-                      </p>
+                      <p className="text-muted-foreground">{principle.description}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -199,7 +182,7 @@ export default function MotionPage() {
                   transition={{
                     duration: 0.6,
                     ease: [0, 0, 0.2, 1],
-                    type: 'spring',
+                    type: "spring",
                     stiffness: 260,
                     damping: 20,
                   }}
@@ -212,7 +195,7 @@ export default function MotionPage() {
                 <motion.div
                   initial={{ rotate: 0 }}
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 1, ease: 'linear' }}
+                  transition={{ duration: 1, ease: "linear" }}
                   className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center"
                 >
                   <ArrowRight className="h-6 w-6 text-primary-foreground" />
@@ -230,7 +213,7 @@ export default function MotionPage() {
                       transition={{
                         duration: 0.6,
                         repeat: Infinity,
-                        repeatType: 'reverse',
+                        repeatType: "reverse",
                         delay: index * 0.2,
                       }}
                       className="w-3 h-3 bg-primary rounded-full"
@@ -255,8 +238,7 @@ export default function MotionPage() {
                 <CardHeader>
                   <CardTitle>Easing comparison</CardTitle>
                   <CardDescription>
-                    Click on different easing functions to see how they affect
-                    motion
+                    Click on different easing functions to see how they affect motion
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -264,9 +246,7 @@ export default function MotionPage() {
                     {easings.map((easing, index) => (
                       <Button
                         key={easing.name}
-                        variant={
-                          selectedEasing === index ? 'default' : 'outline'
-                        }
+                        variant={selectedEasing === index ? "default" : "outline"}
                         onClick={() => setSelectedEasing(index)}
                       >
                         {easing.name}
@@ -399,22 +379,15 @@ export default function MotionPage() {
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-primary mt-1">•</span>
-                      <span>
-                        Provide pause/stop controls for long animations
-                      </span>
+                      <span>Provide pause/stop controls for long animations</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-primary mt-1">•</span>
-                      <span>
-                        Avoid animations that flash more than 3 times per second
-                      </span>
+                      <span>Avoid animations that flash more than 3 times per second</span>
                     </li>
                     <li className="flex items-start space-x-2">
                       <span className="text-primary mt-1">•</span>
-                      <span>
-                        Ensure animations don&apos;t interfere with content
-                        reading
-                      </span>
+                      <span>Ensure animations don&apos;t interfere with content reading</span>
                     </li>
                   </ul>
                 </CardContent>

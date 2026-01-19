@@ -1,30 +1,30 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
-import { Kbd, KbdGroup } from './kbd';
-import { IconCommand, IconArrowUp, IconArrowDown } from '@tabler/icons-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
+import { Kbd, KbdGroup } from "./kbd";
+import { IconCommand, IconArrowUp, IconArrowDown } from "@tabler/icons-react";
 
 const meta: Meta<typeof Kbd> = {
-  title: 'Primitives/Kbd',
+  title: "Primitives/Kbd",
   component: Kbd,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     children: {
-      control: 'text',
-      description: 'Keyboard key content',
+      control: "text",
+      description: "Keyboard key content",
       table: {
-        category: 'Content',
+        category: "Content",
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -39,13 +39,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default keyboard key styling.',
+        story: "Default keyboard key styling.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const kbd = canvas.getByText('K');
+    const kbd = canvas.getByText("K");
     await expect(kbd).toBeInTheDocument();
   },
 };
@@ -89,7 +89,7 @@ export const CommonShortcuts: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Common keyboard shortcuts using KbdGroup.',
+        story: "Common keyboard shortcuts using KbdGroup.",
       },
     },
   },
@@ -114,7 +114,7 @@ export const SingleKeys: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Common modifier and special keys.',
+        story: "Common modifier and special keys.",
       },
     },
   },
@@ -129,24 +129,30 @@ export const WithIcons: Story = {
       <div className="flex items-center gap-2">
         <span className="text-sm text-muted-foreground w-32">Command palette:</span>
         <KbdGroup>
-          <Kbd><IconCommand className="size-3" /></Kbd>
+          <Kbd>
+            <IconCommand className="size-3" />
+          </Kbd>
           <Kbd>K</Kbd>
         </KbdGroup>
       </div>
       <div className="flex items-center gap-2">
         <span className="text-sm text-muted-foreground w-32">Navigate up:</span>
-        <Kbd><IconArrowUp className="size-3" /></Kbd>
+        <Kbd>
+          <IconArrowUp className="size-3" />
+        </Kbd>
       </div>
       <div className="flex items-center gap-2">
         <span className="text-sm text-muted-foreground w-32">Navigate down:</span>
-        <Kbd><IconArrowDown className="size-3" /></Kbd>
+        <Kbd>
+          <IconArrowDown className="size-3" />
+        </Kbd>
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Keyboard keys with icons.',
+        story: "Keyboard keys with icons.",
       },
     },
   },
@@ -186,7 +192,7 @@ export const MultiKeyCombinations: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Complex multi-key combinations.',
+        story: "Complex multi-key combinations.",
       },
     },
   },
@@ -212,7 +218,7 @@ export const InContext: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Keyboard keys used inline with text.',
+        story: "Keyboard keys used inline with text.",
       },
     },
   },
@@ -262,7 +268,7 @@ export const ShortcutList: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Keyboard shortcuts displayed in a list format.',
+        story: "Keyboard shortcuts displayed in a list format.",
       },
     },
   },
@@ -291,7 +297,7 @@ export const FunctionKeys: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Function keys (F1-F12).',
+        story: "Function keys (F1-F12).",
       },
     },
   },
@@ -334,8 +340,12 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <div className="flex gap-2">
-          <Kbd><IconCommand className="size-3" /></Kbd>
-          <Kbd><IconArrowUp className="size-3" /></Kbd>
+          <Kbd>
+            <IconCommand className="size-3" />
+          </Kbd>
+          <Kbd>
+            <IconArrowUp className="size-3" />
+          </Kbd>
         </div>
       </div>
 
@@ -351,7 +361,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -365,13 +375,13 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    children: '⌘',
+    children: "⌘",
   },
   render: (args) => <Kbd {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with kbd props.',
+        story: "Interactive playground - use controls to experiment with kbd props.",
       },
     },
   },

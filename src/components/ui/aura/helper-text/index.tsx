@@ -8,6 +8,6 @@
  *
  * <HelperText variant="error">This field is required</HelperText>
  */
-export { HelperText } from './helper-text';
-export type { HelperTextProps } from './helper-text';
-export { HelperTextMetadata } from './helper-text.metadata';
+export { HelperText } from "./helper-text";
+export type { HelperTextProps } from "./helper-text";
+export { HelperTextMetadata } from "./helper-text.metadata";

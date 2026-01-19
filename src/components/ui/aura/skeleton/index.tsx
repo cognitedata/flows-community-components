@@ -6,5 +6,5 @@
  * @example
  * import { Skeleton } from '@/components/ui/aura/skeleton';
  */
-export { Skeleton } from './skeleton';
-export { SkeletonMetadata } from './skeleton.metadata';
+export { Skeleton } from "./skeleton";
+export { SkeletonMetadata } from "./skeleton.metadata";

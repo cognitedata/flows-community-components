@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Toolbar } from './toolbar';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Toolbar } from "./toolbar";
 
 const meta: Meta<typeof Toolbar> = {
-  title: 'Primitives/Toolbar',
+  title: "Primitives/Toolbar",
   component: Toolbar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof Toolbar>;
 
 /**
  * Default toolbar (requires ReactFlow context).
- * 
+ *
  * Note: This component is a ReactFlow NodeToolbar wrapper and requires
  * a ReactFlow context to function properly. In production, use it within
  * a ReactFlow node component.
@@ -45,7 +45,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Toolbar component for ReactFlow nodes. Requires ReactFlow context.',
+        story: "Toolbar component for ReactFlow nodes. Requires ReactFlow context.",
       },
     },
   },
@@ -81,15 +81,15 @@ function CustomNode({ data }) {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Toolbar appears when a ReactFlow node is selected, positioned
-        at the bottom of the node by default.
+        The Toolbar appears when a ReactFlow node is selected, positioned at the bottom of the node
+        by default.
       </p>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Example showing how to use the Toolbar component with ReactFlow.',
+        story: "Example showing how to use the Toolbar component with ReactFlow.",
       },
     },
   },

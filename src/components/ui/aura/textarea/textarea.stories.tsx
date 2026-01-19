@@ -1,74 +1,74 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
-import { Textarea } from './textarea';
-import { Label } from '@/components/ui/aura/label';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
+import { Textarea } from "./textarea";
+import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Textarea> = {
-  title: 'Primitives/Textarea',
+  title: "Primitives/Textarea",
   component: Textarea,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     placeholder: {
-      control: 'text',
-      description: 'Placeholder text',
+      control: "text",
+      description: "Placeholder text",
       table: {
-        category: 'Form',
-        type: { summary: 'string' },
+        category: "Form",
+        type: { summary: "string" },
       },
     },
     defaultValue: {
-      control: 'text',
-      description: 'Default value (uncontrolled)',
+      control: "text",
+      description: "Default value (uncontrolled)",
       table: {
-        category: 'Form',
-        type: { summary: 'string' },
+        category: "Form",
+        type: { summary: "string" },
       },
     },
     maxChars: {
-      control: 'number',
-      description: 'Maximum character limit',
+      control: "number",
+      description: "Maximum character limit",
       table: {
-        category: 'Validation',
-        type: { summary: 'number' },
+        category: "Validation",
+        type: { summary: "number" },
       },
     },
     errorMessage: {
-      control: 'text',
-      description: 'Error message to display',
+      control: "text",
+      description: "Error message to display",
       table: {
-        category: 'Validation',
-        type: { summary: 'string' },
+        category: "Validation",
+        type: { summary: "string" },
       },
     },
     overLimitMessage: {
-      control: 'text',
-      description: 'Message when over character limit',
+      control: "text",
+      description: "Message when over character limit",
       table: {
-        category: 'Validation',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'Too many characters' },
+        category: "Validation",
+        type: { summary: "string" },
+        defaultValue: { summary: "Too many characters" },
       },
     },
     disabled: {
-      control: 'boolean',
-      description: 'Disable the textarea',
+      control: "boolean",
+      description: "Disable the textarea",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -90,19 +90,19 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default textarea with placeholder.',
+        story: "Default textarea with placeholder.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText('Enter your message...');
+    const textarea = canvas.getByPlaceholderText("Enter your message...");
 
     await expect(textarea).toBeInTheDocument();
 
     // Type in textarea
-    await userEvent.type(textarea, 'Hello World');
-    await expect(textarea).toHaveValue('Hello World');
+    await userEvent.type(textarea, "Hello World");
+    await expect(textarea).toHaveValue("Hello World");
   },
 };
 
@@ -119,7 +119,7 @@ export const WithLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Textarea with an associated label.',
+        story: "Textarea with an associated label.",
       },
     },
   },
@@ -132,33 +132,29 @@ export const WithCharacterLimit: Story = {
   render: () => (
     <div className="grid w-full gap-1.5">
       <Label htmlFor="bio">Bio</Label>
-      <Textarea
-        id="bio"
-        placeholder="Tell us about yourself..."
-        maxChars={100}
-      />
+      <Textarea id="bio" placeholder="Tell us about yourself..." maxChars={100} />
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Textarea with a character counter showing remaining characters.',
+        story: "Textarea with a character counter showing remaining characters.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText('Tell us about yourself...');
+    const textarea = canvas.getByPlaceholderText("Tell us about yourself...");
 
     // Initially should show 100 characters left
-    await expect(canvas.getByText('100 characters left')).toBeInTheDocument();
+    await expect(canvas.getByText("100 characters left")).toBeInTheDocument();
 
     // Type some text
-    await userEvent.type(textarea, 'Hello');
+    await userEvent.type(textarea, "Hello");
 
     // Should now show 95 characters left
     await waitFor(() => {
-      expect(canvas.getByText('95 characters left')).toBeInTheDocument();
+      expect(canvas.getByText("95 characters left")).toBeInTheDocument();
     });
   },
 };
@@ -180,7 +176,7 @@ export const OverLimit: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Textarea with text exceeding the character limit.',
+        story: "Textarea with text exceeding the character limit.",
       },
     },
   },
@@ -203,13 +199,13 @@ export const WithError: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Textarea with validation error message.',
+        story: "Textarea with validation error message.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const errorText = canvas.getByText('Please enter at least 10 characters');
+    const errorText = canvas.getByText("Please enter at least 10 characters");
     await expect(errorText).toBeInTheDocument();
   },
 };
@@ -237,13 +233,13 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Disabled textareas prevent user interaction.',
+        story: "Disabled textareas prevent user interaction.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const textareas = canvas.getAllByRole('textbox');
+    const textareas = canvas.getAllByRole("textbox");
     for (const textarea of textareas) {
       await expect(textarea).toBeDisabled();
     }
@@ -255,7 +251,7 @@ export const Disabled: Story = {
  */
 export const Controlled: Story = {
   render: function ControlledTextarea() {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
 
     return (
       <div className="space-y-4">
@@ -270,28 +266,26 @@ export const Controlled: Story = {
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setValue('')}
+            onClick={() => setValue("")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Clear
           </button>
           <button
-            onClick={() => setValue('Hello, World!')}
+            onClick={() => setValue("Hello, World!")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set text
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Length: {value.length} characters
-        </p>
+        <p className="text-sm text-muted-foreground">Length: {value.length} characters</p>
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Controlled textarea with external state management.',
+        story: "Controlled textarea with external state management.",
       },
     },
   },
@@ -310,9 +304,7 @@ export const CustomMessages: Story = {
         maxChars={280}
         overLimitMessage="Your tweet is too long!"
         charactersLeftMessage={(remaining) =>
-          remaining > 20
-            ? `${remaining} remaining`
-            : `Only ${remaining} left!`
+          remaining > 20 ? `${remaining} remaining` : `Only ${remaining} left!`
         }
       />
     </div>
@@ -320,7 +312,7 @@ export const CustomMessages: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Textarea with customized character limit messages.',
+        story: "Textarea with customized character limit messages.",
       },
     },
   },
@@ -357,7 +349,7 @@ export const AllStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'All textarea states for comparison.',
+        story: "All textarea states for comparison.",
       },
     },
   },
@@ -384,17 +376,14 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Limit</h3>
         <Textarea placeholder="Limited..." maxChars={50} />
-        <Textarea
-          defaultValue="This is over the character limit for testing"
-          maxChars={20}
-        />
+        <Textarea defaultValue="This is over the character limit for testing" maxChars={20} />
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -415,16 +404,16 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    placeholder: 'Enter text...',
+    placeholder: "Enter text...",
     disabled: false,
     maxChars: undefined,
-    errorMessage: '',
+    errorMessage: "",
   },
   render: (args) => <Textarea {...args} />,
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with textarea props.',
+        story: "Interactive playground - use controls to experiment with textarea props.",
       },
     },
   },

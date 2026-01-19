@@ -1,62 +1,60 @@
-
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 // Shadow definitions
 const shadows = [
   {
-    name: 'shadow-sm',
-    cssVar: '--shadow-sm',
-    tailwindClass: 'shadow-sm',
-    usage: 'tooltips; small containers',
+    name: "shadow-sm",
+    cssVar: "--shadow-sm",
+    tailwindClass: "shadow-sm",
+    usage: "tooltips; small containers",
   },
   {
-    name: 'shadow-default',
-    cssVar: '--shadow-default',
-    tailwindClass: 'shadow-default',
-    usage: 'menus; popovers; hover cards',
+    name: "shadow-default",
+    cssVar: "--shadow-default",
+    tailwindClass: "shadow-default",
+    usage: "menus; popovers; hover cards",
   },
   {
-    name: 'shadow-md',
-    cssVar: '--shadow-md',
-    tailwindClass: 'shadow-md',
-    usage: 'sonner; temporary elements',
+    name: "shadow-md",
+    cssVar: "--shadow-md",
+    tailwindClass: "shadow-md",
+    usage: "sonner; temporary elements",
   },
   {
-    name: 'shadow-lg',
-    cssVar: '--shadow-lg',
-    tailwindClass: 'shadow-lg',
-    usage: 'modals; dialogs without backdrop overlay',
+    name: "shadow-lg",
+    cssVar: "--shadow-lg",
+    tailwindClass: "shadow-lg",
+    usage: "modals; dialogs without backdrop overlay",
   },
   {
-    name: 'shadow-xl',
-    cssVar: '--shadow-xl',
-    tailwindClass: 'shadow-xl',
-    usage: 'modals; dialogs with backdrop overlay',
+    name: "shadow-xl",
+    cssVar: "--shadow-xl",
+    tailwindClass: "shadow-xl",
+    usage: "modals; dialogs with backdrop overlay",
   },
 ];
 
 // Focus ring definitions using actual Tailwind patterns from components
 const focusRings = [
   {
-    name: 'focus',
-    tailwindClasses:
-      'focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring',
-    usage: 'keyboard focus for default items',
+    name: "focus",
+    tailwindClasses: "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+    usage: "keyboard focus for default items",
   },
   {
-    name: 'focus-destructive',
+    name: "focus-destructive",
     tailwindClasses:
-      'focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring',
-    usage: 'keyboard focus for destructive, error items',
+      "focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring",
+    usage: "keyboard focus for destructive, error items",
   },
 ];
 
 // Ring width options
 const ringWidths = [
-  { name: 'ring-1', width: '1px', usage: 'subtle focus; select inputs' },
-  { name: 'ring-2', width: '2px', usage: 'textarea' },
-  { name: 'ring', width: '3px', usage: 'default; buttons, checkboxes, etc.' },
-  { name: 'ring-4', width: '4px', usage: 'extra emphasis' },
+  { name: "ring-1", width: "1px", usage: "subtle focus; select inputs" },
+  { name: "ring-2", width: "2px", usage: "textarea" },
+  { name: "ring", width: "3px", usage: "default; buttons, checkboxes, etc." },
+  { name: "ring-4", width: "4px", usage: "extra emphasis" },
 ];
 
 function ShadowSwatch({ shadow }: { shadow: (typeof shadows)[0] }) {
@@ -80,14 +78,12 @@ function FocusRingSwatch({ focusRing }: { focusRing: (typeof focusRings)[0] }) {
       <button
         aria-label={`Demo ${focusRing.name} focus ring`}
         className={cn(
-          'w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]',
+          "w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
           focusRing.tailwindClasses
         )}
       />
       <div className="flex flex-col gap-1">
-        <h3 className="text-base font-medium text-foreground">
-          {focusRing.name}
-        </h3>
+        <h3 className="text-base font-medium text-foreground">{focusRing.name}</h3>
         <p className="text-sm text-muted-foreground">{focusRing.usage}</p>
         <code className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded mt-1 block w-fit">
           {focusRing.tailwindClasses}
@@ -104,14 +100,12 @@ function RingWidthSwatch({ ringWidth }: { ringWidth: (typeof ringWidths)[0] }) {
       <button
         aria-label={`Demo ${ringWidth.name} ring width`}
         className={cn(
-          'w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]',
+          "w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
           ringClass
         )}
       />
       <div className="flex flex-col gap-1">
-        <h3 className="text-base font-medium text-foreground">
-          {ringWidth.name}
-        </h3>
+        <h3 className="text-base font-medium text-foreground">{ringWidth.name}</h3>
         <p className="text-sm text-muted-foreground">
           {ringWidth.width} · {ringWidth.usage}
         </p>
@@ -135,9 +129,7 @@ export default function EffectsPage() {
       <section className="space-y-6">
         <div>
           <h2 className="text-2xl font-semibold mb-2">Elevations</h2>
-          <p className="text-muted-foreground">
-            Box shadows for depth and hierarchy
-          </p>
+          <p className="text-muted-foreground">Box shadows for depth and hierarchy</p>
         </div>
         <div className="space-y-2">
           {shadows.map((shadow) => (

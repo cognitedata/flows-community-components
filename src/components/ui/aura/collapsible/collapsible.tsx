@@ -1,17 +1,13 @@
+import type { ComponentProps } from "react";
+import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 
-import type { ComponentProps } from 'react';
-import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
+import { cn } from "@/lib/utils";
 
-import { cn } from '@/lib/utils';
-
-function Collapsible({
-  className,
-  ...props
-}: ComponentProps<typeof CollapsiblePrimitive.Root>) {
+function Collapsible({ className, ...props }: ComponentProps<typeof CollapsiblePrimitive.Root>) {
   return (
     <CollapsiblePrimitive.Root
       data-slot="collapsible"
-      className={cn('w-full min-w-0 box-border [&>*]:max-w-full', className)}
+      className={cn("w-full min-w-0 box-border [&>*]:max-w-full", className)}
       {...props}
     />
   );
@@ -24,7 +20,7 @@ function CollapsibleTrigger({
   return (
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
-      className={cn('group/collapsible-trigger', className)}
+      className={cn("group/collapsible-trigger", className)}
       {...props}
     />
   );
@@ -38,7 +34,7 @@ function CollapsibleContent({
     <CollapsiblePrimitive.CollapsibleContent
       data-slot="collapsible-content"
       className={cn(
-        'border-none outline-none text-muted-foreground text-sm leading-4.5 tracking-tight w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border',
+        "border-none outline-none text-muted-foreground text-sm leading-4.5 tracking-tight w-full min-w-0 overflow-x-hidden box-border [&>*]:max-w-full [&>*]:box-border",
         className
       )}
       {...props}

@@ -13,5 +13,5 @@
  *   </AccordionItem>
  * </Accordion>
  */
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './accordion';
-export { AccordionMetadata } from './accordion.metadata';
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./accordion";
+export { AccordionMetadata } from "./accordion.metadata";

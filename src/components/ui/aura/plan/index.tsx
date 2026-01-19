@@ -15,7 +15,7 @@ export {
   PlanContent,
   PlanFooter,
   PlanTrigger,
-} from './plan';
+} from "./plan";
 export type {
   PlanProps,
   PlanHeaderProps,
@@ -25,5 +25,5 @@ export type {
   PlanContentProps,
   PlanFooterProps,
   PlanTriggerProps,
-} from './plan';
-export { PlanMetadata } from './plan.metadata';
+} from "./plan";
+export { PlanMetadata } from "./plan.metadata";

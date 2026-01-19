@@ -11,7 +11,7 @@ import {
   type ComponentStatusType,
   getStatusMessage,
   getComponentStatusClasses,
-} from './component-status';
+} from "./component-status";
 
 // Re-export types for backward compatibility
 export type AIComponentStatus = ComponentStatusType;
@@ -23,7 +23,7 @@ export type AIComponentStatus = ComponentStatusType;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getAIComponentStatus(_componentSlug: string): ComponentStatusType {
   // Status is now in metadata - this is kept for backward compatibility
-  return 'draft';
+  return "draft";
 }
 
 /**
@@ -31,7 +31,7 @@ export function getAIComponentStatus(_componentSlug: string): ComponentStatusTyp
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getAIComponentStatusMessage(_componentSlug: string): string {
-  return getStatusMessage('draft');
+  return getStatusMessage("draft");
 }
 
 /**

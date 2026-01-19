@@ -1,39 +1,39 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
-import { Label } from './label';
-import { Input } from '@/components/ui/aura/input';
-import { Checkbox } from '@/components/ui/aura/checkbox';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
+import { Label } from "./label";
+import { Input } from "@/components/ui/aura/input";
+import { Checkbox } from "@/components/ui/aura/checkbox";
 
 const meta: Meta<typeof Label> = {
-  title: 'Primitives/Label',
+  title: "Primitives/Label",
   component: Label,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     htmlFor: {
-      control: 'text',
-      description: 'ID of the form element the label is associated with',
+      control: "text",
+      description: "ID of the form element the label is associated with",
       table: {
-        category: 'Association',
-        type: { summary: 'string' },
+        category: "Association",
+        type: { summary: "string" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
     children: {
-      control: 'text',
-      description: 'Label content',
+      control: "text",
+      description: "Label content",
       table: {
-        category: 'Content',
+        category: "Content",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -48,13 +48,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default label styling.',
+        story: "Default label styling.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText('Email address');
+    const label = canvas.getByText("Email address");
     await expect(label).toBeInTheDocument();
   },
 };
@@ -72,13 +72,13 @@ export const WithInput: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Label associated with an input field.',
+        story: "Label associated with an input field.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText('Email');
+    const input = canvas.getByLabelText("Email");
     await expect(input).toBeInTheDocument();
   },
 };
@@ -96,7 +96,7 @@ export const WithCheckbox: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Label used with a checkbox.',
+        story: "Label used with a checkbox.",
       },
     },
   },
@@ -117,7 +117,7 @@ export const Required: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Label indicating a required field with asterisk.',
+        story: "Label indicating a required field with asterisk.",
       },
     },
   },
@@ -139,7 +139,7 @@ export const WithHelperText: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Label with additional helper text below the input.',
+        story: "Label with additional helper text below the input.",
       },
     },
   },
@@ -160,7 +160,7 @@ export const Disabled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Label for a disabled input field.',
+        story: "Label for a disabled input field.",
       },
     },
   },
@@ -173,12 +173,7 @@ export const WithIcon: Story = {
   render: () => (
     <div className="grid w-[300px] items-center gap-1.5">
       <Label htmlFor="icon-input" className="flex items-center gap-1">
-        <svg
-          className="size-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -194,7 +189,7 @@ export const WithIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Label with an icon for visual context.',
+        story: "Label with an icon for visual context.",
       },
     },
   },
@@ -229,7 +224,7 @@ export const FormExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple labels in a typical form layout.',
+        story: "Multiple labels in a typical form layout.",
       },
     },
   },
@@ -283,7 +278,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive visual overview for regression testing.',
+        story: "Comprehensive visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -297,8 +292,8 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    children: 'Label text',
-    htmlFor: 'playground-input',
+    children: "Label text",
+    htmlFor: "playground-input",
   },
   render: (args) => (
     <div className="grid w-[300px] items-center gap-1.5">
@@ -309,7 +304,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with label props.',
+        story: "Interactive playground - use controls to experiment with label props.",
       },
     },
   },

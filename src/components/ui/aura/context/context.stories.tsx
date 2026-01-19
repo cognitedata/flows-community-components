@@ -1,43 +1,39 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
-import {
-  Context,
-  ContextTrigger,
-  ContextContent,
-} from './context';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
+import { Context, ContextTrigger, ContextContent } from "./context";
 
 const meta: Meta<typeof Context> = {
-  title: 'AI/Context',
+  title: "AI/Context",
   component: Context,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     usedTokens: {
-      control: { type: 'number', min: 0 },
-      description: 'Number of tokens used',
+      control: { type: "number", min: 0 },
+      description: "Number of tokens used",
       table: {
-        category: 'Content',
-        type: { summary: 'number' },
+        category: "Content",
+        type: { summary: "number" },
       },
     },
     maxTokens: {
-      control: { type: 'number', min: 1 },
-      description: 'Maximum tokens available',
+      control: { type: "number", min: 1 },
+      description: "Maximum tokens available",
       table: {
-        category: 'Content',
-        type: { summary: 'number' },
+        category: "Content",
+        type: { summary: "number" },
       },
     },
     modelId: {
-      control: 'text',
-      description: 'The model identifier',
+      control: "text",
+      description: "The model identifier",
       table: {
-        category: 'Content',
-        type: { summary: 'string' },
+        category: "Content",
+        type: { summary: "string" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -57,13 +53,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default context usage indicator showing token consumption.',
+        story: "Default context usage indicator showing token consumption.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await expect(trigger).toBeInTheDocument();
   },
 };
@@ -81,7 +77,7 @@ export const LowUsage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicator showing low token usage (~8%).',
+        story: "Context indicator showing low token usage (~8%).",
       },
     },
   },
@@ -100,7 +96,7 @@ export const MediumUsage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicator showing medium token usage (~50%).',
+        story: "Context indicator showing medium token usage (~50%).",
       },
     },
   },
@@ -119,7 +115,7 @@ export const HighUsage: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicator showing high token usage (~78%).',
+        story: "Context indicator showing high token usage (~78%).",
       },
     },
   },
@@ -138,7 +134,7 @@ export const NearLimit: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicator showing near-limit token usage (~94%).',
+        story: "Context indicator showing near-limit token usage (~94%).",
       },
     },
   },
@@ -157,7 +153,7 @@ export const WithModelId: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicator with model information.',
+        story: "Context indicator with model information.",
       },
     },
   },
@@ -168,8 +164,8 @@ export const WithModelId: Story = {
  */
 export const WithUsageStats: Story = {
   render: () => (
-    <Context 
-      usedTokens={50000} 
+    <Context
+      usedTokens={50000}
       maxTokens={128000}
       modelId="claude-3-opus"
       usage={{
@@ -194,7 +190,7 @@ export const WithUsageStats: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicator with detailed usage statistics.',
+        story: "Context indicator with detailed usage statistics.",
       },
     },
   },
@@ -232,7 +228,7 @@ export const DifferentSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicators for different model context sizes.',
+        story: "Context indicators for different model context sizes.",
       },
     },
   },
@@ -275,7 +271,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Context indicators for visual regression testing.',
+        story: "Context indicators for visual regression testing.",
       },
     },
     chromatic: {
@@ -291,7 +287,7 @@ export const Playground: Story = {
   args: {
     usedTokens: 50000,
     maxTokens: 128000,
-    modelId: 'claude-3-opus',
+    modelId: "claude-3-opus",
   },
   render: (args) => (
     <Context {...args}>
@@ -302,7 +298,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive context example - use controls to adjust token usage.',
+        story: "Interactive context example - use controls to adjust token usage.",
       },
     },
   },

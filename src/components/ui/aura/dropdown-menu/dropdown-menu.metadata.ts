@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "@/lib/component-examples";
 
 /**
  * Dropdown Menu Component Metadata
@@ -7,11 +7,11 @@ import type { ComponentMeta } from '@/lib/component-examples';
  * component documentation pages and provide context for LLMs.
  */
 export const DropdownMenuMetadata: ComponentMeta = {
-  name: 'DropdownMenu',
-  status: 'draft',
+  name: "DropdownMenu",
+  status: "draft",
   description:
-    'A dropdown menu with submenus, separators, and selection states, built on Radix Dropdown Menu primitives.',
+    "A dropdown menu with submenus, separators, and selection states, built on Radix Dropdown Menu primitives.",
   llmUsage:
-    'Use `<DropdownMenu>` with `<DropdownMenuTrigger>`, `<DropdownMenuContent>`, and `<DropdownMenuItem>` for context actions.',
-  importPath: '@/components/ui/aura/dropdown-menu',
+    "Use `<DropdownMenu>` with `<DropdownMenuTrigger>`, `<DropdownMenuContent>`, and `<DropdownMenuItem>` for context actions.",
+  importPath: "@/components/ui/aura/dropdown-menu",
 };

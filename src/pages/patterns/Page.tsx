@@ -1,9 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-const patterns = [
-  'Agent Chat',
-  'Dashboards',
-];
+const patterns = ["Agent Chat", "Dashboards"];
 
 export default function PatternsPage() {
   return (
@@ -11,8 +8,7 @@ export default function PatternsPage() {
       <div>
         <h1 className="text-4xl font-bold tracking-tight">Patterns</h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Complete UI patterns with animations, interactions, and real-world
-          use cases.
+          Complete UI patterns with animations, interactions, and real-world use cases.
         </p>
       </div>
 
@@ -20,7 +16,7 @@ export default function PatternsPage() {
         {patterns.map((pattern) => (
           <Link
             key={pattern}
-            to={`/patterns/${pattern.toLowerCase().replace(/\s+/g, '-')}`}
+            to={`/patterns/${pattern.toLowerCase().replace(/\s+/g, "-")}`}
             className="text-foreground hover:underline"
           >
             {pattern}

@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Controls } from './controls';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Controls } from "./controls";
 
 const meta: Meta<typeof Controls> = {
-  title: 'AI/Controls',
+  title: "AI/Controls",
   component: Controls,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof Controls>;
 
 /**
  * Default controls (requires ReactFlow context).
- * 
+ *
  * Note: This component wraps ReactFlow Controls and requires
  * a ReactFlow context to function properly.
  */
@@ -44,7 +44,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Controls component for ReactFlow canvases. Requires ReactFlow context.',
+        story: "Controls component for ReactFlow canvases. Requires ReactFlow context.",
       },
     },
   },
@@ -70,15 +70,15 @@ function FlowCanvas() {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        The Controls component is automatically included in the Canvas 
-        component, but can also be used standalone within ReactFlow.
+        The Controls component is automatically included in the Canvas component, but can also be
+        used standalone within ReactFlow.
       </p>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Example showing how to use the Controls component.',
+        story: "Example showing how to use the Controls component.",
       },
     },
   },
@@ -92,22 +92,22 @@ export const StylingPreview: Story = {
     <div className="gap-px overflow-hidden rounded-md border bg-card p-1 inline-flex flex-col">
       <button className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-secondary text-muted-foreground">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
         </svg>
       </button>
       <button className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-secondary text-muted-foreground">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19 13H5v-2h14v2z"/>
+          <path d="M19 13H5v-2h14v2z" />
         </svg>
       </button>
       <button className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-secondary text-muted-foreground">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M5 15H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z"/>
+          <path d="M5 15H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z" />
         </svg>
       </button>
       <button className="w-8 h-8 flex items-center justify-center rounded-md hover:bg-secondary text-muted-foreground">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+          <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
         </svg>
       </button>
     </div>
@@ -115,7 +115,7 @@ export const StylingPreview: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Preview of Controls styling (without ReactFlow context).',
+        story: "Preview of Controls styling (without ReactFlow context).",
       },
     },
   },

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,53 +10,53 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogClose,
-} from './dialog';
-import { Button } from '@/components/ui/aura/button';
-import { Input } from '@/components/ui/aura/input';
-import { Label } from '@/components/ui/aura/label';
+} from "./dialog";
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Primitives/Dialog',
+  title: "Primitives/Dialog",
   component: Dialog,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     open: {
-      control: 'boolean',
-      description: 'Controlled open state',
+      control: "boolean",
+      description: "Controlled open state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultOpen: {
-      control: 'boolean',
-      description: 'Default open state (uncontrolled)',
+      control: "boolean",
+      description: "Default open state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     modal: {
-      control: 'boolean',
-      description: 'Whether to render as modal (blocks interaction outside)',
+      control: "boolean",
+      description: "Whether to render as modal (blocks interaction outside)",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
     onOpenChange: {
-      action: 'openChange',
-      description: 'Callback when open state changes',
+      action: "openChange",
+      description: "Callback when open state changes",
       table: {
-        category: 'Events',
-        type: { summary: '(open: boolean) => void' },
+        category: "Events",
+        type: { summary: "(open: boolean) => void" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -96,7 +96,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default dialog with title, description, and action buttons.',
+        story: "Default dialog with title, description, and action buttons.",
       },
     },
   },
@@ -104,7 +104,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Click trigger
-    const trigger = canvas.getByRole('button', { name: /open dialog/i });
+    const trigger = canvas.getByRole("button", { name: /open dialog/i });
     await userEvent.click(trigger);
 
     // Wait for dialog
@@ -115,7 +115,7 @@ export const Default: Story = {
 
     // Verify title
     const title = document.querySelector('[data-slot="dialog-title"]');
-    expect(title).toHaveTextContent('Dialog Title');
+    expect(title).toHaveTextContent("Dialog Title");
   },
 };
 
@@ -157,7 +157,7 @@ export const WithForm: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dialog containing a form for user input.',
+        story: "Dialog containing a form for user input.",
       },
     },
   },
@@ -190,7 +190,7 @@ export const NoCloseButton: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dialog without the X close button in the corner.',
+        story: "Dialog without the X close button in the corner.",
       },
     },
   },
@@ -211,9 +211,7 @@ export const Controlled: Story = {
             Close Dialog
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Dialog is {open ? 'open' : 'closed'}
-        </p>
+        <p className="text-sm text-muted-foreground">Dialog is {open ? "open" : "closed"}</p>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogContent>
             <DialogHeader>
@@ -233,7 +231,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dialog with externally controlled open state.',
+        story: "Dialog with externally controlled open state.",
       },
     },
   },
@@ -251,16 +249,14 @@ export const ScrollingContent: Story = {
       <DialogContent className="max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Terms of Service</DialogTitle>
-          <DialogDescription>
-            Please read and accept our terms of service.
-          </DialogDescription>
+          <DialogDescription>Please read and accept our terms of service.</DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4 text-sm text-muted-foreground">
           {Array.from({ length: 10 }, (_, i) => (
             <p key={i}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris.
             </p>
           ))}
         </div>
@@ -276,7 +272,7 @@ export const ScrollingContent: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dialog with scrolling content for long text.',
+        story: "Dialog with scrolling content for long text.",
       },
     },
   },
@@ -294,9 +290,7 @@ export const Nested: Story = {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>First Dialog</DialogTitle>
-          <DialogDescription>
-            This dialog can open another dialog.
-          </DialogDescription>
+          <DialogDescription>This dialog can open another dialog.</DialogDescription>
         </DialogHeader>
         <div className="py-4">
           <Dialog>
@@ -306,9 +300,7 @@ export const Nested: Story = {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Second Dialog</DialogTitle>
-                <DialogDescription>
-                  This is a nested dialog.
-                </DialogDescription>
+                <DialogDescription>This is a nested dialog.</DialogDescription>
               </DialogHeader>
               <DialogFooter>
                 <DialogClose asChild>
@@ -329,7 +321,7 @@ export const Nested: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dialogs can be nested inside each other.',
+        story: "Dialogs can be nested inside each other.",
       },
     },
   },
@@ -360,26 +352,21 @@ export const Confirmation: Story = {
                 <Button variant="outline">Cancel</Button>
               </DialogClose>
               <DialogClose asChild>
-                <Button
-                  variant="destructive"
-                  onClick={() => setConfirmed(true)}
-                >
+                <Button variant="destructive" onClick={() => setConfirmed(true)}>
                   Delete
                 </Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
-        {confirmed && (
-          <p className="text-sm text-green-600">Item deleted successfully!</p>
-        )}
+        {confirmed && <p className="text-sm text-green-600">Item deleted successfully!</p>}
       </div>
     );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Confirmation dialog for destructive actions.',
+        story: "Confirmation dialog for destructive actions.",
       },
     },
   },
@@ -399,9 +386,7 @@ export const VisualRegression: Story = {
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
-          <p className="text-sm text-muted-foreground">
-            Sample content for the dialog.
-          </p>
+          <p className="text-sm text-muted-foreground">Sample content for the dialog.</p>
         </div>
         <DialogFooter>
           <Button variant="outline">Cancel</Button>
@@ -413,7 +398,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Dialog open by default for visual regression testing.',
+        story: "Dialog open by default for visual regression testing.",
       },
     },
     chromatic: {
@@ -454,7 +439,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with dialog props.',
+        story: "Interactive playground - use controls to experiment with dialog props.",
       },
     },
   },

@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "@/lib/component-examples";
 
 /**
  * Suggestion Component Metadata
@@ -7,11 +7,11 @@ import type { ComponentMeta } from '@/lib/component-examples';
  * component documentation pages and provide context for LLMs.
  */
 export const SuggestionMetadata: ComponentMeta = {
-  name: 'Suggestion',
-  status: 'draft',
+  name: "Suggestion",
+  status: "draft",
   description:
-    'A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.',
+    "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
   llmUsage:
     'Use `<Suggestion suggestion="text" onClick={fn}>` for button mode, or `<Suggestion onValueChange={fn}>` with `<SuggestionTrigger>` and `<SuggestionContent>` for dropdown mode.',
-  importPath: '@/components/ui/aura/suggestion',
+  importPath: "@/components/ui/aura/suggestion",
 };

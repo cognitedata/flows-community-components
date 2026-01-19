@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "@storybook/test";
 import {
   Artifact,
   ArtifactHeader,
@@ -9,24 +9,24 @@ import {
   ArtifactAction,
   ArtifactClose,
   ArtifactContent,
-} from './artifact';
-import { IconCode, IconDownload, IconCopy, IconExternalLink } from '@tabler/icons-react';
+} from "./artifact";
+import { IconCode, IconDownload, IconCopy, IconExternalLink } from "@tabler/icons-react";
 
 const meta: Meta<typeof Artifact> = {
-  title: 'AI/Artifact',
+  title: "AI/Artifact",
   component: Artifact,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -59,7 +59,7 @@ export const Default: Story = {
       </ArtifactHeader>
       <ArtifactContent>
         <pre className="p-4 text-sm font-mono bg-muted/30">
-{`function Button({ children }) {
+          {`function Button({ children }) {
   return (
     <button className="btn">
       {children}
@@ -73,12 +73,12 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default artifact container for AI-generated content.',
+        story: "Default artifact container for AI-generated content.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const artifact = canvasElement.querySelector('.rounded-lg.border');
+    const artifact = canvasElement.querySelector(".rounded-lg.border");
     await expect(artifact).toBeInTheDocument();
   },
 };
@@ -104,7 +104,7 @@ export const CodeArtifact: Story = {
       </ArtifactHeader>
       <ArtifactContent>
         <pre className="p-4 text-sm font-mono bg-muted/30 overflow-x-auto">
-{`export function quickSort<T>(arr: T[]): T[] {
+          {`export function quickSort<T>(arr: T[]): T[] {
   if (arr.length <= 1) return arr;
   
   const pivot = arr[Math.floor(arr.length / 2)];
@@ -121,7 +121,7 @@ export const CodeArtifact: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Artifact displaying code with syntax highlighting.',
+        story: "Artifact displaying code with syntax highlighting.",
       },
     },
   },
@@ -147,9 +147,9 @@ export const DocumentArtifact: Story = {
       <ArtifactContent className="p-4 prose prose-sm max-w-none">
         <h3 className="text-base font-semibold">Overview</h3>
         <p className="text-sm text-muted-foreground">
-          This document provides a comprehensive summary of the project scope, 
-          deliverables, and timeline. The project aims to modernize the existing 
-          infrastructure while maintaining backward compatibility.
+          This document provides a comprehensive summary of the project scope, deliverables, and
+          timeline. The project aims to modernize the existing infrastructure while maintaining
+          backward compatibility.
         </p>
         <h4 className="text-sm font-semibold mt-4">Key Objectives</h4>
         <ul className="text-sm text-muted-foreground list-disc pl-4">
@@ -163,7 +163,7 @@ export const DocumentArtifact: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Artifact displaying a generated document.',
+        story: "Artifact displaying a generated document.",
       },
     },
   },
@@ -187,7 +187,7 @@ export const Minimal: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Minimal artifact with basic structure.',
+        story: "Minimal artifact with basic structure.",
       },
     },
   },
@@ -205,26 +205,15 @@ export const WithMultipleActions: Story = {
           <ArtifactDescription>JSON data structure</ArtifactDescription>
         </div>
         <ArtifactActions>
-          <ArtifactAction 
-            icon={IconCopy} 
-            tooltip="Copy to clipboard" 
-            label="Copy"
-          />
-          <ArtifactAction 
-            icon={IconDownload} 
-            tooltip="Download as file" 
-            label="Download"
-          />
-          <ArtifactAction 
-            icon={IconExternalLink} 
-            tooltip="Open in editor" 
-          />
+          <ArtifactAction icon={IconCopy} tooltip="Copy to clipboard" label="Copy" />
+          <ArtifactAction icon={IconDownload} tooltip="Download as file" label="Download" />
+          <ArtifactAction icon={IconExternalLink} tooltip="Open in editor" />
           <ArtifactClose />
         </ArtifactActions>
       </ArtifactHeader>
       <ArtifactContent>
         <pre className="p-4 text-sm font-mono bg-muted/30">
-{`{
+          {`{
   "status": "success",
   "data": {
     "id": 123,
@@ -239,7 +228,7 @@ export const WithMultipleActions: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Artifact with multiple action buttons.',
+        story: "Artifact with multiple action buttons.",
       },
     },
   },
@@ -289,7 +278,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Artifacts for visual regression testing.',
+        story: "Artifacts for visual regression testing.",
       },
     },
     chromatic: {
@@ -323,8 +312,7 @@ export const Playground: Story = {
       </ArtifactHeader>
       <ArtifactContent className="p-4">
         <p className="text-sm">
-          This is a playground artifact. You can customize the structure 
-          by modifying the code.
+          This is a playground artifact. You can customize the structure by modifying the code.
         </p>
       </ArtifactContent>
     </Artifact>
@@ -332,7 +320,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive artifact example.',
+        story: "Interactive artifact example.",
       },
     },
   },

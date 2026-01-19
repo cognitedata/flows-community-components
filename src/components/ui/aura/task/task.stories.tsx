@@ -1,38 +1,32 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
-import {
-  Task,
-  TaskTrigger,
-  TaskContent,
-  TaskItem,
-  TaskItemFile,
-} from './task';
-import { IconCheck, IconFile } from '@tabler/icons-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
+import { Task, TaskTrigger, TaskContent, TaskItem, TaskItemFile } from "./task";
+import { IconCheck, IconFile } from "@tabler/icons-react";
 
 const meta: Meta<typeof Task> = {
-  title: 'AI/Task',
+  title: "AI/Task",
   component: Task,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     defaultOpen: {
-      control: 'boolean',
-      description: 'Whether the task content is open by default',
+      control: "boolean",
+      description: "Whether the task content is open by default",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -73,13 +67,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default collapsible task with search results.',
+        story: "Default collapsible task with search results.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByText('Searching project files');
+    const trigger = canvas.getByText("Searching project files");
     await expect(trigger).toBeInTheDocument();
   },
 };
@@ -100,21 +94,21 @@ export const CollapsedByDefault: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Task that starts collapsed.',
+        story: "Task that starts collapsed.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Content should be hidden initially
-    const trigger = canvas.getByText('Analyzing code structure');
-    
+    const trigger = canvas.getByText("Analyzing code structure");
+
     // Click to expand
     await userEvent.click(trigger);
-    
+
     // Content should be visible now
-    const content = canvas.getByText('Analyzed 15 files');
+    const content = canvas.getByText("Analyzed 15 files");
     await expect(content).toBeInTheDocument();
   },
 };
@@ -158,7 +152,7 @@ export const MultipleFiles: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Task showing multiple file results.',
+        story: "Task showing multiple file results.",
       },
     },
   },
@@ -190,7 +184,7 @@ export const WithStatus: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Task with status indicators.',
+        story: "Task with status indicators.",
       },
     },
   },
@@ -225,7 +219,7 @@ export const MultipleTasks: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple sequential tasks.',
+        story: "Multiple sequential tasks.",
       },
     },
   },
@@ -266,7 +260,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Tasks for visual regression testing.',
+        story: "Tasks for visual regression testing.",
       },
     },
     chromatic: {
@@ -296,7 +290,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive task example - toggle defaultOpen to change initial state.',
+        story: "Interactive task example - toggle defaultOpen to change initial state.",
       },
     },
   },

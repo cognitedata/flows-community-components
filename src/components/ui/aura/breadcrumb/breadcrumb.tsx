@@ -1,9 +1,9 @@
-import type { ComponentProps } from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import { IconDots, IconSlash } from '@tabler/icons-react';
+import type { ComponentProps } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { IconDots, IconSlash } from "@tabler/icons-react";
 
-import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/aura/button/button';
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/aura/button/button";
 
 /**
  * Root container for breadcrumb navigation.
@@ -22,7 +22,7 @@ import { buttonVariants } from '@/components/ui/aura/button/button';
  *   </BreadcrumbList>
  * </Breadcrumb>
  */
-function Breadcrumb({ ...props }: ComponentProps<'nav'>) {
+function Breadcrumb({ ...props }: ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
 }
 
@@ -30,12 +30,12 @@ function Breadcrumb({ ...props }: ComponentProps<'nav'>) {
  * Ordered list container for breadcrumb items.
  * Must be a direct child of `Breadcrumb`.
  */
-function BreadcrumbList({ className, ...props }: ComponentProps<'ol'>) {
+function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
   return (
     <ol
       data-slot="breadcrumb-list"
       className={cn(
-        'flex flex-wrap items-center text-sm tracking-tight wrap-break-word',
+        "flex flex-wrap items-center text-sm tracking-tight wrap-break-word",
         className
       )}
       {...props}
@@ -47,13 +47,13 @@ function BreadcrumbList({ className, ...props }: ComponentProps<'ol'>) {
  * Individual breadcrumb item container.
  * Wraps a single breadcrumb link or page. Use between `BreadcrumbSeparator` components.
  */
-function BreadcrumbItem({ className, ...props }: ComponentProps<'li'>) {
+function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
   return (
     <li
       data-slot="breadcrumb-item"
       className={cn(
-        'inline-flex items-center text-muted-foreground text-sm tracking-tight',
-        'has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm',
+        "inline-flex items-center text-muted-foreground text-sm tracking-tight",
+        "has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm",
         className
       )}
       {...props}
@@ -74,17 +74,17 @@ function BreadcrumbLink({
   asChild,
   className,
   ...props
-}: ComponentProps<'a'> & {
+}: ComponentProps<"a"> & {
   asChild?: boolean;
 }) {
-  const Comp = asChild ? Slot : 'a';
+  const Comp = asChild ? Slot : "a";
 
   return (
     <Comp
       data-slot="breadcrumb-link"
       className={cn(
-        buttonVariants({ variant: 'ghost', size: 'sm' }),
-        'transition-colors',
+        buttonVariants({ variant: "ghost", size: "sm" }),
+        "transition-colors",
         className
       )}
       {...props}
@@ -114,15 +114,15 @@ function BreadcrumbPage({
   className,
   href,
   ...props
-}: (ComponentProps<'span'> | ComponentProps<'a'>) & { href?: string }) {
+}: (ComponentProps<"span"> | ComponentProps<"a">) & { href?: string }) {
   // If href is provided, render as a link with aria-current
   if (href) {
     return (
       <BreadcrumbLink
         href={href}
         aria-current="page"
-        className={cn('font-medium tracking-tight text-foreground', className)}
-        {...(props as ComponentProps<'a'>)}
+        className={cn("font-medium tracking-tight text-foreground", className)}
+        {...(props as ComponentProps<"a">)}
       />
     );
   }
@@ -135,13 +135,13 @@ function BreadcrumbPage({
       aria-disabled="true"
       aria-current="page"
       className={cn(
-        buttonVariants({ variant: 'ghost', size: 'sm' }),
+        buttonVariants({ variant: "ghost", size: "sm" }),
         // Override interactive styles to be non-interactive
-        'cursor-default hover:bg-transparent dark:hover:bg-transparent',
-        'font-medium tracking-tight text-foreground',
+        "cursor-default hover:bg-transparent dark:hover:bg-transparent",
+        "font-medium tracking-tight text-foreground",
         className
       )}
-      {...(props as ComponentProps<'span'>)}
+      {...(props as ComponentProps<"span">)}
     />
   );
 }
@@ -164,18 +164,15 @@ function BreadcrumbPage({
  *   </DropdownMenu>
  * </BreadcrumbItem>
  */
-function BreadcrumbPageButton({
-  className,
-  ...props
-}: ComponentProps<'button'>) {
+function BreadcrumbPageButton({ className, ...props }: ComponentProps<"button">) {
   return (
     <button
       data-slot="breadcrumb-page-button"
       type="button"
       aria-current="page"
       className={cn(
-        buttonVariants({ variant: 'ghost', size: 'sm' }),
-        'font-medium tracking-tight text-foreground',
+        buttonVariants({ variant: "ghost", size: "sm" }),
+        "font-medium tracking-tight text-foreground",
         className
       )}
       {...props}
@@ -205,18 +202,14 @@ function BreadcrumbPageButton({
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>
  */
-function BreadcrumbEllipsisButton({
-  className,
-  children,
-  ...props
-}: ComponentProps<'button'>) {
+function BreadcrumbEllipsisButton({ className, children, ...props }: ComponentProps<"button">) {
   return (
     <button
       data-slot="breadcrumb-ellipsis-button"
       type="button"
       className={cn(
-        buttonVariants({ variant: 'ghost', size: 'sm' }),
-        'flex items-center gap-1',
+        buttonVariants({ variant: "ghost", size: "sm" }),
+        "flex items-center gap-1",
         className
       )}
       {...props}
@@ -245,17 +238,13 @@ function BreadcrumbEllipsisButton({
  *   <IconChevronRight className="size-4" />
  * </BreadcrumbSeparator>
  */
-function BreadcrumbSeparator({
-  children,
-  className,
-  ...props
-}: ComponentProps<'li'>) {
+function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"li">) {
   return (
     <li
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={cn('[&>svg]:size-3.5', className)}
+      className={cn("[&>svg]:size-3.5", className)}
       {...props}
     >
       {children ?? <IconSlash className="size-3 text-muted-foreground" />}
@@ -286,19 +275,15 @@ function BreadcrumbSeparator({
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>
  */
-function BreadcrumbEllipsis({
-  children,
-  className,
-  ...props
-}: ComponentProps<'li'>) {
+function BreadcrumbEllipsis({ children, className, ...props }: ComponentProps<"li">) {
   return (
     <li
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       aria-hidden="true"
       className={cn(
-        'inline-flex items-center',
-        'has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm',
+        "inline-flex items-center",
+        "has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm",
         className
       )}
       {...props}
@@ -306,8 +291,8 @@ function BreadcrumbEllipsis({
       {children ?? (
         <span
           className={cn(
-            buttonVariants({ variant: 'ghost', size: 'sm' }),
-            'flex items-center gap-1 cursor-default hover:bg-transparent dark:hover:bg-transparent'
+            buttonVariants({ variant: "ghost", size: "sm" }),
+            "flex items-center gap-1 cursor-default hover:bg-transparent dark:hover:bg-transparent"
           )}
         >
           <IconDots className="size-3" />

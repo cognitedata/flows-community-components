@@ -23,7 +23,7 @@ export {
   MessageAttachment,
   MessageAttachments,
   MessageToolbar,
-} from './message';
+} from "./message";
 export type {
   MessageProps,
   MessageContentProps,
@@ -41,5 +41,5 @@ export type {
   MessageAttachmentProps,
   MessageAttachmentsProps,
   MessageToolbarProps,
-} from './message';
-export { MessageMetadata } from './message.metadata';
+} from "./message";
+export { MessageMetadata } from "./message.metadata";

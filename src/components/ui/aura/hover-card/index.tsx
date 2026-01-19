@@ -6,5 +6,5 @@
  * @example
  * import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/aura/hover-card';
  */
-export { HoverCard, HoverCardTrigger, HoverCardContent } from './hover-card';
-export { HoverCardMetadata } from './hover-card.metadata';
+export { HoverCard, HoverCardTrigger, HoverCardContent } from "./hover-card";
+export { HoverCardMetadata } from "./hover-card.metadata";

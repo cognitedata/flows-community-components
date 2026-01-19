@@ -15,7 +15,7 @@ export {
   ArtifactActions,
   ArtifactAction,
   ArtifactContent,
-} from './artifact';
+} from "./artifact";
 export type {
   ArtifactProps,
   ArtifactHeaderProps,
@@ -25,5 +25,5 @@ export type {
   ArtifactActionsProps,
   ArtifactActionProps,
   ArtifactContentProps,
-} from './artifact';
-export { ArtifactMetadata } from './artifact.metadata';
+} from "./artifact";
+export { ArtifactMetadata } from "./artifact.metadata";

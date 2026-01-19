@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 import {
   Node,
   NodeHeader,
@@ -8,33 +8,33 @@ import {
   NodeContent,
   NodeFooter,
   NodeAction,
-} from './node';
-import { Button } from '@/components/ui/aura/button';
-import { IconSettings } from '@tabler/icons-react';
+} from "./node";
+import { Button } from "@/components/ui/aura/button";
+import { IconSettings } from "@tabler/icons-react";
 
 const meta: Meta<typeof Node> = {
-  title: 'AI/Node',
+  title: "AI/Node",
   component: Node,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     handles: {
-      control: 'object',
-      description: 'Configuration for source and target handles',
+      control: "object",
+      description: "Configuration for source and target handles",
       table: {
-        category: 'Behavior',
-        type: { summary: '{ target: boolean; source: boolean }' },
+        category: "Behavior",
+        type: { summary: "{ target: boolean; source: boolean }" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -43,7 +43,7 @@ type Story = StoryObj<typeof Node>;
 
 /**
  * Default node (styling only, handles require ReactFlow).
- * 
+ *
  * Note: The handles (target/source) require ReactFlow context to function.
  * This story shows the visual structure of the node.
  */
@@ -57,8 +57,8 @@ export const Default: Story = {
         </NodeHeader>
         <NodeContent>
           <p className="text-sm text-muted-foreground">
-            This node handles the initial processing of user input 
-            before passing it to downstream nodes.
+            This node handles the initial processing of user input before passing it to downstream
+            nodes.
           </p>
         </NodeContent>
       </Node>
@@ -67,13 +67,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default node component structure. Handles require ReactFlow context.',
+        story: "Default node component structure. Handles require ReactFlow context.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const title = canvas.getByText('Agent Node');
+    const title = canvas.getByText("Agent Node");
     await expect(title).toBeInTheDocument();
   },
 };
@@ -103,7 +103,7 @@ export const WithContent: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Node with header and structured content.',
+        story: "Node with header and structured content.",
       },
     },
   },
@@ -126,9 +126,7 @@ export const WithFooter: Story = {
           </p>
         </NodeContent>
         <NodeFooter>
-          <span className="text-xs text-muted-foreground">
-            Last run: 2 minutes ago
-          </span>
+          <span className="text-xs text-muted-foreground">Last run: 2 minutes ago</span>
         </NodeFooter>
       </Node>
     </div>
@@ -136,7 +134,7 @@ export const WithFooter: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Node with footer section.',
+        story: "Node with footer section.",
       },
     },
   },
@@ -171,7 +169,7 @@ export const WithAction: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Node with an action button in the header.',
+        story: "Node with an action button in the header.",
       },
     },
   },
@@ -221,7 +219,7 @@ export const MultipleNodes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Multiple nodes showing a workflow pattern.',
+        story: "Multiple nodes showing a workflow pattern.",
       },
     },
   },
@@ -243,7 +241,7 @@ export const Minimal: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Minimal node with just a title.',
+        story: "Minimal node with just a title.",
       },
     },
   },
@@ -297,7 +295,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Nodes for visual regression testing.',
+        story: "Nodes for visual regression testing.",
       },
     },
     chromatic: {
@@ -331,7 +329,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive node example.',
+        story: "Interactive node example.",
       },
     },
   },

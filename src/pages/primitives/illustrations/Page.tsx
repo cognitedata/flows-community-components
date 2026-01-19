@@ -4,39 +4,39 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/aura/card';
-import { Badge } from '@/components/ui/aura/badge';
-import { Button } from '@/components/ui/aura/button';
+} from "@/components/ui/aura/card";
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
 import {
   IconDownload as Download,
   IconPalette as Palette,
   IconPhoto as ImageIcon,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const illustrationCategories = [
   {
-    name: 'Brand illustrations',
-    description: 'Core brand illustrations for marketing and onboarding',
+    name: "Brand illustrations",
+    description: "Core brand illustrations for marketing and onboarding",
     count: 24,
-    status: 'Available',
+    status: "Available",
   },
   {
-    name: 'Empty states',
-    description: 'Friendly illustrations for empty states and error pages',
+    name: "Empty states",
+    description: "Friendly illustrations for empty states and error pages",
     count: 12,
-    status: 'Available',
+    status: "Available",
   },
   {
-    name: 'Onboarding',
-    description: 'Step-by-step illustrations for user onboarding flows',
+    name: "Onboarding",
+    description: "Step-by-step illustrations for user onboarding flows",
     count: 8,
-    status: 'In progress',
+    status: "In progress",
   },
   {
-    name: 'Feature highlights',
-    description: 'Product feature illustrations for marketing pages',
+    name: "Feature highlights",
+    description: "Product feature illustrations for marketing pages",
     count: 16,
-    status: 'Available',
+    status: "Available",
   },
 ];
 
@@ -46,8 +46,8 @@ export default function IllustrationsPage() {
       <div>
         <h1 className="text-3xl font-bold mb-4">Illustrations</h1>
         <p className="text-lg text-muted-foreground max-w-3xl">
-          A collection of cohesive illustrations that support our brand identity
-          and enhance user experience across different touchpoints.
+          A collection of cohesive illustrations that support our brand identity and enhance user
+          experience across different touchpoints.
         </p>
       </div>
 
@@ -66,13 +66,7 @@ export default function IllustrationsPage() {
                       <span className="text-sm text-muted-foreground">
                         {category.count} illustrations
                       </span>
-                      <Badge
-                        variant={
-                          category.status === 'Available'
-                            ? 'default'
-                            : 'secondary'
-                        }
-                      >
+                      <Badge variant={category.status === "Available" ? "default" : "secondary"}>
                         {category.status}
                       </Badge>
                     </div>
@@ -83,19 +77,11 @@ export default function IllustrationsPage() {
             </CardHeader>
             <CardContent>
               <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={category.status !== 'Available'}
-                >
+                <Button variant="outline" size="sm" disabled={category.status !== "Available"}>
                   <Palette className="h-4 w-4 mr-2" />
                   Preview
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={category.status !== 'Available'}
-                >
+                <Button variant="outline" size="sm" disabled={category.status !== "Available"}>
                   <Download className="h-4 w-4 mr-2" />
                   Download
                 </Button>
@@ -110,8 +96,8 @@ export default function IllustrationsPage() {
           <div className="text-center space-y-4">
             <h3 className="font-medium">Need custom illustrations?</h3>
             <p className="text-sm text-muted-foreground max-w-md">
-              Our design team can create custom illustrations that match our
-              brand style. Reach out to discuss your specific needs.
+              Our design team can create custom illustrations that match our brand style. Reach out
+              to discuss your specific needs.
             </p>
             <Button variant="outline">Contact design team</Button>
           </div>

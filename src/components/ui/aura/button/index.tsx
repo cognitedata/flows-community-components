@@ -14,5 +14,5 @@ export {
   Button,
   // eslint-disable-next-line react-refresh/only-export-components
   buttonVariants,
-} from './button';
-export { ButtonMetadata } from './button.metadata';
+} from "./button";
+export { ButtonMetadata } from "./button.metadata";

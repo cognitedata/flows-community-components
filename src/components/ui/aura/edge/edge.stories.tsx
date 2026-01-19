@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
-  title: 'AI/Edge',
-  tags: ['autodocs'],
+  title: "AI/Edge",
+  tags: ["autodocs"],
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -13,7 +13,7 @@ type Story = StoryObj;
 
 /**
  * Default edge (requires ReactFlow context).
- * 
+ *
  * Note: Edge components are ReactFlow primitives that render connections
  * between nodes. They require a ReactFlow context to function properly.
  */
@@ -28,8 +28,12 @@ export const Default: Story = {
       <div className="mt-4 space-y-2">
         <h4 className="text-sm font-medium">Edge Types:</h4>
         <ul className="text-sm text-muted-foreground list-disc pl-4 space-y-1">
-          <li><strong>Floating:</strong> Bezier curves connecting nodes</li>
-          <li><strong>Temporary:</strong> Dashed line for in-progress connections</li>
+          <li>
+            <strong>Floating:</strong> Bezier curves connecting nodes
+          </li>
+          <li>
+            <strong>Temporary:</strong> Dashed line for in-progress connections
+          </li>
         </ul>
       </div>
     </div>
@@ -37,7 +41,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Edge component for ReactFlow canvases. Requires ReactFlow context.',
+        story: "Edge component for ReactFlow canvases. Requires ReactFlow context.",
       },
     },
   },
@@ -79,15 +83,15 @@ function FlowEditor() {
 }`}</pre>
       </div>
       <p className="text-sm text-muted-foreground">
-        Edge components define how connections are rendered between nodes.
-        The floating edge uses bezier curves with proper handle positioning.
+        Edge components define how connections are rendered between nodes. The floating edge uses
+        bezier curves with proper handle positioning.
       </p>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Example showing how to use the Edge component.',
+        story: "Example showing how to use the Edge component.",
       },
     },
   },
@@ -142,7 +146,7 @@ export const StylesPreview: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Preview of different edge styles.',
+        story: "Preview of different edge styles.",
       },
     },
   },

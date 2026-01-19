@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   Drawer,
   DrawerClose,
@@ -10,45 +10,45 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from './drawer';
-import { Button } from '@/components/ui/aura/button';
-import { Input } from '@/components/ui/aura/input';
-import { Label } from '@/components/ui/aura/label';
+} from "./drawer";
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Drawer> = {
-  title: 'Primitives/Drawer',
+  title: "Primitives/Drawer",
   component: Drawer,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     open: {
-      control: 'boolean',
-      description: 'Controlled open state',
+      control: "boolean",
+      description: "Controlled open state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     direction: {
-      control: 'select',
-      options: ['top', 'bottom', 'left', 'right'],
-      description: 'Direction the drawer opens from',
+      control: "select",
+      options: ["top", "bottom", "left", "right"],
+      description: "Direction the drawer opens from",
       table: {
-        category: 'Layout',
+        category: "Layout",
         type: { summary: '"top" | "bottom" | "left" | "right"' },
-        defaultValue: { summary: 'bottom' },
+        defaultValue: { summary: "bottom" },
       },
     },
     onOpenChange: {
-      action: 'openChange',
-      description: 'Callback when open state changes',
+      action: "openChange",
+      description: "Callback when open state changes",
       table: {
-        category: 'Events',
-        type: { summary: '(open: boolean) => void' },
+        category: "Events",
+        type: { summary: "(open: boolean) => void" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
 };
 
@@ -67,9 +67,7 @@ export const Default: Story = {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Drawer Title</DrawerTitle>
-          <DrawerDescription>
-            This is a drawer description that provides context.
-          </DrawerDescription>
+          <DrawerDescription>This is a drawer description that provides context.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4">
           <p className="text-sm text-muted-foreground">
@@ -88,7 +86,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default drawer that slides up from the bottom.',
+        story: "Default drawer that slides up from the bottom.",
       },
     },
   },
@@ -96,7 +94,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Click trigger
-    const trigger = canvas.getByRole('button', { name: /open drawer/i });
+    const trigger = canvas.getByRole("button", { name: /open drawer/i });
     await userEvent.click(trigger);
 
     // Wait for drawer to appear
@@ -119,9 +117,7 @@ export const RightDrawer: Story = {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Settings</DrawerTitle>
-          <DrawerDescription>
-            Manage your application settings.
-          </DrawerDescription>
+          <DrawerDescription>Manage your application settings.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4 space-y-4">
           <div className="grid gap-1.5">
@@ -145,7 +141,7 @@ export const RightDrawer: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Drawer that slides in from the right side.',
+        story: "Drawer that slides in from the right side.",
       },
     },
   },
@@ -163,9 +159,7 @@ export const LeftDrawer: Story = {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Navigation</DrawerTitle>
-          <DrawerDescription>
-            Quick access to all sections.
-          </DrawerDescription>
+          <DrawerDescription>Quick access to all sections.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4">
           <nav className="space-y-2">
@@ -185,7 +179,9 @@ export const LeftDrawer: Story = {
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline" className="w-full">Close</Button>
+            <Button variant="outline" className="w-full">
+              Close
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
@@ -194,7 +190,7 @@ export const LeftDrawer: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Drawer that slides in from the left side.',
+        story: "Drawer that slides in from the left side.",
       },
     },
   },
@@ -212,9 +208,7 @@ export const TopDrawer: Story = {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Notifications</DrawerTitle>
-          <DrawerDescription>
-            You have 3 unread messages.
-          </DrawerDescription>
+          <DrawerDescription>You have 3 unread messages.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4">
           <div className="space-y-2">
@@ -240,7 +234,7 @@ export const TopDrawer: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Drawer that slides down from the top.',
+        story: "Drawer that slides down from the top.",
       },
     },
   },
@@ -261,9 +255,7 @@ export const Controlled: Story = {
             Close Drawer
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Drawer is {open ? 'open' : 'closed'}
-        </p>
+        <p className="text-sm text-muted-foreground">Drawer is {open ? "open" : "closed"}</p>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerContent>
             <DrawerHeader>
@@ -283,7 +275,7 @@ export const Controlled: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Drawer with externally controlled open state.',
+        story: "Drawer with externally controlled open state.",
       },
     },
   },
@@ -301,9 +293,7 @@ export const WithForm: Story = {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Edit Profile</DrawerTitle>
-          <DrawerDescription>
-            Update your profile information.
-          </DrawerDescription>
+          <DrawerDescription>Update your profile information.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4 space-y-4">
           <div className="grid gap-1.5">
@@ -335,7 +325,7 @@ export const WithForm: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Drawer containing a form for user input.',
+        story: "Drawer containing a form for user input.",
       },
     },
   },
@@ -353,16 +343,14 @@ export const WithScrollingContent: Story = {
       <DrawerContent className="max-h-[80vh]">
         <DrawerHeader>
           <DrawerTitle>Terms of Service</DrawerTitle>
-          <DrawerDescription>
-            Please read and accept our terms.
-          </DrawerDescription>
+          <DrawerDescription>Please read and accept our terms.</DrawerDescription>
         </DrawerHeader>
         <div className="p-4 overflow-y-auto max-h-[300px] text-sm text-muted-foreground">
           {Array.from({ length: 10 }, (_, i) => (
             <p key={i} className="mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris.
             </p>
           ))}
         </div>
@@ -378,7 +366,7 @@ export const WithScrollingContent: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Drawer with scrolling content area.',
+        story: "Drawer with scrolling content area.",
       },
     },
   },
@@ -427,7 +415,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Drawer triggers for visual regression testing.',
+        story: "Drawer triggers for visual regression testing.",
       },
     },
     chromatic: {
@@ -441,7 +429,7 @@ export const VisualRegression: Story = {
  */
 export const Playground: Story = {
   args: {
-    direction: 'bottom',
+    direction: "bottom",
   },
   render: (args) => (
     <Drawer {...args}>
@@ -470,7 +458,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground - use controls to experiment with drawer props.',
+        story: "Interactive playground - use controls to experiment with drawer props.",
       },
     },
   },

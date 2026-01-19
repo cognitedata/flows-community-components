@@ -1,7 +1,6 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
 import {
   Banner,
   BannerIcon,
@@ -10,74 +9,74 @@ import {
   BannerActions,
   BannerAction,
   BannerClose,
-} from './banner';
+} from "./banner";
 import {
   IconInfoCircle,
   IconAlertTriangle,
   IconAlertCircle,
   IconCopy,
   IconCheck,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Banner> = {
-  title: 'Primitives/Banner',
+  title: "Primitives/Banner",
   component: Banner,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     // Display & behavior
     variant: {
-      control: 'select',
-      options: ['default', 'neutral', 'destructive', 'warning'],
-      description: 'Visual style variant of the banner',
+      control: "select",
+      options: ["default", "neutral", "destructive", "warning"],
+      description: "Visual style variant of the banner",
       table: {
-        category: 'Display',
+        category: "Display",
         type: { summary: '"default" | "neutral" | "destructive" | "warning"' },
-        defaultValue: { summary: 'default' },
+        defaultValue: { summary: "default" },
       },
     },
     inset: {
-      control: 'boolean',
-      description: 'Adds rounded corners for inset layouts',
+      control: "boolean",
+      description: "Adds rounded corners for inset layouts",
       table: {
-        category: 'Display',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Display",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     className: {
-      control: 'text',
-      description: 'CSS classes for styling',
+      control: "text",
+      description: "CSS classes for styling",
       table: {
-        category: 'Display',
+        category: "Display",
       },
     },
 
     // State control
     visible: {
-      control: 'boolean',
-      description: 'Controlled visibility state',
+      control: "boolean",
+      description: "Controlled visibility state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultVisible: {
-      control: 'boolean',
-      description: 'Default visibility state (uncontrolled)',
+      control: "boolean",
+      description: "Default visibility state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "true" },
       },
     },
 
     // Events
     onClose: {
-      action: 'closed',
-      description: 'Callback when banner is closed',
+      action: "closed",
+      description: "Callback when banner is closed",
       table: {
-        category: 'Events',
-        type: { summary: '() => void' },
+        category: "Events",
+        type: { summary: "() => void" },
       },
     },
 
@@ -85,16 +84,16 @@ const meta: Meta<typeof Banner> = {
     children: {
       control: false,
       table: {
-        category: 'Internal',
+        category: "Internal",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     docs: {
       description: {
         component:
-          'A flexible banner component for displaying important messages, notifications, or announcements with optional icons, actions, and close functionality.',
+          "A flexible banner component for displaying important messages, notifications, or announcements with optional icons, actions, and close functionality.",
       },
     },
   },
@@ -109,13 +108,12 @@ type Story = StoryObj<typeof Banner>;
  */
 export const Basic: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
-        story:
-          'Basic banner with an information icon, title text, and a single action button.',
+        story: "Basic banner with an information icon, title text, and a single action button.",
       },
     },
   },
@@ -123,14 +121,14 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Verify banner is rendered
-    await expect(canvas.getByText('Banner title')).toBeInTheDocument();
+    await expect(canvas.getByText("Banner title")).toBeInTheDocument();
 
     // Verify icon is present
     const banner = canvasElement.querySelector('[class*="bg-mountain"]');
     await expect(banner).toBeInTheDocument();
 
     // Verify action button
-    const actionButton = canvas.getByRole('button', { name: /action/i });
+    const actionButton = canvas.getByRole("button", { name: /action/i });
     await expect(actionButton).toBeInTheDocument();
   },
   render: (args) => (
@@ -153,7 +151,7 @@ export const Variants: Story = {
     docs: {
       description: {
         story:
-          'Banner supports four variants: default (blue), neutral (grey), destructive (red), and warning (yellow).',
+          "Banner supports four variants: default (blue), neutral (grey), destructive (red), and warning (yellow).",
       },
     },
   },
@@ -161,10 +159,10 @@ export const Variants: Story = {
     const canvas = within(canvasElement);
 
     // Verify all variant titles are rendered
-    await expect(canvas.getByText('Default variant')).toBeInTheDocument();
-    await expect(canvas.getByText('Neutral variant')).toBeInTheDocument();
-    await expect(canvas.getByText('Destructive variant')).toBeInTheDocument();
-    await expect(canvas.getByText('Warning variant')).toBeInTheDocument();
+    await expect(canvas.getByText("Default variant")).toBeInTheDocument();
+    await expect(canvas.getByText("Neutral variant")).toBeInTheDocument();
+    await expect(canvas.getByText("Destructive variant")).toBeInTheDocument();
+    await expect(canvas.getByText("Warning variant")).toBeInTheDocument();
 
     // Verify different background classes
     const banners = canvasElement.querySelectorAll('[class*="bg-"]');
@@ -198,13 +196,13 @@ export const Variants: Story = {
  */
 export const WithStatus: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Banner can include a status badge that automatically matches the banner variant colors.',
+          "Banner can include a status badge that automatically matches the banner variant colors.",
       },
     },
   },
@@ -212,13 +210,11 @@ export const WithStatus: Story = {
     const canvas = within(canvasElement);
 
     // Verify title and status are rendered
-    await expect(
-      canvas.getByText('Workflow has been published')
-    ).toBeInTheDocument();
-    await expect(canvas.getByText('Published')).toBeInTheDocument();
+    await expect(canvas.getByText("Workflow has been published")).toBeInTheDocument();
+    await expect(canvas.getByText("Published")).toBeInTheDocument();
 
     // Verify action button
-    const actionButton = canvas.getByRole('button', {
+    const actionButton = canvas.getByRole("button", {
       name: /request review/i,
     });
     await expect(actionButton).toBeInTheDocument();
@@ -241,13 +237,12 @@ export const WithStatus: Story = {
  */
 export const MultipleActions: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
-        story:
-          'Banners can contain multiple action buttons grouped together on the right.',
+        story: "Banners can contain multiple action buttons grouped together on the right.",
       },
     },
   },
@@ -255,8 +250,8 @@ export const MultipleActions: Story = {
     const canvas = within(canvasElement);
 
     // Verify both action buttons are rendered
-    const duplicateButton = canvas.getByRole('button', { name: /duplicate/i });
-    const editButton = canvas.getByRole('button', { name: /edit/i });
+    const duplicateButton = canvas.getByRole("button", { name: /duplicate/i });
+    const editButton = canvas.getByRole("button", { name: /edit/i });
 
     await expect(duplicateButton).toBeInTheDocument();
     await expect(editButton).toBeInTheDocument();
@@ -285,12 +280,12 @@ export const MultipleActions: Story = {
  */
 export const Dismissible: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
-        story: 'Banner with a close button. Click the X to dismiss the banner.',
+        story: "Banner with a close button. Click the X to dismiss the banner.",
       },
     },
   },
@@ -298,15 +293,15 @@ export const Dismissible: Story = {
     const canvas = within(canvasElement);
 
     // Verify banner is initially visible
-    const bannerTitle = canvas.getByText('This banner can be dismissed');
+    const bannerTitle = canvas.getByText("This banner can be dismissed");
     await expect(bannerTitle).toBeInTheDocument();
 
     // Verify close button is present
-    const closeButton = canvas.getByRole('button', { name: 'Close banner' });
+    const closeButton = canvas.getByRole("button", { name: "Close banner" });
     await expect(closeButton).toBeInTheDocument();
 
     // Verify action button
-    const actionButton = canvas.getByRole('button', { name: /learn more/i });
+    const actionButton = canvas.getByRole("button", { name: /learn more/i });
     await expect(actionButton).toBeInTheDocument();
   },
   render: function DismissibleStory(args) {
@@ -329,13 +324,13 @@ export const Dismissible: Story = {
  */
 export const ControlledVisibility: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Banner visibility can be controlled externally. Use the toggle button to show/hide the banner.',
+          "Banner visibility can be controlled externally. Use the toggle button to show/hide the banner.",
       },
     },
   },
@@ -343,12 +338,10 @@ export const ControlledVisibility: Story = {
     const canvas = within(canvasElement);
 
     // Verify banner is initially visible
-    await expect(
-      canvas.getByText('Controlled visibility banner')
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Controlled visibility banner")).toBeInTheDocument();
 
     // Find toggle button
-    const toggleButton = canvas.getByRole('button', {
+    const toggleButton = canvas.getByRole("button", {
       name: /toggle banner/i,
     });
     await expect(toggleButton).toBeInTheDocument();
@@ -357,9 +350,7 @@ export const ControlledVisibility: Story = {
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(
-          canvas.queryByText('Controlled visibility banner')
-        ).not.toBeInTheDocument();
+        expect(canvas.queryByText("Controlled visibility banner")).not.toBeInTheDocument();
       },
       { timeout: 300 }
     );
@@ -368,9 +359,7 @@ export const ControlledVisibility: Story = {
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
-        expect(
-          canvas.getByText('Controlled visibility banner')
-        ).toBeInTheDocument();
+        expect(canvas.getByText("Controlled visibility banner")).toBeInTheDocument();
       },
       { timeout: 300 }
     );
@@ -404,13 +393,13 @@ export const ControlledVisibility: Story = {
  */
 export const Inset: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Use the inset prop to add rounded corners for banners in contained layouts or cards.',
+          "Use the inset prop to add rounded corners for banners in contained layouts or cards.",
       },
     },
   },
@@ -418,7 +407,7 @@ export const Inset: Story = {
     const canvas = within(canvasElement);
 
     // Verify banner is rendered
-    await expect(canvas.getByText('Inset banner')).toBeInTheDocument();
+    await expect(canvas.getByText("Inset banner")).toBeInTheDocument();
 
     // Verify rounded corners class
     const banner = canvasElement.querySelector('[class*="rounded-lg"]');
@@ -443,13 +432,13 @@ export const Inset: Story = {
  */
 export const ReadOnlyWarning: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Real-world example of a banner warning users about read-only mode with a duplicate action.',
+          "Real-world example of a banner warning users about read-only mode with a duplicate action.",
       },
     },
   },
@@ -457,12 +446,10 @@ export const ReadOnlyWarning: Story = {
     const canvas = within(canvasElement);
 
     // Verify content
-    await expect(
-      canvas.getByText('Read only. Duplicate to make changes.')
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Read only. Duplicate to make changes.")).toBeInTheDocument();
 
     // Verify duplicate button with icon
-    const duplicateButton = canvas.getByRole('button', { name: /duplicate/i });
+    const duplicateButton = canvas.getByRole("button", { name: /duplicate/i });
     await expect(duplicateButton).toBeInTheDocument();
 
     // Test clicking duplicate
@@ -488,13 +475,12 @@ export const ReadOnlyWarning: Story = {
  */
 export const SuccessNotification: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
-        story:
-          'Success banner showing a published workflow with status badge and action button.',
+        story: "Success banner showing a published workflow with status badge and action button.",
       },
     },
   },
@@ -502,15 +488,13 @@ export const SuccessNotification: Story = {
     const canvas = within(canvasElement);
 
     // Verify success message
-    await expect(
-      canvas.getByText('Workflow has been published')
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Workflow has been published")).toBeInTheDocument();
 
     // Verify status badge
-    await expect(canvas.getByText('Published')).toBeInTheDocument();
+    await expect(canvas.getByText("Published")).toBeInTheDocument();
 
     // Verify action and close buttons
-    const reviewButton = canvas.getByRole('button', {
+    const reviewButton = canvas.getByRole("button", {
       name: /request review/i,
     });
     await expect(reviewButton).toBeInTheDocument();
@@ -549,12 +533,12 @@ export const SuccessNotification: Story = {
  */
 export const ErrorNotification: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
-        story: 'Destructive banner showing an error state with retry action.',
+        story: "Destructive banner showing an error state with retry action.",
       },
     },
   },
@@ -562,12 +546,10 @@ export const ErrorNotification: Story = {
     const canvas = within(canvasElement);
 
     // Verify error message
-    await expect(
-      canvas.getByText('Failed to save changes')
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Failed to save changes")).toBeInTheDocument();
 
     // Verify retry button
-    const retryButton = canvas.getByRole('button', { name: /retry/i });
+    const retryButton = canvas.getByRole("button", { name: /retry/i });
     await expect(retryButton).toBeInTheDocument();
 
     // Test clicking retry
@@ -591,13 +573,12 @@ export const ErrorNotification: Story = {
  */
 export const WarningNotification: Story = {
   args: {
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   parameters: {
     docs: {
       description: {
-        story:
-          'Warning banner alerting users about an important update or action required.',
+        story: "Warning banner alerting users about an important update or action required.",
       },
     },
   },
@@ -605,12 +586,10 @@ export const WarningNotification: Story = {
     const canvas = within(canvasElement);
 
     // Verify warning message
-    await expect(
-      canvas.getByText('Your trial expires in 3 days')
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Your trial expires in 3 days")).toBeInTheDocument();
 
     // Verify upgrade button
-    const upgradeButton = canvas.getByRole('button', { name: /upgrade/i });
+    const upgradeButton = canvas.getByRole("button", { name: /upgrade/i });
     await expect(upgradeButton).toBeInTheDocument();
   },
   render: (args) => (
@@ -631,10 +610,10 @@ export const WarningNotification: Story = {
  */
 export const Playground: Story = {
   args: {
-    variant: 'default',
+    variant: "default",
     inset: false,
     defaultVisible: true,
-    className: 'w-[600px]',
+    className: "w-[600px]",
   },
   render: (args) => (
     <Banner {...args}>

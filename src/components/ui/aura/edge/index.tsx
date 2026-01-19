@@ -6,5 +6,5 @@
  * @example
  * import { Edge } from '@/components/ui/aura/edge';
  */
-export { Edge } from './edge';
-export { EdgeMetadata } from './edge.metadata';
+export { Edge } from "./edge";
+export { EdgeMetadata } from "./edge.metadata";

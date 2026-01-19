@@ -1,59 +1,58 @@
-
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, waitFor, expect } from '@storybook/test';
-import { useState } from 'react';
-import { Popover, PopoverTrigger, PopoverContent } from './popover';
-import { Button } from '@/components/ui/aura/button';
-import { Input } from '@/components/ui/aura/input';
-import { Label } from '@/components/ui/aura/label';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { useState } from "react";
+import { Popover, PopoverTrigger, PopoverContent } from "./popover";
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Popover> = {
-  title: 'Primitives/Popover',
+  title: "Primitives/Popover",
   component: Popover,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     // State
     open: {
-      control: 'boolean',
-      description: 'Controlled open state',
+      control: "boolean",
+      description: "Controlled open state",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
+        category: "State",
+        type: { summary: "boolean" },
       },
     },
     defaultOpen: {
-      control: 'boolean',
-      description: 'Default open state (uncontrolled)',
+      control: "boolean",
+      description: "Default open state (uncontrolled)",
       table: {
-        category: 'State',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     onOpenChange: {
-      action: 'openChanged',
-      description: 'Callback when open state changes',
+      action: "openChanged",
+      description: "Callback when open state changes",
       table: {
-        category: 'Events',
-        type: { summary: '(open: boolean) => void' },
+        category: "Events",
+        type: { summary: "(open: boolean) => void" },
       },
     },
     modal: {
-      control: 'boolean',
-      description: 'Whether the popover should be modal',
+      control: "boolean",
+      description: "Whether the popover should be modal",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     docs: {
       description: {
         component:
-          'A popover component built on Radix UI that displays rich content in a portal, triggered by a button. Perfect for contextual information and secondary actions.',
+          "A popover component built on Radix UI that displays rich content in a portal, triggered by a button. Perfect for contextual information and secondary actions.",
       },
     },
     a11y: {
@@ -61,7 +60,7 @@ const meta: Meta<typeof Popover> = {
         rules: [
           {
             // Radix UI manages aria-controls dynamically - this is a false positive
-            id: 'aria-valid-attr-value',
+            id: "aria-valid-attr-value",
             selector: '[data-slot="popover-trigger"]',
             enabled: false,
           },
@@ -83,7 +82,7 @@ export const Basic: Story = {
     docs: {
       description: {
         story:
-          'A simple popover with heading and description text. The popover appears centered below the trigger button. Click the button to open.',
+          "A simple popover with heading and description text. The popover appears centered below the trigger button. Click the button to open.",
       },
     },
   },
@@ -92,7 +91,7 @@ export const Basic: Story = {
     const body = within(document.body);
 
     // Find and verify trigger button
-    const trigger = canvas.getByRole('button', { name: /open popover/i });
+    const trigger = canvas.getByRole("button", { name: /open popover/i });
     await expect(trigger).toBeInTheDocument();
 
     // Click to open popover
@@ -108,9 +107,7 @@ export const Basic: Story = {
     );
 
     // Verify description text is present
-    const description = body.getByText(
-      /cognite atlas ai helps you create and manage/i
-    );
+    const description = body.getByText(/cognite atlas ai helps you create and manage/i);
     await expect(description).toBeInTheDocument();
   },
   render: function PopoverBasicStory() {
@@ -126,8 +123,8 @@ export const Basic: Story = {
                 Get started with Atlas
               </h3>
               <p className="text-sm font-normal text-muted-foreground tracking-tight">
-                Cognite Atlas AI helps you create and manage industrial AI
-                agents that solve your specific business needs
+                Cognite Atlas AI helps you create and manage industrial AI agents that solve your
+                specific business needs
               </p>
             </div>
           </PopoverContent>
@@ -146,7 +143,7 @@ export const Sides: Story = {
     docs: {
       description: {
         story:
-          'Popovers can be positioned on any side of the trigger using the `side` prop on PopoverContent. Available options: top, right, bottom (default), left.',
+          "Popovers can be positioned on any side of the trigger using the `side` prop on PopoverContent. Available options: top, right, bottom (default), left.",
       },
     },
   },
@@ -155,7 +152,7 @@ export const Sides: Story = {
     const body = within(document.body);
 
     // Test opening the top popover
-    const topButton = canvas.getByRole('button', { name: /^top$/i });
+    const topButton = canvas.getByRole("button", { name: /^top$/i });
     await userEvent.click(topButton);
 
     // Verify popover appears (portaled to body)
@@ -178,9 +175,7 @@ export const Sides: Story = {
             <Button variant="outline">Top</Button>
           </PopoverTrigger>
           <PopoverContent side="top" aria-label="Top positioned popover">
-            <p className="text-sm text-popover-foreground">
-              This popover appears on top
-            </p>
+            <p className="text-sm text-popover-foreground">This popover appears on top</p>
           </PopoverContent>
         </Popover>
 
@@ -189,9 +184,7 @@ export const Sides: Story = {
             <Button variant="outline">Right</Button>
           </PopoverTrigger>
           <PopoverContent side="right" aria-label="Right positioned popover">
-            <p className="text-sm text-popover-foreground">
-              This popover appears on the right
-            </p>
+            <p className="text-sm text-popover-foreground">This popover appears on the right</p>
           </PopoverContent>
         </Popover>
 
@@ -200,9 +193,7 @@ export const Sides: Story = {
             <Button variant="outline">Bottom</Button>
           </PopoverTrigger>
           <PopoverContent side="bottom" aria-label="Bottom positioned popover">
-            <p className="text-sm text-popover-foreground">
-              This popover appears on the bottom
-            </p>
+            <p className="text-sm text-popover-foreground">This popover appears on the bottom</p>
           </PopoverContent>
         </Popover>
 
@@ -211,9 +202,7 @@ export const Sides: Story = {
             <Button variant="outline">Left</Button>
           </PopoverTrigger>
           <PopoverContent side="left" aria-label="Left positioned popover">
-            <p className="text-sm text-popover-foreground">
-              This popover appears on the left
-            </p>
+            <p className="text-sm text-popover-foreground">This popover appears on the left</p>
           </PopoverContent>
         </Popover>
       </div>
@@ -230,7 +219,7 @@ export const Alignment: Story = {
     docs: {
       description: {
         story:
-          'Control the alignment of the popover relative to the trigger using the `align` prop on PopoverContent. Options: start, center (default), end.',
+          "Control the alignment of the popover relative to the trigger using the `align` prop on PopoverContent. Options: start, center (default), end.",
       },
     },
   },
@@ -239,7 +228,7 @@ export const Alignment: Story = {
     const body = within(document.body);
 
     // Test opening the start-aligned popover
-    const startButton = canvas.getByRole('button', { name: /align start/i });
+    const startButton = canvas.getByRole("button", { name: /align start/i });
     await userEvent.click(startButton);
 
     // Verify popover content appears (portaled to body)
@@ -258,11 +247,7 @@ export const Alignment: Story = {
           <PopoverTrigger asChild>
             <Button variant="outline">Align Start</Button>
           </PopoverTrigger>
-          <PopoverContent
-            align="start"
-            className="w-80"
-            aria-label="Start aligned popover"
-          >
+          <PopoverContent align="start" className="w-80" aria-label="Start aligned popover">
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Aligned to start</h4>
               <p className="text-sm text-muted-foreground">
@@ -276,11 +261,7 @@ export const Alignment: Story = {
           <PopoverTrigger asChild>
             <Button variant="outline">Align Center</Button>
           </PopoverTrigger>
-          <PopoverContent
-            align="center"
-            className="w-80"
-            aria-label="Center aligned popover"
-          >
+          <PopoverContent align="center" className="w-80" aria-label="Center aligned popover">
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Aligned to center</h4>
               <p className="text-sm text-muted-foreground">
@@ -294,11 +275,7 @@ export const Alignment: Story = {
           <PopoverTrigger asChild>
             <Button variant="outline">Align End</Button>
           </PopoverTrigger>
-          <PopoverContent
-            align="end"
-            className="w-80"
-            aria-label="End aligned popover"
-          >
+          <PopoverContent align="end" className="w-80" aria-label="End aligned popover">
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Aligned to end</h4>
               <p className="text-sm text-muted-foreground">
@@ -321,7 +298,7 @@ export const WithForm: Story = {
     docs: {
       description: {
         story:
-          'Popovers can contain interactive form controls like inputs and buttons. Perfect for quick actions or data entry without navigating away.',
+          "Popovers can contain interactive form controls like inputs and buttons. Perfect for quick actions or data entry without navigating away.",
       },
     },
   },
@@ -330,7 +307,7 @@ export const WithForm: Story = {
     const body = within(document.body);
 
     // Open the popover
-    const trigger = canvas.getByRole('button', { name: /create project/i });
+    const trigger = canvas.getByRole("button", { name: /create project/i });
     await userEvent.click(trigger);
 
     // Wait for form to appear (portaled to body)
@@ -345,11 +322,11 @@ export const WithForm: Story = {
     // Test form interaction - type in the input
     const nameInput = body.getByPlaceholderText(/enter project name/i);
     await expect(nameInput).toBeInTheDocument();
-    await userEvent.type(nameInput, 'My Project', { delay: 50 });
-    await expect(nameInput).toHaveValue('My Project');
+    await userEvent.type(nameInput, "My Project", { delay: 50 });
+    await expect(nameInput).toHaveValue("My Project");
 
     // Verify action buttons are present
-    const createButton = body.getByRole('button', { name: /^create$/i });
+    const createButton = body.getByRole("button", { name: /^create$/i });
     await expect(createButton).toBeInTheDocument();
   },
   render: function PopoverWithFormStory() {
@@ -362,9 +339,7 @@ export const WithForm: Story = {
           <PopoverContent className="w-80" aria-label="Create new project">
             <div className="flex flex-col gap-4">
               <div className="space-y-1">
-                <h4 className="font-medium text-sm leading-none">
-                  Create new project
-                </h4>
+                <h4 className="font-medium text-sm leading-none">Create new project</h4>
                 <p className="text-sm text-muted-foreground">
                   Set up a new project to organise your work
                 </p>
@@ -372,11 +347,7 @@ export const WithForm: Story = {
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="project-name">Name</Label>
-                  <Input
-                    id="project-name"
-                    placeholder="Enter project name"
-                    autoComplete="off"
-                  />
+                  <Input id="project-name" placeholder="Enter project name" autoComplete="off" />
                 </div>
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="project-description">Description</Label>
@@ -410,7 +381,7 @@ export const CustomWidth: Story = {
     docs: {
       description: {
         story:
-          'Control the width of the popover content by passing a className with width utilities to PopoverContent. Default width is 18rem (w-72).',
+          "Control the width of the popover content by passing a className with width utilities to PopoverContent. Default width is 18rem (w-72).",
       },
     },
   },
@@ -445,8 +416,8 @@ export const CustomWidth: Story = {
           </PopoverTrigger>
           <PopoverContent className="w-96" aria-label="Wide popover">
             <p className="text-sm text-popover-foreground">
-              This is a wide popover with w-96 (24rem) width. It can contain
-              more detailed information or multiple columns of content.
+              This is a wide popover with w-96 (24rem) width. It can contain more detailed
+              information or multiple columns of content.
             </p>
           </PopoverContent>
         </Popover>
@@ -464,7 +435,7 @@ export const RichContent: Story = {
     docs: {
       description: {
         story:
-          'Popovers can contain rich content including headings, lists, and multiple action buttons. Useful for action menus or quick access panels.',
+          "Popovers can contain rich content including headings, lists, and multiple action buttons. Useful for action menus or quick access panels.",
       },
     },
   },
@@ -473,7 +444,7 @@ export const RichContent: Story = {
     const body = within(document.body);
 
     // Open popover
-    const trigger = canvas.getByRole('button', { name: /view actions/i });
+    const trigger = canvas.getByRole("button", { name: /view actions/i });
     await userEvent.click(trigger);
 
     // Wait for content to appear (portaled to body)
@@ -486,7 +457,7 @@ export const RichContent: Story = {
     );
 
     // Verify action buttons are present
-    const exportButton = body.getByRole('button', { name: /export data/i });
+    const exportButton = body.getByRole("button", { name: /export data/i });
     await expect(exportButton).toBeInTheDocument();
 
     // Test clicking an action
@@ -502,9 +473,7 @@ export const RichContent: Story = {
           <PopoverContent className="w-80" aria-label="Quick actions menu">
             <div className="space-y-3">
               <div>
-                <h4 className="font-medium text-base tracking-tighter mb-1">
-                  Quick Actions
-                </h4>
+                <h4 className="font-medium text-base tracking-tighter mb-1">Quick Actions</h4>
                 <p className="text-sm text-muted-foreground tracking-tight">
                   Choose an action to perform
                 </p>
@@ -542,7 +511,7 @@ export const Controlled: Story = {
     docs: {
       description: {
         story:
-          'A controlled popover where the open state is managed externally. Includes a button to programmatically toggle the popover.',
+          "A controlled popover where the open state is managed externally. Includes a button to programmatically toggle the popover.",
       },
     },
   },
@@ -551,14 +520,14 @@ export const Controlled: Story = {
     const body = within(document.body);
 
     // Find the external toggle button
-    const toggleButton = canvas.getByRole('button', {
+    const toggleButton = canvas.getByRole("button", {
       name: /toggle with external button/i,
     });
     await expect(toggleButton).toBeInTheDocument();
 
     // Verify the trigger button starts closed
-    const trigger = canvas.getByRole('button', { name: /popover trigger/i });
-    await expect(trigger).toHaveAttribute('data-state', 'closed');
+    const trigger = canvas.getByRole("button", { name: /popover trigger/i });
+    await expect(trigger).toHaveAttribute("data-state", "closed");
 
     // Click external button to open
     await userEvent.click(toggleButton);
@@ -566,7 +535,7 @@ export const Controlled: Story = {
     // Verify popover opens (content is portaled to body)
     await waitFor(
       async () => {
-        expect(trigger).toHaveAttribute('data-state', 'open');
+        expect(trigger).toHaveAttribute("data-state", "open");
       },
       { timeout: 500 }
     );
@@ -583,11 +552,7 @@ export const Controlled: Story = {
 
     return (
       <div className="flex flex-col items-center gap-4 p-12">
-        <Button
-          variant="outline"
-          onClick={() => setOpen(!open)}
-          className="mb-4"
-        >
+        <Button variant="outline" onClick={() => setOpen(!open)} className="mb-4">
           Toggle with external button
         </Button>
         <Popover {...args} open={open} onOpenChange={setOpen}>
@@ -598,8 +563,8 @@ export const Controlled: Story = {
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Controlled Popover</h4>
               <p className="text-sm text-muted-foreground">
-                This popover is controlled externally. The button above can
-                toggle it programmatically.
+                This popover is controlled externally. The button above can toggle it
+                programmatically.
               </p>
             </div>
           </PopoverContent>
@@ -621,7 +586,7 @@ export const Playground: Story = {
     docs: {
       description: {
         story:
-          'Interactive playground to test different popover configurations. Use the controls panel to experiment with props.',
+          "Interactive playground to test different popover configurations. Use the controls panel to experiment with props.",
       },
     },
   },
@@ -638,8 +603,7 @@ export const Playground: Story = {
                 Popover Playground
               </h3>
               <p className="text-sm font-normal text-muted-foreground tracking-tight">
-                Use the controls panel to customise the popover behaviour and
-                appearance.
+                Use the controls panel to customise the popover behaviour and appearance.
               </p>
             </div>
           </PopoverContent>

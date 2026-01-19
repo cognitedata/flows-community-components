@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { within, userEvent, expect } from '@storybook/test';
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import {
   Plan,
   PlanHeader,
@@ -8,40 +8,40 @@ import {
   PlanTrigger,
   PlanContent,
   PlanItem,
-} from './plan';
+} from "./plan";
 
 const meta: Meta<typeof Plan> = {
-  title: 'AI/Plan',
+  title: "AI/Plan",
   component: Plan,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     isStreaming: {
-      control: 'boolean',
-      description: 'Whether the plan is currently streaming',
+      control: "boolean",
+      description: "Whether the plan is currently streaming",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
     defaultOpen: {
-      control: 'boolean',
-      description: 'Whether the plan content is open by default',
+      control: "boolean",
+      description: "Whether the plan content is open by default",
       table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
+        category: "Behavior",
+        type: { summary: "boolean" },
       },
     },
     className: {
-      control: 'text',
-      description: 'Additional CSS classes',
+      control: "text",
+      description: "Additional CSS classes",
       table: {
-        category: 'Styling',
+        category: "Styling",
       },
     },
   },
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   decorators: [
     (Story) => (
@@ -80,13 +80,13 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default plan component with collapsible content.',
+        story: "Default plan component with collapsible content.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const title = canvas.getByText('Implementation Plan');
+    const title = canvas.getByText("Implementation Plan");
     await expect(title).toBeInTheDocument();
   },
 };
@@ -113,7 +113,7 @@ export const Streaming: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Plan in streaming state with shimmer effect.',
+        story: "Plan in streaming state with shimmer effect.",
       },
     },
   },
@@ -144,15 +144,15 @@ export const CollapsedByDefault: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Plan that starts collapsed.',
+        story: "Plan that starts collapsed.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Click trigger to expand
-    const trigger = canvas.getByRole('button');
+    const trigger = canvas.getByRole("button");
     await userEvent.click(trigger);
   },
 };
@@ -192,7 +192,7 @@ export const DetailedItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Plan with detailed, formatted items.',
+        story: "Plan with detailed, formatted items.",
       },
     },
   },
@@ -220,7 +220,7 @@ export const ShortPlan: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'A short plan with just a few steps.',
+        story: "A short plan with just a few steps.",
       },
     },
   },
@@ -271,7 +271,7 @@ export const VisualRegression: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Plans for visual regression testing.',
+        story: "Plans for visual regression testing.",
       },
     },
     chromatic: {
@@ -307,7 +307,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive plan example - use controls to experiment.',
+        story: "Interactive plan example - use controls to experiment.",
       },
     },
   },
