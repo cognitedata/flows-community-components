@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "artifact-progress",
+  "title": "Artifact Progress",
+  "description": "A progress artifact widget component built on Card and Progress.",
+  "dependencies": [
+    "@radix-ui/react-progress"
+  ],
+  "registryDependencies": [
+    "@aura/css",
+    "@aura/card",
+    "@aura/progress"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/aura/artifact-progress/artifact-progress.tsx",
+      "content": "import type { ComponentProps } from 'react';\nimport {\n  Card,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n  CardDescription,\n} from '@/components/ui/aura/card';\nimport { Progress } from '@/components/ui/aura/progress';\nimport { cn } from '@/lib/utils';\n\nexport type ArtifactProgressProps = ComponentProps<typeof Card>;\n\nexport const ArtifactProgress = ({\n  className,\n  ...props\n}: ArtifactProgressProps) => {\n  return <Card className={cn(className)} {...props} />;\n};\n\nexport type ArtifactProgressHeaderProps = ComponentProps<typeof CardHeader>;\n\nexport const ArtifactProgressHeader = ({\n  className,\n  ...props\n}: ArtifactProgressHeaderProps) => {\n  return <CardHeader className={cn(className)} {...props} />;\n};\n\nexport type ArtifactProgressTitleProps = ComponentProps<typeof CardTitle>;\n\nexport const ArtifactProgressTitle = ({\n  className,\n  ...props\n}: ArtifactProgressTitleProps) => {\n  return (\n    <CardTitle\n      className={cn('text-base font-medium tracking-tighter', className)}\n      {...props}\n    />\n  );\n};\n\nexport type ArtifactProgressDescriptionProps = ComponentProps<\n  typeof CardDescription\n>;\n\nexport const ArtifactProgressDescription = ({\n  className,\n  ...props\n}: ArtifactProgressDescriptionProps) => {\n  return (\n    <CardDescription\n      className={cn(\n        'text-sm font-medium leading-4.5 tracking-tight text-muted-foreground',\n        className\n      )}\n      {...props}\n    />\n  );\n};\n\nexport type ArtifactProgressContentProps = ComponentProps<typeof Progress>;\n\nexport const ArtifactProgressContent = ({\n  value,\n  className,\n  'aria-label': ariaLabel = 'Progress',\n  ...props\n}: ArtifactProgressContentProps) => {\n  return (\n    <div\n      className={cn(\n        'px-4 py-4.5 w-full flex items-center justify-between gap-2',\n        className\n      )}\n    >\n      <Progress value={value} aria-label={ariaLabel} {...props} />\n      <span className=\"text-muted-foreground text-sm leading-4.5 tracking-tight\">\n        {value}%\n      </span>\n    </div>\n  );\n};\n\nexport type ArtifactProgressFooterProps = ComponentProps<typeof CardFooter>;\n\nexport const ArtifactProgressFooter = ({\n  className,\n  ...props\n}: ArtifactProgressFooterProps) => {\n  return <CardFooter className={cn('text-sm', className)} {...props} />;\n};\n",
+      "type": "registry:component",
+      "target": "src/components/ui/aura/artifact-progress.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

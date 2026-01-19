@@ -96,6 +96,27 @@
       ]
     },
     {
+      "name": "artifact-progress",
+      "type": "registry:component",
+      "title": "Artifact Progress",
+      "description": "A progress artifact widget component built on Card and Progress.",
+      "dependencies": [
+        "@radix-ui/react-progress"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card",
+        "@aura/progress"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-progress/artifact-progress.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/artifact-progress.tsx"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:component",
       "title": "Avatar",

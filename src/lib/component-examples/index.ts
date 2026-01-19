@@ -3,6 +3,10 @@
 import { accordionExamples, accordionMeta } from './accordion.examples';
 import { alertExamples } from './alert.examples';
 import { alertDialogExamples } from './alert-dialog.examples';
+import {
+  artifactProgressExamples,
+  artifactProgressMeta,
+} from './artifact-progress.examples';
 import { avatarExamples } from './avatar.examples';
 import { badgeExamples } from './badge.examples';
 import { bannerExamples, bannerMeta } from './banner.examples';
@@ -49,6 +53,7 @@ export const componentExamples = {
   accordion: accordionExamples,
   alert: alertExamples,
   'alert-dialog': alertDialogExamples,
+  'artifact-progress': artifactProgressExamples,
   avatar: avatarExamples,
   badge: badgeExamples,
   banner: bannerExamples,
@@ -96,6 +101,7 @@ export type ComponentSlug = keyof typeof componentExamples;
 // Component metadata registry (only for components that have enhanced metadata)
 export const componentMeta: Partial<Record<ComponentSlug, ComponentMeta>> = {
   accordion: accordionMeta,
+  'artifact-progress': artifactProgressMeta,
   banner: bannerMeta,
   'helper-text': helperTextMeta,
   'hover-card': hoverCardMeta,
