@@ -1,4 +1,3 @@
-'use client';
 
 import { cn } from '@/lib/utils';
 import { Panel as PanelPrimitive } from '@xyflow/react';

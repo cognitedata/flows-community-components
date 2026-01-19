@@ -1,7 +1,5 @@
-'use client';
-
 import * as React from 'react';
-import { usePathname } from 'next/navigation';
+import { useLocation } from 'react-router-dom';
 import {
   SideNavigation,
   getSideNavigationForSection,
@@ -14,7 +12,8 @@ interface SectionLayoutProps {
 }
 
 export function SectionLayout({ children, className }: SectionLayoutProps) {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
 
   // Determine the current section from the pathname
   const section = pathname.split('/')[1] || 'overview';

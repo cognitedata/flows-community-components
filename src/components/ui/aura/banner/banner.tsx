@@ -1,4 +1,3 @@
-'use client';
 
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
 import { IconX, type IconProps } from '@tabler/icons-react';

@@ -85,7 +85,6 @@ export const collapsibleMeta = {
 
 // Component code literal - must match src/components/ui/aura/collapsible.tsx
 export const collapsibleCode = `
-"use client";
 
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 

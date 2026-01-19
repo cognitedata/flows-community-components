@@ -1,4 +1,3 @@
-'use client';
 
 import type { ComponentProps } from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';

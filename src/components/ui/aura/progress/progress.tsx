@@ -1,4 +1,3 @@
-'use client';
 
 import type { ComponentProps } from 'react';
 import * as ProgressPrimitive from '@radix-ui/react-progress';

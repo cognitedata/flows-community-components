@@ -1,4 +1,3 @@
-'use client';
 
 import { cn } from '@/lib/utils';
 import { IconBrain } from '@tabler/icons-react';

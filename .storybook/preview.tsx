@@ -1,6 +1,6 @@
-import type { Preview } from '@storybook/nextjs';
-import React, { useEffect } from 'react';
-import '../src/app/globals.css';
+import type { Preview } from '@storybook/react';
+import { useEffect } from 'react';
+import '../src/globals.css';
 
 const preview: Preview = {
   parameters: {
@@ -14,11 +14,6 @@ const preview: Preview = {
       disable: true,
     },
     layout: 'padded',
-    options: {
-      storySort: {
-        order: ['Layouts', 'Primitives', 'AI'],
-      },
-    },
   },
   globalTypes: {
     theme: {
@@ -40,37 +35,16 @@ const preview: Preview = {
       const theme = context.globals.theme || 'light';
 
       useEffect(() => {
-        // Apply theme class to the preview document
         const root = document.documentElement;
         if (theme === 'dark') {
           root.classList.add('dark');
         } else {
           root.classList.remove('dark');
         }
-
-        // Try to apply theme to the parent Storybook manager frame
-        try {
-          const parentDoc = window.parent?.document;
-          if (parentDoc && parentDoc !== document) {
-            const parentRoot = parentDoc.documentElement;
-            parentRoot.setAttribute('data-theme', theme);
-            if (theme === 'dark') {
-              parentRoot.classList.add('dark');
-            } else {
-              parentRoot.classList.remove('dark');
-            }
-          }
-        } catch {
-          // Cross-origin restriction - ignore
-        }
       }, [theme]);
 
       return (
-        <div
-          className={
-            theme === 'dark' ? 'dark text-foreground' : 'text-foreground'
-          }
-        >
+        <div className={theme === 'dark' ? 'dark text-foreground' : 'text-foreground'}>
           <Story />
         </div>
       );

@@ -1,4 +1,3 @@
-'use client';
 
 import { useRef, useEffect, type ComponentProps } from 'react';
 import {

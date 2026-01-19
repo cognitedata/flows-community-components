@@ -1,15 +1,10 @@
-'use client';
-
 import * as React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/aura/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/aura/sheet';
-import Image from 'next/image';
-import auraLogo from '@/../public/aura-logo.png';
 import {
   IconBrandGithub,
   IconMenu2,
@@ -59,14 +54,15 @@ function ThemeToggleGroup() {
 }
 
 export function Navigation() {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
-          <Link href="/" className="flex items-center space-x-3">
-            <Image src={auraLogo} alt="Aura" width={32} height={32} priority />
+          <Link to="/" className="flex items-center space-x-3">
+            <img src="/aura-logo.png" alt="Aura" width={32} height={32} />
           </Link>
 
           {/* Desktop Navigation */}
@@ -77,7 +73,7 @@ export function Navigation() {
                 pathname.startsWith(item.href) && pathname !== '/';
 
               return (
-                <Link key={item.href} href={item.href} className="relative">
+                <Link key={item.href} to={item.href} className="relative">
                   <span
                     className={cn(
                       'text-sm font-medium transition-colors hover:text-primary',
@@ -135,7 +131,7 @@ export function Navigation() {
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      to={item.href}
                       className={cn(
                         'text-lg font-medium transition-colors hover:text-primary',
                         isActive ? 'text-primary' : 'text-muted-foreground'

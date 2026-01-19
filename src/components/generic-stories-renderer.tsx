@@ -1,4 +1,3 @@
-'use client';
 
 import { useEffect, useState, type ComponentType } from 'react';
 import { composeStories } from '@storybook/react';

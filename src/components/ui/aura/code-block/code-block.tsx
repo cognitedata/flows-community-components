@@ -1,4 +1,3 @@
-'use client';
 
 import { Button } from '@/components/ui/aura/button';
 import { cn } from '@/lib/utils';

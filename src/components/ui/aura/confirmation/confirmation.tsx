@@ -1,4 +1,3 @@
-'use client';
 
 import { Alert } from '@/components/ui/aura/alert';
 import { Button } from '@/components/ui/aura/button';

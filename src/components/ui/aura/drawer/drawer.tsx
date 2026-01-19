@@ -1,4 +1,3 @@
-'use client';
 
 import type { ComponentProps } from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';

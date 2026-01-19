@@ -1,4 +1,3 @@
-'use client';
 
 import { createContext, useContext, useMemo, type ComponentProps, type ReactNode } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';

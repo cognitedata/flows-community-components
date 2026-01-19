@@ -1,4 +1,3 @@
-'use client';
 
 import type { ComponentProps } from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';

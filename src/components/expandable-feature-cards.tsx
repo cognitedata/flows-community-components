@@ -1,5 +1,3 @@
-'use client';
-
 import React, { RefObject, useEffect, useId, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useOutsideClick } from '@/hooks/use-outside-click';
@@ -12,7 +10,7 @@ import {
   IconSparkles,
   IconX,
 } from '@tabler/icons-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 interface FeatureCard {
   id: string;
@@ -326,7 +324,7 @@ export function ExpandableFeatureCards() {
                 <motion.div layoutId={`cta-${active.id}-${id}`}>
                   <Button asChild className="w-full">
                     <Link
-                      href={active.ctaLink}
+                      to={active.ctaLink}
                       className="flex items-center justify-center gap-2"
                     >
                       {active.ctaText}

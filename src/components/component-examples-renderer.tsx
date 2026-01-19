@@ -1,4 +1,3 @@
-'use client';
 
 import { GenericStoriesRenderer } from './generic-stories-renderer';
 
