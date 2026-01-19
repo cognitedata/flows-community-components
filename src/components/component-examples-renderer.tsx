@@ -14,9 +14,8 @@ interface ExampleEntry {
 }
 
 // Use import.meta.glob to let Vite know about all examples files at build time
-const examplesModules = import.meta.glob(
-  '@/components/ui/aura/*/*.examples.tsx'
-);
+// Using relative path from this file for more reliable resolution
+const examplesModules = import.meta.glob('./ui/aura/*/*.examples.tsx');
 
 /**
  * Renders component examples, prioritizing .examples.tsx files over .stories.tsx files.
@@ -34,8 +33,9 @@ export function ComponentExamplesRenderer({
   useEffect(() => {
     async function loadExamples() {
       // Find the examples module for this slug
+      // Path format varies: could be /src/..., @/..., or ../...
       const modulePath = Object.keys(examplesModules).find((path) =>
-        path.includes(`/${slug}/${slug}.examples.tsx`)
+        path.endsWith(`/${slug}/${slug}.examples.tsx`)
       );
 
       if (!modulePath) {

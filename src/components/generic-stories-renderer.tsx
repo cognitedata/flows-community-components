@@ -1,4 +1,3 @@
-
 import { useEffect, useState, type ComponentType } from 'react';
 import { composeStories } from '@storybook/react';
 import { ExamplePreview } from './example-preview';
@@ -12,6 +11,10 @@ interface StoryEntry {
   title: string;
   Component: ComponentType;
 }
+
+// Use import.meta.glob to let Vite know about all stories files at build time
+// Using relative path from this file for more reliable resolution
+const storiesModules = import.meta.glob('./ui/aura/*/*.stories.tsx');
 
 /**
  * Converts a PascalCase or camelCase story key to a human-readable title.
@@ -34,17 +37,25 @@ export function GenericStoriesRenderer({ slug }: GenericStoriesRendererProps) {
 
   useEffect(() => {
     async function loadStories() {
+      // Find the stories module for this slug
+      // Path format varies: could be /src/..., @/..., or ../...
+      const modulePath = Object.keys(storiesModules).find((path) =>
+        path.endsWith(`/${slug}/${slug}.stories.tsx`)
+      );
+
+      if (!modulePath) {
+        setError(`No stories file found for ${slug}.`);
+        return;
+      }
+
       try {
-        // Dynamically import stories for this component
-        const storiesModule = await import(
-          `@/components/ui/aura/${slug}/${slug}.stories`
-        );
+        // Load the stories module
+        const storiesModule = await storiesModules[modulePath]();
 
         // Compose stories using Storybook's portable stories API
-        const composed = composeStories(storiesModule) as Record<
-          string,
-          ComponentType
-        >;
+        const composed = composeStories(
+          storiesModule as Record<string, unknown>
+        ) as Record<string, ComponentType>;
 
         // Convert to array of story entries
         const storyEntries: StoryEntry[] = Object.entries(composed).map(

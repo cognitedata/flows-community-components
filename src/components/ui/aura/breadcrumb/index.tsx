@@ -20,7 +20,9 @@ export {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbPage,
+  BreadcrumbPageButton,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
+  BreadcrumbEllipsisButton,
 } from './breadcrumb';
 export { BreadcrumbMetadata } from './breadcrumb.metadata';
