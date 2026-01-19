@@ -604,6 +604,7 @@ function buildRegistry(template: Registry, components: string[]): Registry {
         if (!hasGlobalsCss) {
           finalFiles.push({
             path: "src/globals.css",
+            target: "src/styles.css",
             type: "registry:component",
           });
         }

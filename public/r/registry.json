@@ -52,6 +52,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -81,6 +82,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -106,6 +108,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -127,6 +130,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -151,6 +155,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -181,6 +186,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -201,6 +207,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -225,6 +232,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -253,6 +261,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -278,6 +287,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -295,6 +305,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -315,6 +326,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -338,6 +350,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -362,6 +375,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -385,6 +399,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -414,6 +429,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -439,6 +455,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -464,6 +481,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -491,6 +509,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -516,6 +535,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -540,6 +560,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -565,6 +586,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -586,6 +608,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -606,6 +629,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -626,6 +650,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -649,6 +674,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -677,6 +703,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -697,6 +724,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -724,6 +752,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -744,6 +773,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -768,6 +798,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -791,6 +822,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -820,6 +852,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -840,6 +873,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -868,6 +902,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -900,6 +935,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -917,6 +953,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -940,6 +977,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -960,6 +998,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -983,6 +1022,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1006,6 +1046,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1026,6 +1067,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1046,6 +1088,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1066,6 +1109,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1090,6 +1134,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1117,6 +1162,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1144,6 +1190,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1161,6 +1208,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1189,6 +1237,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1213,6 +1262,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1239,6 +1289,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1264,6 +1315,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1288,6 +1340,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1314,6 +1367,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1341,6 +1395,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1368,6 +1423,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1388,6 +1444,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1418,6 +1475,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1438,6 +1496,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1471,6 +1530,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1491,6 +1551,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1514,6 +1575,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1537,6 +1599,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1557,6 +1620,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1591,6 +1655,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1615,6 +1680,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1635,6 +1701,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1655,6 +1722,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1685,6 +1753,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1718,6 +1787,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1738,6 +1808,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1761,6 +1832,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1784,6 +1856,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1807,6 +1880,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1833,6 +1907,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ]
@@ -1853,6 +1928,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1876,6 +1952,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1899,6 +1976,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1919,6 +1997,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
@@ -1939,6 +2018,7 @@
         },
         {
           "path": "src/globals.css",
+          "target": "src/styles.css",
           "type": "registry:component"
         }
       ],
