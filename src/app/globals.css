@@ -14,23 +14,38 @@
   --container-8xl: 96rem; /* 1536px - Custom breakpoint for widest layouts */
 
   /* Typography scale overrides - font sizes */
-  --text-2xs: 0.625rem; /* 10px */
-  --text-2xl: 1.5rem; /* 24px (TW default is 24px) */
-  --text-3xl: 1.75rem; /* 28px (TW default is 30px) */
-  --text-4xl: 2rem; /* 32px (TW default is 36px) */
-  --text-5xl: 2.25rem; /* 36px (TW default is 48px) */
+  --text-2xs: 0.625rem;
+  /* 10px */
+  --text-2xl: 1.5rem;
+  /* 24px (TW default is 24px) */
+  --text-3xl: 1.75rem;
+  /* 28px (TW default is 30px) */
+  --text-4xl: 2rem;
+  /* 32px (TW default is 36px) */
+  --text-5xl: 2.25rem;
+  /* 36px (TW default is 48px) */
 
   /* Typography scale overrides - line heights */
-  --text-2xs--line-height: 0.75rem; /* 12px */
-  --text-xs--line-height: 0.875rem; /* 14px (TW default is 16px) */
-  --text-sm--line-height: 1.125rem; /* 18px (TW default is 20px) */
-  --text-base--line-height: 1.25rem; /* 20px (TW default is 24px) */
-  --text-lg--line-height: 1.5rem; /* 24px (TW default is 28px) */
-  --text-xl--line-height: 1.5rem; /* 24px (TW default is 28px) */
-  --text-2xl--line-height: 1.75rem; /* 28px (TW default is 32px) */
-  --text-3xl--line-height: 2rem; /* 32px (TW default is 36px) */
-  --text-4xl--line-height: 2.5rem; /* 40px (TW default is 40px) */
-  --text-5xl--line-height: 2.75rem; /* 44px (TW default is 1) */
+  --text-2xs--line-height: 0.75rem;
+  /* 12px */
+  --text-xs--line-height: 0.875rem;
+  /* 14px (TW default is 16px) */
+  --text-sm--line-height: 1.125rem;
+  /* 18px (TW default is 20px) */
+  --text-base--line-height: 1.25rem;
+  /* 20px (TW default is 24px) */
+  --text-lg--line-height: 1.5rem;
+  /* 24px (TW default is 28px) */
+  --text-xl--line-height: 1.5rem;
+  /* 24px (TW default is 28px) */
+  --text-2xl--line-height: 1.75rem;
+  /* 28px (TW default is 32px) */
+  --text-3xl--line-height: 2rem;
+  /* 32px (TW default is 36px) */
+  --text-4xl--line-height: 2.5rem;
+  /* 40px (TW default is 40px) */
+  --text-5xl--line-height: 2.75rem;
+  /* 44px (TW default is 1) */
 
   --font-sans: var(--font-inter);
   --font-marketing: var(--font-space-grotesk);
@@ -38,11 +53,20 @@
   --tracking-tight: -0.04px;
   --tracking-tighter: -0.08px;
   --tracking-tightest: -0.1px;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* tooltips; small containers */
-  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* menus; popovers; hover cards */
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* sonner; temporary elements */
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* modals; dialogs without backdrop overlay */
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* modals; dialogs with backdrop overlay */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  /* tooltips; small containers */
+  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+  0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  /* menus; popovers; hover cards */
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* sonner; temporary elements */
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* modals; dialogs without backdrop overlay */
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* modals; dialogs with backdrop overlay */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -60,11 +84,12 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-ring-shadow: var(--ring-shadow);
+  --color-ring-destructive: var(--ring-destructive);
+  --color-ring-destructive-shadow: var(--ring-destructive-shadow);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-destructive-shadow: var(--destructive-shadow);
   --color-destructive-hover: var(--destructive-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -259,7 +284,8 @@
 }
 
 :root {
-  --radius: 0.375rem; /* 6px - default radius, maps to radius-md */
+  --radius: 0.375rem;
+  /* 6px - default radius, maps to radius-md */
   --font-inter: 'Inter', sans-serif;
   --font-space-grotesk: 'Space Grotesk', sans-serif;
   --font-source-code-pro: 'Source Code Pro', monospace;
@@ -268,8 +294,10 @@
   --message-content-max-width: 80%;
 
   /* Component-specific sizing */
-  --alert-icon-width: calc(var(--spacing) * 4); /* 16px - width of icon column in alert grid */
-  --drawer-max-height: 80vh; /* Maximum height for top/bottom drawers */
+  --alert-icon-width: calc(var(--spacing) * 4);
+  /* 16px - width of icon column in alert grid */
+  --drawer-max-height: 80vh;
+  /* Maximum height for top/bottom drawers */
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
@@ -525,13 +553,14 @@
   --input: var(--mountain-100);
   --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
+  --ring-destructive: var(--red-500);
+  --ring-destructive-shadow: var(--red-300);
   --backdrop: rgba(2, 6, 23, 0.2);
 
   /* Status tokens */
   --destructive: var(--red-50);
   --destructive-hover: var(--red-100);
   --destructive-foreground: var(--red-500);
-  --destructive-shadow: var(--red-300);
   --warning: var(--amber-50);
   --warning-hover: var(--amber-100);
   --warning-foreground: var(--amber-500);
@@ -636,13 +665,14 @@
   --input: var(--mountain-900);
   --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
+  --ring-destructive: var(--red-500);
+  --ring-destructive-shadow: var(--red-300);
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
   --destructive: var(--red-500);
   --destructive-hover: var(--red-700);
   --destructive-foreground: var(--red-300);
-  --destructive-shadow: var(--red-300);
   --warning: var(--amber-800);
   --warning-hover: var(--amber-700);
   --warning-foreground: var(--amber-300);
@@ -724,6 +754,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -738,6 +769,7 @@
     from {
       height: 0;
     }
+
     to {
       height: var(--radix-accordion-content-height);
     }
@@ -747,6 +779,7 @@
     from {
       height: var(--radix-accordion-content-height);
     }
+
     to {
       height: 0;
     }
