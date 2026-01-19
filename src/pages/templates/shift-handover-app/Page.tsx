@@ -1,5 +1,4 @@
 
-import Image from 'next/image';
 import React from 'react';
 import { useTheme } from 'next-themes';
 import { Link } from 'react-router-dom';
@@ -204,7 +203,7 @@ export default function ShiftHandoverAppPage() {
       <div className="w-full border-b border-border bg-background">
         <div className="h-12 px-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <Image
+            <img
               src="/cognite-logo.png"
               alt="Cognite"
               width={32}
@@ -253,7 +252,7 @@ export default function ShiftHandoverAppPage() {
                 <Sun className="h-4 w-4" />
               )}
             </Button>
-            <Image
+            <img
               src="/user-avatar.png"
               alt="User"
               width={28}

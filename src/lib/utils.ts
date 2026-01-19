@@ -16,6 +16,10 @@ export function slugToPascalCase(slug: string): string {
     .join('');
 }
 
+export function slugToCamelCase(slug: string): string {
+  return slug.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
 /**
  * Gets or creates the portal container for Radix UI components.
  * Container is created in document.body to avoid positioning issues

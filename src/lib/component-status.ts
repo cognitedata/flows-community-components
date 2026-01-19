@@ -1,37 +1,28 @@
-import fs from 'fs';
-import path from 'path';
-
 export type ComponentStatus = 'draft' | 'production';
+
+/**
+ * Static map of production-ready components.
+ * Components listed here have been reviewed and are stable for production use.
+ * All other components are considered 'draft'.
+ *
+ * To mark a component as production-ready, add its slug to this set.
+ */
+const productionComponents = new Set<string>([
+  // Add component slugs here when they are production-ready
+  // Example: 'button', 'input', 'card'
+]);
 
 /**
  * Determines if a component is in draft or production status.
  *
- * Draft: Component exists only in /draft directory (redirected via path mapping)
- * Production: Component has a dedicated file in /cognite directory
+ * Draft: Component has not been marked as production-ready
+ * Production: Component is listed in the productionComponents set
  *
  * @param componentSlug - The component slug (e.g., 'button', 'accordion')
  * @returns ComponentStatus indicating whether the component is draft or production-ready
  */
 export function getComponentStatus(componentSlug: string): ComponentStatus {
-  const cognitePath = path.join(
-    process.cwd(),
-    'src',
-    'components',
-    'ui',
-    'cognite',
-    `${componentSlug}.tsx`
-  );
-
-  // Check if component exists in cognite directory
-  const hasCogniteFile = fs.existsSync(cognitePath);
-
-  // If there's a cognite file, it's production-ready
-  if (hasCogniteFile) {
-    return 'production';
-  }
-
-  // If there's only a draft file (or neither), it's draft
-  return 'draft';
+  return productionComponents.has(componentSlug) ? 'production' : 'draft';
 }
 
 /**
