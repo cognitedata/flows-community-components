@@ -79,7 +79,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/components/separator', label: 'Separator' },
       { href: '/primitives/components/sidebar', label: 'Sidebar' },
       { href: '/primitives/components/slider', label: 'Slider' },
-      { href: '/primitives/components/sonner', label: 'Sonner' },
+      { href: '/primitives/components/sonner-toast', label: 'Sonner Toast' },
       { href: '/primitives/components/swap-slot', label: 'Swap slot' },
       { href: '/primitives/components/switch', label: 'Switch' },
       { href: '/primitives/components/table', label: 'Table' },

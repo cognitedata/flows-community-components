@@ -52,7 +52,7 @@ function BasicDemo() {
   );
 }
 
-export const sonnerExamples: ComponentExamples = {
+export const sonnerToastExamples: ComponentExamples = {
   basic: {
     title: 'Toast/Sonner Demo',
     description:

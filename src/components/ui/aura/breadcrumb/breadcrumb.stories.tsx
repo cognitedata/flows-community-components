@@ -18,7 +18,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './dropdown-menu';
+} from '../dropdown-menu';
 import {
   IconPencil,
   IconTag,

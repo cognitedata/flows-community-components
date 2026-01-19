@@ -15,9 +15,9 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
   BreadcrumbPage,
-} from './breadcrumb';
-import { Button } from './button';
-import { Avatar, AvatarFallback, AvatarImage } from './avatar';
+} from '../breadcrumb';
+import { Button } from '../button';
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,7 +28,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from './alert-dialog';
+} from '../alert-dialog';
 import {
   IconLayoutSidebar,
   IconHomeFilled,
@@ -56,7 +56,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
   SidebarInset,
-} from './sidebar';
+} from '../sidebar';
 
 const meta: Meta<typeof Topbar> = {
   title: 'Primitives/Topbar',

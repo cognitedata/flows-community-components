@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, waitFor, expect } from '@storybook/test';
 import { useState, useEffect } from 'react';
 import { Progress } from './progress';
-import { Label } from './label';
-import { Button } from './button';
+import { Label } from '../label';
+import { Button } from '../button';
 
 const meta: Meta<typeof Progress> = {
   title: 'AI/Progress',

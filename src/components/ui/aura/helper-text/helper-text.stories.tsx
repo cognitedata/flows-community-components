@@ -3,9 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, expect } from '@storybook/test';
 import { useState } from 'react';
 import { HelperText } from './helper-text';
-import { Button } from './button';
-import { Input } from './input';
-import { Label } from './label';
+import { Button } from '../button';
+import { Input } from '../input';
+import { Label } from '../label';
 import {
   IconCircleCheck,
   IconInfoCircle,

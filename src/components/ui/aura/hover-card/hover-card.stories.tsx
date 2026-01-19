@@ -7,9 +7,9 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from './hover-card';
-import { Button } from './button';
-import { Avatar, AvatarFallback, AvatarImage } from './avatar';
-import { Badge } from './badge';
+import { Button } from '../button';
+import { Avatar, AvatarFallback, AvatarImage } from '../avatar';
+import { Badge } from '../badge';
 
 const meta: Meta<typeof HoverCard> = {
   title: 'Primitives/Hover Card',

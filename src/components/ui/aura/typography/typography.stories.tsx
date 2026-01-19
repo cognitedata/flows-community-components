@@ -5,7 +5,7 @@ import {
   typographyPatterns,
   getTypographyBySection,
 } from './typography';
-import { CodeBlock } from './code-block';
+import { CodeBlock } from '../code-block';
 
 /**
  * # Aura Typography System

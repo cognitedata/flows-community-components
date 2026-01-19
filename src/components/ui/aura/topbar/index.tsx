@@ -4,12 +4,25 @@
  * A top navigation bar component for application headers.
  *
  * @example
- * import { Topbar } from '@/components/ui/aura/topbar';
+ * import { Topbar, TopbarLeft, TopbarRight, TopbarBreadcrumbs } from '@/components/ui/aura/topbar';
  *
  * <Topbar>
- *   <Logo />
- *   <Navigation />
+ *   <TopbarLeft>
+ *     <TopbarBreadcrumbs>...</TopbarBreadcrumbs>
+ *   </TopbarLeft>
+ *   <TopbarRight>
+ *     <Button>Action</Button>
+ *   </TopbarRight>
  * </Topbar>
  */
-export { Topbar } from './topbar';
+export {
+  Topbar,
+  TopbarLeft,
+  TopbarCenter,
+  TopbarRight,
+  TopbarWithSidebar,
+  TopbarContent,
+  TopbarBreadcrumbs,
+  TopbarAction,
+} from './topbar';
 export { TopbarMetadata } from './topbar.metadata';

@@ -43,7 +43,7 @@ const components = [
   'Sidebar',
   'Skeleton',
   'Slider',
-  'Sonner',
+  'Sonner Toast',
   'Swap Slot',
   'Switch',
   'Table',
