@@ -61,13 +61,13 @@ export const Default: Story = {
     <ChainOfThought>
       <ChainOfThoughtHeader>Thinking...</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Analyzing the user's request to understand what they need.">
           Analyzing the user&apos;s request to understand what they need.
         </ChainOfThoughtStep>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Searching for relevant information in the codebase.">
           Searching for relevant information in the codebase.
         </ChainOfThoughtStep>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Formulating a response based on the gathered context.">
           Formulating a response based on the gathered context.
         </ChainOfThoughtStep>
       </ChainOfThoughtContent>
@@ -97,13 +97,13 @@ export const OpenByDefault: Story = {
     <ChainOfThought defaultOpen>
       <ChainOfThoughtHeader>Reasoning Process</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Step 1: Parse the input to extract key requirements.">
           Step 1: Parse the input to extract key requirements.
         </ChainOfThoughtStep>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Step 2: Consider multiple approaches to solve the problem.">
           Step 2: Consider multiple approaches to solve the problem.
         </ChainOfThoughtStep>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Step 3: Select the most efficient solution.">
           Step 3: Select the most efficient solution.
         </ChainOfThoughtStep>
       </ChainOfThoughtContent>
@@ -144,10 +144,10 @@ export const Controlled: Story = {
         <ChainOfThought open={open} onOpenChange={setOpen}>
           <ChainOfThoughtHeader>Controlled Chain of Thought</ChainOfThoughtHeader>
           <ChainOfThoughtContent>
-            <ChainOfThoughtStep>
+            <ChainOfThoughtStep label="This chain of thought is controlled externally.">
               This chain of thought is controlled externally.
             </ChainOfThoughtStep>
-            <ChainOfThoughtStep>
+            <ChainOfThoughtStep label="Use the buttons above to expand or collapse.">
               Use the buttons above to expand or collapse.
             </ChainOfThoughtStep>
           </ChainOfThoughtContent>
@@ -172,16 +172,16 @@ export const DetailedSteps: Story = {
     <ChainOfThought defaultOpen>
       <ChainOfThoughtHeader>Analyzing Code</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Understanding the Problem">
           <strong>Understanding the Problem:</strong> The user wants to implement 
           a sorting function that handles edge cases like empty arrays and duplicates.
         </ChainOfThoughtStep>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Evaluating Algorithms">
           <strong>Evaluating Algorithms:</strong> QuickSort offers O(n log n) average 
           case, MergeSort guarantees O(n log n) but uses more memory, and the built-in 
           sort method is well-optimized for most cases.
         </ChainOfThoughtStep>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Implementation Decision">
           <strong>Implementation Decision:</strong> Recommending the built-in sort 
           with a custom comparator for simplicity and maintainability.
         </ChainOfThoughtStep>
@@ -205,14 +205,14 @@ export const ManySteps: Story = {
     <ChainOfThought defaultOpen>
       <ChainOfThoughtHeader>Extended Analysis</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep>Parsing user request...</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Identifying key entities...</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Searching codebase for context...</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Analyzing file dependencies...</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Evaluating potential solutions...</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Ranking solutions by efficiency...</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Generating implementation plan...</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Preparing final response...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Parsing user request...">Parsing user request...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Identifying key entities...">Identifying key entities...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Searching codebase for context...">Searching codebase for context...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Analyzing file dependencies...">Analyzing file dependencies...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Evaluating potential solutions...">Evaluating potential solutions...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Ranking solutions by efficiency...">Ranking solutions by efficiency...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Generating implementation plan...">Generating implementation plan...</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Preparing final response...">Preparing final response...</ChainOfThoughtStep>
       </ChainOfThoughtContent>
     </ChainOfThought>
   ),
@@ -233,7 +233,7 @@ export const SingleStep: Story = {
     <ChainOfThought defaultOpen>
       <ChainOfThoughtHeader>Quick Thought</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep>
+        <ChainOfThoughtStep label="The answer to this question is straightforward based on the documentation.">
           The answer to this question is straightforward based on the documentation.
         </ChainOfThoughtStep>
       </ChainOfThoughtContent>
@@ -260,7 +260,7 @@ export const VisualRegression: Story = {
         <ChainOfThought>
           <ChainOfThoughtHeader>Collapsed Thinking</ChainOfThoughtHeader>
           <ChainOfThoughtContent>
-            <ChainOfThoughtStep>Hidden content</ChainOfThoughtStep>
+            <ChainOfThoughtStep label="Hidden content">Hidden content</ChainOfThoughtStep>
           </ChainOfThoughtContent>
         </ChainOfThought>
       </div>
@@ -271,8 +271,8 @@ export const VisualRegression: Story = {
         <ChainOfThought defaultOpen>
           <ChainOfThoughtHeader>Expanded Thinking</ChainOfThoughtHeader>
           <ChainOfThoughtContent>
-            <ChainOfThoughtStep>First step</ChainOfThoughtStep>
-            <ChainOfThoughtStep>Second step</ChainOfThoughtStep>
+            <ChainOfThoughtStep label="First step">First step</ChainOfThoughtStep>
+            <ChainOfThoughtStep label="Second step">Second step</ChainOfThoughtStep>
           </ChainOfThoughtContent>
         </ChainOfThought>
       </div>
@@ -301,9 +301,9 @@ export const Playground: Story = {
     <ChainOfThought {...args}>
       <ChainOfThoughtHeader>Playground</ChainOfThoughtHeader>
       <ChainOfThoughtContent>
-        <ChainOfThoughtStep>Playground step 1</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Playground step 2</ChainOfThoughtStep>
-        <ChainOfThoughtStep>Playground step 3</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Playground step 1">Playground step 1</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Playground step 2">Playground step 2</ChainOfThoughtStep>
+        <ChainOfThoughtStep label="Playground step 3">Playground step 3</ChainOfThoughtStep>
       </ChainOfThoughtContent>
     </ChainOfThought>
   ),

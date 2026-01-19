@@ -100,7 +100,7 @@ export const MultipleCitations: Story = {
         </InlineCitationLink>
       </InlineCitation>
       <InlineCitation>
-        <InlineCitationLink href="https://example.com/3" variant="coral">
+        <InlineCitationLink href="https://example.com/3" variant="nordic">
           3
         </InlineCitationLink>
       </InlineCitation>
@@ -128,7 +128,7 @@ export const WithIcons: Story = {
           <InlineCitationLink 
             href="https://github.com/example/repo" 
             variant="fjord"
-            icon={<IconBrandGithub className="size-3" />}
+            icon={IconBrandGithub}
           >
             repo
           </InlineCitationLink>
@@ -140,7 +140,7 @@ export const WithIcons: Story = {
           <InlineCitationLink 
             href="https://docs.example.com" 
             variant="mountain"
-            icon={<IconFileText className="size-3" />}
+            icon={IconFileText}
           >
             docs
           </InlineCitationLink>
@@ -151,8 +151,8 @@ export const WithIcons: Story = {
         <InlineCitation>
           <InlineCitationLink 
             href="https://example.com" 
-            variant="coral"
-            icon={<IconWorld className="size-3" />}
+            variant="nordic"
+            icon={IconWorld}
           >
             site
           </InlineCitationLink>
@@ -190,7 +190,7 @@ export const CitationGroup: Story = {
           </InlineCitationLink>
         </InlineCitation>
         <InlineCitation>
-          <InlineCitationLink href="https://example.com/3" variant="coral">
+          <InlineCitationLink href="https://example.com/3" variant="nordic">
             MDN Reference
           </InlineCitationLink>
         </InlineCitation>
@@ -227,19 +227,19 @@ export const ColorVariants: Story = {
       <p className="text-sm">
         Coral variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="coral">coral</InlineCitationLink>
+          <InlineCitationLink href="#" variant="nordic">nordic</InlineCitationLink>
         </InlineCitation>
       </p>
       <p className="text-sm">
         Sunset variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="sunset">sunset</InlineCitationLink>
+          <InlineCitationLink href="#" variant="fjord">fjord</InlineCitationLink>
         </InlineCitation>
       </p>
       <p className="text-sm">
         Forest variant
         <InlineCitation>
-          <InlineCitationLink href="#" variant="forest">forest</InlineCitationLink>
+          <InlineCitationLink href="#" variant="mountain">mountain</InlineCitationLink>
         </InlineCitation>
       </p>
     </div>
@@ -273,11 +273,11 @@ export const InContext: Story = {
       <p>
         React uses a virtual DOM to efficiently update the UI
         <InlineCitation>
-          <InlineCitationLink href="https://legacy.reactjs.org/docs/faq-internals.html" variant="coral">3</InlineCitationLink>
+          <InlineCitationLink href="https://legacy.reactjs.org/docs/faq-internals.html" variant="nordic">3</InlineCitationLink>
         </InlineCitation>
         . This approach minimizes direct manipulation of the actual DOM, resulting in better performance
         <InlineCitation>
-          <InlineCitationLink href="https://example.com/perf" variant="sunset">4</InlineCitationLink>
+          <InlineCitationLink href="https://example.com/perf" variant="fjord">4</InlineCitationLink>
         </InlineCitation>
         .
       </p>
@@ -319,7 +319,7 @@ export const VisualRegression: Story = {
             <InlineCitationLink 
               href="#" 
               variant="mountain"
-              icon={<IconFileText className="size-3" />}
+              icon={IconFileText}
             >
               docs
             </InlineCitationLink>
@@ -336,7 +336,7 @@ export const VisualRegression: Story = {
             <InlineCitationLink href="#" variant="fjord">1</InlineCitationLink>
           </InlineCitation>
           <InlineCitation>
-            <InlineCitationLink href="#" variant="coral">2</InlineCitationLink>
+            <InlineCitationLink href="#" variant="nordic">2</InlineCitationLink>
           </InlineCitation>
         </InlineCitationGroup>
       </div>

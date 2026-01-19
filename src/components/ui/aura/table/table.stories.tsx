@@ -232,7 +232,7 @@ export const WithBadges: Story = {
                     ? 'default'
                     : invoice.status === 'Pending'
                       ? 'secondary'
-                      : 'destructive'
+                      : 'error'
                 }
               >
                 {invoice.status}

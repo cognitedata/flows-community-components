@@ -113,17 +113,17 @@ export const WithIcons: Story = {
       <Source 
         url="https://github.com/example/repo" 
         title="GitHub Repository" 
-        icon={<IconBrandGithub className="size-3" />} 
+        icon={IconBrandGithub} 
       />
       <Source 
         url="https://example.com/docs" 
         title="Documentation" 
-        icon={<IconFileText className="size-3" />} 
+        icon={IconFileText} 
       />
       <Source 
         url="https://example.com" 
         title="Website" 
-        icon={<IconWorld className="size-3" />} 
+        icon={IconWorld} 
       />
     </Sources>
   ),
@@ -208,7 +208,7 @@ export const VisualRegression: Story = {
           <Source 
             url="https://github.com" 
             title="GitHub" 
-            icon={<IconBrandGithub className="size-3" />} 
+            icon={IconBrandGithub} 
           />
         </Sources>
       </div>

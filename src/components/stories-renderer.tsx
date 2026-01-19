@@ -64,7 +64,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
 
         // Compose stories using Storybook's portable stories API
         const composed = composeStories(
-          storiesModule as Record<string, unknown>
+          storiesModule as Parameters<typeof composeStories>[0]
         ) as Record<string, ComponentType>;
 
         // Convert to array of story entries

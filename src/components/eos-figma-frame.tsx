@@ -1,5 +1,4 @@
 
-import Image from 'next/image';
 import * as React from 'react';
 
 // Image assets served by the Cursor Figma socket server
@@ -92,7 +91,7 @@ function Avatar({
         className="relative rounded-[4px] size-full"
         data-name="Type=Image, Size=Default"
       >
-        <Image
+        <img
           alt=""
           className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[4px] size-full"
           src={imgTypeImageSizeDefault}
@@ -180,7 +179,7 @@ export function EosFigmaFrame() {
         <div className="flex-none rotate-[240deg]">
           <div className="relative h-[959.102px] w-[943.068px]">
             <div className="absolute inset-[-0.16%]">
-              <Image
+              <img
                 alt=""
                 className="block max-w-none size-full"
                 src={imgTopology2}
@@ -191,7 +190,7 @@ export function EosFigmaFrame() {
       </div>
       <div className="pointer-events-none absolute left-[648.32px] top-[490.45px] h-[959.102px] w-[943.068px]">
         <div className="absolute inset-[-0.16%]">
-          <Image
+          <img
             alt=""
             className="block max-w-none size-full"
             src={imgTopology3}
@@ -202,7 +201,7 @@ export function EosFigmaFrame() {
         <div className="flex-none rotate-[330deg]">
           <div className="relative h-[959.102px] w-[943.068px]">
             <div className="absolute inset-[-0.16%]">
-              <Image
+              <img
                 alt=""
                 className="block max-w-none size-full"
                 src={imgTopology4}
@@ -216,14 +215,14 @@ export function EosFigmaFrame() {
       <div className="absolute left-0 right-0 top-0 flex items-center justify-between px-3 py-4 max-h-[48px] w-[1440px]">
         <div className="relative shrink-0 size-[32px]">
           <div className="absolute bottom-[21.44%] left-0 right-[0.01%] top-[20.31%]">
-            <Image alt="" className="block max-w-none size-full" src={img1} />
+            <img alt="" className="block max-w-none size-full" src={img1} />
           </div>
         </div>
         <div className="flex h-[32px] items-center gap-2 overflow-clip">
           <div className="flex h-[32px] items-center gap-2 rounded-[2px] bg-[#cdecfb] px-2">
             <div className="relative size-4">
               <div className="absolute inset-[6.25%]">
-                <Image
+                <img
                   alt=""
                   className="block max-w-none size-full"
                   src={img2}
@@ -237,7 +236,7 @@ export function EosFigmaFrame() {
           <div className="flex h-[32px] items-center gap-2 rounded-[2px] px-2">
             <div className="relative size-4">
               <div className="absolute inset-[7.969%]">
-                <Image
+                <img
                   alt=""
                   className="block max-w-none size-full"
                   src={img3}
@@ -249,7 +248,7 @@ export function EosFigmaFrame() {
           <div className="flex h-[32px] items-center gap-2 rounded-[2px] px-2">
             <div className="relative size-4">
               <div className="absolute inset-[6.25%]">
-                <Image
+                <img
                   alt=""
                   className="block max-w-none size-full"
                   src={img4}
@@ -265,7 +264,7 @@ export function EosFigmaFrame() {
           <div className="grid place-items-center rounded-[4px] size-[32px]">
             <div className="relative size-4">
               <div className="absolute inset-[6.25%]">
-                <Image
+                <img
                   alt=""
                   className="block max-w-none size-full"
                   src={img5}
@@ -276,7 +275,7 @@ export function EosFigmaFrame() {
           <div className="grid place-items-center rounded-[4px] size-[32px]">
             <div className="relative size-4">
               <div className="absolute inset-[7.97%_12.13%_7.97%_12.14%]">
-                <Image
+                <img
                   alt=""
                   className="block max-w-none size-full"
                   src={img6}
@@ -287,7 +286,7 @@ export function EosFigmaFrame() {
           <div className="grid place-items-center rounded-[4px] size-[32px]">
             <div className="relative size-4">
               <div className="absolute inset-[3.802%]">
-                <Image
+                <img
                   alt=""
                   className="block max-w-none size-full"
                   src={img7}
@@ -327,7 +326,7 @@ export function EosFigmaFrame() {
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[9.38%_12.5%]">
-                        <Image
+                        <img
                           alt=""
                           className="block max-w-none size-full"
                           src={img8}
@@ -338,7 +337,7 @@ export function EosFigmaFrame() {
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%]">
-                        <Image
+                        <img
                           alt=""
                           className="block max-w-none size-full"
                           src={img9}
@@ -349,7 +348,7 @@ export function EosFigmaFrame() {
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%]">
-                        <Image
+                        <img
                           alt=""
                           className="block max-w-none size-full"
                           src={img10}
@@ -362,7 +361,7 @@ export function EosFigmaFrame() {
                   <div className="grid place-items-center rounded-[4px] size-[32px]">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%_18.75%]">
-                        <Image
+                        <img
                           alt=""
                           className="block max-w-none size-full"
                           src={img11}
@@ -373,7 +372,7 @@ export function EosFigmaFrame() {
                   <div className="grid place-items-center rounded-[4px] size-[32px] bg-slate-400">
                     <div className="relative size-4">
                       <div className="absolute inset-[6.25%]">
-                        <Image
+                        <img
                           alt=""
                           className="block max-w-none size-full"
                           src={img12}
@@ -392,7 +391,7 @@ export function EosFigmaFrame() {
                 </div>
                 <div className="relative size-4">
                   <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                    <Image
+                    <img
                       alt=""
                       className="block max-w-none size-full"
                       src={img13}
@@ -406,7 +405,7 @@ export function EosFigmaFrame() {
                 </div>
                 <div className="relative size-4">
                   <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                    <Image
+                    <img
                       alt=""
                       className="block max-w-none size-full"
                       src={img13}
@@ -420,7 +419,7 @@ export function EosFigmaFrame() {
                 </div>
                 <div className="relative size-4">
                   <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                    <Image
+                    <img
                       alt=""
                       className="block max-w-none size-full"
                       src={img13}
@@ -441,7 +440,7 @@ export function EosFigmaFrame() {
               </div>
               <div className="relative size-4">
                 <div className="absolute inset-[38.75%_20%_26.25%_20%]">
-                  <Image
+                  <img
                     alt=""
                     className="block max-w-none size-full"
                     src={img13}
@@ -453,7 +452,7 @@ export function EosFigmaFrame() {
               <div className="flex h-[32px] items-center gap-2 rounded-[4px] px-3">
                 <div className="relative size-4">
                   <div className="absolute inset-[21.875%]">
-                    <Image
+                    <img
                       alt=""
                       className="block max-w-none size-full"
                       src={img14}
@@ -465,7 +464,7 @@ export function EosFigmaFrame() {
               <div className="flex h-[32px] items-center gap-2 rounded-[4px] px-3">
                 <div className="relative size-4">
                   <div className="absolute inset-[6.25%]">
-                    <Image
+                    <img
                       alt=""
                       className="block max-w-none size-full"
                       src={img15}
@@ -492,7 +491,7 @@ export function EosFigmaFrame() {
               <div className="mt-2">
                 <div className="relative h-[120px] w-full">
                   <div className="absolute inset-0">
-                    <Image
+                    <img
                       alt="chart"
                       src={imgGroup1}
                       className="block max-w-none"

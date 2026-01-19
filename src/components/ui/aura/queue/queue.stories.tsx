@@ -15,14 +15,6 @@ const meta: Meta<typeof Queue> = {
   component: Queue,
   tags: ['autodocs'],
   argTypes: {
-    defaultOpen: {
-      control: 'boolean',
-      description: 'Whether the queue content is open by default',
-      table: {
-        category: 'Behavior',
-        type: { summary: 'boolean' },
-      },
-    },
     className: {
       control: 'text',
       description: 'Additional CSS classes',
@@ -182,7 +174,7 @@ export const AllPending: Story = {
  */
 export const CollapsedByDefault: Story = {
   render: () => (
-    <Queue defaultOpen={false}>
+    <Queue>
       <QueueHeader title="Collapsed Queue" count={2} />
       <QueueContent>
         <QueueList>
@@ -304,9 +296,7 @@ export const VisualRegression: Story = {
  * Interactive playground.
  */
 export const Playground: Story = {
-  args: {
-    defaultOpen: true,
-  },
+  args: {},
   render: (args) => (
     <Queue {...args}>
       <QueueHeader title="Playground Queue" count={2} />

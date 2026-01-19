@@ -173,9 +173,18 @@ export const WithUsageStats: Story = {
       maxTokens={128000}
       modelId="claude-3-opus"
       usage={{
-        promptTokens: 45000,
-        completionTokens: 5000,
+        inputTokens: 45000,
+        outputTokens: 5000,
         totalTokens: 50000,
+        inputTokenDetails: {
+          noCacheTokens: undefined,
+          cacheReadTokens: undefined,
+          cacheWriteTokens: undefined,
+        },
+        outputTokenDetails: {
+          textTokens: undefined,
+          reasoningTokens: undefined,
+        },
       }}
     >
       <ContextTrigger />

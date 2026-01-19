@@ -65,6 +65,7 @@ export const Default: Story = {
       base64={redSquareBase64}
       mediaType="image/png"
       alt="Generated image"
+      uint8Array={new Uint8Array(0)}
     />
   ),
   parameters: {
@@ -91,6 +92,7 @@ export const CustomSize: Story = {
       mediaType="image/png"
       alt="Custom sized image"
       className="w-64 h-64"
+      uint8Array={new Uint8Array(0)}
     />
   ),
   parameters: {
@@ -113,18 +115,21 @@ export const MultipleImages: Story = {
         mediaType="image/png"
         alt="Image 1"
         className="w-24 h-24"
+        uint8Array={new Uint8Array(0)}
       />
       <Image
         base64={blueGradientBase64}
         mediaType="image/png"
         alt="Image 2"
         className="w-24 h-24"
+        uint8Array={new Uint8Array(0)}
       />
       <Image
         base64={greenSquareBase64}
         mediaType="image/png"
         alt="Image 3"
         className="w-24 h-24"
+        uint8Array={new Uint8Array(0)}
       />
     </div>
   ),
@@ -148,18 +153,21 @@ export const RoundedCorners: Story = {
         mediaType="image/png"
         alt="Default rounded"
         className="w-24 h-24"
+        uint8Array={new Uint8Array(0)}
       />
       <Image
         base64={blueGradientBase64}
         mediaType="image/png"
         alt="More rounded"
         className="w-24 h-24 rounded-xl"
+        uint8Array={new Uint8Array(0)}
       />
       <Image
         base64={greenSquareBase64}
         mediaType="image/png"
         alt="Circular"
         className="w-24 h-24 rounded-full"
+        uint8Array={new Uint8Array(0)}
       />
     </div>
   ),
@@ -186,6 +194,7 @@ export const InContext: Story = {
         mediaType="image/png"
         alt="Generated artwork"
         className="w-full max-w-sm"
+        uint8Array={new Uint8Array(0)}
       />
       <p className="text-xs text-muted-foreground">
         Generated using AI image model
@@ -214,6 +223,7 @@ export const VisualRegression: Story = {
           base64={redSquareBase64}
           mediaType="image/png"
           alt="Test image"
+          uint8Array={new Uint8Array(0)}
         />
       </div>
 
@@ -225,6 +235,7 @@ export const VisualRegression: Story = {
           mediaType="image/png"
           alt="Sized image"
           className="w-32 h-32"
+          uint8Array={new Uint8Array(0)}
         />
       </div>
     </div>
