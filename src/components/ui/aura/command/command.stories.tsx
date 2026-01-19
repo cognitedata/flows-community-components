@@ -12,7 +12,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from './command';
-import { IconCalculator, IconCalendar, IconMail, IconSettings, IconSmile, IconUser } from '@tabler/icons-react';
+import { IconCalculator, IconCalendar, IconMail, IconSettings, IconSparkles, IconUser } from '@tabler/icons-react';
 
 const meta: Meta<typeof Command> = {
   title: 'Primitives/Command',
@@ -50,7 +50,7 @@ export const Default: Story = {
             <span>Calendar</span>
           </CommandItem>
           <CommandItem>
-            <IconSmile />
+            <IconSparkles />
             <span>Search Emoji</span>
           </CommandItem>
           <CommandItem>
@@ -117,6 +117,7 @@ export const Dialog: Story = {
           Press <kbd className="px-2 py-1 bg-muted rounded text-xs">⌘K</kbd> or click the button
         </p>
         <button
+          type="button"
           onClick={() => setOpen(true)}
           className="px-4 py-2 rounded-md border hover:bg-accent"
         >
@@ -132,7 +133,7 @@ export const Dialog: Story = {
                 <span>Calendar</span>
               </CommandItem>
               <CommandItem onSelect={() => setOpen(false)}>
-                <IconSmile />
+                <IconSparkles />
                 <span>Search Emoji</span>
               </CommandItem>
               <CommandItem onSelect={() => setOpen(false)}>

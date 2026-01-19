@@ -271,3 +271,28 @@ export const Queue = ({ className, ...props }: QueueProps) => (
     {...props}
   />
 );
+
+export type QueueHeaderProps = ComponentProps<'div'> & {
+  title: string;
+  count: number;
+};
+
+export const QueueHeader = ({
+  title,
+  count,
+  className,
+  ...props
+}: QueueHeaderProps) => (
+  <div
+    className={cn('font-medium text-sm text-foreground', className)}
+    {...props}
+  >
+    {title} ({count})
+  </div>
+);
+
+export type QueueContentProps = ComponentProps<'div'>;
+
+export const QueueContent = ({ className, ...props }: QueueContentProps) => (
+  <div className={cn('', className)} {...props} />
+);

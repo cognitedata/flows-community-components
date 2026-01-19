@@ -139,3 +139,15 @@ export const PlanTrigger = ({ className, ...props }: PlanTriggerProps) => (
     </Button>
   </CollapsibleTrigger>
 );
+
+export type PlanItemProps = ComponentProps<'div'>;
+
+export const PlanItem = ({ className, children, ...props }: PlanItemProps) => (
+  <div
+    className={cn('text-sm text-muted-foreground', className)}
+    data-slot="plan-item"
+    {...props}
+  >
+    {children}
+  </div>
+);

@@ -212,3 +212,35 @@ export const BranchPage = ({ className, ...props }: BranchPageProps) => {
     </span>
   );
 };
+
+export type BranchMessageProps = HTMLAttributes<HTMLDivElement>;
+
+export const BranchMessage = ({ className, children, ...props }: BranchMessageProps) => (
+  <div className={cn('', className)} {...props}>
+    {children}
+  </div>
+);
+
+export type BranchNavigationProps = HTMLAttributes<HTMLDivElement> & {
+  from?: UIMessage['role'];
+};
+
+export const BranchNavigation = ({
+  className,
+  from = 'assistant',
+  ...props
+}: BranchNavigationProps) => {
+  const { totalBranches } = useBranch();
+
+  if (totalBranches <= 1) {
+    return null;
+  }
+
+  return (
+    <BranchSelector className={className} from={from} {...props}>
+      <BranchPrevious />
+      <BranchPage />
+      <BranchNext />
+    </BranchSelector>
+  );
+};

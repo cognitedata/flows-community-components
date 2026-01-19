@@ -1,14 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { within, userEvent, expect } from '@storybook/test';
 import {
-  OpenInChat,
-  OpenInChatTrigger,
-  OpenInChatDropdown,
+  OpenIn,
+  OpenInTrigger,
+  OpenInContent,
+  OpenInChatGPT,
+  OpenInClaude,
+  OpenInT3,
 } from './open-in-chat';
 
-const meta: Meta<typeof OpenInChat> = {
+const meta: Meta<typeof OpenIn> = {
   title: 'AI/Open In Chat',
-  component: OpenInChat,
+  component: OpenIn,
   tags: ['autodocs'],
   argTypes: {
     query: {
@@ -19,13 +22,6 @@ const meta: Meta<typeof OpenInChat> = {
         type: { summary: 'string' },
       },
     },
-    className: {
-      control: 'text',
-      description: 'Additional CSS classes',
-      table: {
-        category: 'Styling',
-      },
-    },
   },
   parameters: {
     layout: 'centered',
@@ -33,17 +29,21 @@ const meta: Meta<typeof OpenInChat> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof OpenInChat>;
+type Story = StoryObj<typeof OpenIn>;
 
 /**
  * Default open in chat button.
  */
 export const Default: Story = {
   render: () => (
-    <OpenInChat query="How do I implement authentication in React?">
-      <OpenInChatTrigger />
-      <OpenInChatDropdown />
-    </OpenInChat>
+    <OpenIn query="How do I implement authentication in React?">
+      <OpenInTrigger />
+      <OpenInContent>
+        <OpenInChatGPT />
+        <OpenInClaude />
+        <OpenInT3 />
+      </OpenInContent>
+    </OpenIn>
   ),
   parameters: {
     docs: {
@@ -68,10 +68,14 @@ export const CustomQuery: Story = {
       <p className="text-sm text-muted-foreground max-w-sm">
         Query: &quot;Explain the difference between useState and useReducer&quot;
       </p>
-      <OpenInChat query="Explain the difference between useState and useReducer">
-        <OpenInChatTrigger />
-        <OpenInChatDropdown />
-      </OpenInChat>
+      <OpenIn query="Explain the difference between useState and useReducer">
+        <OpenInTrigger />
+        <OpenInContent>
+          <OpenInChatGPT />
+          <OpenInClaude />
+          <OpenInT3 />
+        </OpenInContent>
+      </OpenIn>
     </div>
   ),
   parameters: {
@@ -95,10 +99,14 @@ export const InContext: Story = {
         these with an AI assistant?
       </p>
       <div className="flex gap-2">
-        <OpenInChat query="Review this code and suggest improvements">
-          <OpenInChatTrigger />
-          <OpenInChatDropdown />
-        </OpenInChat>
+        <OpenIn query="Review this code and suggest improvements">
+          <OpenInTrigger />
+          <OpenInContent>
+            <OpenInChatGPT />
+            <OpenInClaude />
+            <OpenInT3 />
+          </OpenInContent>
+        </OpenIn>
       </div>
     </div>
   ),
@@ -116,10 +124,14 @@ export const InContext: Story = {
  */
 export const DropdownInteraction: Story = {
   render: () => (
-    <OpenInChat query="Help me debug this error">
-      <OpenInChatTrigger />
-      <OpenInChatDropdown />
-    </OpenInChat>
+    <OpenIn query="Help me debug this error">
+      <OpenInTrigger />
+      <OpenInContent>
+        <OpenInChatGPT />
+        <OpenInClaude />
+        <OpenInT3 />
+      </OpenInContent>
+    </OpenIn>
   ),
   parameters: {
     docs: {
@@ -145,10 +157,14 @@ export const VisualRegression: Story = {
     <div className="space-y-8 p-4">
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Default</h3>
-        <OpenInChat query="Test query">
-          <OpenInChatTrigger />
-          <OpenInChatDropdown />
-        </OpenInChat>
+        <OpenIn query="Test query">
+          <OpenInTrigger />
+          <OpenInContent>
+            <OpenInChatGPT />
+            <OpenInClaude />
+            <OpenInT3 />
+          </OpenInContent>
+        </OpenIn>
       </div>
     </div>
   ),
@@ -172,10 +188,14 @@ export const Playground: Story = {
     query: 'Playground query for testing',
   },
   render: (args) => (
-    <OpenInChat {...args}>
-      <OpenInChatTrigger />
-      <OpenInChatDropdown />
-    </OpenInChat>
+    <OpenIn {...args}>
+      <OpenInTrigger />
+      <OpenInContent>
+        <OpenInChatGPT />
+        <OpenInClaude />
+        <OpenInT3 />
+      </OpenInContent>
+    </OpenIn>
   ),
   parameters: {
     docs: {

@@ -15,6 +15,7 @@ export {
   OpenInTrigger,
   OpenInChatGPT,
   OpenInClaude,
+  OpenInT3,
 } from './open-in-chat';
 export type {
   OpenInProps,
@@ -25,5 +26,6 @@ export type {
   OpenInTriggerProps,
   OpenInChatGPTProps,
   OpenInClaudeProps,
+  OpenInT3Props,
 } from './open-in-chat';
 export { OpenInChatMetadata } from './open-in-chat.metadata';
