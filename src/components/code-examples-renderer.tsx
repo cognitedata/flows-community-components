@@ -1,7 +1,8 @@
-
 import { useEffect, useState } from 'react';
 import { CodeExample } from './code-example';
 import { getStoryCodeExamples } from '@/lib/stories-registry';
+import { slugToCamelCase } from '@/lib/utils';
+import type { ComponentExample } from '@/lib/component-examples/types';
 
 interface CodeExamplesRendererProps {
   slug: string;
@@ -12,20 +13,74 @@ interface CodeExampleData {
   code: string;
 }
 
+// Use import.meta.glob to let Vite know about all examples files at build time
+const examplesModules = import.meta.glob(
+  '@/components/ui/aura/*/*.examples.tsx'
+);
+
 /**
- * Renders code examples from component metadata.
+ * Renders code examples, prioritizing .examples.tsx files over story metadata.
  *
- * All components use the portable stories system and load code examples
- * from their metadata files.
+ * If a component has an examples file with code, those code examples are rendered.
+ * Otherwise, falls back to loading code examples from story metadata files.
  */
 export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
-  const [storyExamples, setStoryExamples] = useState<CodeExampleData[] | null>(null);
+  const [codeExamples, setCodeExamples] = useState<CodeExampleData[] | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadExamples() {
-      const examples = await getStoryCodeExamples(slug);
-      setStoryExamples(examples);
+      // Find the examples module for this slug
+      const modulePath = Object.keys(examplesModules).find((path) =>
+        path.includes(`/${slug}/${slug}.examples.tsx`)
+      );
+
+      if (modulePath) {
+        try {
+          // Load the examples module
+          const examplesModule = (await examplesModules[
+            modulePath
+          ]()) as Record<string, unknown>;
+
+          // Get the examples export using camelCase naming convention
+          const camelCaseSlug = slugToCamelCase(slug);
+          const examplesExport = examplesModule[`${camelCaseSlug}Examples`];
+
+          if (examplesExport && typeof examplesExport === 'object') {
+            // Extract code from examples
+            const codeFromExamples: CodeExampleData[] = Object.values(
+              examplesExport as Record<string, ComponentExample>
+            )
+              .filter(
+                (example): example is ComponentExample =>
+                  typeof example === 'object' &&
+                  example !== null &&
+                  'title' in example &&
+                  'code' in example &&
+                  typeof example.code === 'string' &&
+                  example.code.length > 0
+              )
+              .map((example) => ({
+                title: example.title,
+                code: example.code,
+              }));
+
+            if (codeFromExamples.length > 0) {
+              setCodeExamples(codeFromExamples);
+              setLoading(false);
+              return;
+            }
+          }
+        } catch (err) {
+          console.error(`Failed to load examples for ${slug}:`, err);
+        }
+      }
+
+      // No valid examples found or failed to load, fall back to story metadata
+      const storyExamples = await getStoryCodeExamples(slug);
+      setCodeExamples(storyExamples);
       setLoading(false);
     }
 
@@ -43,11 +98,11 @@ export function CodeExamplesRenderer({ slug }: CodeExamplesRendererProps) {
     );
   }
 
-  // Render story-based code examples
-  if (storyExamples && storyExamples.length > 0) {
+  // Render code examples
+  if (codeExamples && codeExamples.length > 0) {
     return (
       <div className="space-y-4">
-        {storyExamples.map((example) => (
+        {codeExamples.map((example) => (
           <CodeExample
             key={example.title}
             title={example.title}

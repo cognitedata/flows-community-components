@@ -13,6 +13,11 @@ interface ExampleEntry {
   example: ComponentExample;
 }
 
+// Use import.meta.glob to let Vite know about all examples files at build time
+const examplesModules = import.meta.glob(
+  '@/components/ui/aura/*/*.examples.tsx'
+);
+
 /**
  * Renders component examples, prioritizing .examples.tsx files over .stories.tsx files.
  *
@@ -28,11 +33,24 @@ export function ComponentExamplesRenderer({
 
   useEffect(() => {
     async function loadExamples() {
+      // Find the examples module for this slug
+      const modulePath = Object.keys(examplesModules).find((path) =>
+        path.includes(`/${slug}/${slug}.examples.tsx`)
+      );
+
+      if (!modulePath) {
+        // No examples file found, fall back to stories
+        setUseStories(true);
+        setLoading(false);
+        return;
+      }
+
       try {
-        // Try to load examples file first
-        const examplesModule = await import(
-          `@/components/ui/aura/${slug}/${slug}.examples`
-        );
+        // Load the examples module
+        const examplesModule = (await examplesModules[modulePath]()) as Record<
+          string,
+          unknown
+        >;
 
         // Get the examples export using camelCase naming convention
         const camelCaseSlug = slugToCamelCase(slug);
@@ -40,12 +58,12 @@ export function ComponentExamplesRenderer({
 
         if (examplesExport && typeof examplesExport === 'object') {
           // Convert examples object to array of entries
-          const exampleEntries: ExampleEntry[] = Object.entries(examplesExport).map(
-            ([key, example]) => ({
-              key,
-              example: example as ComponentExample,
-            })
-          );
+          const exampleEntries: ExampleEntry[] = Object.entries(
+            examplesExport as Record<string, ComponentExample>
+          ).map(([key, example]) => ({
+            key,
+            example,
+          }));
 
           if (exampleEntries.length > 0) {
             setExamples(exampleEntries);
@@ -57,8 +75,9 @@ export function ComponentExamplesRenderer({
         // No valid examples found, fall back to stories
         setUseStories(true);
         setLoading(false);
-      } catch {
-        // Examples file doesn't exist or failed to load, fall back to stories
+      } catch (err) {
+        console.error(`Failed to load examples for ${slug}:`, err);
+        // Examples file failed to load, fall back to stories
         setUseStories(true);
         setLoading(false);
       }
