@@ -178,6 +178,49 @@ function InteractiveDemos({
 }) {
   const [width, setWidth] = useState(1200);
   const [showGrid, setShowGrid] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+
+  // Parse URL hash on mount to restore demo state (only run once)
+  useEffect(() => {
+    const hash = window.location.hash.slice(1); // Remove '#'
+    if (!hash) return;
+
+    // Parse format: dashboard1-1200, dashboard2-760, ai-chat-800
+    const match = hash.match(/^(dashboard1|dashboard2|ai-chat)-(\d+)$/);
+    if (match) {
+      const [, type, widthStr] = match;
+      const parsedWidth = Number.parseInt(widthStr, 10);
+      
+      // Validate width is within slider range
+      if (parsedWidth >= 280 && parsedWidth <= 1600) {
+        // Map 'ai-chat' to internal 'chat' type
+        const demoType = type === 'ai-chat' ? 'chat' : type;
+        setDemoType(demoType as 'chat' | 'dashboard1' | 'dashboard2');
+        setWidth(parsedWidth);
+        
+        // Scroll to demo section after state is set
+        setTimeout(() => {
+          const element = document.getElementById('interactive-demo');
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
+
+  // Update URL hash when demo type or width changes
+  useEffect(() => {
+    // Map internal 'chat' type to 'ai-chat' for URL
+    const hashType = demoType === 'chat' ? 'ai-chat' : demoType;
+    const hash = `#${hashType}-${width}`;
+    // Update without triggering a scroll
+    window.history.replaceState(null, '', hash);
+  }, [demoType, width]);
 
   // Keyboard shortcut for grid toggle (Ctrl/Cmd + G)
   useEffect(() => {
@@ -230,6 +273,20 @@ function InteractiveDemos({
               AI Chat
             </Button>
           </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const hashType = demoType === 'chat' ? 'ai-chat' : demoType;
+              const url = `${window.location.origin}${window.location.pathname}#${hashType}-${width}`;
+              navigator.clipboard.writeText(url);
+              setLinkCopied(true);
+              setTimeout(() => setLinkCopied(false), 2000);
+            }}
+            className="ml-auto"
+          >
+            {linkCopied ? 'Copied!' : 'Copy link'}
+          </Button>
         </div>
 
         <div className="flex items-center gap-4">
@@ -995,12 +1052,15 @@ export default function LayoutsPage() {
       {/* Interactive Demo - Full Width of main element */}
       <section className="space-y-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-2">Interactive Demos</h2>
+          <h2 id="interactive-demo" className="text-2xl font-semibold mb-2 scroll-mt-24">
+            Interactive Demos
+          </h2>
           <p className="text-muted-foreground">
             Explore three layout patterns: Dashboard 1 (unified grid), Dashboard
             2 (main + sidebar with nested grids), and AI Chat (8 centred columns
             at 1024px+ for focused reading). Use the slider to test
-            responsiveness and press Ctrl+G to toggle grid overlay.
+            responsiveness, press Ctrl+G to toggle grid overlay, and copy the link
+            to share specific demo configurations.
           </p>
         </div>
         {/* Break out of centered container to use full main width */}
