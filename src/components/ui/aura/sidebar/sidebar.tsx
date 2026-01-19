@@ -876,5 +876,6 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   SidebarUserProfile,
+  // eslint-disable-next-line react-refresh/only-export-components
   useSidebar,
 };

@@ -24,6 +24,7 @@ export type ComponentStatus = ComponentStatusType;
  * This function returns 'draft' for all components.
  * Use the status field from ComponentMeta instead.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getComponentStatus(_componentSlug: string): ComponentStatusType {
   // Status is now in metadata - this is kept for backward compatibility
   // Always returns 'draft' as the safe default
@@ -61,6 +62,7 @@ export function getStatusMessage(status: ComponentStatusType): string {
 /**
  * @deprecated Use getStatusMessage instead.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getComponentStatusMessage(_componentSlug: string): string {
   return getStatusMessage('draft');
 }

@@ -542,7 +542,6 @@ function BasicConversationDemo() {
     phase === 'thinking' || phase === 'streaming' || phase === 'complete';
   const isThinking = phase === 'thinking';
   const isComplete = phase === 'complete';
-  const showBranchNav = branches.length > 1 && isComplete && !isRetrying;
 
   return (
     <div className="h-[900px] w-full border rounded-lg relative flex flex-col">

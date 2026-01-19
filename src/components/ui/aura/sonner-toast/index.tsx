@@ -12,5 +12,9 @@
  * // Show a toast
  * toast("Event has been created")
  */
-export { toast, Toaster } from './sonner-toast';
+export {
+  // eslint-disable-next-line react-refresh/only-export-components
+  toast,
+  Toaster,
+} from './sonner-toast';
 export { SonnerToastMetadata } from './sonner-toast.metadata';

@@ -10,6 +10,7 @@ import {
   useInternalNode,
 } from '@xyflow/react';
 
+// eslint-disable-next-line react-refresh/only-export-components
 const Temporary = ({
   id,
   sourceX,
@@ -103,6 +104,7 @@ const getEdgeParams = (
   };
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 const Animated = ({ id, source, target, markerEnd, style }: EdgeProps) => {
   const sourceNode = useInternalNode(source);
   const targetNode = useInternalNode(target);

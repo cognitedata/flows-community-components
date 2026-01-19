@@ -2,9 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/aura/button';
 import { Badge } from '@/components/ui/aura/badge';
 import { IconArrowLeft } from '@tabler/icons-react';
-import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
-import { AIExamplesRenderer } from '@/components/ai-examples-renderer';
-import { AICodeExamplesRenderer } from '@/components/ai-code-examples-renderer';
+import { StoriesRenderer } from '@/components/stories-renderer';
 import { getStatusMessage, getComponentStatusClasses, getStatusLabel, type ComponentStatusType } from '@/lib/component-status';
 import { getAIComponentMeta, type AIComponentMeta } from '@/lib/ai-component-registry';
 import { InstallationCommand } from '@/components/installation-command';
@@ -58,21 +56,32 @@ export default function AIComponentPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Reset state when slug changes to avoid stale data
-    setMeta(null);
-    setLoading(true);
+    let cancelled = false;
 
     async function loadMeta() {
       if (!slug) return;
+      // Reset state when slug changes to avoid stale data
+      if (!cancelled) {
+        setMeta(null);
+        setLoading(true);
+      }
       try {
         const componentMeta = await getAIComponentMeta(slug);
-        setMeta(componentMeta);
+        if (!cancelled) {
+          setMeta(componentMeta);
+        }
       } catch {
         // Component not found
       }
-      setLoading(false);
+      if (!cancelled) {
+        setLoading(false);
+      }
     }
     loadMeta();
+
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
   if (!slug || !validSlugs.includes(slug)) {
@@ -155,25 +164,11 @@ export default function AIComponentPage() {
               </div>
             </div>
 
-            {/* Enhanced Content with Custom Tab Switcher */}
-            <ComponentTabSwitcher
-              previewContent={
-                <div className="space-y-8">
-                  <AIExamplesRenderer slug={slug} />
-                </div>
-              }
-              codeContent={
-                <div className="space-y-6">
-                  <div className="space-y-4">
-                    <p className="text-muted-foreground">
-                      Code examples and implementation details for{' '}
-                      {componentName}.
-                    </p>
-                    <AICodeExamplesRenderer slug={slug} />
-                  </div>
-                </div>
-              }
-            />
+            {/* Examples Section */}
+            <section id="examples" className="scroll-mt-20">
+              <h2 className="text-2xl font-bold mb-6">Examples</h2>
+              <StoriesRenderer slug={slug} />
+            </section>
 
             {/* Installation Section */}
             <section id="installation" className="scroll-mt-20 mt-12">
@@ -183,14 +178,6 @@ export default function AIComponentPage() {
                 dependencies={[]}
                 componentCode=""
               />
-            </section>
-
-            {/* Usage Section */}
-            <section id="usage" className="scroll-mt-20 mt-12">
-              <h2 className="text-2xl font-bold mb-6">Usage</h2>
-              <div className="space-y-6">
-                <AICodeExamplesRenderer slug={slug} />
-              </div>
             </section>
 
             {/* Guidelines Section */}
@@ -236,16 +223,16 @@ export default function AIComponentPage() {
                 <h2 className="text-sm font-semibold mb-4">On This Page</h2>
                 <nav className="space-y-2">
                   <a
+                    href="#examples"
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Examples
+                  </a>
+                  <a
                     href="#installation"
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Installation
-                  </a>
-                  <a
-                    href="#usage"
-                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Usage
                   </a>
                   <a
                     href="#guidelines"

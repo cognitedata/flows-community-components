@@ -34,7 +34,9 @@ export {
   PromptInputAttachment,
   PromptInputAttachments,
   PromptInputActionAddAttachments,
+  // eslint-disable-next-line react-refresh/only-export-components
   usePromptInputAttachments,
+  // eslint-disable-next-line react-refresh/only-export-components
   useProviderAttachments,
 } from './prompt-input';
 
@@ -83,6 +85,7 @@ export {
 } from './prompt-input';
 
 // Hooks
+// eslint-disable-next-line react-refresh/only-export-components
 export { usePromptInputController } from './prompt-input';
 
 // Types

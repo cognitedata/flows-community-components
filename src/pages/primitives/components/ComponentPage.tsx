@@ -1,9 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { Badge } from '@/components/ui/aura/badge';
 import { Button } from '@/components/ui/aura/button';
-import { ComponentTabSwitcher } from '@/components/component-tab-switcher';
-import { ComponentExamplesRenderer } from '@/components/component-examples-renderer';
-import { CodeExamplesRenderer } from '@/components/code-examples-renderer';
+import { StoriesRenderer } from '@/components/stories-renderer';
 import { getStatusMessage, getComponentStatusClasses, type ComponentStatusType } from '@/lib/component-status';
 import { getStatusLabel } from '@/lib/component-status';
 import { InstallationCommand } from '@/components/installation-command';
@@ -105,24 +103,11 @@ export default function ComponentPage() {
               </div>
             </div>
 
-            {/* Enhanced Content with Custom Tab Switcher */}
-            <ComponentTabSwitcher
-              previewContent={
-                <div className="space-y-8">
-                  <ComponentExamplesRenderer slug={slug} />
-                </div>
-              }
-              codeContent={
-                <div className="space-y-6">
-                  <div className="space-y-4">
-                    <p className="text-muted-foreground">
-                      Code examples and implementation details for {componentName}.
-                    </p>
-                    <CodeExamplesRenderer slug={slug} />
-                  </div>
-                </div>
-              }
-            />
+            {/* Examples Section */}
+            <section id="examples" className="scroll-mt-20">
+              <h2 className="text-2xl font-bold mb-6">Examples</h2>
+              <StoriesRenderer slug={slug} />
+            </section>
 
             {/* Installation Section */}
             <section id="installation" className="scroll-mt-20 mt-12">
@@ -132,14 +117,6 @@ export default function ComponentPage() {
                 dependencies={[]}
                 componentCode=""
               />
-            </section>
-
-            {/* Usage Section */}
-            <section id="usage" className="scroll-mt-20 mt-12">
-              <h2 className="text-2xl font-bold mb-6">Usage</h2>
-              <div className="space-y-6">
-                <CodeExamplesRenderer slug={slug} />
-              </div>
             </section>
 
             {/* Guidelines Section */}
@@ -183,16 +160,16 @@ export default function ComponentPage() {
                 <h2 className="text-sm font-semibold mb-4">On This Page</h2>
                 <nav className="space-y-2">
                   <a
+                    href="#examples"
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Examples
+                  </a>
+                  <a
                     href="#installation"
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Installation
-                  </a>
-                  <a
-                    href="#usage"
-                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Usage
                   </a>
                   <a
                     href="#guidelines"

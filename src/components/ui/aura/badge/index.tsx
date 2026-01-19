@@ -10,5 +10,9 @@
  * <Badge variant="default">Status</Badge>
  * <Badge variant="error" outline>Error</Badge>
  */
-export { Badge, badgeVariants } from './badge';
+export {
+  Badge,
+  // eslint-disable-next-line react-refresh/only-export-components
+  badgeVariants,
+} from './badge';
 export { BadgeMetadata } from './badge.metadata';

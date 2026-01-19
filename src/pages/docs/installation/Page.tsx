@@ -207,7 +207,6 @@ export default function InstallationPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="https://cursor.com/deeplink/mcp-install-dark.svg"
                   alt="Add shadcn MCP server to Cursor"

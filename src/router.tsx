@@ -32,6 +32,7 @@ import MotionPage from './pages/motion/Page';
 import LayoutsPageContent from './pages/layouts-page/Page';
 import GuidesPage from './pages/guides/Page';
 
+// eslint-disable-next-line react-refresh/only-export-components
 function RootLayoutWrapper() {
   return (
     <RootLayout>
@@ -40,6 +41,7 @@ function RootLayoutWrapper() {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 function SectionLayoutWrapper() {
   return (
     <SectionLayout>

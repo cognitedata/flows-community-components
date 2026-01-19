@@ -407,13 +407,19 @@ const PrismaticBurst = ({
       }
       try {
         meshRef.current?.setParent?.(null);
-      } catch {}
+      } catch {
+        // Ignore cleanup errors
+      }
       try {
         // no-op for Triangle; nothing to detach
-      } catch {}
+      } catch {
+        // Ignore cleanup errors
+      }
       try {
         // no-op for Program; no explicit dispose
-      } catch {}
+      } catch {
+        // Ignore cleanup errors
+      }
       try {
         const glCtx = rendererRef.current?.gl as
           | OGLRenderingContext

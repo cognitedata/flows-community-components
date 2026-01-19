@@ -154,6 +154,7 @@ const aiNavigation: NavigationItem[] = [
   // }
 ];
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const navigationMap = {
   docs: docsNavigation,
   overview: overviewNavigation, // Keep for backward compatibility
@@ -232,6 +233,7 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function getSideNavigationForSection(section: string): NavigationItem[] {
   return navigationMap[section as keyof typeof navigationMap] || [];
 }

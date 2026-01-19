@@ -1,20 +1,16 @@
 /**
  * Stories Registry
  *
- * Tracks which components use the new folder structure with portable stories.
- * Components listed here will use GenericStoriesRenderer instead of the legacy
- * examples system.
+ * Tracks which components use the folder structure with portable stories.
  */
-import { slugToPascalCase } from '@/lib/utils';
 
 /**
  * Set of component slugs that use the folder structure with portable stories.
- * Add a component slug here when it's migrated to the new structure:
+ * Components are stored in:
  *   src/components/ui/aura/{slug}/
  *     ├── index.tsx
  *     ├── {slug}.tsx
  *     ├── {slug}.stories.tsx
- *     ├── {slug}.test.tsx
  *     └── {slug}.metadata.ts
  */
 export const componentsWithStories = new Set<string>([
@@ -37,7 +33,7 @@ export const componentsWithStories = new Set<string>([
   'suggestion',
   'swap-slot',
   'tooltip',
-  // Batch 2: Component-examples components
+  // Batch 2: Form components
   'accordion',
   'alert',
   'alert-dialog',
@@ -69,7 +65,7 @@ export const componentsWithStories = new Set<string>([
   'time-input',
   'toggle',
   'topbar',
-  // Batch 3: AI-examples components
+  // Batch 3: AI components
   'artifact',
   'branch',
   'canvas',
@@ -95,7 +91,7 @@ export const componentsWithStories = new Set<string>([
   'task',
   'tool',
   'toolbar',
-  // Batch 4: Components without examples
+  // Batch 4: Utility components
   'button-group',
   'carousel',
   'chart',
@@ -112,44 +108,4 @@ export const componentsWithStories = new Set<string>([
  */
 export function hasStoryRenderer(slug: string): boolean {
   return componentsWithStories.has(slug);
-}
-
-/**
- * Pre-load all metadata modules using Vite's glob import.
- * This allows Vite to statically analyze the imports at build time.
- */
-const metadataModules = import.meta.glob<{ [key: string]: { codeExamples?: Array<{ title: string; code: string }> } }>(
-  '@/components/ui/aura/*/*.metadata.ts',
-  { eager: false }
-);
-
-/**
- * Get code examples for a component from its metadata file.
- * Returns null if the component doesn't use the folder structure.
- */
-export async function getStoryCodeExamples(
-  slug: string
-): Promise<Array<{ title: string; code: string }> | null> {
-  if (!hasStoryRenderer(slug)) {
-    return null;
-  }
-
-  try {
-    const pascalCaseSlug = slugToPascalCase(slug);
-    const metadataPath = `/src/components/ui/aura/${slug}/${slug}.metadata.ts`;
-    const loader = metadataModules[metadataPath];
-
-    if (!loader) {
-      console.debug(`No metadata loader found for '${slug}' at path '${metadataPath}'`);
-      return null;
-    }
-
-    const metadataModule = await loader();
-    const metadata = metadataModule[`${pascalCaseSlug}Metadata`];
-
-    return metadata?.codeExamples || null;
-  } catch (error) {
-    console.debug(`Failed to get story code examples for '${slug}':`, error);
-    return null;
-  }
 }

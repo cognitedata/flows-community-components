@@ -10,5 +10,9 @@
  *   Toggle
  * </Toggle>
  */
-export { Toggle, toggleVariants } from './toggle';
+export {
+  Toggle,
+  // eslint-disable-next-line react-refresh/only-export-components
+  toggleVariants,
+} from './toggle';
 export { ToggleMetadata } from './toggle.metadata';

@@ -10,6 +10,7 @@ export {
   CodeBlock,
   CodeBlockCopyButton,
   CodeBlockCollapseButton,
+  // eslint-disable-next-line react-refresh/only-export-components
   highlightCode,
 } from './code-block';
 export type {

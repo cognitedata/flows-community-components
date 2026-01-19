@@ -22,6 +22,7 @@ type BannerContextProps = {
   variant: BannerVariant;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const BannerContext = createContext<BannerContextProps>({
   show: true,
   setShow: () => {},

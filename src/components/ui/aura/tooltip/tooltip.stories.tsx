@@ -717,30 +717,34 @@ export const ControlledState: Story = {
     },
   },
   render: () => {
-    const [isOpen, setIsOpen] = useState(false);
+    function ControlledTooltipExample() {
+      const [isOpen, setIsOpen] = useState(false);
 
-    return (
-      <div className="flex flex-col gap-4">
-        <TooltipProvider>
-          <Tooltip open={isOpen} onOpenChange={setIsOpen}>
-            <TooltipTrigger asChild>
-              <Button>Controlled tooltip trigger</Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              This tooltip&apos;s state is controlled externally
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <div className="flex gap-2">
-          <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
-            Open tooltip
-          </Button>
-          <Button onClick={() => setIsOpen(false)} variant="outline" size="sm">
-            Close tooltip
-          </Button>
+      return (
+        <div className="flex flex-col gap-4">
+          <TooltipProvider>
+            <Tooltip open={isOpen} onOpenChange={setIsOpen}>
+              <TooltipTrigger asChild>
+                <Button>Controlled tooltip trigger</Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                This tooltip&apos;s state is controlled externally
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <div className="flex gap-2">
+            <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
+              Open tooltip
+            </Button>
+            <Button onClick={() => setIsOpen(false)} variant="outline" size="sm">
+              Close tooltip
+            </Button>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+
+    return <ControlledTooltipExample />;
   },
 };
 

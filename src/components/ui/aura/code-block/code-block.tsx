@@ -59,6 +59,7 @@ const lineNumberTransformer: ShikiTransformer = {
   },
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function highlightCode(
   code: string,
   language: BundledLanguage,

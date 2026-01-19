@@ -11,6 +11,7 @@ import { useTheme } from 'next-themes';
 import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
 // Re-export the toast function from sonner
+// eslint-disable-next-line react-refresh/only-export-components
 export { toast } from 'sonner';
 
 const Toaster = ({ ...props }: ToasterProps) => {
