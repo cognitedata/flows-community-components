@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import type { Meta, StoryObj } from '@storybook/react';
+import { within, userEvent, expect } from '@storybook/test';
 import {
   shadows,
   focusRings,

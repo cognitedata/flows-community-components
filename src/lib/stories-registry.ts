@@ -115,6 +115,15 @@ export function hasStoryRenderer(slug: string): boolean {
 }
 
 /**
+ * Pre-load all metadata modules using Vite's glob import.
+ * This allows Vite to statically analyze the imports at build time.
+ */
+const metadataModules = import.meta.glob<{ [key: string]: { codeExamples?: Array<{ title: string; code: string }> } }>(
+  '@/components/ui/aura/*/*.metadata.ts',
+  { eager: false }
+);
+
+/**
  * Get code examples for a component from its metadata file.
  * Returns null if the component doesn't use the folder structure.
  */
@@ -127,15 +136,20 @@ export async function getStoryCodeExamples(
 
   try {
     const pascalCaseSlug = slugToPascalCase(slug);
+    const metadataPath = `/src/components/ui/aura/${slug}/${slug}.metadata.ts`;
+    const loader = metadataModules[metadataPath];
 
-    const metadataModule = await import(
-      `@/components/ui/aura/${slug}/${slug}.metadata`
-    );
+    if (!loader) {
+      console.debug(`No metadata loader found for '${slug}' at path '${metadataPath}'`);
+      return null;
+    }
+
+    const metadataModule = await loader();
     const metadata = metadataModule[`${pascalCaseSlug}Metadata`];
 
     return metadata?.codeExamples || null;
   } catch (error) {
-    console.error(`Failed to get story code examples for '${slug}':`, error);
+    console.debug(`Failed to get story code examples for '${slug}':`, error);
     return null;
   }
 }

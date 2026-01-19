@@ -1,7 +1,6 @@
 
-import type { Meta, StoryObj } from '@storybook/nextjs';
-import { expect } from '@storybook/jest';
-import { userEvent, waitFor, within } from '@storybook/testing-library';
+import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { useState } from 'react';
 import { Badge } from './badge';
 import {

@@ -1,7 +1,6 @@
 
-import type { Meta, StoryObj } from '@storybook/nextjs';
-import { within, userEvent, waitFor } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import type { Meta, StoryObj } from '@storybook/react';
+import { within, userEvent, waitFor, expect } from '@storybook/test';
 import { useState } from 'react';
 import {
   HoverCard,

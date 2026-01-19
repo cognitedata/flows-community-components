@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
-import { within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import type { Meta, StoryObj } from '@storybook/react';
+import { within, expect } from '@storybook/test';
 import {
   layoutBreakpoints,
   gridPatterns,

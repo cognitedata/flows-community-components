@@ -16,7 +16,6 @@ import {
   IconReportAnalytics,
   IconCube,
 } from '@tabler/icons-react';
-import Image from 'next/image';
 
 function BasicDemo() {
   return (
@@ -98,7 +97,7 @@ function BadgeInHeaderDemo() {
         <div className="text-base text-secondary-foreground tracking-tightest pb-2">
           Model ID: 4602269428617841
         </div>
-        <Image
+        <img
           src="/card-example.png"
           alt="card example"
           width={330}
@@ -252,8 +251,6 @@ export function TextInFooterDemo() {
 import { Button } from "@/components/ui/aura/button"
 import { Badge } from "@/components/ui/aura/badge"
 import { IconCube, IconDotsVertical } from "@tabler/icons-react"
-import Image from "next/image"
-
 export function BadgeInHeaderDemo() {
   return (
     <Card className="w-full max-w-md">
@@ -275,7 +272,7 @@ export function BadgeInHeaderDemo() {
         <div className="text-base text-secondary-foreground tracking-tightest">
           Model ID: 4602269428617841
         </div>
-        <Image
+        <img
           src="/images/card-example.png"
           alt="card example"
           width={330}

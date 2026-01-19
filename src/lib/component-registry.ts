@@ -3,6 +3,23 @@ import { hasStoryRenderer } from './stories-registry';
 import { slugToPascalCase } from './utils';
 
 /**
+ * Pre-load all metadata modules using Vite's glob import.
+ * This allows Vite to statically analyze the imports at build time.
+ */
+const metadataModules = import.meta.glob<{ [key: string]: ComponentMeta }>(
+  '@/components/ui/aura/*/*.metadata.ts',
+  { eager: false }
+);
+
+/**
+ * Pre-load all legacy example modules using Vite's glob import.
+ */
+const legacyExamplesModules = import.meta.glob<{ [key: string]: ComponentMeta }>(
+  './component-examples/*.examples.tsx',
+  { eager: false }
+);
+
+/**
  * Get component metadata.
  *
  * For components using portable stories (in storyRenderers), metadata is loaded
@@ -21,12 +38,14 @@ export async function getComponentMeta(
   if (hasStoryRenderer(slug)) {
     try {
       // Load from the new folder structure with metadata file
-      const metadataModule = await import(
-        `@/components/ui/aura/${slug}/${slug}.metadata`
-      );
-      const meta = metadataModule[`${pascalCaseSlug}Metadata`];
-      if (meta) {
-        return meta;
+      const metadataPath = `/src/components/ui/aura/${slug}/${slug}.metadata.ts`;
+      const loader = metadataModules[metadataPath];
+      if (loader) {
+        const metadataModule = await loader();
+        const meta = metadataModule[`${pascalCaseSlug}Metadata`];
+        if (meta) {
+          return meta;
+        }
       }
     } catch (error) {
       console.warn(
@@ -39,13 +58,15 @@ export async function getComponentMeta(
 
   // Fall back to old examples file for legacy components
   try {
-    const examplesModule = await import(
-      `./component-examples/${slug}.examples`
-    );
-    const meta = examplesModule[`${camelCaseSlug}Meta`];
-    return meta || null;
+    const examplesPath = `./component-examples/${slug}.examples.tsx`;
+    const loader = legacyExamplesModules[examplesPath];
+    if (loader) {
+      const examplesModule = await loader();
+      const meta = examplesModule[`${camelCaseSlug}Meta`];
+      return meta || null;
+    }
   } catch (error) {
     console.warn(`Could not load legacy metadata for ${slug}:`, error);
-    return null;
   }
+  return null;
 }
