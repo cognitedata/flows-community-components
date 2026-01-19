@@ -29,7 +29,7 @@
       ],
       "files": [
         {
-          "path": "src/app/globals.css",
+          "path": "src/globals.css",
           "target": "src/styles.css",
           "type": "registry:component"
         }
@@ -1229,8 +1229,9 @@
           "target": "src/components/ui/aura/conversation.tsx"
         },
         {
-          "path": "src/components/ui/aura/icon-conversation-empty-state.tsx",
-          "type": "registry:component"
+          "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/icon-conversation-empty-state.tsx"
         }
       ]
     },

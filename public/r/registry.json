@@ -29,7 +29,7 @@
       ],
       "files": [
         {
-          "path": "src/app/globals.css",
+          "path": "src/globals.css",
           "target": "src/styles.css",
           "type": "registry:component"
         }
@@ -967,8 +967,9 @@
       "description": "Typography scale definitions, utilities, and composition patterns for the Aura design system. Includes structured data for LLM consumption with HTML/JSX examples.",
       "files": [
         {
-          "path": "src/components/ui/aura/typography.tsx",
-          "type": "registry:component"
+          "path": "src/components/ui/aura/typography/typography.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/typography.tsx"
         }
       ],
       "registryDependencies": [
@@ -1224,13 +1225,13 @@
       "files": [
         {
           "path": "src/components/ui/aura/conversation/conversation.tsx",
-          "target": "src/components/ui/aura/conversation.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "src/components/ui/aura/conversation.tsx"
         },
         {
           "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
-          "target": "src/components/ui/aura/icon-conversation-empty-state.tsx",
-          "type": "registry:component"
+          "type": "registry:component",
+          "target": "src/components/ui/aura/icon-conversation-empty-state.tsx"
         }
       ]
     },

@@ -76,7 +76,7 @@ const miscRegistryItems: RegistryItem[] = [
     dependencies: ['tw-animate-css'],
     files: [
       {
-        path: 'src/app/globals.css',
+        path: 'src/globals.css',
         target: 'src/styles.css',
         type: 'registry:component',
       },
@@ -252,35 +252,32 @@ function buildRegistry(template: Registry, components: string[]): Registry {
             return file;
           }
 
-          // Only update the path if it's the main component file
-          // (matching the component name)
-          const isMainFile =
-            file.path.endsWith(`${item.name}.tsx`) &&
-            file.type === 'registry:component';
+          // Extract component name from file path (e.g., "icon-conversation-empty-state" from "src/components/ui/aura/icon-conversation-empty-state.tsx")
+          const pathMatch = file.path.match(/src\/components\/ui\/aura\/([^\/]+)\.tsx$/);
+          if (pathMatch) {
+            const componentName = pathMatch[1];
+            const actualPath = getComponentPath(componentName);
+            const targetPath = getComponentTargetPath(componentName);
+            const isSubfolder = actualPath !== targetPath;
 
-          if (!isMainFile) {
-            return file;
-          }
+            if (isSubfolder) {
+              // Subfolder component: set path to actual location and target to flat location
+              return {
+                ...file,
+                path: actualPath,
+                target: targetPath,
+              };
+            }
 
-          // Check if this is a subfolder component
-          const actualPath = getComponentPath(item.name);
-          const targetPath = getComponentTargetPath(item.name);
-          const isSubfolder = actualPath !== targetPath;
-
-          if (isSubfolder) {
-            // Subfolder component: set path to actual location and target to flat location
+            // Flat component: just update the path
             return {
               ...file,
               path: actualPath,
-              target: targetPath,
             };
           }
 
-          // Flat component: just update the path
-          return {
-            ...file,
-            path: actualPath,
-          };
+          // For non-component files or files that don't match the pattern, return as-is
+          return file;
         }),
       };
     });
