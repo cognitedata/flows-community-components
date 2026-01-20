@@ -124,7 +124,6 @@ export const WithAsterisk: Story = {
           src="/asterisk.svg"
           alt="required"
           className="inline-block ml-0.5 relative -top-1"
-          aria-hidden="true"
         />
       </>
     ),
