@@ -313,13 +313,14 @@ export default function TypographyPage() {
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Typography</h1>
-        <p className="text-lg text-muted-foreground mt-2">
-          Type scale and font weights available in the design system
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto py-10">
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Typography</h1>
+          <p className="text-lg text-muted-foreground mt-2">
+            Type scale and font weights available in the design system
+          </p>
+        </div>
 
       {sections.map((section) => (
         <div key={section.title} className="space-y-0">
@@ -337,6 +338,7 @@ export default function TypographyPage() {
           </div>
         </div>
       ))}
+      </div>
     </div>
   );
 }

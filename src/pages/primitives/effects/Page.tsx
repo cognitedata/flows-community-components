@@ -116,14 +116,15 @@ function RingWidthSwatch({ ringWidth }: { ringWidth: (typeof ringWidths)[0] }) {
 
 export default function EffectsPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Effects</h1>
-        <p className="text-lg text-muted-foreground mt-2">
-          Showcase of elevations (shadows) and focus ring
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto py-10">
+      <div className="space-y-8">
+        {/* Header */}
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Effects</h1>
+          <p className="text-lg text-muted-foreground mt-2">
+            Showcase of elevations (shadows) and focus ring
+          </p>
+        </div>
 
       {/* Elevations Section */}
       <section className="space-y-6">
@@ -167,6 +168,7 @@ export default function EffectsPage() {
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 }

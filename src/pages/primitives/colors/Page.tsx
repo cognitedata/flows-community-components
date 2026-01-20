@@ -465,13 +465,14 @@ export default function ColorsPage() {
   const extendedPalettes = colorPalettes.filter((p) => p.category === "extended");
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
-        <p className="text-lg text-muted-foreground mt-2">
-          Design tokens grouped by role and ordered per globals.css
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto py-10">
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Colors</h1>
+          <p className="text-lg text-muted-foreground mt-2">
+            Design tokens grouped by role and ordered per globals.css
+          </p>
+        </div>
 
       {/* Base colors */}
       <section className="space-y-6">
@@ -524,6 +525,7 @@ export default function ColorsPage() {
           ))}
         </div>
       </section>
+      </div>
     </div>
   );
 }
