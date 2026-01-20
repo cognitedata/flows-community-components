@@ -1,8 +1,8 @@
+import { Message, MessageAvatar, MessageContent } from "@/components/ui/aura/message";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
-import { Branch, BranchMessages, BranchMessage, BranchNavigation } from "./branch";
-import { Message, MessageContent, MessageAvatar } from "@/components/ui/aura/message";
+import { Branch, BranchMessage, BranchMessages, BranchNavigation } from "./branch";
 
 const meta: Meta<typeof Branch> = {
   title: "AI/Branch",

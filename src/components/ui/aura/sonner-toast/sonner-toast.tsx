@@ -1,4 +1,3 @@
-import { type CSSProperties } from "react";
 import {
   IconAlertOctagon,
   IconAlertTriangle,
@@ -7,6 +6,7 @@ import {
   IconLoader2,
 } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
+import type { CSSProperties } from "react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
 // Re-export the toast function from sonner

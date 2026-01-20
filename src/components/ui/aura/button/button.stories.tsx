@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconBookmark,
+  IconDownload,
+  IconExternalLink,
+  IconLoader2,
+  IconPlus,
+  IconSend,
+  IconSettings,
+  IconTrash,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import { Button } from "./button";
-import {
-  IconPlus,
-  IconDownload,
-  IconTrash,
-  IconSettings,
-  IconSend,
-  IconLoader2,
-  IconBookmark,
-  IconExternalLink,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof Button> = {
   title: "Primitives/Button",

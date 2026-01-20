@@ -4,8 +4,8 @@ import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group"
 import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
 import { cn } from "@/lib/utils";
-import type { FileUIPart, UIMessage } from "ai";
 import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
+import type { FileUIPart, UIMessage } from "ai";
 import type { ComponentProps, HTMLAttributes, ReactElement, ReactNode } from "react";
 import {
   createContext,

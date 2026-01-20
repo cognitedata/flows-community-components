@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconAlertTriangle, IconCheck, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import {
   AlertDialog,
@@ -12,8 +14,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./alert-dialog";
-import { Button } from "@/components/ui/aura/button";
-import { IconCheck, IconTrash, IconAlertTriangle } from "@tabler/icons-react";
 
 const meta: Meta<typeof AlertDialog> = {
   title: "Primitives/Alert Dialog",

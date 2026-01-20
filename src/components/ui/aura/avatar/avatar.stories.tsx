@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
-import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "./avatar";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuTrigger,
   DropdownMenuLabel,
+  DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
-import { IconWheel, IconUser, IconRobot, IconStar, IconHeart } from "@tabler/icons-react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "./avatar";
 
 /**
  * Helper function to get the correct image path for Storybook.
@@ -757,13 +757,13 @@ export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="default">
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback />
       </Avatar>
       <Avatar variant="nordic" sizes="xsm">
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback />
       </Avatar>
       <Avatar variant="fjord" sizes="xxsm">
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback />
       </Avatar>
     </div>
   ),
@@ -1404,7 +1404,7 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">Edge Cases</h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
-            <AvatarFallback></AvatarFallback>
+            <AvatarFallback />
           </Avatar>
           <Avatar variant="nordic">
             <AvatarFallback>A</AvatarFallback>

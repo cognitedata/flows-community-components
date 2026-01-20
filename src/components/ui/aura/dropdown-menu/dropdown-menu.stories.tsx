@@ -1,30 +1,30 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconBell,
+  IconCheck,
+  IconChevronDown,
+  IconHelp,
+  IconSettingsFilled,
+  IconTrash,
+  IconUser,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuLabel,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuHeader,
+  DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuGroup,
-  DropdownMenuHeader,
+  DropdownMenuTrigger,
 } from "./dropdown-menu";
-import { Button } from "@/components/ui/aura/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/aura/avatar";
-import {
-  IconUser,
-  IconHelp,
-  IconBell,
-  IconSettingsFilled,
-  IconTrash,
-  IconCheck,
-  IconChevronDown,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof DropdownMenu> = {
   title: "Primitives/Dropdown Menu",

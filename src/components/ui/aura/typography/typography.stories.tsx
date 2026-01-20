@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { typographyScale, typographyPatterns, getTypographyBySection } from "./typography";
+import { expect, within } from "@storybook/test";
 import { CodeBlock } from "../code-block";
+import { getTypographyBySection, typographyPatterns, typographyScale } from "./typography";
 
 /**
  * # Aura Typography System

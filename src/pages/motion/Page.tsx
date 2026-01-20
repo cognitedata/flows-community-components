@@ -1,10 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import {
-  IconArrowRight as ArrowRight,
-  IconPlayerPlay as Play,
-  IconRefresh as RotateCcw,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/aura/button";
 import {
   Card,
@@ -13,6 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
+import {
+  IconArrowRight as ArrowRight,
+  IconPlayerPlay as Play,
+  IconRefresh as RotateCcw,
+} from "@tabler/icons-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 const principles = [
   {
@@ -212,7 +212,7 @@ export default function MotionPage() {
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{
                         duration: 0.6,
-                        repeat: Infinity,
+                        repeat: Number.POSITIVE_INFINITY,
                         repeatType: "reverse",
                         delay: index * 0.2,
                       }}

@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent } from "@storybook/test";
-import { Toaster, toast } from "./sonner-toast";
 import { Button } from "@/components/ui/aura/button";
+import type { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/test";
+import { Toaster, toast } from "./sonner-toast";
 
 const meta: Meta<typeof Toaster> = {
   title: "Primitives/Sonner Toast",
@@ -296,7 +296,7 @@ export const CustomDuration: Story = {
       <Button
         onClick={() =>
           toast("Persistent toast", {
-            duration: Infinity,
+            duration: Number.POSITIVE_INFINITY,
             description: "Must be dismissed manually",
           })
         }
@@ -349,7 +349,7 @@ export const Dismiss: Story = {
         <Button
           onClick={() => {
             toastId = toast("Dismissible toast", {
-              duration: Infinity,
+              duration: Number.POSITIVE_INFINITY,
               description: "Click the other button to dismiss",
             });
           }}

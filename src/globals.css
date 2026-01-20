@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Source+Code+Pro:wght@200..900&display=swap');
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Source+Code+Pro:wght@200..900&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -55,17 +55,13 @@
   --tracking-tightest: -0.1px;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   /* tooltips; small containers */
-  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-  0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   /* menus; popovers; hover cards */
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   /* sonner; temporary elements */
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   /* modals; dialogs without backdrop overlay */
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   /* modals; dialogs with backdrop overlay */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -286,9 +282,9 @@
 :root {
   --radius: 0.375rem;
   /* 6px - default radius, maps to radius-md */
-  --font-inter: 'Inter', sans-serif;
-  --font-space-grotesk: 'Space Grotesk', sans-serif;
-  --font-source-code-pro: 'Source Code Pro', monospace;
+  --font-inter: "Inter", sans-serif;
+  --font-space-grotesk: "Space Grotesk", sans-serif;
+  --font-source-code-pro: "Source Code Pro", monospace;
   --code-block-collapsed-height: 6.5rem;
   --code-block-fade-height: 0.9375rem;
   --message-content-max-width: 80%;
@@ -619,13 +615,49 @@
   --decorative-foreground-gray: var(--gray-600);
 
   /* Gradient tokens */
-  --gradient-nordic: linear-gradient(-100deg, var(--nordic-50) 0%, var(--nordic-400) 44%, var(--nordic-200) 100%);
-  --gradient-aurora: linear-gradient(-100deg, var(--aurora-50) 0%, var(--aurora-400) 50%, var(--aurora-200) 100%);
-  --gradient-dusk: linear-gradient(-100deg, var(--dusk-50) 0%, var(--dusk-400) 48%, var(--dusk-200) 100%);
-  --gradient-equinox: linear-gradient(-100deg, var(--dusk-600) 0%, var(--dusk-300) 40%, var(--aurora-50) 60%, var(--aurora-100) 100%);
-  --gradient-summer: linear-gradient(-100deg, var(--nordic-100) 0%, var(--dusk-50) 50%, var(--aurora-100) 100%);
-  --gradient-spring: linear-gradient(-100deg, var(--aurora-50) 0%, var(--nordic-100) 50%, var(--aurora-100) 100%);
-  --gradient-fall: linear-gradient(-100deg, var(--fjord-550) 0%, var(--dusk-550) 50%, var(--dusk-300) 100%);
+  --gradient-nordic: linear-gradient(
+    -100deg,
+    var(--nordic-50) 0%,
+    var(--nordic-400) 44%,
+    var(--nordic-200) 100%
+  );
+  --gradient-aurora: linear-gradient(
+    -100deg,
+    var(--aurora-50) 0%,
+    var(--aurora-400) 50%,
+    var(--aurora-200) 100%
+  );
+  --gradient-dusk: linear-gradient(
+    -100deg,
+    var(--dusk-50) 0%,
+    var(--dusk-400) 48%,
+    var(--dusk-200) 100%
+  );
+  --gradient-equinox: linear-gradient(
+    -100deg,
+    var(--dusk-600) 0%,
+    var(--dusk-300) 40%,
+    var(--aurora-50) 60%,
+    var(--aurora-100) 100%
+  );
+  --gradient-summer: linear-gradient(
+    -100deg,
+    var(--nordic-100) 0%,
+    var(--dusk-50) 50%,
+    var(--aurora-100) 100%
+  );
+  --gradient-spring: linear-gradient(
+    -100deg,
+    var(--aurora-50) 0%,
+    var(--nordic-100) 50%,
+    var(--aurora-100) 100%
+  );
+  --gradient-fall: linear-gradient(
+    -100deg,
+    var(--fjord-550) 0%,
+    var(--dusk-550) 50%,
+    var(--dusk-300) 100%
+  );
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
@@ -731,13 +763,49 @@
   --decorative-foreground-gray: var(--gray-300);
 
   /* Gradient tokens */
-  --gradient-nordic: linear-gradient(-100deg, var(--nordic-900) 0%, var(--nordic-600) 44%, var(--nordic-800) 100%);
-  --gradient-aurora: linear-gradient(-100deg, var(--aurora-900) 0%, var(--aurora-600) 50%, var(--aurora-800) 100%);
-  --gradient-dusk: linear-gradient(-100deg, var(--dusk-900) 0%, var(--dusk-600) 48%, var(--dusk-800) 100%);
-  --gradient-equinox: linear-gradient(-100deg, var(--dusk-400) 0%, var(--dusk-700) 40%, var(--aurora-950) 60%, var(--aurora-900) 100%);
-  --gradient-summer: linear-gradient(-100deg, var(--nordic-900) 0%, var(--dusk-950) 50%, var(--aurora-900) 100%);
-  --gradient-spring: linear-gradient(-100deg, var(--aurora-950) 0%, var(--nordic-900) 50%, var(--aurora-900) 100%);
-  --gradient-fall: linear-gradient(-100deg, var(--fjord-450) 0%, var(--dusk-450) 50%, var(--dusk-700) 100%);
+  --gradient-nordic: linear-gradient(
+    -100deg,
+    var(--nordic-900) 0%,
+    var(--nordic-600) 44%,
+    var(--nordic-800) 100%
+  );
+  --gradient-aurora: linear-gradient(
+    -100deg,
+    var(--aurora-900) 0%,
+    var(--aurora-600) 50%,
+    var(--aurora-800) 100%
+  );
+  --gradient-dusk: linear-gradient(
+    -100deg,
+    var(--dusk-900) 0%,
+    var(--dusk-600) 48%,
+    var(--dusk-800) 100%
+  );
+  --gradient-equinox: linear-gradient(
+    -100deg,
+    var(--dusk-400) 0%,
+    var(--dusk-700) 40%,
+    var(--aurora-950) 60%,
+    var(--aurora-900) 100%
+  );
+  --gradient-summer: linear-gradient(
+    -100deg,
+    var(--nordic-900) 0%,
+    var(--dusk-950) 50%,
+    var(--aurora-900) 100%
+  );
+  --gradient-spring: linear-gradient(
+    -100deg,
+    var(--aurora-950) 0%,
+    var(--nordic-900) 50%,
+    var(--aurora-900) 100%
+  );
+  --gradient-fall: linear-gradient(
+    -100deg,
+    var(--fjord-450) 0%,
+    var(--dusk-450) 50%,
+    var(--dusk-700) 100%
+  );
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
@@ -761,7 +829,7 @@
 }
 
 @layer utilities {
-  [data-state='closed'] {
+  [data-state="closed"] {
     --tw-animation-fill-mode: forwards;
   }
 

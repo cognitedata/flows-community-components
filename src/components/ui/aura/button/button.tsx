@@ -1,11 +1,11 @@
-import { forwardRef, type ComponentProps } from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
+import { type ComponentProps, forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-transparent text-sm font-medium transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-2 aria-invalid:focus-visible:ring-ring-destructive-shadow aria-invalid:border-ring-destructive-foreground",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-transparent text-sm font-medium transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-2 aria-invalid:focus-visible:ring-ring-destructive-shadow aria-invalid:border-destructive-foreground",
   {
     variants: {
       variant: {
@@ -64,5 +64,4 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = "Button";
 
-// eslint-disable-next-line react-refresh/only-export-components
 export { Button, buttonVariants };

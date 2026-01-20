@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { Badge } from "./badge";
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -9,10 +7,12 @@ import {
   IconCircleCheck,
   IconHexagon,
   IconInnerShadowTopLeft,
-  IconX,
-  IconUser,
   IconStar,
+  IconUser,
+  IconX,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import { Badge } from "./badge";
 
 const meta: Meta<typeof Badge> = {
   title: "Primitives/Badge",
@@ -279,7 +279,7 @@ export const Secondary: Story = {
 /**
  * Error variant - red for errors and critical issues
  */
-export const Error: Story = {
+export const ErrorBadge: Story = {
   render: (args) => (
     <Badge {...args}>
       <IconAlertHexagon className="size-3" />
@@ -1070,9 +1070,9 @@ export const VisualRegression: Story = {
 export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-2">
-      <Badge variant="fjord"></Badge>
-      <Badge variant="error"></Badge>
-      <Badge variant="secondary"></Badge>
+      <Badge variant="fjord" />
+      <Badge variant="error" />
+      <Badge variant="secondary" />
       <span className="text-sm text-muted-foreground">(Empty badges)</span>
     </div>
   ),

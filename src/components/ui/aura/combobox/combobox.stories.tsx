@@ -1,20 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
-import { useState } from "react";
-import {
-  IconCheck,
-  IconGrid3x3,
-  IconPlus,
-  IconSelector,
-  IconUser,
-  IconX,
-} from "@tabler/icons-react";
-import { Label } from "@/components/ui/aura/label";
 import { Avatar, AvatarFallback } from "@/components/ui/aura/avatar";
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
 import { Checkbox } from "@/components/ui/aura/checkbox";
-import { HelperText } from "@/components/ui/aura/helper-text";
 import {
   Command,
   CommandEmpty,
@@ -24,8 +11,21 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/aura/command";
+import { HelperText } from "@/components/ui/aura/helper-text";
+import { Label } from "@/components/ui/aura/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
 import { cn } from "@/lib/utils";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconCheck,
+  IconGrid3x3,
+  IconPlus,
+  IconSelector,
+  IconUser,
+  IconX,
+} from "@tabler/icons-react";
+import { useState } from "react";
 
 const meta: Meta<typeof Popover> = {
   title: "Primitives/Combobox",
