@@ -48,7 +48,7 @@ const meta: Meta<typeof Conversation> = {
         type: { summary: "ReactNode" },
       },
     },
-    
+
     // Behavior (from StickToBottom)
     initial: {
       control: false,
@@ -330,19 +330,19 @@ export const EmptyState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify log role for accessibility
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    
+
     // Verify empty state title and description
     const title = canvas.getByText("Start a conversation");
     await expect(title).toBeInTheDocument();
     await expect(title.tagName).toBe("H3");
-    
+
     const description = canvas.getByText(/Ask me anything about your industrial equipment/i);
     await expect(description).toBeInTheDocument();
-    
+
     // Verify no messages exist
     const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(0);
@@ -652,15 +652,15 @@ export const KeyboardNavigation: Story = {
     // Verify button has accessible name
     const copyButton = canvas.getAllByRole("button", { name: /copy/i })[0];
     await expect(copyButton).toBeInTheDocument();
-    
+
     // Test keyboard activation (Space or Enter should work)
     copyButton.focus();
     await expect(copyButton).toHaveFocus();
-    
+
     // Verify all action buttons have accessible names (via sr-only text or aria-label)
     const retryButton = canvas.getByRole("button", { name: /retry/i });
     await expect(retryButton).toBeInTheDocument();
-    
+
     const downloadButton = canvas.getByRole("button", { name: /download/i });
     await expect(downloadButton).toBeInTheDocument();
   },
@@ -803,19 +803,19 @@ export const SingleMessage: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify exactly one message
     const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBe(1);
-    
+
     // Verify the message content
     const messageText = canvas.getByText(/What sensors are available for monitoring/i);
     await expect(messageText).toBeInTheDocument();
-    
+
     // Verify ARIA role
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    
+
     // Verify scroll button doesn't appear (no overflow, so ConversationScrollButton is hidden)
     const scrollButton = canvasElement.querySelector('button.rounded-full');
     await expect(scrollButton).not.toBeInTheDocument();
@@ -846,15 +846,15 @@ export const ShortContainer: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify messages exist
     const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThan(2);
-    
+
     // Verify ARIA role
     const conversationContainer = canvasElement.querySelector('[role="log"]');
     await expect(conversationContainer).toBeInTheDocument();
-    
+
     // Verify avatars and message structure
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThan(0);
