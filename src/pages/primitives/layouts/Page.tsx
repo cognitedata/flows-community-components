@@ -1,7 +1,5 @@
-'use client';
-
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import {
   CodeBlock,
   CodeBlockCopyButton,
@@ -934,7 +932,7 @@ function CodeExample({
           <p className="text-sm text-muted-foreground mt-3">
             For complete implementation details and examples, see the{' '}
             <Link
-              href="/ai/components/conversation"
+              to="/ai/components/conversation"
               className="text-primary hover:underline"
             >
               Conversation component documentation

@@ -1,8 +1,5 @@
-'use client';
-
 import * as React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { IconChevronRight } from '@tabler/icons-react';
 
@@ -173,7 +170,8 @@ function NavigationGroup({
   item: NavigationItem;
   level?: number;
 }) {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
   const [isOpen, setIsOpen] = React.useState(true);
 
   if (item.isSubsection) {
