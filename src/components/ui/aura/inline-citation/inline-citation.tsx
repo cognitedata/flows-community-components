@@ -6,7 +6,7 @@ import {
   CarouselItem,
 } from "@/components/ui/aura/carousel";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { cn } from "@/lib/utils";
+import { cn, getHostname } from "@/lib/utils";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import type { ComponentType } from "react";
 import {
@@ -54,14 +54,6 @@ export const InlineCitationCardTrigger = ({
   className,
   ...props
 }: InlineCitationCardTriggerProps) => {
-  const getHostname = (url: string) => {
-    try {
-      return new URL(url).hostname;
-    } catch {
-      return url;
-    }
-  };
-
   return (
     <HoverCardTrigger asChild>
       <Badge
@@ -294,15 +286,6 @@ export const InlineCitationLink = ({
   children,
   ...props
 }: InlineCitationLinkProps) => {
-  const getHostname = (url: string | undefined) => {
-    if (!url) return "unknown";
-    try {
-      return new URL(url).hostname;
-    } catch {
-      return url;
-    }
-  };
-
   const hostname = getHostname(href);
 
   const variantStyles = {
