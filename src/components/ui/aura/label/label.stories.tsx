@@ -8,7 +8,7 @@ import { Label } from "./label";
 import { Input } from "@/components/ui/aura/input";
 
 const meta: Meta<typeof Label> = {
-  title: "Form/Label",
+  title: "Primitives/Label",
   component: Label,
   tags: ["autodocs"],
   argTypes: {
