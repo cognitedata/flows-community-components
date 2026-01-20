@@ -84,7 +84,7 @@ type Story = StoryObj<typeof Input>;
  * Default text input.
  */
 export const Default: Story = {
-  render: () => <Input placeholder="Enter text..." />,
+  render: () => <Input placeholder="Input text" />,
   parameters: {
     docs: {
       description: {
@@ -94,13 +94,13 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Enter text...");
+    const input = canvas.getByPlaceholderText("Input text");
 
     await expect(input).toBeInTheDocument();
 
     // Type in input
-    await userEvent.type(input, "Hello World");
-    await expect(input).toHaveValue("Hello World");
+    await userEvent.type(input, "Input text");
+    await expect(input).toHaveValue("Input text");
   },
 };
 
@@ -109,9 +109,9 @@ export const Default: Story = {
  */
 export const WithLabel: Story = {
   render: () => (
-    <div className="grid w-full items-center gap-1.5">
+    <div className="grid w-full items-center gap-1">
       <Label htmlFor="email">Email address</Label>
-      <Input type="email" id="email" placeholder="michael.jordan@thebulls.com" />
+      <Input type="email" id="email" placeholder="Input text" />
     </div>
   ),
   parameters: {
@@ -133,9 +133,9 @@ export const WithLabel: Story = {
  */
 export const Password: Story = {
   render: () => (
-    <div className="grid w-full items-center gap-1.5">
+    <div className="grid w-full items-center gap-1">
       <Label htmlFor="password">Password</Label>
-      <Input type="password" id="password" placeholder="Enter password" />
+      <Input type="password" id="password" placeholder="Input text" />
     </div>
   ),
   parameters: {
@@ -153,13 +153,13 @@ export const Password: Story = {
 export const Disabled: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="disabled-empty">Disabled (empty)</Label>
-        <Input id="disabled-empty" placeholder="Cannot edit" disabled />
+        <Input id="disabled-empty" placeholder="Input text" disabled />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="disabled-value">Disabled (with value)</Label>
-        <Input id="disabled-value" defaultValue="Read-only value" disabled />
+        <Input id="disabled-value" defaultValue="Input text" disabled />
       </div>
     </div>
   ),
@@ -184,13 +184,13 @@ export const Disabled: Story = {
  */
 export const WithError: Story = {
   render: () => (
-    <div className="grid w-full items-center gap-1.5">
+    <div className="grid w-full items-center gap-1">
       <Label htmlFor="error">Email address</Label>
       <Input
         id="error"
         type="email"
-        placeholder="Enter email"
-        errorMessage="Please enter a valid email address"
+        placeholder="Input text"
+        errorMessage="Help text"
       />
     </div>
   ),
@@ -203,7 +203,7 @@ export const WithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const errorText = canvas.getByText("Please enter a valid email address");
+    const errorText = canvas.getByText("Help text");
     await expect(errorText).toBeInTheDocument();
   },
 };
@@ -213,9 +213,9 @@ export const WithError: Story = {
  */
 export const WithDefaultValue: Story = {
   render: () => (
-    <div className="grid w-full items-center gap-1.5">
+    <div className="grid w-full items-center gap-1">
       <Label htmlFor="prefilled">Username</Label>
-      <Input id="prefilled" defaultValue="john_doe" />
+      <Input id="prefilled" defaultValue="Input text" />
     </div>
   ),
   parameters: {
@@ -236,13 +236,13 @@ export const Controlled: Story = {
 
     return (
       <div className="space-y-4">
-        <div className="grid w-full items-center gap-1.5">
+        <div className="grid w-full items-center gap-1">
           <Label htmlFor="controlled">Controlled input</Label>
           <Input
             id="controlled"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="Type something..."
+            placeholder="Input text"
           />
         </div>
         <div className="flex gap-2">
@@ -259,7 +259,9 @@ export const Controlled: Story = {
             Set "Hello!"
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Value: {value || "(empty)"}</p>
+        <p className="text-sm text-muted-foreground">
+          Value: {value || "(empty)"}
+        </p>
       </div>
     );
   },
@@ -291,25 +293,25 @@ export const Controlled: Story = {
 export const InputTypes: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="text-type">Text</Label>
-        <Input id="text-type" type="text" placeholder="Plain text" />
+        <Input id="text-type" type="text" placeholder="Input text" />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="email-type">Email</Label>
-        <Input id="email-type" type="email" placeholder="email@example.com" />
+        <Input id="email-type" type="email" placeholder="Input text" />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="number-type">Number</Label>
-        <Input id="number-type" type="number" placeholder="123" />
+        <Input id="number-type" type="number" placeholder="Input text" />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="tel-type">Telephone</Label>
-        <Input id="tel-type" type="tel" placeholder="+1 (555) 000-0000" />
+        <Input id="tel-type" type="tel" placeholder="Input text" />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="url-type">URL</Label>
-        <Input id="url-type" type="url" placeholder="https://example.com" />
+        <Input id="url-type" type="url" placeholder="Input text" />
       </div>
     </div>
   ),
@@ -334,13 +336,18 @@ export const FormExample: Story = {
         alert("Form submitted!");
       }}
     >
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-email">Email</Label>
-        <Input id="form-email" type="email" placeholder="email@example.com" required />
+        <Input id="form-email" type="email" placeholder="Input text" required />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-password">Password</Label>
-        <Input id="form-password" type="password" placeholder="Enter password" required />
+        <Input
+          id="form-password"
+          type="password"
+          placeholder="Input text"
+          required
+        />
       </div>
       <button
         type="submit"
@@ -365,21 +372,25 @@ export const FormExample: Story = {
 export const AllStates: Story = {
   render: () => (
     <div className="space-y-4">
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-default">Default</Label>
-        <Input id="state-default" placeholder="Default state" />
+        <Input id="state-default" placeholder="Input text" />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-filled">Filled</Label>
-        <Input id="state-filled" defaultValue="Filled value" />
+        <Input id="state-filled" defaultValue="Input text" />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-disabled">Disabled</Label>
-        <Input id="state-disabled" placeholder="Disabled" disabled />
+        <Input id="state-disabled" placeholder="Input text" disabled />
       </div>
-      <div className="grid w-full items-center gap-1.5">
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-error">Error</Label>
-        <Input id="state-error" placeholder="Invalid input" errorMessage="This field is required" />
+        <Input
+          id="state-error"
+          placeholder="Input text"
+          errorMessage="Help text"
+        />
       </div>
     </div>
   ),
@@ -402,19 +413,21 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">States</h3>
         <div className="space-y-3">
-          <Input placeholder="Default placeholder" />
-          <Input defaultValue="With value" />
-          <Input placeholder="Disabled" disabled />
-          <Input placeholder="With error" errorMessage="Error message" />
+          <Input placeholder="Input text" />
+          <Input defaultValue="Input text" />
+          <Input placeholder="Input text" disabled />
+          <Input placeholder="Input text" errorMessage="Error message" />
         </div>
       </div>
 
       {/* With labels */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Labels</h3>
-        <div className="grid items-center gap-1.5">
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Labels
+        </h3>
+        <div className="grid items-center gap-1 ">
           <Label htmlFor="vr-labeled">Labeled input</Label>
-          <Input id="vr-labeled" placeholder="Enter value" />
+          <Input id="vr-labeled" placeholder="Input text" />
         </div>
       </div>
 
@@ -422,10 +435,10 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Types</h3>
         <div className="space-y-3">
-          <Input type="text" placeholder="Text" />
-          <Input type="email" placeholder="Email" />
-          <Input type="password" placeholder="Password" />
-          <Input type="number" placeholder="Number" />
+          <Input type="text" placeholder="Input text" />
+          <Input type="email" placeholder="Input text" />
+          <Input type="password" placeholder="Input text" />
+          <Input type="number" placeholder="Input text" />
         </div>
       </div>
     </div>
@@ -455,7 +468,7 @@ export const VisualRegression: Story = {
 export const Playground: Story = {
   args: {
     type: "text",
-    placeholder: "Enter text...",
+    placeholder: "Input text",
     disabled: false,
     errorMessage: "",
   },
@@ -463,7 +476,8 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with input props.",
+        story:
+          "Interactive playground - use controls to experiment with input props.",
       },
     },
   },

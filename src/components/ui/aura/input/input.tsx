@@ -17,13 +17,17 @@ function Input({ className, type, errorMessage, ...props }: InputProps) {
         data-slot="input"
         aria-invalid={isInvalid ? true : undefined}
         className={cn(
-          "border border-border p-1.75 w-100 rounded-md h-9.15 text-base leading-5 tracking-tightest text-muted-foreground dark:text-muted-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 filled:border-border filled:text-foreground outline-none focus:ring-2 focus:ring-ring aria-invalid:border-destructive-foreground disabled:bg-disabled disabled:border-disabled",
+          "border border-border p-2 w-100 rounded-md h-9 text-base leading-5 tracking-tightest text-muted-foreground dark:text-muted-foreground hover:bg-accent hover:text-accent-foreground outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-disabled disabled:border-disabled filled:border-border filled:text-foreground focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-2 aria-invalid:border-destructive-foreground aria-invalid:focus-visible:ring-ring-destructive-shadow",
           className
         )}
         {...props}
       />
 
-      {errorMessage && <HelperText isError>{errorMessage}</HelperText>}
+      {errorMessage && (
+        <HelperText className="pt-1" isError>
+          {errorMessage}
+        </HelperText>
+      )}
     </>
   );
 }
