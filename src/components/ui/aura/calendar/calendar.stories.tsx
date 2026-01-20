@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent } from "@storybook/test";
 import { useState } from "react";
-import { Calendar } from "./calendar";
 import type { DateRange } from "react-day-picker";
+import { Calendar } from "./calendar";
 
 const meta: Meta<typeof Calendar> = {
   title: "Primitives/Calendar",

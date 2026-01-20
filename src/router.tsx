@@ -1,36 +1,35 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./layouts/RootLayout";
 import { SectionLayout } from "./layouts/SectionLayout";
 
 // Pages
 import HomePage from "./pages/Home";
-import PrimitivesPage from "./pages/primitives/Page";
-import PrimitivesComponentPage from "./pages/primitives/components/ComponentPage";
-import PrimitivesThemingPage from "./pages/primitives/theming/Page";
-import PrimitivesEffectsPage from "./pages/primitives/effects/Page";
-import PrimitivesLayoutsPage from "./pages/primitives/layouts/Page";
-import PrimitivesColorsPage from "./pages/primitives/colors/Page";
-import PrimitivesTypographyPage from "./pages/primitives/typography/Page";
-import PrimitivesIllustrationsPage from "./pages/primitives/illustrations/Page";
-import PrimitivesIconsPage from "./pages/primitives/icons/Page";
-import PrimitivesMotionDesignPage from "./pages/primitives/motion-design/Page";
+import AIPage from "./pages/ai/Page";
+import AIComponentPage from "./pages/ai/components/ComponentPage";
+import BlocksPage from "./pages/blocks/Page";
+import DocsAboutPage from "./pages/docs/about/Page";
+import DocsGettingStartedPage from "./pages/docs/getting-started/Page";
+import DocsInstallationPage from "./pages/docs/installation/Page";
+import GuidesPage from "./pages/guides/Page";
+import LayoutsPageContent from "./pages/layouts-page/Page";
+import MotionPage from "./pages/motion/Page";
 import PatternsPage from "./pages/patterns/Page";
 import PatternsAgentChatPage from "./pages/patterns/agent-chat/Page";
 import PatternsDashboardsPage from "./pages/patterns/dashboards/Page";
-import AIPage from "./pages/ai/Page";
-import AIComponentPage from "./pages/ai/components/ComponentPage";
-import DocsInstallationPage from "./pages/docs/installation/Page";
-import DocsAboutPage from "./pages/docs/about/Page";
-import DocsReleasesPage from "./pages/docs/releases/Page";
-import DocsGettingStartedPage from "./pages/docs/getting-started/Page";
-import BlocksPage from "./pages/blocks/Page";
+import PrimitivesPage from "./pages/primitives/Page";
+import PrimitivesColorsPage from "./pages/primitives/colors/Page";
+import PrimitivesComponentPage from "./pages/primitives/components/ComponentPage";
+import PrimitivesEffectsPage from "./pages/primitives/effects/Page";
+import PrimitivesIconsPage from "./pages/primitives/icons/Page";
+import PrimitivesIllustrationsPage from "./pages/primitives/illustrations/Page";
+import PrimitivesLayoutsPage from "./pages/primitives/layouts/Page";
+import PrimitivesMotionDesignPage from "./pages/primitives/motion-design/Page";
+import PrimitivesThemingPage from "./pages/primitives/theming/Page";
+import PrimitivesTypographyPage from "./pages/primitives/typography/Page";
 import TemplatesPage from "./pages/templates/Page";
 import ShiftHandoverAppPage from "./pages/templates/shift-handover-app/Page";
 import TokensPage from "./pages/tokens/Page";
 import UseCasesPage from "./pages/use-cases/Page";
-import MotionPage from "./pages/motion/Page";
-import LayoutsPageContent from "./pages/layouts-page/Page";
-import GuidesPage from "./pages/guides/Page";
 
 // eslint-disable-next-line react-refresh/only-export-components
 function RootLayoutWrapper() {
@@ -99,7 +98,6 @@ export const router = createBrowserRouter([
         children: [
           { path: "installation", element: <DocsInstallationPage /> },
           { path: "about", element: <DocsAboutPage /> },
-          { path: "releases", element: <DocsReleasesPage /> },
           { path: "getting-started", element: <DocsGettingStartedPage /> },
         ],
       },

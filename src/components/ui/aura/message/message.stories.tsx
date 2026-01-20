@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
-import { Message, MessageContent, MessageAvatar } from "./message";
+import { Message, MessageAvatar, MessageContent } from "./message";
 
 const meta: Meta<typeof Message> = {
   title: "AI/Message",

@@ -19,7 +19,10 @@ export function AuraLogo({ className = "", size = 32 }: AuraLogoProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      role="img"
+      aria-label="Aura logo"
     >
+      <title>Aura</title>
       <rect
         x="0.0844727"
         width="220"

@@ -1,5 +1,5 @@
-import type { ComponentProps } from "react";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 

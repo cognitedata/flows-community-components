@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
 import {
-  colorPalettes,
-  semanticTokens,
-  colorPatterns,
-  colorExamples,
-  getColorsByCategory,
   type ColorPalette,
+  colorExamples,
+  colorPalettes,
+  colorPatterns,
+  getColorsByCategory,
+  semanticTokens,
 } from "./colors";
 
 /**
@@ -450,8 +450,8 @@ export const DataVisualisationColors: Story = {
             <p className="text-xs text-muted-foreground">{pattern.usage}</p>
           </div>
           <div className="flex gap-2">
-            {pattern.colors.map((color, i) => (
-              <div key={i} className={`${color} w-12 h-12 rounded-md`} title={color} />
+            {pattern.colors.map((color) => (
+              <div key={color} className={`${color} w-12 h-12 rounded-md`} title={color} />
             ))}
           </div>
         </div>

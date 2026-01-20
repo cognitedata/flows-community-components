@@ -1,6 +1,6 @@
-import type { ComponentProps } from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { IconCircle } from "@tabler/icons-react";
+import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 

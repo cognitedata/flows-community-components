@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
-import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from "./tool";
+import { expect, userEvent, within } from "@storybook/test";
+import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "./tool";
 
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",

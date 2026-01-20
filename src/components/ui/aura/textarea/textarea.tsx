@@ -1,7 +1,7 @@
-import { useState, type ComponentProps, type ChangeEvent } from "react";
+import { type ChangeEvent, type ComponentProps, useState } from "react";
 
-import { cn } from "@/lib/utils";
 import { HelperText } from "@/components/ui/aura/helper-text";
+import { cn } from "@/lib/utils";
 
 interface TextareaProps extends ComponentProps<"textarea"> {
   maxChars?: number;

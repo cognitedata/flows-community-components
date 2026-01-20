@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { InlineCitation, InlineCitationLink, InlineCitationGroup } from "./inline-citation";
 import { IconBrandGithub, IconFileText, IconWorld } from "@tabler/icons-react";
+import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inline-citation";
 
 const meta: Meta<typeof InlineCitation> = {
   title: "AI/Inline Citation",

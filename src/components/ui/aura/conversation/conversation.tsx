@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/aura/button";
+import { ConversationEmptyStateIcon } from "@/components/ui/aura/icon-conversation-empty-state";
 import { cn } from "@/lib/utils";
 import { IconArrowDown } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import { useCallback } from "react";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
-import { ConversationEmptyStateIcon } from "@/components/ui/aura/icon-conversation-empty-state";
 
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
 

@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/aura/badge";
+import { Checkbox } from "@/components/ui/aura/checkbox";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 import {
@@ -10,8 +12,6 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
-import { Checkbox } from "@/components/ui/aura/checkbox";
-import { Badge } from "@/components/ui/aura/badge";
 
 const meta: Meta<typeof Table> = {
   title: "Primitives/Table",

@@ -1,19 +1,19 @@
+import { CodeBlock } from "@/components/ui/aura/code-block";
+import { HelperText } from "@/components/ui/aura/helper-text";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconCheck, IconCircleCheck, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import {
   Confirmation,
-  ConfirmationContentTrigger,
-  ConfirmationContent,
-  ConfirmationActions,
-  ConfirmationAction,
-  ConfirmationRequest,
   ConfirmationAccepted,
+  ConfirmationAction,
+  ConfirmationActions,
+  ConfirmationContent,
+  ConfirmationContentTrigger,
   ConfirmationRejected,
+  ConfirmationRequest,
 } from "./confirmation";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { CodeBlock } from "@/components/ui/aura/code-block";
-import { IconCircleCheck, IconCheck, IconX } from "@tabler/icons-react";
 
 const meta: Meta<typeof Confirmation> = {
   title: "AI/Confirmation",

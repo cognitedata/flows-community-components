@@ -7,8 +7,8 @@ import {
 } from "@/components/ui/aura/collapsible";
 import { HelperText } from "@/components/ui/aura/helper-text";
 import { cn } from "@/lib/utils";
-import { type ComponentProps, createContext, type ReactNode, useContext } from "react";
 import { IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
+import { type ComponentProps, type ReactNode, createContext, useContext } from "react";
 
 type ApprovalType = {
   approved?: boolean;

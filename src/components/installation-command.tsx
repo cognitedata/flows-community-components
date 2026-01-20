@@ -1,7 +1,7 @@
-import { IconCopy } from "@tabler/icons-react";
 import { Button } from "@/components/ui/aura/button";
-import { useState, useEffect, startTransition } from "react";
+import { IconCopy } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
+import { startTransition, useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
@@ -72,6 +72,7 @@ export function InstallationCommand({
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() => setActiveTab("cli")}
               className={`text-xs font-medium px-3 py-1.5 rounded-md transition-colors ${
                 activeTab === "cli"
@@ -82,6 +83,7 @@ export function InstallationCommand({
               CLI
             </button>
             <button
+              type="button"
               onClick={() => setActiveTab("manual")}
               className={`text-xs font-medium px-3 py-1.5 rounded-md transition-colors ${
                 activeTab === "manual"
@@ -103,6 +105,7 @@ export function InstallationCommand({
               {(["pnpm", "npm", "yarn", "bun"] as PackageManager[]).map((pm) => (
                 <button
                   key={pm}
+                  type="button"
                   onClick={() => setPackageManager(pm)}
                   className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                     packageManager === pm
@@ -127,6 +130,7 @@ export function InstallationCommand({
                   {(["pnpm", "npm", "yarn", "bun"] as PackageManager[]).map((pm) => (
                     <button
                       key={pm}
+                      type="button"
                       onClick={() => setPackageManager(pm)}
                       className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
                         packageManager === pm

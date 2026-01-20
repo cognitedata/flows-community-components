@@ -1,9 +1,9 @@
-import type { ComponentProps } from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { IconChevronDown } from "@tabler/icons-react";
+import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
-import { Icon } from "@tabler/icons-react";
+import type { Icon } from "@tabler/icons-react";
 
 function Accordion({ ...props }: ComponentProps<typeof AccordionPrimitive.Root>) {
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />;

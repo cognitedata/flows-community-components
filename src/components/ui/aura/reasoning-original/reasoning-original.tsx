@@ -1,15 +1,15 @@
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
+import { Shimmer } from "@/components/ui/aura/shimmer";
 import { cn } from "@/lib/utils";
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { IconSelector } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import { createContext, memo, startTransition, useContext, useEffect, useState } from "react";
 import { Streamdown } from "streamdown";
-import { Shimmer } from "@/components/ui/aura/shimmer";
 
 type ReasoningContextValue = {
   isStreaming: boolean;

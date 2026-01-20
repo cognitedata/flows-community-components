@@ -1,10 +1,3 @@
-import { motion } from "framer-motion";
-import {
-  IconCheck as Check,
-  IconCopy as Copy,
-  IconDownload as Download,
-} from "@tabler/icons-react";
-import { useState } from "react";
 import { Button } from "@/components/ui/aura/button";
 import {
   Card,
@@ -13,6 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
+import {
+  IconCheck as Check,
+  IconCopy as Copy,
+  IconDownload as Download,
+} from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const colors = {
   mountain: [

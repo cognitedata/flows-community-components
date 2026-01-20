@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/aura/button";
 import {
   Tooltip,
@@ -7,6 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/aura/tooltip";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
+import { useState } from "react";
 
 interface CodeCopyButtonProps {
   code: string;

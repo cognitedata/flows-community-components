@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent } from "@storybook/test";
+import { userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import {
   ChainOfThought,
-  ChainOfThoughtHeader,
   ChainOfThoughtContent,
+  ChainOfThoughtHeader,
   ChainOfThoughtStep,
 } from "./chain-of-thought";
 
@@ -129,12 +129,14 @@ export const Controlled: Story = {
       <div className="space-y-4">
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setOpen(true)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-muted"
           >
             Expand
           </button>
           <button
+            type="button"
             onClick={() => setOpen(false)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-muted"
           >
