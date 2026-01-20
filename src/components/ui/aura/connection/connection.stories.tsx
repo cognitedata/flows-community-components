@@ -85,7 +85,13 @@ export const ConnectionPreview: Story = {
     <div className="p-4 border rounded-md space-y-4 max-w-md">
       <h3 className="font-medium">Connection Line Preview</h3>
       <div className="p-3 bg-muted/30 rounded-md">
-        <svg width="250" height="80" className="overflow-visible" role="img" aria-label="Connection line preview diagram">
+        <svg
+          width="250"
+          height="80"
+          className="overflow-visible"
+          role="img"
+          aria-label="Connection line preview diagram"
+        >
           <title>Connection line preview</title>
           {/* Simulated connection line */}
           <path
@@ -130,7 +136,13 @@ export const ConnectionPreview: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="p-4">
-      <svg width="200" height="60" className="border rounded-md bg-muted/20 p-2" role="img" aria-label="Simple connection line">
+      <svg
+        width="200"
+        height="60"
+        className="border rounded-md bg-muted/20 p-2"
+        role="img"
+        aria-label="Simple connection line"
+      >
         <title>Simple connection line</title>
         <path
           d="M 10,30 C 60,30 140,30 190,30"
