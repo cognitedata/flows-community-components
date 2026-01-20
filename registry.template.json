@@ -535,7 +535,7 @@
       "type": "registry:component",
       "title": "Toaster",
       "description": "A themed Sonner toaster that syncs with the application theme.",
-      "dependencies": ["next-themes", "sonner", "@tabler/icons-react"],
+      "dependencies": ["sonner", "@tabler/icons-react"],
       "files": [
         {
           "path": "src/components/ui/aura/sonner.tsx",

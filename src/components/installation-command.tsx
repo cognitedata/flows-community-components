@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/aura/button";
 import { IconCopy } from "@tabler/icons-react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/theme-provider";
 import { startTransition, useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";

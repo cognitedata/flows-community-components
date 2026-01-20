@@ -40,7 +40,7 @@ import {
   IconSun as Sun,
 } from "@tabler/icons-react";
 import { format } from "date-fns";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/theme-provider";
 import React from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";

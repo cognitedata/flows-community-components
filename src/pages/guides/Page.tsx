@@ -57,7 +57,7 @@ const developerSteps = [
     description: "Set up Tailwind CSS, Radix UI components, and required dependencies for Aura",
     icon: Terminal,
     action: "View documentation",
-    code: "npm install tailwindcss postcss autoprefixer @radix-ui/react-icons @tabler/icons-react class-variance-authority tailwind-merge clsx next-themes",
+    code: "npm install tailwindcss postcss autoprefixer @radix-ui/react-icons @tabler/icons-react class-variance-authority tailwind-merge clsx",
     info: "Install all required packages for Aura UI components and theming",
   },
   {
@@ -86,7 +86,7 @@ const developerSteps = [
     code: [
       {
         label: "Add ThemeProvider to layout.tsx",
-        command: `import { ThemeProvider } from "next-themes"\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang="en">\n      <body>\n        <ThemeProvider attribute="class">\n          {children}\n        </ThemeProvider>\n      </body>\n    </html>\n  )\n}`,
+        command: `import { ThemeProvider } from "@/components/theme-provider"\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang="en">\n      <body>\n        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>\n          {children}\n        </ThemeProvider>\n      </body>\n    </html>\n  )\n}`,
       },
     ],
     info: "Enable seamless dark/light mode switching across your entire application",
@@ -238,7 +238,7 @@ function StepCard({ step, index }: { step: StepType; index: number }) {
             ) : step.action === "View theme setup" ? (
               <Button variant="outline" className="w-full" asChild>
                 <a
-                  href="https://github.com/pacocoursey/next-themes#readme"
+                  href="/primitives/theming"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
