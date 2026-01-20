@@ -517,7 +517,7 @@ export default function ThemingPage() {
         preview.style.opacity = "1";
       }, 1);
     }
-  }, [theme]);
+  }, []);
 
   const resetTheme = () => {
     setTheme(isDark ? defaultDarkTheme : defaultLightTheme);
@@ -756,7 +756,7 @@ export default function ThemingPage() {
         existingStyle.remove();
       }
     };
-  }, [theme, isDark]);
+  }, [theme]);
 
   return (
     <div className="px-3 py-16">
@@ -1316,6 +1316,7 @@ export default function ThemingPage() {
                       <div key={preset.name} className="space-y-2">
                         <div className="text-xs font-medium text-left">{preset.name}</div>
                         <button
+                          type="button"
                           onClick={() => {
                             setTheme({
                               ...theme,
@@ -1772,7 +1773,7 @@ export default function ThemingPage() {
                                 Interactive
                               </h4>
                               <div className="space-y-2">
-                                <button className="text-primary hover:underline text-sm">
+                                <button type="button" className="text-primary hover:underline text-sm">
                                   Link style
                                 </button>
                                 <div className="p-2 border rounded hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer text-sm">
