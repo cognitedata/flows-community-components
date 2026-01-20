@@ -85,8 +85,8 @@ export const Basic: Story = {
  */
 export const Disabled: Story = {
   args: {
-    children: 'Disabled label',
-    htmlFor: 'disabled-input',
+    children: "Disabled label",
+    htmlFor: "disabled-input",
   },
   parameters: {
     docs: {
