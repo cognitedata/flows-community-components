@@ -8,7 +8,7 @@ import { Label } from "../label";
 import { HelperText } from "./helper-text";
 
 const meta: Meta<typeof HelperText> = {
-  title: "UI/Helper Text",
+  title: "Primitives/Helper Text",
   component: HelperText,
   tags: ["autodocs"],
   argTypes: {

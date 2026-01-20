@@ -30,7 +30,7 @@ import { getTypographyBySection, typographyPatterns, typographyScale } from "./t
  * ```
  */
 const meta: Meta = {
-  title: "Layouts/Typography",
+  title: "Foundations/Typography",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
