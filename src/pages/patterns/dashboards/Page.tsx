@@ -417,8 +417,8 @@ function TemperatureSensorChart() {
               content={
                 <ChartTooltipContent
                   indicator="dot"
-                  labelFormatter={(value: string | number) => `Time: ${value}`}
-                  formatter={((value: string | number) => [`${value}°C`, "Temperature"]) as any}
+                  labelFormatter={(value) => `Time: ${value}`}
+                  formatter={(value) => [`${value}°C`, "Temperature"]}
                 />
               }
             />
@@ -546,9 +546,7 @@ function AssetHealthChart() {
               })}
             </Pie>
             <ChartTooltip
-              content={(props: any) => {
-                if (!props) return null;
-                const { active, payload } = props;
+              content={({ active, payload }) => {
                 if (active && payload && payload.length) {
                   const data = payload[0].payload;
                   return (
