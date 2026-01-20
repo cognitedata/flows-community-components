@@ -92,14 +92,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
       }
 
       try {
-        // Module is already loaded with eager: true, just need to check structure
-        // Check if module has the expected structure
-        if (!storiesModule || typeof storiesModule !== "object") {
-          console.error("[StoriesRenderer] Invalid module structure for slug:", slug);
-          setError(`Failed to load stories module for "${slug}". Module structure is invalid.`);
-          return;
-        }
-        
+        // Module is already loaded with eager: true, just need to use it
         const module = storiesModule as Record<string, unknown>;
 
         // Compose stories using Storybook's portable stories API
@@ -142,8 +135,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         }
 
         // Convert to array of story entries with source code
-        const storyEntries = Object.entries(composed)
-          .map(([key, Component]) => {
+        const storyEntries: StoryEntry[] = Object.entries(composed).map(([key, Component]) => {
           // Directly access the story object from the module
           // The story exports are directly accessible on the module by their export name
           const originalStory = module[key] as
@@ -162,26 +154,22 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
           // Extract source code from story parameters (injected at build time)
           const sourceCode = originalStory?.parameters?.docs?.source?.code;
 
-          // Always return a story entry, even if source code extraction failed
           return {
             key,
             title: storyKeyToTitle(key),
             Component,
             sourceCode,
           };
-        })
-          .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined && entry !== null);
-        
-        const typedStoryEntries: StoryEntry[] = storyEntries;
+        });
 
-        if (typedStoryEntries.length === 0) {
+        if (storyEntries.length === 0) {
           console.error("[StoriesRenderer] No stories found for slug:", slug);
           setError(`No stories found in ${slug}.stories.tsx.`);
           return;
         }
 
         if (!cancelled) {
-          setStories(typedStoryEntries);
+          setStories(storyEntries);
         }
       } catch (err) {
         if (!cancelled) {
