@@ -8,9 +8,9 @@
  * folder structure when components are installed via the registry.
  */
 
-import * as fs from "fs";
-import * as path from "path";
-import { fileURLToPath } from "url";
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -124,7 +124,7 @@ function getComponents(): string[] {
   }
 
   if (components.length === 0) {
-    console.log(`⚠️  No components found in ui/cognite directory. Creating empty registry.`);
+    console.log("⚠️  No components found in ui/cognite directory. Creating empty registry.");
   }
 
   return components;
@@ -636,7 +636,7 @@ function buildRegistry(template: Registry, components: string[]): Registry {
 async function main(): Promise<void> {
   try {
     // Display build information
-    console.log("\n" + "=".repeat(70));
+    console.log(`\n${"=".repeat(70)}`);
     console.log("🔨 BUILDING COMPONENT REGISTRY");
     console.log("   Source: ui/cognite");
     console.log("   Output: All paths → src/components/ui/aura/");
@@ -646,12 +646,12 @@ async function main(): Promise<void> {
     const components: string[] = getComponents();
 
     if (components.length === 0) {
-      console.log(`\n⚠️  No components found in ui/cognite directory`);
+      console.log("\n⚠️  No components found in ui/cognite directory");
       console.log("   Registry will be empty (no components to build)");
     }
 
     // Show what will be built
-    console.log("\n" + "─".repeat(70));
+    console.log(`\n${"─".repeat(70)}`);
     console.log("📋 COMPONENTS TO BE BUILT:");
     console.log("─".repeat(70));
 
@@ -662,7 +662,7 @@ async function main(): Promise<void> {
       console.log("\n   (none)");
     }
 
-    console.log("\n" + "─".repeat(70));
+    console.log(`\n${"─".repeat(70)}`);
     console.log("📁 OUTPUT:");
     console.log("─".repeat(70));
     console.log("\n   registry.json → Root directory");
@@ -677,7 +677,7 @@ async function main(): Promise<void> {
     console.log("📦 Extracting dependencies from component files...");
     const registry: Registry = buildRegistry(template, components);
 
-    fs.writeFileSync(registryOutput, JSON.stringify(registry, null, 2) + "\n");
+    fs.writeFileSync(registryOutput, `${JSON.stringify(registry, null, 2)}\n`);
 
     console.log("\n✅ Successfully built registry.json");
     console.log(`📦 Registry contains ${registry.items.length} component(s)`);
@@ -698,9 +698,9 @@ async function main(): Promise<void> {
       );
     }
 
-    console.log("\n" + "=".repeat(70));
+    console.log(`\n${"=".repeat(70)}`);
     console.log("✨ BUILD COMPLETE");
-    console.log("=".repeat(70) + "\n");
+    console.log(`${"=".repeat(70)}\n`);
 
     if (components.length > 0) {
       console.log("📝 Next steps:");
@@ -711,7 +711,7 @@ async function main(): Promise<void> {
       console.log("  3. Deploy your site to make components available\n");
     } else {
       console.log(
-        `ℹ️  Note: No components to build. Add .tsx files to:\n` + `     - src/components/ui/aura/\n`
+        "ℹ️  Note: No components to build. Add .tsx files to:\n     - src/components/ui/aura/\n"
       );
     }
   } catch (error: unknown) {

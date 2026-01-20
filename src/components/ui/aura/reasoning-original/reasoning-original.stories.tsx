@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
-import { Reasoning, ReasoningTrigger, ReasoningContent } from "./reasoning-original";
+import { Reasoning, ReasoningContent, ReasoningTrigger } from "./reasoning-original";
 
 const meta: Meta<typeof Reasoning> = {
   title: "AI/Reasoning Original",

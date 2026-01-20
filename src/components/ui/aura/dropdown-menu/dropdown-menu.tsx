@@ -1,6 +1,6 @@
-import type { ComponentProps } from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { IconCheck, IconChevronRight, IconCircle } from "@tabler/icons-react";
+import type { ComponentProps } from "react";
 
 import { cn, getPortalContainer } from "@/lib/utils";
 

@@ -1,7 +1,6 @@
-import { useState, useEffect, startTransition } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Button } from "@/components/ui/aura/button";
 import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import {
   IconAlertTriangle,
@@ -11,6 +10,7 @@ import {
   IconCode,
   IconRefresh,
 } from "@tabler/icons-react";
+import { startTransition, useEffect, useState } from "react";
 
 interface PreviewDebuggerProps {
   code: string;
@@ -167,8 +167,8 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                   <div className="space-y-2">
                     <h4 className="font-medium">Imported Components</h4>
                     <div className="flex flex-wrap gap-1">
-                      {analysis.imports.map((imp, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
+                      {analysis.imports.map((imp) => (
+                        <Badge key={imp} variant="secondary" className="text-xs">
                           {imp}
                         </Badge>
                       ))}
@@ -181,9 +181,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                   <div className="space-y-2">
                     <h4 className="font-medium">Components Used</h4>
                     <div className="flex flex-wrap gap-1">
-                      {analysis.usedComponents.map((comp, index) => (
+                      {analysis.usedComponents.map((comp) => (
                         <Badge
-                          key={index}
+                          key={comp}
                           variant={analysis.imports.includes(comp) ? "default" : "error"}
                           className="text-xs"
                         >
@@ -199,9 +199,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                   <div className="space-y-2">
                     <h4 className="font-medium text-yellow-600">Warnings</h4>
                     <ul className="space-y-1">
-                      {analysis.warnings.map((warning, index) => (
+                      {analysis.warnings.map((warning) => (
                         <li
-                          key={index}
+                          key={warning}
                           className="text-xs text-muted-foreground flex items-center gap-2"
                         >
                           <IconAlertTriangle className="h-3 w-3 text-yellow-600" />
@@ -217,9 +217,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                   <div className="space-y-2">
                     <h4 className="font-medium text-blue-600">Suggestions</h4>
                     <ul className="space-y-1">
-                      {analysis.suggestions.map((suggestion, index) => (
+                      {analysis.suggestions.map((suggestion) => (
                         <li
-                          key={index}
+                          key={suggestion}
                           className="text-xs text-muted-foreground flex items-center gap-2"
                         >
                           <IconBolt className="h-3 w-3 text-blue-600" />
@@ -246,9 +246,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                   )}
                 </div>
                 <ul className="space-y-2">
-                  {errors.map((error, index) => (
+                  {errors.map((error) => (
                     <li
-                      key={index}
+                      key={error}
                       className="p-3 bg-destructive/5 border border-destructive/20 rounded text-sm"
                     >
                       {error}

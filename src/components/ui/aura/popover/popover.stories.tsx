@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
-import { useState } from "react";
-import { Popover, PopoverTrigger, PopoverContent } from "./popover";
 import { Button } from "@/components/ui/aura/button";
 import { Input } from "@/components/ui/aura/input";
 import { Label } from "@/components/ui/aura/label";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { useState } from "react";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 
 const meta: Meta<typeof Popover> = {
   title: "Primitives/Popover",

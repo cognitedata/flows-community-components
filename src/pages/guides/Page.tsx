@@ -1,5 +1,13 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { CodeCopyButton } from "@/components/code-copy-button";
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/aura/card";
 import {
   IconBook as Book,
   IconCircleCheck as CheckCircle,
@@ -12,16 +20,8 @@ import {
   IconTerminal as Terminal,
   IconUsers as Users,
 } from "@tabler/icons-react";
-import { Button } from "@/components/ui/aura/button";
-import { Badge } from "@/components/ui/aura/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { CodeCopyButton } from "@/components/code-copy-button";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const designerSteps = [

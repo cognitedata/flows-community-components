@@ -1,7 +1,7 @@
+import { Message, MessageAvatar, MessageContent } from "@/components/ui/aura/message";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
 import { Conversation, ConversationContent, ConversationEmptyState } from "./conversation";
-import { Message, MessageContent, MessageAvatar } from "@/components/ui/aura/message";
 
 const meta: Meta<typeof Conversation> = {
   title: "AI/Conversation",

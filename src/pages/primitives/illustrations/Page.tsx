@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
@@ -5,12 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
 import {
   IconDownload as Download,
-  IconPalette as Palette,
   IconPhoto as ImageIcon,
+  IconPalette as Palette,
 } from "@tabler/icons-react";
 
 const illustrationCategories = [

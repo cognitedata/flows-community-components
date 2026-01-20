@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
-import { Reasoning, ReasoningHeader, ReasoningContent, ReasoningItem } from "./reasoning";
+import { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem } from "./reasoning";
 
 const meta: Meta<typeof Reasoning> = {
   title: "AI/Reasoning",

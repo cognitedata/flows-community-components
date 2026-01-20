@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { IconBrain } from "@tabler/icons-react";
-import { Children, createContext, useContext, type ComponentProps } from "react";
+import { Children, type ComponentProps, createContext, useContext } from "react";
 
 const ReasoningDecorationsContext = createContext<boolean>(true);
 const useReasoningDecorations = () => useContext(ReasoningDecorationsContext);

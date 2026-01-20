@@ -1,5 +1,5 @@
-import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import type { ComponentProps, ReactNode } from "react";
 
 export interface SwapSlotProps extends ComponentProps<"div"> {
   defaultSlot?: ReactNode;

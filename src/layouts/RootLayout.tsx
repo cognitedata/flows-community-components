@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { Navigation } from "@/components/navigation";
 import { TopbarVisibility } from "@/components/TopbarVisibility";
+import { Navigation } from "@/components/navigation";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/aura/sonner-toast";
 
 interface RootLayoutProps {

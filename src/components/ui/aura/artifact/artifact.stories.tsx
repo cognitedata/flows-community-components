@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
+import { IconCode, IconCopy, IconDownload, IconExternalLink } from "@tabler/icons-react";
 import {
   Artifact,
-  ArtifactHeader,
-  ArtifactTitle,
-  ArtifactDescription,
-  ArtifactActions,
   ArtifactAction,
+  ArtifactActions,
   ArtifactClose,
   ArtifactContent,
+  ArtifactDescription,
+  ArtifactHeader,
+  ArtifactTitle,
 } from "./artifact";
-import { IconCode, IconDownload, IconCopy, IconExternalLink } from "@tabler/icons-react";
 
 const meta: Meta<typeof Artifact> = {
   title: "AI/Artifact",

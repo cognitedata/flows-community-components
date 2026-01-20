@@ -1,7 +1,6 @@
+import { IconCaretUpDown, IconCheck } from "@tabler/icons-react";
 import { useState } from "react";
-import { IconCheck, IconCaretUpDown } from "@tabler/icons-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/aura/button";
 import {
   Command,
@@ -12,6 +11,7 @@ import {
   CommandList,
 } from "@/components/ui/aura/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
+import { cn } from "@/lib/utils";
 
 const frameworks = [
   {
