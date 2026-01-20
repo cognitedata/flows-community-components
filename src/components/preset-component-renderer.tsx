@@ -1,17 +1,10 @@
-'use client';
-
-import React from 'react';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/aura/card';
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
-import { Input } from '@/components/ui/aura/input';
-import { Label } from '@/components/ui/aura/label';
-import { IconAlertTriangle, IconPlayerPlay } from '@tabler/icons-react';
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
+import { IconAlertTriangle, IconPlayerPlay } from "@tabler/icons-react";
+import React from "react";
 
 interface PresetComponentRendererProps {
   code: string;
@@ -84,8 +77,7 @@ const presetComponents = {
       </CardHeader>
       <CardContent className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Passionate about building great user experiences with modern web
-          technologies.
+          Passionate about building great user experiences with modern web technologies.
         </p>
         <div className="flex gap-2">
           <Button variant="outline" size="sm">
@@ -107,9 +99,7 @@ const presetComponents = {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">$45,231.89</div>
-          <p className="text-xs text-muted-foreground">
-            +20.1% from last month
-          </p>
+          <p className="text-xs text-muted-foreground">+20.1% from last month</p>
         </CardContent>
       </Card>
 
@@ -148,64 +138,48 @@ const presetComponents = {
 };
 
 // Pattern matching to determine which component to render
-function detectComponentPattern(
-  code: string
-): keyof typeof presetComponents | null {
+function detectComponentPattern(code: string): keyof typeof presetComponents | null {
   const lowerCode = code.toLowerCase();
 
   // Check for pricing-related patterns
-  if (
-    lowerCode.includes('pricing') ||
-    lowerCode.includes('price') ||
-    lowerCode.includes('plan')
-  ) {
-    return 'PricingCard';
+  if (lowerCode.includes("pricing") || lowerCode.includes("price") || lowerCode.includes("plan")) {
+    return "PricingCard";
   }
 
   // Check for profile-related patterns
-  if (
-    lowerCode.includes('profile') ||
-    lowerCode.includes('user') ||
-    lowerCode.includes('avatar')
-  ) {
-    return 'UserProfile';
+  if (lowerCode.includes("profile") || lowerCode.includes("user") || lowerCode.includes("avatar")) {
+    return "UserProfile";
   }
 
   // Check for dashboard/stats patterns
   if (
-    lowerCode.includes('dashboard') ||
-    lowerCode.includes('stats') ||
-    lowerCode.includes('metric') ||
-    lowerCode.includes('revenue')
+    lowerCode.includes("dashboard") ||
+    lowerCode.includes("stats") ||
+    lowerCode.includes("metric") ||
+    lowerCode.includes("revenue")
   ) {
-    return 'StatsWidget';
+    return "StatsWidget";
   }
 
   // Check for form patterns
-  if (
-    lowerCode.includes('form') ||
-    (lowerCode.includes('input') && lowerCode.includes('label'))
-  ) {
-    return 'ContactForm';
+  if (lowerCode.includes("form") || (lowerCode.includes("input") && lowerCode.includes("label"))) {
+    return "ContactForm";
   }
 
   // Check for card with header
-  if (lowerCode.includes('cardheader') || lowerCode.includes('cardtitle')) {
-    return 'CardWithHeader';
+  if (lowerCode.includes("cardheader") || lowerCode.includes("cardtitle")) {
+    return "CardWithHeader";
   }
 
   // Check for basic card
-  if (lowerCode.includes('card') && lowerCode.includes('cardcontent')) {
-    return 'BasicCard';
+  if (lowerCode.includes("card") && lowerCode.includes("cardcontent")) {
+    return "BasicCard";
   }
 
   return null;
 }
 
-export function PresetComponentRenderer({
-  code,
-  className,
-}: PresetComponentRendererProps) {
+export function PresetComponentRenderer({ code, className }: PresetComponentRendererProps) {
   if (!code.trim()) {
     return (
       <div
@@ -213,9 +187,7 @@ export function PresetComponentRenderer({
       >
         <div className="text-center space-y-2">
           <IconPlayerPlay className="h-8 w-8 mx-auto text-muted-foreground" />
-          <p className="text-sm text-muted-foreground">
-            Enter component code to see live preview
-          </p>
+          <p className="text-sm text-muted-foreground">Enter component code to see live preview</p>
         </div>
       </div>
     );
@@ -240,9 +212,7 @@ export function PresetComponentRenderer({
 
   // Fallback for unrecognized patterns
   return (
-    <div
-      className={`p-6 border border-muted rounded-lg bg-muted/10 ${className}`}
-    >
+    <div className={`p-6 border border-muted rounded-lg bg-muted/10 ${className}`}>
       <div className="flex items-center gap-2 text-muted-foreground mb-3">
         <IconAlertTriangle className="h-4 w-4" />
         <span className="font-medium">Preview Not Available</span>
@@ -252,9 +222,7 @@ export function PresetComponentRenderer({
       </p>
       <div className="grid grid-cols-2 gap-2 text-xs">
         <div>
-          <p className="font-medium text-muted-foreground">
-            Available patterns:
-          </p>
+          <p className="font-medium text-muted-foreground">Available patterns:</p>
           <ul className="space-y-1 mt-1">
             <li>• Pricing cards</li>
             <li>• User profiles</li>

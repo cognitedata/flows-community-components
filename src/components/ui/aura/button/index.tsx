@@ -10,5 +10,9 @@
  * <Button variant="default">Click me</Button>
  * <Button variant="destructive" size="sm">Delete</Button>
  */
-export { Button, buttonVariants } from './button';
-export { ButtonMetadata } from './button.metadata';
+export {
+  Button,
+  // eslint-disable-next-line react-refresh/only-export-components
+  buttonVariants,
+} from "./button";
+export { ButtonMetadata } from "./button.metadata";

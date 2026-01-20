@@ -1,7 +1,7 @@
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-import styleScope from '@/styleScope';
+import styleScope from "@/styleScope";
 
 let portalContainer: HTMLElement | null = null;
 
@@ -11,9 +11,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export function slugToPascalCase(slug: string): string {
   return slug
-    .split('-')
+    .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join('');
+    .join("");
 }
 
 /**
@@ -27,18 +27,18 @@ export const getPortalContainer = (): HTMLElement | undefined => {
     return portalContainer;
   }
 
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return undefined;
   }
 
   let container = document?.getElementById(styleScope.portalContainer);
 
   if (!container) {
-    container = document.createElement('div');
+    container = document.createElement("div");
     container.id = styleScope.portalContainer;
     container.className = styleScope.styleScope;
-    container.style.position = 'fixed';
-    container.style.zIndex = '1000';
+    container.style.position = "fixed";
+    container.style.zIndex = "1000";
     document.body.appendChild(container);
   }
 

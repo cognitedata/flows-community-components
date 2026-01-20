@@ -1,10 +1,14 @@
+import type { ComponentStatusType } from "./component-status-config";
+import { slugToPascalCase } from "./utils";
+
 /**
  * AI Component metadata interface
- * Matches the structure of component-examples/types.ts ComponentMeta
  */
 export interface AIComponentMeta {
   name: string;
   description: string;
+  /** Component status - defaults to 'draft' if not specified */
+  status?: ComponentStatusType;
   llmUsage?: string;
   importPath: string;
   apiReference?: {
@@ -21,23 +25,35 @@ export interface AIComponentMeta {
 }
 
 /**
- * Gets AI component metadata from the examples file
- * This is the single source of truth for AI component information
+ * Pre-load all metadata modules using Vite's glob import.
  */
-export async function getAIComponentMeta(
-  slug: string
-): Promise<AIComponentMeta | null> {
-  try {
-    // Convert slug to camelCase for the export name (e.g., "prompt-input" -> "promptInput")
-    const camelCaseSlug = slug.replace(/-([a-z])/g, (_, letter) =>
-      letter.toUpperCase()
-    );
-    const examplesModule = await import(`./ai-examples/${slug}.examples`);
-    const meta = examplesModule[`${camelCaseSlug}Meta`];
+const metadataModules = import.meta.glob<{ [key: string]: AIComponentMeta }>(
+  "@/components/ui/aura/*/*.metadata.ts",
+  { eager: false }
+);
 
-    return meta || null;
+/**
+ * Gets AI component metadata from the component's metadata file.
+ * Metadata is loaded from the component's folder structure
+ * (e.g., message/message.metadata.ts).
+ */
+export async function getAIComponentMeta(slug: string): Promise<AIComponentMeta | null> {
+  const pascalCaseSlug = slugToPascalCase(slug);
+
+  try {
+    // Load from the folder structure with metadata file
+    const metadataPath = `/src/components/ui/aura/${slug}/${slug}.metadata.ts`;
+    const loader = metadataModules[metadataPath];
+    if (loader) {
+      const metadataModule = await loader();
+      const meta = metadataModule[`${pascalCaseSlug}Metadata`];
+      if (meta) {
+        return meta as AIComponentMeta;
+      }
+    }
   } catch (error) {
     console.warn(`Could not load metadata for ${slug}:`, error);
-    return null;
   }
+
+  return null;
 }

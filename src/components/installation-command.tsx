@@ -1,14 +1,9 @@
-'use client';
-
-import { IconCopy } from '@tabler/icons-react';
-import { Button } from '@/components/ui/aura/button';
-import { useState, useEffect, startTransition } from 'react';
-import { useTheme } from 'next-themes';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-  oneDark,
-  oneLight,
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Button } from "@/components/ui/aura/button";
+import { IconCopy } from "@tabler/icons-react";
+import { useTheme } from "next-themes";
+import { startTransition, useEffect, useState } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface InstallationCommandProps {
   component: string;
@@ -16,8 +11,8 @@ interface InstallationCommandProps {
   componentCode?: string;
 }
 
-type TabType = 'cli' | 'manual';
-type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
+type TabType = "cli" | "manual";
+type PackageManager = "pnpm" | "npm" | "yarn" | "bun";
 
 export function InstallationCommand({
   component,
@@ -25,8 +20,8 @@ export function InstallationCommand({
   componentCode,
 }: InstallationCommandProps) {
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<TabType>('cli');
-  const [packageManager, setPackageManager] = useState<PackageManager>('pnpm');
+  const [activeTab, setActiveTab] = useState<TabType>("cli");
+  const [packageManager, setPackageManager] = useState<PackageManager>("pnpm");
   const [copyingCode, setCopyingCode] = useState(false);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -46,26 +41,16 @@ export function InstallationCommand({
   };
 
   // Build manual installation commands based on actual dependencies
-  const dependenciesString = dependencies.join(' ');
+  const dependenciesString = dependencies.join(" ");
   const manualCommands: Record<PackageManager, string> = {
-    pnpm: dependencies.length
-      ? `pnpm add ${dependenciesString}`
-      : 'No dependencies required',
-    npm: dependencies.length
-      ? `npm install ${dependenciesString}`
-      : 'No dependencies required',
-    yarn: dependencies.length
-      ? `yarn add ${dependenciesString}`
-      : 'No dependencies required',
-    bun: dependencies.length
-      ? `bun add ${dependenciesString}`
-      : 'No dependencies required',
+    pnpm: dependencies.length ? `pnpm add ${dependenciesString}` : "No dependencies required",
+    npm: dependencies.length ? `npm install ${dependenciesString}` : "No dependencies required",
+    yarn: dependencies.length ? `yarn add ${dependenciesString}` : "No dependencies required",
+    bun: dependencies.length ? `bun add ${dependenciesString}` : "No dependencies required",
   };
 
   const currentCommand =
-    activeTab === 'cli'
-      ? cliCommands[packageManager]
-      : manualCommands[packageManager];
+    activeTab === "cli" ? cliCommands[packageManager] : manualCommands[packageManager];
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(currentCommand);
@@ -87,86 +72,75 @@ export function InstallationCommand({
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setActiveTab('cli')}
+              type="button"
+              onClick={() => setActiveTab("cli")}
               className={`text-xs font-medium px-3 py-1.5 rounded-md transition-colors ${
-                activeTab === 'cli'
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                activeTab === "cli"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               CLI
             </button>
             <button
-              onClick={() => setActiveTab('manual')}
+              type="button"
+              onClick={() => setActiveTab("manual")}
               className={`text-xs font-medium px-3 py-1.5 rounded-md transition-colors ${
-                activeTab === 'manual'
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                activeTab === "manual"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Manual
             </button>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-8 w-8 p-0"
-            onClick={handleCopy}
-          >
-            {copied ? (
-              <span className="text-xs">✓</span>
-            ) : (
-              <IconCopy className="h-4 w-4" />
-            )}
+          <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={handleCopy}>
+            {copied ? <span className="text-xs">✓</span> : <IconCopy className="h-4 w-4" />}
           </Button>
         </div>
 
-        {activeTab === 'cli' && (
+        {activeTab === "cli" && (
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              {(['pnpm', 'npm', 'yarn', 'bun'] as PackageManager[]).map(
-                (pm) => (
-                  <button
-                    key={pm}
-                    onClick={() => setPackageManager(pm)}
-                    className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
-                      packageManager === pm
-                        ? 'bg-background border-foreground/20'
-                        : 'bg-background/50 border-border text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    {pm}
-                  </button>
-                )
-              )}
+              {(["pnpm", "npm", "yarn", "bun"] as PackageManager[]).map((pm) => (
+                <button
+                  key={pm}
+                  type="button"
+                  onClick={() => setPackageManager(pm)}
+                  className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
+                    packageManager === pm
+                      ? "bg-background border-foreground/20"
+                      : "bg-background/50 border-border text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {pm}
+                </button>
+              ))}
             </div>
             <code className="block text-sm font-mono">{currentCommand}</code>
           </div>
         )}
 
-        {activeTab === 'manual' && (
+        {activeTab === "manual" && (
           <div className="space-y-4">
             {dependencies.length > 0 && (
               <div className="space-y-3">
-                <p className="text-sm font-medium">
-                  Install the following dependencies:
-                </p>
+                <p className="text-sm font-medium">Install the following dependencies:</p>
                 <div className="flex items-center gap-2">
-                  {(['pnpm', 'npm', 'yarn', 'bun'] as PackageManager[]).map(
-                    (pm) => (
-                      <button
-                        key={pm}
-                        onClick={() => setPackageManager(pm)}
-                        className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
-                          packageManager === pm
-                            ? 'bg-background border-foreground/20'
-                            : 'bg-background/50 border-border text-muted-foreground hover:text-foreground'
-                        }`}
-                      >
-                        {pm}
-                      </button>
-                    )
-                  )}
+                  {(["pnpm", "npm", "yarn", "bun"] as PackageManager[]).map((pm) => (
+                    <button
+                      key={pm}
+                      type="button"
+                      onClick={() => setPackageManager(pm)}
+                      className={`text-xs font-mono px-2 py-1 rounded border transition-colors ${
+                        packageManager === pm
+                          ? "bg-background border-foreground/20"
+                          : "bg-background/50 border-border text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {pm}
+                    </button>
+                  ))}
                 </div>
                 <code className="block text-sm font-mono bg-background/50 p-3 rounded border">
                   {currentCommand}
@@ -180,12 +154,7 @@ export function InstallationCommand({
                   <p className="text-sm font-medium">
                     Copy and paste the following code into your project.
                   </p>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8"
-                    onClick={handleCopyCode}
-                  >
+                  <Button variant="ghost" size="sm" className="h-8" onClick={handleCopyCode}>
                     {copyingCode ? (
                       <span className="text-xs">✓ Copied</span>
                     ) : (
@@ -209,12 +178,12 @@ export function InstallationCommand({
                     {mounted && (
                       <SyntaxHighlighter
                         language="typescript"
-                        style={resolvedTheme === 'dark' ? oneDark : oneLight}
+                        style={resolvedTheme === "dark" ? oneDark : oneLight}
                         customStyle={{
                           margin: 0,
                           borderRadius: 0,
-                          fontSize: '0.875rem',
-                          background: 'transparent',
+                          fontSize: "0.875rem",
+                          background: "transparent",
                         }}
                         showLineNumbers={true}
                       >
