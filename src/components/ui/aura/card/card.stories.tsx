@@ -86,7 +86,7 @@ export const Basic: Story = {
         </div>
         <CardDescription>Pressure over last 24 hours</CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent />
       <CardFooter className="flex gap-2">
         <Badge variant="fjord">
           <IconChartLine size={12} /> Time series
@@ -125,7 +125,7 @@ export const WithTextFooter: Story = {
         </div>
         <CardDescription>Pressure over last 24 hours</CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent />
       <CardFooter className="gap-1 flex-col">
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />

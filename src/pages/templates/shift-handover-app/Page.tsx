@@ -506,10 +506,10 @@ export default function ShiftHandoverAppPage() {
                   <CardContent className="space-y-3">
                     <p className="text-sm leading-6">{report.body}</p>
                     <div className="flex flex-wrap gap-2 pt-1">
-                      {report.badges.map((b, i) => {
+                      {report.badges.map((b) => {
                         const Icon = b.icon as React.ElementType | undefined;
                         return (
-                          <Badge key={i} className={b.cls}>
+                          <Badge key={b.text} className={b.cls}>
                             {Icon ? <Icon className="h-3 w-3" /> : null}
                             {b.text}
                           </Badge>

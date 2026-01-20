@@ -440,7 +440,7 @@ function TemperatureSensorChart() {
               <div
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: "hsl(239 84% 67%)" }}
-              ></div>
+              />
               <span className="text-muted-foreground">Current: {currentTemp}°C</span>
             </div>
             <span className="text-muted-foreground">4h Average: {avgTemp.toFixed(1)}°C</span>

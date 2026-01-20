@@ -134,6 +134,7 @@ function BreadcrumbPage({
       role="link"
       aria-disabled="true"
       aria-current="page"
+      tabIndex={-1}
       className={cn(
         buttonVariants({ variant: "ghost", size: "sm" }),
         // Override interactive styles to be non-interactive

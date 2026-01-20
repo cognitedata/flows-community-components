@@ -1070,9 +1070,9 @@ export const VisualRegression: Story = {
 export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-2">
-      <Badge variant="fjord"></Badge>
-      <Badge variant="error"></Badge>
-      <Badge variant="secondary"></Badge>
+      <Badge variant="fjord" />
+      <Badge variant="error" />
+      <Badge variant="secondary" />
       <span className="text-sm text-muted-foreground">(Empty badges)</span>
     </div>
   ),

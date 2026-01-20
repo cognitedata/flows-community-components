@@ -630,7 +630,7 @@ export const Interactive: Story = {
         <Breadcrumb>
           <BreadcrumbList>
             {path.map((item, index) => (
-              <div key={index} className="contents">
+              <div key={item} className="contents">
                 <BreadcrumbItem>
                   {index === path.length - 1 ? (
                     <BreadcrumbPage>{item}</BreadcrumbPage>
@@ -656,6 +656,7 @@ export const Interactive: Story = {
           {navigationOptions.map((option) => (
             <button
               key={option.label}
+              type="button"
               onClick={() => setPath(option.path)}
               className="text-xs px-2 py-1 rounded border hover:bg-accent"
             >

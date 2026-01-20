@@ -757,13 +757,13 @@ export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="default">
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback />
       </Avatar>
       <Avatar variant="nordic" sizes="xsm">
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback />
       </Avatar>
       <Avatar variant="fjord" sizes="xxsm">
-        <AvatarFallback></AvatarFallback>
+        <AvatarFallback />
       </Avatar>
     </div>
   ),
@@ -1404,7 +1404,7 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">Edge Cases</h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
-            <AvatarFallback></AvatarFallback>
+            <AvatarFallback />
           </Avatar>
           <Avatar variant="nordic">
             <AvatarFallback>A</AvatarFallback>

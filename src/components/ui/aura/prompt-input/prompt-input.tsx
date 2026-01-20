@@ -676,7 +676,7 @@ export const PromptInput = ({
       files.map(async (file) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id, ...item } = file;
-        if (item.url && item.url.startsWith("blob:")) {
+        if (item.url?.startsWith("blob:")) {
           return {
             ...item,
             url: await convertBlobUrlToDataUrl(item.url),

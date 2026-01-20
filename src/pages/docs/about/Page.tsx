@@ -215,9 +215,9 @@ export default function Home() {
                 </Button>
               </Card>
               <Card className="p-6 space-y-3">
-                <div className="h-3 bg-primary rounded-full"></div>
-                <div className="h-3 bg-primary/60 rounded-full"></div>
-                <div className="h-3 bg-primary/30 rounded-full"></div>
+                <div className="h-3 bg-primary rounded-full" />
+                <div className="h-3 bg-primary/60 rounded-full" />
+                <div className="h-3 bg-primary/30 rounded-full" />
               </Card>
               <Card className="p-6">
                 <div className="space-y-2">

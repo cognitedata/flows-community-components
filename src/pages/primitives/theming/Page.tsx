@@ -32,9 +32,9 @@ function hslToHex(hsl: string): string {
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = l - c / 2;
 
-  let r = 0,
-    g = 0,
-    b = 0;
+  let r = 0;
+  let g = 0;
+  let b = 0;
 
   if (0 <= h && h < 60) {
     r = c;
@@ -1747,8 +1747,8 @@ export default function ThemingPage() {
                                 Borders & Dividers
                               </h4>
                               <div className="space-y-2">
-                                <div className="h-px bg-border"></div>
-                                <div className="h-0.5 bg-muted"></div>
+                                <div className="h-px bg-border" />
+                                <div className="h-0.5 bg-muted" />
                                 <div className="border-l-4 border-primary pl-4">
                                   <p className="text-sm">Left border accent</p>
                                 </div>

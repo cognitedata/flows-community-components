@@ -39,7 +39,7 @@ const steps: Step[] = [
     title: "Set up environment variables",
     description:
       "Copy or create a .env file and add the environment variables from .env.example and configure them for your project",
-    code: `touch .env`,
+    code: "touch .env",
   },
   {
     icon: Sparkles,

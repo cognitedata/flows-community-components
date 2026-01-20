@@ -185,7 +185,7 @@ export const CodeBlockCopyButton = ({
 
     try {
       // Check for permission explicitly if the browser supports it
-      if (navigator.permissions && navigator.permissions.query) {
+      if (navigator.permissions?.query) {
         const permissionStatus = await navigator.permissions.query({
           name: "clipboard-write" as PermissionName,
         });

@@ -275,18 +275,21 @@ export const Controlled: Story = {
       <div className="space-y-4">
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setValue("item-1")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Open Item 1
           </button>
           <button
+            type="button"
             onClick={() => setValue("item-2")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Open Item 2
           </button>
           <button
+            type="button"
             onClick={() => setValue("item-3")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
