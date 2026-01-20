@@ -45,7 +45,7 @@ import {
  * ```
  */
 const meta: Meta = {
-  title: "Layouts/Colors",
+  title: "Foundations/Colors",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
