@@ -5,7 +5,7 @@ import { within, userEvent, expect } from "@storybook/test";
 import { useState, type ChangeEvent } from "react";
 
 import { Label } from "./label";
-import { Input } from "../input/input";
+import { Input } from "@/components/ui/aura/input";
 
 const meta: Meta<typeof Label> = {
   title: "Form/Label",
