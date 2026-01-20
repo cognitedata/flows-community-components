@@ -6,7 +6,7 @@
   "files": [
     {
       "path": "src/styleScope.ts",
-      "content": "// used both at runtime and build time\nconst styleScope = {\n  styleScope: 'eos-style-scope',\n  portalContainer: 'eos-portal-container',\n};\n\nexport default styleScope;\n",
+      "content": "// used both at runtime and build time\nconst styleScope = {\n  styleScope: \"eos-style-scope\",\n  portalContainer: \"eos-portal-container\",\n};\n\nexport default styleScope;\n",
       "type": "registry:lib"
     }
   ],

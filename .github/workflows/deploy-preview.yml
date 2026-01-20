@@ -52,16 +52,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Restore cache
-        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5
-        with:
-          path: |
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-
-      - name: Build with Next.js
+      - name: Build with Vite
         run: pnpm run build
         env:
           PAGES_BASE_PATH: /aura/branches/${{ steps.branch.outputs.name }}
@@ -69,7 +60,7 @@ jobs:
       - name: Add branch metadata
         run: |
           # Add metadata file for the manifest
-          cat > out/_branch-meta.json << EOF
+          cat > dist/_branch-meta.json << EOF
           {
             "name": "${{ steps.branch.outputs.name }}",
             "original": "${{ steps.branch.outputs.original }}",
@@ -82,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: branch-preview-${{ steps.branch.outputs.name }}
-          path: out
+          path: dist
           retention-days: 30
           overwrite: true
 

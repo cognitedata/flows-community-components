@@ -5,16 +5,6 @@
  * types to ensure consistency across all components.
  */
 
-/** Reference to a story to display in the docs page */
-export interface DocsStory {
-  /** The export name of the story in the stories file */
-  storyKey: string;
-  /** Human-readable title for the docs page */
-  title: string;
-  /** Description shown below the title */
-  description: string;
-}
-
 /** A code example for the documentation */
 export interface CodeExample {
   /** Title of the code example */
@@ -24,4 +14,3 @@ export interface CodeExample {
   /** The actual code string */
   code: string;
 }
-
