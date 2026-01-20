@@ -123,7 +123,7 @@ export const WithAsterisk: Story = {
         <img
           src="/asterisk.svg"
           alt="required"
-          className="inline-block ml-0.5 relative -top-1"
+          className="inline-block ml-0.5 align-middle"
         />
       </>
     ),
