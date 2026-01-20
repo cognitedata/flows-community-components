@@ -4,18 +4,19 @@
  * Standalone script to extract source code from story files.
  *
  * This script can be run directly: npx tsx scripts/extract-story-sources.ts
- * It uses the same extraction logic as the Vite plugin.
+ * It uses shared utilities with the Vite plugin.
  */
 
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { parse } from "@babel/parser";
-import _traverse from "@babel/traverse";
-import _generate from "@babel/generator";
-
-const traverse = (_traverse as any).default || _traverse;
-const generate = (_generate as any).default || _generate;
+import {
+  traverse,
+  generate,
+  normalizeIndentation,
+  parseSource,
+  GENERATOR_OPTIONS,
+} from "./story-source-utils";
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -30,50 +31,6 @@ interface StorySourceMap {
   };
 }
 
-/**
- * Normalizes indentation by detecting the minimum indentation level
- * and removing it from all lines, so the code starts at column 0.
- */
-function normalizeIndentation(code: string): string {
-  if (!code) return code;
-
-  // First, trim only the leading/trailing newlines but preserve internal structure
-  const trimmed = code.replace(/^\n+/, "").replace(/\n+$/, "");
-  const lines = trimmed.split("\n");
-  if (lines.length === 0) return code.trim();
-
-  // Find the minimum indentation (excluding empty lines)
-  let minIndent = Number.POSITIVE_INFINITY;
-  for (const line of lines) {
-    const trimmedLine = line.trim();
-    if (trimmedLine.length === 0) continue; // Skip empty lines
-    const indent = line.match(/^(\s*)/)?.[1]?.length ?? 0;
-    if (indent < minIndent) {
-      minIndent = indent;
-    }
-  }
-
-  // If no indentation found or all lines start at column 0, return trimmed
-  if (minIndent === Number.POSITIVE_INFINITY || minIndent === 0) {
-    return trimmed;
-  }
-
-  // Remove the minimum indentation from all lines, preserving relative indentation
-  const normalized = lines
-    .map((line) => {
-      const trimmedLine = line.trim();
-      if (trimmedLine.length === 0) return "";
-      // Only remove up to minIndent characters, don't go negative
-      if (line.length >= minIndent) {
-        const result = line.slice(minIndent);
-        return result;
-      }
-      return line;
-    })
-    .join("\n");
-
-  return normalized.trim();
-}
 
 /**
  * Extracts JSX from an AST node representing a render function.
@@ -130,10 +87,7 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
 
   if (jsxNode) {
     try {
-      const generated = generate(jsxNode, {
-        retainLines: false,
-        compact: false,
-      }, sourceCode);
+      const generated = generate(jsxNode, GENERATOR_OPTIONS, sourceCode);
       return normalizeIndentation(generated.code);
     } catch (error) {
       console.error("Failed to generate code from AST node:", error);
@@ -153,10 +107,7 @@ function extractStorySources(filePath: string): Record<string, string> {
 
   try {
     // Parse TypeScript/JSX file with Babel
-    const ast = parse(content, {
-      sourceType: "module",
-      plugins: ["typescript", "jsx", "decorators-legacy"],
-    });
+    const ast = parseSource(content);
 
     // Traverse AST to find story exports
     traverse(ast, {

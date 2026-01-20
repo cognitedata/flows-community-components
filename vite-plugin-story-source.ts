@@ -6,99 +6,16 @@
  */
 
 import type { Plugin } from "vite";
-import { parse } from "@babel/parser";
-import _traverse from "@babel/traverse";
-import _generate from "@babel/generator";
 import * as t from "@babel/types";
 import * as fs from "node:fs";
 import * as path from "node:path";
-
-const traverse = (_traverse as any).default || _traverse;
-const generate = (_generate as any).default || _generate;
-
-
-/**
- * Normalizes indentation by detecting the minimum indentation level
- * and removing it from all lines, so the code starts at column 0.
- * Preserves relative indentation and empty lines.
- */
-function normalizeIndentation(code: string): string {
-  if (!code) return code;
-
-  // First, trim only the leading/trailing newlines but preserve internal structure
-  const trimmed = code.replace(/^\n+/, "").replace(/\n+$/, "");
-  const lines = trimmed.split("\n");
-  if (lines.length === 0) return code.trim();
-
-  // Find the minimum indentation (excluding empty lines)
-  let minIndent = Number.POSITIVE_INFINITY;
-  for (const line of lines) {
-    const trimmedLine = line.trim();
-    if (trimmedLine.length === 0) continue; // Skip empty lines
-    const indent = line.match(/^(\s*)/)?.[1]?.length ?? 0;
-    if (indent < minIndent) {
-      minIndent = indent;
-    }
-  }
-
-  // If no indentation found (all empty lines), return trimmed
-  if (minIndent === Number.POSITIVE_INFINITY) {
-    return trimmed;
-  }
-
-  // Special case: if first line has no indentation (0) but other lines do,
-  // we need to normalize the indented lines. Find the minimum of indented lines.
-  if (minIndent === 0) {
-    const hasIndentedLines = lines.some((line) => {
-      const trimmedLine = line.trim();
-      if (trimmedLine.length === 0) return false;
-      const indent = line.match(/^(\s*)/)?.[1]?.length ?? 0;
-      return indent > 0;
-    });
-
-    if (hasIndentedLines) {
-      // Find minimum indentation among lines that actually have indentation
-      let minIndentedLineIndent = Number.POSITIVE_INFINITY;
-      for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (trimmedLine.length === 0) continue;
-        const indent = line.match(/^(\s*)/)?.[1]?.length ?? 0;
-        if (indent > 0 && indent < minIndentedLineIndent) {
-          minIndentedLineIndent = indent;
-        }
-      }
-      // Use the minimum of indented lines as our base for normalization
-      if (minIndentedLineIndent !== Number.POSITIVE_INFINITY) {
-        minIndent = minIndentedLineIndent;
-      }
-    }
-  }
-
-  // Remove the minimum indentation from all lines, preserving relative indentation
-  // This ensures the first non-empty line starts at column 0
-  // Important: Only remove indentation from lines that have at least minIndent spaces
-  const normalized = lines
-    .map((line) => {
-      const trimmedLine = line.trim();
-      if (trimmedLine.length === 0) return ""; // Preserve empty lines as empty strings
-      
-      // Calculate actual indentation for this line
-      const indent = line.match(/^(\s*)/)?.[1]?.length ?? 0;
-      
-      // Only remove indentation if this line has at least minIndent spaces
-      // This prevents cutting characters from lines that start at column 0
-      // Also ensure we don't slice more than the line length
-      if (indent >= minIndent && line.length >= minIndent) {
-        return line.slice(minIndent);
-      }
-      // If line has less indentation than minIndent, return as-is (preserves first line at column 0)
-      return line;
-    })
-    .join("\n");
-
-  // Only trim leading/trailing newlines, NOT whitespace from the first/last lines
-  return normalized.replace(/^\n+/, "").replace(/\n+$/, "");
-}
+import {
+  traverse,
+  generate,
+  normalizeIndentation,
+  parseSource,
+  GENERATOR_OPTIONS,
+} from "./scripts/story-source-utils";
 
 /**
  * Extracts source code from an AST node representing a render function.
@@ -182,33 +99,15 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
             const arg = stmt.argument;
             // Handle wrapped JSX: return (<JSX />)
             if (arg.type === "ParenthesizedExpression") {
-              const generated = generate(arg.expression, {
-                retainLines: false,
-                compact: false,
-                jsescOption: {
-                  quotes: "double",
-                },
-              }, sourceCode);
+              const generated = generate(arg.expression, GENERATOR_OPTIONS, sourceCode);
               return generated.code;
             }
             // Handle direct JSX: return <JSX />
-            const generated = generate(arg, {
-              retainLines: false,
-              compact: false,
-              jsescOption: {
-                quotes: "double",
-              },
-            }, sourceCode);
+            const generated = generate(arg, GENERATOR_OPTIONS, sourceCode);
             return generated.code;
           }
           // For all other statements (hooks, state, etc.), generate as-is
-          const generated = generate(stmt, {
-            retainLines: false,
-            compact: false,
-            jsescOption: {
-              quotes: "double",
-            },
-          }, sourceCode);
+          const generated = generate(stmt, GENERATOR_OPTIONS, sourceCode);
           return generated.code;
         });
         
@@ -221,13 +120,7 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
       }
       
       // For direct JSX (arrow functions without block), generate normally
-      const generated = generate(codeToExtract, {
-        retainLines: false,
-        compact: false,
-        jsescOption: {
-          quotes: "double",
-        },
-      }, sourceCode);
+      const generated = generate(codeToExtract, GENERATOR_OPTIONS, sourceCode);
       const normalized = normalizeIndentation(generated.code);
       return normalized;
     } catch (error) {
@@ -253,35 +146,23 @@ function injectSourceCode(code: string, id: string): string | null {
     // The 'code' parameter might be normalized by other plugins
     let originalSource = code;
     try {
-      // Try to resolve the actual file path from the id
-      // Vite's id can be in various formats, so we need to handle them
-      let filePath = id;
+      // Resolve file path from Vite id (remove query params/hash, handle virtual files)
+      let filePath = id.split("?")[0].split("#")[0];
       
-      // Remove query parameters and hash
-      filePath = filePath.split("?")[0].split("#")[0];
-      
-      // Handle virtual files and special paths
       if (!filePath.includes("node_modules") && !filePath.startsWith("\0")) {
-        // Try to resolve relative to cwd if it's a relative path
         if (!path.isAbsolute(filePath)) {
           filePath = path.resolve(process.cwd(), filePath);
         }
-        
-        // Check if file exists and is readable
         if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
           originalSource = fs.readFileSync(filePath, "utf-8");
         }
       }
-    } catch (fileError) {
+    } catch {
       // Fall back to using the code parameter if file read fails
       // This is expected for virtual files or transformed modules
     }
     
-    const ast = parse(originalSource, {
-      sourceType: "module",
-      plugins: ["typescript", "jsx", "decorators-legacy"],
-      ranges: true, // Enable character offsets (start/end properties) for direct source extraction
-    });
+    const ast = parseSource(originalSource, true);
 
     const sources: Record<string, string> = {};
 
