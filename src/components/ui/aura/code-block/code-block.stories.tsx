@@ -236,7 +236,7 @@ export const Python: Story = {
 /**
  * JSON code.
  */
-export const JSON: Story = {
+export const JSONExample: Story = {
   render: () => (
     <CodeBlock code={sampleCode.json} language="json">
       <CodeBlockCopyButton />

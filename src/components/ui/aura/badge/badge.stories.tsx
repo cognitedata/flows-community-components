@@ -279,7 +279,7 @@ export const Secondary: Story = {
 /**
  * Error variant - red for errors and critical issues
  */
-export const Error: Story = {
+export const ErrorBadge: Story = {
   render: (args) => (
     <Badge {...args}>
       <IconAlertHexagon className="size-3" />
