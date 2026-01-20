@@ -14,19 +14,12 @@ interface StoryEntry {
   sourceCode?: string;
 }
 
-interface StorySourceMap {
-  [slug: string]: {
-    [storyKey: string]: string;
-  };
-}
 
 // Use import.meta.glob to let Vite know about all stories files at build time
 // Using eager: true ensures modules are loaded at build time and included in production bundle
 // This follows Storybook's recommended pattern for portable stories
 const storiesModules = import.meta.glob("@/components/ui/aura/*/*.stories.tsx", { eager: true });
 
-// Cache for the source code map (loaded once)
-let storySourceMapCache: StorySourceMap | null | undefined = undefined;
 
 // Create a slug-to-module mapping at module load time to avoid path resolution issues
 // This works regardless of how Vite transforms paths in production builds
@@ -71,23 +64,6 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
     let cancelled = false;
 
     async function loadStories() {
-      // Load source code map if not already loaded (for production builds)
-      if (storySourceMapCache === undefined) {
-        try {
-          // Fetch the source map from public directory
-          const response = await fetch("/story-source-map.json");
-          if (response.ok) {
-            const map = (await response.json()) as StorySourceMap;
-            storySourceMapCache = map;
-          } else {
-            storySourceMapCache = null;
-          }
-        } catch (error) {
-          // Source map not available (dev mode or first build)
-          storySourceMapCache = null;
-        }
-      }
-
       // Reset state when slug changes to avoid stale data
       if (!cancelled) {
         setStories(null);
@@ -183,16 +159,8 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
               }
             | undefined;
 
-          // Extract source code from story parameters first
-          let sourceCode = originalStory?.parameters?.docs?.source?.code;
-          
-          // Try to get source code from the build-time source map
-          if (!sourceCode && storySourceMapCache) {
-            const slugSources = storySourceMapCache[slug];
-            if (slugSources?.[key]) {
-              sourceCode = slugSources[key];
-            }
-          }
+          // Extract source code from story parameters (injected at build time)
+          const sourceCode = originalStory?.parameters?.docs?.source?.code;
 
           // Always return a story entry, even if source code extraction failed
           return {

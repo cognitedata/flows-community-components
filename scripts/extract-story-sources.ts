@@ -10,8 +10,11 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadCsf } from "@storybook/csf-tools";
+import { parse } from "@babel/parser";
+import _traverse from "@babel/traverse";
 import _generate from "@babel/generator";
+
+const traverse = (_traverse as any).default || _traverse;
 const generate = (_generate as any).default || _generate;
 
 // Get __dirname equivalent in ES modules
@@ -142,78 +145,66 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
 }
 
 /**
- * Extracts source code for all stories in a story file using CSF Tools.
+ * Extracts source code for all stories in a story file using Babel parser.
  */
 function extractStorySources(filePath: string): Record<string, string> {
   const content = fs.readFileSync(filePath, "utf-8");
   const sources: Record<string, string> = {};
 
   try {
-    // Parse the CSF file using Storybook's official parser
-    const csf = loadCsf(content, {
-      fileName: filePath,
-      makeTitle: (title) => title,
+    // Parse TypeScript/JSX file with Babel
+    const ast = parse(content, {
+      sourceType: "module",
+      plugins: ["typescript", "jsx", "decorators-legacy"],
     });
 
-    // Parse the file to get AST
-    csf.parse();
+    // Traverse AST to find story exports
+    traverse(ast, {
+      ExportNamedDeclaration(path: any) {
+        const { node } = path;
+        if (node.declaration?.type !== "VariableDeclaration") return;
 
-    // Get the AST to traverse story exports
-    // The AST is a File node, which has a program property with the body
-    const ast = csf._ast as any;
-    const program = ast?.program;
-    if (!program || !program.body) {
-      return sources;
-    }
+        const declaration = node.declaration;
+        const storyVar = declaration.declarations[0];
+        const storyKey = storyVar?.id?.name;
 
-    // Find all story exports: export const StoryName: Story = { ... }
-    const storyExports = program.body.filter(
-      (node: any) =>
-        node.type === "ExportNamedDeclaration" &&
-        node.declaration?.type === "VariableDeclaration"
-    );
+        if (!storyKey) return;
 
-    for (const exportNode of storyExports) {
-      const declaration = exportNode.declaration;
-      const storyVar = declaration.declarations[0];
-      const storyKey = storyVar?.id?.name;
+        // Get the story's initializer (the object or function)
+        const init = storyVar.init;
+        if (!init) return;
 
-      if (!storyKey) continue;
+        let renderNode: any = null;
 
-      // Get the story's initializer (the object or function)
-      const init = storyVar.init;
-      if (!init) continue;
-
-      let renderNode: any = null;
-
-      // Story is an object: { render: ..., args: ... }
-      if (init.type === "ObjectExpression") {
-        const renderProperty = init.properties.find(
-          (prop: any) =>
-            (prop.key?.name === "render" || prop.key?.value === "render") &&
-            prop.type === "ObjectProperty"
-        );
-        if (renderProperty?.value) {
-          renderNode = renderProperty.value;
+        // Story is an object: { render: ..., args: ... }
+        if (init.type === "ObjectExpression") {
+          const renderProperty = init.properties.find(
+            (prop: any) =>
+              (prop.key?.name === "render" || prop.key?.value === "render") &&
+              prop.type === "ObjectProperty"
+          );
+          if (renderProperty?.value) {
+            renderNode = renderProperty.value;
+          }
         }
-      }
-      // Story is directly a function (less common)
-      else if (
-        init.type === "ArrowFunctionExpression" ||
-        init.type === "FunctionExpression"
-      ) {
-        renderNode = init;
-      }
-
-      if (renderNode) {
-        const sourceCode = extractJSXFromRenderNode(renderNode, content);
-        if (sourceCode) {
-          sources[storyKey] = sourceCode;
+        // Story is directly a function (less common)
+        else if (
+          init.type === "ArrowFunctionExpression" ||
+          init.type === "FunctionExpression"
+        ) {
+          renderNode = init;
         }
-      }
-    }
+
+        if (renderNode) {
+          const sourceCode = extractJSXFromRenderNode(renderNode, content);
+          if (sourceCode) {
+            sources[storyKey] = sourceCode;
+          }
+        }
+      },
+    });
   } catch (error) {
-    console.error(`Failed to parse CSF file ${filePath}:`, error);
+    console.error(`Failed to parse story file ${filePath}:`, error);
   }
 
   return sources;

@@ -1,30 +1,19 @@
 /**
- * Vite plugin to extract story source code at build time.
+ * Vite plugin to inject story source code at build time.
  *
- * This plugin extracts JSX from story render functions and generates
- * a source code map JSON file that can be loaded at runtime.
+ * This plugin extracts JSX from story render functions and injects
+ * the source code directly into story parameters.docs.source.code.
  */
 
 import type { Plugin } from "vite";
-import * as fs from "node:fs";
-import * as path from "node:path";
-import { fileURLToPath } from "node:url";
-import { loadCsf } from "@storybook/csf-tools";
+import { parse } from "@babel/parser";
+import _traverse from "@babel/traverse";
 import _generate from "@babel/generator";
+import * as t from "@babel/types";
+
+const traverse = (_traverse as any).default || _traverse;
 const generate = (_generate as any).default || _generate;
 
-// Get __dirname equivalent in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const storiesDir = path.join(__dirname, "./src/components/ui/aura");
-const outputPath = path.join(__dirname, "./public/story-source-map.json");
-
-interface StorySourceMap {
-  [slug: string]: {
-    [storyKey: string]: string;
-  };
-}
 
 /**
  * Normalizes indentation by detecting the minimum indentation level
@@ -135,152 +124,180 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
 }
 
 /**
- * Extracts source code for all stories in a story file using CSF Tools.
+ * Injects source code into story parameters at build time.
  */
-function extractStorySources(filePath: string): Record<string, string> {
-  const content = fs.readFileSync(filePath, "utf-8");
-  const sources: Record<string, string> = {};
+function injectSourceCode(code: string, id: string): string | null {
+  // Only process story files
+  if (!id.includes(".stories.tsx") && !id.includes(".stories.ts")) {
+    return null;
+  }
 
   try {
-    // Parse the CSF file using Storybook's official parser
-    const csf = loadCsf(content, {
-      fileName: filePath,
-      makeTitle: (title) => title,
+    const ast = parse(code, {
+      sourceType: "module",
+      plugins: ["typescript", "jsx", "decorators-legacy"],
     });
 
-    // Parse the file to get AST
-    csf.parse();
+    const sources: Record<string, string> = {};
 
-    // Get the AST to traverse story exports
-    // The AST is a File node, which has a program property with the body
-    const ast = csf._ast as any;
-    const program = ast?.program;
-    if (!program || !program.body) {
-      return sources;
-    }
+    // First pass: extract all source codes
+    traverse(ast, {
+      ExportNamedDeclaration(path: any) {
+        const { node } = path;
+        if (node.declaration?.type !== "VariableDeclaration") return;
 
-    // Find all story exports: export const StoryName: Story = { ... }
-    const storyExports = program.body.filter(
-      (node: any) =>
-        node.type === "ExportNamedDeclaration" &&
-        node.declaration?.type === "VariableDeclaration"
-    );
+        const declaration = node.declaration;
+        const storyVar = declaration.declarations[0];
+        const storyKey = storyVar?.id?.name;
 
-    for (const exportNode of storyExports) {
-      const declaration = exportNode.declaration;
-      const storyVar = declaration.declarations[0];
-      const storyKey = storyVar?.id?.name;
+        if (!storyKey) return;
 
-      if (!storyKey) continue;
+        const init = storyVar.init;
+        if (!init) return;
 
-      // Get the story's initializer (the object or function)
-      const init = storyVar.init;
-      if (!init) continue;
+        let renderNode: any = null;
 
-      let renderNode: any = null;
-
-      // Story is an object: { render: ..., args: ... }
-      if (init.type === "ObjectExpression") {
-        const renderProperty = init.properties.find(
-          (prop: any) =>
-            (prop.key?.name === "render" || prop.key?.value === "render") &&
-            prop.type === "ObjectProperty"
-        );
-        if (renderProperty?.value) {
-          renderNode = renderProperty.value;
+        if (init.type === "ObjectExpression") {
+          const renderProperty = init.properties.find(
+            (prop: any) =>
+              (prop.key?.name === "render" || prop.key?.value === "render") &&
+              prop.type === "ObjectProperty"
+          );
+          renderNode = renderProperty?.value || null;
+        } else if (
+          init.type === "ArrowFunctionExpression" ||
+          init.type === "FunctionExpression"
+        ) {
+          renderNode = init;
         }
-      }
-      // Story is directly a function (less common)
-      else if (
-        init.type === "ArrowFunctionExpression" ||
-        init.type === "FunctionExpression"
-      ) {
-        renderNode = init;
-      }
 
-      if (renderNode) {
-        const sourceCode = extractJSXFromRenderNode(renderNode, content);
-        if (sourceCode) {
-          sources[storyKey] = sourceCode;
+        if (renderNode) {
+          const sourceCode = extractJSXFromRenderNode(renderNode, code);
+          if (sourceCode) {
+            sources[storyKey] = sourceCode;
+          }
         }
-      }
+      },
+    });
+
+    // Second pass: inject source code into parameters
+    if (Object.keys(sources).length > 0) {
+      traverse(ast, {
+        ExportNamedDeclaration(path: any) {
+          const { node } = path;
+          if (node.declaration?.type !== "VariableDeclaration") return;
+
+          const declaration = node.declaration;
+          const storyVar = declaration.declarations[0];
+          const storyKey = storyVar?.id?.name;
+
+          if (!storyKey || !sources[storyKey]) return;
+
+          const init = storyVar.init;
+          if (!init || init.type !== "ObjectExpression") return;
+
+          // Find or create parameters.docs.source.code
+          let parametersProp = init.properties.find(
+            (prop: any) =>
+              (prop.key?.name === "parameters" || prop.key?.value === "parameters") &&
+              prop.type === "ObjectProperty"
+          ) as any;
+
+          if (!parametersProp) {
+            // Create parameters property
+            parametersProp = t.objectProperty(
+              t.identifier("parameters"),
+              t.objectExpression([])
+            );
+            init.properties.push(parametersProp);
+          }
+
+          const parametersObj = parametersProp.value;
+          if (parametersObj.type !== "ObjectExpression") {
+            return;
+          }
+
+          // Find or create docs property
+          const existingDocsProp = parametersObj.properties.find(
+            (prop: any) =>
+              (prop.key?.name === "docs" || prop.key?.value === "docs") &&
+              prop.type === "ObjectProperty"
+          ) as any;
+
+          const docsProp = existingDocsProp || t.objectProperty(t.identifier("docs"), t.objectExpression([]));
+          if (!existingDocsProp) {
+            parametersObj.properties.push(docsProp);
+          }
+
+          const docsObj = docsProp.value;
+          if (docsObj.type !== "ObjectExpression") {
+            return;
+          }
+
+          // Find or create source property
+          const existingSourceProp = docsObj.properties.find(
+            (prop: any) =>
+              (prop.key?.name === "source" || prop.key?.value === "source") &&
+              prop.type === "ObjectProperty"
+          ) as any;
+
+          const sourceProp = existingSourceProp || t.objectProperty(t.identifier("source"), t.objectExpression([]));
+          if (!existingSourceProp) {
+            docsObj.properties.push(sourceProp);
+          }
+
+          const sourceObj = sourceProp.value;
+          if (sourceObj.type !== "ObjectExpression") {
+            return;
+          }
+
+          // Add or update code property
+          const codePropIndex = sourceObj.properties.findIndex(
+            (prop: any) =>
+              (prop.key?.name === "code" || prop.key?.value === "code") &&
+              prop.type === "ObjectProperty"
+          );
+
+          const codeValue = t.stringLiteral(sources[storyKey]);
+          if (codePropIndex >= 0) {
+            sourceObj.properties[codePropIndex] = t.objectProperty(
+              t.identifier("code"),
+              codeValue
+            );
+          } else {
+            sourceObj.properties.push(t.objectProperty(t.identifier("code"), codeValue));
+          }
+        },
+      });
+
+      // Generate the transformed code
+      const result = generate(ast, {
+        retainLines: false,
+        compact: false,
+      }, code);
+
+      return result.code;
     }
   } catch (error) {
-    console.error(`Failed to parse CSF file ${filePath}:`, error);
+    console.error(`[story-source-injection] Failed to process ${id}:`, error);
   }
 
-  return sources;
-}
-
-/**
- * Main function to extract all story sources.
- */
-function extractAllStorySources(): StorySourceMap {
-  const sourceMap: StorySourceMap = {};
-
-  if (!fs.existsSync(storiesDir)) {
-    console.warn(`Stories directory not found: ${storiesDir}`);
-    return sourceMap;
-  }
-
-  const entries = fs.readdirSync(storiesDir, { withFileTypes: true });
-
-  for (const entry of entries) {
-    if (!entry.isDirectory()) {
-      continue;
-    }
-
-    const componentDir = path.join(storiesDir, entry.name);
-    const storiesFile = path.join(componentDir, `${entry.name}.stories.tsx`);
-
-    if (!fs.existsSync(storiesFile)) {
-      continue;
-    }
-
-    try {
-      const sources = extractStorySources(storiesFile);
-      if (Object.keys(sources).length > 0) {
-        sourceMap[entry.name] = sources;
-      }
-    } catch (error) {
-      console.error(`✗ Failed to extract sources from ${entry.name}:`, error);
-    }
-  }
-
-  return sourceMap;
-}
-
-/**
- * Write the source map to the output file.
- */
-function writeSourceMap(sourceMap: StorySourceMap): void {
-  const publicDir = path.dirname(outputPath);
-  if (!fs.existsSync(publicDir)) {
-    fs.mkdirSync(publicDir, { recursive: true });
-  }
-
-  fs.writeFileSync(outputPath, JSON.stringify(sourceMap, null, 2), "utf-8");
+  return null;
 }
 
 export function storySourcePlugin(): Plugin {
   return {
-    name: "story-source-extraction",
+    name: "story-source-injection",
     enforce: "pre",
-    async buildStart() {
-      // Extract story sources at the start of the build
-      try {
-        const sourceMap = extractAllStorySources();
-        writeSourceMap(sourceMap);
-        const totalStories = Object.values(sourceMap).reduce(
-          (sum, stories) => sum + Object.keys(stories).length,
-          0
-        );
-        console.log(
-          `[story-source-extraction] Extracted ${totalStories} stories from ${Object.keys(sourceMap).length} components`
-        );
-      } catch (error) {
-        console.error("[story-source-extraction] Failed to extract story sources:", error);
+    transform(code, id) {
+      const transformed = injectSourceCode(code, id);
+      if (transformed) {
+        return {
+          code: transformed,
+          map: null,
+        };
       }
+      return null;
     },
   };
 }
