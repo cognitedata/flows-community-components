@@ -359,6 +359,31 @@
       ]
     },
     {
+      "name": "list",
+      "type": "registry:component",
+      "title": "List",
+      "description": "A foundational list component for displaying items with optional label-value pairs.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/list/list.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact-list",
+      "type": "registry:component",
+      "title": "Artifact List",
+      "description": "A list artifact widget component built on Card and List.",
+      "registryDependencies": ["card", "list"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-list/artifact-list.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menubar",
       "type": "registry:component",
       "title": "Menubar",
