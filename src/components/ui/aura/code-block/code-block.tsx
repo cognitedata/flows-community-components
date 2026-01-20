@@ -129,7 +129,7 @@ export const CodeBlock = ({
         )}
         {...props}
       >
-        <div className="relative overflow-x-auto">
+        <div className="relative">
           <div
             className={cn(
               "dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
