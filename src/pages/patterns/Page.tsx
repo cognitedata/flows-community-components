@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/aura/card';
 
 const patterns = [
@@ -22,7 +22,7 @@ export default function PatternsPage() {
           {patterns.map((pattern) => (
             <Link
               key={pattern.name}
-              href={`/patterns/${pattern.name.toLowerCase().replace(/\s+/g, '-')}`}
+              to={`/patterns/${pattern.name.toLowerCase().replace(/\s+/g, '-')}`}
               className="block"
             >
               <Card className="h-full transition-colors hover:border-primary">
