@@ -91,7 +91,7 @@ export default function AIComponentPage() {
 
   if (!slug || !validSlugs.includes(slug)) {
     return (
-      <div className="max-w-6xl mx-auto py-10">
+      <div className="max-w-4xl mx-auto py-10">
         <div className="space-y-4">
           <h1 className="text-2xl font-bold">Component not found</h1>
           <Button variant="secondary" size="sm" onClick={() => navigate("/ai")}>
@@ -105,7 +105,7 @@ export default function AIComponentPage() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto py-10">
+      <div className="max-w-4xl mx-auto py-10">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-muted rounded w-1/4" />
           <div className="h-4 bg-muted rounded w-1/2" />
@@ -123,7 +123,7 @@ export default function AIComponentPage() {
     meta?.description || "AI element component for building conversational interfaces";
 
   return (
-    <div className="max-w-6xl mx-auto py-10">
+    <div className="max-w-4xl mx-auto py-10">
       <div className="space-y-8">
         {/* Navigation */}
         <div className="flex items-center gap-4">
