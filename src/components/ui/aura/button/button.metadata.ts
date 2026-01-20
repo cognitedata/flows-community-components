@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "@/lib/component-examples";
 
 /**
  * Button Component Metadata
@@ -7,38 +7,21 @@ import type { ComponentMeta } from '@/lib/component-examples';
  * component documentation pages and provide context for LLMs.
  */
 export const ButtonMetadata: ComponentMeta = {
-  name: 'Button',
+  name: "Button",
+  status: "draft",
 
   description:
-    'A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.',
+    "A versatile button component with multiple variants and sizes, built with Radix UI Slot and class-variance-authority.",
 
   llmUsage:
     "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
 
-  importPath: '@/components/ui/aura/button',
-
-  docsStories: [
-    {
-      storyKey: 'AllVariants',
-      title: 'Button Variants',
-      description: 'Different visual styles for various use cases.',
-    },
-    {
-      storyKey: 'MainComponent',
-      title: 'Main Component',
-      description: 'Available size and variation options.',
-    },
-    {
-      storyKey: 'ButtonStates',
-      title: 'Button States',
-      description: 'Disabled and loading states',
-    },
-  ],
+  importPath: "@/components/ui/aura/button",
 
   codeExamples: [
     {
-      title: 'Button Variants',
-      description: 'Different visual styles for various use cases.',
+      title: "Button Variants",
+      description: "Different visual styles for various use cases.",
       code: `import { Button } from "@/components/ui/aura/button"
 import { IconPlus, IconBookmark, IconTrash, IconExternalLink } from "@tabler/icons-react"
 
@@ -70,8 +53,8 @@ export function ButtonVariantsDemo() {
 }`,
     },
     {
-      title: 'Button Sizes',
-      description: 'Available size options for different contexts.',
+      title: "Button Sizes",
+      description: "Available size options for different contexts.",
       code: `import { Button } from "@/components/ui/aura/button"
 import { IconPlus } from "@tabler/icons-react"
 
@@ -89,8 +72,8 @@ export function ButtonSizesDemo() {
 }`,
     },
     {
-      title: 'Button States',
-      description: 'Disabled and loading states.',
+      title: "Button States",
+      description: "Disabled and loading states.",
       code: `import { Button } from "@/components/ui/aura/button"
 import { IconLoader2 } from "@tabler/icons-react"
 

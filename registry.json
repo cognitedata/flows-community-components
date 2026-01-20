@@ -1,0 +1,2073 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "@aura",
+  "homepage": "https://cognitedata.github.io/aura/",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:file",
+      "title": "Theme",
+      "description": "Theme component.",
+      "files": [
+        {
+          "path": "src/styleScope.ts",
+          "type": "registry:item"
+        },
+        {
+          "path": "src/styleScope.d.ts",
+          "type": "registry:item"
+        }
+      ]
+    },
+    {
+      "name": "css",
+      "type": "registry:component",
+      "title": "CSS",
+      "description": "Installs Aura global styles (import once in your app entrypoint).",
+      "dependencies": [
+        "tw-animate-css"
+      ],
+      "files": [
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:component",
+      "title": "Accordion",
+      "description": "An accessible accordion with smooth expand/collapse built on Radix primitives.",
+      "dependencies": [
+        "@radix-ui/react-accordion",
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/accordion/accordion.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/accordion.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:component",
+      "title": "Alert",
+      "description": "Alert component.",
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "class-variance-authority",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/alert/alert.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/alert.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:component",
+      "title": "Alert Dialog",
+      "description": "A modal dialog for critical confirmations powered by Radix Alert Dialog.",
+      "dependencies": [
+        "@radix-ui/react-alert-dialog"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/alert-dialog/alert-dialog.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/alert-dialog.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:component",
+      "title": "Avatar",
+      "description": "Avatar component.",
+      "dependencies": [
+        "@radix-ui/react-avatar",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/avatar/avatar.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/avatar.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:component",
+      "title": "Badge",
+      "description": "A status badge component with size and variant support.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/badge/badge.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/badge.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:component",
+      "title": "Banner",
+      "description": "A banner component for displaying important messages with icon, title, status, and actions.",
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "class-variance-authority",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/badge"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/banner/banner.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/banner.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:component",
+      "title": "Breadcrumb",
+      "description": "Breadcrumb component.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/breadcrumb/breadcrumb.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/breadcrumb.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:component",
+      "title": "Button",
+      "description": "A versatile button component with variants, sizes, and slot support.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/button/button.tsx",
+          "target": "src/components/ui/aura/button.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "button-group",
+      "type": "registry:component",
+      "title": "Button Group",
+      "description": "A component for grouping buttons with horizontal or vertical orientation.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/button-group/button-group.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/button-group.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:component",
+      "title": "Calendar",
+      "description": "A themable DayPicker calendar with custom navigation controls.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/calendar/calendar.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/calendar.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:component",
+      "title": "Card",
+      "description": "A flexible card layout with header, content, action, and footer slots.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/card/card.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/card.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "colors",
+      "type": "registry:component",
+      "title": "Colors",
+      "description": "Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/colors/colors.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/colors.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:component",
+      "title": "Chart",
+      "description": "Chart component.",
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/chart/chart.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/chart.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:component",
+      "title": "Checkbox",
+      "description": "A checkbox component styled with Radix Checkbox and Tabler icons.",
+      "dependencies": [
+        "@radix-ui/react-checkbox",
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/checkbox/checkbox.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/checkbox.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:component",
+      "title": "Collapsible",
+      "description": "Collapsible component.",
+      "dependencies": [
+        "@radix-ui/react-collapsible"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/collapsible/collapsible.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/collapsible.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:component",
+      "title": "Combobox",
+      "description": "Combobox component.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/command",
+        "@aura/popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/combobox/combobox.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/combobox.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:component",
+      "title": "Command",
+      "description": "Command component.",
+      "dependencies": [
+        "cmdk",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/dialog"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/command/command.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/command.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:component",
+      "title": "Context Menu",
+      "description": "Context Menu component.",
+      "dependencies": [
+        "@radix-ui/react-context-menu",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/context-menu/context-menu.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/context-menu.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:component",
+      "title": "Date Picker",
+      "description": "Date Picker component.",
+      "dependencies": [
+        "date-fns",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/calendar",
+        "@aura/popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/date-picker/date-picker.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/date-picker.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:component",
+      "title": "Dialog",
+      "description": "A modal dialog with overlay, content, and close affordances built on Radix Dialog.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/dialog/dialog.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/dialog.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:component",
+      "title": "Drawer",
+      "description": "Drawer component.",
+      "dependencies": [
+        "vaul"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/drawer/drawer.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/drawer.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "title": "Dropdown Menu",
+      "description": "A dropdown menu with submenus, separators, and selection states.",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/dropdown-menu.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "helper-text",
+      "type": "registry:component",
+      "title": "Helper Text",
+      "description": "A text component for displaying helper messages and error messages below form fields. Can show an error icon and red text when in error state.",
+      "dependencies": [
+        "class-variance-authority",
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/helper-text/helper-text.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/helper-text.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:component",
+      "title": "Input",
+      "description": "A styled text input with focus, disabled, and invalid states.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/input/input.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/input.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:component",
+      "title": "Kbd",
+      "description": "Kbd component.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/kbd/kbd.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/kbd.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:component",
+      "title": "Label",
+      "description": "An accessible form label built on Radix Label.",
+      "dependencies": [
+        "@radix-ui/react-label"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/label/label.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/label.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "menubar",
+      "type": "registry:component",
+      "title": "Menubar",
+      "description": "Menubar component.",
+      "dependencies": [
+        "@radix-ui/react-menubar",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/menubar/menubar.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/menubar.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:component",
+      "title": "Pagination",
+      "description": "Pagination component.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/pagination/pagination.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/pagination.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:component",
+      "title": "Popover",
+      "description": "A popover trigger and content pair powered by Radix Popover.",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/popover/popover.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/popover.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:component",
+      "title": "Progress",
+      "description": "A progress bar component built on Radix Progress.",
+      "dependencies": [
+        "@radix-ui/react-progress"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/progress/progress.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/progress.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:component",
+      "title": "Radio Group",
+      "description": "Radio Group component.",
+      "dependencies": [
+        "@radix-ui/react-radio-group",
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/radio-group/radio-group.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/radio-group.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:component",
+      "title": "Scroll Area",
+      "description": "Scroll Area component.",
+      "dependencies": [
+        "@radix-ui/react-scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/scroll-area/scroll-area.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/scroll-area.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:component",
+      "title": "Select",
+      "description": "A select dropdown with custom trigger, content, and indicator states.",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/select/select.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/select.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:component",
+      "title": "Separator",
+      "description": "A separator component for visually dividing content.",
+      "dependencies": [
+        "@radix-ui/react-separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/separator/separator.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/separator.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:component",
+      "title": "Sheet",
+      "description": "A slide-over sheet built on Radix Dialog primitives.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/sheet/sheet.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/sheet.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:component",
+      "title": "Sidebar",
+      "description": "Sidebar component.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/input",
+        "@aura/separator",
+        "@aura/sheet",
+        "@aura/skeleton",
+        "@aura/tooltip",
+        "@aura/use-mobile"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/sidebar/sidebar.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/sidebar.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:component",
+      "title": "Skeleton",
+      "description": "Skeleton placeholders for representing loading UI states.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/skeleton/skeleton.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/skeleton.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:component",
+      "title": "Slider",
+      "description": "Slider component.",
+      "dependencies": [
+        "@radix-ui/react-slider"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/slider/slider.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/slider.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "swap-slot",
+      "type": "registry:component",
+      "title": "Swap Slot",
+      "description": "Swap Slot component.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/swap-slot/swap-slot.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/swap-slot.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:component",
+      "title": "Switch",
+      "description": "A toggle switch component using Radix Switch.",
+      "dependencies": [
+        "@radix-ui/react-switch"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/switch/switch.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/switch.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:component",
+      "title": "Tabs",
+      "description": "Tabs with list and content areas built on Radix Tabs.",
+      "dependencies": [
+        "@radix-ui/react-tabs"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/tabs/tabs.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/tabs.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:component",
+      "title": "Table",
+      "description": "A responsive table component for displaying tabular data with support for headers, bodies, footers, and captions.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/table/table.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/table.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:component",
+      "title": "Textarea",
+      "description": "A styled textarea with invalid, focus, and disabled states.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/textarea/textarea.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/textarea.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "time-input",
+      "type": "registry:component",
+      "title": "Time Input",
+      "description": "Time Input component.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/time-input/time-input.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/time-input.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:component",
+      "title": "Toggle",
+      "description": "Toggle component.",
+      "dependencies": [
+        "@radix-ui/react-toggle",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/toggle/toggle.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/toggle.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:component",
+      "title": "Tooltip",
+      "description": "A tooltip component with animated content powered by Radix Tooltip.",
+      "dependencies": [
+        "@radix-ui/react-tooltip"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/tooltip/tooltip.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/tooltip.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "topbar",
+      "type": "registry:component",
+      "title": "Topbar",
+      "description": "A flexible topbar component with breadcrumbs, center space, and action buttons. Integrates with the Sidebar component for full layout support.",
+      "dependencies": [
+        "@radix-ui/react-slot"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/breadcrumb",
+        "@aura/sidebar",
+        "@aura/button",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/topbar/topbar.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/topbar.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typography",
+      "type": "registry:component",
+      "title": "Typography",
+      "description": "Typography scale definitions, utilities, and composition patterns for the Aura design system. Includes structured data for LLM consumption with HTML/JSX examples.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/typography/typography.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/typography.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:component",
+      "title": "Carousel",
+      "description": "A carousel component with embla-carousel.",
+      "dependencies": [
+        "embla-carousel-react",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/carousel/carousel.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/carousel.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:component",
+      "title": "Hover Card",
+      "description": "A hover card component powered by Radix Hover Card.",
+      "dependencies": [
+        "@radix-ui/react-hover-card"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/lib-utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/hover-card/hover-card.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/hover-card.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:component",
+      "title": "Input Group",
+      "description": "Input group component for grouped inputs with addons.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/input",
+        "@aura/textarea"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/input-group/input-group.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/input-group.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact",
+      "type": "registry:component",
+      "title": "Artifact",
+      "description": "AI artifact component for displaying generated content.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact/artifact.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/artifact.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "canvas",
+      "type": "registry:component",
+      "title": "Canvas",
+      "description": "AI canvas component for drawing and visualization.",
+      "dependencies": [
+        "@xyflow/react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/controls"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/canvas/canvas.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/canvas.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chain-of-thought",
+      "type": "registry:component",
+      "title": "Chain of Thought",
+      "description": "AI chain of thought component for displaying reasoning steps.",
+      "dependencies": [
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge",
+        "@aura/collapsible"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/chain-of-thought/chain-of-thought.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/chain-of-thought.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:component",
+      "title": "Code Block",
+      "description": "AI code block component with syntax highlighting.",
+      "dependencies": [
+        "@tabler/icons-react",
+        "shiki",
+        "hast",
+        "@types/hast"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/code-block/code-block.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/code-block.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "confirmation",
+      "type": "registry:component",
+      "title": "Confirmation",
+      "description": "AI confirmation component for user confirmations.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/alert",
+        "@aura/button",
+        "@aura/collapsible",
+        "@aura/helper-text"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/confirmation/confirmation.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/confirmation.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "connection",
+      "type": "registry:component",
+      "title": "Connection",
+      "description": "AI connection component for flow diagrams.",
+      "dependencies": [
+        "@xyflow/react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/connection/connection.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/connection.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "context",
+      "type": "registry:component",
+      "title": "Context",
+      "description": "AI context component for displaying context information.",
+      "dependencies": [
+        "ai",
+        "tokenlens"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/hover-card",
+        "@aura/progress"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/context/context.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/context.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "controls",
+      "type": "registry:component",
+      "title": "Controls",
+      "description": "AI controls component for interface controls.",
+      "dependencies": [
+        "@xyflow/react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/controls/controls.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/controls.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "conversation",
+      "type": "registry:component",
+      "title": "Conversation",
+      "description": "AI conversation component with scroll management.",
+      "dependencies": [
+        "use-stick-to-bottom",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/conversation/conversation.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/conversation.tsx"
+        },
+        {
+          "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/icon-conversation-empty-state.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "edge",
+      "type": "registry:component",
+      "title": "Edge",
+      "description": "AI edge component for flow diagrams.",
+      "dependencies": [
+        "@xyflow/react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/edge/edge.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/edge.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "image",
+      "type": "registry:component",
+      "title": "Image",
+      "description": "AI image component for displaying generated images.",
+      "dependencies": [
+        "ai"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/image/image.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/image.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "inline-citation",
+      "type": "registry:component",
+      "title": "Inline Citation",
+      "description": "AI inline citation component for source references.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/inline-citation/inline-citation.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/inline-citation.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "loader",
+      "type": "registry:component",
+      "title": "Loader",
+      "description": "AI loader component for loading states.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/loader/loader.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/loader.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "message",
+      "type": "registry:component",
+      "title": "Message",
+      "description": "An AI chat message component with avatar support for user and assistant roles.",
+      "dependencies": [
+        "ai",
+        "@tabler/icons-react",
+        "streamdown",
+        "shiki"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/avatar",
+        "@aura/button",
+        "@aura/button-group",
+        "@aura/code-block",
+        "@aura/tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/message/message.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/message.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "node",
+      "type": "registry:component",
+      "title": "Node",
+      "description": "AI node component for flow diagrams.",
+      "dependencies": [
+        "@xyflow/react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/node/node.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/node.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "open-in-chat",
+      "type": "registry:component",
+      "title": "Open in Chat",
+      "description": "AI open in chat component.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/open-in-chat/open-in-chat.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/open-in-chat.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "panel",
+      "type": "registry:component",
+      "title": "Panel",
+      "description": "AI panel component for side panels.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/panel/panel.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/panel.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "plan",
+      "type": "registry:component",
+      "title": "Plan",
+      "description": "AI plan component for displaying execution plans.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/card",
+        "@aura/collapsible",
+        "@aura/shimmer"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/plan/plan.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/plan.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "prompt-input",
+      "type": "registry:component",
+      "title": "Prompt Input",
+      "description": "AI prompt input component for user prompts.",
+      "dependencies": [
+        "ai",
+        "nanoid",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/textarea",
+        "@aura/button",
+        "@aura/command",
+        "@aura/dropdown-menu",
+        "@aura/helper-text",
+        "@aura/hover-card",
+        "@aura/input-group",
+        "@aura/select"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/prompt-input/prompt-input.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/prompt-input.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "queue",
+      "type": "registry:component",
+      "title": "Queue",
+      "description": "AI queue component for managing task queues.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/queue/queue.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/queue.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "reasoning",
+      "type": "registry:component",
+      "title": "Reasoning",
+      "description": "A container component for displaying AI reasoning steps with connected tool calls.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/reasoning/reasoning.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/reasoning.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "shimmer",
+      "type": "registry:component",
+      "title": "Shimmer",
+      "description": "AI shimmer loading effect component.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/shimmer/shimmer.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/shimmer.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "sources",
+      "type": "registry:component",
+      "title": "Sources",
+      "description": "AI sources component for displaying source references.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/sources/sources.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/sources.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "suggestion",
+      "type": "registry:component",
+      "title": "Suggestion",
+      "description": "AI suggestion component for displaying suggestions.",
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/scroll-area",
+        "@aura/select"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/suggestion/suggestion.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/suggestion.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "task",
+      "type": "registry:component",
+      "title": "Task",
+      "description": "AI task component for displaying tasks.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/task/task.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/task.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "tool",
+      "type": "registry:component",
+      "title": "Tool",
+      "description": "AI tool component for displaying tool calls.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/tool/tool.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/tool.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "toolbar",
+      "type": "registry:component",
+      "title": "Toolbar",
+      "description": "AI toolbar component.",
+      "dependencies": [
+        "@xyflow/react"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/toolbar/toolbar.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/toolbar.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "effects",
+      "type": "registry:component",
+      "title": "Effects",
+      "description": "Effect definitions including shadows, focus rings, border radii, and transitions for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/effects/effects.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/effects.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "layout",
+      "type": "registry:component",
+      "title": "Layout",
+      "description": "Layout system with responsive grid definitions, container queries, and breakpoint patterns for the Aura design system.",
+      "files": [
+        {
+          "path": "src/components/ui/aura/layout/layout.tsx",
+          "type": "registry:component",
+          "target": "src/components/ui/aura/layout.tsx"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "Use Mobile",
+      "description": "A hook to detect if the device is mobile.",
+      "files": [
+        {
+          "path": "src/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "name": "style-scope",
+      "type": "registry:lib",
+      "title": "Style Scope",
+      "description": "Style scope configuration for portal containers.",
+      "files": [
+        {
+          "path": "src/styleScope.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "lib-utils",
+      "type": "registry:lib",
+      "title": "Library Utils",
+      "description": "Utility functions including getPortalContainer for Radix UI portals.",
+      "registryDependencies": [
+        "@aura/style-scope"
+      ],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ]
+    }
+  ]
+}

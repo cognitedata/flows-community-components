@@ -1,16 +1,16 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "new-york",
-  "rsc": true,
+  "rsc": false,
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/app/globals.css",
-    "baseColor": "slate",
+    "css": "src/globals.css",
+    "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
-  "iconLibrary": "tabler",
+  "iconLibrary": "lucide",
   "aliases": {
     "components": "@/components",
     "utils": "@/lib/utils",
@@ -18,7 +18,5 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {
-    "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
-  }
+  "registries": {}
 }

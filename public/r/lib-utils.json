@@ -3,13 +3,17 @@
   "name": "lib-utils",
   "title": "Library Utils",
   "description": "Utility functions including getPortalContainer for Radix UI portals.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
   "registryDependencies": [
     "@aura/style-scope"
   ],
   "files": [
     {
       "path": "src/lib/utils.ts",
-      "content": "import { clsx, type ClassValue } from 'clsx';\nimport { twMerge } from 'tailwind-merge';\n\nimport styleScope from '@/styleScope';\n\nlet portalContainer: HTMLElement | null = null;\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n\nexport function slugToPascalCase(slug: string): string {\n  return slug\n    .split('-')\n    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))\n    .join('');\n}\n\n/**\n * Gets or creates the portal container for Radix UI components.\n * Container is created in document.body to avoid positioning issues\n * from the shell app's container query context.\n * The result is cached to avoid side effects on subsequent calls during React renders.\n */\nexport const getPortalContainer = (): HTMLElement | undefined => {\n  if (portalContainer) {\n    return portalContainer;\n  }\n\n  if (typeof window === 'undefined') {\n    return undefined;\n  }\n\n  let container = document?.getElementById(styleScope.portalContainer);\n\n  if (!container) {\n    container = document.createElement('div');\n    container.id = styleScope.portalContainer;\n    container.className = styleScope.styleScope;\n    container.style.position = 'fixed';\n    container.style.zIndex = '1000';\n    document.body.appendChild(container);\n  }\n\n  portalContainer = container;\n  return container;\n};\n",
+      "content": "import { clsx, type ClassValue } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nimport styleScope from \"@/styleScope\";\n\nlet portalContainer: HTMLElement | null = null;\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n\nexport function slugToPascalCase(slug: string): string {\n  return slug\n    .split(\"-\")\n    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))\n    .join(\"\");\n}\n\n/**\n * Gets or creates the portal container for Radix UI components.\n * Container is created in document.body to avoid positioning issues\n * from the shell app's container query context.\n * The result is cached to avoid side effects on subsequent calls during React renders.\n */\nexport const getPortalContainer = (): HTMLElement | undefined => {\n  if (portalContainer) {\n    return portalContainer;\n  }\n\n  if (typeof window === \"undefined\") {\n    return undefined;\n  }\n\n  let container = document?.getElementById(styleScope.portalContainer);\n\n  if (!container) {\n    container = document.createElement(\"div\");\n    container.id = styleScope.portalContainer;\n    container.className = styleScope.styleScope;\n    container.style.position = \"fixed\";\n    container.style.zIndex = \"1000\";\n    document.body.appendChild(container);\n  }\n\n  portalContainer = container;\n  return container;\n};\n",
       "type": "registry:lib"
     }
   ],
