@@ -49,11 +49,15 @@ function SectionLayoutWrapper() {
   );
 }
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayoutWrapper />,
-    children: [
+// Get base path from environment variable or use default
+const basePath = import.meta.env.BASE_URL || "/";
+
+export const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <RootLayoutWrapper />,
+      children: [
       { index: true, element: <HomePage /> },
       // Primitives section with side navigation
       {
@@ -114,4 +118,8 @@ export const router = createBrowserRouter([
       { path: "guides", element: <GuidesPage /> },
     ],
   },
-]);
+  ],
+  {
+    basename: basePath === "/" ? undefined : basePath.replace(/\/$/, ""),
+  }
+);
