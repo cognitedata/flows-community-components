@@ -3,6 +3,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 import { within } from '@storybook/testing-library';
+import { useState } from "react";
 import {
   List,
   ListDescription,
@@ -29,6 +30,7 @@ const meta: Meta<typeof List> = {
       description: "CSS classes for styling the list",
       table: {
         category: "Display",
+        type: { summary: "string" },
       },
     },
 
@@ -38,6 +40,7 @@ const meta: Meta<typeof List> = {
       description: "List items and content",
       table: {
         category: "Content",
+        type: { summary: "ReactNode" },
       },
     },
   },
@@ -183,6 +186,54 @@ export const Complete: Story = {
       </ListDescription>
     </div>
   ),
+};
+
+/**
+ * Interactive list with stateful updates
+ */
+export const Interactive: Story = {
+  args: {},
+  parameters: {
+    docs: {
+      description: {
+        story: "Stateful list where items toggle active status on click.",
+      },
+    },
+  },
+  render: function ListInteractiveStory(args) {
+    const [items, setItems] = useState([
+      { id: "name", label: "Name", value: "John Doe", active: true },
+      { id: "email", label: "Email", value: "john@example.com", active: false },
+      { id: "role", label: "Role", value: "Administrator", active: true },
+    ]);
+
+    const toggleItem = (id: string) => {
+      setItems((prev) =>
+        prev.map((item) =>
+          item.id === id ? { ...item, active: !item.active } : item
+        )
+      );
+    };
+
+    return (
+      <List {...args}>
+        {items.map((item) => (
+          <ListItem
+            key={item.id}
+            className="cursor-pointer"
+            onClick={() => toggleItem(item.id)}
+          >
+            <ListItemLabel
+              className={item.active ? "text-foreground" : "text-muted-foreground"}
+            >
+              {item.label}
+            </ListItemLabel>
+            <ListItemValue>{item.value}</ListItemValue>
+          </ListItem>
+        ))}
+      </List>
+    );
+  },
 };
 
 /**
@@ -478,8 +529,8 @@ export const Ordered: Story = {
     await expect(canvas.getByText("Step one")).toBeInTheDocument();
     await expect(canvas.getByText("Step two")).toBeInTheDocument();
   },
-  render: (args) => (
-    <ListOrdered {...args}>
+  render: () => (
+    <ListOrdered>
       <ListItem>
         <ListItemLabel>Step one</ListItemLabel>
         <ListItemValue>Initialize the system</ListItemValue>
@@ -514,8 +565,8 @@ export const Description: Story = {
     await expect(canvas.getByText("Max pressure")).toBeInTheDocument();
     await expect(canvas.getByText("120 bar")).toBeInTheDocument();
   },
-  render: (args) => (
-    <ListDescription {...args} className="grid gap-2">
+  render: () => (
+    <ListDescription className="grid gap-2">
       <ListDescriptionTerm>Max pressure</ListDescriptionTerm>
       <ListDescriptionDetails>120 bar</ListDescriptionDetails>
       <ListDescriptionTerm>Temperature</ListDescriptionTerm>

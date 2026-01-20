@@ -31,7 +31,7 @@ export const ArtifactListTitle = ({
 }: ArtifactListTitleProps) => {
   return (
     <CardTitle
-      className={cn("text-base font-medium tracking-tighter", className)}
+      className={cn("text-base font-medium", className)}
       {...props}
     />
   );

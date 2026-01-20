@@ -4,6 +4,7 @@ import {
   ListItemIcon,
   ListItemTitle,
 } from '@/components/ui/aura/list';
+import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 import { within } from '@storybook/testing-library';
@@ -161,6 +162,132 @@ export const Basic: Story = {
       </ArtifactListContent>
     </ArtifactList>
   ),
+};
+
+/**
+ * Interactive list with stateful item updates
+ */
+export const Interactive: Story = {
+  args: {
+    className: "w-100",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates stateful list items that toggle completion when clicked.",
+      },
+    },
+  },
+  render: function ArtifactListInteractiveStory(args) {
+    const [items, setItems] = useState([
+      {
+        id: "seal",
+        title: "Pump seal replacement",
+        detail: "P-401A requires new mechanical seal",
+        status: "open",
+      },
+      {
+        id: "valve",
+        title: "Valve calibration",
+        detail: "Quarterly calibration check",
+        status: "open",
+      },
+      {
+        id: "filters",
+        title: "Filter cleaning",
+        detail: "Clean inlet filters",
+        status: "done",
+      },
+    ]);
+
+    const toggleStatus = (id: string) => {
+      setItems((prev) =>
+        prev.map((item) =>
+          item.id === id
+            ? { ...item, status: item.status === "done" ? "open" : "done" }
+            : item
+        )
+      );
+    };
+
+    return (
+      <ArtifactList {...args}>
+        <ArtifactListContent>
+          {items.map((item) => {
+            const isDone = item.status === "done";
+
+            return (
+              <ArtifactListItem
+                key={item.id}
+                className="cursor-pointer"
+                onClick={() => toggleStatus(item.id)}
+              >
+                <ListItemHeader>
+                  <ListItemTitle>
+                    <ListItemIcon className={isDone ? "text-muted-foreground" : undefined}>
+                      {isDone ? (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            opacity="0.15"
+                            cx="8"
+                            cy="8"
+                            r="7"
+                            fill="currentColor"
+                            className="text-muted-foreground"
+                          />
+                          <circle
+                            cx="8"
+                            cy="8"
+                            r="3"
+                            fill="currentColor"
+                            className="text-foreground"
+                          />
+                        </svg>
+                      )}
+                    </ListItemIcon>
+                    <span
+                      className={cn(
+                        "text-sm font-medium",
+                        isDone ? "text-muted-foreground" : "text-foreground"
+                      )}
+                    >
+                      {item.title}
+                    </span>
+                  </ListItemTitle>
+                  <span className="text-sm font-medium text-muted-foreground">
+                    {isDone ? "Completed" : "In progress"}
+                  </span>
+                </ListItemHeader>
+                <ListItemContent className="pl-6 text-muted-foreground">
+                  {item.detail}
+                </ListItemContent>
+              </ArtifactListItem>
+            );
+          })}
+        </ArtifactListContent>
+      </ArtifactList>
+    );
+  },
 };
 
 /**
