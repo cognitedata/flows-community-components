@@ -288,10 +288,6 @@ This usually means there's a syntax error in the JSX. Check for missing closing 
     setRenderError(null);
   };
 
-  useEffect(() => {
-    setRenderError(null);
-  }, [code]);
-
   // Show loading state
   if (isLoading) {
     return (

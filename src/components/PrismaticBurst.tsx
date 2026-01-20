@@ -187,13 +187,13 @@ const hexToRgb01 = (hex: string): [number, number, number] => {
   let h = hex.trim();
   if (h.startsWith("#")) h = h.slice(1);
   if (h.length === 3) {
-    const r = h[0],
-      g = h[1],
-      b = h[2];
+    const r = h[0];
+    const g = h[1];
+    const b = h[2];
     h = r + r + g + g + b + b;
   }
   const intVal = Number.parseInt(h, 16);
-  if (isNaN(intVal) || (h.length !== 6 && h.length !== 8)) return [1, 1, 1];
+  if (Number.isNaN(intVal) || (h.length !== 6 && h.length !== 8)) return [1, 1, 1];
   const r = ((intVal >> 16) & 255) / 255;
   const g = ((intVal >> 8) & 255) / 255;
   const b = (intVal & 255) / 255;
@@ -205,7 +205,7 @@ const toPx = (v: number | string | null | undefined): number => {
   if (typeof v === "number") return v;
   const s = String(v).trim();
   const num = Number.parseFloat(s.replace("px", ""));
-  return isNaN(num) ? 0 : num;
+  return Number.isNaN(num) ? 0 : num;
 };
 
 interface PrismaticBurstProps {
@@ -269,7 +269,6 @@ const PrismaticBurst = ({
     gl.canvas.style.inset = "0";
     gl.canvas.style.width = "100%";
     gl.canvas.style.height = "100%";
-    gl.canvas.style.mixBlendMode = mixBlendMode && mixBlendMode !== "none" ? mixBlendMode : "";
     container.appendChild(gl.canvas);
 
     const white = new Uint8Array([255, 255, 255, 255]);

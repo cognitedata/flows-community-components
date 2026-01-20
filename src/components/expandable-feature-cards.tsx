@@ -38,23 +38,23 @@ const featureCards: FeatureCard[] = [
           <h4 className="font-semibold text-foreground/90">Key Features:</h4>
           <ul className="space-y-2 text-sm text-foreground/70">
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               Dynamic light/dark mode switching
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               18 carefully crafted color palettes
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               WCAG 2.1 AA accessibility compliance
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               CSS custom properties for easy customization
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               Semantic color mappings for consistent usage
             </li>
           </ul>
@@ -72,7 +72,7 @@ const featureCards: FeatureCard[] = [
                         ? "bg-slate-500"
                         : "bg-zinc-800"
                 }`}
-              ></div>
+              />
               <span className="text-xs text-foreground/60">{color}</span>
             </div>
           ))}
@@ -149,23 +149,23 @@ const featureCards: FeatureCard[] = [
           <h4 className="font-semibold text-foreground/90">Sandbox Features:</h4>
           <ul className="space-y-2 text-sm text-foreground/70">
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               Natural language component generation
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               Real-time preview with live code editing
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               Automatic design system integration
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               Export to React, Vue, or vanilla HTML
             </li>
             <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
               Built-in accessibility and responsive design
             </li>
           </ul>

@@ -187,8 +187,8 @@ function NavigationGroup({
         </button>
         {isOpen && item.children && (
           <ul className="space-y-0.5 pl-2 border-l border-border">
-            {item.children.map((child, index) => (
-              <NavigationGroup key={index} item={child} level={level + 1} />
+            {item.children.map((child) => (
+              <NavigationGroup key={child.href} item={child} level={level + 1} />
             ))}
           </ul>
         )}
@@ -218,8 +218,8 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
   return (
     <nav className={cn("", className)}>
       <ul className="space-y-4">
-        {items.map((item, index) => (
-          <NavigationGroup key={index} item={item} />
+        {items.map((item) => (
+          <NavigationGroup key={item.href || item.label} item={item} />
         ))}
       </ul>
     </nav>
