@@ -35,12 +35,12 @@ const meta: Meta<typeof Message> = {
   component: Message,
   tags: ["autodocs"],
   argTypes: {
-    // Behaviour
+    // Behavior
     isResponse: {
       control: "boolean",
       description: "Whether the message is from the AI assistant (true) or user (false)",
       table: {
-        category: "Behaviour",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -136,7 +136,7 @@ export const Default: Story = {
         </MessageAvatar>
         <MessageContent className="flex flex-col gap-2">
           <span>
-            I analysed the sensor data and found that vibration levels on{" "}
+            I analyzed the sensor data and found that vibration levels on{" "}
             <InlineCitation>
               <InlineCitationLink
                 href="https://example.com/pump/21PT1019"
@@ -242,7 +242,7 @@ export const WithCodeBlock: Story = {
       <div className="flex flex-col space-y-4 w-full gap-2">
         <Message isResponse={false} data-message>
           <MessageContent>
-            Can you show me how to analyse vibration data using TypeScript?
+            Can you show me how to analyze vibration data using TypeScript?
           </MessageContent>
         </Message>
 
@@ -360,7 +360,7 @@ interface PumpData {
   timestamp: Date;
 }
 
-async function analysePump(data: PumpData): Promise<boolean> {
+async function analyzePump(data: PumpData): Promise<boolean> {
   return data.vibrationLevel > 0.8;
 }
 \`\`\`
@@ -570,10 +570,10 @@ export const VeryLongMessage: Story = {
         <p className="mt-2">
           Here's another paragraph to show the spacing between multiple blocks of text. This helps
           users read longer responses more easily. Industrial AI applications often require
-          detailed explanations of complex processes and analyses.
+          detailed explanations of complex processes and analysis.
         </p>
         <p className="mt-2">
-          For example, when analysing pump vibration data, we need to consider multiple factors
+          For example, when analyzing pump vibration data, we need to consider multiple factors
           including:
         </p>
         <ul className="list-disc pl-4 mt-2 space-y-1">
@@ -595,7 +595,7 @@ export const ManyMessageActions: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Message with numerous action buttons to test layout and overflow behaviour.",
+        story: "Message with numerous action buttons to test layout and overflow behavior.",
       },
     },
   },
@@ -647,14 +647,14 @@ export const AvatarVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Comparison of different avatar colour variants for assistant messages.",
+        story: "Comparison of different avatar color variants for assistant messages.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const messages = canvasElement.querySelectorAll('[data-message]');
     await expect(messages.length).toBeGreaterThanOrEqual(3);
-    
+
     // Verify avatars are present
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(3);
@@ -719,7 +719,7 @@ export const MessageWithoutAvatar: Story = {
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector('[data-message]');
     await expect(message).toBeInTheDocument();
-    
+
     // Verify no avatar exists
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).not.toBeInTheDocument();
@@ -746,7 +746,7 @@ export const MessageWithOnlyActions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify buttons exist
     const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
@@ -875,7 +875,7 @@ export const VeryLongConversation: Story = {
         const isResponse = i % 2 === 1;
         const messageNum = Math.floor(i / 2) + 1;
         const messageId = isResponse ? `assistant-${messageNum}` : `user-${messageNum}`;
-        
+
         return (
           <Message key={messageId} isResponse={isResponse} data-message>
             {isResponse && (
