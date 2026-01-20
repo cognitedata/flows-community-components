@@ -203,15 +203,6 @@ function InteractiveDemos({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run once on mount
 
-  // Update URL hash when demo type or width changes
-  useEffect(() => {
-    // Map internal 'chat' type to 'ai-chat' for URL
-    const hashType = demoType === "chat" ? "ai-chat" : demoType;
-    const hash = `#${hashType}-${width}`;
-    // Update without triggering a scroll
-    window.history.replaceState(null, "", hash);
-  }, [demoType, width]);
-
   // Keyboard shortcut for grid toggle (Ctrl/Cmd + G)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -275,7 +266,7 @@ function InteractiveDemos({
             }}
             className="ml-auto"
           >
-            {linkCopied ? "Copied!" : "Copy link"}
+            {linkCopied ? "Copied!" : "Share breakpoint"}
           </Button>
         </div>
 
