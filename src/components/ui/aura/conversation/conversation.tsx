@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/aura/button";
-import { ConversationEmptyStateIcon } from "@/components/ui/aura/icon-conversation-empty-state";
 import { cn } from "@/lib/utils";
-import { IconArrowDown } from "@tabler/icons-react";
+import { IconArrowDown, IconMessageCircle } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import { useCallback } from "react";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
@@ -38,7 +37,7 @@ export const ConversationEmptyState = ({
 }: ConversationEmptyStateProps) => (
   <div className={cn("flex flex-col items-center gap-3 size-full p-10", className)} {...props}>
     <div className="max-w-150 w-full flex flex-col items-center justify-center text-center">
-      <ConversationEmptyStateIcon className="size-20 mb-14" />
+      <IconMessageCircle className="size-20 mb-14 text-muted-foreground" strokeWidth={1} />
       <div className="space-y-1 mb-14">
         <h3 className="text-xl font-medium tracking-tightest">{title}</h3>
         {description && <p className="text-muted-foreground text-sm">{description}</p>}
