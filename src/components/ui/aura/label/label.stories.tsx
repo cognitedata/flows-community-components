@@ -85,20 +85,20 @@ export const Basic: Story = {
  */
 export const Disabled: Story = {
   args: {
-    children: "Disabled label",
-    className: "opacity-50 cursor-not-allowed",
+    children: 'Disabled label',
+    htmlFor: 'disabled-input',
   },
   parameters: {
     docs: {
       description: {
         story:
-          "A label presented in a disabled style. Combine with a disabled input to reflect non-interactive state.",
+          'A label presented in a disabled style. Combine with a disabled input to reflect non-interactive state.',
       },
     },
   },
   render: (args) => (
-    <div className="space-y-2 max-w-sm">
-      <Label {...args} htmlFor="disabled-input" />
+    <div className="group space-y-2 max-w-sm" data-disabled="true">
+      <Label {...args} />
       <Input id="disabled-input" disabled placeholder="Disabled input" />
     </div>
   ),
