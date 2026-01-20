@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/aura/tooltip";
 import { cn } from "@/lib/utils";
-import { IconX, type IconProps } from "@tabler/icons-react";
+import { type IconProps, IconX } from "@tabler/icons-react";
 import type { ComponentProps, ComponentType, HTMLAttributes } from "react";
 
 export type ArtifactProps = HTMLAttributes<HTMLDivElement>;

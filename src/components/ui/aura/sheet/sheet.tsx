@@ -1,6 +1,6 @@
-import type { ComponentProps } from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { IconX } from "@tabler/icons-react";
+import type { ComponentProps } from "react";
 
 import { cn, getPortalContainer } from "@/lib/utils";
 

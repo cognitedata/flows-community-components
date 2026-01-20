@@ -30,7 +30,6 @@ import {
   SelectValue,
 } from "@/components/ui/aura/select";
 import { cn } from "@/lib/utils";
-import type { ChatStatus, FileUIPart } from "ai";
 import {
   IconInfoCircle,
   IconLoader2,
@@ -42,6 +41,7 @@ import {
   IconSquare,
   IconX,
 } from "@tabler/icons-react";
+import type { ChatStatus, FileUIPart } from "ai";
 import { nanoid } from "nanoid";
 import {
   type ChangeEvent,
@@ -49,7 +49,6 @@ import {
   Children,
   type ClipboardEventHandler,
   type ComponentProps,
-  createContext,
   type FormEvent,
   type FormEventHandler,
   Fragment,
@@ -58,6 +57,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
   type RefObject,
+  createContext,
   startTransition,
   useCallback,
   useContext,
@@ -676,7 +676,7 @@ export const PromptInput = ({
       files.map(async (file) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id, ...item } = file;
-        if (item.url && item.url.startsWith("blob:")) {
+        if (item.url?.startsWith("blob:")) {
           return {
             ...item,
             url: await convertBlobUrlToDataUrl(item.url),

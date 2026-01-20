@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { Sources, Source, SourcesTitle } from "./sources";
+import { expect, within } from "@storybook/test";
 import { IconBrandGithub, IconFileText, IconWorld } from "@tabler/icons-react";
+import { Source, Sources, SourcesTitle } from "./sources";
 
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",

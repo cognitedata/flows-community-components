@@ -1,5 +1,5 @@
-import type { ComponentProps } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import type { ComponentProps } from "react";
 
 import { cn, getPortalContainer } from "@/lib/utils";
 

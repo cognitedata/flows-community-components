@@ -1,3 +1,4 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
 import { Button } from "@/components/ui/aura/button";
 import {
   Card,
@@ -8,8 +9,6 @@ import {
 } from "@/components/ui/aura/card";
 import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
-import { motion } from "framer-motion";
 import {
   IconAlertTriangle as AlertTriangle,
   IconArrowRight as ArrowRight,
@@ -19,8 +18,9 @@ import {
   IconSparkles as Sparkles,
   IconTerminal as Terminal,
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import type { BundledLanguage } from "shiki";
 
 interface Step {
@@ -198,7 +198,7 @@ export default function HomePage() {
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
           >
             <ChevronDown className="h-10 w-10 text-muted-foreground/70 hover:text-foreground transition-colors" />
           </motion.div>

@@ -1,9 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
-import { useState } from "react";
-import { SwapSlot } from "./swap-slot";
-import { Button } from "@/components/ui/aura/button";
 import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
@@ -12,7 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import { IconPlus, IconCheck } from "@tabler/icons-react";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconCheck, IconPlus } from "@tabler/icons-react";
+import { useState } from "react";
+import { SwapSlot } from "./swap-slot";
 
 const meta: Meta<typeof SwapSlot> = {
   title: "AI/Swap Slot",

@@ -1,15 +1,3 @@
-import {
-  createContext,
-  useContext,
-  Children,
-  isValidElement,
-  useState,
-  useCallback,
-  useMemo,
-  type ComponentProps,
-  type ReactNode,
-} from "react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/aura/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/aura/scroll-area";
 import {
@@ -22,6 +10,18 @@ import {
   SelectTrigger as SelectTriggerPrimitive,
   SelectValue as SelectValuePrimitive,
 } from "@/components/ui/aura/select";
+import { cn } from "@/lib/utils";
+import {
+  Children,
+  type ComponentProps,
+  type ReactNode,
+  createContext,
+  isValidElement,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 

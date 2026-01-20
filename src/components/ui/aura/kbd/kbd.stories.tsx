@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
+import { IconArrowDown, IconArrowUp, IconCommand } from "@tabler/icons-react";
 import { Kbd, KbdGroup } from "./kbd";
-import { IconCommand, IconArrowUp, IconArrowDown } from "@tabler/icons-react";
 
 const meta: Meta<typeof Kbd> = {
   title: "Primitives/Kbd",

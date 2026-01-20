@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { IconChevronRight } from "@tabler/icons-react";
+import * as React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface NavigationItem {
   href: string;
@@ -79,7 +79,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/components/separator", label: "Separator" },
       { href: "/primitives/components/sidebar", label: "Sidebar" },
       { href: "/primitives/components/slider", label: "Slider" },
-      { href: "/primitives/components/sonner-toast", label: "Sonner Toast" },
+      { href: "/primitives/components/sonner", label: "Sonner" },
       { href: "/primitives/components/swap-slot", label: "Swap slot" },
       { href: "/primitives/components/switch", label: "Switch" },
       { href: "/primitives/components/table", label: "Table" },
@@ -112,7 +112,7 @@ const sandboxNavigation: NavigationItem[] = [
 const aiNavigation: NavigationItem[] = [
   {
     href: "#",
-    label: "Shad CN",
+    label: "AI Chat",
     isSubsection: true,
     children: [
       { href: "/ai/components/code-block", label: "Code block" },
@@ -154,7 +154,6 @@ const aiNavigation: NavigationItem[] = [
   // }
 ];
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const navigationMap = {
   docs: docsNavigation,
   overview: overviewNavigation, // Keep for backward compatibility
@@ -179,6 +178,7 @@ function NavigationGroup({
     return (
       <li className="space-y-1">
         <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center justify-between w-full text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-1.5 pr-1.5 hover:text-foreground transition-colors"
         >
@@ -187,8 +187,8 @@ function NavigationGroup({
         </button>
         {isOpen && item.children && (
           <ul className="space-y-0.5 pl-2 border-l border-border">
-            {item.children.map((child, index) => (
-              <NavigationGroup key={index} item={child} level={level + 1} />
+            {item.children.map((child) => (
+              <NavigationGroup key={child.href} item={child} level={level + 1} />
             ))}
           </ul>
         )}
@@ -218,15 +218,14 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
   return (
     <nav className={cn("", className)}>
       <ul className="space-y-4">
-        {items.map((item, index) => (
-          <NavigationGroup key={index} item={item} />
+        {items.map((item) => (
+          <NavigationGroup key={item.href || item.label} item={item} />
         ))}
       </ul>
     </nav>
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function getSideNavigationForSection(section: string): NavigationItem[] {
   return navigationMap[section as keyof typeof navigationMap] || [];
 }

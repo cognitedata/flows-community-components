@@ -1,8 +1,7 @@
-import type { ComponentProps } from "react";
-import { Command as CommandPrimitive } from "cmdk";
 import { IconSearch } from "@tabler/icons-react";
+import { Command as CommandPrimitive } from "cmdk";
+import type { ComponentProps } from "react";
 
-import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/aura/dialog";
+import { cn } from "@/lib/utils";
 
 function Command({ className, ...props }: ComponentProps<typeof CommandPrimitive>) {
   return (

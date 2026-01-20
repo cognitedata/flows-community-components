@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
 import {
   Card,
   CardContent,
@@ -5,13 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
 import {
   IconArrowRight as ArrowRight,
+  IconChartBar as BarChart3,
   IconBuilding as Building,
   IconCalendar as Calendar,
-  IconChartBar as BarChart3,
   IconFileText as FileText,
   IconMessage as MessageSquare,
   IconShoppingBag as ShoppingBag,

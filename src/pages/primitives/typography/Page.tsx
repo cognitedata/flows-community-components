@@ -313,30 +313,32 @@ export default function TypographyPage() {
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Typography</h1>
-        <p className="text-lg text-muted-foreground mt-2">
-          Type scale and font weights available in the design system
-        </p>
-      </div>
-
-      {sections.map((section) => (
-        <div key={section.title} className="space-y-0">
-          <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
-          <p className="text-muted-foreground">{section.description}</p>
-          <div className="divide-y divide-border">
-            {typographyScale
-              .filter((item) => item.section === section.title)
-              .map((item) => (
-                <TypographyRow
-                  key={`${section.title}-${item.name}-${item.fontFamily}-${item.fontWeight}`}
-                  item={item}
-                />
-              ))}
-          </div>
+    <div className="max-w-4xl mx-auto py-10">
+      <div className="space-y-8">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Typography</h1>
+          <p className="text-lg text-muted-foreground mt-2">
+            Type scale and font weights available in the design system
+          </p>
         </div>
-      ))}
+
+        {sections.map((section) => (
+          <div key={section.title} className="space-y-0">
+            <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
+            <p className="text-muted-foreground">{section.description}</p>
+            <div className="divide-y divide-border">
+              {typographyScale
+                .filter((item) => item.section === section.title)
+                .map((item) => (
+                  <TypographyRow
+                    key={`${section.title}-${item.name}-${item.fontFamily}-${item.fontWeight}`}
+                    item={item}
+                  />
+                ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
