@@ -1,6 +1,7 @@
 // Type definitions for component examples system
 
-import { CodeExample, DocsStory } from "../component-metadata.types";
+import type { CodeExample } from "../component-metadata.types";
+import type { ComponentStatusType } from "../component-status-config";
 
 export interface ComponentExample {
   title: string;
@@ -8,9 +9,9 @@ export interface ComponentExample {
   component: React.ComponentType;
   code: string;
   tags?: string[];
-  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  difficulty?: "beginner" | "intermediate" | "advanced";
   notes?: string;
-  category?: 'usage' | 'variants' | 'advanced';
+  category?: "usage" | "variants" | "advanced";
 }
 
 export type ComponentExamples = Record<string, ComponentExample>;
@@ -27,6 +28,8 @@ export interface PropDefinition {
 export interface ComponentMeta {
   name: string;
   description: string;
+  /** Component status - defaults to 'draft' if not specified */
+  status?: ComponentStatusType;
   llmUsage?: string;
   importPath: string;
   apiReference?: {
@@ -34,6 +37,5 @@ export interface ComponentMeta {
   };
   relatedComponents?: string[];
   notes?: string[];
-  docsStories?: DocsStory[];
   codeExamples?: CodeExample[];
 }
