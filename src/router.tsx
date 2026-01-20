@@ -58,66 +58,66 @@ export const router = createBrowserRouter(
       path: "/",
       element: <RootLayoutWrapper />,
       children: [
-      { index: true, element: <HomePage /> },
-      // Primitives section with side navigation
-      {
-        path: "primitives",
-        element: <SectionLayoutWrapper />,
-        children: [
-          { index: true, element: <PrimitivesPage /> },
-          { path: "components/:slug", element: <PrimitivesComponentPage /> },
-          { path: "theming", element: <PrimitivesThemingPage /> },
-          { path: "effects", element: <PrimitivesEffectsPage /> },
-          { path: "layouts", element: <PrimitivesLayoutsPage /> },
-          { path: "colors", element: <PrimitivesColorsPage /> },
-          { path: "typography", element: <PrimitivesTypographyPage /> },
-          { path: "illustrations", element: <PrimitivesIllustrationsPage /> },
-          { path: "icons", element: <PrimitivesIconsPage /> },
-          { path: "motion-design", element: <PrimitivesMotionDesignPage /> },
-        ],
-      },
-      // Patterns section with side navigation
-      {
-        path: "patterns",
-        element: <SectionLayoutWrapper />,
-        children: [
-          { index: true, element: <PatternsPage /> },
-          { path: "agent-chat", element: <PatternsAgentChatPage /> },
-          { path: "dashboards", element: <PatternsDashboardsPage /> },
-        ],
-      },
-      // AI section with side navigation
-      {
-        path: "ai",
-        element: <SectionLayoutWrapper />,
-        children: [
-          { index: true, element: <AIPage /> },
-          { path: "components/:slug", element: <AIComponentPage /> },
-        ],
-      },
-      // Docs section
-      {
-        path: "docs",
-        element: <SectionLayoutWrapper />,
-        children: [
-          { path: "installation", element: <DocsInstallationPage /> },
-          { path: "about", element: <DocsAboutPage /> },
-          { path: "getting-started", element: <DocsGettingStartedPage /> },
-        ],
-      },
-      // Other pages without section layout
-      { path: "blocks", element: <BlocksPage /> },
-      { path: "templates", element: <TemplatesPage /> },
-      { path: "templates/shift-handover-app", element: <ShiftHandoverAppPage /> },
-      // Also support /eos/shift-handover-app as seen in the source
-      { path: "eos/shift-handover-app", element: <ShiftHandoverAppPage /> },
-      { path: "tokens", element: <TokensPage /> },
-      { path: "use-cases", element: <UseCasesPage /> },
-      { path: "motion", element: <MotionPage /> },
-      { path: "layouts", element: <LayoutsPageContent /> },
-      { path: "guides", element: <GuidesPage /> },
-    ],
-  },
+        { index: true, element: <HomePage /> },
+        // Primitives section with side navigation
+        {
+          path: "primitives",
+          element: <SectionLayoutWrapper />,
+          children: [
+            { index: true, element: <PrimitivesPage /> },
+            { path: "components/:slug", element: <PrimitivesComponentPage /> },
+            { path: "theming", element: <PrimitivesThemingPage /> },
+            { path: "effects", element: <PrimitivesEffectsPage /> },
+            { path: "layouts", element: <PrimitivesLayoutsPage /> },
+            { path: "colors", element: <PrimitivesColorsPage /> },
+            { path: "typography", element: <PrimitivesTypographyPage /> },
+            { path: "illustrations", element: <PrimitivesIllustrationsPage /> },
+            { path: "icons", element: <PrimitivesIconsPage /> },
+            { path: "motion-design", element: <PrimitivesMotionDesignPage /> },
+          ],
+        },
+        // Patterns section with side navigation
+        {
+          path: "patterns",
+          element: <SectionLayoutWrapper />,
+          children: [
+            { index: true, element: <PatternsPage /> },
+            { path: "agent-chat", element: <PatternsAgentChatPage /> },
+            { path: "dashboards", element: <PatternsDashboardsPage /> },
+          ],
+        },
+        // AI section with side navigation
+        {
+          path: "ai",
+          element: <SectionLayoutWrapper />,
+          children: [
+            { index: true, element: <AIPage /> },
+            { path: "components/:slug", element: <AIComponentPage /> },
+          ],
+        },
+        // Docs section
+        {
+          path: "docs",
+          element: <SectionLayoutWrapper />,
+          children: [
+            { path: "installation", element: <DocsInstallationPage /> },
+            { path: "about", element: <DocsAboutPage /> },
+            { path: "getting-started", element: <DocsGettingStartedPage /> },
+          ],
+        },
+        // Other pages without section layout
+        { path: "blocks", element: <BlocksPage /> },
+        { path: "templates", element: <TemplatesPage /> },
+        { path: "templates/shift-handover-app", element: <ShiftHandoverAppPage /> },
+        // Also support /eos/shift-handover-app as seen in the source
+        { path: "eos/shift-handover-app", element: <ShiftHandoverAppPage /> },
+        { path: "tokens", element: <TokensPage /> },
+        { path: "use-cases", element: <UseCasesPage /> },
+        { path: "motion", element: <MotionPage /> },
+        { path: "layouts", element: <LayoutsPageContent /> },
+        { path: "guides", element: <GuidesPage /> },
+      ],
+    },
   ],
   {
     basename: basePath === "/" ? undefined : basePath.replace(/\/$/, ""),
