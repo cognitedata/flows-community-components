@@ -1,12 +1,11 @@
 "use client";
 
-import type { Meta, StoryObj } from "@storybook/nextjs";
-import { within, userEvent } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import type { Meta, StoryObj } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 import { useState, type ChangeEvent } from "react";
 
 import { Label } from "./label";
-import { Input } from "../input";
+import { Input } from "../input/input";
 
 const meta: Meta<typeof Label> = {
   title: "Form/Label",
@@ -173,7 +172,7 @@ export const WithInput: Story = {
     };
 
     return (
-      <div className="space-y-2 max-w-sm">
+      <div className="max-w-sm">
         <Label {...args} />
         <Input
           id="project-name"
