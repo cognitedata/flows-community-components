@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
-import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "./avatar";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuTrigger,
   DropdownMenuLabel,
+  DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
-import { IconWheel, IconUser, IconRobot, IconStar, IconHeart } from "@tabler/icons-react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "./avatar";
 
 /**
  * Helper function to get the correct image path for Storybook.

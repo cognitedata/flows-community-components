@@ -322,22 +322,22 @@ export default function TypographyPage() {
           </p>
         </div>
 
-      {sections.map((section) => (
-        <div key={section.title} className="space-y-0">
-          <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
-          <p className="text-muted-foreground">{section.description}</p>
-          <div className="divide-y divide-border">
-            {typographyScale
-              .filter((item) => item.section === section.title)
-              .map((item) => (
-                <TypographyRow
-                  key={`${section.title}-${item.name}-${item.fontFamily}-${item.fontWeight}`}
-                  item={item}
-                />
-              ))}
+        {sections.map((section) => (
+          <div key={section.title} className="space-y-0">
+            <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
+            <p className="text-muted-foreground">{section.description}</p>
+            <div className="divide-y divide-border">
+              {typographyScale
+                .filter((item) => item.section === section.title)
+                .map((item) => (
+                  <TypographyRow
+                    key={`${section.title}-${item.name}-${item.fontFamily}-${item.fontWeight}`}
+                    item={item}
+                  />
+                ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
       </div>
     </div>
   );

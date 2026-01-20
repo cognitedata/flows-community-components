@@ -1,18 +1,18 @@
 import {
+  type ComponentStatusType,
+  getComponentStatusClasses,
+  getStatusLabel,
+  getStatusMessage,
+} from "@/lib/component-status";
+import {
   IconAlertCircle,
-  IconCircleCheck,
-  IconFlask,
-  IconClock,
   IconBan,
+  IconCircleCheck,
+  IconClock,
+  IconFlask,
   IconSparkles,
   IconStar,
 } from "@tabler/icons-react";
-import {
-  getStatusMessage,
-  getComponentStatusClasses,
-  getStatusLabel,
-  type ComponentStatusType,
-} from "@/lib/component-status";
 
 interface ComponentStatusNotificationProps {
   status: ComponentStatusType;

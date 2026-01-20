@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { Badge } from "./badge";
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -9,10 +7,12 @@ import {
   IconCircleCheck,
   IconHexagon,
   IconInnerShadowTopLeft,
-  IconX,
-  IconUser,
   IconStar,
+  IconUser,
+  IconX,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import { Badge } from "./badge";
 
 const meta: Meta<typeof Badge> = {
   title: "Primitives/Badge",

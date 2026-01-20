@@ -1,42 +1,8 @@
-import React from "react";
-import { useTheme } from "next-themes";
-import { Link } from "react-router-dom";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { Textarea } from "@/components/ui/aura/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/aura/select";
-import { Checkbox } from "@/components/ui/aura/checkbox";
-import { Separator } from "@/components/ui/aura/separator";
 import { Badge } from "@/components/ui/aura/badge";
-import {
-  IconAlertCircle as CircleAlert,
-  IconAlertOctagon as OctagonAlert,
-  IconAppWindow as AppWindow,
-  IconArrowLeft as ArrowLeft,
-  IconChartBar as BarChart3,
-  IconBell as Bell,
-  IconCalendar as CalendarIcon,
-  IconCheck as Check,
-  IconCircleCheck as CircleCheck,
-  IconMoon as Moon,
-  IconPlus as Plus,
-  IconRefresh as RefreshCw,
-  IconCategory as Shapes,
-  IconSun as Sun,
-} from "@tabler/icons-react";
-import { toast } from "sonner";
-import { format } from "date-fns";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
+import { Button } from "@/components/ui/aura/button";
 import { Calendar } from "@/components/ui/aura/calendar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
+import { Checkbox } from "@/components/ui/aura/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -44,6 +10,40 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/aura/dialog";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/aura/select";
+import { Separator } from "@/components/ui/aura/separator";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Textarea } from "@/components/ui/aura/textarea";
+import {
+  IconAppWindow as AppWindow,
+  IconArrowLeft as ArrowLeft,
+  IconChartBar as BarChart3,
+  IconBell as Bell,
+  IconCalendar as CalendarIcon,
+  IconCheck as Check,
+  IconAlertCircle as CircleAlert,
+  IconCircleCheck as CircleCheck,
+  IconMoon as Moon,
+  IconAlertOctagon as OctagonAlert,
+  IconPlus as Plus,
+  IconRefresh as RefreshCw,
+  IconCategory as Shapes,
+  IconSun as Sun,
+} from "@tabler/icons-react";
+import { format } from "date-fns";
+import { useTheme } from "next-themes";
+import React from "react";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 type ChecklistItem = {
   id: string;

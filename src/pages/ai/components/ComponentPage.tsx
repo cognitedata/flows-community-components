@@ -1,17 +1,17 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/aura/button";
-import { Badge } from "@/components/ui/aura/badge";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { InstallationCommand } from "@/components/installation-command";
 import { StoriesRenderer } from "@/components/stories-renderer";
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
+import { type AIComponentMeta, getAIComponentMeta } from "@/lib/ai-component-registry";
 import {
-  getStatusMessage,
+  type ComponentStatusType,
   getComponentStatusClasses,
   getStatusLabel,
-  type ComponentStatusType,
+  getStatusMessage,
 } from "@/lib/component-status";
-import { getAIComponentMeta, type AIComponentMeta } from "@/lib/ai-component-registry";
-import { InstallationCommand } from "@/components/installation-command";
+import { IconArrowLeft } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 // List of valid AI component slugs
 const validSlugs = [

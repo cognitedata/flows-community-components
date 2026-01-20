@@ -1,5 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconCalculator,
+  IconCalendar,
+  IconMail,
+  IconSettings,
+  IconSparkles,
+  IconUser,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import {
   Command,
@@ -12,14 +20,6 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "./command";
-import {
-  IconCalculator,
-  IconCalendar,
-  IconMail,
-  IconSettings,
-  IconSparkles,
-  IconUser,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof Command> = {
   title: "Primitives/Command",

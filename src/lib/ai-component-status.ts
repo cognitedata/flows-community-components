@@ -9,8 +9,8 @@
 
 import {
   type ComponentStatusType,
-  getStatusMessage,
   getComponentStatusClasses,
+  getStatusMessage,
 } from "./component-status";
 
 // Re-export types for backward compatibility

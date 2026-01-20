@@ -1,18 +1,18 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { InstallationCommand } from "@/components/installation-command";
+import { StoriesRenderer } from "@/components/stories-renderer";
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
-import { StoriesRenderer } from "@/components/stories-renderer";
+import type { ComponentMeta } from "@/lib/component-examples";
+import { getComponentMeta } from "@/lib/component-registry";
 import {
-  getStatusMessage,
-  getComponentStatusClasses,
   type ComponentStatusType,
+  getComponentStatusClasses,
+  getStatusMessage,
 } from "@/lib/component-status";
 import { getStatusLabel } from "@/lib/component-status";
-import { InstallationCommand } from "@/components/installation-command";
-import { getComponentMeta } from "@/lib/component-registry";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import type { ComponentMeta } from "@/lib/component-examples";
+import { useNavigate, useParams } from "react-router-dom";
 
 function toTitleCase(str: string): string {
   return str

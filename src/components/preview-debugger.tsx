@@ -1,7 +1,6 @@
-import { useState, useEffect, startTransition } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Button } from "@/components/ui/aura/button";
 import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import {
   IconAlertTriangle,
@@ -11,6 +10,7 @@ import {
   IconCode,
   IconRefresh,
 } from "@tabler/icons-react";
+import { startTransition, useEffect, useState } from "react";
 
 interface PreviewDebuggerProps {
   code: string;

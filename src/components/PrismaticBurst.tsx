@@ -1,5 +1,13 @@
+import {
+  Mesh,
+  type OGLRenderingContext,
+  Program,
+  Renderer,
+  Texture,
+  type Transform,
+  Triangle,
+} from "ogl";
 import { useEffect, useRef } from "react";
-import { Renderer, Program, Mesh, Triangle, Texture, Transform, OGLRenderingContext } from "ogl";
 import "./PrismaticBurst.css";
 
 const vertexShader = `#version 300 es
@@ -184,7 +192,7 @@ const hexToRgb01 = (hex: string): [number, number, number] => {
       b = h[2];
     h = r + r + g + g + b + b;
   }
-  const intVal = parseInt(h, 16);
+  const intVal = Number.parseInt(h, 16);
   if (isNaN(intVal) || (h.length !== 6 && h.length !== 8)) return [1, 1, 1];
   const r = ((intVal >> 16) & 255) / 255;
   const g = ((intVal >> 8) & 255) / 255;
@@ -196,7 +204,7 @@ const toPx = (v: number | string | null | undefined): number => {
   if (v == null) return 0;
   if (typeof v === "number") return v;
   const s = String(v).trim();
-  const num = parseFloat(s.replace("px", ""));
+  const num = Number.parseFloat(s.replace("px", ""));
   return isNaN(num) ? 0 : num;
 };
 

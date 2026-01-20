@@ -1,8 +1,8 @@
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import { Input } from "./input";
-import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Input> = {
   title: "Primitives/Input",

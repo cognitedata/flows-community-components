@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import { Badge } from "@/components/ui/aura/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -474,57 +474,57 @@ export default function ColorsPage() {
           </p>
         </div>
 
-      {/* Base colors */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">Base colors</h2>
-          <p className="text-muted-foreground">Mountain, Fjord</p>
-        </div>
-        <div className="space-y-6">
-          {basePalettes.map((palette) => (
-            <ColorPalette key={palette.name} palette={palette} />
-          ))}
-        </div>
-      </section>
+        {/* Base colors */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Base colors</h2>
+            <p className="text-muted-foreground">Mountain, Fjord</p>
+          </div>
+          <div className="space-y-6">
+            {basePalettes.map((palette) => (
+              <ColorPalette key={palette.name} palette={palette} />
+            ))}
+          </div>
+        </section>
 
-      {/* Decorative colors */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">Decorative colors</h2>
-          <p className="text-muted-foreground">Nordic, Aurora, Dusk</p>
-        </div>
-        <div className="space-y-6">
-          {decorativePalettes.map((palette) => (
-            <ColorPalette key={palette.name} palette={palette} />
-          ))}
-        </div>
-      </section>
+        {/* Decorative colors */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Decorative colors</h2>
+            <p className="text-muted-foreground">Nordic, Aurora, Dusk</p>
+          </div>
+          <div className="space-y-6">
+            {decorativePalettes.map((palette) => (
+              <ColorPalette key={palette.name} palette={palette} />
+            ))}
+          </div>
+        </section>
 
-      {/* Semantic colors */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">Semantic colors</h2>
-          <p className="text-muted-foreground">Red, Amber, Green, Blue</p>
-        </div>
-        <div className="space-y-6">
-          {semanticPalettes.map((palette) => (
-            <ColorPalette key={palette.name} palette={palette} />
-          ))}
-        </div>
-      </section>
+        {/* Semantic colors */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Semantic colors</h2>
+            <p className="text-muted-foreground">Red, Amber, Green, Blue</p>
+          </div>
+          <div className="space-y-6">
+            {semanticPalettes.map((palette) => (
+              <ColorPalette key={palette.name} palette={palette} />
+            ))}
+          </div>
+        </section>
 
-      {/* Extended decorative colors */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">Extended decorative colors</h2>
-          <p className="text-muted-foreground">Sky, Orange, Yellow, Gray, Pink</p>
-        </div>
-        <div className="space-y-6">
-          {extendedPalettes.map((palette) => (
-            <ColorPalette key={palette.name} palette={palette} />
-          ))}
-        </div>
-      </section>
+        {/* Extended decorative colors */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Extended decorative colors</h2>
+            <p className="text-muted-foreground">Sky, Orange, Yellow, Gray, Pink</p>
+          </div>
+          <div className="space-y-6">
+            {extendedPalettes.map((palette) => (
+              <ColorPalette key={palette.name} palette={palette} />
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

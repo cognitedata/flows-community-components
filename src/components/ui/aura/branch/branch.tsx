@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/aura/button";
 import { cn } from "@/lib/utils";
-import type { UIMessage } from "ai";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import type { UIMessage } from "ai";
 import type { ComponentProps, HTMLAttributes, ReactElement } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 

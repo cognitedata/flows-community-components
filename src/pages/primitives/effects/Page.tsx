@@ -126,48 +126,48 @@ export default function EffectsPage() {
           </p>
         </div>
 
-      {/* Elevations Section */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">Elevations</h2>
-          <p className="text-muted-foreground">Box shadows for depth and hierarchy</p>
-        </div>
-        <div className="space-y-2">
-          {shadows.map((shadow) => (
-            <ShadowSwatch key={shadow.name} shadow={shadow} />
-          ))}
-        </div>
-      </section>
+        {/* Elevations Section */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Elevations</h2>
+            <p className="text-muted-foreground">Box shadows for depth and hierarchy</p>
+          </div>
+          <div className="space-y-2">
+            {shadows.map((shadow) => (
+              <ShadowSwatch key={shadow.name} shadow={shadow} />
+            ))}
+          </div>
+        </section>
 
-      {/* Focus Section */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">Focus</h2>
-          <p className="text-muted-foreground">
-            Click or tab to focus the elements to see the focus ring
-          </p>
-        </div>
-        <div className="space-y-2">
-          {focusRings.map((focusRing) => (
-            <FocusRingSwatch key={focusRing.name} focusRing={focusRing} />
-          ))}
-        </div>
-      </section>
+        {/* Focus Section */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Focus</h2>
+            <p className="text-muted-foreground">
+              Click or tab to focus the elements to see the focus ring
+            </p>
+          </div>
+          <div className="space-y-2">
+            {focusRings.map((focusRing) => (
+              <FocusRingSwatch key={focusRing.name} focusRing={focusRing} />
+            ))}
+          </div>
+        </section>
 
-      {/* Ring Widths Section */}
-      <section className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-2">Ring Widths</h2>
-          <p className="text-muted-foreground">
-            Different ring sizes for varying levels of emphasis
-          </p>
-        </div>
-        <div className="space-y-2">
-          {ringWidths.map((ringWidth) => (
-            <RingWidthSwatch key={ringWidth.name} ringWidth={ringWidth} />
-          ))}
-        </div>
-      </section>
+        {/* Ring Widths Section */}
+        <section className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Ring Widths</h2>
+            <p className="text-muted-foreground">
+              Different ring sizes for varying levels of emphasis
+            </p>
+          </div>
+          <div className="space-y-2">
+            {ringWidths.map((ringWidth) => (
+              <RingWidthSwatch key={ringWidth.name} ringWidth={ringWidth} />
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

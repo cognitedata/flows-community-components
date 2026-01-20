@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { Context, ContextTrigger, ContextContent } from "./context";
+import { expect, within } from "@storybook/test";
+import { Context, ContextContent, ContextTrigger } from "./context";
 
 const meta: Meta<typeof Context> = {
   title: "AI/Context",

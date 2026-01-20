@@ -1,12 +1,5 @@
-import { useState, useEffect, startTransition } from "react";
-import { motion } from "framer-motion";
-import {
-  IconEye as Eye,
-  IconMoon as Moon,
-  IconPalette as Palette,
-  IconRotateClockwise as RotateCcw,
-  IconSun as Sun,
-} from "@tabler/icons-react";
+import { CodeCopyButton } from "@/components/code-copy-button";
+import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
 import {
   Card,
@@ -15,17 +8,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import { Input } from "@/components/ui/aura/input";
 import { Label } from "@/components/ui/aura/label";
-import { Badge } from "@/components/ui/aura/badge";
-import { CodeCopyButton } from "@/components/code-copy-button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import {
+  IconEye as Eye,
+  IconMoon as Moon,
+  IconPalette as Palette,
+  IconRotateClockwise as RotateCcw,
+  IconSun as Sun,
+} from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import { startTransition, useEffect, useState } from "react";
 
 // Utility functions for color conversion
 function hslToHex(hsl: string): string {
   const [h, s, l] = hsl.split(" ").map((val, idx) => {
-    if (idx === 0) return parseFloat(val); // hue
-    return parseFloat(val.replace("%", "")) / 100; // saturation and lightness
+    if (idx === 0) return Number.parseFloat(val); // hue
+    return Number.parseFloat(val.replace("%", "")) / 100; // saturation and lightness
   });
 
   const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -72,9 +72,9 @@ function hslToHex(hsl: string): string {
 }
 
 function hexToHsl(hex: string): string {
-  const r = parseInt(hex.slice(1, 3), 16) / 255;
-  const g = parseInt(hex.slice(3, 5), 16) / 255;
-  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const r = Number.parseInt(hex.slice(1, 3), 16) / 255;
+  const g = Number.parseInt(hex.slice(3, 5), 16) / 255;
+  const b = Number.parseInt(hex.slice(5, 7), 16) / 255;
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);

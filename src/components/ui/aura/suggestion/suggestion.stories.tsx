@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconActivity, IconChartLine, IconGauge, IconHistory } from "@tabler/icons-react";
 import { useState } from "react";
 import {
   Suggestion,
-  Suggestions,
   SuggestionContent,
   SuggestionGroup,
   SuggestionItem,
@@ -11,8 +11,8 @@ import {
   SuggestionSeparator,
   SuggestionTrigger,
   SuggestionValue,
+  Suggestions,
 } from "./suggestion";
-import { IconActivity, IconChartLine, IconGauge, IconHistory } from "@tabler/icons-react";
 
 const meta: Meta<typeof Suggestion> = {
   title: "AI/Suggestion",

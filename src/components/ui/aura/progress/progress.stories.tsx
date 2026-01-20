@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
-import { useState, useEffect } from "react";
-import { Progress } from "./progress";
-import { Label } from "../label";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { useEffect, useState } from "react";
 import { Button } from "../button";
+import { Label } from "../label";
+import { Progress } from "./progress";
 
 const meta: Meta<typeof Progress> = {
   title: "AI/Progress",
@@ -221,19 +221,19 @@ export const Animated: Story = {
         expect(progressbar).toBeInTheDocument();
         const ariaValueNow = progressbar.getAttribute("aria-valuenow");
         expect(ariaValueNow).not.toBeNull();
-        expect(parseInt(ariaValueNow || "0")).toBeGreaterThanOrEqual(0);
+        expect(Number.parseInt(ariaValueNow || "0")).toBeGreaterThanOrEqual(0);
       },
       { timeout: 1000 }
     );
 
     // Get initial progress value
     const progressbar = canvas.getByRole("progressbar");
-    const initialValue = parseInt(progressbar.getAttribute("aria-valuenow") || "0");
+    const initialValue = Number.parseInt(progressbar.getAttribute("aria-valuenow") || "0");
 
     // Wait for progress to actually increase
     await waitFor(
       () => {
-        const currentValue = parseInt(
+        const currentValue = Number.parseInt(
           canvas.getByRole("progressbar").getAttribute("aria-valuenow") || "0"
         );
         expect(currentValue).toBeGreaterThan(initialValue);

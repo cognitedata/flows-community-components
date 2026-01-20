@@ -1,16 +1,16 @@
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
+import { IconSettings } from "@tabler/icons-react";
 import {
   Node,
+  NodeAction,
+  NodeContent,
+  NodeDescription,
+  NodeFooter,
   NodeHeader,
   NodeTitle,
-  NodeDescription,
-  NodeContent,
-  NodeFooter,
-  NodeAction,
 } from "./node";
-import { Button } from "@/components/ui/aura/button";
-import { IconSettings } from "@tabler/icons-react";
 
 const meta: Meta<typeof Node> = {
   title: "AI/Node",

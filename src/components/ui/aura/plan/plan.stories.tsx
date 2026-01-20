@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import {
   Plan,
-  PlanHeader,
-  PlanTitle,
-  PlanDescription,
-  PlanTrigger,
   PlanContent,
+  PlanDescription,
+  PlanHeader,
   PlanItem,
+  PlanTitle,
+  PlanTrigger,
 } from "./plan";
 
 const meta: Meta<typeof Plan> = {

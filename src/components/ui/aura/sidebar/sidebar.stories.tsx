@@ -1,37 +1,37 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
+import {
+  IconAppsFilled,
+  IconBellFilled,
+  IconBoltFilled,
+  IconChevronLeft,
+  IconHelp,
+  IconHomeFilled,
+  IconMapPinFilled,
+  IconPointFilled,
+  IconSearch,
+  IconWorld,
+} from "@tabler/icons-react";
 import {
   Sidebar,
-  SidebarHeader,
   SidebarContent,
   SidebarFooter,
-  SidebarProjectSelector,
-  SidebarSearch,
-  SidebarPages,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarHeaderInsert,
   SidebarMainPages,
-  SidebarPinnedApps,
-  SidebarSeparator,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarHeaderInsert,
+  SidebarPages,
+  SidebarPinnedApps,
+  SidebarProjectSelector,
   SidebarProvider,
+  SidebarSearch,
+  SidebarSeparator,
   SidebarTrigger,
-  SidebarGroupLabel,
 } from "./sidebar";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/aura/avatar";
-import {
-  IconMapPinFilled,
-  IconSearch,
-  IconHomeFilled,
-  IconWorld,
-  IconChevronLeft,
-  IconBoltFilled,
-  IconAppsFilled,
-  IconHelp,
-  IconBellFilled,
-  IconPointFilled,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof Sidebar> = {
   title: "Primitives/Sidebar",

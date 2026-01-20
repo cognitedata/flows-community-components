@@ -1,23 +1,23 @@
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
+import {
+  IconChartLine,
+  IconCube,
+  IconDotsVertical,
+  IconGauge,
+  IconReportAnalytics,
+} from "@tabler/icons-react";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-  CardAction,
 } from "./card";
-import { Button } from "@/components/ui/aura/button";
-import { Badge } from "@/components/ui/aura/badge";
-import {
-  IconChartLine,
-  IconDotsVertical,
-  IconGauge,
-  IconReportAnalytics,
-  IconCube,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof Card> = {
   title: "Primitives/Card",

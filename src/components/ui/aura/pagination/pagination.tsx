@@ -1,8 +1,8 @@
-import type { ComponentProps } from "react";
 import { IconChevronLeft, IconChevronRight, IconDots } from "@tabler/icons-react";
+import type { ComponentProps } from "react";
 
+import { type Button, buttonVariants } from "@/components/ui/aura/button";
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/aura/button";
 
 function Pagination({ className, ...props }: ComponentProps<"nav">) {
   return (

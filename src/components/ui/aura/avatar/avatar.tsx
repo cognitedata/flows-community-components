@@ -1,6 +1,6 @@
-import type { ComponentProps, HTMLAttributes } from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
+import type { ComponentProps, HTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 

@@ -1,12 +1,4 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import {
-  IconArrowRight as ArrowRight,
-  IconCircleCheck as CheckCircle2,
-  IconFileText as FileText,
-  IconSparkles as Sparkles,
-  IconTerminal as Terminal,
-} from "@tabler/icons-react";
+import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
 import {
   Card,
@@ -15,8 +7,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import { Badge } from "@/components/ui/aura/badge";
 import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
+import {
+  IconArrowRight as ArrowRight,
+  IconCircleCheck as CheckCircle2,
+  IconFileText as FileText,
+  IconSparkles as Sparkles,
+  IconTerminal as Terminal,
+} from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 interface Step {
   icon: React.ComponentType<{ className?: string }>;

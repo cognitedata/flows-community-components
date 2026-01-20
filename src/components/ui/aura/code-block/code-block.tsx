@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/aura/button";
 import { cn } from "@/lib/utils";
-import type { Element } from "hast";
 import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
+import type { Element } from "hast";
 import {
   type ComponentProps,
-  createContext,
   type HTMLAttributes,
+  createContext,
   useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
-import { type BundledLanguage, codeToHtml, type ShikiTransformer } from "shiki";
+import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;

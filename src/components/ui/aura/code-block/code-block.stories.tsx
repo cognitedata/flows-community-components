@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
-import { CodeBlock, CodeBlockCopyButton, CodeBlockCollapseButton } from "./code-block";
+import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
 
 const meta: Meta<typeof CodeBlock> = {
   title: "Primitives/Code Block",

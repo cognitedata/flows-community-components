@@ -1,6 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconChevronRight,
+  IconCircleArrowDown,
+  IconHome,
+  IconPencil,
+  IconTag,
+  IconTrash,
+} from "@tabler/icons-react";
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../dropdown-menu";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -12,20 +26,6 @@ import {
   BreadcrumbPageButton,
   BreadcrumbSeparator,
 } from "./breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../dropdown-menu";
-import {
-  IconPencil,
-  IconTag,
-  IconCircleArrowDown,
-  IconTrash,
-  IconChevronRight,
-  IconHome,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof Breadcrumb> = {
   title: "Primitives/Breadcrumb",

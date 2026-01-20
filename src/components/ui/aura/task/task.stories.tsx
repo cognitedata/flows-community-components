@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
-import { Task, TaskTrigger, TaskContent, TaskItem, TaskItemFile } from "./task";
+import { expect, userEvent, within } from "@storybook/test";
 import { IconCheck, IconFile } from "@tabler/icons-react";
+import { Task, TaskContent, TaskItem, TaskItemFile, TaskTrigger } from "./task";
 
 const meta: Meta<typeof Task> = {
   title: "AI/Task",

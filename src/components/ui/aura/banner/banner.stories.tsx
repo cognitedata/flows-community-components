@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconAlertCircle,
+  IconAlertTriangle,
+  IconCheck,
+  IconCopy,
+  IconInfoCircle,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import {
   Banner,
-  BannerIcon,
-  BannerTitle,
-  BannerStatus,
-  BannerActions,
   BannerAction,
+  BannerActions,
   BannerClose,
+  BannerIcon,
+  BannerStatus,
+  BannerTitle,
 } from "./banner";
-import {
-  IconInfoCircle,
-  IconAlertTriangle,
-  IconAlertCircle,
-  IconCopy,
-  IconCheck,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof Banner> = {
   title: "Primitives/Banner",

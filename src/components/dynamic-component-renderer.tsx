@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Button } from "@/components/ui/aura/button";
 import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import { Input } from "@/components/ui/aura/input";
 import { Label } from "@/components/ui/aura/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import { IconAlertTriangle, IconPlayerPlay, IconRefresh } from "@tabler/icons-react";
+import React, { useState, useEffect, useMemo } from "react";
 
 interface DynamicComponentRendererProps {
   code: string;
@@ -115,7 +115,7 @@ export function DynamicComponentRenderer({
 
       // Prefer extracting the first fenced code block if present
       const fencedMatch = cleanCode.match(/```(?:tsx|ts|jsx|js)?\n([\s\S]*?)\n```/m);
-      if (fencedMatch && fencedMatch[1]) {
+      if (fencedMatch?.[1]) {
         cleanCode = fencedMatch[1].trim();
       } else {
         // Otherwise, strip any stray backticks that might wrap code
@@ -151,7 +151,7 @@ export function DynamicComponentRenderer({
       if (!exportMatch) {
         // Provide more helpful error message with actual code snippet
         const codePreview =
-          cleanCode.length > 100 ? cleanCode.substring(0, 100) + "..." : cleanCode;
+          cleanCode.length > 100 ? `${cleanCode.substring(0, 100)}...` : cleanCode;
         return {
           error: `No valid export function found. 
 

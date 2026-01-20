@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconBrush, IconClock, IconInfoCircle, IconSettings, IconUser } from "@tabler/icons-react";
 import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./accordion";
-import { IconInfoCircle, IconBrush, IconClock, IconSettings, IconUser } from "@tabler/icons-react";
 
 const meta: Meta<typeof Accordion> = {
   title: "Primitives/Accordion",

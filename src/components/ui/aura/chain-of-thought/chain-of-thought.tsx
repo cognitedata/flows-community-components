@@ -1,4 +1,3 @@
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { Badge } from "@/components/ui/aura/badge";
 import {
   Collapsible,
@@ -6,6 +5,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
 import { cn } from "@/lib/utils";
+import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { IconBrain, IconChevronDown, IconPointFilled, type IconProps } from "@tabler/icons-react";
 import type { ComponentProps, ComponentType } from "react";
 import { createContext, memo, useContext, useMemo } from "react";

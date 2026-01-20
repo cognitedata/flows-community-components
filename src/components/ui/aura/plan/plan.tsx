@@ -13,11 +13,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
+import { Shimmer } from "@/components/ui/aura/shimmer";
 import { cn } from "@/lib/utils";
 import { IconSelector } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import { createContext, useContext } from "react";
-import { Shimmer } from "@/components/ui/aura/shimmer";
 
 type PlanContextValue = {
   isStreaming: boolean;

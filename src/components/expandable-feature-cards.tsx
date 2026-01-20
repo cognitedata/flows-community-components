@@ -1,9 +1,10 @@
-import React, { RefObject, useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
+import { useOutsideClick } from "@/hooks/use-outside-click";
 import { IconArrowRight, IconCode, IconPalette, IconSparkles, IconX } from "@tabler/icons-react";
+import { AnimatePresence, motion } from "framer-motion";
+import type React from "react";
+import { type RefObject, useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 interface FeatureCard {

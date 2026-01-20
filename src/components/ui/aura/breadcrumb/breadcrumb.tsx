@@ -1,9 +1,9 @@
-import type { ComponentProps } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { IconDots, IconSlash } from "@tabler/icons-react";
+import type { ComponentProps } from "react";
 
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/aura/button/button";
+import { cn } from "@/lib/utils";
 
 /**
  * Root container for breadcrumb navigation.

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
 import { Shimmer } from "./shimmer";
 
 const meta: Meta<typeof Shimmer> = {

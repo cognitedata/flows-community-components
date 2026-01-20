@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { Label } from "./label";
-import { Input } from "@/components/ui/aura/input";
 import { Checkbox } from "@/components/ui/aura/checkbox";
+import { Input } from "@/components/ui/aura/input";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
+import { Label } from "./label";
 
 const meta: Meta<typeof Label> = {
   title: "Primitives/Label",
