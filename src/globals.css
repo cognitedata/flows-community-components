@@ -1,32 +1,51 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Source+Code+Pro:wght@200..900&display=swap");
-@import "tailwindcss";
-@import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Grotesk:wght@300..700&family=Source+Code+Pro:wght@200..900&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 /* Dark mode configuration */
-@variant dark @media (prefers-color-scheme: dark);
-@variant dark .dark &;
+@variant dark (@media (prefers-color-scheme: dark));
+@variant dark (.dark &);
 
 @theme inline {
+  /* Container query breakpoint overrides for layout system */
+  --container-2xl: 40rem; /* 640px - Override Tailwind's default 672px */
+  --container-8xl: 96rem; /* 1536px - Custom breakpoint for widest layouts */
+
   /* Typography scale overrides - font sizes */
-  --text-2xs: 0.625rem; /* 10px */
-  --text-2xl: 1.5rem; /* 24px (TW default is 24px) */
-  --text-3xl: 1.75rem; /* 28px (TW default is 30px) */
-  --text-4xl: 2rem; /* 32px (TW default is 36px) */
-  --text-5xl: 2.25rem; /* 36px (TW default is 48px) */
+  --text-2xs: 0.625rem;
+  /* 10px */
+  --text-2xl: 1.5rem;
+  /* 24px (TW default is 24px) */
+  --text-3xl: 1.75rem;
+  /* 28px (TW default is 30px) */
+  --text-4xl: 2rem;
+  /* 32px (TW default is 36px) */
+  --text-5xl: 2.25rem;
+  /* 36px (TW default is 48px) */
 
   /* Typography scale overrides - line heights */
-  --text-2xs--line-height: 0.75rem; /* 12px */
-  --text-xs--line-height: 0.875rem; /* 14px (TW default is 16px) */
-  --text-sm--line-height: 1.125rem; /* 18px (TW default is 20px) */
-  --text-base--line-height: 1.25rem; /* 20px (TW default is 24px) */
-  --text-lg--line-height: 1.5rem; /* 24px (TW default is 28px) */
-  --text-xl--line-height: 1.5rem; /* 24px (TW default is 28px) */
-  --text-2xl--line-height: 1.75rem; /* 28px (TW default is 32px) */
-  --text-3xl--line-height: 2rem; /* 32px (TW default is 36px) */
-  --text-4xl--line-height: 2.5rem; /* 40px (TW default is 40px) */
-  --text-5xl--line-height: 2.75rem; /* 44px (TW default is 1) */
+  --text-2xs--line-height: 0.75rem;
+  /* 12px */
+  --text-xs--line-height: 0.875rem;
+  /* 14px (TW default is 16px) */
+  --text-sm--line-height: 1.125rem;
+  /* 18px (TW default is 20px) */
+  --text-base--line-height: 1.25rem;
+  /* 20px (TW default is 24px) */
+  --text-lg--line-height: 1.5rem;
+  /* 24px (TW default is 28px) */
+  --text-xl--line-height: 1.5rem;
+  /* 24px (TW default is 28px) */
+  --text-2xl--line-height: 1.75rem;
+  /* 28px (TW default is 32px) */
+  --text-3xl--line-height: 2rem;
+  /* 32px (TW default is 36px) */
+  --text-4xl--line-height: 2.5rem;
+  /* 40px (TW default is 40px) */
+  --text-5xl--line-height: 2.75rem;
+  /* 44px (TW default is 1) */
 
   --font-sans: var(--font-inter);
   --font-marketing: var(--font-space-grotesk);
@@ -34,11 +53,20 @@
   --tracking-tight: -0.04px;
   --tracking-tighter: -0.08px;
   --tracking-tightest: -0.1px;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* tooltips; small containers */
-  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* menus; popovers; hover cards */
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* sonner; temporary elements */
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* modals; dialogs without backdrop overlay */
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* modals; dialogs with backdrop overlay */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  /* tooltips; small containers */
+  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+  0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  /* menus; popovers; hover cards */
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /* sonner; temporary elements */
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* modals; dialogs without backdrop overlay */
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* modals; dialogs with backdrop overlay */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -56,11 +84,12 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-ring-shadow: var(--ring-shadow);
+  --color-ring-destructive: var(--ring-destructive);
+  --color-ring-destructive-shadow: var(--ring-destructive-shadow);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-destructive-shadow: var(--destructive-shadow);
   --color-destructive-hover: var(--destructive-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -68,16 +97,18 @@
   --color-mountain: var(--mountain);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary-hover: var(--secondary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary-hover: var(--secondary-hover);
   --color-tertiary: var(--tertiary);
   --color-tertiary-hover: var(--tertiary-hover);
   --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-toggled: var(--toggled);
+  --color-toggled-hover: var(--toggled-hover);
+  --color-toggled-foreground: var(--toggled-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -253,17 +284,20 @@
 }
 
 :root {
-  --radius: 0.625rem; /* 6px - default radius, maps to radius-md */
-  --font-inter: "Inter", sans-serif;
-  --font-space-grotesk: "Space Grotesk", sans-serif;
-  --font-source-code-pro: "Source Code Pro", monospace;
+  --radius: 0.375rem;
+  /* 6px - default radius, maps to radius-md */
+  --font-inter: 'Inter', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-source-code-pro: 'Source Code Pro', monospace;
   --code-block-collapsed-height: 6.5rem;
   --code-block-fade-height: 0.9375rem;
   --message-content-max-width: 80%;
 
   /* Component-specific sizing */
-  --alert-icon-width: calc(var(--spacing) * 4); /* 16px - width of icon column in alert grid */
-  --drawer-max-height: 80vh; /* Maximum height for top/bottom drawers */
+  --alert-icon-width: calc(var(--spacing) * 4);
+  /* 16px - width of icon column in alert grid */
+  --drawer-max-height: 80vh;
+  /* Maximum height for top/bottom drawers */
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
@@ -493,39 +527,40 @@
   --pink-950: rgb(40, 5, 19);
 
   /* Theme tokens (Light) mapped to ramp variables */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --background: var(--mountain-white);
+  --foreground: var(--mountain-950);
+  --card: var(--mountain-10);
+  --card-foreground: var(--mountain-950);
+  --popover: var(--mountain-white);
+  --popover-foreground: var(--mountain-950);
+  --primary: var(--mountain-900);
   --primary-hover: var(--mountain-700);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --primary-foreground: var(--mountain-50);
+  --secondary: var(--mountain-100);
   --secondary-hover: var(--mountain-200);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary-foreground: var(--mountain-800);
   --tertiary: var(--gray-550);
-  --tertiary-hover: var(--gray-300);
+  --tertiary-hover: var(--gray-600);
   --tertiary-foreground: var(--mountain-white);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --muted: var(--mountain-50);
+  --muted-foreground: var(--mountain-600);
+  --accent: var(--mountain-50);
+  --accent-foreground: var(--mountain-950);
   --mountain: var(--mountain-50);
   --mountain-foreground: var(--mountain-950);
   --foreground-link: var(--fjord-550);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: var(--mountain-100);
+  --input: var(--mountain-100);
+  --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
+  --ring-destructive: var(--red-500);
+  --ring-destructive-shadow: var(--red-300);
   --backdrop: rgba(2, 6, 23, 0.2);
 
   /* Status tokens */
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: var(--red-50);
   --destructive-hover: var(--red-100);
   --destructive-foreground: var(--red-500);
-  --destructive-shadow: var(--red-300);
   --warning: var(--amber-50);
   --warning-hover: var(--amber-100);
   --warning-foreground: var(--amber-500);
@@ -542,7 +577,7 @@
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
 
-  /* Toggled tokens */
+  /* Toggled tokens (light mode) */
   --toggled: var(--gray-100);
   --toggled-foreground: var(--gray-700);
   --toggled-hover: var(--gray-200);
@@ -584,100 +619,60 @@
   --decorative-foreground-gray: var(--gray-600);
 
   /* Gradient tokens */
-  --gradient-nordic: linear-gradient(
-    -100deg,
-    var(--nordic-50) 0%,
-    var(--nordic-400) 44%,
-    var(--nordic-200) 100%
-  );
-  --gradient-aurora: linear-gradient(
-    -100deg,
-    var(--aurora-50) 0%,
-    var(--aurora-400) 50%,
-    var(--aurora-200) 100%
-  );
-  --gradient-dusk: linear-gradient(
-    -100deg,
-    var(--dusk-50) 0%,
-    var(--dusk-400) 48%,
-    var(--dusk-200) 100%
-  );
-  --gradient-equinox: linear-gradient(
-    -100deg,
-    var(--dusk-600) 0%,
-    var(--dusk-300) 40%,
-    var(--aurora-50) 60%,
-    var(--aurora-100) 100%
-  );
-  --gradient-summer: linear-gradient(
-    -100deg,
-    var(--nordic-100) 0%,
-    var(--dusk-50) 50%,
-    var(--aurora-100) 100%
-  );
-  --gradient-spring: linear-gradient(
-    -100deg,
-    var(--aurora-50) 0%,
-    var(--nordic-100) 50%,
-    var(--aurora-100) 100%
-  );
-  --gradient-fall: linear-gradient(
-    -100deg,
-    var(--fjord-550) 0%,
-    var(--dusk-550) 50%,
-    var(--dusk-300) 100%
-  );
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-50) 0%, var(--nordic-400) 44%, var(--nordic-200) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-50) 0%, var(--aurora-400) 50%, var(--aurora-200) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-50) 0%, var(--dusk-400) 48%, var(--dusk-200) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-600) 0%, var(--dusk-300) 40%, var(--aurora-50) 60%, var(--aurora-100) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-100) 0%, var(--dusk-50) 50%, var(--aurora-100) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-50) 0%, var(--nordic-100) 50%, var(--aurora-100) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-550) 0%, var(--dusk-550) 50%, var(--dusk-300) 100%);
 
   /* Sidebar */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: var(--mountain-900);
+  --sidebar-foreground: var(--mountain-100);
+  --sidebar-primary: var(--mountain-600);
+  --sidebar-primary-foreground: var(--mountain-white);
+  --sidebar-accent: var(--mountain-700);
+  --sidebar-accent-foreground: var(--mountain-white);
+  --sidebar-border: var(--mountain-800);
+  --sidebar-ring: var(--gray-300);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --background: var(--mountain-950);
+  --foreground: var(--mountain-50);
+  --card: var(--mountain-900);
+  --card-foreground: var(--mountain-50);
+  --popover: var(--mountain-900);
+  --popover-foreground: var(--mountain-200);
+  --primary: var(--mountain-50);
   --primary-hover: var(--mountain-200);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  --primary-foreground: var(--mountain-950);
+  --secondary: var(--mountain-700);
   --secondary-hover: var(--mountain-600);
-  --secondary-foreground: oklch(0.985 0 0);
+  --secondary-foreground: var(--mountain-50);
   --tertiary: var(--gray-550);
-  --tertiary-hover: var(--gray-700);
+  --tertiary-hover: var(--gray-600);
   --tertiary-foreground: var(--mountain-white);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --muted: var(--mountain-700);
+  --muted-foreground: var(--mountain-300);
+  --accent: var(--mountain-700);
+  --accent-foreground: var(--mountain-50);
   --mountain: var(--mountain-800);
   --mountain-foreground: var(--mountain-50);
   --foreground-link: var(--fjord-550);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: var(--mountain-700);
+  --input: var(--mountain-900);
+  --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
+  --ring-destructive: var(--red-500);
+  --ring-destructive-shadow: var(--red-300);
   --backdrop: rgba(226, 232, 240, 0.2);
 
   /* Status tokens */
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: var(--red-500);
   --destructive-hover: var(--red-700);
   --destructive-foreground: var(--red-300);
-  --destructive-shadow: var(--red-300);
   --warning: var(--amber-800);
   --warning-hover: var(--amber-700);
   --warning-foreground: var(--amber-300);
@@ -694,10 +689,10 @@
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
 
-  /* Toggled tokens */
-  --toggled: var(--gray-900);
-  --toggled-foreground: var(--gray-200);
-  --toggled-hover: var(--gray-800);
+  /* Toggled tokens (dark mode) */
+  --toggled: var(--gray-650);
+  --toggled-foreground: var(--gray-50);
+  --toggled-hover: var(--gray-500);
 
   /* Inverted tokens */
   --inverted: var(--mountain-900);
@@ -736,77 +731,37 @@
   --decorative-foreground-gray: var(--gray-300);
 
   /* Gradient tokens */
-  --gradient-nordic: linear-gradient(
-    -100deg,
-    var(--nordic-900) 0%,
-    var(--nordic-600) 44%,
-    var(--nordic-800) 100%
-  );
-  --gradient-aurora: linear-gradient(
-    -100deg,
-    var(--aurora-900) 0%,
-    var(--aurora-600) 50%,
-    var(--aurora-800) 100%
-  );
-  --gradient-dusk: linear-gradient(
-    -100deg,
-    var(--dusk-900) 0%,
-    var(--dusk-600) 48%,
-    var(--dusk-800) 100%
-  );
-  --gradient-equinox: linear-gradient(
-    -100deg,
-    var(--dusk-400) 0%,
-    var(--dusk-700) 40%,
-    var(--aurora-950) 60%,
-    var(--aurora-900) 100%
-  );
-  --gradient-summer: linear-gradient(
-    -100deg,
-    var(--nordic-900) 0%,
-    var(--dusk-950) 50%,
-    var(--aurora-900) 100%
-  );
-  --gradient-spring: linear-gradient(
-    -100deg,
-    var(--aurora-950) 0%,
-    var(--nordic-900) 50%,
-    var(--aurora-900) 100%
-  );
-  --gradient-fall: linear-gradient(
-    -100deg,
-    var(--fjord-450) 0%,
-    var(--dusk-450) 50%,
-    var(--dusk-700) 100%
-  );
+  --gradient-nordic: linear-gradient(-100deg, var(--nordic-900) 0%, var(--nordic-600) 44%, var(--nordic-800) 100%);
+  --gradient-aurora: linear-gradient(-100deg, var(--aurora-900) 0%, var(--aurora-600) 50%, var(--aurora-800) 100%);
+  --gradient-dusk: linear-gradient(-100deg, var(--dusk-900) 0%, var(--dusk-600) 48%, var(--dusk-800) 100%);
+  --gradient-equinox: linear-gradient(-100deg, var(--dusk-400) 0%, var(--dusk-700) 40%, var(--aurora-950) 60%, var(--aurora-900) 100%);
+  --gradient-summer: linear-gradient(-100deg, var(--nordic-900) 0%, var(--dusk-950) 50%, var(--aurora-900) 100%);
+  --gradient-spring: linear-gradient(-100deg, var(--aurora-950) 0%, var(--nordic-900) 50%, var(--aurora-900) 100%);
+  --gradient-fall: linear-gradient(-100deg, var(--fjord-450) 0%, var(--dusk-450) 50%, var(--dusk-700) 100%);
 
   /* Sidebar */
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: var(--mountain-900);
+  --sidebar-foreground: var(--mountain-100);
+  --sidebar-primary: var(--mountain-600);
+  --sidebar-primary-foreground: var(--mountain-white);
+  --sidebar-accent: var(--mountain-700);
+  --sidebar-accent-foreground: var(--mountain-white);
+  --sidebar-border: var(--mountain-800);
+  --sidebar-ring: var(--gray-300);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 @layer utilities {
-  [data-state="closed"] {
+  [data-state='closed'] {
     --tw-animation-fill-mode: forwards;
   }
 
@@ -814,6 +769,7 @@
     from {
       height: 0;
     }
+
     to {
       height: var(--radix-accordion-content-height);
     }
@@ -823,6 +779,7 @@
     from {
       height: var(--radix-accordion-content-height);
     }
+
     to {
       height: 0;
     }
