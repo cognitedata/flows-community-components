@@ -142,7 +142,7 @@ export const Sizes: Story = {
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Default</span>
         <Toggle aria-label="Default size" size="default">
-          <IconPointer className="size-3.5" />
+          <IconPointer className="size-4" />
         </Toggle>
       </div>
       <div className="flex flex-col items-center gap-2">
