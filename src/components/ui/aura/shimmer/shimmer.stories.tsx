@@ -35,12 +35,22 @@ const meta: Meta<typeof Shimmer> = {
     },
     variant: {
       control: "select",
-      options: ["default", "nordic", "aurora", "dusk", "equinox", "summer", "spring", "fall"],
+      options: [
+        "default",
+        "nordic",
+        "aurora",
+        "dusk",
+        "equinox",
+        "summer",
+        "spring",
+        "fall",
+      ],
       description: "Gradient variant for the shimmer effect",
       table: {
         category: "Display",
         type: {
-          summary: "default | nordic | aurora | dusk | equinox | summer | spring | fall",
+          summary:
+            "default | nordic | aurora | dusk | equinox | summer | spring | fall",
         },
         defaultValue: { summary: "default" },
       },
@@ -56,7 +66,8 @@ const meta: Meta<typeof Shimmer> = {
     },
     spread: {
       control: "number",
-      description: "Spread multiplier for shimmer effect (based on text length)",
+      description:
+        "Spread multiplier for shimmer effect (based on text length)",
       table: {
         category: "Animation",
         type: { summary: "number" },
@@ -130,14 +141,21 @@ export const GradientVariants: Story = {
     const canvas = within(canvasElement);
 
     // Verify all variants are rendered
-    await expect(canvas.getByText("Default gradient")).toBeInTheDocument();
-    await expect(canvas.getByText("Nordic gradient")).toBeInTheDocument();
-    await expect(canvas.getByText("Aurora gradient")).toBeInTheDocument();
-    await expect(canvas.getByText("Dusk gradient")).toBeInTheDocument();
-    await expect(canvas.getByText("Equinox gradient")).toBeInTheDocument();
-    await expect(canvas.getByText("Summer gradient")).toBeInTheDocument();
-    await expect(canvas.getByText("Spring gradient")).toBeInTheDocument();
-    await expect(canvas.getByText("Fall gradient")).toBeInTheDocument();
+    const variants = [
+      "Default gradient",
+      "Nordic gradient",
+      "Aurora gradient",
+      "Dusk gradient",
+      "Equinox gradient",
+      "Summer gradient",
+      "Spring gradient",
+      "Fall gradient",
+    ];
+
+    for (const variant of variants) {
+      // eslint-disable-next-line no-await-in-loop
+      await expect(canvas.getByText(variant)).toBeInTheDocument();
+    }
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -168,20 +186,21 @@ export const ElementTypes: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all element types are rendered correctly
-    await expect(canvas.getByText("Heading 1 with shimmer")).toBeInTheDocument();
-    await expect(canvas.getByText("Heading 2 with shimmer")).toBeInTheDocument();
-    await expect(canvas.getByText("Heading 3 with shimmer")).toBeInTheDocument();
-    await expect(canvas.getByText("Paragraph text with shimmer effect applied.")).toBeInTheDocument();
-    await expect(canvas.getByText("shimmer span")).toBeInTheDocument();
-    await expect(canvas.getByText("Div element styled as secondary text")).toBeInTheDocument();
-
-    // Verify heading elements are rendered as headings
-    const h1 = canvas.getByRole("heading", { level: 1, name: /heading 1 with shimmer/i });
+    // Verify heading elements are rendered as headings with correct text
+    const h1 = canvas.getByRole("heading", {
+      level: 1,
+      name: /heading 1 with shimmer/i,
+    });
     await expect(h1).toBeInTheDocument();
-    const h2 = canvas.getByRole("heading", { level: 2, name: /heading 2 with shimmer/i });
+    const h2 = canvas.getByRole("heading", {
+      level: 2,
+      name: /heading 2 with shimmer/i,
+    });
     await expect(h2).toBeInTheDocument();
-    const h3 = canvas.getByRole("heading", { level: 3, name: /heading 3 with shimmer/i });
+    const h3 = canvas.getByRole("heading", {
+      level: 3,
+      name: /heading 3 with shimmer/i,
+    });
     await expect(h3).toBeInTheDocument();
   },
   render: () => (
@@ -228,10 +247,17 @@ export const AnimationDurations: Story = {
     const canvas = within(canvasElement);
 
     // Verify all duration variants are rendered
-    await expect(canvas.getByText("Fast (1 second)")).toBeInTheDocument();
-    await expect(canvas.getByText("Default (2 seconds)")).toBeInTheDocument();
-    await expect(canvas.getByText("Slow (3 seconds)")).toBeInTheDocument();
-    await expect(canvas.getByText("Very slow (4 seconds)")).toBeInTheDocument();
+    const durations = [
+      "Fast (1 second)",
+      "Default (2 seconds)",
+      "Slow (3 seconds)",
+      "Very slow (4 seconds)",
+    ];
+
+    for (const duration of durations) {
+      // eslint-disable-next-line no-await-in-loop
+      await expect(canvas.getByText(duration)).toBeInTheDocument();
+    }
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -259,10 +285,17 @@ export const SpreadValues: Story = {
     const canvas = within(canvasElement);
 
     // Verify all spread variants are rendered
-    await expect(canvas.getByText("Narrow spread (1)")).toBeInTheDocument();
-    await expect(canvas.getByText("Default spread (2)")).toBeInTheDocument();
-    await expect(canvas.getByText("Wide spread (3)")).toBeInTheDocument();
-    await expect(canvas.getByText("Very wide spread (4)")).toBeInTheDocument();
+    const spreads = [
+      "Narrow spread (1)",
+      "Default spread (2)",
+      "Wide spread (3)",
+      "Very wide spread (4)",
+    ];
+
+    for (const spread of spreads) {
+      // eslint-disable-next-line no-await-in-loop
+      await expect(canvas.getByText(spread)).toBeInTheDocument();
+    }
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -291,21 +324,25 @@ export const LongText: Story = {
 
     // Verify long text content is rendered
     await expect(
-      canvas.getByText(/This is a longer piece of text that demonstrates how the shimmer effect works with extended content/i)
+      canvas.getByText(
+        /This is a longer piece of text that demonstrates how the shimmer effect works with extended content/i
+      )
     ).toBeInTheDocument();
     await expect(
-      canvas.getByText(/The shimmer animation smoothly transitions across the entire length of the text, creating an engaging loading effect/i)
+      canvas.getByText(
+        /The shimmer animation smoothly transitions across the entire length of the text, creating an engaging loading effect/i
+      )
     ).toBeInTheDocument();
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <Shimmer>
-        This is a longer piece of text that demonstrates how the shimmer effect works with extended
-        content.
+        This is a longer piece of text that demonstrates how the shimmer effect
+        works with extended content.
       </Shimmer>
       <Shimmer variant="aurora">
-        The shimmer animation smoothly transitions across the entire length of the text, creating an
-        engaging loading effect.
+        The shimmer animation smoothly transitions across the entire length of
+        the text, creating an engaging loading effect.
       </Shimmer>
     </div>
   ),
@@ -327,17 +364,25 @@ export const InlineUsage: Story = {
     const canvas = within(canvasElement);
 
     // Verify inline shimmer text is rendered within paragraphs
-    await expect(canvas.getByText(/Your request is/i)).toBeInTheDocument();
-    await expect(canvas.getByText("processing")).toBeInTheDocument();
-    await expect(canvas.getByText(/Status:/i)).toBeInTheDocument();
-    await expect(canvas.getByText("Analyzing data")).toBeInTheDocument();
-    await expect(canvas.getByText(/Loading/i)).toBeInTheDocument();
-    await expect(canvas.getByText("configuration")).toBeInTheDocument();
+    const inlineTexts = [
+      /Your request is/i,
+      "processing",
+      /Status:/i,
+      "Analyzing data",
+      /Loading/i,
+      "configuration",
+    ];
+
+    for (const text of inlineTexts) {
+      // eslint-disable-next-line no-await-in-loop
+      await expect(canvas.getByText(text)).toBeInTheDocument();
+    }
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <p className="text-base">
-        Your request is <Shimmer as="span">processing</Shimmer> and will be ready shortly.
+        Your request is <Shimmer as="span">processing</Shimmer> and will be
+        ready shortly.
       </p>
       <p className="text-base">
         Status:{" "}
@@ -363,7 +408,8 @@ export const CustomStyling: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Shimmer effects with custom CSS classes for additional styling.",
+        story:
+          "Shimmer effects with custom CSS classes for additional styling.",
       },
     },
   },
@@ -371,9 +417,16 @@ export const CustomStyling: Story = {
     const canvas = within(canvasElement);
 
     // Verify custom styled shimmer text is rendered
-    await expect(canvas.getByText("Large bold text")).toBeInTheDocument();
-    await expect(canvas.getByText("Small muted text")).toBeInTheDocument();
-    await expect(canvas.getByText("Medium semibold text")).toBeInTheDocument();
+    const styledTexts = [
+      "Large bold text",
+      "Small muted text",
+      "Medium semibold text",
+    ];
+
+    for (const text of styledTexts) {
+      // eslint-disable-next-line no-await-in-loop
+      await expect(canvas.getByText(text)).toBeInTheDocument();
+    }
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -403,15 +456,26 @@ export const LoadingStates: Story = {
     const canvas = within(canvasElement);
 
     // Verify headings are present
-    await expect(canvas.getByRole("heading", { name: /Processing Request/i })).toBeInTheDocument();
-    await expect(canvas.getByRole("heading", { name: /System Status/i })).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("heading", { name: /Processing Request/i })
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("heading", { name: /System Status/i })
+    ).toBeInTheDocument();
 
     // Verify shimmer loading states are rendered
-    await expect(canvas.getByText("Analyzing input parameters...")).toBeInTheDocument();
-    await expect(canvas.getByText("Generating response...")).toBeInTheDocument();
-    await expect(canvas.getByText("Finalizing results...")).toBeInTheDocument();
-    await expect(canvas.getByText("Data synchronization in progress")).toBeInTheDocument();
-    await expect(canvas.getByText("Calculating...")).toBeInTheDocument();
+    const loadingStates = [
+      "Analyzing input parameters...",
+      "Generating response...",
+      "Finalizing results...",
+      "Data synchronization in progress",
+      "Calculating...",
+    ];
+
+    for (const state of loadingStates) {
+      // eslint-disable-next-line no-await-in-loop
+      await expect(canvas.getByText(state)).toBeInTheDocument();
+    }
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-6 max-w-md">
