@@ -17,10 +17,14 @@
 export {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationLink,
   PaginationItem,
+  PaginationFirst,
+  PaginationLast,
   PaginationPrevious,
   PaginationNext,
-  PaginationEllipsis,
+  paginationEllipsisVariants,
+  paginationLinkVariants,
 } from "./pagination";
 export { PaginationMetadata } from "./pagination.metadata";
