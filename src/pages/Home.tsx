@@ -134,6 +134,14 @@ export default function HomePage() {
             <div
               className="group relative flex items-center gap-4 bg-muted/50 backdrop-blur-md border border-border/50 rounded-xl px-6 py-5 hover:bg-muted/70 transition-all cursor-pointer shadow-sm"
               onClick={copyToClipboard}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  copyToClipboard();
+                }
+              }}
+              role="button"
+              tabIndex={0}
             >
               <Terminal className="h-6 w-6 text-primary shrink-0" />
               <code className="flex-1 text-left font-mono text-lg sm:text-xl text-foreground">

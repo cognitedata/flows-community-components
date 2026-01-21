@@ -14,12 +14,10 @@ interface StoryEntry {
   sourceCode?: string;
 }
 
-
 // Use import.meta.glob to let Vite know about all stories files at build time
 // Using eager: true ensures modules are loaded at build time and included in production bundle
 // This follows Storybook's recommended pattern for portable stories
 const storiesModules = import.meta.glob("@/components/ui/aura/*/*.stories.tsx", { eager: true });
-
 
 // Create a slug-to-module mapping at module load time to avoid path resolution issues
 // This works regardless of how Vite transforms paths in production builds
@@ -75,18 +73,21 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
 
       if (!storiesModule) {
         const availableSlugs = Array.from(storiesBySlug.keys());
-        const similarSlugs = availableSlugs.filter((s) => 
-          s.includes(slug) || slug.includes(s) || 
-          s.toLowerCase().includes(slug.toLowerCase()) || 
-          slug.toLowerCase().includes(s.toLowerCase())
+        const similarSlugs = availableSlugs.filter(
+          (s) =>
+            s.includes(slug) ||
+            slug.includes(s) ||
+            s.toLowerCase().includes(slug.toLowerCase()) ||
+            slug.toLowerCase().includes(s.toLowerCase())
         );
-        
+
         console.error("[StoriesRenderer] Story module not found for slug:", slug);
-        
-        const errorMessage = similarSlugs.length > 0
-          ? `No stories file found for "${slug}". Did you mean: ${similarSlugs.slice(0, 3).join(", ")}?`
-          : `No stories file found for "${slug}". Available: ${availableSlugs.slice(0, 5).join(", ")}${availableSlugs.length > 5 ? "..." : ""}`;
-        
+
+        const errorMessage =
+          similarSlugs.length > 0
+            ? `No stories file found for "${slug}". Did you mean: ${similarSlugs.slice(0, 3).join(", ")}?`
+            : `No stories file found for "${slug}". Available: ${availableSlugs.slice(0, 5).join(", ")}${availableSlugs.length > 5 ? "..." : ""}`;
+
         setError(errorMessage);
         return;
       }
@@ -99,14 +100,15 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         // composeStories expects a module with default export (meta) and named exports (stories)
         let composed: Record<string, ComponentType>;
         try {
-          composed = composeStories(
-            module as Parameters<typeof composeStories>[0]
-          ) as Record<string, ComponentType>;
-          
+          composed = composeStories(module as Parameters<typeof composeStories>[0]) as Record<
+            string,
+            ComponentType
+          >;
+
           // If composeStories returns empty, try to manually extract stories
           if (Object.keys(composed).length === 0) {
             const moduleKeys = Object.keys(module);
-            
+
             // Filter out default, __esModule, and other non-story exports
             const storyKeys = moduleKeys.filter(
               (key) =>
@@ -115,7 +117,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
                 !key.startsWith("_") &&
                 typeof module[key] === "object"
             );
-            
+
             if (storyKeys.length > 0) {
               // Manually create composed stories from the module
               composed = {} as Record<string, ComponentType>;
@@ -130,7 +132,11 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
             }
           }
         } catch (composeError) {
-          console.error("[StoriesRenderer] Failed to compose stories for slug:", slug, composeError);
+          console.error(
+            "[StoriesRenderer] Failed to compose stories for slug:",
+            slug,
+            composeError
+          );
           throw composeError;
         }
 
@@ -174,7 +180,9 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
       } catch (err) {
         if (!cancelled) {
           console.error("[StoriesRenderer] Failed to load stories for slug:", slug, err);
-          setError(`Failed to load stories for "${slug}". ${err instanceof Error ? err.message : "Unknown error"}.`);
+          setError(
+            `Failed to load stories for "${slug}". ${err instanceof Error ? err.message : "Unknown error"}.`
+          );
         }
       }
     }

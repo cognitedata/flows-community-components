@@ -159,7 +159,7 @@ export const SizeSM: Story = {
 /**
  * Error state with automatic error icon
  */
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     isError: true,
     children: "This field is required.",
