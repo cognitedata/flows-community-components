@@ -133,6 +133,31 @@ export const Default: Story = {
 };
 
 /**
+ * Playground story for interactive exploration of toggle props.
+ */
+export const Playground: Story = {
+  args: {
+    variant: "default",
+    size: "default",
+    disabled: false,
+    defaultPressed: false,
+  },
+  render: (args) => (
+    <Toggle {...args} aria-label="Playground toggle">
+      <IconPointer className="size-3.5" />
+    </Toggle>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Interactive playground for the toggle component. Use controls to experiment with different variants, sizes, and disabled/pressed states.",
+      },
+    },
+  },
+};
+
+/**
  * Toggle size variants.
  * Displays all available size options side by side for comparison.
  */
@@ -158,6 +183,41 @@ export const Sizes: Story = {
       description: {
         story:
           "Showcases the available toggle sizes (default and small) for quick comparison. Both use the `default` variant.",
+      },
+    },
+  },
+};
+
+/**
+ * Disabled toggle states.
+ * Shows how disabled toggles appear using `bg-background` and `text-disabled-foreground`.
+ */
+export const DisabledStates: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Toggle
+        aria-label="Disabled default toggle"
+        variant="default"
+        disabled
+        className="bg-background text-disabled-foreground"
+      >
+        <IconPointer className="size-3.5" />
+      </Toggle>
+      <Toggle
+        aria-label="Disabled exclusive toggle"
+        variant="exclusive"
+        disabled
+        className="bg-background text-disabled-foreground"
+      >
+        <IconPointer className="size-3.5" />
+      </Toggle>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates disabled toggle styling. Both toggles use `bg-background` and `text-disabled-foreground` while still inheriting the base disabled behavior (no pointer events, reduced opacity).",
       },
     },
   },
@@ -443,6 +503,11 @@ export const FilterAndSortSmall: Story = {
     await userEvent.click(sortToggle);
     await expect(sortToggle).toHaveAttribute("data-state", "on");
     await expect(filterToggle).toHaveAttribute("data-state", "on"); // Filter should still be on
+
+    // Toggle filter off
+    await userEvent.click(filterToggle);
+    await expect(filterToggle).toHaveAttribute("data-state", "off");
+    await expect(sortToggle).toHaveAttribute("data-state", "on"); // Sort should still be on
   },
 };
 
@@ -597,6 +662,11 @@ export const ExclusiveGroupSmall: Story = {
     // Click pointer toggle - should turn on and hand should turn off
     await userEvent.click(pointerToggle);
     await expect(pointerToggle).toHaveAttribute("data-state", "on");
+    await expect(handToggle).toHaveAttribute("data-state", "off");
+
+    // Click pointer again - should turn off (clearing selection)
+    await userEvent.click(pointerToggle);
+    await expect(pointerToggle).toHaveAttribute("data-state", "off");
     await expect(handToggle).toHaveAttribute("data-state", "off");
   },
 };
