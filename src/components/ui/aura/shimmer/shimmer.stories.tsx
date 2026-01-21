@@ -327,16 +327,18 @@ export const LongText: Story = {
     const canvas = within(canvasElement);
 
     // Verify long text content is rendered
-    await expect(
-      canvas.getByText(
-        /This is a longer piece of text that demonstrates how the shimmer effect works with extended content/i
-      )
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByText(
-        /The shimmer animation smoothly transitions across the entire length of the text, creating an engaging loading effect/i
-      )
-    ).toBeInTheDocument();
+    await Promise.all([
+      expect(
+        canvas.getByText(
+          /This is a longer piece of text that demonstrates how the shimmer effect works with extended content/i
+        )
+      ).toBeInTheDocument(),
+      expect(
+        canvas.getByText(
+          /The shimmer animation smoothly transitions across the entire length of the text, creating an engaging loading effect/i
+        )
+      ).toBeInTheDocument(),
+    ]);
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
