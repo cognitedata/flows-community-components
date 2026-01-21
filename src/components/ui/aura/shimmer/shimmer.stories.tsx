@@ -152,10 +152,11 @@ export const GradientVariants: Story = {
       "Fall gradient",
     ];
 
-    for (const variant of variants) {
-      // eslint-disable-next-line no-await-in-loop
-      await expect(canvas.getByText(variant)).toBeInTheDocument();
-    }
+    await Promise.all(
+      variants.map((variant) =>
+        expect(canvas.getByText(variant)).toBeInTheDocument()
+      )
+    );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -187,21 +188,22 @@ export const ElementTypes: Story = {
     const canvas = within(canvasElement);
 
     // Verify heading elements are rendered as headings with correct text
-    const h1 = canvas.getByRole("heading", {
-      level: 1,
-      name: /heading 1 with shimmer/i,
-    });
-    await expect(h1).toBeInTheDocument();
-    const h2 = canvas.getByRole("heading", {
-      level: 2,
-      name: /heading 2 with shimmer/i,
-    });
-    await expect(h2).toBeInTheDocument();
-    const h3 = canvas.getByRole("heading", {
-      level: 3,
-      name: /heading 3 with shimmer/i,
-    });
-    await expect(h3).toBeInTheDocument();
+    const headings = [
+      { level: 1, name: /heading 1 with shimmer/i },
+      { level: 2, name: /heading 2 with shimmer/i },
+      { level: 3, name: /heading 3 with shimmer/i },
+    ];
+
+    await Promise.all(
+      headings.map(({ level, name }) =>
+        expect(
+          canvas.getByRole("heading", {
+            level,
+            name,
+          })
+        ).toBeInTheDocument()
+      )
+    );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-6">
@@ -254,10 +256,11 @@ export const AnimationDurations: Story = {
       "Very slow (4 seconds)",
     ];
 
-    for (const duration of durations) {
-      // eslint-disable-next-line no-await-in-loop
-      await expect(canvas.getByText(duration)).toBeInTheDocument();
-    }
+    await Promise.all(
+      durations.map((duration) =>
+        expect(canvas.getByText(duration)).toBeInTheDocument()
+      )
+    );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -292,10 +295,11 @@ export const SpreadValues: Story = {
       "Very wide spread (4)",
     ];
 
-    for (const spread of spreads) {
-      // eslint-disable-next-line no-await-in-loop
-      await expect(canvas.getByText(spread)).toBeInTheDocument();
-    }
+    await Promise.all(
+      spreads.map((spread) =>
+        expect(canvas.getByText(spread)).toBeInTheDocument()
+      )
+    );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -373,10 +377,11 @@ export const InlineUsage: Story = {
       "configuration",
     ];
 
-    for (const text of inlineTexts) {
-      // eslint-disable-next-line no-await-in-loop
-      await expect(canvas.getByText(text)).toBeInTheDocument();
-    }
+    await Promise.all(
+      inlineTexts.map((text) =>
+        expect(canvas.getByText(text)).toBeInTheDocument()
+      )
+    );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
@@ -423,10 +428,11 @@ export const CustomStyling: Story = {
       "Medium semibold text",
     ];
 
-    for (const text of styledTexts) {
-      // eslint-disable-next-line no-await-in-loop
-      await expect(canvas.getByText(text)).toBeInTheDocument();
-    }
+    await Promise.all(
+      styledTexts.map((text) =>
+        expect(canvas.getByText(text)).toBeInTheDocument()
+      )
+    );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4">
@@ -472,10 +478,11 @@ export const LoadingStates: Story = {
       "Calculating...",
     ];
 
-    for (const state of loadingStates) {
-      // eslint-disable-next-line no-await-in-loop
-      await expect(canvas.getByText(state)).toBeInTheDocument();
-    }
+    await Promise.all(
+      loadingStates.map((state) =>
+        expect(canvas.getByText(state)).toBeInTheDocument()
+      )
+    );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-6 max-w-md">
