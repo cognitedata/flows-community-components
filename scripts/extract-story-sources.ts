@@ -11,11 +11,11 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  traverse,
+  GENERATOR_OPTIONS,
   generate,
   normalizeIndentation,
   parseSource,
-  GENERATOR_OPTIONS,
+  traverse,
 } from "./story-source-utils";
 
 // Get __dirname equivalent in ES modules
@@ -30,7 +30,6 @@ interface StorySourceMap {
     [storyKey: string]: string;
   };
 }
-
 
 /**
  * Extracts JSX from an AST node representing a render function.
@@ -139,10 +138,7 @@ function extractStorySources(filePath: string): Record<string, string> {
           }
         }
         // Story is directly a function (less common)
-        else if (
-          init.type === "ArrowFunctionExpression" ||
-          init.type === "FunctionExpression"
-        ) {
+        else if (init.type === "ArrowFunctionExpression" || init.type === "FunctionExpression") {
           renderNode = init;
         }
 
@@ -193,7 +189,9 @@ function extractAllStorySources(): StorySourceMap {
         sourceMap[entry.name] = sources;
         console.log(`✓ Extracted ${Object.keys(sources).length} stories from ${entry.name}`);
       } else {
-        console.log(`⚠ No sources extracted from ${entry.name} (stories may not have render functions)`);
+        console.log(
+          `⚠ No sources extracted from ${entry.name} (stories may not have render functions)`
+        );
       }
     } catch (error) {
       console.error(`✗ Failed to extract sources from ${entry.name}:`, error);

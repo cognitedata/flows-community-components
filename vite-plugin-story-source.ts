@@ -5,16 +5,16 @@
  * the source code directly into story parameters.docs.source.code.
  */
 
-import type { Plugin } from "vite";
-import * as t from "@babel/types";
 import * as fs from "node:fs";
 import * as path from "node:path";
+import * as t from "@babel/types";
+import type { Plugin } from "vite";
 import {
-  traverse,
+  GENERATOR_OPTIONS,
   generate,
   normalizeIndentation,
   parseSource,
-  GENERATOR_OPTIONS,
+  traverse,
 } from "./scripts/story-source-utils";
 
 /**
@@ -70,26 +70,26 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
           // Extract the block body content directly from source
           // BlockStatement's start/end should point to the opening '{' and closing '}'
           const blockContent = sourceCode.slice(codeToExtract.start, codeToExtract.end);
-          
+
           // Find the braces and extract content between them
           const firstBraceIndex = blockContent.indexOf("{");
           const lastBraceIndex = blockContent.lastIndexOf("}");
-          
+
           if (firstBraceIndex !== -1 && lastBraceIndex !== -1 && lastBraceIndex > firstBraceIndex) {
             // Extract content between braces, preserving all whitespace including blank lines
             const statementsCode = blockContent.slice(firstBraceIndex + 1, lastBraceIndex);
-            
+
             // Normalize indentation to start at column 0
             // This preserves blank lines (empty lines are kept as empty strings)
             const normalized = normalizeIndentation(statementsCode);
             return normalized;
           }
-          
+
           // Fallback: use content directly
           const normalized = normalizeIndentation(blockContent);
           return normalized;
         }
-        
+
         // Fallback: Generate code if direct extraction fails
         // This preserves functionality but may lose blank lines
         const statements = codeToExtract.body;
@@ -110,15 +110,15 @@ function extractJSXFromRenderNode(renderNode: any, sourceCode: string): string |
           const generated = generate(stmt, GENERATOR_OPTIONS, sourceCode);
           return generated.code;
         });
-        
+
         // Join all statements with newlines
         const code = generatedStatements.join("\n");
-        
+
         // Normalize indentation to start at column 0
         const normalized = normalizeIndentation(code);
         return normalized;
       }
-      
+
       // For direct JSX (arrow functions without block), generate normally
       const generated = generate(codeToExtract, GENERATOR_OPTIONS, sourceCode);
       const normalized = normalizeIndentation(generated.code);
@@ -148,7 +148,7 @@ function injectSourceCode(code: string, id: string): string | null {
     try {
       // Resolve file path from Vite id (remove query params/hash, handle virtual files)
       let filePath = id.split("?")[0].split("#")[0];
-      
+
       if (!filePath.includes("node_modules") && !filePath.startsWith("\0")) {
         if (!path.isAbsolute(filePath)) {
           filePath = path.resolve(process.cwd(), filePath);
@@ -161,7 +161,7 @@ function injectSourceCode(code: string, id: string): string | null {
       // Fall back to using the code parameter if file read fails
       // This is expected for virtual files or transformed modules
     }
-    
+
     const ast = parseSource(originalSource, true);
 
     const sources: Record<string, string> = {};
@@ -190,10 +190,7 @@ function injectSourceCode(code: string, id: string): string | null {
               prop.type === "ObjectProperty"
           );
           renderNode = renderProperty?.value || null;
-        } else if (
-          init.type === "ArrowFunctionExpression" ||
-          init.type === "FunctionExpression"
-        ) {
+        } else if (init.type === "ArrowFunctionExpression" || init.type === "FunctionExpression") {
           renderNode = init;
         }
 
@@ -210,8 +207,8 @@ function injectSourceCode(code: string, id: string): string | null {
     // Second pass: inject source code into parameters
     if (Object.keys(sources).length > 0) {
       traverse(ast, {
-      ExportNamedDeclaration(astPath: any) {
-        const { node } = astPath;
+        ExportNamedDeclaration(astPath: any) {
+          const { node } = astPath;
           if (node.declaration?.type !== "VariableDeclaration") return;
 
           const declaration = node.declaration;
@@ -232,10 +229,7 @@ function injectSourceCode(code: string, id: string): string | null {
 
           if (!parametersProp) {
             // Create parameters property
-            parametersProp = t.objectProperty(
-              t.identifier("parameters"),
-              t.objectExpression([])
-            );
+            parametersProp = t.objectProperty(t.identifier("parameters"), t.objectExpression([]));
             init.properties.push(parametersProp);
           }
 
@@ -251,7 +245,8 @@ function injectSourceCode(code: string, id: string): string | null {
               prop.type === "ObjectProperty"
           ) as any;
 
-          const docsProp = existingDocsProp || t.objectProperty(t.identifier("docs"), t.objectExpression([]));
+          const docsProp =
+            existingDocsProp || t.objectProperty(t.identifier("docs"), t.objectExpression([]));
           if (!existingDocsProp) {
             parametersObj.properties.push(docsProp);
           }
@@ -268,7 +263,8 @@ function injectSourceCode(code: string, id: string): string | null {
               prop.type === "ObjectProperty"
           ) as any;
 
-          const sourceProp = existingSourceProp || t.objectProperty(t.identifier("source"), t.objectExpression([]));
+          const sourceProp =
+            existingSourceProp || t.objectProperty(t.identifier("source"), t.objectExpression([]));
           if (!existingSourceProp) {
             docsObj.properties.push(sourceProp);
           }
@@ -287,10 +283,7 @@ function injectSourceCode(code: string, id: string): string | null {
 
           const codeValue = t.stringLiteral(sources[storyKey]);
           if (codePropIndex >= 0) {
-            sourceObj.properties[codePropIndex] = t.objectProperty(
-              t.identifier("code"),
-              codeValue
-            );
+            sourceObj.properties[codePropIndex] = t.objectProperty(t.identifier("code"), codeValue);
           } else {
             sourceObj.properties.push(t.objectProperty(t.identifier("code"), codeValue));
           }
@@ -298,10 +291,14 @@ function injectSourceCode(code: string, id: string): string | null {
       });
 
       // Generate the transformed code
-      const result = generate(ast, {
-        retainLines: false,
-        compact: false,
-      }, code);
+      const result = generate(
+        ast,
+        {
+          retainLines: false,
+          compact: false,
+        },
+        code
+      );
 
       return result.code;
     }
