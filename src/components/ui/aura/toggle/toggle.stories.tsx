@@ -104,7 +104,7 @@ type Story = StoryObj<typeof Toggle>;
 export const Default: Story = {
   render: () => (
     <Toggle aria-label="Toggle bold" variant="default" size="default">
-      <IconPointer className="size-3.5" />
+      <IconPointer className="size-4" />
     </Toggle>
   ),
   parameters: {
