@@ -175,11 +175,19 @@
       "name": "chart",
       "type": "registry:component",
       "title": "Chart",
-      "description": "Chart component.",
+      "description": "Chart components built with Recharts for data visualization.",
       "dependencies": ["recharts"],
       "files": [
         {
-          "path": "src/components/ui/aura/chart.tsx",
+          "path": "src/components/ui/aura/chart/chart.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/aura/chart/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/aura/chart/chart.metadata.ts",
           "type": "registry:component"
         }
       ]
@@ -831,11 +839,15 @@
       "registryDependencies": ["button"],
       "files": [
         {
-          "path": "src/components/ui/aura/conversation.tsx",
+          "path": "src/components/ui/aura/conversation/conversation.tsx",
           "type": "registry:component"
         },
         {
-          "path": "src/components/ui/aura/icon-conversation-empty-state.tsx",
+          "path": "src/components/ui/aura/conversation/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/aura/conversation/conversation.metadata.ts",
           "type": "registry:component"
         }
       ]

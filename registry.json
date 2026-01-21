@@ -283,13 +283,20 @@
       "name": "chart",
       "type": "registry:component",
       "title": "Chart",
-      "description": "Chart component.",
+      "description": "Chart components built with Recharts for data visualization.",
       "dependencies": ["recharts"],
       "files": [
         {
           "path": "src/components/ui/aura/chart/chart.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/chart.tsx"
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/aura/chart/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/aura/chart/chart.metadata.ts",
+          "type": "registry:component"
         },
         {
           "path": "src/globals.css",
@@ -1071,46 +1078,6 @@
       ]
     },
     {
-      "name": "artifact",
-      "type": "registry:component",
-      "title": "Artifact",
-      "description": "AI artifact component for displaying generated content.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/tooltip"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/artifact/artifact.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/artifact.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "canvas",
-      "type": "registry:component",
-      "title": "Canvas",
-      "description": "AI canvas component for drawing and visualization.",
-      "dependencies": ["@xyflow/react"],
-      "registryDependencies": ["@aura/css", "@aura/controls"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/canvas/canvas.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/canvas.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "chain-of-thought",
       "type": "registry:component",
       "title": "Chain of Thought",
@@ -1177,82 +1144,24 @@
       ]
     },
     {
-      "name": "connection",
-      "type": "registry:component",
-      "title": "Connection",
-      "description": "AI connection component for flow diagrams.",
-      "dependencies": ["@xyflow/react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/connection/connection.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/connection.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
-    },
-    {
-      "name": "context",
-      "type": "registry:component",
-      "title": "Context",
-      "description": "AI context component for displaying context information.",
-      "dependencies": ["ai", "tokenlens"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/hover-card", "@aura/progress"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/context/context.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/context.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "controls",
-      "type": "registry:component",
-      "title": "Controls",
-      "description": "AI controls component for interface controls.",
-      "dependencies": ["@xyflow/react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/controls/controls.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/controls.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
-    },
-    {
       "name": "conversation",
       "type": "registry:component",
       "title": "Conversation",
       "description": "AI conversation component with scroll management.",
-      "dependencies": ["use-stick-to-bottom", "@tabler/icons-react"],
+      "dependencies": ["@tabler/icons-react", "use-stick-to-bottom"],
       "registryDependencies": ["@aura/css", "@aura/button"],
       "files": [
         {
           "path": "src/components/ui/aura/conversation/conversation.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/conversation.tsx"
+          "type": "registry:component"
         },
         {
-          "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/icon-conversation-empty-state.tsx"
+          "path": "src/components/ui/aura/conversation/index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/components/ui/aura/conversation/conversation.metadata.ts",
+          "type": "registry:component"
         },
         {
           "path": "src/globals.css",
@@ -1260,46 +1169,6 @@
           "type": "registry:component"
         }
       ]
-    },
-    {
-      "name": "edge",
-      "type": "registry:component",
-      "title": "Edge",
-      "description": "AI edge component for flow diagrams.",
-      "dependencies": ["@xyflow/react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/edge/edge.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/edge.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
-    },
-    {
-      "name": "image",
-      "type": "registry:component",
-      "title": "Image",
-      "description": "AI image component for displaying generated images.",
-      "dependencies": ["ai"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/image/image.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/image.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
     },
     {
       "name": "inline-citation",
@@ -1368,91 +1237,6 @@
       ]
     },
     {
-      "name": "node",
-      "type": "registry:component",
-      "title": "Node",
-      "description": "AI node component for flow diagrams.",
-      "dependencies": ["@xyflow/react"],
-      "registryDependencies": ["@aura/css", "@aura/card"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/node/node.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/node.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "open-in-chat",
-      "type": "registry:component",
-      "title": "Open in Chat",
-      "description": "AI open in chat component.",
-      "dependencies": ["@tabler/icons-react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/open-in-chat/open-in-chat.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/open-in-chat.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
-    },
-    {
-      "name": "panel",
-      "type": "registry:component",
-      "title": "Panel",
-      "description": "AI panel component for side panels.",
-      "files": [
-        {
-          "path": "src/components/ui/aura/panel/panel.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/panel.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
-    },
-    {
-      "name": "plan",
-      "type": "registry:component",
-      "title": "Plan",
-      "description": "AI plan component for displaying execution plans.",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/button",
-        "@aura/card",
-        "@aura/collapsible",
-        "@aura/shimmer"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/plan/plan.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/plan.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "prompt-input",
       "type": "registry:component",
       "title": "Prompt Input",
@@ -1481,26 +1265,6 @@
           "type": "registry:component"
         }
       ]
-    },
-    {
-      "name": "queue",
-      "type": "registry:component",
-      "title": "Queue",
-      "description": "AI queue component for managing task queues.",
-      "dependencies": ["@tabler/icons-react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/queue/queue.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/queue.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
     },
     {
       "name": "reasoning",
@@ -1580,26 +1344,6 @@
           "type": "registry:component"
         }
       ]
-    },
-    {
-      "name": "task",
-      "type": "registry:component",
-      "title": "Task",
-      "description": "AI task component for displaying tasks.",
-      "dependencies": ["@tabler/icons-react"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/task/task.tsx",
-          "type": "registry:component",
-          "target": "src/components/ui/aura/task.tsx"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": ["@aura/css"]
     },
     {
       "name": "tool",
