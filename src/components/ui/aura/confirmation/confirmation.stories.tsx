@@ -250,6 +250,7 @@ export const Interactive: Story = {
 
         {state !== "approval-requested" && (
           <button
+            type="button"
             onClick={handleReset}
             data-testid="reset-button"
             className="text-sm text-muted-foreground underline hover:text-foreground"

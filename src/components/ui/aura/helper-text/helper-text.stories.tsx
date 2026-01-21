@@ -8,7 +8,7 @@ import { Label } from "../label";
 import { HelperText } from "./helper-text";
 
 const meta: Meta<typeof HelperText> = {
-  title: "UI/Helper Text",
+  title: "Primitives/Helper Text",
   component: HelperText,
   tags: ["autodocs"],
   argTypes: {
@@ -159,7 +159,7 @@ export const SizeSM: Story = {
 /**
  * Error state with automatic error icon
  */
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     isError: true,
     children: "This field is required.",

@@ -81,6 +81,7 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
 
   return (
     <style
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: Required for dynamic chart theming
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(
@@ -194,7 +195,7 @@ function ChartTooltipContent({
 
             return (
               <div
-                key={item.dataKey}
+                key={item.dataKey ?? index}
                 className={cn(
                   "[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5",
                   indicator === "dot" && "items-center"
@@ -295,13 +296,13 @@ function ChartLegendContent({
     >
       {payload
         .filter((item: LegendPayloadItem) => item.type !== "none")
-        .map((item: LegendPayloadItem) => {
+        .map((item: LegendPayloadItem, index) => {
           const key = `${nameKey || item.dataKey || "value"}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
           return (
             <div
-              key={item.value}
+              key={item.value ?? index}
               className={cn(
                 "[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3"
               )}
