@@ -134,6 +134,22 @@ export const DefaultOpen: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Trigger button should be present
+    const trigger = canvas.getByRole("button", {
+      name: /frequently asked questions/i,
+    });
+    await expect(trigger).toBeInTheDocument();
+
+    // Content should start open
+    const content = canvasElement.querySelector(
+      '[data-slot="collapsible-content"]'
+    );
+    await expect(content).toBeInTheDocument();
+    await expect(content).toHaveAttribute("data-state", "open");
+  },
   render: () => (
     <Collapsible defaultOpen className="w-[400px] space-y-2">
       <CollapsibleTrigger asChild>
@@ -237,6 +253,27 @@ export const WithCustomTrigger: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /advanced settings/i });
+    await expect(trigger).toBeInTheDocument();
+
+    // Content should be closed initially
+    const content = canvasElement.querySelector(
+      '[data-slot="collapsible-content"]'
+    );
+    await expect(content).toHaveAttribute("data-state", "closed");
+
+    // Click to open
+    await userEvent.click(trigger);
+    await waitFor(
+      () => {
+        expect(content).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+  },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
       <CollapsibleTrigger asChild>
@@ -271,6 +308,42 @@ export const Multiple: Story = {
           "Multiple collapsibles that work independently. Unlike accordions, multiple collapsibles can be open at the same time.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const q1 = canvas.getByRole("button", { name: /question 1/i });
+    const q2 = canvas.getByRole("button", { name: /question 2/i });
+
+    await expect(q1).toBeInTheDocument();
+    await expect(q2).toBeInTheDocument();
+
+    const contents = canvasElement.querySelectorAll(
+      '[data-slot="collapsible-content"]'
+    );
+    await expect(contents.length).toBeGreaterThanOrEqual(2);
+
+    // Open first question
+    await userEvent.click(q1);
+    await waitFor(
+      () => {
+        expect(contents[0]).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+
+    // Open second question without closing the first
+    await userEvent.click(q2);
+    await waitFor(
+      () => {
+        expect(contents[1]).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+
+    // Both can be open at the same time
+    await expect(contents[0]).toHaveAttribute("data-state", "open");
+    await expect(contents[1]).toHaveAttribute("data-state", "open");
   },
   render: () => (
     <div className="space-y-2 w-[400px]">
@@ -334,6 +407,21 @@ export const Disabled: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /disabled collapsible/i });
+    await expect(trigger).toBeInTheDocument();
+    await expect(trigger).toBeDisabled();
+
+    const content = canvasElement.querySelector(
+      '[data-slot="collapsible-content"]'
+    );
+    await expect(content).toBeInTheDocument();
+
+    // Verify it starts and remains in the closed state (no interaction needed)
+    await expect(content).toHaveAttribute("data-state", "closed");
+  },
   render: () => (
     <Collapsible disabled className="w-[400px] space-y-2">
       <CollapsibleTrigger asChild>
@@ -363,6 +451,20 @@ export const WithRichContent: Story = {
           "Collapsible containing rich content including lists, paragraphs, and formatted text.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /documentation/i });
+    await expect(trigger).toBeInTheDocument();
+
+    await userEvent.click(trigger);
+
+    // Verify rich content appears
+    await expect(canvas.getByText("Getting Started")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Follow these steps to get started with the component library:")
+    ).toBeInTheDocument();
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
@@ -404,6 +506,25 @@ export const FAQ: Story = {
           "FAQ section using collapsibles. This demonstrates a common use case where multiple questions can be expanded simultaneously.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // First FAQ question should toggle on click
+    const q1 = canvas.getByRole("button", {
+      name: /what's the difference between collapsible and accordion\?/i,
+    });
+    await expect(q1).toBeInTheDocument();
+
+    await userEvent.click(q1);
+    await expect(
+      canvas.getByText(/collapsibles work independently—multiple can be open at once/i)
+    ).toBeInTheDocument();
+
+    // Third FAQ is defaultOpen and should already show content
+    await expect(
+      canvas.getByText(/yes! use the open prop for controlled state/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2 w-[500px]">
