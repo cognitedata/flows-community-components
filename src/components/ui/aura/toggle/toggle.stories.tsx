@@ -402,7 +402,7 @@ export const FilterAndSort: Story = {
           pressed={sortActive}
           onPressedChange={setSortActive}
         >
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center gap-2">
             <IconSortAscending />
             <span className="text-sm font-medium">Sort</span>
           </div>
