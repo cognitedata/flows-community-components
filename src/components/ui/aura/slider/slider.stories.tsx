@@ -280,18 +280,21 @@ export const Controlled: Story = {
         <Slider value={value} onValueChange={setValue} />
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setValue([0])}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Min
           </button>
           <button
+            type="button"
             onClick={() => setValue([50])}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Middle
           </button>
           <button
+            type="button"
             onClick={() => setValue([100])}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

@@ -3,9 +3,9 @@
  * Used by both the Vite plugin and standalone extraction script.
  */
 
-import _traverse from "@babel/traverse";
 import _generate from "@babel/generator";
 import { parse } from "@babel/parser";
+import _traverse from "@babel/traverse";
 
 export const traverse = (_traverse as any).default || _traverse;
 export const generate = (_generate as any).default || _generate;
