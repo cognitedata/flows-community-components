@@ -144,7 +144,7 @@ export const Playground: Story = {
   },
   render: (args) => (
     <Toggle {...args} aria-label="Playground toggle">
-      <IconPointer className="size-3.5" />
+      <IconPointer className={args.size === "sm" ? "size-3.5" : "size-4"} />
     </Toggle>
   ),
   parameters: {
@@ -154,6 +154,19 @@ export const Playground: Story = {
           "Interactive playground for the toggle component. Use controls to experiment with different variants, sizes, and disabled/pressed states.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const toggle = canvas.getByRole("button", { name: /playground toggle/i });
+    await expect(toggle).toBeInTheDocument();
+
+    // With default args, the toggle should start off
+    await expect(toggle).toHaveAttribute("data-state", "off");
+
+    // Click to toggle on
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute("data-state", "on");
   },
 };
 
@@ -201,7 +214,7 @@ export const DisabledStates: Story = {
         disabled
         className="bg-background text-disabled-foreground"
       >
-        <IconPointer className="size-3.5" />
+        <IconPointer className="size-4" />
       </Toggle>
       <Toggle
         aria-label="Disabled exclusive toggle"
@@ -209,7 +222,7 @@ export const DisabledStates: Story = {
         disabled
         className="bg-background text-disabled-foreground"
       >
-        <IconPointer className="size-3.5" />
+        <IconPointer className="size-4" />
       </Toggle>
     </div>
   ),
