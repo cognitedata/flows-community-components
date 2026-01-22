@@ -317,7 +317,8 @@ export const ToolWithError: Story = {
     // Verify error text is shown
     await waitFor(() => {
       expect(canvas.getByText("Error")).toBeVisible();
-      expect(canvas.getByText(/Database connection timeout/)).toBeVisible();
+      // Verify error message content (appears in both light/dark theme blocks)
+      expect(canvasElement.textContent).toContain("Database connection timeout");
     });
 
     // Expand second tool to see success
