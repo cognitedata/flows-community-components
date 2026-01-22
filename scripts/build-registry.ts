@@ -366,7 +366,14 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
     const dependencies = new Set<string>();
 
     // Match imports from @/components/ui/aura/*
-    const localImportRegex = /import\s+.*?\s+from\s+["']@\/components\/ui\/aura\/([^"']+)["']/g;
+    // Pattern handles:
+    // - Single line: import { X } from "@/components/ui/aura/button";
+    // - Multi-line: import { X, Y } from "@/components/ui/aura/button";
+    // - Type imports: import type { X } from "@/components/ui/aura/button";
+    // Use [\s\S]*? to match across newlines (handles multi-line imports)
+    // The pattern matches: import [optional: type] { ... } from "..."
+    const localImportRegex =
+      /import\s+(?:type\s+)?(?:[\s\S]*?)\s+from\s+["']@\/components\/ui\/aura\/([^"']+)["']/g;
 
     let match: RegExpExecArray | null = localImportRegex.exec(content);
     while (match !== null) {
@@ -377,6 +384,7 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
       const componentName = importPath.split("/")[0];
 
       // Skip if it's the same component (self-import)
+      // Handle both flat files (button.tsx) and subfolder files (prompt-input/prompt-input.tsx)
       const currentComponent = filePath.match(/src\/components\/ui\/aura\/([^\/]+)/)?.[1];
       if (componentName !== currentComponent) {
         dependencies.add(componentName);
