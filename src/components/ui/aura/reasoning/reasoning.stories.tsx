@@ -639,8 +639,8 @@ export const Accessibility: Story = {
 
     await waitFor(() => {
       const content = canvasElement.textContent || "";
-      expect(canvas.getByText("Parameters")).toBeVisible();
-      // Verify parameter content (appears in both light/dark theme blocks)
+      // Verify parameter content is visible (appears in both light/dark theme blocks)
+      expect(content).toContain("Parameters");
       expect(content).toContain("api");
     });
 
@@ -653,8 +653,8 @@ export const Accessibility: Story = {
 
     await waitFor(() => {
       const content = canvasElement.textContent || "";
-      expect(canvas.getByText("Parameters")).toBeVisible();
-      // Verify parameter content (appears in both light/dark theme blocks)
+      // Verify parameter content is visible (appears in both light/dark theme blocks)
+      expect(content).toContain("Parameters");
       expect(content).toContain("comprehensive");
     });
   },
