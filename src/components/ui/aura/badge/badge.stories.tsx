@@ -135,400 +135,67 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 /**
- * Fjord variant - blue-toned for observations and data
- */
-export const Fjord: Story = {
-  args: {
-    variant: "fjord",
-    children: "Observations",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Fjord variant uses a blue colour scheme ideal for observations, data points, and informational content. This variant helps differentiate data-related badges in your interface.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Observations");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-decorative-background-fjord");
-  },
-};
-
-/**
- * Aurora variant - vibrant for troubleshooting and alerts
- */
-export const Aurora: Story = {
-  args: {
-    variant: "aurora",
-    children: "Troubleshooting",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Aurora variant features a vibrant colour scheme perfect for troubleshooting, alerts, and attention-grabbing labels. Use this when you need to highlight important information.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Troubleshooting");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-decorative-background-aurora");
-  },
-};
-
-/**
- * Mountain variant - green-toned for plans and goals
- */
-export const Mountain: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconHexagon className="size-3" />
-      Plans
-    </Badge>
-  ),
-  args: {
-    variant: "mountain",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Mountain variant uses a green colour scheme suitable for plans, goals, and growth-related content. Perfect for project statuses and achievement indicators. Can be combined with icons.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Plans");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-decorative-background-mountain");
-    // Verify icon is present
-    const icon = badge.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
-  },
-};
-
-/**
- * Dusk variant - purple-toned for RCA and analysis
- */
-export const Dusk: Story = {
-  args: {
-    variant: "dusk",
-    children: "RCA",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Dusk variant features a purple colour scheme ideal for Root Cause Analysis (RCA), investigative work, and analytical content. Use this variant to highlight review and analysis activities.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("RCA");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-decorative-background-dusk");
-  },
-};
-
-/**
- * Secondary variant - neutral for general use
- */
-export const Secondary: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconHexagon className="size-3 rotate-90" />
-      Asset
-    </Badge>
-  ),
-  args: {
-    variant: "secondary",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Secondary variant provides a neutral, understated appearance for general-purpose badges. Ideal when you need to display information without drawing too much attention.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Asset");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-secondary");
-    // Verify rotated icon
-    const icon = badge.querySelector("svg");
-    await expect(icon).toHaveClass("rotate-90");
-  },
-};
-
-/**
- * Error variant - red for errors and critical issues
- */
-export const ErrorBadge: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconAlertHexagon className="size-3" />
-      Error
-    </Badge>
-  ),
-  args: {
-    variant: "error",
-    background: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Error variant uses a red colour scheme to indicate errors, failures, and critical issues. This variant immediately draws attention to problems that need resolution. Shown here without background fill.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Error");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-transparent");
-    await expect(badge).toHaveClass("text-destructive-foreground");
-  },
-};
-
-/**
- * Error variant with outline - red for errors and critical issues
- */
-export const ErrorOutline: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconAlertHexagon className="size-3" />
-      Error
-    </Badge>
-  ),
-  args: {
-    variant: "error",
-    outline: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Error variant with outline styling for a more subtle approach to error indication. The outline prop removes the background and adds a border, making it less visually dominant while still conveying importance.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Error");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("border-current");
-    await expect(badge).toHaveClass("px-0.75");
-  },
-};
-
-/**
- * Warning variant - orange/yellow for warnings
- */
-export const Warning: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconAlertTriangle className="size-3" />
-      Warning
-    </Badge>
-  ),
-  args: {
-    variant: "warning",
-    background: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Warning variant uses an orange/yellow colour scheme for warnings, cautions, and issues requiring attention but not critical. Use this when you want to alert users without causing alarm.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Warning");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("text-warning-foreground");
-    // Verify alert icon is present
-    const icon = badge.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
-  },
-};
-
-/**
- * Warning variant with outline - orange/yellow for warnings
- */
-export const WarningOutline: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconAlertTriangle className="size-3" />
-      Warning
-    </Badge>
-  ),
-  args: {
-    variant: "warning",
-    outline: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Warning variant with outline styling provides a more subtle warning indicator. The outline prop makes it less prominent while still conveying caution.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Warning");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("border-current");
-  },
-};
-
-/**
- * Success variant - green for successful operations
- */
-export const Success: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconCircleCheck className="size-3" />
-      Success
-    </Badge>
-  ),
-  args: {
-    variant: "success",
-    background: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Success variant uses a green colour scheme to indicate successful operations, completed tasks, and positive outcomes. Perfect for confirmations and achievement indicators.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Success");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("text-success-foreground");
-    // Verify check icon is present
-    const icon = badge.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
-  },
-};
-
-/**
- * In Progress variant - for ongoing operations
- */
-export const InProgress: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconInnerShadowTopLeft className="size-3" />
-      In progress
-    </Badge>
-  ),
-  args: {
-    variant: "inProgress",
-    background: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "In Progress variant indicates ongoing operations, tasks in process, or active states. Use this to show users that something is currently happening or being worked on.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("In progress");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("text-neutral-foreground");
-  },
-};
-
-/**
- * Archived variant - for archived or inactive items
- */
-export const Archived: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconArchive className="size-3" />
-      Archived
-    </Badge>
-  ),
-  args: {
-    variant: "archived",
-    background: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Archived variant is designed for archived, inactive, or deprecated items. Use this to clearly indicate content that is no longer active but still accessible.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Archived");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("text-undefined-foreground");
-    // Verify archive icon is present
-    const icon = badge.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
-  },
-};
-
-/**
  * All Variants Overview
  */
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="default">Default</Badge>
-      <Badge variant="fjord">Fjord</Badge>
-      <Badge variant="nordic">Nordic</Badge>
-      <Badge variant="aurora">Aurora</Badge>
-      <Badge variant="sky">Sky</Badge>
-      <Badge variant="dusk">Dusk</Badge>
-      <Badge variant="orange">Orange</Badge>
-      <Badge variant="gray">Gray</Badge>
-      <Badge variant="mountain">Mountain</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="error">Error</Badge>
-      <Badge variant="warning">Warning</Badge>
-      <Badge variant="success">Success</Badge>
-      <Badge variant="inProgress">In Progress</Badge>
-      <Badge variant="archived">Archived</Badge>
-      <Badge variant="closable">
-        Closable
-        <IconX className="size-3" />
-      </Badge>
+    <div className="space-y-4">
+      <div>
+        <p className="text-sm text-muted-foreground mb-3">Filled variants</p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="mountain">Mountain</Badge>
+          <Badge variant="fjord">Fjord</Badge>
+          <Badge variant="nordic">Nordic</Badge>
+          <Badge variant="aurora">Aurora</Badge>
+          <Badge variant="dusk">Dusk</Badge>
+          <Badge variant="orange">Orange</Badge>
+          <Badge variant="inProgress">
+            <IconInnerShadowTopLeft className="size-3" />
+            Neutral
+          </Badge>
+          <Badge variant="success">
+            <IconCircleCheck className="size-3" />
+            Success
+          </Badge>
+          <Badge variant="warning">
+            <IconAlertTriangle className="size-3" />
+            Warning
+          </Badge>
+          <Badge variant="error">
+            <IconAlertHexagon className="size-3" />
+            Error
+          </Badge>
+          <Badge variant="archived">
+            <IconArchive className="size-3" />
+            Undefined
+          </Badge>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-3">Outlined variants</p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="inProgress" outline>
+            <IconInnerShadowTopLeft className="size-3" />
+            Neutral
+          </Badge>
+          <Badge variant="success" outline>
+            <IconCircleCheck className="size-3" />
+            Success
+          </Badge>
+          <Badge variant="warning" outline>
+            <IconAlertTriangle className="size-3" />
+            Warning
+          </Badge>
+          <Badge variant="error" outline>
+            <IconAlertHexagon className="size-3" />
+            Error
+          </Badge>
+          <Badge variant="archived" outline>
+            <IconArchive className="size-3" />
+            Undefined
+          </Badge>
+        </div>
+      </div>
     </div>
   ),
   parameters: {
@@ -557,23 +224,25 @@ export const IconSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-sm text-muted-foreground mb-3">Default size with text + icon</p>
+        <p className="text-sm text-muted-foreground mb-3">
+          Default size with text + icon
+        </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">
             <IconHexagon className="size-3" />
-            Plans
+            Mountain
           </Badge>
           <Badge variant="fjord">
             <IconStar className="size-3" />
-            Featured
+            Fjord
           </Badge>
           <Badge variant="aurora">
             <IconCircleCheck className="size-3" />
-            Complete
+            Aurora
           </Badge>
           <Badge variant="dusk">
             <IconUser className="size-3" />
-            Admin
+            Dusk
           </Badge>
         </div>
       </div>
@@ -659,90 +328,6 @@ export const Playground: Story = {
           "Interactive playground for experimenting with all badge props. Use the controls panel to adjust variant, outline, background, dot, and other properties in real-time.",
       },
     },
-  },
-};
-
-/**
- * Outline style - badges with border only, no background fill.
- * Shows how different variants look with the outline prop.
- */
-export const OutlineStyle: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="fjord" outline>
-        Fjord
-      </Badge>
-      <Badge variant="aurora" outline>
-        Aurora
-      </Badge>
-      <Badge variant="mountain" outline>
-        Mountain
-      </Badge>
-      <Badge variant="dusk" outline>
-        Dusk
-      </Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Outline styling removes the background fill and adds a coloured border. This creates a more subtle, lightweight appearance perfect for dense interfaces or when you need multiple badges without overwhelming the design.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-
-    // Verify all outlined badges have border-current class
-    badges.forEach((badge) => {
-      expect(badge).toHaveClass("border-current");
-    });
-
-    await expect(canvas.getByText("Fjord")).toBeInTheDocument();
-  },
-};
-
-/**
- * No background - badges without background fill.
- * Shows how different variants look without backgrounds.
- */
-export const NoBackground: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="fjord" background={false}>
-        Fjord
-      </Badge>
-      <Badge variant="aurora" background={false}>
-        Aurora
-      </Badge>
-      <Badge variant="mountain" background={false}>
-        Mountain
-      </Badge>
-      <Badge variant="dusk" background={false}>
-        Dusk
-      </Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "No background variant removes the background fill entirely, leaving only the coloured text. This creates the most minimal appearance, ideal for compact layouts or when layering badges over coloured surfaces.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-
-    // Verify all badges have transparent background
-    badges.forEach((badge) => {
-      expect(badge).toHaveClass("bg-transparent");
-    });
-
-    await expect(canvas.getByText("Dusk")).toBeInTheDocument();
   },
 };
 
@@ -1029,7 +614,7 @@ export const VisualRegression: Story = {
         <Badge variant="error">Error</Badge>
       </div>
       <div className="flex flex-wrap gap-2">
-        <Badge variant="fjord" outline>
+        <Badge variant="success" outline>
           Outlined
         </Badge>
         <Badge variant="aurora" background={false}>
@@ -1102,8 +687,8 @@ export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-2 max-w-md">
       <Badge variant="fjord">
-        This is an extremely long badge text that should demonstrate how the component handles
-        lengthy content
+        This is an extremely long badge text that should demonstrate how the
+        component handles lengthy content
       </Badge>
       <Badge variant="aurora" className="max-w-xs">
         Constrained width with very long text that might wrap or truncate
