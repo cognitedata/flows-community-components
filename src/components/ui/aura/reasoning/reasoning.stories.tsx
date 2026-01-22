@@ -158,13 +158,12 @@ export const IndustrialWorkflow: Story = {
     
     // Tool content should be visible after click
     await waitFor(() => {
-      const toolInput = canvasElement.textContent;
-      expect(toolInput).toContain("Show all pumps in building A");
+      expect(canvas.getByText("Parameters")).toBeVisible();
+      expect(canvas.getByText(/Show all pumps in building A/)).toBeVisible();
+      expect(canvas.getByText("Result")).toBeVisible();
+      expect(canvas.getByText(/Pump 21PT1019/)).toBeVisible();
+      expect(canvas.getByText(/building/)).toBeVisible();
     });
-
-    // Verify output data is present
-    await expect(canvasElement.textContent).toContain("Pump 21PT1019");
-    await expect(canvasElement.textContent).toContain("building");
 
     // Test keyboard interaction - expand second tool with keyboard
     const secondTool = toolButtons[1];
@@ -236,8 +235,10 @@ export const SingleToolCall: Story = {
     
     // Verify input and output are visible
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("assetId");
-      expect(canvasElement.textContent).toContain("Pump 21PT1019");
+      expect(canvas.getByText("Parameters")).toBeVisible();
+      expect(canvas.getByText(/assetId/)).toBeVisible();
+      expect(canvas.getByText("Result")).toBeVisible();
+      expect(canvas.getByText(/Pump 21PT1019/)).toBeVisible();
     });
 
     // Verify no connector lines (single tool)
@@ -314,15 +315,16 @@ export const ToolWithError: Story = {
     
     // Verify error text is shown
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("Database connection timeout");
+      expect(canvas.getByText("Error")).toBeVisible();
+      expect(canvas.getByText(/Database connection timeout/)).toBeVisible();
     });
 
     // Expand second tool to see success
     await userEvent.click(toolButtons[1]);
     
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("Fallback to cache");
-      expect(canvasElement.textContent).toContain("cached");
+      expect(canvas.getByText("Result")).toBeVisible();
+      expect(canvas.getByText(/cached/)).toBeVisible();
     });
   },
 };
@@ -388,9 +390,9 @@ export const ManyToolCalls: Story = {
     await userEvent.click(toolButtons[5]);
     
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("operation-1");
-      expect(canvasElement.textContent).toContain("operation-3");
-      expect(canvasElement.textContent).toContain("operation-6");
+      expect(canvas.getByText(/operation-1/)).toBeVisible();
+      expect(canvas.getByText(/operation-3/)).toBeVisible();
+      expect(canvas.getByText(/operation-6/)).toBeVisible();
     });
   },
 };
@@ -462,8 +464,8 @@ export const LongContent: Story = {
     
     // Verify large dataset is rendered
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("readings");
-      expect(canvasElement.textContent).toContain("total_readings");
+      expect(canvas.getByText(/readings/)).toBeVisible();
+      expect(canvas.getByText(/total_readings/)).toBeVisible();
     });
 
     // Verify code block with large content is present
@@ -475,8 +477,10 @@ export const LongContent: Story = {
     await expect(allButtons.length).toBeGreaterThanOrEqual(1);
     
     // Verify large dataset structure
-    await expect(canvasElement.textContent).toContain("2026");
-    await expect(canvasElement.textContent).toContain("anomalies_detected");
+    await waitFor(() => {
+      expect(canvas.getByText(/2026/)).toBeVisible();
+      expect(canvas.getByText(/anomalies_detected/)).toBeVisible();
+    });
   },
 };
 
@@ -528,6 +532,30 @@ export const CustomHeaders: Story = {
         story: "Different header styles including custom title and custom React node with badge.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify custom headers are rendered
+    expect(canvas.getByText("Data Pipeline Execution")).toBeInTheDocument();
+    expect(canvas.getByText("Processing")).toBeInTheDocument();
+    expect(canvas.getByText("3 steps")).toBeInTheDocument();
+
+    // Verify tools can be expanded
+    const toolButtons = canvas.getAllByRole("button");
+    expect(toolButtons).toHaveLength(2);
+
+    // Expand first tool and check for content
+    await userEvent.click(toolButtons[0]);
+    await waitFor(() => {
+      expect(canvas.getAllByText("Parameters")[0]).toBeVisible();
+    });
+
+    // Expand second tool and check for content
+    await userEvent.click(toolButtons[1]);
+    await waitFor(() => {
+      expect(canvas.getAllByText("Parameters")[1]).toBeVisible();
+    });
   },
 };
 
@@ -605,7 +633,8 @@ export const Accessibility: Story = {
     await userEvent.keyboard("{Enter}");
     
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("Check system status");
+      expect(canvas.getByText("Parameters")).toBeVisible();
+      expect(canvas.getByText(/api/)).toBeVisible();
     });
 
     // Tab to next button
@@ -616,7 +645,8 @@ export const Accessibility: Story = {
     await userEvent.keyboard(" ");
     
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("Run diagnostics");
+      expect(canvas.getByText("Parameters")).toBeVisible();
+      expect(canvas.getByText(/comprehensive/)).toBeVisible();
     });
 
     // Verify buttons have accessible names
