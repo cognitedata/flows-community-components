@@ -367,6 +367,20 @@
       ]
     },
     {
+      "name": "artifact-count",
+      "type": "registry:component",
+      "title": "Artifact Count",
+      "description": "A count artifact widget component for displaying prominent metrics with status variants.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["card", "separator", "lib-utils"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "menubar",
       "type": "registry:component",
       "title": "Menubar",
