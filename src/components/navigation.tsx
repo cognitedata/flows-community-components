@@ -11,6 +11,7 @@ const navItems = [
   { href: "/primitives", label: "Primitives" },
   { href: "/ai", label: "AI" },
   { href: "/patterns", label: "Patterns" },
+  { href: "/cogdocs", label: "CogDocs" },
 ];
 
 function ThemeToggleGroup() {
@@ -51,7 +52,7 @@ function ThemeToggleGroup() {
 export function Navigation() {
   const location = useLocation();
   const pathname = location.pathname;
-  
+
   // Get base path for assets (handles GitHub Pages subdirectory)
   const logoPath = `${import.meta.env.BASE_URL}aura-logo.png`;
 

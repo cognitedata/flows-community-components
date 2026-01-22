@@ -7,6 +7,7 @@ import HomePage from "./pages/Home";
 import AIPage from "./pages/ai/Page";
 import AIComponentPage from "./pages/ai/components/ComponentPage";
 import BlocksPage from "./pages/blocks/Page";
+import CogDocsPageComponent from "./pages/cogdocs/Page";
 import DocsAboutPage from "./pages/docs/about/Page";
 import DocsGettingStartedPage from "./pages/docs/getting-started/Page";
 import DocsInstallationPage from "./pages/docs/installation/Page";
@@ -20,6 +21,7 @@ import PrimitivesPage from "./pages/primitives/Page";
 import PrimitivesColorsPage from "./pages/primitives/colors/Page";
 import PrimitivesComponentPage from "./pages/primitives/components/ComponentPage";
 import PrimitivesEffectsPage from "./pages/primitives/effects/Page";
+import CogDocsIndividualPage from "./pages/cogdocs/CogDocsPage";
 import PrimitivesIconsPage from "./pages/primitives/icons/Page";
 import PrimitivesIllustrationsPage from "./pages/primitives/illustrations/Page";
 import PrimitivesLayoutsPage from "./pages/primitives/layouts/Page";
@@ -103,6 +105,15 @@ export const router = createBrowserRouter(
             { path: "installation", element: <DocsInstallationPage /> },
             { path: "about", element: <DocsAboutPage /> },
             { path: "getting-started", element: <DocsGettingStartedPage /> },
+          ],
+        },
+        // CogDocs section with side navigation
+        {
+          path: "cogdocs",
+          element: <SectionLayoutWrapper />,
+          children: [
+            { index: true, element: <CogDocsPageComponent /> },
+            { path: ":slug", element: <CogDocsIndividualPage /> },
           ],
         },
         // Other pages without section layout
