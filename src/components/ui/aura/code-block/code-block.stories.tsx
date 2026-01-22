@@ -288,6 +288,34 @@ export const ShortSnippet: Story = {
 };
 
 /**
+ * Code with long lines that require horizontal scrolling.
+ */
+export const LongLines: Story = {
+  render: () => (
+    <CodeBlock
+      code={`// This is a very long comment that extends far beyond the typical viewport width and demonstrates the horizontal scrolling functionality of the code block component
+const veryLongVariableName = "This is a very long string that contains a lot of text and will definitely require horizontal scrolling to see the entire content properly";
+
+function calculateSomethingWithAVeryLongFunctionName(parameterOne: string, parameterTwo: number, parameterThree: boolean, parameterFour: object): { resultOne: string; resultTwo: number; resultThree: boolean } {
+  return { resultOne: "A very long result string that extends beyond normal viewport widths", resultTwo: 42, resultThree: true };
+}
+
+const configurationObject = { apiEndpoint: "https://api.example.com/v1/users/profiles/details/extended/with/very/long/path", timeout: 30000, retries: 3, headers: { "Content-Type": "application/json", "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" } };`}
+      language="typescript"
+    >
+      <CodeBlockCopyButton />
+    </CodeBlock>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Code block with long lines that require horizontal scrolling to view completely.",
+      },
+    },
+  },
+};
+
+/**
  * Without copy button.
  */
 export const WithoutCopyButton: Story = {
