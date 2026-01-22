@@ -840,7 +840,7 @@ function CodeExample({
           </CodeBlock>
           <p className="text-sm text-muted-foreground mt-3">
             For complete implementation details and examples, see the{" "}
-            <Link to="/ai/components/conversation" className="text-primary hover:underline">
+            <Link to="/ai/conversation" className="text-primary hover:underline">
               Conversation component documentation
             </Link>
             .
