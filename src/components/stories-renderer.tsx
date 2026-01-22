@@ -91,22 +91,13 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         // Module is already loaded with eager: true, just need to use it
         const module = storiesModule as Record<string, unknown>;
 
-        // Check if module exports a __stories object for explicit display order
-        let originalKeys: string[];
-
-        if ("__stories" in module && typeof module.__stories === "object") {
-          // Use explicit __stories object key order from the module
-          originalKeys = Object.keys(module.__stories as Record<string, unknown>);
-        } else {
-          // Fall back to module keys (will be alphabetical after bundling)
-          originalKeys = Object.keys(module).filter(
-            (key) =>
-              key !== "default" &&
-              key !== "__esModule" &&
-              !key.startsWith("_") &&
-              key !== "__stories"
-          );
-        }
+        // Get all story keys (will be alphabetical after bundling)
+        const allKeys = Object.keys(module).filter(
+          (key) =>
+            key !== "default" &&
+            key !== "__esModule" &&
+            !key.startsWith("_")
+        );
 
         // Compose stories using Storybook's portable stories API
         // composeStories expects a module with default export (meta) and named exports (stories)
@@ -180,23 +171,22 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
               sourceCode,
             };
           })
-          // Sort by original export order to preserve the order from .stories.tsx file
+          // Sort by parameters.order if present, otherwise alphabetically
           .sort((a, b) => {
-            const indexA = originalKeys.indexOf(a.key);
-            const indexB = originalKeys.indexOf(b.key);
-            // If key not found, push to end
-            if (indexA === -1) return 1;
-            if (indexB === -1) return -1;
-            return indexA - indexB;
-          });
+            const storyA = module[a.key] as { parameters?: { order?: number } } | undefined;
+            const storyB = module[b.key] as { parameters?: { order?: number } } | undefined;
 
-        // Debug: Log the sorted order for badge
-        if (slug === "badge") {
-          console.log(
-            "[StoriesRenderer] Badge sorted keys:",
-            storyEntries.map((e) => e.key)
-          );
-        }
+            const orderA = storyA?.parameters?.order ?? 999;
+            const orderB = storyB?.parameters?.order ?? 999;
+
+            // Sort by order parameter first
+            if (orderA !== orderB) {
+              return orderA - orderB;
+            }
+
+            // If same order (or both undefined), sort alphabetically
+            return a.key.localeCompare(b.key);
+          });
 
         if (storyEntries.length === 0) {
           console.error("[StoriesRenderer] No stories found for slug:", slug);
