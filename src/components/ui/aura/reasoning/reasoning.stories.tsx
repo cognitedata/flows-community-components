@@ -160,11 +160,10 @@ export const IndustrialWorkflow: Story = {
     await waitFor(() => {
       expect(canvas.getByText("Parameters")).toBeVisible();
       expect(canvas.getByText("Result")).toBeVisible();
+      // Verify content is present (code appears in both light/dark theme blocks)
+      expect(canvasElement.textContent).toContain("Show all pumps in building A");
+      expect(canvasElement.textContent).toContain("Pump 21PT1019");
     });
-
-    // Verify content is present (code appears in both light/dark theme blocks)
-    await expect(canvasElement.textContent).toContain("Show all pumps in building A");
-    await expect(canvasElement.textContent).toContain("Pump 21PT1019");
 
     // Test keyboard interaction - expand second tool with keyboard
     const secondTool = toolButtons[1];
@@ -238,11 +237,10 @@ export const SingleToolCall: Story = {
     await waitFor(() => {
       expect(canvas.getByText("Parameters")).toBeVisible();
       expect(canvas.getByText("Result")).toBeVisible();
+      // Verify content is present (code appears in both light/dark theme blocks)
+      expect(canvasElement.textContent).toContain("assetId");
+      expect(canvasElement.textContent).toContain("Pump 21PT1019");
     });
-
-    // Verify content is present (code appears in both light/dark theme blocks)
-    await expect(canvasElement.textContent).toContain("assetId");
-    await expect(canvasElement.textContent).toContain("Pump 21PT1019");
 
     // Verify no connector lines (single tool)
     const connectorLines = canvasElement.querySelectorAll('[class*="connector"]');
@@ -327,10 +325,9 @@ export const ToolWithError: Story = {
 
     await waitFor(() => {
       expect(canvas.getByText("Result")).toBeVisible();
+      // Verify result content (appears in both light/dark theme blocks)
+      expect(canvasElement.textContent).toContain("cached");
     });
-
-    // Verify result content (appears in both light/dark theme blocks)
-    await expect(canvasElement.textContent).toContain("cached");
   },
 };
 
@@ -644,10 +641,9 @@ export const Accessibility: Story = {
 
     await waitFor(() => {
       expect(canvas.getByText("Parameters")).toBeVisible();
+      // Verify parameter content (appears in both light/dark theme blocks)
+      expect(canvasElement.textContent).toContain("comprehensive");
     });
-
-    // Verify parameter content (appears in both light/dark theme blocks)
-    await expect(canvasElement.textContent).toContain("comprehensive");
 
     // Verify buttons have accessible names
     await expect(toolButtons[0]).toHaveAccessibleName();
