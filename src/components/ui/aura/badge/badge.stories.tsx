@@ -249,6 +249,487 @@ export const AllVariants: Story = {
 };
 
 /**
+ * Mountain variant - neutral decorative badge
+ */
+export const Mountain: Story = {
+  args: {
+    variant: "mountain",
+    children: "Mountain",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Mountain variant uses the neutral decorative background. This is a filled-only variant, perfect for subtle labels and tags that don't require emphasis.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Mountain");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-decorative-background-mountain");
+    await expect(badge).toHaveClass("text-decorative-foreground-mountain");
+  },
+};
+
+/**
+ * Fjord variant - cool blue decorative badge
+ */
+export const Fjord: Story = {
+  args: {
+    variant: "fjord",
+    children: "Fjord",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Fjord variant uses a cool blue decorative background. This is a filled-only variant, ideal for data visualization and cool-toned accents.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Fjord");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-decorative-background-fjord");
+    await expect(badge).toHaveClass("text-decorative-foreground-fjord");
+  },
+};
+
+/**
+ * Nordic variant - cool green decorative badge
+ */
+export const Nordic: Story = {
+  args: {
+    variant: "nordic",
+    children: "Nordic",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Nordic variant uses a cool green decorative background. This is a filled-only variant, perfect for nature-themed content and cool green accents.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Nordic");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-decorative-background-nordic");
+    await expect(badge).toHaveClass("text-decorative-foreground-nordic");
+  },
+};
+
+/**
+ * Aurora variant - lime green decorative badge
+ */
+export const Aurora: Story = {
+  args: {
+    variant: "aurora",
+    children: "Aurora",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Aurora variant uses a vibrant lime green decorative background. This is a filled-only variant, great for attention-grabbing highlights and energetic content.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Aurora");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-decorative-background-aurora");
+    await expect(badge).toHaveClass("text-decorative-foreground-aurora");
+  },
+};
+
+/**
+ * Dusk variant - magenta decorative badge
+ */
+export const Dusk: Story = {
+  args: {
+    variant: "dusk",
+    children: "Dusk",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Dusk variant uses a magenta decorative background. This is a filled-only variant, perfect for creative content and purple/magenta accents.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Dusk");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-decorative-background-dusk");
+    await expect(badge).toHaveClass("text-decorative-foreground-dusk");
+  },
+};
+
+/**
+ * Orange variant - warm orange decorative badge
+ */
+export const Orange: Story = {
+  args: {
+    variant: "orange",
+    children: "Orange",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Orange variant uses a warm orange decorative background. This is a filled-only variant, ideal for warm accents and data visualization.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Orange");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-decorative-background-orange");
+    await expect(badge).toHaveClass("text-decorative-foreground-orange");
+  },
+};
+
+/**
+ * Neutral variant - informational status badge
+ */
+export const Neutral: Story = {
+  args: {
+    variant: "inProgress",
+    children: (
+      <>
+        <IconInnerShadowTopLeft className="size-3" />
+        Neutral
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Neutral variant represents informational or in-progress states. Uses gray background with alternative foreground for better contrast. Supports both filled and outlined styles.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Neutral");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-neutral");
+    await expect(badge).toHaveClass("text-neutral-foreground-alternative");
+  },
+};
+
+/**
+ * Success variant - positive status badge
+ */
+export const Success: Story = {
+  args: {
+    variant: "success",
+    children: (
+      <>
+        <IconCircleCheck className="size-3" />
+        Success
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Success variant indicates positive outcomes, completed tasks, or successful operations. Uses green background with alternative foreground for better contrast. Supports both filled and outlined styles.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Success");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-success");
+    await expect(badge).toHaveClass("text-success-foreground-alternative");
+  },
+};
+
+/**
+ * Warning variant - caution status badge
+ */
+export const Warning: Story = {
+  args: {
+    variant: "warning",
+    children: (
+      <>
+        <IconAlertTriangle className="size-3" />
+        Warning
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Warning variant indicates caution, attention needed, or pending states. Uses amber background with alternative foreground for better contrast. Supports both filled and outlined styles.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Warning");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-warning");
+    await expect(badge).toHaveClass("text-warning-foreground-alternative");
+  },
+};
+
+/**
+ * Error variant - negative status badge
+ */
+export const Error: Story = {
+  args: {
+    variant: "error",
+    children: (
+      <>
+        <IconAlertHexagon className="size-3" />
+        Error
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Error variant indicates failures, errors, or destructive actions. Uses red background with alternative foreground for better contrast. Supports both filled and outlined styles.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Error");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-destructive");
+    await expect(badge).toHaveClass("text-destructive-foreground-alternative");
+  },
+};
+
+/**
+ * Undefined variant - unknown/archived status badge
+ */
+export const Undefined: Story = {
+  args: {
+    variant: "archived",
+    children: (
+      <>
+        <IconArchive className="size-3" />
+        Undefined
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Undefined variant represents unknown, archived, or undefined states. Uses mountain background with alternative foreground for better contrast. Supports both filled and outlined styles.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Undefined");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("bg-undefined");
+    await expect(badge).toHaveClass("text-undefined-foreground-alternative");
+  },
+};
+
+/**
+ * Neutral outlined variant - informational status badge with border
+ */
+export const NeutralOutlined: Story = {
+  args: {
+    variant: "inProgress",
+    outline: true,
+    children: (
+      <>
+        <IconInnerShadowTopLeft className="size-3" />
+        Neutral
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Neutral variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Neutral");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-neutral-foreground");
+    // Should not have background
+    await expect(badge).not.toHaveClass("bg-neutral");
+  },
+};
+
+/**
+ * Success outlined variant - positive status badge with border
+ */
+export const SuccessOutlined: Story = {
+  args: {
+    variant: "success",
+    outline: true,
+    children: (
+      <>
+        <IconCircleCheck className="size-3" />
+        Success
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Success variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Success");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-success-foreground");
+    // Should not have background
+    await expect(badge).not.toHaveClass("bg-success");
+  },
+};
+
+/**
+ * Warning outlined variant - caution status badge with border
+ */
+export const WarningOutlined: Story = {
+  args: {
+    variant: "warning",
+    outline: true,
+    children: (
+      <>
+        <IconAlertTriangle className="size-3" />
+        Warning
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Warning variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Warning");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-warning-foreground");
+    // Should not have background
+    await expect(badge).not.toHaveClass("bg-warning");
+  },
+};
+
+/**
+ * Error outlined variant - negative status badge with border
+ */
+export const ErrorOutlined: Story = {
+  args: {
+    variant: "error",
+    outline: true,
+    children: (
+      <>
+        <IconAlertHexagon className="size-3" />
+        Error
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Error variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Error");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-destructive-foreground");
+    // Should not have background
+    await expect(badge).not.toHaveClass("bg-destructive");
+  },
+};
+
+/**
+ * Undefined outlined variant - unknown/archived status badge with border
+ */
+export const UndefinedOutlined: Story = {
+  args: {
+    variant: "archived",
+    outline: true,
+    children: (
+      <>
+        <IconArchive className="size-3" />
+        Undefined
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Undefined variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText("Undefined");
+
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-undefined-foreground");
+    // Should not have background
+    await expect(badge).not.toHaveClass("bg-undefined");
+  },
+};
+
+/**
  * Icon Sizes - showing the difference between default and icon size variants
  */
 export const IconSizes: Story = {
