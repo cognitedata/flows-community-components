@@ -19,7 +19,7 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   tags: ["autodocs"],
   argTypes: {
-    // Appearance
+    // Display
     variant: {
       control: "select",
       options: [
@@ -42,16 +42,17 @@ const meta: Meta<typeof Badge> = {
       ],
       description: "Visual style variant of the badge",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "string" },
         defaultValue: { summary: "default" },
       },
     },
     outline: {
       control: "boolean",
-      description: "Display as an outlined badge with border only",
+      description:
+        "Display as an outlined badge with border only. Only available for error, warning, success, inProgress (neutral), and archived (undefined) variants. Decorative variants (mountain, fjord, nordic, aurora, dusk, orange) are filled only.",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -60,7 +61,7 @@ const meta: Meta<typeof Badge> = {
       control: "boolean",
       description: "Whether to display background fill",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "true" },
       },
@@ -69,7 +70,7 @@ const meta: Meta<typeof Badge> = {
       control: "boolean",
       description: "Display as a circular dot indicator",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -78,9 +79,27 @@ const meta: Meta<typeof Badge> = {
       control: "boolean",
       description: "Mark as urgent (applies to dot variant)",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
+      },
+    },
+    size: {
+      control: "select",
+      options: ["default", "icon"],
+      description: "Size variant for the badge",
+      table: {
+        category: "Display",
+        type: { summary: "'default' | 'icon'" },
+        defaultValue: { summary: "default" },
+      },
+    },
+    className: {
+      control: "text",
+      description: "Additional CSS classes",
+      table: {
+        category: "Display",
+        type: { summary: "string" },
       },
     },
 
@@ -94,6 +113,24 @@ const meta: Meta<typeof Badge> = {
       },
     },
 
+    // Events
+    onClick: {
+      action: "clicked",
+      description: "Callback when badge is clicked",
+      table: {
+        category: "Events",
+        type: { summary: "(event: MouseEvent) => void" },
+      },
+    },
+    onKeyDown: {
+      action: "keydown",
+      description: "Callback when a key is pressed",
+      table: {
+        category: "Events",
+        type: { summary: "(event: KeyboardEvent) => void" },
+      },
+    },
+
     // Advanced
     asChild: {
       control: "boolean",
@@ -102,24 +139,6 @@ const meta: Meta<typeof Badge> = {
         category: "Advanced",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
-      },
-    },
-    size: {
-      control: "select",
-      options: ["default", "icon"],
-      description: "Size variant for the badge",
-      table: {
-        category: "Appearance",
-        type: { summary: "'default' | 'icon'" },
-        defaultValue: { summary: "default" },
-      },
-    },
-    className: {
-      control: "text",
-      description: "Additional CSS classes",
-      table: {
-        category: "Advanced",
-        type: { summary: "string" },
       },
     },
   },
