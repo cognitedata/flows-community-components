@@ -5,8 +5,11 @@ import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 import { storySourcePlugin } from "./vite-plugin-story-source";
 
-// Plugin to handle history API fallback for SPA routing
-// This ensures that direct access to routes serves index.html
+// Plugin to handle history API fallback for SPA routing with custom base paths
+// This ensures that direct access to routes serves index.html, especially important
+// for GitHub Pages deployments with non-root base paths (e.g., /aura/branches/...)
+// Note: Vite's default SPA mode handles root paths, but this custom plugin ensures
+// proper handling of base paths in the dev server during development
 function historyApiFallback(): Plugin {
   return {
     name: "history-api-fallback",
@@ -29,12 +32,6 @@ function historyApiFallback(): Plugin {
           url.startsWith("/public")
         ) {
           return next();
-        }
-
-        // Remove base path if present and extract the path
-        let pathWithoutBase = url.split("?")[0]; // Remove query params
-        if (base !== "/" && pathWithoutBase.startsWith(base)) {
-          pathWithoutBase = pathWithoutBase.slice(base.length) || "/";
         }
 
         // For routes that don't correspond to files, serve index.html
