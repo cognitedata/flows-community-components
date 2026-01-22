@@ -1354,3 +1354,37 @@ export const EdgeCaseTinyDots: Story = {
     });
   },
 };
+
+// Define display order for docs site
+export const __stories = {
+  Fjord,
+  Aurora,
+  Mountain,
+  Dusk,
+  Secondary,
+  ErrorBadge,
+  ErrorOutline,
+  Warning,
+  WarningOutline,
+  Success,
+  InProgress,
+  Archived,
+  AllVariants,
+  IconSizes,
+  Playground,
+  OutlineStyle,
+  NoBackground,
+  DotIndicators,
+  ClickInteraction,
+  KeyboardInteractions,
+  Accessibility,
+  VisualRegression,
+  EdgeCaseEmpty,
+  EdgeCaseIconOnly,
+  EdgeCaseLongText,
+  EdgeCaseTinyDots,
+  EdgeCaseSpecialCharacters,
+  EdgeCaseMixedContent,
+  EdgeCaseGroupedBadges,
+  EdgeCaseWidthConstraints,
+};
