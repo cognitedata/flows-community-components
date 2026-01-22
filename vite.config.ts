@@ -13,7 +13,7 @@ function historyApiFallback(): Plugin {
     configureServer(server) {
       const base = process.env.PAGES_BASE_PATH || "/";
 
-      server.middlewares.use((req, res, next) => {
+      server.middlewares.use((req, _res, next) => {
         const url = req.url || "";
 
         // Skip if it's a Vite internal request, static asset, or API request
