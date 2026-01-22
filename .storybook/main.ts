@@ -3,7 +3,12 @@ import { mergeConfig } from "vite";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
-  addons: ["@storybook/addon-docs", "@storybook/addon-interactions", "@storybook/addon-a11y"],
+  addons: [
+    "@storybook/addon-docs",
+    "@storybook/addon-interactions",
+    "@storybook/addon-a11y",
+    "@chromatic-com/storybook",
+  ],
   framework: {
     name: "@storybook/react-vite",
     options: {},
@@ -11,9 +16,10 @@ const config: StorybookConfig = {
   staticDirs: ["../public"],
   async viteFinal(config, { configType }) {
     // Use environment variable if set (for GitHub Pages deployment)
-    // Otherwise use /storybook for production builds, / for development
+    // For Chromatic/CI builds without explicit base path, use root path (/)
+    // Otherwise use /aura/storybook for production builds, / for development
     const basePath = process.env.STORYBOOK_BASE_PATH 
-      || (configType === "PRODUCTION" ? "/aura/storybook" : "/");
+      || (process.env.CI ? "/" : configType === "PRODUCTION" ? "/aura/storybook" : "/");
     
     return mergeConfig(config, {
       base: basePath,
