@@ -469,11 +469,13 @@ export const Mountain: Story = {
  * - Information architecture labels
  */
 export const Fjord: Story = {
+  render: () => <Badge variant="fjord">Observations</Badge>,
   args: {
     variant: "fjord",
     children: "Fjord",
   },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -530,6 +532,7 @@ export const Nordic: Story = {
     children: "Nordic",
   },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -586,6 +589,7 @@ export const Aurora: Story = {
     children: "Aurora",
   },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -637,11 +641,13 @@ export const Aurora: Story = {
  * - Creative project categories
  */
 export const Dusk: Story = {
+  render: () => <Badge variant="dusk">RCA</Badge>,
   args: {
     variant: "dusk",
     children: "Dusk",
   },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -698,6 +704,7 @@ export const Orange: Story = {
     children: "Orange",
   },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -759,6 +766,7 @@ export const Neutral: Story = {
     ),
   },
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -824,6 +832,7 @@ export const Success: Story = {
     ),
   },
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -889,6 +898,7 @@ export const Warning: Story = {
     ),
   },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -1085,6 +1095,7 @@ export const NeutralOutlined: Story = {
     ),
   },
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -1152,6 +1163,7 @@ export const SuccessOutlined: Story = {
     ),
   },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -1219,6 +1231,7 @@ export const WarningOutlined: Story = {
     ),
   },
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -1286,6 +1299,7 @@ export const ErrorOutlined: Story = {
     ),
   },
   parameters: {
+    order: 12,
     docs: {
       description: {
         story:
@@ -1353,6 +1367,7 @@ export const UndefinedOutlined: Story = {
     ),
   },
   parameters: {
+    order: 13,
     docs: {
       description: {
         story:
@@ -1462,6 +1477,7 @@ export const IconSizes: Story = {
     </div>
   ),
   parameters: {
+    order: 14,
     docs: {
       description: {
         story:
@@ -1493,11 +1509,13 @@ export const IconSizes: Story = {
  * Use the controls below to experiment with all available props.
  */
 export const Playground: Story = {
+  render: (args) => <Badge {...args} />,
   args: {
     variant: "fjord",
     children: "Badge",
   },
   parameters: {
+    order: 15,
     docs: {
       description: {
         story:
@@ -1534,6 +1552,7 @@ export const DotIndicators: Story = {
     </div>
   ),
   parameters: {
+    order: 18,
     docs: {
       description: {
         story:
@@ -1561,6 +1580,7 @@ export const DotIndicators: Story = {
  */
 export const ClickInteraction: Story = {
   parameters: {
+    order: 19,
     docs: {
       description: {
         story:
@@ -1619,6 +1639,7 @@ export const ClickInteraction: Story = {
  */
 export const KeyboardInteractions: Story = {
   parameters: {
+    order: 20,
     docs: {
       description: {
         story:
@@ -1711,6 +1732,7 @@ export const KeyboardInteractions: Story = {
  */
 export const Accessibility: Story = {
   parameters: {
+    order: 21,
     docs: {
       description: {
         story:
@@ -1812,6 +1834,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 22,
     docs: {
       description: {
         story:
@@ -1838,6 +1861,7 @@ export const EdgeCaseEmpty: Story = {
     </div>
   ),
   parameters: {
+    order: 23,
     docs: {
       description: {
         story:
@@ -1872,6 +1896,7 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
+    order: 25,
     docs: {
       description: {
         story:
@@ -1903,6 +1928,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
+    order: 27,
     docs: {
       description: {
         story:
@@ -1941,6 +1967,7 @@ export const EdgeCaseIconOnly: Story = {
     </div>
   ),
   parameters: {
+    order: 24,
     docs: {
       description: {
         story:
@@ -1987,6 +2014,7 @@ export const EdgeCaseMixedContent: Story = {
     </div>
   ),
   parameters: {
+    order: 28,
     docs: {
       description: {
         story:
@@ -2024,6 +2052,7 @@ export const EdgeCaseWidthConstraints: Story = {
     </div>
   ),
   parameters: {
+    order: 30,
     docs: {
       description: {
         story:
@@ -2064,6 +2093,7 @@ export const EdgeCaseGroupedBadges: Story = {
     </div>
   ),
   parameters: {
+    order: 29,
     docs: {
       description: {
         story:
@@ -2098,6 +2128,7 @@ export const EdgeCaseTinyDots: Story = {
     </div>
   ),
   parameters: {
+    order: 26,
     docs: {
       description: {
         story:
@@ -2114,4 +2145,38 @@ export const EdgeCaseTinyDots: Story = {
       expect(dot).toHaveClass("rounded-full");
     });
   },
+};
+
+// Define display order for docs site
+export const __stories = {
+  Fjord,
+  Aurora,
+  Mountain,
+  Dusk,
+  Secondary,
+  ErrorBadge,
+  ErrorOutline,
+  Warning,
+  WarningOutline,
+  Success,
+  InProgress,
+  Archived,
+  AllVariants,
+  IconSizes,
+  Playground,
+  OutlineStyle,
+  NoBackground,
+  DotIndicators,
+  ClickInteraction,
+  KeyboardInteractions,
+  Accessibility,
+  VisualRegression,
+  EdgeCaseEmpty,
+  EdgeCaseIconOnly,
+  EdgeCaseLongText,
+  EdgeCaseTinyDots,
+  EdgeCaseSpecialCharacters,
+  EdgeCaseMixedContent,
+  EdgeCaseGroupedBadges,
+  EdgeCaseWidthConstraints,
 };

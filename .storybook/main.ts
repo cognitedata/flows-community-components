@@ -18,9 +18,10 @@ const config: StorybookConfig = {
     // Use environment variable if set (for GitHub Pages deployment)
     // For Chromatic/CI builds without explicit base path, use root path (/)
     // Otherwise use /aura/storybook for production builds, / for development
-    const basePath = process.env.STORYBOOK_BASE_PATH 
-      || (process.env.CI ? "/" : configType === "PRODUCTION" ? "/aura/storybook" : "/");
-    
+    const basePath =
+      process.env.STORYBOOK_BASE_PATH ||
+      (process.env.CI ? "/" : configType === "PRODUCTION" ? "/aura/storybook" : "/");
+
     return mergeConfig(config, {
       base: basePath,
     });

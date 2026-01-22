@@ -51,7 +51,7 @@ function ThemeToggleGroup() {
 export function Navigation() {
   const location = useLocation();
   const pathname = location.pathname;
-  
+
   // Get base path for assets (handles GitHub Pages subdirectory)
   const logoPath = `${import.meta.env.BASE_URL}aura-logo.png`;
 
