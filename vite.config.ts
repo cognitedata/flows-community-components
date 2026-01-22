@@ -1,8 +1,53 @@
 import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 import { storySourcePlugin } from "./vite-plugin-story-source";
+
+// Plugin to handle history API fallback for SPA routing
+// This ensures that direct access to routes serves index.html
+function historyApiFallback(): Plugin {
+  return {
+    name: "history-api-fallback",
+    configureServer(server) {
+      const base = process.env.PAGES_BASE_PATH || "/";
+
+      server.middlewares.use((req, res, next) => {
+        const url = req.url || "";
+
+        // Skip if it's a Vite internal request, static asset, or API request
+        // Check for file extensions (but allow .html files to be handled)
+        const hasFileExtension = /\.\w+$/.test(url.split("?")[0]);
+        const isHtmlFile = url.endsWith(".html");
+
+        if (
+          (hasFileExtension && !isHtmlFile) || // Has file extension but not .html
+          url.startsWith("/@") || // Vite internal
+          url.startsWith("/node_modules") ||
+          url.startsWith("/src") ||
+          url.startsWith("/public")
+        ) {
+          return next();
+        }
+
+        // Remove base path if present and extract the path
+        let pathWithoutBase = url.split("?")[0]; // Remove query params
+        if (base !== "/" && pathWithoutBase.startsWith(base)) {
+          pathWithoutBase = pathWithoutBase.slice(base.length) || "/";
+        }
+
+        // For routes that don't correspond to files, serve index.html
+        // This allows React Router to handle client-side routing
+        if (!hasFileExtension || isHtmlFile) {
+          req.url = base === "/" ? "/index.html" : `${base}/index.html`;
+        }
+
+        next();
+      });
+    },
+  };
+}
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,6 +60,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     storySourcePlugin(),
+    historyApiFallback(),
   ],
   resolve: {
     alias: {
