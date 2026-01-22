@@ -353,7 +353,7 @@ function ColorSwatch({
     if (!swatchRef.current) return;
     const bg = window.getComputedStyle(swatchRef.current).backgroundColor;
     setHex(rgbToHex(bg));
-  }, [rgbToHex, color.var]);
+  }, [rgbToHex]);
 
   const handleCopyHex = () => {
     if (hex) copyToClipboard(hex);
@@ -379,9 +379,17 @@ function ColorSwatch({
       className="relative group cursor-pointer rounded-lg overflow-hidden"
       style={{ backgroundColor: `var(${color.var})` }}
       onClick={handleCopyHex}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCopyHex();
+        }
+      }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       title={hex ? `Click to copy ${hex}` : undefined}
+      role="button"
+      tabIndex={0}
     >
       <div className="aspect-square w-full min-h-[80px]" />
 

@@ -177,12 +177,14 @@ export const Controlled: Story = {
         </div>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setEnabled(true)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Enable
           </button>
           <button
+            type="button"
             onClick={() => setEnabled(false)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

@@ -191,8 +191,11 @@ export const FormExample: Story = {
     return (
       <div className="space-y-4 w-[300px]">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Start Date</label>
+          <label htmlFor="start-date" className="text-sm font-medium">
+            Start Date
+          </label>
           <DatePickerCustom
+            id="start-date"
             date={startDate}
             onDateChange={setStartDate}
             placeholder="Select start date"
@@ -200,8 +203,11 @@ export const FormExample: Story = {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">End Date</label>
+          <label htmlFor="end-date" className="text-sm font-medium">
+            End Date
+          </label>
           <DatePickerCustom
+            id="end-date"
             date={endDate}
             onDateChange={setEndDate}
             placeholder="Select end date"
