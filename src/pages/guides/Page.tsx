@@ -220,7 +220,7 @@ function StepCard({ step, index }: { step: StepType; index: number }) {
                 </Button>
               </Link>
             ) : step.action === "View components" ? (
-              <Link to="/primitives/components/button" className="w-full">
+              <Link to="/primitives/button" className="w-full">
                 <Button variant="outline" className="w-full">
                   {step.action}
                 </Button>

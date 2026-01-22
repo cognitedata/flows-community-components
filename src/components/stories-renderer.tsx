@@ -19,16 +19,11 @@ interface StoryEntry {
 // This follows Storybook's recommended pattern for portable stories
 const storiesModules = import.meta.glob("@/components/ui/aura/*/*.stories.tsx", { eager: true });
 
-// Create a slug-to-module mapping at module load time to avoid path resolution issues
-// This works regardless of how Vite transforms paths in production builds
+// Create slug-to-module mapping at module load time
 const storiesBySlug = new Map<string, Record<string, unknown>>();
 
 for (const [path, module] of Object.entries(storiesModules)) {
-  // Extract slug from path - handle various path formats:
-  // - /src/components/ui/aura/accordion/accordion.stories.tsx
-  // - @/components/ui/aura/accordion/accordion.stories.tsx
-  // - ./ui/aura/accordion/accordion.stories.tsx
-  // - src/components/ui/aura/accordion/accordion.stories.tsx
+  // Extract slug from path
   const slugMatch = path.match(/\/([^/]+)\/\1\.stories\.tsx$/);
   if (slugMatch) {
     const slug = slugMatch[1];
@@ -96,6 +91,11 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         // Module is already loaded with eager: true, just need to use it
         const module = storiesModule as Record<string, unknown>;
 
+        // Get all story keys (will be alphabetical after bundling)
+        const allKeys = Object.keys(module).filter(
+          (key) => key !== "default" && key !== "__esModule" && !key.startsWith("_")
+        );
+
         // Compose stories using Storybook's portable stories API
         // composeStories expects a module with default export (meta) and named exports (stories)
         let composed: Record<string, ComponentType>;
@@ -141,32 +141,49 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
         }
 
         // Convert to array of story entries with source code
-        const storyEntries: StoryEntry[] = Object.entries(composed).map(([key, Component]) => {
-          // Directly access the story object from the module
-          // The story exports are directly accessible on the module by their export name
-          const originalStory = module[key] as
-            | {
-                parameters?: {
-                  docs?: {
-                    source?: {
-                      code?: string;
+        const storyEntries: StoryEntry[] = Object.entries(composed)
+          .map(([key, Component]) => {
+            // Directly access the story object from the module
+            // The story exports are directly accessible on the module by their export name
+            const originalStory = module[key] as
+              | {
+                  parameters?: {
+                    docs?: {
+                      source?: {
+                        code?: string;
+                      };
                     };
                   };
-                };
-                render?: () => React.ReactElement;
-              }
-            | undefined;
+                  render?: () => React.ReactElement;
+                }
+              | undefined;
 
-          // Extract source code from story parameters (injected at build time)
-          const sourceCode = originalStory?.parameters?.docs?.source?.code;
+            // Extract source code from story parameters (injected at build time)
+            const sourceCode = originalStory?.parameters?.docs?.source?.code;
 
-          return {
-            key,
-            title: storyKeyToTitle(key),
-            Component,
-            sourceCode,
-          };
-        });
+            return {
+              key,
+              title: storyKeyToTitle(key),
+              Component,
+              sourceCode,
+            };
+          })
+          // Sort by parameters.order if present, otherwise alphabetically
+          .sort((a, b) => {
+            const storyA = module[a.key] as { parameters?: { order?: number } } | undefined;
+            const storyB = module[b.key] as { parameters?: { order?: number } } | undefined;
+
+            const orderA = storyA?.parameters?.order ?? 999;
+            const orderB = storyB?.parameters?.order ?? 999;
+
+            // Sort by order parameter first
+            if (orderA !== orderB) {
+              return orderA - orderB;
+            }
+
+            // If same order (or both undefined), sort alphabetically
+            return a.key.localeCompare(b.key);
+          });
 
         if (storyEntries.length === 0) {
           console.error("[StoriesRenderer] No stories found for slug:", slug);

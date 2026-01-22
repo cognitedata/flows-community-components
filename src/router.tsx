@@ -65,7 +65,7 @@ export const router = createBrowserRouter(
           element: <SectionLayoutWrapper />,
           children: [
             { index: true, element: <PrimitivesPage /> },
-            { path: "components/:slug", element: <PrimitivesComponentPage /> },
+            // Specific routes must come before the catch-all :slug route
             { path: "theming", element: <PrimitivesThemingPage /> },
             { path: "effects", element: <PrimitivesEffectsPage /> },
             { path: "layouts", element: <PrimitivesLayoutsPage /> },
@@ -74,6 +74,8 @@ export const router = createBrowserRouter(
             { path: "illustrations", element: <PrimitivesIllustrationsPage /> },
             { path: "icons", element: <PrimitivesIconsPage /> },
             { path: "motion-design", element: <PrimitivesMotionDesignPage /> },
+            // Catch-all route for component pages (must be last)
+            { path: ":slug", element: <PrimitivesComponentPage /> },
           ],
         },
         // Patterns section with side navigation
@@ -92,7 +94,7 @@ export const router = createBrowserRouter(
           element: <SectionLayoutWrapper />,
           children: [
             { index: true, element: <AIPage /> },
-            { path: "components/:slug", element: <AIComponentPage /> },
+            { path: ":slug", element: <AIComponentPage /> },
           ],
         },
         // Docs section
