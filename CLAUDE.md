@@ -1,6 +1,7 @@
----
-alwaysApply: true
----
+# Development Rules
+
+1. Make sure to run `pnpm lint` and `pnpm tsc` after any code changes you make in order to ensure there are no errors.
+2. Record any learnings in the CLAUDE.md file. Make sure to keep a consistent style with the existing content and try to be concise and avoid duplication.
 
 # Component Registry Rules
 
