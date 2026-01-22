@@ -19,7 +19,7 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   tags: ["autodocs"],
   argTypes: {
-    // Display
+    // Display - Visual appearance and styling options
     variant: {
       control: "select",
       options: [
@@ -50,7 +50,7 @@ const meta: Meta<typeof Badge> = {
     outline: {
       control: "boolean",
       description:
-        "Display as an outlined badge with border only. Only available for error, warning, success, inProgress (neutral), and archived (undefined) variants. Decorative variants (mountain, fjord, nordic, aurora, dusk, orange) are filled only.",
+        "Display as an outlined badge with a border and transparent background. When enabled, the badge uses a border-only style with 5px horizontal padding (vs default 3px) and standard foreground colors (not alternative) for better contrast on transparent backgrounds. This prop is only available for semantic variants: `error`, `warning`, `success`, `inProgress` (neutral), and `archived` (undefined). Decorative variants (`mountain`, `fjord`, `nordic`, `aurora`, `dusk`, `orange`) are filled-only and do not support outline styling. When `outline` is `true`, the `background` prop is automatically set to `false`.",
       table: {
         category: "Display",
         type: { summary: "boolean" },
@@ -103,7 +103,7 @@ const meta: Meta<typeof Badge> = {
       },
     },
 
-    // Content
+    // Content - Badge content and children
     children: {
       control: "text",
       description: "Content to display inside the badge",
@@ -113,7 +113,7 @@ const meta: Meta<typeof Badge> = {
       },
     },
 
-    // Events
+    // Events - User interaction callbacks
     onClick: {
       action: "clicked",
       description: "Callback when badge is clicked",
@@ -131,7 +131,7 @@ const meta: Meta<typeof Badge> = {
       },
     },
 
-    // Advanced
+    // Advanced - Component composition options
     asChild: {
       control: "boolean",
       description: "Render as child component using Radix Slot",
@@ -155,12 +155,31 @@ type Story = StoryObj<typeof Badge>;
 
 /**
  * All Variants Overview
+ *
+ * Comprehensive showcase of all available badge variants, styles, and configurations.
+ * This story demonstrates:
+ * - Decorative variants (filled-only): mountain, fjord, nordic, aurora, dusk, orange
+ * - Semantic variants (filled): neutral, success, warning, error, undefined
+ * - Semantic variants (outlined): neutral, success, warning, error, undefined
+ * - Size variants: default and icon sizes
+ * - Dot indicator variant
+ *
+ * Each variant is designed for specific use cases:
+ * - Decorative variants: Visual distinction without semantic meaning
+ * - Semantic variants: Convey status, state, or meaning (success, error, etc.)
+ * - Outlined variants: Subtle styling for semantic badges on colored backgrounds
  */
 export const AllVariants: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div>
-        <p className="text-sm text-muted-foreground mb-3">Filled variants</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Decorative Variants (Filled Only)
+        </p>
+        <p className="text-xs text-muted-foreground mb-3">
+          These variants are decorative and do not convey semantic meaning. They
+          are filled-only and cannot be outlined.
+        </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">Mountain</Badge>
           <Badge variant="fjord">Fjord</Badge>
@@ -168,6 +187,18 @@ export const AllVariants: Story = {
           <Badge variant="aurora">Aurora</Badge>
           <Badge variant="dusk">Dusk</Badge>
           <Badge variant="orange">Orange</Badge>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Semantic Variants (Filled)
+        </p>
+        <p className="text-xs text-muted-foreground mb-3">
+          These variants convey meaning and support both filled and outlined
+          styles. Icons are included to demonstrate common usage patterns.
+        </p>
+        <div className="flex flex-wrap gap-2">
           <Badge variant="inProgress">
             <IconInnerShadowTopLeft className="size-3" />
             Neutral
@@ -190,8 +221,16 @@ export const AllVariants: Story = {
           </Badge>
         </div>
       </div>
+
       <div>
-        <p className="text-sm text-muted-foreground mb-3">Outlined variants</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Semantic Variants (Outlined)
+        </p>
+        <p className="text-xs text-muted-foreground mb-3">
+          Outlined variants use borders instead of backgrounds, with standard
+          foreground colors for better contrast on transparent backgrounds. Only
+          semantic variants support outline styling.
+        </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="inProgress" outline>
             <IconInnerShadowTopLeft className="size-3" />
@@ -215,24 +254,135 @@ export const AllVariants: Story = {
           </Badge>
         </div>
       </div>
+
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Size Variants
+        </p>
+        <p className="text-xs text-muted-foreground mb-3">
+          Badges support two size variants: default (for text content) and icon
+          (compact size for icon-only badges).
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="success" size="default">
+            <IconCircleCheck className="size-3" />
+            Default Size
+          </Badge>
+          <Badge variant="success" size="icon">
+            <IconCircleCheck className="size-3" />
+          </Badge>
+          <Badge variant="error" size="default">
+            <IconAlertHexagon className="size-3" />
+            Default Size
+          </Badge>
+          <Badge variant="error" size="icon">
+            <IconAlertHexagon className="size-3" />
+          </Badge>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Dot Indicator
+        </p>
+        <p className="text-xs text-muted-foreground mb-3">
+          Dot variant displays as a circular indicator, useful for status
+          indicators and notifications.
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="success" dot />
+          <Badge variant="error" dot />
+          <Badge variant="warning" dot />
+          <Badge variant="inProgress" dot />
+          <Badge variant="error" dot urgent />
+        </div>
+      </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "Overview of all available badge variants showing the full colour palette and semantic options. Each variant is designed for specific use cases and contexts.",
+          "Comprehensive overview of all available badge variants, styles, and configurations. This story demonstrates decorative variants (filled-only), semantic variants (both filled and outlined), size options, and dot indicators. Each section includes explanatory text to help understand when and how to use each variant. The play function verifies that all badges render correctly with proper styling classes and attributes.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all badges render by checking data-slot attribute
+    // Verify total badge count - should have at least 16 badges (6 decorative + 5 semantic filled + 5 outlined)
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    await expect(badges.length).toBeGreaterThanOrEqual(16); // 11 filled + 5 outlined
+    await expect(badges.length).toBeGreaterThanOrEqual(16);
 
-    // Verify specific text content exists (works even with icons)
+    // Verify decorative variants render with correct classes
+    const mountainBadge = canvas.getByText("Mountain");
+    await expect(mountainBadge).toBeInTheDocument();
+    await expect(mountainBadge).toHaveClass(
+      "bg-decorative-background-mountain"
+    );
+
+    const fjordBadge = canvas.getByText("Fjord");
+    await expect(fjordBadge).toBeInTheDocument();
+    await expect(fjordBadge).toHaveClass("bg-decorative-background-fjord");
+
+    const orangeBadge = canvas.getByText("Orange");
+    await expect(orangeBadge).toBeInTheDocument();
+    await expect(orangeBadge).toHaveClass("bg-decorative-background-orange");
+
+    // Verify semantic filled variants render with correct classes
+    const successBadge = canvas.getByText("Success");
+    await expect(successBadge).toBeInTheDocument();
+    await expect(successBadge).toHaveClass("bg-success");
+    await expect(successBadge).toHaveClass(
+      "text-success-foreground-alternative"
+    );
+
+    const errorBadge = canvas.getByText("Error");
+    await expect(errorBadge).toBeInTheDocument();
+    await expect(errorBadge).toHaveClass("bg-destructive");
+    await expect(errorBadge).toHaveClass(
+      "text-destructive-foreground-alternative"
+    );
+
+    // Verify outlined variants have borders and no backgrounds
+    const outlinedBadges = canvasElement.querySelectorAll(
+      '[data-slot="badge"].border-border'
+    );
+    await expect(outlinedBadges.length).toBeGreaterThanOrEqual(5);
+
+    // Verify at least one outlined badge has correct styling
+    const outlinedSuccess = Array.from(outlinedBadges).find((badge) =>
+      badge.textContent?.includes("Success")
+    );
+    await expect(outlinedSuccess).toBeDefined();
+    await expect(outlinedSuccess).toHaveClass("border-border");
+    await expect(outlinedSuccess).toHaveClass("text-success-foreground");
+    await expect(outlinedSuccess).not.toHaveClass("bg-success");
+
+    // Verify size variants exist
+    // Default size badges have "Default Size" text
+    const defaultSizeText = canvas.getByText("Default Size", { exact: false });
+    await expect(defaultSizeText).toBeInTheDocument();
+
+    // Icon size badges are icon-only (no text content beyond the icon itself)
+    // We can verify by checking that badges with just icons exist
+    const allBadges = canvasElement.querySelectorAll('[data-slot="badge"]');
+    const iconOnlyBadges = Array.from(allBadges).filter((badge) => {
+      // Icon-only badges have minimal text (just whitespace or very short)
+      const text = badge.textContent?.trim() || "";
+      // Check if badge contains an icon but has minimal text
+      const hasIcon = badge.querySelector("svg");
+      return hasIcon && text.length < 3;
+    });
+    await expect(iconOnlyBadges.length).toBeGreaterThanOrEqual(2);
+
+    // Verify dot indicators render
+    const dotBadges = canvasElement.querySelectorAll(
+      '[data-slot="badge"].rounded-full'
+    );
+    await expect(dotBadges.length).toBeGreaterThanOrEqual(4);
+
+    // Verify all expected text content exists
     const textContent = canvasElement.textContent || "";
     expect(textContent).toContain("Mountain");
     expect(textContent).toContain("Fjord");
