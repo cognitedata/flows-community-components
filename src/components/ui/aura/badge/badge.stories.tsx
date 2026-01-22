@@ -138,9 +138,9 @@ type Story = StoryObj<typeof Badge>;
  * Fjord variant - blue-toned for observations and data
  */
 export const Fjord: Story = {
+  render: (args) => <Badge {...args}>Observations</Badge>,
   args: {
     variant: "fjord",
-    children: "Observations",
   },
   parameters: {
     order: 1,
@@ -165,9 +165,9 @@ export const Fjord: Story = {
  * Aurora variant - vibrant for troubleshooting and alerts
  */
 export const Aurora: Story = {
+  render: (args) => <Badge {...args}>Troubleshooting</Badge>,
   args: {
     variant: "aurora",
-    children: "Troubleshooting",
   },
   parameters: {
     order: 2,
@@ -225,9 +225,9 @@ export const Mountain: Story = {
  * Dusk variant - purple-toned for RCA and analysis
  */
 export const Dusk: Story = {
+  render: (args) => <Badge {...args}>RCA</Badge>,
   args: {
     variant: "dusk",
-    children: "RCA",
   },
   parameters: {
     order: 4,
@@ -662,9 +662,9 @@ export const IconSizes: Story = {
  * Use the controls below to experiment with all available props.
  */
 export const Playground: Story = {
+  render: (args) => <Badge {...args}>Badge</Badge>,
   args: {
     variant: "fjord",
-    children: "Badge",
   },
   parameters: {
     order: 15,
