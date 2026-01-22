@@ -158,11 +158,12 @@ export const IndustrialWorkflow: Story = {
 
     // Tool content should be visible after click
     await waitFor(() => {
+      const content = canvasElement.textContent || "";
       expect(canvas.getByText("Parameters")).toBeVisible();
       expect(canvas.getByText("Result")).toBeVisible();
       // Verify content is present (code appears in both light/dark theme blocks)
-      expect(canvasElement.textContent).toContain("Show all pumps in building A");
-      expect(canvasElement.textContent).toContain("Pump 21PT1019");
+      expect(content).toContain("Show all pumps in building A");
+      expect(content).toContain("Pump 21PT1019");
     });
 
     // Test keyboard interaction - expand second tool with keyboard
@@ -317,9 +318,10 @@ export const ToolWithError: Story = {
 
     // Verify error text is shown
     await waitFor(() => {
+      const content = canvasElement.textContent || "";
       expect(canvas.getByText("Error")).toBeVisible();
       // Verify error message content (appears in both light/dark theme blocks)
-      expect(canvasElement.textContent).toContain("Database connection timeout");
+      expect(content).toContain("Database connection timeout");
     });
 
     // Expand second tool to see success
@@ -395,9 +397,10 @@ export const ManyToolCalls: Story = {
 
     // Verify expanded tools show content (appears in both light/dark theme blocks)
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("operation-1");
-      expect(canvasElement.textContent).toContain("operation-3");
-      expect(canvasElement.textContent).toContain("operation-6");
+      const content = canvasElement.textContent || "";
+      expect(content).toContain("operation-1");
+      expect(content).toContain("operation-3");
+      expect(content).toContain("operation-6");
     });
   },
 };
@@ -469,10 +472,11 @@ export const LongContent: Story = {
 
     // Verify large dataset is rendered (code appears in both light/dark theme blocks)
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("readings");
-      expect(canvasElement.textContent).toContain("total_readings");
-      expect(canvasElement.textContent).toContain("2026");
-      expect(canvasElement.textContent).toContain("anomalies_detected");
+      const content = canvasElement.textContent || "";
+      expect(content).toContain("readings");
+      expect(content).toContain("total_readings");
+      expect(content).toContain("2026");
+      expect(content).toContain("anomalies_detected");
     });
 
     // Verify code block with large content is present
@@ -642,9 +646,10 @@ export const Accessibility: Story = {
     await userEvent.keyboard(" ");
 
     await waitFor(() => {
+      const content = canvasElement.textContent || "";
       expect(canvas.getByText("Parameters")).toBeVisible();
       // Verify parameter content (appears in both light/dark theme blocks)
-      expect(canvasElement.textContent).toContain("comprehensive");
+      expect(content).toContain("comprehensive");
     });
 
     // Verify buttons have accessible names
