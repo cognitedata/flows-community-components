@@ -201,7 +201,7 @@ function InteractiveDemos({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run once on mount
+  }, [setDemoType]); // setDemoType is stable, but we only want to run once on mount
 
   // Keyboard shortcut for grid toggle (Ctrl/Cmd + G)
   useEffect(() => {
@@ -230,7 +230,9 @@ function InteractiveDemos({
       {/* Controls */}
       <div className="space-y-4">
         <div className="flex items-center gap-4">
-          <label className="text-sm font-medium">Layout type:</label>
+          <label htmlFor="layout-type" className="text-sm font-medium">
+            Layout type:
+          </label>
           <div className="flex gap-2">
             <Button
               onClick={() => setDemoType("dashboard1")}
@@ -271,8 +273,11 @@ function InteractiveDemos({
         </div>
 
         <div className="flex items-center gap-4">
-          <label className="text-sm font-medium">Container width:</label>
+          <label htmlFor="container-width" className="text-sm font-medium">
+            Container width:
+          </label>
           <input
+            id="container-width"
             type="range"
             min="280"
             max="1600"
@@ -288,6 +293,7 @@ function InteractiveDemos({
 
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => setShowGrid(!showGrid)}
             className="px-3 py-1.5 text-xs rounded-md bg-muted hover:bg-muted/80 transition-colors flex items-center gap-2"
           >
@@ -834,7 +840,7 @@ function CodeExample({
           </CodeBlock>
           <p className="text-sm text-muted-foreground mt-3">
             For complete implementation details and examples, see the{" "}
-            <Link to="/ai/components/conversation" className="text-primary hover:underline">
+            <Link to="/ai/conversation" className="text-primary hover:underline">
               Conversation component documentation
             </Link>
             .

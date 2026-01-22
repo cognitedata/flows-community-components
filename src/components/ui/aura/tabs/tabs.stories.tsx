@@ -181,18 +181,21 @@ export const Controlled: Story = {
         </Tabs>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setActiveTab("tab1")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Go to Tab 1
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab("tab2")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Go to Tab 2
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab("tab3")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

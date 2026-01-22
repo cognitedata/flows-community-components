@@ -46,7 +46,7 @@ import {
  * ```
  */
 const meta: Meta = {
-  title: "Layouts/Effects",
+  title: "Foundations/Effects",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
@@ -153,6 +153,7 @@ export const FocusRings: Story = {
       {focusRings.map((ring) => (
         <div key={ring.name} className="flex items-center gap-6">
           <button
+            type="button"
             data-testid={`focus-ring-${ring.name}`}
             className={cn(
               "w-28 h-20 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
@@ -205,6 +206,7 @@ export const RingWidths: Story = {
         return (
           <div key={ring.name} className="flex items-center gap-6">
             <button
+              type="button"
               data-testid={`ring-width-${ring.tailwindClass}`}
               className={cn(
                 "w-28 h-20 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
@@ -330,6 +332,7 @@ export const Transitions: Story = {
               <span className="text-xs text-muted-foreground">{transition.duration}</span>
             </div>
             <button
+              type="button"
               className={cn(
                 "w-full py-2 px-4 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover",
                 transition.tailwindClasses
@@ -438,6 +441,7 @@ export const InteractiveExamples: Story = {
         <h3 className="text-lg font-medium">Buttons</h3>
         <div className="flex gap-4">
           <button
+            type="button"
             className={cn(
               "px-4 py-2 rounded-md",
               "bg-primary text-primary-foreground",
@@ -449,6 +453,7 @@ export const InteractiveExamples: Story = {
             Primary Button
           </button>
           <button
+            type="button"
             className={cn(
               "px-4 py-2 rounded-md",
               "bg-muted text-foreground",
@@ -460,6 +465,7 @@ export const InteractiveExamples: Story = {
             Secondary Button
           </button>
           <button
+            type="button"
             className={cn(
               "px-4 py-2 rounded-md",
               "bg-destructive text-destructive-foreground",
@@ -478,6 +484,7 @@ export const InteractiveExamples: Story = {
         <h3 className="text-lg font-medium">Cards</h3>
         <div className="grid grid-cols-3 gap-4">
           <button
+            type="button"
             className={cn(
               "p-4 rounded-lg text-left",
               "bg-card border border-border",

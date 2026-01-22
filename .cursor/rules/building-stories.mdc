@@ -1,0 +1,111 @@
+---
+name: building-stories
+description: Guidelines for writing comprehensive Storybook stories
+---
+
+# Gold Standard
+
+Use `prompt-input.stories.tsx` as the gold standard for story structure, comprehensiveness, and quality.
+
+# Render Functions
+
+**CRITICAL: All stories MUST have explicit render functions**
+
+- ❌ **Never** use only `args` without a `render` function - this prevents code examples from showing in docs
+- ✅ **Always** include explicit render functions with hardcoded props for clear code examples
+- 🎯 **Exception**: Playground stories can use `render: (args) => <Component {...args} />` for interactivity
+
+**Examples:**
+
+```tsx
+// ❌ BAD - No code example shown in docs
+export const Fjord: Story = {
+  args: {
+    variant: "fjord",
+    children: "Observations",
+  },
+};
+
+// ✅ GOOD - Shows explicit code example
+export const Fjord: Story = {
+  render: () => <Badge variant="fjord">Observations</Badge>,
+  args: {
+    variant: "fjord",
+  },
+  parameters: { order: 1 },
+};
+
+// ✅ GOOD - Complex example with multiple props
+export const ErrorBadge: Story = {
+  render: () => (
+    <Badge variant="error" background={false}>
+      <IconAlertHexagon className="size-3" />
+      Error
+    </Badge>
+  ),
+  args: {
+    variant: "error",
+    background: false,
+  },
+  parameters: { order: 6 },
+};
+
+// ✅ GOOD - Playground is the exception
+export const Playground: Story = {
+  render: (args) => <Badge {...args} />,
+  args: {
+    variant: "fjord",
+    children: "Badge",
+  },
+  parameters: { order: 15 },
+};
+```
+
+# Story Ordering
+
+- Add `parameters.order` to every story for explicit display order in docs
+- Start from 1, increment for each story
+- Lower numbers appear first
+
+# Comprehensive Coverage
+
+Include these story types:
+
+1. **Variant Examples** - One story per variant showing typical usage
+2. **Interactive Examples** - Complex examples with state, user interaction
+3. **Edge Cases** - Empty states, long content, special characters, constraints
+4. **Accessibility** - ARIA labels, keyboard navigation, screen reader support
+5. **Visual Regression** - Baseline story showing all variants together
+6. **Playground** - Interactive controls for experimentation
+
+# Play Functions
+
+- Add `play` functions for interaction and rendering validation
+- Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`
+- Test rendering, interactions, accessibility, keyboard navigation
+- Verify DOM structure, classes, attributes, content
+
+# argTypes
+
+Organize into categories:
+- Content
+- Variants / Styling
+- Behavior
+- Events
+- Advanced
+
+Include descriptions and control types for all props.
+
+# Parameters
+
+```tsx
+parameters: {
+  order: 1,
+  docs: {
+    description: {
+      story: "Clear description of what this story demonstrates"
+    }
+  }
+}
+```
+
