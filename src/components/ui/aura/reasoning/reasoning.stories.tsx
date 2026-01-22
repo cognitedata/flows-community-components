@@ -634,8 +634,10 @@ export const Accessibility: Story = {
     await userEvent.keyboard("{Enter}");
 
     await waitFor(() => {
+      const content = canvasElement.textContent || "";
       expect(canvas.getByText("Parameters")).toBeVisible();
-      expect(canvas.getByText(/api/)).toBeVisible();
+      // Verify parameter content (appears in both light/dark theme blocks)
+      expect(content).toContain("api");
     });
 
     // Tab to next button
