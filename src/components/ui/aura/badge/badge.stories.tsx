@@ -228,11 +228,23 @@ export const AllVariants: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all variants render
-    await expect(canvas.getByText("Default")).toBeInTheDocument();
-    await expect(canvas.getByText("Fjord")).toBeInTheDocument();
-    await expect(canvas.getByText("Nordic")).toBeInTheDocument();
-    await expect(canvas.getByText("Closable")).toBeInTheDocument();
+    // Verify all badges render by checking data-slot attribute
+    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
+    await expect(badges.length).toBeGreaterThanOrEqual(16); // 11 filled + 5 outlined
+
+    // Verify specific text content exists (works even with icons)
+    const textContent = canvasElement.textContent || "";
+    expect(textContent).toContain("Mountain");
+    expect(textContent).toContain("Fjord");
+    expect(textContent).toContain("Nordic");
+    expect(textContent).toContain("Aurora");
+    expect(textContent).toContain("Dusk");
+    expect(textContent).toContain("Orange");
+    expect(textContent).toContain("Neutral");
+    expect(textContent).toContain("Success");
+    expect(textContent).toContain("Warning");
+    expect(textContent).toContain("Error");
+    expect(textContent).toContain("Undefined");
   },
 };
 
@@ -316,9 +328,9 @@ export const IconSizes: Story = {
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
 
-    // Find badges with icon size
+    // Find badges with icon size (they have p-0.75 class)
     const iconSizeBadges = Array.from(badges).filter((badge) =>
-      badge.classList.contains("rounded-md")
+      badge.classList.contains("p-0.75")
     );
 
     // Verify icon size badges have correct styling
@@ -327,7 +339,8 @@ export const IconSizes: Story = {
       expect(badge).toHaveClass("rounded-md");
     });
 
-    await expect(iconSizeBadges.length).toBeGreaterThan(0);
+    // Should have 4 icon size badges (mountain, fjord, aurora, dusk)
+    await expect(iconSizeBadges.length).toBe(4);
   },
 };
 
