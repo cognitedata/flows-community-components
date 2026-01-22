@@ -136,7 +136,7 @@ export const Success: Story = {
 /**
  * Error toast.
  */
-export const Error: Story = {
+export const ErrorState: Story = {
   render: () => (
     <Button
       variant="destructive"

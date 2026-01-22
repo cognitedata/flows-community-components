@@ -125,10 +125,15 @@ export const CustomEmptyState: Story = {
           description="How can we help you today?"
         >
           <div className="flex gap-2">
-            <button className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground">
+            <button
+              type="button"
+              className="px-3 py-1.5 text-sm rounded-md bg-primary text-primary-foreground"
+            >
               Get Started
             </button>
-            <button className="px-3 py-1.5 text-sm rounded-md border">View FAQ</button>
+            <button type="button" className="px-3 py-1.5 text-sm rounded-md border">
+              View FAQ
+            </button>
           </div>
         </ConversationEmptyState>
       </ConversationContent>

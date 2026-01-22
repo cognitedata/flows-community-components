@@ -286,7 +286,20 @@ export const InlineCitationLink = ({
   children,
   ...props
 }: InlineCitationLinkProps) => {
-  const hostname = getHostname(href);
+  let hostname = "unknown";
+  if (href) {
+    try {
+      // Only parse absolute URLs, not relative URLs or fragments
+      if (href.startsWith("http://") || href.startsWith("https://")) {
+        hostname = new URL(href).hostname;
+      } else {
+        hostname = href;
+      }
+    } catch {
+      // If URL parsing fails, use the href as-is or fallback
+      hostname = href;
+    }
+  }
 
   const variantStyles = {
     mountain:
