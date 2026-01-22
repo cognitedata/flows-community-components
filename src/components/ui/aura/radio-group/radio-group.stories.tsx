@@ -284,18 +284,21 @@ export const Controlled: Story = {
         </RadioGroup>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setValue("red")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Red
           </button>
           <button
+            type="button"
             onClick={() => setValue("green")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Green
           </button>
           <button
+            type="button"
             onClick={() => setValue("blue")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

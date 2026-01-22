@@ -108,19 +108,19 @@ export const Vertical: Story = {
 export const InNavigation: Story = {
   render: () => (
     <nav className="flex h-5 items-center space-x-4 text-sm">
-      <a href="#" className="hover:text-foreground text-muted-foreground">
+      <a href="/home" className="hover:text-foreground text-muted-foreground">
         Home
       </a>
       <Separator orientation="vertical" />
-      <a href="#" className="hover:text-foreground text-muted-foreground">
+      <a href="/products" className="hover:text-foreground text-muted-foreground">
         Products
       </a>
       <Separator orientation="vertical" />
-      <a href="#" className="hover:text-foreground text-muted-foreground">
+      <a href="/about" className="hover:text-foreground text-muted-foreground">
         About
       </a>
       <Separator orientation="vertical" />
-      <a href="#" className="hover:text-foreground text-muted-foreground">
+      <a href="/contact" className="hover:text-foreground text-muted-foreground">
         Contact
       </a>
     </nav>
@@ -166,7 +166,10 @@ export const InCard: Story = {
         </div>
       </div>
       <Separator className="my-4" />
-      <button className="w-full rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90">
+      <button
+        type="button"
+        className="w-full rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary/90"
+      >
         Upgrade Plan
       </button>
     </div>

@@ -243,12 +243,14 @@ export const Controlled: Story = {
         </Toggle>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setPressed(true)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Press
           </button>
           <button
+            type="button"
             onClick={() => setPressed(false)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
