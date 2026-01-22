@@ -362,7 +362,8 @@
       "name": "list",
       "type": "registry:component",
       "title": "List",
-      "description": "A foundational list component for displaying items with optional label-value pairs.",
+      "description": "A foundational list component for unordered, ordered, and description lists with timeline-ready items.",
+      "registryDependencies": ["lib-utils"],
       "files": [
         {
           "path": "src/components/ui/aura/list/list.tsx",

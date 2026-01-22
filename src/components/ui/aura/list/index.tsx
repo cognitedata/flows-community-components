@@ -2,11 +2,14 @@ export {
   List,
   ListDescription,
   ListDescriptionDetails,
-  ListDescriptionTerm, ListItem,
+  ListDescriptionTerm,
+  ListItem,
   ListItemContent,
-  ListItemHeader, ListItemIcon, ListItemLabel,
+  ListItemDescription,
+  ListItemHeader,
+  ListItemIcon,
+  ListItemTimeline,
   ListItemTitle,
-  ListItemValue,
-  ListOrdered
-} from './list';
+  ListOrdered,
+} from "./list";
 

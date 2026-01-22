@@ -1,15 +1,7 @@
 export {
-  ArtifactList,
-  ArtifactListHeader,
-  ArtifactListTitle,
-  ArtifactListContent,
-  ArtifactListItem,
-} from './artifact-list';
+    ArtifactList, ArtifactListContent, ArtifactListDescription,
+    ArtifactListHeader, ArtifactListItem, ArtifactListItemDescription,
+    ArtifactListItemTimeline,
+    ArtifactListItemTitle, ArtifactListOrdered, ArtifactListTitle
+} from "./artifact-list";
 
-export type {
-  ArtifactListProps,
-  ArtifactListHeaderProps,
-  ArtifactListTitleProps,
-  ArtifactListContentProps,
-  ArtifactListItemProps,
-} from './artifact-list';

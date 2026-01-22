@@ -1,21 +1,18 @@
-import {
-  ListItemContent,
-  ListItemHeader,
-  ListItemIcon,
-  ListItemTitle,
-} from '@/components/ui/aura/list';
-import { cn } from "@/lib/utils";
+import { ListItemHeader, ListItemIcon } from "@/components/ui/aura/list";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 import { within } from '@storybook/testing-library';
 import { useState } from 'react';
 import {
-  ArtifactList,
-  ArtifactListContent,
-  ArtifactListHeader,
-  ArtifactListItem,
-  ArtifactListTitle,
-} from './artifact-list';
+    ArtifactList,
+    ArtifactListContent,
+    ArtifactListHeader,
+    ArtifactListItem,
+    ArtifactListItemDescription,
+    ArtifactListItemTimeline,
+    ArtifactListItemTitle,
+    ArtifactListTitle,
+} from "./artifact-list";
 
 const meta: Meta<typeof ArtifactList> = {
   title: 'Primitives/Artifact - List',
@@ -78,86 +75,35 @@ export const Basic: Story = {
   render: (args) => (
     <ArtifactList {...args}>
       <ArtifactListContent>
-        <ArtifactListItem>
+        <ArtifactListItem state="error">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="relative flex h-4 w-4 items-center justify-center">
-                <span className="h-[6px] w-[6px] rounded-full bg-destructive-foreground" />
-              </ListItemIcon>
-              <span className="text-sm font-medium">
-                Pump seal replacement
-              </span>
-            </ListItemTitle>
-            <span className="text-sm font-medium text-destructive-foreground">
-              Overdue
-            </span>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Overdue</ArtifactListItemTimeline>
+            <ArtifactListItemDescription>
+              P-401A requires new mechanical seal
+            </ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            P-401A requires new mechanical seal
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="now">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    opacity="0.15"
-                    cx="8"
-                    cy="8"
-                    r="7"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                  <circle cx="8" cy="8" r="3" fill="currentColor" className="text-foreground" />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium">Valve calibration</span>
-            </ListItemTitle>
-            <span className="text-sm font-medium text-muted-foreground">
-              Due today
-            </span>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Due today</ArtifactListItemTimeline>
+            <ArtifactListItemDescription>
+              Quarterly calibration check
+            </ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Quarterly calibration check
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="completed">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Filter cleaning
-              </span>
-            </ListItemTitle>
-            <span className="text-sm font-medium text-muted-foreground">
-              Completed
-            </span>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Completed</ArtifactListItemTimeline>
+            <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Clean inlet filters
-          </ListItemContent>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -220,67 +166,20 @@ export const Interactive: Story = {
             return (
               <ArtifactListItem
                 key={item.id}
+                state={isDone ? "completed" : "now"}
                 className="cursor-pointer"
                 onClick={() => toggleStatus(item.id)}
               >
                 <ListItemHeader>
-                  <ListItemTitle>
-                    <ListItemIcon className={isDone ? "text-muted-foreground" : undefined}>
-                      {isDone ? (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            opacity="0.15"
-                            cx="8"
-                            cy="8"
-                            r="7"
-                            fill="currentColor"
-                            className="text-muted-foreground"
-                          />
-                          <circle
-                            cx="8"
-                            cy="8"
-                            r="3"
-                            fill="currentColor"
-                            className="text-foreground"
-                          />
-                        </svg>
-                      )}
-                    </ListItemIcon>
-                    <span
-                      className={cn(
-                        "text-sm font-medium",
-                        isDone ? "text-muted-foreground" : "text-foreground"
-                      )}
-                    >
-                      {item.title}
-                    </span>
-                  </ListItemTitle>
-                  <span className="text-sm font-medium text-muted-foreground">
+                  <ListItemIcon />
+                  <ArtifactListItemTitle>{item.title}</ArtifactListItemTitle>
+                  <ArtifactListItemTimeline>
                     {isDone ? "Completed" : "In progress"}
-                  </span>
+                  </ArtifactListItemTimeline>
+                  <ArtifactListItemDescription>
+                    {item.detail}
+                  </ArtifactListItemDescription>
                 </ListItemHeader>
-                <ListItemContent className="pl-6 text-muted-foreground">
-                  {item.detail}
-                </ListItemContent>
               </ArtifactListItem>
             );
           })}
@@ -324,128 +223,116 @@ export const WithHeader: Story = {
       <ArtifactListContent>
         <ArtifactListItem>
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-foreground">
-                Pump 3 cavitation detected
-              </span>
-            </ListItemTitle>
+            <ListItemIcon className="text-muted-foreground">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </ListItemIcon>
+            <ArtifactListItemTitle>Pump 3 cavitation detected</ArtifactListItemTitle>
+            <ArtifactListItemDescription className="text-foreground">
+              Suction pressure oscillations and elevated noise on P-003 during
+              night shift; cavitation likely from low NPSH/blocked strainer.
+              Next step: inspect/ clean suction strainer and raise tank level
+              20cm.
+            </ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-foreground">
-            Suction pressure oscillations and elevated noise on P-003 during
-            night shift; cavitation likely from low NPSH/blocked strainer.
-            Next step: inspect/ clean suction strainer and raise tank level
-            20cm.
-          </ListItemContent>
         </ArtifactListItem>
 
         <ArtifactListItem>
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-foreground">
-                Compressor C-5 surge events
-              </span>
-            </ListItemTitle>
+            <ListItemIcon className="text-muted-foreground">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </ListItemIcon>
+            <ArtifactListItemTitle>Compressor C-5 surge events</ArtifactListItemTitle>
+            <ArtifactListItemDescription className="text-foreground">
+              Three start-up surge spikes with sluggish anti-surge valve
+              response; control loop tuning/valve stiction suspected. Next
+              step: Stroke-test ASV, retune PID, and verify transmitter
+              calibration.
+            </ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-foreground">
-            Three start-up surge spikes with sluggish anti-surge valve
-            response; control loop tuning/valve stiction suspected. Next
-            step: Stroke-test ASV, retune PID, and verify transmitter
-            calibration.
-          </ListItemContent>
         </ArtifactListItem>
 
         <ArtifactListItem>
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-foreground">
-                Boiler steam leak near header B
-              </span>
-            </ListItemTitle>
+            <ListItemIcon className="text-muted-foreground">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </ListItemIcon>
+            <ArtifactListItemTitle>Boiler steam leak near header B</ArtifactListItemTitle>
+            <ArtifactListItemDescription className="text-foreground">
+              Ultrasonic survey indicates continuous hiss with elevated
+              condensate returns; small steam leak wasting energy. Next step:
+              tag exact location, plan hot repair window, and quantify loss
+              after fix.
+            </ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-foreground">
-            Ultrasonic survey indicates continuous hiss with elevated
-            condensate returns; small steam leak wasting energy. Next step:
-            tag exact location, plan hot repair window, and quantify loss
-            after fix.
-          </ListItemContent>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -457,7 +344,7 @@ export const WithHeader: Story = {
  */
 export const WithoutHeader: Story = {
   args: {
-    className: 'w-[259px]',
+    className: "w-100",
   },
   parameters: {
     docs: {
@@ -481,126 +368,28 @@ export const WithoutHeader: Story = {
   render: (args) => (
     <ArtifactList {...args}>
       <ArtifactListContent>
-        <ArtifactListItem>
+        <ArtifactListItem state="upcoming">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    opacity="0.15"
-                    cx="8"
-                    cy="8"
-                    r="7"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                  <circle
-                    cx="8"
-                    cy="8"
-                    r="3"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Inspection
-              </span>
-            </ListItemTitle>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Dec 22, 2024 5:00 AM</ArtifactListItemTimeline>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Dec 22, 2024 5:00 AM
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="now">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    opacity="0.15"
-                    cx="8"
-                    cy="8"
-                    r="7"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                  <circle cx="8" cy="8" r="3" fill="currentColor" className="text-foreground" />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium">Event</span>
-            </ListItemTitle>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Event</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Today 3:05 PM</ArtifactListItemTimeline>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Today 3:05 PM
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="completed">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Inspection
-              </span>
-            </ListItemTitle>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>1 d ago</ArtifactListItemTimeline>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            1 d ago
-          </ListItemContent>
-        </ArtifactListItem>
-
-        <ArtifactListItem>
-          <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Inspection
-              </span>
-            </ListItemTitle>
-          </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Dec 17, 2024 9:00 AM
-          </ListItemContent>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -612,7 +401,7 @@ export const WithoutHeader: Story = {
  */
 export const WithoutFooter: Story = {
   args: {
-    className: 'w-[259px]',
+    className: "w-100",
   },
   parameters: {
     docs: {
@@ -635,126 +424,36 @@ export const WithoutFooter: Story = {
   render: (args) => (
     <ArtifactList {...args}>
       <ArtifactListContent>
-        <ArtifactListItem>
+        <ArtifactListItem state="upcoming">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    opacity="0.15"
-                    cx="8"
-                    cy="8"
-                    r="7"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                  <circle
-                    cx="8"
-                    cy="8"
-                    r="3"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Inspection
-              </span>
-            </ListItemTitle>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Dec 22, 2024 5:00 AM</ArtifactListItemTimeline>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Dec 22, 2024 5:00 AM
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="now">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    opacity="0.15"
-                    cx="8"
-                    cy="8"
-                    r="7"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                  <circle cx="8" cy="8" r="3" fill="currentColor" className="text-foreground" />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium">Event</span>
-            </ListItemTitle>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Event</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Today 3:05 PM</ArtifactListItemTimeline>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Today 3:05 PM
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="completed">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Inspection
-              </span>
-            </ListItemTitle>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>1 d ago</ArtifactListItemTimeline>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            1 d ago
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="completed">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Inspection
-              </span>
-            </ListItemTitle>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Dec 17, 2024 9:00 AM</ArtifactListItemTimeline>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Dec 17, 2024 9:00 AM
-          </ListItemContent>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -790,86 +489,35 @@ export const Minimal: Story = {
   render: (args) => (
     <ArtifactList {...args}>
       <ArtifactListContent>
-        <ArtifactListItem>
+        <ArtifactListItem state="error">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="relative flex h-4 w-4 items-center justify-center">
-                <span className="h-[6px] w-[6px] rounded-full bg-destructive-foreground" />
-              </ListItemIcon>
-              <span className="text-sm font-medium">
-                Pump seal replacement
-              </span>
-            </ListItemTitle>
-            <span className="text-sm font-medium text-destructive-foreground">
-              Overdue
-            </span>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Overdue</ArtifactListItemTimeline>
+            <ArtifactListItemDescription>
+              P-401A requires new mechanical seal
+            </ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            P-401A requires new mechanical seal
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="now">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    opacity="0.15"
-                    cx="8"
-                    cy="8"
-                    r="7"
-                    fill="currentColor"
-                    className="text-muted-foreground"
-                  />
-                  <circle cx="8" cy="8" r="3" fill="currentColor" className="text-foreground" />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium">Valve calibration</span>
-            </ListItemTitle>
-            <span className="text-sm font-medium text-muted-foreground">
-              Due today
-            </span>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Due today</ArtifactListItemTimeline>
+            <ArtifactListItemDescription>
+              Quarterly calibration check
+            </ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Quarterly calibration check
-          </ListItemContent>
         </ArtifactListItem>
 
-        <ArtifactListItem>
+        <ArtifactListItem state="completed">
           <ListItemHeader>
-            <ListItemTitle>
-              <ListItemIcon className="text-muted-foreground">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M11.1426 4.47851C11.4306 4.14359 11.9355 4.10563 12.2706 4.39355C12.6055 4.68154 12.6434 5.18645 12.3555 5.52148L7.19927 11.5215C7.04729 11.6982 6.82592 11.7998 6.59282 11.7998C6.35972 11.7998 6.13835 11.6982 5.98638 11.5215L3.64263 8.79394C3.35468 8.45887 3.39255 7.95399 3.72759 7.66601C4.06257 7.37814 4.5675 7.41619 4.85552 7.75097L6.59282 9.77246L11.1426 4.47851Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </ListItemIcon>
-              <span className="text-sm font-medium text-muted-foreground">
-                Filter cleaning
-              </span>
-            </ListItemTitle>
-            <span className="text-sm font-medium text-muted-foreground">
-              Completed
-            </span>
+            <ListItemIcon />
+            <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
+            <ArtifactListItemTimeline>Completed</ArtifactListItemTimeline>
+            <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
           </ListItemHeader>
-          <ListItemContent className="pl-6 text-muted-foreground">
-            Clean inlet filters
-          </ListItemContent>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>

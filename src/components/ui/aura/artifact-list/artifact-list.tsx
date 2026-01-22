@@ -1,34 +1,31 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { List, ListItem } from "@/components/ui/aura/list";
+  List,
+  ListDescription,
+  ListItem,
+  ListItemDescription,
+  ListItemTimeline,
+  ListItemTitle,
+  ListOrdered,
+} from "@/components/ui/aura/list";
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
 
-export type ArtifactListProps = ComponentProps<typeof Card>;
-
-export const ArtifactList = ({ className, ...props }: ArtifactListProps) => {
+const ArtifactList = ({ className, ...props }: ComponentProps<typeof Card>) => {
   return <Card className={cn(className)} {...props} />;
 };
 
-export type ArtifactListHeaderProps = ComponentProps<typeof CardHeader>;
-
-export const ArtifactListHeader = ({
+const ArtifactListHeader = ({
   className,
   ...props
-}: ArtifactListHeaderProps) => {
+}: ComponentProps<typeof CardHeader>) => {
   return <CardHeader className={cn(className)} {...props} />;
 };
 
-export type ArtifactListTitleProps = ComponentProps<typeof CardTitle>;
-
-export const ArtifactListTitle = ({
+const ArtifactListTitle = ({
   className,
   ...props
-}: ArtifactListTitleProps) => {
+}: ComponentProps<typeof CardTitle>) => {
   return (
     <CardTitle
       className={cn("text-base font-medium", className)}
@@ -37,12 +34,10 @@ export const ArtifactListTitle = ({
   );
 };
 
-export type ArtifactListContentProps = ComponentProps<typeof List>;
-
-export const ArtifactListContent = ({
+const ArtifactListContent = ({
   className,
   ...props
-}: ArtifactListContentProps) => {
+}: ComponentProps<typeof List>) => {
   return (
     <CardContent className={cn(className)}>
       <List {...props} />
@@ -50,17 +45,63 @@ export const ArtifactListContent = ({
   );
 };
 
-export type ArtifactListItemProps = ComponentProps<typeof ListItem>;
-
-export const ArtifactListItem = ({
+const ArtifactListOrdered = ({
   className,
   ...props
-}: ArtifactListItemProps) => {
+}: ComponentProps<typeof ListOrdered>) => {
   return (
-    <ListItem
-      className={cn("p-0.5 gap-1", className)}
-      {...props}
-    />
+    <CardContent className={cn(className)}>
+      <ListOrdered {...props} />
+    </CardContent>
   );
+};
+
+const ArtifactListDescription = ({
+  className,
+  ...props
+}: ComponentProps<typeof ListDescription>) => {
+  return (
+    <CardContent className={cn(className)}>
+      <ListDescription {...props} />
+    </CardContent>
+  );
+};
+
+const ArtifactListItem = ({
+  className,
+  ...props
+}: ComponentProps<typeof ListItem>) => {
+  return <ListItem className={cn("gap-1 p-0.5", className)} {...props} />;
+};
+
+const ArtifactListItemTitle = ({
+  className,
+  ...props
+}: ComponentProps<typeof ListItemTitle>) => {
+  return <ListItemTitle className={cn(className)} {...props} />;
+};
+
+const ArtifactListItemDescription = ({
+  className,
+  ...props
+}: ComponentProps<typeof ListItemDescription>) => {
+  return <ListItemDescription className={cn(className)} {...props} />;
+};
+
+const ArtifactListItemTimeline = ({
+  className,
+  ...props
+}: ComponentProps<typeof ListItemTimeline>) => {
+  return <ListItemTimeline className={cn(className)} {...props} />;
+};
+
+export {
+  ArtifactList, ArtifactListContent, ArtifactListDescription, ArtifactListHeader,
+  ArtifactListItem,
+  ArtifactListItemDescription,
+  ArtifactListItemTimeline,
+  ArtifactListItemTitle,
+  ArtifactListOrdered,
+  ArtifactListTitle
 };
 
