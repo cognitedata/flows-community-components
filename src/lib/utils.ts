@@ -17,6 +17,22 @@ export function slugToPascalCase(slug: string): string {
 }
 
 /**
+ * Safely extracts hostname from a URL string.
+ * Returns the hostname if valid, otherwise returns the original string or "unknown".
+ * 
+ * @param url - URL string to extract hostname from (optional)
+ * @returns The hostname, original string, or "unknown" if url is undefined
+ */
+export function getHostname(url: string | undefined): string {
+  if (!url) return "unknown";
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
+}
+
+/**
  * Gets or creates the portal container for Radix UI components.
  * Container is created in document.body to avoid positioning issues
  * from the shell app's container query context.

@@ -76,6 +76,7 @@ function FocusRingSwatch({ focusRing }: { focusRing: (typeof focusRings)[0] }) {
   return (
     <div className="flex items-center gap-6 py-4">
       <button
+        type="button"
         aria-label={`Demo ${focusRing.name} focus ring`}
         className={cn(
           "w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
@@ -98,6 +99,7 @@ function RingWidthSwatch({ ringWidth }: { ringWidth: (typeof ringWidths)[0] }) {
   return (
     <div className="flex items-center gap-6 py-4">
       <button
+        type="button"
         aria-label={`Demo ${ringWidth.name} ring width`}
         className={cn(
           "w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
