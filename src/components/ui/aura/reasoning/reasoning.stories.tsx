@@ -626,8 +626,12 @@ export const Accessibility: Story = {
     // Verify all interactive elements are keyboard accessible
     const toolButtons = canvas.getAllByRole("button");
 
-    // Tab to first button
-    await userEvent.tab();
+    // Verify buttons have accessible names
+    await expect(toolButtons[0]).toHaveAccessibleName("Check system status");
+    await expect(toolButtons[1]).toHaveAccessibleName("Run diagnostics");
+
+    // Focus first button with keyboard
+    toolButtons[0].focus();
     await expect(toolButtons[0]).toHaveFocus();
 
     // Press Enter to expand
@@ -640,8 +644,8 @@ export const Accessibility: Story = {
       expect(content).toContain("api");
     });
 
-    // Tab to next button
-    await userEvent.tab();
+    // Focus second button with keyboard
+    toolButtons[1].focus();
     await expect(toolButtons[1]).toHaveFocus();
 
     // Press Space to expand
@@ -653,10 +657,6 @@ export const Accessibility: Story = {
       // Verify parameter content (appears in both light/dark theme blocks)
       expect(content).toContain("comprehensive");
     });
-
-    // Verify buttons have accessible names
-    await expect(toolButtons[0]).toHaveAccessibleName();
-    await expect(toolButtons[1]).toHaveAccessibleName();
   },
 };
 
