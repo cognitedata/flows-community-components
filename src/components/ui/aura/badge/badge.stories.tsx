@@ -138,7 +138,7 @@ type Story = StoryObj<typeof Badge>;
  * Fjord variant - blue-toned for observations and data
  */
 export const Fjord: Story = {
-  render: (args) => <Badge {...args}>Observations</Badge>,
+  render: () => <Badge variant="fjord">Observations</Badge>,
   args: {
     variant: "fjord",
   },
@@ -165,7 +165,7 @@ export const Fjord: Story = {
  * Aurora variant - vibrant for troubleshooting and alerts
  */
 export const Aurora: Story = {
-  render: (args) => <Badge {...args}>Troubleshooting</Badge>,
+  render: () => <Badge variant="aurora">Troubleshooting</Badge>,
   args: {
     variant: "aurora",
   },
@@ -191,8 +191,8 @@ export const Aurora: Story = {
  * Mountain variant - green-toned for plans and goals
  */
 export const Mountain: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="mountain">
       <IconHexagon className="size-3" />
       Plans
     </Badge>
@@ -225,7 +225,7 @@ export const Mountain: Story = {
  * Dusk variant - purple-toned for RCA and analysis
  */
 export const Dusk: Story = {
-  render: (args) => <Badge {...args}>RCA</Badge>,
+  render: () => <Badge variant="dusk">RCA</Badge>,
   args: {
     variant: "dusk",
   },
@@ -251,8 +251,8 @@ export const Dusk: Story = {
  * Secondary variant - neutral for general use
  */
 export const Secondary: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="secondary">
       <IconHexagon className="size-3 rotate-90" />
       Asset
     </Badge>
@@ -285,8 +285,8 @@ export const Secondary: Story = {
  * Error variant - red for errors and critical issues
  */
 export const ErrorBadge: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="error" background={false}>
       <IconAlertHexagon className="size-3" />
       Error
     </Badge>
@@ -318,8 +318,8 @@ export const ErrorBadge: Story = {
  * Error variant with outline - red for errors and critical issues
  */
 export const ErrorOutline: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="error" outline>
       <IconAlertHexagon className="size-3" />
       Error
     </Badge>
@@ -351,8 +351,8 @@ export const ErrorOutline: Story = {
  * Warning variant - orange/yellow for warnings
  */
 export const Warning: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="warning" background={false}>
       <IconAlertTriangle className="size-3" />
       Warning
     </Badge>
@@ -418,8 +418,8 @@ export const WarningOutline: Story = {
  * Success variant - green for successful operations
  */
 export const Success: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="success" background={false}>
       <IconCircleCheck className="size-3" />
       Success
     </Badge>
@@ -453,8 +453,8 @@ export const Success: Story = {
  * In Progress variant - for ongoing operations
  */
 export const InProgress: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="inProgress" background={false}>
       <IconInnerShadowTopLeft className="size-3" />
       In progress
     </Badge>
@@ -485,8 +485,8 @@ export const InProgress: Story = {
  * Archived variant - for archived or inactive items
  */
 export const Archived: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="archived" background={false}>
       <IconArchive className="size-3" />
       Archived
     </Badge>
@@ -662,9 +662,10 @@ export const IconSizes: Story = {
  * Use the controls below to experiment with all available props.
  */
 export const Playground: Story = {
-  render: (args) => <Badge {...args}>Badge</Badge>,
+  render: (args) => <Badge {...args} />,
   args: {
     variant: "fjord",
+    children: "Badge",
   },
   parameters: {
     order: 15,
