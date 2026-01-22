@@ -233,13 +233,14 @@ export const SingleToolCall: Story = {
     // Test collapsible interaction
     await userEvent.click(toolButtons[0]);
 
-    // Verify input and output are visible
+    // Verify input and output are visible with content
     await waitFor(() => {
+      const content = canvasElement.textContent || "";
       expect(canvas.getByText("Parameters")).toBeVisible();
       expect(canvas.getByText("Result")).toBeVisible();
       // Verify content is present (code appears in both light/dark theme blocks)
-      expect(canvasElement.textContent).toContain("assetId");
-      expect(canvasElement.textContent).toContain("Pump 21PT1019");
+      expect(content).toContain("assetId");
+      expect(content).toContain("Pump 21PT1019");
     });
 
     // Verify no connector lines (single tool)
