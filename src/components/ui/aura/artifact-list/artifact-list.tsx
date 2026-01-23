@@ -15,29 +15,15 @@ const ArtifactList = ({ className, ...props }: ComponentProps<typeof Card>) => {
   return <Card className={cn(className)} {...props} />;
 };
 
-const ArtifactListHeader = ({
-  className,
-  ...props
-}: ComponentProps<typeof CardHeader>) => {
+const ArtifactListHeader = ({ className, ...props }: ComponentProps<typeof CardHeader>) => {
   return <CardHeader className={cn(className)} {...props} />;
 };
 
-const ArtifactListTitle = ({
-  className,
-  ...props
-}: ComponentProps<typeof CardTitle>) => {
-  return (
-    <CardTitle
-      className={cn("text-base font-medium", className)}
-      {...props}
-    />
-  );
+const ArtifactListTitle = ({ className, ...props }: ComponentProps<typeof CardTitle>) => {
+  return <CardTitle className={cn("text-base font-medium", className)} {...props} />;
 };
 
-const ArtifactListContent = ({
-  className,
-  ...props
-}: ComponentProps<typeof List>) => {
+const ArtifactListContent = ({ className, ...props }: ComponentProps<typeof List>) => {
   return (
     <CardContent className={cn(className)}>
       <List {...props} />
@@ -45,10 +31,7 @@ const ArtifactListContent = ({
   );
 };
 
-const ArtifactListOrdered = ({
-  className,
-  ...props
-}: ComponentProps<typeof ListOrdered>) => {
+const ArtifactListOrdered = ({ className, ...props }: ComponentProps<typeof ListOrdered>) => {
   return (
     <CardContent className={cn(className)}>
       <ListOrdered {...props} />
@@ -67,17 +50,11 @@ const ArtifactListDescription = ({
   );
 };
 
-const ArtifactListItem = ({
-  className,
-  ...props
-}: ComponentProps<typeof ListItem>) => {
+const ArtifactListItem = ({ className, ...props }: ComponentProps<typeof ListItem>) => {
   return <ListItem className={cn("gap-1 p-0.5", className)} {...props} />;
 };
 
-const ArtifactListItemTitle = ({
-  className,
-  ...props
-}: ComponentProps<typeof ListItemTitle>) => {
+const ArtifactListItemTitle = ({ className, ...props }: ComponentProps<typeof ListItemTitle>) => {
   return <ListItemTitle className={cn(className)} {...props} />;
 };
 
@@ -96,12 +73,14 @@ const ArtifactListItemTimeline = ({
 };
 
 export {
-  ArtifactList, ArtifactListContent, ArtifactListDescription, ArtifactListHeader,
+  ArtifactList,
+  ArtifactListContent,
+  ArtifactListDescription,
+  ArtifactListHeader,
   ArtifactListItem,
   ArtifactListItemDescription,
   ArtifactListItemTimeline,
   ArtifactListItemTitle,
   ArtifactListOrdered,
-  ArtifactListTitle
+  ArtifactListTitle,
 };
-
