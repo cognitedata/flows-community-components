@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
-import { userEvent, within } from "@storybook/testing-library";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useEffect, useState } from "react";
 
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import { Button } from "@/components/ui/aura/button";
 import {
-  ChartConfig,
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -135,9 +134,7 @@ export const Basic: Story = {
     <ArtifactCount {...args}>
       <ArtifactCountHeader>
         <ArtifactCountCount status="warning">3</ArtifactCountCount>
-        <span className="text-base font-medium leading-5 tracking-tightest">
-          Active alarms
-        </span>
+        <span className="text-base font-medium leading-5 tracking-tightest">Active alarms</span>
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter>
@@ -253,7 +250,8 @@ export const WithChart: Story = {
     }, []);
 
     const currentTemp = currentData[currentData.length - 1]?.temperature || 0;
-    const avgTemp = currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length;
+    const avgTemp =
+      currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length;
 
     return (
       <ArtifactCount {...args}>
@@ -365,6 +363,11 @@ export const Interactive: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: "Increase" });
     await userEvent.click(button);
-    await expect(canvas.getByText("393°C")).toBeInTheDocument();
+    await waitFor(
+      () => {
+        expect(canvas.getByText("393°C")).toBeInTheDocument();
+      },
+      { timeout: 300 }
+    );
   },
 };

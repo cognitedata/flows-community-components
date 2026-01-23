@@ -1,5 +1,5 @@
-import { cva, type VariantProps } from "class-variance-authority";
-import { forwardRef, type ComponentProps } from "react";
+import { type VariantProps, cva } from "class-variance-authority";
+import { type ComponentProps, forwardRef } from "react";
 
 import {
   Card,
@@ -15,7 +15,7 @@ const artifactCountCountVariants = cva(
   {
     variants: {
       status: {
-        default: "bg-undefined text-undefined-foreground",
+        default: "bg-muted text-muted-foreground",
         warning: "bg-warning text-warning-foreground",
         critical: "bg-destructive text-destructive-foreground",
       },
@@ -23,13 +23,16 @@ const artifactCountCountVariants = cva(
     defaultVariants: {
       status: "default",
     },
-  }
+  },
 );
 
 /**
  * ArtifactCount container for count-based widgets.
  */
-const ArtifactCount = ({ className, ...props }: ComponentProps<typeof Card>) => {
+const ArtifactCount = ({
+  className,
+  ...props
+}: ComponentProps<typeof Card>) => {
   return (
     <Card
       data-slot="artifact-count"
@@ -96,7 +99,10 @@ const ArtifactCountTag = ({ className, ...props }: ComponentProps<"span">) => {
   return (
     <span
       data-slot="artifact-count-tag"
-      className={cn("text-sm font-medium leading-4.5 text-muted-foreground", className)}
+      className={cn(
+        "text-sm font-medium leading-4.5 text-muted-foreground",
+        className,
+      )}
       {...props}
     />
   );
@@ -135,9 +141,10 @@ const ArtifactCountSeparator = ({
 export {
   ArtifactCount,
   ArtifactCountContent,
-  ArtifactCountCount, artifactCountCountVariants, ArtifactCountFooter,
+  ArtifactCountCount,
+  ArtifactCountFooter,
   ArtifactCountHeader,
   ArtifactCountSeparator,
-  ArtifactCountTag
+  ArtifactCountTag,
+  artifactCountCountVariants,
 };
-
