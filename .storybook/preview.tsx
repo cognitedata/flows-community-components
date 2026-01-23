@@ -1,6 +1,6 @@
-import type { Preview } from '@storybook/nextjs';
-import React, { useEffect } from 'react';
-import '../src/app/globals.css';
+import type { Preview } from "@storybook/react";
+import { useEffect } from "react";
+import "../src/globals.css";
 
 const preview: Preview = {
   parameters: {
@@ -13,23 +13,23 @@ const preview: Preview = {
     backgrounds: {
       disable: true,
     },
-    layout: 'padded',
+    layout: "padded",
     options: {
       storySort: {
-        order: ['Layouts', 'Primitives', 'AI'],
+        order: ["Foundations", "Primitives", "AI", "*"],
       },
     },
   },
   globalTypes: {
     theme: {
-      description: 'Theme for the components',
-      defaultValue: 'light',
+      description: "Theme for the components",
+      defaultValue: "light",
       toolbar: {
-        title: 'Theme',
-        icon: 'circlehollow',
+        title: "Theme",
+        icon: "circlehollow",
         items: [
-          { value: 'light', icon: 'sun', title: 'Light' },
-          { value: 'dark', icon: 'moon', title: 'Dark' },
+          { value: "light", icon: "sun", title: "Light" },
+          { value: "dark", icon: "moon", title: "Dark" },
         ],
         dynamicTitle: true,
       },
@@ -37,40 +37,19 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme || 'light';
+      const theme = context.globals.theme || "light";
 
       useEffect(() => {
-        // Apply theme class to the preview document
         const root = document.documentElement;
-        if (theme === 'dark') {
-          root.classList.add('dark');
+        if (theme === "dark") {
+          root.classList.add("dark");
         } else {
-          root.classList.remove('dark');
-        }
-
-        // Try to apply theme to the parent Storybook manager frame
-        try {
-          const parentDoc = window.parent?.document;
-          if (parentDoc && parentDoc !== document) {
-            const parentRoot = parentDoc.documentElement;
-            parentRoot.setAttribute('data-theme', theme);
-            if (theme === 'dark') {
-              parentRoot.classList.add('dark');
-            } else {
-              parentRoot.classList.remove('dark');
-            }
-          }
-        } catch {
-          // Cross-origin restriction - ignore
+          root.classList.remove("dark");
         }
       }, [theme]);
 
       return (
-        <div
-          className={
-            theme === 'dark' ? 'dark text-foreground' : 'text-foreground'
-          }
-        >
+        <div className={theme === "dark" ? "dark text-foreground" : "text-foreground"}>
           <Story />
         </div>
       );

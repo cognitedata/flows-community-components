@@ -1,25 +1,15 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+.pnpm-store
 .pnpm-store-local
+
 # testing
 /coverage
 
-/packages/create-cognite/node_modules
-/packages/create-cognite/pnpm-lock.yaml
-/packages/create-cognite/.pnpm-store
-
-# next.js
-/.next/
-/out/
+# vite
+/dist
+/dist-ssr
+*.local
 
 # production
 /build
@@ -32,21 +22,23 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
-
-# vercel
-.vercel
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
-
+# storybook
 *storybook.log
 storybook-static
 
-# generated files
-/registry.json
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

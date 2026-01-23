@@ -1,0 +1,112 @@
+import { Button } from "@/components/ui/aura/button";
+import { cn } from "@/lib/utils";
+import { IconArrowDown } from "@tabler/icons-react";
+import type { ComponentProps, SVGProps } from "react";
+import { useCallback } from "react";
+import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
+
+export type ConversationProps = ComponentProps<typeof StickToBottom>;
+
+export const Conversation = ({ className, ...props }: ConversationProps) => (
+  <StickToBottom
+    className={cn("relative flex-1 overflow-y-hidden", className)}
+    initial="smooth"
+    resize="smooth"
+    role="log"
+    {...props}
+  />
+);
+
+export type ConversationContentProps = ComponentProps<typeof StickToBottom.Content>;
+
+export const ConversationContent = ({ className, ...props }: ConversationContentProps) => (
+  <StickToBottom.Content className={cn("flex flex-col gap-8 p-3", className)} {...props} />
+);
+
+const ConversationEmptyStateIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    width="80"
+    height="80"
+    viewBox="0 0 80 80"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      d="M0 16C0 7.16344 7.16344 0 16 0H64C72.8366 0 80 7.16344 80 16V64C80 72.8366 72.8366 80 64 80H16C7.16344 80 0 72.8366 0 64V16Z"
+      fill="url(#aura-conv-bg-real)"
+    />
+    <path
+      d="M50.4521 23.4219C52.3087 23.4219 54.0891 24.1594 55.4019 25.4721C56.7146 26.7849 57.4521 28.5654 57.4521 30.4219V44.4219C57.4521 46.2784 56.7146 48.0589 55.4019 49.3716C54.0891 50.6844 52.3087 51.4219 50.4521 51.4219H42.1851L33.8516 56.4216C33.6007 56.5722 33.3159 56.6575 33.0235 56.6696C32.7311 56.6817 32.4403 56.6203 32.1777 56.4909C31.9151 56.3615 31.6892 56.1684 31.5206 55.9291C31.352 55.6899 31.2461 55.4121 31.2126 55.1214L31.2021 54.9219V51.4219H29.4521C27.6562 51.4219 25.929 50.7316 24.6277 49.4939C23.3265 48.2561 22.5507 46.5655 22.4609 44.7719L22.4521 44.4219V30.4219C22.4521 28.5654 23.1896 26.7849 24.5024 25.4721C25.8152 24.1594 27.5956 23.4219 29.4521 23.4219H50.4521ZM43.4521 39.1719H32.9521C32.488 39.1719 32.0429 39.3562 31.7147 39.6844C31.3865 40.0126 31.2021 40.4577 31.2021 40.9219C31.2021 41.386 31.3865 41.8311 31.7147 42.1593C32.0429 42.4875 32.488 42.6719 32.9521 42.6719H43.4521C43.9163 42.6719 44.3614 42.4875 44.6896 42.1593C45.0178 41.8311 45.2021 41.386 45.2021 40.9219C45.2021 40.4577 45.0178 40.0126 44.6896 39.6844C44.3614 39.3562 43.9163 39.1719 43.4521 39.1719ZM46.9521 32.1719H32.9521C32.488 32.1719 32.0429 32.3562 31.7147 32.6844C31.3865 33.0126 31.2021 33.4577 31.2021 33.9219C31.2021 34.386 31.3865 34.8311 31.7147 35.1593C32.0429 35.4875 32.488 35.6719 32.9521 35.6719H46.9521C47.4163 35.6719 47.8614 35.4875 48.1896 35.1593C48.5178 34.8311 48.7021 34.386 48.7021 33.9219C48.7021 33.4577 48.5178 33.0126 48.1896 32.6844C47.8614 32.3562 47.4163 32.1719 46.9521 32.1719Z"
+      fill="#111213"
+    />
+    <rect x="13" y="13.0469" width="54" height="54" rx="8" fill="#F5F7FF" fillOpacity="0.06" />
+    <defs>
+      <linearGradient
+        id="aura-conv-bg-real"
+        x1="77.02"
+        y1="5.8381"
+        x2="4.31876"
+        y2="80"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#E7F9C6" />
+        <stop offset="0.5" stopColor="#B4F2E5" />
+        <stop offset="1" stopColor="#CFF38D" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+export type ConversationEmptyStateProps = ComponentProps<"div"> & {
+  title?: string;
+  description?: string;
+};
+
+export const ConversationEmptyState = ({
+  className,
+  title = "No messages yet",
+  description = "",
+  children,
+  ...props
+}: ConversationEmptyStateProps) => (
+  <div className={cn("flex flex-col items-center gap-3 size-full p-10", className)} {...props}>
+    <div className="max-w-150 w-full flex flex-col items-center justify-center text-center">
+      <ConversationEmptyStateIcon className="size-20 mb-14" />
+      <div className="space-y-1 mb-14">
+        <h3 className="text-xl font-medium tracking-tightest">{title}</h3>
+        {description && <p className="text-muted-foreground text-sm">{description}</p>}
+      </div>
+      {children}
+    </div>
+  </div>
+);
+
+export type ConversationScrollButtonProps = ComponentProps<typeof Button>;
+
+export const ConversationScrollButton = ({
+  className,
+  ...props
+}: ConversationScrollButtonProps) => {
+  const { isAtBottom, scrollToBottom } = useStickToBottomContext();
+
+  const handleScrollToBottom = useCallback(() => {
+    scrollToBottom();
+  }, [scrollToBottom]);
+
+  return (
+    !isAtBottom && (
+      <Button
+        className={cn("absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full", className)}
+        onClick={handleScrollToBottom}
+        size="icon"
+        type="button"
+        variant="outline"
+        {...props}
+      >
+        <IconArrowDown className="size-4" />
+      </Button>
+    )
+  );
+};

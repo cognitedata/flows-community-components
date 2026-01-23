@@ -1,33 +1,31 @@
-import type { StorybookConfig } from '@storybook/nextjs';
+import type { StorybookConfig } from "@storybook/react-vite";
+import { mergeConfig } from "vite";
 
 const config: StorybookConfig = {
-  "stories": [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
-  ],
-  "addons": [
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  addons: [
     "@storybook/addon-docs",
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
-    {
-      name: "@storybook/addon-mcp",
-      options: {
-        toolsets: {
-          dev: true,  // Story URLs and UI building instructions
-          docs: true, // Component documentation
-        },
-      },
-    },
+    "@chromatic-com/storybook",
   ],
-  "framework": {
-    "name": "@storybook/nextjs",
-    "options": {}
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
   },
-  "features": {
-    experimentalComponentsManifest: true, // Required for docs toolset
+  staticDirs: ["../public"],
+  async viteFinal(config, { configType }) {
+    // Use environment variable if set (for GitHub Pages deployment)
+    // For Chromatic/CI builds without explicit base path, use root path (/)
+    // Otherwise use /aura/storybook for production builds, / for development
+    const basePath =
+      process.env.STORYBOOK_BASE_PATH ||
+      (process.env.CI ? "/" : configType === "PRODUCTION" ? "/aura/storybook" : "/");
+
+    return mergeConfig(config, {
+      base: basePath,
+    });
   },
-  "staticDirs": [
-    "../public"
-  ]
 };
+
 export default config;

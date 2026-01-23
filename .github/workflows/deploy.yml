@@ -1,4 +1,4 @@
-name: Deploy Next.js site to Pages
+name: Deploy Vite site to Pages
 
 on:
   # Runs on pushes targeting the main branch
@@ -57,24 +57,18 @@ jobs:
         id: setup_pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
-      - name: Restore cache
-        uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5
-        with:
-          path: |
-            .next/cache
-          # Generate a new cache whenever packages or source files change.
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-
-      - name: Build with Next.js
+      - name: Build with Vite
         run: pnpm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
 
+      - name: Build Storybook
+        run: pnpm run build-storybook
+        env:
+          STORYBOOK_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}/storybook
+
       - name: Prepare branches directory
-        run: mkdir -p out/branches
+        run: mkdir -p dist/branches
 
       - name: Download branch preview artifacts
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
@@ -123,7 +117,7 @@ jobs:
                 const zipPath = `/tmp/${artifact.name}.zip`;
                 fs.writeFileSync(zipPath, Buffer.from(data));
 
-                const branchDir = `out/branches/${branchName}`;
+                const branchDir = `dist/branches/${branchName}`;
                 fs.mkdirSync(branchDir, { recursive: true });
                 execSync(`unzip -o ${zipPath} -d ${branchDir}`);
 
@@ -149,13 +143,13 @@ jobs:
             }
 
             // Write manifest
-            fs.writeFileSync('out/branches/manifest.json', JSON.stringify(manifest, null, 2));
+            fs.writeFileSync('dist/branches/manifest.json', JSON.stringify(manifest, null, 2));
             console.log(`Manifest: ${manifest.branches.length} branches`);
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
-          path: ./out
+          path: ./dist
 
   deploy:
     environment:
