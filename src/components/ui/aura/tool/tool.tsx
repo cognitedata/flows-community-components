@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
 import {
   CodeBlock,
@@ -28,13 +29,21 @@ export type ToolHeaderProps = {
   title?: string;
   type: ToolUIPart["type"];
   className?: string;
+  hasError?: boolean;
 };
 
-export const ToolHeader = ({ className, title, type, ...props }: ToolHeaderProps) => (
+export const ToolHeader = ({ className, title, type, hasError, ...props }: ToolHeaderProps) => (
   <CollapsibleTrigger className={className} {...props} asChild>
     <Button variant="ghost" className="w-full justify-between text-base leading-5 tracking-tighter">
       <span>{title ?? type.split("-").slice(1).join("-")}</span>
-      <ChevronsUpDown className="h-4 w-4" />
+      <div className="flex items-center gap-2">
+        {hasError && (
+          <Badge outline className="text-destructive-foreground border-border bg-background">
+            Error
+          </Badge>
+        )}
+        <ChevronsUpDown className="h-4 w-4" />
+      </div>
     </Button>
   </CollapsibleTrigger>
 );
@@ -94,18 +103,21 @@ export const ToolOutput = ({ className, output, errorText, ...props }: ToolOutpu
     );
   }
 
+  if (errorText) {
+    return (
+      <div className={cn("space-y-2 px-3.25", className)} {...props}>
+        <div className="flex flex-col gap-2 text-sm">
+          <span className="font-medium text-destructive-foreground">ERROR</span>
+          <span className="text-foreground">{errorText}</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={cn("space-y-2 px-3.25", className)} {...props}>
-      <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-        {errorText ? "Error" : "Result"}
-      </h4>
-      <div
-        className={cn(
-          "overflow-x-auto rounded-md text-xs [&_table]:w-full",
-          errorText ? "bg-destructive/10 text-destructive" : "bg-muted/50 text-foreground"
-        )}
-      >
-        {errorText && <div>{errorText}</div>}
+      <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">Result</h4>
+      <div className="overflow-x-auto rounded-md bg-muted/50 text-xs text-foreground [&_table]:w-full">
         {Output}
       </div>
     </div>

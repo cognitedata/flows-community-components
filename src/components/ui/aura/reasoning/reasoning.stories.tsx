@@ -256,82 +256,105 @@ export const SingleToolCall: Story = {
  */
 export const ToolWithError: Story = {
   render: () => (
-    <Reasoning>
-      <ReasoningHeader />
-      <ReasoningContent>
-        <ReasoningItem>
-          <Tool>
-            <ToolHeader title="Query database" type="tool-call" />
-            <ToolContent>
-              <ToolInput
-                input={{
-                  query: "SELECT * FROM assets WHERE building = 'Z'",
-                }}
-              />
-              <ToolOutput
-                output={undefined}
-                errorText="Database connection timeout after 30s. Please try again."
-              />
-            </ToolContent>
-          </Tool>
-        </ReasoningItem>
+    <div className="space-y-8">
+      {/* Collapsed state */}
+      <Reasoning>
+        <ReasoningHeader />
+        <ReasoningContent>
+          <ReasoningItem>
+            <Tool>
+              <ToolHeader title="Query database" type="tool-call" hasError />
+              <ToolContent>
+                <ToolInput
+                  input={{
+                    query: "SELECT * FROM assets WHERE building = 'Z'",
+                  }}
+                />
+                <ToolOutput
+                  output={undefined}
+                  errorText="Database connection timeout after 30s. Please try again."
+                />
+              </ToolContent>
+            </Tool>
+          </ReasoningItem>
 
-        <ReasoningItem>
-          <Tool>
-            <ToolHeader title="Fallback to cache" type="tool-call" />
-            <ToolContent>
-              <ToolInput
-                input={{
-                  cacheKey: "building-z-assets",
-                }}
-              />
-              <ToolOutput
-                output={{
-                  cached: true,
-                  age: "5 minutes",
-                  data: { assets: [], total: 0 },
-                }}
-                errorText={undefined}
-              />
-            </ToolContent>
-          </Tool>
-        </ReasoningItem>
-      </ReasoningContent>
-    </Reasoning>
+          <ReasoningItem>
+            <Tool>
+              <ToolHeader title="Fall back to cache" type="tool-call" />
+              <ToolContent>
+                <ToolInput input={{ cacheKey: "building-z-assets" }} />
+                <ToolOutput output={{ cached: true, age: "5 minutes" }} errorText={undefined} />
+              </ToolContent>
+            </Tool>
+          </ReasoningItem>
+        </ReasoningContent>
+      </Reasoning>
+
+      {/* Expanded state */}
+      <Reasoning>
+        <ReasoningHeader />
+        <ReasoningContent>
+          <ReasoningItem>
+            <Tool defaultOpen>
+              <ToolHeader title="Query database" type="tool-call" hasError />
+              <ToolContent>
+                <ToolInput
+                  input={{
+                    query: "SELECT * FROM assets WHERE building = 'Z'",
+                  }}
+                />
+                <ToolOutput
+                  output={undefined}
+                  errorText="Database connection timeout after 30s. Please try again."
+                />
+              </ToolContent>
+            </Tool>
+          </ReasoningItem>
+
+          <ReasoningItem>
+            <Tool defaultOpen={false}>
+              <ToolHeader title="Fall back to cache" type="tool-call" />
+              <ToolContent>
+                <ToolInput input={{ cacheKey: "building-z-assets" }} />
+                <ToolOutput output={{ cached: true, age: "5 minutes" }} errorText={undefined} />
+              </ToolContent>
+            </Tool>
+          </ReasoningItem>
+        </ReasoningContent>
+      </Reasoning>
+    </div>
   ),
   parameters: {
     docs: {
       description: {
         story:
-          "Demonstrates error handling in tool calls. Shows failed database query with error message, followed by successful fallback to cache.",
+          "Demonstrates error handling in tool calls. Shows both collapsed and expanded states with failed database query and error badge.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify both tools are present
+    // Verify all tools are present (4 total: 2 per reasoning section)
     const toolButtons = canvas.getAllByRole("button");
-    await expect(toolButtons.length).toBe(2);
+    await expect(toolButtons.length).toBe(4);
 
-    // Expand first tool to see error
-    await userEvent.click(toolButtons[0]);
+    // Verify error badges are visible
+    const errorBadges = canvas.getAllByText("Error");
+    await expect(errorBadges.length).toBe(2);
 
-    // Verify error text is shown
+    // Verify error text is shown in expanded section
     await waitFor(() => {
       const content = canvasElement.textContent || "";
-      expect(canvas.getByText("Error")).toBeVisible();
-      // Verify error message content (appears in both light/dark theme blocks)
       expect(content).toContain("Database connection timeout");
     });
 
-    // Expand second tool to see success
-    await userEvent.click(toolButtons[1]);
-
+    // Verify the fallback tool still shows its output correctly
+    const fallbackToolButton = toolButtons[3];
+    await userEvent.click(fallbackToolButton);
     await waitFor(() => {
-      expect(canvas.getByText("Result")).toBeVisible();
-      // Verify result content (appears in both light/dark theme blocks)
-      expect(canvasElement.textContent).toContain("cached");
+      const content = canvasElement.textContent || "";
+      expect(content).toContain("cached");
     });
   },
 };
@@ -719,7 +742,7 @@ export const VisualRegression: Story = {
           <ReasoningContent>
             <ReasoningItem>
               <Tool>
-                <ToolHeader title="Failed tool" type="tool-call" />
+                <ToolHeader title="Failed tool" type="tool-call" hasError />
                 <ToolContent>
                   <ToolInput input={{ test: true }} />
                   <ToolOutput output={undefined} errorText="Connection failed" />

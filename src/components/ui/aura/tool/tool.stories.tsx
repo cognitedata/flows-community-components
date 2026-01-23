@@ -83,7 +83,7 @@ export const Default: Story = {
 export const WithError: Story = {
   render: () => (
     <Tool>
-      <ToolHeader title="read_file" type="tool-invocation" />
+      <ToolHeader title="read_file" type="tool-invocation" hasError />
       <ToolContent>
         <ToolInput
           input={{
@@ -308,7 +308,7 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Error</h3>
         <Tool>
-          <ToolHeader title="error_tool" type="tool-invocation" />
+          <ToolHeader title="error_tool" type="tool-invocation" hasError />
           <ToolContent>
             <ToolInput input={{ invalid: true }} />
             <ToolOutput output={undefined} errorText="Error occurred" />
