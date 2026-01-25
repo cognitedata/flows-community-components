@@ -1,17 +1,9 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
-import {
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@/components/ui/aura/dropdown-menu";
+import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
-import {
-  IconChartLine,
-  IconCube,
-  IconGauge,
-  IconReportAnalytics,
-} from "@tabler/icons-react";
+import { IconChartLine, IconCube, IconGauge, IconReportAnalytics } from "@tabler/icons-react";
 import {
   Card,
   CardActions,
@@ -19,6 +11,8 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardHeaderRight,
+  CardIcon,
   CardTitle,
 } from "./card";
 
@@ -110,8 +104,7 @@ export const WithTextFooter: Story = {
     order: 2,
     docs: {
       description: {
-        story:
-          "Card with text content displayed in the footer instead of badges.",
+        story: "Card with text content displayed in the footer instead of badges.",
       },
     },
   },
@@ -126,9 +119,7 @@ export const WithTextFooter: Story = {
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">
-          No alerts
-        </div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
       </CardFooter>
     </Card>
   ),
@@ -144,22 +135,20 @@ export const WithBadgeInHeader: Story = {
     docs: {
       description: {
         story:
-          "Card with a badge displayed in the header alongside the title, and image content in the body.",
+          "Card with a badge displayed in the header using CardIcon. No wrapper divs needed - the grid layout handles positioning automatically.",
       },
     },
   },
   render: () => (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <div className="flex gap-1.5 items-baseline">
-          <Badge variant="mountain">
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
             <IconCube size={12} />
           </Badge>
-          <div>
-            <CardTitle>Skarv</CardTitle>
-            <CardDescription>Point cloud scene</CardDescription>
-          </div>
-        </div>
+        </CardIcon>
+        <CardTitle>Skarv</CardTitle>
+        <CardDescription>Point cloud scene</CardDescription>
       </CardHeader>
       <CardContent className="">
         <div className="text-base text-secondary-foreground tracking-tightest pb-2">
@@ -195,30 +184,22 @@ export const WithHover: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1.5 items-baseline">
-            <Badge variant="mountain">
-              <IconCube size={12} />
-            </Badge>
-            <div>
-              <CardTitle>Title</CardTitle>
-              <CardDescription>Subtitle</CardDescription>
-            </div>
-          </div>
-        </div>
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Title</CardTitle>
+        <CardDescription>Subtitle</CardDescription>
       </CardHeader>
       <CardContent className="gap-2">
-        <div className="text-base text-secondary-foreground tracking-tightest">
-          Description
-        </div>
+        <div className="text-base text-secondary-foreground tracking-tightest">Description</div>
       </CardContent>
       <CardFooter className="gap-1 flex-col">
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">
-          No alerts
-        </div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
       </CardFooter>
     </Card>
   ),
@@ -259,7 +240,7 @@ export const WithActions: Story = {
     docs: {
       description: {
         story:
-          "Card using CardActions component to provide a dropdown menu of actions in the header.",
+          "Card with CardActions wrapped in CardHeaderRight. CardActions provides a pre-configured dropdown menu.",
       },
     },
   },
@@ -267,19 +248,19 @@ export const WithActions: Story = {
     <Card className="w-96">
       <CardHeader>
         <CardTitle>Card with Actions</CardTitle>
-        <CardDescription>
-          This card has a dropdown menu with actions
-        </CardDescription>
-        <CardActions>
-          <DropdownMenuItem>
-            <IconCube className="size-4" />
-            View details
-          </DropdownMenuItem>
-          <DropdownMenuItem>Edit configuration</DropdownMenuItem>
-          <DropdownMenuItem>Duplicate</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete card</DropdownMenuItem>
-        </CardActions>
+        <CardDescription>This card has a dropdown menu with actions</CardDescription>
+        <CardHeaderRight>
+          <CardActions>
+            <DropdownMenuItem>
+              <IconCube className="size-4" />
+              View details
+            </DropdownMenuItem>
+            <DropdownMenuItem>Edit configuration</DropdownMenuItem>
+            <DropdownMenuItem>Duplicate</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">Delete card</DropdownMenuItem>
+          </CardActions>
+        </CardHeaderRight>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
@@ -291,35 +272,110 @@ export const WithActions: Story = {
 };
 
 /**
- * Card with custom positioned element in header
+ * Card with both icon and actions in header
  */
-export const WithCustomHeaderElement: Story = {
+export const WithIconAndActions: Story = {
   parameters: {
     order: 7,
     docs: {
       description: {
         story:
-          "For cases where you need custom content in the header corner (instead of a dropdown menu), manually position elements using grid classes.",
+          "Card with both CardIcon and CardHeaderRight (containing CardActions). The grid automatically creates 3 columns: icon, content, right.",
       },
     },
   },
   render: () => (
     <Card className="w-96">
-      <CardHeader className="grid grid-cols-[1fr_auto] gap-2">
-        <div>
-          <CardTitle>Custom Header Element</CardTitle>
-          <CardDescription>
-            Badge positioned in top-right instead of dropdown
-          </CardDescription>
-        </div>
-        <Badge variant="fjord" className="h-fit">
-          New
-        </Badge>
+      <CardHeader>
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Skarv Model</CardTitle>
+        <CardDescription>Point cloud scene</CardDescription>
+        <CardHeaderRight>
+          <CardActions>
+            <DropdownMenuItem>View details</DropdownMenuItem>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
+          </CardActions>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground">Model ID: 4602269428617841</p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+/**
+ * Card with custom badge in header right slot
+ */
+export const WithHeaderRightBadge: Story = {
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story:
+          "Use CardHeaderRight for custom content in the header corner. Accepts any element - badges, buttons, text, etc.",
+      },
+    },
+  },
+  render: () => (
+    <Card className="w-96">
+      <CardHeader>
+        <CardTitle>Custom Header Element</CardTitle>
+        <CardDescription>Badge positioned in top-right using CardHeaderRight</CardDescription>
+        <CardHeaderRight>
+          <Badge variant="fjord" className="h-fit">
+            New
+          </Badge>
+        </CardHeaderRight>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          Use manual grid positioning when you need something other than a
-          dropdown menu.
+          CardHeaderRight provides a predictable slot for any custom element in the top-right
+          corner.
+        </p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+/**
+ * Card with icon and custom header right element (3-column grid)
+ */
+export const WithIconAndHeaderRight: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Demonstrates the full 3-column grid: CardIcon + title/description + CardHeaderRight with a custom badge.",
+      },
+    },
+  },
+  render: () => (
+    <Card className="w-96">
+      <CardHeader>
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Skarv Model</CardTitle>
+        <CardDescription>Point cloud scene</CardDescription>
+        <CardHeaderRight>
+          <Badge variant="fjord" className="h-fit">
+            Beta
+          </Badge>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground">
+          All three grid columns are active: icon, content, and custom right element.
         </p>
       </CardContent>
     </Card>
@@ -331,7 +387,7 @@ export const WithCustomHeaderElement: Story = {
  */
 export const ContentOnly: Story = {
   parameters: {
-    order: 8,
+    order: 10,
     docs: {
       description: {
         story: "Card with only content section, no header or footer.",
@@ -355,7 +411,7 @@ export const ContentOnly: Story = {
  */
 export const GridLayout: Story = {
   parameters: {
-    order: 9,
+    order: 11,
     docs: {
       description: {
         story:

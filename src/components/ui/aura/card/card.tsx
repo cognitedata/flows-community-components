@@ -9,19 +9,21 @@ import {
 } from "@/components/ui/aura/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-const Card = forwardRef<HTMLDivElement, ComponentProps<"div">>(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col rounded-lg hover:bg-accent",
-        className
-      )}
-      {...props}
-    />
-  );
-});
+const Card = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card"
+        className={cn(
+          "bg-card text-card-foreground flex flex-col rounded-lg hover:bg-accent",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 Card.displayName = "Card";
 
 const CardHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(
@@ -31,15 +33,41 @@ const CardHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(
         ref={ref}
         data-slot="card-header"
         className={cn(
-          "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 pt-4 has-data-[slot=card-actions]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-          className
+          // Base grid layout
+          "@container/card-header group/card-header grid auto-rows-min items-start gap-1.5 px-4 pt-4 [.border-b]:pb-6",
+          // Conditional grid columns based on slots present
+          "grid-cols-[1fr]", // default: just content
+          "has-data-[slot=card-icon]:grid-cols-[auto_1fr]", // with icon
+          "has-data-[slot=card-header-right]:grid-cols-[1fr_auto]", // with right slot
+          "has-data-[slot=card-icon]:has-data-[slot=card-header-right]:grid-cols-[auto_1fr_auto]", // with both
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 CardHeader.displayName = "CardHeader";
+
+/**
+ * CardIcon provides a slot for icons, badges, or avatars in the card header.
+ * Positioned to the left of the title/description.
+ */
+const CardIcon = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card-icon"
+        className={cn("col-start-1 row-start-1 h-full", className)}
+        {...props}
+      >
+        <div className="flex items-center h-full">{children}</div>
+      </div>
+    );
+  },
+);
+CardIcon.displayName = "CardIcon";
 
 const CardTitle = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
@@ -47,11 +75,15 @@ const CardTitle = forwardRef<HTMLDivElement, ComponentProps<"div">>(
       <div
         ref={ref}
         data-slot="card-title"
-        className={cn("tracking-tightest text-foreground font-semibold text-lg", className)}
+        className={cn(
+          "tracking-tightest text-foreground font-semibold text-lg row-start-1",
+          "group-has-data-[slot=card-icon]/card-header:col-start-2",
+          className,
+        )}
         {...props}
       />
     );
-  }
+  },
 );
 CardTitle.displayName = "CardTitle";
 
@@ -61,16 +93,42 @@ const CardDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
       <div
         ref={ref}
         data-slot="card-description"
-        className={cn("text-muted-foreground text-sm", className)}
+        className={cn(
+          "text-muted-foreground text-sm row-start-2",
+          "group-has-data-[slot=card-icon]/card-header:col-start-2",
+          className,
+        )}
         {...props}
       />
     );
-  }
+  },
 );
 CardDescription.displayName = "CardDescription";
 
 /**
- * CardActions provides a dropdown menu in the card header's top-right corner.
+ * CardHeaderRight provides a positioning slot for elements in the card header's top-right corner.
+ * Use this for any custom elements (badges, buttons, etc.) that should appear at the end of the header.
+ */
+const CardHeaderRight = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card-header-right"
+        className={cn(
+          "row-span-2 row-start-1 self-start justify-self-end",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
+CardHeaderRight.displayName = "CardHeaderRight";
+
+/**
+ * CardActions provides a dropdown menu for card actions.
+ * Must be wrapped in CardHeaderRight to position in the header corner.
  * Pass DropdownMenuItem components as children to populate the menu.
  */
 const CardActions = forwardRef<
@@ -80,27 +138,29 @@ const CardActions = forwardRef<
   }
 >(({ children, align = "end", ...props }, ref) => {
   return (
-    <div
-      data-slot="card-actions"
-      className="col-start-2 row-span-2 row-start-1 self-start justify-self-end"
-    >
-      <DropdownMenu {...props}>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon-sm" ref={ref}>
-            <IconDotsVertical />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align={align}>{children}</DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <DropdownMenu {...props}>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon-sm" ref={ref}>
+          <IconDotsVertical />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align={align}>{children}</DropdownMenuContent>
+    </DropdownMenu>
   );
 });
 CardActions.displayName = "CardActions";
 
 const CardContent = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
-    return <div ref={ref} data-slot="card-content" className={cn("p-4", className)} {...props} />;
-  }
+    return (
+      <div
+        ref={ref}
+        data-slot="card-content"
+        className={cn("p-4", className)}
+        {...props}
+      />
+    );
+  },
 );
 CardContent.displayName = "CardContent";
 
@@ -114,8 +174,18 @@ const CardFooter = forwardRef<HTMLDivElement, ComponentProps<"div">>(
         {...props}
       />
     );
-  }
+  },
 );
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardActions, CardDescription, CardContent };
+export {
+  Card,
+  CardHeader,
+  CardIcon,
+  CardHeaderRight,
+  CardFooter,
+  CardTitle,
+  CardActions,
+  CardDescription,
+  CardContent,
+};
