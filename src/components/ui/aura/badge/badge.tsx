@@ -10,7 +10,8 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: "border-transparent bg-primary text-primary-foreground",
-        fjord: "border-transparent bg-decorative-background-fjord text-decorative-foreground-fjord",
+        fjord:
+          "border-transparent bg-decorative-background-fjord text-decorative-foreground-fjord",
         nordic:
           "border-transparent bg-decorative-background-nordic text-decorative-foreground-nordic",
         aurora:
@@ -33,7 +34,7 @@ const badgeVariants = cva(
       },
       size: {
         default: "px-1",
-        icon: "h-5 px-1.5 rounded-md",
+        icon: "px-1.5 py-1 rounded-md",
       },
       outline: {
         true: "border-current px-0.75",
@@ -53,7 +54,7 @@ const badgeVariants = cva(
       background: true,
       dot: false,
     },
-  }
+  },
 );
 
 /**
@@ -89,7 +90,7 @@ function Badge({
         dot && isEmpty && "size-2 p-0 border-0",
         dot && isEmpty && urgent && "bg-destructive-foreground",
         dot && isEmpty && !urgent && "bg-neutral-foreground",
-        className
+        className,
       )}
       {...props}
     >
