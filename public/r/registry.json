@@ -138,6 +138,74 @@
       ]
     },
     {
+      "name": "artifact-progress",
+      "type": "registry:component",
+      "title": "artifact-progress",
+      "description": "",
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card",
+        "@aura/progress"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-progress/artifact-progress.tsx",
+          "target": "src/components/ui/aura/artifact-progress.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:component",
+      "title": "card",
+      "description": "",
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/card/card.tsx",
+          "target": "src/components/ui/aura/card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:component",
+      "title": "progress",
+      "description": "",
+      "dependencies": [
+        "@radix-ui/react-progress"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/progress/progress.tsx",
+          "target": "src/components/ui/aura/progress.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:component",
       "title": "for",
@@ -308,27 +376,6 @@
         {
           "path": "src/components/ui/aura/calendar/calendar.tsx",
           "target": "src/components/ui/aura/calendar.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "card",
-      "type": "registry:component",
-      "title": "card",
-      "description": "",
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/card/card.tsx",
-          "target": "src/components/ui/aura/card.tsx",
           "type": "registry:component"
         },
         {
@@ -1143,30 +1190,6 @@
         {
           "path": "src/components/ui/aura/pagination/pagination.tsx",
           "target": "src/components/ui/aura/pagination.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "progress",
-      "type": "registry:component",
-      "title": "progress",
-      "description": "",
-      "dependencies": [
-        "@radix-ui/react-progress"
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/progress/progress.tsx",
-          "target": "src/components/ui/aura/progress.tsx",
           "type": "registry:component"
         },
         {
