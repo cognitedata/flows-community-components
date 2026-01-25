@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
-import { useState } from "react";
-import { Alert, AlertTitle, AlertDescription, AlertActions, AlertButton } from "./alert";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
-  IconInfoCircle,
-  IconAlertTriangle,
   IconAlertHexagon,
-  IconUser,
-  IconCheck,
+  IconAlertTriangle,
   IconBell,
+  IconCheck,
+  IconInfoCircle,
+  IconUser,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import { Alert, AlertActions, AlertButton, AlertDescription, AlertTitle } from "./alert";
 
 const meta: Meta<typeof Alert> = {
   title: "Primitives/Alert",
@@ -129,6 +129,7 @@ export const Dismissible: Story = {
     if (!visible) {
       return (
         <button
+          type="button"
           onClick={() => setVisible(true)}
           className="px-4 py-2 text-sm border rounded-md hover:bg-accent"
         >
@@ -232,7 +233,7 @@ export const Warning: Story = {
 /**
  * Error variant for critical messages.
  */
-export const Error: Story = {
+export const ErrorAlert: Story = {
   render: () => (
     <Alert variant="error">
       <IconAlertHexagon className="w-3.5 h-3.5 mt-0.5" />
@@ -381,12 +382,14 @@ export const ControlledVisibility: Story = {
       <div className="space-y-4">
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setVisible(true)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Show
           </button>
           <button
+            type="button"
             onClick={() => setVisible(false)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

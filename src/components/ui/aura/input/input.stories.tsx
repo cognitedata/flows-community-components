@@ -1,8 +1,8 @@
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import { Input } from "./input";
-import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Input> = {
   title: "Primitives/Input",
@@ -247,12 +247,14 @@ export const Controlled: Story = {
         </div>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setValue("")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Clear
           </button>
           <button
+            type="button"
             onClick={() => setValue("Hello!")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

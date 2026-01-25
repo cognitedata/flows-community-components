@@ -1,13 +1,3 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import {
-  IconColumns as Columns,
-  IconLayoutGrid as Grid,
-  IconLayoutSidebar as Layout,
-  IconDeviceDesktop as Monitor,
-  IconDeviceMobile as Smartphone,
-  IconDeviceTablet as Tablet,
-} from "@tabler/icons-react";
 import { Button } from "@/components/ui/aura/button";
 import {
   Card,
@@ -16,6 +6,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
+import {
+  IconColumns as Columns,
+  IconLayoutGrid as Grid,
+  IconLayoutSidebar as Layout,
+  IconDeviceDesktop as Monitor,
+  IconDeviceMobile as Smartphone,
+  IconDeviceTablet as Tablet,
+} from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const breakpoints = [
   { name: "Mobile", icon: Smartphone, width: "375px", minWidth: "320px" },

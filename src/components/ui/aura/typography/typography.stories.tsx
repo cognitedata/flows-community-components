@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { typographyScale, typographyPatterns, getTypographyBySection } from "./typography";
+import { expect, within } from "@storybook/test";
 import { CodeBlock } from "../code-block";
+import { getTypographyBySection, typographyPatterns, typographyScale } from "./typography";
 
 /**
  * # Aura Typography System
@@ -30,7 +30,7 @@ import { CodeBlock } from "../code-block";
  * ```
  */
 const meta: Meta = {
-  title: "Layouts/Typography",
+  title: "Foundations/Typography",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
@@ -306,8 +306,11 @@ export const FormFieldPattern: Story = {
   render: () => (
     <div className="space-y-6 max-w-sm">
       <div className="space-y-1.5">
-        <label className="text-sm font-medium">Email address</label>
+        <label htmlFor="email-address" className="text-sm font-medium">
+          Email address
+        </label>
         <input
+          id="email-address"
           type="email"
           className="w-full rounded-md border border-border bg-background px-3 py-2 text-base font-normal placeholder:text-muted-foreground"
           placeholder="you@example.com"
@@ -317,8 +320,11 @@ export const FormFieldPattern: Story = {
         </p>
       </div>
       <div className="space-y-1.5">
-        <label className="text-sm font-medium">Password</label>
+        <label htmlFor="password-input" className="text-sm font-medium">
+          Password
+        </label>
         <input
+          id="password-input"
           type="password"
           className="w-full rounded-md border border-border bg-background px-3 py-2 text-base font-normal"
           placeholder="••••••••"
@@ -386,10 +392,16 @@ export const MarketingHeroPattern: Story = {
         interfaces in half the time.
       </p>
       <div className="flex items-center justify-center gap-4 pt-4">
-        <button className="rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground">
+        <button
+          type="button"
+          className="rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground"
+        >
           Get Started
         </button>
-        <button className="rounded-md border border-border px-6 py-3 text-base font-medium">
+        <button
+          type="button"
+          className="rounded-md border border-border px-6 py-3 text-base font-medium"
+        >
           Learn More
         </button>
       </div>
@@ -861,25 +873,25 @@ export const FullPageExample: Story = {
               <p className="text-lg font-normal text-muted-foreground">Jump to a section</p>
               <nav className="space-y-2">
                 <a
-                  href="#"
+                  href="/components"
                   className="block text-sm font-normal text-muted-foreground hover:text-foreground"
                 >
                   Components
                 </a>
                 <a
-                  href="#"
+                  href="/primitives"
                   className="block text-sm font-normal text-muted-foreground hover:text-foreground"
                 >
                   Primitives
                 </a>
                 <a
-                  href="#"
+                  href="/tokens"
                   className="block text-sm font-normal text-muted-foreground hover:text-foreground"
                 >
                   Tokens
                 </a>
                 <a
-                  href="#"
+                  href="/patterns"
                   className="block text-sm font-normal text-muted-foreground hover:text-foreground"
                 >
                   Patterns
@@ -899,8 +911,11 @@ export const FullPageExample: Story = {
                 </p>
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium">Email</label>
+                <label htmlFor="subscribe-email" className="text-sm font-medium">
+                  Email
+                </label>
                 <input
+                  id="subscribe-email"
                   type="email"
                   className="w-full rounded-md border border-border bg-background px-3 py-2 text-base font-normal placeholder:text-muted-foreground"
                   placeholder="you@example.com"
@@ -909,7 +924,10 @@ export const FullPageExample: Story = {
                   No spam, unsubscribe anytime.
                 </p>
               </div>
-              <button className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+              <button
+                type="button"
+                className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+              >
                 Subscribe
               </button>
             </div>
@@ -935,19 +953,19 @@ export const FullPageExample: Story = {
             <p className="text-sm font-normal text-muted-foreground">© 2026 Aura Design System</p>
             <nav className="flex items-center gap-6">
               <a
-                href="#"
+                href="https://github.com"
                 className="text-xs font-medium text-muted-foreground hover:text-foreground"
               >
                 GitHub
               </a>
               <a
-                href="#"
+                href="https://discord.com"
                 className="text-xs font-medium text-muted-foreground hover:text-foreground"
               >
                 Discord
               </a>
               <a
-                href="#"
+                href="https://twitter.com"
                 className="text-xs font-medium text-muted-foreground hover:text-foreground"
               >
                 Twitter

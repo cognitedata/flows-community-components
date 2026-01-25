@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/aura/button";
 import { cn } from "@/lib/utils";
-import type { Element } from "hast";
 import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
+import type { Element } from "hast";
 import {
   type ComponentProps,
-  createContext,
   type HTMLAttributes,
+  createContext,
   useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
-import { type BundledLanguage, codeToHtml, type ShikiTransformer } from "shiki";
+import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;
@@ -132,16 +132,16 @@ export const CodeBlock = ({
         <div className="relative">
           <div
             className={cn(
-              "overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm",
-              isCollapsed && "max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden"
+              "dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
+              isCollapsed && "max-h-[var(--code-block-collapsed-height)] overflow-y-hidden"
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: html }}
           />
           <div
             className={cn(
-              "hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm",
-              isCollapsed && "max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden"
+              "hidden dark:block [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
+              isCollapsed && "max-h-[var(--code-block-collapsed-height)] overflow-y-hidden"
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: darkHtml }}
@@ -185,7 +185,7 @@ export const CodeBlockCopyButton = ({
 
     try {
       // Check for permission explicitly if the browser supports it
-      if (navigator.permissions && navigator.permissions.query) {
+      if (navigator.permissions?.query) {
         const permissionStatus = await navigator.permissions.query({
           name: "clipboard-write" as PermissionName,
         });

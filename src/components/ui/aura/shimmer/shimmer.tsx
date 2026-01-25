@@ -82,7 +82,7 @@ const ShimmerComponent = ({
         } as CSSProperties
       }
       transition={{
-        repeat: Infinity,
+        repeat: Number.POSITIVE_INFINITY,
         duration,
         ease: "linear",
       }}

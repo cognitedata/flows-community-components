@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
+import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
-import { HelperText } from "./helper-text";
 import { Button } from "../button";
 import { Input } from "../input";
 import { Label } from "../label";
-import { IconCircleCheck, IconInfoCircle, IconAlertTriangle, IconBulb } from "@tabler/icons-react";
+import { HelperText } from "./helper-text";
 
 const meta: Meta<typeof HelperText> = {
-  title: "UI/Helper Text",
+  title: "Primitives/Helper Text",
   component: HelperText,
   tags: ["autodocs"],
   argTypes: {
@@ -159,7 +159,7 @@ export const SizeSM: Story = {
 /**
  * Error state with automatic error icon
  */
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
     isError: true,
     children: "This field is required.",

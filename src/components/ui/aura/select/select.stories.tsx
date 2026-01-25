@@ -1,5 +1,14 @@
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconFile,
+  IconFolder,
+  IconHome,
+  IconMail,
+  IconSettings,
+  IconUser,
+} from "@tabler/icons-react";
 import { useState } from "react";
 import {
   Select,
@@ -11,15 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./select";
-import { Label } from "@/components/ui/aura/label";
-import {
-  IconHome,
-  IconMail,
-  IconSettings,
-  IconUser,
-  IconFile,
-  IconFolder,
-} from "@tabler/icons-react";
 
 const meta: Meta<typeof Select> = {
   title: "Primitives/Select",
@@ -366,18 +366,21 @@ export const Controlled: Story = {
         </Select>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setValue("red")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Red
           </button>
           <button
+            type="button"
             onClick={() => setValue("green")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Green
           </button>
           <button
+            type="button"
             onClick={() => setValue("")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

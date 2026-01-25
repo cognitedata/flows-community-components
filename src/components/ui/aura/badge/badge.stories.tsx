@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { Badge } from "./badge";
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -9,10 +7,12 @@ import {
   IconCircleCheck,
   IconHexagon,
   IconInnerShadowTopLeft,
-  IconX,
-  IconUser,
   IconStar,
+  IconUser,
+  IconX,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import { Badge } from "./badge";
 
 const meta: Meta<typeof Badge> = {
   title: "Primitives/Badge",
@@ -138,11 +138,12 @@ type Story = StoryObj<typeof Badge>;
  * Fjord variant - blue-toned for observations and data
  */
 export const Fjord: Story = {
+  render: () => <Badge variant="fjord">Observations</Badge>,
   args: {
     variant: "fjord",
-    children: "Observations",
   },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -164,11 +165,12 @@ export const Fjord: Story = {
  * Aurora variant - vibrant for troubleshooting and alerts
  */
 export const Aurora: Story = {
+  render: () => <Badge variant="aurora">Troubleshooting</Badge>,
   args: {
     variant: "aurora",
-    children: "Troubleshooting",
   },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -189,8 +191,8 @@ export const Aurora: Story = {
  * Mountain variant - green-toned for plans and goals
  */
 export const Mountain: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="mountain">
       <IconHexagon className="size-3" />
       Plans
     </Badge>
@@ -199,6 +201,7 @@ export const Mountain: Story = {
     variant: "mountain",
   },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -222,11 +225,12 @@ export const Mountain: Story = {
  * Dusk variant - purple-toned for RCA and analysis
  */
 export const Dusk: Story = {
+  render: () => <Badge variant="dusk">RCA</Badge>,
   args: {
     variant: "dusk",
-    children: "RCA",
   },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -247,8 +251,8 @@ export const Dusk: Story = {
  * Secondary variant - neutral for general use
  */
 export const Secondary: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="secondary">
       <IconHexagon className="size-3 rotate-90" />
       Asset
     </Badge>
@@ -257,6 +261,7 @@ export const Secondary: Story = {
     variant: "secondary",
   },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -279,9 +284,9 @@ export const Secondary: Story = {
 /**
  * Error variant - red for errors and critical issues
  */
-export const Error: Story = {
-  render: (args) => (
-    <Badge {...args}>
+export const ErrorBadge: Story = {
+  render: () => (
+    <Badge variant="error" background={false}>
       <IconAlertHexagon className="size-3" />
       Error
     </Badge>
@@ -291,6 +296,7 @@ export const Error: Story = {
     background: false,
   },
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -312,8 +318,8 @@ export const Error: Story = {
  * Error variant with outline - red for errors and critical issues
  */
 export const ErrorOutline: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="error" outline>
       <IconAlertHexagon className="size-3" />
       Error
     </Badge>
@@ -323,6 +329,7 @@ export const ErrorOutline: Story = {
     outline: true,
   },
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -344,8 +351,8 @@ export const ErrorOutline: Story = {
  * Warning variant - orange/yellow for warnings
  */
 export const Warning: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="warning" background={false}>
       <IconAlertTriangle className="size-3" />
       Warning
     </Badge>
@@ -355,6 +362,7 @@ export const Warning: Story = {
     background: false,
   },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -389,6 +397,7 @@ export const WarningOutline: Story = {
     outline: true,
   },
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -409,8 +418,8 @@ export const WarningOutline: Story = {
  * Success variant - green for successful operations
  */
 export const Success: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="success" background={false}>
       <IconCircleCheck className="size-3" />
       Success
     </Badge>
@@ -420,6 +429,7 @@ export const Success: Story = {
     background: false,
   },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -443,8 +453,8 @@ export const Success: Story = {
  * In Progress variant - for ongoing operations
  */
 export const InProgress: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="inProgress" background={false}>
       <IconInnerShadowTopLeft className="size-3" />
       In progress
     </Badge>
@@ -454,6 +464,7 @@ export const InProgress: Story = {
     background: false,
   },
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -474,8 +485,8 @@ export const InProgress: Story = {
  * Archived variant - for archived or inactive items
  */
 export const Archived: Story = {
-  render: (args) => (
-    <Badge {...args}>
+  render: () => (
+    <Badge variant="archived" background={false}>
       <IconArchive className="size-3" />
       Archived
     </Badge>
@@ -485,6 +496,7 @@ export const Archived: Story = {
     background: false,
   },
   parameters: {
+    order: 12,
     docs: {
       description: {
         story:
@@ -532,6 +544,7 @@ export const AllVariants: Story = {
     </div>
   ),
   parameters: {
+    order: 13,
     docs: {
       description: {
         story:
@@ -618,6 +631,7 @@ export const IconSizes: Story = {
     </div>
   ),
   parameters: {
+    order: 14,
     docs: {
       description: {
         story:
@@ -648,11 +662,13 @@ export const IconSizes: Story = {
  * Use the controls below to experiment with all available props.
  */
 export const Playground: Story = {
+  render: (args) => <Badge {...args} />,
   args: {
     variant: "fjord",
     children: "Badge",
   },
   parameters: {
+    order: 15,
     docs: {
       description: {
         story:
@@ -684,6 +700,7 @@ export const OutlineStyle: Story = {
     </div>
   ),
   parameters: {
+    order: 16,
     docs: {
       description: {
         story:
@@ -726,6 +743,7 @@ export const NoBackground: Story = {
     </div>
   ),
   parameters: {
+    order: 17,
     docs: {
       description: {
         story:
@@ -773,6 +791,7 @@ export const DotIndicators: Story = {
     </div>
   ),
   parameters: {
+    order: 18,
     docs: {
       description: {
         story:
@@ -800,6 +819,7 @@ export const DotIndicators: Story = {
  */
 export const ClickInteraction: Story = {
   parameters: {
+    order: 19,
     docs: {
       description: {
         story:
@@ -858,6 +878,7 @@ export const ClickInteraction: Story = {
  */
 export const KeyboardInteractions: Story = {
   parameters: {
+    order: 20,
     docs: {
       description: {
         story:
@@ -950,6 +971,7 @@ export const KeyboardInteractions: Story = {
  */
 export const Accessibility: Story = {
   parameters: {
+    order: 21,
     docs: {
       description: {
         story:
@@ -1051,6 +1073,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 22,
     docs: {
       description: {
         story:
@@ -1070,13 +1093,14 @@ export const VisualRegression: Story = {
 export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-2">
-      <Badge variant="fjord"></Badge>
-      <Badge variant="error"></Badge>
-      <Badge variant="secondary"></Badge>
+      <Badge variant="fjord" />
+      <Badge variant="error" />
+      <Badge variant="secondary" />
       <span className="text-sm text-muted-foreground">(Empty badges)</span>
     </div>
   ),
   parameters: {
+    order: 23,
     docs: {
       description: {
         story:
@@ -1111,6 +1135,7 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
+    order: 25,
     docs: {
       description: {
         story:
@@ -1142,6 +1167,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
+    order: 27,
     docs: {
       description: {
         story:
@@ -1180,6 +1206,7 @@ export const EdgeCaseIconOnly: Story = {
     </div>
   ),
   parameters: {
+    order: 24,
     docs: {
       description: {
         story:
@@ -1226,6 +1253,7 @@ export const EdgeCaseMixedContent: Story = {
     </div>
   ),
   parameters: {
+    order: 28,
     docs: {
       description: {
         story:
@@ -1263,6 +1291,7 @@ export const EdgeCaseWidthConstraints: Story = {
     </div>
   ),
   parameters: {
+    order: 30,
     docs: {
       description: {
         story:
@@ -1303,6 +1332,7 @@ export const EdgeCaseGroupedBadges: Story = {
     </div>
   ),
   parameters: {
+    order: 29,
     docs: {
       description: {
         story:
@@ -1337,6 +1367,7 @@ export const EdgeCaseTinyDots: Story = {
     </div>
   ),
   parameters: {
+    order: 26,
     docs: {
       description: {
         story:
@@ -1353,4 +1384,38 @@ export const EdgeCaseTinyDots: Story = {
       expect(dot).toHaveClass("rounded-full");
     });
   },
+};
+
+// Define display order for docs site
+export const __stories = {
+  Fjord,
+  Aurora,
+  Mountain,
+  Dusk,
+  Secondary,
+  ErrorBadge,
+  ErrorOutline,
+  Warning,
+  WarningOutline,
+  Success,
+  InProgress,
+  Archived,
+  AllVariants,
+  IconSizes,
+  Playground,
+  OutlineStyle,
+  NoBackground,
+  DotIndicators,
+  ClickInteraction,
+  KeyboardInteractions,
+  Accessibility,
+  VisualRegression,
+  EdgeCaseEmpty,
+  EdgeCaseIconOnly,
+  EdgeCaseLongText,
+  EdgeCaseTinyDots,
+  EdgeCaseSpecialCharacters,
+  EdgeCaseMixedContent,
+  EdgeCaseGroupedBadges,
+  EdgeCaseWidthConstraints,
 };

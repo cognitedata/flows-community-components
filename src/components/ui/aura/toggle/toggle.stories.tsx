@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
-import { useState } from "react";
-import { Toggle } from "./toggle";
+import { expect, userEvent, within } from "@storybook/test";
 import {
+  IconAlignCenter,
+  IconAlignLeft,
+  IconAlignRight,
   IconBold,
   IconItalic,
   IconUnderline,
-  IconAlignLeft,
-  IconAlignCenter,
-  IconAlignRight,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import { Toggle } from "./toggle";
 
 const meta: Meta<typeof Toggle> = {
   title: "Primitives/Toggle",
@@ -243,12 +243,14 @@ export const Controlled: Story = {
         </Toggle>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setPressed(true)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Press
           </button>
           <button
+            type="button"
             onClick={() => setPressed(false)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

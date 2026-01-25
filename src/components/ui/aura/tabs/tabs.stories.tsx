@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
+import { IconBell, IconLock, IconSettings, IconUser } from "@tabler/icons-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
-import { IconUser, IconSettings, IconBell, IconLock } from "@tabler/icons-react";
 
 const meta: Meta<typeof Tabs> = {
   title: "Primitives/Tabs",
@@ -181,18 +181,21 @@ export const Controlled: Story = {
         </Tabs>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setActiveTab("tab1")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Go to Tab 1
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab("tab2")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Go to Tab 2
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab("tab3")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

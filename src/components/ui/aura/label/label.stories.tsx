@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { Label } from "./label";
-import { Input } from "@/components/ui/aura/input";
 import { Checkbox } from "@/components/ui/aura/checkbox";
+import { Input } from "@/components/ui/aura/input";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
+import { Label } from "./label";
 
 const meta: Meta<typeof Label> = {
   title: "Primitives/Label",
@@ -173,7 +173,15 @@ export const WithIcon: Story = {
   render: () => (
     <div className="grid w-[300px] items-center gap-1.5">
       <Label htmlFor="icon-input" className="flex items-center gap-1">
-        <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          className="size-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          role="img"
+          aria-label="User icon"
+        >
+          <title>User icon</title>
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

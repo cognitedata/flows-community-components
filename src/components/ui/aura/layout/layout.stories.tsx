@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
 import {
-  layoutBreakpoints,
-  gridPatterns,
   columnSpans,
+  gridPatterns,
+  layoutBreakpoints,
   layoutCompositions,
   layoutExamples,
 } from "./layout";
@@ -43,7 +43,7 @@ import {
  * ```
  */
 const meta: Meta = {
-  title: "Layouts/Layout",
+  title: "Foundations/Layout",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
@@ -392,7 +392,11 @@ export const SidebarLeftLayout: Story = {
           <h2 className="font-medium mb-4">Navigation</h2>
           <nav className="space-y-2">
             {["Dashboard", "Projects", "Settings", "Help"].map((item) => (
-              <a key={item} href="#" className="block px-3 py-2 rounded-md text-sm hover:bg-accent">
+              <a
+                key={item}
+                href={`/${item.toLowerCase()}`}
+                className="block px-3 py-2 rounded-md text-sm hover:bg-accent"
+              >
                 {item}
               </a>
             ))}
@@ -611,7 +615,9 @@ export const ComprehensiveDashboard: Story = {
         <div className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-4">
             <h3 className="font-medium">Heatmap title</h3>
-            <button className="text-muted-foreground">⋮</button>
+            <button type="button" className="text-muted-foreground">
+              ⋮
+            </button>
           </div>
           <div className="space-y-2">
             {[
@@ -656,10 +662,18 @@ export const ComprehensiveDashboard: Story = {
               <h3 className="font-medium">Chart title</h3>
               <p className="text-xs text-muted-foreground">January - June 2024</p>
             </div>
-            <button className="text-muted-foreground">⋮</button>
+            <button type="button" className="text-muted-foreground">
+              ⋮
+            </button>
           </div>
           <div className="h-40 bg-gradient-to-t from-primary/20 to-transparent rounded-md mb-3 relative">
-            <svg className="w-full h-full" viewBox="0 0 100 40" preserveAspectRatio="none">
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 100 40"
+              preserveAspectRatio="none"
+              aria-label="Chart visualization"
+              role="img"
+            >
               <path
                 d="M0,35 Q10,30 20,32 T40,25 T60,28 T80,20 T100,22"
                 fill="none"
@@ -714,7 +728,9 @@ export const ComprehensiveDashboard: Story = {
                 <h3 className="font-medium">Tree title</h3>
                 <p className="text-xs text-muted-foreground">January - June 2024</p>
               </div>
-              <button className="text-muted-foreground">⋮</button>
+              <button type="button" className="text-muted-foreground">
+                ⋮
+              </button>
             </div>
             <div className="space-y-1 text-sm">
               <div className="flex items-center gap-2">
@@ -750,10 +766,18 @@ export const ComprehensiveDashboard: Story = {
               <h3 className="font-medium">Chart title</h3>
               <p className="text-xs text-muted-foreground">January - June 2024</p>
             </div>
-            <button className="text-muted-foreground">⋮</button>
+            <button type="button" className="text-muted-foreground">
+              ⋮
+            </button>
           </div>
           <div className="h-48 bg-gradient-to-t from-success/20 to-transparent rounded-md relative">
-            <svg className="w-full h-full" viewBox="0 0 200 50" preserveAspectRatio="none">
+            <svg
+              className="w-full h-full"
+              viewBox="0 0 200 50"
+              preserveAspectRatio="none"
+              aria-label="Chart visualization"
+              role="img"
+            >
               <path
                 d="M0,45 Q20,40 40,42 T80,35 T120,38 T160,30 T200,32"
                 fill="hsl(var(--success)/0.3)"
@@ -788,7 +812,9 @@ export const ComprehensiveDashboard: Story = {
               <h3 className="font-medium">Image widget</h3>
               <p className="text-xs text-muted-foreground">January - June 2024</p>
             </div>
-            <button className="text-muted-foreground">⋮</button>
+            <button type="button" className="text-muted-foreground">
+              ⋮
+            </button>
           </div>
           <div
             className="h-40 rounded-md"

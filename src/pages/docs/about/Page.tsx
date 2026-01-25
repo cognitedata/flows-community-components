@@ -1,15 +1,4 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import {
-  IconAlertTriangle as AlertTriangle,
-  IconArrowRight as ArrowRight,
-  IconBook as BookOpen,
-  IconBolt as Zap,
-  IconCode as Code2,
-  IconGrid3x3 as Grid3X3,
-  IconLayout as Layout,
-  IconPalette as Palette,
-} from "@tabler/icons-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
 import { Button } from "@/components/ui/aura/button";
 import {
   Card,
@@ -18,7 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
+import {
+  IconAlertTriangle as AlertTriangle,
+  IconArrowRight as ArrowRight,
+  IconBook as BookOpen,
+  IconCode as Code2,
+  IconGrid3x3 as Grid3X3,
+  IconLayout as Layout,
+  IconPalette as Palette,
+  IconBolt as Zap,
+} from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -215,9 +215,9 @@ export default function Home() {
                 </Button>
               </Card>
               <Card className="p-6 space-y-3">
-                <div className="h-3 bg-primary rounded-full"></div>
-                <div className="h-3 bg-primary/60 rounded-full"></div>
-                <div className="h-3 bg-primary/30 rounded-full"></div>
+                <div className="h-3 bg-primary rounded-full" />
+                <div className="h-3 bg-primary/60 rounded-full" />
+                <div className="h-3 bg-primary/30 rounded-full" />
               </Card>
               <Card className="p-6">
                 <div className="space-y-2">

@@ -1,5 +1,8 @@
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
 import {
   Drawer,
@@ -11,9 +14,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "./drawer";
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Drawer> = {
   title: "Primitives/Drawer",
@@ -163,16 +163,16 @@ export const LeftDrawer: Story = {
         </DrawerHeader>
         <div className="p-4">
           <nav className="space-y-2">
-            <a href="#" className="block p-2 rounded hover:bg-accent text-sm">
+            <a href="/dashboard" className="block p-2 rounded hover:bg-accent text-sm">
               Dashboard
             </a>
-            <a href="#" className="block p-2 rounded hover:bg-accent text-sm">
+            <a href="/projects" className="block p-2 rounded hover:bg-accent text-sm">
               Projects
             </a>
-            <a href="#" className="block p-2 rounded hover:bg-accent text-sm">
+            <a href="/team" className="block p-2 rounded hover:bg-accent text-sm">
               Team
             </a>
-            <a href="#" className="block p-2 rounded hover:bg-accent text-sm">
+            <a href="/settings" className="block p-2 rounded hover:bg-accent text-sm">
               Settings
             </a>
           </nav>
@@ -347,7 +347,7 @@ export const WithScrollingContent: Story = {
         </DrawerHeader>
         <div className="p-4 overflow-y-auto max-h-[300px] text-sm text-muted-foreground">
           {Array.from({ length: 10 }, (_, i) => (
-            <p key={i} className="mb-4">
+            <p key={`terms-${i}`} className="mb-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
               exercitation ullamco laboris.

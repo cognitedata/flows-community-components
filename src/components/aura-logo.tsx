@@ -7,8 +7,8 @@ export function AuraLogo({ className = "", size = 32 }: AuraLogoProps) {
   // Use consistent colors regardless of theme mode
   // Using dark/high contrast theme colors for all modes
   const colors = {
-    background: "var(--aurora-lime-300)",
-    center: "var(--aurora-lime-950)",
+    background: "var(--aurora-300)",
+    center: "var(--aurora-950)",
   };
 
   return (
@@ -19,7 +19,10 @@ export function AuraLogo({ className = "", size = 32 }: AuraLogoProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      role="img"
+      aria-label="Aura logo"
     >
+      <title>Aura</title>
       <rect
         x="0.0844727"
         width="220"

@@ -1,17 +1,17 @@
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
   type ComponentProps,
   type KeyboardEvent,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
-import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/aura/button";
+import { cn } from "@/lib/utils";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;

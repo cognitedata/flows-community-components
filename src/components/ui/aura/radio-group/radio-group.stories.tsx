@@ -1,8 +1,8 @@
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import { RadioGroup, RadioGroupItem } from "./radio-group";
-import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof RadioGroup> = {
   title: "Primitives/Radio Group",
@@ -284,18 +284,21 @@ export const Controlled: Story = {
         </RadioGroup>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setValue("red")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Red
           </button>
           <button
+            type="button"
             onClick={() => setValue("green")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set Green
           </button>
           <button
+            type="button"
             onClick={() => setValue("blue")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

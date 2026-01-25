@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import styleScope from "@/styleScope";
@@ -14,6 +14,22 @@ export function slugToPascalCase(slug: string): string {
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join("");
+}
+
+/**
+ * Safely extracts hostname from a URL string.
+ * Returns the hostname if valid, otherwise returns the original string or "unknown".
+ *
+ * @param url - URL string to extract hostname from (optional)
+ * @returns The hostname, original string, or "unknown" if url is undefined
+ */
+export function getHostname(url: string | undefined): string {
+  if (!url) return "unknown";
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
 }
 
 /**

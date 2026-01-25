@@ -1,7 +1,7 @@
-import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { IconChevronRight } from "@tabler/icons-react";
+import * as React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface NavigationItem {
   href: string;
@@ -46,49 +46,49 @@ const primitivesNavigation: NavigationItem[] = [
     label: "Primitives",
     isSubsection: true,
     children: [
-      { href: "/primitives/components/accordion", label: "Accordion" },
-      { href: "/primitives/components/alert", label: "Alert" },
-      { href: "/primitives/components/alert-dialog", label: "Alert dialog" },
-      { href: "/primitives/components/avatar", label: "Avatar" },
-      { href: "/primitives/components/badge", label: "Badge" },
-      { href: "/primitives/components/banner", label: "Banner" },
-      { href: "/primitives/components/breadcrumb", label: "Breadcrumb" },
-      { href: "/primitives/components/button", label: "Button" },
-      { href: "/primitives/components/calendar", label: "Calendar" },
-      { href: "/primitives/components/card", label: "Card" },
-      { href: "/primitives/components/checkbox", label: "Checkbox" },
-      { href: "/primitives/components/collapsible", label: "Collapsible" },
-      { href: "/primitives/components/combobox", label: "Combobox" },
-      { href: "/primitives/components/command", label: "Command" },
-      { href: "/primitives/components/context-menu", label: "Context menu" },
-      { href: "/primitives/components/date-picker", label: "Date picker" },
-      { href: "/primitives/components/dialog", label: "Dialog" },
-      { href: "/primitives/components/drawer", label: "Drawer" },
-      { href: "/primitives/components/dropdown-menu", label: "Dropdown menu" },
-      { href: "/primitives/components/helper-text", label: "Helper text" },
-      { href: "/primitives/components/hover-card", label: "Hover card" },
-      { href: "/primitives/components/input", label: "Input" },
-      { href: "/primitives/components/kbd", label: "Kbd" },
-      { href: "/primitives/components/label", label: "Label" },
-      { href: "/primitives/components/menubar", label: "Menubar" },
-      { href: "/primitives/components/pagination", label: "Pagination" },
-      { href: "/primitives/components/popover", label: "Popover" },
-      { href: "/primitives/components/progress", label: "Progress" },
-      { href: "/primitives/components/radio-group", label: "Radio group" },
-      { href: "/primitives/components/select", label: "Select" },
-      { href: "/primitives/components/separator", label: "Separator" },
-      { href: "/primitives/components/sidebar", label: "Sidebar" },
-      { href: "/primitives/components/slider", label: "Slider" },
-      { href: "/primitives/components/sonner-toast", label: "Sonner Toast" },
-      { href: "/primitives/components/swap-slot", label: "Swap slot" },
-      { href: "/primitives/components/switch", label: "Switch" },
-      { href: "/primitives/components/table", label: "Table" },
-      { href: "/primitives/components/tabs", label: "Tabs" },
-      { href: "/primitives/components/textarea", label: "Textarea" },
-      { href: "/primitives/components/time-input", label: "Time input" },
-      { href: "/primitives/components/toggle", label: "Toggle" },
-      { href: "/primitives/components/tooltip", label: "Tooltip" },
-      { href: "/primitives/components/topbar", label: "Topbar" },
+      { href: "/primitives/accordion", label: "Accordion" },
+      { href: "/primitives/alert", label: "Alert" },
+      { href: "/primitives/alert-dialog", label: "Alert dialog" },
+      { href: "/primitives/avatar", label: "Avatar" },
+      { href: "/primitives/badge", label: "Badge" },
+      { href: "/primitives/banner", label: "Banner" },
+      { href: "/primitives/breadcrumb", label: "Breadcrumb" },
+      { href: "/primitives/button", label: "Button" },
+      { href: "/primitives/calendar", label: "Calendar" },
+      { href: "/primitives/card", label: "Card" },
+      { href: "/primitives/checkbox", label: "Checkbox" },
+      { href: "/primitives/collapsible", label: "Collapsible" },
+      { href: "/primitives/combobox", label: "Combobox" },
+      { href: "/primitives/command", label: "Command" },
+      { href: "/primitives/context-menu", label: "Context menu" },
+      { href: "/primitives/date-picker", label: "Date picker" },
+      { href: "/primitives/dialog", label: "Dialog" },
+      { href: "/primitives/drawer", label: "Drawer" },
+      { href: "/primitives/dropdown-menu", label: "Dropdown menu" },
+      { href: "/primitives/helper-text", label: "Helper text" },
+      { href: "/primitives/hover-card", label: "Hover card" },
+      { href: "/primitives/input", label: "Input" },
+      { href: "/primitives/kbd", label: "Kbd" },
+      { href: "/primitives/label", label: "Label" },
+      { href: "/primitives/menubar", label: "Menubar" },
+      { href: "/primitives/pagination", label: "Pagination" },
+      { href: "/primitives/popover", label: "Popover" },
+      { href: "/primitives/progress", label: "Progress" },
+      { href: "/primitives/radio-group", label: "Radio group" },
+      { href: "/primitives/select", label: "Select" },
+      { href: "/primitives/separator", label: "Separator" },
+      { href: "/primitives/sidebar", label: "Sidebar" },
+      { href: "/primitives/slider", label: "Slider" },
+      { href: "/primitives/sonner", label: "Sonner" },
+      { href: "/primitives/swap-slot", label: "Swap slot" },
+      { href: "/primitives/switch", label: "Switch" },
+      { href: "/primitives/table", label: "Table" },
+      { href: "/primitives/tabs", label: "Tabs" },
+      { href: "/primitives/textarea", label: "Textarea" },
+      { href: "/primitives/time-input", label: "Time input" },
+      { href: "/primitives/toggle", label: "Toggle" },
+      { href: "/primitives/tooltip", label: "Tooltip" },
+      { href: "/primitives/topbar", label: "Topbar" },
     ],
   },
 ];
@@ -112,22 +112,22 @@ const sandboxNavigation: NavigationItem[] = [
 const aiNavigation: NavigationItem[] = [
   {
     href: "#",
-    label: "Shad CN",
+    label: "AI Chat",
     isSubsection: true,
     children: [
-      { href: "/ai/components/code-block", label: "Code block" },
-      { href: "/ai/components/confirmation", label: "Confirmation" },
-      { href: "/ai/components/conversation", label: "Conversation" },
-      { href: "/ai/components/inline-citation", label: "Inline Citation" },
-      { href: "/ai/components/loader", label: "Loader" },
-      { href: "/ai/components/message", label: "Message" },
-      { href: "/ai/components/prompt-input", label: "Prompt input" },
-      { href: "/ai/components/reasoning", label: "Reasoning" },
-      // { href: '/ai/components/reasoning-original', label: 'Reasoning (Original)' },
-      { href: "/ai/components/shimmer", label: "Shimmer" },
-      { href: "/ai/components/sources", label: "Sources" },
-      { href: "/ai/components/suggestion", label: "Suggestion" },
-      { href: "/ai/components/tool", label: "Tool" },
+      { href: "/ai/code-block", label: "Code block" },
+      { href: "/ai/confirmation", label: "Confirmation" },
+      { href: "/ai/conversation", label: "Conversation" },
+      { href: "/ai/inline-citation", label: "Inline Citation" },
+      { href: "/ai/loader", label: "Loader" },
+      { href: "/ai/message", label: "Message" },
+      { href: "/ai/prompt-input", label: "Prompt input" },
+      { href: "/ai/reasoning", label: "Reasoning" },
+      // { href: '/ai/reasoning-original', label: 'Reasoning (Original)' },
+      { href: "/ai/shimmer", label: "Shimmer" },
+      { href: "/ai/sources", label: "Sources" },
+      { href: "/ai/suggestion", label: "Suggestion" },
+      { href: "/ai/tool", label: "Tool" },
     ],
   },
   // {
@@ -154,7 +154,6 @@ const aiNavigation: NavigationItem[] = [
   // }
 ];
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const navigationMap = {
   docs: docsNavigation,
   overview: overviewNavigation, // Keep for backward compatibility
@@ -179,6 +178,7 @@ function NavigationGroup({
     return (
       <li className="space-y-1">
         <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center justify-between w-full text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-1.5 pr-1.5 hover:text-foreground transition-colors"
         >
@@ -187,8 +187,8 @@ function NavigationGroup({
         </button>
         {isOpen && item.children && (
           <ul className="space-y-0.5 pl-2 border-l border-border">
-            {item.children.map((child, index) => (
-              <NavigationGroup key={index} item={child} level={level + 1} />
+            {item.children.map((child) => (
+              <NavigationGroup key={child.href} item={child} level={level + 1} />
             ))}
           </ul>
         )}
@@ -218,15 +218,14 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
   return (
     <nav className={cn("", className)}>
       <ul className="space-y-4">
-        {items.map((item, index) => (
-          <NavigationGroup key={index} item={item} />
+        {items.map((item) => (
+          <NavigationGroup key={item.href || item.label} item={item} />
         ))}
       </ul>
     </nav>
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function getSideNavigationForSection(section: string): NavigationItem[] {
   return navigationMap[section as keyof typeof navigationMap] || [];
 }

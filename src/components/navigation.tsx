@@ -1,11 +1,11 @@
-import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useTheme } from "next-themes";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/aura/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/aura/sheet";
+import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
+import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import * as React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { href: "/primitives", label: "Primitives" },
@@ -52,12 +52,15 @@ export function Navigation() {
   const location = useLocation();
   const pathname = location.pathname;
 
+  // Get base path for assets (handles GitHub Pages subdirectory)
+  const logoPath = `${import.meta.env.BASE_URL}/aura-logo.png`;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center space-x-3">
-            <img src="/aura-logo.png" alt="Aura" width={32} height={32} />
+            <img src={logoPath} alt="Aura" width={32} height={32} />
           </Link>
 
           {/* Desktop Navigation */}

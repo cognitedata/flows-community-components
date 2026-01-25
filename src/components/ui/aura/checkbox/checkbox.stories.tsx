@@ -1,8 +1,8 @@
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import { Checkbox } from "./checkbox";
-import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Checkbox> = {
   title: "Primitives/Checkbox",
@@ -205,18 +205,21 @@ export const Controlled: Story = {
         </div>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setChecked(true)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Check
           </button>
           <button
+            type="button"
             onClick={() => setChecked(false)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Uncheck
           </button>
           <button
+            type="button"
             onClick={() => setChecked(!checked)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
@@ -269,18 +272,21 @@ export const Indeterminate: Story = {
         </div>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setChecked(true)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             All
           </button>
           <button
+            type="button"
             onClick={() => setChecked(false)}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             None
           </button>
           <button
+            type="button"
             onClick={() => setChecked("indeterminate")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

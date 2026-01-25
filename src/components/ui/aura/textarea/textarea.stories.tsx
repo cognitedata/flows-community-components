@@ -1,8 +1,8 @@
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
 import { Textarea } from "./textarea";
-import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Textarea> = {
   title: "Primitives/Textarea",
@@ -266,12 +266,14 @@ export const Controlled: Story = {
         </div>
         <div className="flex gap-2">
           <button
+            type="button"
             onClick={() => setValue("")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Clear
           </button>
           <button
+            type="button"
             onClick={() => setValue("Hello, World!")}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >

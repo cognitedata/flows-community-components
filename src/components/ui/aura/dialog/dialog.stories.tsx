@@ -1,19 +1,19 @@
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor, expect } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogClose,
 } from "./dialog";
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
 
 const meta: Meta<typeof Dialog> = {
   title: "Primitives/Dialog",
@@ -253,7 +253,7 @@ export const ScrollingContent: Story = {
         </DialogHeader>
         <div className="space-y-4 py-4 text-sm text-muted-foreground">
           {Array.from({ length: 10 }, (_, i) => (
-            <p key={i}>
+            <p key={`terms-${i}`}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
               exercitation ullamco laboris.
