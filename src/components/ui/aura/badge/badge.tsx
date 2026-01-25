@@ -33,7 +33,7 @@ const badgeVariants = cva(
       },
       size: {
         default: "px-1",
-        icon: "p-0.75 rounded-md",
+        icon: "h-5 px-1.5 rounded-md",
       },
       outline: {
         true: "border-current px-0.75",
