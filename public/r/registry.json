@@ -164,14 +164,44 @@
       "name": "card",
       "type": "registry:component",
       "title": "card",
-      "description": "",
+      "description": "* CardActions provides a dropdown menu in the card header's top-right corner.",
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
       "registryDependencies": [
-        "@aura/css"
+        "@aura/css",
+        "@aura/button",
+        "@aura/dropdown-menu"
       ],
       "files": [
         {
           "path": "src/components/ui/aura/card/card.tsx",
           "target": "src/components/ui/aura/card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "title": "dropdown-menu",
+      "description": "",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
+          "target": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         },
         {
@@ -808,31 +838,6 @@
         {
           "path": "src/components/ui/aura/drawer/drawer.tsx",
           "target": "src/components/ui/aura/drawer.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "dropdown-menu",
-      "type": "registry:component",
-      "title": "dropdown-menu",
-      "description": "",
-      "dependencies": [
-        "@radix-ui/react-dropdown-menu",
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
-          "target": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         },
         {
