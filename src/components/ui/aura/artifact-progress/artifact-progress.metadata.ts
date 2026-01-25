@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '@/lib/component-examples';
+import type { ComponentMeta } from "@/lib/component-examples";
 
 /**
  * Artifact - Progress Component Metadata
@@ -7,26 +7,26 @@ import type { ComponentMeta } from '@/lib/component-examples';
  * component documentation pages and provide context for LLMs.
  */
 export const ArtifactProgressMetadata: ComponentMeta = {
-  name: 'ArtifactProgress',
+  name: "ArtifactProgress",
 
   description:
-    'A compositional progress artifact widget component that displays task completion progress with header and footer context.',
+    "A compositional progress artifact widget component that displays task completion progress with header and footer context.",
 
   llmUsage:
-    'When showing progress for tasks or workflows, compose `<ArtifactProgress>` with `<ArtifactProgressHeader>`, `<ArtifactProgressTitle>`, `<ArtifactProgressDescription>`, `<ArtifactProgressContent>`, and `<ArtifactProgressFooter>` subcomponents. All subcomponents have sensible default styling.',
+    "When showing progress for tasks or workflows, compose `<ArtifactProgress>` with `<ArtifactProgressHeader>`, `<ArtifactProgressTitle>`, `<ArtifactProgressDescription>`, `<ArtifactProgressBar>`, and `<ArtifactProgressFooter>` subcomponents. All subcomponents have sensible default styling.",
 
-  importPath: '@/components/ui/aura/artifact-progress/artifact-progress',
+  importPath: "@/components/ui/aura/artifact-progress/artifact-progress",
 
   codeExamples: [
     {
-      title: 'Basic Progress Artifact',
-      description: 'A progress widget showing task completion with header and footer.',
+      title: "Basic Progress Artifact",
+      description: "A progress widget showing task completion with header and footer.",
       code: `import {
   ArtifactProgress,
   ArtifactProgressHeader,
   ArtifactProgressTitle,
   ArtifactProgressDescription,
-  ArtifactProgressContent,
+  ArtifactProgressBar,
   ArtifactProgressFooter,
 } from "@/components/ui/aura/artifact-progress/artifact-progress"
 
@@ -39,7 +39,7 @@ export function BasicDemo() {
           8 of 12 tasks complete
         </ArtifactProgressDescription>
       </ArtifactProgressHeader>
-      <ArtifactProgressContent value={32} aria-label="Task completion progress" />
+      <ArtifactProgressBar value={32} aria-label="Task completion progress" />
       <ArtifactProgressFooter>
         On track for completion by Friday
       </ArtifactProgressFooter>
@@ -48,14 +48,14 @@ export function BasicDemo() {
 }`,
     },
     {
-      title: 'Custom Styling',
-      description: 'Override default styles with custom classes.',
+      title: "Custom Styling",
+      description: "Override default styles with custom classes.",
       code: `import {
   ArtifactProgress,
   ArtifactProgressHeader,
   ArtifactProgressTitle,
   ArtifactProgressDescription,
-  ArtifactProgressContent,
+  ArtifactProgressBar,
   ArtifactProgressFooter,
 } from "@/components/ui/aura/artifact-progress/artifact-progress"
 
@@ -70,7 +70,7 @@ export function CustomStyleDemo() {
           Custom description styling
         </ArtifactProgressDescription>
       </ArtifactProgressHeader>
-      <ArtifactProgressContent value={75} aria-label="Custom task progress" />
+      <ArtifactProgressBar value={75} aria-label="Custom task progress" />
       <ArtifactProgressFooter>Almost complete!</ArtifactProgressFooter>
     </ArtifactProgress>
   )

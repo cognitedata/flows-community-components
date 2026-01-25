@@ -10,7 +10,7 @@
  *   ArtifactProgressHeader,
  *   ArtifactProgressTitle,
  *   ArtifactProgressDescription,
- *   ArtifactProgressContent,
+ *   ArtifactProgressBar,
  *   ArtifactProgressFooter,
  * } from '@/components/ui/aura/artifact-progress';
  *
@@ -19,7 +19,7 @@
  *     <ArtifactProgressTitle>Progress title</ArtifactProgressTitle>
  *     <ArtifactProgressDescription>8 of 12 tasks complete</ArtifactProgressDescription>
  *   </ArtifactProgressHeader>
- *   <ArtifactProgressContent value={32} />
+ *   <ArtifactProgressBar value={32} />
  *   <ArtifactProgressFooter>On track for completion by Friday</ArtifactProgressFooter>
  * </ArtifactProgress>
  */
@@ -28,15 +28,15 @@ export {
   ArtifactProgressHeader,
   ArtifactProgressTitle,
   ArtifactProgressDescription,
-  ArtifactProgressContent,
+  ArtifactProgressBar,
   ArtifactProgressFooter,
-} from './artifact-progress';
+} from "./artifact-progress";
 export type {
   ArtifactProgressProps,
   ArtifactProgressHeaderProps,
   ArtifactProgressTitleProps,
   ArtifactProgressDescriptionProps,
-  ArtifactProgressContentProps,
+  ArtifactProgressBarProps,
   ArtifactProgressFooterProps,
-} from './artifact-progress';
-export { ArtifactProgressMetadata } from './artifact-progress.metadata';
+} from "./artifact-progress";
+export { ArtifactProgressMetadata } from "./artifact-progress.metadata";

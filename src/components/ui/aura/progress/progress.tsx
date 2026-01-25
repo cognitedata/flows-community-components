@@ -3,7 +3,14 @@ import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
-function Progress({ className, value, ...props }: ComponentProps<typeof ProgressPrimitive.Root>) {
+function Progress({
+  className,
+  value,
+  "aria-label": ariaLabel,
+  ...props
+}: ComponentProps<typeof ProgressPrimitive.Root>) {
+  const defaultAriaLabel = `Progress: ${value ?? 0}%`;
+
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
@@ -12,6 +19,7 @@ function Progress({ className, value, ...props }: ComponentProps<typeof Progress
         className
       )}
       value={value}
+      aria-label={ariaLabel ?? defaultAriaLabel}
       {...props}
     >
       <ProgressPrimitive.Indicator
