@@ -67,10 +67,13 @@ Baseline story for automated visual testing.
 - `EdgeCaseMixedContent` - Complex nested children
 - etc.
 
-### 11. Playground (order: last)
+### 11. Playground (order: last) - OPTIONAL
 **Always named `Playground`** - Interactive controls for prop experimentation.
 Uses `render: (args) => <Component {...args} />` for full control interactivity via Storybook controls panel.
 Different from Interactive - this is for exploring all props, not showing realistic usage patterns.
+
+**Skip Playground if:** Component is simple with few props, or compositional (children-based API).
+**Include Playground if:** Component has many variants/props worth experimenting with interactively.
 
 **Example:**
 
@@ -81,7 +84,7 @@ export const Basic: Story = {
   parameters: { order: 1 },
 };
 
-// 2-10. Variants
+// 2-10. Variants (explicit props, NO {...args})
 export const Fjord: Story = {
   render: () => <Badge variant="fjord">Observations</Badge>,
   parameters: { order: 2 },
@@ -119,43 +122,59 @@ export const WithIcon: Story = {
 
 // ... other stories following sequence ...
 
-// Last. Playground
+// Last. Playground (optional - only if component benefits from interactive testing)
 export const Playground: Story = {
-  render: (args) => <Badge {...args} />,
+  render: (args) => <Badge {...args} />, // Only Playground uses {...args}
   args: { variant: "fjord", children: "Badge" },
-  parameters: { order: 99 },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with all props.",
+      },
+    },
+  },
 };
 ```
 
 # Render Functions
 
-**CRITICAL: All stories MUST have explicit render functions**
+**CRITICAL: All stories MUST have explicit render functions with hardcoded props**
 
-- ❌ **Never** use only `args` without a `render` function - this prevents code examples from showing in docs
-- ✅ **Always** include explicit render functions with hardcoded props for clear code examples
-- 🎯 **Exception**: Playground stories can use `render: (args) => <Component {...args} />` for interactivity
+## Example Stories (Basic, Variants, etc.)
+
+- ❌ **Never** use `{...args}` in example stories - it leaks Storybook implementation details into user-facing code examples
+- ✅ **Always** use explicit props: `render: () => <Component prop="value" />`
+- 📋 **Why?** Users copy code from examples. `{...args}` is confusing - they don't know what's in `args`
+- 🎯 **Goal:** Show exactly what props are needed for that use case
+
+## Playground Stories (Interactive Testing)
+
+- ✅ **Only** Playground stories should use `render: (args) => <Component {...args} />`
+- 🎮 **Purpose:** Enable interactive prop experimentation via Storybook Controls panel
+- ⚠️ **Skip Playground if:**
+  - Component has very few props (e.g., only `className`, `value`)
+  - All meaningful combinations already shown in example stories
+  - Component uses compositional patterns (children) rather than props
+  - Not much value in "playing around" with controls
 
 **Examples:**
 
 ```tsx
-// ❌ BAD - No code example shown in docs, no order
+// ❌ BAD - {...args} in example story confuses users
 export const Fjord: Story = {
-  args: {
-    variant: "fjord",
-    children: "Observations",
-  },
+  render: (args) => <Badge {...args}>Observations</Badge>,
+  args: { variant: "fjord" },
+  parameters: { order: 2 },
 };
 
-// ✅ GOOD - Shows explicit code example with order
+// ✅ GOOD - Explicit props show exactly what users need
 export const Fjord: Story = {
   render: () => <Badge variant="fjord">Observations</Badge>,
-  args: {
-    variant: "fjord",
-  },
-  parameters: { order: 1 },
+  parameters: { order: 2 },
 };
 
-// ✅ GOOD - Complex example with multiple props
+// ✅ GOOD - Complex example with explicit props
 export const ErrorBadge: Story = {
   render: () => (
     <Badge variant="error" background={false}>
@@ -163,23 +182,40 @@ export const ErrorBadge: Story = {
       Error
     </Badge>
   ),
-  args: {
-    variant: "error",
-    background: false,
-  },
   parameters: { order: 6 },
 };
 
-// ✅ GOOD - Playground is the exception (always named "Playground", always last)
+// ✅ GOOD - Playground uses {...args} for interactivity (if needed)
 export const Playground: Story = {
   render: (args) => <Badge {...args} />,
   args: {
     variant: "fjord",
     children: "Badge",
   },
-  parameters: { order: 99 }, // Always last
+  parameters: {
+    order: 99, // Always last
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with all props.",
+      },
+    },
+  },
 };
 ```
+
+## When to Skip Playground
+
+Skip the Playground story for:
+
+- **Simple components** with only styling props (Progress, Separator, Shimmer)
+- **Compositional components** where the API is about children, not props (ArtifactProgress)
+- **Components with few meaningful props** where examples already cover everything
+
+Include Playground for:
+
+- **Components with many variants** to explore (Badge, Button, Alert)
+- **Components with interactive props** that benefit from live testing (Select, Input, Switch)
+- **Complex components** with many prop combinations (Dialog, Dropdown, Popover)
 
 # Comprehensive Coverage
 
@@ -195,7 +231,7 @@ Follow the standard story sequence (see Story Ordering section above) and includ
 8. **Accessibility** - ARIA labels, keyboard navigation, screen reader support
 9. **Visual Regression** - Baseline for automated visual testing
 10. **Edge Cases** - Empty states, long content, special characters, constraints
-11. **Playground** - Prop exploration via Storybook controls (always named `Playground`, always last)
+11. **Playground** (optional) - Prop exploration via Storybook controls (always named `Playground`, always last). Skip for simple/compositional components.
 
 # Play Functions
 
