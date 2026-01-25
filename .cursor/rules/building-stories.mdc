@@ -7,6 +7,126 @@ description: Guidelines for writing comprehensive Storybook stories
 
 Use `prompt-input.stories.tsx` as the gold standard for story structure, comprehensiveness, and quality.
 
+# Story Ordering
+
+**CRITICAL: All stories MUST have an order parameter**
+
+The `parameters.order` value controls how stories are displayed as examples on the docs site:
+
+- ✅ **Required** for every story - no exceptions
+- 📊 Start from `1`, increment for each subsequent story
+- 🔢 Lower numbers appear first on the docs site
+- 📝 If adding order to existing stories without it, assign numbers in the order they appear in the file
+
+## Standard Story Sequence
+
+For consistency across all components, organize stories in this order:
+
+### 1. Basic (order: 1)
+The default, most common use case with minimal configuration.
+
+### 2. Variants (order: 2-10+)
+Individual stories for each variant (e.g., `Fjord`, `Aurora`, `Mountain`, `Error`, `Success`).
+One story per variant showing typical usage.
+
+### 3. All Variants Overview (order: 11)
+Single story showing all variants together for quick comparison.
+Place immediately after individual variant stories.
+
+### 4. Composition Patterns (order: 12-20+)
+Stories showing optional compositions:
+- `WithHeader`, `WithFooter`, `WithIcon`, etc.
+- Show enhancements to the basic usage
+- ✅ Use `With*` naming when the feature is optional/additive
+- ❌ Avoid `Without*` naming - it implies the feature is default (which creates confusion)
+- Only include if the feature actually exists in the component
+- Example: If headers are optional, show `Basic` (no header) and `WithHeader` (enhanced)
+
+### 5. Sizing/Styling (order: next)
+Stories demonstrating size variants, outline styles, backgrounds, etc.
+
+### 6. Minimal (order: next)
+Bare minimum example showing the simplest possible usage.
+Only include if meaningfully different from Basic.
+
+### 7. Interactive (order: next)
+Complex stateful examples with `useState`, real-world scenarios, user interactions.
+Shows how to actually use the component in practice (forms, toggles, dynamic content, etc.).
+
+### 8. Accessibility (order: next)
+ARIA labels, keyboard navigation, screen reader support examples.
+
+### 9. Visual Regression (order: next)
+Baseline story for automated visual testing.
+
+### 10. Edge Cases (order: next+)
+- `EdgeCaseEmpty` - Empty content
+- `EdgeCaseLongText` - Overflow behavior
+- `EdgeCaseSpecialCharacters` - Special chars, emojis, HTML
+- `EdgeCaseIconOnly` - Icon-only with accessibility
+- `EdgeCaseMixedContent` - Complex nested children
+- etc.
+
+### 11. Playground (order: last)
+**Always named `Playground`** - Interactive controls for prop experimentation.
+Uses `render: (args) => <Component {...args} />` for full control interactivity via Storybook controls panel.
+Different from Interactive - this is for exploring all props, not showing realistic usage patterns.
+
+**Example:**
+
+```tsx
+// 1. Basic
+export const Basic: Story = {
+  render: () => <Badge variant="default">Label</Badge>,
+  parameters: { order: 1 },
+};
+
+// 2-10. Variants
+export const Fjord: Story = {
+  render: () => <Badge variant="fjord">Observations</Badge>,
+  parameters: { order: 2 },
+};
+
+export const Aurora: Story = {
+  render: () => <Badge variant="aurora">Troubleshooting</Badge>,
+  parameters: { order: 3 },
+};
+
+// ... more variants ...
+
+// 3. All Variants (after individual variants)
+export const AllVariants: Story = {
+  render: () => (
+    <div className="flex gap-2">
+      <Badge variant="fjord">Fjord</Badge>
+      <Badge variant="aurora">Aurora</Badge>
+      <Badge variant="mountain">Mountain</Badge>
+    </div>
+  ),
+  parameters: { order: 11 },
+};
+
+// 4. Composition Patterns
+export const WithIcon: Story = {
+  render: () => (
+    <Badge variant="fjord">
+      <IconCheck className="size-3" />
+      Complete
+    </Badge>
+  ),
+  parameters: { order: 12 },
+};
+
+// ... other stories following sequence ...
+
+// Last. Playground
+export const Playground: Story = {
+  render: (args) => <Badge {...args} />,
+  args: { variant: "fjord", children: "Badge" },
+  parameters: { order: 99 },
+};
+```
+
 # Render Functions
 
 **CRITICAL: All stories MUST have explicit render functions**
@@ -18,7 +138,7 @@ Use `prompt-input.stories.tsx` as the gold standard for story structure, compreh
 **Examples:**
 
 ```tsx
-// ❌ BAD - No code example shown in docs
+// ❌ BAD - No code example shown in docs, no order
 export const Fjord: Story = {
   args: {
     variant: "fjord",
@@ -26,7 +146,7 @@ export const Fjord: Story = {
   },
 };
 
-// ✅ GOOD - Shows explicit code example
+// ✅ GOOD - Shows explicit code example with order
 export const Fjord: Story = {
   render: () => <Badge variant="fjord">Observations</Badge>,
   args: {
@@ -50,33 +170,32 @@ export const ErrorBadge: Story = {
   parameters: { order: 6 },
 };
 
-// ✅ GOOD - Playground is the exception
+// ✅ GOOD - Playground is the exception (always named "Playground", always last)
 export const Playground: Story = {
   render: (args) => <Badge {...args} />,
   args: {
     variant: "fjord",
     children: "Badge",
   },
-  parameters: { order: 15 },
+  parameters: { order: 99 }, // Always last
 };
 ```
 
-# Story Ordering
-
-- Add `parameters.order` to every story for explicit display order in docs
-- Start from 1, increment for each story
-- Lower numbers appear first
-
 # Comprehensive Coverage
 
-Include these story types:
+Follow the standard story sequence (see Story Ordering section above) and include:
 
-1. **Variant Examples** - One story per variant showing typical usage
-2. **Interactive Examples** - Complex examples with state, user interaction
-3. **Edge Cases** - Empty states, long content, special characters, constraints
-4. **Accessibility** - ARIA labels, keyboard navigation, screen reader support
-5. **Visual Regression** - Baseline story showing all variants together
-6. **Playground** - Interactive controls for experimentation
+1. **Basic** - Default use case with minimal configuration
+2. **Variants** - One story per variant (colors, styles, states)
+3. **All Variants** - Side-by-side comparison of all variants
+4. **Composition Patterns** - Optional enhancements (WithHeader, WithIcon, etc.)
+5. **Sizing/Styling** - Size variants, outlines, backgrounds
+6. **Minimal** - Bare minimum usage (only if different from Basic)
+7. **Interactive** - Stateful examples with realistic usage patterns
+8. **Accessibility** - ARIA labels, keyboard navigation, screen reader support
+9. **Visual Regression** - Baseline for automated visual testing
+10. **Edge Cases** - Empty states, long content, special characters, constraints
+11. **Playground** - Prop exploration via Storybook controls (always named `Playground`, always last)
 
 # Play Functions
 
@@ -84,6 +203,34 @@ Include these story types:
 - Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`
 - Test rendering, interactions, accessibility, keyboard navigation
 - Verify DOM structure, classes, attributes, content
+
+# Styling in Stories
+
+**No arbitrary Tailwind values in story examples:**
+
+Stories demonstrate best practices, so always use Tailwind's design tokens and spacing scale:
+
+```tsx
+// ✅ GOOD - Use Tailwind spacing scale
+<div className="w-90 gap-2 p-4 text-sm leading-4.5">
+
+// ❌ BAD - Arbitrary values
+<div className="w-[362px] gap-[8px] p-[16px] text-[14px] leading-[18px]">
+
+// ✅ GOOD - Use Tailwind width utilities
+<ArtifactList className="w-100">
+
+// ❌ BAD - Unnecessary precision
+<ArtifactList className="w-[398px]">
+```
+
+**Common conversions:**
+- `w-[360px]` → `w-90` (90 × 4px = 360px)
+- `w-[400px]` → `w-100` (100 × 4px = 400px)
+- `gap-[8px]` → `gap-2` (2 × 4px = 8px)
+- `p-[16px]` → `p-4` (4 × 4px = 16px)
+
+If you need a value not in Tailwind's scale, that's a signal to add it to the design system, not use an arbitrary value.
 
 # argTypes
 
@@ -98,9 +245,11 @@ Include descriptions and control types for all props.
 
 # Parameters
 
+Every story must include parameters with an order value:
+
 ```tsx
 parameters: {
-  order: 1,
+  order: 1, // REQUIRED - controls display order on docs site
   docs: {
     description: {
       story: "Clear description of what this story demonstrates"
@@ -108,4 +257,6 @@ parameters: {
   }
 }
 ```
+
+The `order` parameter determines the sequence in which examples appear on the documentation site. This ensures a logical, intentional flow for users browsing component examples.
 
