@@ -1,10 +1,18 @@
-import type { ComponentProps } from "react";
+import { IconDotsVertical } from "@tabler/icons-react";
+import { type ComponentProps, forwardRef } from "react";
 
+import { Button } from "@/components/ui/aura/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/aura/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-function Card({ className, ...props }: ComponentProps<"div">) {
+const Card = forwardRef<HTMLDivElement, ComponentProps<"div">>(({ className, ...props }, ref) => {
   return (
     <div
+      ref={ref}
       data-slot="card"
       className={cn(
         "bg-card text-card-foreground flex flex-col rounded-lg hover:bg-accent",
@@ -13,57 +21,101 @@ function Card({ className, ...props }: ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
+Card.displayName = "Card";
 
-function CardHeader({ className, ...props }: ComponentProps<"div">) {
+const CardHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card-header"
+        className={cn(
+          "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 pt-4 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+CardHeader.displayName = "CardHeader";
+
+const CardTitle = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card-title"
+        className={cn("tracking-tightest text-foreground font-semibold text-lg", className)}
+        {...props}
+      />
+    );
+  }
+);
+CardTitle.displayName = "CardTitle";
+
+const CardDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card-description"
+        className={cn("text-muted-foreground text-sm", className)}
+        {...props}
+      />
+    );
+  }
+);
+CardDescription.displayName = "CardDescription";
+
+/**
+ * CardActions provides a dropdown menu in the card header's top-right corner.
+ * Pass DropdownMenuItem components as children to populate the menu.
+ */
+const CardActions = forwardRef<
+  HTMLButtonElement,
+  ComponentProps<typeof DropdownMenu> & {
+    align?: "start" | "center" | "end";
+  }
+>(({ children, align = "end", ...props }, ref) => {
   return (
     <div
-      data-slot="card-header"
-      className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 pt-4 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-        className
-      )}
-      {...props}
-    />
+      data-slot="card-actions"
+      className="col-start-2 row-span-2 row-start-1 self-start justify-self-end"
+    >
+      <DropdownMenu {...props}>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon-sm" ref={ref}>
+            <IconDotsVertical />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align={align}>{children}</DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
-}
+});
+CardActions.displayName = "CardActions";
 
-function CardTitle({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-title"
-      className={cn("tracking-tightest text-foreground font-semibold text-lg", className)}
-      {...props}
-    />
-  );
-}
+const CardContent = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return <div ref={ref} data-slot="card-content" className={cn("p-4", className)} {...props} />;
+  }
+);
+CardContent.displayName = "CardContent";
 
-function CardDescription({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-description"
-      className={cn("text-muted-foreground text-sm", className)}
-      {...props}
-    />
-  );
-}
+const CardFooter = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="card-footer"
+        className={cn("flex px-4 pb-4 ", className)}
+        {...props}
+      />
+    );
+  }
+);
+CardFooter.displayName = "CardFooter";
 
-function CardAction({ className, ...props }: ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn("col-start-2 row-span-2 row-start-1 self-start justify-self-end", className)}
-      {...props}
-    />
-  );
-}
-
-function CardContent({ className, ...props }: ComponentProps<"div">) {
-  return <div data-slot="card-content" className={cn("p-4", className)} {...props} />;
-}
-
-function CardFooter({ className, ...props }: ComponentProps<"div">) {
-  return <div data-slot="card-footer" className={cn("flex px-4 pb-4 ", className)} {...props} />;
-}
-
-export { Card, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent };
+export { Card, CardHeader, CardFooter, CardTitle, CardActions, CardDescription, CardContent };

@@ -1,14 +1,18 @@
 /**
  * Card Component
  *
- * A flexible card layout with header, content, action, and footer slots.
+ * A flexible card layout with header, content, actions dropdown, and footer slots.
  *
  * @example
- * import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/aura/card';
+ * import { Card, CardHeader, CardTitle, CardActions, CardContent } from '@/components/ui/aura/card';
+ * import { DropdownMenuItem } from '@/components/ui/aura/dropdown-menu';
  *
  * <Card>
  *   <CardHeader>
  *     <CardTitle>Title</CardTitle>
+ *     <CardActions>
+ *       <DropdownMenuItem>Edit</DropdownMenuItem>
+ *     </CardActions>
  *   </CardHeader>
  *   <CardContent>Content here</CardContent>
  * </Card>
@@ -18,7 +22,7 @@ export {
   CardHeader,
   CardFooter,
   CardTitle,
-  CardAction,
+  CardActions,
   CardDescription,
   CardContent,
 } from "./card";
