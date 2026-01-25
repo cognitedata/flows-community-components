@@ -7,39 +7,64 @@ import {
 } from "@/components/ui/aura/card";
 import { Progress } from "@/components/ui/aura/progress";
 import { cn } from "@/lib/utils";
-import type { ComponentProps } from "react";
+import { type ComponentProps, forwardRef } from "react";
 
-export type ArtifactProgressProps = ComponentProps<typeof Card>;
+type ArtifactProgressProps = ComponentProps<typeof Card>;
 
-export const ArtifactProgress = ({ className, ...props }: ArtifactProgressProps) => {
-  return <Card className={cn(className)} {...props} />;
-};
+const ArtifactProgress = forwardRef<React.ElementRef<typeof Card>, ArtifactProgressProps>(
+  ({ className, ...props }, ref) => {
+    return <Card ref={ref} data-slot="artifact-progress" className={cn(className)} {...props} />;
+  }
+);
 
-export type ArtifactProgressHeaderProps = ComponentProps<typeof CardHeader>;
+ArtifactProgress.displayName = "ArtifactProgress";
 
-export const ArtifactProgressHeader = ({ className, ...props }: ArtifactProgressHeaderProps) => {
-  return <CardHeader className={cn(className)} {...props} />;
-};
+type ArtifactProgressHeaderProps = ComponentProps<typeof CardHeader>;
 
-export type ArtifactProgressTitleProps = ComponentProps<typeof CardTitle>;
+const ArtifactProgressHeader = forwardRef<
+  React.ElementRef<typeof CardHeader>,
+  ArtifactProgressHeaderProps
+>(({ className, ...props }, ref) => {
+  return (
+    <CardHeader
+      ref={ref}
+      data-slot="artifact-progress-header"
+      className={cn(className)}
+      {...props}
+    />
+  );
+});
 
-export const ArtifactProgressTitle = ({ className, ...props }: ArtifactProgressTitleProps) => {
+ArtifactProgressHeader.displayName = "ArtifactProgressHeader";
+
+type ArtifactProgressTitleProps = ComponentProps<typeof CardTitle>;
+
+const ArtifactProgressTitle = forwardRef<
+  React.ElementRef<typeof CardTitle>,
+  ArtifactProgressTitleProps
+>(({ className, ...props }, ref) => {
   return (
     <CardTitle
+      ref={ref}
+      data-slot="artifact-progress-title"
       className={cn("text-base font-medium tracking-tighter mb-0.5", className)}
       {...props}
     />
   );
-};
+});
 
-export type ArtifactProgressDescriptionProps = ComponentProps<typeof CardDescription>;
+ArtifactProgressTitle.displayName = "ArtifactProgressTitle";
 
-export const ArtifactProgressDescription = ({
-  className,
-  ...props
-}: ArtifactProgressDescriptionProps) => {
+type ArtifactProgressDescriptionProps = ComponentProps<typeof CardDescription>;
+
+const ArtifactProgressDescription = forwardRef<
+  React.ElementRef<typeof CardDescription>,
+  ArtifactProgressDescriptionProps
+>(({ className, ...props }, ref) => {
   return (
     <CardDescription
+      ref={ref}
+      data-slot="artifact-progress-description"
       className={cn(
         "text-sm font-medium leading-4.5 tracking-tight text-muted-foreground",
         className
@@ -47,23 +72,54 @@ export const ArtifactProgressDescription = ({
       {...props}
     />
   );
-};
+});
 
-export type ArtifactProgressBarProps = ComponentProps<typeof Progress> & {
+ArtifactProgressDescription.displayName = "ArtifactProgressDescription";
+
+type ArtifactProgressBarProps = ComponentProps<typeof Progress> & {
   className?: string;
 };
 
-export const ArtifactProgressBar = ({ value, className, ...props }: ArtifactProgressBarProps) => {
+const ArtifactProgressBar = forwardRef<HTMLDivElement, ArtifactProgressBarProps>(
+  ({ value, className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="artifact-progress-bar"
+        className={cn("px-4 py-4.5 w-full flex items-center justify-between gap-2", className)}
+      >
+        <Progress value={value} {...props} />
+        <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">{value}%</span>
+      </div>
+    );
+  }
+);
+
+ArtifactProgressBar.displayName = "ArtifactProgressBar";
+
+type ArtifactProgressFooterProps = ComponentProps<typeof CardFooter>;
+
+const ArtifactProgressFooter = forwardRef<
+  React.ElementRef<typeof CardFooter>,
+  ArtifactProgressFooterProps
+>(({ className, ...props }, ref) => {
   return (
-    <div className={cn("px-4 py-4.5 w-full flex items-center justify-between gap-2", className)}>
-      <Progress value={value} {...props} />
-      <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">{value}%</span>
-    </div>
+    <CardFooter
+      ref={ref}
+      data-slot="artifact-progress-footer"
+      className={cn("text-sm", className)}
+      {...props}
+    />
   );
-};
+});
 
-export type ArtifactProgressFooterProps = ComponentProps<typeof CardFooter>;
+ArtifactProgressFooter.displayName = "ArtifactProgressFooter";
 
-export const ArtifactProgressFooter = ({ className, ...props }: ArtifactProgressFooterProps) => {
-  return <CardFooter className={cn("text-sm", className)} {...props} />;
+export {
+  ArtifactProgress,
+  ArtifactProgressBar,
+  ArtifactProgressDescription,
+  ArtifactProgressFooter,
+  ArtifactProgressHeader,
+  ArtifactProgressTitle,
 };

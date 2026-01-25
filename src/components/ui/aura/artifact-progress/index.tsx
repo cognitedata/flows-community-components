@@ -31,12 +31,4 @@ export {
   ArtifactProgressBar,
   ArtifactProgressFooter,
 } from "./artifact-progress";
-export type {
-  ArtifactProgressProps,
-  ArtifactProgressHeaderProps,
-  ArtifactProgressTitleProps,
-  ArtifactProgressDescriptionProps,
-  ArtifactProgressBarProps,
-  ArtifactProgressFooterProps,
-} from "./artifact-progress";
 export { ArtifactProgressMetadata } from "./artifact-progress.metadata";
