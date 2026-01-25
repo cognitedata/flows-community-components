@@ -189,21 +189,12 @@ function NavigationGroup({
           className="flex items-center justify-between w-full text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground py-1.5 pr-1.5 hover:text-foreground transition-colors"
         >
           {item.label}
-          <IconChevronRight
-            className={cn(
-              "h-3 w-3 transition-transform",
-              isOpen && "rotate-90",
-            )}
-          />
+          <IconChevronRight className={cn("h-3 w-3 transition-transform", isOpen && "rotate-90")} />
         </button>
         {isOpen && item.children && (
           <ul className="space-y-0.5 pl-2 border-l border-border">
             {item.children.map((child) => (
-              <NavigationGroup
-                key={child.href}
-                item={child}
-                level={level + 1}
-              />
+              <NavigationGroup key={child.href} item={child} level={level + 1} />
             ))}
           </ul>
         )}
@@ -220,9 +211,7 @@ function NavigationGroup({
         className={cn(
           "inline-flex text-xs py-1 px-2 rounded-sm transition-colors",
           "hover:bg-accent hover:text-accent-foreground",
-          isActive
-            ? "bg-accent text-accent-foreground font-medium"
-            : "text-muted-foreground",
+          isActive ? "bg-accent text-accent-foreground font-medium" : "text-muted-foreground"
         )}
       >
         {item.label}

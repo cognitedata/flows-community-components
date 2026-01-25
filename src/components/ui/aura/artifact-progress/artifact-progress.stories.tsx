@@ -55,7 +55,8 @@ export const Basic: Story = {
     order: 1,
     docs: {
       description: {
-        story: "Basic progress artifact showing task completion with header and footer. Uses auto-generated aria-label ('Progress: 32%') since the visible title and description already provide context.",
+        story:
+          "Basic progress artifact showing task completion with header and footer. Uses auto-generated aria-label ('Progress: 32%') since the visible title and description already provide context.",
       },
     },
   },
@@ -144,7 +145,8 @@ export const CustomAriaLabel: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Demonstrates when and how to override the auto-generated aria-label to provide more specific context about what's being tracked.",
+        story:
+          "Demonstrates when and how to override the auto-generated aria-label to provide more specific context about what's being tracked.",
       },
     },
   },
@@ -154,11 +156,11 @@ export const CustomAriaLabel: Story = {
     // Check both examples are rendered
     await expect(canvas.getByText("Auto-generated label")).toBeInTheDocument();
     await expect(canvas.getByText("Custom label")).toBeInTheDocument();
-    
+
     // Check that both progress bars are rendered
     const progressBars = canvas.getAllByRole("progressbar");
     await expect(progressBars).toHaveLength(2);
-    
+
     // Check the custom aria-label
     await expect(progressBars[1]).toHaveAccessibleName("Document upload progress: 60%");
   },
@@ -167,9 +169,7 @@ export const CustomAriaLabel: Story = {
       <ArtifactProgress>
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Auto-generated label</ArtifactProgressTitle>
-          <ArtifactProgressDescription>
-            Uses default aria-label
-          </ArtifactProgressDescription>
+          <ArtifactProgressDescription>Uses default aria-label</ArtifactProgressDescription>
         </ArtifactProgressHeader>
         <ArtifactProgressBar value={60} />
         <ArtifactProgressFooter className="text-xs text-muted-foreground">
@@ -180,9 +180,7 @@ export const CustomAriaLabel: Story = {
       <ArtifactProgress>
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Custom label</ArtifactProgressTitle>
-          <ArtifactProgressDescription>
-            Provides specific context
-          </ArtifactProgressDescription>
+          <ArtifactProgressDescription>Provides specific context</ArtifactProgressDescription>
         </ArtifactProgressHeader>
         <ArtifactProgressBar value={60} aria-label="Document upload progress: 60%" />
         <ArtifactProgressFooter className="text-xs text-muted-foreground">
@@ -202,7 +200,8 @@ export const ProgressValues: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Shows different progress percentages from 0% to 100%. Uses auto-generated aria-labels since each artifact has descriptive visible titles and descriptions.",
+        story:
+          "Shows different progress percentages from 0% to 100%. Uses auto-generated aria-labels since each artifact has descriptive visible titles and descriptions.",
       },
     },
   },
@@ -274,7 +273,8 @@ export const WithoutFooter: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Progress artifact without a footer section. Uses auto-generated aria-label since the visible title provides sufficient context.",
+        story:
+          "Progress artifact without a footer section. Uses auto-generated aria-label since the visible title provides sufficient context.",
       },
     },
   },
@@ -315,7 +315,8 @@ export const WithoutHeader: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Minimal progress artifact with just the progress bar and footer. Uses a custom aria-label ('File upload progress: 67%') since there's no header/title to provide context.",
+        story:
+          "Minimal progress artifact with just the progress bar and footer. Uses a custom aria-label ('File upload progress: 67%') since there's no header/title to provide context.",
       },
     },
   },
@@ -352,7 +353,8 @@ export const Minimal: Story = {
     order: 7,
     docs: {
       description: {
-        story: "Simplest form with only the progress bar. Uses auto-generated aria-label ('Progress: 55%') for basic accessibility.",
+        story:
+          "Simplest form with only the progress bar. Uses auto-generated aria-label ('Progress: 55%') for basic accessibility.",
       },
     },
   },
@@ -455,7 +457,8 @@ export const CustomPadding: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Demonstrates custom padding on the progress bar. Uses auto-generated aria-label since the visible title provides context.",
+        story:
+          "Demonstrates custom padding on the progress bar. Uses auto-generated aria-label since the visible title provides context.",
       },
     },
   },
