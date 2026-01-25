@@ -1,12 +1,14 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
-import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
+import {
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/aura/dropdown-menu";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import {
   IconChartLine,
   IconCube,
-  IconDotsVertical,
   IconGauge,
   IconReportAnalytics,
 } from "@tabler/icons-react";
@@ -26,7 +28,7 @@ const meta: Meta<typeof Card> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <div className="p-8">
+      <div className="flex justify-center w-full p-8">
         <Story />
       </div>
     ),
@@ -82,12 +84,6 @@ export const Basic: Story = {
       <CardHeader>
         <CardTitle>21PT1019</CardTitle>
         <CardDescription>Pressure over last 24 hours</CardDescription>
-        <CardActions>
-          <DropdownMenuItem>View details</DropdownMenuItem>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </CardActions>
       </CardHeader>
       <CardContent />
       <CardFooter className="flex gap-2">
@@ -114,19 +110,15 @@ export const WithTextFooter: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Card with text content displayed in the footer instead of badges.",
+        story:
+          "Card with text content displayed in the footer instead of badges.",
       },
     },
   },
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>21PT1019</CardTitle>
-          <Button variant="ghost" size="icon-sm">
-            <IconDotsVertical />
-          </Button>
-        </div>
+        <CardTitle>21PT1019</CardTitle>
         <CardDescription>Pressure over last 24 hours</CardDescription>
       </CardHeader>
       <CardContent />
@@ -134,7 +126,9 @@ export const WithTextFooter: Story = {
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">
+          No alerts
+        </div>
       </CardFooter>
     </Card>
   ),
@@ -157,19 +151,14 @@ export const WithBadgeInHeader: Story = {
   render: () => (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1.5 items-baseline">
-            <Badge variant="mountain">
-              <IconCube size={12} />
-            </Badge>
-            <div>
-              <CardTitle>Skarv</CardTitle>
-              <CardDescription>Point cloud scene</CardDescription>
-            </div>
+        <div className="flex gap-1.5 items-baseline">
+          <Badge variant="mountain">
+            <IconCube size={12} />
+          </Badge>
+          <div>
+            <CardTitle>Skarv</CardTitle>
+            <CardDescription>Point cloud scene</CardDescription>
           </div>
-          <Button variant="ghost" size="icon-sm">
-            <IconDotsVertical />
-          </Button>
         </div>
       </CardHeader>
       <CardContent className="">
@@ -219,13 +208,17 @@ export const WithHover: Story = {
         </div>
       </CardHeader>
       <CardContent className="gap-2">
-        <div className="text-base text-secondary-foreground tracking-tightest">Description</div>
+        <div className="text-base text-secondary-foreground tracking-tightest">
+          Description
+        </div>
       </CardContent>
       <CardFooter className="gap-1 flex-col">
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">
+          No alerts
+        </div>
       </CardFooter>
     </Card>
   ),
@@ -274,7 +267,9 @@ export const WithActions: Story = {
     <Card className="w-96">
       <CardHeader>
         <CardTitle>Card with Actions</CardTitle>
-        <CardDescription>This card has a dropdown menu with actions</CardDescription>
+        <CardDescription>
+          This card has a dropdown menu with actions
+        </CardDescription>
         <CardActions>
           <DropdownMenuItem>
             <IconCube className="size-4" />
@@ -313,7 +308,9 @@ export const WithCustomHeaderElement: Story = {
       <CardHeader className="grid grid-cols-[1fr_auto] gap-2">
         <div>
           <CardTitle>Custom Header Element</CardTitle>
-          <CardDescription>Badge positioned in top-right instead of dropdown</CardDescription>
+          <CardDescription>
+            Badge positioned in top-right instead of dropdown
+          </CardDescription>
         </div>
         <Badge variant="fjord" className="h-fit">
           New
@@ -321,7 +318,8 @@ export const WithCustomHeaderElement: Story = {
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          Use manual grid positioning when you need something other than a dropdown menu.
+          Use manual grid positioning when you need something other than a
+          dropdown menu.
         </p>
       </CardContent>
     </Card>
@@ -360,39 +358,42 @@ export const GridLayout: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Multiple cards displayed in a grid layout.",
+        story:
+          "Multiple cards displayed in a responsive grid using container queries. Cards stack on mobile, display 2 across on tablets, and 3 across on larger containers.",
       },
     },
   },
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
-      <Card>
-        <CardHeader>
-          <CardTitle>Card 1</CardTitle>
-          <CardDescription>First card in the grid</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm">Content for the first card</p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle>Card 2</CardTitle>
-          <CardDescription>Second card in the grid</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm">Content for the second card</p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle>Card 3</CardTitle>
-          <CardDescription>Third card in the grid</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm">Content for the third card</p>
-        </CardContent>
-      </Card>
+    <div className="@container w-full max-w-6xl">
+      <div className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
+        <Card className="col-span-4 @sm:col-span-4 @md:col-span-4">
+          <CardHeader>
+            <CardTitle>Card 1</CardTitle>
+            <CardDescription>First card in the grid</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm">Content for the first card</p>
+          </CardContent>
+        </Card>
+        <Card className="col-span-4 @sm:col-span-4 @md:col-span-4">
+          <CardHeader>
+            <CardTitle>Card 2</CardTitle>
+            <CardDescription>Second card in the grid</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm">Content for the second card</p>
+          </CardContent>
+        </Card>
+        <Card className="col-span-4 @sm:col-span-4 @md:col-span-4">
+          <CardHeader>
+            <CardTitle>Card 3</CardTitle>
+            <CardDescription>Third card in the grid</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm">Content for the third card</p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   ),
 };
