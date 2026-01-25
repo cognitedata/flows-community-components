@@ -79,8 +79,8 @@ export const Basic: Story = {
     const footer = canvas.getByText("On track for completion by Friday");
     await expect(footer).toBeInTheDocument();
   },
-  render: (args) => (
-    <ArtifactProgress {...args}>
+  render: () => (
+    <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
         <ArtifactProgressTitle>Progress title</ArtifactProgressTitle>
         <ArtifactProgressDescription>8 of 12 tasks complete</ArtifactProgressDescription>
@@ -123,8 +123,8 @@ export const CustomStyling: Story = {
     const percentage = canvas.getByText("75%");
     await expect(percentage).toBeInTheDocument();
   },
-  render: (args) => (
-    <ArtifactProgress {...args}>
+  render: () => (
+    <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
         <ArtifactProgressTitle className="text-lg">Custom Styled Title</ArtifactProgressTitle>
         <ArtifactProgressDescription className="text-xs italic">
@@ -292,8 +292,8 @@ export const WithoutFooter: Story = {
     const container = canvasElement;
     expect(container.textContent).not.toContain("On track");
   },
-  render: (args) => (
-    <ArtifactProgress {...args}>
+  render: () => (
+    <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
         <ArtifactProgressTitle>Data Processing</ArtifactProgressTitle>
         <ArtifactProgressDescription>Processing 450 of 1000 records</ArtifactProgressDescription>
@@ -333,8 +333,8 @@ export const WithoutHeader: Story = {
     const container = canvasElement;
     expect(container.textContent).not.toContain("Progress title");
   },
-  render: (args) => (
-    <ArtifactProgress {...args}>
+  render: () => (
+    <ArtifactProgress className="w-96">
       <ArtifactProgressBar value={67} aria-label="File upload progress: 67%" />
       <ArtifactProgressFooter>Upload in progress</ArtifactProgressFooter>
     </ArtifactProgress>
@@ -369,8 +369,8 @@ export const Minimal: Story = {
     expect(container.textContent).not.toContain("Progress title");
     expect(container.textContent).not.toContain("On track");
   },
-  render: (args) => (
-    <ArtifactProgress {...args}>
+  render: () => (
+    <ArtifactProgress className="w-96">
       <ArtifactProgressBar value={55} />
     </ArtifactProgress>
   ),
@@ -409,7 +409,7 @@ export const Interactive: Story = {
     const value = Number.parseInt(percentageText.textContent || "0");
     expect(value).toBeGreaterThan(0);
   },
-  render: function InteractiveProgressStory(args) {
+  render: function InteractiveProgressStory() {
     const [progress, setProgress] = useState(0);
 
     // Simulate progress incrementing
@@ -431,7 +431,7 @@ export const Interactive: Story = {
     const status = progress === 0 ? "Not started" : progress === 100 ? "Complete!" : "In progress";
 
     return (
-      <ArtifactProgress {...args}>
+      <ArtifactProgress className="w-96">
         <ArtifactProgressHeader>
           <ArtifactProgressTitle>Deployment Status</ArtifactProgressTitle>
           <ArtifactProgressDescription>
@@ -475,8 +475,8 @@ export const CustomPadding: Story = {
     const progressContent = canvasElement.querySelector(".px-8.py-8");
     expect(progressContent).toBeInTheDocument();
   },
-  render: (args) => (
-    <ArtifactProgress {...args}>
+  render: () => (
+    <ArtifactProgress className="w-96">
       <ArtifactProgressHeader>
         <ArtifactProgressTitle>Custom Padding</ArtifactProgressTitle>
         <ArtifactProgressDescription>With extra padding</ArtifactProgressDescription>
