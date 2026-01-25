@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArtifactProgress,
   ArtifactProgressBar,
@@ -413,7 +413,7 @@ export const Interactive: Story = {
     const [progress, setProgress] = useState(0);
 
     // Simulate progress incrementing
-    useState(() => {
+    useEffect(() => {
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
@@ -425,7 +425,7 @@ export const Interactive: Story = {
       }, 100);
 
       return () => clearInterval(interval);
-    });
+    }, []);
 
     const tasksComplete = Math.floor((progress / 100) * 15);
     const status = progress === 0 ? "Not started" : progress === 100 ? "Complete!" : "In progress";

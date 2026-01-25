@@ -53,11 +53,19 @@ export type ArtifactProgressBarProps = ComponentProps<typeof Progress> & {
   className?: string;
 };
 
-export const ArtifactProgressBar = ({ value, className, ...props }: ArtifactProgressBarProps) => {
+export const ArtifactProgressBar = ({
+  value,
+  className,
+  max,
+  ...props
+}: ArtifactProgressBarProps) => {
+  const percentage = Math.round(((value ?? 0) / (max ?? 100)) * 100);
   return (
     <div className={cn("px-4 py-4.5 w-full flex items-center justify-between gap-2", className)}>
-      <Progress value={value} {...props} />
-      <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">{value}%</span>
+      <Progress value={value} max={max} {...props} />
+      <span className="text-muted-foreground text-sm leading-4.5 tracking-tight">
+        {percentage}%
+      </span>
     </div>
   );
 };
