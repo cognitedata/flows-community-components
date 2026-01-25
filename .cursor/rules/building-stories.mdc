@@ -158,6 +158,57 @@ export const Playground: Story = {
   - Component uses compositional patterns (children) rather than props
   - Not much value in "playing around" with controls
 
+## Helper Components
+
+**CRITICAL: Never use helper components in story render functions**
+
+- ❌ **Never** extract story logic into helper components like `<ResultsPerPageStory size="default" />`
+- ✅ **Always** inline all JSX directly in the story's render function
+- 📋 **Why?** The docs site shows the render function code to users as a copy/paste example
+- 🚫 **Problem:** Users see `<ResultsPerPageStory size="default" />` which is completely useless
+- 🎯 **Goal:** Users should see the full, actual implementation they can copy
+
+**Examples:**
+
+```tsx
+// ❌ BAD - Helper component makes code example useless
+const TeleportationStory = ({ size }: { size: "default" | "small" }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  return (
+    <Pagination>
+      <PaginationContent size={size}>
+        {/* ... lots of JSX ... */}
+      </PaginationContent>
+    </Pagination>
+  );
+};
+
+export const TeleportationMode: Story = {
+  render: () => <TeleportationStory size="default" />,
+  // Users see: <TeleportationStory size="default" /> 🚫
+};
+
+// ✅ GOOD - Inline JSX shows full implementation
+export const TeleportationMode: Story = {
+  render: function TeleportationMode() {
+    const [currentPage, setCurrentPage] = useState(1);
+    return (
+      <Pagination>
+        <PaginationContent size="default">
+          {/* ... full implementation visible to users ... */}
+        </PaginationContent>
+      </Pagination>
+    );
+  },
+  // Users see the full code they can copy ✅
+};
+```
+
+**If multiple stories share similar logic:**
+- ✅ Duplicate the code in each story's render function
+- ✅ Use named render functions for complex stateful examples: `render: function StoryName() { ... }`
+- ❌ Don't DRY up stories with helpers - code examples are more important than avoiding duplication
+
 **Examples:**
 
 ```tsx
