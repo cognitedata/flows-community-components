@@ -91,6 +91,12 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/components/topbar", label: "Topbar" },
     ],
   },
+  {
+    href: "#",
+    label: "Artifacts",
+    isSubsection: true,
+    children: [{ href: "/primitives/components/artifact-count", label: "Artifact / Count" }],
+  },
 ];
 
 const patternsNavigation: NavigationItem[] = [

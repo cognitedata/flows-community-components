@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useEffect, useState } from "react";
+import { type ComponentProps, useEffect, useState } from "react";
 
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
@@ -53,6 +53,15 @@ const meta: Meta<typeof ArtifactCount> = {
 
 export default meta;
 type Story = StoryObj<typeof ArtifactCount>;
+type PlaygroundArgs = ComponentProps<typeof ArtifactCount> & {
+  status: "default" | "warning" | "critical";
+  count: string;
+  title: string;
+  tag: string;
+  footerLeft: string;
+  footerRight: string;
+};
+type PlaygroundStory = StoryObj<PlaygroundArgs>;
 
 // Generate 4 hours of temperature sensor data (sampled every 5 minutes)
 const generateTemperatureData = () => {
@@ -113,10 +122,8 @@ const temperatureChartConfig = {
  * Basic artifact count with a single value.
  */
 export const Basic: Story = {
-  args: {
-    className: "w-100",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Count widget with a headline count and breakdown summary.",
@@ -130,8 +137,8 @@ export const Basic: Story = {
     await expect(canvas.getByText("High:")).toBeInTheDocument();
     await expect(canvas.getByText("Medium:")).toBeInTheDocument();
   },
-  render: (args) => (
-    <ArtifactCount {...args}>
+  render: () => (
+    <ArtifactCount className="w-112">
       <ArtifactCountHeader>
         <ArtifactCountCount status="warning">3</ArtifactCountCount>
         <span className="text-base font-medium leading-5 tracking-tightest">Active alarms</span>
@@ -159,10 +166,8 @@ export const Basic: Story = {
  * Count with separator and footer details.
  */
 export const WithFooter: Story = {
-  args: {
-    className: "w-100",
-  },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Count artifact with a separator and footer context.",
@@ -175,8 +180,8 @@ export const WithFooter: Story = {
     await expect(canvas.getByText("Min: 384°C")).toBeInTheDocument();
     await expect(canvas.getByText("Max: 390°C")).toBeInTheDocument();
   },
-  render: (args) => (
-    <ArtifactCount {...args}>
+  render: () => (
+    <ArtifactCount className="w-112">
       <ArtifactCountHeader className="items-end">
         <ArtifactCountCount status="critical">392°C</ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
@@ -200,10 +205,8 @@ export const WithFooter: Story = {
  * Count with interactive real-time chart.
  */
 export const WithChart: Story = {
-  args: {
-    className: "w-100 gap-2",
-  },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Count artifact with title, tag, and interactive real-time chart.",
@@ -215,7 +218,7 @@ export const WithChart: Story = {
     await expect(canvas.getByText("Bar")).toBeInTheDocument();
     await expect(canvas.getByText("V-192")).toBeInTheDocument();
   },
-  render: function WithChartRender(args) {
+  render: function WithChartRender() {
     const [currentData, setCurrentData] = useState(temperatureData);
 
     // Simulate real-time data updates
@@ -254,7 +257,7 @@ export const WithChart: Story = {
       currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length;
 
     return (
-      <ArtifactCount {...args}>
+      <ArtifactCount className="w-112 gap-2">
         <ArtifactCountHeader className="items-end">
           <ArtifactCountCount status="default">{currentTemp}</ArtifactCountCount>
           <div className="flex flex-1 items-end justify-between">
@@ -331,21 +334,19 @@ export const WithChart: Story = {
  * Interactive count that updates over time.
  */
 export const Interactive: Story = {
-  args: {
-    className: "w-100",
-  },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Stateful count that updates when the button is pressed.",
       },
     },
   },
-  render: function ArtifactCountInteractive(args) {
+  render: function ArtifactCountInteractive() {
     const [value, setValue] = useState(392);
 
     return (
-      <ArtifactCount {...args}>
+      <ArtifactCount className="w-112">
         <ArtifactCountHeader>
           <ArtifactCountCount status="warning">{value}°C</ArtifactCountCount>
         </ArtifactCountHeader>
@@ -370,4 +371,98 @@ export const Interactive: Story = {
       { timeout: 300 }
     );
   },
+};
+
+/**
+ * Playground - adjust props and variants interactively.
+ */
+export const Playground: PlaygroundStory = {
+  args: {
+    className: "w-112",
+    status: "default",
+    count: "392°C",
+    title: "Temperature",
+    tag: "V-192",
+    footerLeft: "Min: 384°C",
+    footerRight: "Max: 390°C",
+  },
+  argTypes: {
+    status: {
+      control: "select",
+      options: ["default", "warning", "critical"],
+      description: "Status variant for the count chip",
+      table: {
+        category: "Appearance",
+        type: { summary: "'default' | 'warning' | 'critical'" },
+      },
+    },
+    count: {
+      control: "text",
+      description: "Primary count value",
+      table: {
+        category: "Content",
+        type: { summary: "string" },
+      },
+    },
+    title: {
+      control: "text",
+      description: "Header title text",
+      table: {
+        category: "Content",
+        type: { summary: "string" },
+      },
+    },
+    tag: {
+      control: "text",
+      description: "Header tag text",
+      table: {
+        category: "Content",
+        type: { summary: "string" },
+      },
+    },
+    footerLeft: {
+      control: "text",
+      description: "Left footer text",
+      table: {
+        category: "Content",
+        type: { summary: "string" },
+      },
+    },
+    footerRight: {
+      control: "text",
+      description: "Right footer text",
+      table: {
+        category: "Content",
+        type: { summary: "string" },
+      },
+    },
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story:
+          "Interactive playground for experimenting with ArtifactCount layout and count status. Use the controls panel to adjust content and the count variant.",
+      },
+    },
+  },
+  render: (args) => (
+    <ArtifactCount className={args.className}>
+      <ArtifactCountHeader className="items-end">
+        <ArtifactCountCount status={args.status}>{args.count}</ArtifactCountCount>
+        <div className="flex flex-1 items-end justify-between">
+          <div className="flex flex-col">
+            <span className="text-base font-medium">{args.title}</span>
+            <ArtifactCountTag>{args.tag}</ArtifactCountTag>
+          </div>
+          <ArtifactCountTag>Since 2hrs ago</ArtifactCountTag>
+        </div>
+      </ArtifactCountHeader>
+      <ArtifactCountSeparator />
+      <ArtifactCountFooter className="text-muted-foreground">
+        <span>{args.footerLeft}</span>
+        <span>{args.footerRight}</span>
+      </ArtifactCountFooter>
+    </ArtifactCount>
+  ),
 };
