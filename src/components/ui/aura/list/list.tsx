@@ -40,7 +40,7 @@ const listItemTitleVariants = cva("", {
       upcoming: "text-muted-foreground",
       now: "text-foreground",
       completed: "text-muted-foreground",
-      error: "text-destructive-foreground",
+      error: "text-foreground",
     },
   },
 });
@@ -51,7 +51,7 @@ const listItemDescriptionVariants = cva("", {
       upcoming: "text-muted-foreground",
       now: "text-muted-foreground",
       completed: "text-muted-foreground",
-      error: "text-destructive-foreground",
+      error: "text-muted-foreground",
     },
   },
 });

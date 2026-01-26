@@ -10,10 +10,10 @@ export const ArtifactListMetadata: ComponentMeta = {
   name: "ArtifactList",
 
   description:
-    "A compositional list artifact widget component that displays timeline-style items with optional headers.",
+    "A compositional list artifact widget component that displays timeline-style items with optional headers. Uses List primitives directly for item content.",
 
   llmUsage:
-    "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>` (or `<ArtifactListOrdered>`/`<ArtifactListDescription>`), and `<ArtifactListItem>`. Use `<ListItemIcon>` (optional) with `<ArtifactListItemTitle>`, `<ArtifactListItemDescription>`, and `<ArtifactListItemStatus>` to align icon, title, description, and status. Set `variant` on `<ArtifactListItem>` to apply status colors/icons.",
+    "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>`, and `<ArtifactListItem>`. Use List primitives (`<ListItemTitle>`, `<ListItemDescription>`, `<ListItemStatus>`, `<ListItemIcon>`) for item content. Set `variant` on `<ArtifactListItem>` to apply status colors/icons automatically.",
 
   importPath: "@/components/ui/aura/artifact-list",
 
@@ -27,11 +27,10 @@ export const ArtifactListMetadata: ComponentMeta = {
   ArtifactListTitle,
   ArtifactListContent,
   ArtifactListItem,
-  ArtifactListItemDescription,
-  ArtifactListItemStatus,
-  ArtifactListItemTitle,
+  ListItemDescription,
+  ListItemStatus,
+  ListItemTitle,
 } from "@/components/ui/aura/artifact-list"
-import { ListItemIcon } from "@/components/ui/aura/list"
 
 export function BasicDemo() {
   return (
@@ -41,12 +40,11 @@ export function BasicDemo() {
       </ArtifactListHeader>
       <ArtifactListContent>
         <ArtifactListItem variant="error">
-          <ListItemIcon />
-          <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Overdue</ArtifactListItemStatus>
-          <ArtifactListItemDescription>
+          <ListItemTitle>Pump seal replacement</ListItemTitle>
+          <ListItemStatus>Overdue</ListItemStatus>
+          <ListItemDescription>
             P-401A requires new mechanical seal
-          </ArtifactListItemDescription>
+          </ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -54,36 +52,29 @@ export function BasicDemo() {
 }`,
     },
     {
-      title: "Custom Styling",
-      description: "Override default styles with custom classes.",
+      title: "Custom Icons",
+      description: "Override default icons with custom ones.",
       code: `import {
   ArtifactList,
-  ArtifactListHeader,
-  ArtifactListTitle,
   ArtifactListContent,
   ArtifactListItem,
-  ArtifactListItemDescription,
-  ArtifactListItemTitle,
+  ListItemDescription,
+  ListItemIcon,
+  ListItemTitle,
 } from "@/components/ui/aura/artifact-list"
-import { ListItemIcon } from "@/components/ui/aura/list"
 
-export function CustomStyleDemo() {
+export function CustomIconDemo() {
   return (
     <ArtifactList>
-      <ArtifactListHeader>
-        <ArtifactListTitle className="text-lg">
-          Custom Styled List
-        </ArtifactListTitle>
-      </ArtifactListHeader>
       <ArtifactListContent>
-        <ArtifactListItem className="py-6">
-          <ListItemIcon />
-          <ArtifactListItemTitle className="text-lg font-bold">
-            Item 1
-          </ArtifactListItemTitle>
-          <ArtifactListItemDescription className="text-base">
-            Value 1
-          </ArtifactListItemDescription>
+        <ArtifactListItem>
+          <ListItemIcon className="text-muted-foreground">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16">
+              <circle cx="8" cy="8" r="3" fill="currentColor" />
+            </svg>
+          </ListItemIcon>
+          <ListItemTitle>Custom icon item</ListItemTitle>
+          <ListItemDescription>With custom icon</ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -92,13 +83,13 @@ export function CustomStyleDemo() {
     },
     {
       title: "Minimal List",
-      description: "Simplest form with only list items, no header or footer.",
+      description: "Simplest form with only list items, no header.",
       code: `import {
   ArtifactList,
   ArtifactListContent,
   ArtifactListItem,
-  ArtifactListItemDescription,
-  ArtifactListItemTitle,
+  ListItemDescription,
+  ListItemTitle,
 } from "@/components/ui/aura/artifact-list"
 
 export function MinimalDemo() {
@@ -106,12 +97,12 @@ export function MinimalDemo() {
     <ArtifactList>
       <ArtifactListContent>
         <ArtifactListItem>
-          <ArtifactListItemTitle>Key 1</ArtifactListItemTitle>
-          <ArtifactListItemDescription>Value 1</ArtifactListItemDescription>
+          <ListItemTitle>Key 1</ListItemTitle>
+          <ListItemDescription>Value 1</ListItemDescription>
         </ArtifactListItem>
         <ArtifactListItem>
-          <ArtifactListItemTitle>Key 2</ArtifactListItemTitle>
-          <ArtifactListItemDescription>Value 2</ArtifactListItemDescription>
+          <ListItemTitle>Key 2</ListItemTitle>
+          <ListItemDescription>Value 2</ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>

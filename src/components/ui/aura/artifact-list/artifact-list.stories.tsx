@@ -1,16 +1,18 @@
-import { ListItemIcon } from "@/components/ui/aura/list";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
 import {
   ArtifactList,
   ArtifactListContent,
+  ArtifactListDescription,
   ArtifactListHeader,
   ArtifactListItem,
-  ArtifactListItemDescription,
-  ArtifactListItemStatus,
-  ArtifactListItemTitle,
+  ArtifactListOrdered,
   ArtifactListTitle,
+  ListItemDescription,
+  ListItemIcon,
+  ListItemStatus,
+  ListItemTitle,
 } from "./artifact-list";
 
 const meta: Meta<typeof ArtifactList> = {
@@ -25,10 +27,9 @@ const meta: Meta<typeof ArtifactList> = {
         category: "Display",
       },
     },
-
     children: {
       control: false,
-      description: "Compositional children (Header, Content, Footer)",
+      description: "Compositional children (Header, Content)",
       table: {
         category: "Content",
       },
@@ -42,53 +43,356 @@ const meta: Meta<typeof ArtifactList> = {
 export default meta;
 type Story = StoryObj<typeof ArtifactList>;
 
+// Shared content for comparison stories
+const TaskListContent = () => (
+  <>
+    <ArtifactListItem variant="error">
+      <ListItemTitle>Pump seal replacement</ListItemTitle>
+      <ListItemStatus>Overdue</ListItemStatus>
+      <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
+    </ArtifactListItem>
+
+    <ArtifactListItem variant="now">
+      <ListItemTitle>Valve calibration</ListItemTitle>
+      <ListItemStatus>Due today</ListItemStatus>
+      <ListItemDescription>Quarterly calibration check</ListItemDescription>
+    </ArtifactListItem>
+
+    <ArtifactListItem variant="completed">
+      <ListItemTitle>Filter cleaning</ListItemTitle>
+      <ListItemStatus>Completed</ListItemStatus>
+      <ListItemDescription>Clean inlet filters</ListItemDescription>
+    </ArtifactListItem>
+  </>
+);
+
 /**
- * Basic artifact list with status indicators
+ * Basic artifact list with header
  */
-export const Basic: Story = {
+export const WithHeader: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story: "Task list with status indicators, icons, and descriptions.",
+        story: "Task list with header, status indicators, icons, and descriptions.",
       },
     },
-    layout: "centered",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Check that task titles are rendered
+    await expect(canvas.getByText("Maintenance Tasks")).toBeInTheDocument();
     await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
-    await expect(canvas.getByText("Valve calibration")).toBeInTheDocument();
-    await expect(canvas.getByText("Filter cleaning")).toBeInTheDocument();
-
-    // Check status labels
     await expect(canvas.getByText("Overdue")).toBeInTheDocument();
-    await expect(canvas.getByText("Due today")).toBeInTheDocument();
-    await expect(canvas.getByText("Completed")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-100">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Maintenance Tasks</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <TaskListContent />
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * List without header - same content as WithHeader for comparison
+ */
+export const WithoutHeader: Story = {
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story: "Same content as WithHeader but without the header section.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
+    // Verify no header is present
+    expect(canvasElement.textContent).not.toContain("Maintenance Tasks");
   },
   render: () => (
     <ArtifactList className="w-100">
       <ArtifactListContent>
-        <ArtifactListItem variant="error">
-          <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Overdue</ArtifactListItemStatus>
-          <ArtifactListItemDescription>
-            P-401A requires new mechanical seal
-          </ArtifactListItemDescription>
+        <TaskListContent />
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * All variants displayed for comparison
+ */
+export const AllVariants: Story = {
+  parameters: {
+    order: 3,
+    docs: {
+      description: {
+        story: "All list item variants side by side for comparison.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Upcoming task")).toBeInTheDocument();
+    await expect(canvas.getByText("Current task")).toBeInTheDocument();
+    await expect(canvas.getByText("Completed task")).toBeInTheDocument();
+    await expect(canvas.getByText("Error task")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-100">
+      <ArtifactListContent>
+        <ArtifactListItem variant="upcoming">
+          <ListItemTitle>Upcoming task</ListItemTitle>
+          <ListItemStatus>Scheduled</ListItemStatus>
+          <ListItemDescription>Pending work item</ListItemDescription>
         </ArtifactListItem>
 
         <ArtifactListItem variant="now">
-          <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Due today</ArtifactListItemStatus>
-          <ArtifactListItemDescription>Quarterly calibration check</ArtifactListItemDescription>
+          <ListItemTitle>Current task</ListItemTitle>
+          <ListItemStatus>In progress</ListItemStatus>
+          <ListItemDescription>Active work item</ListItemDescription>
         </ArtifactListItem>
 
         <ArtifactListItem variant="completed">
-          <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Completed</ArtifactListItemStatus>
-          <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
+          <ListItemTitle>Completed task</ListItemTitle>
+          <ListItemStatus>Done</ListItemStatus>
+          <ListItemDescription>Finished work item</ListItemDescription>
+        </ArtifactListItem>
+
+        <ArtifactListItem variant="error">
+          <ListItemTitle>Error task</ListItemTitle>
+          <ListItemStatus>Failed</ListItemStatus>
+          <ListItemDescription>Task with issues</ListItemDescription>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Timeline with custom icons
+ */
+export const WithCustomIcons: Story = {
+  parameters: {
+    order: 4,
+    docs: {
+      description: {
+        story: "List items with custom icons instead of default variant icons.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
+    await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-100">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Recent chat summary</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <ArtifactListItem>
+          <ListItemIcon className="text-muted-foreground">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                fill="currentColor"
+              />
+              <path
+                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                fill="currentColor"
+              />
+            </svg>
+          </ListItemIcon>
+          <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
+          <ListItemDescription className="text-foreground">
+            Suction pressure oscillations and elevated noise on P-003 during night shift.
+          </ListItemDescription>
+        </ArtifactListItem>
+
+        <ArtifactListItem>
+          <ListItemIcon className="text-muted-foreground">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                fill="currentColor"
+              />
+              <path
+                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                fill="currentColor"
+              />
+            </svg>
+          </ListItemIcon>
+          <ListItemTitle>Compressor C-5 surge events</ListItemTitle>
+          <ListItemDescription className="text-foreground">
+            Three start-up surge spikes with sluggish anti-surge valve response.
+          </ListItemDescription>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Ordered list with numbered items
+ */
+export const OrderedList: Story = {
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Uses ArtifactListOrdered for numbered/ordered list items.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Verify pump pressure")).toBeInTheDocument();
+    await expect(canvas.getByText("Check valve alignment")).toBeInTheDocument();
+    await expect(canvas.getByText("Run diagnostics")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-100">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Startup Checklist</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListOrdered>
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Verify pump pressure</ListItemTitle>
+          <ListItemStatus>Done</ListItemStatus>
+        </ArtifactListItem>
+        <ArtifactListItem variant="now">
+          <ListItemTitle>Check valve alignment</ListItemTitle>
+          <ListItemStatus>In progress</ListItemStatus>
+        </ArtifactListItem>
+        <ArtifactListItem variant="upcoming">
+          <ListItemTitle>Run diagnostics</ListItemTitle>
+          <ListItemStatus>Pending</ListItemStatus>
+        </ArtifactListItem>
+      </ArtifactListOrdered>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * List with description header
+ */
+export const WithDescription: Story = {
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story: "Uses ArtifactListDescription to add contextual text above the list.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText(/Review the following items/)).toBeInTheDocument();
+    await expect(canvas.getByText("Motor inspection")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-100">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Safety Checks</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListDescription>
+        Review the following items before starting the equipment.
+      </ArtifactListDescription>
+      <ArtifactListContent>
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Motor inspection</ListItemTitle>
+          <ListItemStatus>Passed</ListItemStatus>
+        </ArtifactListItem>
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Safety valve test</ListItemTitle>
+          <ListItemStatus>Passed</ListItemStatus>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Compact timeline list
+ */
+export const Timeline: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Compact timeline list with dates and status indicators.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Inspection")).toBeInTheDocument();
+    await expect(canvas.getByText("Event")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-100">
+      <ArtifactListContent>
+        <ArtifactListItem variant="upcoming">
+          <ListItemTitle>Inspection</ListItemTitle>
+          <ListItemStatus>Dec 22, 2024 5:00 AM</ListItemStatus>
+        </ArtifactListItem>
+
+        <ArtifactListItem variant="now">
+          <ListItemTitle>Event</ListItemTitle>
+          <ListItemStatus>Today 3:05 PM</ListItemStatus>
+        </ArtifactListItem>
+
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Inspection</ListItemTitle>
+          <ListItemStatus>1 d ago</ListItemStatus>
+        </ArtifactListItem>
+
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Inspection</ListItemTitle>
+          <ListItemStatus>Dec 17, 2024 9:00 AM</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -100,7 +404,7 @@ export const Basic: Story = {
  */
 export const Interactive: Story = {
   parameters: {
-    order: 6,
+    order: 8,
     docs: {
       description: {
         story: "Demonstrates stateful list items that toggle completion when clicked.",
@@ -181,11 +485,9 @@ export const Interactive: Story = {
                 className="cursor-pointer"
                 onClick={() => toggleStatus(item.id)}
               >
-                <ArtifactListItemTitle>{item.title}</ArtifactListItemTitle>
-                <ArtifactListItemStatus>
-                  {isDone ? "Completed" : "In progress"}
-                </ArtifactListItemStatus>
-                <ArtifactListItemDescription>{item.detail}</ArtifactListItemDescription>
+                <ListItemTitle>{item.title}</ListItemTitle>
+                <ListItemStatus>{isDone ? "Completed" : "In progress"}</ListItemStatus>
+                <ListItemDescription>{item.detail}</ListItemDescription>
               </ArtifactListItem>
             );
           })}
@@ -196,285 +498,104 @@ export const Interactive: Story = {
 };
 
 /**
- * With header - Large chat summary list
+ * Edge case: Empty list
  */
-export const WithHeader: Story = {
+export const EdgeCaseEmpty: Story = {
   parameters: {
-    order: 2,
+    order: 9,
     docs: {
       description: {
-        story: "Large list with header showing detailed chat summaries.",
+        story: "Empty artifact list with no items.",
       },
     },
-    layout: "centered",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check header is rendered
-    await expect(canvas.getByText("Recent chat summary")).toBeInTheDocument();
-
-    // Check list items
-    await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
-    await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
+    const list = canvasElement.querySelector("[data-slot='artifact-list']");
+    await expect(list).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-100">
       <ArtifactListHeader>
-        <ArtifactListTitle>Recent chat summary</ArtifactListTitle>
+        <ArtifactListTitle>Empty Task List</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent />
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Edge case: Long text overflow
+ */
+export const EdgeCaseLongText: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story: "List items with very long text to test overflow behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText(/This is an extremely long task title/)).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-80">
+      <ArtifactListHeader>
+        <ArtifactListTitle>
+          This is a very long header title that might overflow the container
+        </ArtifactListTitle>
       </ArtifactListHeader>
       <ArtifactListContent>
-        <ArtifactListItem>
-          <ListItemIcon className="text-muted-foreground">
-            <svg
-              aria-hidden="true"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                fill="currentColor"
-              />
-              <path
-                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                fill="currentColor"
-              />
-              <path
-                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                fill="currentColor"
-              />
-              <path
-                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                fill="currentColor"
-              />
-            </svg>
-          </ListItemIcon>
-          <ArtifactListItemTitle>Pump 3 cavitation detected</ArtifactListItemTitle>
-          <ArtifactListItemDescription className="text-foreground">
-            Suction pressure oscillations and elevated noise on P-003 during night shift; cavitation
-            likely from low NPSH/blocked strainer. Next step: inspect/ clean suction strainer and
-            raise tank level 20cm.
-          </ArtifactListItemDescription>
-        </ArtifactListItem>
-
-        <ArtifactListItem>
-          <ListItemIcon className="text-muted-foreground">
-            <svg
-              aria-hidden="true"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                fill="currentColor"
-              />
-              <path
-                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                fill="currentColor"
-              />
-              <path
-                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                fill="currentColor"
-              />
-              <path
-                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                fill="currentColor"
-              />
-            </svg>
-          </ListItemIcon>
-          <ArtifactListItemTitle>Compressor C-5 surge events</ArtifactListItemTitle>
-          <ArtifactListItemDescription className="text-foreground">
-            Three start-up surge spikes with sluggish anti-surge valve response; control loop
-            tuning/valve stiction suspected. Next step: Stroke-test ASV, retune PID, and verify
-            transmitter calibration.
-          </ArtifactListItemDescription>
-        </ArtifactListItem>
-
-        <ArtifactListItem>
-          <ListItemIcon className="text-muted-foreground">
-            <svg
-              aria-hidden="true"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                fill="currentColor"
-              />
-              <path
-                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                fill="currentColor"
-              />
-              <path
-                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                fill="currentColor"
-              />
-              <path
-                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                fill="currentColor"
-              />
-            </svg>
-          </ListItemIcon>
-          <ArtifactListItemTitle>Boiler steam leak near header B</ArtifactListItemTitle>
-          <ArtifactListItemDescription className="text-foreground">
-            Ultrasonic survey indicates continuous hiss with elevated condensate returns; small
-            steam leak wasting energy. Next step: tag exact location, plan hot repair window, and
-            quantify loss after fix.
-          </ArtifactListItemDescription>
-        </ArtifactListItem>
-      </ArtifactListContent>
-    </ArtifactList>
-  ),
-};
-
-/**
- * Compact timeline list
- */
-export const TimelineOnly: Story = {
-  parameters: {
-    order: 3,
-    docs: {
-      description: {
-        story: "Compact timeline list without header.",
-      },
-    },
-    layout: "centered",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check that list items are rendered without header
-    await expect(canvas.getByText("Inspection")).toBeInTheDocument();
-    await expect(canvas.getByText("Event")).toBeInTheDocument();
-
-    // Verify no header is present
-    const container = canvasElement;
-    expect(container.textContent).not.toContain("Timeline");
-  },
-  render: () => (
-    <ArtifactList className="w-100">
-      <ArtifactListContent>
-        <ArtifactListItem variant="upcoming">
-          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Dec 22, 2024 5:00 AM</ArtifactListItemStatus>
-        </ArtifactListItem>
-
-        <ArtifactListItem variant="now">
-          <ArtifactListItemTitle>Event</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Today 3:05 PM</ArtifactListItemStatus>
-        </ArtifactListItem>
-
-        <ArtifactListItem variant="completed">
-          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-          <ArtifactListItemStatus>1 d ago</ArtifactListItemStatus>
-        </ArtifactListItem>
-      </ArtifactListContent>
-    </ArtifactList>
-  ),
-};
-
-/**
- * Extended timeline list
- */
-export const TimelineExtended: Story = {
-  parameters: {
-    order: 4,
-    docs: {
-      description: {
-        story: "Extended timeline list with additional entries.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check that list items are rendered
-    await expect(canvas.getByText("Inspection")).toBeInTheDocument();
-    await expect(canvas.getByText("Event")).toBeInTheDocument();
-  },
-  render: () => (
-    <ArtifactList className="w-100">
-      <ArtifactListContent>
-        <ArtifactListItem variant="upcoming">
-          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Dec 22, 2024 5:00 AM</ArtifactListItemStatus>
-        </ArtifactListItem>
-
-        <ArtifactListItem variant="now">
-          <ArtifactListItemTitle>Event</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Today 3:05 PM</ArtifactListItemStatus>
-        </ArtifactListItem>
-
-        <ArtifactListItem variant="completed">
-          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-          <ArtifactListItemStatus>1 d ago</ArtifactListItemStatus>
-        </ArtifactListItem>
-
-        <ArtifactListItem variant="completed">
-          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Dec 17, 2024 9:00 AM</ArtifactListItemStatus>
-        </ArtifactListItem>
-      </ArtifactListContent>
-    </ArtifactList>
-  ),
-};
-
-/**
- * Minimal version - uses medium task list
- */
-export const Minimal: Story = {
-  parameters: {
-    order: 5,
-    docs: {
-      description: {
-        story: "Simplest form with only list items, no header or footer.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Check that only list items are rendered
-    await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
-    await expect(canvas.getByText("Valve calibration")).toBeInTheDocument();
-
-    // Verify no header or footer
-    const container = canvasElement;
-    expect(container.textContent).not.toContain("Tasks");
-    expect(container.textContent).not.toContain("Footer");
-  },
-  render: () => (
-    <ArtifactList className="w-100">
-      <ArtifactListContent>
         <ArtifactListItem variant="error">
-          <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Overdue</ArtifactListItemStatus>
-          <ArtifactListItemDescription>
-            P-401A requires new mechanical seal
-          </ArtifactListItemDescription>
+          <ListItemTitle>
+            This is an extremely long task title that should wrap or truncate properly within the
+            list item
+          </ListItemTitle>
+          <ListItemStatus>Overdue since yesterday</ListItemStatus>
+          <ListItemDescription>
+            This description is also quite long and contains detailed information about the task
+            that needs to be handled gracefully by the component layout.
+          </ListItemDescription>
         </ArtifactListItem>
-
         <ArtifactListItem variant="now">
-          <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Due today</ArtifactListItemStatus>
-          <ArtifactListItemDescription>Quarterly calibration check</ArtifactListItemDescription>
-        </ArtifactListItem>
-
-        <ArtifactListItem variant="completed">
-          <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
-          <ArtifactListItemStatus>Completed</ArtifactListItemStatus>
-          <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
+          <ListItemTitle>Normal task</ListItemTitle>
+          <ListItemStatus>Due today</ListItemStatus>
+          <ListItemDescription>Normal description</ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
   ),
+};
+
+/**
+ * Playground for interactive experimentation
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story: "Interactive playground for experimenting with the ArtifactList component.",
+      },
+    },
+  },
+  render: (args) => (
+    <ArtifactList {...args}>
+      <ArtifactListHeader>
+        <ArtifactListTitle>Playground List</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <ArtifactListItem variant="now">
+          <ListItemTitle>Sample task</ListItemTitle>
+          <ListItemStatus>In progress</ListItemStatus>
+          <ListItemDescription>Try adjusting the className prop</ListItemDescription>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+  args: {
+    className: "w-100",
+  },
 };

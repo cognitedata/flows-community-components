@@ -138,6 +138,74 @@
       ]
     },
     {
+      "name": "artifact-list",
+      "type": "registry:component",
+      "title": "artifact-list",
+      "description": "* ArtifactList wraps a Card for displaying list content within artifacts.",
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card",
+        "@aura/list"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-list/artifact-list.tsx",
+          "target": "src/components/ui/aura/artifact-list.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:component",
+      "title": "card",
+      "description": "",
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/card/card.tsx",
+          "target": "src/components/ui/aura/card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "registry:component",
+      "title": "list",
+      "description": "* List container for unordered content.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/list/list.tsx",
+          "target": "src/components/ui/aura/list.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:component",
       "title": "for",
@@ -308,27 +376,6 @@
         {
           "path": "src/components/ui/aura/calendar/calendar.tsx",
           "target": "src/components/ui/aura/calendar.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "card",
-      "type": "registry:component",
-      "title": "card",
-      "description": "",
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/card/card.tsx",
-          "target": "src/components/ui/aura/card.tsx",
           "type": "registry:component"
         },
         {
