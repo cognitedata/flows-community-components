@@ -43,6 +43,16 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
+const clampPageValue = (value: string, totalPages: number, fallback: number) => {
+  const parsed = Number.parseInt(value, 10);
+
+  if (Number.isNaN(parsed)) {
+    return fallback;
+  }
+
+  return Math.min(Math.max(parsed, 1), totalPages);
+};
+
 /**
  * Default pagination with first and last page buttons.
  */
@@ -80,6 +90,7 @@ export const Default: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default pagination with page navigation, next and previous links.",
@@ -137,6 +148,7 @@ export const Small: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Small size variant for compact layouts.",
@@ -164,71 +176,64 @@ export const Small: Story = {
 
 type PaginationStorySize = "default" | "small";
 
-const ResultsPerPageStory = ({ size }: { size: PaginationStorySize }) => {
-  const [resultsPerPage, setResultsPerPage] = useState("25");
-  const isSmall = size === "small";
-  const triggerClassName = isSmall ? "h-7 w-[65px]" : "h-9 w-[73px]";
-
-  return (
-    <Pagination>
-      <PaginationContent size={size}>
-        <PaginationItem>
-          <PaginationFirst href="#" size={size} />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationPrevious href="#" size={size} />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" size={size}>
-            1
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" size={size}>
-            2
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis size={size} />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive size={size}>
-            5
-          </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" size={size} />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLast href="#" size={size} />
-        </PaginationItem>
-        <PaginationItem>
-          <div className="flex items-center gap-2 pl-4">
-            <span className="text-sm text-muted-foreground">Results per page</span>
-            <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-              <SelectTrigger className={triggerClassName}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="25">25</SelectItem>
-                <SelectItem value="50">50</SelectItem>
-                <SelectItem value="100">100</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-  );
-};
-
 /**
  * Pagination with results per page selector (Default size).
  */
 export const WithResultsPerPage: Story = {
-  render: () => <ResultsPerPageStory size="default" />,
+  render: function WithResultsPerPageStory() {
+    const [resultsPerPage, setResultsPerPage] = useState("25");
+
+    return (
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationFirst href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">2</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" isActive>
+              5
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLast href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <div className="flex items-center gap-2 pl-4">
+              <span className="text-sm text-muted-foreground">Results per page</span>
+              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+                <SelectTrigger className="h-9 w-auto min-w-0">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="25">25</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Pagination with results per page selector (default size).",
@@ -261,8 +266,64 @@ export const WithResultsPerPage: Story = {
  * Pagination with results per page selector (Small size).
  */
 export const WithResultsPerPageSmall: Story = {
-  render: () => <ResultsPerPageStory size="small" />,
+  render: function WithResultsPerPageSmallStory() {
+    const [resultsPerPage, setResultsPerPage] = useState("25");
+
+    return (
+      <Pagination>
+        <PaginationContent size="small">
+          <PaginationItem>
+            <PaginationFirst href="#" size="small" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationPrevious href="#" size="small" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" size="small">
+              1
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" size="small">
+              2
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis size="small" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" isActive size="small">
+              5
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" size="small" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLast href="#" size="small" />
+          </PaginationItem>
+          <PaginationItem>
+            <div className="flex items-center gap-2 pl-4">
+              <span className="text-sm text-muted-foreground">Results per page</span>
+              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+                <SelectTrigger className="h-7 w-auto min-w-0">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="25">25</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Pagination with results per page selector (small size).",
@@ -290,92 +351,111 @@ export const WithResultsPerPageSmall: Story = {
   },
 };
 
-const TeleportationStory = ({ size }: { size: PaginationStorySize }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 10;
-  const [resultsPerPage, setResultsPerPage] = useState("25");
-  const isSmall = size === "small";
-  const displayClassName = cn(
-    "flex w-20 items-center justify-center border border-input bg-background px-3 font-normal",
-    isSmall ? "h-7 rounded text-sm" : "h-9 rounded-md text-base"
-  );
-  const triggerClassName = isSmall ? "h-7 w-[65px]" : "h-9 w-[73px]";
-
-  return (
-    <Pagination>
-      <PaginationContent size={size}>
-        <PaginationItem>
-          <PaginationFirst
-            href="#"
-            size={size}
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage(1);
-            }}
-          />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationPrevious
-            href="#"
-            size={size}
-            onClick={(e) => {
-              e.preventDefault();
-              if (currentPage > 1) setCurrentPage(currentPage - 1);
-            }}
-          />
-        </PaginationItem>
-        <PaginationItem>
-          <div className={displayClassName}>
-            {currentPage}/{totalPages}
-          </div>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext
-            href="#"
-            size={size}
-            onClick={(e) => {
-              e.preventDefault();
-              if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-            }}
-          />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLast
-            href="#"
-            size={size}
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage(totalPages);
-            }}
-          />
-        </PaginationItem>
-        <PaginationItem>
-          <div className="flex items-center gap-2 pl-4">
-            <span className="text-sm text-muted-foreground">Results per page</span>
-            <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-              <SelectTrigger className={triggerClassName}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="10">10</SelectItem>
-                <SelectItem value="25">25</SelectItem>
-                <SelectItem value="50">50</SelectItem>
-                <SelectItem value="100">100</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-  );
-};
-
 /**
  * Teleportation mode - jump to specific page (Default size).
  */
 export const TeleportationMode: Story = {
-  render: () => <TeleportationStory size="default" />,
+  render: function TeleportationModeStory() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPageInput, setCurrentPageInput] = useState("1");
+    const totalPages = 10;
+    const [resultsPerPage, setResultsPerPage] = useState("25");
+    const displayClassName = cn(
+      "flex items-center gap-1.5 border border-input bg-background px-2 font-normal",
+      "h-9 w-24 rounded-md text-base"
+    );
+
+    const updatePage = (nextPage: number) => {
+      setCurrentPage(nextPage);
+      setCurrentPageInput(String(nextPage));
+    };
+
+    const commitPage = (value: string) => {
+      const nextPage = clampPageValue(value, totalPages, currentPage);
+      updatePage(nextPage);
+    };
+
+    return (
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationFirst
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                updatePage(1);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationPrevious
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentPage > 1) updatePage(currentPage - 1);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <div className={displayClassName} data-slot="pagination-teleport-display">
+              <input
+                aria-label="Current page"
+                className="h-full w-10 bg-transparent text-center tabular-nums leading-none outline-none"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={currentPageInput}
+                onChange={(event) => setCurrentPageInput(event.target.value)}
+                onBlur={(event) => commitPage(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    commitPage(currentPageInput);
+                  }
+                }}
+              />
+              <span className="text-muted-foreground tabular-nums">/ {totalPages}</span>
+            </div>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentPage < totalPages) updatePage(currentPage + 1);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLast
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                updatePage(totalPages);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <div className="flex items-center gap-2 pl-4">
+              <span className="text-sm text-muted-foreground">Results per page</span>
+              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+                <SelectTrigger className="h-9 w-auto min-w-0">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="25">25</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Teleportation mode showing current page and total pages (default size).",
@@ -391,9 +471,14 @@ export const TeleportationMode: Story = {
     await expect(paginationContent).toHaveAttribute('data-size', 'default');
     
     // Verify teleportation display shows current/total format
-    const teleportDisplay = canvasElement.querySelector('.flex.h-9.w-20');
+    const teleportDisplay = canvasElement.querySelector(
+      '[data-slot="pagination-teleport-display"]'
+    );
     await expect(teleportDisplay).toBeInTheDocument();
-    await expect(teleportDisplay).toHaveTextContent(/1\/10/);
+    const teleportInput = teleportDisplay?.querySelector('input[aria-label="Current page"]');
+    const teleportTotal = teleportDisplay?.querySelector('span');
+    await expect(teleportInput).toHaveValue("1");
+    await expect(teleportTotal).toHaveTextContent("/ 10");
     
     // Verify navigation buttons are present
     const firstButton = canvasElement.querySelector('[data-slot="pagination-first"]');
@@ -402,8 +487,13 @@ export const TeleportationMode: Story = {
     await expect(lastButton).toBeInTheDocument();
     
     // Verify "Results per page" selector is present
-    const resultsLabel = canvasElement.querySelector('span.text-muted-foreground');
-    await expect(resultsLabel).toHaveTextContent('Results per page');
+    const resultsLabels = Array.from(
+      canvasElement.querySelectorAll('span.text-muted-foreground')
+    );
+    const resultsLabel = resultsLabels.find((label) =>
+      label.textContent?.includes("Results per page")
+    );
+    await expect(resultsLabel).toBeTruthy();
   },
 };
 
@@ -411,8 +501,111 @@ export const TeleportationMode: Story = {
  * Teleportation mode - jump to specific page (Small size).
  */
 export const TeleportationModeSmall: Story = {
-  render: () => <TeleportationStory size="small" />,
+  render: function TeleportationModeSmallStory() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPageInput, setCurrentPageInput] = useState("1");
+    const totalPages = 10;
+    const [resultsPerPage, setResultsPerPage] = useState("25");
+    const displayClassName = cn(
+      "flex items-center gap-1.5 border border-input bg-background px-2 font-normal",
+      "h-7 w-24 rounded text-sm"
+    );
+
+    const updatePage = (nextPage: number) => {
+      setCurrentPage(nextPage);
+      setCurrentPageInput(String(nextPage));
+    };
+
+    const commitPage = (value: string) => {
+      const nextPage = clampPageValue(value, totalPages, currentPage);
+      updatePage(nextPage);
+    };
+
+    return (
+      <Pagination>
+        <PaginationContent size="small">
+          <PaginationItem>
+            <PaginationFirst
+              href="#"
+              size="small"
+              onClick={(e) => {
+                e.preventDefault();
+                updatePage(1);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationPrevious
+              href="#"
+              size="small"
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentPage > 1) updatePage(currentPage - 1);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <div className={displayClassName} data-slot="pagination-teleport-display">
+              <input
+                aria-label="Current page"
+                className="h-full w-8 bg-transparent text-center tabular-nums leading-none outline-none"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                value={currentPageInput}
+                onChange={(event) => setCurrentPageInput(event.target.value)}
+                onBlur={(event) => commitPage(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    commitPage(currentPageInput);
+                  }
+                }}
+              />
+              <span className="text-muted-foreground tabular-nums">/ {totalPages}</span>
+            </div>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext
+              href="#"
+              size="small"
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentPage < totalPages) updatePage(currentPage + 1);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLast
+              href="#"
+              size="small"
+              onClick={(e) => {
+                e.preventDefault();
+                updatePage(totalPages);
+              }}
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <div className="flex items-center gap-2 pl-4">
+              <span className="text-sm text-muted-foreground">Results per page</span>
+              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+                <SelectTrigger className="h-7 w-auto min-w-0">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="25">25</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  },
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Teleportation mode showing current page and total pages (small size).",
@@ -427,9 +620,14 @@ export const TeleportationModeSmall: Story = {
     await expect(paginationContent).toHaveAttribute('data-size', 'small');
     
     // Verify teleportation display shows current/total format with small size
-    const teleportDisplay = canvasElement.querySelector('.flex.h-7.w-20');
+    const teleportDisplay = canvasElement.querySelector(
+      '[data-slot="pagination-teleport-display"]'
+    );
     await expect(teleportDisplay).toBeInTheDocument();
-    await expect(teleportDisplay).toHaveTextContent(/1\/10/);
+    const teleportInput = teleportDisplay?.querySelector('input[aria-label="Current page"]');
+    const teleportTotal = teleportDisplay?.querySelector('span');
+    await expect(teleportInput).toHaveValue("1");
+    await expect(teleportTotal).toHaveTextContent("/ 10");
     
     // Verify navigation buttons are present
     const firstButton = canvasElement.querySelector('[data-slot="pagination-first"]');
@@ -438,8 +636,13 @@ export const TeleportationModeSmall: Story = {
     await expect(lastButton).toBeInTheDocument();
     
     // Verify "Results per page" selector is present
-    const resultsLabel = canvasElement.querySelector('span.text-muted-foreground');
-    await expect(resultsLabel).toHaveTextContent('Results per page');
+    const resultsLabels = Array.from(
+      canvasElement.querySelectorAll('span.text-muted-foreground')
+    );
+    const resultsLabel = resultsLabels.find((label) =>
+      label.textContent?.includes("Results per page")
+    );
+    await expect(resultsLabel).toBeTruthy();
   },
 };
 
@@ -489,6 +692,7 @@ export const WithEllipsis: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Pagination with ellipsis for many pages.",
@@ -591,6 +795,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Fully controlled pagination with state management.",
@@ -634,6 +839,7 @@ export const Simple: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Simple pagination with only previous and next buttons.",
@@ -690,6 +896,7 @@ export const FirstPage: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Pagination when on the first page (previous disabled).",
@@ -750,6 +957,7 @@ export const LastPage: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 11,
     docs: {
       description: {
         story: "Pagination when on the last page (next disabled).",
@@ -796,6 +1004,7 @@ export const Compact: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Compact pagination showing current position.",
@@ -833,6 +1042,27 @@ export const VisualRegression: Story = {
     const [resultsPerPage4, setResultsPerPage4] = useState("25");
     const [teleportPage1, setTeleportPage1] = useState(1);
     const [teleportPage2, setTeleportPage2] = useState(1);
+    const [teleportPageInput1, setTeleportPageInput1] = useState("1");
+    const [teleportPageInput2, setTeleportPageInput2] = useState("1");
+    const totalPages = 10;
+
+    const updateTeleportPage1 = (nextPage: number) => {
+      setTeleportPage1(nextPage);
+      setTeleportPageInput1(String(nextPage));
+    };
+
+    const updateTeleportPage2 = (nextPage: number) => {
+      setTeleportPage2(nextPage);
+      setTeleportPageInput2(String(nextPage));
+    };
+
+    const commitTeleportPage1 = (value: string) => {
+      updateTeleportPage1(clampPageValue(value, totalPages, teleportPage1));
+    };
+
+    const commitTeleportPage2 = (value: string) => {
+      updateTeleportPage2(clampPageValue(value, totalPages, teleportPage2));
+    };
 
     return (
       <div className="space-y-8 p-4">
@@ -873,7 +1103,7 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage1} onValueChange={setResultsPerPage1}>
-                    <SelectTrigger className="h-9 w-[73px]">
+                    <SelectTrigger className="h-9 w-auto min-w-0">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -930,7 +1160,7 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage2} onValueChange={setResultsPerPage2}>
-                    <SelectTrigger className="h-7 w-[65px]">
+                    <SelectTrigger className="h-7 w-auto min-w-0">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -958,7 +1188,7 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    setTeleportPage1(1);
+                    updateTeleportPage1(1);
                   }}
                 />
               </PaginationItem>
@@ -967,13 +1197,28 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage1 > 1) setTeleportPage1(teleportPage1 - 1);
+                    if (teleportPage1 > 1) updateTeleportPage1(teleportPage1 - 1);
                   }}
                 />
               </PaginationItem>
               <PaginationItem>
-                <div className="flex h-9 w-20 items-center justify-center rounded-md border border-input bg-background px-3 text-base font-normal">
-                  {teleportPage1}/10
+                <div className="flex h-9 w-24 items-center gap-1.5 rounded-md border border-input bg-background px-2 text-base font-normal">
+                  <input
+                    aria-label="Current page"
+                    className="h-full w-10 bg-transparent text-center tabular-nums leading-none outline-none"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={teleportPageInput1}
+                    onChange={(event) => setTeleportPageInput1(event.target.value)}
+                    onBlur={(event) => commitTeleportPage1(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        commitTeleportPage1(teleportPageInput1);
+                      }
+                    }}
+                  />
+                  <span className="text-muted-foreground tabular-nums">/ {totalPages}</span>
                 </div>
               </PaginationItem>
               <PaginationItem>
@@ -981,7 +1226,7 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage1 < 10) setTeleportPage1(teleportPage1 + 1);
+                    if (teleportPage1 < totalPages) updateTeleportPage1(teleportPage1 + 1);
                   }}
                 />
               </PaginationItem>
@@ -990,7 +1235,7 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    setTeleportPage1(10);
+                    updateTeleportPage1(totalPages);
                   }}
                 />
               </PaginationItem>
@@ -998,7 +1243,7 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage3} onValueChange={setResultsPerPage3}>
-                    <SelectTrigger className="h-9 w-[73px]">
+                    <SelectTrigger className="h-9 w-auto min-w-0">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -1027,7 +1272,7 @@ export const VisualRegression: Story = {
                   size="small"
                   onClick={(e) => {
                     e.preventDefault();
-                    setTeleportPage2(1);
+                    updateTeleportPage2(1);
                   }}
                 />
               </PaginationItem>
@@ -1037,13 +1282,28 @@ export const VisualRegression: Story = {
                   size="small"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage2 > 1) setTeleportPage2(teleportPage2 - 1);
+                    if (teleportPage2 > 1) updateTeleportPage2(teleportPage2 - 1);
                   }}
                 />
               </PaginationItem>
               <PaginationItem>
-                <div className="flex h-7 w-20 items-center justify-center rounded border border-input bg-background px-3 text-sm font-normal">
-                  {teleportPage2}/10
+                <div className="flex h-7 w-24 items-center gap-1.5 rounded border border-input bg-background px-2 text-sm font-normal">
+                  <input
+                    aria-label="Current page"
+                    className="h-full w-8 bg-transparent text-center tabular-nums leading-none outline-none"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={teleportPageInput2}
+                    onChange={(event) => setTeleportPageInput2(event.target.value)}
+                    onBlur={(event) => commitTeleportPage2(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        commitTeleportPage2(teleportPageInput2);
+                      }
+                    }}
+                  />
+                  <span className="text-muted-foreground tabular-nums">/ {totalPages}</span>
                 </div>
               </PaginationItem>
               <PaginationItem>
@@ -1052,7 +1312,7 @@ export const VisualRegression: Story = {
                   size="small"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage2 < 10) setTeleportPage2(teleportPage2 + 1);
+                    if (teleportPage2 < totalPages) updateTeleportPage2(teleportPage2 + 1);
                   }}
                 />
               </PaginationItem>
@@ -1062,7 +1322,7 @@ export const VisualRegression: Story = {
                   size="small"
                   onClick={(e) => {
                     e.preventDefault();
-                    setTeleportPage2(10);
+                    updateTeleportPage2(totalPages);
                   }}
                 />
               </PaginationItem>
@@ -1070,7 +1330,7 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage4} onValueChange={setResultsPerPage4}>
-                    <SelectTrigger className="h-7 w-[65px]">
+                    <SelectTrigger className="h-7 w-auto min-w-0">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -1089,6 +1349,7 @@ export const VisualRegression: Story = {
     );
   },
   parameters: {
+    order: 13,
     docs: {
       description: {
         story:
@@ -1157,6 +1418,7 @@ export const Playground: Story = {
     </Pagination>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive pagination example.",

@@ -138,36 +138,34 @@ PaginationLink.displayName = "PaginationLink";
 /**
  * Pagination control to jump to the first page.
  */
-function PaginationFirst({
-  className,
-  size = "default",
-  ...props
-}: Omit<PaginationLinkProps, "isActive">) {
-  const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+  ({ className, size = "default", ...props }, ref) => {
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
 
-  return (
-    <Button
-      asChild
-      variant="ghost"
-      size={buttonSize}
-      data-slot="pagination-first"
-      className={cn(radiusClass, className)}
-    >
-      <a aria-label="Go to first page" {...props}>
-        <IconChevronsLeft />
-      </a>
-    </Button>
-  );
-}
+    return (
+      <Button
+        asChild
+        variant="ghost"
+        size={buttonSize}
+        data-slot="pagination-first"
+        className={cn(radiusClass, className)}
+      >
+        <a ref={ref} aria-label="Go to first page" {...props}>
+          <IconChevronsLeft />
+        </a>
+      </Button>
+    );
+  }
+);
+PaginationFirst.displayName = "PaginationFirst";
 
 /**
  * Pagination control to navigate to the previous page.
  */
-function PaginationPrevious({
-  className,
-  size = "default",
-  ...props
-}: Omit<PaginationLinkProps, "isActive">) {
+const PaginationPrevious = forwardRef<
+  HTMLAnchorElement,
+  Omit<PaginationLinkProps, "isActive">
+>(({ className, size = "default", ...props }, ref) => {
   const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
 
   return (
@@ -178,62 +176,61 @@ function PaginationPrevious({
       data-slot="pagination-previous"
       className={cn(radiusClass, className)}
     >
-      <a aria-label="Go to previous page" {...props}>
+      <a ref={ref} aria-label="Go to previous page" {...props}>
         <IconChevronLeft />
       </a>
     </Button>
   );
-}
+});
+PaginationPrevious.displayName = "PaginationPrevious";
 
 /**
  * Pagination control to navigate to the next page.
  */
-function PaginationNext({
-  className,
-  size = "default",
-  ...props
-}: Omit<PaginationLinkProps, "isActive">) {
-  const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+  ({ className, size = "default", ...props }, ref) => {
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
 
-  return (
-    <Button
-      asChild
-      variant="ghost"
-      size={buttonSize}
-      data-slot="pagination-next"
-      className={cn(radiusClass, className)}
-    >
-      <a aria-label="Go to next page" {...props}>
-        <IconChevronRight />
-      </a>
-    </Button>
-  );
-}
+    return (
+      <Button
+        asChild
+        variant="ghost"
+        size={buttonSize}
+        data-slot="pagination-next"
+        className={cn(radiusClass, className)}
+      >
+        <a ref={ref} aria-label="Go to next page" {...props}>
+          <IconChevronRight />
+        </a>
+      </Button>
+    );
+  }
+);
+PaginationNext.displayName = "PaginationNext";
 
 /**
  * Pagination control to jump to the last page.
  */
-function PaginationLast({
-  className,
-  size = "default",
-  ...props
-}: Omit<PaginationLinkProps, "isActive">) {
-  const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+  ({ className, size = "default", ...props }, ref) => {
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
 
-  return (
-    <Button
-      asChild
-      variant="ghost"
-      size={buttonSize}
-      data-slot="pagination-last"
-      className={cn(radiusClass, className)}
-    >
-      <a aria-label="Go to last page" {...props}>
-        <IconChevronsRight />
-      </a>
-    </Button>
-  );
-}
+    return (
+      <Button
+        asChild
+        variant="ghost"
+        size={buttonSize}
+        data-slot="pagination-last"
+        className={cn(radiusClass, className)}
+      >
+        <a ref={ref} aria-label="Go to last page" {...props}>
+          <IconChevronsRight />
+        </a>
+      </Button>
+    );
+  }
+);
+PaginationLast.displayName = "PaginationLast";
 
 /**
  * Pagination ellipsis indicator for truncated page ranges.
