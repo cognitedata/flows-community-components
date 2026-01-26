@@ -38,8 +38,8 @@ const badgeVariants = cva(
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary-hover cursor-pointer",
       },
       size: {
-        default: "px-1.5",
-        icon: "p-0.75 rounded-md",
+        default: "px-1",
+        icon: "px-1.5 py-1 rounded-md",
       },
       outline: {
         true: "border-border px-1.25",
@@ -59,7 +59,7 @@ const badgeVariants = cva(
       background: true,
       dot: false,
     },
-  }
+  },
 );
 
 /**
@@ -117,7 +117,7 @@ function Badge({
         dot && isEmpty && "size-2 p-0 border-0",
         dot && isEmpty && urgent && "bg-destructive-foreground",
         dot && isEmpty && !urgent && "bg-neutral-foreground",
-        className
+        className,
       )}
       {...props}
     >

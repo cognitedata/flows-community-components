@@ -625,7 +625,7 @@
   --decorative-foreground-dusk: var(--dusk-700);
   --decorative-foreground-orange: var(--orange-700);
   --decorative-foreground-sky: var(--sky-600);
-  --decorative-foreground-gray: var(--gray-600);
+  --decorative-foreground-gray: var(--gray-650);
 
   /* Gradient tokens */
   --gradient-nordic: linear-gradient(
@@ -780,7 +780,7 @@
   --decorative-foreground-dusk: var(--dusk-800);
   --decorative-foreground-orange: var(--orange-800);
   --decorative-foreground-sky: var(--sky-300);
-  --decorative-foreground-gray: var(--gray-300);
+  --decorative-foreground-gray: var(--gray-400);
 
   /* Gradient tokens */
   --gradient-nordic: linear-gradient(

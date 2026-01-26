@@ -9,6 +9,7 @@
   "registryDependencies": [
     "@aura/css",
     "@aura/button",
+    "@aura/command",
     "@aura/popover"
   ],
   "files": [

@@ -9,7 +9,9 @@
   ],
   "registryDependencies": [
     "@aura/css",
-    "@aura/button"
+    "@aura/button",
+    "@aura/code-block",
+    "@aura/collapsible"
   ],
   "files": [
     {

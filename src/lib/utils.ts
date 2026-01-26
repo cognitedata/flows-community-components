@@ -19,7 +19,7 @@ export function slugToPascalCase(slug: string): string {
 /**
  * Safely extracts hostname from a URL string.
  * Returns the hostname if valid, otherwise returns the original string or "unknown".
- * 
+ *
  * @param url - URL string to extract hostname from (optional)
  * @returns The hostname, original string, or "unknown" if url is undefined
  */
