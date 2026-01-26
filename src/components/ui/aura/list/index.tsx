@@ -4,12 +4,9 @@ export {
   ListDescriptionDetails,
   ListDescriptionTerm,
   ListItem,
-  ListItemContent,
   ListItemDescription,
-  ListItemHeader,
   ListItemIcon,
-  ListItemTimeline,
+  ListItemStatus,
   ListItemTitle,
   ListOrdered,
 } from "./list";
-

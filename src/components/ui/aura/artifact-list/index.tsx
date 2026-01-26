@@ -5,7 +5,7 @@ export {
   ArtifactListHeader,
   ArtifactListItem,
   ArtifactListItemDescription,
-  ArtifactListItemTimeline,
+  ArtifactListItemStatus,
   ArtifactListItemTitle,
   ArtifactListOrdered,
   ArtifactListTitle,

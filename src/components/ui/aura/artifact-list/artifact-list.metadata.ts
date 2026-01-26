@@ -13,7 +13,7 @@ export const ArtifactListMetadata: ComponentMeta = {
     "A compositional list artifact widget component that displays timeline-style items with optional headers.",
 
   llmUsage:
-    "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>` (or `<ArtifactListOrdered>`/`<ArtifactListDescription>`), and `<ArtifactListItem>`. Use `<ListItemHeader>` + `<ListItemIcon>` with `<ArtifactListItemTitle>`, `<ArtifactListItemDescription>`, and `<ArtifactListItemTimeline>` to align icon, title, description, and status. Set `state` on `<ArtifactListItem>` to apply timeline colors/icons.",
+    "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>` (or `<ArtifactListOrdered>`/`<ArtifactListDescription>`), and `<ArtifactListItem>`. Use `<ListItemIcon>` (optional) with `<ArtifactListItemTitle>`, `<ArtifactListItemDescription>`, and `<ArtifactListItemStatus>` to align icon, title, description, and status. Set `variant` on `<ArtifactListItem>` to apply status colors/icons.",
 
   importPath: "@/components/ui/aura/artifact-list",
 
@@ -28,10 +28,10 @@ export const ArtifactListMetadata: ComponentMeta = {
   ArtifactListContent,
   ArtifactListItem,
   ArtifactListItemDescription,
-  ArtifactListItemTimeline,
+  ArtifactListItemStatus,
   ArtifactListItemTitle,
 } from "@/components/ui/aura/artifact-list"
-import { ListItemHeader, ListItemIcon } from "@/components/ui/aura/list"
+import { ListItemIcon } from "@/components/ui/aura/list"
 
 export function BasicDemo() {
   return (
@@ -40,15 +40,13 @@ export function BasicDemo() {
         <ArtifactListTitle>System Tasks</ArtifactListTitle>
       </ArtifactListHeader>
       <ArtifactListContent>
-        <ArtifactListItem state="error">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Overdue</ArtifactListItemTimeline>
-            <ArtifactListItemDescription>
-              P-401A requires new mechanical seal
-            </ArtifactListItemDescription>
-          </ListItemHeader>
+        <ArtifactListItem variant="error">
+          <ListItemIcon />
+          <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Overdue</ArtifactListItemStatus>
+          <ArtifactListItemDescription>
+            P-401A requires new mechanical seal
+          </ArtifactListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -67,7 +65,7 @@ export function BasicDemo() {
   ArtifactListItemDescription,
   ArtifactListItemTitle,
 } from "@/components/ui/aura/artifact-list"
-import { ListItemHeader, ListItemIcon } from "@/components/ui/aura/list"
+import { ListItemIcon } from "@/components/ui/aura/list"
 
 export function CustomStyleDemo() {
   return (
@@ -79,15 +77,13 @@ export function CustomStyleDemo() {
       </ArtifactListHeader>
       <ArtifactListContent>
         <ArtifactListItem className="py-6">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle className="text-lg font-bold">
-              Item 1
-            </ArtifactListItemTitle>
-            <ArtifactListItemDescription className="text-base">
-              Value 1
-            </ArtifactListItemDescription>
-          </ListItemHeader>
+          <ListItemIcon />
+          <ArtifactListItemTitle className="text-lg font-bold">
+            Item 1
+          </ArtifactListItemTitle>
+          <ArtifactListItemDescription className="text-base">
+            Value 1
+          </ArtifactListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -104,23 +100,18 @@ export function CustomStyleDemo() {
   ArtifactListItemDescription,
   ArtifactListItemTitle,
 } from "@/components/ui/aura/artifact-list"
-import { ListItemHeader } from "@/components/ui/aura/list"
 
 export function MinimalDemo() {
   return (
     <ArtifactList>
       <ArtifactListContent>
         <ArtifactListItem>
-          <ListItemHeader>
-            <ArtifactListItemTitle>Key 1</ArtifactListItemTitle>
-            <ArtifactListItemDescription>Value 1</ArtifactListItemDescription>
-          </ListItemHeader>
+          <ArtifactListItemTitle>Key 1</ArtifactListItemTitle>
+          <ArtifactListItemDescription>Value 1</ArtifactListItemDescription>
         </ArtifactListItem>
         <ArtifactListItem>
-          <ListItemHeader>
-            <ArtifactListItemTitle>Key 2</ArtifactListItemTitle>
-            <ArtifactListItemDescription>Value 2</ArtifactListItemDescription>
-          </ListItemHeader>
+          <ArtifactListItemTitle>Key 2</ArtifactListItemTitle>
+          <ArtifactListItemDescription>Value 2</ArtifactListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>

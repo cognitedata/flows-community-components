@@ -4,7 +4,7 @@ import {
   ListDescription,
   ListItem,
   ListItemDescription,
-  ListItemTimeline,
+  ListItemStatus,
   ListItemTitle,
   ListOrdered,
 } from "@/components/ui/aura/list";
@@ -51,7 +51,7 @@ const ArtifactListDescription = ({
 };
 
 const ArtifactListItem = ({ className, ...props }: ComponentProps<typeof ListItem>) => {
-  return <ListItem className={cn("gap-1 p-0.5", className)} {...props} />;
+  return <ListItem className={cn("p-0.5", className)} {...props} />;
 };
 
 const ArtifactListItemTitle = ({ className, ...props }: ComponentProps<typeof ListItemTitle>) => {
@@ -65,11 +65,8 @@ const ArtifactListItemDescription = ({
   return <ListItemDescription className={cn(className)} {...props} />;
 };
 
-const ArtifactListItemTimeline = ({
-  className,
-  ...props
-}: ComponentProps<typeof ListItemTimeline>) => {
-  return <ListItemTimeline className={cn(className)} {...props} />;
+const ArtifactListItemStatus = ({ className, ...props }: ComponentProps<typeof ListItemStatus>) => {
+  return <ListItemStatus className={cn(className)} {...props} />;
 };
 
 export {
@@ -79,7 +76,7 @@ export {
   ArtifactListHeader,
   ArtifactListItem,
   ArtifactListItemDescription,
-  ArtifactListItemTimeline,
+  ArtifactListItemStatus,
   ArtifactListItemTitle,
   ArtifactListOrdered,
   ArtifactListTitle,

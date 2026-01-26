@@ -1,4 +1,4 @@
-import { ListItemHeader, ListItemIcon } from "@/components/ui/aura/list";
+import { ListItemIcon } from "@/components/ui/aura/list";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import {
   ArtifactListHeader,
   ArtifactListItem,
   ArtifactListItemDescription,
-  ArtifactListItemTimeline,
+  ArtifactListItemStatus,
   ArtifactListItemTitle,
   ArtifactListTitle,
 } from "./artifact-list";
@@ -46,10 +46,8 @@ type Story = StoryObj<typeof ArtifactList>;
  * Basic artifact list with status indicators
  */
 export const Basic: Story = {
-  args: {
-    className: "w-100",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Task list with status indicators, icons, and descriptions.",
@@ -70,36 +68,27 @@ export const Basic: Story = {
     await expect(canvas.getByText("Due today")).toBeInTheDocument();
     await expect(canvas.getByText("Completed")).toBeInTheDocument();
   },
-  render: (args) => (
-    <ArtifactList {...args}>
+  render: () => (
+    <ArtifactList className="w-100">
       <ArtifactListContent>
-        <ArtifactListItem state="error">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Overdue</ArtifactListItemTimeline>
-            <ArtifactListItemDescription>
-              P-401A requires new mechanical seal
-            </ArtifactListItemDescription>
-          </ListItemHeader>
+        <ArtifactListItem variant="error">
+          <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Overdue</ArtifactListItemStatus>
+          <ArtifactListItemDescription>
+            P-401A requires new mechanical seal
+          </ArtifactListItemDescription>
         </ArtifactListItem>
 
-        <ArtifactListItem state="now">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Due today</ArtifactListItemTimeline>
-            <ArtifactListItemDescription>Quarterly calibration check</ArtifactListItemDescription>
-          </ListItemHeader>
+        <ArtifactListItem variant="now">
+          <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Due today</ArtifactListItemStatus>
+          <ArtifactListItemDescription>Quarterly calibration check</ArtifactListItemDescription>
         </ArtifactListItem>
 
-        <ArtifactListItem state="completed">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Completed</ArtifactListItemTimeline>
-            <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
-          </ListItemHeader>
+        <ArtifactListItem variant="completed">
+          <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Completed</ArtifactListItemStatus>
+          <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -110,10 +99,8 @@ export const Basic: Story = {
  * Interactive list with stateful item updates
  */
 export const Interactive: Story = {
-  args: {
-    className: "w-100",
-  },
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Demonstrates stateful list items that toggle completion when clicked.",
@@ -151,7 +138,7 @@ export const Interactive: Story = {
       { timeout: 300 }
     );
   },
-  render: function ArtifactListInteractiveStory(args) {
+  render: function ArtifactListInteractiveStory() {
     const [items, setItems] = useState([
       {
         id: "seal",
@@ -182,7 +169,7 @@ export const Interactive: Story = {
     };
 
     return (
-      <ArtifactList {...args}>
+      <ArtifactList className="w-100">
         <ArtifactListContent>
           {items.map((item) => {
             const isDone = item.status === "done";
@@ -190,18 +177,15 @@ export const Interactive: Story = {
             return (
               <ArtifactListItem
                 key={item.id}
-                state={isDone ? "completed" : "now"}
+                variant={isDone ? "completed" : "now"}
                 className="cursor-pointer"
                 onClick={() => toggleStatus(item.id)}
               >
-                <ListItemHeader>
-                  <ListItemIcon />
-                  <ArtifactListItemTitle>{item.title}</ArtifactListItemTitle>
-                  <ArtifactListItemTimeline>
-                    {isDone ? "Completed" : "In progress"}
-                  </ArtifactListItemTimeline>
-                  <ArtifactListItemDescription>{item.detail}</ArtifactListItemDescription>
-                </ListItemHeader>
+                <ArtifactListItemTitle>{item.title}</ArtifactListItemTitle>
+                <ArtifactListItemStatus>
+                  {isDone ? "Completed" : "In progress"}
+                </ArtifactListItemStatus>
+                <ArtifactListItemDescription>{item.detail}</ArtifactListItemDescription>
               </ArtifactListItem>
             );
           })}
@@ -215,10 +199,8 @@ export const Interactive: Story = {
  * With header - Large chat summary list
  */
 export const WithHeader: Story = {
-  args: {
-    className: "w-100",
-  },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Large list with header showing detailed chat summaries.",
@@ -236,121 +218,118 @@ export const WithHeader: Story = {
     await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
     await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
   },
-  render: (args) => (
-    <ArtifactList {...args}>
+  render: () => (
+    <ArtifactList className="w-100">
       <ArtifactListHeader>
         <ArtifactListTitle>Recent chat summary</ArtifactListTitle>
       </ArtifactListHeader>
       <ArtifactListContent>
         <ArtifactListItem>
-          <ListItemHeader>
-            <ListItemIcon className="text-muted-foreground">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </ListItemIcon>
-            <ArtifactListItemTitle>Pump 3 cavitation detected</ArtifactListItemTitle>
-            <ArtifactListItemDescription className="text-foreground">
-              Suction pressure oscillations and elevated noise on P-003 during night shift;
-              cavitation likely from low NPSH/blocked strainer. Next step: inspect/ clean suction
-              strainer and raise tank level 20cm.
-            </ArtifactListItemDescription>
-          </ListItemHeader>
+          <ListItemIcon className="text-muted-foreground">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                fill="currentColor"
+              />
+              <path
+                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                fill="currentColor"
+              />
+            </svg>
+          </ListItemIcon>
+          <ArtifactListItemTitle>Pump 3 cavitation detected</ArtifactListItemTitle>
+          <ArtifactListItemDescription className="text-foreground">
+            Suction pressure oscillations and elevated noise on P-003 during night shift; cavitation
+            likely from low NPSH/blocked strainer. Next step: inspect/ clean suction strainer and
+            raise tank level 20cm.
+          </ArtifactListItemDescription>
         </ArtifactListItem>
 
         <ArtifactListItem>
-          <ListItemHeader>
-            <ListItemIcon className="text-muted-foreground">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </ListItemIcon>
-            <ArtifactListItemTitle>Compressor C-5 surge events</ArtifactListItemTitle>
-            <ArtifactListItemDescription className="text-foreground">
-              Three start-up surge spikes with sluggish anti-surge valve response; control loop
-              tuning/valve stiction suspected. Next step: Stroke-test ASV, retune PID, and verify
-              transmitter calibration.
-            </ArtifactListItemDescription>
-          </ListItemHeader>
+          <ListItemIcon className="text-muted-foreground">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                fill="currentColor"
+              />
+              <path
+                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                fill="currentColor"
+              />
+            </svg>
+          </ListItemIcon>
+          <ArtifactListItemTitle>Compressor C-5 surge events</ArtifactListItemTitle>
+          <ArtifactListItemDescription className="text-foreground">
+            Three start-up surge spikes with sluggish anti-surge valve response; control loop
+            tuning/valve stiction suspected. Next step: Stroke-test ASV, retune PID, and verify
+            transmitter calibration.
+          </ArtifactListItemDescription>
         </ArtifactListItem>
 
         <ArtifactListItem>
-          <ListItemHeader>
-            <ListItemIcon className="text-muted-foreground">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </ListItemIcon>
-            <ArtifactListItemTitle>Boiler steam leak near header B</ArtifactListItemTitle>
-            <ArtifactListItemDescription className="text-foreground">
-              Ultrasonic survey indicates continuous hiss with elevated condensate returns; small
-              steam leak wasting energy. Next step: tag exact location, plan hot repair window, and
-              quantify loss after fix.
-            </ArtifactListItemDescription>
-          </ListItemHeader>
+          <ListItemIcon className="text-muted-foreground">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                fill="currentColor"
+              />
+              <path
+                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                fill="currentColor"
+              />
+            </svg>
+          </ListItemIcon>
+          <ArtifactListItemTitle>Boiler steam leak near header B</ArtifactListItemTitle>
+          <ArtifactListItemDescription className="text-foreground">
+            Ultrasonic survey indicates continuous hiss with elevated condensate returns; small
+            steam leak wasting energy. Next step: tag exact location, plan hot repair window, and
+            quantify loss after fix.
+          </ArtifactListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -358,13 +337,11 @@ export const WithHeader: Story = {
 };
 
 /**
- * Without header - Compact timeline
+ * Compact timeline list
  */
-export const WithoutHeader: Story = {
-  args: {
-    className: "w-100",
-  },
+export const TimelineOnly: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Compact timeline list without header.",
@@ -383,31 +360,22 @@ export const WithoutHeader: Story = {
     const container = canvasElement;
     expect(container.textContent).not.toContain("Timeline");
   },
-  render: (args) => (
-    <ArtifactList {...args}>
+  render: () => (
+    <ArtifactList className="w-100">
       <ArtifactListContent>
-        <ArtifactListItem state="upcoming">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Dec 22, 2024 5:00 AM</ArtifactListItemTimeline>
-          </ListItemHeader>
+        <ArtifactListItem variant="upcoming">
+          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Dec 22, 2024 5:00 AM</ArtifactListItemStatus>
         </ArtifactListItem>
 
-        <ArtifactListItem state="now">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Event</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Today 3:05 PM</ArtifactListItemTimeline>
-          </ListItemHeader>
+        <ArtifactListItem variant="now">
+          <ArtifactListItemTitle>Event</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Today 3:05 PM</ArtifactListItemStatus>
         </ArtifactListItem>
 
-        <ArtifactListItem state="completed">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>1 d ago</ArtifactListItemTimeline>
-          </ListItemHeader>
+        <ArtifactListItem variant="completed">
+          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+          <ArtifactListItemStatus>1 d ago</ArtifactListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -415,16 +383,14 @@ export const WithoutHeader: Story = {
 };
 
 /**
- * Without footer - uses the compact timeline example
+ * Extended timeline list
  */
-export const WithoutFooter: Story = {
-  args: {
-    className: "w-100",
-  },
+export const TimelineExtended: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
-        story: "Compact timeline list without a footer section.",
+        story: "Extended timeline list with additional entries.",
       },
     },
   },
@@ -434,44 +400,28 @@ export const WithoutFooter: Story = {
     // Check that list items are rendered
     await expect(canvas.getByText("Inspection")).toBeInTheDocument();
     await expect(canvas.getByText("Event")).toBeInTheDocument();
-
-    // Verify no footer is present
-    const container = canvasElement;
-    expect(container.textContent).not.toContain("Footer");
   },
-  render: (args) => (
-    <ArtifactList {...args}>
+  render: () => (
+    <ArtifactList className="w-100">
       <ArtifactListContent>
-        <ArtifactListItem state="upcoming">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Dec 22, 2024 5:00 AM</ArtifactListItemTimeline>
-          </ListItemHeader>
+        <ArtifactListItem variant="upcoming">
+          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Dec 22, 2024 5:00 AM</ArtifactListItemStatus>
         </ArtifactListItem>
 
-        <ArtifactListItem state="now">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Event</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Today 3:05 PM</ArtifactListItemTimeline>
-          </ListItemHeader>
+        <ArtifactListItem variant="now">
+          <ArtifactListItemTitle>Event</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Today 3:05 PM</ArtifactListItemStatus>
         </ArtifactListItem>
 
-        <ArtifactListItem state="completed">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>1 d ago</ArtifactListItemTimeline>
-          </ListItemHeader>
+        <ArtifactListItem variant="completed">
+          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+          <ArtifactListItemStatus>1 d ago</ArtifactListItemStatus>
         </ArtifactListItem>
 
-        <ArtifactListItem state="completed">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Dec 17, 2024 9:00 AM</ArtifactListItemTimeline>
-          </ListItemHeader>
+        <ArtifactListItem variant="completed">
+          <ArtifactListItemTitle>Inspection</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Dec 17, 2024 9:00 AM</ArtifactListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -482,10 +432,8 @@ export const WithoutFooter: Story = {
  * Minimal version - uses medium task list
  */
 export const Minimal: Story = {
-  args: {
-    className: "w-100",
-  },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Simplest form with only list items, no header or footer.",
@@ -504,36 +452,27 @@ export const Minimal: Story = {
     expect(container.textContent).not.toContain("Tasks");
     expect(container.textContent).not.toContain("Footer");
   },
-  render: (args) => (
-    <ArtifactList {...args}>
+  render: () => (
+    <ArtifactList className="w-100">
       <ArtifactListContent>
-        <ArtifactListItem state="error">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Overdue</ArtifactListItemTimeline>
-            <ArtifactListItemDescription>
-              P-401A requires new mechanical seal
-            </ArtifactListItemDescription>
-          </ListItemHeader>
+        <ArtifactListItem variant="error">
+          <ArtifactListItemTitle>Pump seal replacement</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Overdue</ArtifactListItemStatus>
+          <ArtifactListItemDescription>
+            P-401A requires new mechanical seal
+          </ArtifactListItemDescription>
         </ArtifactListItem>
 
-        <ArtifactListItem state="now">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Due today</ArtifactListItemTimeline>
-            <ArtifactListItemDescription>Quarterly calibration check</ArtifactListItemDescription>
-          </ListItemHeader>
+        <ArtifactListItem variant="now">
+          <ArtifactListItemTitle>Valve calibration</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Due today</ArtifactListItemStatus>
+          <ArtifactListItemDescription>Quarterly calibration check</ArtifactListItemDescription>
         </ArtifactListItem>
 
-        <ArtifactListItem state="completed">
-          <ListItemHeader>
-            <ListItemIcon />
-            <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
-            <ArtifactListItemTimeline>Completed</ArtifactListItemTimeline>
-            <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
-          </ListItemHeader>
+        <ArtifactListItem variant="completed">
+          <ArtifactListItemTitle>Filter cleaning</ArtifactListItemTitle>
+          <ArtifactListItemStatus>Completed</ArtifactListItemStatus>
+          <ArtifactListItemDescription>Clean inlet filters</ArtifactListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
