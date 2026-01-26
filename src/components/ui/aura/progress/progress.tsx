@@ -1,17 +1,24 @@
 import * as ProgressPrimitive from "@radix-ui/react-progress";
-import type { ComponentProps } from "react";
+import { type ComponentProps, forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-function Progress({ className, value, ...props }: ComponentProps<typeof ProgressPrimitive.Root>) {
+const Progress = forwardRef<
+  React.ElementRef<typeof ProgressPrimitive.Root>,
+  ComponentProps<typeof ProgressPrimitive.Root>
+>(({ className, value, "aria-label": ariaLabel, ...props }, ref) => {
+  const defaultAriaLabel = `Progress: ${value ?? 0}%`;
+
   return (
     <ProgressPrimitive.Root
+      ref={ref}
       data-slot="progress"
       className={cn(
         "bg-accent text-accent-foreground relative h-2 w-full overflow-hidden rounded-full",
         className
       )}
       value={value}
+      aria-label={ariaLabel ?? defaultAriaLabel}
       {...props}
     >
       <ProgressPrimitive.Indicator
@@ -21,6 +28,8 @@ function Progress({ className, value, ...props }: ComponentProps<typeof Progress
       />
     </ProgressPrimitive.Root>
   );
-}
+});
+
+Progress.displayName = "Progress";
 
 export { Progress };

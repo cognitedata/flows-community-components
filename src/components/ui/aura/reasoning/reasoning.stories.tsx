@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem } from "./reasoning";
 import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "../tool/tool";
+import { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem } from "./reasoning";
 
 const meta: Meta<typeof Reasoning> = {
   title: "AI/Reasoning",
@@ -213,7 +213,8 @@ export const SingleToolCall: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Reasoning section with a single tool call (no connector decorations between steps).",
+        story:
+          "Reasoning section with a single tool call (no connector decorations between steps).",
       },
     },
   },
@@ -780,4 +781,3 @@ export const Playground: Story = {
     },
   },
 };
-

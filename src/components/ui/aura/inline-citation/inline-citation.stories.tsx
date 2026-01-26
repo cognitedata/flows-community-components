@@ -1,3 +1,11 @@
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageContent,
+} from "@/components/ui/aura/message";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import {
@@ -15,14 +23,6 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
-import {
-  Message,
-  MessageAction,
-  MessageActions,
-  MessageAvatar,
-  MessageAvatarIcon,
-  MessageContent,
-} from "@/components/ui/aura/message";
 import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inline-citation";
 
 const meta: Meta<typeof InlineCitation> = {
@@ -446,7 +446,7 @@ export const LongCitationText: Story = {
 
     const link = canvas.getByRole("link");
     await expect(link).toBeInTheDocument();
-    
+
     // Verify the link contains the long text
     await expect(link).toHaveTextContent(
       "This is a very long citation text that should not wrap to multiple lines"

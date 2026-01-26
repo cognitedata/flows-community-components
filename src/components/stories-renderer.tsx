@@ -93,10 +93,7 @@ export function StoriesRenderer({ slug }: StoriesRendererProps) {
 
         // Get all story keys (will be alphabetical after bundling)
         const allKeys = Object.keys(module).filter(
-          (key) =>
-            key !== "default" &&
-            key !== "__esModule" &&
-            !key.startsWith("_")
+          (key) => key !== "default" && key !== "__esModule" && !key.startsWith("_")
         );
 
         // Compose stories using Storybook's portable stories API
