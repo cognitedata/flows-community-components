@@ -13,7 +13,9 @@
     "@aura/button",
     "@aura/input",
     "@aura/separator",
-    "@aura/skeleton"
+    "@aura/sheet",
+    "@aura/skeleton",
+    "@aura/tooltip"
   ],
   "files": [
     {

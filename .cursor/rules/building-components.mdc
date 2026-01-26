@@ -200,11 +200,49 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(...)
 - ✅ Explicit render functions, not just args
 - ✅ Include order parameters, play functions, accessibility tests
 
+# Side Navigation
+
+**After creating a new component, add it to `src/components/side-navigation.tsx`:**
+
+Use the component's Storybook category (from `title` in story meta) to determine placement:
+
+```tsx
+// Story meta title determines category
+const meta: Meta<typeof Badge> = {
+  title: "Primitives/Badge",  // → Add to primitivesNavigation
+  // ...
+};
+```
+
+**Navigation categories:**
+- `Primitives/Colors`, `Primitives/Effects`, `Primitives/Layouts`, `Primitives/Typography` → Add to **Foundations** subsection in `primitivesNavigation`
+- `Primitives/[ComponentName]` → Add to **Primitives** subsection in `primitivesNavigation` (alphabetically)
+- `AI/[ComponentName]` → Add to **AI Chat** subsection in `aiNavigation` (alphabetically)
+- `Patterns/[PatternName]` → Add to **Patterns** subsection in `patternsNavigation`
+
+**Example:**
+```tsx
+// Adding a new primitive component
+const primitivesNavigation: NavigationItem[] = [
+  {
+    href: "#",
+    label: "Primitives",
+    isSubsection: true,
+    children: [
+      { href: "/primitives/accordion", label: "Accordion" },
+      { href: "/primitives/alert", label: "Alert" },
+      { href: "/primitives/badge", label: "Badge" }, // ← New component
+      // ... rest alphabetically
+    ],
+  },
+];
+```
+
 # Registry
 
 **After creating/updating components:**
-1. Add to `registry.template.json` with ALL dependencies
-2. Run `pnpm run registry:build`
+1. Component is auto-discovered from filesystem (no manual registry needed)
+2. Run `pnpm run registry:build` to generate public JSON files
 3. Verify `public/r/*.json` files are generated
 
 # Code Quality Checklist
@@ -215,3 +253,4 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(...)
 - ✅ Use `ComponentProps<typeof X>` for wrapping components
 - ✅ Consistent patterns - similar components should look similar
 - ✅ Accessibility - ARIA labels, keyboard navigation, focus management
+- ✅ Side navigation updated with new component in correct category

@@ -11,8 +11,12 @@
   "registryDependencies": [
     "@aura/css",
     "@aura/button",
+    "@aura/command",
+    "@aura/dropdown-menu",
     "@aura/helper-text",
-    "@aura/hover-card"
+    "@aura/hover-card",
+    "@aura/input-group",
+    "@aura/select"
   ],
   "files": [
     {
