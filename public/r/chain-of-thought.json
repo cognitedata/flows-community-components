@@ -9,7 +9,8 @@
   ],
   "registryDependencies": [
     "@aura/css",
-    "@aura/badge"
+    "@aura/badge",
+    "@aura/collapsible"
   ],
   "files": [
     {

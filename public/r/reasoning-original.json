@@ -10,6 +10,7 @@
   ],
   "registryDependencies": [
     "@aura/css",
+    "@aura/collapsible",
     "@aura/shimmer"
   ],
   "files": [
