@@ -1570,15 +1570,16 @@ export const IconSizes: Story = {
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
 
-    // Find badges with icon size (they have p-0.75 class)
+    // Find badges with icon size (they have px-1.5 py-1 classes from size="icon")
     const iconSizeBadges = Array.from(badges).filter((badge) =>
-      badge.classList.contains("p-0.75")
+      badge.classList.contains("px-1.5") && badge.classList.contains("py-1")
     );
 
     // Verify icon size badges have correct styling
     iconSizeBadges.forEach((badge) => {
-      expect(badge).toHaveClass("p-0.75");
-      expect(badge).toHaveClass("rounded-md");
+      expect(badge.classList.contains("px-1.5")).toBe(true);
+      expect(badge.classList.contains("py-1")).toBe(true);
+      expect(badge.classList.contains("rounded-md")).toBe(true);
     });
 
     // Should have 4 icon size badges (mountain, fjord, aurora, dusk)
