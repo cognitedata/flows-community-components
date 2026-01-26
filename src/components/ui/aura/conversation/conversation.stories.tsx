@@ -118,7 +118,7 @@ export const Default: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify multiple messages exist
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(8);
 
     // Test accessibility: verify action buttons have proper accessible names
@@ -143,7 +143,7 @@ export const Default: Story = {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Check if scroll button appears
-      const scrollButton = canvasElement.querySelector('button.rounded-full');
+      const scrollButton = canvasElement.querySelector("button.rounded-full");
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
@@ -154,7 +154,7 @@ export const Default: Story = {
         // Verify button disappears after scrolling to bottom
         await waitFor(
           async () => {
-            const buttonAfterClick = canvasElement.querySelector('button.rounded-full');
+            const buttonAfterClick = canvasElement.querySelector("button.rounded-full");
             await expect(buttonAfterClick).not.toBeInTheDocument();
           },
           { timeout: 2000 }
@@ -203,9 +203,9 @@ export const Default: Story = {
           </MessageAvatar>
           <MessageContent className="flex flex-col gap-2">
             <span>
-              The last scheduled maintenance was performed on 15 November 2024. The next
-              maintenance is scheduled for 15 February 2025. All previous inspections have shown
-              normal wear patterns.
+              The last scheduled maintenance was performed on 15 November 2024. The next maintenance
+              is scheduled for 15 February 2025. All previous inspections have shown normal wear
+              patterns.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -264,8 +264,8 @@ export const Default: Story = {
           <MessageContent className="flex flex-col gap-2">
             <span>
               Two similar pumps in the same section (21PT1020 and 21PT1021) are showing elevated
-              vibration levels. 21PT1020 is at 5.2 mm/s (warning threshold exceeded) and 21PT1021
-              is at 4.8 mm/s. I recommend scheduling inspections for both units.
+              vibration levels. 21PT1020 is at 5.2 mm/s (warning threshold exceeded) and 21PT1021 is
+              at 4.8 mm/s. I recommend scheduling inspections for both units.
             </span>
             <MessageActions>
               <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
@@ -318,8 +318,8 @@ export const Default: Story = {
 
 /**
  * Empty conversation state.
- * 
- * NOTE: There's also a CustomEmptyStateFromMain story (from main branch) 
+ *
+ * NOTE: There's also a CustomEmptyStateFromMain story (from main branch)
  * with action buttons if you prefer that version.
  */
 export const EmptyState: Story = {
@@ -347,7 +347,7 @@ export const EmptyState: Story = {
     await expect(description).toBeInTheDocument();
 
     // Verify no messages exist
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(0);
   },
   render: () => (
@@ -387,7 +387,7 @@ export const SuggestionsAutoSubmit: Story = {
     // Verify a message appears
     await waitFor(
       async () => {
-        const messages = canvasElement.querySelectorAll('[data-message]');
+        const messages = canvasElement.querySelectorAll("[data-message]");
         await expect(messages.length).toBeGreaterThanOrEqual(1);
       },
       { timeout: 1000 }
@@ -545,7 +545,7 @@ export const MixedMessageTypes: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify both user and assistant messages
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(4);
 
     // Verify avatars only on assistant messages
@@ -724,7 +724,7 @@ export const VeryLongConversation: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify many messages exist (20 pairs = 40 messages)
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(30);
 
     // Verify message structure consistency - each assistant message has action buttons
@@ -741,11 +741,11 @@ export const VeryLongConversation: Story = {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Check if scroll button appears
-      const scrollButton = canvasElement.querySelector('button.rounded-full');
+      const scrollButton = canvasElement.querySelector("button.rounded-full");
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
-        await expect(scrollButton).toHaveAttribute('type', 'button');
+        await expect(scrollButton).toHaveAttribute("type", "button");
       }
     }
   },
@@ -808,7 +808,7 @@ export const SingleMessage: Story = {
     const canvas = within(canvasElement);
 
     // Verify exactly one message
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(1);
 
     // Verify the message content
@@ -820,7 +820,7 @@ export const SingleMessage: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify scroll button doesn't appear (no overflow, so ConversationScrollButton is hidden)
-    const scrollButton = canvasElement.querySelector('button.rounded-full');
+    const scrollButton = canvasElement.querySelector("button.rounded-full");
     await expect(scrollButton).not.toBeInTheDocument();
   },
   render: () => (
@@ -851,7 +851,7 @@ export const ShortContainer: Story = {
     const canvas = within(canvasElement);
 
     // Verify messages exist
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThan(2);
 
     // Verify ARIA role
@@ -872,11 +872,11 @@ export const ShortContainer: Story = {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       // Check if scroll button appears
-      const scrollButton = canvasElement.querySelector('button.rounded-full');
+      const scrollButton = canvasElement.querySelector("button.rounded-full");
       if (scrollButton) {
         await expect(scrollButton).toBeInTheDocument();
         await expect(scrollButton).toBeVisible();
-        await expect(scrollButton).toHaveAttribute('type', 'button');
+        await expect(scrollButton).toHaveAttribute("type", "button");
       }
     }
   },
@@ -923,8 +923,8 @@ export const ShortContainer: Story = {
             <MessageContent className="flex flex-col gap-2">
               <span>
                 Detailed metrics retrieved. 21PT1019: 3.2 mm/s, 68°C. 21PT1020: 5.2 mm/s, 82°C
-                (warning). 21PT1021: 4.8 mm/s, 78°C. Recommended action: inspect 21PT1020 within
-                48 hours.
+                (warning). 21PT1021: 4.8 mm/s, 78°C. Recommended action: inspect 21PT1020 within 48
+                hours.
               </span>
               <MessageActions>
                 <MessageAction size="icon-sm" label="Copy" tooltip="Copy">
