@@ -14,26 +14,27 @@ Use `prompt-input.stories.tsx` as the gold standard for story structure, compreh
 The `parameters.order` value controls how stories are displayed as examples on the docs site:
 
 - ✅ **Required** for every story - no exceptions
-- 📊 Start from `1`, increment for each subsequent story
+- 📊 Start from `1`, increment sequentially (1, 2, 3, 4...) for each story you include
 - 🔢 Lower numbers appear first on the docs site
-- 📝 If adding order to existing stories without it, assign numbers in the order they appear in the file
+- 📝 Skip story types that don't apply - just keep incrementing from where you left off
+- 🎯 Exception: Playground always uses `order: 99` to appear last
 
 ## Standard Story Sequence
 
-For consistency across all components, organize stories in this order:
+For consistency across all components, organize stories in this sequence. Assign order numbers sequentially (1, 2, 3, 4...) to the stories you actually include, skipping story types that don't apply to your component.
 
-### 1. Basic (order: 1)
+### 1. Basic
 The default, most common use case with minimal configuration.
 
-### 2. Variants (order: 2-10+)
+### 2. Variants
 Individual stories for each variant (e.g., `Fjord`, `Aurora`, `Mountain`, `Error`, `Success`).
 One story per variant showing typical usage.
 
-### 3. All Variants Overview (order: 11)
+### 3. All Variants Overview
 Single story showing all variants together for quick comparison.
 Place immediately after individual variant stories.
 
-### 4. Composition Patterns (order: 12-20+)
+### 4. Composition Patterns
 Stories showing optional compositions:
 - `WithHeader`, `WithFooter`, `WithIcon`, etc.
 - Show enhancements to the basic usage
@@ -42,24 +43,26 @@ Stories showing optional compositions:
 - Only include if the feature actually exists in the component
 - Example: If headers are optional, show `Basic` (no header) and `WithHeader` (enhanced)
 
-### 5. Sizing/Styling (order: next)
+### 5. Sizing/Styling
 Stories demonstrating size variants, outline styles, backgrounds, etc.
+Only include if component has size/style variants.
 
-### 6. Minimal (order: next)
+### 6. Minimal
 Bare minimum example showing the simplest possible usage.
 Only include if meaningfully different from Basic.
 
-### 7. Interactive (order: next)
+### 7. Interactive
 Complex stateful examples with `useState`, real-world scenarios, user interactions.
 Shows how to actually use the component in practice (forms, toggles, dynamic content, etc.).
 
-### 8. Accessibility (order: next)
+### 8. Accessibility
 ARIA labels, keyboard navigation, screen reader support examples.
+Only include if there are specific accessibility features to demonstrate.
 
-### 9. Visual Regression (order: next)
+### 9. Visual Regression
 Baseline story for automated visual testing.
 
-### 10. Edge Cases (order: next+)
+### 10. Edge Cases
 - `EdgeCaseEmpty` - Empty content
 - `EdgeCaseLongText` - Overflow behavior
 - `EdgeCaseSpecialCharacters` - Special chars, emojis, HTML
@@ -67,15 +70,33 @@ Baseline story for automated visual testing.
 - `EdgeCaseMixedContent` - Complex nested children
 - etc.
 
-### 11. Playground (order: last) - OPTIONAL
+### 11. Playground - OPTIONAL
 **Always named `Playground`** - Interactive controls for prop experimentation.
 Uses `render: (args) => <Component {...args} />` for full control interactivity via Storybook controls panel.
 Different from Interactive - this is for exploring all props, not showing realistic usage patterns.
 
+**Order number:** Always use `order: 99` for Playground to keep it last.
+
 **Skip Playground if:** Component is simple with few props, or compositional (children-based API).
 **Include Playground if:** Component has many variants/props worth experimenting with interactively.
 
-**Example:**
+**Example numbering for a simple component:**
+
+```tsx
+// Basic: order 1
+// Fjord variant: order 2
+// Aurora variant: order 3
+// Mountain variant: order 4
+// AllVariants: order 5
+// Interactive: order 6 (skipped Composition Patterns, Sizing, Minimal, Accessibility)
+// EdgeCaseEmpty: order 7
+// EdgeCaseLongText: order 8
+// Playground: order 99 (always last)
+```
+
+Notice how we skipped several story types but kept incrementing sequentially: 1, 2, 3, 4, 5, 6, 7, 8, then 99 for Playground.
+
+**Full example with all story types:**
 
 ```tsx
 // 1. Basic
