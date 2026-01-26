@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconChevronDown, IconSelector } from "@tabler/icons-react";
+import { IconSelector } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 
@@ -108,7 +108,7 @@ export const Basic: Story = {
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between">
           <span>What is a collapsible?</span>
-          <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -155,7 +155,7 @@ export const DefaultOpen: Story = {
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between">
           <span>Frequently Asked Questions</span>
-          <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -225,7 +225,7 @@ export const Controlled: Story = {
           <CollapsibleTrigger asChild>
             <Button variant="ghost" className="w-full justify-between">
               <span>Controlled Collapsible</span>
-              <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent>
@@ -351,7 +351,7 @@ export const Multiple: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between">
             <span>Question 1: What is React?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -366,7 +366,7 @@ export const Multiple: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between">
             <span>Question 2: What is TypeScript?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -380,7 +380,7 @@ export const Multiple: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between">
             <span>Question 3: What is Next.js?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -427,7 +427,7 @@ export const Disabled: Story = {
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between" disabled>
           <span>Disabled Collapsible</span>
-          <IconChevronDown className="h-4 w-4" />
+          <IconSelector className="h-4 w-4" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -471,7 +471,7 @@ export const WithRichContent: Story = {
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between">
           <span>Documentation</span>
-          <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -534,7 +534,7 @@ export const FAQ: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">
             <span>What&apos;s the difference between Collapsible and Accordion?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -550,7 +550,7 @@ export const FAQ: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">
             <span>How do I customize the styling?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -565,7 +565,7 @@ export const FAQ: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">
             <span>Can I control the open state programmatically?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
