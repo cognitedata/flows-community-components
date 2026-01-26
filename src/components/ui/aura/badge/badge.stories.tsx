@@ -330,39 +330,66 @@ export const AllVariants: Story = {
     await expect(orangeBadge).toHaveClass("bg-decorative-background-orange");
 
     // Verify semantic filled variants render with correct classes
-    const successBadge = canvas.getByText("Success");
-    await expect(successBadge).toBeInTheDocument();
-    await expect(successBadge).toHaveClass("bg-success");
-    await expect(successBadge).toHaveClass(
-      "text-success-foreground-alternative"
-    );
+    // There are multiple "Success" badges (filled and outlined), so find the filled one specifically
+    const successBadges = canvas.getAllByText("Success");
+    await expect(successBadges.length).toBeGreaterThanOrEqual(2); // At least filled and outlined
 
-    const errorBadge = canvas.getByText("Error");
-    await expect(errorBadge).toBeInTheDocument();
-    await expect(errorBadge).toHaveClass("bg-destructive");
-    await expect(errorBadge).toHaveClass(
-      "text-destructive-foreground-alternative"
-    );
+    // Find the filled Success badge by checking all badges with Success text
+    const allBadgesForSemantic = canvasElement.querySelectorAll('[data-slot="badge"]');
+    const filledSuccessElement = Array.from(allBadgesForSemantic).find((badge) => {
+      const text = badge.textContent || "";
+      const hasSuccess = text.includes("Success");
+      const hasBgSuccess = badge.classList.contains("bg-success");
+      const notOutlined = !badge.classList.contains("border-border");
+      return hasSuccess && hasBgSuccess && notOutlined;
+    });
+    expect(filledSuccessElement).toBeDefined();
+    expect(filledSuccessElement?.classList.contains("bg-success")).toBe(true);
+    expect(filledSuccessElement?.classList.contains("text-success-foreground-alternative")).toBe(true);
+
+    // There are multiple "Error" badges (filled and outlined), so find the filled one specifically
+    const errorBadges = canvas.getAllByText("Error");
+    await expect(errorBadges.length).toBeGreaterThanOrEqual(2); // At least filled and outlined
+
+    // Find the filled Error badge by checking all badges with Error text
+    const filledErrorElement = Array.from(allBadgesForSemantic).find((badge) => {
+      const text = badge.textContent || "";
+      const hasError = text.includes("Error");
+      const hasBgDestructive = badge.classList.contains("bg-destructive");
+      const notOutlined = !badge.classList.contains("border-border");
+      return hasError && hasBgDestructive && notOutlined;
+    });
+    expect(filledErrorElement).toBeDefined();
+    expect(filledErrorElement?.classList.contains("bg-destructive")).toBe(true);
+    expect(filledErrorElement?.classList.contains("text-destructive-foreground-alternative")).toBe(true);
 
     // Verify outlined variants have borders and no backgrounds
-    const outlinedBadges = canvasElement.querySelectorAll(
-      '[data-slot="badge"].border-border'
+    // Find all badges and filter for outlined ones (they have border-border class)
+    const allBadgesForOutlined = canvasElement.querySelectorAll('[data-slot="badge"]');
+    const outlinedBadges = Array.from(allBadgesForOutlined).filter((badge) =>
+      badge.classList.contains("border-border")
     );
     await expect(outlinedBadges.length).toBeGreaterThanOrEqual(5);
 
     // Verify at least one outlined badge has correct styling
-    const outlinedSuccess = Array.from(outlinedBadges).find((badge) =>
-      badge.textContent?.includes("Success")
-    );
-    await expect(outlinedSuccess).toBeDefined();
-    await expect(outlinedSuccess).toHaveClass("border-border");
-    await expect(outlinedSuccess).toHaveClass("text-success-foreground");
-    await expect(outlinedSuccess).not.toHaveClass("bg-success");
+    // Find the outlined Success badge by looking for Success text in outlined badges
+    const outlinedSuccessElements = Array.from(allBadgesForOutlined).filter((badge) => {
+      const hasBorder = badge.classList.contains("border-border");
+      const hasSuccessText = badge.textContent?.includes("Success");
+      return hasBorder && hasSuccessText;
+    });
+    await expect(outlinedSuccessElements.length).toBeGreaterThan(0);
+
+    // Verify the first outlined success badge has correct classes
+    const outlinedSuccess = outlinedSuccessElements[0];
+    expect(outlinedSuccess.classList.contains("border-border")).toBe(true);
+    expect(outlinedSuccess.classList.contains("text-success-foreground")).toBe(true);
+    expect(outlinedSuccess.classList.contains("bg-success")).toBe(false);
 
     // Verify size variants exist
-    // Default size badges have "Default Size" text
-    const defaultSizeText = canvas.getByText("Default Size", { exact: false });
-    await expect(defaultSizeText).toBeInTheDocument();
+    // Default size badges have "Default Size" text (there are multiple - success and error)
+    const defaultSizeBadges = canvas.getAllByText("Default Size", { exact: false });
+    await expect(defaultSizeBadges.length).toBeGreaterThanOrEqual(2);
 
     // Icon size badges are icon-only (no text content beyond the icon itself)
     // We can verify by checking that badges with just icons exist
@@ -469,7 +496,6 @@ export const Mountain: Story = {
  * - Information architecture labels
  */
 export const Fjord: Story = {
-  render: () => <Badge variant="fjord">Observations</Badge>,
   args: {
     variant: "fjord",
     children: "Fjord",
@@ -641,7 +667,6 @@ export const Aurora: Story = {
  * - Creative project categories
  */
 export const Dusk: Story = {
-  render: () => <Badge variant="dusk">RCA</Badge>,
   args: {
     variant: "dusk",
     children: "Dusk",
@@ -740,6 +765,63 @@ export const Orange: Story = {
 };
 
 /**
+ * Secondary variant - subtle neutral badge
+ *
+ * The Secondary variant uses the secondary background color, making it ideal for
+ * subtle labels, tags, and less prominent status indicators. This variant provides
+ * a neutral, understated appearance that works well for secondary information or
+ * when you need a badge that doesn't compete with primary content. Use Secondary
+ * badges when you need a subtle visual distinction without strong emphasis.
+ *
+ * Common use cases:
+ * - Subtle category labels
+ * - Secondary status indicators
+ * - Less prominent tags
+ * - Neutral decorative elements
+ * - Supporting information badges
+ */
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+    children: "Secondary",
+  },
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story:
+          "Secondary variant uses the secondary background color for a subtle, neutral appearance. This variant is ideal for less prominent labels, tags, and status indicators that don't require strong visual emphasis. The Secondary badge provides a neutral, understated appearance that works well for supporting information or when you need visual distinction without competing with primary content.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Secondary");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-secondary");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-secondary-foreground");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+  },
+};
+
+/**
  * Neutral variant - informational status badge
  *
  * The Neutral variant (inProgress) represents informational or in-progress states.
@@ -761,12 +843,12 @@ export const Neutral: Story = {
     children: (
       <>
         <IconInnerShadowTopLeft className="size-3" />
-        inProgress
+        Neutral
       </>
     ),
   },
   parameters: {
-    order: 6,
+    order: 7,
     docs: {
       description: {
         story:
@@ -827,12 +909,12 @@ export const Success: Story = {
     children: (
       <>
         <IconCircleCheck className="size-3" />
-        success
+        Success
       </>
     ),
   },
   parameters: {
-    order: 7,
+    order: 8,
     docs: {
       description: {
         story:
@@ -893,7 +975,7 @@ export const Warning: Story = {
     children: (
       <>
         <IconAlertTriangle className="size-3" />
-        warning
+        Warning
       </>
     ),
   },
@@ -2154,18 +2236,16 @@ export const __stories = {
   Mountain,
   Dusk,
   Secondary,
-  ErrorBadge,
-  ErrorOutline,
+  Error,
+  ErrorOutlined,
   Warning,
-  WarningOutline,
+  WarningOutlined,
   Success,
-  InProgress,
-  Archived,
+  Neutral,
+  Undefined,
   AllVariants,
   IconSizes,
   Playground,
-  OutlineStyle,
-  NoBackground,
   DotIndicators,
   ClickInteraction,
   KeyboardInteractions,
