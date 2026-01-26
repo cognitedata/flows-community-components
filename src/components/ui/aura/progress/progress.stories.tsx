@@ -6,7 +6,7 @@ import { Label } from "../label";
 import { Progress } from "./progress";
 
 const meta: Meta<typeof Progress> = {
-  title: "AI/Progress",
+  title: "Primitives/Progress",
   component: Progress,
   tags: ["autodocs"],
   argTypes: {
@@ -75,12 +75,13 @@ type Story = StoryObj<typeof Progress>;
  * Shows a simple progress indicator at 50%
  */
 export const Basic: Story = {
+  render: () => <Progress value={50} className="w-96" />,
   args: {
     value: 50,
-    className: "w-[400px]",
-    "aria-label": "Progress: 50%",
+    className: "w-96",
   },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -92,10 +93,9 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Test from user's perspective by querying for ARIA role
-    const progressbar = canvas.getByRole("progressbar", {
-      name: "Progress: 50%",
-    });
+    const progressbar = canvas.getByRole("progressbar");
     await expect(progressbar).toBeInTheDocument();
+    await expect(progressbar).toHaveAccessibleName("Progress: 50%");
 
     // Verify accessibility attributes
     await expect(progressbar).toHaveAttribute("aria-valuenow", "50");
@@ -109,11 +109,61 @@ export const Basic: Story = {
 };
 
 /**
+ * Custom aria-label
+ * Demonstrates how to override the auto-generated aria-label with custom text
+ */
+export const CustomAriaLabel: Story = {
+  render: () => (
+    <div className="space-y-4 w-96">
+      <div className="space-y-2">
+        <div className="text-sm font-medium">Auto-generated label:</div>
+        <Progress value={60} />
+        <div className="text-xs text-muted-foreground">aria-label: "Progress: 60%"</div>
+      </div>
+      <div className="space-y-2">
+        <div className="text-sm font-medium">Custom label:</div>
+        <Progress value={60} aria-label="Document upload progress: 60%" />
+        <div className="text-xs text-muted-foreground">
+          aria-label: "Document upload progress: 60%"
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story:
+          "The Progress component auto-generates an aria-label from the value prop (e.g., 'Progress: 60%'). You can override this by providing a custom aria-label prop for more specific context.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify both progress bars are rendered
+    const progressbars = canvas.getAllByRole("progressbar");
+    await expect(progressbars).toHaveLength(2);
+
+    // Verify auto-generated label
+    await expect(progressbars[0]).toHaveAccessibleName("Progress: 60%");
+
+    // Verify custom label
+    await expect(progressbars[1]).toHaveAccessibleName("Document upload progress: 60%");
+
+    // Both should have the same value
+    await expect(progressbars[0]).toHaveAttribute("aria-valuenow", "60");
+    await expect(progressbars[1]).toHaveAttribute("aria-valuenow", "60");
+  },
+};
+
+/**
  * Different progress values
  * Shows progress bars at various completion states
  */
 export const DifferentValues: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -143,41 +193,41 @@ export const DifferentValues: Story = {
     await expect(canvas.getByText("100% Complete")).toBeInTheDocument();
   },
   render: () => (
-    <div className="space-y-4 w-[400px]">
+    <div className="space-y-4 w-96">
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>0% Complete</span>
           <span className="text-muted-foreground">0%</span>
         </div>
-        <Progress value={0} aria-label="Progress: 0%" />
+        <Progress value={0} />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>25% Complete</span>
           <span className="text-muted-foreground">25%</span>
         </div>
-        <Progress value={25} aria-label="Progress: 25%" />
+        <Progress value={25} />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>50% Complete</span>
           <span className="text-muted-foreground">50%</span>
         </div>
-        <Progress value={50} aria-label="Progress: 50%" />
+        <Progress value={50} />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>75% Complete</span>
           <span className="text-muted-foreground">75%</span>
         </div>
-        <Progress value={75} aria-label="Progress: 75%" />
+        <Progress value={75} />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>100% Complete</span>
           <span className="text-muted-foreground">100%</span>
         </div>
-        <Progress value={100} aria-label="Progress: 100%" />
+        <Progress value={100} />
       </div>
     </div>
   ),
@@ -189,6 +239,7 @@ export const DifferentValues: Story = {
  */
 export const WithLabel: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -213,7 +264,7 @@ export const WithLabel: Story = {
     await expect(progressbar).toHaveAttribute("aria-valuenow", "30");
   },
   render: () => (
-    <div className="space-y-2 w-[400px]">
+    <div className="space-y-2 w-96">
       <Label>Files uploaded</Label>
       <div className="flex items-center justify-between gap-2">
         <Progress
@@ -235,6 +286,7 @@ export const WithLabel: Story = {
  */
 export const Animated: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -298,7 +350,7 @@ export const Animated: Story = {
     }, []);
 
     return (
-      <div className="space-y-2 w-[400px]">
+      <div className="space-y-2 w-96">
         <div className="flex justify-between text-sm">
           <span>Loading...</span>
           <span className="text-muted-foreground">{progress}%</span>
@@ -318,6 +370,7 @@ export const Animated: Story = {
  */
 export const FileUpload: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -348,7 +401,7 @@ export const FileUpload: Story = {
     await expect(progressbars[2]).toHaveAttribute("aria-valuenow", "90");
   },
   render: () => (
-    <div className="space-y-4 w-[400px]">
+    <div className="space-y-4 w-96">
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Uploading document.pdf</span>
@@ -383,6 +436,7 @@ export const FileUpload: Story = {
  */
 export const Interactive: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -442,13 +496,13 @@ export const Interactive: Story = {
     const [progress, setProgress] = useState(50);
 
     return (
-      <div className="space-y-4 w-[400px]">
+      <div className="space-y-4 w-96">
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span>Progress</span>
             <span className="text-muted-foreground">{progress}%</span>
           </div>
-          <Progress value={progress} aria-label={`Progress: ${progress}%`} />
+          <Progress value={progress} />
         </div>
         <div className="flex gap-2">
           <Button
@@ -480,6 +534,7 @@ export const Interactive: Story = {
  */
 export const Indeterminate: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -504,7 +559,7 @@ export const Indeterminate: Story = {
     await expect(progressbar).toHaveAttribute("aria-valuenow", "0");
   },
   render: () => (
-    <div className="space-y-4 w-[400px]">
+    <div className="space-y-4 w-96">
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Processing...</span>
@@ -522,6 +577,7 @@ export const Indeterminate: Story = {
  */
 export const Complete: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -546,7 +602,7 @@ export const Complete: Story = {
     await expect(progressbar).toHaveAttribute("aria-valuenow", "100");
   },
   render: () => (
-    <div className="space-y-2 w-[400px]">
+    <div className="space-y-2 w-96">
       <div className="flex justify-between text-sm">
         <span>Upload complete</span>
         <span className="text-muted-foreground">100%</span>
@@ -562,6 +618,7 @@ export const Complete: Story = {
  */
 export const Multiple: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -599,7 +656,7 @@ export const Multiple: Story = {
     await expect(progressbars[3]).toHaveAttribute("aria-valuenow", "100");
   },
   render: () => (
-    <div className="space-y-4 w-[400px]">
+    <div className="space-y-4 w-96">
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 1: Data processing</span>

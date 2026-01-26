@@ -118,6 +118,64 @@
       ]
     },
     {
+      "name": "artifact-progress",
+      "type": "registry:component",
+      "title": "artifact-progress",
+      "description": "",
+      "registryDependencies": ["@aura/css", "@aura/card", "@aura/progress"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-progress/artifact-progress.tsx",
+          "target": "src/components/ui/aura/artifact-progress.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:component",
+      "title": "card",
+      "description": "",
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/card/card.tsx",
+          "target": "src/components/ui/aura/card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:component",
+      "title": "progress",
+      "description": "",
+      "dependencies": ["@radix-ui/react-progress"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/progress/progress.tsx",
+          "target": "src/components/ui/aura/progress.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "avatar",
       "type": "registry:component",
       "title": "for",
@@ -262,25 +320,6 @@
       ]
     },
     {
-      "name": "card",
-      "type": "registry:component",
-      "title": "card",
-      "description": "",
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/card/card.tsx",
-          "target": "src/components/ui/aura/card.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "carousel",
       "type": "registry:component",
       "title": "carousel",
@@ -306,11 +345,31 @@
       "title": "chain-of-thought",
       "description": "",
       "dependencies": ["@radix-ui/react-use-controllable-state", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/badge"],
+      "registryDependencies": ["@aura/css", "@aura/badge", "@aura/collapsible"],
       "files": [
         {
           "path": "src/components/ui/aura/chain-of-thought/chain-of-thought.tsx",
           "target": "src/components/ui/aura/chain-of-thought.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:component",
+      "title": "collapsible",
+      "description": "",
+      "dependencies": ["@radix-ui/react-collapsible"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/collapsible/collapsible.tsx",
+          "target": "src/components/ui/aura/collapsible.tsx",
           "type": "registry:component"
         },
         {
@@ -381,26 +440,6 @@
       ]
     },
     {
-      "name": "collapsible",
-      "type": "registry:component",
-      "title": "collapsible",
-      "description": "",
-      "dependencies": ["@radix-ui/react-collapsible"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/collapsible/collapsible.tsx",
-          "target": "src/components/ui/aura/collapsible.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "colors",
       "type": "registry:component",
       "title": "colors",
@@ -425,11 +464,51 @@
       "title": "combobox",
       "description": "",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/popover"],
+      "registryDependencies": ["@aura/css", "@aura/button", "@aura/command", "@aura/popover"],
       "files": [
         {
           "path": "src/components/ui/aura/combobox/combobox.tsx",
           "target": "src/components/ui/aura/combobox.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:component",
+      "title": "command",
+      "description": "",
+      "dependencies": ["@tabler/icons-react", "cmdk"],
+      "registryDependencies": ["@aura/css", "@aura/dialog"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/command/command.tsx",
+          "target": "src/components/ui/aura/command.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:component",
+      "title": "dialog",
+      "description": "",
+      "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/dialog/dialog.tsx",
+          "target": "src/components/ui/aura/dialog.tsx",
           "type": "registry:component"
         },
         {
@@ -460,32 +539,18 @@
       ]
     },
     {
-      "name": "command",
-      "type": "registry:component",
-      "title": "command",
-      "description": "",
-      "dependencies": ["@tabler/icons-react", "cmdk"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/command/command.tsx",
-          "target": "src/components/ui/aura/command.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "confirmation",
       "type": "registry:component",
       "title": "confirmation",
       "description": "",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/alert", "@aura/button", "@aura/helper-text"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/alert",
+        "@aura/button",
+        "@aura/collapsible",
+        "@aura/helper-text"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/confirmation/confirmation.tsx",
@@ -580,26 +645,6 @@
       ]
     },
     {
-      "name": "dialog",
-      "type": "registry:component",
-      "title": "dialog",
-      "description": "",
-      "dependencies": ["@radix-ui/react-dialog", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/dialog/dialog.tsx",
-          "target": "src/components/ui/aura/dialog.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "drawer",
       "type": "registry:component",
       "title": "drawer",
@@ -679,12 +724,31 @@
       ]
     },
     {
+      "name": "icon-conversation-empty-state",
+      "type": "registry:component",
+      "title": "icon-conversation-empty-state",
+      "description": "",
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/icon-conversation-empty-state/icon-conversation-empty-state.tsx",
+          "target": "src/components/ui/aura/icon-conversation-empty-state.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "inline-citation",
       "type": "registry:component",
       "title": "inline-citation",
       "description": "",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/badge", "@aura/hover-card"],
+      "registryDependencies": ["@aura/css", "@aura/badge", "@aura/carousel", "@aura/hover-card"],
       "files": [
         {
           "path": "src/components/ui/aura/inline-citation/inline-citation.tsx",
@@ -921,16 +985,25 @@
       ]
     },
     {
-      "name": "progress",
+      "name": "prompt-input",
       "type": "registry:component",
-      "title": "progress",
-      "description": "",
-      "dependencies": ["@radix-ui/react-progress"],
-      "registryDependencies": ["@aura/css"],
+      "title": "prompt-input",
+      "description": "INTERNAL: Allows PromptInput to register its file textInput + \"open\" callback */",
+      "dependencies": ["@tabler/icons-react", "ai", "nanoid"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/command",
+        "@aura/dropdown-menu",
+        "@aura/helper-text",
+        "@aura/hover-card",
+        "@aura/input-group",
+        "@aura/select"
+      ],
       "files": [
         {
-          "path": "src/components/ui/aura/progress/progress.tsx",
-          "target": "src/components/ui/aura/progress.tsx",
+          "path": "src/components/ui/aura/prompt-input/prompt-input.tsx",
+          "target": "src/components/ui/aura/prompt-input.tsx",
           "type": "registry:component"
         },
         {
@@ -941,21 +1014,20 @@
       ]
     },
     {
-      "name": "prompt-input",
+      "name": "select",
       "type": "registry:component",
-      "title": "prompt-input",
-      "description": "INTERNAL: Allows PromptInput to register its file textInput + \"open\" callback */",
-      "dependencies": ["@tabler/icons-react", "ai", "nanoid"],
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/button",
-        "@aura/helper-text",
-        "@aura/hover-card"
+      "title": "select",
+      "description": "",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
       ],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
-          "path": "src/components/ui/aura/prompt-input/prompt-input.tsx",
-          "target": "src/components/ui/aura/prompt-input.tsx",
+          "path": "src/components/ui/aura/select/select.tsx",
+          "target": "src/components/ui/aura/select.tsx",
           "type": "registry:component"
         },
         {
@@ -1015,7 +1087,7 @@
         "@tabler/icons-react",
         "streamdown"
       ],
-      "registryDependencies": ["@aura/css", "@aura/shimmer"],
+      "registryDependencies": ["@aura/css", "@aura/collapsible", "@aura/shimmer"],
       "files": [
         {
           "path": "src/components/ui/aura/reasoning-original/reasoning-original.tsx",
@@ -1070,30 +1142,6 @@
       ]
     },
     {
-      "name": "select",
-      "type": "registry:component",
-      "title": "select",
-      "description": "",
-      "dependencies": [
-        "@radix-ui/react-select",
-        "@radix-ui/react-use-controllable-state",
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/select/select.tsx",
-          "target": "src/components/ui/aura/select.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "sheet",
       "type": "registry:component",
       "title": "sheet",
@@ -1124,7 +1172,9 @@
         "@aura/button",
         "@aura/input",
         "@aura/separator",
-        "@aura/skeleton"
+        "@aura/sheet",
+        "@aura/skeleton",
+        "@aura/tooltip"
       ],
       "files": [
         {
@@ -1204,7 +1254,7 @@
       "title": "sources",
       "description": "* Title rendered above the sources list.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": ["@aura/css", "@aura/inline-citation"],
       "files": [
         {
           "path": "src/components/ui/aura/sources/sources.tsx",
@@ -1223,7 +1273,7 @@
       "type": "registry:component",
       "title": "suggestion",
       "description": "Only ghost and outline variants are supported. Suggestions are designed to have secondary backgrounds with primary text. */",
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/scroll-area"],
+      "registryDependencies": ["@aura/css", "@aura/button", "@aura/scroll-area", "@aura/select"],
       "files": [
         {
           "path": "src/components/ui/aura/suggestion/suggestion.tsx",
@@ -1360,7 +1410,12 @@
       "title": "tool",
       "description": "",
       "dependencies": ["@tabler/icons-react", "ai"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/code-block",
+        "@aura/collapsible"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/tool/tool.tsx",

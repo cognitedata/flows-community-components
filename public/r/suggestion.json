@@ -6,7 +6,8 @@
   "registryDependencies": [
     "@aura/css",
     "@aura/button",
-    "@aura/scroll-area"
+    "@aura/scroll-area",
+    "@aura/select"
   ],
   "files": [
     {
