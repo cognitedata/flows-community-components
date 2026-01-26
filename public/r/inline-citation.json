@@ -9,6 +9,7 @@
   "registryDependencies": [
     "@aura/css",
     "@aura/badge",
+    "@aura/carousel",
     "@aura/hover-card"
   ],
   "files": [
