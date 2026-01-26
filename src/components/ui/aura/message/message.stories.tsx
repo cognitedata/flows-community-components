@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/aura/code-block";
 import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconCopy,
   IconDownload,
@@ -309,8 +309,10 @@ export const MessageResponseStreamdown: Story = {
     await expect(buttons.length).toBeGreaterThan(0);
 
     // Verify MessageResponse content is rendered (check for any heading)
-    const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    await expect(headings.length).toBeGreaterThan(0);
+    await waitFor(() => {
+      const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
+      expect(headings.length).toBeGreaterThan(0);
+    });
   },
   render: () => {
     const markdownContent = `# Heading 1

@@ -73,12 +73,22 @@ const isListItemIconElement = (child: ReactNode) => {
   }
 
   const childType = child.type;
-  const displayName =
-    typeof childType === "function"
-      ? childType.displayName || childType.name
-      : typeof childType === "object"
-        ? childType.displayName || childType.render?.displayName || childType.render?.name
-        : undefined;
+  const displayName = (() => {
+    if (typeof childType === "function") {
+      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
+    }
+
+    if (typeof childType === "object" && childType) {
+      const typedChild = childType as {
+        displayName?: string;
+        render?: { displayName?: string; name?: string };
+      };
+
+      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
+    }
+
+    return undefined;
+  })();
 
   return childType === ListItemIcon || displayName === "ListItemIcon";
 };

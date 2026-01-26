@@ -369,7 +369,8 @@ export const Timeline: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Inspection")).toBeInTheDocument();
+    const inspections = canvas.getAllByText("Inspection");
+    await expect(inspections.length).toBeGreaterThan(1);
     await expect(canvas.getByText("Event")).toBeInTheDocument();
   },
   render: () => (

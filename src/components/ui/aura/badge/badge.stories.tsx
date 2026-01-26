@@ -649,7 +649,8 @@ export const IconSizes: Story = {
 
     // Verify icon size badges have correct styling
     iconSizeBadges.forEach((badge) => {
-      expect(badge).toHaveClass("p-0.75");
+      expect(badge).toHaveClass("px-1.5");
+      expect(badge).toHaveClass("py-1");
       expect(badge).toHaveClass("rounded-md");
     });
 
