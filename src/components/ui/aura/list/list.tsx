@@ -87,7 +87,10 @@ const isListItemIconElement = (child: ReactNode) => {
   const childType = child.type;
   const displayName = (() => {
     if (typeof childType === "function") {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
+      return (
+        (childType as { displayName?: string; name?: string }).displayName ??
+        childType.name
+      );
     }
 
     if (typeof childType === "object" && childType) {
@@ -96,7 +99,11 @@ const isListItemIconElement = (child: ReactNode) => {
         render?: { displayName?: string; name?: string };
       };
 
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
+      return (
+        typedChild.displayName ??
+        typedChild.render?.displayName ??
+        typedChild.render?.name
+      );
     }
 
     return undefined;
@@ -172,11 +179,18 @@ const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
 /**
  * List container for unordered content.
  */
-const List = forwardRef<HTMLUListElement, ComponentProps<"ul">>(({ className, ...props }, ref) => {
-  return (
-    <ul ref={ref} data-slot="list" className={cn("flex flex-col gap-3", className)} {...props} />
-  );
-});
+const List = forwardRef<HTMLUListElement, ComponentProps<"ul">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <ul
+        ref={ref}
+        data-slot="list"
+        className={cn("flex flex-col gap-3", className)}
+        {...props}
+      />
+    );
+  },
+);
 List.displayName = "List";
 
 /**
@@ -192,7 +206,7 @@ const ListOrdered = forwardRef<HTMLOListElement, ComponentProps<"ol">>(
         {...props}
       />
     );
-  }
+  },
 );
 ListOrdered.displayName = "ListOrdered";
 
@@ -209,46 +223,49 @@ const ListDescription = forwardRef<HTMLDListElement, ComponentProps<"dl">>(
         {...props}
       />
     );
-  }
+  },
 );
 ListDescription.displayName = "ListDescription";
 
 /**
  * List item container with optional status variants.
  */
-const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: ListItemVariant }>(
-  ({ className, variant, children, style, ...props }, ref) => {
-    const childItems = Children.toArray(children);
-    const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
-    const shouldInsertIcon = Boolean(variant) && !hasIconSlot;
-    const resolvedChildren = shouldInsertIcon
-      ? [<ListItemIcon key="list-item-icon" />, ...childItems]
-      : childItems;
-    const hasIcon = hasIconSlot || shouldInsertIcon;
-    const gridTemplateColumns = hasIcon ? "auto minmax(0,1fr) auto" : "minmax(0,1fr) auto";
-    const mergedStyle = style?.gridTemplateColumns
-      ? style
-      : {
-          ...style,
-          gridTemplateColumns,
-        };
+const ListItem = forwardRef<
+  HTMLLIElement,
+  ComponentProps<"li"> & { variant?: ListItemVariant }
+>(({ className, variant, children, style, ...props }, ref) => {
+  const childItems = Children.toArray(children);
+  const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
+  const shouldInsertIcon = Boolean(variant) && !hasIconSlot;
+  const resolvedChildren = shouldInsertIcon
+    ? [<ListItemIcon key="list-item-icon" />, ...childItems]
+    : childItems;
+  const hasIcon = hasIconSlot || shouldInsertIcon;
+  const gridTemplateColumns = hasIcon
+    ? "auto minmax(0,1fr) auto"
+    : "minmax(0,1fr) auto";
+  const mergedStyle = style?.gridTemplateColumns
+    ? style
+    : {
+        ...style,
+        gridTemplateColumns,
+      };
 
-    return (
-      <ListItemContext.Provider value={{ variant, hasIcon }}>
-        <li
-          ref={ref}
-          data-slot="list-item"
-          data-variant={variant}
-          className={cn("grid w-full items-start gap-x-3 rounded p-0.5", className)}
-          style={mergedStyle}
-          {...props}
-        >
-          {resolvedChildren}
-        </li>
-      </ListItemContext.Provider>
-    );
-  }
-);
+  return (
+    <ListItemContext.Provider value={{ variant, hasIcon }}>
+      <li
+        ref={ref}
+        data-slot="list-item"
+        data-variant={variant}
+        className={cn("grid w-full items-start rounded p-0.5", className)}
+        style={mergedStyle}
+        {...props}
+      >
+        {resolvedChildren}
+      </li>
+    </ListItemContext.Provider>
+  );
+});
 ListItem.displayName = "ListItem";
 
 /**
@@ -266,13 +283,16 @@ const ListItemIcon = forwardRef<
       ref={ref}
       data-slot="list-item-icon"
       className={cn(
-        "col-start-1 row-span-2 flex h-4 w-4 items-center justify-center text-muted-foreground",
+        "col-start-1 row-span-2 flex h-4 w-4 mr-1.5 items-center justify-center text-muted-foreground",
         listItemIconVariants({ variant: resolvedVariant }),
-        className
+        className,
       )}
       {...props}
     >
-      {children ?? (resolvedVariant ? <DefaultListItemIcon variant={resolvedVariant} /> : null)}
+      {children ??
+        (resolvedVariant ? (
+          <DefaultListItemIcon variant={resolvedVariant} />
+        ) : null)}
     </span>
   );
 });
@@ -293,12 +313,12 @@ const ListItemTitle = forwardRef<HTMLDivElement, ComponentProps<"div">>(
           "row-start-1 flex items-center gap-2 text-sm font-medium leading-4.5",
           hasIcon ? "col-start-2" : "col-start-1",
           listItemTitleVariants({ variant }),
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 ListItemTitle.displayName = "ListItemTitle";
 
@@ -317,12 +337,12 @@ const ListItemDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
           "row-start-2 mt-1 text-sm leading-4.5 text-muted-foreground",
           hasIcon ? "col-start-2" : "col-start-1",
           listItemDescriptionVariants({ variant }),
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 ListItemDescription.displayName = "ListItemDescription";
 
@@ -342,12 +362,12 @@ const ListItemStatus = forwardRef<HTMLSpanElement, ComponentProps<"span">>(
           hasIcon ? "col-start-3" : "col-start-2",
           "justify-self-end text-right whitespace-nowrap",
           listItemStatusVariants({ variant }),
-          className
+          className,
         )}
         {...props}
       />
     );
-  }
+  },
 );
 ListItemStatus.displayName = "ListItemStatus";
 
@@ -364,7 +384,7 @@ const ListDescriptionTerm = forwardRef<HTMLElement, ComponentProps<"dt">>(
         {...props}
       />
     );
-  }
+  },
 );
 ListDescriptionTerm.displayName = "ListDescriptionTerm";
 
@@ -381,7 +401,7 @@ const ListDescriptionDetails = forwardRef<HTMLElement, ComponentProps<"dd">>(
         {...props}
       />
     );
-  }
+  },
 );
 ListDescriptionDetails.displayName = "ListDescriptionDetails";
 
@@ -395,5 +415,6 @@ export {
   ListItemIcon,
   ListItemStatus,
   ListItemTitle,
-  ListOrdered,
+  ListOrdered
 };
+

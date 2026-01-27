@@ -220,7 +220,7 @@ export const AllVariants: Story = {
  */
 export const Compact: Story = {
   parameters: {
-    order: 8,
+    order: 5,
     docs: {
       description: {
         story: "Compact list with reduced spacing.",
@@ -260,7 +260,7 @@ export const Compact: Story = {
  */
 export const Ordered: Story = {
   parameters: {
-    order: 5,
+    order: 6,
     docs: {
       description: {
         story: "Ordered list using semantic <ol> markup.",
@@ -296,7 +296,7 @@ export const Ordered: Story = {
  */
 export const Description: Story = {
   parameters: {
-    order: 6,
+    order: 7,
     docs: {
       description: {
         story: "Definition list using semantic <dl> markup.",
@@ -326,7 +326,7 @@ export const Description: Story = {
  */
 export const Interactive: Story = {
   parameters: {
-    order: 9,
+    order: 8,
     docs: {
       description: {
         story: "Stateful list where items toggle active status on click.",
@@ -388,7 +388,7 @@ export const Interactive: Story = {
  */
 export const Minimal: Story = {
   parameters: {
-    order: 7,
+    order: 9,
     docs: {
       description: {
         story: "List items with only titles, no descriptions or status.",

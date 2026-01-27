@@ -42,38 +42,61 @@ const meta: Meta<typeof ArtifactList> = {
 export default meta;
 type Story = StoryObj<typeof ArtifactList>;
 
-// Shared content for comparison stories
-const TaskListContent = () => (
-  <>
-    <ArtifactListItem variant="error">
-      <ListItemTitle>Pump seal replacement</ListItemTitle>
-      <ListItemStatus>Overdue</ListItemStatus>
-      <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
-    </ArtifactListItem>
-
-    <ArtifactListItem variant="now">
-      <ListItemTitle>Valve calibration</ListItemTitle>
-      <ListItemStatus>Due today</ListItemStatus>
-      <ListItemDescription>Quarterly calibration check</ListItemDescription>
-    </ArtifactListItem>
-
-    <ArtifactListItem variant="completed">
-      <ListItemTitle>Filter cleaning</ListItemTitle>
-      <ListItemStatus>Completed</ListItemStatus>
-      <ListItemDescription>Clean inlet filters</ListItemDescription>
-    </ArtifactListItem>
-  </>
-);
-
 /**
- * Basic artifact list with header
+ * Basic artifact list without header
  */
-export const WithHeader: Story = {
+export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story: "Task list with header, status indicators, icons, and descriptions.",
+        story:
+          "Basic task list with status indicators, icons, and descriptions.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
+    await expect(canvas.getByText("Overdue")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-96">
+      <ArtifactListContent>
+        <ArtifactListItem variant="error">
+          <ListItemTitle>Pump seal replacement</ListItemTitle>
+          <ListItemStatus>Overdue</ListItemStatus>
+          <ListItemDescription>
+            P-401A requires new mechanical seal
+          </ListItemDescription>
+        </ArtifactListItem>
+
+        <ArtifactListItem variant="now">
+          <ListItemTitle>Valve calibration</ListItemTitle>
+          <ListItemStatus>Due today</ListItemStatus>
+          <ListItemDescription>Quarterly calibration check</ListItemDescription>
+        </ArtifactListItem>
+
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Filter cleaning</ListItemTitle>
+          <ListItemStatus>Completed</ListItemStatus>
+          <ListItemDescription>Clean inlet filters</ListItemDescription>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Artifact list with header
+ */
+export const WithHeader: Story = {
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story: "Task list with an optional header section for context.",
       },
     },
   },
@@ -90,35 +113,25 @@ export const WithHeader: Story = {
         <ArtifactListTitle>Maintenance Tasks</ArtifactListTitle>
       </ArtifactListHeader>
       <ArtifactListContent>
-        <TaskListContent />
-      </ArtifactListContent>
-    </ArtifactList>
-  ),
-};
+        <ArtifactListItem variant="error">
+          <ListItemTitle>Pump seal replacement</ListItemTitle>
+          <ListItemStatus>Overdue</ListItemStatus>
+          <ListItemDescription>
+            P-401A requires new mechanical seal
+          </ListItemDescription>
+        </ArtifactListItem>
 
-/**
- * List without header - same content as WithHeader for comparison
- */
-export const WithoutHeader: Story = {
-  parameters: {
-    order: 2,
-    docs: {
-      description: {
-        story: "Same content as WithHeader but without the header section.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+        <ArtifactListItem variant="now">
+          <ListItemTitle>Valve calibration</ListItemTitle>
+          <ListItemStatus>Due today</ListItemStatus>
+          <ListItemDescription>Quarterly calibration check</ListItemDescription>
+        </ArtifactListItem>
 
-    await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
-    // Verify no header is present
-    expect(canvasElement.textContent).not.toContain("Maintenance Tasks");
-  },
-  render: () => (
-    <ArtifactList className="w-96">
-      <ArtifactListContent>
-        <TaskListContent />
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Filter cleaning</ListItemTitle>
+          <ListItemStatus>Completed</ListItemStatus>
+          <ListItemDescription>Clean inlet filters</ListItemDescription>
+        </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
   ),
@@ -190,11 +203,18 @@ export const WithCustomIcons: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
-    await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
-    await expect(canvas.getByText("Boiler steam leak near header B")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Pump 3 cavitation detected"),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Compressor C-5 surge events"),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Boiler steam leak near header B"),
+    ).toBeInTheDocument();
   },
   render: () => (
+    //design requires arbitrary width as example
     <ArtifactList className="w-100">
       <ArtifactListHeader>
         <ArtifactListTitle>Recent chat summary</ArtifactListTitle>
@@ -230,9 +250,9 @@ export const WithCustomIcons: Story = {
           </ListItemIcon>
           <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
           <ListItemDescription>
-            Suction pressure oscillations and elevated noise on P-003 during night shift; cavitation
-            likely from low NPSH/blocked strainer. Next step: inspect/clean suction strainer and
-            raise tank level 20cm.
+            Suction pressure oscillations and elevated noise on P-003 during
+            night shift; cavitation likely from low NPSH/blocked strainer. Next
+            step: inspect/clean suction strainer and raise tank level 20cm.
           </ListItemDescription>
         </ArtifactListItem>
 
@@ -266,9 +286,9 @@ export const WithCustomIcons: Story = {
           </ListItemIcon>
           <ListItemTitle>Compressor C-5 surge events</ListItemTitle>
           <ListItemDescription>
-            Three start-up surge spikes with sluggish anti-surge valve response; control loop
-            tuning/valve stiction suspected. Next step: Stroke-test ASV, retune PID, and verify
-            transmitter calibration.
+            Three start-up surge spikes with sluggish anti-surge valve response;
+            control loop tuning/valve stiction suspected. Next step: Stroke-test
+            ASV, retune PID, and verify transmitter calibration.
           </ListItemDescription>
         </ArtifactListItem>
 
@@ -302,9 +322,9 @@ export const WithCustomIcons: Story = {
           </ListItemIcon>
           <ListItemTitle>Boiler steam leak near header B</ListItemTitle>
           <ListItemDescription>
-            Ultrasonic survey indicates continuous hiss with elevated condensate returns; small
-            steam leak wasting energy. Next step: tag exact location, plan hot repair window, and
-            quantify loss after fix.
+            Ultrasonic survey indicates continuous hiss with elevated condensate
+            returns; small steam leak wasting energy. Next step: tag exact
+            location, plan hot repair window, and quantify loss after fix.
           </ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
@@ -359,7 +379,7 @@ export const OrderedList: Story = {
  */
 export const Timeline: Story = {
   parameters: {
-    order: 7,
+    order: 6,
     docs: {
       description: {
         story: "Compact timeline list with dates and status indicators.",
@@ -405,10 +425,11 @@ export const Timeline: Story = {
  */
 export const Interactive: Story = {
   parameters: {
-    order: 8,
+    order: 7,
     docs: {
       description: {
-        story: "Demonstrates stateful list items that toggle completion when clicked.",
+        story:
+          "Demonstrates stateful list items that toggle completion when clicked.",
       },
     },
   },
@@ -429,7 +450,7 @@ export const Interactive: Story = {
         const completedItems = canvas.getAllByText("Completed");
         expect(completedItems).toHaveLength(2);
       },
-      { timeout: 300 }
+      { timeout: 300 },
     );
 
     // Click it again to toggle back
@@ -440,7 +461,7 @@ export const Interactive: Story = {
         const inProgressItemsAfter = canvas.getAllByText("In progress");
         expect(inProgressItemsAfter).toHaveLength(2);
       },
-      { timeout: 300 }
+      { timeout: 300 },
     );
   },
   render: function ArtifactListInteractiveStory() {
@@ -468,8 +489,10 @@ export const Interactive: Story = {
     const toggleStatus = (id: string) => {
       setItems((prev) =>
         prev.map((item) =>
-          item.id === id ? { ...item, status: item.status === "done" ? "open" : "done" } : item
-        )
+          item.id === id
+            ? { ...item, status: item.status === "done" ? "open" : "done" }
+            : item,
+        ),
       );
     };
 
@@ -487,7 +510,9 @@ export const Interactive: Story = {
                 onClick={() => toggleStatus(item.id)}
               >
                 <ListItemTitle>{item.title}</ListItemTitle>
-                <ListItemStatus>{isDone ? "Completed" : "In progress"}</ListItemStatus>
+                <ListItemStatus>
+                  {isDone ? "Completed" : "In progress"}
+                </ListItemStatus>
                 <ListItemDescription>{item.detail}</ListItemDescription>
               </ArtifactListItem>
             );
@@ -503,7 +528,7 @@ export const Interactive: Story = {
  */
 export const EdgeCaseEmpty: Story = {
   parameters: {
-    order: 9,
+    order: 8,
     docs: {
       description: {
         story: "Empty artifact list with no items.",
@@ -529,7 +554,7 @@ export const EdgeCaseEmpty: Story = {
  */
 export const EdgeCaseLongText: Story = {
   parameters: {
-    order: 10,
+    order: 9,
     docs: {
       description: {
         story: "List items with very long text to test overflow behavior.",
@@ -539,7 +564,9 @@ export const EdgeCaseLongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText(/This is an extremely long task title/)).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/This is an extremely long task title/),
+    ).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-80">
@@ -551,13 +578,14 @@ export const EdgeCaseLongText: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="error">
           <ListItemTitle>
-            This is an extremely long task title that should wrap or truncate properly within the
-            list item
+            This is an extremely long task title that should wrap or truncate
+            properly within the list item
           </ListItemTitle>
           <ListItemStatus>Overdue since yesterday</ListItemStatus>
           <ListItemDescription>
-            This description is also quite long and contains detailed information about the task
-            that needs to be handled gracefully by the component layout.
+            This description is also quite long and contains detailed
+            information about the task that needs to be handled gracefully by
+            the component layout.
           </ListItemDescription>
         </ArtifactListItem>
         <ArtifactListItem variant="now">
@@ -575,10 +603,11 @@ export const EdgeCaseLongText: Story = {
  */
 export const Playground: Story = {
   parameters: {
-    order: 11,
+    order: 99,
     docs: {
       description: {
-        story: "Interactive playground for experimenting with the ArtifactList component.",
+        story:
+          "Interactive playground for experimenting with the ArtifactList component.",
       },
     },
   },
@@ -591,7 +620,9 @@ export const Playground: Story = {
         <ArtifactListItem variant="now">
           <ListItemTitle>Sample task</ListItemTitle>
           <ListItemStatus>In progress</ListItemStatus>
-          <ListItemDescription>Try adjusting the className prop</ListItemDescription>
+          <ListItemDescription>
+            Try adjusting the className prop
+          </ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
