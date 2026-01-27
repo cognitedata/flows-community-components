@@ -95,7 +95,10 @@ const primitivesNavigation: NavigationItem[] = [
     href: "#",
     label: "Artifacts",
     isSubsection: true,
-    children: [{ href: "/primitives/artifact-progress", label: "Progress" }],
+    children: [
+      { href: "/primitives/artifact-count", label: "Count" },
+      { href: "/primitives/artifact-progress", label: "Progress" },
+    ],
   },
 ];
 

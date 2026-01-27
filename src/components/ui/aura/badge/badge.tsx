@@ -5,13 +5,12 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center align-middle justify-center rounded-sm border text-sm font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none outline-none focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden leading-4.5",
+  "inline-flex items-center align-middle justify-center rounded-md border text-sm font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none outline-none focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden leading-4.5",
   {
     variants: {
       variant: {
         default: "border-transparent bg-primary text-primary-foreground",
-        fjord:
-          "border-transparent bg-decorative-background-fjord text-decorative-foreground-fjord",
+        fjord: "border-transparent bg-decorative-background-fjord text-decorative-foreground-fjord",
         nordic:
           "border-transparent bg-decorative-background-nordic text-decorative-foreground-nordic",
         aurora:
@@ -24,11 +23,11 @@ const badgeVariants = cva(
         mountain:
           "border-transparent bg-decorative-background-mountain text-decorative-foreground-mountain",
         secondary: "border-transparent bg-secondary text-secondary-foreground ",
-        error: "border-transparent bg-destructive text-destructive-foreground",
-        warning: "border-transparent bg-warning text-warning-foreground",
-        success: "border-transparent bg-success text-success-foreground",
-        inProgress: "border-transparent bg-neutral text-neutral-foreground",
-        archived: "border-transparent bg-undefined text-undefined-foreground",
+        error: "border-transparent bg-destructive text-destructive-foreground-alternate",
+        warning: "border-transparent bg-warning text-warning-foreground-alternate",
+        success: "border-transparent bg-success text-success-foreground-alternate",
+        inProgress: "border-transparent bg-neutral text-neutral-foreground-alternate",
+        archived: "border-transparent bg-undefined text-undefined-foreground-alternate",
         closable:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary-hover cursor-pointer",
       },
@@ -37,7 +36,7 @@ const badgeVariants = cva(
         icon: "px-1.5 py-1 rounded-md",
       },
       outline: {
-        true: "border-current px-0.75",
+        true: "border-border px-1.25",
       },
       background: {
         false: "bg-transparent",
@@ -54,7 +53,7 @@ const badgeVariants = cva(
       background: true,
       dot: false,
     },
-  },
+  }
 );
 
 /**
@@ -80,17 +79,32 @@ function Badge({
   const Comp = asChild ? Slot : "span";
   const isEmpty = !children;
 
+  // These variants don't support outline - they're filled only
+  const decorativeOnlyVariants = ["mountain", "fjord", "nordic", "aurora", "dusk", "orange"];
+  const canBeOutlined = variant && !decorativeOnlyVariants.includes(variant);
+  const isOutlined = outline === true && canBeOutlined;
+
   return (
     <Comp
       data-slot="badge"
       className={cn(
-        badgeVariants({ variant, size, background }),
-        outline && "border-current px-0.75",
+        badgeVariants({
+          variant,
+          size,
+          outline: isOutlined,
+          background: isOutlined ? false : background,
+        }),
+        // Override foreground color for outlined variants to use regular (not alternative)
+        isOutlined && variant === "error" && "text-destructive-foreground",
+        isOutlined && variant === "warning" && "text-warning-foreground",
+        isOutlined && variant === "success" && "text-success-foreground",
+        isOutlined && variant === "inProgress" && "text-neutral-foreground",
+        isOutlined && variant === "archived" && "text-undefined-foreground",
         dot && "rounded-full",
         dot && isEmpty && "size-2 p-0 border-0",
         dot && isEmpty && urgent && "bg-destructive-foreground",
         dot && isEmpty && !urgent && "bg-neutral-foreground",
-        className,
+        className
       )}
       {...props}
     >
