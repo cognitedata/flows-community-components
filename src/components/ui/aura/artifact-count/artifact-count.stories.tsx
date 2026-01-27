@@ -34,7 +34,7 @@ const meta: Meta<typeof ArtifactCount> = {
       control: "text",
       description: "CSS classes for styling the card wrapper",
       table: {
-        category: "Display",
+        category: "Variants / Styling",
         type: { summary: "string" },
       },
     },
@@ -381,6 +381,97 @@ export const Interactive: Story = {
 };
 
 /**
+ * Edge case with minimal content.
+ */
+export const EdgeCaseEmpty: Story = {
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Minimal shell with just a count to validate layout defaults.",
+      },
+    },
+  },
+  render: () => (
+    <ArtifactCount className="w-md">
+      <ArtifactCountHeader>
+        <ArtifactCountCount variant="default">0</ArtifactCountCount>
+      </ArtifactCountHeader>
+    </ArtifactCount>
+  ),
+};
+
+/**
+ * Edge case with long content values.
+ */
+export const EdgeCaseLongText: Story = {
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story: "Long titles and footer text to confirm wrapping behavior.",
+      },
+    },
+  },
+  render: () => (
+    <ArtifactCount className="w-md">
+      <ArtifactCountHeader className="items-end">
+        <ArtifactCountCount variant="warning">128</ArtifactCountCount>
+        <div className="flex flex-1 items-end justify-between">
+          <div className="flex flex-col">
+            <span className="text-base font-medium">
+              Active alarms across the full upstream processing pipeline
+            </span>
+            <ArtifactCountTag>Separator train A — unit V-192B</ArtifactCountTag>
+          </div>
+          <ArtifactCountTag>Since yesterday 17:30 (local)</ArtifactCountTag>
+        </div>
+      </ArtifactCountHeader>
+      <ArtifactCountSeparator />
+      <ArtifactCountFooter className="text-muted-foreground">
+        <ArtifactCountFooterLeft>
+          Critical: 24 • High: 56 • Medium: 48 • Low: 12
+        </ArtifactCountFooterLeft>
+        <ArtifactCountFooterRight>Rolling total based on last 24 hours</ArtifactCountFooterRight>
+      </ArtifactCountFooter>
+    </ArtifactCount>
+  ),
+};
+
+/**
+ * Edge case with special characters and emojis.
+ */
+export const EdgeCaseSpecialCharacters: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Special characters and emoji to validate glyph rendering.",
+      },
+    },
+  },
+  render: () => (
+    <ArtifactCount className="w-md">
+      <ArtifactCountHeader className="items-end">
+        <ArtifactCountCount variant="critical">99+</ArtifactCountCount>
+        <div className="flex flex-1 items-end justify-between">
+          <div className="flex flex-col">
+            <span className="text-base font-medium">Alerts: ΔP &gt; 5%, ΔT &lt; 0</span>
+            <ArtifactCountTag>Unit: V-192 • Line A/B</ArtifactCountTag>
+          </div>
+          <ArtifactCountTag>Since 08:15 — Shift 2</ArtifactCountTag>
+        </div>
+      </ArtifactCountHeader>
+      <ArtifactCountSeparator />
+      <ArtifactCountFooter className="text-muted-foreground">
+        <ArtifactCountFooterLeft>Notes: “Overheat” — check valve #4</ArtifactCountFooterLeft>
+        <ArtifactCountFooterRight>Notify on-call ⚠️</ArtifactCountFooterRight>
+      </ArtifactCountFooter>
+    </ArtifactCount>
+  ),
+};
+
+/**
  * Playground - adjust props and variants interactively.
  */
 export const Playground: PlaygroundStory = {
@@ -399,7 +490,7 @@ export const Playground: PlaygroundStory = {
       options: ["default", "warning", "critical"],
       description: "Variant for the count chip",
       table: {
-        category: "Appearance",
+        category: "Variants / Styling",
         type: { summary: "'default' | 'warning' | 'critical'" },
       },
     },
