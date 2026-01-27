@@ -30,7 +30,7 @@ const ArtifactCount = forwardRef<HTMLDivElement, ComponentProps<typeof Card>>(
       <Card
         ref={ref}
         data-slot="artifact-count"
-        className={cn("flex min-h-[140px] flex-col justify-between gap-2", className)}
+        className={cn("flex min-h-35 flex-col justify-between gap-2", className)}
         {...props}
       />
     );
@@ -116,13 +116,64 @@ const ArtifactCountFooter = forwardRef<HTMLDivElement, ComponentProps<typeof Car
       <CardFooter
         ref={ref}
         data-slot="artifact-count-footer"
-        className={cn("w-full items-center justify-between gap-2 text-sm", className)}
+        className={cn("w-full items-center gap-2 text-sm", className)}
         {...props}
       />
     );
   }
 );
 ArtifactCountFooter.displayName = "ArtifactCountFooter";
+
+/**
+ * Footer item aligned to the left.
+ */
+const ArtifactCountFooterLeft = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="artifact-count-footer-left"
+        className={cn("flex flex-1 items-center justify-start gap-2", className)}
+        {...props}
+      />
+    );
+  }
+);
+ArtifactCountFooterLeft.displayName = "ArtifactCountFooterLeft";
+
+/**
+ * Footer item aligned to the center.
+ */
+const ArtifactCountFooterCenter = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="artifact-count-footer-center"
+        className={cn("flex flex-1 items-center justify-center gap-2", className)}
+        {...props}
+      />
+    );
+  }
+);
+ArtifactCountFooterCenter.displayName = "ArtifactCountFooterCenter";
+
+/**
+ * Footer item aligned to the right.
+ */
+const ArtifactCountFooterRight = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        data-slot="artifact-count-footer-right"
+        className={cn("flex flex-1 items-center justify-end gap-2", className)}
+        {...props}
+      />
+    );
+  }
+);
+ArtifactCountFooterRight.displayName = "ArtifactCountFooterRight";
 
 /**
  * Separator between header/content/footer regions.
@@ -143,6 +194,9 @@ export {
   ArtifactCountContent,
   ArtifactCountCount,
   ArtifactCountFooter,
+  ArtifactCountFooterCenter,
+  ArtifactCountFooterLeft,
+  ArtifactCountFooterRight,
   ArtifactCountHeader,
   ArtifactCountSeparator,
   ArtifactCountTag,

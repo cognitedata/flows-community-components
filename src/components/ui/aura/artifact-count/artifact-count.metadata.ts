@@ -12,7 +12,7 @@ export const ArtifactCountMetadata: ComponentMeta = {
   description:
     "A compositional count artifact widget component for displaying prominent values with optional content and footer context.",
   llmUsage:
-    "When showing a key metric, compose `<ArtifactCount>` with `<ArtifactCountHeader>` and `<ArtifactCountCount>`. Use the `status` prop on `<ArtifactCountCount>` (`default`, `warning`, `critical`) to style the count chip. Add `<ArtifactCountSeparator>`, `<ArtifactCountContent>`, and `<ArtifactCountFooter>` when you need supporting information. Layout footer content with flex utilities in usage code.",
+    "When showing a key metric, compose `<ArtifactCount>` with `<ArtifactCountHeader>` and `<ArtifactCountCount>`. Use the `status` prop on `<ArtifactCountCount>` (`default`, `warning`, `critical`) to style the count chip. Add `<ArtifactCountSeparator>`, `<ArtifactCountContent>`, and `<ArtifactCountFooter>` when you need supporting information. Use `<ArtifactCountFooterLeft>`, `<ArtifactCountFooterCenter>`, and `<ArtifactCountFooterRight>` to align footer content, then add class names to style text.",
   importPath: "@/components/ui/aura/artifact-count",
   codeExamples: [
     {
@@ -22,6 +22,9 @@ export const ArtifactCountMetadata: ComponentMeta = {
   ArtifactCount,
   ArtifactCountHeader,
   ArtifactCountCount,
+  ArtifactCountFooter,
+  ArtifactCountFooterLeft,
+  ArtifactCountFooterRight,
 } from "@/components/ui/aura/artifact-count"
 
 export function BasicDemo() {
@@ -30,6 +33,12 @@ export function BasicDemo() {
       <ArtifactCountHeader>
         <ArtifactCountCount status="critical">392°C</ArtifactCountCount>
       </ArtifactCountHeader>
+      <ArtifactCountFooter>
+        <ArtifactCountFooterLeft>Temperature</ArtifactCountFooterLeft>
+        <ArtifactCountFooterRight className="text-muted-foreground">
+          Updated 2h ago
+        </ArtifactCountFooterRight>
+      </ArtifactCountFooter>
     </ArtifactCount>
   )
 }`,
@@ -43,6 +52,8 @@ export function BasicDemo() {
   ArtifactCountCount,
   ArtifactCountSeparator,
   ArtifactCountFooter,
+  ArtifactCountFooterLeft,
+  ArtifactCountFooterRight,
 } from "@/components/ui/aura/artifact-count"
 
 export function FooterDemo() {
@@ -53,8 +64,8 @@ export function FooterDemo() {
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter className="justify-between text-sm text-muted-foreground">
-        <span>Min: 384°C</span>
-        <span>Max: 390°C</span>
+        <ArtifactCountFooterLeft>Min: 384°C</ArtifactCountFooterLeft>
+        <ArtifactCountFooterRight>Max: 390°C</ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
   )

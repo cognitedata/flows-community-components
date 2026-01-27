@@ -16,6 +16,9 @@ import {
   ArtifactCountContent,
   ArtifactCountCount,
   ArtifactCountFooter,
+  ArtifactCountFooterCenter,
+  ArtifactCountFooterLeft,
+  ArtifactCountFooterRight,
   ArtifactCountHeader,
   ArtifactCountSeparator,
   ArtifactCountTag,
@@ -138,25 +141,25 @@ export const Basic: Story = {
     await expect(canvas.getByText("Medium:")).toBeInTheDocument();
   },
   render: () => (
-    <ArtifactCount className="w-112">
+    <ArtifactCount className="w-md">
       <ArtifactCountHeader>
         <ArtifactCountCount status="warning">3</ArtifactCountCount>
         <span className="text-base font-medium leading-5 tracking-tightest">Active alarms</span>
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter>
-        <div className="flex items-center gap-0.5">
+        <ArtifactCountFooterLeft className="gap-0.5">
           <span className="text-muted-foreground">Critical:</span>
           <span className="font-medium">0</span>
-        </div>
-        <div className="flex items-center gap-0.5">
+        </ArtifactCountFooterLeft>
+        <ArtifactCountFooterCenter className="gap-0.5">
           <span className="text-muted-foreground">High:</span>
           <span className="font-medium">2</span>
-        </div>
-        <div className="flex items-center gap-0.5">
+        </ArtifactCountFooterCenter>
+        <ArtifactCountFooterRight className="gap-0.5">
           <span className="text-muted-foreground">Medium:</span>
           <span className="font-medium">1</span>
-        </div>
+        </ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
   ),
@@ -181,7 +184,7 @@ export const WithFooter: Story = {
     await expect(canvas.getByText("Max: 390°C")).toBeInTheDocument();
   },
   render: () => (
-    <ArtifactCount className="w-112">
+    <ArtifactCount className="w-md">
       <ArtifactCountHeader className="items-end">
         <ArtifactCountCount status="critical">392°C</ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
@@ -194,8 +197,8 @@ export const WithFooter: Story = {
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter className="text-muted-foreground">
-        <span>Min: 384°C</span>
-        <span>Max: 390°C</span>
+        <ArtifactCountFooterLeft>Min: 384°C</ArtifactCountFooterLeft>
+        <ArtifactCountFooterRight>Max: 390°C</ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
   ),
@@ -257,7 +260,7 @@ export const WithChart: Story = {
       currentData.reduce((sum, item) => sum + item.temperature, 0) / currentData.length;
 
     return (
-      <ArtifactCount className="w-112 gap-2">
+      <ArtifactCount className="w-md gap-2">
         <ArtifactCountHeader className="items-end">
           <ArtifactCountCount status="default">{currentTemp}</ArtifactCountCount>
           <div className="flex flex-1 items-end justify-between">
@@ -313,7 +316,7 @@ export const WithChart: Story = {
           </ChartContainer>
         </ArtifactCountContent>
         <ArtifactCountFooter>
-          <div className="flex items-center gap-4">
+          <ArtifactCountFooterLeft className="gap-4">
             <div className="flex items-center gap-2">
               <div
                 className="h-3 w-3 rounded-full"
@@ -322,8 +325,10 @@ export const WithChart: Story = {
               <span className="text-muted-foreground">Current: {currentTemp}°C</span>
             </div>
             <span className="text-muted-foreground">4h Average: {avgTemp.toFixed(1)}°C</span>
-          </div>
-          <span className="text-xs text-muted-foreground">Updates every 5 minutes</span>
+          </ArtifactCountFooterLeft>
+          <ArtifactCountFooterRight>
+            <span className="text-xs text-muted-foreground">Updates every 5 minutes</span>
+          </ArtifactCountFooterRight>
         </ArtifactCountFooter>
       </ArtifactCount>
     );
@@ -346,16 +351,18 @@ export const Interactive: Story = {
     const [value, setValue] = useState(392);
 
     return (
-      <ArtifactCount className="w-112">
+      <ArtifactCount className="w-md">
         <ArtifactCountHeader>
           <ArtifactCountCount status="warning">{value}°C</ArtifactCountCount>
         </ArtifactCountHeader>
         <ArtifactCountSeparator />
         <ArtifactCountFooter className="text-muted-foreground">
-          <span>Last updated just now</span>
-          <Button size="sm" variant="secondary" onClick={() => setValue((prev) => prev + 1)}>
-            Increase
-          </Button>
+          <ArtifactCountFooterLeft>Last updated just now</ArtifactCountFooterLeft>
+          <ArtifactCountFooterRight>
+            <Button size="sm" variant="secondary" onClick={() => setValue((prev) => prev + 1)}>
+              Increase
+            </Button>
+          </ArtifactCountFooterRight>
         </ArtifactCountFooter>
       </ArtifactCount>
     );
@@ -378,7 +385,7 @@ export const Interactive: Story = {
  */
 export const Playground: PlaygroundStory = {
   args: {
-    className: "w-112",
+    className: "w-md",
     status: "default",
     count: "392°C",
     title: "Temperature",
@@ -460,8 +467,8 @@ export const Playground: PlaygroundStory = {
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
       <ArtifactCountFooter className="text-muted-foreground">
-        <span>{args.footerLeft}</span>
-        <span>{args.footerRight}</span>
+        <ArtifactCountFooterLeft>{args.footerLeft}</ArtifactCountFooterLeft>
+        <ArtifactCountFooterRight>{args.footerRight}</ArtifactCountFooterRight>
       </ArtifactCountFooter>
     </ArtifactCount>
   ),

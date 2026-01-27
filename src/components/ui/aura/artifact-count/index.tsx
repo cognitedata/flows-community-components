@@ -11,6 +11,8 @@
  *   ArtifactCountCount,
  *   ArtifactCountSeparator,
  *   ArtifactCountFooter,
+ *   ArtifactCountFooterLeft,
+ *   ArtifactCountFooterRight,
  * } from "@/components/ui/aura/artifact-count";
  *
  * <ArtifactCount>
@@ -19,8 +21,12 @@
  *   </ArtifactCountHeader>
  *   <ArtifactCountSeparator />
  *   <ArtifactCountFooter className="justify-between text-sm">
- *     <span>Min: 384°C</span>
- *     <span>Max: 390°C</span>
+ *     <ArtifactCountFooterLeft>
+ *       <span>Min: 384°C</span>
+ *     </ArtifactCountFooterLeft>
+ *     <ArtifactCountFooterRight>
+ *       <span>Max: 390°C</span>
+ *     </ArtifactCountFooterRight>
  *   </ArtifactCountFooter>
  * </ArtifactCount>
  */
@@ -29,6 +35,9 @@ export {
   ArtifactCountContent,
   ArtifactCountCount,
   ArtifactCountFooter,
+  ArtifactCountFooterCenter,
+  ArtifactCountFooterLeft,
+  ArtifactCountFooterRight,
   ArtifactCountHeader,
   ArtifactCountSeparator,
   ArtifactCountTag,
