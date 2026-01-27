@@ -15,7 +15,7 @@ import { useState } from "react";
 import { SwapSlot } from "./swap-slot";
 
 const meta: Meta<typeof SwapSlot> = {
-  title: "AI/Swap Slot",
+  title: "Primitives/Swap Slot",
   component: SwapSlot,
   tags: ["autodocs"],
   argTypes: {
