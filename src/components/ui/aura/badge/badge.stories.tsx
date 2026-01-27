@@ -864,7 +864,7 @@ export const Neutral: Story = {
     await expect(badge).toHaveClass("bg-neutral");
 
     // Verify correct foreground class (alternative for filled variant)
-    await expect(badge).toHaveClass("text-neutral-foreground-alternative");
+    await expect(badge).toHaveClass("text-neutral-foreground-alternate");
 
     // Verify it's a filled variant (has background, not outlined)
     await expect(badge).not.toHaveClass("border-border");
@@ -1126,7 +1126,7 @@ export const Undefined: Story = {
     await expect(badge).toHaveClass("bg-undefined");
 
     // Verify correct foreground class (alternative for filled variant)
-    await expect(badge).toHaveClass("text-undefined-foreground-alternative");
+    await expect(badge).toHaveClass("text-undefined-foreground-alternate");
 
     // Verify it's a filled variant (has background, not outlined)
     await expect(badge).not.toHaveClass("border-border");
