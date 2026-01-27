@@ -66,10 +66,8 @@ type Story = StoryObj<typeof SwapSlot>;
  * Shows the default dashed border container
  */
 export const Basic: Story = {
-  args: {
-    className: "w-[400px]",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -90,6 +88,7 @@ export const Basic: Story = {
     // Verify it's empty by default
     await expect(swapSlot?.textContent).toBe("");
   },
+  render: () => <SwapSlot className="w-100" />,
 };
 
 /**
@@ -97,10 +96,8 @@ export const Basic: Story = {
  * Demonstrates using children as fallback content
  */
 export const WithChildren: Story = {
-  args: {
-    className: "w-[400px]",
-  },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -118,9 +115,9 @@ export const WithChildren: Story = {
     const swapSlot = canvasElement.querySelector(".border-dashed");
     await expect(swapSlot).toBeInTheDocument();
   },
-  render: function WithChildrenStory(args) {
+  render: function WithChildrenStory() {
     return (
-      <SwapSlot {...args}>
+      <SwapSlot className="w-100">
         <div className="flex items-center gap-2 text-muted-foreground">
           <IconPlus className="size-4" />
           <span>Placeholder content</span>
@@ -135,10 +132,8 @@ export const WithChildren: Story = {
  * Shows default content that can be overridden by activeSlot
  */
 export const WithDefaultSlot: Story = {
-  args: {
-    className: "w-[400px]",
-  },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Swap slot with defaultSlot. This content is shown when activeSlot is not provided.",
@@ -154,10 +149,10 @@ export const WithDefaultSlot: Story = {
     // Verify activeSlot is not present
     await expect(canvas.queryByText("Active content slot")).not.toBeInTheDocument();
   },
-  render: function WithDefaultSlotStory(args) {
+  render: function WithDefaultSlotStory() {
     return (
       <SwapSlot
-        {...args}
+        className="w-100"
         defaultSlot={
           <div className="flex items-center gap-2 text-muted-foreground">
             <IconPlus className="size-4" />
@@ -174,10 +169,8 @@ export const WithDefaultSlot: Story = {
  * Demonstrates active content that takes priority
  */
 export const WithActiveSlot: Story = {
-  args: {
-    className: "w-[400px]",
-  },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -194,10 +187,10 @@ export const WithActiveSlot: Story = {
     // Verify default content is not present
     await expect(canvas.queryByText("Default content slot")).not.toBeInTheDocument();
   },
-  render: function WithActiveSlotStory(args) {
+  render: function WithActiveSlotStory() {
     return (
       <SwapSlot
-        {...args}
+        className="w-100"
         activeSlot={
           <div className="flex items-center gap-2 text-foreground">
             <IconCheck className="size-4 text-success" />
@@ -214,10 +207,8 @@ export const WithActiveSlot: Story = {
  * Shows how activeSlot takes priority over defaultSlot
  */
 export const InteractiveSwap: Story = {
-  args: {
-    className: "w-[400px]",
-  },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -250,13 +241,13 @@ export const InteractiveSwap: Story = {
       { timeout: 300 }
     );
   },
-  render: function InteractiveSwapStory(args) {
+  render: function InteractiveSwapStory() {
     const [isActive, setIsActive] = useState(false);
 
     return (
       <div className="space-y-4">
         <SwapSlot
-          {...args}
+          className="w-100"
           defaultSlot={
             <div className="flex items-center gap-2 text-muted-foreground">
               <IconPlus className="size-4" />
@@ -286,6 +277,7 @@ export const InteractiveSwap: Story = {
  */
 export const CustomStyling: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -303,7 +295,7 @@ export const CustomStyling: Story = {
   },
   render: function CustomStylingStory() {
     return (
-      <div className="space-y-4 w-[400px]">
+      <div className="space-y-4 w-100">
         <SwapSlot className="h-20 bg-accent/50">
           <span className="text-sm text-muted-foreground">Custom background colour</span>
         </SwapSlot>
@@ -324,6 +316,7 @@ export const CustomStyling: Story = {
  */
 export const InCard: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Swap slot used within a card component, demonstrating a common use case.",
@@ -346,7 +339,7 @@ export const InCard: Story = {
   },
   render: function InCardStory() {
     return (
-      <Card className="w-[412px] max-w-md">
+      <Card className="w-103 max-w-md">
         <CardHeader className="p-4 pb-0">
           <CardTitle>Card Title</CardTitle>
           <CardDescription>Card description</CardDescription>
@@ -378,6 +371,7 @@ export const InCard: Story = {
  */
 export const PriorityOrder: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -402,7 +396,7 @@ export const PriorityOrder: Story = {
   },
   render: function PriorityOrderStory() {
     return (
-      <div className="space-y-4 w-[400px]">
+      <div className="space-y-4 w-100">
         <div className="space-y-2">
           <h3 className="font-semibold text-sm">1. With all three (activeSlot wins)</h3>
           <SwapSlot
@@ -437,6 +431,7 @@ export const PriorityOrder: Story = {
  */
 export const WithComplexContent: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Swap slot with complex content including multiple elements, badges, and buttons.",
@@ -485,7 +480,7 @@ export const WithComplexContent: Story = {
     const [isActive, setIsActive] = useState(false);
 
     return (
-      <div className="space-y-4 w-[400px]">
+      <div className="space-y-4 w-100">
         <SwapSlot
           className="min-h-32 h-auto"
           defaultSlot={
@@ -536,6 +531,7 @@ export const WithComplexContent: Story = {
  */
 export const EmptyState: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Empty swap slot showing just the container with dashed border.",
@@ -552,6 +548,6 @@ export const EmptyState: Story = {
     await expect(swapSlot?.textContent).toBe("");
   },
   render: function EmptyStateStory() {
-    return <SwapSlot className="w-[400px] h-20">{/* Intentionally empty */}</SwapSlot>;
+    return <SwapSlot className="w-100 h-20">{/* Intentionally empty */}</SwapSlot>;
   },
 };

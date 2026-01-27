@@ -15,6 +15,7 @@ export const SwapSlot = ({
 }: SwapSlotProps) => {
   return (
     <div
+      data-slot="swap-slot"
       className={cn(
         "w-full h-10 flex justify-center items-center gap-2 rounded-md border border-dashed border-ring p-4",
         className
