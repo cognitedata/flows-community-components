@@ -101,8 +101,8 @@ export const Default: Story = {
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(4);
 
-    // Verify message actions exist using data-slot attribute
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
+    // Verify message actions exist
+    const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (
@@ -223,9 +223,9 @@ export const WithCodeBlock: Story = {
     const codeBlock = canvasElement.querySelector("[data-code-block]");
     await expect(codeBlock).toBeInTheDocument();
 
-    // Verify message actions exist using data-slot attribute
-    // Note: Code block buttons are hidden until hover and won't be in the DOM
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
+    // Verify message actions exist (4 MessageAction buttons)
+    // Note: Code block buttons are hidden and in the DOM but we specifically check for visible buttons
+    const buttons = canvas.getAllByRole("button", { hidden: false });
     await expect(buttons.length).toBeGreaterThanOrEqual(4);
   },
   render: () => {
@@ -305,8 +305,8 @@ export const MessageResponseStreamdown: Story = {
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
-    // Verify message actions exist using data-slot attribute
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
+    // Verify message actions exist
+    const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
 
     // Verify MessageResponse content is rendered (check for any heading)
@@ -600,8 +600,8 @@ export const ManyMessageActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify many buttons exist using data-slot attribute
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
+    // Verify many buttons exist
+    const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThanOrEqual(6);
   },
   render: () => (
