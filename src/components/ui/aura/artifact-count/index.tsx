@@ -17,7 +17,7 @@
  *
  * <ArtifactCount>
  *   <ArtifactCountHeader>
- *     <ArtifactCountCount>392°C</ArtifactCountCount>
+ *     <ArtifactCountCount variant="default">392°C</ArtifactCountCount>
  *   </ArtifactCountHeader>
  *   <ArtifactCountSeparator />
  *   <ArtifactCountFooter className="justify-between text-sm">

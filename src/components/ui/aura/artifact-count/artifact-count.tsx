@@ -9,14 +9,14 @@ const artifactCountCountVariants = cva(
   "flex flex-col items-center justify-center rounded px-0.5 text-3xl font-medium leading-8 tracking-tightest min-h-9 min-w-9",
   {
     variants: {
-      status: {
+      variant: {
         default: "bg-muted text-muted-foreground",
         warning: "bg-warning text-warning-foreground",
         critical: "bg-destructive text-destructive-foreground",
       },
     },
     defaultVariants: {
-      status: "default",
+      variant: "default",
     },
   }
 );
@@ -61,12 +61,12 @@ ArtifactCountHeader.displayName = "ArtifactCountHeader";
 const ArtifactCountCount = forwardRef<
   HTMLOutputElement,
   ComponentProps<"output"> & VariantProps<typeof artifactCountCountVariants>
->(({ className, status, ...props }, ref) => {
+>(({ className, variant, ...props }, ref) => {
   return (
     <output
       ref={ref}
       data-slot="artifact-count-count"
-      className={cn(artifactCountCountVariants({ status }), className)}
+      className={cn(artifactCountCountVariants({ variant }), className)}
       {...props}
     />
   );

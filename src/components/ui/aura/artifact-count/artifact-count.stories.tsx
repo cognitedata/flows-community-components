@@ -57,7 +57,7 @@ const meta: Meta<typeof ArtifactCount> = {
 export default meta;
 type Story = StoryObj<typeof ArtifactCount>;
 type PlaygroundArgs = ComponentProps<typeof ArtifactCount> & {
-  status: "default" | "warning" | "critical";
+  variant: "default" | "warning" | "critical";
   count: string;
   title: string;
   tag: string;
@@ -143,7 +143,7 @@ export const Basic: Story = {
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader>
-        <ArtifactCountCount status="warning">3</ArtifactCountCount>
+        <ArtifactCountCount variant="warning">3</ArtifactCountCount>
         <span className="text-base font-medium leading-5 tracking-tightest">Active alarms</span>
       </ArtifactCountHeader>
       <ArtifactCountSeparator />
@@ -186,7 +186,7 @@ export const WithFooter: Story = {
   render: () => (
     <ArtifactCount className="w-md">
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount status="critical">392°C</ArtifactCountCount>
+        <ArtifactCountCount variant="critical">392°C</ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">Temperature</span>
@@ -262,7 +262,7 @@ export const WithChart: Story = {
     return (
       <ArtifactCount className="w-md gap-2">
         <ArtifactCountHeader className="items-end">
-          <ArtifactCountCount status="default">{currentTemp}</ArtifactCountCount>
+          <ArtifactCountCount variant="default">{currentTemp}</ArtifactCountCount>
           <div className="flex flex-1 items-end justify-between">
             <div className="flex flex-col">
               <span className="text-base font-medium">Bar</span>
@@ -353,7 +353,7 @@ export const Interactive: Story = {
     return (
       <ArtifactCount className="w-md">
         <ArtifactCountHeader>
-          <ArtifactCountCount status="warning">{value}°C</ArtifactCountCount>
+          <ArtifactCountCount variant="warning">{value}°C</ArtifactCountCount>
         </ArtifactCountHeader>
         <ArtifactCountSeparator />
         <ArtifactCountFooter className="text-muted-foreground">
@@ -386,7 +386,7 @@ export const Interactive: Story = {
 export const Playground: PlaygroundStory = {
   args: {
     className: "w-md",
-    status: "default",
+    variant: "default",
     count: "392°C",
     title: "Temperature",
     tag: "V-192",
@@ -394,10 +394,10 @@ export const Playground: PlaygroundStory = {
     footerRight: "Max: 390°C",
   },
   argTypes: {
-    status: {
+    variant: {
       control: "select",
       options: ["default", "warning", "critical"],
-      description: "Status variant for the count chip",
+      description: "Variant for the count chip",
       table: {
         category: "Appearance",
         type: { summary: "'default' | 'warning' | 'critical'" },
@@ -456,7 +456,7 @@ export const Playground: PlaygroundStory = {
   render: (args) => (
     <ArtifactCount className={args.className}>
       <ArtifactCountHeader className="items-end">
-        <ArtifactCountCount status={args.status}>{args.count}</ArtifactCountCount>
+        <ArtifactCountCount variant={args.variant}>{args.count}</ArtifactCountCount>
         <div className="flex flex-1 items-end justify-between">
           <div className="flex flex-col">
             <span className="text-base font-medium">{args.title}</span>
