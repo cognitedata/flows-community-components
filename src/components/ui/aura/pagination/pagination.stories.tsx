@@ -796,7 +796,7 @@ export const StateFirstPage: Story = {
     </Pagination>
   ),
   parameters: {
-    order: 12,
+    order: 10,
     docs: {
       description: {
         story: "Pagination when on the first page (previous disabled).",
@@ -857,7 +857,7 @@ export const StateLastPage: Story = {
     </Pagination>
   ),
   parameters: {
-    order: 13,
+    order: 11,
     docs: {
       description: {
         story: "Pagination when on the last page (next disabled).",
@@ -904,7 +904,7 @@ export const Compact: Story = {
     </Pagination>
   ),
   parameters: {
-    order: 14,
+    order: 12,
     docs: {
       description: {
         story: "Compact pagination showing current position.",
@@ -1191,7 +1191,7 @@ export const VisualRegression: Story = {
     );
   },
   parameters: {
-    order: 15,
+    order: 13,
     docs: {
       description: {
         story:
@@ -1372,7 +1372,7 @@ export const EdgeCaseLargePageCount: Story = {
     );
   },
   parameters: {
-    order: 7,
+    order: 14,
     docs: {
       description: {
         story:
@@ -1432,7 +1432,7 @@ export const EdgeCaseDisabledTeleport: Story = {
     );
   },
   parameters: {
-    order: 8,
+    order: 15,
     docs: {
       description: {
         story: "Teleportation input in disabled state with proper styling and cursor behavior.",
