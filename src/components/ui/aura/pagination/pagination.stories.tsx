@@ -769,9 +769,9 @@ export const Controlled: Story = {
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-        <p className="text-sm text-muted-foreground text-center">
+        <output className="text-sm text-muted-foreground text-center">
           Page {currentPage} of {totalPages}
-        </p>
+        </output>
       </div>
     );
   },

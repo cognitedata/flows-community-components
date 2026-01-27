@@ -1,3 +1,5 @@
+import { type ComponentProps, type ElementRef, createContext, forwardRef, useContext } from "react";
+
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -6,7 +8,6 @@ import {
   IconDots,
 } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
-import { type ComponentProps, createContext, forwardRef, useContext } from "react";
 
 import { Button } from "@/components/ui/aura/button";
 import { SelectTrigger } from "@/components/ui/aura/select";
@@ -119,14 +120,14 @@ PaginationItem.displayName = "PaginationItem";
  * Pagination status text (e.g. "Page 3 of 10").
  */
 const PaginationStatus = forwardRef<
-  HTMLSpanElement,
-  ComponentProps<"span"> & { size?: PaginationSize }
+  HTMLOutputElement,
+  ComponentProps<"output"> & { size?: PaginationSize }
 >(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
   const resolvedSize = size ?? inheritedSize;
 
   return (
-    <span
+    <output
       ref={ref}
       data-slot="pagination-status"
       className={cn(paginationStatusVariants({ size: resolvedSize }), className)}
@@ -139,23 +140,25 @@ PaginationStatus.displayName = "PaginationStatus";
 /**
  * Pagination-aware select trigger that inherits pagination size.
  */
-function PaginationSelectTrigger({
-  className,
-  size,
-  ...props
-}: ComponentProps<typeof SelectTrigger>) {
+const PaginationSelectTrigger = forwardRef<
+  ElementRef<typeof SelectTrigger>,
+  ComponentProps<typeof SelectTrigger>
+>(({ className, size, ...props }, ref) => {
   const inheritedSize = usePaginationSize();
   const isPaginationSmall = inheritedSize === "small" && size === undefined;
   const resolvedSize = size ?? (isPaginationSmall ? "sm" : "default");
 
   return (
     <SelectTrigger
+      ref={ref}
       size={resolvedSize}
+      data-slot="pagination-select-trigger"
       className={cn(isPaginationSmall && "h-7 min-h-0", className)}
       {...props}
     />
   );
-}
+});
+PaginationSelectTrigger.displayName = "PaginationSelectTrigger";
 
 type PaginationLinkProps = {
   isActive?: boolean;

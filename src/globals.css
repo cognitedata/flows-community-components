@@ -55,17 +55,13 @@
   --tracking-tightest: -0.1px;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   /* tooltips; small containers */
-  --shadow-default:
-    0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-default: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   /* menus; popovers; hover cards */
-  --shadow-md:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   /* sonner; temporary elements */
-  --shadow-lg:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   /* modals; dialogs without backdrop overlay */
-  --shadow-xl:
-    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   /* modals; dialogs with backdrop overlay */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -132,9 +128,7 @@
   --color-hover: var(--hover);
 
   /* Status color -alternate variants */
-  --color-destructive-foreground-alternate: var(
-    --destructive-foreground-alternate
-  );
+  --color-destructive-foreground-alternate: var(--destructive-foreground-alternate);
   --color-warning-foreground-alternate: var(--warning-foreground-alternate);
   --color-success-foreground-alternate: var(--success-foreground-alternate);
   --color-neutral-foreground-alternate: var(--neutral-foreground-alternate);
@@ -294,30 +288,14 @@
   --color-decorative-background-gray: var(--decorative-background-gray);
 
   /* Decorative background hover tokens */
-  --color-decorative-background-hover-mountain: var(
-    --decorative-background-hover-mountain
-  );
-  --color-decorative-background-hover-fjord: var(
-    --decorative-background-hover-fjord
-  );
-  --color-decorative-background-hover-nordic: var(
-    --decorative-background-hover-nordic
-  );
-  --color-decorative-background-hover-aurora: var(
-    --decorative-background-hover-aurora
-  );
-  --color-decorative-background-hover-dusk: var(
-    --decorative-background-hover-dusk
-  );
-  --color-decorative-background-hover-orange: var(
-    --decorative-background-hover-orange
-  );
-  --color-decorative-background-hover-sky: var(
-    --decorative-background-hover-sky
-  );
-  --color-decorative-background-hover-gray: var(
-    --decorative-background-hover-gray
-  );
+  --color-decorative-background-hover-mountain: var(--decorative-background-hover-mountain);
+  --color-decorative-background-hover-fjord: var(--decorative-background-hover-fjord);
+  --color-decorative-background-hover-nordic: var(--decorative-background-hover-nordic);
+  --color-decorative-background-hover-aurora: var(--decorative-background-hover-aurora);
+  --color-decorative-background-hover-dusk: var(--decorative-background-hover-dusk);
+  --color-decorative-background-hover-orange: var(--decorative-background-hover-orange);
+  --color-decorative-background-hover-sky: var(--decorative-background-hover-sky);
+  --color-decorative-background-hover-gray: var(--decorative-background-hover-gray);
 
   /* Decorative foreground tokens */
   --color-decorative-foreground-mountain: var(--decorative-foreground-mountain);
