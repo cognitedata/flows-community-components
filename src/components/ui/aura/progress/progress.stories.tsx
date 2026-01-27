@@ -47,11 +47,6 @@ type Story = StoryObj<typeof Progress>;
  * Shows a simple progress indicator at 50%
  */
 export const Basic: Story = {
-  render: () => <Progress value={50} className="w-96" />,
-  args: {
-    value: 50,
-    className: "w-96",
-  },
   parameters: {
     order: 1,
     docs: {
@@ -61,6 +56,7 @@ export const Basic: Story = {
       },
     },
   },
+  render: () => <Progress value={50} className="w-96" />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
