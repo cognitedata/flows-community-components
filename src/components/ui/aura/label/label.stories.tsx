@@ -6,9 +6,10 @@ import { useState, type ChangeEvent } from "react";
 
 import { Label } from "./label";
 import { Input } from "@/components/ui/aura/input";
+import { IconAsterisk } from "@tabler/icons-react";
 
 const meta: Meta<typeof Label> = {
-  title: "Form/Label",
+  title: "Primitives/Label",
   component: Label,
   tags: ["autodocs"],
   argTypes: {
@@ -62,17 +63,15 @@ type Story = StoryObj<typeof Label>;
  * Basic label usage with simple text.
  */
 export const Basic: Story = {
-  args: {
-    children: "Name",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "A basic label with simple text content.",
       },
     },
   },
-  render: (args) => <Label {...args} />,
+  render: () => <Label htmlFor="name">Name</Label>,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const label = canvas.getByText("Name");
@@ -84,11 +83,8 @@ export const Basic: Story = {
  * Label styled to indicate a disabled field, typically used alongside a disabled input.
  */
 export const Disabled: Story = {
-  args: {
-    children: "Disabled label",
-    htmlFor: "disabled-input",
-  },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -96,9 +92,9 @@ export const Disabled: Story = {
       },
     },
   },
-  render: (args) => (
+  render: () => (
     <div className="group space-y-2 max-w-sm" data-disabled="true">
-      <Label {...args} />
+      <Label htmlFor="disabled-input">Disabled label</Label>
       <Input id="disabled-input" disabled placeholder="Disabled input" />
     </div>
   ),
@@ -116,19 +112,8 @@ export const Disabled: Story = {
  * Label indicating a required field using an asterisk.
  */
 export const WithAsterisk: Story = {
-  args: {
-    children: (
-      <>
-        Email address{" "}
-        <img
-          src="/asterisk.svg"
-          alt="required"
-          className="inline-block ml-0.5 self-start -translate-y-px"
-        />
-      </>
-    ),
-  },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -136,11 +121,19 @@ export const WithAsterisk: Story = {
       },
     },
   },
-  render: (args) => <Label {...args} />,
+  render: () => (
+    <Label htmlFor="email">
+      Email address
+      <IconAsterisk
+        title="required"
+        className="inline-block ml-0.5 self-start -translate-y-px h-1 w-1 text-red-500"
+      />
+    </Label>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const label = canvas.getByText(/Email address/);
-    const asterisk = canvas.getByAltText("required");
+    const asterisk = canvas.getByTitle("required");
 
     await expect(label).toBeInTheDocument();
     await expect(asterisk).toBeInTheDocument();
@@ -151,11 +144,8 @@ export const WithAsterisk: Story = {
  * Fully wired label with an input, demonstrating focus behavior when clicking the label.
  */
 export const WithInput: Story = {
-  args: {
-    children: "Project name",
-    htmlFor: "project-name",
-  },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -163,7 +153,7 @@ export const WithInput: Story = {
       },
     },
   },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState("");
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -172,7 +162,7 @@ export const WithInput: Story = {
 
     return (
       <div className="max-w-sm">
-        <Label {...args} />
+        <Label htmlFor="project-name">Project name</Label>
         <Input
           id="project-name"
           value={value}
@@ -195,4 +185,24 @@ export const WithInput: Story = {
     await userEvent.click(label);
     await expect(input).toHaveFocus();
   },
+};
+
+/**
+ * Playground for exploring label props and combinations.
+ */
+export const Playground: Story = {
+  args: {
+    children: "Playground label",
+    htmlFor: "playground-id",
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story:
+          "Interactive playground for the Label component. Use controls to experiment with different props and configurations.",
+      },
+    },
+  },
+  render: (args) => <Label {...args} />,
 };
