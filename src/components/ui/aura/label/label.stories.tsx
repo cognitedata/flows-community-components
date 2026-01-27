@@ -123,14 +123,17 @@ export const WithAsterisk: Story = {
   },
   render: () => (
     <Label htmlFor="email">
-      Email address{" "}
-      <IconAsterisk className="inline-block ml-0.5 self-start -translate-y-px h-1 w-1 text-red-500" />
+      Email address
+      <IconAsterisk
+        title="required"
+        className="inline-block ml-0.5 self-start -translate-y-px h-1 w-1 text-red-500"
+      />
     </Label>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const label = canvas.getByText(/Email address/);
-    const asterisk = canvas.getByAltText("required");
+    const asterisk = canvas.getByTitle("required");
 
     await expect(label).toBeInTheDocument();
     await expect(asterisk).toBeInTheDocument();
