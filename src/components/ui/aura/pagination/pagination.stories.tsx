@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 
 import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/aura/select";
-import { cn } from "@/lib/utils";
 import {
   Pagination,
   PaginationContent,
@@ -15,8 +14,11 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationResultsPerPage,
+  PaginationResultsPerPageLabel,
   PaginationSelectTrigger,
   PaginationStatus,
+  PaginationTeleport,
 } from "./pagination";
 
 const meta: Meta<typeof Pagination> = {
@@ -95,7 +97,7 @@ export const Default: Story = {
 };
 
 /**
- * Small size pagination variant.
+ * Small size variant for compact layouts.
  */
 export const Small: Story = {
   render: () => (
@@ -160,7 +162,7 @@ export const Small: Story = {
 type PaginationStorySize = "default" | "small";
 
 /**
- * Pagination with results per page selector (Default size).
+ * Composition pattern: Results per page selector (default size).
  */
 export const WithResultsPerPage: Story = {
   render: function WithResultsPerPageStory() {
@@ -195,22 +197,20 @@ export const WithResultsPerPage: Story = {
           <PaginationItem>
             <PaginationLast href="#" />
           </PaginationItem>
-          <PaginationItem>
-            <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">Results per page</span>
-              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <PaginationSelectTrigger>
-                  <SelectValue />
-                </PaginationSelectTrigger>
-                <SelectContent>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="25">25</SelectItem>
-                  <SelectItem value="50">50</SelectItem>
-                  <SelectItem value="100">100</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </PaginationItem>
+          <PaginationResultsPerPage>
+            <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+            <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+              <PaginationSelectTrigger>
+                <SelectValue />
+              </PaginationSelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </PaginationResultsPerPage>
         </PaginationContent>
       </Pagination>
     );
@@ -232,7 +232,9 @@ export const WithResultsPerPage: Story = {
     await expect(paginationContent).toHaveAttribute("data-size", "default");
 
     // Verify "Results per page" label is present
-    const resultsLabel = canvasElement.querySelector("span.text-muted-foreground");
+    const resultsLabel = canvasElement.querySelector(
+      '[data-slot="pagination-results-per-page-label"]'
+    );
     await expect(resultsLabel).toHaveTextContent("Results per page");
 
     // Verify select trigger is present
@@ -246,7 +248,7 @@ export const WithResultsPerPage: Story = {
 };
 
 /**
- * Pagination with results per page selector (Small size).
+ * Composition pattern: Results per page selector (small size).
  */
 export const WithResultsPerPageSmall: Story = {
   render: function WithResultsPerPageSmallStory() {
@@ -281,22 +283,20 @@ export const WithResultsPerPageSmall: Story = {
           <PaginationItem>
             <PaginationLast href="#" />
           </PaginationItem>
-          <PaginationItem>
-            <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">Results per page</span>
-              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <PaginationSelectTrigger>
-                  <SelectValue />
-                </PaginationSelectTrigger>
-                <SelectContent>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="25">25</SelectItem>
-                  <SelectItem value="50">50</SelectItem>
-                  <SelectItem value="100">100</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </PaginationItem>
+          <PaginationResultsPerPage>
+            <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+            <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+              <PaginationSelectTrigger>
+                <SelectValue />
+              </PaginationSelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </PaginationResultsPerPage>
         </PaginationContent>
       </Pagination>
     );
@@ -331,21 +331,13 @@ export const WithResultsPerPageSmall: Story = {
 };
 
 /**
- * Counter mode - navigate via arrows (Default size).
+ * Composition pattern: Teleportation mode with editable page input (default size).
  */
 export const TeleportationMode: Story = {
   render: function TeleportationModeStory() {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 100;
     const [resultsPerPage, setResultsPerPage] = useState("25");
-    const displayClassName = cn(
-      "flex items-center justify-center gap-1 border border-input bg-background font-normal",
-      "h-9 w-20 rounded-md text-base"
-    );
-
-    const updatePage = (nextPage: number) => {
-      setCurrentPage(nextPage);
-    };
 
     return (
       <Pagination>
@@ -355,7 +347,7 @@ export const TeleportationMode: Story = {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                updatePage(1);
+                setCurrentPage(1);
               }}
             />
           </PaginationItem>
@@ -364,23 +356,23 @@ export const TeleportationMode: Story = {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (currentPage > 1) updatePage(currentPage - 1);
+                if (currentPage > 1) setCurrentPage(currentPage - 1);
               }}
             />
           </PaginationItem>
           <PaginationItem>
-            <div className={displayClassName} data-slot="pagination-teleport-display">
-              <output>
-                {currentPage}/{totalPages}
-              </output>
-            </div>
+            <PaginationTeleport
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (currentPage < totalPages) updatePage(currentPage + 1);
+                if (currentPage < totalPages) setCurrentPage(currentPage + 1);
               }}
             />
           </PaginationItem>
@@ -389,26 +381,24 @@ export const TeleportationMode: Story = {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                updatePage(totalPages);
+                setCurrentPage(totalPages);
               }}
             />
           </PaginationItem>
-          <PaginationItem>
-            <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">Results per page</span>
-              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <PaginationSelectTrigger>
-                  <SelectValue />
-                </PaginationSelectTrigger>
-                <SelectContent>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="25">25</SelectItem>
-                  <SelectItem value="50">50</SelectItem>
-                  <SelectItem value="100">100</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </PaginationItem>
+          <PaginationResultsPerPage>
+            <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+            <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+              <PaginationSelectTrigger>
+                <SelectValue />
+              </PaginationSelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </PaginationResultsPerPage>
         </PaginationContent>
       </Pagination>
     );
@@ -417,7 +407,8 @@ export const TeleportationMode: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Counter mode showing current page and total pages (default size).",
+        story:
+          "Teleportation mode with editable page input - click the page number to jump to any page.",
       },
     },
   },
@@ -429,13 +420,10 @@ export const TeleportationMode: Story = {
     const paginationContent = canvasElement.querySelector('[data-slot="pagination-content"]');
     await expect(paginationContent).toHaveAttribute("data-size", "default");
 
-    // Verify teleportation display shows current/total format
-    const teleportDisplay = canvasElement.querySelector(
-      '[data-slot="pagination-teleport-display"]'
-    );
-    await expect(teleportDisplay).toBeInTheDocument();
-    const teleportOutput = teleportDisplay?.querySelector("output");
-    await expect(teleportOutput).toHaveTextContent("1/100");
+    // Verify teleportation input is present
+    const teleportInput = canvasElement.querySelector('[data-slot="pagination-teleport"]');
+    await expect(teleportInput).toBeInTheDocument();
+    await expect(teleportInput).toHaveValue("1/100");
 
     // Verify navigation buttons are present
     const firstButton = canvasElement.querySelector('[data-slot="pagination-first"]');
@@ -444,30 +432,21 @@ export const TeleportationMode: Story = {
     await expect(lastButton).toBeInTheDocument();
 
     // Verify "Results per page" selector is present
-    const resultsLabels = Array.from(canvasElement.querySelectorAll("span.text-muted-foreground"));
-    const resultsLabel = resultsLabels.find((label) =>
-      label.textContent?.includes("Results per page")
+    const resultsLabel = canvasElement.querySelector(
+      '[data-slot="pagination-results-per-page-label"]'
     );
-    await expect(resultsLabel).toBeTruthy();
+    await expect(resultsLabel).toHaveTextContent("Results per page");
   },
 };
 
 /**
- * Counter mode - navigate via arrows (Small size).
+ * Composition pattern: Teleportation mode with editable page input (small size).
  */
 export const TeleportationModeSmall: Story = {
   render: function TeleportationModeSmallStory() {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 10;
     const [resultsPerPage, setResultsPerPage] = useState("25");
-    const displayClassName = cn(
-      "flex items-center justify-center gap-1 border border-input bg-background font-normal",
-      "h-7 w-20 rounded text-sm"
-    );
-
-    const updatePage = (nextPage: number) => {
-      setCurrentPage(nextPage);
-    };
 
     return (
       <Pagination>
@@ -477,7 +456,7 @@ export const TeleportationModeSmall: Story = {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                updatePage(1);
+                setCurrentPage(1);
               }}
             />
           </PaginationItem>
@@ -486,23 +465,23 @@ export const TeleportationModeSmall: Story = {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (currentPage > 1) updatePage(currentPage - 1);
+                if (currentPage > 1) setCurrentPage(currentPage - 1);
               }}
             />
           </PaginationItem>
           <PaginationItem>
-            <div className={displayClassName} data-slot="pagination-teleport-display">
-              <output>
-                {currentPage}/{totalPages}
-              </output>
-            </div>
+            <PaginationTeleport
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (currentPage < totalPages) updatePage(currentPage + 1);
+                if (currentPage < totalPages) setCurrentPage(currentPage + 1);
               }}
             />
           </PaginationItem>
@@ -511,26 +490,24 @@ export const TeleportationModeSmall: Story = {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                updatePage(totalPages);
+                setCurrentPage(totalPages);
               }}
             />
           </PaginationItem>
-          <PaginationItem>
-            <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">Results per page</span>
-              <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <PaginationSelectTrigger>
-                  <SelectValue />
-                </PaginationSelectTrigger>
-                <SelectContent>
-                  <SelectItem value="10">10</SelectItem>
-                  <SelectItem value="25">25</SelectItem>
-                  <SelectItem value="50">50</SelectItem>
-                  <SelectItem value="100">100</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </PaginationItem>
+          <PaginationResultsPerPage>
+            <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+            <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+              <PaginationSelectTrigger>
+                <SelectValue />
+              </PaginationSelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </PaginationResultsPerPage>
         </PaginationContent>
       </Pagination>
     );
@@ -539,7 +516,7 @@ export const TeleportationModeSmall: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Counter mode showing current page and total pages (small size).",
+        story: "Teleportation mode with editable page input in small size.",
       },
     },
   },
@@ -550,13 +527,10 @@ export const TeleportationModeSmall: Story = {
     // Verify small size attribute
     await expect(paginationContent).toHaveAttribute("data-size", "small");
 
-    // Verify teleportation display shows current/total format with small size
-    const teleportDisplay = canvasElement.querySelector(
-      '[data-slot="pagination-teleport-display"]'
-    );
-    await expect(teleportDisplay).toBeInTheDocument();
-    const teleportOutput = teleportDisplay?.querySelector("output");
-    await expect(teleportOutput).toHaveTextContent("1/25");
+    // Verify teleportation input is present
+    const teleportInput = canvasElement.querySelector('[data-slot="pagination-teleport"]');
+    await expect(teleportInput).toBeInTheDocument();
+    await expect(teleportInput).toHaveValue("1/10");
 
     // Verify navigation buttons are present
     const firstButton = canvasElement.querySelector('[data-slot="pagination-first"]');
@@ -565,16 +539,15 @@ export const TeleportationModeSmall: Story = {
     await expect(lastButton).toBeInTheDocument();
 
     // Verify "Results per page" selector is present
-    const resultsLabels = Array.from(canvasElement.querySelectorAll("span.text-muted-foreground"));
-    const resultsLabel = resultsLabels.find((label) =>
-      label.textContent?.includes("Results per page")
+    const resultsLabel = canvasElement.querySelector(
+      '[data-slot="pagination-results-per-page-label"]'
     );
-    await expect(resultsLabel).toBeTruthy();
+    await expect(resultsLabel).toHaveTextContent("Results per page");
   },
 };
 
 /**
- * Pagination with ellipsis.
+ * Composition pattern: Using ellipsis for large page ranges.
  */
 export const WithEllipsis: Story = {
   render: () => (
@@ -645,7 +618,7 @@ export const WithEllipsis: Story = {
 };
 
 /**
- * Controlled pagination.
+ * Interactive example: Fully controlled pagination with dynamic page generation.
  */
 export const Controlled: Story = {
   render: function ControlledPagination() {
@@ -738,8 +711,8 @@ export const Controlled: Story = {
     await expect(activeLink).toHaveTextContent("1");
 
     // Verify page counter text is present
-    const pageCounter = canvasElement.querySelector("p.text-muted-foreground");
-    await expect(pageCounter).toHaveTextContent(/Page 1 of 10/);
+    const pageCounter = canvasElement.querySelector("output.text-muted-foreground");
+    await expect(pageCounter).toHaveTextContent(/Page 1 of 100/);
 
     // Verify navigation buttons are present
     const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
@@ -750,7 +723,7 @@ export const Controlled: Story = {
 };
 
 /**
- * Simple pagination (prev/next only).
+ * Minimal example: Simple pagination with only prev/next buttons.
  */
 export const Simple: Story = {
   render: () => (
@@ -790,9 +763,9 @@ export const Simple: Story = {
 };
 
 /**
- * First page state.
+ * State example: First page with disabled previous button.
  */
-export const FirstPage: Story = {
+export const StateFirstPage: Story = {
   render: () => (
     <Pagination>
       <PaginationContent>
@@ -823,7 +796,7 @@ export const FirstPage: Story = {
     </Pagination>
   ),
   parameters: {
-    order: 10,
+    order: 12,
     docs: {
       description: {
         story: "Pagination when on the first page (previous disabled).",
@@ -851,9 +824,9 @@ export const FirstPage: Story = {
 };
 
 /**
- * Last page state.
+ * State example: Last page with disabled next button.
  */
-export const LastPage: Story = {
+export const StateLastPage: Story = {
   render: () => (
     <Pagination>
       <PaginationContent>
@@ -884,7 +857,7 @@ export const LastPage: Story = {
     </Pagination>
   ),
   parameters: {
-    order: 11,
+    order: 13,
     docs: {
       description: {
         story: "Pagination when on the last page (next disabled).",
@@ -912,7 +885,7 @@ export const LastPage: Story = {
 };
 
 /**
- * Compact pagination.
+ * Minimal example: Compact pagination without first/last buttons.
  */
 export const Compact: Story = {
   render: () => (
@@ -931,7 +904,7 @@ export const Compact: Story = {
     </Pagination>
   ),
   parameters: {
-    order: 12,
+    order: 14,
     docs: {
       description: {
         story: "Compact pagination showing current position.",
@@ -1014,22 +987,20 @@ export const VisualRegression: Story = {
               <PaginationItem>
                 <PaginationLast href="#" />
               </PaginationItem>
-              <PaginationItem>
-                <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">Results per page</span>
-                  <Select value={resultsPerPage1} onValueChange={setResultsPerPage1}>
-                    <PaginationSelectTrigger>
-                      <SelectValue />
-                    </PaginationSelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10">10</SelectItem>
-                      <SelectItem value="25">25</SelectItem>
-                      <SelectItem value="50">50</SelectItem>
-                      <SelectItem value="100">100</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </PaginationItem>
+              <PaginationResultsPerPage>
+                <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+                <Select value={resultsPerPage1} onValueChange={setResultsPerPage1}>
+                  <PaginationSelectTrigger>
+                    <SelectValue />
+                  </PaginationSelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </PaginationResultsPerPage>
             </PaginationContent>
           </Pagination>
         </div>
@@ -1065,22 +1036,20 @@ export const VisualRegression: Story = {
               <PaginationItem>
                 <PaginationLast href="#" />
               </PaginationItem>
-              <PaginationItem>
-                <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">Results per page</span>
-                  <Select value={resultsPerPage2} onValueChange={setResultsPerPage2}>
-                    <PaginationSelectTrigger>
-                      <SelectValue />
-                    </PaginationSelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10">10</SelectItem>
-                      <SelectItem value="25">25</SelectItem>
-                      <SelectItem value="50">50</SelectItem>
-                      <SelectItem value="100">100</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </PaginationItem>
+              <PaginationResultsPerPage>
+                <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+                <Select value={resultsPerPage2} onValueChange={setResultsPerPage2}>
+                  <PaginationSelectTrigger>
+                    <SelectValue />
+                  </PaginationSelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </PaginationResultsPerPage>
             </PaginationContent>
           </Pagination>
         </div>
@@ -1111,11 +1080,11 @@ export const VisualRegression: Story = {
                 />
               </PaginationItem>
               <PaginationItem>
-                <div className="flex h-9 w-20 items-center justify-center rounded-md border border-input bg-background text-base font-normal">
-                  <output>
-                    {teleportPage1}/{totalPages}
-                  </output>
-                </div>
+                <PaginationTeleport
+                  currentPage={teleportPage1}
+                  totalPages={totalPages}
+                  onPageChange={updateTeleportPage1}
+                />
               </PaginationItem>
               <PaginationItem>
                 <PaginationNext
@@ -1135,22 +1104,20 @@ export const VisualRegression: Story = {
                   }}
                 />
               </PaginationItem>
-              <PaginationItem>
-                <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">Results per page</span>
-                  <Select value={resultsPerPage3} onValueChange={setResultsPerPage3}>
-                    <PaginationSelectTrigger>
-                      <SelectValue />
-                    </PaginationSelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10">10</SelectItem>
-                      <SelectItem value="25">25</SelectItem>
-                      <SelectItem value="50">50</SelectItem>
-                      <SelectItem value="100">100</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </PaginationItem>
+              <PaginationResultsPerPage>
+                <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+                <Select value={resultsPerPage3} onValueChange={setResultsPerPage3}>
+                  <PaginationSelectTrigger>
+                    <SelectValue />
+                  </PaginationSelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </PaginationResultsPerPage>
             </PaginationContent>
           </Pagination>
         </div>
@@ -1179,11 +1146,11 @@ export const VisualRegression: Story = {
                 />
               </PaginationItem>
               <PaginationItem>
-                <div className="flex h-7 w-20 items-center justify-center rounded border border-input bg-background text-sm font-normal">
-                  <output>
-                    {teleportPage2}/{totalPages}
-                  </output>
-                </div>
+                <PaginationTeleport
+                  currentPage={teleportPage2}
+                  totalPages={totalPages}
+                  onPageChange={updateTeleportPage2}
+                />
               </PaginationItem>
               <PaginationItem>
                 <PaginationNext
@@ -1203,22 +1170,20 @@ export const VisualRegression: Story = {
                   }}
                 />
               </PaginationItem>
-              <PaginationItem>
-                <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">Results per page</span>
-                  <Select value={resultsPerPage4} onValueChange={setResultsPerPage4}>
-                    <PaginationSelectTrigger>
-                      <SelectValue />
-                    </PaginationSelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10">10</SelectItem>
-                      <SelectItem value="25">25</SelectItem>
-                      <SelectItem value="50">50</SelectItem>
-                      <SelectItem value="100">100</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </PaginationItem>
+              <PaginationResultsPerPage>
+                <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+                <Select value={resultsPerPage4} onValueChange={setResultsPerPage4}>
+                  <PaginationSelectTrigger>
+                    <SelectValue />
+                  </PaginationSelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </PaginationResultsPerPage>
             </PaginationContent>
           </Pagination>
         </div>
@@ -1226,7 +1191,7 @@ export const VisualRegression: Story = {
     );
   },
   parameters: {
-    order: 13,
+    order: 15,
     docs: {
       description: {
         story:
@@ -1258,6 +1223,387 @@ export const VisualRegression: Story = {
     await expect(headings[1]).toHaveTextContent("Counter=False, Size=Small");
     await expect(headings[2]).toHaveTextContent("Counter=True, Size=Default");
     await expect(headings[3]).toHaveTextContent("Counter=True, Size=Small");
+  },
+};
+
+/**
+ * Edge case: Teleportation mode with large page count (1000+ pages) tests dynamic width.
+ */
+export const EdgeCaseLargePageCount: Story = {
+  render: function EdgeCaseLargePageCountStory() {
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 5000;
+    const [resultsPerPage, setResultsPerPage] = useState("25");
+
+    return (
+      <div className="space-y-8">
+        {/* Default size with large page count */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-semibold text-muted-foreground">Default Size (5000 pages)</h3>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationFirst
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(1);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage > 1) setCurrentPage(currentPage - 1);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationTeleport
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLast
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(totalPages);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationResultsPerPage>
+                <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+                <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+                  <PaginationSelectTrigger>
+                    <SelectValue />
+                  </PaginationSelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </PaginationResultsPerPage>
+            </PaginationContent>
+          </Pagination>
+        </div>
+
+        {/* Small size with large page count */}
+        <div className="space-y-2">
+          <h3 className="text-sm font-semibold text-muted-foreground">Small Size (5000 pages)</h3>
+          <Pagination>
+            <PaginationContent size="small">
+              <PaginationItem>
+                <PaginationFirst
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(1);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage > 1) setCurrentPage(currentPage - 1);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationTeleport
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLast
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentPage(totalPages);
+                  }}
+                />
+              </PaginationItem>
+              <PaginationResultsPerPage>
+                <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+                <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
+                  <PaginationSelectTrigger>
+                    <SelectValue />
+                  </PaginationSelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="25">25</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                    <SelectItem value="100">100</SelectItem>
+                  </SelectContent>
+                </Select>
+              </PaginationResultsPerPage>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story:
+          "Teleportation mode with large page counts (1000+) uses wider containers to accommodate the numbers.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const pagination = canvasElement.querySelector('[data-slot="pagination"]');
+    await expect(pagination).toBeInTheDocument();
+
+    // Verify both size variants are present
+    const paginationContents = canvasElement.querySelectorAll('[data-slot="pagination-content"]');
+    await expect(paginationContents.length).toBe(2);
+
+    // Verify teleportation components show large page counts
+    const teleportDisplays = canvasElement.querySelectorAll('[data-slot="pagination-teleport"]');
+    await expect(teleportDisplays.length).toBe(2);
+    await expect(teleportDisplays[0]).toHaveValue("1/5000");
+    await expect(teleportDisplays[1]).toHaveValue("1/5000");
+  },
+};
+
+/**
+ * Edge case: Disabled teleportation input state.
+ */
+export const EdgeCaseDisabledTeleport: Story = {
+  render: function EdgeCaseDisabledTeleportStory() {
+    const [currentPage] = useState(3);
+    const totalPages = 100;
+
+    return (
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationFirst href="#" isDisabled />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationPrevious href="#" isDisabled />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationTeleport
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={() => {}}
+              disabled
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" isDisabled />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLast href="#" isDisabled />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  },
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "Teleportation input in disabled state with proper styling and cursor behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const teleportInput = canvasElement.querySelector('[data-slot="pagination-teleport"]');
+    await expect(teleportInput).toBeInTheDocument();
+    await expect(teleportInput).toBeDisabled();
+    // disabled:opacity-50 class applies opacity when disabled
+  },
+};
+
+/**
+ * Edge case: Limited width container.
+ */
+export const EdgeCaseLimitedWidth: Story = {
+  render: () => (
+    <div className="w-96 border border-border rounded-md p-4">
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationFirst href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" isActive>
+              2
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">3</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">10</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLast href="#" />
+          </PaginationItem>
+          <PaginationResultsPerPage>
+            <PaginationResultsPerPageLabel>Results per page</PaginationResultsPerPageLabel>
+            <Select value="25" onValueChange={() => {}}>
+              <PaginationSelectTrigger>
+                <SelectValue />
+              </PaginationSelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </PaginationResultsPerPage>
+        </PaginationContent>
+      </Pagination>
+    </div>
+  ),
+  parameters: {
+    order: 16,
+    docs: {
+      description: {
+        story: "Pagination in a constrained width container (384px) to test overflow behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const pagination = canvasElement.querySelector('[data-slot="pagination"]');
+    await expect(pagination).toBeInTheDocument();
+  },
+};
+
+/**
+ * Edge case: Single page.
+ */
+export const EdgeCaseSinglePage: Story = {
+  render: () => (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="#" isDisabled />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            1
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" isDisabled />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  ),
+  parameters: {
+    order: 17,
+    docs: {
+      description: {
+        story: "Pagination with only a single page (both navigation buttons disabled).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const pagination = canvasElement.querySelector('[data-slot="pagination"]');
+    await expect(pagination).toBeInTheDocument();
+
+    // Verify only one page link
+    const pageLinks = canvasElement.querySelectorAll('[data-slot="pagination-link"]');
+    await expect(pageLinks.length).toBe(1);
+
+    // Verify both nav buttons are disabled
+    const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
+    const nextButton = canvasElement.querySelector('[data-slot="pagination-next"]');
+    await expect(prevButton).toHaveClass("opacity-50");
+    await expect(nextButton).toHaveClass("opacity-50");
+  },
+};
+
+/**
+ * Edge case: Two pages only.
+ */
+export const EdgeCaseTwoPages: Story = {
+  render: () => (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="#" isDisabled />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            1
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">2</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  ),
+  parameters: {
+    order: 18,
+    docs: {
+      description: {
+        story: "Pagination with only two pages (no ellipsis needed).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const pagination = canvasElement.querySelector('[data-slot="pagination"]');
+    await expect(pagination).toBeInTheDocument();
+
+    // Verify two page links
+    const pageLinks = canvasElement.querySelectorAll('[data-slot="pagination-link"]');
+    await expect(pageLinks.length).toBe(2);
+
+    // Verify no ellipsis
+    const ellipsis = canvasElement.querySelector('[data-slot="pagination-ellipsis"]');
+    await expect(ellipsis).not.toBeInTheDocument();
   },
 };
 

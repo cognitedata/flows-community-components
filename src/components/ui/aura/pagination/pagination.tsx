@@ -1,4 +1,12 @@
-import { type ComponentProps, type ElementRef, createContext, forwardRef, useContext } from "react";
+import {
+  type ComponentProps,
+  type ElementRef,
+  type KeyboardEvent,
+  createContext,
+  forwardRef,
+  useContext,
+  useState,
+} from "react";
 
 import {
   IconChevronLeft,
@@ -10,7 +18,8 @@ import {
 import { cva } from "class-variance-authority";
 
 import { Button } from "@/components/ui/aura/button";
-import { SelectTrigger } from "@/components/ui/aura/select";
+import { Input } from "@/components/ui/aura/input";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/aura/select";
 import { cn } from "@/lib/utils";
 
 type PaginationSize = "default" | "small";
@@ -154,8 +163,10 @@ const PaginationSelectTrigger = forwardRef<
       size={resolvedSize}
       data-slot="pagination-select-trigger"
       className={cn(
-        "min-h-0 min-w-0 gap-1 text-sm leading-4.5 font-medium",
-        isPaginationSmall ? "h-7 w-16 px-2 rounded" : "h-9 w-18 pl-3 pr-2",
+        "min-h-0 min-w-0 gap-1 text-sm leading-4.5 font-medium py-1.75",
+        // Override SelectTrigger's default heights using same data attribute pattern
+        "data-[size=sm]:h-7 data-[size=default]:h-9",
+        isPaginationSmall ? "w-16 px-2 rounded" : "w-18 pl-3 pr-2",
         className
       )}
       {...props}
@@ -363,17 +374,148 @@ const PaginationEllipsis = forwardRef<
 });
 PaginationEllipsis.displayName = "PaginationEllipsis";
 
-export { Pagination };
-export { PaginationContent };
-export { PaginationEllipsis };
-export { PaginationFirst };
-export { PaginationItem };
-export { PaginationLast };
-export { PaginationLink };
-export { PaginationNext };
-export { PaginationPrevious };
-export { PaginationSelectTrigger };
-export { PaginationStatus };
-export { paginationEllipsisVariants };
-export { paginationLinkVariants };
-export { paginationStatusVariants };
+type PaginationTeleportProps = {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  size?: PaginationSize;
+} & Omit<ComponentProps<typeof Input>, "size" | "value" | "onChange" | "children" | "type">;
+
+/**
+ * Pagination teleport input - allows direct page number entry.
+ * The entire "1/100" is an input, but only the current page number is editable.
+ */
+const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>(
+  ({ className, currentPage, totalPages, onPageChange, size, ...props }, ref) => {
+    const inheritedSize = usePaginationSize();
+    const resolvedSize = size ?? inheritedSize;
+    const [editingValue, setEditingValue] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
+
+    const isSmall = resolvedSize === "small";
+
+    // Pagination-specific overrides for the Input component
+    const inputClassName = cn(
+      "font-medium tabular-nums text-center w-20",
+      isSmall ? "h-7 text-sm px-2" : "px-2",
+      className
+    );
+
+    const displayValue = isEditing ? editingValue : `${currentPage}/${totalPages}`;
+
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsEditing(true);
+      setEditingValue(currentPage.toString());
+      // Select all on focus for easy replacement
+      setTimeout(() => e.target.select(), 0);
+    };
+
+    const handleBlur = () => {
+      setIsEditing(false);
+      const pageNum = Number.parseInt(editingValue, 10);
+
+      if (!Number.isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+        onPageChange(pageNum);
+      }
+      // Always reset editing value on blur
+      setEditingValue("");
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+
+      // Allow empty or numeric values only
+      if (value === "") {
+        setEditingValue(value);
+      } else if (/^\d+$/.test(value)) {
+        const pageNum = Number.parseInt(value, 10);
+        // Prevent entering numbers larger than totalPages
+        if (pageNum <= totalPages) {
+          setEditingValue(value);
+        }
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        e.currentTarget.blur();
+      } else if (e.key === "Escape") {
+        setEditingValue(currentPage.toString());
+        e.currentTarget.blur();
+      }
+    };
+
+    return (
+      <Input
+        ref={ref}
+        type="text"
+        inputMode="numeric"
+        value={displayValue}
+        onChange={handleChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        data-slot="pagination-teleport"
+        className={inputClassName}
+        aria-label={`Current page, page ${currentPage} of ${totalPages}`}
+        {...props}
+      />
+    );
+  }
+);
+PaginationTeleport.displayName = "PaginationTeleport";
+
+/**
+ * Pagination results per page container.
+ * Automatically wraps content in a list item (li).
+ */
+const PaginationResultsPerPage = forwardRef<HTMLLIElement, ComponentProps<"li">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <li
+        ref={ref}
+        data-slot="pagination-results-per-page"
+        className={cn("flex items-center gap-2 pl-4", className)}
+        {...props}
+      />
+    );
+  }
+);
+PaginationResultsPerPage.displayName = "PaginationResultsPerPage";
+
+/**
+ * Pagination results per page label.
+ */
+const PaginationResultsPerPageLabel = forwardRef<HTMLSpanElement, ComponentProps<"span">>(
+  ({ className, ...props }, ref) => {
+    return (
+      <span
+        ref={ref}
+        data-slot="pagination-results-per-page-label"
+        className={cn("text-sm text-muted-foreground", className)}
+        {...props}
+      />
+    );
+  }
+);
+PaginationResultsPerPageLabel.displayName = "PaginationResultsPerPageLabel";
+
+export {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationFirst,
+  PaginationItem,
+  PaginationLast,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationResultsPerPage,
+  PaginationResultsPerPageLabel,
+  PaginationSelectTrigger,
+  PaginationStatus,
+  PaginationTeleport,
+  paginationEllipsisVariants,
+  paginationLinkVariants,
+  paginationStatusVariants,
+};
