@@ -6,6 +6,7 @@ import { useState, type ChangeEvent } from "react";
 
 import { Label } from "./label";
 import { Input } from "@/components/ui/aura/input";
+import { IconAsterisk } from "@tabler/icons-react";
 
 const meta: Meta<typeof Label> = {
   title: "Primitives/Label",
@@ -120,11 +121,7 @@ export const WithAsterisk: Story = {
     children: (
       <>
         Email address{" "}
-        <img
-          src="/asterisk.svg"
-          alt="required"
-          className="inline-block ml-0.5 self-start -translate-y-px"
-        />
+        <IconAsterisk className="inline-block ml-0.5 self-start -translate-y-px h-1 w-1 text-red-500" />
       </>
     ),
   },
