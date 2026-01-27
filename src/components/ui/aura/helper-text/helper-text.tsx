@@ -65,7 +65,7 @@ function HelperText({
     : null;
 
   return (
-    <div className={cn(helperTextVariants({ size }), className)} {...props}>
+    <div data-slot="helper-text" className={cn(helperTextVariants({ size }), className)} {...props}>
       {iconWithClasses}
       <span className={textColor}>{children}</span>
     </div>
