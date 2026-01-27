@@ -161,10 +161,8 @@ function AttachmentTools({
  * Matches the basic example from prompt-input.examples.tsx
  */
 export const Basic: Story = {
-  args: {
-    className: "w-[500px]",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -204,13 +202,10 @@ export const Basic: Story = {
       { timeout: 500 }
     );
   },
-  render: function PromptInputBasicStory(args) {
+  render: function PromptInputBasicStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      // Call the action logger if provided
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -224,7 +219,7 @@ export const Basic: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type your message..." />
         </PromptInputBody>
@@ -242,16 +237,18 @@ export const Basic: Story = {
  * Matches the noHelperText example from prompt-input.examples.tsx
  */
 export const NoHelperText: Story = {
-  args: {
-    helperText: false,
-    className: "w-[500px]",
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story: "Prompt input without helper text displayed below the input.",
+      },
+    },
   },
-  render: function PromptInputNoHelperTextStory(args) {
+  render: function PromptInputNoHelperTextStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -265,7 +262,7 @@ export const NoHelperText: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput helperText={false} className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type your message..." />
         </PromptInputBody>
@@ -283,15 +280,18 @@ export const NoHelperText: Story = {
  * Matches the customHelperText example from prompt-input.examples.tsx
  */
 export const CustomHelperText: Story = {
-  args: {
-    className: "w-[500px]",
+  parameters: {
+    order: 3,
+    docs: {
+      description: {
+        story: "Prompt input with custom helper text component.",
+      },
+    },
   },
-  render: function PromptInputCustomHelperTextStory(args) {
+  render: function PromptInputCustomHelperTextStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -306,7 +306,7 @@ export const CustomHelperText: Story = {
 
     return (
       <PromptInput
-        {...args}
+        className="w-125"
         onSubmit={handleSubmit}
         helperText={
           <HelperText size="xs" icon={<IconAlertTriangle />}>
@@ -330,8 +330,16 @@ export const CustomHelperText: Story = {
  * Loading/submitted state
  */
 export const SubmittedState: Story = {
+  parameters: {
+    order: 4,
+    docs: {
+      description: {
+        story: "Prompt input in submitted state with disabled textarea and submit button.",
+      },
+    },
+  },
   render: () => (
-    <PromptInput onSubmit={() => {}} className="w-[500px]">
+    <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Type a message..." disabled />
       </PromptInputBody>
@@ -347,8 +355,16 @@ export const SubmittedState: Story = {
  * Streaming state
  */
 export const StreamingState: Story = {
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Prompt input in streaming state with disabled textarea and streaming submit button.",
+      },
+    },
+  },
   render: () => (
-    <PromptInput onSubmit={() => {}} className="w-[500px]">
+    <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Type a message..." disabled />
       </PromptInputBody>
@@ -365,6 +381,7 @@ export const StreamingState: Story = {
  */
 export const ErrorState: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Shows the error state when a submission fails. Submit button displays an X icon.",
@@ -380,7 +397,7 @@ export const ErrorState: Story = {
     await expect(submitButton).toBeInTheDocument();
   },
   render: () => (
-    <PromptInput onSubmit={() => {}} className="w-[500px]">
+    <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Type a message..." />
       </PromptInputBody>
@@ -396,8 +413,16 @@ export const ErrorState: Story = {
  * Minimal prompt input
  */
 export const Minimal: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Minimal prompt input with only textarea and submit button.",
+      },
+    },
+  },
   render: () => (
-    <PromptInput onSubmit={(message) => console.log("Submitted:", message)} className="w-[400px]">
+    <PromptInput onSubmit={(message) => console.log("Submitted:", message)} className="w-100">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Message..." />
       </PromptInputBody>
@@ -412,11 +437,8 @@ export const Minimal: Story = {
  * Tests keyboard interactions: Enter to submit, Shift+Enter for newline
  */
 export const KeyboardInteractions: Story = {
-  args: {
-    helperText: false,
-    className: "w-[500px]",
-  },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Tests keyboard shortcuts: Enter to submit, Shift+Enter for new line.",
@@ -449,12 +471,10 @@ export const KeyboardInteractions: Story = {
       { timeout: 300 }
     );
   },
-  render: function KeyboardInteractionsStory(args) {
+  render: function KeyboardInteractionsStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       if (!hasText) return;
 
@@ -464,7 +484,7 @@ export const KeyboardInteractions: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput helperText={false} className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type your message..." />
         </PromptInputBody>
@@ -482,10 +502,16 @@ export const KeyboardInteractions: Story = {
  * Demonstrates all available features
  */
 export const WithAdvancedTools: Story = {
-  args: {
-    className: "w-[500px]",
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Prompt input with advanced tools including settings button, model selector dropdown, and speech-to-text button.",
+      },
+    },
   },
-  render: function PromptInputWithAdvancedToolsStory(args) {
+  render: function PromptInputWithAdvancedToolsStory() {
     const [model, setModel] = useState("Agent model");
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
