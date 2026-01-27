@@ -127,6 +127,59 @@
   --color-disabled-foreground: var(--disabled-foreground);
   --color-hover: var(--hover);
 
+  /* Status color -alternate variants */
+  --color-destructive-foreground-alternate: var(--destructive-foreground-alternate);
+  --color-warning-foreground-alternate: var(--warning-foreground-alternate);
+  --color-success-foreground-alternate: var(--success-foreground-alternate);
+  --color-neutral-foreground-alternate: var(--neutral-foreground-alternate);
+  --color-undefined-foreground-alternate: var(--undefined-foreground-alternate);
+
+  /* Chart tokens */
+  --color-chart-fjord-solid: var(--chart-fjord-solid);
+  --color-chart-fjord-opacity-1: var(--chart-fjord-opacity-1);
+  --color-chart-fjord-opacity-2: var(--chart-fjord-opacity-2);
+  --color-chart-fjord-opacity-3: var(--chart-fjord-opacity-3);
+  --color-chart-fjord-opacity-4: var(--chart-fjord-opacity-4);
+  --color-chart-fjord-opacity-5: var(--chart-fjord-opacity-5);
+  --color-chart-aurora-solid: var(--chart-aurora-solid);
+  --color-chart-aurora-opacity-1: var(--chart-aurora-opacity-1);
+  --color-chart-aurora-opacity-2: var(--chart-aurora-opacity-2);
+  --color-chart-aurora-opacity-3: var(--chart-aurora-opacity-3);
+  --color-chart-aurora-opacity-4: var(--chart-aurora-opacity-4);
+  --color-chart-aurora-opacity-5: var(--chart-aurora-opacity-5);
+  --color-chart-nordic-solid: var(--chart-nordic-solid);
+  --color-chart-nordic-opacity-1: var(--chart-nordic-opacity-1);
+  --color-chart-nordic-opacity-2: var(--chart-nordic-opacity-2);
+  --color-chart-nordic-opacity-3: var(--chart-nordic-opacity-3);
+  --color-chart-nordic-opacity-4: var(--chart-nordic-opacity-4);
+  --color-chart-nordic-opacity-5: var(--chart-nordic-opacity-5);
+  --color-chart-dusk-solid: var(--chart-dusk-solid);
+  --color-chart-dusk-opacity-1: var(--chart-dusk-opacity-1);
+  --color-chart-dusk-opacity-2: var(--chart-dusk-opacity-2);
+  --color-chart-dusk-opacity-3: var(--chart-dusk-opacity-3);
+  --color-chart-dusk-opacity-4: var(--chart-dusk-opacity-4);
+  --color-chart-dusk-opacity-5: var(--chart-dusk-opacity-5);
+  --color-chart-orange-solid: var(--chart-orange-solid);
+  --color-chart-orange-opacity-1: var(--chart-orange-opacity-1);
+  --color-chart-orange-opacity-2: var(--chart-orange-opacity-2);
+  --color-chart-orange-opacity-3: var(--chart-orange-opacity-3);
+  --color-chart-orange-opacity-4: var(--chart-orange-opacity-4);
+  --color-chart-orange-opacity-5: var(--chart-orange-opacity-5);
+  --color-chart-gridlines: var(--chart-gridlines);
+
+  /* Opacity overlays */
+  --color-opacity-10: var(--opacity-10);
+  --color-opacity-20: var(--opacity-20);
+  --color-opacity-40: var(--opacity-40);
+  --color-opacity-60: var(--opacity-60);
+  --color-opacity-80: var(--opacity-80);
+
+  /* Effect tokens for shadows */
+  --color-effect-shadow-sm: var(--effect-shadow-sm);
+  --color-effect-shadow-md: var(--effect-shadow-md);
+  --color-effect-shadow-lg: var(--effect-shadow-lg);
+  --color-effect-shadow-xl: var(--effect-shadow-xl);
+
   /* Color ramps - base colors */
   --color-fjord: var(--fjord-50);
   --color-nordic: var(--nordic-50);
@@ -574,6 +627,59 @@
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
 
+  /* Status color -alternate variants (light mode) */
+  --destructive-foreground-alternate: var(--red-700);
+  --warning-foreground-alternate: var(--amber-700);
+  --success-foreground-alternate: var(--green-700);
+  --neutral-foreground-alternate: var(--gray-700);
+  --undefined-foreground-alternate: var(--mountain-550);
+
+  /* Chart tokens (light mode) */
+  --chart-fjord-solid: var(--fjord-600);
+  --chart-fjord-opacity-1: rgba(47, 85, 234, 0.8);
+  --chart-fjord-opacity-2: rgba(47, 85, 234, 0.65);
+  --chart-fjord-opacity-3: rgba(47, 85, 234, 0.5);
+  --chart-fjord-opacity-4: rgba(47, 85, 234, 0.35);
+  --chart-fjord-opacity-5: rgba(47, 85, 234, 0.2);
+  --chart-aurora-solid: var(--aurora-600);
+  --chart-aurora-opacity-1: rgba(77, 112, 12, 0.8);
+  --chart-aurora-opacity-2: rgba(77, 112, 12, 0.65);
+  --chart-aurora-opacity-3: rgba(77, 112, 12, 0.5);
+  --chart-aurora-opacity-4: rgba(77, 112, 12, 0.35);
+  --chart-aurora-opacity-5: rgba(77, 112, 12, 0.2);
+  --chart-nordic-solid: var(--nordic-600);
+  --chart-nordic-opacity-1: rgba(20, 115, 94, 0.8);
+  --chart-nordic-opacity-2: rgba(20, 115, 94, 0.65);
+  --chart-nordic-opacity-3: rgba(20, 115, 94, 0.5);
+  --chart-nordic-opacity-4: rgba(20, 115, 94, 0.35);
+  --chart-nordic-opacity-5: rgba(20, 115, 94, 0.2);
+  --chart-dusk-solid: var(--dusk-600);
+  --chart-dusk-opacity-1: rgba(153, 64, 166, 0.8);
+  --chart-dusk-opacity-2: rgba(153, 64, 166, 0.65);
+  --chart-dusk-opacity-3: rgba(153, 64, 166, 0.5);
+  --chart-dusk-opacity-4: rgba(153, 64, 166, 0.35);
+  --chart-dusk-opacity-5: rgba(153, 64, 166, 0.2);
+  --chart-orange-solid: var(--orange-600);
+  --chart-orange-opacity-1: rgba(173, 69, 6, 0.8);
+  --chart-orange-opacity-2: rgba(173, 69, 6, 0.65);
+  --chart-orange-opacity-3: rgba(173, 69, 6, 0.5);
+  --chart-orange-opacity-4: rgba(173, 69, 6, 0.35);
+  --chart-orange-opacity-5: rgba(173, 69, 6, 0.2);
+  --chart-gridlines: var(--mountain-50);
+
+  /* Opacity overlays (light mode - white backgrounds) */
+  --opacity-10: rgba(255, 255, 255, 0.1);
+  --opacity-20: rgba(255, 255, 255, 0.2);
+  --opacity-40: rgba(255, 255, 255, 0.4);
+  --opacity-60: rgba(255, 255, 255, 0.6);
+  --opacity-80: rgba(255, 255, 255, 0.8);
+
+  /* Effect tokens for shadow colors (light mode) */
+  --effect-shadow-sm: rgba(0, 0, 0, 0.04);
+  --effect-shadow-md: rgba(0, 0, 0, 0.05);
+  --effect-shadow-lg: rgba(0, 0, 0, 0.06);
+  --effect-shadow-xl: rgba(0, 0, 0, 0.1);
+
   /* Toggled tokens (light mode) */
   --toggled: var(--gray-100);
   --toggled-foreground: var(--gray-700);
@@ -722,6 +828,59 @@
   --disabled: var(--mountain-800);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
+
+  /* Status color -alternate variants (dark mode) */
+  --destructive-foreground-alternate: var(--red-900);
+  --warning-foreground-alternate: var(--amber-800);
+  --success-foreground-alternate: var(--green-800);
+  --neutral-foreground-alternate: var(--gray-900);
+  --undefined-foreground-alternate: var(--mountain-400);
+
+  /* Chart tokens (dark mode) */
+  --chart-fjord-solid: var(--fjord-300);
+  --chart-fjord-opacity-1: rgba(174, 189, 247, 0.8);
+  --chart-fjord-opacity-2: rgba(174, 189, 247, 0.65);
+  --chart-fjord-opacity-3: rgba(174, 189, 247, 0.5);
+  --chart-fjord-opacity-4: rgba(174, 189, 247, 0.35);
+  --chart-fjord-opacity-5: rgba(174, 189, 247, 0.2);
+  --chart-aurora-solid: var(--aurora-200);
+  --chart-aurora-opacity-1: rgba(171, 233, 56, 0.8);
+  --chart-aurora-opacity-2: rgba(171, 233, 56, 0.65);
+  --chart-aurora-opacity-3: rgba(171, 233, 56, 0.5);
+  --chart-aurora-opacity-4: rgba(171, 233, 56, 0.35);
+  --chart-aurora-opacity-5: rgba(171, 233, 56, 0.2);
+  --chart-nordic-solid: var(--nordic-200);
+  --chart-nordic-opacity-1: rgba(127, 233, 210, 0.8);
+  --chart-nordic-opacity-2: rgba(127, 233, 210, 0.65);
+  --chart-nordic-opacity-3: rgba(127, 233, 210, 0.5);
+  --chart-nordic-opacity-4: rgba(127, 233, 210, 0.35);
+  --chart-nordic-opacity-5: rgba(127, 233, 210, 0.2);
+  --chart-dusk-solid: var(--dusk-200);
+  --chart-dusk-opacity-1: rgba(232, 206, 236, 0.8);
+  --chart-dusk-opacity-2: rgba(232, 206, 236, 0.65);
+  --chart-dusk-opacity-3: rgba(232, 206, 236, 0.5);
+  --chart-dusk-opacity-4: rgba(232, 206, 236, 0.35);
+  --chart-dusk-opacity-5: rgba(232, 206, 236, 0.2);
+  --chart-orange-solid: var(--orange-200);
+  --chart-orange-opacity-1: rgba(252, 205, 176, 0.8);
+  --chart-orange-opacity-2: rgba(252, 205, 176, 0.65);
+  --chart-orange-opacity-3: rgba(252, 205, 176, 0.5);
+  --chart-orange-opacity-4: rgba(252, 205, 176, 0.35);
+  --chart-orange-opacity-5: rgba(252, 205, 176, 0.2);
+  --chart-gridlines: var(--mountain-800);
+
+  /* Opacity overlays (dark mode - dark backgrounds) */
+  --opacity-10: rgba(17, 18, 19, 0.1);
+  --opacity-20: rgba(17, 18, 19, 0.2);
+  --opacity-40: rgba(17, 18, 19, 0.4);
+  --opacity-60: rgba(17, 18, 19, 0.6);
+  --opacity-80: rgba(17, 18, 19, 0.8);
+
+  /* Effect tokens for shadow colors (dark mode) */
+  --effect-shadow-sm: rgba(0, 0, 0, 0.2);
+  --effect-shadow-md: rgba(0, 0, 0, 0.3);
+  --effect-shadow-lg: rgba(0, 0, 0, 0.4);
+  --effect-shadow-xl: rgba(0, 0, 0, 0.6);
 
   /* Toggled tokens (dark mode) */
   --toggled: var(--gray-650);
