@@ -86,7 +86,6 @@
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-destructive-foreground-alternative: var(--destructive-foreground-alternative);
   --color-destructive-hover: var(--destructive-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
@@ -115,19 +114,15 @@
   --color-warning: var(--warning);
   --color-warning-hover: var(--warning-hover);
   --color-warning-foreground: var(--warning-foreground);
-  --color-warning-foreground-alternative: var(--warning-foreground-alternative);
   --color-success: var(--success);
   --color-success-hover: var(--success-hover);
   --color-success-foreground: var(--success-foreground);
-  --color-success-foreground-alternative: var(--success-foreground-alternative);
   --color-neutral: var(--neutral);
   --color-neutral-hover: var(--neutral-hover);
   --color-neutral-foreground: var(--neutral-foreground);
-  --color-neutral-foreground-alternative: var(--neutral-foreground-alternative);
   --color-undefined: var(--undefined);
   --color-undefined-hover: var(--undefined-hover);
   --color-undefined-foreground: var(--undefined-foreground);
-  --color-undefined-foreground-alternative: var(--undefined-foreground-alternative);
   --color-disabled: var(--disabled);
   --color-disabled-foreground: var(--disabled-foreground);
   --color-hover: var(--hover);
@@ -236,7 +231,6 @@
   --color-decorative-background-aurora: var(--decorative-background-aurora);
   --color-decorative-background-dusk: var(--decorative-background-dusk);
   --color-decorative-background-orange: var(--decorative-background-orange);
-  --color-decorative-background-red: var(--decorative-background-red);
   --color-decorative-background-sky: var(--decorative-background-sky);
   --color-decorative-background-gray: var(--decorative-background-gray);
 
@@ -248,6 +242,7 @@
   --color-decorative-background-hover-dusk: var(--decorative-background-hover-dusk);
   --color-decorative-background-hover-orange: var(--decorative-background-hover-orange);
   --color-decorative-background-hover-sky: var(--decorative-background-hover-sky);
+  --color-decorative-background-hover-gray: var(--decorative-background-hover-gray);
 
   /* Decorative foreground tokens */
   --color-decorative-foreground-mountain: var(--decorative-foreground-mountain);
@@ -546,13 +541,13 @@
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-10);
   --muted-foreground: var(--mountain-600);
-  --accent: var(--mountain-800);
+  --accent: var(--mountain-50);
   --accent-foreground: var(--mountain-950);
   --mountain: var(--mountain-50);
   --mountain-foreground: var(--mountain-950);
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-100);
-  --input: var(--mountain-900);
+  --input: var(--mountain-100);
   --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
   --ring-destructive: var(--red-500);
@@ -563,23 +558,18 @@
   --destructive: var(--red-200);
   --destructive-hover: var(--red-300);
   --destructive-foreground: var(--red-550);
-  --destructive-foreground-alternative: var(--red-700);
   --warning: var(--amber-100);
   --warning-hover: var(--amber-200);
   --warning-foreground: var(--amber-500);
-  --warning-foreground-alternative: var(--amber-700);
   --success: var(--green-100);
   --success-hover: var(--green-200);
   --success-foreground: var(--green-500);
-  --success-foreground-alternative: var(--green-700);
   --neutral: var(--gray-100);
   --neutral-hover: var(--gray-200);
   --neutral-foreground: var(--gray-650);
-  --neutral-foreground-alternative: var(--gray-700);
   --undefined: var(--mountain-100);
   --undefined-hover: var(--mountain-200);
   --undefined-foreground: var(--mountain-500);
-  --undefined-foreground-alternative: var(--mountain-550);
   --disabled: var(--mountain-50);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
@@ -603,9 +593,8 @@
   --decorative-background-aurora: var(--aurora-100);
   --decorative-background-dusk: var(--dusk-200);
   --decorative-background-orange: var(--orange-200);
-  --decorative-background-red: var(--red-400);
-  --decorative-background-sky: var(--sky-50);
-  --decorative-background-gray: var(--gray-50);
+  --decorative-background-sky: var(--sky-200);
+  --decorative-background-gray: var(--gray-100);
 
   /* Decorative background hover tokens */
   --decorative-background-hover-mountain: var(--mountain-300);
@@ -701,7 +690,7 @@
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-900);
   --muted-foreground: var(--mountain-300);
-  --accent: var(--mountain-700);
+  --accent: var(--mountain-800);
   --accent-foreground: var(--mountain-50);
   --mountain: var(--mountain-800);
   --mountain-foreground: var(--mountain-50);
@@ -718,23 +707,18 @@
   --destructive: var(--red-400);
   --destructive-hover: var(--red-500);
   --destructive-foreground: var(--red-450);
-  --destructive-foreground-alternative: var(--red-900);
   --warning: var(--amber-100);
   --warning-hover: var(--amber-200);
   --warning-foreground: var(--amber-300);
-  --warning-foreground-alternative: var(--amber-800);
   --success: var(--green-200);
   --success-hover: var(--green-300);
   --success-foreground: var(--green-400);
-  --success-foreground-alternative: var(--green-800);
   --neutral: var(--gray-200);
   --neutral-hover: var(--gray-300);
   --neutral-foreground: var(--gray-400);
-  --neutral-foreground-alternative: var(--gray-900);
   --undefined: var(--mountain-700);
   --undefined-hover: var(--mountain-800);
-  --undefined-foreground: var(--mountain-500);
-  --undefined-foreground-alternative: var(--mountain-400);
+  --undefined-foreground: var(--mountain-400);
   --disabled: var(--mountain-800);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
@@ -758,9 +742,8 @@
   --decorative-background-aurora: var(--aurora-100);
   --decorative-background-dusk: var(--dusk-300);
   --decorative-background-orange: var(--orange-300);
-  --decorative-background-red: var(--red-800);
-  --decorative-background-sky: var(--sky-900);
-  --decorative-background-gray: var(--gray-900);
+  --decorative-background-sky: var(--sky-200);
+  --decorative-background-gray: var(--gray-200);
 
   /* Decorative background hover tokens */
   --decorative-background-hover-mountain: var(--mountain-650);
