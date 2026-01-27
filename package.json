@@ -54,7 +54,7 @@
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.29.2",
-    "lucide-react": "^0.562.0",
+    "lucide-react": "^0.563.0",
     "motion": "^12.29.2",
     "nanoid": "^5.1.6",
     "ogl": "^1.0.11",
