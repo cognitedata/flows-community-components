@@ -132,16 +132,16 @@ export const CodeBlock = ({
         <div className="relative">
           <div
             className={cn(
-              "overflow-hidden dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm",
-              isCollapsed && "max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden"
+              "dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
+              isCollapsed && "max-h-[var(--code-block-collapsed-height)] overflow-y-hidden"
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: html }}
           />
           <div
             className={cn(
-              "hidden overflow-hidden dark:block [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm",
-              isCollapsed && "max-h-[var(--code-block-collapsed-height)] [&>pre]:overflow-hidden"
+              "hidden dark:block [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
+              isCollapsed && "max-h-[var(--code-block-collapsed-height)] overflow-y-hidden"
             )}
             // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
             dangerouslySetInnerHTML={{ __html: darkHtml }}

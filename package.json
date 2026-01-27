@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
     "start": "tsc -b && vite build && vite preview",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
@@ -64,7 +64,7 @@
     "react-dom": "^19.2.3",
     "react-router-dom": "^7.12.0",
     "react-syntax-highlighter": "^16.1.0",
-    "recharts": "2.15.4",
+    "recharts": "3.6.0",
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
     "shiki": "^3.21.0",
