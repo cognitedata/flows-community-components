@@ -9,6 +9,7 @@ import { cva } from "class-variance-authority";
 import { type ComponentProps, createContext, forwardRef, useContext } from "react";
 
 import { Button } from "@/components/ui/aura/button";
+import { SelectTrigger } from "@/components/ui/aura/select";
 import { cn } from "@/lib/utils";
 
 type PaginationSize = "default" | "small";
@@ -134,6 +135,27 @@ const PaginationStatus = forwardRef<
   );
 });
 PaginationStatus.displayName = "PaginationStatus";
+
+/**
+ * Pagination-aware select trigger that inherits pagination size.
+ */
+function PaginationSelectTrigger({
+  className,
+  size,
+  ...props
+}: ComponentProps<typeof SelectTrigger>) {
+  const inheritedSize = usePaginationSize();
+  const isPaginationSmall = inheritedSize === "small" && size === undefined;
+  const resolvedSize = size ?? (isPaginationSmall ? "sm" : "default");
+
+  return (
+    <SelectTrigger
+      size={resolvedSize}
+      className={cn(isPaginationSmall && "h-7 min-h-0", className)}
+      {...props}
+    />
+  );
+}
 
 type PaginationLinkProps = {
   isActive?: boolean;
@@ -308,6 +330,7 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationSelectTrigger,
   PaginationStatus,
   paginationEllipsisVariants,
   paginationLinkVariants,

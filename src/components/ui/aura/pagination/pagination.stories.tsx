@@ -2,13 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 import { useState } from "react";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/aura/select";
+import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/aura/select";
 import { cn } from "@/lib/utils";
 import {
   Pagination,
@@ -20,6 +14,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationSelectTrigger,
   PaginationStatus,
 } from "./pagination";
 
@@ -214,9 +209,9 @@ export const WithResultsPerPage: Story = {
             <div className="flex items-center gap-2 pl-4">
               <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <SelectTrigger className="h-9 w-auto min-w-0">
+                <PaginationSelectTrigger className="w-auto min-w-0">
                   <SelectValue />
-                </SelectTrigger>
+                </PaginationSelectTrigger>
                 <SelectContent>
                   <SelectItem value="10">10</SelectItem>
                   <SelectItem value="25">25</SelectItem>
@@ -300,9 +295,9 @@ export const WithResultsPerPageSmall: Story = {
             <div className="flex items-center gap-2 pl-4">
               <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <SelectTrigger className="h-7 w-auto min-w-0">
+                <PaginationSelectTrigger className="w-auto min-w-0">
                   <SelectValue />
-                </SelectTrigger>
+                </PaginationSelectTrigger>
                 <SelectContent>
                   <SelectItem value="10">10</SelectItem>
                   <SelectItem value="25">25</SelectItem>
@@ -432,9 +427,9 @@ export const TeleportationMode: Story = {
             <div className="flex items-center gap-2 pl-4">
               <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <SelectTrigger className="h-9 w-auto min-w-0">
+                <PaginationSelectTrigger className="w-auto min-w-0">
                   <SelectValue />
-                </SelectTrigger>
+                </PaginationSelectTrigger>
                 <SelectContent>
                   <SelectItem value="10">10</SelectItem>
                   <SelectItem value="25">25</SelectItem>
@@ -576,9 +571,9 @@ export const TeleportationModeSmall: Story = {
             <div className="flex items-center gap-2 pl-4">
               <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
-                <SelectTrigger className="h-7 w-auto min-w-0">
+                <PaginationSelectTrigger className="w-auto min-w-0">
                   <SelectValue />
-                </SelectTrigger>
+                </PaginationSelectTrigger>
                 <SelectContent>
                   <SelectItem value="10">10</SelectItem>
                   <SelectItem value="25">25</SelectItem>
@@ -1089,9 +1084,9 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage1} onValueChange={setResultsPerPage1}>
-                    <SelectTrigger className="h-9 w-auto min-w-0">
+                    <PaginationSelectTrigger className="w-auto min-w-0">
                       <SelectValue />
-                    </SelectTrigger>
+                    </PaginationSelectTrigger>
                     <SelectContent>
                       <SelectItem value="10">10</SelectItem>
                       <SelectItem value="25">25</SelectItem>
@@ -1142,9 +1137,9 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage2} onValueChange={setResultsPerPage2}>
-                    <SelectTrigger className="h-7 w-auto min-w-0">
+                    <PaginationSelectTrigger className="w-auto min-w-0">
                       <SelectValue />
-                    </SelectTrigger>
+                    </PaginationSelectTrigger>
                     <SelectContent>
                       <SelectItem value="10">10</SelectItem>
                       <SelectItem value="25">25</SelectItem>
@@ -1225,9 +1220,9 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage3} onValueChange={setResultsPerPage3}>
-                    <SelectTrigger className="h-9 w-auto min-w-0">
+                    <PaginationSelectTrigger className="w-auto min-w-0">
                       <SelectValue />
-                    </SelectTrigger>
+                    </PaginationSelectTrigger>
                     <SelectContent>
                       <SelectItem value="10">10</SelectItem>
                       <SelectItem value="25">25</SelectItem>
@@ -1308,9 +1303,9 @@ export const VisualRegression: Story = {
                 <div className="flex items-center gap-2 pl-4">
                   <span className="text-sm text-muted-foreground">Results per page</span>
                   <Select value={resultsPerPage4} onValueChange={setResultsPerPage4}>
-                    <SelectTrigger className="h-7 w-auto min-w-0">
+                    <PaginationSelectTrigger className="w-auto min-w-0">
                       <SelectValue />
-                    </SelectTrigger>
+                    </PaginationSelectTrigger>
                     <SelectContent>
                       <SelectItem value="10">10</SelectItem>
                       <SelectItem value="25">25</SelectItem>
