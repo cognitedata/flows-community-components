@@ -28,7 +28,7 @@ function ThemeToggleGroup() {
   const themes = [
     { name: "light", icon: IconSun, label: "Light" },
     { name: "dark", icon: IconMoon, label: "Dark" },
-  ];
+  ] as const;
 
   return (
     <div className="flex items-center bg-muted rounded-lg p-1">
