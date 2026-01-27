@@ -71,6 +71,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/input", label: "Input" },
       { href: "/primitives/kbd", label: "Kbd" },
       { href: "/primitives/label", label: "Label" },
+      { href: "/primitives/list", label: "List" },
       { href: "/primitives/menubar", label: "Menubar" },
       { href: "/primitives/pagination", label: "Pagination" },
       { href: "/primitives/popover", label: "Popover" },
@@ -98,6 +99,7 @@ const primitivesNavigation: NavigationItem[] = [
     isSubsection: true,
     children: [
       { href: "/primitives/artifact-count", label: "Count" },
+      { href: "/primitives/artifact-list", label: "List" },
       { href: "/primitives/artifact-progress", label: "Progress" },
     ],
   },
