@@ -23,11 +23,11 @@ const badgeVariants = cva(
         mountain:
           "border-transparent bg-decorative-background-mountain text-decorative-foreground-mountain",
         secondary: "border-transparent bg-secondary text-secondary-foreground ",
-        error: "border-transparent bg-destructive text-destructive-foreground-alternative",
-        warning: "border-transparent bg-warning text-warning-foreground-alternative",
-        success: "border-transparent bg-success text-success-foreground-alternative",
-        inProgress: "border-transparent bg-neutral text-neutral-foreground-alternative",
-        archived: "border-transparent bg-undefined text-undefined-foreground-alternative",
+        error: "border-transparent bg-destructive text-destructive-foreground-alternate",
+        warning: "border-transparent bg-warning text-warning-foreground-alternate",
+        success: "border-transparent bg-success text-success-foreground-alternate",
+        inProgress: "border-transparent bg-neutral text-neutral-foreground-alternate",
+        archived: "border-transparent bg-undefined text-undefined-foreground-alternate",
         closable:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary-hover cursor-pointer",
       },
