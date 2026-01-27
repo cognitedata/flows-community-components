@@ -604,33 +604,33 @@
   --inverted-success-foreground: var(--green-300);
 
   /* Decorative tokens */
-  --decorative-background-mountain: var(--mountain-50);
-  --decorative-background-fjord: var(--fjord-50);
-  --decorative-background-nordic: var(--nordic-50);
-  --decorative-background-aurora: var(--aurora-50);
-  --decorative-background-dusk: var(--dusk-50);
-  --decorative-background-orange: var(--orange-50);
-  --decorative-background-sky: var(--sky-50);
-  --decorative-background-gray: var(--gray-50);
+  --decorative-background-mountain: var(--mountain-100);
+  --decorative-background-fjord: var(--fjord-200);
+  --decorative-background-nordic: var(--nordic-100);
+  --decorative-background-aurora: var(--aurora-100);
+  --decorative-background-dusk: var(--dusk-200);
+  --decorative-background-orange: var(--orange-200);
+  --decorative-background-sky: var(--sky-200);
+  --decorative-background-gray: var(--gray-100);
 
   /* Decorative background hover tokens */
-  --decorative-background-hover-mountain: var(--mountain-100);
-  --decorative-background-hover-fjord: var(--fjord-100);
-  --decorative-background-hover-nordic: var(--nordic-100);
-  --decorative-background-hover-aurora: var(--aurora-100);
-  --decorative-background-hover-dusk: var(--dusk-100);
-  --decorative-background-hover-orange: var(--orange-100);
-  --decorative-background-hover-sky: var(--sky-100);
+  --decorative-background-hover-mountain: var(--mountain-300);
+  --decorative-background-hover-fjord: var(--fjord-300);
+  --decorative-background-hover-nordic: var(--nordic-200);
+  --decorative-background-hover-aurora: var(--aurora-200);
+  --decorative-background-hover-dusk: var(--dusk-300);
+  --decorative-background-hover-orange: var(--orange-300);
+  --decorative-background-hover-sky: var(--sky-200);
 
   /* Decorative foreground tokens */
-  --decorative-foreground-mountain: var(--mountain-650);
+  --decorative-foreground-mountain: var(--mountain-700);
   --decorative-foreground-fjord: var(--fjord-700);
-  --decorative-foreground-nordic: var(--nordic-600);
-  --decorative-foreground-aurora: var(--aurora-600);
-  --decorative-foreground-dusk: var(--dusk-600);
-  --decorative-foreground-orange: var(--orange-600);
+  --decorative-foreground-nordic: var(--nordic-700);
+  --decorative-foreground-aurora: var(--aurora-700);
+  --decorative-foreground-dusk: var(--dusk-700);
+  --decorative-foreground-orange: var(--orange-700);
   --decorative-foreground-sky: var(--sky-600);
-  --decorative-foreground-gray: var(--gray-600);
+  --decorative-foreground-gray: var(--gray-650);
 
   /* Gradient tokens */
   --gradient-nordic: linear-gradient(
@@ -752,33 +752,33 @@
   --inverted-success-foreground: var(--green-300);
 
   /* Decorative tokens */
-  --decorative-background-mountain: var(--mountain-800);
-  --decorative-background-fjord: var(--fjord-900);
-  --decorative-background-nordic: var(--nordic-900);
-  --decorative-background-aurora: var(--aurora-900);
-  --decorative-background-dusk: var(--dusk-900);
-  --decorative-background-orange: var(--orange-900);
-  --decorative-background-sky: var(--sky-900);
-  --decorative-background-gray: var(--gray-900);
+  --decorative-background-mountain: var(--mountain-700);
+  --decorative-background-fjord: var(--fjord-300);
+  --decorative-background-nordic: var(--nordic-200);
+  --decorative-background-aurora: var(--aurora-100);
+  --decorative-background-dusk: var(--dusk-300);
+  --decorative-background-orange: var(--orange-300);
+  --decorative-background-sky: var(--sky-200);
+  --decorative-background-gray: var(--gray-200);
 
   /* Decorative background hover tokens */
-  --decorative-background-hover-mountain: var(--mountain-900);
-  --decorative-background-hover-fjord: var(--fjord-900);
-  --decorative-background-hover-nordic: var(--nordic-900);
-  --decorative-background-hover-aurora: var(--aurora-900);
-  --decorative-background-hover-dusk: var(--dusk-900);
-  --decorative-background-hover-orange: var(--orange-900);
-  --decorative-background-hover-sky: var(--sky-900);
+  --decorative-background-hover-mountain: var(--mountain-650);
+  --decorative-background-hover-fjord: var(--fjord-650);
+  --decorative-background-hover-nordic: var(--nordic-600);
+  --decorative-background-hover-aurora: var(--aurora-600);
+  --decorative-background-hover-dusk: var(--dusk-650);
+  --decorative-background-hover-orange: var(--orange-650);
+  --decorative-background-hover-sky: var(--sky-600);
 
   /* Decorative foreground tokens */
-  --decorative-foreground-mountain: var(--mountain-300);
-  --decorative-foreground-fjord: var(--fjord-300);
-  --decorative-foreground-nordic: var(--nordic-300);
-  --decorative-foreground-aurora: var(--aurora-300);
-  --decorative-foreground-dusk: var(--dusk-400);
-  --decorative-foreground-orange: var(--orange-300);
+  --decorative-foreground-mountain: var(--mountain-200);
+  --decorative-foreground-fjord: var(--fjord-800);
+  --decorative-foreground-nordic: var(--nordic-800);
+  --decorative-foreground-aurora: var(--aurora-800);
+  --decorative-foreground-dusk: var(--dusk-800);
+  --decorative-foreground-orange: var(--orange-800);
   --decorative-foreground-sky: var(--sky-300);
-  --decorative-foreground-gray: var(--gray-300);
+  --decorative-foreground-gray: var(--gray-400);
 
   /* Gradient tokens */
   --gradient-nordic: linear-gradient(
