@@ -1,6 +1,7 @@
+import { useState } from "react";
+
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
-import { useState } from "react";
 
 import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/aura/select";
 import { cn } from "@/lib/utils";
@@ -27,7 +28,7 @@ const meta: Meta<typeof Pagination> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants / Styling",
       },
     },
   },

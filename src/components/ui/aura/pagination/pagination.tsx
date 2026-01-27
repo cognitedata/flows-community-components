@@ -323,19 +323,17 @@ const PaginationEllipsis = forwardRef<
 });
 PaginationEllipsis.displayName = "PaginationEllipsis";
 
-export {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationFirst,
-  PaginationItem,
-  PaginationLast,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationSelectTrigger,
-  PaginationStatus,
-  paginationEllipsisVariants,
-  paginationLinkVariants,
-  paginationStatusVariants,
-};
+export { Pagination };
+export { PaginationContent };
+export { PaginationEllipsis };
+export { PaginationFirst };
+export { PaginationItem };
+export { PaginationLast };
+export { PaginationLink };
+export { PaginationNext };
+export { PaginationPrevious };
+export { PaginationSelectTrigger };
+export { PaginationStatus };
+export { paginationEllipsisVariants };
+export { paginationLinkVariants };
+export { paginationStatusVariants };
