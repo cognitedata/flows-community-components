@@ -3,6 +3,7 @@ import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconCalculator,
   IconCalendar,
+  IconLoader2,
   IconMail,
   IconSettings,
   IconSparkles,
@@ -362,6 +363,304 @@ export const VisualRegression: Story = {
     chromatic: {
       disableSnapshot: false,
     },
+  },
+};
+
+/**
+ * No results found state.
+ * Demonstrates the empty state when search returns no matches.
+ */
+export const NoResultsFound: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows the empty state when a search query returns no matching results. Type a query that doesn't match any items to see the CommandEmpty component.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Search commands...");
+
+    // Type a query that won't match anything
+    await userEvent.type(input, "xyz123nonexistent", { delay: 50 });
+
+    // Wait for empty state to appear
+    await waitFor(() => {
+      const emptyState = canvas.getByText("No results found.");
+      expect(emptyState).toBeInTheDocument();
+    });
+
+    // Verify no items are visible
+    const calendarItem = canvas.queryByText("Calendar");
+    expect(calendarItem).not.toBeInTheDocument();
+
+    // Clear and verify items reappear
+    await userEvent.clear(input);
+    await waitFor(() => {
+      const calendarItem = canvas.getByText("Calendar");
+      expect(calendarItem).toBeInTheDocument();
+    });
+  },
+  render: function NoResultsFoundStory() {
+    return (
+      <Command className="rounded-lg border shadow-md w-88">
+        <CommandInput placeholder="Search commands..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Commands">
+            <CommandItem>
+              <IconCalendar />
+              <span>Calendar</span>
+            </CommandItem>
+            <CommandItem>
+              <IconSettings />
+              <span>Settings</span>
+            </CommandItem>
+            <CommandItem>
+              <IconMail />
+              <span>Mail</span>
+            </CommandItem>
+            <CommandItem>
+              <IconCalculator />
+              <span>Calculator</span>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    );
+  },
+};
+
+/**
+ * Keyboard navigation testing.
+ * Tests arrow keys, Enter to select, and keyboard shortcuts.
+ */
+export const KeyboardNavigation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Tests keyboard accessibility: Arrow keys to navigate, Enter to select, and keyboard shortcuts.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Type a command...");
+
+    // Focus the input
+    await userEvent.click(input);
+
+    // Press ArrowDown to navigate to first item
+    await userEvent.keyboard("{ArrowDown}");
+    const firstItem = canvas.getByText("Calendar");
+    await expect(firstItem).toHaveAttribute("data-selected", "true");
+
+    // Press ArrowDown again to move to next item
+    await userEvent.keyboard("{ArrowDown}");
+    const secondItem = canvas.getByText("Settings");
+    await expect(secondItem).toHaveAttribute("data-selected", "true");
+
+    // Press ArrowUp to go back
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(firstItem).toHaveAttribute("data-selected", "true");
+
+    // Type to filter
+    await userEvent.clear(input);
+    await userEvent.type(input, "cal", { delay: 50 });
+
+    // Verify filtered item is selected
+    await waitFor(() => {
+      const calendarItem = canvas.getByText("Calendar");
+      expect(calendarItem).toHaveAttribute("data-selected", "true");
+    });
+  },
+  render: function KeyboardNavigationStory() {
+    return (
+      <Command className="rounded-lg border shadow-md w-88">
+        <CommandInput placeholder="Type a command..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Commands">
+            <CommandItem>
+              <IconCalendar />
+              <span>Calendar</span>
+              <CommandShortcut>⌘C</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <IconSettings />
+              <span>Settings</span>
+              <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+              <IconMail />
+              <span>Mail</span>
+              <CommandShortcut>⌘M</CommandShortcut>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    );
+  },
+};
+
+/**
+ * Long list with many items.
+ * Tests scrolling behavior and performance with many items.
+ */
+export const LongList: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Command palette with many items to test scrolling behavior and performance. Scroll through the list to see all items.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Search items...");
+
+    // Verify first items are visible
+    await expect(canvas.getByText("Item 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Item 5")).toBeInTheDocument();
+
+    // Type to filter and verify filtering works with many items
+    await userEvent.type(input, "item 20", { delay: 50 });
+
+    await waitFor(() => {
+      const item20 = canvas.getByText("Item 20");
+      expect(item20).toBeInTheDocument();
+    });
+
+    // Clear and verify all items are back
+    await userEvent.clear(input);
+    await waitFor(() => {
+      expect(canvas.getByText("Item 1")).toBeInTheDocument();
+    });
+  },
+  render: function LongListStory() {
+    const items = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
+
+    return (
+      <Command className="rounded-lg border shadow-md w-88">
+        <CommandInput placeholder="Search items..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="All Items">
+            {items.map((item) => (
+              <CommandItem key={item}>
+                <span>{item}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </CommandList>
+      </Command>
+    );
+  },
+};
+
+/**
+ * Async search with loading state.
+ * Demonstrates loading state while performing async search operations.
+ */
+export const AsyncSearch: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Command palette with async search. Shows loading state while searching and handles async results.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Search users...");
+
+    // Type a search query
+    await userEvent.type(input, "john", { delay: 50 });
+
+    // Wait for loading state (if visible)
+    await waitFor(
+      () => {
+        // The loading state might be shown or items might appear
+        const loadingOrResults = canvas.queryByText("Searching...") || canvas.queryByText("John");
+        expect(loadingOrResults).toBeInTheDocument();
+      },
+      { timeout: 2000 }
+    );
+
+    // Wait for results to appear
+    await waitFor(
+      () => {
+        const result = canvas.getByText("John Doe");
+        expect(result).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
+  },
+  render: function AsyncSearchStory() {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [results, setResults] = useState<string[]>([]);
+
+    // Simulate async search
+    const handleSearch = async (query: string) => {
+      setSearchQuery(query);
+      if (!query.trim()) {
+        setResults([]);
+        return;
+      }
+
+      setIsLoading(true);
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Mock results
+      const mockResults = [
+        "John Doe",
+        "Jane Smith",
+        "Johnny Appleseed",
+        "John Johnson",
+      ].filter((name) => name.toLowerCase().includes(query.toLowerCase()));
+
+      setResults(mockResults);
+      setIsLoading(false);
+    };
+
+    return (
+      <Command className="rounded-lg border shadow-md w-88">
+        <CommandInput
+          placeholder="Search users..."
+          value={searchQuery}
+          onValueChange={handleSearch}
+        />
+        <CommandList>
+          {isLoading ? (
+            <div className="py-6 text-center text-sm text-muted-foreground">
+              <IconLoader2 className="mx-auto mb-2 size-5 animate-spin" />
+              Searching...
+            </div>
+          ) : (
+            <>
+              <CommandEmpty>No users found.</CommandEmpty>
+              {results.length > 0 && (
+                <CommandGroup heading="Users">
+                  {results.map((user) => (
+                    <CommandItem key={user} onSelect={() => console.log(`Selected: ${user}`)}>
+                      <IconUser />
+                      <span>{user}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+            </>
+          )}
+        </CommandList>
+      </Command>
+    );
   },
 };
 
