@@ -153,7 +153,11 @@ const PaginationSelectTrigger = forwardRef<
       ref={ref}
       size={resolvedSize}
       data-slot="pagination-select-trigger"
-      className={cn(isPaginationSmall && "h-7 min-h-0", className)}
+      className={cn(
+        "min-h-0 min-w-0 text-sm leading-4.5 font-medium",
+        isPaginationSmall ? "h-7 w-18 px-2 rounded" : "h-9 w-20 px-3",
+        className
+      )}
       {...props}
     />
   );
@@ -162,6 +166,7 @@ PaginationSelectTrigger.displayName = "PaginationSelectTrigger";
 
 type PaginationLinkProps = {
   isActive?: boolean;
+  isDisabled?: boolean;
   size?: PaginationSize;
 } & ComponentProps<"a">;
 
@@ -169,7 +174,7 @@ type PaginationLinkProps = {
  * Pagination link button for page selection.
  */
 const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
-  ({ className, isActive, size, ...props }, ref) => {
+  ({ className, isActive, isDisabled, size, ...props }, ref) => {
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
     const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
@@ -184,10 +189,17 @@ const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
         className={cn(
           radiusClass,
           paginationLinkVariants({ size: resolvedSize, active: isActive }),
+          isDisabled && "pointer-events-none opacity-50",
           className
         )}
       >
-        <a ref={ref} aria-current={isActive ? "page" : undefined} {...props} />
+        <a
+          ref={ref}
+          aria-current={isActive ? "page" : undefined}
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...props}
+        />
       </Button>
     );
   }
@@ -202,6 +214,7 @@ const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
     const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+    const { isDisabled } = props;
 
     return (
       <Button
@@ -209,9 +222,15 @@ const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-first"
-        className={cn(radiusClass, className)}
+        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
       >
-        <a ref={ref} aria-label="Go to first page" {...props}>
+        <a
+          ref={ref}
+          aria-label="Go to first page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...props}
+        >
           <IconChevronsLeft />
         </a>
       </Button>
@@ -228,6 +247,7 @@ const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProp
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
     const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+    const { isDisabled } = props;
 
     return (
       <Button
@@ -235,9 +255,15 @@ const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProp
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-previous"
-        className={cn(radiusClass, className)}
+        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
       >
-        <a ref={ref} aria-label="Go to previous page" {...props}>
+        <a
+          ref={ref}
+          aria-label="Go to previous page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...props}
+        >
           <IconChevronLeft />
         </a>
       </Button>
@@ -254,6 +280,7 @@ const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
     const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+    const { isDisabled } = props;
 
     return (
       <Button
@@ -261,9 +288,15 @@ const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-next"
-        className={cn(radiusClass, className)}
+        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
       >
-        <a ref={ref} aria-label="Go to next page" {...props}>
+        <a
+          ref={ref}
+          aria-label="Go to next page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...props}
+        >
           <IconChevronRight />
         </a>
       </Button>
@@ -280,6 +313,7 @@ const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
     const inheritedSize = usePaginationSize();
     const resolvedSize = size ?? inheritedSize;
     const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+    const { isDisabled } = props;
 
     return (
       <Button
@@ -287,9 +321,15 @@ const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-last"
-        className={cn(radiusClass, className)}
+        className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
       >
-        <a ref={ref} aria-label="Go to last page" {...props}>
+        <a
+          ref={ref}
+          aria-label="Go to last page"
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : undefined}
+          {...props}
+        >
           <IconChevronsRight />
         </a>
       </Button>
