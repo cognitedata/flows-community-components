@@ -33,3 +33,8 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 # Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
+
+# Learnings
+
+- Use `PaginationStatus` for inline pagination counters instead of ad hoc spans.
+- Pagination subcomponents inherit size from `PaginationContent`.

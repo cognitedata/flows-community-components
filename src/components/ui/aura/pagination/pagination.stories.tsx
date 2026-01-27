@@ -20,6 +20,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationStatus,
 } from "./pagination";
 
 const meta: Meta<typeof Pagination> = {
@@ -43,6 +44,7 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
+// Clamp input values to a valid pagination range for story controls.
 const clampPageValue = (value: string, totalPages: number, fallback: number) => {
   const parsed = Number.parseInt(value, 10);
 
@@ -115,34 +117,34 @@ export const Small: Story = {
     <Pagination>
       <PaginationContent size="small">
         <PaginationItem>
-          <PaginationFirst href="#" size="small" />
+          <PaginationFirst href="#" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationPrevious href="#" size="small" />
+          <PaginationPrevious href="#" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#" size="small">
+          <PaginationLink href="#">
             1
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#" size="small">
+          <PaginationLink href="#">
             2
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationEllipsis size="small" />
+          <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#" isActive size="small">
+          <PaginationLink href="#" isActive>
             5
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href="#" size="small" />
+          <PaginationNext href="#" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLast href="#" size="small" />
+          <PaginationLast href="#" />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
@@ -273,34 +275,34 @@ export const WithResultsPerPageSmall: Story = {
       <Pagination>
         <PaginationContent size="small">
           <PaginationItem>
-            <PaginationFirst href="#" size="small" />
+            <PaginationFirst href="#" />
           </PaginationItem>
           <PaginationItem>
-            <PaginationPrevious href="#" size="small" />
+            <PaginationPrevious href="#" />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#" size="small">
+            <PaginationLink href="#">
               1
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#" size="small">
+            <PaginationLink href="#">
               2
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationEllipsis size="small" />
+            <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#" isActive size="small">
+            <PaginationLink href="#" isActive>
               5
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" size="small" />
+            <PaginationNext href="#" />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLast href="#" size="small" />
+            <PaginationLast href="#" />
           </PaginationItem>
           <PaginationItem>
             <div className="flex items-center gap-2 pl-4">
@@ -527,7 +529,6 @@ export const TeleportationModeSmall: Story = {
           <PaginationItem>
             <PaginationFirst
               href="#"
-              size="small"
               onClick={(e) => {
                 e.preventDefault();
                 updatePage(1);
@@ -537,7 +538,6 @@ export const TeleportationModeSmall: Story = {
           <PaginationItem>
             <PaginationPrevious
               href="#"
-              size="small"
               onClick={(e) => {
                 e.preventDefault();
                 if (currentPage > 1) updatePage(currentPage - 1);
@@ -567,7 +567,6 @@ export const TeleportationModeSmall: Story = {
           <PaginationItem>
             <PaginationNext
               href="#"
-              size="small"
               onClick={(e) => {
                 e.preventDefault();
                 if (currentPage < totalPages) updatePage(currentPage + 1);
@@ -577,7 +576,6 @@ export const TeleportationModeSmall: Story = {
           <PaginationItem>
             <PaginationLast
               href="#"
-              size="small"
               onClick={(e) => {
                 e.preventDefault();
                 updatePage(totalPages);
@@ -995,7 +993,7 @@ export const Compact: Story = {
           <PaginationPrevious href="#" />
         </PaginationItem>
         <PaginationItem>
-          <span className="text-sm px-4">Page 3 of 10</span>
+          <PaginationStatus>Page 3 of 10</PaginationStatus>
         </PaginationItem>
         <PaginationItem>
           <PaginationNext href="#" />
@@ -1016,7 +1014,7 @@ export const Compact: Story = {
     await expect(pagination).toBeInTheDocument();
     
     // Verify page counter text is present
-    const pageText = canvasElement.querySelector('span.text-sm');
+    const pageText = canvasElement.querySelector('[data-slot="pagination-status"]');
     await expect(pageText).toHaveTextContent('Page 3 of 10');
     
     // Verify navigation buttons are present
@@ -1127,34 +1125,34 @@ export const VisualRegression: Story = {
           <Pagination>
             <PaginationContent size="small">
               <PaginationItem>
-                <PaginationFirst href="#" size="small" />
+                <PaginationFirst href="#" />
               </PaginationItem>
               <PaginationItem>
-                <PaginationPrevious href="#" size="small" />
+                <PaginationPrevious href="#" />
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink href="#" size="small">
+                <PaginationLink href="#">
                   1
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink href="#" size="small">
+                <PaginationLink href="#">
                   2
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationEllipsis size="small" />
+                <PaginationEllipsis />
               </PaginationItem>
               <PaginationItem>
-                <PaginationLink href="#" isActive size="small">
+                <PaginationLink href="#" isActive>
                   8
                 </PaginationLink>
               </PaginationItem>
               <PaginationItem>
-                <PaginationNext href="#" size="small" />
+                <PaginationNext href="#" />
               </PaginationItem>
               <PaginationItem>
-                <PaginationLast href="#" size="small" />
+                <PaginationLast href="#" />
               </PaginationItem>
               <PaginationItem>
                 <div className="flex items-center gap-2 pl-4">
@@ -1269,7 +1267,6 @@ export const VisualRegression: Story = {
               <PaginationItem>
                 <PaginationFirst
                   href="#"
-                  size="small"
                   onClick={(e) => {
                     e.preventDefault();
                     updateTeleportPage2(1);
@@ -1279,7 +1276,6 @@ export const VisualRegression: Story = {
               <PaginationItem>
                 <PaginationPrevious
                   href="#"
-                  size="small"
                   onClick={(e) => {
                     e.preventDefault();
                     if (teleportPage2 > 1) updateTeleportPage2(teleportPage2 - 1);
@@ -1309,7 +1305,6 @@ export const VisualRegression: Story = {
               <PaginationItem>
                 <PaginationNext
                   href="#"
-                  size="small"
                   onClick={(e) => {
                     e.preventDefault();
                     if (teleportPage2 < totalPages) updateTeleportPage2(teleportPage2 + 1);
@@ -1319,7 +1314,6 @@ export const VisualRegression: Story = {
               <PaginationItem>
                 <PaginationLast
                   href="#"
-                  size="small"
                   onClick={(e) => {
                     e.preventDefault();
                     updateTeleportPage2(totalPages);

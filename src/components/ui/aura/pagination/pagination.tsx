@@ -1,4 +1,4 @@
-import { forwardRef, type ComponentProps } from "react";
+import { createContext, forwardRef, type ComponentProps, useContext } from "react";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -12,6 +12,10 @@ import { Button } from "@/components/ui/aura/button";
 import { cn } from "@/lib/utils";
 
 type PaginationSize = "default" | "small";
+
+const PaginationSizeContext = createContext<PaginationSize>("default");
+
+const usePaginationSize = () => useContext(PaginationSizeContext);
 
 const paginationLinkVariants = cva("text-base font-normal leading-5 tracking-tightest", {
   variants: {
@@ -35,6 +39,18 @@ const paginationEllipsisVariants = cva("flex items-center justify-center", {
     size: {
       default: "h-9 w-9",
       small: "h-7 w-7",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+  },
+});
+
+const paginationStatusVariants = cva("px-4 text-sm text-muted-foreground", {
+  variants: {
+    size: {
+      default: "",
+      small: "px-3",
     },
   },
   defaultVariants: {
@@ -75,13 +91,15 @@ const PaginationContent = forwardRef<
   ComponentProps<"ul"> & { size?: PaginationSize }
 >(({ className, size = "default", ...props }, ref) => {
   return (
-    <ul
-      ref={ref}
-      data-slot="pagination-content"
-      data-size={size}
-      className={cn("flex flex-row items-center gap-1", className)}
-      {...props}
-    />
+    <PaginationSizeContext.Provider value={size}>
+      <ul
+        ref={ref}
+        data-slot="pagination-content"
+        data-size={size}
+        className={cn("flex flex-row items-center gap-1", className)}
+        {...props}
+      />
+    </PaginationSizeContext.Provider>
   );
 });
 PaginationContent.displayName = "PaginationContent";
@@ -103,6 +121,27 @@ const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<"li">>(
 );
 PaginationItem.displayName = "PaginationItem";
 
+/**
+ * Pagination status text (e.g. "Page 3 of 10").
+ */
+const PaginationStatus = forwardRef<
+  HTMLSpanElement,
+  ComponentProps<"span"> & { size?: PaginationSize }
+>(({ className, size, ...props }, ref) => {
+  const inheritedSize = usePaginationSize();
+  const resolvedSize = size ?? inheritedSize;
+
+  return (
+    <span
+      ref={ref}
+      data-slot="pagination-status"
+      className={cn(paginationStatusVariants({ size: resolvedSize }), className)}
+      {...props}
+    />
+  );
+});
+PaginationStatus.displayName = "PaginationStatus";
+
 type PaginationLinkProps = {
   isActive?: boolean;
   size?: PaginationSize;
@@ -112,8 +151,10 @@ type PaginationLinkProps = {
  * Pagination link button for page selection.
  */
 const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
-  ({ className, isActive, size = "default", ...props }, ref) => {
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+  ({ className, isActive, size, ...props }, ref) => {
+    const inheritedSize = usePaginationSize();
+    const resolvedSize = size ?? inheritedSize;
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
 
     return (
       <Button
@@ -124,7 +165,7 @@ const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
         data-active={isActive}
         className={cn(
           radiusClass,
-          paginationLinkVariants({ size, active: isActive }),
+          paginationLinkVariants({ size: resolvedSize, active: isActive }),
           className
         )}
       >
@@ -139,8 +180,10 @@ PaginationLink.displayName = "PaginationLink";
  * Pagination control to jump to the first page.
  */
 const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
-  ({ className, size = "default", ...props }, ref) => {
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+  ({ className, size, ...props }, ref) => {
+    const inheritedSize = usePaginationSize();
+    const resolvedSize = size ?? inheritedSize;
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
 
     return (
       <Button
@@ -165,8 +208,10 @@ PaginationFirst.displayName = "PaginationFirst";
 const PaginationPrevious = forwardRef<
   HTMLAnchorElement,
   Omit<PaginationLinkProps, "isActive">
->(({ className, size = "default", ...props }, ref) => {
-  const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+>(({ className, size, ...props }, ref) => {
+  const inheritedSize = usePaginationSize();
+  const resolvedSize = size ?? inheritedSize;
+  const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
 
   return (
     <Button
@@ -188,8 +233,10 @@ PaginationPrevious.displayName = "PaginationPrevious";
  * Pagination control to navigate to the next page.
  */
 const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
-  ({ className, size = "default", ...props }, ref) => {
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+  ({ className, size, ...props }, ref) => {
+    const inheritedSize = usePaginationSize();
+    const resolvedSize = size ?? inheritedSize;
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
 
     return (
       <Button
@@ -212,8 +259,10 @@ PaginationNext.displayName = "PaginationNext";
  * Pagination control to jump to the last page.
  */
 const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
-  ({ className, size = "default", ...props }, ref) => {
-    const { buttonSize, radiusClass } = getPaginationButtonStyles(size);
+  ({ className, size, ...props }, ref) => {
+    const inheritedSize = usePaginationSize();
+    const resolvedSize = size ?? inheritedSize;
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
 
     return (
       <Button
@@ -238,13 +287,16 @@ PaginationLast.displayName = "PaginationLast";
 const PaginationEllipsis = forwardRef<
   HTMLSpanElement,
   ComponentProps<"span"> & { size?: PaginationSize }
->(({ className, size = "default", ...props }, ref) => {
+>(({ className, size, ...props }, ref) => {
+  const inheritedSize = usePaginationSize();
+  const resolvedSize = size ?? inheritedSize;
+
   return (
     <span
       ref={ref}
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn(paginationEllipsisVariants({ size }), className)}
+      className={cn(paginationEllipsisVariants({ size: resolvedSize }), className)}
       {...props}
     >
       <IconDots className="h-4 w-4" />
@@ -264,7 +316,9 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationStatus,
   paginationEllipsisVariants,
   paginationLinkVariants,
+  paginationStatusVariants,
 };
 
