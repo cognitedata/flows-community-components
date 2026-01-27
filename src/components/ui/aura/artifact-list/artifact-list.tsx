@@ -68,7 +68,11 @@ const ArtifactListContent = forwardRef<ComponentRef<typeof List>, ComponentProps
         className={cn("[[data-slot=artifact-list-header]+&]:pt-0")}
       >
         <List ref={ref} className={className} {...props}>
-          {hasChildren ? children : <div className="text-sm text-muted-foreground">No data yet</div>}
+          {hasChildren ? (
+            children
+          ) : (
+            <div className="text-sm text-muted-foreground">No data yet</div>
+          )}
         </List>
       </CardContent>
     );
