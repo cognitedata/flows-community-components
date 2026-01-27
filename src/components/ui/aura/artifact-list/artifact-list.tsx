@@ -59,9 +59,9 @@ const ArtifactListContent = forwardRef<ElementRef<typeof List>, ComponentProps<t
     return (
       <CardContent
         data-slot="artifact-list-content"
-        className={cn("[[data-slot=artifact-list-header]+&]:pt-0", className)}
+        className={cn("[[data-slot=artifact-list-header]+&]:pt-0")}
       >
-        <List ref={ref} {...props} />
+        <List ref={ref} className={className} {...props} />
       </CardContent>
     );
   }
@@ -75,9 +75,9 @@ const ArtifactListOrdered = forwardRef<
   return (
     <CardContent
       data-slot="artifact-list-ordered"
-      className={cn("[[data-slot=artifact-list-header]+&]:pt-0", className)}
+      className={cn("[[data-slot=artifact-list-header]+&]:pt-0")}
     >
-      <ListOrdered ref={ref} {...props} />
+      <ListOrdered ref={ref} className={className} {...props} />
     </CardContent>
   );
 });

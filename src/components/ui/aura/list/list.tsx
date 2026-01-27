@@ -32,6 +32,9 @@ const listItemIconVariants = cva("", {
       error: "text-card-foreground",
     },
   },
+  defaultVariants: {
+    variant: "upcoming",
+  },
 });
 
 const listItemTitleVariants = cva("", {
@@ -42,6 +45,9 @@ const listItemTitleVariants = cva("", {
       completed: "text-muted-foreground",
       error: "text-foreground",
     },
+  },
+  defaultVariants: {
+    variant: "now",
   },
 });
 
@@ -54,6 +60,9 @@ const listItemDescriptionVariants = cva("", {
       error: "text-muted-foreground",
     },
   },
+  defaultVariants: {
+    variant: "now",
+  },
 });
 
 const listItemStatusVariants = cva("", {
@@ -64,6 +73,9 @@ const listItemStatusVariants = cva("", {
       completed: "text-muted-foreground",
       error: "text-destructive-foreground",
     },
+  },
+  defaultVariants: {
+    variant: "now",
   },
 });
 
@@ -205,7 +217,7 @@ ListDescription.displayName = "ListDescription";
  * List item container with optional status variants.
  */
 const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: ListItemVariant }>(
-  ({ className, variant, children, ...props }, ref) => {
+  ({ className, variant, children, style, ...props }, ref) => {
     const childItems = Children.toArray(children);
     const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
     const shouldInsertIcon = Boolean(variant) && !hasIconSlot;
@@ -213,6 +225,13 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
       ? [<ListItemIcon key="list-item-icon" />, ...childItems]
       : childItems;
     const hasIcon = hasIconSlot || shouldInsertIcon;
+    const gridTemplateColumns = hasIcon ? "auto minmax(0,1fr) auto" : "minmax(0,1fr) auto";
+    const mergedStyle = style?.gridTemplateColumns
+      ? style
+      : {
+          ...style,
+          gridTemplateColumns,
+        };
 
     return (
       <ListItemContext.Provider value={{ variant, hasIcon }}>
@@ -220,11 +239,8 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
           ref={ref}
           data-slot="list-item"
           data-variant={variant}
-          className={cn(
-            "grid w-full items-start gap-x-3 rounded p-0.5",
-            hasIcon ? "grid-cols-[auto_minmax(0,1fr)_auto]" : "grid-cols-[minmax(0,1fr)_auto]",
-            className
-          )}
+          className={cn("grid w-full items-start gap-x-3 rounded p-0.5", className)}
+          style={mergedStyle}
           {...props}
         >
           {resolvedChildren}
