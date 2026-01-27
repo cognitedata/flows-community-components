@@ -53,14 +53,7 @@ const ArtifactListTitle = forwardRef<
   ElementRef<typeof CardTitle>,
   ComponentProps<typeof CardTitle>
 >(({ className, ...props }, ref) => {
-  return (
-    <CardTitle
-      ref={ref}
-      data-slot="artifact-list-title"
-      className={cn("text-base font-medium", className)}
-      {...props}
-    />
-  );
+  return <CardTitle ref={ref} className={cn("text-base font-medium", className)} {...props} />;
 });
 ArtifactListTitle.displayName = "ArtifactListTitle";
 
