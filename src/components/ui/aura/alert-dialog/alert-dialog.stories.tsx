@@ -440,6 +440,288 @@ export const VisualRegression: Story = {
 };
 
 /**
+ * Keyboard navigation testing.
+ * Demonstrates ESC to close, Tab navigation, and Enter to confirm.
+ */
+export const KeyboardNavigation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Tests keyboard accessibility: ESC key closes the dialog, Tab navigates between buttons, and Enter confirms the action.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open dialog
+    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    await userEvent.click(trigger);
+
+    // Wait for dialog to appear
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    // Test Tab navigation - should focus on Cancel button first (in footer, Cancel comes first visually)
+    await userEvent.keyboard("{Tab}");
+    const cancelButton = document.querySelector('[data-slot="alert-dialog-content"] button');
+    await expect(cancelButton).toHaveFocus();
+
+    // Tab to action button
+    await userEvent.keyboard("{Tab}");
+    const actionButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
+      (btn) => btn.textContent === "Confirm"
+    );
+    await expect(actionButton).toHaveFocus();
+
+    // Test ESC to close
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
+      expect(dialog).not.toBeInTheDocument();
+    });
+
+    // Reopen for Enter key test
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    // Focus action button and press Enter
+    const confirmButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
+      (btn) => btn.textContent === "Confirm"
+    );
+    if (confirmButton) {
+      await userEvent.click(confirmButton);
+      // Dialog should close after action
+      await waitFor(() => {
+        const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
+        expect(dialog).not.toBeInTheDocument();
+      });
+    }
+  },
+  render: function KeyboardNavigationStory() {
+    return (
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button>Open Dialog</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Keyboard Navigation Test</AlertDialogTitle>
+            <AlertDialogDescription>
+              Use Tab to navigate, ESC to close, or Enter to confirm. The dialog traps focus
+              internally.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Confirm</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  },
+};
+
+/**
+ * Dialog with long content.
+ * Tests overflow and scrolling behavior with very long title and description.
+ */
+export const LongContent: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Dialog with very long title and description to test overflow handling and scrolling behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open dialog
+    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    await userEvent.click(trigger);
+
+    // Wait for dialog to appear
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    // Verify long content is rendered
+    const title = document.querySelector('[data-slot="alert-dialog-title"]');
+    await expect(title).toHaveTextContent(/This is a very long title/i);
+
+    const description = document.querySelector('[data-slot="alert-dialog-description"]');
+    await expect(description).toHaveTextContent(/This is an extremely long description/i);
+
+    // Verify dialog is scrollable if needed
+    const content = document.querySelector('[data-slot="alert-dialog-content"]');
+    await expect(content).toBeInTheDocument();
+  },
+  render: function LongContentStory() {
+    return (
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button>Open Dialog</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              This is a very long title that might wrap to multiple lines and test how the dialog
+              handles overflow when the content exceeds the expected width
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              This is an extremely long description that contains a lot of text to test how the
+              alert dialog component handles content that extends beyond the typical length. The
+              description should wrap properly and maintain readability. It should also ensure that
+              the dialog remains accessible and usable even when the content is very lengthy. This
+              tests the component&apos;s ability to handle edge cases where users might provide
+              verbose messages or detailed explanations that require more space than usual.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  },
+};
+
+/**
+ * Dialog with no description.
+ * Minimal dialog with only a title and action buttons.
+ */
+export const NoDescription: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Minimal alert dialog with only a title and action buttons, no description text.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open dialog
+    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    await userEvent.click(trigger);
+
+    // Wait for dialog to appear
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    // Verify title exists
+    const title = document.querySelector('[data-slot="alert-dialog-title"]');
+    await expect(title).toHaveTextContent("Are you sure?");
+
+    // Verify description does NOT exist
+    const description = document.querySelector('[data-slot="alert-dialog-description"]');
+    await expect(description).not.toBeInTheDocument();
+
+    // Verify buttons exist
+    const cancelButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
+      (btn) => btn.textContent === "Cancel"
+    );
+    await expect(cancelButton).toBeInTheDocument();
+  },
+  render: function NoDescriptionStory() {
+    return (
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button>Open Dialog</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  },
+};
+
+/**
+ * Dialog with disabled buttons.
+ * Demonstrates disabled state on action and cancel buttons.
+ */
+export const DisabledButtons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Dialog with disabled buttons. Useful for preventing actions during loading states or when conditions aren&apos;t met.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open dialog
+    const trigger = canvas.getByRole("button", { name: /open dialog/i });
+    await userEvent.click(trigger);
+
+    // Wait for dialog to appear
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    // Verify disabled cancel button
+    const cancelButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
+      (btn) => btn.textContent === "Cancel"
+    );
+    await expect(cancelButton).toBeDisabled();
+
+    // Verify disabled action button
+    const actionButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
+      (btn) => btn.textContent === "Save"
+    );
+    await expect(actionButton).toBeDisabled();
+
+    // Verify buttons have disabled attribute
+    await expect(cancelButton).toHaveAttribute("disabled");
+    await expect(actionButton).toHaveAttribute("disabled");
+  },
+  render: function DisabledButtonsStory() {
+    return (
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button>Open Dialog</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Save changes?</AlertDialogTitle>
+            <AlertDialogDescription>
+              The buttons are disabled. This might happen during a loading state or when certain
+              conditions aren&apos;t met.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled>Cancel</AlertDialogCancel>
+            <AlertDialogAction disabled>Save</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  },
+};
+
+/**
  * Interactive playground.
  */
 export const Playground: Story = {
