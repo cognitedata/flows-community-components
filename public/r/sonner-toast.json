@@ -5,7 +5,6 @@
   "description": "",
   "dependencies": [
     "@tabler/icons-react",
-    "next-themes",
     "sonner"
   ],
   "registryDependencies": [
@@ -14,7 +13,7 @@
   "files": [
     {
       "path": "src/components/ui/aura/sonner-toast/sonner-toast.tsx",
-      "content": "import {\n  IconAlertOctagon,\n  IconAlertTriangle,\n  IconCircleCheck,\n  IconInfoCircle,\n  IconLoader2,\n} from \"@tabler/icons-react\";\nimport { useTheme } from \"next-themes\";\nimport type { CSSProperties } from \"react\";\nimport { Toaster as Sonner, type ToasterProps } from \"sonner\";\n\n// Re-export the toast function from sonner\n// eslint-disable-next-line react-refresh/only-export-components\nexport { toast } from \"sonner\";\n\nconst Toaster = ({ ...props }: ToasterProps) => {\n  const { theme = \"system\" } = useTheme();\n\n  return (\n    <Sonner\n      theme={theme as ToasterProps[\"theme\"]}\n      className=\"toaster group\"\n      icons={{\n        success: <IconCircleCheck className=\"size-4\" />,\n        info: <IconInfoCircle className=\"size-4\" />,\n        warning: <IconAlertTriangle className=\"size-4\" />,\n        error: <IconAlertOctagon className=\"size-4\" />,\n        loading: <IconLoader2 className=\"size-4 animate-spin\" />,\n      }}\n      style={\n        {\n          \"--normal-bg\": \"var(--popover)\",\n          \"--normal-text\": \"var(--popover-foreground)\",\n          \"--normal-border\": \"var(--border)\",\n          \"--border-radius\": \"var(--radius)\",\n        } as CSSProperties\n      }\n      {...props}\n    />\n  );\n};\n\nexport { Toaster };\n",
+      "content": "import { useTheme } from \"@/components/theme-provider\";\nimport {\n  IconAlertOctagon,\n  IconAlertTriangle,\n  IconCircleCheck,\n  IconInfoCircle,\n  IconLoader2,\n} from \"@tabler/icons-react\";\nimport type { CSSProperties } from \"react\";\nimport { Toaster as Sonner, type ToasterProps } from \"sonner\";\n\n// Re-export the toast function from sonner\n// eslint-disable-next-line react-refresh/only-export-components\nexport { toast } from \"sonner\";\n\nconst Toaster = ({ ...props }: ToasterProps) => {\n  const { resolvedTheme } = useTheme();\n\n  return (\n    <Sonner\n      theme={resolvedTheme as ToasterProps[\"theme\"]}\n      className=\"toaster group\"\n      icons={{\n        success: <IconCircleCheck className=\"size-4\" />,\n        info: <IconInfoCircle className=\"size-4\" />,\n        warning: <IconAlertTriangle className=\"size-4\" />,\n        error: <IconAlertOctagon className=\"size-4\" />,\n        loading: <IconLoader2 className=\"size-4 animate-spin\" />,\n      }}\n      style={\n        {\n          \"--normal-bg\": \"var(--popover)\",\n          \"--normal-text\": \"var(--popover-foreground)\",\n          \"--normal-border\": \"var(--border)\",\n          \"--border-radius\": \"var(--radius)\",\n        } as CSSProperties\n      }\n      {...props}\n    />\n  );\n};\n\nexport { Toaster };\n",
       "type": "registry:component",
       "target": "src/components/ui/aura/sonner-toast.tsx"
     },
