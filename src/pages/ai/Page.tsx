@@ -29,7 +29,7 @@ export default function AIPage() {
           {components.map((component) => (
             <Link
               key={component.name}
-              to={`/ai/components/${component.name.toLowerCase().replace(/\s+/g, "-")}`}
+              to={`/ai/${component.name.toLowerCase().replace(/\s+/g, "-")}`}
               className="block"
             >
               <Card className="h-full transition-colors hover:border-primary">

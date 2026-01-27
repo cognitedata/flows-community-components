@@ -37,6 +37,7 @@ export interface DatePickerProps {
   placeholder?: string;
   className?: string;
   disabled?: boolean;
+  id?: string;
 }
 
 export function DatePickerCustom({
@@ -45,6 +46,7 @@ export function DatePickerCustom({
   placeholder = "Pick a date",
   className,
   disabled = false,
+  id,
 }: DatePickerProps) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(date);
 
@@ -57,6 +59,7 @@ export function DatePickerCustom({
     <Popover>
       <PopoverTrigger asChild>
         <Button
+          id={id}
           variant={"outline"}
           className={cn(
             "w-60 justify-start text-left font-normal",

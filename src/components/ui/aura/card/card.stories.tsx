@@ -76,7 +76,7 @@ export const Basic: Story = {
     await expect(timeSeriesBadge).toBeInTheDocument();
   },
   render: () => (
-    <Card className="w-[362px]">
+    <Card className="w-96">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>21PT1019</CardTitle>
@@ -115,7 +115,7 @@ export const WithTextFooter: Story = {
     },
   },
   render: () => (
-    <Card className="w-[362px]">
+    <Card className="w-96">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>21PT1019</CardTitle>
@@ -198,7 +198,7 @@ export const WithHover: Story = {
     },
   },
   render: () => (
-    <Card className="w-[362px]">
+    <Card className="w-96">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex gap-1.5 items-baseline">
@@ -237,7 +237,7 @@ export const Minimal: Story = {
     },
   },
   render: () => (
-    <Card className="w-[362px]">
+    <Card className="w-96">
       <CardHeader>
         <CardTitle>Simple Card</CardTitle>
       </CardHeader>
@@ -262,7 +262,7 @@ export const WithHeaderAction: Story = {
     },
   },
   render: () => (
-    <Card className="w-[362px]">
+    <Card className="w-96">
       <CardHeader>
         <CardTitle>Card with Action</CardTitle>
         <CardDescription>This card has an action button in the header</CardDescription>
@@ -293,7 +293,7 @@ export const ContentOnly: Story = {
     },
   },
   render: () => (
-    <Card className="w-[362px]">
+    <Card className="w-96">
       <CardContent className="pt-6">
         <h3 className="text-lg font-semibold mb-2">Content Only Card</h3>
         <p className="text-sm text-muted-foreground">

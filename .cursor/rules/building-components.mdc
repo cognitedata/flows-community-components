@@ -1,0 +1,285 @@
+---
+name: building-components
+description: Guidelines for building accessible, consistent React components
+---
+
+# Radix UI & Accessibility
+
+**When to use Radix primitives:**
+- ✅ Complex interactions (dropdowns, dialogs, popovers)
+- ✅ Keyboard navigation requirements
+- ✅ Built-in ARIA states and focus management
+- ❌ Simple semantic elements (lists, headings, divs) - use native HTML
+
+**ARIA attributes:**
+```tsx
+// ✅ GOOD - Proper ARIA for alerts
+<div role="alert" aria-live="polite">Error message</div>
+
+// ✅ GOOD - Hidden decorative icons
+<IconCheck aria-hidden="true" className="size-4" />
+
+// ❌ BAD - Missing ARIA for custom interactive elements
+<div onClick={handleClick}>Click me</div>
+
+// ✅ GOOD - Proper button semantics
+<button onClick={handleClick} aria-label="Close dialog">
+  <IconX aria-hidden="true" />
+</button>
+```
+
+# Component Structure
+
+**Exports - gather at the bottom:**
+```tsx
+// ✅ GOOD - All exports at bottom, one per line
+export {
+  Badge,
+  badgeVariants,
+};
+
+// ❌ BAD - Exports scattered throughout file
+export const Badge = () => { ... }
+// ... more code ...
+export const badgeVariants = cva(...)
+```
+
+**Type definitions:**
+```tsx
+// ✅ GOOD - Inline prop typing, no export
+const Badge = ({ className, ...props }: ComponentProps<"div">) => { ... }
+
+// ❌ BAD - Exported types unless needed externally
+export interface BadgeProps extends ComponentProps<"div"> { ... }
+export const Badge = (props: BadgeProps) => { ... }
+```
+
+# Composition Over Configuration
+
+**Use multiple components instead of many props:**
+```tsx
+// ✅ GOOD - Composition pattern
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+  </CardHeader>
+  <CardContent>Content</CardContent>
+</Card>
+
+// ❌ BAD - Single component with many props
+<Card 
+  title="Title"
+  content="Content"
+  showHeader={true}
+  headerAlign="left"
+/>
+```
+
+# Styling Conventions
+
+**className merging with cn():**
+```tsx
+// ✅ GOOD - Always use cn() for className merging
+const Badge = ({ className, ...props }: ComponentProps<"div">) => (
+  <div className={cn("inline-flex items-center", className)} {...props} />
+);
+
+// ❌ BAD - Direct className concatenation
+<div className={`inline-flex ${className}`} />
+```
+
+**data-slot attributes for CSS targeting:**
+```tsx
+// ✅ GOOD - All components get data-slot
+<div data-slot="badge" className={cn(badgeVariants({ variant }))} />
+<span data-slot="avatar-fallback">{children}</span>
+
+// ❌ BAD - No data-slot attribute
+<div className={cn(badgeVariants({ variant }))} />
+```
+
+**No arbitrary Tailwind values:**
+```tsx
+// ✅ GOOD - Use design tokens
+className="leading-4.5 text-sm gap-2"
+
+// ❌ BAD - Arbitrary values
+className="leading-[18px] text-[14px] gap-[8px]"
+```
+
+# Variants with CVA
+
+**Always use class-variance-authority for variants:**
+```tsx
+// ✅ GOOD - CVA with defaultVariants
+const badgeVariants = cva(
+  "inline-flex items-center rounded-md",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground",
+        secondary: "bg-secondary text-secondary-foreground",
+      },
+      size: {
+        sm: "text-xs px-2",
+        md: "text-sm px-3",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+);
+
+// Export if reusable
+export { badgeVariants };
+```
+
+# forwardRef Pattern
+
+**Use forwardRef for components wrapping HTML elements:**
+```tsx
+// ✅ GOOD - forwardRef with displayName
+const Badge = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn(badgeVariants(), className)} {...props} />
+  )
+);
+Badge.displayName = "Badge";
+
+// ✅ GOOD - Sub-components follow parent naming
+const CardHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(...)
+CardHeader.displayName = "CardHeader";
+```
+
+# Component Naming
+
+- ✅ Clear, descriptive names: `InlineCitation`, `MessageAvatar`
+- ✅ Sub-components match parent: `Card` → `CardHeader`, `CardTitle`, `CardContent`
+- ❌ Generic names that conflict: `Container`, `Wrapper`, `Box`
+
+# File Organization
+
+**Import order:**
+```tsx
+// 1. React
+import { forwardRef } from "react";
+
+// 2. Third-party
+import { cva } from "class-variance-authority";
+import { IconCheck } from "@tabler/icons-react";
+
+// 3. Local utilities
+import { cn } from "@/lib/utils";
+```
+
+**Definition order:**
+- Helper functions and contexts first
+- Components in dependency order (used components before using components)
+- Exports at the bottom
+
+# Documentation
+
+**Component JSDoc:**
+```tsx
+/**
+ * Badge component for displaying labels, statuses, and tags.
+ * Supports multiple variants, sizes, and decorative options.
+ */
+const Badge = forwardRef<HTMLDivElement, BadgeProps>(...)
+```
+
+**index.tsx file:**
+```tsx
+/**
+ * Badge Component
+ *
+ * A small status indicator component with multiple variants
+ * for displaying labels, counts, and statuses.
+ *
+ * See Storybook for comprehensive examples and documentation.
+ */
+export { Badge, badgeVariants } from "./badge";
+export { BadgeMetadata } from "./badge.metadata";
+```
+
+**CRITICAL - Single Source of Truth:**
+- ❌ **DO NOT** duplicate code examples in `index.tsx` or `*.metadata.ts`
+- ✅ **ALL examples live in Storybook stories** - they are tested, interactive, and maintained
+- ✅ `index.tsx` should only have a brief description + "See Storybook for examples"
+- ✅ `*.metadata.ts` should only contain metadata for LLMs (description, llmUsage, importPath)
+
+**Metadata file (`*.metadata.ts`):**
+```tsx
+export const BadgeMetadata: ComponentMeta = {
+  name: "Badge",
+  status: "draft",
+  description: "A small status indicator component for displaying labels, counts, and statuses.",
+  llmUsage: "When showing status or labels, use `<Badge variant='default'>Status</Badge>`. Use variants like 'secondary', 'destructive', or 'outline' for different meanings.",
+  importPath: "@/components/ui/aura/badge",
+  // NO codeExamples - see Storybook stories for all examples
+};
+```
+
+**Storybook stories:**
+- Follow `building-stories.mdc` rules
+- Use `prompt-input.stories.tsx` as gold standard
+- ✅ Explicit render functions, not just args
+- ✅ Include order parameters, play functions, accessibility tests
+- ✅ Stories are the ONLY place for code examples
+
+# Side Navigation
+
+**After creating a new component, add it to `src/components/side-navigation.tsx`:**
+
+Use the component's Storybook category (from `title` in story meta) to determine placement:
+
+```tsx
+// Story meta title determines category
+const meta: Meta<typeof Badge> = {
+  title: "Primitives/Badge",  // → Add to primitivesNavigation
+  // ...
+};
+```
+
+**Navigation categories:**
+- `Primitives/Colors`, `Primitives/Effects`, `Primitives/Layouts`, `Primitives/Typography` → Add to **Foundations** subsection in `primitivesNavigation`
+- `Primitives/[ComponentName]` → Add to **Primitives** subsection in `primitivesNavigation` (alphabetically)
+- `AI/[ComponentName]` → Add to **AI Chat** subsection in `aiNavigation` (alphabetically)
+- `Patterns/[PatternName]` → Add to **Patterns** subsection in `patternsNavigation`
+
+**Example:**
+```tsx
+// Adding a new primitive component
+const primitivesNavigation: NavigationItem[] = [
+  {
+    href: "#",
+    label: "Primitives",
+    isSubsection: true,
+    children: [
+      { href: "/primitives/accordion", label: "Accordion" },
+      { href: "/primitives/alert", label: "Alert" },
+      { href: "/primitives/badge", label: "Badge" }, // ← New component
+      // ... rest alphabetically
+    ],
+  },
+];
+```
+
+# Registry
+
+**After creating/updating components:**
+1. Component is auto-discovered from filesystem (no manual registry needed)
+2. Run `pnpm run registry:build` to generate public JSON files
+3. Verify `public/r/*.json` files are generated
+
+# Code Quality Checklist
+
+- ✅ No linter errors (run before committing)
+- ✅ Type safety - avoid `any`, use proper TypeScript
+- ✅ Prop spreading with `...props` for flexibility
+- ✅ Use `ComponentProps<typeof X>` for wrapping components
+- ✅ Consistent patterns - similar components should look similar
+- ✅ Accessibility - ARIA labels, keyboard navigation, focus management
+- ✅ Side navigation updated with new component in correct category

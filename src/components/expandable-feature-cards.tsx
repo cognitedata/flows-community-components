@@ -87,7 +87,7 @@ const featureCards: FeatureCard[] = [
     icon: <IconCode className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: "25+ components",
     ctaText: "View components",
-    ctaLink: "/primitives/components/button",
+    ctaLink: "/primitives/button",
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">

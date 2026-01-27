@@ -1773,7 +1773,10 @@ export default function ThemingPage() {
                                 Interactive
                               </h4>
                               <div className="space-y-2">
-                                <button type="button" className="text-primary hover:underline text-sm">
+                                <button
+                                  type="button"
+                                  className="text-primary hover:underline text-sm"
+                                >
                                   Link style
                                 </button>
                                 <div className="p-2 border rounded hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer text-sm">
