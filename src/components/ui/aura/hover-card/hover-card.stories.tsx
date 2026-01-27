@@ -144,6 +144,7 @@ const SAMPLE_USERS = [
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -154,10 +155,10 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /@nextjs/i, /The React Framework/i);
   },
-  render: function HoverCardBasicStory(args) {
+  render: function HoverCardBasicStory() {
     return (
       <div className="flex justify-center items-center min-h-[300px]">
-        <HoverCard {...args}>
+        <HoverCard>
           <HoverCardTrigger asChild>
             <Button variant="link">@nextjs</Button>
           </HoverCardTrigger>
@@ -187,6 +188,7 @@ export const Basic: Story = {
  */
 export const WithBadges: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Hover cards can include badges to show tags, skills, or categories.",
@@ -256,6 +258,7 @@ export const WithBadges: Story = {
  */
 export const TopPosition: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Hover card appearing above the trigger element.",
@@ -289,6 +292,7 @@ export const TopPosition: Story = {
  */
 export const RightPosition: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Hover card appearing to the right of the trigger element.",
@@ -326,6 +330,7 @@ export const RightPosition: Story = {
  */
 export const BottomPosition: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Hover card appearing below the trigger element.",
@@ -359,6 +364,7 @@ export const BottomPosition: Story = {
  */
 export const LeftPosition: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Hover card appearing to the left of the trigger element.",
@@ -396,6 +402,7 @@ export const LeftPosition: Story = {
  */
 export const AllPositions: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Hover cards can be positioned on any side of the trigger element.",
@@ -497,11 +504,8 @@ export const AllPositions: Story = {
  * Controlled hover card with custom delays
  */
 export const ControlledWithCustomDelays: Story = {
-  args: {
-    openDelay: 100,
-    closeDelay: 100,
-  },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -532,7 +536,7 @@ export const ControlledWithCustomDelays: Story = {
     await expect(closeButton).toBeInTheDocument();
     await userEvent.click(closeButton);
   },
-  render: function ControlledHoverCardStory(args) {
+  render: function ControlledHoverCardStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -541,11 +545,11 @@ export const ControlledWithCustomDelays: Story = {
           Hover card is {open ? "open" : "closed"}
         </div>
         <HoverCard
-          {...args}
+          openDelay={100}
+          closeDelay={100}
           open={open}
           onOpenChange={(newOpen) => {
             setOpen(newOpen);
-            args.onOpenChange?.(newOpen);
           }}
         >
           <HoverCardTrigger asChild>
@@ -574,6 +578,14 @@ export const ControlledWithCustomDelays: Story = {
  * Minimal hover card with simple text
  */
 export const Minimal: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story: "Minimal hover card with simple text content.",
+      },
+    },
+  },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /Hover for info/i, /Simple contextual information/i);
   },
@@ -596,6 +608,7 @@ export const Minimal: Story = {
  */
 export const MultipleInList: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
