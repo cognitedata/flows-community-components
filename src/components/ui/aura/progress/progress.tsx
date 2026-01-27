@@ -7,7 +7,8 @@ const Progress = forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   ComponentProps<typeof ProgressPrimitive.Root> & { max?: number }
 >(({ className, value = 0, max = 100, "aria-label": ariaLabel, ...props }, ref) => {
-  const percentage = (value * 100) / max;
+  const safeValue = value ?? 0;
+  const percentage = (safeValue * 100) / max;
   const defaultAriaLabel = `Progress: ${Math.round(percentage)}%`;
 
   return (
