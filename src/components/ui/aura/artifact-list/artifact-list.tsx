@@ -19,7 +19,9 @@ import { cn } from "@/lib/utils";
  */
 const ArtifactList = forwardRef<ElementRef<typeof Card>, ComponentProps<typeof Card>>(
   ({ className, ...props }, ref) => {
-    return <Card ref={ref} data-slot="artifact-list" className={cn(className)} {...props} />;
+    return (
+      <Card ref={ref} data-slot="artifact-list" className={cn("gap-3", className)} {...props} />
+    );
   }
 );
 ArtifactList.displayName = "ArtifactList";
@@ -32,7 +34,7 @@ const ArtifactListHeader = forwardRef<
     <CardHeader
       ref={ref}
       data-slot="artifact-list-header"
-      className={cn("pb-4", className)}
+      className={cn("pb-2", className)}
       {...props}
     />
   );

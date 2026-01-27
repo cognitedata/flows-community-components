@@ -29,7 +29,7 @@ const listItemIconVariants = cva("", {
       upcoming: "text-muted-foreground",
       now: "text-card-foreground",
       completed: "text-muted-foreground",
-      error: "text-card-foreground",
+      error: "text-destructive-foreground",
     },
   },
   defaultVariants: {

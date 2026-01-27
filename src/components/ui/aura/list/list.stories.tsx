@@ -455,7 +455,7 @@ export const EdgeCaseLongText: Story = {
     await expect(canvas.getByText(/This is an extremely long title/)).toBeInTheDocument();
   },
   render: () => (
-    <List className="w-80">
+    <List>
       <ListItem variant="now">
         <ListItemTitle>
           This is an extremely long title that should wrap or truncate properly

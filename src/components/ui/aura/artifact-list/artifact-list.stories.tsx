@@ -116,7 +116,7 @@ export const WithoutHeader: Story = {
     expect(canvasElement.textContent).not.toContain("Maintenance Tasks");
   },
   render: () => (
-    <ArtifactList className="w-100">
+    <ArtifactList className="w-96">
       <ArtifactListContent>
         <TaskListContent />
       </ArtifactListContent>
@@ -192,6 +192,7 @@ export const WithCustomIcons: Story = {
 
     await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
     await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
+    await expect(canvas.getByText("Boiler steam leak near header B")).toBeInTheDocument();
   },
   render: () => (
     <ArtifactList className="w-100">
@@ -228,8 +229,10 @@ export const WithCustomIcons: Story = {
             </svg>
           </ListItemIcon>
           <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
-          <ListItemDescription className="">
-            Suction pressure oscillations and elevated noise on P-003 during night shift.
+          <ListItemDescription>
+            Suction pressure oscillations and elevated noise on P-003 during night shift; cavitation
+            likely from low NPSH/blocked strainer. Next step: inspect/clean suction strainer and
+            raise tank level 20cm.
           </ListItemDescription>
         </ArtifactListItem>
 
@@ -262,8 +265,46 @@ export const WithCustomIcons: Story = {
             </svg>
           </ListItemIcon>
           <ListItemTitle>Compressor C-5 surge events</ListItemTitle>
-          <ListItemDescription className="text-foreground">
-            Three start-up surge spikes with sluggish anti-surge valve response.
+          <ListItemDescription>
+            Three start-up surge spikes with sluggish anti-surge valve response; control loop
+            tuning/valve stiction suspected. Next step: Stroke-test ASV, retune PID, and verify
+            transmitter calibration.
+          </ListItemDescription>
+        </ArtifactListItem>
+
+        <ArtifactListItem>
+          <ListItemIcon className="text-muted-foreground">
+            <svg
+              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6.04C1 3.25649 3.25648 1 6.04 1H9.96C9.96 3.78351 7.70352 6.04 4.92 6.04H1Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C15 12.7435 12.7435 15 9.96 15H6.04C6.04 12.2165 8.29648 9.96 11.08 9.96H15Z"
+                fill="currentColor"
+              />
+              <path
+                d="M15 9.96C12.2165 9.96 9.96 7.70352 9.96 4.92L9.96 1C12.7435 1 15 3.25648 15 6.04V9.96Z"
+                fill="currentColor"
+              />
+              <path
+                d="M6.04 15C3.25649 15 1 12.7435 1 9.96V6.04C3.78351 6.04 6.04 8.29648 6.04 11.08V15Z"
+                fill="currentColor"
+              />
+            </svg>
+          </ListItemIcon>
+          <ListItemTitle>Boiler steam leak near header B</ListItemTitle>
+          <ListItemDescription>
+            Ultrasonic survey indicates continuous hiss with elevated condensate returns; small
+            steam leak wasting energy. Next step: tag exact location, plan hot repair window, and
+            quantify loss after fix.
           </ListItemDescription>
         </ArtifactListItem>
       </ArtifactListContent>
@@ -291,7 +332,7 @@ export const OrderedList: Story = {
     await expect(canvas.getByText("Run diagnostics")).toBeInTheDocument();
   },
   render: () => (
-    <ArtifactList className="w-100">
+    <ArtifactList className="w-96">
       <ArtifactListHeader>
         <ArtifactListTitle>Startup Checklist</ArtifactListTitle>
       </ArtifactListHeader>
