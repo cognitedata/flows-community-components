@@ -39,8 +39,12 @@ export function ThemeProvider({
     if (typeof window === "undefined") {
       return defaultTheme;
     }
-    const stored = localStorage.getItem(storageKey) as Theme | null;
-    return stored || defaultTheme;
+    const stored = localStorage.getItem(storageKey);
+    const validThemes: Theme[] = ["light", "dark", "system"];
+    if (stored && validThemes.includes(stored as Theme)) {
+      return stored as Theme;
+    }
+    return defaultTheme;
   });
 
   const [mounted, setMounted] = useState(false);
@@ -51,15 +55,44 @@ export function ThemeProvider({
       if (typeof window === "undefined") {
         return "light";
       }
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
     return currentTheme;
   }, []);
 
   const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">(() =>
     getResolvedTheme(theme)
+  );
+
+  const removeThemeFromDom = useCallback(() => {
+    const root = window.document.documentElement;
+    themes.forEach((t) => {
+      if (attribute === "class") {
+        root.classList.remove(t);
+      } else {
+        root.removeAttribute(`${attribute}-${t}`);
+      }
+    });
+  }, [attribute, themes]);
+
+  const addThemeToDom = useCallback(
+    (resolved: "dark" | "light") => {
+      const root = window.document.documentElement;
+      if (attribute === "class") {
+        root.classList.add(resolved);
+      } else {
+        root.setAttribute(`${attribute}-${resolved}`, "");
+      }
+    },
+    [attribute]
+  );
+
+  const applyThemeToDom = useCallback(
+    (resolved: "dark" | "light") => {
+      removeThemeFromDom();
+      addThemeToDom(resolved);
+    },
+    [removeThemeFromDom, addThemeToDom]
   );
 
   // Handle mounting (prevent hydration mismatch)
@@ -74,19 +107,13 @@ export function ThemeProvider({
     const root = window.document.documentElement;
     const resolved = getResolvedTheme(theme);
 
-    // Remove all theme classes
-    themes.forEach((t) => {
-      if (attribute === "class") {
-        root.classList.remove(t);
-      } else {
-        root.removeAttribute(`${attribute}-${t}`);
-      }
-    });
+    removeThemeFromDom();
 
     // Apply transition handling
     if (disableTransitionOnChange) {
       const css = document.createElement("style");
-      const transitionStyles = "*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
+      const transitionStyles =
+        "*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
       css.appendChild(document.createTextNode(transitionStyles));
       document.head.appendChild(css);
 
@@ -100,15 +127,16 @@ export function ThemeProvider({
       });
     }
 
-    // Apply the theme
-    if (attribute === "class") {
-      root.classList.add(resolved);
-    } else {
-      root.setAttribute(`${attribute}-${resolved}`, "");
-    }
-
+    addThemeToDom(resolved);
     setResolvedTheme(resolved);
-  }, [theme, mounted, attribute, themes, disableTransitionOnChange, getResolvedTheme]);
+  }, [
+    theme,
+    mounted,
+    disableTransitionOnChange,
+    getResolvedTheme,
+    removeThemeFromDom,
+    addThemeToDom,
+  ]);
 
   // Listen to system theme changes when theme is "system"
   useEffect(() => {
@@ -116,25 +144,9 @@ export function ThemeProvider({
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = () => {
-      const resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+      const resolved = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       setResolvedTheme(resolved);
-
-      const root = window.document.documentElement;
-      themes.forEach((t) => {
-        if (attribute === "class") {
-          root.classList.remove(t);
-        } else {
-          root.removeAttribute(`${attribute}-${t}`);
-        }
-      });
-
-      if (attribute === "class") {
-        root.classList.add(resolved);
-      } else {
-        root.setAttribute(`${attribute}-${resolved}`, "");
-      }
+      applyThemeToDom(resolved);
     };
 
     // Modern browsers
@@ -149,7 +161,7 @@ export function ThemeProvider({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (mediaQuery as any).removeListener(handleChange);
     };
-  }, [theme, mounted, enableSystem, attribute, themes]);
+  }, [theme, mounted, enableSystem, applyThemeToDom]);
 
   const setTheme = (newTheme: Theme) => {
     // Validate theme if themes array is provided

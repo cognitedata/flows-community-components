@@ -1,9 +1,9 @@
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/aura/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/aura/sheet";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { useTheme } from "@/components/theme-provider";
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 

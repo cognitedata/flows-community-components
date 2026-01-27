@@ -1,3 +1,4 @@
+import { useTheme } from "@/components/theme-provider";
 import {
   IconAlertOctagon,
   IconAlertTriangle,
@@ -5,7 +6,6 @@ import {
   IconInfoCircle,
   IconLoader2,
 } from "@tabler/icons-react";
-import { useTheme } from "@/components/theme-provider";
 import type { CSSProperties } from "react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 

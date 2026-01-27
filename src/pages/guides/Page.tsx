@@ -237,11 +237,7 @@ function StepCard({ step, index }: { step: StepType; index: number }) {
               </Button>
             ) : step.action === "View theme setup" ? (
               <Button variant="outline" className="w-full" asChild>
-                <a
-                  href="/primitives/theming"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="/primitives/theming" target="_blank" rel="noopener noreferrer">
                   {step.action}
                 </a>
               </Button>
