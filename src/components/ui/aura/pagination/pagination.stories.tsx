@@ -3,12 +3,7 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/aura/select";
+import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/aura/select";
 import { cn } from "@/lib/utils";
 import {
   Pagination,
@@ -69,7 +64,7 @@ export const Default: Story = {
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#" isActive>
-            5
+            8
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
@@ -85,8 +80,7 @@ export const Default: Story = {
     order: 1,
     docs: {
       description: {
-        story:
-          "Default pagination with page navigation, next and previous links.",
+        story: "Default pagination with page navigation, next and previous links.",
       },
     },
   },
@@ -96,7 +90,7 @@ export const Default: Story = {
 
     // Verify active page
     const activeLink = canvasElement.querySelector('[data-active="true"]');
-    await expect(activeLink).toHaveTextContent("5");
+    await expect(activeLink).toHaveTextContent("8");
   },
 };
 
@@ -124,7 +118,7 @@ export const Small: Story = {
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#" isActive>
-            5
+            8
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
@@ -145,9 +139,7 @@ export const Small: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const paginationContent = canvasElement.querySelector(
-      '[data-slot="pagination-content"]',
-    );
+    const paginationContent = canvasElement.querySelector('[data-slot="pagination-content"]');
     await expect(paginationContent).toBeInTheDocument();
 
     // Verify small size attribute
@@ -155,15 +147,11 @@ export const Small: Story = {
 
     // Verify active page
     const activeLink = canvasElement.querySelector('[data-active="true"]');
-    await expect(activeLink).toHaveTextContent("5");
+    await expect(activeLink).toHaveTextContent("8");
 
     // Verify all navigation buttons are present
-    const firstButton = canvasElement.querySelector(
-      '[data-slot="pagination-first"]',
-    );
-    const lastButton = canvasElement.querySelector(
-      '[data-slot="pagination-last"]',
-    );
+    const firstButton = canvasElement.querySelector('[data-slot="pagination-first"]');
+    const lastButton = canvasElement.querySelector('[data-slot="pagination-last"]');
     await expect(firstButton).toBeInTheDocument();
     await expect(lastButton).toBeInTheDocument();
   },
@@ -198,7 +186,7 @@ export const WithResultsPerPage: Story = {
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href="#" isActive>
-              5
+              8
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
@@ -209,9 +197,7 @@ export const WithResultsPerPage: Story = {
           </PaginationItem>
           <PaginationItem>
             <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">
-                Results per page
-              </span>
+              <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
                 <PaginationSelectTrigger>
                   <SelectValue />
@@ -242,15 +228,11 @@ export const WithResultsPerPage: Story = {
     await expect(pagination).toBeInTheDocument();
 
     // Verify default size
-    const paginationContent = canvasElement.querySelector(
-      '[data-slot="pagination-content"]',
-    );
+    const paginationContent = canvasElement.querySelector('[data-slot="pagination-content"]');
     await expect(paginationContent).toHaveAttribute("data-size", "default");
 
     // Verify "Results per page" label is present
-    const resultsLabel = canvasElement.querySelector(
-      "span.text-muted-foreground",
-    );
+    const resultsLabel = canvasElement.querySelector("span.text-muted-foreground");
     await expect(resultsLabel).toHaveTextContent("Results per page");
 
     // Verify select trigger is present
@@ -259,7 +241,7 @@ export const WithResultsPerPage: Story = {
 
     // Verify active page
     const activeLink = canvasElement.querySelector('[data-active="true"]');
-    await expect(activeLink).toHaveTextContent("5");
+    await expect(activeLink).toHaveTextContent("8");
   },
 };
 
@@ -290,7 +272,7 @@ export const WithResultsPerPageSmall: Story = {
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href="#" isActive>
-              5
+              8
             </PaginationLink>
           </PaginationItem>
           <PaginationItem>
@@ -301,9 +283,7 @@ export const WithResultsPerPageSmall: Story = {
           </PaginationItem>
           <PaginationItem>
             <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">
-                Results per page
-              </span>
+              <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
                 <PaginationSelectTrigger>
                   <SelectValue />
@@ -330,18 +310,14 @@ export const WithResultsPerPageSmall: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const paginationContent = canvasElement.querySelector(
-      '[data-slot="pagination-content"]',
-    );
+    const paginationContent = canvasElement.querySelector('[data-slot="pagination-content"]');
     await expect(paginationContent).toBeInTheDocument();
 
     // Verify small size attribute
     await expect(paginationContent).toHaveAttribute("data-size", "small");
 
     // Verify "Results per page" label is present
-    const resultsLabel = canvasElement.querySelector(
-      "span.text-muted-foreground",
-    );
+    const resultsLabel = canvasElement.querySelector("span.text-muted-foreground");
     await expect(resultsLabel).toHaveTextContent("Results per page");
 
     // Verify select trigger is present with small size
@@ -350,12 +326,12 @@ export const WithResultsPerPageSmall: Story = {
 
     // Verify active page
     const activeLink = canvasElement.querySelector('[data-active="true"]');
-    await expect(activeLink).toHaveTextContent("5");
+    await expect(activeLink).toHaveTextContent("8");
   },
 };
 
 /**
- * Teleportation mode - jump to specific page (Default size).
+ * Counter mode - navigate via arrows (Default size).
  */
 export const TeleportationMode: Story = {
   render: function TeleportationModeStory() {
@@ -364,7 +340,7 @@ export const TeleportationMode: Story = {
     const [resultsPerPage, setResultsPerPage] = useState("25");
     const displayClassName = cn(
       "flex items-center justify-center gap-1 border border-input bg-background font-normal",
-      "h-9 w-20 rounded-md text-base",
+      "h-9 w-20 rounded-md text-base"
     );
 
     const updatePage = (nextPage: number) => {
@@ -393,11 +369,8 @@ export const TeleportationMode: Story = {
             />
           </PaginationItem>
           <PaginationItem>
-            <div
-              className={displayClassName}
-              data-slot="pagination-teleport-display"
-            >
-              <output className="tabular-nums">
+            <div className={displayClassName} data-slot="pagination-teleport-display">
+              <output>
                 {currentPage}/{totalPages}
               </output>
             </div>
@@ -422,9 +395,7 @@ export const TeleportationMode: Story = {
           </PaginationItem>
           <PaginationItem>
             <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">
-                Results per page
-              </span>
+              <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
                 <PaginationSelectTrigger>
                   <SelectValue />
@@ -446,8 +417,7 @@ export const TeleportationMode: Story = {
     order: 5,
     docs: {
       description: {
-        story:
-          "Teleportation mode showing current page and total pages (default size).",
+        story: "Counter mode showing current page and total pages (default size).",
       },
     },
   },
@@ -456,42 +426,34 @@ export const TeleportationMode: Story = {
     await expect(pagination).toBeInTheDocument();
 
     // Verify default size
-    const paginationContent = canvasElement.querySelector(
-      '[data-slot="pagination-content"]',
-    );
+    const paginationContent = canvasElement.querySelector('[data-slot="pagination-content"]');
     await expect(paginationContent).toHaveAttribute("data-size", "default");
 
     // Verify teleportation display shows current/total format
     const teleportDisplay = canvasElement.querySelector(
-      '[data-slot="pagination-teleport-display"]',
+      '[data-slot="pagination-teleport-display"]'
     );
     await expect(teleportDisplay).toBeInTheDocument();
     const teleportOutput = teleportDisplay?.querySelector("output");
     await expect(teleportOutput).toHaveTextContent("1/100");
 
     // Verify navigation buttons are present
-    const firstButton = canvasElement.querySelector(
-      '[data-slot="pagination-first"]',
-    );
-    const lastButton = canvasElement.querySelector(
-      '[data-slot="pagination-last"]',
-    );
+    const firstButton = canvasElement.querySelector('[data-slot="pagination-first"]');
+    const lastButton = canvasElement.querySelector('[data-slot="pagination-last"]');
     await expect(firstButton).toBeInTheDocument();
     await expect(lastButton).toBeInTheDocument();
 
     // Verify "Results per page" selector is present
-    const resultsLabels = Array.from(
-      canvasElement.querySelectorAll("span.text-muted-foreground"),
-    );
+    const resultsLabels = Array.from(canvasElement.querySelectorAll("span.text-muted-foreground"));
     const resultsLabel = resultsLabels.find((label) =>
-      label.textContent?.includes("Results per page"),
+      label.textContent?.includes("Results per page")
     );
     await expect(resultsLabel).toBeTruthy();
   },
 };
 
 /**
- * Teleportation mode - jump to specific page (Small size).
+ * Counter mode - navigate via arrows (Small size).
  */
 export const TeleportationModeSmall: Story = {
   render: function TeleportationModeSmallStory() {
@@ -500,7 +462,7 @@ export const TeleportationModeSmall: Story = {
     const [resultsPerPage, setResultsPerPage] = useState("25");
     const displayClassName = cn(
       "flex items-center justify-center gap-1 border border-input bg-background font-normal",
-      "h-7 w-20 rounded text-sm",
+      "h-7 w-20 rounded text-sm"
     );
 
     const updatePage = (nextPage: number) => {
@@ -529,11 +491,8 @@ export const TeleportationModeSmall: Story = {
             />
           </PaginationItem>
           <PaginationItem>
-            <div
-              className={displayClassName}
-              data-slot="pagination-teleport-display"
-            >
-              <output className="tabular-nums">
+            <div className={displayClassName} data-slot="pagination-teleport-display">
+              <output>
                 {currentPage}/{totalPages}
               </output>
             </div>
@@ -558,9 +517,7 @@ export const TeleportationModeSmall: Story = {
           </PaginationItem>
           <PaginationItem>
             <div className="flex items-center gap-2 pl-4">
-              <span className="text-sm text-muted-foreground">
-                Results per page
-              </span>
+              <span className="text-sm text-muted-foreground">Results per page</span>
               <Select value={resultsPerPage} onValueChange={setResultsPerPage}>
                 <PaginationSelectTrigger>
                   <SelectValue />
@@ -582,15 +539,12 @@ export const TeleportationModeSmall: Story = {
     order: 6,
     docs: {
       description: {
-        story:
-          "Teleportation mode showing current page and total pages (small size).",
+        story: "Counter mode showing current page and total pages (small size).",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const paginationContent = canvasElement.querySelector(
-      '[data-slot="pagination-content"]',
-    );
+    const paginationContent = canvasElement.querySelector('[data-slot="pagination-content"]');
     await expect(paginationContent).toBeInTheDocument();
 
     // Verify small size attribute
@@ -598,28 +552,22 @@ export const TeleportationModeSmall: Story = {
 
     // Verify teleportation display shows current/total format with small size
     const teleportDisplay = canvasElement.querySelector(
-      '[data-slot="pagination-teleport-display"]',
+      '[data-slot="pagination-teleport-display"]'
     );
     await expect(teleportDisplay).toBeInTheDocument();
     const teleportOutput = teleportDisplay?.querySelector("output");
     await expect(teleportOutput).toHaveTextContent("1/25");
 
     // Verify navigation buttons are present
-    const firstButton = canvasElement.querySelector(
-      '[data-slot="pagination-first"]',
-    );
-    const lastButton = canvasElement.querySelector(
-      '[data-slot="pagination-last"]',
-    );
+    const firstButton = canvasElement.querySelector('[data-slot="pagination-first"]');
+    const lastButton = canvasElement.querySelector('[data-slot="pagination-last"]');
     await expect(firstButton).toBeInTheDocument();
     await expect(lastButton).toBeInTheDocument();
 
     // Verify "Results per page" selector is present
-    const resultsLabels = Array.from(
-      canvasElement.querySelectorAll("span.text-muted-foreground"),
-    );
+    const resultsLabels = Array.from(canvasElement.querySelectorAll("span.text-muted-foreground"));
     const resultsLabel = resultsLabels.find((label) =>
-      label.textContent?.includes("Results per page"),
+      label.textContent?.includes("Results per page")
     );
     await expect(resultsLabel).toBeTruthy();
   },
@@ -649,7 +597,7 @@ export const WithEllipsis: Story = {
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#" isActive>
-            5
+            8
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
@@ -683,19 +631,15 @@ export const WithEllipsis: Story = {
     await expect(pagination).toBeInTheDocument();
 
     // Verify ellipsis elements are present
-    const ellipsisElements = canvasElement.querySelectorAll(
-      '[data-slot="pagination-ellipsis"]',
-    );
+    const ellipsisElements = canvasElement.querySelectorAll('[data-slot="pagination-ellipsis"]');
     await expect(ellipsisElements.length).toBe(2);
 
     // Verify active page
     const activeLink = canvasElement.querySelector('[data-active="true"]');
-    await expect(activeLink).toHaveTextContent("5");
+    await expect(activeLink).toHaveTextContent("8");
 
     // Verify page numbers are present
-    const pageLinks = canvasElement.querySelectorAll(
-      '[data-slot="pagination-link"]',
-    );
+    const pageLinks = canvasElement.querySelectorAll('[data-slot="pagination-link"]');
     await expect(pageLinks.length).toBeGreaterThan(0);
   },
 };
@@ -720,24 +664,9 @@ export const Controlled: Story = {
         if (currentPage <= 3) {
           pages.push(1, 2, 3, 4, "...", totalPages);
         } else if (currentPage >= totalPages - 2) {
-          pages.push(
-            1,
-            "...",
-            totalPages - 3,
-            totalPages - 2,
-            totalPages - 1,
-            totalPages,
-          );
+          pages.push(1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
         } else {
-          pages.push(
-            1,
-            "...",
-            currentPage - 1,
-            currentPage,
-            currentPage + 1,
-            "...",
-            totalPages,
-          );
+          pages.push(1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages);
         }
       }
 
@@ -813,12 +742,8 @@ export const Controlled: Story = {
     await expect(pageCounter).toHaveTextContent(/Page 1 of 10/);
 
     // Verify navigation buttons are present
-    const prevButton = canvasElement.querySelector(
-      '[data-slot="pagination-previous"]',
-    );
-    const nextButton = canvasElement.querySelector(
-      '[data-slot="pagination-next"]',
-    );
+    const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
+    const nextButton = canvasElement.querySelector('[data-slot="pagination-next"]');
     await expect(prevButton).toBeInTheDocument();
     await expect(nextButton).toBeInTheDocument();
   },
@@ -853,19 +778,13 @@ export const Simple: Story = {
     await expect(pagination).toBeInTheDocument();
 
     // Verify only prev/next buttons are present (no page numbers)
-    const prevButton = canvasElement.querySelector(
-      '[data-slot="pagination-previous"]',
-    );
-    const nextButton = canvasElement.querySelector(
-      '[data-slot="pagination-next"]',
-    );
+    const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
+    const nextButton = canvasElement.querySelector('[data-slot="pagination-next"]');
     await expect(prevButton).toBeInTheDocument();
     await expect(nextButton).toBeInTheDocument();
 
     // Verify no page links present
-    const pageLinks = canvasElement.querySelectorAll(
-      '[data-slot="pagination-link"]',
-    );
+    const pageLinks = canvasElement.querySelectorAll('[data-slot="pagination-link"]');
     await expect(pageLinks.length).toBe(0);
   },
 };
@@ -920,16 +839,12 @@ export const FirstPage: Story = {
     await expect(activeLink).toHaveTextContent("1");
 
     // Verify previous button is disabled
-    const prevButton = canvasElement.querySelector(
-      '[data-slot="pagination-previous"]',
-    );
+    const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
     await expect(prevButton).toHaveClass("opacity-50");
     await expect(prevButton).toHaveClass("pointer-events-none");
 
     // Verify next button is enabled
-    const nextButton = canvasElement.querySelector(
-      '[data-slot="pagination-next"]',
-    );
+    const nextButton = canvasElement.querySelector('[data-slot="pagination-next"]');
     await expect(nextButton).toBeInTheDocument();
     await expect(nextButton).not.toHaveClass("opacity-50");
   },
@@ -985,16 +900,12 @@ export const LastPage: Story = {
     await expect(activeLink).toHaveTextContent("10");
 
     // Verify next button is disabled
-    const nextButton = canvasElement.querySelector(
-      '[data-slot="pagination-next"]',
-    );
+    const nextButton = canvasElement.querySelector('[data-slot="pagination-next"]');
     await expect(nextButton).toHaveClass("opacity-50");
     await expect(nextButton).toHaveClass("pointer-events-none");
 
     // Verify previous button is enabled
-    const prevButton = canvasElement.querySelector(
-      '[data-slot="pagination-previous"]',
-    );
+    const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
     await expect(prevButton).toBeInTheDocument();
     await expect(prevButton).not.toHaveClass("opacity-50");
   },
@@ -1032,25 +943,17 @@ export const Compact: Story = {
     await expect(pagination).toBeInTheDocument();
 
     // Verify page counter text is present
-    const pageText = canvasElement.querySelector(
-      '[data-slot="pagination-status"]',
-    );
+    const pageText = canvasElement.querySelector('[data-slot="pagination-status"]');
     await expect(pageText).toHaveTextContent("Page 3 of 10");
 
     // Verify navigation buttons are present
-    const prevButton = canvasElement.querySelector(
-      '[data-slot="pagination-previous"]',
-    );
-    const nextButton = canvasElement.querySelector(
-      '[data-slot="pagination-next"]',
-    );
+    const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
+    const nextButton = canvasElement.querySelector('[data-slot="pagination-next"]');
     await expect(prevButton).toBeInTheDocument();
     await expect(nextButton).toBeInTheDocument();
 
     // Verify no page links present
-    const pageLinks = canvasElement.querySelectorAll(
-      '[data-slot="pagination-link"]',
-    );
+    const pageLinks = canvasElement.querySelectorAll('[data-slot="pagination-link"]');
     await expect(pageLinks.length).toBe(0);
   },
 };
@@ -1081,7 +984,7 @@ export const VisualRegression: Story = {
         {/* 1. Default size - Page navigation */}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">
-            Teleportation=False, Size=Default
+            Counter=False, Size=Default
           </h3>
           <Pagination>
             <PaginationContent>
@@ -1113,13 +1016,8 @@ export const VisualRegression: Story = {
               </PaginationItem>
               <PaginationItem>
                 <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">
-                    Results per page
-                  </span>
-                  <Select
-                    value={resultsPerPage1}
-                    onValueChange={setResultsPerPage1}
-                  >
+                  <span className="text-sm text-muted-foreground">Results per page</span>
+                  <Select value={resultsPerPage1} onValueChange={setResultsPerPage1}>
                     <PaginationSelectTrigger>
                       <SelectValue />
                     </PaginationSelectTrigger>
@@ -1138,9 +1036,7 @@ export const VisualRegression: Story = {
 
         {/* 2. Small size - Page navigation */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-muted-foreground">
-            Teleportation=False, Size=Small
-          </h3>
+          <h3 className="text-sm font-semibold text-muted-foreground">Counter=False, Size=Small</h3>
           <Pagination>
             <PaginationContent size="small">
               <PaginationItem>
@@ -1171,13 +1067,8 @@ export const VisualRegression: Story = {
               </PaginationItem>
               <PaginationItem>
                 <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">
-                    Results per page
-                  </span>
-                  <Select
-                    value={resultsPerPage2}
-                    onValueChange={setResultsPerPage2}
-                  >
+                  <span className="text-sm text-muted-foreground">Results per page</span>
+                  <Select value={resultsPerPage2} onValueChange={setResultsPerPage2}>
                     <PaginationSelectTrigger>
                       <SelectValue />
                     </PaginationSelectTrigger>
@@ -1194,10 +1085,10 @@ export const VisualRegression: Story = {
           </Pagination>
         </div>
 
-        {/* 3. Default size - Teleportation */}
+        {/* 3. Default size - Counter */}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">
-            Teleportation=True, Size=Default
+            Counter=True, Size=Default
           </h3>
           <Pagination>
             <PaginationContent>
@@ -1215,14 +1106,13 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage1 > 1)
-                      updateTeleportPage1(teleportPage1 - 1);
+                    if (teleportPage1 > 1) updateTeleportPage1(teleportPage1 - 1);
                   }}
                 />
               </PaginationItem>
               <PaginationItem>
                 <div className="flex h-9 w-20 items-center justify-center rounded-md border border-input bg-background text-base font-normal">
-                  <output className="tabular-nums">
+                  <output>
                     {teleportPage1}/{totalPages}
                   </output>
                 </div>
@@ -1232,8 +1122,7 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage1 < totalPages)
-                      updateTeleportPage1(teleportPage1 + 1);
+                    if (teleportPage1 < totalPages) updateTeleportPage1(teleportPage1 + 1);
                   }}
                 />
               </PaginationItem>
@@ -1248,13 +1137,8 @@ export const VisualRegression: Story = {
               </PaginationItem>
               <PaginationItem>
                 <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">
-                    Results per page
-                  </span>
-                  <Select
-                    value={resultsPerPage3}
-                    onValueChange={setResultsPerPage3}
-                  >
+                  <span className="text-sm text-muted-foreground">Results per page</span>
+                  <Select value={resultsPerPage3} onValueChange={setResultsPerPage3}>
                     <PaginationSelectTrigger>
                       <SelectValue />
                     </PaginationSelectTrigger>
@@ -1271,11 +1155,9 @@ export const VisualRegression: Story = {
           </Pagination>
         </div>
 
-        {/* 4. Small size - Teleportation */}
+        {/* 4. Small size - Counter */}
         <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-muted-foreground">
-            Teleportation=True, Size=Small
-          </h3>
+          <h3 className="text-sm font-semibold text-muted-foreground">Counter=True, Size=Small</h3>
           <Pagination>
             <PaginationContent size="small">
               <PaginationItem>
@@ -1292,14 +1174,13 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage2 > 1)
-                      updateTeleportPage2(teleportPage2 - 1);
+                    if (teleportPage2 > 1) updateTeleportPage2(teleportPage2 - 1);
                   }}
                 />
               </PaginationItem>
               <PaginationItem>
                 <div className="flex h-7 w-20 items-center justify-center rounded border border-input bg-background text-sm font-normal">
-                  <output className="tabular-nums">
+                  <output>
                     {teleportPage2}/{totalPages}
                   </output>
                 </div>
@@ -1309,8 +1190,7 @@ export const VisualRegression: Story = {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    if (teleportPage2 < totalPages)
-                      updateTeleportPage2(teleportPage2 + 1);
+                    if (teleportPage2 < totalPages) updateTeleportPage2(teleportPage2 + 1);
                   }}
                 />
               </PaginationItem>
@@ -1325,13 +1205,8 @@ export const VisualRegression: Story = {
               </PaginationItem>
               <PaginationItem>
                 <div className="flex items-center gap-2 pl-4">
-                  <span className="text-sm text-muted-foreground">
-                    Results per page
-                  </span>
-                  <Select
-                    value={resultsPerPage4}
-                    onValueChange={setResultsPerPage4}
-                  >
+                  <span className="text-sm text-muted-foreground">Results per page</span>
+                  <Select value={resultsPerPage4} onValueChange={setResultsPerPage4}>
                     <PaginationSelectTrigger>
                       <SelectValue />
                     </PaginationSelectTrigger>
@@ -1367,9 +1242,7 @@ export const VisualRegression: Story = {
     await expect(pagination).toBeInTheDocument();
 
     // Verify all 4 variants are rendered
-    const paginationContents = canvasElement.querySelectorAll(
-      '[data-slot="pagination-content"]',
-    );
+    const paginationContents = canvasElement.querySelectorAll('[data-slot="pagination-content"]');
     await expect(paginationContents.length).toBe(4);
 
     // Verify size attributes
@@ -1381,18 +1254,10 @@ export const VisualRegression: Story = {
     // Verify headings are present
     const headings = canvasElement.querySelectorAll("h3");
     await expect(headings.length).toBe(4);
-    await expect(headings[0]).toHaveTextContent(
-      "Teleportation=False, Size=Default",
-    );
-    await expect(headings[1]).toHaveTextContent(
-      "Teleportation=False, Size=Small",
-    );
-    await expect(headings[2]).toHaveTextContent(
-      "Teleportation=True, Size=Default",
-    );
-    await expect(headings[3]).toHaveTextContent(
-      "Teleportation=True, Size=Small",
-    );
+    await expect(headings[0]).toHaveTextContent("Counter=False, Size=Default");
+    await expect(headings[1]).toHaveTextContent("Counter=False, Size=Small");
+    await expect(headings[2]).toHaveTextContent("Counter=True, Size=Default");
+    await expect(headings[3]).toHaveTextContent("Counter=True, Size=Small");
   },
 };
 
@@ -1446,22 +1311,14 @@ export const Playground: Story = {
     await expect(activeLink).toHaveTextContent("2");
 
     // Verify navigation buttons
-    const prevButton = canvasElement.querySelector(
-      '[data-slot="pagination-previous"]',
-    );
-    const nextButton = canvasElement.querySelector(
-      '[data-slot="pagination-next"]',
-    );
+    const prevButton = canvasElement.querySelector('[data-slot="pagination-previous"]');
+    const nextButton = canvasElement.querySelector('[data-slot="pagination-next"]');
     await expect(prevButton).toBeInTheDocument();
     await expect(nextButton).toBeInTheDocument();
 
     // Verify page numbers and ellipsis
-    const pageLinks = canvasElement.querySelectorAll(
-      '[data-slot="pagination-link"]',
-    );
-    const ellipsis = canvasElement.querySelector(
-      '[data-slot="pagination-ellipsis"]',
-    );
+    const pageLinks = canvasElement.querySelectorAll('[data-slot="pagination-link"]');
+    const ellipsis = canvasElement.querySelector('[data-slot="pagination-ellipsis"]');
     await expect(pageLinks.length).toBeGreaterThan(0);
     await expect(ellipsis).toBeInTheDocument();
   },
