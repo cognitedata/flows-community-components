@@ -1,9 +1,9 @@
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/aura/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/aura/sheet";
 import { cn } from "@/lib/utils";
 import { IconBrandGithub, IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -28,7 +28,7 @@ function ThemeToggleGroup() {
   const themes = [
     { name: "light", icon: IconSun, label: "Light" },
     { name: "dark", icon: IconMoon, label: "Dark" },
-  ];
+  ] as const;
 
   return (
     <div className="flex items-center bg-muted rounded-lg p-1">
