@@ -39,6 +39,19 @@ const meta: Meta<typeof ArtifactList> = {
   },
 };
 
+// ArtifactListTitle argTypes for stories that use it
+const titleArgTypes = {
+  as: {
+    control: "select",
+    options: ["h1", "h2", "h3", "h4", "h5", "h6"],
+    description: "Semantic heading level for ArtifactListTitle (h1-h6)",
+    table: {
+      category: "Content",
+      defaultValue: { summary: "h3" },
+    },
+  },
+};
+
 export default meta;
 type Story = StoryObj<typeof ArtifactList>;
 
@@ -576,6 +589,85 @@ export const EdgeCaseLongText: Story = {
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
+  ),
+};
+
+/**
+ * Demonstrates semantic heading levels for proper document hierarchy
+ */
+export const SemanticHeadings: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "ArtifactListTitle supports polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document outline and semantic HTML structure. Defaults to h3.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify different heading levels exist
+    const h2Title = canvas.getByRole("heading", { level: 2, name: "Main Section Tasks (h2)" });
+    await expect(h2Title).toBeInTheDocument();
+
+    const h3Title = canvas.getByRole("heading", { level: 3, name: "Default Heading (h3)" });
+    await expect(h3Title).toBeInTheDocument();
+
+    const h4Title = canvas.getByRole("heading", { level: 4, name: "Subsection Tasks (h4)" });
+    await expect(h4Title).toBeInTheDocument();
+  },
+  render: () => (
+    <div className="flex flex-col gap-6 w-full max-w-2xl">
+      {/* h2 example - for main sections */}
+      <ArtifactList>
+        <ArtifactListHeader>
+          <ArtifactListTitle as="h2">Main Section Tasks (h2)</ArtifactListTitle>
+        </ArtifactListHeader>
+        <ArtifactListContent>
+          <ArtifactListItem variant="now">
+            <ListItemTitle>High-level task</ListItemTitle>
+            <ListItemStatus>In progress</ListItemStatus>
+            <ListItemDescription>
+              Use as="h2" for main section headings in your document hierarchy
+            </ListItemDescription>
+          </ArtifactListItem>
+        </ArtifactListContent>
+      </ArtifactList>
+
+      {/* h3 example - default */}
+      <ArtifactList>
+        <ArtifactListHeader>
+          <ArtifactListTitle>Default Heading (h3)</ArtifactListTitle>
+        </ArtifactListHeader>
+        <ArtifactListContent>
+          <ArtifactListItem variant="now">
+            <ListItemTitle>Standard task</ListItemTitle>
+            <ListItemStatus>In progress</ListItemStatus>
+            <ListItemDescription>
+              The default is h3, which works well for most artifact use cases
+            </ListItemDescription>
+          </ArtifactListItem>
+        </ArtifactListContent>
+      </ArtifactList>
+
+      {/* h4 example - for subsections */}
+      <ArtifactList>
+        <ArtifactListHeader>
+          <ArtifactListTitle as="h4">Subsection Tasks (h4)</ArtifactListTitle>
+        </ArtifactListHeader>
+        <ArtifactListContent>
+          <ArtifactListItem variant="now">
+            <ListItemTitle>Nested task</ListItemTitle>
+            <ListItemStatus>In progress</ListItemStatus>
+            <ListItemDescription>
+              Use as="h4", as="h5", or as="h6" for nested subsections
+            </ListItemDescription>
+          </ArtifactListItem>
+        </ArtifactListContent>
+      </ArtifactList>
+    </div>
   ),
 };
 

@@ -41,6 +41,14 @@ const ArtifactListHeader = forwardRef<
 });
 ArtifactListHeader.displayName = "ArtifactListHeader";
 
+/**
+ * ArtifactListTitle displays the heading for an artifact list.
+ * Supports polymorphic heading elements (h1-h6) via the `as` prop for proper document hierarchy.
+ * Defaults to h3, which is appropriate for most artifact use cases.
+ * @example
+ * <ArtifactListTitle as="h2">Section Title</ArtifactListTitle>
+ * <ArtifactListTitle>Default (h3)</ArtifactListTitle>
+ */
 const ArtifactListTitle = forwardRef<
   ElementRef<typeof CardTitle>,
   ComponentProps<typeof CardTitle>
