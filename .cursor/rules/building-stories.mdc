@@ -318,7 +318,42 @@ Follow the standard story sequence (see Story Ordering section above) and includ
 8. **Accessibility** - ARIA labels, keyboard navigation, screen reader support
 9. **Visual Regression** - Baseline for automated visual testing
 10. **Edge Cases** - Empty states, long content, special characters, constraints
-11. **Playground** (optional) - Prop exploration via Storybook controls (always named `Playground`, always last). Skip for simple/compositional components.
+11. **Semantic Headings** - (Only for Title components) show polymorphic heading usage
+12. **Playground** (optional) - Prop exploration via Storybook controls (always named `Playground`, always last). Skip for simple/compositional components.
+
+**Documenting polymorphic Title components:**
+
+```tsx
+// ✅ GOOD - Demonstrate different heading levels
+export const SemanticHeadings: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Title supports polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document outline. Defaults to h3.",
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <Card>
+        <CardTitle as="h2">Section Title (h2)</CardTitle>
+        <CardDescription>Use h2 for main sections</CardDescription>
+      </Card>
+      <Card>
+        <CardTitle>Default Heading (h3)</CardTitle>
+        <CardDescription>
+          Defaults to h3 when no "as" prop provided
+        </CardDescription>
+      </Card>
+      <Card>
+        <CardTitle as="h4">Subsection (h4)</CardTitle>
+        <CardDescription>Use h4+ for nested content</CardDescription>
+      </Card>
+    </div>
+  ),
+};
+```
 
 # Play Functions
 
@@ -326,6 +361,62 @@ Follow the standard story sequence (see Story Ordering section above) and includ
 - Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`
 - Test rendering, interactions, accessibility, keyboard navigation
 - Verify DOM structure, classes, attributes, content
+
+**Testing polymorphic heading components:**
+
+```tsx
+// ✅ GOOD - Verify heading levels with getByRole
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+
+  // Verify semantic heading levels
+  const h2Title = canvas.getByRole("heading", {
+    level: 2,
+    name: "Section Title",
+  });
+  await expect(h2Title).toBeInTheDocument();
+
+  const h3Title = canvas.getByRole("heading", {
+    level: 3,
+    name: "Default Title",
+  });
+  await expect(h3Title).toBeInTheDocument();
+};
+```
+
+**Testing portal-rendered content (dropdowns, dialogs, tooltips):**
+
+```tsx
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+
+// ✅ GOOD - Use screen for portal-rendered dropdowns
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  
+  // Click to open dropdown
+  const button = canvas.getByRole("button");
+  await userEvent.click(button);
+  
+  // Use screen and waitFor for portal content
+  await waitFor(async () => {
+    const menu = screen.getByRole("menu");
+    await expect(menu).toBeInTheDocument();
+    
+    const menuItem = screen.getByText(/Menu Item/i);
+    await expect(menuItem).toBeInTheDocument();
+  });
+};
+
+// ❌ BAD - Using canvas for portal content
+play: async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const button = canvas.getByRole("button");
+  await userEvent.click(button);
+  
+  // This will fail - portal content is outside canvas scope
+  const menu = canvas.getByRole("menu"); // ❌ Won't find it
+};
+```
 
 # Styling in Stories
 
@@ -358,6 +449,7 @@ If you need a value not in Tailwind's scale, that's a signal to add it to the de
 # argTypes
 
 Organize into categories:
+
 - Content
 - Variants / Styling
 - Behavior
@@ -382,4 +474,3 @@ parameters: {
 ```
 
 The `order` parameter determines the sequence in which examples appear on the documentation site. This ensures a logical, intentional flow for users browsing component examples.
-

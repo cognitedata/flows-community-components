@@ -153,6 +153,46 @@ const CardHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(...)
 CardHeader.displayName = "CardHeader";
 ```
 
+# Semantic HTML & Polymorphic Components
+
+**Title components should support polymorphic heading elements:**
+```tsx
+// Define heading element type
+type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+// ✅ GOOD - Polymorphic Title component with semantic defaults
+const CardTitle = forwardRef<
+  HTMLHeadingElement,
+  ComponentProps<"h3"> & { as?: HeadingElement }
+>(({ className, as: Tag = "h3", ...props }, ref) => {
+  return (
+    <Tag
+      ref={ref}
+      data-slot="card-title"
+      className={cn("font-semibold text-lg", className)}
+      {...props}
+    />
+  );
+});
+CardTitle.displayName = "CardTitle";
+
+// Usage: Proper document hierarchy
+<CardTitle as="h2">Section Title</CardTitle>
+<CardTitle>Default (h3)</CardTitle>
+<CardTitle as="h4">Subsection</CardTitle>
+
+// ❌ BAD - Hardcoded div for titles
+const CardTitle = ({ className, ...props }: ComponentProps<"div">) => (
+  <div className={cn("font-semibold", className)} {...props} />
+);
+```
+
+**Why this matters:**
+- ✅ Maintains proper document outline for screen readers
+- ✅ Improves SEO with semantic heading structure
+- ✅ Allows flexible hierarchy in different contexts
+- ✅ Defaults to sensible heading level (h3 for most card titles)
+
 # Component Naming
 
 - ✅ Clear, descriptive names: `InlineCitation`, `MessageAvatar`
