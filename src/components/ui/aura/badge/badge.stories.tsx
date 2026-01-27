@@ -19,7 +19,7 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   tags: ["autodocs"],
   argTypes: {
-    // Appearance
+    // Display - Visual appearance and styling options
     variant: {
       control: "select",
       options: [
@@ -42,16 +42,17 @@ const meta: Meta<typeof Badge> = {
       ],
       description: "Visual style variant of the badge",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "string" },
         defaultValue: { summary: "default" },
       },
     },
     outline: {
       control: "boolean",
-      description: "Display as an outlined badge with border only",
+      description:
+        "Display as an outlined badge with a border and transparent background instead of a filled background. When enabled, the badge uses a border-only style with 5px horizontal padding (vs default 3px for filled badges) and standard foreground colors (not alternative) for optimal contrast on transparent backgrounds. This prop is only available for semantic variants: `error`, `warning`, `success`, `inProgress` (neutral), and `archived` (undefined). Decorative variants (`mountain`, `fjord`, `nordic`, `aurora`, `dusk`, `orange`) are filled-only and do not support outline styling - attempting to use `outline` with decorative variants will be ignored. When `outline` is `true`, the `background` prop is automatically set to `false` to ensure proper styling. Use outlined badges when you need a more subtle appearance on colored or patterned backgrounds, or when you want to reduce visual weight while maintaining semantic meaning. Outlined badges are particularly useful in dense interfaces or when badges appear over images or gradients.",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -60,7 +61,7 @@ const meta: Meta<typeof Badge> = {
       control: "boolean",
       description: "Whether to display background fill",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "true" },
       },
@@ -69,7 +70,7 @@ const meta: Meta<typeof Badge> = {
       control: "boolean",
       description: "Display as a circular dot indicator",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -78,28 +79,7 @@ const meta: Meta<typeof Badge> = {
       control: "boolean",
       description: "Mark as urgent (applies to dot variant)",
       table: {
-        category: "Appearance",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
-
-    // Content
-    children: {
-      control: "text",
-      description: "Content to display inside the badge",
-      table: {
-        category: "Content",
-        type: { summary: "ReactNode" },
-      },
-    },
-
-    // Advanced
-    asChild: {
-      control: "boolean",
-      description: "Render as child component using Radix Slot",
-      table: {
-        category: "Advanced",
+        category: "Display",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -109,7 +89,7 @@ const meta: Meta<typeof Badge> = {
       options: ["default", "icon"],
       description: "Size variant for the badge",
       table: {
-        category: "Appearance",
+        category: "Display",
         type: { summary: "'default' | 'icon'" },
         defaultValue: { summary: "default" },
       },
@@ -118,8 +98,47 @@ const meta: Meta<typeof Badge> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Advanced",
+        category: "Display",
         type: { summary: "string" },
+      },
+    },
+
+    // Content - Badge content and children
+    children: {
+      control: "text",
+      description: "Content to display inside the badge",
+      table: {
+        category: "Content",
+        type: { summary: "ReactNode" },
+      },
+    },
+
+    // Events - User interaction callbacks
+    onClick: {
+      action: "clicked",
+      description: "Callback when badge is clicked",
+      table: {
+        category: "Events",
+        type: { summary: "(event: MouseEvent) => void" },
+      },
+    },
+    onKeyDown: {
+      action: "keydown",
+      description: "Callback when a key is pressed",
+      table: {
+        category: "Events",
+        type: { summary: "(event: KeyboardEvent) => void" },
+      },
+    },
+
+    // Advanced - Component composition options
+    asChild: {
+      control: "boolean",
+      description: "Render as child component using Radix Slot",
+      table: {
+        category: "Advanced",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
   },
@@ -135,86 +154,727 @@ export default meta;
 type Story = StoryObj<typeof Badge>;
 
 /**
- * Fjord variant - blue-toned for observations and data
+ * All Variants Overview
+ *
+ * Comprehensive showcase of all available badge variants, styles, and configurations.
+ * This story demonstrates:
+ * - Decorative variants (filled-only): mountain, fjord, nordic, aurora, dusk, orange
+ * - Semantic variants (filled): neutral, success, warning, error, undefined
+ * - Semantic variants (outlined): neutral, success, warning, error, undefined
+ * - Size variants: default and icon sizes
+ * - Dot indicator variant
+ *
+ * Each variant is designed for specific use cases:
+ * - Decorative variants: Visual distinction without semantic meaning
+ * - Semantic variants: Convey status, state, or meaning (success, error, etc.)
+ * - Outlined variants: Subtle styling for semantic badges on colored backgrounds
+ */
+export const AllVariants: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Decorative Variants (Filled Only)
+        </p>
+        <p className="text-xs text-muted-foreground mb-3">
+          These variants are decorative and do not convey semantic meaning. They are filled-only and
+          cannot be outlined.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="mountain">Mountain</Badge>
+          <Badge variant="fjord">Fjord</Badge>
+          <Badge variant="nordic">Nordic</Badge>
+          <Badge variant="aurora">Aurora</Badge>
+          <Badge variant="dusk">Dusk</Badge>
+          <Badge variant="orange">Orange</Badge>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">Semantic Variants (Filled)</p>
+        <p className="text-xs text-muted-foreground mb-3">
+          These variants convey meaning and support both filled and outlined styles. Icons are
+          included to demonstrate common usage patterns.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="inProgress">
+            <IconInnerShadowTopLeft className="size-3" />
+            Neutral
+          </Badge>
+          <Badge variant="success">
+            <IconCircleCheck className="size-3" />
+            Success
+          </Badge>
+          <Badge variant="warning">
+            <IconAlertTriangle className="size-3" />
+            Warning
+          </Badge>
+          <Badge variant="error">
+            <IconAlertHexagon className="size-3" />
+            Error
+          </Badge>
+          <Badge variant="archived">
+            <IconArchive className="size-3" />
+            Undefined
+          </Badge>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">Semantic Variants (Outlined)</p>
+        <p className="text-xs text-muted-foreground mb-3">
+          Outlined variants use borders instead of backgrounds, with standard foreground colors for
+          better contrast on transparent backgrounds. Only semantic variants support outline
+          styling.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="inProgress" outline>
+            <IconInnerShadowTopLeft className="size-3" />
+            Neutral
+          </Badge>
+          <Badge variant="success" outline>
+            <IconCircleCheck className="size-3" />
+            Success
+          </Badge>
+          <Badge variant="warning" outline>
+            <IconAlertTriangle className="size-3" />
+            Warning
+          </Badge>
+          <Badge variant="error" outline>
+            <IconAlertHexagon className="size-3" />
+            Error
+          </Badge>
+          <Badge variant="archived" outline>
+            <IconArchive className="size-3" />
+            Undefined
+          </Badge>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">Size Variants</p>
+        <p className="text-xs text-muted-foreground mb-3">
+          Badges support two size variants: default (for text content) and icon (compact size for
+          icon-only badges).
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="success" size="default">
+            <IconCircleCheck className="size-3" />
+            Default Size
+          </Badge>
+          <Badge variant="success" size="icon">
+            <IconCircleCheck className="size-3" />
+          </Badge>
+          <Badge variant="error" size="default">
+            <IconAlertHexagon className="size-3" />
+            Default Size
+          </Badge>
+          <Badge variant="error" size="icon">
+            <IconAlertHexagon className="size-3" />
+          </Badge>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium text-foreground mb-3">Dot Indicator</p>
+        <p className="text-xs text-muted-foreground mb-3">
+          Dot variant displays as a circular indicator, useful for status indicators and
+          notifications.
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="success" dot />
+          <Badge variant="error" dot />
+          <Badge variant="warning" dot />
+          <Badge variant="inProgress" dot />
+          <Badge variant="error" dot urgent />
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Comprehensive overview of all available badge variants, styles, and configurations. This story demonstrates decorative variants (filled-only), semantic variants (both filled and outlined), size options, and dot indicators. Each section includes explanatory text to help understand when and how to use each variant. The play function verifies that all badges render correctly with proper styling classes and attributes.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify total badge count - should have at least 16 badges (6 decorative + 5 semantic filled + 5 outlined)
+    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
+    await expect(badges.length).toBeGreaterThanOrEqual(16);
+
+    // Verify decorative variants render with correct classes
+    const mountainBadge = canvas.getByText("Mountain");
+    await expect(mountainBadge).toBeInTheDocument();
+    await expect(mountainBadge).toHaveClass("bg-decorative-background-mountain");
+
+    const fjordBadge = canvas.getByText("Fjord");
+    await expect(fjordBadge).toBeInTheDocument();
+    await expect(fjordBadge).toHaveClass("bg-decorative-background-fjord");
+
+    const orangeBadge = canvas.getByText("Orange");
+    await expect(orangeBadge).toBeInTheDocument();
+    await expect(orangeBadge).toHaveClass("bg-decorative-background-orange");
+
+    // Verify semantic filled variants render with correct classes
+    // There are multiple "Success" badges (filled and outlined), so find the filled one specifically
+    const successBadges = canvas.getAllByText("Success");
+    await expect(successBadges.length).toBeGreaterThanOrEqual(2); // At least filled and outlined
+
+    // Find the filled Success badge by checking all badges with Success text
+    const allBadgesForSemantic = canvasElement.querySelectorAll('[data-slot="badge"]');
+    const filledSuccessElement = Array.from(allBadgesForSemantic).find((badge) => {
+      const text = badge.textContent || "";
+      const hasSuccess = text.includes("Success");
+      const hasBgSuccess = badge.classList.contains("bg-success");
+      const notOutlined = !badge.classList.contains("border-border");
+      return hasSuccess && hasBgSuccess && notOutlined;
+    });
+    expect(filledSuccessElement).toBeDefined();
+    expect(filledSuccessElement?.classList.contains("bg-success")).toBe(true);
+    expect(filledSuccessElement?.classList.contains("text-success-foreground-alternate")).toBe(
+      true
+    );
+
+    // There are multiple "Error" badges (filled and outlined), so find the filled one specifically
+    const errorBadges = canvas.getAllByText("Error");
+    await expect(errorBadges.length).toBeGreaterThanOrEqual(2); // At least filled and outlined
+
+    // Find the filled Error badge by checking all badges with Error text
+    const filledErrorElement = Array.from(allBadgesForSemantic).find((badge) => {
+      const text = badge.textContent || "";
+      const hasError = text.includes("Error");
+      const hasBgDestructive = badge.classList.contains("bg-destructive");
+      const notOutlined = !badge.classList.contains("border-border");
+      return hasError && hasBgDestructive && notOutlined;
+    });
+    expect(filledErrorElement).toBeDefined();
+    expect(filledErrorElement?.classList.contains("bg-destructive")).toBe(true);
+    expect(filledErrorElement?.classList.contains("text-destructive-foreground-alternate")).toBe(
+      true
+    );
+
+    // Verify outlined variants have borders and no backgrounds
+    // Find all badges and filter for outlined ones (they have border-border class)
+    const allBadgesForOutlined = canvasElement.querySelectorAll('[data-slot="badge"]');
+    const outlinedBadges = Array.from(allBadgesForOutlined).filter((badge) =>
+      badge.classList.contains("border-border")
+    );
+    await expect(outlinedBadges.length).toBeGreaterThanOrEqual(5);
+
+    // Verify at least one outlined badge has correct styling
+    // Find the outlined Success badge by looking for Success text in outlined badges
+    const outlinedSuccessElements = Array.from(allBadgesForOutlined).filter((badge) => {
+      const hasBorder = badge.classList.contains("border-border");
+      const hasSuccessText = badge.textContent?.includes("Success");
+      return hasBorder && hasSuccessText;
+    });
+    await expect(outlinedSuccessElements.length).toBeGreaterThan(0);
+
+    // Verify the first outlined success badge has correct classes
+    const outlinedSuccess = outlinedSuccessElements[0];
+    expect(outlinedSuccess.classList.contains("border-border")).toBe(true);
+    expect(outlinedSuccess.classList.contains("text-success-foreground")).toBe(true);
+    expect(outlinedSuccess.classList.contains("bg-success")).toBe(false);
+
+    // Verify size variants exist
+    // Default size badges have "Default Size" text (there are multiple - success and error)
+    const defaultSizeBadges = canvas.getAllByText("Default Size", {
+      exact: false,
+    });
+    await expect(defaultSizeBadges.length).toBeGreaterThanOrEqual(2);
+
+    // Icon size badges are icon-only (no text content beyond the icon itself)
+    // We can verify by checking that badges with just icons exist
+    const allBadges = canvasElement.querySelectorAll('[data-slot="badge"]');
+    const iconOnlyBadges = Array.from(allBadges).filter((badge) => {
+      // Icon-only badges have minimal text (just whitespace or very short)
+      const text = badge.textContent?.trim() || "";
+      // Check if badge contains an icon but has minimal text
+      const hasIcon = badge.querySelector("svg");
+      return hasIcon && text.length < 3;
+    });
+    await expect(iconOnlyBadges.length).toBeGreaterThanOrEqual(2);
+
+    // Verify dot indicators render
+    const dotBadges = canvasElement.querySelectorAll('[data-slot="badge"].rounded-full');
+    await expect(dotBadges.length).toBeGreaterThanOrEqual(4);
+
+    // Verify all expected text content exists
+    const textContent = canvasElement.textContent || "";
+    expect(textContent).toContain("Mountain");
+    expect(textContent).toContain("Fjord");
+    expect(textContent).toContain("Nordic");
+    expect(textContent).toContain("Aurora");
+    expect(textContent).toContain("Dusk");
+    expect(textContent).toContain("Orange");
+    expect(textContent).toContain("Neutral");
+    expect(textContent).toContain("Success");
+    expect(textContent).toContain("Warning");
+    expect(textContent).toContain("Error");
+    expect(textContent).toContain("Undefined");
+  },
+};
+
+/**
+ * Mountain variant - neutral decorative badge
+ *
+ * The Mountain variant uses a neutral decorative background color, making it ideal
+ * for subtle labels, tags, and non-semantic categorization. This variant is
+ * filled-only and does not support outline styling. Use Mountain badges when you
+ * need visual distinction without conveying specific meaning or status.
+ *
+ * Common use cases:
+ * - Category labels
+ * - Non-semantic tags
+ * - Subtle visual grouping
+ * - Neutral decorative elements
+ */
+export const Mountain: Story = {
+  args: {
+    variant: "mountain",
+    children: "Mountain",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Mountain variant uses the neutral decorative background with mountain color palette. This is a filled-only variant, perfect for subtle labels and tags that don't require emphasis or semantic meaning. The Mountain badge provides visual distinction without conveying status or urgency, making it ideal for categorization and decorative purposes.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Mountain");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-decorative-background-mountain");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-decorative-foreground-mountain");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+  },
+};
+
+/**
+ * Fjord variant - cool blue decorative badge
+ *
+ * The Fjord variant uses a cool blue decorative background color, making it ideal
+ * for data visualization, analytics, and cool-toned design accents. This variant
+ * is filled-only and does not support outline styling. Use Fjord badges when you
+ * need a cool, calming visual element that suggests data, technology, or analytical
+ * content.
+ *
+ * Common use cases:
+ * - Data visualization labels
+ * - Analytics tags
+ * - Technology-related categories
+ * - Cool-toned design accents
+ * - Information architecture labels
  */
 export const Fjord: Story = {
-  render: () => <Badge variant="fjord">Observations</Badge>,
   args: {
     variant: "fjord",
+    children: "Fjord",
   },
   parameters: {
     order: 1,
     docs: {
       description: {
         story:
-          "Fjord variant uses a blue colour scheme ideal for observations, data points, and informational content. This variant helps differentiate data-related badges in your interface.",
+          "Fjord variant uses a cool blue decorative background with fjord color palette. This is a filled-only variant, ideal for data visualization, analytics, and cool-toned accents. The Fjord badge provides a calming, professional appearance that works well in technical and analytical contexts without conveying semantic meaning.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Observations");
 
+    // Verify badge renders
+    const badge = canvas.getByText("Fjord");
     await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
     await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
     await expect(badge).toHaveClass("bg-decorative-background-fjord");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-decorative-foreground-fjord");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
   },
 };
 
 /**
- * Aurora variant - vibrant for troubleshooting and alerts
+ * Nordic variant - cool green decorative badge
+ *
+ * The Nordic variant uses a cool green decorative background color, making it ideal
+ * for nature-themed content, environmental categories, and cool green design accents.
+ * This variant is filled-only and does not support outline styling. Use Nordic badges
+ * when you need a fresh, natural visual element that suggests growth, environment, or
+ * organic content.
+ *
+ * Common use cases:
+ * - Nature and environmental labels
+ * - Growth and sustainability tags
+ * - Organic content categories
+ * - Cool green design accents
+ * - Natural resource indicators
  */
-export const Aurora: Story = {
-  render: () => <Badge variant="aurora">Troubleshooting</Badge>,
+export const Nordic: Story = {
   args: {
-    variant: "aurora",
+    variant: "nordic",
+    children: "Nordic",
   },
   parameters: {
     order: 2,
     docs: {
       description: {
         story:
-          "Aurora variant features a vibrant colour scheme perfect for troubleshooting, alerts, and attention-grabbing labels. Use this when you need to highlight important information.",
+          "Nordic variant uses a cool green decorative background with nordic color palette. This is a filled-only variant, perfect for nature-themed content, environmental categories, and cool green accents. The Nordic badge provides a fresh, natural appearance that works well for environmental, growth, and organic content without conveying semantic meaning.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Troubleshooting");
 
+    // Verify badge renders
+    const badge = canvas.getByText("Nordic");
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-decorative-background-aurora");
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-decorative-background-nordic");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-decorative-foreground-nordic");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
   },
 };
 
 /**
- * Mountain variant - green-toned for plans and goals
+ * Aurora variant - lime green decorative badge
+ *
+ * The Aurora variant uses a vibrant lime green decorative background color, making it
+ * ideal for attention-grabbing highlights, energetic content, and vibrant design accents.
+ * This variant is filled-only and does not support outline styling. Use Aurora badges
+ * when you need a bold, energetic visual element that stands out and suggests energy,
+ * innovation, or high visibility.
+ *
+ * Common use cases:
+ * - Attention-grabbing highlights
+ * - Energetic content labels
+ * - Innovation and creativity tags
+ * - High-visibility indicators
+ * - Vibrant design accents
  */
-export const Mountain: Story = {
-  render: () => (
-    <Badge variant="mountain">
-      <IconHexagon className="size-3" />
-      Plans
-    </Badge>
-  ),
+export const Aurora: Story = {
   args: {
-    variant: "mountain",
+    variant: "aurora",
+    children: "Aurora",
   },
   parameters: {
     order: 3,
     docs: {
       description: {
         story:
-          "Mountain variant uses a green colour scheme suitable for plans, goals, and growth-related content. Perfect for project statuses and achievement indicators. Can be combined with icons.",
+          "Aurora variant uses a vibrant lime green decorative background with aurora color palette. This is a filled-only variant, great for attention-grabbing highlights and energetic content. The Aurora badge provides a bold, vibrant appearance that works well for high-visibility elements, innovation indicators, and energetic design accents without conveying semantic meaning.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Plans");
 
+    // Verify badge renders
+    const badge = canvas.getByText("Aurora");
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-decorative-background-mountain");
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-decorative-background-aurora");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-decorative-foreground-aurora");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+  },
+};
+
+/**
+ * Dusk variant - magenta decorative badge
+ *
+ * The Dusk variant uses a magenta decorative background color, making it ideal for
+ * creative content, artistic categories, and purple/magenta design accents. This variant
+ * is filled-only and does not support outline styling. Use Dusk badges when you need
+ * a creative, artistic visual element that suggests innovation, creativity, or artistic
+ * content.
+ *
+ * Common use cases:
+ * - Creative content labels
+ * - Artistic category tags
+ * - Purple/magenta design accents
+ * - Innovation indicators
+ * - Creative project categories
+ */
+export const Dusk: Story = {
+  args: {
+    variant: "dusk",
+    children: "Dusk",
+  },
+  parameters: {
+    order: 4,
+    docs: {
+      description: {
+        story:
+          "Dusk variant uses a magenta decorative background with dusk color palette. This is a filled-only variant, perfect for creative content, artistic categories, and purple/magenta accents. The Dusk badge provides a creative, artistic appearance that works well for innovation indicators, creative projects, and artistic design elements without conveying semantic meaning.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Dusk");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-decorative-background-dusk");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-decorative-foreground-dusk");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+  },
+};
+
+/**
+ * Orange variant - warm orange decorative badge
+ *
+ * The Orange variant uses a warm orange decorative background color, making it ideal
+ * for warm design accents, data visualization, and attention-grabbing highlights.
+ * This variant is filled-only and does not support outline styling. Use Orange badges
+ * when you need a warm, energetic visual element that suggests energy, warmth, or
+ * data visualization categories.
+ *
+ * Common use cases:
+ * - Warm design accents
+ * - Data visualization labels
+ * - Energy and activity indicators
+ * - Attention-grabbing highlights
+ * - Temperature or heat-related categories
+ */
+export const Orange: Story = {
+  args: {
+    variant: "orange",
+    children: "Orange",
+  },
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story:
+          "Orange variant uses a warm orange decorative background with orange color palette. This is a filled-only variant, ideal for warm accents and data visualization. The Orange badge provides a warm, energetic appearance that works well for data visualization categories, energy indicators, and warm design accents without conveying semantic meaning.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Orange");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-decorative-background-orange");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-decorative-foreground-orange");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+  },
+};
+
+/**
+ * Secondary variant - subtle neutral badge
+ *
+ * The Secondary variant uses the secondary background color, making it ideal for
+ * subtle labels, tags, and less prominent status indicators. This variant provides
+ * a neutral, understated appearance that works well for secondary information or
+ * when you need a badge that doesn't compete with primary content. Use Secondary
+ * badges when you need a subtle visual distinction without strong emphasis.
+ *
+ * Common use cases:
+ * - Subtle category labels
+ * - Secondary status indicators
+ * - Less prominent tags
+ * - Neutral decorative elements
+ * - Supporting information badges
+ */
+export const Secondary: Story = {
+  args: {
+    variant: "secondary",
+    children: "Secondary",
+  },
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story:
+          "Secondary variant uses the secondary background color for a subtle, neutral appearance. This variant is ideal for less prominent labels, tags, and status indicators that don't require strong visual emphasis. The Secondary badge provides a neutral, understated appearance that works well for supporting information or when you need visual distinction without competing with primary content.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Secondary");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-secondary");
+
+    // Verify correct foreground class
+    await expect(badge).toHaveClass("text-secondary-foreground");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+  },
+};
+
+/**
+ * Neutral variant - informational status badge
+ *
+ * The Neutral variant (inProgress) represents informational or in-progress states.
+ * It uses a gray background with alternative foreground color for optimal contrast.
+ * This variant supports both filled and outlined styles, making it versatile for
+ * different design contexts. Use Neutral badges to indicate ongoing processes,
+ * informational content, or neutral status without positive or negative connotation.
+ *
+ * Common use cases:
+ * - In-progress indicators
+ * - Informational status labels
+ * - Neutral state indicators
+ * - Process status tags
+ * - Non-urgent notifications
+ */
+export const Neutral: Story = {
+  args: {
+    variant: "inProgress",
+    children: (
+      <>
+        <IconInnerShadowTopLeft className="size-3" />
+        Neutral
+      </>
+    ),
+  },
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story:
+          "Neutral variant represents informational or in-progress states. Uses gray background with alternative foreground for better contrast. Supports both filled and outlined styles. The Neutral badge is ideal for indicating ongoing processes, informational content, or neutral status without conveying positive or negative meaning.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Neutral");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-neutral");
+
+    // Verify correct foreground class (alternative for filled variant)
+    await expect(badge).toHaveClass("text-neutral-foreground-alternate");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
     // Verify icon is present
     const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
@@ -222,344 +882,604 @@ export const Mountain: Story = {
 };
 
 /**
- * Dusk variant - purple-toned for RCA and analysis
+ * Success variant - positive status badge
+ *
+ * The Success variant indicates positive outcomes, completed tasks, or successful
+ * operations. It uses a green background with alternative foreground color for
+ * optimal contrast. This variant supports both filled and outlined styles, making
+ * it versatile for different design contexts. Use Success badges to communicate
+ * positive states, completion, or successful operations.
+ *
+ * Common use cases:
+ * - Completed task indicators
+ * - Successful operation status
+ * - Positive state labels
+ * - Achievement indicators
+ * - Confirmation badges
  */
-export const Dusk: Story = {
-  render: () => <Badge variant="dusk">RCA</Badge>,
+export const Success: Story = {
   args: {
-    variant: "dusk",
-  },
-  parameters: {
-    order: 4,
-    docs: {
-      description: {
-        story:
-          "Dusk variant features a purple colour scheme ideal for Root Cause Analysis (RCA), investigative work, and analytical content. Use this variant to highlight review and analysis activities.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("RCA");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-decorative-background-dusk");
-  },
-};
-
-/**
- * Secondary variant - neutral for general use
- */
-export const Secondary: Story = {
-  render: () => (
-    <Badge variant="secondary">
-      <IconHexagon className="size-3 rotate-90" />
-      Asset
-    </Badge>
-  ),
-  args: {
-    variant: "secondary",
-  },
-  parameters: {
-    order: 5,
-    docs: {
-      description: {
-        story:
-          "Secondary variant provides a neutral, understated appearance for general-purpose badges. Ideal when you need to display information without drawing too much attention.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Asset");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-secondary");
-    // Verify rotated icon
-    const icon = badge.querySelector("svg");
-    await expect(icon).toHaveClass("rotate-90");
-  },
-};
-
-/**
- * Error variant - red for errors and critical issues
- */
-export const ErrorBadge: Story = {
-  render: () => (
-    <Badge variant="error" background={false}>
-      <IconAlertHexagon className="size-3" />
-      Error
-    </Badge>
-  ),
-  args: {
-    variant: "error",
-    background: false,
-  },
-  parameters: {
-    order: 6,
-    docs: {
-      description: {
-        story:
-          "Error variant uses a red colour scheme to indicate errors, failures, and critical issues. This variant immediately draws attention to problems that need resolution. Shown here without background fill.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Error");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("bg-transparent");
-    await expect(badge).toHaveClass("text-destructive-foreground");
-  },
-};
-
-/**
- * Error variant with outline - red for errors and critical issues
- */
-export const ErrorOutline: Story = {
-  render: () => (
-    <Badge variant="error" outline>
-      <IconAlertHexagon className="size-3" />
-      Error
-    </Badge>
-  ),
-  args: {
-    variant: "error",
-    outline: true,
-  },
-  parameters: {
-    order: 7,
-    docs: {
-      description: {
-        story:
-          "Error variant with outline styling for a more subtle approach to error indication. The outline prop removes the background and adds a border, making it less visually dominant while still conveying importance.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Error");
-
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("border-current");
-    await expect(badge).toHaveClass("px-0.75");
-  },
-};
-
-/**
- * Warning variant - orange/yellow for warnings
- */
-export const Warning: Story = {
-  render: () => (
-    <Badge variant="warning" background={false}>
-      <IconAlertTriangle className="size-3" />
-      Warning
-    </Badge>
-  ),
-  args: {
-    variant: "warning",
-    background: false,
+    variant: "success",
+    children: (
+      <>
+        <IconCircleCheck className="size-3" />
+        Success
+      </>
+    ),
   },
   parameters: {
     order: 8,
     docs: {
       description: {
         story:
-          "Warning variant uses an orange/yellow colour scheme for warnings, cautions, and issues requiring attention but not critical. Use this when you want to alert users without causing alarm.",
+          "Success variant indicates positive outcomes, completed tasks, or successful operations. Uses green background with alternative foreground for better contrast. Supports both filled and outlined styles. The Success badge is ideal for communicating positive states, completion, or successful operations with clear visual distinction.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Warning");
 
+    // Verify badge renders
+    const badge = canvas.getByText("Success");
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("text-warning-foreground");
-    // Verify alert icon is present
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-success");
+
+    // Verify correct foreground class (alternative for filled variant)
+    await expect(badge).toHaveClass("text-success-foreground-alternate");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
     const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
 
 /**
- * Warning variant with outline - orange/yellow for warnings
+ * Warning variant - caution status badge
+ *
+ * The Warning variant indicates caution, attention needed, or pending states.
+ * It uses an amber background with alternative foreground color for optimal
+ * contrast. This variant supports both filled and outlined styles, making it
+ * versatile for different design contexts. Use Warning badges to communicate
+ * caution, pending states, or situations that require attention.
+ *
+ * Common use cases:
+ * - Caution indicators
+ * - Pending state labels
+ * - Attention-required status
+ * - Warning messages
+ * - Alert notifications
  */
-export const WarningOutline: Story = {
-  render: (args) => (
-    <Badge {...args}>
-      <IconAlertTriangle className="size-3" />
-      Warning
-    </Badge>
-  ),
+export const Warning: Story = {
   args: {
     variant: "warning",
+    children: (
+      <>
+        <IconAlertTriangle className="size-3" />
+        Warning
+      </>
+    ),
+  },
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story:
+          "Warning variant indicates caution, attention needed, or pending states. Uses amber background with alternative foreground for better contrast. Supports both filled and outlined styles. The Warning badge is ideal for communicating caution, pending states, or situations that require user attention with clear visual distinction.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Warning");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-warning");
+
+    // Verify correct foreground class (alternative for filled variant)
+    await expect(badge).toHaveClass("text-warning-foreground-alternate");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
+    const icon = badge.querySelector("svg");
+    await expect(icon).toBeInTheDocument();
+  },
+};
+
+/**
+ * Error variant - negative status badge
+ *
+ * The Error variant indicates failures, errors, or destructive actions. It uses
+ * a red background with alternative foreground color for optimal contrast. This
+ * variant supports both filled and outlined styles, making it versatile for
+ * different design contexts. Use Error badges to communicate failures, errors,
+ * or destructive states that require immediate attention.
+ *
+ * Common use cases:
+ * - Error indicators
+ * - Failure status labels
+ * - Destructive action warnings
+ * - Critical alert notifications
+ * - Problem state indicators
+ */
+export const ErrorState: Story = {
+  args: {
+    variant: "error",
+    children: (
+      <>
+        <IconAlertHexagon className="size-3" />
+        Error
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Error variant indicates failures, errors, or destructive actions. Uses red background with alternative foreground for better contrast. Supports both filled and outlined styles. The Error badge is ideal for communicating failures, errors, or destructive states that require immediate attention with clear visual distinction.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Error");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-destructive");
+
+    // Verify correct foreground class (alternative for filled variant)
+    await expect(badge).toHaveClass("text-destructive-foreground-alternate");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
+    const icon = badge.querySelector("svg");
+    await expect(icon).toBeInTheDocument();
+  },
+};
+
+/**
+ * Undefined variant - unknown/archived status badge
+ *
+ * The Undefined variant (archived) represents unknown, archived, or undefined states.
+ * It uses a mountain background with alternative foreground color for optimal contrast.
+ * This variant supports both filled and outlined styles, making it versatile for
+ * different design contexts. Use Undefined badges to indicate archived content,
+ * unknown states, or undefined status that doesn't fit other semantic categories.
+ *
+ * Common use cases:
+ * - Archived content labels
+ * - Unknown state indicators
+ * - Undefined status tags
+ * - Neutral categorization
+ * - Placeholder status
+ */
+export const Undefined: Story = {
+  args: {
+    variant: "archived",
+    children: (
+      <>
+        <IconArchive className="size-3" />
+        Undefined
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Undefined variant represents unknown, archived, or undefined states. Uses mountain background with alternative foreground for better contrast. Supports both filled and outlined styles. The Undefined badge is ideal for indicating archived content, unknown states, or undefined status that doesn't fit other semantic categories.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Undefined");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify correct background class
+    await expect(badge).toHaveClass("bg-undefined");
+
+    // Verify correct foreground class (alternative for filled variant)
+    await expect(badge).toHaveClass("text-undefined-foreground-alternate");
+
+    // Verify it's a filled variant (has background, not outlined)
+    await expect(badge).not.toHaveClass("border-border");
+    await expect(badge).toHaveClass("border-transparent");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
+    const icon = badge.querySelector("svg");
+    await expect(icon).toBeInTheDocument();
+  },
+};
+
+/**
+ * Neutral outlined variant - informational status badge with border
+ *
+ * The Neutral outlined variant uses a border-only style with transparent background,
+ * providing a more subtle appearance while maintaining semantic meaning. It uses standard
+ * foreground color (not alternative) for optimal contrast on transparent backgrounds.
+ * This style is ideal for dense interfaces, colored backgrounds, or when you want to
+ * reduce visual weight while maintaining the informational status indication.
+ *
+ * Common use cases:
+ * - Subtle in-progress indicators
+ * - Informational badges on colored backgrounds
+ * - Dense interface layouts
+ * - Reduced visual weight requirements
+ * - Over images or gradients
+ */
+export const NeutralOutlined: Story = {
+  args: {
+    variant: "inProgress",
     outline: true,
+    children: (
+      <>
+        <IconInnerShadowTopLeft className="size-3" />
+        Neutral
+      </>
+    ),
   },
   parameters: {
     order: 9,
     docs: {
       description: {
         story:
-          "Warning variant with outline styling provides a more subtle warning indicator. The outline prop makes it less prominent while still conveying caution.",
+          "Neutral variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background. The outlined style provides a more subtle appearance while maintaining semantic meaning, ideal for dense interfaces or when badges appear over colored backgrounds or images.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Warning");
 
+    // Verify badge renders
+    const badge = canvas.getByText("Neutral");
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("border-current");
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify outline styling
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-neutral-foreground");
+
+    // Verify no background (outlined variant)
+    await expect(badge).not.toHaveClass("bg-neutral");
+    await expect(badge).toHaveClass("bg-transparent");
+
+    // Verify outline padding (5px)
+    await expect(badge).toHaveClass("px-1.25");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
+    const icon = badge.querySelector("svg");
+    await expect(icon).toBeInTheDocument();
   },
 };
 
 /**
- * Success variant - green for successful operations
+ * Success outlined variant - positive status badge with border
+ *
+ * The Success outlined variant uses a border-only style with transparent background,
+ * providing a more subtle appearance while maintaining semantic meaning. It uses standard
+ * foreground color (not alternative) for optimal contrast on transparent backgrounds.
+ * This style is ideal for dense interfaces, colored backgrounds, or when you want to
+ * reduce visual weight while maintaining the positive status indication.
+ *
+ * Common use cases:
+ * - Subtle success indicators
+ * - Positive badges on colored backgrounds
+ * - Dense interface layouts
+ * - Reduced visual weight requirements
+ * - Over images or gradients
  */
-export const Success: Story = {
-  render: () => (
-    <Badge variant="success" background={false}>
-      <IconCircleCheck className="size-3" />
-      Success
-    </Badge>
-  ),
+export const SuccessOutlined: Story = {
   args: {
     variant: "success",
-    background: false,
+    outline: true,
+    children: (
+      <>
+        <IconCircleCheck className="size-3" />
+        Success
+      </>
+    ),
   },
   parameters: {
     order: 10,
     docs: {
       description: {
         story:
-          "Success variant uses a green colour scheme to indicate successful operations, completed tasks, and positive outcomes. Perfect for confirmations and achievement indicators.",
+          "Success variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background. The outlined style provides a more subtle appearance while maintaining semantic meaning, ideal for dense interfaces or when badges appear over colored backgrounds or images.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Success");
 
+    // Verify badge renders
+    const badge = canvas.getByText("Success");
     await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify outline styling
+    await expect(badge).toHaveClass("border-border");
     await expect(badge).toHaveClass("text-success-foreground");
-    // Verify check icon is present
+
+    // Verify no background (outlined variant)
+    await expect(badge).not.toHaveClass("bg-success");
+    await expect(badge).toHaveClass("bg-transparent");
+
+    // Verify outline padding (5px)
+    await expect(badge).toHaveClass("px-1.25");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
     const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
 
 /**
- * In Progress variant - for ongoing operations
+ * Warning outlined variant - caution status badge with border
+ *
+ * The Warning outlined variant uses a border-only style with transparent background,
+ * providing a more subtle appearance while maintaining semantic meaning. It uses standard
+ * foreground color (not alternative) for optimal contrast on transparent backgrounds.
+ * This style is ideal for dense interfaces, colored backgrounds, or when you want to
+ * reduce visual weight while maintaining the caution status indication.
+ *
+ * Common use cases:
+ * - Subtle warning indicators
+ * - Caution badges on colored backgrounds
+ * - Dense interface layouts
+ * - Reduced visual weight requirements
+ * - Over images or gradients
  */
-export const InProgress: Story = {
-  render: () => (
-    <Badge variant="inProgress" background={false}>
-      <IconInnerShadowTopLeft className="size-3" />
-      In progress
-    </Badge>
-  ),
+export const WarningOutlined: Story = {
   args: {
-    variant: "inProgress",
-    background: false,
+    variant: "warning",
+    outline: true,
+    children: (
+      <>
+        <IconAlertTriangle className="size-3" />
+        Warning
+      </>
+    ),
   },
   parameters: {
     order: 11,
     docs: {
       description: {
         story:
-          "In Progress variant indicates ongoing operations, tasks in process, or active states. Use this to show users that something is currently happening or being worked on.",
+          "Warning variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background. The outlined style provides a more subtle appearance while maintaining semantic meaning, ideal for dense interfaces or when badges appear over colored backgrounds or images.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("In progress");
 
+    // Verify badge renders
+    const badge = canvas.getByText("Warning");
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("text-neutral-foreground");
-  },
-};
 
-/**
- * Archived variant - for archived or inactive items
- */
-export const Archived: Story = {
-  render: () => (
-    <Badge variant="archived" background={false}>
-      <IconArchive className="size-3" />
-      Archived
-    </Badge>
-  ),
-  args: {
-    variant: "archived",
-    background: false,
-  },
-  parameters: {
-    order: 12,
-    docs: {
-      description: {
-        story:
-          "Archived variant is designed for archived, inactive, or deprecated items. Use this to clearly indicate content that is no longer active but still accessible.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badge = canvas.getByText("Archived");
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
 
-    await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("text-undefined-foreground");
-    // Verify archive icon is present
+    // Verify outline styling
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-warning-foreground");
+
+    // Verify no background (outlined variant)
+    await expect(badge).not.toHaveClass("bg-warning");
+    await expect(badge).toHaveClass("bg-transparent");
+
+    // Verify outline padding (5px)
+    await expect(badge).toHaveClass("px-1.25");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
     const icon = badge.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
 };
 
 /**
- * All Variants Overview
+ * Error outlined variant - negative status badge with border
+ *
+ * The Error outlined variant uses a border-only style with transparent background,
+ * providing a more subtle appearance while maintaining semantic meaning. It uses standard
+ * foreground color (not alternative) for optimal contrast on transparent backgrounds.
+ * This style is ideal for dense interfaces, colored backgrounds, or when you want to
+ * reduce visual weight while maintaining the error status indication.
+ *
+ * Common use cases:
+ * - Subtle error indicators
+ * - Error badges on colored backgrounds
+ * - Dense interface layouts
+ * - Reduced visual weight requirements
+ * - Over images or gradients
  */
-export const AllVariants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="default">Default</Badge>
-      <Badge variant="fjord">Fjord</Badge>
-      <Badge variant="nordic">Nordic</Badge>
-      <Badge variant="aurora">Aurora</Badge>
-      <Badge variant="sky">Sky</Badge>
-      <Badge variant="dusk">Dusk</Badge>
-      <Badge variant="orange">Orange</Badge>
-      <Badge variant="gray">Gray</Badge>
-      <Badge variant="mountain">Mountain</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="error">Error</Badge>
-      <Badge variant="warning">Warning</Badge>
-      <Badge variant="success">Success</Badge>
-      <Badge variant="inProgress">In Progress</Badge>
-      <Badge variant="archived">Archived</Badge>
-      <Badge variant="closable">
-        Closable
-        <IconX className="size-3" />
-      </Badge>
-    </div>
-  ),
+export const ErrorOutlined: Story = {
+  args: {
+    variant: "error",
+    outline: true,
+    children: (
+      <>
+        <IconAlertHexagon className="size-3" />
+        Error
+      </>
+    ),
+  },
   parameters: {
-    order: 13,
+    order: 12,
     docs: {
       description: {
         story:
-          "Overview of all available badge variants showing the full colour palette and semantic options. Each variant is designed for specific use cases and contexts.",
+          "Error variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background. The outlined style provides a more subtle appearance while maintaining semantic meaning, ideal for dense interfaces or when badges appear over colored backgrounds or images.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all variants render
-    await expect(canvas.getByText("Default")).toBeInTheDocument();
-    await expect(canvas.getByText("Fjord")).toBeInTheDocument();
-    await expect(canvas.getByText("Nordic")).toBeInTheDocument();
-    await expect(canvas.getByText("Closable")).toBeInTheDocument();
+    // Verify badge renders
+    const badge = canvas.getByText("Error");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify outline styling
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-destructive-foreground");
+
+    // Verify no background (outlined variant)
+    await expect(badge).not.toHaveClass("bg-destructive");
+    await expect(badge).toHaveClass("bg-transparent");
+
+    // Verify outline padding (5px)
+    await expect(badge).toHaveClass("px-1.25");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
+    const icon = badge.querySelector("svg");
+    await expect(icon).toBeInTheDocument();
+  },
+};
+
+/**
+ * Undefined outlined variant - unknown/archived status badge with border
+ *
+ * The Undefined outlined variant uses a border-only style with transparent background,
+ * providing a more subtle appearance while maintaining semantic meaning. It uses standard
+ * foreground color (not alternative) for optimal contrast on transparent backgrounds.
+ * This style is ideal for dense interfaces, colored backgrounds, or when you want to
+ * reduce visual weight while maintaining the undefined/archived status indication.
+ *
+ * Common use cases:
+ * - Subtle archived indicators
+ * - Undefined badges on colored backgrounds
+ * - Dense interface layouts
+ * - Reduced visual weight requirements
+ * - Over images or gradients
+ */
+export const UndefinedOutlined: Story = {
+  args: {
+    variant: "archived",
+    outline: true,
+    children: (
+      <>
+        <IconArchive className="size-3" />
+        Undefined
+      </>
+    ),
+  },
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story:
+          "Undefined variant with outline style. Uses border instead of background fill, with standard foreground color for better contrast on transparent background. The outlined style provides a more subtle appearance while maintaining semantic meaning, ideal for dense interfaces or when badges appear over colored backgrounds or images.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify badge renders
+    const badge = canvas.getByText("Undefined");
+    await expect(badge).toBeInTheDocument();
+
+    // Verify correct data attribute
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+
+    // Verify outline styling
+    await expect(badge).toHaveClass("border-border");
+    await expect(badge).toHaveClass("text-undefined-foreground");
+
+    // Verify no background (outlined variant)
+    await expect(badge).not.toHaveClass("bg-undefined");
+    await expect(badge).toHaveClass("bg-transparent");
+
+    // Verify outline padding (5px)
+    await expect(badge).toHaveClass("px-1.25");
+
+    // Verify base badge classes
+    await expect(badge).toHaveClass("rounded-md");
+    await expect(badge).toHaveClass("inline-flex");
+    await expect(badge).toHaveClass("items-center");
+
+    // Verify icon is present
+    const icon = badge.querySelector("svg");
+    await expect(icon).toBeInTheDocument();
   },
 };
 
@@ -574,19 +1494,19 @@ export const IconSizes: Story = {
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">
             <IconHexagon className="size-3" />
-            Plans
+            Mountain
           </Badge>
           <Badge variant="fjord">
             <IconStar className="size-3" />
-            Featured
+            Fjord
           </Badge>
           <Badge variant="aurora">
             <IconCircleCheck className="size-3" />
-            Complete
+            Aurora
           </Badge>
           <Badge variant="dusk">
             <IconUser className="size-3" />
-            Admin
+            Dusk
           </Badge>
         </div>
       </div>
@@ -642,9 +1562,9 @@ export const IconSizes: Story = {
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
 
-    // Find badges with icon size
-    const iconSizeBadges = Array.from(badges).filter((badge) =>
-      badge.classList.contains("rounded-md")
+    // Find badges with icon size (they have px-1.5 py-1 classes from size="icon")
+    const iconSizeBadges = Array.from(badges).filter(
+      (badge) => badge.classList.contains("px-1.5") && badge.classList.contains("py-1")
     );
 
     // Verify icon size badges have correct styling
@@ -654,7 +1574,8 @@ export const IconSizes: Story = {
       expect(badge).toHaveClass("rounded-md");
     });
 
-    await expect(iconSizeBadges.length).toBeGreaterThan(0);
+    // Should have 4 icon size badges (mountain, fjord, aurora, dusk)
+    await expect(iconSizeBadges.length).toBe(4);
   },
 };
 
@@ -676,92 +1597,6 @@ export const Playground: Story = {
           "Interactive playground for experimenting with all badge props. Use the controls panel to adjust variant, outline, background, dot, and other properties in real-time.",
       },
     },
-  },
-};
-
-/**
- * Outline style - badges with border only, no background fill.
- * Shows how different variants look with the outline prop.
- */
-export const OutlineStyle: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="fjord" outline>
-        Fjord
-      </Badge>
-      <Badge variant="aurora" outline>
-        Aurora
-      </Badge>
-      <Badge variant="mountain" outline>
-        Mountain
-      </Badge>
-      <Badge variant="dusk" outline>
-        Dusk
-      </Badge>
-    </div>
-  ),
-  parameters: {
-    order: 16,
-    docs: {
-      description: {
-        story:
-          "Outline styling removes the background fill and adds a coloured border. This creates a more subtle, lightweight appearance perfect for dense interfaces or when you need multiple badges without overwhelming the design.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-
-    // Verify all outlined badges have border-current class
-    badges.forEach((badge) => {
-      expect(badge).toHaveClass("border-current");
-    });
-
-    await expect(canvas.getByText("Fjord")).toBeInTheDocument();
-  },
-};
-
-/**
- * No background - badges without background fill.
- * Shows how different variants look without backgrounds.
- */
-export const NoBackground: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-2">
-      <Badge variant="fjord" background={false}>
-        Fjord
-      </Badge>
-      <Badge variant="aurora" background={false}>
-        Aurora
-      </Badge>
-      <Badge variant="mountain" background={false}>
-        Mountain
-      </Badge>
-      <Badge variant="dusk" background={false}>
-        Dusk
-      </Badge>
-    </div>
-  ),
-  parameters: {
-    order: 17,
-    docs: {
-      description: {
-        story:
-          "No background variant removes the background fill entirely, leaving only the coloured text. This creates the most minimal appearance, ideal for compact layouts or when layering badges over coloured surfaces.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-
-    // Verify all badges have transparent background
-    badges.forEach((badge) => {
-      expect(badge).toHaveClass("bg-transparent");
-    });
-
-    await expect(canvas.getByText("Dusk")).toBeInTheDocument();
   },
 };
 
@@ -1052,7 +1887,7 @@ export const VisualRegression: Story = {
         <Badge variant="error">Error</Badge>
       </div>
       <div className="flex flex-wrap gap-2">
-        <Badge variant="fjord" outline>
+        <Badge variant="success" outline>
           Outlined
         </Badge>
         <Badge variant="aurora" background={false}>
@@ -1394,18 +2229,16 @@ export const __stories = {
   Mountain,
   Dusk,
   Secondary,
-  ErrorBadge,
-  ErrorOutline,
+  Error,
+  ErrorOutlined,
   Warning,
-  WarningOutline,
+  WarningOutlined,
   Success,
-  InProgress,
-  Archived,
+  Neutral,
+  Undefined,
   AllVariants,
   IconSizes,
   Playground,
-  OutlineStyle,
-  NoBackground,
   DotIndicators,
   ClickInteraction,
   KeyboardInteractions,
