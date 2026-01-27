@@ -103,14 +103,12 @@ export default meta;
 type Story = StoryObj<typeof Banner>;
 
 /**
- * Basic banner with icon, title, and action button
- * Demonstrates the most common banner usage
+ * Basic banner with icon, title, and action button.
+ * Demonstrates the most common banner usage.
  */
 export const Basic: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Basic banner with an information icon, title text, and a single action button.",
@@ -131,14 +129,16 @@ export const Basic: Story = {
     const actionButton = canvas.getByRole("button", { name: /action/i });
     await expect(actionButton).toBeInTheDocument();
   },
-  render: (args) => (
-    <Banner {...args}>
-      <BannerIcon icon={IconInfoCircle} />
-      <BannerTitle>Banner title</BannerTitle>
-      <BannerActions>
-        <BannerAction>Action</BannerAction>
-      </BannerActions>
-    </Banner>
+  render: () => (
+    <div className="w-100">
+      <Banner>
+        <BannerIcon icon={IconInfoCircle} />
+        <BannerTitle>Banner title</BannerTitle>
+        <BannerActions>
+          <BannerAction>Action</BannerAction>
+        </BannerActions>
+      </Banner>
+    </div>
   ),
 };
 
@@ -148,6 +148,7 @@ export const Basic: Story = {
  */
 export const Variants: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -169,7 +170,7 @@ export const Variants: Story = {
     await expect(banners.length).toBeGreaterThanOrEqual(4);
   },
   render: () => (
-    <div className="w-[600px] space-y-4">
+    <div className="w-100 space-y-4">
       <Banner variant="default">
         <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Default variant</BannerTitle>
@@ -195,10 +196,8 @@ export const Variants: Story = {
  * Shows how to include a status indicator
  */
 export const WithStatus: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -219,15 +218,17 @@ export const WithStatus: Story = {
     });
     await expect(actionButton).toBeInTheDocument();
   },
-  render: (args) => (
-    <Banner {...args} variant="neutral">
-      <BannerIcon icon={IconInfoCircle} />
-      <BannerTitle>Workflow has been published</BannerTitle>
-      <BannerStatus>Published</BannerStatus>
-      <BannerActions>
-        <BannerAction>Request review</BannerAction>
-      </BannerActions>
-    </Banner>
+  render: () => (
+    <div className="w-100">
+      <Banner variant="neutral">
+        <BannerIcon icon={IconInfoCircle} />
+        <BannerTitle>Workflow has been published</BannerTitle>
+        <BannerStatus>Published</BannerStatus>
+        <BannerActions>
+          <BannerAction>Request review</BannerAction>
+        </BannerActions>
+      </Banner>
+    </div>
   ),
 };
 
@@ -236,10 +237,8 @@ export const WithStatus: Story = {
  * Demonstrates multiple action buttons
  */
 export const MultipleActions: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Banners can contain multiple action buttons grouped together on the right.",
@@ -259,18 +258,20 @@ export const MultipleActions: Story = {
     // Test clicking an action
     await userEvent.click(duplicateButton);
   },
-  render: (args) => (
-    <Banner {...args}>
-      <BannerIcon icon={IconInfoCircle} />
-      <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
-      <BannerActions>
-        <BannerAction>
-          <IconCopy size={16} />
-          <span>Duplicate</span>
-        </BannerAction>
-        <BannerAction>Edit</BannerAction>
-      </BannerActions>
-    </Banner>
+  render: () => (
+    <div className="w-100">
+      <Banner>
+        <BannerIcon icon={IconInfoCircle} />
+        <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
+        <BannerActions>
+          <BannerAction>
+            <IconCopy size={16} />
+            <span>Duplicate</span>
+          </BannerAction>
+          <BannerAction>Edit</BannerAction>
+        </BannerActions>
+      </Banner>
+    </div>
   ),
 };
 
@@ -279,10 +280,8 @@ export const MultipleActions: Story = {
  * Banner with a close button that can be dismissed
  */
 export const Dismissible: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Banner with a close button. Click the X to dismiss the banner.",
@@ -304,16 +303,18 @@ export const Dismissible: Story = {
     const actionButton = canvas.getByRole("button", { name: /learn more/i });
     await expect(actionButton).toBeInTheDocument();
   },
-  render: function DismissibleStory(args) {
+  render: function DismissibleStory() {
     return (
-      <Banner {...args}>
-        <BannerIcon icon={IconInfoCircle} />
-        <BannerTitle>This banner can be dismissed</BannerTitle>
-        <BannerActions>
-          <BannerAction>Learn more</BannerAction>
-          <BannerClose />
-        </BannerActions>
-      </Banner>
+      <div className="w-100">
+        <Banner>
+          <BannerIcon icon={IconInfoCircle} />
+          <BannerTitle>This banner can be dismissed</BannerTitle>
+          <BannerActions>
+            <BannerAction>Learn more</BannerAction>
+            <BannerClose />
+          </BannerActions>
+        </Banner>
+      </div>
     );
   },
 };
@@ -323,10 +324,8 @@ export const Dismissible: Story = {
  * Banner with controlled visibility state
  */
 export const ControlledVisibility: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -364,12 +363,12 @@ export const ControlledVisibility: Story = {
       { timeout: 300 }
     );
   },
-  render: function ControlledVisibilityStory(args) {
+  render: function ControlledVisibilityStory() {
     const [visible, setVisible] = useState(true);
 
     return (
       <div className="space-y-4">
-        <Banner {...args} visible={visible} onClose={() => setVisible(false)}>
+        <Banner visible={visible} onClose={() => setVisible(false)}>
           <BannerIcon icon={IconInfoCircle} />
           <BannerTitle>Controlled visibility banner</BannerTitle>
           <BannerActions>
@@ -393,10 +392,8 @@ export const ControlledVisibility: Story = {
  * Banner with rounded corners for inset layouts
  */
 export const Inset: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -414,9 +411,9 @@ export const Inset: Story = {
     const banner = canvasElement.querySelector('[class*="rounded-lg"]');
     await expect(banner).toBeInTheDocument();
   },
-  render: (args) => (
+  render: () => (
     <div className="p-6 bg-card rounded-lg border">
-      <Banner {...args} inset>
+      <Banner inset>
         <BannerIcon icon={IconInfoCircle} />
         <BannerTitle>Inset banner</BannerTitle>
         <BannerActions>
@@ -432,10 +429,8 @@ export const Inset: Story = {
  * Common use case for read-only states
  */
 export const ReadOnlyWarning: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -456,17 +451,19 @@ export const ReadOnlyWarning: Story = {
     // Test clicking duplicate
     await userEvent.click(duplicateButton);
   },
-  render: (args) => (
-    <Banner {...args}>
-      <BannerIcon icon={IconInfoCircle} />
-      <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
-      <BannerActions>
-        <BannerAction>
-          <IconCopy size={16} />
-          <span>Duplicate</span>
-        </BannerAction>
-      </BannerActions>
-    </Banner>
+  render: () => (
+    <div className="w-100">
+      <Banner>
+        <BannerIcon icon={IconInfoCircle} />
+        <BannerTitle>Read only. Duplicate to make changes.</BannerTitle>
+        <BannerActions>
+          <BannerAction>
+            <IconCopy size={16} />
+            <span>Duplicate</span>
+          </BannerAction>
+        </BannerActions>
+      </Banner>
+    </div>
   ),
 };
 
@@ -475,10 +472,8 @@ export const ReadOnlyWarning: Story = {
  * Shows a success state with status badge
  */
 export const SuccessNotification: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Success banner showing a published workflow with status badge and action button.",
@@ -500,7 +495,7 @@ export const SuccessNotification: Story = {
     });
     await expect(reviewButton).toBeInTheDocument();
   },
-  render: function SuccessNotificationStory(args) {
+  render: function SuccessNotificationStory() {
     const [visible, setVisible] = useState(true);
 
     if (!visible) {
@@ -516,7 +511,7 @@ export const SuccessNotification: Story = {
     }
 
     return (
-      <Banner {...args} variant="neutral" visible={visible}>
+      <Banner variant="neutral" visible={visible}>
         <BannerIcon icon={IconCheck} />
         <BannerTitle>Workflow has been published</BannerTitle>
         <BannerStatus>Published</BannerStatus>
@@ -534,10 +529,8 @@ export const SuccessNotification: Story = {
  * Shows an error state with action to retry
  */
 export const ErrorNotification: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Destructive banner showing an error state with retry action.",
@@ -557,15 +550,17 @@ export const ErrorNotification: Story = {
     // Test clicking retry
     await userEvent.click(retryButton);
   },
-  render: (args) => (
-    <Banner {...args} variant="destructive">
-      <BannerIcon icon={IconAlertCircle} />
-      <BannerTitle>Failed to save changes</BannerTitle>
-      <BannerActions>
-        <BannerAction>Retry</BannerAction>
-        <BannerClose />
-      </BannerActions>
-    </Banner>
+  render: () => (
+    <div className="w-100">
+      <Banner variant="destructive">
+        <BannerIcon icon={IconAlertCircle} />
+        <BannerTitle>Failed to save changes</BannerTitle>
+        <BannerActions>
+          <BannerAction>Retry</BannerAction>
+          <BannerClose />
+        </BannerActions>
+      </Banner>
+    </div>
   ),
 };
 
@@ -574,10 +569,8 @@ export const ErrorNotification: Story = {
  * Shows a warning state with important information
  */
 export const WarningNotification: Story = {
-  args: {
-    className: "w-[600px]",
-  },
   parameters: {
+    order: 11,
     docs: {
       description: {
         story: "Warning banner alerting users about an important update or action required.",
@@ -594,15 +587,17 @@ export const WarningNotification: Story = {
     const upgradeButton = canvas.getByRole("button", { name: /upgrade/i });
     await expect(upgradeButton).toBeInTheDocument();
   },
-  render: (args) => (
-    <Banner {...args} variant="warning">
-      <BannerIcon icon={IconAlertTriangle} />
-      <BannerTitle>Your trial expires in 3 days</BannerTitle>
-      <BannerActions>
-        <BannerAction>Upgrade now</BannerAction>
-        <BannerClose />
-      </BannerActions>
-    </Banner>
+  render: () => (
+    <div className="w-100">
+      <Banner variant="warning">
+        <BannerIcon icon={IconAlertTriangle} />
+        <BannerTitle>Your trial expires in 3 days</BannerTitle>
+        <BannerActions>
+          <BannerAction>Upgrade now</BannerAction>
+          <BannerClose />
+        </BannerActions>
+      </Banner>
+    </div>
   ),
 };
 
@@ -615,7 +610,7 @@ export const Playground: Story = {
     variant: "default",
     inset: false,
     defaultVisible: true,
-    className: "w-[600px]",
+    className: "w-100",
   },
   render: (args) => (
     <Banner {...args}>

@@ -76,7 +76,11 @@ export const Banner = ({
 
   return (
     <BannerContext.Provider value={{ show, setShow, variant: variant as BannerVariant }}>
-      <div className={cn(bannerVariants({ variant, inset }), className)} {...props}>
+      <div
+        data-slot="banner"
+        className={cn(bannerVariants({ variant, inset }), className)}
+        {...props}
+      >
         {children}
       </div>
     </BannerContext.Provider>
@@ -93,7 +97,11 @@ export const BannerIcon = ({ icon: Icon, className, ...props }: BannerIconProps)
   const { variant } = useContext(BannerContext);
 
   return (
-    <div className={cn(variant === "neutral" && "text-neutral-foreground", className)} {...props}>
+    <div
+      data-slot="banner-icon"
+      className={cn(variant === "neutral" && "text-neutral-foreground", className)}
+      {...props}
+    >
       <Icon size={16} />
     </div>
   );
@@ -102,7 +110,11 @@ export const BannerIcon = ({ icon: Icon, className, ...props }: BannerIconProps)
 export type BannerTitleProps = HTMLAttributes<HTMLParagraphElement>;
 
 export const BannerTitle = ({ className, ...props }: BannerTitleProps) => (
-  <p className={cn("text-sm tracking-tight", className)} {...props} />
+  <p
+    data-slot="banner-title"
+    className={cn("text-sm tracking-tight", className)}
+    {...props}
+  />
 );
 
 export type BannerStatusProps = ComponentProps<typeof Badge>;
@@ -126,6 +138,7 @@ export const BannerStatus = ({
 
   return (
     <Badge
+      data-slot="banner-status"
       outline={outline}
       variant={badgeVariant}
       className={cn("shrink-0", className)}
@@ -137,7 +150,11 @@ export const BannerStatus = ({
 export type BannerActionsProps = HTMLAttributes<HTMLDivElement>;
 
 export const BannerActions = ({ className, ...props }: BannerActionsProps) => (
-  <div className={cn("flex items-center gap-2 shrink-0 ml-auto", className)} {...props} />
+  <div
+    data-slot="banner-actions"
+    className={cn("flex items-center gap-2 shrink-0 ml-auto", className)}
+    {...props}
+  />
 );
 
 const hoverClasses: Record<BannerVariant, string> = {
@@ -159,6 +176,7 @@ export const BannerAction = ({
 
   return (
     <Button
+      data-slot="banner-action"
       className={cn("shrink-0 text-foreground", hoverClasses[bannerVariant], className)}
       size={size}
       variant={variant}
@@ -184,6 +202,7 @@ export const BannerClose = ({
 
   return (
     <Button
+      data-slot="banner-close"
       className={cn(
         "shrink-0 opacity-70 hover:opacity-100 text-foreground rounded-sm",
         hoverClasses[bannerVariant],
