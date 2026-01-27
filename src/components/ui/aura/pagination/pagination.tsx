@@ -1,4 +1,3 @@
-import { createContext, forwardRef, type ComponentProps, useContext } from "react";
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -7,6 +6,7 @@ import {
   IconDots,
 } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
+import { type ComponentProps, createContext, forwardRef, useContext } from "react";
 
 import { Button } from "@/components/ui/aura/button";
 import { cn } from "@/lib/utils";
@@ -109,14 +109,7 @@ PaginationContent.displayName = "PaginationContent";
  */
 const PaginationItem = forwardRef<HTMLLIElement, ComponentProps<"li">>(
   ({ className, ...props }, ref) => {
-    return (
-      <li
-        ref={ref}
-        data-slot="pagination-item"
-        className={cn(className)}
-        {...props}
-      />
-    );
+    return <li ref={ref} data-slot="pagination-item" className={cn(className)} {...props} />;
   }
 );
 PaginationItem.displayName = "PaginationItem";
@@ -205,28 +198,27 @@ PaginationFirst.displayName = "PaginationFirst";
 /**
  * Pagination control to navigate to the previous page.
  */
-const PaginationPrevious = forwardRef<
-  HTMLAnchorElement,
-  Omit<PaginationLinkProps, "isActive">
->(({ className, size, ...props }, ref) => {
-  const inheritedSize = usePaginationSize();
-  const resolvedSize = size ?? inheritedSize;
-  const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
+const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "isActive">>(
+  ({ className, size, ...props }, ref) => {
+    const inheritedSize = usePaginationSize();
+    const resolvedSize = size ?? inheritedSize;
+    const { buttonSize, radiusClass } = getPaginationButtonStyles(resolvedSize);
 
-  return (
-    <Button
-      asChild
-      variant="ghost"
-      size={buttonSize}
-      data-slot="pagination-previous"
-      className={cn(radiusClass, className)}
-    >
-      <a ref={ref} aria-label="Go to previous page" {...props}>
-        <IconChevronLeft />
-      </a>
-    </Button>
-  );
-});
+    return (
+      <Button
+        asChild
+        variant="ghost"
+        size={buttonSize}
+        data-slot="pagination-previous"
+        className={cn(radiusClass, className)}
+      >
+        <a ref={ref} aria-label="Go to previous page" {...props}>
+          <IconChevronLeft />
+        </a>
+      </Button>
+    );
+  }
+);
 PaginationPrevious.displayName = "PaginationPrevious";
 
 /**
@@ -321,4 +313,3 @@ export {
   paginationLinkVariants,
   paginationStatusVariants,
 };
-
