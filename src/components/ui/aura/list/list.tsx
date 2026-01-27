@@ -105,6 +105,32 @@ const isListItemIconElement = (child: ReactNode) => {
   return childType === ListItemIcon || displayName === "ListItemIcon";
 };
 
+const isListItemStatusElement = (child: ReactNode) => {
+  if (!isValidElement(child)) {
+    return false;
+  }
+
+  const childType = child.type;
+  const displayName = (() => {
+    if (typeof childType === "function") {
+      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
+    }
+
+    if (typeof childType === "object" && childType) {
+      const typedChild = childType as {
+        displayName?: string;
+        render?: { displayName?: string; name?: string };
+      };
+
+      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
+    }
+
+    return undefined;
+  })();
+
+  return childType === ListItemStatus || displayName === "ListItemStatus";
+};
+
 const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
   if (variant === "completed") {
     return (
@@ -220,12 +246,27 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
   ({ className, variant, children, style, ...props }, ref) => {
     const childItems = Children.toArray(children);
     const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
+    const hasStatusSlot = childItems.some((child) => isListItemStatusElement(child));
     const shouldInsertIcon = Boolean(variant) && !hasIconSlot;
     const resolvedChildren = shouldInsertIcon
       ? [<ListItemIcon key="list-item-icon" />, ...childItems]
       : childItems;
     const hasIcon = hasIconSlot || shouldInsertIcon;
-    const gridTemplateColumns = hasIcon ? "auto minmax(0,1fr) auto" : "minmax(0,1fr) auto";
+
+    // Determine grid columns based on what slots are present
+    const gridTemplateColumns = (() => {
+      if (hasIcon && hasStatusSlot) {
+        return "auto minmax(0,1fr) auto"; // icon | content | status
+      }
+      if (hasIcon) {
+        return "auto minmax(0,1fr)"; // icon | content
+      }
+      if (hasStatusSlot) {
+        return "minmax(0,1fr) auto"; // content | status
+      }
+      return "minmax(0,1fr)"; // just content
+    })();
+
     const mergedStyle = style?.gridTemplateColumns
       ? style
       : {
