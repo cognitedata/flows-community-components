@@ -78,6 +78,7 @@ type Story = StoryObj<typeof Topbar>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -142,6 +143,7 @@ export const Basic: Story = {
  */
 export const WithCenterContent: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Topbar with content in the center section.",
@@ -193,6 +195,7 @@ export const WithCenterContent: Story = {
  */
 export const EosStyle: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -271,6 +274,7 @@ export const EosStyle: Story = {
  */
 export const Minimal: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Minimal topbar with only breadcrumbs, no action buttons.",
@@ -309,6 +313,7 @@ export const Minimal: Story = {
  */
 export const WithMultipleActions: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Topbar with multiple action buttons in the right section.",
@@ -367,6 +372,7 @@ export const WithMultipleActions: Story = {
  */
 export const WithSidebar: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -542,6 +548,7 @@ export const WithSidebar: Story = {
  */
 export const Interactive: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -654,6 +661,7 @@ export const Interactive: Story = {
  */
 export const LongBreadcrumb: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
