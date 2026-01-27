@@ -140,13 +140,34 @@
     {
       "name": "card",
       "type": "registry:component",
-      "title": "card",
-      "description": "",
-      "registryDependencies": ["@aura/css"],
+      "title": "for",
+      "description": "* Card component for displaying grouped content in a bordered container.",
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["@aura/css", "@aura/button", "@aura/dropdown-menu"],
       "files": [
         {
           "path": "src/components/ui/aura/card/card.tsx",
           "target": "src/components/ui/aura/card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "title": "dropdown-menu",
+      "description": "",
+      "dependencies": ["@radix-ui/react-dropdown-menu", "@tabler/icons-react"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
+          "target": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         },
         {
@@ -167,6 +188,45 @@
         {
           "path": "src/components/ui/aura/separator/separator.tsx",
           "target": "src/components/ui/aura/separator.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact-list",
+      "type": "registry:component",
+      "title": "artifact-list",
+      "description": "* ArtifactList wraps a Card for displaying list content within artifacts.",
+      "registryDependencies": ["@aura/css", "@aura/card", "@aura/list"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-list/artifact-list.tsx",
+          "target": "src/components/ui/aura/artifact-list.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "registry:component",
+      "title": "list",
+      "description": "* List container for unordered content.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/list/list.tsx",
+          "target": "src/components/ui/aura/list.tsx",
           "type": "registry:component"
         },
         {
@@ -675,26 +735,6 @@
         {
           "path": "src/components/ui/aura/drawer/drawer.tsx",
           "target": "src/components/ui/aura/drawer.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "dropdown-menu",
-      "type": "registry:component",
-      "title": "dropdown-menu",
-      "description": "",
-      "dependencies": ["@radix-ui/react-dropdown-menu", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
-          "target": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         },
         {
@@ -1253,7 +1293,7 @@
       "type": "registry:component",
       "title": "sonner-toast",
       "description": "",
-      "dependencies": ["@tabler/icons-react", "next-themes", "sonner"],
+      "dependencies": ["@tabler/icons-react", "sonner"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
