@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   ArtifactList,
   ArtifactListContent,
-  ArtifactListDescription,
   ArtifactListHeader,
   ArtifactListItem,
   ArtifactListOrdered,
@@ -229,7 +228,7 @@ export const WithCustomIcons: Story = {
             </svg>
           </ListItemIcon>
           <ListItemTitle>Pump 3 cavitation detected</ListItemTitle>
-          <ListItemDescription className="text-foreground">
+          <ListItemDescription className="">
             Suction pressure oscillations and elevated noise on P-003 during night shift.
           </ListItemDescription>
         </ArtifactListItem>
@@ -310,46 +309,6 @@ export const OrderedList: Story = {
           <ListItemStatus>Pending</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListOrdered>
-    </ArtifactList>
-  ),
-};
-
-/**
- * List with description header
- */
-export const WithDescription: Story = {
-  parameters: {
-    order: 6,
-    docs: {
-      description: {
-        story: "Uses ArtifactListDescription to add contextual text above the list.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText(/Review the following items/)).toBeInTheDocument();
-    await expect(canvas.getByText("Motor inspection")).toBeInTheDocument();
-  },
-  render: () => (
-    <ArtifactList className="w-100">
-      <ArtifactListHeader>
-        <ArtifactListTitle>Safety Checks</ArtifactListTitle>
-      </ArtifactListHeader>
-      <ArtifactListDescription>
-        Review the following items before starting the equipment.
-      </ArtifactListDescription>
-      <ArtifactListContent>
-        <ArtifactListItem variant="completed">
-          <ListItemTitle>Motor inspection</ListItemTitle>
-          <ListItemStatus>Passed</ListItemStatus>
-        </ArtifactListItem>
-        <ArtifactListItem variant="completed">
-          <ListItemTitle>Safety valve test</ListItemTitle>
-          <ListItemStatus>Passed</ListItemStatus>
-        </ArtifactListItem>
-      </ArtifactListContent>
     </ArtifactList>
   ),
 };

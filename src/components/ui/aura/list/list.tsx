@@ -27,9 +27,9 @@ const listItemIconVariants = cva("", {
   variants: {
     variant: {
       upcoming: "text-muted-foreground",
-      now: "text-foreground",
+      now: "text-card-foreground",
       completed: "text-muted-foreground",
-      error: "text-destructive-foreground",
+      error: "text-card-foreground",
     },
   },
 });
@@ -221,7 +221,7 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
           data-slot="list-item"
           data-variant={variant}
           className={cn(
-            "grid w-full items-start gap-x-3 gap-y-1 rounded p-0.5",
+            "grid w-full items-start gap-x-3 rounded p-0.5",
             hasIcon ? "grid-cols-[auto_minmax(0,1fr)_auto]" : "grid-cols-[minmax(0,1fr)_auto]",
             className
           )}
@@ -250,7 +250,7 @@ const ListItemIcon = forwardRef<
       ref={ref}
       data-slot="list-item-icon"
       className={cn(
-        "col-start-1 row-span-2 flex h-4 w-4 items-center justify-center",
+        "col-start-1 row-span-2 flex h-4 w-4 items-center justify-center text-muted-foreground",
         listItemIconVariants({ variant: resolvedVariant }),
         className
       )}
@@ -298,7 +298,7 @@ const ListItemDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
         ref={ref}
         data-slot="list-item-description"
         className={cn(
-          "row-start-2 text-sm leading-4.5 text-muted-foreground",
+          "row-start-2 mt-1 text-sm leading-4.5 text-muted-foreground",
           hasIcon ? "col-start-2" : "col-start-1",
           listItemDescriptionVariants({ variant }),
           className

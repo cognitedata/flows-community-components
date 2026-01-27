@@ -3,7 +3,6 @@ import { type ComponentProps, type ElementRef, forwardRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import {
   List,
-  ListDescription,
   ListItem,
   ListItemDescription,
   ListItemIcon,
@@ -30,7 +29,12 @@ const ArtifactListHeader = forwardRef<
   ComponentProps<typeof CardHeader>
 >(({ className, ...props }, ref) => {
   return (
-    <CardHeader ref={ref} data-slot="artifact-list-header" className={cn(className)} {...props} />
+    <CardHeader
+      ref={ref}
+      data-slot="artifact-list-header"
+      className={cn("pb-4", className)}
+      {...props}
+    />
   );
 });
 ArtifactListHeader.displayName = "ArtifactListHeader";
@@ -53,7 +57,10 @@ ArtifactListTitle.displayName = "ArtifactListTitle";
 const ArtifactListContent = forwardRef<ElementRef<typeof List>, ComponentProps<typeof List>>(
   ({ className, ...props }, ref) => {
     return (
-      <CardContent data-slot="artifact-list-content" className={cn(className)}>
+      <CardContent
+        data-slot="artifact-list-content"
+        className={cn("[[data-slot=artifact-list-header]+&]:pt-0", className)}
+      >
         <List ref={ref} {...props} />
       </CardContent>
     );
@@ -66,24 +73,15 @@ const ArtifactListOrdered = forwardRef<
   ComponentProps<typeof ListOrdered>
 >(({ className, ...props }, ref) => {
   return (
-    <CardContent data-slot="artifact-list-ordered" className={cn(className)}>
+    <CardContent
+      data-slot="artifact-list-ordered"
+      className={cn("[[data-slot=artifact-list-header]+&]:pt-0", className)}
+    >
       <ListOrdered ref={ref} {...props} />
     </CardContent>
   );
 });
 ArtifactListOrdered.displayName = "ArtifactListOrdered";
-
-const ArtifactListDescription = forwardRef<
-  ElementRef<typeof ListDescription>,
-  ComponentProps<typeof ListDescription>
->(({ className, ...props }, ref) => {
-  return (
-    <CardContent data-slot="artifact-list-description" className={cn(className)}>
-      <ListDescription ref={ref} {...props} />
-    </CardContent>
-  );
-});
-ArtifactListDescription.displayName = "ArtifactListDescription";
 
 const ArtifactListItem = forwardRef<ElementRef<typeof ListItem>, ComponentProps<typeof ListItem>>(
   ({ className, ...props }, ref) => {
@@ -102,7 +100,6 @@ ArtifactListItem.displayName = "ArtifactListItem";
 export {
   ArtifactList,
   ArtifactListContent,
-  ArtifactListDescription,
   ArtifactListHeader,
   ArtifactListItem,
   ArtifactListOrdered,

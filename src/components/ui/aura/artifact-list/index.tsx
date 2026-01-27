@@ -1,7 +1,6 @@
 export {
   ArtifactList,
   ArtifactListContent,
-  ArtifactListDescription,
   ArtifactListHeader,
   ArtifactListItem,
   ArtifactListOrdered,
