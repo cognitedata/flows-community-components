@@ -138,19 +138,22 @@
       ]
     },
     {
-      "name": "artifact-progress",
+      "name": "artifact-count",
       "type": "registry:component",
-      "title": "artifact-progress",
-      "description": "",
+      "title": "artifact-count",
+      "description": "* ArtifactCount container for count-based widgets.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
       "registryDependencies": [
         "@aura/css",
         "@aura/card",
-        "@aura/progress"
+        "@aura/separator"
       ],
       "files": [
         {
-          "path": "src/components/ui/aura/artifact-progress/artifact-progress.tsx",
-          "target": "src/components/ui/aura/artifact-progress.tsx",
+          "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
+          "target": "src/components/ui/aura/artifact-count.tsx",
           "type": "registry:component"
         },
         {
@@ -163,8 +166,8 @@
     {
       "name": "card",
       "type": "registry:component",
-      "title": "card",
-      "description": "* CardActions provides a dropdown menu in the card header's top-right corner.",
+      "title": "for",
+      "description": "* Card component for displaying grouped content in a bordered container.",
       "dependencies": [
         "@tabler/icons-react"
       ],
@@ -202,6 +205,53 @@
         {
           "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
           "target": "src/components/ui/aura/dropdown-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:component",
+      "title": "separator",
+      "description": "",
+      "dependencies": [
+        "@radix-ui/react-separator"
+      ],
+      "registryDependencies": [
+        "@aura/css"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/separator/separator.tsx",
+          "target": "src/components/ui/aura/separator.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact-progress",
+      "type": "registry:component",
+      "title": "artifact-progress",
+      "description": "",
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/card",
+        "@aura/progress"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-progress/artifact-progress.tsx",
+          "target": "src/components/ui/aura/artifact-progress.tsx",
           "type": "registry:component"
         },
         {
@@ -356,30 +406,6 @@
         {
           "path": "src/components/ui/aura/button-group/button-group.tsx",
           "target": "src/components/ui/aura/button-group.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "separator",
-      "type": "registry:component",
-      "title": "separator",
-      "description": "",
-      "dependencies": [
-        "@radix-ui/react-separator"
-      ],
-      "registryDependencies": [
-        "@aura/css"
-      ],
-      "files": [
-        {
-          "path": "src/components/ui/aura/separator/separator.tsx",
-          "target": "src/components/ui/aura/separator.tsx",
           "type": "registry:component"
         },
         {
@@ -1497,7 +1523,6 @@
       "description": "",
       "dependencies": [
         "@tabler/icons-react",
-        "next-themes",
         "sonner"
       ],
       "registryDependencies": [

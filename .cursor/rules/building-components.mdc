@@ -181,7 +181,7 @@ import { cn } from "@/lib/utils";
 
 # Documentation
 
-**Component documentation:**
+**Component JSDoc:**
 ```tsx
 /**
  * Badge component for displaying labels, statuses, and tags.
@@ -190,21 +190,88 @@ import { cn } from "@/lib/utils";
 const Badge = forwardRef<HTMLDivElement, BadgeProps>(...)
 ```
 
-**Metadata file:**
-- Create `*.metadata.ts` for component documentation
-- Include usage examples, props descriptions, accessibility notes
+**index.tsx file:**
+```tsx
+/**
+ * Badge Component
+ *
+ * A small status indicator component with multiple variants
+ * for displaying labels, counts, and statuses.
+ *
+ * See Storybook for comprehensive examples and documentation.
+ */
+export { Badge, badgeVariants } from "./badge";
+export { BadgeMetadata } from "./badge.metadata";
+```
+
+**CRITICAL - Single Source of Truth:**
+- ❌ **DO NOT** duplicate code examples in `index.tsx` or `*.metadata.ts`
+- ✅ **ALL examples live in Storybook stories** - they are tested, interactive, and maintained
+- ✅ `index.tsx` should only have a brief description + "See Storybook for examples"
+- ✅ `*.metadata.ts` should only contain metadata for LLMs (description, llmUsage, importPath)
+
+**Metadata file (`*.metadata.ts`):**
+```tsx
+export const BadgeMetadata: ComponentMeta = {
+  name: "Badge",
+  status: "draft",
+  description: "A small status indicator component for displaying labels, counts, and statuses.",
+  llmUsage: "When showing status or labels, use `<Badge variant='default'>Status</Badge>`. Use variants like 'secondary', 'destructive', or 'outline' for different meanings.",
+  importPath: "@/components/ui/aura/badge",
+  // NO codeExamples - see Storybook stories for all examples
+};
+```
 
 **Storybook stories:**
 - Follow `building-stories.mdc` rules
 - Use `prompt-input.stories.tsx` as gold standard
 - ✅ Explicit render functions, not just args
 - ✅ Include order parameters, play functions, accessibility tests
+- ✅ Stories are the ONLY place for code examples
+
+# Side Navigation
+
+**After creating a new component, add it to `src/components/side-navigation.tsx`:**
+
+Use the component's Storybook category (from `title` in story meta) to determine placement:
+
+```tsx
+// Story meta title determines category
+const meta: Meta<typeof Badge> = {
+  title: "Primitives/Badge",  // → Add to primitivesNavigation
+  // ...
+};
+```
+
+**Navigation categories:**
+- `Primitives/Colors`, `Primitives/Effects`, `Primitives/Layouts`, `Primitives/Typography` → Add to **Foundations** subsection in `primitivesNavigation`
+- `Primitives/[ComponentName]` → Add to **Primitives** subsection in `primitivesNavigation` (alphabetically)
+- `AI/[ComponentName]` → Add to **AI Chat** subsection in `aiNavigation` (alphabetically)
+- `Patterns/[PatternName]` → Add to **Patterns** subsection in `patternsNavigation`
+
+**Example:**
+```tsx
+// Adding a new primitive component
+const primitivesNavigation: NavigationItem[] = [
+  {
+    href: "#",
+    label: "Primitives",
+    isSubsection: true,
+    children: [
+      { href: "/primitives/accordion", label: "Accordion" },
+      { href: "/primitives/alert", label: "Alert" },
+      { href: "/primitives/badge", label: "Badge" }, // ← New component
+      // ... rest alphabetically
+    ],
+  },
+];
+```
 
 # Registry
 
 **After creating/updating components:**
-1. Add to `registry.template.json` with ALL dependencies
-2. Run `pnpm run registry:build`
+1. Component is auto-discovered from filesystem (no manual registry needed)
+2. Run `pnpm run registry:build` to generate public JSON files
 3. Verify `public/r/*.json` files are generated
 
 # Code Quality Checklist
@@ -215,3 +282,4 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(...)
 - ✅ Use `ComponentProps<typeof X>` for wrapping components
 - ✅ Consistent patterns - similar components should look similar
 - ✅ Accessibility - ARIA labels, keyboard navigation, focus management
+- ✅ Side navigation updated with new component in correct category
