@@ -33,3 +33,7 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 # Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
+
+# Learnings
+
+- Biome formatting prefers inline JSX for short elements and props.
