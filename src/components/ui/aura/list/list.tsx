@@ -283,7 +283,7 @@ const ListItemIcon = forwardRef<
       ref={ref}
       data-slot="list-item-icon"
       className={cn(
-        "col-start-1 row-span-2 flex h-4 w-4 mr-1.5 items-center justify-center text-muted-foreground",
+        "col-start-1 row-span-2 flex h-4 w-4 items-center justify-center text-muted-foreground",
         listItemIconVariants({ variant: resolvedVariant }),
         className,
       )}
