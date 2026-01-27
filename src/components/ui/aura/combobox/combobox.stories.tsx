@@ -120,6 +120,7 @@ const users = [
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -172,7 +173,7 @@ export const Basic: Story = {
       expect(commandList).not.toHaveTextContent("Michael Jordan");
     });
   },
-  render: function BasicStory(args) {
+  render: function BasicStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("michael-jordan");
 
@@ -180,16 +181,9 @@ export const Basic: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild className="py-1 px-1">
               <Button
                 variant="outline"
@@ -268,6 +262,7 @@ export const Basic: Story = {
  */
 export const WithAddNew: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -307,7 +302,7 @@ export const WithAddNew: Story = {
       expect(found).toBe(true);
     });
   },
-  render: function WithAddNewStory(args) {
+  render: function WithAddNewStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("michael-jordan");
     const [userList, setUserList] = useState(users);
@@ -347,16 +342,9 @@ export const WithAddNew: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild className="py-1 px-1">
               <Button
                 variant="outline"
@@ -459,6 +447,7 @@ const dataTypes = [
  */
 export const MultiSelect: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -497,7 +486,7 @@ export const MultiSelect: Story = {
       expect(input).toBeInTheDocument();
     });
   },
-  render: function MultiSelectStory(args) {
+  render: function MultiSelectStory() {
     const [open, setOpen] = useState(false);
     const [selectedValues, setSelectedValues] = useState<string[]>(["event", "observation"]);
     const [searchValue, setSearchValue] = useState("");
@@ -525,16 +514,9 @@ export const MultiSelect: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">Data type</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -635,6 +617,7 @@ const options = [
  */
 export const WithCheckboxes: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -671,7 +654,7 @@ export const WithCheckboxes: Story = {
       expect(trigger).toHaveTextContent("3 selected");
     });
   },
-  render: function WithCheckboxesStory(args) {
+  render: function WithCheckboxesStory() {
     const [open, setOpen] = useState(false);
     const [selectedValues, setSelectedValues] = useState<string[]>(["notifications", "marketing"]);
     const [searchValue, setSearchValue] = useState("");
@@ -692,16 +675,9 @@ export const WithCheckboxes: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">Preferences</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -764,6 +740,7 @@ export const WithCheckboxes: Story = {
  */
 export const KeyboardNavigation: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -804,7 +781,7 @@ export const KeyboardNavigation: Story = {
       expect(input).not.toBeInTheDocument();
     });
   },
-  render: function KeyboardNavigationStory(args) {
+  render: function KeyboardNavigationStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -813,16 +790,9 @@ export const KeyboardNavigation: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -879,6 +849,7 @@ export const KeyboardNavigation: Story = {
  */
 export const EmptyState: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Edge case: Combobox with no available options.",
@@ -897,21 +868,14 @@ export const EmptyState: Story = {
       expect(emptyElement).toHaveTextContent("No users available");
     });
   },
-  render: function EmptyStateStory(args) {
+  render: function EmptyStateStory() {
     const [open, setOpen] = useState(false);
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -944,6 +908,7 @@ export const EmptyState: Story = {
  */
 export const Disabled: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Edge case: Combobox with disabled trigger button.",
@@ -965,21 +930,14 @@ export const Disabled: Story = {
     const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
     expect(input).not.toBeInTheDocument();
   },
-  render: function DisabledStory(args) {
+  render: function DisabledStory() {
     const [open, setOpen] = useState(false);
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -1015,6 +973,7 @@ export const Disabled: Story = {
  */
 export const WithError: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Combobox in error state with validation message.",
@@ -1030,7 +989,7 @@ export const WithError: Story = {
     const helperText = canvas.getByText("Please select a user");
     await expect(helperText).toBeInTheDocument();
   },
-  render: function WithErrorStory(args) {
+  render: function WithErrorStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -1040,11 +999,9 @@ export const WithError: Story = {
       <div className="grid w-full max-w-sm items-center gap-1">
         <Label className="m-0 p-0">User</Label>
         <Popover
-          {...args}
           open={open}
           onOpenChange={(newOpen) => {
             setOpen(newOpen);
-            args.onOpenChange?.(newOpen);
           }}
         >
           <PopoverTrigger asChild>
@@ -1103,6 +1060,7 @@ export const WithError: Story = {
  */
 export const ComplexInteractive: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -1136,7 +1094,7 @@ export const ComplexInteractive: Story = {
       expect(trigger).toHaveTextContent("Menu item 1");
     });
   },
-  render: function ComplexInteractiveStory(args) {
+  render: function ComplexInteractiveStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -1154,16 +1112,9 @@ export const ComplexInteractive: Story = {
     const selectedItem = allItems.find((item) => item.value === value);
 
     return (
-      <div className="space-y-3 w-[300px]">
+      <div className="space-y-3 w-75">
         <Label className="m-0 p-0">View</Label>
-        <Popover
-          {...args}
-          open={open}
-          onOpenChange={(newOpen) => {
-            setOpen(newOpen);
-            args.onOpenChange?.(newOpen);
-          }}
-        >
+        <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
@@ -1176,7 +1127,7 @@ export const ComplexInteractive: Story = {
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[300px] p-0" aria-label="View selection">
+          <PopoverContent className="w-75 p-0" aria-label="View selection">
             <Command>
               <CommandInput placeholder="Search views..." />
               <CommandList>
