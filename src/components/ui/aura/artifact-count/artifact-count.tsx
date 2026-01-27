@@ -11,8 +11,8 @@ const artifactCountCountVariants = cva(
     variants: {
       variant: {
         default: "bg-undefined text-undefined-foreground-alternate",
-        warning: "bg-warning text-warning-foreground-alternative",
-        critical: "bg-destructive text-destructive-foreground-alternative",
+        warning: "bg-warning text-warning-foreground-alternate",
+        critical: "bg-destructive text-destructive-foreground-alternate",
       },
     },
     defaultVariants: {

@@ -335,7 +335,7 @@ export const AllVariants: Story = {
     });
     expect(filledSuccessElement).toBeDefined();
     expect(filledSuccessElement?.classList.contains("bg-success")).toBe(true);
-    expect(filledSuccessElement?.classList.contains("text-success-foreground-alternative")).toBe(
+    expect(filledSuccessElement?.classList.contains("text-success-foreground-alternate")).toBe(
       true
     );
 
@@ -353,7 +353,7 @@ export const AllVariants: Story = {
     });
     expect(filledErrorElement).toBeDefined();
     expect(filledErrorElement?.classList.contains("bg-destructive")).toBe(true);
-    expect(filledErrorElement?.classList.contains("text-destructive-foreground-alternative")).toBe(
+    expect(filledErrorElement?.classList.contains("text-destructive-foreground-alternate")).toBe(
       true
     );
 
@@ -382,7 +382,9 @@ export const AllVariants: Story = {
 
     // Verify size variants exist
     // Default size badges have "Default Size" text (there are multiple - success and error)
-    const defaultSizeBadges = canvas.getAllByText("Default Size", { exact: false });
+    const defaultSizeBadges = canvas.getAllByText("Default Size", {
+      exact: false,
+    });
     await expect(defaultSizeBadges.length).toBeGreaterThanOrEqual(2);
 
     // Icon size badges are icon-only (no text content beyond the icon itself)
@@ -928,7 +930,7 @@ export const Success: Story = {
     await expect(badge).toHaveClass("bg-success");
 
     // Verify correct foreground class (alternative for filled variant)
-    await expect(badge).toHaveClass("text-success-foreground-alternative");
+    await expect(badge).toHaveClass("text-success-foreground-alternate");
 
     // Verify it's a filled variant (has background, not outlined)
     await expect(badge).not.toHaveClass("border-border");
@@ -994,7 +996,7 @@ export const Warning: Story = {
     await expect(badge).toHaveClass("bg-warning");
 
     // Verify correct foreground class (alternative for filled variant)
-    await expect(badge).toHaveClass("text-warning-foreground-alternative");
+    await expect(badge).toHaveClass("text-warning-foreground-alternate");
 
     // Verify it's a filled variant (has background, not outlined)
     await expect(badge).not.toHaveClass("border-border");
@@ -1027,7 +1029,7 @@ export const Warning: Story = {
  * - Critical alert notifications
  * - Problem state indicators
  */
-export const ErrorFilled: Story = {
+export const ErrorState: Story = {
   args: {
     variant: "error",
     children: (
@@ -1059,7 +1061,7 @@ export const ErrorFilled: Story = {
     await expect(badge).toHaveClass("bg-destructive");
 
     // Verify correct foreground class (alternative for filled variant)
-    await expect(badge).toHaveClass("text-destructive-foreground-alternative");
+    await expect(badge).toHaveClass("text-destructive-foreground-alternate");
 
     // Verify it's a filled variant (has background, not outlined)
     await expect(badge).not.toHaveClass("border-border");

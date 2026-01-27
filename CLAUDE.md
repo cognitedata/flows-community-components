@@ -36,5 +36,4 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 
 # Learnings
 
-- Use `PaginationStatus` for inline pagination counters instead of ad hoc spans.
-- Pagination subcomponents inherit size from `PaginationContent`.
+- Biome formatting prefers inline JSX for short elements and props.
