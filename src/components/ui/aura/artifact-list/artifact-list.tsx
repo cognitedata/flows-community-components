@@ -1,6 +1,6 @@
 import { type ComponentProps, type ElementRef, forwardRef } from "react";
 
-import { Card, CardContent, CardHeader } from "@/components/ui/aura/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import {
   List,
   ListItem,
@@ -41,14 +41,12 @@ const ArtifactListHeader = forwardRef<
 });
 ArtifactListHeader.displayName = "ArtifactListHeader";
 
-type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-
 const ArtifactListTitle = forwardRef<
-  HTMLHeadingElement,
-  ComponentProps<"h2"> & { as?: HeadingElement }
->(({ className, as: Tag = "h2", ...props }, ref) => {
+  ElementRef<typeof CardTitle>,
+  ComponentProps<typeof CardTitle>
+>(({ className, ...props }, ref) => {
   return (
-    <Tag
+    <CardTitle
       ref={ref}
       data-slot="artifact-list-title"
       className={cn("text-base font-medium", className)}

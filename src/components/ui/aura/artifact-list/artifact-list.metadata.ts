@@ -13,7 +13,7 @@ export const ArtifactListMetadata: ComponentMeta = {
     "A compositional list artifact widget component that displays timeline-style items with optional headers. Uses List primitives directly for item content.",
 
   llmUsage:
-    "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>`, and `<ArtifactListItem>`. Use List primitives (`<ListItemTitle>`, `<ListItemDescription>`, `<ListItemStatus>`, `<ListItemIcon>`) for item content. Set `variant` on `<ArtifactListItem>` to apply status colors/icons automatically. `<ArtifactListTitle>` renders as `<h2>` by default; use the `as` prop (h1-h6) to change the heading level for proper document hierarchy.",
+    "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>`, and `<ArtifactListItem>`. Use List primitives (`<ListItemTitle>`, `<ListItemDescription>`, `<ListItemStatus>`, `<ListItemIcon>`) for item content. Set `variant` on `<ArtifactListItem>` to apply status colors/icons automatically.",
 
   importPath: "@/components/ui/aura/artifact-list",
 
