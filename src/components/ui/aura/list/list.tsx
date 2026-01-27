@@ -243,7 +243,7 @@ ListDescription.displayName = "ListDescription";
  * List item container with optional status variants.
  */
 const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: ListItemVariant }>(
-  ({ className, variant, children, style, ...props }, ref) => {
+  ({ className, variant, children, ...props }, ref) => {
     const childItems = Children.toArray(children);
     const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
     const hasStatusSlot = childItems.some((child) => isListItemStatusElement(child));
@@ -253,35 +253,21 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
       : childItems;
     const hasIcon = hasIconSlot || shouldInsertIcon;
 
-    // Determine grid columns based on what slots are present
-    const gridTemplateColumns = (() => {
-      if (hasIcon && hasStatusSlot) {
-        return "auto minmax(0,1fr) auto"; // icon | content | status
-      }
-      if (hasIcon) {
-        return "auto minmax(0,1fr)"; // icon | content
-      }
-      if (hasStatusSlot) {
-        return "minmax(0,1fr) auto"; // content | status
-      }
-      return "minmax(0,1fr)"; // just content
-    })();
-
-    const mergedStyle = style?.gridTemplateColumns
-      ? style
-      : {
-          ...style,
-          gridTemplateColumns,
-        };
-
     return (
       <ListItemContext.Provider value={{ variant, hasIcon }}>
         <li
           ref={ref}
           data-slot="list-item"
           data-variant={variant}
-          className={cn("grid w-full items-start rounded p-0.5", className)}
-          style={mergedStyle}
+          className={cn(
+            "grid w-full items-start rounded p-0.5",
+            // Determine grid columns based on what slots are present
+            hasIcon && hasStatusSlot && "grid-cols-[auto_minmax(0,1fr)_auto]", // icon | content | status
+            hasIcon && !hasStatusSlot && "grid-cols-[auto_minmax(0,1fr)]", // icon | content
+            !hasIcon && hasStatusSlot && "grid-cols-[minmax(0,1fr)_auto]", // content | status
+            !hasIcon && !hasStatusSlot && "grid-cols-[minmax(0,1fr)]", // just content
+            className
+          )}
           {...props}
         >
           {resolvedChildren}
