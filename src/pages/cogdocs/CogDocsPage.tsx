@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function CogDocsPageComponent() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const page = cogdocsPages.find((p) => p.slug === slug);
+  const page = cogdocsPages.find((p: CogDocsPage) => p.slug === slug);
 
   if (!page) {
     return (

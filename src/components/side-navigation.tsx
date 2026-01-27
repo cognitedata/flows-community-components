@@ -1,4 +1,4 @@
-import { cogdocsPages } from "virtual:cogdocs";
+import { type CogDocsPage, cogdocsPages } from "virtual:cogdocs";
 import { cn } from "@/lib/utils";
 import { IconChevronRight } from "@tabler/icons-react";
 import * as React from "react";
@@ -124,7 +124,7 @@ const cogdocsNavigation: NavigationItem[] = [
     href: "#",
     label: "CogDocs",
     isSubsection: true,
-    children: cogdocsPages.map((page) => ({
+    children: cogdocsPages.map((page: CogDocsPage) => ({
       href: `/cogdocs/${page.slug}`,
       label: page.title,
     })),
