@@ -78,20 +78,20 @@ export const Basic: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="error">
           <ListItemTitle>Pump seal replacement</ListItemTitle>
-          <ListItemStatus>Overdue</ListItemStatus>
           <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
+          <ListItemStatus>Overdue</ListItemStatus>
         </ArtifactListItem>
 
         <ArtifactListItem variant="now">
           <ListItemTitle>Valve calibration</ListItemTitle>
-          <ListItemStatus>Due today</ListItemStatus>
           <ListItemDescription>Quarterly calibration check</ListItemDescription>
+          <ListItemStatus>Due today</ListItemStatus>
         </ArtifactListItem>
 
         <ArtifactListItem variant="completed">
           <ListItemTitle>Filter cleaning</ListItemTitle>
-          <ListItemStatus>Completed</ListItemStatus>
           <ListItemDescription>Clean inlet filters</ListItemDescription>
+          <ListItemStatus>Completed</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -125,20 +125,20 @@ export const WithHeader: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="error">
           <ListItemTitle>Pump seal replacement</ListItemTitle>
-          <ListItemStatus>Overdue</ListItemStatus>
           <ListItemDescription>P-401A requires new mechanical seal</ListItemDescription>
+          <ListItemStatus>Overdue</ListItemStatus>
         </ArtifactListItem>
 
         <ArtifactListItem variant="now">
           <ListItemTitle>Valve calibration</ListItemTitle>
-          <ListItemStatus>Due today</ListItemStatus>
           <ListItemDescription>Quarterly calibration check</ListItemDescription>
+          <ListItemStatus>Due today</ListItemStatus>
         </ArtifactListItem>
 
         <ArtifactListItem variant="completed">
           <ListItemTitle>Filter cleaning</ListItemTitle>
-          <ListItemStatus>Completed</ListItemStatus>
           <ListItemDescription>Clean inlet filters</ListItemDescription>
+          <ListItemStatus>Completed</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -170,26 +170,26 @@ export const AllVariants: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="upcoming">
           <ListItemTitle>Upcoming task</ListItemTitle>
-          <ListItemStatus>Scheduled</ListItemStatus>
           <ListItemDescription>Pending work item</ListItemDescription>
+          <ListItemStatus>Scheduled</ListItemStatus>
         </ArtifactListItem>
 
         <ArtifactListItem variant="now">
           <ListItemTitle>Current task</ListItemTitle>
-          <ListItemStatus>In progress</ListItemStatus>
           <ListItemDescription>Active work item</ListItemDescription>
+          <ListItemStatus>In progress</ListItemStatus>
         </ArtifactListItem>
 
         <ArtifactListItem variant="completed">
           <ListItemTitle>Completed task</ListItemTitle>
-          <ListItemStatus>Done</ListItemStatus>
           <ListItemDescription>Finished work item</ListItemDescription>
+          <ListItemStatus>Done</ListItemStatus>
         </ArtifactListItem>
 
         <ArtifactListItem variant="error">
           <ListItemTitle>Error task</ListItemTitle>
-          <ListItemStatus>Failed</ListItemStatus>
           <ListItemDescription>Task with issues</ListItemDescription>
+          <ListItemStatus>Failed</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -509,8 +509,8 @@ export const Interactive: Story = {
                 onClick={() => toggleStatus(item.id)}
               >
                 <ListItemTitle>{item.title}</ListItemTitle>
-                <ListItemStatus>{isDone ? "Completed" : "In progress"}</ListItemStatus>
                 <ListItemDescription>{item.detail}</ListItemDescription>
+                <ListItemStatus>{isDone ? "Completed" : "In progress"}</ListItemStatus>
               </ArtifactListItem>
             );
           })}
@@ -576,16 +576,16 @@ export const EdgeCaseLongText: Story = {
             This is an extremely long task title that should wrap or truncate properly within the
             list item
           </ListItemTitle>
-          <ListItemStatus>Overdue since yesterday</ListItemStatus>
           <ListItemDescription>
             This description is also quite long and contains detailed information about the task
             that needs to be handled gracefully by the component layout.
           </ListItemDescription>
+          <ListItemStatus>Overdue since yesterday</ListItemStatus>
         </ArtifactListItem>
         <ArtifactListItem variant="now">
           <ListItemTitle>Normal task</ListItemTitle>
-          <ListItemStatus>Due today</ListItemStatus>
           <ListItemDescription>Normal description</ListItemDescription>
+          <ListItemStatus>Due today</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>
@@ -601,14 +601,14 @@ export const SemanticHeadings: Story = {
     docs: {
       description: {
         story:
-          "ArtifactListTitle supports polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document outline and semantic HTML structure. Defaults to h3.",
+          "Both ArtifactListTitle and ListItemTitle support polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document hierarchy where ListItemTitle headings are subordinate to ArtifactListTitle. Defaults: ArtifactListTitle (h3), ListItemTitle (h3).",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify different heading levels exist
+    // Verify ArtifactListTitle heading levels
     const h2Title = canvas.getByRole("heading", { level: 2, name: "Main Section Tasks (h2)" });
     await expect(h2Title).toBeInTheDocument();
 
@@ -617,6 +617,16 @@ export const SemanticHeadings: Story = {
 
     const h4Title = canvas.getByRole("heading", { level: 4, name: "Subsection Tasks (h4)" });
     await expect(h4Title).toBeInTheDocument();
+
+    // Verify ListItemTitle heading levels maintain proper hierarchy
+    const h3ItemTitle = canvas.getByRole("heading", { level: 3, name: "High-level task" });
+    await expect(h3ItemTitle).toBeInTheDocument();
+
+    const h4ItemTitle = canvas.getByRole("heading", { level: 4, name: "Standard task" });
+    await expect(h4ItemTitle).toBeInTheDocument();
+
+    const h5ItemTitle = canvas.getByRole("heading", { level: 5, name: "Nested task" });
+    await expect(h5ItemTitle).toBeInTheDocument();
   },
   render: () => (
     <div className="flex flex-col gap-6 w-full max-w-2xl">
@@ -627,11 +637,11 @@ export const SemanticHeadings: Story = {
         </ArtifactListHeader>
         <ArtifactListContent>
           <ArtifactListItem variant="now">
-            <ListItemTitle>High-level task</ListItemTitle>
-            <ListItemStatus>In progress</ListItemStatus>
+            <ListItemTitle as="h3">High-level task</ListItemTitle>
             <ListItemDescription>
-              Use as="h2" for main section headings in your document hierarchy
+              ListItemTitle uses as="h3" to maintain hierarchy under h2 ArtifactListTitle
             </ListItemDescription>
+            <ListItemStatus>In progress</ListItemStatus>
           </ArtifactListItem>
         </ArtifactListContent>
       </ArtifactList>
@@ -643,11 +653,11 @@ export const SemanticHeadings: Story = {
         </ArtifactListHeader>
         <ArtifactListContent>
           <ArtifactListItem variant="now">
-            <ListItemTitle>Standard task</ListItemTitle>
-            <ListItemStatus>In progress</ListItemStatus>
+            <ListItemTitle as="h4">Standard task</ListItemTitle>
             <ListItemDescription>
-              The default is h3, which works well for most artifact use cases
+              ListItemTitle uses as="h4" to maintain hierarchy under h3 ArtifactListTitle
             </ListItemDescription>
+            <ListItemStatus>In progress</ListItemStatus>
           </ArtifactListItem>
         </ArtifactListContent>
       </ArtifactList>
@@ -659,11 +669,11 @@ export const SemanticHeadings: Story = {
         </ArtifactListHeader>
         <ArtifactListContent>
           <ArtifactListItem variant="now">
-            <ListItemTitle>Nested task</ListItemTitle>
-            <ListItemStatus>In progress</ListItemStatus>
+            <ListItemTitle as="h5">Nested task</ListItemTitle>
             <ListItemDescription>
-              Use as="h4", as="h5", or as="h6" for nested subsections
+              ListItemTitle uses as="h5" to maintain hierarchy under h4 ArtifactListTitle
             </ListItemDescription>
+            <ListItemStatus>In progress</ListItemStatus>
           </ArtifactListItem>
         </ArtifactListContent>
       </ArtifactList>
@@ -691,8 +701,8 @@ export const Playground: Story = {
       <ArtifactListContent>
         <ArtifactListItem variant="now">
           <ListItemTitle>Sample task</ListItemTitle>
-          <ListItemStatus>In progress</ListItemStatus>
           <ListItemDescription>Try adjusting the className prop</ListItemDescription>
+          <ListItemStatus>In progress</ListItemStatus>
         </ArtifactListItem>
       </ArtifactListContent>
     </ArtifactList>

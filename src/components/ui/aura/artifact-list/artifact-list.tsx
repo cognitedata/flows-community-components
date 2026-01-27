@@ -1,4 +1,4 @@
-import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+import { Children, type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
 import {
@@ -58,13 +58,18 @@ const ArtifactListTitle = forwardRef<
 ArtifactListTitle.displayName = "ArtifactListTitle";
 
 const ArtifactListContent = forwardRef<ComponentRef<typeof List>, ComponentProps<typeof List>>(
-  ({ className, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
+    const childArray = Children.toArray(children);
+    const hasChildren = childArray.length > 0;
+
     return (
       <CardContent
         data-slot="artifact-list-content"
         className={cn("[[data-slot=artifact-list-header]+&]:pt-0")}
       >
-        <List ref={ref} className={className} {...props} />
+        <List ref={ref} className={className} {...props}>
+          {hasChildren ? children : <div className="text-sm text-muted-foreground">No data yet</div>}
+        </List>
       </CardContent>
     );
   }
@@ -92,7 +97,7 @@ const ArtifactListItem = forwardRef<ComponentRef<typeof ListItem>, ComponentProp
       <ListItem
         ref={ref}
         data-slot="artifact-list-item"
-        className={cn("p-0.5 gap-x-3", className)}
+        className={cn("p-0.5 gap-x-2", className)}
         {...props}
       />
     );

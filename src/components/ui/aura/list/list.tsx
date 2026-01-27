@@ -12,6 +12,7 @@ import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type ListItemVariant = "upcoming" | "now" | "completed" | "error";
 
 type ListItemContextValue = {
@@ -131,6 +132,32 @@ const isListItemStatusElement = (child: ReactNode) => {
   return childType === ListItemStatus || displayName === "ListItemStatus";
 };
 
+const isListItemDescriptionElement = (child: ReactNode) => {
+  if (!isValidElement(child)) {
+    return false;
+  }
+
+  const childType = child.type;
+  const displayName = (() => {
+    if (typeof childType === "function") {
+      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
+    }
+
+    if (typeof childType === "object" && childType) {
+      const typedChild = childType as {
+        displayName?: string;
+        render?: { displayName?: string; name?: string };
+      };
+
+      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
+    }
+
+    return undefined;
+  })();
+
+  return childType === ListItemDescription || displayName === "ListItemDescription";
+};
+
 const DefaultListItemIcon = ({ variant }: { variant: ListItemVariant }) => {
   if (variant === "completed") {
     return (
@@ -247,6 +274,7 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
     const childItems = Children.toArray(children);
     const hasIconSlot = childItems.some((child) => isListItemIconElement(child));
     const hasStatusSlot = childItems.some((child) => isListItemStatusElement(child));
+    const hasDescriptionSlot = childItems.some((child) => isListItemDescriptionElement(child));
     const shouldInsertIcon = Boolean(variant) && !hasIconSlot;
     const resolvedChildren = shouldInsertIcon
       ? [<ListItemIcon key="list-item-icon" />, ...childItems]
@@ -261,6 +289,8 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
           data-variant={variant}
           className={cn(
             "grid w-full items-start rounded p-0.5",
+            // Add row gap only if there's a description (multiple rows)
+            hasDescriptionSlot && "gap-y-1",
             // Determine grid columns based on what slots are present
             hasIcon && hasStatusSlot && "grid-cols-[auto_minmax(0,1fr)_auto]", // icon | content | status
             hasIcon && !hasStatusSlot && "grid-cols-[auto_minmax(0,1fr)]", // icon | content
@@ -292,6 +322,7 @@ const ListItemIcon = forwardRef<
     <span
       ref={ref}
       data-slot="list-item-icon"
+      aria-hidden="true"
       className={cn(
         "col-start-1 row-span-2 flex h-4 w-4 items-center justify-center text-muted-foreground",
         listItemIconVariants({ variant: resolvedVariant }),
@@ -307,26 +338,32 @@ ListItemIcon.displayName = "ListItemIcon";
 
 /**
  * Title slot for list items.
+ * Supports polymorphic heading elements (h1-h6) via the `as` prop for proper document hierarchy.
+ * Defaults to h3, which is appropriate for most list item use cases.
+ * @example
+ * <ListItemTitle as="h2">Section Title</ListItemTitle>
+ * <ListItemTitle>Default (h3)</ListItemTitle>
  */
-const ListItemTitle = forwardRef<HTMLDivElement, ComponentProps<"div">>(
-  ({ className, ...props }, ref) => {
-    const { variant, hasIcon } = useContext(ListItemContext);
+const ListItemTitle = forwardRef<
+  HTMLHeadingElement,
+  ComponentProps<"h3"> & { as?: HeadingElement }
+>(({ className, as: Tag = "h3", ...props }, ref) => {
+  const { variant, hasIcon } = useContext(ListItemContext);
 
-    return (
-      <div
-        ref={ref}
-        data-slot="list-item-title"
-        className={cn(
-          "row-start-1 flex items-center gap-2 text-sm font-medium leading-4.5",
-          hasIcon ? "col-start-2" : "col-start-1",
-          listItemTitleVariants({ variant }),
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+  return (
+    <Tag
+      ref={ref}
+      data-slot="list-item-title"
+      className={cn(
+        "row-start-1 flex items-center gap-2 text-sm font-medium leading-4.5",
+        hasIcon ? "col-start-2" : "col-start-1",
+        listItemTitleVariants({ variant }),
+        className
+      )}
+      {...props}
+    />
+  );
+});
 ListItemTitle.displayName = "ListItemTitle";
 
 /**
@@ -341,7 +378,7 @@ const ListItemDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
         ref={ref}
         data-slot="list-item-description"
         className={cn(
-          "row-start-2 mt-1 text-sm leading-4.5 text-muted-foreground",
+          "row-start-2 text-sm leading-4.5 text-muted-foreground",
           hasIcon ? "col-start-2" : "col-start-1",
           listItemDescriptionVariants({ variant }),
           className
