@@ -5,147 +5,53 @@ description: Guidelines for writing comprehensive Storybook stories
 
 # Stories are the Single Source of Truth
 
-**CRITICAL: Stories are the ONLY place for code examples**
+Stories are the ONLY place for code examples. They're tested, interactive, and automatically documented. Never duplicate examples in `index.tsx` or `*.metadata.ts`.
 
-- ✅ Stories are tested, interactive, and automatically documented
-- ✅ Stories are what users see and copy from Storybook
-- ❌ **DO NOT** duplicate examples in `index.tsx` or `*.metadata.ts`
-- ❌ **DO NOT** create static code snippets that will drift from reality
-- 📝 Metadata files should only contain LLM guidance (`llmUsage`), not code examples
-
-**Why?** When you change a component's API:
-- Stories will fail their play functions → you catch the issue
-- Storybook shows the working examples → users see current code
-- Static examples in metadata → silently go out of date → users copy broken code
-
-# Gold Standard
-
-Use `prompt-input.stories.tsx` as the gold standard for story structure, comprehensiveness, and quality.
+**Gold Standard:** Use `prompt-input.stories.tsx` as reference.
 
 # Story Ordering
 
-**CRITICAL: All stories MUST have an order parameter**
-
-The `parameters.order` value controls how stories are displayed as examples on the docs site:
-
-- ✅ **Required** for every story - no exceptions
-- 📊 Start from `1`, increment sequentially (1, 2, 3, 4...) for each story you include
-- 🔢 Lower numbers appear first on the docs site
-- 📝 Skip story types that don't apply - just keep incrementing from where you left off
-- 🎯 Exception: Playground always uses `order: 99` to appear last
+All stories MUST have `parameters: { order: N }`. Start from 1, increment sequentially. Playground always uses `order: 99`.
 
 ## Standard Story Sequence
 
-For consistency across all components, organize stories in this sequence. Assign order numbers sequentially (1, 2, 3, 4...) to the stories you actually include, skipping story types that don't apply to your component.
+Include stories that apply, skip others. Keep incrementing order numbers.
 
-### 1. Basic
-The default, most common use case with minimal configuration.
+1. **Basic** - Default use case
+2. **Variants** - One story per variant
+3. **All Variants** - Side-by-side comparison
+4. **Composition** - `WithHeader`, `WithIcon`, etc. (only if optional features exist)
+5. **Sizing/Styling** - Size/style variants
+6. **Minimal** - Simplest usage (only if different from Basic)
+7. **Interactive** - Stateful examples with `useState`
+8. **Accessibility** - ARIA, keyboard nav
+9. **Visual Regression** - Baseline for testing
+10. **Edge Cases** - Empty, long text, special chars, icon-only, mixed content
+11. **Playground** (optional) - `render: (args) => <Component {...args} />`, `order: 99`. Skip for simple/compositional components.
 
-### 2. Variants
-Individual stories for each variant (e.g., `Fjord`, `Aurora`, `Mountain`, `Error`, `Success`).
-One story per variant showing typical usage.
-
-### 3. All Variants Overview
-Single story showing all variants together for quick comparison.
-Place immediately after individual variant stories.
-
-### 4. Composition Patterns
-Stories showing optional compositions:
-- `WithHeader`, `WithFooter`, `WithIcon`, etc.
-- Show enhancements to the basic usage
-- ✅ Use `With*` naming when the feature is optional/additive
-- ❌ Avoid `Without*` naming - it implies the feature is default (which creates confusion)
-- Only include if the feature actually exists in the component
-- Example: If headers are optional, show `Basic` (no header) and `WithHeader` (enhanced)
-
-### 5. Sizing/Styling
-Stories demonstrating size variants, outline styles, backgrounds, etc.
-Only include if component has size/style variants.
-
-### 6. Minimal
-Bare minimum example showing the simplest possible usage.
-Only include if meaningfully different from Basic.
-
-### 7. Interactive
-Complex stateful examples with `useState`, real-world scenarios, user interactions.
-Shows how to actually use the component in practice (forms, toggles, dynamic content, etc.).
-
-### 8. Accessibility
-ARIA labels, keyboard navigation, screen reader support examples.
-Only include if there are specific accessibility features to demonstrate.
-
-### 9. Visual Regression
-Baseline story for automated visual testing.
-
-### 10. Edge Cases
-- `EdgeCaseEmpty` - Empty content
-- `EdgeCaseLongText` - Overflow behavior
-- `EdgeCaseSpecialCharacters` - Special chars, emojis, HTML
-- `EdgeCaseIconOnly` - Icon-only with accessibility
-- `EdgeCaseMixedContent` - Complex nested children
-- etc.
-
-### 11. Playground - OPTIONAL
-**Always named `Playground`** - Interactive controls for prop experimentation.
-Uses `render: (args) => <Component {...args} />` for full control interactivity via Storybook controls panel.
-Different from Interactive - this is for exploring all props, not showing realistic usage patterns.
-
-**Order number:** Always use `order: 99` for Playground to keep it last.
-
-**Skip Playground if:** Component is simple with few props, or compositional (children-based API).
-**Include Playground if:** Component has many variants/props worth experimenting with interactively.
-
-**Example numbering for a simple component:**
+**Example:**
 
 ```tsx
-// Basic: order 1
-// Fjord variant: order 2
-// Aurora variant: order 3
-// Mountain variant: order 4
-// AllVariants: order 5
-// Interactive: order 6 (skipped Composition Patterns, Sizing, Minimal, Accessibility)
-// EdgeCaseEmpty: order 7
-// EdgeCaseLongText: order 8
-// Playground: order 99 (always last)
-```
-
-Notice how we skipped several story types but kept incrementing sequentially: 1, 2, 3, 4, 5, 6, 7, 8, then 99 for Playground.
-
-**Full example with all story types:**
-
-```tsx
-// 1. Basic
 export const Basic: Story = {
   render: () => <Badge variant="default">Label</Badge>,
   parameters: { order: 1 },
 };
 
-// 2-10. Variants (explicit props, NO {...args})
 export const Fjord: Story = {
   render: () => <Badge variant="fjord">Observations</Badge>,
   parameters: { order: 2 },
 };
 
-export const Aurora: Story = {
-  render: () => <Badge variant="aurora">Troubleshooting</Badge>,
-  parameters: { order: 3 },
-};
-
-// ... more variants ...
-
-// 3. All Variants (after individual variants)
 export const AllVariants: Story = {
   render: () => (
     <div className="flex gap-2">
       <Badge variant="fjord">Fjord</Badge>
       <Badge variant="aurora">Aurora</Badge>
-      <Badge variant="mountain">Mountain</Badge>
     </div>
   ),
-  parameters: { order: 11 },
+  parameters: { order: 5 },
 };
 
-// 4. Composition Patterns
 export const WithIcon: Story = {
   render: () => (
     <Badge variant="fjord">
@@ -153,202 +59,59 @@ export const WithIcon: Story = {
       Complete
     </Badge>
   ),
-  parameters: { order: 12 },
+  parameters: { order: 6 },
 };
 
-// ... other stories following sequence ...
-
-// Last. Playground (optional - only if component benefits from interactive testing)
+// Playground (optional)
 export const Playground: Story = {
-  render: (args) => <Badge {...args} />, // Only Playground uses {...args}
+  render: (args) => <Badge {...args} />,
   args: { variant: "fjord", children: "Badge" },
-  parameters: {
-    order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with all props.",
-      },
-    },
-  },
+  parameters: { order: 99 },
 };
 ```
 
 # Render Functions
 
-**CRITICAL: All stories MUST have explicit render functions with hardcoded props**
+All stories MUST use explicit render functions with hardcoded props. Never use `{...args}` in example stories.
 
-## Example Stories (Basic, Variants, etc.)
+**Exception:** Only Playground uses `render: (args) => <Component {...args} />`.
 
-- ❌ **Never** use `{...args}` in example stories - it leaks Storybook implementation details into user-facing code examples
-- ✅ **Always** use explicit props: `render: () => <Component prop="value" />`
-- 📋 **Why?** Users copy code from examples. `{...args}` is confusing - they don't know what's in `args`
-- 🎯 **Goal:** Show exactly what props are needed for that use case
-
-## Playground Stories (Interactive Testing)
-
-- ✅ **Only** Playground stories should use `render: (args) => <Component {...args} />`
-- 🎮 **Purpose:** Enable interactive prop experimentation via Storybook Controls panel
-- ⚠️ **Skip Playground if:**
-  - Component has very few props (e.g., only `className`, `value`)
-  - All meaningful combinations already shown in example stories
-  - Component uses compositional patterns (children) rather than props
-  - Not much value in "playing around" with controls
-
-## Helper Components
-
-**CRITICAL: Never use helper components in story render functions**
-
-- ❌ **Never** extract story logic into helper components like `<ResultsPerPageStory size="default" />`
-- ✅ **Always** inline all JSX directly in the story's render function
-- 📋 **Why?** The docs site shows the render function code to users as a copy/paste example
-- 🚫 **Problem:** Users see `<ResultsPerPageStory size="default" />` which is completely useless
-- 🎯 **Goal:** Users should see the full, actual implementation they can copy
-
-**Examples:**
+**Never use helper components** - inline all JSX directly:
 
 ```tsx
-// ❌ BAD - Helper component makes code example useless
-const TeleportationStory = ({ size }: { size: "default" | "small" }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  return (
-    <Pagination>
-      <PaginationContent size={size}>
-        {/* ... lots of JSX ... */}
-      </PaginationContent>
-    </Pagination>
-  );
-};
-
-export const TeleportationMode: Story = {
-  render: () => <TeleportationStory size="default" />,
-  // Users see: <TeleportationStory size="default" /> 🚫
-};
-
-// ✅ GOOD - Inline JSX shows full implementation
+// Inline JSX shows full implementation
 export const TeleportationMode: Story = {
   render: function TeleportationMode() {
     const [currentPage, setCurrentPage] = useState(1);
     return (
       <Pagination>
         <PaginationContent size="default">
-          {/* ... full implementation visible to users ... */}
+          {/* full implementation */}
         </PaginationContent>
       </Pagination>
     );
   },
-  // Users see the full code they can copy ✅
 };
 ```
 
-**If multiple stories share similar logic:**
-- ✅ Duplicate the code in each story's render function
-- ✅ Use named render functions for complex stateful examples: `render: function StoryName() { ... }`
-- ❌ Don't DRY up stories with helpers - code examples are more important than avoiding duplication
+Duplicate code in each story if needed. Code examples > DRY principle.
 
-**Examples:**
+# Polymorphic Title Components
 
-```tsx
-// ❌ BAD - {...args} in example story confuses users
-export const Fjord: Story = {
-  render: (args) => <Badge {...args}>Observations</Badge>,
-  args: { variant: "fjord" },
-  parameters: { order: 2 },
-};
-
-// ✅ GOOD - Explicit props show exactly what users need
-export const Fjord: Story = {
-  render: () => <Badge variant="fjord">Observations</Badge>,
-  parameters: { order: 2 },
-};
-
-// ✅ GOOD - Complex example with explicit props
-export const ErrorBadge: Story = {
-  render: () => (
-    <Badge variant="error" background={false}>
-      <IconAlertHexagon className="size-3" />
-      Error
-    </Badge>
-  ),
-  parameters: { order: 6 },
-};
-
-// ✅ GOOD - Playground uses {...args} for interactivity (if needed)
-export const Playground: Story = {
-  render: (args) => <Badge {...args} />,
-  args: {
-    variant: "fjord",
-    children: "Badge",
-  },
-  parameters: {
-    order: 99, // Always last
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with all props.",
-      },
-    },
-  },
-};
-```
-
-## When to Skip Playground
-
-Skip the Playground story for:
-
-- **Simple components** with only styling props (Progress, Separator, Shimmer)
-- **Compositional components** where the API is about children, not props (ArtifactProgress)
-- **Components with few meaningful props** where examples already cover everything
-
-Include Playground for:
-
-- **Components with many variants** to explore (Badge, Button, Alert)
-- **Components with interactive props** that benefit from live testing (Select, Input, Switch)
-- **Complex components** with many prop combinations (Dialog, Dropdown, Popover)
-
-# Comprehensive Coverage
-
-Follow the standard story sequence (see Story Ordering section above) and include:
-
-1. **Basic** - Default use case with minimal configuration
-2. **Variants** - One story per variant (colors, styles, states)
-3. **All Variants** - Side-by-side comparison of all variants
-4. **Composition Patterns** - Optional enhancements (WithHeader, WithIcon, etc.)
-5. **Sizing/Styling** - Size variants, outlines, backgrounds
-6. **Minimal** - Bare minimum usage (only if different from Basic)
-7. **Interactive** - Stateful examples with realistic usage patterns
-8. **Accessibility** - ARIA labels, keyboard navigation, screen reader support
-9. **Visual Regression** - Baseline for automated visual testing
-10. **Edge Cases** - Empty states, long content, special characters, constraints
-11. **Semantic Headings** - (Only for Title components) show polymorphic heading usage
-12. **Playground** (optional) - Prop exploration via Storybook controls (always named `Playground`, always last). Skip for simple/compositional components.
-
-**Documenting polymorphic Title components:**
+For components with `as` prop for heading levels:
 
 ```tsx
-// ✅ GOOD - Demonstrate different heading levels
 export const SemanticHeadings: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Title supports polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document outline. Defaults to h3.",
-      },
-    },
-  },
   render: () => (
     <div className="flex flex-col gap-6">
       <Card>
         <CardTitle as="h2">Section Title (h2)</CardTitle>
-        <CardDescription>Use h2 for main sections</CardDescription>
       </Card>
       <Card>
-        <CardTitle>Default Heading (h3)</CardTitle>
-        <CardDescription>
-          Defaults to h3 when no "as" prop provided
-        </CardDescription>
+        <CardTitle>Default (h3)</CardTitle>
       </Card>
       <Card>
         <CardTitle as="h4">Subsection (h4)</CardTitle>
-        <CardDescription>Use h4+ for nested content</CardDescription>
       </Card>
     </div>
   ),
@@ -357,120 +120,57 @@ export const SemanticHeadings: Story = {
 
 # Play Functions
 
-- Add `play` functions for interaction and rendering validation
-- Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`
-- Test rendering, interactions, accessibility, keyboard navigation
-- Verify DOM structure, classes, attributes, content
+Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
-**Testing polymorphic heading components:**
-
+**Testing heading levels:**
 ```tsx
-// ✅ GOOD - Verify heading levels with getByRole
 play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-
-  // Verify semantic heading levels
-  const h2Title = canvas.getByRole("heading", {
-    level: 2,
-    name: "Section Title",
-  });
+  const h2Title = canvas.getByRole("heading", { level: 2, name: "Section Title" });
   await expect(h2Title).toBeInTheDocument();
-
-  const h3Title = canvas.getByRole("heading", {
-    level: 3,
-    name: "Default Title",
-  });
-  await expect(h3Title).toBeInTheDocument();
 };
 ```
 
-**Testing portal-rendered content (dropdowns, dialogs, tooltips):**
-
+**Testing portal content (dropdowns, dialogs):**
 ```tsx
 import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 
-// ✅ GOOD - Use screen for portal-rendered dropdowns
 play: async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  
-  // Click to open dropdown
   const button = canvas.getByRole("button");
   await userEvent.click(button);
   
-  // Use screen and waitFor for portal content
+  // Use screen for portal content
   await waitFor(async () => {
     const menu = screen.getByRole("menu");
     await expect(menu).toBeInTheDocument();
-    
-    const menuItem = screen.getByText(/Menu Item/i);
-    await expect(menuItem).toBeInTheDocument();
   });
-};
-
-// ❌ BAD - Using canvas for portal content
-play: async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const button = canvas.getByRole("button");
-  await userEvent.click(button);
-  
-  // This will fail - portal content is outside canvas scope
-  const menu = canvas.getByRole("menu"); // ❌ Won't find it
 };
 ```
 
 # Styling in Stories
 
-**No arbitrary Tailwind values in story examples:**
-
-Stories demonstrate best practices, so always use Tailwind's design tokens and spacing scale:
+Use Tailwind design tokens, not arbitrary values:
 
 ```tsx
-// ✅ GOOD - Use Tailwind spacing scale
 <div className="w-90 gap-2 p-4 text-sm leading-4.5">
-
-// ❌ BAD - Arbitrary values
-<div className="w-[362px] gap-[8px] p-[16px] text-[14px] leading-[18px]">
-
-// ✅ GOOD - Use Tailwind width utilities
-<ArtifactList className="w-100">
-
-// ❌ BAD - Unnecessary precision
-<ArtifactList className="w-[398px]">
 ```
 
-**Common conversions:**
-- `w-[360px]` → `w-90` (90 × 4px = 360px)
-- `w-[400px]` → `w-100` (100 × 4px = 400px)
-- `gap-[8px]` → `gap-2` (2 × 4px = 8px)
-- `p-[16px]` → `p-4` (4 × 4px = 16px)
-
-If you need a value not in Tailwind's scale, that's a signal to add it to the design system, not use an arbitrary value.
+Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`
 
 # argTypes
 
-Organize into categories:
-
-- Content
-- Variants / Styling
-- Behavior
-- Events
-- Advanced
-
-Include descriptions and control types for all props.
+Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced. Include descriptions and control types.
 
 # Parameters
 
-Every story must include parameters with an order value:
-
 ```tsx
 parameters: {
-  order: 1, // REQUIRED - controls display order on docs site
+  order: 1, // REQUIRED
   docs: {
     description: {
-      story: "Clear description of what this story demonstrates"
+      story: "Clear description"
     }
   }
 }
 ```
-
-The `order` parameter determines the sequence in which examples appear on the documentation site. This ensures a logical, intentional flow for users browsing component examples.
