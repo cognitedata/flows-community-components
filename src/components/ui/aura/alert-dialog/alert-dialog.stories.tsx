@@ -61,6 +61,14 @@ type Story = StoryObj<typeof AlertDialog>;
  * Default alert dialog with confirmation pattern.
  */
 export const Default: Story = {
+  parameters: {
+    order: 1,
+    docs: {
+      description: {
+        story: "Default alert dialog for confirming critical actions.",
+      },
+    },
+  },
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -80,13 +88,6 @@ export const Default: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Default alert dialog for confirming critical actions.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
@@ -116,6 +117,14 @@ export const Default: Story = {
  * Destructive action confirmation dialog.
  */
 export const DestructiveAction: Story = {
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story: "Alert dialog for destructive actions like account deletion.",
+      },
+    },
+  },
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -141,19 +150,20 @@ export const DestructiveAction: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Alert dialog for destructive actions like account deletion.",
-      },
-    },
-  },
 };
 
 /**
  * Export data confirmation dialog.
  */
 export const ExportData: Story = {
+  parameters: {
+    order: 3,
+    docs: {
+      description: {
+        story: "Alert dialog for confirming data export.",
+      },
+    },
+  },
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -174,19 +184,20 @@ export const ExportData: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Alert dialog for confirming data export.",
-      },
-    },
-  },
 };
 
 /**
  * Dialog with icon in action button.
  */
 export const WithIcon: Story = {
+  parameters: {
+    order: 4,
+    docs: {
+      description: {
+        story: "Alert dialog with icon in the action button.",
+      },
+    },
+  },
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -209,19 +220,20 @@ export const WithIcon: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Alert dialog with icon in the action button.",
-      },
-    },
-  },
 };
 
 /**
  * Warning dialog with custom styling.
  */
 export const Warning: Story = {
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Warning dialog with icon in the title.",
+      },
+    },
+  },
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -248,19 +260,20 @@ export const Warning: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Warning dialog with icon in the title.",
-      },
-    },
-  },
 };
 
 /**
  * Single action dialog (informational).
  */
 export const InformationalSingleAction: Story = {
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story: "Informational dialog with only a single acknowledge button.",
+      },
+    },
+  },
   render: () => (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -280,19 +293,20 @@ export const InformationalSingleAction: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Informational dialog with only a single acknowledge button.",
-      },
-    },
-  },
 };
 
 /**
  * Controlled dialog with external state.
  */
 export const Controlled: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Dialog with externally controlled open state.",
+      },
+    },
+  },
   render: function ControlledAlertDialog() {
     const [open, setOpen] = useState(false);
 
@@ -321,13 +335,6 @@ export const Controlled: Story = {
         </AlertDialog>
       </div>
     );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Dialog with externally controlled open state.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -362,6 +369,14 @@ export const Controlled: Story = {
  * Dialog with async action.
  */
 export const AsyncAction: Story = {
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "Dialog with async action showing loading state.",
+      },
+    },
+  },
   render: function AsyncAlertDialog() {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
@@ -396,19 +411,23 @@ export const AsyncAction: Story = {
       </AlertDialog>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Dialog with async action showing loading state.",
-      },
-    },
-  },
 };
 
 /**
  * Visual regression testing.
  */
 export const VisualRegression: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story: "Dialog opened by default for visual regression testing.",
+      },
+    },
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
   render: () => (
     <div className="flex gap-4">
       <AlertDialog defaultOpen>
@@ -427,16 +446,6 @@ export const VisualRegression: Story = {
       </AlertDialog>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Dialog opened by default for visual regression testing.",
-      },
-    },
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
 };
 
 /**
@@ -445,6 +454,7 @@ export const VisualRegression: Story = {
  */
 export const KeyboardNavigation: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -534,6 +544,7 @@ export const KeyboardNavigation: Story = {
  */
 export const LongContent: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -602,6 +613,7 @@ export const LongContent: Story = {
  */
 export const NoDescription: Story = {
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Minimal alert dialog with only a title and action buttons, no description text.",
@@ -661,6 +673,7 @@ export const NoDescription: Story = {
  */
 export const DisabledButtons: Story = {
   parameters: {
+    order: 13,
     docs: {
       description: {
         story:
@@ -728,6 +741,14 @@ export const Playground: Story = {
   args: {
     defaultOpen: false,
   },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with dialog props.",
+      },
+    },
+  },
   render: (args) => (
     <AlertDialog {...args}>
       <AlertDialogTrigger asChild>
@@ -747,11 +768,4 @@ export const Playground: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with dialog props.",
-      },
-    },
-  },
 };
