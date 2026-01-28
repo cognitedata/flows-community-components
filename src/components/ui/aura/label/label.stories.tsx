@@ -1,12 +1,12 @@
 "use client";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
-import { useState, type ChangeEvent } from "react";
+import { expect, userEvent, within } from "@storybook/test";
+import { type ChangeEvent, useState } from "react";
 
-import { Label } from "./label";
 import { Input } from "@/components/ui/aura/input";
 import { IconAsterisk } from "@tabler/icons-react";
+import { Label } from "./label";
 
 const meta: Meta<typeof Label> = {
   title: "Primitives/Label",
@@ -88,7 +88,7 @@ export const Disabled: Story = {
     docs: {
       description: {
         story:
-          'A label presented in a disabled style. Combine with a disabled input to reflect non-interactive state.',
+          "A label presented in a disabled style. Combine with a disabled input to reflect non-interactive state.",
       },
     },
   },

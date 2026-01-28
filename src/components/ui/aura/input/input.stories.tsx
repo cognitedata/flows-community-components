@@ -186,12 +186,7 @@ export const WithError: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
       <Label htmlFor="error">Email address</Label>
-      <Input
-        id="error"
-        type="email"
-        placeholder="Input text"
-        errorMessage="Help text"
-      />
+      <Input id="error" type="email" placeholder="Input text" errorMessage="Help text" />
     </div>
   ),
   parameters: {
@@ -261,9 +256,7 @@ export const Controlled: Story = {
             Set "Hello!"
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Value: {value || "(empty)"}
-        </p>
+        <p className="text-sm text-muted-foreground">Value: {value || "(empty)"}</p>
       </div>
     );
   },
@@ -344,12 +337,7 @@ export const FormExample: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-password">Password</Label>
-        <Input
-          id="form-password"
-          type="password"
-          placeholder="Input text"
-          required
-        />
+        <Input id="form-password" type="password" placeholder="Input text" required />
       </div>
       <button
         type="submit"
@@ -388,11 +376,7 @@ export const AllStates: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-error">Error</Label>
-        <Input
-          id="state-error"
-          placeholder="Input text"
-          errorMessage="Help text"
-        />
+        <Input id="state-error" placeholder="Input text" errorMessage="Help text" />
       </div>
     </div>
   ),
@@ -424,9 +408,7 @@ export const VisualRegression: Story = {
 
       {/* With labels */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">
-          With Labels
-        </h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">With Labels</h3>
         <div className="grid items-center gap-1 ">
           <Label htmlFor="vr-labeled">Labeled input</Label>
           <Input id="vr-labeled" placeholder="Input text" />
@@ -478,8 +460,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Interactive playground - use controls to experiment with input props.",
+        story: "Interactive playground - use controls to experiment with input props.",
       },
     },
   },

@@ -50,7 +50,6 @@ const focusRings = [
   },
 ];
 
-
 function ShadowSwatch({ shadow }: { shadow: (typeof shadows)[0] }) {
   return (
     <div className="flex gap-6 py-4">
@@ -94,17 +93,13 @@ function FocusRingSwatch({ focusRing }: { focusRing: (typeof focusRings)[0] }) {
         {/* Dark mode */}
         <div className="flex-1 bg-[#111213] rounded-xl border border-[#2e3238] p-6 flex items-center justify-center">
           <div
-            className={cn(
-              "w-28 h-24 bg-[#1a1b1f] rounded-lg outline-none",
-              focusRing.darkClasses
-            )}
+            className={cn("w-28 h-24 bg-[#1a1b1f] rounded-lg outline-none", focusRing.darkClasses)}
           />
         </div>
       </div>
     </div>
   );
 }
-
 
 export default function EffectsPage() {
   return (
@@ -137,7 +132,8 @@ export default function EffectsPage() {
             <div className="mb-8">
               <h2 className="text-2xl font-semibold mb-2">Focus</h2>
               <p className="text-muted-foreground">
-                Keyboard focus indicators for accessibility. Focus rings use a 2px inner ring + 4px outer glow (4px total) and adapt to light and dark modes.
+                Keyboard focus indicators for accessibility. Focus rings use a 2px inner ring + 4px
+                outer glow (4px total) and adapt to light and dark modes.
               </p>
             </div>
             <div className="space-y-8">
