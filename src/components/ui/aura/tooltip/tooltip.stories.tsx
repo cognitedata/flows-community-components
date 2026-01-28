@@ -82,6 +82,7 @@ type Story = StoryObj<typeof Tooltip>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -132,6 +133,7 @@ export const Basic: Story = {
  */
 export const WithButtonVariants: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -222,6 +224,7 @@ export const WithButtonVariants: Story = {
  */
 export const PositionTop: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Tooltip positioned above the trigger element.",
@@ -264,6 +267,7 @@ export const PositionTop: Story = {
  */
 export const PositionRight: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Tooltip positioned to the right of the trigger element.",
@@ -299,6 +303,7 @@ export const PositionRight: Story = {
  */
 export const PositionBottom: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Tooltip positioned below the trigger element.",
@@ -334,6 +339,7 @@ export const PositionBottom: Story = {
  */
 export const PositionLeft: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Tooltip positioned to the left of the trigger element.",
@@ -370,6 +376,7 @@ export const PositionLeft: Story = {
  */
 export const AllPositions: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Tooltips with arrows appearing from all sides.",
@@ -378,7 +385,7 @@ export const AllPositions: Story = {
   },
   render: () => (
     <TooltipProvider>
-      <div className="flex flex-col items-center justify-center gap-16 min-h-[300px]">
+      <div className="flex flex-col items-center justify-center gap-16 min-h-75">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline">Hover me - Top</Button>
@@ -417,6 +424,7 @@ export const AllPositions: Story = {
  */
 export const WithIcons: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -505,6 +513,7 @@ export const WithIcons: Story = {
  */
 export const LongContent: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Tooltip with longer content to demonstrate text wrapping and balance.",
@@ -544,6 +553,7 @@ export const LongContent: Story = {
  */
 export const WithOffset: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Tooltip with custom side offset to adjust spacing from the trigger element.",
@@ -581,6 +591,7 @@ export const WithOffset: Story = {
  */
 export const KeyboardInteractions: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -640,6 +651,7 @@ export const KeyboardInteractions: Story = {
  */
 export const DefaultOpen: Story = {
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Tooltip that is open by default when the component mounts. Tests defaultOpen prop.",
@@ -677,6 +689,7 @@ export const DefaultOpen: Story = {
  */
 export const ControlledState: Story = {
   parameters: {
+    order: 13,
     docs: {
       description: {
         story: "Demonstrates a controlled tooltip where the open state is managed externally.",
@@ -718,6 +731,7 @@ export const ControlledState: Story = {
  */
 export const WithDelay: Story = {
   parameters: {
+    order: 14,
     docs: {
       description: {
         story: "Tooltip with a 1500ms delay before appearing. Tests delayDuration prop.",
