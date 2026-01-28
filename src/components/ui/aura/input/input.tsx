@@ -4,10 +4,10 @@ import { HelperText } from "@/components/ui/aura/helper-text";
 import {
   cn,
   disabledState,
-  focusRing,
-  focusRingDestructive,
+  filledState,
   focusState,
-  invalidFocusState,
+  formElementBase,
+  hoverState,
   invalidState,
 } from "@/lib/utils";
 
@@ -17,28 +17,21 @@ interface InputProps extends ComponentProps<"input"> {
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, errorMessage, ...props }, ref) => {
-    const isInvalid = !!errorMessage;
-
     return (
       <>
         <input
           ref={ref}
           type={type}
           data-slot="input"
-          aria-invalid={isInvalid ? true : undefined}
+          aria-invalid={errorMessage ? true : undefined}
           className={cn(
-            // Base styles
-            "border border-border bg-background p-1.75 w-100 rounded-md h-9.15 text-base leading-5 tracking-tightest text-muted-foreground",
-            // Hover
-            "hover:bg-accent hover:text-accent-foreground",
-            // Filled
-            "filled:bg-background filled:border-border filled:text-foreground",
-            // States from utils
+            "w-fit",
+            formElementBase,
+            hoverState,
+            filledState,
             focusState,
             invalidState,
-            invalidFocusState,
             disabledState,
-            isInvalid ? focusRingDestructive : focusRing,
             className
           )}
           {...props}
