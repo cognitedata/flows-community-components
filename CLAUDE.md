@@ -33,3 +33,7 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 # Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
+
+# Learnings
+
+- Pie chart artifacts should use `ChartContainer` config keys as slice ids for color mapping.
