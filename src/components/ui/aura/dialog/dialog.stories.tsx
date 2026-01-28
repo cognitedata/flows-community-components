@@ -94,6 +94,7 @@ export const Default: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default dialog with title, description, and action buttons.",
@@ -155,6 +156,7 @@ export const WithForm: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Dialog containing a form for user input.",
@@ -188,6 +190,7 @@ export const NoCloseButton: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Dialog without the X close button in the corner.",
@@ -229,6 +232,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Dialog with externally controlled open state.",
@@ -270,6 +274,7 @@ export const ScrollingContent: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Dialog with scrolling content for long text.",
@@ -309,6 +314,7 @@ export const NonModal: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -376,6 +382,7 @@ export const Nested: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Dialogs can be nested inside each other.",
@@ -411,6 +418,7 @@ export const TitleOnly: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Dialog using only `DialogTitle` without a description to demonstrate minimal headers.",
@@ -464,6 +472,7 @@ export const LongHeader: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -510,6 +519,7 @@ export const Confirmation: Story = {
     );
   },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Confirmation dialog for destructive actions.",
@@ -565,6 +575,7 @@ export const AsyncAction: Story = {
     );
   },
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -617,6 +628,7 @@ export const VisualRegression: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Dialog open by default for visual regression testing.",
@@ -658,6 +670,7 @@ export const Playground: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with dialog props.",
