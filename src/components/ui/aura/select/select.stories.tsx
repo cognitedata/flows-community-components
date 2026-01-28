@@ -255,11 +255,7 @@ export const WithError: Story = {
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="select-error">Required field</Label>
       <Select>
-        <SelectTrigger
-          id="select-error"
-          className="w-50"
-          errorMessage="Please select an option"
-        >
+        <SelectTrigger id="select-error" className="w-50" errorMessage="Please select an option">
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
@@ -659,9 +655,7 @@ export const EdgeCaseEmpty: Story = {
         <SelectTrigger className="w-50">
           <SelectValue placeholder="No options available" />
         </SelectTrigger>
-        <SelectContent>
-          {/* No items */}
-        </SelectContent>
+        <SelectContent>{/* No items */}</SelectContent>
       </Select>
       <p className="text-sm text-muted-foreground">
         Select with no options demonstrates empty state handling.
@@ -706,7 +700,8 @@ export const EdgeCaseSpecialCharacters: Story = {
     order: 15,
     docs: {
       description: {
-        story: "Select with emojis, special characters, and HTML entities to test proper escaping and rendering.",
+        story:
+          "Select with emojis, special characters, and HTML entities to test proper escaping and rendering.",
       },
     },
   },
