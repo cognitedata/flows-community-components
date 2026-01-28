@@ -10,6 +10,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
+ * Focus rings for non-form interactive elements (buttons, etc.).
+ * These provide only the shadow-based focus ring without background/border changes.
+ */
+export const focusRing = "focus-visible:shadow-focus-ring outline-none" as const;
+export const focusRingDestructive =
+  "focus-visible:shadow-focus-ring-destructive outline-none" as const;
+
+/**
  * Reusable form element state Tailwind classes.
  * Import these to maintain consistent styling across all form components.
  */
