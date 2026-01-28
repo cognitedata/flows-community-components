@@ -47,7 +47,7 @@ type Story = StoryObj<typeof Separator>;
  */
 export const Default: Story = {
   render: () => (
-    <div className="w-[300px]">
+    <div className="w-75">
       <div className="space-y-1">
         <h4 className="text-sm font-medium">Section Title</h4>
         <p className="text-sm text-muted-foreground">Some content above the separator.</p>
@@ -60,6 +60,7 @@ export const Default: Story = {
     </div>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default horizontal separator dividing content sections.",
@@ -87,6 +88,7 @@ export const Vertical: Story = {
     </div>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Vertical separator for inline content division.",
@@ -126,6 +128,7 @@ export const InNavigation: Story = {
     </nav>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Vertical separators used in navigation.",
@@ -139,7 +142,7 @@ export const InNavigation: Story = {
  */
 export const InCard: Story = {
   render: () => (
-    <div className="w-[350px] rounded-lg border p-4">
+    <div className="w-88 rounded-lg border p-4">
       <div className="flex justify-between">
         <div>
           <h3 className="font-medium">Subscription</h3>
@@ -175,6 +178,7 @@ export const InCard: Story = {
     </div>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Horizontal separators used within a card component.",
@@ -188,7 +192,7 @@ export const InCard: Story = {
  */
 export const WithText: Story = {
   render: () => (
-    <div className="w-[300px]">
+    <div className="w-75">
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <Separator className="w-full" />
@@ -200,6 +204,7 @@ export const WithText: Story = {
     </div>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Separator with centered text overlay.",
@@ -213,7 +218,7 @@ export const WithText: Story = {
  */
 export const InList: Story = {
   render: () => (
-    <div className="w-[300px] rounded-lg border">
+    <div className="w-75 rounded-lg border">
       <div className="p-4">
         <h4 className="font-medium">Notifications</h4>
         <p className="text-sm text-muted-foreground">Manage your notification settings.</p>
@@ -231,6 +236,7 @@ export const InList: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Separators dividing list items.",
@@ -244,7 +250,7 @@ export const InList: Story = {
  */
 export const CustomStyle: Story = {
   render: () => (
-    <div className="w-[300px] space-y-4">
+    <div className="w-75 space-y-4">
       <div>
         <p className="text-sm text-muted-foreground mb-2">Default</p>
         <Separator />
@@ -264,6 +270,7 @@ export const CustomStyle: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Separators with custom styles applied.",
@@ -277,7 +284,7 @@ export const CustomStyle: Story = {
  */
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-8 p-4 w-[350px]">
+    <div className="space-y-8 p-4 w-88">
       {/* Horizontal */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Horizontal</h3>
@@ -312,6 +319,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -332,11 +340,12 @@ export const Playground: Story = {
     decorative: true,
   },
   render: (args) => (
-    <div className={args.orientation === "vertical" ? "h-20" : "w-[300px]"}>
+    <div className={args.orientation === "vertical" ? "h-20" : "w-75"}>
       <Separator {...args} />
     </div>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with separator props.",
