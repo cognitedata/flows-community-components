@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, within } from "@storybook/test";
 import { IconDotsVertical, IconTrendingUp } from "@tabler/icons-react";
-import { useState } from "react";
 import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 import { Button } from "@/components/ui/aura/button";
@@ -9,53 +8,15 @@ import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/aura/chart";
 import {
   ArtifactChart,
-  ArtifactChartCenterLabel,
   ArtifactChartContent,
   ArtifactChartDescription,
   ArtifactChartFooter,
-  ArtifactChartFooterDescription,
-  ArtifactChartFooterTitle,
   ArtifactChartHeader,
-  ArtifactChartLegend,
-  ArtifactChartLegendItem,
   ArtifactChartTitle,
 } from "./artifact-chart";
-
-// Sample data and config for pie charts
-const pieChartConfig = {
-  complete: {
-    label: "Complete",
-    color: "var(--color-fjord-450)",
-  },
-  inProgress: {
-    label: "In progress",
-    color: "var(--color-fjord-400)",
-  },
-  blocked: {
-    label: "Blocked",
-    color: "var(--color-fjord-300)",
-  },
-  queued: {
-    label: "Queued",
-    color: "var(--color-fjord-200)",
-  },
-  review: {
-    label: "In review",
-    color: "var(--color-fjord-100)",
-  },
-} satisfies ChartConfig;
-
-const pieChartData = [
-  { id: "complete", value: 240 },
-  { id: "inProgress", value: 275 },
-  { id: "blocked", value: 275 },
-  { id: "queued", value: 275 },
-  { id: "review", value: 275 },
-];
 
 const meta: Meta<typeof ArtifactChart> = {
   title: "Primitives/Artifact - Chart",
@@ -94,130 +55,59 @@ const meta: Meta<typeof ArtifactChart> = {
 export default meta;
 type Story = StoryObj<typeof ArtifactChart>;
 
-// =============================================================================
-// PIE CHART STORIES
-// =============================================================================
-
 /**
- * Pie chart with a centered label showing total value.
- * Uses ChartContainer for color theming and ChartTooltip for hover interactions.
+ * Complete pie chart artifact with header, donut chart with value labels,
+ * legend, and footer. Demonstrates the full compositional pattern.
  */
-export const PieChartWithCenterLabel: Story = {
-  args: {
-    className: "h-96 w-96 justify-between overflow-hidden p-4",
-  },
+export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
-          "A donut chart with a centered label displaying the total. The center label uses `ArtifactChartCenterLabel` positioned absolutely within a relative container.",
+          "Complete pie chart artifact with header, donut chart with value labels, legend, and footer. Labels use fjord-450 blue with 20% opacity background.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Task completion")).toBeInTheDocument();
+    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
     await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Total")).toBeInTheDocument();
-    await expect(canvas.getByText("1,340")).toBeInTheDocument();
+    await expect(canvas.getByText("Visitors")).toBeInTheDocument();
+    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Trending up by 5.2% this month"),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Total visitors for the last 6 months"),
+    ).toBeInTheDocument();
   },
-  render: (args) => {
-    const total = pieChartData.reduce((sum, item) => sum + item.value, 0);
+  render: function BasicPieChart() {
+    // Chart config defines colors for each data segment (lightest to darkest)
+    const chartConfig = {
+      slice1: { label: "unit", color: "var(--color-chart-fjord-opacity-4)" },
+      slice2: { label: "unit", color: "var(--color-chart-fjord-opacity-3)" },
+      slice3: { label: "unit", color: "var(--color-chart-fjord-opacity-2)" },
+      slice4: { label: "unit", color: "var(--color-chart-fjord-opacity-1)" },
+      slice5: { label: "unit", color: "var(--color-chart-fjord-solid)" },
+    } satisfies ChartConfig;
 
-    return (
-      <ArtifactChart className={args.className}>
-        <ArtifactChartHeader className="flex-row items-start p-0">
-          <div className="flex-1 space-y-0.5">
-            <div className="flex items-center gap-2">
-              <ArtifactChartTitle className="leading-5">Task completion</ArtifactChartTitle>
-              <Button variant="ghost" size="icon-sm" aria-label="More options">
-                <IconDotsVertical />
-              </Button>
-            </div>
-            <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
-          </div>
-        </ArtifactChartHeader>
-        <ArtifactChartContent className="p-0">
-          <div className="relative flex items-center justify-center">
-            <ChartContainer config={pieChartConfig} className="aspect-square h-48 w-48">
-              <PieChart>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideIndicator labelKey="id" nameKey="id" />}
-                />
-                <Pie
-                  data={pieChartData}
-                  dataKey="value"
-                  nameKey="id"
-                  innerRadius={64}
-                  outerRadius={96}
-                  strokeWidth={0}
-                >
-                  {pieChartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
-            <ArtifactChartCenterLabel label="Total" value={total.toLocaleString()} />
-          </div>
-        </ArtifactChartContent>
-        <ArtifactChartFooter className="p-0">
-          <ArtifactChartFooterTitle>
-            Trending up by 5.2% this month
-            <IconTrendingUp className="h-4 w-4" />
-          </ArtifactChartFooterTitle>
-          <ArtifactChartFooterDescription>
-            Total tasks for the last 6 months
-          </ArtifactChartFooterDescription>
-        </ArtifactChartFooter>
-      </ArtifactChart>
-    );
-  },
-};
+    // Data ordered lightest to darkest for clockwise rendering from top
+    const chartData = [
+      { id: "slice1", value: 225 }, // lightest - starts at top
+      { id: "slice2", value: 225 },
+      { id: "slice3", value: 225 },
+      { id: "slice4", value: 225 },
+      { id: "slice5", value: 225 }, // darkest (solid)
+    ];
 
-/**
- * Pie chart with colored labels positioned around the chart slices.
- */
-export const PieChartWithColoredLabels: Story = {
-  args: {
-    className: "h-[420px] w-96 justify-between overflow-hidden p-4",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Donut chart with colored labels rendered around each slice using a custom label renderer.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("Distribution")).toBeInTheDocument();
-    await expect(canvas.getByText("By category")).toBeInTheDocument();
-  },
-  render: (args) => {
-    const total = pieChartData.reduce((sum, item) => sum + item.value, 0);
-
-    const getLabelColor = (payload: PieLabelRenderProps) => {
-      const dataId = payload.payload?.id ?? payload.name;
-      if (typeof dataId === "string") {
-        return (
-          pieChartConfig[dataId as keyof typeof pieChartConfig]?.color ?? `var(--color-${dataId})`
-        );
-      }
-      return "var(--color-fjord-450)";
-    };
+    // Label styling per design spec
+    const labelColor = "var(--color-fjord-450)";
 
     const renderLabel = (payload: PieLabelRenderProps) => {
       const labelText = String(payload.value ?? 0);
-      const labelWidth = Math.max(22, labelText.length * 7);
+      const labelWidth = Math.max(26, labelText.length * 8 + 4);
       return (
         <g transform={`translate(${payload.x}, ${payload.y})`}>
           <rect
@@ -226,14 +116,18 @@ export const PieChartWithColoredLabels: Story = {
             width={labelWidth}
             height={18}
             rx={2}
-            fill={getLabelColor(payload)}
+            fill={labelColor}
             fillOpacity={0.2}
           />
           <text
             textAnchor="middle"
             dominantBaseline="central"
-            fill={getLabelColor(payload)}
-            className="text-xs font-medium"
+            fill={labelColor}
+            style={{
+              fontSize: "12px",
+              fontWeight: 500,
+              letterSpacing: "-0.08px",
+            }}
           >
             {labelText}
           </text>
@@ -242,30 +136,72 @@ export const PieChartWithColoredLabels: Story = {
     };
 
     return (
-      <ArtifactChart className={args.className}>
-        <ArtifactChartHeader className="p-0">
-          <ArtifactChartTitle>Distribution</ArtifactChartTitle>
-          <ArtifactChartDescription>By category</ArtifactChartDescription>
+      <ArtifactChart className="w-[397px] gap-1.25 px-4 pb-6 pt-4">
+        <ArtifactChartHeader className="flex-row items-start p-0">
+          <div className="flex-1 space-y-0.5">
+            <div className="flex items-center justify-between">
+              <ArtifactChartTitle className="leading-5">
+                Chart title
+              </ArtifactChartTitle>
+              <Button variant="ghost" size="icon-sm" aria-label="More options">
+                <IconDotsVertical />
+              </Button>
+            </div>
+            <ArtifactChartDescription>
+              January - June 2024
+            </ArtifactChartDescription>
+          </div>
         </ArtifactChartHeader>
+
         <ArtifactChartContent className="p-0">
+          {/* Pie chart with center label */}
           <div className="relative flex items-center justify-center">
-            <ChartContainer config={pieChartConfig} className="aspect-square h-48 w-48">
-              <PieChart>
+            <ChartContainer
+              config={chartConfig}
+              className="w-100 overflow-visible"
+            >
+              <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideIndicator labelKey="id" nameKey="id" />}
+                  content={({ active, payload }) => {
+                    if (!active || !payload?.length) return null;
+                    const data = payload[0];
+                    const id = data.payload?.id as string;
+                    const value = data.value as number;
+                    const color =
+                      chartConfig[id as keyof typeof chartConfig]?.color;
+
+                    return (
+                      <div className="flex items-center gap-4 rounded-md bg-white p-2 shadow-md">
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className="h-2 w-2 rounded-sm"
+                            style={{ backgroundColor: color }}
+                          />
+                          <span className="text-sm text-muted-foreground">
+                            unit
+                          </span>
+                        </div>
+                        <span className="text-sm text-foreground">
+                          {value.toLocaleString()}
+                        </span>
+                      </div>
+                    );
+                  }}
                 />
                 <Pie
-                  data={pieChartData}
+                  data={chartData}
                   dataKey="value"
                   nameKey="id"
-                  innerRadius={64}
-                  outerRadius={96}
+                  innerRadius={61}
+                  outerRadius={100}
                   strokeWidth={0}
+                  startAngle={90}
+                  endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
                 >
-                  {pieChartData.map((entry) => (
+                  {chartData.map((entry) => (
                     <Cell
                       key={entry.id}
                       fill={`var(--color-${entry.id})`}
@@ -275,314 +211,47 @@ export const PieChartWithColoredLabels: Story = {
                 </Pie>
               </PieChart>
             </ChartContainer>
-            <ArtifactChartCenterLabel label="Items" value={total.toLocaleString()} />
+            {/* Center label - pointer-events-none to allow hover on pie segments */}
+            <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
+              <div>
+                <span className="block text-2xl font-medium text-foreground">
+                  1,125
+                </span>
+                <span className="block text-sm font-normal text-muted-foreground">
+                  Visitors
+                </span>
+              </div>
+            </div>
           </div>
-        </ArtifactChartContent>
-        <ArtifactChartFooter className="p-0">
-          <ArtifactChartFooterDescription>Updated just now</ArtifactChartFooterDescription>
-        </ArtifactChartFooter>
-      </ArtifactChart>
-    );
-  },
-};
 
-/**
- * Pie chart with a legend showing all categories.
- */
-export const PieChartWithLegend: Story = {
-  args: {
-    className: "h-[440px] w-96 justify-between overflow-hidden p-4",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Donut chart with a legend displaying each category. Uses `ArtifactChartLegend` and `ArtifactChartLegendItem` components.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("Asset overview")).toBeInTheDocument();
-    // Check legend items
-    await expect(canvas.getByText("Complete")).toBeInTheDocument();
-    await expect(canvas.getByText("In progress")).toBeInTheDocument();
-    await expect(canvas.getByText("Blocked")).toBeInTheDocument();
-  },
-  render: (args) => {
-    const total = pieChartData.reduce((sum, item) => sum + item.value, 0);
-
-    return (
-      <ArtifactChart className={args.className}>
-        <ArtifactChartHeader className="p-0">
-          <ArtifactChartTitle>Asset overview</ArtifactChartTitle>
-          <ArtifactChartDescription>Plant-wide status</ArtifactChartDescription>
-        </ArtifactChartHeader>
-        <ArtifactChartContent className="p-0">
-          <div className="relative flex items-center justify-center">
-            <ChartContainer config={pieChartConfig} className="aspect-square h-48 w-48">
-              <PieChart>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideIndicator labelKey="id" nameKey="id" />}
+          {/* Legend */}
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {chartData.map((item) => (
+              <div key={item.id} className="flex items-center gap-1.5">
+                <span
+                  className="h-2 w-2 rounded-sm"
+                  style={{
+                    backgroundColor:
+                      chartConfig[item.id as keyof typeof chartConfig]?.color,
+                  }}
                 />
-                <Pie
-                  data={pieChartData}
-                  dataKey="value"
-                  nameKey="id"
-                  innerRadius={64}
-                  outerRadius={96}
-                  strokeWidth={0}
-                >
-                  {pieChartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
-            <ArtifactChartCenterLabel label="Assets" value={total.toLocaleString()} />
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
+              </div>
+            ))}
           </div>
         </ArtifactChartContent>
-        <ArtifactChartLegend>
-          {pieChartData.map((item) => (
-            <ArtifactChartLegendItem
-              key={item.id}
-              color={pieChartConfig[item.id as keyof typeof pieChartConfig]?.color}
-            >
-              {pieChartConfig[item.id as keyof typeof pieChartConfig]?.label}
-            </ArtifactChartLegendItem>
-          ))}
-        </ArtifactChartLegend>
-        <ArtifactChartFooter className="p-0">
-          <ArtifactChartFooterTitle>
-            Overall health: Good
+
+        <ArtifactChartFooter className="mt-4 p-0">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
             <IconTrendingUp className="h-4 w-4" />
-          </ArtifactChartFooterTitle>
-          <ArtifactChartFooterDescription>
-            Last updated 5 minutes ago
-          </ArtifactChartFooterDescription>
+          </div>
+          <div className="text-sm leading-4 text-muted-foreground">
+            Total visitors for the last 6 months
+          </div>
         </ArtifactChartFooter>
-      </ArtifactChart>
-    );
-  },
-};
-
-/**
- * Minimal pie chart without header or footer.
- */
-export const PieChartMinimal: Story = {
-  args: {
-    className: "w-64 p-4",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "A minimal donut chart with just the chart content and center label.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("Total")).toBeInTheDocument();
-  },
-  render: (args) => {
-    const total = pieChartData.reduce((sum, item) => sum + item.value, 0);
-
-    return (
-      <ArtifactChart className={args.className}>
-        <ArtifactChartContent className="p-0">
-          <div className="relative flex items-center justify-center">
-            <ChartContainer config={pieChartConfig} className="aspect-square h-48 w-48">
-              <PieChart>
-                <Pie
-                  data={pieChartData}
-                  dataKey="value"
-                  nameKey="id"
-                  innerRadius={64}
-                  outerRadius={96}
-                  strokeWidth={0}
-                >
-                  {pieChartData.map((entry) => (
-                    <Cell key={entry.id} fill={`var(--color-${entry.id})`} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
-            <ArtifactChartCenterLabel label="Total" value={total.toLocaleString()} />
-          </div>
-        </ArtifactChartContent>
-      </ArtifactChart>
-    );
-  },
-};
-
-/**
- * Interactive pie chart that updates data on button click.
- */
-export const PieChartInteractive: Story = {
-  args: {
-    className: "w-80",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Interactive donut chart that randomizes values when clicking the button. Demonstrates stateful chart updates.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const randomizeButton = canvas.getByRole("button", { name: "Randomize" });
-
-    await expect(randomizeButton).toBeInTheDocument();
-    await userEvent.click(randomizeButton);
-  },
-  render: function PieChartInteractiveStory(args) {
-    const [data, setData] = useState(pieChartData);
-
-    const handleRandomize = () => {
-      const values = data.map(() => Math.floor(Math.random() * 70) + 10);
-      const total = values.reduce((sum, value) => sum + value, 0);
-      setData(
-        data.map((item, index) => ({
-          ...item,
-          value: Math.round((values[index] / total) * 100),
-        }))
-      );
-    };
-
-    const total = data.reduce((sum, item) => sum + item.value, 0);
-
-    return (
-      <ArtifactChart className={args.className}>
-        <ArtifactChartHeader>
-          <ArtifactChartTitle>Workload split</ArtifactChartTitle>
-          <ArtifactChartDescription>Current distribution</ArtifactChartDescription>
-        </ArtifactChartHeader>
-        <ArtifactChartContent>
-          <div className="relative flex items-center justify-center">
-            <ChartContainer config={pieChartConfig} className="aspect-square h-48 w-48">
-              <PieChart>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideIndicator labelKey="id" nameKey="id" />}
-                />
-                <Pie
-                  data={data}
-                  dataKey="value"
-                  nameKey="id"
-                  innerRadius={64}
-                  outerRadius={96}
-                  strokeWidth={0}
-                  isAnimationActive
-                >
-                  {data.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
-            <ArtifactChartCenterLabel label="Total" value={total.toLocaleString()} />
-          </div>
-        </ArtifactChartContent>
-        <ArtifactChartFooter className="flex-row items-center justify-between">
-          <span className="text-sm text-muted-foreground">Updated just now</span>
-          <Button size="sm" variant="secondary" onClick={handleRandomize}>
-            Randomize
-          </Button>
-        </ArtifactChartFooter>
-      </ArtifactChart>
-    );
-  },
-};
-
-/**
- * Pie chart with custom opacity values for each slice.
- */
-export const PieChartWithOpacity: Story = {
-  args: {
-    className: "w-80",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Donut chart with varying opacity values on each slice to create depth.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("Completion rate")).toBeInTheDocument();
-  },
-  render: (args) => {
-    const dataWithOpacity = [
-      { id: "complete", value: 240, opacity: 1 },
-      { id: "inProgress", value: 180, opacity: 0.8 },
-      { id: "blocked", value: 120, opacity: 0.6 },
-      { id: "queued", value: 90, opacity: 0.4 },
-      { id: "review", value: 60, opacity: 0.2 },
-    ];
-
-    const total = dataWithOpacity.reduce((sum, item) => sum + item.value, 0);
-
-    return (
-      <ArtifactChart className={args.className}>
-        <ArtifactChartHeader>
-          <ArtifactChartTitle>Completion rate</ArtifactChartTitle>
-          <ArtifactChartDescription>Progress breakdown</ArtifactChartDescription>
-        </ArtifactChartHeader>
-        <ArtifactChartContent>
-          <div className="relative flex items-center justify-center">
-            <ChartContainer config={pieChartConfig} className="aspect-square h-48 w-48">
-              <PieChart>
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideIndicator labelKey="id" nameKey="id" />}
-                />
-                <Pie
-                  data={dataWithOpacity}
-                  dataKey="value"
-                  nameKey="id"
-                  innerRadius={64}
-                  outerRadius={96}
-                  strokeWidth={0}
-                >
-                  {dataWithOpacity.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      fillOpacity={entry.opacity}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ChartContainer>
-            <ArtifactChartCenterLabel label="Tasks" value={total.toLocaleString()} />
-          </div>
-        </ArtifactChartContent>
-        <ArtifactChartLegend>
-          {dataWithOpacity.map((item) => (
-            <ArtifactChartLegendItem
-              key={item.id}
-              color={pieChartConfig[item.id as keyof typeof pieChartConfig]?.color}
-            >
-              {pieChartConfig[item.id as keyof typeof pieChartConfig]?.label}
-            </ArtifactChartLegendItem>
-          ))}
-        </ArtifactChartLegend>
       </ArtifactChart>
     );
   },
