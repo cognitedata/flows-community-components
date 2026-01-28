@@ -37,6 +37,7 @@ type Story = StoryObj<typeof Kbd>;
 export const Default: Story = {
   render: () => <Kbd>K</Kbd>,
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default keyboard key styling.",
@@ -87,6 +88,7 @@ export const CommonShortcuts: Story = {
     </div>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Common keyboard shortcuts using KbdGroup.",
@@ -112,6 +114,7 @@ export const SingleKeys: Story = {
     </div>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Common modifier and special keys.",
@@ -150,6 +153,7 @@ export const WithIcons: Story = {
     </div>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Keyboard keys with icons.",
@@ -190,6 +194,7 @@ export const MultiKeyCombinations: Story = {
     </div>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Complex multi-key combinations.",
@@ -216,6 +221,7 @@ export const InContext: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Keyboard keys used inline with text.",
@@ -229,7 +235,7 @@ export const InContext: Story = {
  */
 export const ShortcutList: Story = {
   render: () => (
-    <div className="w-[300px] rounded-lg border">
+    <div className="w-75 rounded-lg border">
       <div className="p-3 border-b">
         <h3 className="font-medium text-sm">Keyboard Shortcuts</h3>
       </div>
@@ -266,6 +272,7 @@ export const ShortcutList: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Keyboard shortcuts displayed in a list format.",
@@ -295,6 +302,7 @@ export const FunctionKeys: Story = {
     </div>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Function keys (F1-F12).",
@@ -359,6 +367,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -379,6 +388,7 @@ export const Playground: Story = {
   },
   render: (args) => <Kbd {...args} />,
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with kbd props.",
