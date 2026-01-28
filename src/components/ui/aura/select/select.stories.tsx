@@ -545,9 +545,7 @@ export const LongTextAndOverflow: Story = {
             <SelectItem value="option2">
               Another extremely verbose option label demonstrating overflow behaviour in the list
             </SelectItem>
-            <SelectItem value="option3">
-              Short label
-            </SelectItem>
+            <SelectItem value="option3">Short label</SelectItem>
             <SelectItem value="option4">
               Yet another long option label to force vertical scrolling inside the menu content area
             </SelectItem>
