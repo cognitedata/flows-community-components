@@ -39,7 +39,7 @@ const meta: Meta<typeof Reasoning> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[500px]">
+      <div className="w-lg">
         <Story />
       </div>
     ),
@@ -129,6 +129,7 @@ export const IndustrialWorkflow: Story = {
     </Reasoning>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -144,8 +145,8 @@ export const IndustrialWorkflow: Story = {
     await expect(reasoning).toBeInTheDocument();
 
     // Check that all three tool calls are present
-    const toolButtons = canvas.getAllByRole("button");
-    await expect(toolButtons.length).toBe(3);
+    const toolButtons = await canvas.findAllByRole("button");
+    await expect(toolButtons).toHaveLength(3);
 
     // Verify tool names in order
     await expect(toolButtons[0]).toHaveTextContent("Find assets");
@@ -211,6 +212,7 @@ export const SingleToolCall: Story = {
     </Reasoning>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -226,8 +228,8 @@ export const SingleToolCall: Story = {
     await expect(reasoning).toBeInTheDocument();
 
     // Check that exactly one tool call is present (single tool = no connector decorations)
-    const toolButtons = canvas.getAllByRole("button");
-    await expect(toolButtons.length).toBe(1);
+    const toolButtons = await canvas.findAllByRole("button");
+    await expect(toolButtons).toHaveLength(1);
 
     // Verify tool name
     await expect(toolButtons[0]).toHaveTextContent("Look up asset details");
@@ -325,6 +327,7 @@ export const ToolWithError: Story = {
     </div>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -336,8 +339,8 @@ export const ToolWithError: Story = {
     const canvas = within(canvasElement);
 
     // Verify all tools are present (4 total: 2 per reasoning section)
-    const toolButtons = canvas.getAllByRole("button");
-    await expect(toolButtons.length).toBe(4);
+    const toolButtons = await canvas.findAllByRole("button");
+    await expect(toolButtons).toHaveLength(4);
 
     // Verify error badges are visible
     const errorBadges = canvas.getAllByText("Error");
@@ -397,6 +400,7 @@ export const ManyToolCalls: Story = {
     </Reasoning>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -408,8 +412,8 @@ export const ManyToolCalls: Story = {
     const canvas = within(canvasElement);
 
     // Verify all 6 tools are present
-    const toolButtons = canvas.getAllByRole("button");
-    await expect(toolButtons.length).toBe(6);
+    const toolButtons = await canvas.findAllByRole("button");
+    await expect(toolButtons).toHaveLength(6);
 
     // Verify custom header title
     await expect(canvasElement.textContent).toContain("Complex Analysis Workflow");
@@ -481,6 +485,7 @@ export const LongContent: Story = {
     </Reasoning>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -552,6 +557,7 @@ export const CustomHeaders: Story = {
     </div>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Different header styles including custom title and custom React node with badge.",
@@ -567,8 +573,8 @@ export const CustomHeaders: Story = {
     expect(canvas.getByText("3 steps")).toBeInTheDocument();
 
     // Verify tools can be expanded
-    const toolButtons = canvas.getAllByRole("button");
-    expect(toolButtons).toHaveLength(2);
+    const toolButtons = await canvas.findAllByRole("button");
+    await expect(toolButtons).toHaveLength(2);
 
     // Expand first tool and check for content
     await userEvent.click(toolButtons[0]);
@@ -637,6 +643,7 @@ export const Accessibility: Story = {
     </Reasoning>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -648,7 +655,7 @@ export const Accessibility: Story = {
     const canvas = within(canvasElement);
 
     // Verify all interactive elements are keyboard accessible
-    const toolButtons = canvas.getAllByRole("button");
+    const toolButtons = await canvas.findAllByRole("button");
 
     // Verify buttons have accessible names
     await expect(toolButtons[0]).toHaveAccessibleName("Check system status");
@@ -755,6 +762,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Visual regression baseline showing single tool, multiple tools, and error states.",
@@ -770,19 +778,18 @@ export const VisualRegression: Story = {
  * Interactive playground.
  */
 export const Playground: Story = {
-  render: () => (
-    <Reasoning>
+  args: {
+    className: "",
+  },
+  render: (args) => (
+    <Reasoning {...args}>
       <ReasoningHeader />
       <ReasoningContent>
         <ReasoningItem>
           <Tool>
             <ToolHeader title="Playground tool" type="tool-call" />
             <ToolContent>
-              <ToolInput
-                input={{
-                  message: "Try customizing this example",
-                }}
-              />
+              <ToolInput input={{ message: "Try customizing this example" }} />
               <ToolOutput
                 output={{
                   status: "ready",
@@ -797,6 +804,7 @@ export const Playground: Story = {
     </Reasoning>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground for experimenting with Reasoning component props.",
