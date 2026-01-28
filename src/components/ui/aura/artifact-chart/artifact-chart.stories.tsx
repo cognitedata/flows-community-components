@@ -1,14 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconDotsVertical, IconTrendingUp } from "@tabler/icons-react";
+import { useState } from "react";
 import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 import { Button } from "@/components/ui/aura/button";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-} from "@/components/ui/aura/chart";
+import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
 import {
   ArtifactChart,
   ArtifactChartContent,
@@ -23,21 +20,96 @@ const meta: Meta<typeof ArtifactChart> = {
   component: ArtifactChart,
   tags: ["autodocs"],
   argTypes: {
+    // Content
+    children: {
+      control: false,
+      description:
+        "Compositional children: ArtifactChartHeader, ArtifactChartContent, ArtifactChartFooter",
+      table: {
+        category: "Content",
+        type: { summary: "ReactNode" },
+      },
+    },
+
     // Display
     className: {
       control: "text",
-      description: "CSS classes for styling the card wrapper",
+      description: "Additional CSS classes for styling the card wrapper",
       table: {
         category: "Display",
       },
     },
-
-    // Content
-    children: {
-      control: false,
-      description: "Compositional children (Header, Content, Footer)",
+    style: {
+      control: "object",
+      description: "Inline styles for the card wrapper",
       table: {
-        category: "Content",
+        category: "Display",
+        type: { summary: "CSSProperties" },
+      },
+    },
+
+    // HTML Attributes
+    id: {
+      control: "text",
+      description: "HTML id attribute for the card element",
+      table: {
+        category: "HTML Attributes",
+      },
+    },
+    role: {
+      control: "text",
+      description: "ARIA role attribute (defaults to implicit region)",
+      table: {
+        category: "HTML Attributes",
+      },
+    },
+    "aria-label": {
+      control: "text",
+      description: "Accessible label for the chart artifact",
+      table: {
+        category: "HTML Attributes",
+      },
+    },
+    "aria-labelledby": {
+      control: "text",
+      description: "ID of element that labels this chart artifact",
+      table: {
+        category: "HTML Attributes",
+      },
+    },
+    "aria-describedby": {
+      control: "text",
+      description: "ID of element that describes this chart artifact",
+      table: {
+        category: "HTML Attributes",
+      },
+    },
+
+    // Events
+    onClick: {
+      action: "clicked",
+      description: "Click handler for the card",
+      table: {
+        category: "Events",
+        type: { summary: "MouseEventHandler<HTMLDivElement>" },
+      },
+    },
+    onKeyDown: {
+      action: "keyDown",
+      description: "Keyboard handler for accessibility",
+      table: {
+        category: "Events",
+        type: { summary: "KeyboardEventHandler<HTMLDivElement>" },
+      },
+    },
+
+    // Advanced
+    ref: {
+      control: false,
+      description: "Ref forwarded to the underlying Card element",
+      table: {
+        category: "Advanced",
+        type: { summary: "Ref<HTMLDivElement>" },
       },
     },
   },
@@ -76,12 +148,8 @@ export const Basic: Story = {
     await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
     await expect(canvas.getByText("Visitors")).toBeInTheDocument();
     await expect(canvas.getByText("1,125")).toBeInTheDocument();
-    await expect(
-      canvas.getByText("Trending up by 5.2% this month"),
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByText("Total visitors for the last 6 months"),
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(canvas.getByText("Total visitors for the last 6 months")).toBeInTheDocument();
   },
   render: function BasicPieChart() {
     // Chart config defines colors for each data segment (lightest to darkest)
@@ -94,13 +162,13 @@ export const Basic: Story = {
     } satisfies ChartConfig;
 
     // Data ordered lightest to darkest for clockwise rendering from top
-    const chartData = [
+    const [chartData] = useState([
       { id: "slice1", value: 225 }, // lightest - starts at top
       { id: "slice2", value: 225 },
       { id: "slice3", value: 225 },
       { id: "slice4", value: 225 },
       { id: "slice5", value: 225 }, // darkest (solid)
-    ];
+    ]);
 
     // Label styling per design spec
     const labelColor = "var(--color-fjord-450)";
@@ -136,30 +204,23 @@ export const Basic: Story = {
     };
 
     return (
-      <ArtifactChart className="w-[397px] gap-1.25 px-4 pb-6 pt-4">
+      <ArtifactChart className="w-100 gap-1.5 px-4 pb-6 pt-4">
         <ArtifactChartHeader className="flex-row items-start p-0">
           <div className="flex-1 space-y-0.5">
             <div className="flex items-center justify-between">
-              <ArtifactChartTitle className="leading-5">
-                Chart title
-              </ArtifactChartTitle>
+              <ArtifactChartTitle className="leading-5">Chart title</ArtifactChartTitle>
               <Button variant="ghost" size="icon-sm" aria-label="More options">
-                <IconDotsVertical />
+                <IconDotsVertical aria-hidden="true" />
               </Button>
             </div>
-            <ArtifactChartDescription>
-              January - June 2024
-            </ArtifactChartDescription>
+            <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
           </div>
         </ArtifactChartHeader>
 
         <ArtifactChartContent className="p-0">
           {/* Pie chart with center label */}
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={chartConfig}
-              className="w-100 overflow-visible"
-            >
+            <ChartContainer config={chartConfig} className="w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -168,23 +229,15 @@ export const Basic: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      chartConfig[id as keyof typeof chartConfig]?.color;
+                    const color = chartConfig[id as keyof typeof chartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-white p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -214,30 +267,23 @@ export const Basic: Story = {
             {/* Center label - pointer-events-none to allow hover on pie segments */}
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
 
-          {/* Legend */}
+          {/* Legend - uses chartConfig directly since it's outside ChartContainer's CSS variable scope */}
           <div className="flex flex-wrap items-center justify-center gap-2">
             {chartData.map((item) => (
               <div key={item.id} className="flex items-center gap-1.5">
                 <span
                   className="h-2 w-2 rounded-sm"
                   style={{
-                    backgroundColor:
-                      chartConfig[item.id as keyof typeof chartConfig]?.color,
+                    backgroundColor: chartConfig[item.id as keyof typeof chartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -246,7 +292,7 @@ export const Basic: Story = {
         <ArtifactChartFooter className="mt-4 p-0">
           <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
             Trending up by 5.2% this month
-            <IconTrendingUp className="h-4 w-4" />
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
           </div>
           <div className="text-sm leading-4 text-muted-foreground">
             Total visitors for the last 6 months

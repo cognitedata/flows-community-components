@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from "react";
 
 import {
   Card,
@@ -17,30 +17,51 @@ import { cn } from "@/lib/utils";
  * The actual chart implementation (PieChart, BarChart, etc.) is composed
  * within the content area using Recharts components directly in your code.
  */
-function ArtifactChart({ className, ...props }: ComponentProps<typeof Card>) {
-  return <Card data-slot="artifact-chart" className={cn(className)} {...props} />;
-}
+const ArtifactChart = forwardRef<ElementRef<typeof Card>, ComponentPropsWithoutRef<typeof Card>>(
+  ({ className, ...props }, ref) => {
+    return <Card data-slot="artifact-chart" ref={ref} className={className} {...props} />;
+  }
+);
+ArtifactChart.displayName = "ArtifactChart";
 
-function ArtifactChartHeader({ className, ...props }: ComponentProps<typeof CardHeader>) {
+const ArtifactChartHeader = forwardRef<
+  ElementRef<typeof CardHeader>,
+  ComponentPropsWithoutRef<typeof CardHeader>
+>(({ className, ...props }, ref) => {
   return (
-    <CardHeader data-slot="artifact-chart-header" className={cn("gap-1", className)} {...props} />
+    <CardHeader
+      data-slot="artifact-chart-header"
+      ref={ref}
+      className={cn("gap-1", className)}
+      {...props}
+    />
   );
-}
+});
+ArtifactChartHeader.displayName = "ArtifactChartHeader";
 
-function ArtifactChartTitle({ className, ...props }: ComponentProps<typeof CardTitle>) {
+const ArtifactChartTitle = forwardRef<
+  ElementRef<typeof CardTitle>,
+  ComponentPropsWithoutRef<typeof CardTitle>
+>(({ className, ...props }, ref) => {
   return (
     <CardTitle
       data-slot="artifact-chart-title"
+      ref={ref}
       className={cn("text-base font-medium tracking-tighter", className)}
       {...props}
     />
   );
-}
+});
+ArtifactChartTitle.displayName = "ArtifactChartTitle";
 
-function ArtifactChartDescription({ className, ...props }: ComponentProps<typeof CardDescription>) {
+const ArtifactChartDescription = forwardRef<
+  ElementRef<typeof CardDescription>,
+  ComponentPropsWithoutRef<typeof CardDescription>
+>(({ className, ...props }, ref) => {
   return (
     <CardDescription
       data-slot="artifact-chart-description"
+      ref={ref}
       className={cn(
         "text-sm font-normal leading-4.5 tracking-tight text-muted-foreground",
         className
@@ -48,27 +69,38 @@ function ArtifactChartDescription({ className, ...props }: ComponentProps<typeof
       {...props}
     />
   );
-}
+});
+ArtifactChartDescription.displayName = "ArtifactChartDescription";
 
-function ArtifactChartContent({ className, ...props }: ComponentProps<typeof CardContent>) {
+const ArtifactChartContent = forwardRef<
+  ElementRef<typeof CardContent>,
+  ComponentPropsWithoutRef<typeof CardContent>
+>(({ className, ...props }, ref) => {
   return (
     <CardContent
       data-slot="artifact-chart-content"
+      ref={ref}
       className={cn("flex w-full flex-col items-center gap-4 overflow-visible", className)}
       {...props}
     />
   );
-}
+});
+ArtifactChartContent.displayName = "ArtifactChartContent";
 
-function ArtifactChartFooter({ className, ...props }: ComponentProps<typeof CardFooter>) {
+const ArtifactChartFooter = forwardRef<
+  ElementRef<typeof CardFooter>,
+  ComponentPropsWithoutRef<typeof CardFooter>
+>(({ className, ...props }, ref) => {
   return (
     <CardFooter
       data-slot="artifact-chart-footer"
+      ref={ref}
       className={cn("flex flex-col items-start gap-1 text-sm", className)}
       {...props}
     />
   );
-}
+});
+ArtifactChartFooter.displayName = "ArtifactChartFooter";
 
 export {
   ArtifactChart,
