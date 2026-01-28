@@ -373,6 +373,181 @@ export const WithScrollingContent: Story = {
 };
 
 /**
+ * Drawer demonstrating async save behaviour with a temporary loading state.
+ */
+export const AsyncAction: Story = {
+  render: function AsyncActionDrawer() {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [saved, setSaved] = useState(false);
+
+    const handleSave = () => {
+      setLoading(true);
+      setSaved(false);
+      setTimeout(() => {
+        setLoading(false);
+        setSaved(true);
+        setOpen(false);
+      }, 500);
+    };
+
+    return (
+      <div className="space-y-4">
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            <Button onClick={() => setOpen(true)}>Open Async Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Async Save</DrawerTitle>
+              <DrawerDescription>
+                Simulates an asynchronous operation when saving changes.
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="p-4 space-y-2">
+              <p className="text-sm text-muted-foreground">
+                Change some settings, then click Save to trigger an async action.
+              </p>
+              <Input placeholder="Setting value" />
+            </div>
+            <DrawerFooter>
+              <DrawerClose asChild disabled={loading}>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+              <Button onClick={handleSave} disabled={loading} data-testid="async-drawer-save">
+                {loading ? "Saving..." : "Save"}
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+        {saved && <p className="text-sm text-green-600">Changes saved successfully.</p>}
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Drawer that demonstrates an asynchronous save action with a temporary loading state and success feedback.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const openButton = canvas.getByRole("button", { name: /open async drawer/i });
+    await userEvent.click(openButton);
+
+    const saveButton = await canvas.findByTestId("async-drawer-save");
+    await userEvent.click(saveButton);
+
+    await waitFor(() => {
+      expect(saveButton).toHaveTextContent("Saving...");
+    });
+
+    await waitFor(() => {
+      expect(canvas.getByText(/changes saved successfully/i)).toBeInTheDocument();
+    });
+  },
+};
+
+/**
+ * Drawer keyboard interactions: focus, keyboard activation, and ESC to close.
+ */
+export const KeyboardInteractions: Story = {
+  render: function KeyboardInteractionsDrawer() {
+    const [open, setOpen] = useState(false);
+    const [activated, setActivated] = useState(false);
+
+    return (
+      <div className="space-y-4">
+        <Drawer open={open} onOpenChange={setOpen}>
+          <DrawerTrigger asChild>
+            <Button>Open Keyboard Drawer</Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Keyboard Drawer</DrawerTitle>
+              <DrawerDescription>
+                Use Tab to move focus, Enter/Space to activate, and Escape to close.
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="p-4 flex flex-col gap-2">
+              <Button
+                variant="outline"
+                data-testid="keyboard-primary"
+                onClick={() => setActivated(true)}
+              >
+                Keyboard Action
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setActivated(false)}
+                data-testid="keyboard-reset"
+              >
+                Reset
+              </Button>
+            </div>
+            <DrawerFooter>
+              <DrawerClose asChild>
+                <Button variant="outline">Close</Button>
+              </DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+        <p className="text-sm text-muted-foreground">
+          Status: {activated ? "Activated" : "Inactive"}
+        </p>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Drawer story focused on keyboard accessibility: Tab focus, keyboard activation, and Escape to close.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open the drawer with keyboard
+    const trigger = canvas.getByRole("button", { name: /open keyboard drawer/i });
+    await userEvent.tab();
+    await userEvent.tab(); // move focus to trigger
+    await waitFor(() => {
+      expect(trigger).toHaveFocus();
+    });
+    await userEvent.keyboard("{Enter}");
+
+    // Focus should move into the drawer; first action button should be reachable
+    const primaryButton = await canvas.findByTestId("keyboard-primary");
+    await waitFor(() => {
+      expect(primaryButton).toBeInTheDocument();
+    });
+
+    // Activate via keyboard
+    await userEvent.tab();
+    await waitFor(() => {
+      expect(primaryButton).toHaveFocus();
+    });
+    await userEvent.keyboard("{Enter}");
+
+    await waitFor(() => {
+      expect(canvas.getByText(/status: activated/i)).toBeInTheDocument();
+    });
+
+    // Press Escape to close
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => {
+      const drawer = document.querySelector('[data-slot="drawer-content"]');
+      expect(drawer).not.toBeInTheDocument();
+    });
+  },
+};
+
+/**
  * Visual regression testing.
  */
 export const VisualRegression: Story = {
