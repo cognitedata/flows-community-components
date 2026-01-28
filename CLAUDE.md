@@ -48,3 +48,4 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 - When `ArtifactListHeader` is present, remove top padding from `ArtifactListContent` and use title margin for spacing.
 - Biome formatting prefers inline JSX for short elements and props.
 - Storybook stories need `parameters.order`, `findAllByRole` for buttons, and no arbitrary Tailwind values.
+- Component exports should be gathered at the bottom with decorative icons aria-hidden.

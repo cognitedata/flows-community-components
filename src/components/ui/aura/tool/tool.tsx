@@ -1,3 +1,9 @@
+import type { ComponentProps, ReactNode } from "react";
+import { isValidElement } from "react";
+
+import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
+import type { ToolUIPart } from "ai";
+
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
 import {
@@ -11,30 +17,31 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
 import { cn } from "@/lib/utils";
-import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
-import type { ToolUIPart } from "ai";
-import type { ComponentProps, ReactNode } from "react";
-import { isValidElement } from "react";
 
-export type ToolProps = ComponentProps<typeof Collapsible>;
+type ToolProps = ComponentProps<typeof Collapsible>;
 
-export const Tool = ({ className, ...props }: ToolProps) => (
+const Tool = ({ className, ...props }: ToolProps) => (
   <Collapsible
+    data-slot="tool"
     className={cn("group not-prose w-full bg-background rounded-md flex flex-col gap-2", className)}
     {...props}
   />
 );
 
-export type ToolHeaderProps = {
+type ToolHeaderProps = {
   title?: string;
   type: ToolUIPart["type"];
   className?: string;
   hasError?: boolean;
 };
 
-export const ToolHeader = ({ className, title, type, hasError, ...props }: ToolHeaderProps) => (
+const ToolHeader = ({ className, title, type, hasError, ...props }: ToolHeaderProps) => (
   <CollapsibleTrigger className={className} {...props} asChild>
-    <Button variant="ghost" className="w-full justify-between text-base leading-5 tracking-tighter">
+    <Button
+      data-slot="tool-trigger"
+      variant="ghost"
+      className="w-full justify-between text-base leading-5 tracking-tighter"
+    >
       <span>{title ?? type.split("-").slice(1).join("-")}</span>
       <div className="flex items-center gap-2">
         {hasError && (
@@ -42,27 +49,32 @@ export const ToolHeader = ({ className, title, type, hasError, ...props }: ToolH
             Error
           </Badge>
         )}
-        <ChevronsUpDown className="h-4 w-4" />
+        <ChevronsUpDown aria-hidden="true" className="h-4 w-4" />
       </div>
     </Button>
   </CollapsibleTrigger>
 );
 
-export type ToolContentProps = ComponentProps<typeof CollapsibleContent>;
+type ToolContentProps = ComponentProps<typeof CollapsibleContent>;
 
-export const ToolContent = ({ className, ...props }: ToolContentProps) => (
+const ToolContent = ({ className, ...props }: ToolContentProps) => (
   <CollapsibleContent
+    data-slot="tool-content"
     className={cn("flex flex-col gap-4 py-3 text-popover-foreground outline-none", className)}
     {...props}
   />
 );
 
-export type ToolInputProps = ComponentProps<"div"> & {
+type ToolInputProps = ComponentProps<"div"> & {
   input: ToolUIPart["input"];
 };
 
-export const ToolInput = ({ className, input, ...props }: ToolInputProps) => (
-  <div className={cn("space-y-2 overflow-hidden px-3.25", className)} {...props}>
+const ToolInput = ({ className, input, ...props }: ToolInputProps) => (
+  <div
+    data-slot="tool-input"
+    className={cn("space-y-2 overflow-hidden px-3.25", className)}
+    {...props}
+  >
     <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
       Parameters
     </h4>
@@ -75,12 +87,12 @@ export const ToolInput = ({ className, input, ...props }: ToolInputProps) => (
   </div>
 );
 
-export type ToolOutputProps = ComponentProps<"div"> & {
+type ToolOutputProps = ComponentProps<"div"> & {
   output: ToolUIPart["output"];
   errorText: ToolUIPart["errorText"];
 };
 
-export const ToolOutput = ({ className, output, errorText, ...props }: ToolOutputProps) => {
+const ToolOutput = ({ className, output, errorText, ...props }: ToolOutputProps) => {
   if (!(output || errorText)) {
     return null;
   }
@@ -105,7 +117,7 @@ export const ToolOutput = ({ className, output, errorText, ...props }: ToolOutpu
 
   if (errorText) {
     return (
-      <div className={cn("space-y-2 px-3.25", className)} {...props}>
+      <div data-slot="tool-output" className={cn("space-y-2 px-3.25", className)} {...props}>
         <div className="flex flex-col gap-2 text-sm">
           <span className="font-medium text-destructive-foreground">ERROR</span>
           <span className="text-foreground">{errorText}</span>
@@ -115,7 +127,7 @@ export const ToolOutput = ({ className, output, errorText, ...props }: ToolOutpu
   }
 
   return (
-    <div className={cn("space-y-2 px-3.25", className)} {...props}>
+    <div data-slot="tool-output" className={cn("space-y-2 px-3.25", className)} {...props}>
       <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">Result</h4>
       <div className="overflow-x-auto rounded-md bg-muted/50 text-xs text-foreground [&_table]:w-full">
         {Output}
@@ -123,3 +135,6 @@ export const ToolOutput = ({ className, output, errorText, ...props }: ToolOutpu
     </div>
   );
 };
+
+export type { ToolProps, ToolHeaderProps, ToolContentProps, ToolInputProps, ToolOutputProps };
+export { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput };

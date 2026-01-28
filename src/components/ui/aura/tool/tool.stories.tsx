@@ -28,7 +28,7 @@ const meta: Meta<typeof Tool> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[500px]">
+      <div className="w-lg">
         <Story />
       </div>
     ),
@@ -64,6 +64,7 @@ export const Default: Story = {
     </Tool>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default tool invocation with input parameters and output.",
@@ -98,6 +99,7 @@ export const WithError: Story = {
     </Tool>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Tool invocation that resulted in an error.",
@@ -125,6 +127,7 @@ export const CollapsedByDefault: Story = {
     </Tool>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Tool that starts collapsed.",
@@ -176,6 +179,7 @@ export const ComplexInput: Story = {
     </Tool>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Tool with complex nested input parameters.",
@@ -219,6 +223,7 @@ export const MultipleTools: Story = {
     </div>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Multiple sequential tool invocations.",
@@ -278,6 +283,7 @@ export const LargeOutput: Story = {
     </Tool>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Tool with large structured output.",
@@ -318,6 +324,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Tools for visual regression testing.",
@@ -352,6 +359,7 @@ export const Playground: Story = {
     </Tool>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive tool example.",
