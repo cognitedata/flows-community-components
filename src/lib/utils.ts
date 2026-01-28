@@ -10,41 +10,26 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Reusable form element state class strings.
- * Import these to maintain consistent styling across all form components.
- */
-
-/**
- * Focus ring styles using box-shadow only (no border changes) to prevent layout shift.
- * - Inner ring: 2px (darker color)
- * - Outer ring: 4px total (lighter color, 2px visible beyond inner)
+ * Focus rings for non-form interactive elements (buttons, etc.).
+ * These provide only the shadow-based focus ring without background/border changes.
  */
 export const focusRing = "focus-visible:shadow-focus-ring outline-none" as const;
 export const focusRingDestructive =
   "focus-visible:shadow-focus-ring-destructive outline-none" as const;
 
 /**
- * Focus state visual styles (background, border, text).
- * Use alongside focusRing or focusRingDestructive.
+ * Reusable form element state Tailwind classes.
+ * Import these to maintain consistent styling across all form components.
  */
+export const formElementBase =
+  "rounded-md border border-border bg-background p-1.75 text-base leading-5 tracking-tightest text-muted-foreground" as const;
+export const hoverState = "hover:bg-accent hover:text-accent-foreground" as const;
+export const filledState =
+  "filled:bg-background filled:border-border filled:text-foreground" as const;
 export const focusState =
-  "focus-visible:bg-background focus-visible:border-transparent focus-visible:text-foreground" as const;
-
-/**
- * Invalid state for unfocused elements (shows red border).
- */
-export const invalidState = "aria-invalid:border-destructive-foreground" as const;
-
-/**
- * Invalid focus state (border becomes transparent, text stays foreground).
- * Use alongside focusRingDestructive for the ring.
- */
-export const invalidFocusState =
-  "aria-invalid:focus-visible:border-transparent aria-invalid:focus-visible:text-foreground" as const;
-
-/**
- * Disabled state styles for form elements.
- */
+  "focus-visible:shadow-focus-ring focus-visible:bg-background focus-visible:border-transparent focus-visible:text-foreground outline-none" as const;
+export const invalidState =
+  "aria-invalid:border-destructive-foreground aria-invalid:focus-visible:shadow-focus-ring-destructive aria-invalid:focus-visible:border-transparent aria-invalid:focus-visible:text-foreground outline-none" as const;
 export const disabledState =
   "disabled:bg-disabled disabled:border-transparent disabled:text-disabled-foreground disabled:pointer-events-none disabled:cursor-not-allowed" as const;
 
