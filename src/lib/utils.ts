@@ -9,6 +9,41 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Reusable form element state class strings.
+ * Import these to maintain consistent styling across all form components.
+ */
+
+/**
+ * Focus ring styles using box-shadow only (no border changes) to prevent layout shift.
+ * - Inner ring: 2px (darker color)
+ * - Outer ring: 4px total (lighter color, 2px visible beyond inner)
+ */
+export const focusRing = "focus-visible:shadow-focus-ring outline-none" as const;
+export const focusRingDestructive = "focus-visible:shadow-focus-ring-destructive outline-none" as const;
+
+/**
+ * Focus state visual styles (background, border, text).
+ * Use alongside focusRing or focusRingDestructive.
+ */
+export const focusState = "focus-visible:bg-background focus-visible:border-transparent focus-visible:text-foreground" as const;
+
+/**
+ * Invalid state for unfocused elements (shows red border).
+ */
+export const invalidState = "aria-invalid:border-destructive-foreground" as const;
+
+/**
+ * Invalid focus state (border becomes transparent, text stays foreground).
+ * Use alongside focusRingDestructive for the ring.
+ */
+export const invalidFocusState = "aria-invalid:focus-visible:border-transparent aria-invalid:focus-visible:text-foreground" as const;
+
+/**
+ * Disabled state styles for form elements.
+ */
+export const disabledState = "disabled:bg-disabled disabled:border-transparent disabled:text-disabled-foreground disabled:pointer-events-none disabled:cursor-not-allowed" as const;
+
 export function slugToPascalCase(slug: string): string {
   return slug
     .split("-")
