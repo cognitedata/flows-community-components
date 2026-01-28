@@ -292,6 +292,7 @@ export const AllVariants: Story = {
     </div>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -439,6 +440,7 @@ export const Mountain: Story = {
     children: "Mountain",
   },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -1040,6 +1042,7 @@ export const ErrorState: Story = {
     ),
   },
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -1105,6 +1108,7 @@ export const Undefined: Story = {
     ),
   },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -1590,7 +1594,7 @@ export const Playground: Story = {
     children: "Badge",
   },
   parameters: {
-    order: 15,
+    order: 99,
     docs: {
       description: {
         story:
@@ -2121,7 +2125,7 @@ export const EdgeCaseWidthConstraints: Story = {
           Truncated Long Text
         </Badge>
       </div>
-      <Badge variant="mountain" className="min-w-[120px] justify-center">
+      <Badge variant="mountain" className="min-w-30 justify-center">
         Min Width
       </Badge>
     </div>
