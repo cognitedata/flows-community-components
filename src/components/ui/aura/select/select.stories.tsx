@@ -527,6 +527,50 @@ export const AllStates: Story = {
 };
 
 /**
+ * Long option labels and constrained width to demonstrate wrapping and overflow behaviour.
+ */
+export const LongTextAndOverflow: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="w-40">
+        <Label>Long option labels</Label>
+        <Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select an option with long text" />
+          </SelectTrigger>
+          <SelectContent className="max-h-[160px]">
+            <SelectItem value="option1">
+              This is a very long option label that should wrap or truncate when space is limited
+            </SelectItem>
+            <SelectItem value="option2">
+              Another extremely verbose option label demonstrating overflow behaviour in the list
+            </SelectItem>
+            <SelectItem value="option3">
+              Short label
+            </SelectItem>
+            <SelectItem value="option4">
+              Yet another long option label to force vertical scrolling inside the menu content area
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <p className="text-sm text-muted-foreground max-w-md">
+        The trigger is constrained by a narrow container while the dropdown content has a limited
+        max height with scrolling enabled, helping you see how long labels behave in tight layouts.
+      </p>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Select constrained by a narrow container with very long option labels and a scrollable menu to demonstrate text wrapping and overflow behaviour.",
+      },
+    },
+  },
+};
+
+/**
  * Visual regression testing.
  */
 export const VisualRegression: Story = {
