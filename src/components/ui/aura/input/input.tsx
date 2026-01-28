@@ -25,7 +25,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           data-slot="input"
           aria-invalid={errorMessage ? true : undefined}
           className={cn(
-            "w-fit",
+            "w-full",
             formElementBase,
             hoverState,
             filledState,
