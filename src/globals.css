@@ -65,7 +65,8 @@
   /* modals; dialogs with backdrop overlay */
   --shadow-focus-ring: 0 0 0 2px var(--ring), 0 0 0 4px var(--ring-shadow);
   /* default focus ring: inner border (2px dark) + outer glow (4px light, 2px visible beyond inner) */
-  --shadow-focus-ring-destructive: 0 0 0 2px var(--ring-destructive), 0 0 0 4px var(--ring-destructive-shadow);
+  --shadow-focus-ring-destructive: 0 0 0 2px var(--ring-destructive), 0 0 0 4px
+    var(--ring-destructive-shadow);
   /* destructive focus ring: inner border (2px dark) + outer glow (4px light, 2px visible beyond inner) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
