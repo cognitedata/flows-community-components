@@ -18,6 +18,12 @@ When writing new `.stories.tsx` files, use `src/components/ui/aura/prompt-input.
 - Play functions using `@storybook/testing-library` for automated interaction testing
 - Full coverage of all component states with realistic stateful examples using `useState`
 
+## Testing Buttons in Play Functions
+
+- Use `await canvas.findAllByRole("button")` instead of `getAllByRole("button")` to wait for buttons to render
+- Avoid querying by `data-slot="button"` - `TooltipTrigger` with `asChild` can override these attributes
+- Role-based queries are more robust and semantic for testing interactive elements
+
 # Import Conventions
 
 NEVER use `React.useState`, `React.useEffect`, etc.
@@ -36,4 +42,8 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 
 # Learnings
 
-- Pie chart artifacts should use `ChartContainer` config keys as slice ids for color mapping.
+- Use `PaginationStatus` for inline pagination counters instead of ad hoc spans.
+- Pagination subcomponents inherit size from `PaginationContent`.
+- Use `PaginationSelectTrigger` to inherit pagination size for selects.
+- When `ArtifactListHeader` is present, remove top padding from `ArtifactListContent` and use title margin for spacing.
+- Biome formatting prefers inline JSX for short elements and props.

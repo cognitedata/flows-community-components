@@ -1,5 +1,11 @@
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from "@/components/ui/aura/code-block";
+import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconCopy,
   IconDownload,
@@ -11,15 +17,6 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
-import {
-  CodeBlock,
-  CodeBlockCollapseButton,
-  CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import {
-  InlineCitation,
-  InlineCitationLink,
-} from "@/components/ui/aura/inline-citation";
 import {
   Message,
   MessageAction,
@@ -97,16 +94,16 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Verify both messages exist
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
     // Verify inline citations exist
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(4);
 
-    // Verify message actions exist
-    const buttons = canvas.getAllByRole("button");
-    await expect(buttons.length).toBeGreaterThan(0);
+    // Verify message actions exist (4 MessageAction buttons)
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(4);
   },
   render: () => (
     <div className="flex flex-col space-y-4 w-full gap-2">
@@ -219,16 +216,17 @@ export const WithCodeBlock: Story = {
     const canvas = within(canvasElement);
 
     // Verify both messages exist
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
     // Verify code block exists
-    const codeBlock = canvasElement.querySelector('[data-code-block]');
+    const codeBlock = canvasElement.querySelector("[data-code-block]");
     await expect(codeBlock).toBeInTheDocument();
 
-    // Verify message actions exist
-    const buttons = canvas.getAllByRole("button");
-    await expect(buttons.length).toBeGreaterThan(0);
+    // Verify message actions exist (4 MessageAction buttons)
+    // Note: Code block buttons (copy, collapse) are hidden until hover
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(4);
   },
   render: () => {
     const code = `async function analyzeVibrationData(timeseriesId: string) {
@@ -304,16 +302,16 @@ export const MessageResponseStreamdown: Story = {
     const canvas = within(canvasElement);
 
     // Verify messages exist
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
-
-    // Verify message actions exist
-    const buttons = canvas.getAllByRole("button");
-    await expect(buttons.length).toBeGreaterThan(0);
 
     // Verify MessageResponse content is rendered (check for any heading)
     const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
     await expect(headings.length).toBeGreaterThan(0);
+
+    // Verify message actions exist (wait for them to render)
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(2);
   },
   render: () => {
     const markdownContent = `# Heading 1
@@ -427,7 +425,7 @@ export const UserMessage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
     await expect(message).not.toHaveClass("is-assistant");
   },
@@ -452,7 +450,7 @@ export const AssistantMessage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
     await expect(message).toHaveClass("is-assistant");
   },
@@ -485,7 +483,7 @@ export const ExtendedConversation: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(4);
   },
   render: () => (
@@ -526,8 +524,8 @@ export const ExtendedConversation: Story = {
         <MessageContent>
           <p>
             The sort method takes a comparison function that determines the order. The function (a,
-            b) =&gt; a - b returns a negative number if a should come before b, a positive number
-            if b should come before a, and zero if they're equal.
+            b) =&gt; a - b returns a negative number if a should come before b, a positive number if
+            b should come before a, and zero if they're equal.
           </p>
         </MessageContent>
       </Message>
@@ -547,7 +545,7 @@ export const VeryLongMessage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
 
     // Verify multiple paragraphs exist
@@ -569,8 +567,8 @@ export const VeryLongMessage: Story = {
         </p>
         <p className="mt-2">
           Here's another paragraph to show the spacing between multiple blocks of text. This helps
-          users read longer responses more easily. Industrial AI applications often require
-          detailed explanations of complex processes and analysis.
+          users read longer responses more easily. Industrial AI applications often require detailed
+          explanations of complex processes and analysis.
         </p>
         <p className="mt-2">
           For example, when analyzing pump vibration data, we need to consider multiple factors
@@ -602,9 +600,9 @@ export const ManyMessageActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify many buttons exist
-    const buttons = canvas.getAllByRole("button");
-    await expect(buttons.length).toBeGreaterThanOrEqual(6);
+    // Verify many buttons exist (6 MessageAction buttons)
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(6);
   },
   render: () => (
     <Message isResponse={true}>
@@ -652,7 +650,7 @@ export const AvatarVariants: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(3);
 
     // Verify avatars are present
@@ -717,7 +715,7 @@ export const MessageWithoutAvatar: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
 
     // Verify no avatar exists
@@ -787,7 +785,7 @@ export const EmptyMessage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
   },
   render: () => (
@@ -812,7 +810,7 @@ export const SingleCharacterMessage: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
   },
   render: () => (
@@ -834,7 +832,7 @@ export const MessageWithSpecialCharacters: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
   },
   render: () => (
@@ -861,12 +859,13 @@ export const VeryLongConversation: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Stress test with many messages in a conversation to test scrolling and performance.",
+        story:
+          "Stress test with many messages in a conversation to test scrolling and performance.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const messages = canvasElement.querySelectorAll('[data-message]');
+    const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(10);
   },
   render: () => (
@@ -909,7 +908,7 @@ export const MessageWithLineBreaks: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const message = canvasElement.querySelector('[data-message]');
+    const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
   },
   render: () => (
