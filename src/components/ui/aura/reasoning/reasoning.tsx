@@ -5,19 +5,19 @@ import { Children, type ComponentProps, createContext, useContext } from "react"
 const ReasoningDecorationsContext = createContext<boolean>(true);
 const useReasoningDecorations = () => useContext(ReasoningDecorationsContext);
 
-export type ReasoningProps = ComponentProps<"div">;
+type ReasoningProps = ComponentProps<"div">;
 
-export const Reasoning = ({ className, children, ...props }: ReasoningProps) => (
+const Reasoning = ({ className, children, ...props }: ReasoningProps) => (
   <div className={cn("relative flex w-full flex-col gap-2 not-prose", className)} {...props}>
     {children}
   </div>
 );
 
-export type ReasoningHeaderProps = ComponentProps<"div"> & {
+type ReasoningHeaderProps = ComponentProps<"div"> & {
   title?: string;
 };
 
-export const ReasoningHeader = ({
+const ReasoningHeader = ({
   className,
   title = "Reasoning",
   children,
@@ -30,14 +30,14 @@ export const ReasoningHeader = ({
     )}
     {...props}
   >
-    <IconBrain className="size-4 shrink-0" />
+    <IconBrain aria-hidden="true" className="size-4 shrink-0" />
     {children ?? <span>{title}</span>}
   </div>
 );
 
-export type ReasoningContentProps = ComponentProps<"div">;
+type ReasoningContentProps = ComponentProps<"div">;
 
-export const ReasoningContent = ({ className, children, ...props }: ReasoningContentProps) => (
+const ReasoningContent = ({ className, children, ...props }: ReasoningContentProps) => (
   <ReasoningDecorationsContext.Provider
     value={Children.toArray(children).filter(Boolean).length > 1}
   >
@@ -53,9 +53,9 @@ const ReasoningContentInner = ({ className, children, ...props }: ReasoningConte
   </div>
 );
 
-export type ReasoningItemProps = ComponentProps<"div">;
+type ReasoningItemProps = ComponentProps<"div">;
 
-export const ReasoningItem = ({ className, children, ...props }: ReasoningItemProps) => {
+const ReasoningItem = ({ className, children, ...props }: ReasoningItemProps) => {
   const showDecorations = useReasoningDecorations();
 
   return (
@@ -78,3 +78,5 @@ export const ReasoningItem = ({ className, children, ...props }: ReasoningItemPr
     </div>
   );
 };
+
+export { Reasoning, ReasoningHeader, ReasoningContent, ReasoningItem };
