@@ -84,6 +84,7 @@ export const Default: Story = {
     </Drawer>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default drawer that slides up from the bottom.",
@@ -139,6 +140,7 @@ export const RightDrawer: Story = {
     </Drawer>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Drawer that slides in from the right side.",
@@ -188,6 +190,7 @@ export const LeftDrawer: Story = {
     </Drawer>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Drawer that slides in from the left side.",
@@ -232,6 +235,7 @@ export const TopDrawer: Story = {
     </Drawer>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Drawer that slides down from the top.",
@@ -273,6 +277,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Drawer with externally controlled open state.",
@@ -308,7 +313,7 @@ export const WithForm: Story = {
             <Label htmlFor="drawer-bio">Bio</Label>
             <textarea
               id="drawer-bio"
-              className="min-h-[80px] w-full rounded-md border px-3 py-2 text-sm"
+              className="min-h-20 w-full rounded-md border px-3 py-2 text-sm"
               placeholder="Tell us about yourself"
             />
           </div>
@@ -323,6 +328,7 @@ export const WithForm: Story = {
     </Drawer>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Drawer containing a form for user input.",
@@ -345,7 +351,7 @@ export const WithScrollingContent: Story = {
           <DrawerTitle>Terms of Service</DrawerTitle>
           <DrawerDescription>Please read and accept our terms.</DrawerDescription>
         </DrawerHeader>
-        <div className="p-4 overflow-y-auto max-h-[300px] text-sm text-muted-foreground">
+        <div className="p-4 overflow-y-auto max-h-75 text-sm text-muted-foreground">
           {Array.from({ length: 10 }, (_, i) => (
             <p key={`terms-${i}`} className="mb-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
@@ -364,6 +370,7 @@ export const WithScrollingContent: Story = {
     </Drawer>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Drawer with scrolling content area.",
@@ -425,6 +432,7 @@ export const AsyncAction: Story = {
     );
   },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -502,6 +510,7 @@ export const KeyboardInteractions: Story = {
     );
   },
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -588,6 +597,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Drawer triggers for visual regression testing.",
@@ -631,6 +641,7 @@ export const Playground: Story = {
     </Drawer>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with drawer props.",
