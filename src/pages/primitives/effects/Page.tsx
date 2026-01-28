@@ -34,39 +34,41 @@ const shadows = [
   },
 ];
 
-// Focus ring definitions using actual Tailwind patterns from components
+// Focus ring definitions - shown as always visible for visual reference
 const focusRings = [
   {
     name: "focus",
-    tailwindClasses: "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+    lightClasses: "shadow-focus-ring",
+    darkClasses: "shadow-focus-ring",
     usage: "keyboard focus for default items",
   },
   {
     name: "focus-destructive",
-    tailwindClasses:
-      "focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring",
+    lightClasses: "shadow-focus-ring-destructive",
+    darkClasses: "shadow-focus-ring-destructive",
     usage: "keyboard focus for destructive, error items",
   },
 ];
 
-// Ring width options
-const ringWidths = [
-  { name: "ring-1", width: "1px", usage: "subtle focus; select inputs" },
-  { name: "ring-2", width: "2px", usage: "textarea" },
-  { name: "ring", width: "3px", usage: "default; buttons, checkboxes, etc." },
-  { name: "ring-4", width: "4px", usage: "extra emphasis" },
-];
 
 function ShadowSwatch({ shadow }: { shadow: (typeof shadows)[0] }) {
   return (
-    <div className="flex items-center gap-6 py-4">
-      <div
-        className="w-28 h-24 bg-background rounded-lg border border-border"
-        style={{ boxShadow: `var(${shadow.cssVar})` }}
-      />
-      <div className="flex flex-col gap-1">
-        <h3 className="text-base font-medium text-foreground">{shadow.name}</h3>
-        <p className="text-sm text-muted-foreground">{shadow.usage}</p>
+    <div className="flex gap-6 py-4">
+      {/* Light mode */}
+      <div className="flex items-center gap-6 flex-1">
+        <div className={cn("w-28 h-24 bg-white rounded-lg", shadow.tailwindClass)} />
+        <div className="flex flex-col gap-1">
+          <h3 className="text-base font-medium text-foreground">{shadow.name}</h3>
+          <p className="text-sm text-muted-foreground">{shadow.usage}</p>
+        </div>
+      </div>
+      {/* Dark mode */}
+      <div className="dark flex items-center gap-6 flex-1 bg-[#111213] rounded-xl p-4 -my-2">
+        <div className={cn("w-28 h-24 bg-[#2a2b2f] rounded-lg", shadow.tailwindClass)} />
+        <div className="flex flex-col gap-1">
+          <h3 className="text-base font-medium text-white">{shadow.name}</h3>
+          <p className="text-sm text-[#a1a1aa]">{shadow.usage}</p>
+        </div>
       </div>
     </div>
   );
@@ -74,47 +76,35 @@ function ShadowSwatch({ shadow }: { shadow: (typeof shadows)[0] }) {
 
 function FocusRingSwatch({ focusRing }: { focusRing: (typeof focusRings)[0] }) {
   return (
-    <div className="flex items-center gap-6 py-4">
-      <button
-        type="button"
-        aria-label={`Demo ${focusRing.name} focus ring`}
-        className={cn(
-          "w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
-          focusRing.tailwindClasses
-        )}
-      />
-      <div className="flex flex-col gap-1">
-        <h3 className="text-base font-medium text-foreground">{focusRing.name}</h3>
+    <div className="space-y-3">
+      <div>
+        <h3 className="text-base font-medium text-foreground mb-1">{focusRing.name}</h3>
         <p className="text-sm text-muted-foreground">{focusRing.usage}</p>
-        <code className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded mt-1 block w-fit">
-          {focusRing.tailwindClasses}
-        </code>
+      </div>
+      <div className="flex gap-6">
+        {/* Light mode */}
+        <div className="flex-1 bg-background rounded-xl border border-border p-6 flex items-center justify-center">
+          <div
+            className={cn(
+              "w-28 h-24 bg-background rounded-lg outline-none",
+              focusRing.lightClasses
+            )}
+          />
+        </div>
+        {/* Dark mode */}
+        <div className="flex-1 bg-[#111213] rounded-xl border border-[#2e3238] p-6 flex items-center justify-center">
+          <div
+            className={cn(
+              "w-28 h-24 bg-[#1a1b1f] rounded-lg outline-none",
+              focusRing.darkClasses
+            )}
+          />
+        </div>
       </div>
     </div>
   );
 }
 
-function RingWidthSwatch({ ringWidth }: { ringWidth: (typeof ringWidths)[0] }) {
-  const ringClass = `focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:${ringWidth.name}`;
-  return (
-    <div className="flex items-center gap-6 py-4">
-      <button
-        type="button"
-        aria-label={`Demo ${ringWidth.name} ring width`}
-        className={cn(
-          "w-28 h-24 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
-          ringClass
-        )}
-      />
-      <div className="flex flex-col gap-1">
-        <h3 className="text-base font-medium text-foreground">{ringWidth.name}</h3>
-        <p className="text-sm text-muted-foreground">
-          {ringWidth.width} · {ringWidth.usage}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export default function EffectsPage() {
   return (
@@ -124,7 +114,7 @@ export default function EffectsPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Effects</h1>
           <p className="text-lg text-muted-foreground mt-2">
-            Showcase of elevations (shadows) and focus ring
+            Showcase of elevations (shadows) and focus rings
           </p>
         </div>
 
@@ -143,31 +133,18 @@ export default function EffectsPage() {
 
         {/* Focus Section */}
         <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Focus</h2>
-            <p className="text-muted-foreground">
-              Click or tab to focus the elements to see the focus ring
-            </p>
-          </div>
-          <div className="space-y-2">
-            {focusRings.map((focusRing) => (
-              <FocusRingSwatch key={focusRing.name} focusRing={focusRing} />
-            ))}
-          </div>
-        </section>
-
-        {/* Ring Widths Section */}
-        <section className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-semibold mb-2">Ring Widths</h2>
-            <p className="text-muted-foreground">
-              Different ring sizes for varying levels of emphasis
-            </p>
-          </div>
-          <div className="space-y-2">
-            {ringWidths.map((ringWidth) => (
-              <RingWidthSwatch key={ringWidth.name} ringWidth={ringWidth} />
-            ))}
+          <div className="border border-border rounded-2xl p-8 bg-card">
+            <div className="mb-8">
+              <h2 className="text-2xl font-semibold mb-2">Focus</h2>
+              <p className="text-muted-foreground">
+                Keyboard focus indicators for accessibility. Focus rings use a 2px inner ring + 4px outer glow (4px total) and adapt to light and dark modes.
+              </p>
+            </div>
+            <div className="space-y-8">
+              {focusRings.map((focusRing) => (
+                <FocusRingSwatch key={focusRing.name} focusRing={focusRing} />
+              ))}
+            </div>
           </div>
         </section>
       </div>

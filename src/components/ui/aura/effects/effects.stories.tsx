@@ -6,7 +6,6 @@ import {
   effectExamples,
   effectPatterns,
   focusRings,
-  ringWidths,
   shadows,
   transitions,
 } from "./effects";
@@ -30,8 +29,8 @@ import {
  * <div className="shadow-default">Dropdown/popover</div>
  * <div className="shadow-xl">Modal</div>
  *
- * // Focus rings for accessibility
- * <button className="focus-visible:ring focus-visible:ring-ring-shadow focus-visible:border-ring">
+ * // Focus rings for accessibility (no box model changes)
+ * <button className="focus-visible:shadow-focus-ring outline-none">
  *   Focusable
  * </button>
  *
@@ -63,13 +62,14 @@ type Story = StoryObj;
 /**
  * Shadow/elevation levels for creating depth and visual hierarchy.
  * Use higher elevation for elements that appear above others.
+ * Shadows automatically adjust opacity for light and dark modes.
  */
 export const Shadows: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          "Box shadows create depth and hierarchy. Use shadow-sm for tooltips, shadow-default for menus, and shadow-xl for modals.",
+          "Box shadows create depth and hierarchy with theme-aware opacity. Use shadow-sm for tooltips, shadow-default for menus, and shadow-xl for modals. Shadows use lighter opacity in light mode and stronger opacity in dark mode for better visibility.",
       },
     },
   },
@@ -95,7 +95,7 @@ export const Shadows: Story = {
           data-testid={`shadow-${shadow.name}`}
         >
           <div
-            className="w-28 h-20 bg-background rounded-lg border border-border shrink-0"
+            className="w-38 h-38 bg-background rounded-lg bg-card shrink-0"
             style={{ boxShadow: `var(${shadow.cssVar})` }}
           />
           <div className="space-y-1">
@@ -174,58 +174,6 @@ export const FocusRings: Story = {
   ),
 };
 
-/**
- * Ring width options for varying levels of focus emphasis.
- */
-export const RingWidths: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Different ring widths provide varying levels of emphasis. Use ring-1 for subtle focus, ring (3px) as default, and ring-4 for high importance.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Verify all ring widths are rendered
-    await expect(ringWidths.length).toBe(4);
-
-    // Check ring width elements are displayed using testids
-    await expect(canvas.getByTestId("ring-width-ring-1")).toBeInTheDocument();
-    await expect(canvas.getByTestId("ring-width-ring-2")).toBeInTheDocument();
-    await expect(canvas.getByTestId("ring-width-ring")).toBeInTheDocument();
-    await expect(canvas.getByTestId("ring-width-ring-4")).toBeInTheDocument();
-  },
-  render: () => (
-    <div className="space-y-6" data-testid="ring-widths">
-      <p className="text-sm text-muted-foreground">Click or tab to see different ring widths:</p>
-      {ringWidths.map((ring) => {
-        const ringClass = `focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:${ring.tailwindClass}`;
-        return (
-          <div key={ring.name} className="flex items-center gap-6">
-            <button
-              type="button"
-              data-testid={`ring-width-${ring.tailwindClass}`}
-              className={cn(
-                "w-28 h-20 bg-background rounded-lg border border-border cursor-pointer outline-none transition-[color,box-shadow]",
-                ringClass
-              )}
-              aria-label={`Demo ${ring.name} ring width`}
-            />
-            <div className="space-y-1">
-              <h3 className="text-base font-medium">{ring.name}</h3>
-              <p className="text-sm text-muted-foreground">
-                {ring.width} · {ring.usage}
-              </p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  ),
-};
 
 // =============================================================================
 // Border Radius Stories
@@ -446,7 +394,7 @@ export const InteractiveExamples: Story = {
               "px-4 py-2 rounded-md",
               "bg-primary text-primary-foreground",
               "transition-colors hover:bg-primary-hover",
-              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+              "focus-visible:shadow-focus-ring",
               "outline-none"
             )}
           >
@@ -458,7 +406,7 @@ export const InteractiveExamples: Story = {
               "px-4 py-2 rounded-md",
               "bg-muted text-foreground",
               "transition-colors hover:bg-accent",
-              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+              "focus-visible:shadow-focus-ring",
               "outline-none"
             )}
           >
@@ -470,7 +418,7 @@ export const InteractiveExamples: Story = {
               "px-4 py-2 rounded-md",
               "bg-destructive text-destructive-foreground",
               "transition-colors hover:bg-destructive-hover",
-              "focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring",
+              "focus-visible:shadow-focus-ring-destructive",
               "outline-none"
             )}
           >
@@ -490,7 +438,7 @@ export const InteractiveExamples: Story = {
               "bg-card border border-border",
               "shadow-sm",
               "transition-all hover:shadow-md hover:border-border/80",
-              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+              "focus-visible:shadow-focus-ring",
               "outline-none"
             )}
           >
@@ -520,7 +468,7 @@ export const InteractiveExamples: Story = {
               "bg-background border border-border",
               "text-foreground placeholder:text-muted-foreground",
               "transition-[color,box-shadow]",
-              "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-1",
+              "focus-visible:shadow-focus-ring",
               "outline-none"
             )}
           />
@@ -532,7 +480,7 @@ export const InteractiveExamples: Story = {
               "bg-background border border-red-500",
               "text-foreground placeholder:text-muted-foreground",
               "transition-[color,box-shadow]",
-              "focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring-1",
+              "focus-visible:shadow-focus-ring-destructive",
               "outline-none"
             )}
           />

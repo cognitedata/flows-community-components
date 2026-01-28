@@ -3,6 +3,21 @@ name: building-stories
 description: Guidelines for writing comprehensive Storybook stories
 ---
 
+# Stories are the Single Source of Truth
+
+**CRITICAL: Stories are the ONLY place for code examples**
+
+- ✅ Stories are tested, interactive, and automatically documented
+- ✅ Stories are what users see and copy from Storybook
+- ❌ **DO NOT** duplicate examples in `index.tsx` or `*.metadata.ts`
+- ❌ **DO NOT** create static code snippets that will drift from reality
+- 📝 Metadata files should only contain LLM guidance (`llmUsage`), not code examples
+
+**Why?** When you change a component's API:
+- Stories will fail their play functions → you catch the issue
+- Storybook shows the working examples → users see current code
+- Static examples in metadata → silently go out of date → users copy broken code
+
 # Gold Standard
 
 Use `prompt-input.stories.tsx` as the gold standard for story structure, comprehensiveness, and quality.

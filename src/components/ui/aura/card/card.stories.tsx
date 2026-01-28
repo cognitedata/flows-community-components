@@ -1,21 +1,18 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
+import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
-import {
-  IconChartLine,
-  IconCube,
-  IconDotsVertical,
-  IconGauge,
-  IconReportAnalytics,
-} from "@tabler/icons-react";
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import { IconChartLine, IconCube, IconGauge, IconReportAnalytics } from "@tabler/icons-react";
 import {
   Card,
-  CardAction,
+  CardActions,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
+  CardHeaderRight,
+  CardIcon,
   CardTitle,
 } from "./card";
 
@@ -25,17 +22,35 @@ const meta: Meta<typeof Card> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <div className="p-8">
+      <div className="flex justify-center w-full p-8">
         <Story />
       </div>
     ),
   ],
   argTypes: {
+    // Card Props
     className: {
       control: "text",
-      description: "CSS classes for styling",
+      description: "CSS classes for styling the card container",
       table: {
         category: "Display",
+      },
+    },
+    // CardTitle Props
+    as: {
+      control: "select",
+      options: ["h1", "h2", "h3", "h4", "h5", "h6"],
+      description: "Semantic heading level for CardTitle (h1-h6)",
+      table: {
+        category: "Content",
+        defaultValue: { summary: "h3" },
+      },
+    },
+    children: {
+      control: "text",
+      description: "Content to render inside the card",
+      table: {
+        category: "Content",
       },
     },
   },
@@ -53,6 +68,7 @@ type Story = StoryObj<typeof Card>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -78,12 +94,7 @@ export const Basic: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>21PT1019</CardTitle>
-          <Button variant="ghost" size="icon-sm">
-            <IconDotsVertical />
-          </Button>
-        </div>
+        <CardTitle>21PT1019</CardTitle>
         <CardDescription>Pressure over last 24 hours</CardDescription>
       </CardHeader>
       <CardContent />
@@ -108,6 +119,7 @@ export const Basic: Story = {
  */
 export const WithTextFooter: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Card with text content displayed in the footer instead of badges.",
@@ -117,12 +129,7 @@ export const WithTextFooter: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle>21PT1019</CardTitle>
-          <Button variant="ghost" size="icon-sm">
-            <IconDotsVertical />
-          </Button>
-        </div>
+        <CardTitle>21PT1019</CardTitle>
         <CardDescription>Pressure over last 24 hours</CardDescription>
       </CardHeader>
       <CardContent />
@@ -142,36 +149,30 @@ export const WithTextFooter: Story = {
  */
 export const WithBadgeInHeader: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
-          "Card with a badge displayed in the header alongside the title, and image content in the body.",
+          "Card with a badge displayed in the header using CardIcon. No wrapper divs needed - the grid layout handles positioning automatically.",
       },
     },
   },
   render: () => (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1.5 items-baseline">
-            <Badge variant="mountain">
-              <IconCube size={12} />
-            </Badge>
-            <div>
-              <CardTitle>Skarv</CardTitle>
-              <CardDescription>Point cloud scene</CardDescription>
-            </div>
-          </div>
-          <Button variant="ghost" size="icon-sm">
-            <IconDotsVertical />
-          </Button>
-        </div>
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Skarv</CardTitle>
+        <CardDescription>Point cloud scene</CardDescription>
       </CardHeader>
       <CardContent className="">
         <div className="text-base text-secondary-foreground tracking-tightest pb-2">
           Model ID: 4602269428617841
         </div>
-        <div className="w-full h-[200px] bg-muted rounded flex items-center justify-center text-muted-foreground">
+        <div className="w-full h-50 bg-muted rounded flex items-center justify-center text-muted-foreground">
           Image placeholder
         </div>
       </CardContent>
@@ -190,6 +191,7 @@ export const WithBadgeInHeader: Story = {
  */
 export const WithHover: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -200,17 +202,13 @@ export const WithHover: Story = {
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1.5 items-baseline">
-            <Badge variant="mountain">
-              <IconCube size={12} />
-            </Badge>
-            <div>
-              <CardTitle>Title</CardTitle>
-              <CardDescription>Subtitle</CardDescription>
-            </div>
-          </div>
-        </div>
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Title</CardTitle>
+        <CardDescription>Subtitle</CardDescription>
       </CardHeader>
       <CardContent className="gap-2">
         <div className="text-base text-secondary-foreground tracking-tightest">Description</div>
@@ -230,11 +228,23 @@ export const WithHover: Story = {
  */
 export const Minimal: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Minimal card with just a title and content section.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify card structure
+    const title = canvas.getByRole("heading", { level: 3, name: "Simple Card" });
+    await expect(title).toBeInTheDocument();
+
+    // Verify content
+    const content = canvas.getByText(/This is a minimal card/i);
+    await expect(content).toBeInTheDocument();
   },
   render: () => (
     <Card className="w-96">
@@ -251,30 +261,202 @@ export const Minimal: Story = {
 };
 
 /**
- * Card with action button in header
+ * Card with actions dropdown menu in header
  */
-export const WithHeaderAction: Story = {
+export const WithActions: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
-        story: "Card using CardAction component to place an action button in the header.",
+        story:
+          "Card with CardActions wrapped in CardHeaderRight. CardActions provides a pre-configured dropdown menu.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify card title
+    const title = canvas.getByRole("heading", { level: 3, name: "Card with Actions" });
+    await expect(title).toBeInTheDocument();
+
+    // Find and click the actions button
+    const actionsButton = canvas.getByRole("button");
+    await expect(actionsButton).toBeInTheDocument();
+    await userEvent.click(actionsButton);
+
+    // Verify dropdown menu appears (menu renders in portal, use screen)
+    // Use role="menu" since dropdown renders as a menu element
+    await waitFor(async () => {
+      const menu = screen.getByRole("menu");
+      await expect(menu).toBeInTheDocument();
+
+      // Verify menu items are present
+      const viewDetails = screen.getByText(/View details/i);
+      await expect(viewDetails).toBeInTheDocument();
+
+      const deleteOption = screen.getByText(/Delete card/i);
+      await expect(deleteOption).toBeInTheDocument();
+    });
+  },
+  render: () => (
+    <Card className="w-96">
+      <CardHeader>
+        <CardTitle>Card with Actions</CardTitle>
+        <CardDescription>This card has a dropdown menu with actions</CardDescription>
+        <CardHeaderRight>
+          <CardActions>
+            <DropdownMenuItem>
+              <IconCube className="size-4" />
+              View details
+            </DropdownMenuItem>
+            <DropdownMenuItem>Edit configuration</DropdownMenuItem>
+            <DropdownMenuItem>Duplicate</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">Delete card</DropdownMenuItem>
+          </CardActions>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground">
+          The dropdown menu is positioned in the top-right corner of the header.
+        </p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+/**
+ * Card with both icon and actions in header
+ */
+export const WithIconAndActions: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story:
+          "Card with both CardIcon and CardHeaderRight (containing CardActions). The grid automatically creates 3 columns: icon, content, right.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify card structure with icon
+    const title = canvas.getByRole("heading", { level: 3, name: "Skarv Model" });
+    await expect(title).toBeInTheDocument();
+
+    const description = canvas.getByText("Point cloud scene");
+    await expect(description).toBeInTheDocument();
+
+    // Verify content
+    const modelId = canvas.getByText(/Model ID: 4602269428617841/i);
+    await expect(modelId).toBeInTheDocument();
+
+    // Test actions dropdown (menu renders in portal, use screen)
+    const actionsButton = canvas.getByRole("button");
+    await userEvent.click(actionsButton);
+
+    await waitFor(async () => {
+      const menu = screen.getByRole("menu");
+      await expect(menu).toBeInTheDocument();
+
+      const viewDetails = screen.getByText(/View details/i);
+      await expect(viewDetails).toBeInTheDocument();
+    });
+  },
+  render: () => (
+    <Card className="w-96">
+      <CardHeader>
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Skarv Model</CardTitle>
+        <CardDescription>Point cloud scene</CardDescription>
+        <CardHeaderRight>
+          <CardActions>
+            <DropdownMenuItem>View details</DropdownMenuItem>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
+          </CardActions>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground">Model ID: 4602269428617841</p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+/**
+ * Card with custom badge in header right slot
+ */
+export const WithHeaderRightBadge: Story = {
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story:
+          "Use CardHeaderRight for custom content in the header corner. Accepts any element - badges, buttons, text, etc.",
       },
     },
   },
   render: () => (
     <Card className="w-96">
       <CardHeader>
-        <CardTitle>Card with Action</CardTitle>
-        <CardDescription>This card has an action button in the header</CardDescription>
-        <CardAction>
-          <Button variant="ghost" size="icon-sm">
-            <IconDotsVertical />
-          </Button>
-        </CardAction>
+        <CardTitle>Custom Header Element</CardTitle>
+        <CardDescription>Badge positioned in top-right using CardHeaderRight</CardDescription>
+        <CardHeaderRight>
+          <Badge variant="fjord" className="h-fit">
+            New
+          </Badge>
+        </CardHeaderRight>
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">
-          The action button is positioned in the top-right corner of the header.
+          CardHeaderRight provides a predictable slot for any custom element in the top-right
+          corner.
+        </p>
+      </CardContent>
+    </Card>
+  ),
+};
+
+/**
+ * Card with icon and custom header right element (3-column grid)
+ */
+export const WithIconAndHeaderRight: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Demonstrates the full 3-column grid: CardIcon + title/description + CardHeaderRight with a custom badge.",
+      },
+    },
+  },
+  render: () => (
+    <Card className="w-96">
+      <CardHeader>
+        <CardIcon>
+          <Badge variant="mountain" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Skarv Model</CardTitle>
+        <CardDescription>Point cloud scene</CardDescription>
+        <CardHeaderRight>
+          <Badge variant="fjord" className="h-fit">
+            Beta
+          </Badge>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground">
+          All three grid columns are active: icon, content, and custom right element.
         </p>
       </CardContent>
     </Card>
@@ -286,6 +468,7 @@ export const WithHeaderAction: Story = {
  */
 export const ContentOnly: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Card with only content section, no header or footer.",
@@ -294,7 +477,7 @@ export const ContentOnly: Story = {
   },
   render: () => (
     <Card className="w-96">
-      <CardContent className="pt-6">
+      <CardContent>
         <h3 className="text-lg font-semibold mb-2">Content Only Card</h3>
         <p className="text-sm text-muted-foreground">
           This card contains only content without a header or footer section.
@@ -309,41 +492,168 @@ export const ContentOnly: Story = {
  */
 export const GridLayout: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
-        story: "Multiple cards displayed in a grid layout.",
+        story:
+          "Multiple cards displayed in a responsive grid using container queries. Cards stack on mobile, display 2 across on tablets, and 3 across on larger containers.",
       },
     },
   },
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-6xl">
+    <div className="@container w-full max-w-6xl">
+      <div className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
+        <Card className="col-span-4 @sm:col-span-4 @md:col-span-4">
+          <CardHeader>
+            <CardTitle>Card 1</CardTitle>
+            <CardDescription>First card in the grid</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm">Content for the first card</p>
+          </CardContent>
+        </Card>
+        <Card className="col-span-4 @sm:col-span-4 @md:col-span-4">
+          <CardHeader>
+            <CardTitle>Card 2</CardTitle>
+            <CardDescription>Second card in the grid</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm">Content for the second card</p>
+          </CardContent>
+        </Card>
+        <Card className="col-span-4 @sm:col-span-4 @md:col-span-4">
+          <CardHeader>
+            <CardTitle>Card 3</CardTitle>
+            <CardDescription>Third card in the grid</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm">Content for the third card</p>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Card with custom heading levels for semantic HTML
+ */
+export const SemanticHeadings: Story = {
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story:
+          "CardTitle supports polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document outline and semantic HTML structure. Defaults to h3.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify different heading levels exist
+    const h2Title = canvas.getByRole("heading", { level: 2, name: "Section Title (h2)" });
+    await expect(h2Title).toBeInTheDocument();
+
+    const h3Title = canvas.getByRole("heading", { level: 3, name: "Default Heading (h3)" });
+    await expect(h3Title).toBeInTheDocument();
+
+    const h4Title = canvas.getByRole("heading", { level: 4, name: "Subsection Title (h4)" });
+    await expect(h4Title).toBeInTheDocument();
+  },
+  render: () => (
+    <div className="flex flex-col gap-6 w-full max-w-2xl">
+      {/* h2 example - for main sections */}
       <Card>
         <CardHeader>
-          <CardTitle>Card 1</CardTitle>
-          <CardDescription>First card in the grid</CardDescription>
+          <CardTitle as="h2">Section Title (h2)</CardTitle>
+          <CardDescription>Use h2 for main section headings</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm">Content for the first card</p>
+          <p className="text-sm text-muted-foreground">
+            When your card represents a major section of content, use <code>as="h2"</code> for
+            proper document hierarchy.
+          </p>
         </CardContent>
       </Card>
+
+      {/* h3 example - default */}
       <Card>
         <CardHeader>
-          <CardTitle>Card 2</CardTitle>
-          <CardDescription>Second card in the grid</CardDescription>
+          <CardTitle>Default Heading (h3)</CardTitle>
+          <CardDescription>CardTitle defaults to h3 when no "as" prop is provided</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm">Content for the second card</p>
+          <p className="text-sm text-muted-foreground">
+            The default is <code>&lt;h3&gt;</code>, which works well for most card use cases in a
+            typical page hierarchy.
+          </p>
         </CardContent>
       </Card>
+
+      {/* h4 example - for subsections */}
       <Card>
         <CardHeader>
-          <CardTitle>Card 3</CardTitle>
-          <CardDescription>Third card in the grid</CardDescription>
+          <CardTitle as="h4">Subsection Title (h4)</CardTitle>
+          <CardDescription>Use h4 for nested subsections</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-sm">Content for the third card</p>
+          <p className="text-sm text-muted-foreground">
+            When cards are nested within sections, use <code>as="h4"</code>, <code>as="h5"</code>,
+            or <code>as="h6"</code> to maintain semantic structure.
+          </p>
         </CardContent>
       </Card>
     </div>
   ),
+};
+
+/**
+ * Interactive playground for experimenting with card props
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story:
+          "Interactive playground to experiment with different card configurations. Use the controls panel to customize props.",
+      },
+    },
+  },
+  render: (args) => (
+    <Card {...args}>
+      <CardHeader>
+        <CardIcon>
+          <Badge variant="fjord" size="icon">
+            <IconCube size={12} />
+          </Badge>
+        </CardIcon>
+        <CardTitle>Playground Card</CardTitle>
+        <CardDescription>Experiment with card props using the controls below</CardDescription>
+        <CardHeaderRight>
+          <Badge variant="nordic" className="h-fit">
+            New
+          </Badge>
+        </CardHeaderRight>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground">
+          This is an interactive playground. Try changing the className or other props using the
+          controls panel to see how the card responds.
+        </p>
+      </CardContent>
+      <CardFooter className="gap-2">
+        <Button variant="primary" size="sm">
+          Primary Action
+        </Button>
+        <Button variant="secondary" size="sm">
+          Secondary
+        </Button>
+      </CardFooter>
+    </Card>
+  ),
+  args: {
+    className: "w-96",
+  },
 };
