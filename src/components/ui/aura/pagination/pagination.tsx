@@ -425,14 +425,11 @@ const PaginationTeleport = forwardRef<HTMLInputElement, PaginationTeleportProps>
       const value = e.target.value;
 
       // Allow empty or numeric values only
-      if (value === "") {
+      // Don't validate against totalPages here to allow typing multi-digit numbers
+      // (e.g., typing "12" when totalPages=10 would fail if we checked each keystroke)
+      // Validation happens on blur/Enter instead
+      if (value === "" || /^\d+$/.test(value)) {
         setEditingValue(value);
-      } else if (/^\d+$/.test(value)) {
-        const pageNum = Number.parseInt(value, 10);
-        // Prevent entering numbers larger than totalPages
-        if (pageNum <= totalPages) {
-          setEditingValue(value);
-        }
       }
     };
 
