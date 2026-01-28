@@ -70,7 +70,7 @@ const meta: Meta<typeof Input> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[300px]">
+      <div className="w-75">
         <Story />
       </div>
     ),
@@ -86,6 +86,7 @@ type Story = StoryObj<typeof Input>;
 export const Default: Story = {
   render: () => <Input placeholder="Input text" />,
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default text input with placeholder.",
@@ -115,6 +116,7 @@ export const WithLabel: Story = {
     </div>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Input field with an associated label for accessibility.",
@@ -139,6 +141,7 @@ export const Password: Story = {
     </div>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Password input with obscured text.",
@@ -164,6 +167,7 @@ export const Disabled: Story = {
     </div>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Disabled inputs prevent user interaction.",
@@ -190,6 +194,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Input with validation error message displayed.",
@@ -214,6 +219,7 @@ export const WithDefaultValue: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Input with a pre-filled default value.",
@@ -261,6 +267,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Controlled input with external state management.",
@@ -311,6 +318,7 @@ export const InputTypes: Story = {
     </div>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Various input types for different data formats.",
@@ -348,6 +356,7 @@ export const FormExample: Story = {
     </form>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Complete form example with email and password inputs.",
@@ -381,6 +390,7 @@ export const AllStates: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "All input states for comparison.",
@@ -428,6 +438,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 11,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -458,6 +469,7 @@ export const Playground: Story = {
   },
   render: (args) => <Input {...args} />,
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with input props.",
