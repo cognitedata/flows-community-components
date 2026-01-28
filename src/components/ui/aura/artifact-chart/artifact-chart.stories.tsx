@@ -4,8 +4,9 @@ import { IconDotsVertical, IconTrendingUp } from "@tabler/icons-react";
 import { useState } from "react";
 import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
-import { Button } from "@/components/ui/aura/button";
+import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
 import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
+import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import {
   ArtifactChart,
   ArtifactChartContent,
@@ -204,20 +205,25 @@ export const Basic: Story = {
     };
 
     return (
-      <ArtifactChart className="w-100 gap-1.5 px-4 pb-6 pt-4">
-        <ArtifactChartHeader className="flex-row items-start p-0">
-          <div className="flex-1 space-y-0.5">
-            <div className="flex items-center justify-between">
-              <ArtifactChartTitle className="leading-5">Chart title</ArtifactChartTitle>
-              <Button variant="ghost" size="icon-sm" aria-label="More options">
-                <IconDotsVertical aria-hidden="true" />
-              </Button>
-            </div>
-            <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
-          </div>
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Chart title</ArtifactChartTitle>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>
+                <IconDotsVertical />
+                View details
+              </DropdownMenuItem>
+              <DropdownMenuItem>Edit configuration</DropdownMenuItem>
+              <DropdownMenuItem>Duplicate</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Delete card</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
         </ArtifactChartHeader>
 
-        <ArtifactChartContent className="p-0">
+        <ArtifactChartContent>
           {/* Pie chart with center label */}
           <div className="relative flex items-center justify-center">
             <ChartContainer config={chartConfig} className="w-100 overflow-visible">
@@ -289,7 +295,7 @@ export const Basic: Story = {
           </div>
         </ArtifactChartContent>
 
-        <ArtifactChartFooter className="mt-4 p-0">
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
           <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
             Trending up by 5.2% this month
             <IconTrendingUp aria-hidden="true" className="h-4 w-4" />

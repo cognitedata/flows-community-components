@@ -80,7 +80,7 @@ const ArtifactChartContent = forwardRef<
     <CardContent
       data-slot="artifact-chart-content"
       ref={ref}
-      className={cn("flex w-full flex-col items-center gap-4 overflow-visible", className)}
+      className={cn("flex w-full flex-col items-center gap-4 overflow-visible py-5", className)}
       {...props}
     />
   );
@@ -92,12 +92,7 @@ const ArtifactChartFooter = forwardRef<
   ComponentPropsWithoutRef<typeof CardFooter>
 >(({ className, ...props }, ref) => {
   return (
-    <CardFooter
-      data-slot="artifact-chart-footer"
-      ref={ref}
-      className={cn("flex flex-col items-start gap-1 text-sm", className)}
-      {...props}
-    />
+    <CardFooter data-slot="artifact-chart-footer" ref={ref} className={cn(className)} {...props} />
   );
 });
 ArtifactChartFooter.displayName = "ArtifactChartFooter";
