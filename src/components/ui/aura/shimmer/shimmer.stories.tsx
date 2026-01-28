@@ -92,10 +92,8 @@ type Story = StoryObj<typeof Shimmer>;
  * Matches the basic example from shimmer.examples.tsx
  */
 export const Basic: Story = {
-  args: {
-    children: "Processing...",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -110,7 +108,7 @@ export const Basic: Story = {
     const shimmer = canvas.getByText("Processing...");
     await expect(shimmer).toBeInTheDocument();
   },
-  render: (args) => <Shimmer {...args} />,
+  render: () => <Shimmer>Processing...</Shimmer>,
 };
 
 /**
@@ -119,6 +117,7 @@ export const Basic: Story = {
  */
 export const GradientVariants: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -145,6 +144,7 @@ export const GradientVariants: Story = {
  */
 export const ElementTypes: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -185,6 +185,7 @@ export const ElementTypes: Story = {
  */
 export const AnimationDurations: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -207,6 +208,7 @@ export const AnimationDurations: Story = {
  */
 export const SpreadValues: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -229,6 +231,7 @@ export const SpreadValues: Story = {
  */
 export const LongText: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -255,6 +258,7 @@ export const LongText: Story = {
  */
 export const InlineUsage: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -289,6 +293,7 @@ export const InlineUsage: Story = {
  */
 export const CustomStyling: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Shimmer effects with custom CSS classes for additional styling.",
@@ -313,6 +318,7 @@ export const CustomStyling: Story = {
  */
 export const LoadingStates: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Shimmer effects used in realistic loading state scenarios.",
@@ -344,4 +350,24 @@ export const LoadingStates: Story = {
       </div>
     </div>
   ),
+};
+
+/**
+ * Interactive playground for experimenting with shimmer props.
+ */
+export const Playground: Story = {
+  args: {
+    children: "Shimmer text",
+    variant: "default",
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story:
+          "Interactive playground for the Shimmer component. Use controls to tweak variant, duration, spread, and element type.",
+      },
+    },
+  },
+  render: (args) => <Shimmer {...args} />,
 };
