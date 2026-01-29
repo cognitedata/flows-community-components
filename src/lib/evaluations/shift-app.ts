@@ -3,7 +3,7 @@ export const shiftApp = `
 
 import Image from "next/image"
 import React from "react"
-import { useTheme } from "next-themes"
+import { useTheme } from "@/components/theme-provider"
 import Link from "next/link"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/aura/tabs"
 import { Button } from "@/components/ui/aura/button"
