@@ -551,7 +551,7 @@ export const AsyncAction: Story = {
       <div className="space-y-4">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setOpen(true)}>Open Async Dialog</Button>
+            <Button>Open Async Dialog</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
