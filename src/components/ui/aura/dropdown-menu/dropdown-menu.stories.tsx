@@ -506,12 +506,11 @@ export const WithDestructiveAction: Story = {
       { timeout: 1000 }
     );
   },
-  render: function WithDestructiveActionStory() {
+  render: function WithDestructiveActionStory({ modal = false }) {
     const [action, setAction] = useState<string>("");
 
     return (
       <div className="space-y-4">
-        {action && <div className="text-sm text-muted-foreground">Last action: {action}</div>}
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button>Actions</Button>
