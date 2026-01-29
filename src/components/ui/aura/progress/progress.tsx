@@ -1,10 +1,10 @@
 import * as ProgressPrimitive from "@radix-ui/react-progress";
-import { type ComponentProps, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
 const Progress = forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
+  ComponentRef<typeof ProgressPrimitive.Root>,
   ComponentProps<typeof ProgressPrimitive.Root> & { max?: number }
 >(({ className, value = 0, max = 100, "aria-label": ariaLabel, ...props }, ref) => {
   const safeValue = value ?? 0;
