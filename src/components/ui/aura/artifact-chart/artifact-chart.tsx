@@ -92,7 +92,7 @@ const ArtifactChartFooter = forwardRef<
   ComponentPropsWithoutRef<typeof CardFooter>
 >(({ className, ...props }, ref) => {
   return (
-    <CardFooter data-slot="artifact-chart-footer" ref={ref} className={cn(className)} {...props} />
+    <CardFooter data-slot="artifact-chart-footer" ref={ref} className={className} {...props} />
   );
 });
 ArtifactChartFooter.displayName = "ArtifactChartFooter";
