@@ -243,6 +243,17 @@ export const DisabledItems: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify enabled items are present
+    await expect(canvas.getByText("View Profile")).toBeInTheDocument();
+    await expect(canvas.getByText("Settings")).toBeInTheDocument();
+
+    // Verify disabled items are present and disabled
+    const disabledItems = canvas.getAllByText(/disabled/i);
+    await expect(disabledItems.length).toBeGreaterThan(0);
+  },
   render: () => (
     <Command className="rounded-lg border shadow-md w-88">
       <CommandInput placeholder="Type a command..." />
@@ -282,6 +293,19 @@ export const MultipleGroups: Story = {
         story: "Command palette with multiple grouped sections.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify all groups are present
+    await expect(canvas.getByText("Recently Used")).toBeInTheDocument();
+    await expect(canvas.getByText("Applications")).toBeInTheDocument();
+    await expect(canvas.getByText("Help")).toBeInTheDocument();
+
+    // Verify items from different groups
+    await expect(canvas.getByText("Calendar")).toBeInTheDocument();
+    await expect(canvas.getByText("Calculator")).toBeInTheDocument();
+    await expect(canvas.getByText("Documentation")).toBeInTheDocument();
   },
   render: () => (
     <Command className="rounded-lg border shadow-md w-100">
@@ -334,6 +358,18 @@ export const CustomStyling: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify custom styled items are rendered
+    await expect(canvas.getByText("Custom styled item 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Custom styled item 2")).toBeInTheDocument();
+    await expect(canvas.getByText("Custom styled item 3")).toBeInTheDocument();
+
+    // Verify search input is present
+    const input = canvas.getByPlaceholderText("Search...");
+    await expect(input).toBeInTheDocument();
+  },
   render: () => (
     <Command className="rounded-lg border shadow-md w-88 bg-card">
       <CommandInput placeholder="Search..." className="bg-transparent" />
@@ -369,6 +405,20 @@ export const VisualRegression: Story = {
     chromatic: {
       disableSnapshot: false,
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify heading is present
+    await expect(canvas.getByText("Basic")).toBeInTheDocument();
+
+    // Verify command items are rendered
+    await expect(canvas.getByText("Item 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Item 2")).toBeInTheDocument();
+
+    // Verify search input
+    const input = canvas.getByPlaceholderText("Search...");
+    await expect(input).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-8 p-4">
@@ -407,6 +457,26 @@ export const Playground: Story = {
         story: "Interactive command palette example.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify search input
+    const input = canvas.getByPlaceholderText("Type to search...");
+    await expect(input).toBeInTheDocument();
+
+    // Verify command items are present
+    await expect(canvas.getByText("Command 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Command 2")).toBeInTheDocument();
+    await expect(canvas.getByText("Command 3")).toBeInTheDocument();
+
+    // Test filtering by typing
+    await userEvent.type(input, "1");
+
+    await waitFor(() => {
+      const command1 = canvas.getByText("Command 1");
+      expect(command1).toBeInTheDocument();
+    });
   },
   render: () => (
     <Command className="rounded-lg border shadow-md w-88">
