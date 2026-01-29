@@ -6,12 +6,12 @@ import {
   IconHandGrab,
   IconItalic,
   IconPointer,
-  IconUnderline,
   IconSortAscending,
+  IconUnderline,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import { Toggle } from "./toggle";
 import { Badge } from "../badge";
+import { Toggle } from "./toggle";
 
 const meta: Meta<typeof Toggle> = {
   title: "Primitives/Toggle",
@@ -53,8 +53,7 @@ const meta: Meta<typeof Toggle> = {
     // State
     pressed: {
       control: "boolean",
-      description:
-        "Controlled pressed state. When true, the toggle is in the 'on' state.",
+      description: "Controlled pressed state. When true, the toggle is in the 'on' state.",
       table: {
         category: "State",
         type: { summary: "boolean" },
@@ -252,20 +251,10 @@ export const FormattingToggles: Story = {
 
     return (
       <div className="flex items-center gap-1">
-        <Toggle
-          aria-label="Bold"
-          variant="default"
-          pressed={bold}
-          onPressedChange={setBold}
-        >
+        <Toggle aria-label="Bold" variant="default" pressed={bold} onPressedChange={setBold}>
           <IconBold />
         </Toggle>
-        <Toggle
-          aria-label="Italic"
-          variant="default"
-          pressed={italic}
-          onPressedChange={setItalic}
-        >
+        <Toggle aria-label="Italic" variant="default" pressed={italic} onPressedChange={setItalic}>
           <IconItalic />
         </Toggle>
         <Toggle
@@ -537,9 +526,7 @@ export const FilterAndSortSmall: Story = {
  */
 export const ExclusiveGroup: Story = {
   render: function ExclusiveToggleGroupStory() {
-    const [activeTool, setActiveTool] = useState<"pointer" | "hand" | null>(
-      "pointer"
-    );
+    const [activeTool, setActiveTool] = useState<"pointer" | "hand" | null>("pointer");
 
     return (
       <div className="flex flex-col gap-3">
@@ -561,17 +548,14 @@ export const ExclusiveGroup: Story = {
             variant="exclusive"
             pressed={activeTool === "hand"}
             onPressedChange={(pressed) =>
-              setActiveTool((current) =>
-                pressed ? "hand" : current === "hand" ? null : current
-              )
+              setActiveTool((current) => (pressed ? "hand" : current === "hand" ? null : current))
             }
           >
             <IconHandGrab className="size-4" />
           </Toggle>
         </div>
         <p className="text-xs text-muted-foreground">
-          Only one tool can be active at a time. Click an active tool again to
-          clear the selection.
+          Only one tool can be active at a time. Click an active tool again to clear the selection.
         </p>
       </div>
     );
@@ -617,9 +601,7 @@ export const ExclusiveGroup: Story = {
  */
 export const ExclusiveGroupSmall: Story = {
   render: function ExclusiveToggleGroupSmallStory() {
-    const [activeTool, setActiveTool] = useState<"pointer" | "hand" | null>(
-      "pointer"
-    );
+    const [activeTool, setActiveTool] = useState<"pointer" | "hand" | null>("pointer");
 
     return (
       <div className="flex flex-col gap-3">
@@ -643,17 +625,14 @@ export const ExclusiveGroupSmall: Story = {
             variant="exclusive"
             pressed={activeTool === "hand"}
             onPressedChange={(pressed) =>
-              setActiveTool((current) =>
-                pressed ? "hand" : current === "hand" ? null : current
-              )
+              setActiveTool((current) => (pressed ? "hand" : current === "hand" ? null : current))
             }
           >
             <IconHandGrab className="size-3.5" />
           </Toggle>
         </div>
         <p className="text-xs text-muted-foreground">
-          Only one tool can be active at a time. Click an active tool again to
-          clear the selection.
+          Only one tool can be active at a time. Click an active tool again to clear the selection.
         </p>
       </div>
     );

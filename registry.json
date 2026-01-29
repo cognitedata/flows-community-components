@@ -1467,7 +1467,7 @@
       "name": "toggle",
       "type": "registry:component",
       "title": "toggle",
-      "description": "",
+      "description": "* Default toggle styling – used for normal, non-exclusive toggles.",
       "dependencies": ["@radix-ui/react-toggle", "class-variance-authority"],
       "registryDependencies": ["@aura/css"],
       "files": [
