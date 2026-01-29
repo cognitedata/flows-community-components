@@ -12,7 +12,6 @@
 export type {
   Shadow,
   FocusRing,
-  RingWidth,
   BorderRadius,
   Transition,
   EffectPattern,
@@ -20,7 +19,6 @@ export type {
 export {
   shadows,
   focusRings,
-  ringWidths,
   borderRadii,
   transitions,
   effectPatterns,
