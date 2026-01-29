@@ -234,9 +234,7 @@ export const WithCustomIcon: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText icon={<IconInfoCircle />}>
-      Your data is encrypted and secure.
-    </HelperText>
+    <HelperText icon={<IconInfoCircle />}>Your data is encrypted and secure.</HelperText>
   ),
 };
 
@@ -264,9 +262,7 @@ export const Warning: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText icon={<IconAlertTriangle />}>
-      Changes cannot be undone after saving.
-    </HelperText>
+    <HelperText icon={<IconAlertTriangle />}>Changes cannot be undone after saving.</HelperText>
   ),
 };
 
@@ -294,9 +290,7 @@ export const Tip: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText icon={<IconBulb />}>
-      Pro tip: Use keyboard shortcuts to work faster.
-    </HelperText>
+    <HelperText icon={<IconBulb />}>Pro tip: Use keyboard shortcuts to work faster.</HelperText>
   ),
 };
 
@@ -352,7 +346,8 @@ export const LongText: Story = {
   },
   render: () => (
     <HelperText icon={<IconInfoCircle />} className="max-w-md">
-      This is a longer piece of helper text that demonstrates how the component handles text wrapping. It will span multiple lines while maintaining proper alignment with the icon.
+      This is a longer piece of helper text that demonstrates how the component handles text
+      wrapping. It will span multiple lines while maintaining proper alignment with the icon.
     </HelperText>
   ),
 };
@@ -684,4 +679,26 @@ export const StatefulValidation: Story = {
       </div>
     );
   },
+};
+
+/**
+ * Interactive playground
+ * Allows testing all helper text props interactively
+ */
+export const Playground: Story = {
+  args: {
+    size: "sm",
+    isError: false,
+    isSuccess: false,
+    children: "Customize this helper text using the controls above.",
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with helper text props.",
+      },
+    },
+  },
+  render: (args) => <HelperText {...args} />,
 };

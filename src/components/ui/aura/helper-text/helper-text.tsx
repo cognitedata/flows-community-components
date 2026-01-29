@@ -1,5 +1,11 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import { type HTMLAttributes, type ReactElement, type ReactNode, cloneElement } from "react";
+import {
+  type HTMLAttributes,
+  type ReactElement,
+  type ReactNode,
+  cloneElement,
+  forwardRef,
+} from "react";
 
 import { cn } from "@/lib/utils";
 import { IconExclamationCircle } from "@tabler/icons-react";
@@ -36,40 +42,43 @@ export interface HelperTextProps
   icon?: ReactNode;
 }
 
-function HelperText({
-  className,
-  size = "sm",
-  isError = false,
-  isSuccess = false,
-  icon,
-  children,
-  ...props
-}: HelperTextProps) {
-  const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
+const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
+  (
+    { className, size = "sm", isError = false, isSuccess = false, icon, children, ...props },
+    ref
+  ) => {
+    const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
 
-  const textColor = isError
-    ? "text-destructive-foreground"
-    : isSuccess
-      ? "text-success-foreground"
-      : "text-muted-foreground";
+    const textColor = isError
+      ? "text-destructive-foreground"
+      : isSuccess
+        ? "text-success-foreground"
+        : "text-muted-foreground";
 
-  const iconWithClasses = displayIcon
-    ? cloneElement(displayIcon as ReactElement<{ className?: string }>, {
-        className: cn(
-          helperTextIconVariants({ size }),
-          size === "sm" && "mt-0.25",
-          textColor,
-          (displayIcon as ReactElement<{ className?: string }>).props?.className
-        ),
-      })
-    : null;
+    const iconWithClasses = displayIcon
+      ? cloneElement(displayIcon as ReactElement<{ className?: string }>, {
+          className: cn(
+            helperTextIconVariants({ size }),
+            size === "sm" && "mt-0.25",
+            textColor,
+            (displayIcon as ReactElement<{ className?: string }>).props?.className
+          ),
+        })
+      : null;
 
-  return (
-    <div data-slot="helper-text" className={cn(helperTextVariants({ size }), className)} {...props}>
-      {iconWithClasses}
-      <span className={textColor}>{children}</span>
-    </div>
-  );
-}
+    return (
+      <div
+        ref={ref}
+        data-slot="helper-text"
+        className={cn(helperTextVariants({ size }), className)}
+        {...props}
+      >
+        {iconWithClasses}
+        <span className={textColor}>{children}</span>
+      </div>
+    );
+  }
+);
+HelperText.displayName = "HelperText";
 
 export { HelperText };
