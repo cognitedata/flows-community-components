@@ -684,7 +684,7 @@ export const AsyncSearch: Story = {
         const searching = canvas.queryByText("Searching...");
         const noResults = canvas.queryByText("No users found.");
         const hasResults = canvas.queryByText("Jane Smith");
-        
+
         // Test passes if we see loading state OR if results loaded
         expect(searching || hasResults).toBeTruthy();
       },
