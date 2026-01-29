@@ -127,35 +127,6 @@ const meta: Meta<typeof PromptInput> = {
 export default meta;
 type Story = StoryObj<typeof PromptInput>;
 
-function AttachmentTools({
-  model,
-  setModel,
-}: {
-  model: string;
-  setModel: (model: string) => void;
-}) {
-  return (
-    <>
-      <PromptInputButton size="icon-sm" aria-label="Settings">
-        <IconAdjustments />
-      </PromptInputButton>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm">
-            {model}
-            <IconChevronDown />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setModel("GPT-4")}>GPT-4</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setModel("GPT-3.5")}>GPT-3.5</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setModel("Claude")}>Claude</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
-  );
-}
-
 /**
  * Basic prompt input with attachments and default helper text
  * Matches the basic example from prompt-input.examples.tsx
@@ -517,8 +488,6 @@ export const WithAdvancedTools: Story = {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -532,13 +501,28 @@ export const WithAdvancedTools: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea ref={textareaRef} placeholder="Type your message..." />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
-            <AttachmentTools model={model} setModel={setModel} />
+            <PromptInputButton size="icon-sm" aria-label="Settings">
+              <IconAdjustments />
+            </PromptInputButton>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  {model}
+                  <IconChevronDown />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setModel("GPT-4")}>GPT-4</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel("GPT-3.5")}>GPT-3.5</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel("Claude")}>Claude</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </PromptInputTools>
           <div className="flex flex-row gap-2">
             <PromptInputSpeechButton textareaRef={textareaRef} />
