@@ -146,9 +146,7 @@ export const DefaultOpen: Story = {
     await expect(trigger).toBeInTheDocument();
 
     // Content should start open
-    const content = canvasElement.querySelector(
-      '[data-slot="collapsible-content"]'
-    );
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
     await expect(content).toBeInTheDocument();
     await expect(content).toHaveAttribute("data-state", "open");
   },
@@ -264,9 +262,7 @@ export const WithCustomTrigger: Story = {
     await expect(trigger).toBeInTheDocument();
 
     // Content should be closed initially
-    const content = canvasElement.querySelector(
-      '[data-slot="collapsible-content"]'
-    );
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
     await expect(content).toHaveAttribute("data-state", "closed");
 
     // Click to open
@@ -323,9 +319,7 @@ export const Multiple: Story = {
     await expect(q1).toBeInTheDocument();
     await expect(q2).toBeInTheDocument();
 
-    const contents = canvasElement.querySelectorAll(
-      '[data-slot="collapsible-content"]'
-    );
+    const contents = canvasElement.querySelectorAll('[data-slot="collapsible-content"]');
     await expect(contents.length).toBeGreaterThanOrEqual(2);
 
     // Open first question
@@ -420,9 +414,7 @@ export const Disabled: Story = {
     await expect(trigger).toBeInTheDocument();
     await expect(trigger).toBeDisabled();
 
-    const content = canvasElement.querySelector(
-      '[data-slot="collapsible-content"]'
-    );
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
     await expect(content).toBeInTheDocument();
 
     // Verify it starts and remains in the closed state (no interaction needed)
@@ -668,9 +660,7 @@ export const EdgeCaseLongText: Story = {
     );
 
     // Verify long text is present
-    await expect(
-      canvas.getByText(/this is an extremely long paragraph/i)
-    ).toBeInTheDocument();
+    await expect(canvas.getByText(/this is an extremely long paragraph/i)).toBeInTheDocument();
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
@@ -684,9 +674,9 @@ export const EdgeCaseLongText: Story = {
         <div className="px-4 py-2 space-y-2">
           <p className="text-sm">
             This is an extremely long paragraph that demonstrates how the collapsible component
-            handles extensive text content. Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            handles extensive text content. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.
           </p>
           <p className="text-sm">
