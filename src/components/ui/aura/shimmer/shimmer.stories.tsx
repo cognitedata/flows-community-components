@@ -369,5 +369,10 @@ export const Playground: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const shimmer = canvas.getByText("Shimmer text");
+    await expect(shimmer).toBeInTheDocument();
+  },
   render: (args) => <Shimmer {...args} />,
 };
