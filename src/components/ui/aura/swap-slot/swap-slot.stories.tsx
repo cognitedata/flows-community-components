@@ -15,7 +15,7 @@ import { useState } from "react";
 import { SwapSlot } from "./swap-slot";
 
 const meta: Meta<typeof SwapSlot> = {
-  title: "AI/Swap Slot",
+  title: "Primitives/Swap Slot",
   component: SwapSlot,
   tags: ["autodocs"],
   argTypes: {
@@ -551,5 +551,53 @@ export const EmptyState: Story = {
   },
   render: function EmptyStateStory() {
     return <SwapSlot className="w-100 h-20">{/* Intentionally empty */}</SwapSlot>;
+  },
+};
+
+/**
+ * Interactive playground for testing swap slot props.
+ */
+export const Playground: Story = {
+  args: {
+    className: "w-100",
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story:
+          "Interactive playground to test different swap slot configurations. Use the controls panel to experiment with props.",
+      },
+    },
+  },
+  render: function PlaygroundStory(args) {
+    const [isActive, setIsActive] = useState(false);
+
+    return (
+      <div className="flex items-center justify-center p-24">
+        <div className="space-y-4 w-100">
+          <SwapSlot
+            {...args}
+            defaultSlot={
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <IconPlus className="size-4" />
+                <span>Default slot content</span>
+              </div>
+            }
+            activeSlot={
+              isActive ? (
+                <div className="flex items-center gap-2 text-foreground">
+                  <IconCheck className="size-4 text-success" />
+                  <span>Active slot content</span>
+                </div>
+              ) : undefined
+            }
+          />
+          <Button onClick={() => setIsActive(!isActive)} variant="outline">
+            Toggle Active Slot
+          </Button>
+        </div>
+      </div>
+    );
   },
 };
