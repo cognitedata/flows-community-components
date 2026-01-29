@@ -453,6 +453,7 @@ export const VisualRegression: Story = {
  */
 export const NoResultsFound: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -520,6 +521,7 @@ export const NoResultsFound: Story = {
  */
 export const KeyboardNavigation: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -593,6 +595,7 @@ export const KeyboardNavigation: Story = {
  */
 export const LongList: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -649,6 +652,7 @@ export const LongList: Story = {
  */
 export const AsyncSearch: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -700,12 +704,9 @@ export const AsyncSearch: Story = {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       // Mock results
-      const mockResults = [
-        "John Doe",
-        "Jane Smith",
-        "Johnny Appleseed",
-        "John Johnson",
-      ].filter((name) => name.toLowerCase().includes(query.toLowerCase()));
+      const mockResults = ["John Doe", "Jane Smith", "Johnny Appleseed", "John Johnson"].filter(
+        (name) => name.toLowerCase().includes(query.toLowerCase())
+      );
 
       setResults(mockResults);
       setIsLoading(false);
