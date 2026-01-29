@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconCalculator,
   IconCalendar,
@@ -161,6 +161,30 @@ export const Dialog: Story = {
         </CommandDialog>
       </div>
     );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open the command palette
+    const trigger = canvas.getByRole("button", { name: /open command palette/i });
+    await userEvent.click(trigger);
+
+    // Wait for dialog to appear
+    const dialog = await screen.findByRole("dialog");
+    await expect(dialog).toBeInTheDocument();
+
+    // Verify command input is present
+    const input = within(dialog).getByPlaceholderText("Type a command or search...");
+    await expect(input).toBeInTheDocument();
+
+    // Select an item to close the dialog
+    const calendarItem = within(dialog).getByRole("option", { name: /calendar/i });
+    await userEvent.click(calendarItem);
+
+    // Verify dialog closed
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
   },
 };
 
