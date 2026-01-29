@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/aura/code-block";
 import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconCopy,
   IconDownload,
@@ -101,9 +101,9 @@ export const Default: Story = {
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(4);
 
-    // Verify message actions exist using data-slot attribute
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
-    await expect(buttons.length).toBeGreaterThan(0);
+    // Verify message actions exist (4 MessageAction buttons)
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(4);
   },
   render: () => (
     <div className="flex flex-col space-y-4 w-full gap-2">
@@ -223,10 +223,10 @@ export const WithCodeBlock: Story = {
     const codeBlock = canvasElement.querySelector("[data-code-block]");
     await expect(codeBlock).toBeInTheDocument();
 
-    // Verify message actions exist using data-slot attribute
-    // Note: Code block buttons are hidden until hover and won't be in the DOM
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
-    await expect(buttons.length).toBeGreaterThanOrEqual(4);
+    // Verify message actions exist (4 MessageAction buttons)
+    // Note: Code block buttons (copy, collapse) are hidden until hover
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(4);
   },
   render: () => {
     const code = `async function analyzeVibrationData(timeseriesId: string) {
@@ -305,13 +305,18 @@ export const MessageResponseStreamdown: Story = {
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
-    // Verify message actions exist using data-slot attribute
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
-    await expect(buttons.length).toBeGreaterThan(0);
+    // Wait for MessageResponse content to be rendered (Streamdown needs time to parse markdown)
+    await waitFor(
+      () => {
+        const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        expect(headings.length).toBeGreaterThan(0);
+      },
+      { timeout: 3000 }
+    );
 
-    // Verify MessageResponse content is rendered (check for any heading)
-    const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    await expect(headings.length).toBeGreaterThan(0);
+    // Verify message actions exist (wait for them to render)
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(2);
   },
   render: () => {
     const markdownContent = `# Heading 1
@@ -600,9 +605,9 @@ export const ManyMessageActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify many buttons exist using data-slot attribute
-    const buttons = canvasElement.querySelectorAll('[data-slot="button"]');
-    await expect(buttons.length).toBeGreaterThanOrEqual(6);
+    // Verify many buttons exist (6 MessageAction buttons)
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBe(6);
   },
   render: () => (
     <Message isResponse={true}>

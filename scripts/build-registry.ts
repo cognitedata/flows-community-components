@@ -8,6 +8,7 @@
  * folder structure when components are installed via the registry.
  */
 
+import { execSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -624,6 +625,20 @@ async function main(): Promise<void> {
     const registry: Registry = buildRegistry(components);
 
     fs.writeFileSync(registryOutput, `${JSON.stringify(registry, null, 2)}\n`);
+
+    // Format the generated registry.json with Biome
+    try {
+      console.log("🔧 Formatting registry.json with Biome...");
+      execSync("pnpm biome format --write registry.json", {
+        cwd: path.join(__dirname, ".."),
+        stdio: "pipe",
+      });
+      console.log("✨ Formatted registry.json");
+    } catch (error) {
+      console.warn(
+        "⚠️  Failed to format registry.json with Biome (file may need manual formatting)"
+      );
+    }
 
     console.log("\n✅ Successfully built registry.json");
     console.log(`📦 Registry contains ${registry.items.length} component(s)`);
