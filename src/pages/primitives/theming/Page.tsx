@@ -308,7 +308,7 @@ function generateInstallGuide(): string {
 \`\`\`bash
 npm install tailwindcss-animate class-variance-authority clsx tailwind-merge
 npm install @tabler/icons-react # for icons
-npm install next-themes # for dark mode support
+# ThemeProvider is included with Aura - no additional installation needed
 \`\`\`
 
 ## 2. Update Tailwind Configuration

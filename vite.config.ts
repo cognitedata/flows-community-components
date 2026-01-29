@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
+import { cogDocsScraperPlugin } from "./vite-plugin-cogdocs-scraper";
 import { storySourcePlugin } from "./vite-plugin-story-source";
 
 // Plugin to handle history API fallback for SPA routing with custom base paths
@@ -57,6 +58,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     storySourcePlugin(),
+    cogDocsScraperPlugin(),
     historyApiFallback(),
   ],
   resolve: {

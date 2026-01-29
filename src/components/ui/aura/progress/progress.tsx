@@ -5,9 +5,11 @@ import { cn } from "@/lib/utils";
 
 const Progress = forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
-  ComponentProps<typeof ProgressPrimitive.Root>
->(({ className, value, "aria-label": ariaLabel, ...props }, ref) => {
-  const defaultAriaLabel = `Progress: ${value ?? 0}%`;
+  ComponentProps<typeof ProgressPrimitive.Root> & { max?: number }
+>(({ className, value = 0, max = 100, "aria-label": ariaLabel, ...props }, ref) => {
+  const safeValue = value ?? 0;
+  const percentage = (safeValue * 100) / max;
+  const defaultAriaLabel = `Progress: ${Math.round(percentage)}%`;
 
   return (
     <ProgressPrimitive.Root
@@ -18,13 +20,14 @@ const Progress = forwardRef<
         className
       )}
       value={value}
+      max={max}
       aria-label={ariaLabel ?? defaultAriaLabel}
       {...props}
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
         className="bg-primary h-full w-full flex-1 transition-all"
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        style={{ transform: `translateX(-${100 - percentage}%)` }}
       />
     </ProgressPrimitive.Root>
   );
