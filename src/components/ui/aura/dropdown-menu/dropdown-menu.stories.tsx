@@ -438,7 +438,7 @@ export const WithRadioGroup: Story = {
       expect(outputDiv?.textContent).toContain("list");
     });
   },
-  render: function WithRadioGroupStory() {
+  render: function WithRadioGroupStory({ modal = false }) {
     const [viewMode, setViewMode] = useState("grid");
 
     return (
