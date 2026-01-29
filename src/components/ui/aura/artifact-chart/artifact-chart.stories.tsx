@@ -2,10 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
 import { useState } from "react";
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
+import { Area, AreaChart, Cell, Pie, PieChart, type PieLabelRenderProps, XAxis } from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
-import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+} from "@/components/ui/aura/chart";
 import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import {
   ArtifactChart,
@@ -1159,6 +1165,146 @@ export const EdgeCaseNoData: Story = {
         <ArtifactChartFooter className="flex flex-col items-start gap-1">
           <div className="text-sm text-muted-foreground">
             Data will appear once activity is recorded
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+// Area chart configuration
+const areaChartConfig = {
+  r401: { label: "R401", color: "rgba(47, 85, 234, 0.8)" },
+  r402: { label: "R402", color: "rgba(47, 85, 234, 0.5)" },
+} satisfies ChartConfig;
+
+const areaChartData = [
+  { time: "02:00", r401: 280, r402: 120 },
+  { time: "06:00", r401: 300, r402: 140 },
+  { time: "10:00", r401: 350, r402: 160 },
+  { time: "14:00", r401: 320, r402: 150 },
+  { time: "18:00", r401: 290, r402: 130 },
+  { time: "22:00", r401: 310, r402: 145 },
+];
+
+/**
+ * Stacked area chart showing temperature trends over time.
+ * Two series with gradient fills and a time-based x-axis.
+ */
+export const StackedAreaChart: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Stacked area chart showing temperature trends for two reactors over 24 hours. Features gradient fills, time-based x-axis, multi-series tooltip, and centered legend.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Reactor temperature trend")).toBeInTheDocument();
+    await expect(canvas.getByText("Last 24 hours")).toBeInTheDocument();
+    await expect(canvas.getByText("02:00")).toBeInTheDocument();
+    await expect(canvas.getByText("22:00")).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function StackedAreaChartStory() {
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Reactor temperature trend</ArtifactChartTitle>
+          <ArtifactChartDescription>Last 24 hours</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={areaChartConfig} className="h-40 w-full">
+            <AreaChart data={areaChartData} margin={{ left: 0, right: 0, top: 10, bottom: 0 }}>
+              {/* SVG gradient definitions for area fills */}
+              <defs>
+                {/* R401 gradient - lighter (top series) */}
+                <linearGradient id="areaGradientR401" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.13)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.04)" />
+                </linearGradient>
+                {/* R402 gradient - more opaque (bottom series) */}
+                <linearGradient id="areaGradientR402" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.48)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.3)" />
+                </linearGradient>
+              </defs>
+              <XAxis
+                dataKey="time"
+                tickLine={false}
+                axisLine={false}
+                tick={{ fontSize: 12, fill: "var(--color-muted-foreground)" }}
+                tickMargin={8}
+              />
+              <ChartTooltip
+                cursor={{ stroke: "var(--color-muted-foreground)", strokeWidth: 1 }}
+                content={({ active, payload, label }) => {
+                  if (!active || !payload?.length) return null;
+
+                  return (
+                    <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      {payload.map((entry) => {
+                        const key = entry.dataKey as string;
+                        const config = areaChartConfig[key as keyof typeof areaChartConfig];
+                        return (
+                          <div key={key} className="flex items-center gap-4">
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="h-2 w-2 rounded-sm"
+                                style={{ backgroundColor: config?.color }}
+                              />
+                              <span className="text-sm text-muted-foreground">{config?.label}</span>
+                            </div>
+                            <span className="text-sm text-foreground">{entry.value}°C</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }}
+              />
+              {/* R401 area - higher values, rendered first (behind) */}
+              <Area
+                type="monotone"
+                dataKey="r401"
+                stroke="#2F55EA"
+                strokeWidth={1}
+                fill="url(#areaGradientR401)"
+                dot={false}
+                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+              />
+              {/* R402 area - lower values, rendered second (in front) */}
+              <Area
+                type="monotone"
+                dataKey="r402"
+                stroke="#2F55EA"
+                strokeWidth={1}
+                fill="url(#areaGradientR402)"
+                dot={false}
+                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+            </AreaChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
           </div>
         </ArtifactChartFooter>
       </ArtifactChart>
