@@ -604,7 +604,7 @@ export const KeyboardNavigation: Story = {
             Selected: <span className="font-medium text-foreground">{selectedItem}</span>
           </div>
         )}
-        <DropdownMenu modal={false}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button>Keyboard Test</Button>
           </DropdownMenuTrigger>
