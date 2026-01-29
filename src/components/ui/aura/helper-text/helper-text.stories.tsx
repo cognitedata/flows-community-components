@@ -204,7 +204,7 @@ export const Success: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText size="sm" isSuccess icon={<IconCircleCheck />}>
+    <HelperText isSuccess icon={<IconCircleCheck />}>
       Password meets all requirements.
     </HelperText>
   ),
@@ -234,7 +234,7 @@ export const WithCustomIcon: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText size="sm" icon={<IconInfoCircle />}>
+    <HelperText icon={<IconInfoCircle />}>
       Your data is encrypted and secure.
     </HelperText>
   ),
@@ -264,7 +264,7 @@ export const Warning: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText size="sm" icon={<IconAlertTriangle />}>
+    <HelperText icon={<IconAlertTriangle />}>
       Changes cannot be undone after saving.
     </HelperText>
   ),
@@ -294,7 +294,7 @@ export const Tip: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText size="sm" icon={<IconBulb />}>
+    <HelperText icon={<IconBulb />}>
       Pro tip: Use keyboard shortcuts to work faster.
     </HelperText>
   ),
@@ -323,7 +323,7 @@ export const NoIcon: Story = {
     const icon = canvasElement.querySelector("svg");
     await expect(icon).not.toBeInTheDocument();
   },
-  render: () => <HelperText size="sm">Simple text without an icon.</HelperText>,
+  render: () => <HelperText>Simple text without an icon.</HelperText>,
 };
 
 /**
@@ -351,7 +351,7 @@ export const LongText: Story = {
     await expect(icon).toBeInTheDocument();
   },
   render: () => (
-    <HelperText size="sm" icon={<IconInfoCircle />} className="max-w-md">
+    <HelperText icon={<IconInfoCircle />} className="max-w-md">
       This is a longer piece of helper text that demonstrates how the component handles text wrapping. It will span multiple lines while maintaining proper alignment with the icon.
     </HelperText>
   ),
