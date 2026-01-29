@@ -118,16 +118,15 @@
       ]
     },
     {
-      "name": "artifact-count",
+      "name": "artifact-chart",
       "type": "registry:component",
-      "title": "artifact-count",
-      "description": "* ArtifactCount container for count-based widgets.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/card", "@aura/separator"],
+      "title": "provides",
+      "description": "* Artifact Chart - A compositional card layout for displaying charts.",
+      "registryDependencies": ["@aura/css", "@aura/card"],
       "files": [
         {
-          "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
-          "target": "src/components/ui/aura/artifact-count.tsx",
+          "path": "src/components/ui/aura/artifact-chart/artifact-chart.tsx",
+          "target": "src/components/ui/aura/artifact-chart.tsx",
           "type": "registry:component"
         },
         {
@@ -168,6 +167,26 @@
         {
           "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
           "target": "src/components/ui/aura/dropdown-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact-count",
+      "type": "registry:component",
+      "title": "artifact-count",
+      "description": "* ArtifactCount container for count-based widgets.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["@aura/css", "@aura/card", "@aura/separator"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
+          "target": "src/components/ui/aura/artifact-count.tsx",
           "type": "registry:component"
         },
         {
