@@ -881,3 +881,57 @@ export const ComplexInteractive: Story = {
     );
   },
 };
+
+/**
+ * Interactive playground
+ * Allows testing all dropdown menu props interactively
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with dropdown menu props.",
+      },
+    },
+  },
+  render: function PlaygroundStory({ modal = false }) {
+    const [selectedItem, setSelectedItem] = useState<string>("");
+
+    return (
+      <div className="space-y-4">
+        {selectedItem && (
+          <div className="text-sm text-muted-foreground">
+            Selected: <span className="font-medium text-foreground">{selectedItem}</span>
+          </div>
+        )}
+        <DropdownMenu modal={modal}>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Playground Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setSelectedItem("Profile")}>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setSelectedItem("Settings")}>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setSelectedItem("Notifications")}>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setSelectedItem("Help")}>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    );
+  },
+};
