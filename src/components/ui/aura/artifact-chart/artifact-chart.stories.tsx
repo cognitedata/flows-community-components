@@ -1,8 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
-import { useState } from "react";
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
+import { useId, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  Cell,
+  Pie,
+  PieChart,
+  type PieLabelRenderProps,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
 import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
@@ -1159,6 +1168,153 @@ export const EdgeCaseNoData: Story = {
         <ArtifactChartFooter className="flex flex-col items-start gap-1">
           <div className="text-sm text-muted-foreground">
             Data will appear once activity is recorded
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+// Bar chart configuration
+const barChartConfig = {
+  value: { label: "Count", color: "url(#barGradient)" },
+} satisfies ChartConfig;
+
+const barChartData = [
+  { name: "Assets", value: 106 },
+  { name: "Files", value: 305 },
+  { name: "Events", value: 237 },
+  { name: "Work orders", value: 73 },
+  { name: "Time series", value: 209 },
+];
+
+/**
+ * Horizontal bar chart artifact with category labels.
+ * Shows data distribution across different categories with values on bars.
+ * Bars use a gradient fill from lighter to darker blue (fjord color).
+ */
+export const HorizontalBarChart: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Horizontal bar chart showing data distribution across categories. Includes header with actions, gradient-filled bars with value labels, and footer with trend information.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
+    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
+    await expect(canvas.getByText("Assets")).toBeInTheDocument();
+    await expect(canvas.getByText("Files")).toBeInTheDocument();
+    await expect(canvas.getByText("Events")).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function HorizontalBarChartStory() {
+    const chartData = barChartData;
+    const barGradientId = useId();
+    const tooltipGradientId = useId();
+
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Chart title</ArtifactChartTitle>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={barChartConfig} className="h-50 w-full">
+            <BarChart data={chartData} layout="vertical" margin={{ left: 0, right: 40 }}>
+              {/* SVG gradient definitions - use unique IDs to prevent conflicts */}
+              <defs>
+                <linearGradient id={barGradientId} x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.35)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
+                </linearGradient>
+                <linearGradient id={tooltipGradientId} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2F55EA" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
+                </linearGradient>
+              </defs>
+              <YAxis
+                dataKey="name"
+                type="category"
+                tickLine={false}
+                axisLine={false}
+                width={90}
+                tick={{ fontSize: 14, fill: "var(--color-muted-foreground)" }}
+              />
+              <XAxis type="number" hide />
+              <ChartTooltip
+                cursor={{ fill: "var(--color-muted)", opacity: 0.3 }}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+                  const data = payload[0];
+                  const name = data.payload?.name as string;
+                  const value = data.value as number;
+
+                  return (
+                    <div className="flex items-center gap-4 rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      <div className="flex items-center gap-1.5">
+                        {/* Gradient swatch referencing shared gradient definition */}
+                        <svg
+                          width="8"
+                          height="8"
+                          className="shrink-0"
+                          aria-hidden="true"
+                          role="img"
+                        >
+                          <rect width="8" height="8" rx="2" fill={`url(#${tooltipGradientId})`} />
+                        </svg>
+                        <span className="text-sm text-muted-foreground">{name}</span>
+                      </div>
+                      <span className="text-sm text-foreground">{value}</span>
+                    </div>
+                  );
+                }}
+              />
+              <Bar
+                dataKey="value"
+                fill={`url(#${barGradientId})`}
+                radius={[0, 4, 4, 0]}
+                barSize={24}
+                label={{
+                  position: "right",
+                  fill: "var(--color-foreground)",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  offset: 4,
+                }}
+              >
+                {chartData.map((entry) => (
+                  <Cell
+                    key={entry.name}
+                    className="transition-opacity duration-200 hover:opacity-80"
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+          <div className="text-sm leading-4 text-muted-foreground">
+            Total visitors for the last 6 months
           </div>
         </ArtifactChartFooter>
       </ArtifactChart>
