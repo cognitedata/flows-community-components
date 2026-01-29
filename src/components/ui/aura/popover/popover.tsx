@@ -1,25 +1,29 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import type { ComponentProps } from "react";
+import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { cn, getPortalContainer } from "@/lib/utils";
 
 function Popover({ ...props }: ComponentProps<typeof PopoverPrimitive.Root>) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
+Popover.displayName = "Popover";
 
-function PopoverTrigger({ ...props }: ComponentProps<typeof PopoverPrimitive.Trigger>) {
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
-}
+const PopoverTrigger = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Trigger>,
+  ComponentProps<typeof PopoverPrimitive.Trigger>
+>((props, ref) => {
+  return <PopoverPrimitive.Trigger ref={ref} data-slot="popover-trigger" {...props} />;
+});
+PopoverTrigger.displayName = "PopoverTrigger";
 
-function PopoverContent({
-  className,
-  align = "center",
-  sideOffset = 4,
-  ...props
-}: ComponentProps<typeof PopoverPrimitive.Content>) {
+const PopoverContent = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Content>,
+  ComponentProps<typeof PopoverPrimitive.Content>
+>(({ className, align = "center", sideOffset = 4, ...props }, ref) => {
   return (
     <PopoverPrimitive.Portal container={getPortalContainer()}>
       <PopoverPrimitive.Content
+        ref={ref}
         data-slot="popover-content"
         align={align}
         sideOffset={sideOffset}
@@ -31,10 +35,15 @@ function PopoverContent({
       />
     </PopoverPrimitive.Portal>
   );
-}
+});
+PopoverContent.displayName = "PopoverContent";
 
-function PopoverAnchor({ ...props }: ComponentProps<typeof PopoverPrimitive.Anchor>) {
-  return <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />;
-}
+const PopoverAnchor = forwardRef<
+  ComponentRef<typeof PopoverPrimitive.Anchor>,
+  ComponentProps<typeof PopoverPrimitive.Anchor>
+>((props, ref) => {
+  return <PopoverPrimitive.Anchor ref={ref} data-slot="popover-anchor" {...props} />;
+});
+PopoverAnchor.displayName = "PopoverAnchor";
 
 export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };
