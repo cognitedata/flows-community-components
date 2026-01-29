@@ -96,20 +96,16 @@ export const Default: Story = {
     await userEvent.click(trigger);
 
     // Wait for dialog to appear
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("alertdialog");
+    expect(dialog).toBeInTheDocument();
 
     // Verify title and description
-    const title = document.querySelector('[data-slot="alert-dialog-title"]');
-    expect(title).toHaveTextContent("Are you sure?");
+    const title = within(dialog).getByRole("heading", { name: "Are you sure?" });
+    await expect(title).toBeInTheDocument();
 
     // Click cancel to close
-    const cancelButton = document.querySelector('[data-slot="alert-dialog-content"] button');
-    if (cancelButton) {
-      await userEvent.click(cancelButton);
-    }
+    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
+    await userEvent.click(cancelButton);
   },
 };
 
@@ -344,23 +340,16 @@ export const Controlled: Story = {
     await userEvent.click(openButton);
 
     // Verify dialog opened
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("alertdialog");
+    expect(dialog).toBeInTheDocument();
 
     // Click cancel to close
-    const cancelButton = Array.from(document.querySelectorAll("button")).find(
-      (btn) => btn.textContent === "Cancel"
-    );
-    if (cancelButton) {
-      await userEvent.click(cancelButton);
-    }
+    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
+    await userEvent.click(cancelButton);
 
     // Verify dialog closed
     await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).not.toBeInTheDocument();
+      expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
     });
   },
 };
