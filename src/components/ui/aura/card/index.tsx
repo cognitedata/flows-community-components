@@ -1,24 +1,19 @@
 /**
  * Card Component
  *
- * A flexible card layout with header, content, action, and footer slots.
+ * A flexible card container with composable header, icon, content, actions, and footer slots.
+ * Supports polymorphic heading elements for semantic HTML structure.
  *
- * @example
- * import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/aura/card';
- *
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Title</CardTitle>
- *   </CardHeader>
- *   <CardContent>Content here</CardContent>
- * </Card>
+ * See Storybook for comprehensive examples and documentation.
  */
 export {
   Card,
   CardHeader,
+  CardIcon,
+  CardHeaderRight,
   CardFooter,
   CardTitle,
-  CardAction,
+  CardActions,
   CardDescription,
   CardContent,
 } from "./card";
