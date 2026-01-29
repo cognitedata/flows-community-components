@@ -1,3 +1,4 @@
+import { type CogDocsPage, cogdocsPages } from "virtual:cogdocs";
 import { cn } from "@/lib/utils";
 import { IconChevronRight } from "@tabler/icons-react";
 import * as React from "react";
@@ -70,6 +71,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/input", label: "Input" },
       { href: "/primitives/kbd", label: "Kbd" },
       { href: "/primitives/label", label: "Label" },
+      { href: "/primitives/list", label: "List" },
       { href: "/primitives/menubar", label: "Menubar" },
       { href: "/primitives/pagination", label: "Pagination" },
       { href: "/primitives/popover", label: "Popover" },
@@ -96,7 +98,9 @@ const primitivesNavigation: NavigationItem[] = [
     label: "Artifacts",
     isSubsection: true,
     children: [
+      { href: "/primitives/artifact-chart", label: "Chart" },
       { href: "/primitives/artifact-count", label: "Count" },
+      { href: "/primitives/artifact-list", label: "List" },
       { href: "/primitives/artifact-progress", label: "Progress" },
     ],
   },
@@ -116,6 +120,18 @@ const patternsNavigation: NavigationItem[] = [
 
 const sandboxNavigation: NavigationItem[] = [
   // To be populated later
+];
+
+const cogdocsNavigation: NavigationItem[] = [
+  {
+    href: "#",
+    label: "CogDocs",
+    isSubsection: true,
+    children: cogdocsPages.map((page: CogDocsPage) => ({
+      href: `/cogdocs/${page.slug}`,
+      label: page.title,
+    })),
+  },
 ];
 
 const aiNavigation: NavigationItem[] = [
@@ -170,6 +186,7 @@ export const navigationMap = {
   patterns: patternsNavigation,
   sandbox: sandboxNavigation,
   ai: aiNavigation,
+  cogdocs: cogdocsNavigation,
 };
 
 function NavigationGroup({

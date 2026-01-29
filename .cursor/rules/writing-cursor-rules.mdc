@@ -1,0 +1,21 @@
+---
+name: writing-cursor-rules
+description: Guidelines for writing cursor rules
+---
+
+# Writing Cursor Rules
+
+Don't write ❌ BAD items, only ✅ GOOD items
+
+```tsx
+// ✅ GOOD - Proper ARIA for alerts
+<div role="alert" aria-live="polite">Error message</div>
+
+// ✅ GOOD - Decorative icons hidden from screen readers
+<IconCheck aria-hidden="true" className="size-4" />
+
+// ✅ GOOD - Interactive elements use button semantics
+<button onClick={handleClick} aria-label="Close">
+  <IconX aria-hidden="true" />
+</button>
+```
