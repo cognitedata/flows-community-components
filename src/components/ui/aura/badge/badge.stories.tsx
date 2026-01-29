@@ -1569,9 +1569,9 @@ export const IconSizes: Story = {
 
     // Verify icon size badges have correct styling
     iconSizeBadges.forEach((badge) => {
-      expect(badge.classList.contains("px-1.5")).toBe(true);
-      expect(badge.classList.contains("py-1")).toBe(true);
-      expect(badge.classList.contains("rounded-md")).toBe(true);
+      expect(badge).toHaveClass("px-1.5");
+      expect(badge).toHaveClass("py-1");
+      expect(badge).toHaveClass("rounded-md");
     });
 
     // Should have 4 icon size badges (mountain, fjord, aurora, dusk)
