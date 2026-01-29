@@ -118,16 +118,15 @@
       ]
     },
     {
-      "name": "artifact-count",
+      "name": "artifact-chart",
       "type": "registry:component",
-      "title": "artifact-count",
-      "description": "* ArtifactCount container for count-based widgets.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/card", "@aura/separator"],
+      "title": "provides",
+      "description": "* Artifact Chart - A compositional card layout for displaying charts.",
+      "registryDependencies": ["@aura/css", "@aura/card"],
       "files": [
         {
-          "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
-          "target": "src/components/ui/aura/artifact-count.tsx",
+          "path": "src/components/ui/aura/artifact-chart/artifact-chart.tsx",
+          "target": "src/components/ui/aura/artifact-chart.tsx",
           "type": "registry:component"
         },
         {
@@ -168,6 +167,26 @@
         {
           "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
           "target": "src/components/ui/aura/dropdown-menu.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "artifact-count",
+      "type": "registry:component",
+      "title": "artifact-count",
+      "description": "* ArtifactCount container for count-based widgets.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["@aura/css", "@aura/card", "@aura/separator"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/artifact-count/artifact-count.tsx",
+          "target": "src/components/ui/aura/artifact-count.tsx",
           "type": "registry:component"
         },
         {
@@ -1028,13 +1047,37 @@
       "name": "pagination",
       "type": "registry:component",
       "title": "pagination",
-      "description": "",
-      "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button"],
+      "description": "* Pagination navigation container.",
+      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
+      "registryDependencies": ["@aura/css", "@aura/button", "@aura/input", "@aura/select"],
       "files": [
         {
           "path": "src/components/ui/aura/pagination/pagination.tsx",
           "target": "src/components/ui/aura/pagination.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:component",
+      "title": "select",
+      "description": "",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "@radix-ui/react-use-controllable-state",
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/select/select.tsx",
+          "target": "src/components/ui/aura/select.tsx",
           "type": "registry:component"
         },
         {
@@ -1064,30 +1107,6 @@
         {
           "path": "src/components/ui/aura/prompt-input/prompt-input.tsx",
           "target": "src/components/ui/aura/prompt-input.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "select",
-      "type": "registry:component",
-      "title": "select",
-      "description": "",
-      "dependencies": [
-        "@radix-ui/react-select",
-        "@radix-ui/react-use-controllable-state",
-        "@tabler/icons-react"
-      ],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/select/select.tsx",
-          "target": "src/components/ui/aura/select.tsx",
           "type": "registry:component"
         },
         {

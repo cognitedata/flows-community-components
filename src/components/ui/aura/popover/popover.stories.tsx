@@ -79,6 +79,7 @@ type Story = StoryObj<typeof Popover>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -140,6 +141,7 @@ export const Basic: Story = {
  */
 export const Sides: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -216,6 +218,7 @@ export const Sides: Story = {
  */
 export const Alignment: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -295,6 +298,7 @@ export const Alignment: Story = {
  */
 export const WithForm: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -378,12 +382,42 @@ export const WithForm: Story = {
  */
 export const CustomWidth: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
           "Control the width of the popover content by passing a className with width utilities to PopoverContent. Default width is 18rem (w-72).",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    // Open the narrow popover
+    const narrowButton = canvas.getByRole("button", { name: /narrow/i });
+    await userEvent.click(narrowButton);
+
+    await waitFor(
+      async () => {
+        const content = body.getByText(/narrow popover with w-48/i);
+        await expect(content).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+
+    // Close and open wide popover to verify multiple widths
+    await userEvent.click(narrowButton);
+    const wideButton = canvas.getByRole("button", { name: /wide/i });
+    await userEvent.click(wideButton);
+
+    await waitFor(
+      async () => {
+        const content = body.getByText(/wide popover with w-96/i);
+        await expect(content).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
   },
   render: function PopoverCustomWidthStory() {
     return (
@@ -432,6 +466,7 @@ export const CustomWidth: Story = {
  */
 export const RichContent: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -508,6 +543,7 @@ export const RichContent: Story = {
  */
 export const Controlled: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -547,7 +583,7 @@ export const Controlled: Story = {
     const description = body.getByText(/controlled externally/i);
     await expect(description).toBeInTheDocument();
   },
-  render: function PopoverControlledStory(args) {
+  render: function PopoverControlledStory() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -555,7 +591,7 @@ export const Controlled: Story = {
         <Button variant="outline" onClick={() => setOpen(!open)} className="mb-4">
           Toggle with external button
         </Button>
-        <Popover {...args} open={open} onOpenChange={setOpen}>
+        <Popover modal={false} open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button>Popover Trigger</Button>
           </PopoverTrigger>
@@ -583,6 +619,7 @@ export const Playground: Story = {
     defaultOpen: false,
   },
   parameters: {
+    order: 99,
     docs: {
       description: {
         story:

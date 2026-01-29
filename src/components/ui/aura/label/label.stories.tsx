@@ -1,7 +1,11 @@
-import { Checkbox } from "@/components/ui/aura/checkbox";
-import { Input } from "@/components/ui/aura/input";
+"use client";
+
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
+import { type ChangeEvent, useState } from "react";
+
+import { Input } from "@/components/ui/aura/input";
+import { IconAsterisk } from "@tabler/icons-react";
 import { Label } from "./label";
 
 const meta: Meta<typeof Label> = {
@@ -9,26 +13,41 @@ const meta: Meta<typeof Label> = {
   component: Label,
   tags: ["autodocs"],
   argTypes: {
-    htmlFor: {
+    // Display
+    children: {
       control: "text",
-      description: "ID of the form element the label is associated with",
+      description: "Label text content.",
       table: {
-        category: "Association",
-        type: { summary: "string" },
+        category: "Display",
+        type: { summary: "ReactNode" },
       },
     },
     className: {
       control: "text",
-      description: "Additional CSS classes",
+      description: "Optional CSS class names for custom styling.",
       table: {
-        category: "Styling",
+        category: "Display",
       },
     },
-    children: {
+
+    // Accessibility
+    htmlFor: {
       control: "text",
-      description: "Label content",
+      description:
+        "ID of the form control this label is associated with. When provided, clicking the label will focus the control.",
       table: {
-        category: "Content",
+        category: "Accessibility",
+        type: { summary: "string" },
+      },
+    },
+
+    // Events
+    onClick: {
+      action: "clicked",
+      description: "Click handler for the label element.",
+      table: {
+        category: "Events",
+        type: { summary: "(event: MouseEvent) => void" },
       },
     },
   },
@@ -41,279 +60,149 @@ export default meta;
 type Story = StoryObj<typeof Label>;
 
 /**
- * Default label.
+ * Basic label usage with simple text.
  */
-export const Default: Story = {
-  render: () => <Label>Email address</Label>,
+export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
-        story: "Default label styling.",
+        story: "A basic label with simple text content.",
       },
     },
   },
+  render: () => <Label htmlFor="name">Name</Label>,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const label = canvas.getByText("Email address");
+    const label = canvas.getByText("Name");
     await expect(label).toBeInTheDocument();
   },
 };
 
 /**
- * Label with input.
+ * Label styled to indicate a disabled field, typically used alongside a disabled input.
  */
-export const WithInput: Story = {
-  render: () => (
-    <div className="grid w-[300px] items-center gap-1.5">
-      <Label htmlFor="email">Email</Label>
-      <Input type="email" id="email" placeholder="Enter your email" />
-    </div>
-  ),
+export const Disabled: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
-        story: "Label associated with an input field.",
+        story:
+          "A label presented in a disabled style. Combine with a disabled input to reflect non-interactive state.",
       },
     },
   },
+  render: () => (
+    <div className="group space-y-2 max-w-sm" data-disabled="true">
+      <Label htmlFor="disabled-input">Disabled label</Label>
+      <Input id="disabled-input" disabled placeholder="Disabled input" />
+    </div>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Email");
+    const label = canvas.getByText("Disabled label");
+    const input = canvas.getByPlaceholderText("Disabled input");
+
+    await expect(label).toBeInTheDocument();
     await expect(input).toBeInTheDocument();
   },
 };
 
 /**
- * Label with checkbox.
+ * Label indicating a required field using an asterisk.
  */
-export const WithCheckbox: Story = {
-  render: () => (
-    <div className="flex items-center space-x-2">
-      <Checkbox id="terms" />
-      <Label htmlFor="terms">Accept terms and conditions</Label>
-    </div>
-  ),
+export const WithAsterisk: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
-        story: "Label used with a checkbox.",
+        story:
+          "A label that visually indicates a required field using an asterisk icon. Useful for required form fields.",
       },
     },
+  },
+  render: () => (
+    <Label htmlFor="email">
+      Email address
+      <IconAsterisk
+        title="required"
+        className="inline-block ml-0.5 self-start -translate-y-px h-1 w-1 text-red-500"
+      />
+    </Label>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const label = canvas.getByText(/Email address/);
+    const asterisk = canvas.getByTitle("required");
+
+    await expect(label).toBeInTheDocument();
+    await expect(asterisk).toBeInTheDocument();
   },
 };
 
 /**
- * Required field label.
+ * Fully wired label with an input, demonstrating focus behavior when clicking the label.
  */
-export const Required: Story = {
-  render: () => (
-    <div className="grid w-[300px] items-center gap-1.5">
-      <Label htmlFor="required-email">
-        Email <span className="text-destructive">*</span>
-      </Label>
-      <Input type="email" id="required-email" placeholder="Required field" required />
-    </div>
-  ),
+export const WithInput: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
-        story: "Label indicating a required field with asterisk.",
+        story:
+          "Label associated with an input via `htmlFor` and `id`. Clicking the label focuses the corresponding input.",
       },
     },
+  },
+  render: () => {
+    const [value, setValue] = useState("");
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value);
+    };
+
+    return (
+      <div className="max-w-sm">
+        <Label htmlFor="project-name">Project name</Label>
+        <Input
+          id="project-name"
+          value={value}
+          onChange={handleChange}
+          placeholder="Enter project name"
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const label = canvas.getByText("Project name");
+    const input = canvas.getByPlaceholderText("Enter project name");
+
+    await expect(label).toBeInTheDocument();
+    await expect(input).toBeInTheDocument();
+
+    // Click label and ensure input receives focus
+    await userEvent.click(label);
+    await expect(input).toHaveFocus();
   },
 };
 
 /**
- * Label with helper text.
- */
-export const WithHelperText: Story = {
-  render: () => (
-    <div className="grid w-[300px] items-center gap-1.5">
-      <Label htmlFor="helper-email">Email</Label>
-      <Input type="email" id="helper-email" placeholder="Enter email" />
-      <p className="text-xs text-muted-foreground">
-        We&apos;ll never share your email with anyone.
-      </p>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Label with additional helper text below the input.",
-      },
-    },
-  },
-};
-
-/**
- * Disabled label.
- */
-export const Disabled: Story = {
-  render: () => (
-    <div className="grid w-[300px] items-center gap-1.5" data-disabled="true">
-      <Label htmlFor="disabled-input" className="opacity-50">
-        Disabled field
-      </Label>
-      <Input id="disabled-input" placeholder="Cannot edit" disabled />
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Label for a disabled input field.",
-      },
-    },
-  },
-};
-
-/**
- * Label with icon.
- */
-export const WithIcon: Story = {
-  render: () => (
-    <div className="grid w-[300px] items-center gap-1.5">
-      <Label htmlFor="icon-input" className="flex items-center gap-1">
-        <svg
-          className="size-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          role="img"
-          aria-label="User icon"
-        >
-          <title>User icon</title>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          />
-        </svg>
-        Username
-      </Label>
-      <Input id="icon-input" placeholder="Enter username" />
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Label with an icon for visual context.",
-      },
-    },
-  },
-};
-
-/**
- * Multiple labels in a form.
- */
-export const FormExample: Story = {
-  render: () => (
-    <form className="space-y-4 w-[300px]">
-      <div className="grid items-center gap-1.5">
-        <Label htmlFor="form-name">Full name</Label>
-        <Input id="form-name" placeholder="John Doe" />
-      </div>
-      <div className="grid items-center gap-1.5">
-        <Label htmlFor="form-email">
-          Email <span className="text-destructive">*</span>
-        </Label>
-        <Input type="email" id="form-email" placeholder="john@example.com" required />
-      </div>
-      <div className="grid items-center gap-1.5">
-        <Label htmlFor="form-phone">Phone (optional)</Label>
-        <Input type="tel" id="form-phone" placeholder="+1 (555) 000-0000" />
-      </div>
-      <div className="flex items-center space-x-2">
-        <Checkbox id="form-subscribe" />
-        <Label htmlFor="form-subscribe">Subscribe to newsletter</Label>
-      </div>
-    </form>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Multiple labels in a typical form layout.",
-      },
-    },
-  },
-};
-
-/**
- * Visual regression testing.
- */
-export const VisualRegression: Story = {
-  render: () => (
-    <div className="space-y-6 p-4 w-[350px]">
-      {/* Basic */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
-        <Label>Default Label</Label>
-      </div>
-
-      {/* With input */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Input</h3>
-        <div className="grid items-center gap-1.5">
-          <Label htmlFor="vr-input">Label</Label>
-          <Input id="vr-input" placeholder="Input field" />
-        </div>
-      </div>
-
-      {/* With checkbox */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Checkbox</h3>
-        <div className="flex items-center space-x-2">
-          <Checkbox id="vr-checkbox" />
-          <Label htmlFor="vr-checkbox">Checkbox label</Label>
-        </div>
-      </div>
-
-      {/* Required */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Required</h3>
-        <Label>
-          Required field <span className="text-destructive">*</span>
-        </Label>
-      </div>
-
-      {/* Disabled */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
-        <Label className="opacity-50">Disabled label</Label>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Comprehensive visual overview for regression testing.",
-      },
-    },
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
-};
-
-/**
- * Interactive playground.
+ * Playground for exploring label props and combinations.
  */
 export const Playground: Story = {
   args: {
-    children: "Label text",
-    htmlFor: "playground-input",
+    children: "Playground label",
+    htmlFor: "playground-id",
   },
-  render: (args) => (
-    <div className="grid w-[300px] items-center gap-1.5">
-      <Label {...args} />
-      <Input id="playground-input" placeholder="Associated input" />
-    </div>
-  ),
   parameters: {
+    order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with label props.",
+        story:
+          "Interactive playground for the Label component. Use controls to experiment with different props and configurations.",
       },
     },
   },
+  render: (args) => <Label {...args} />,
 };

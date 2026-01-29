@@ -120,6 +120,7 @@ const users = [
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -172,7 +173,7 @@ export const Basic: Story = {
       expect(commandList).not.toHaveTextContent("Michael Jordan");
     });
   },
-  render: function BasicStory(args) {
+  render: function BasicStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("michael-jordan");
 
@@ -180,16 +181,9 @@ export const Basic: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild className="py-1 px-1">
               <Button
                 variant="outline"
@@ -213,7 +207,7 @@ export const Basic: Story = {
                 <IconSelector className="h-4 w-4 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -227,7 +221,7 @@ export const Basic: Story = {
                           setValue(currentValue === value ? "" : currentValue);
                           setOpen(false);
                         }}
-                        className="flex justify-between h-[36px] pr-0"
+                        className="flex justify-between h-9 pr-0"
                       >
                         <div className="flex items-center">
                           <Avatar sizes="xxsm" variant="fjord" className="mr-2">
@@ -268,6 +262,7 @@ export const Basic: Story = {
  */
 export const WithAddNew: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -307,7 +302,7 @@ export const WithAddNew: Story = {
       expect(found).toBe(true);
     });
   },
-  render: function WithAddNewStory(args) {
+  render: function WithAddNewStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("michael-jordan");
     const [userList, setUserList] = useState(users);
@@ -347,16 +342,9 @@ export const WithAddNew: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild className="py-1 px-1">
               <Button
                 variant="outline"
@@ -380,7 +368,7 @@ export const WithAddNew: Story = {
                 <IconSelector className="h-4 w-4 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection with add new">
+            <PopoverContent className="w-95 p-0" aria-label="User selection with add new">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search users..."
@@ -399,7 +387,7 @@ export const WithAddNew: Story = {
                             setValue(currentValue === value ? "" : currentValue);
                             setOpen(false);
                           }}
-                          className="flex justify-between h-[36px] pr-0"
+                          className="flex justify-between h-9 pr-0"
                         >
                           <div className="flex items-center">
                             <Avatar sizes="xxsm" variant="fjord" className="mr-2">
@@ -430,7 +418,7 @@ export const WithAddNew: Story = {
                 </CommandList>
                 {canAddUser && (
                   <div className="p-2 border-t">
-                    <Button variant="secondary" className="w-full h-[36px]" onClick={handleAddUser}>
+                    <Button variant="secondary" className="w-full h-9" onClick={handleAddUser}>
                       <IconPlus className="h-3.5 w-3.5 " />
                       Add {searchValue.trim()}
                     </Button>
@@ -459,6 +447,7 @@ const dataTypes = [
  */
 export const MultiSelect: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -497,7 +486,7 @@ export const MultiSelect: Story = {
       expect(input).toBeInTheDocument();
     });
   },
-  render: function MultiSelectStory(args) {
+  render: function MultiSelectStory() {
     const [open, setOpen] = useState(false);
     const [selectedValues, setSelectedValues] = useState<string[]>(["event", "observation"]);
     const [searchValue, setSearchValue] = useState("");
@@ -525,23 +514,16 @@ export const MultiSelect: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">Data type</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
                 aria-label="Select data types"
-                className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+                className="w-full justify-between min-h-9 h-auto py-1 px-2"
               >
                 <div className="flex items-center gap-1.5 flex-wrap flex-1">
                   {visibleSelected.map((type) => (
@@ -582,7 +564,7 @@ export const MultiSelect: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="Data type selection">
+            <PopoverContent className="w-95 p-0" aria-label="Data type selection">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search data type..."
@@ -599,7 +581,7 @@ export const MultiSelect: Story = {
                           key={type.value}
                           value={type.value}
                           onSelect={() => handleToggle(type.value)}
-                          className="flex justify-between h-[36px] pr-0"
+                          className="flex justify-between h-9 pr-0"
                         >
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {type.label}
@@ -635,6 +617,7 @@ const options = [
  */
 export const WithCheckboxes: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -671,7 +654,7 @@ export const WithCheckboxes: Story = {
       expect(trigger).toHaveTextContent("3 selected");
     });
   },
-  render: function WithCheckboxesStory(args) {
+  render: function WithCheckboxesStory() {
     const [open, setOpen] = useState(false);
     const [selectedValues, setSelectedValues] = useState<string[]>(["notifications", "marketing"]);
     const [searchValue, setSearchValue] = useState("");
@@ -692,23 +675,16 @@ export const WithCheckboxes: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">Preferences</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
                 aria-label="Select preferences"
-                className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+                className="w-full justify-between min-h-9 h-auto py-1 px-2"
               >
                 <span className="text-sm text-muted-foreground">
                   {selectedLabels.length > 0
@@ -718,7 +694,7 @@ export const WithCheckboxes: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="Preferences selection">
+            <PopoverContent className="w-95 p-0" aria-label="Preferences selection">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search preferences..."
@@ -735,7 +711,7 @@ export const WithCheckboxes: Story = {
                           key={option.value}
                           value={option.value}
                           onSelect={() => handleToggle(option.value)}
-                          className="flex items-center gap-2 h-[36px]"
+                          className="flex items-center gap-2 h-9"
                         >
                           <Checkbox
                             checked={isSelected}
@@ -764,6 +740,7 @@ export const WithCheckboxes: Story = {
  */
 export const KeyboardNavigation: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -804,7 +781,7 @@ export const KeyboardNavigation: Story = {
       expect(input).not.toBeInTheDocument();
     });
   },
-  render: function KeyboardNavigationStory(args) {
+  render: function KeyboardNavigationStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -813,16 +790,9 @@ export const KeyboardNavigation: Story = {
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -835,7 +805,7 @@ export const KeyboardNavigation: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -849,7 +819,7 @@ export const KeyboardNavigation: Story = {
                           setValue(currentValue === value ? "" : currentValue);
                           setOpen(false);
                         }}
-                        className="flex items-center gap-2 h-[36px]"
+                        className="flex items-center gap-2 h-9"
                       >
                         <IconUser className="h-4 w-4" />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
@@ -879,6 +849,7 @@ export const KeyboardNavigation: Story = {
  */
 export const EmptyState: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Edge case: Combobox with no available options.",
@@ -897,21 +868,14 @@ export const EmptyState: Story = {
       expect(emptyElement).toHaveTextContent("No users available");
     });
   },
-  render: function EmptyStateStory(args) {
+  render: function EmptyStateStory() {
     const [open, setOpen] = useState(false);
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -924,7 +888,7 @@ export const EmptyState: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -944,6 +908,7 @@ export const EmptyState: Story = {
  */
 export const Disabled: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Edge case: Combobox with disabled trigger button.",
@@ -965,21 +930,14 @@ export const Disabled: Story = {
     const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
     expect(input).not.toBeInTheDocument();
   },
-  render: function DisabledStory(args) {
+  render: function DisabledStory() {
     const [open, setOpen] = useState(false);
 
     return (
       <div className="space-y-3">
-        <div className="space-y-2 w-[380px]">
+        <div className="space-y-2 w-95">
           <Label className="m-0 p-0">User</Label>
-          <Popover
-            {...args}
-            open={open}
-            onOpenChange={(newOpen) => {
-              setOpen(newOpen);
-              args.onOpenChange?.(newOpen);
-            }}
-          >
+          <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -993,7 +951,7 @@ export const Disabled: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -1015,6 +973,7 @@ export const Disabled: Story = {
  */
 export const WithError: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Combobox in error state with validation message.",
@@ -1030,7 +989,7 @@ export const WithError: Story = {
     const helperText = canvas.getByText("Please select a user");
     await expect(helperText).toBeInTheDocument();
   },
-  render: function WithErrorStory(args) {
+  render: function WithErrorStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -1040,11 +999,9 @@ export const WithError: Story = {
       <div className="grid w-full max-w-sm items-center gap-1">
         <Label className="m-0 p-0">User</Label>
         <Popover
-          {...args}
           open={open}
           onOpenChange={(newOpen) => {
             setOpen(newOpen);
-            args.onOpenChange?.(newOpen);
           }}
         >
           <PopoverTrigger asChild>
@@ -1060,7 +1017,7 @@ export const WithError: Story = {
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+          <PopoverContent className="w-95 p-0" aria-label="User selection">
             <Command>
               <CommandInput placeholder="Search users..." />
               <CommandList>
@@ -1074,7 +1031,7 @@ export const WithError: Story = {
                         setValue(currentValue === value ? "" : currentValue);
                         setOpen(false);
                       }}
-                      className="flex items-center gap-2 h-[36px]"
+                      className="flex items-center gap-2 h-9"
                     >
                       <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                         {user.label}
@@ -1103,6 +1060,7 @@ export const WithError: Story = {
  */
 export const ComplexInteractive: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -1136,7 +1094,7 @@ export const ComplexInteractive: Story = {
       expect(trigger).toHaveTextContent("Menu item 1");
     });
   },
-  render: function ComplexInteractiveStory(args) {
+  render: function ComplexInteractiveStory() {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState("");
 
@@ -1154,16 +1112,9 @@ export const ComplexInteractive: Story = {
     const selectedItem = allItems.find((item) => item.value === value);
 
     return (
-      <div className="space-y-3 w-[300px]">
+      <div className="space-y-3 w-75">
         <Label className="m-0 p-0">View</Label>
-        <Popover
-          {...args}
-          open={open}
-          onOpenChange={(newOpen) => {
-            setOpen(newOpen);
-            args.onOpenChange?.(newOpen);
-          }}
-        >
+        <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
@@ -1176,7 +1127,7 @@ export const ComplexInteractive: Story = {
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[300px] p-0" aria-label="View selection">
+          <PopoverContent className="w-75 p-0" aria-label="View selection">
             <Command>
               <CommandInput placeholder="Search views..." />
               <CommandList>
@@ -1217,6 +1168,102 @@ export const ComplexInteractive: Story = {
             </Command>
           </PopoverContent>
         </Popover>
+      </div>
+    );
+  },
+};
+
+/**
+ * Interactive playground
+ * Allows testing all combobox props interactively
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with combobox props.",
+      },
+    },
+  },
+  render: function PlaygroundStory() {
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState("michael-jordan");
+
+    const selectedUser = users.find((user) => user.value === value);
+
+    return (
+      <div className="space-y-3">
+        <div className="space-y-2 w-95">
+          <Label className="m-0 p-0">User</Label>
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                className="w-full justify-between"
+              >
+                <div className="flex items-center gap-2">
+                  {selectedUser ? (
+                    <>
+                      <IconUser />
+                      <span className="text-base tracking-tightest font-normal text-foreground">
+                        {selectedUser.label}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">Select user...</span>
+                  )}
+                </div>
+                <IconSelector className="h-4 w-4 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
+              <Command>
+                <CommandInput placeholder="Search users..." />
+                <CommandList>
+                  <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                    <CommandEmpty>No user found.</CommandEmpty>
+                    {users.map((user) => (
+                      <CommandItem
+                        key={user.value}
+                        value={user.value}
+                        onSelect={(currentValue) => {
+                          setValue(currentValue === value ? "" : currentValue);
+                          setOpen(false);
+                        }}
+                        className="flex justify-between h-9 pr-0"
+                      >
+                        <div className="flex items-center">
+                          <Avatar sizes="xxsm" variant="fjord" className="mr-2">
+                            <AvatarFallback>{user.initials}</AvatarFallback>
+                          </Avatar>
+                          <span className="flex-1 text-base tracking-tightest font-normal text-foreground pr-1.5">
+                            {user.label}
+                          </span>
+                          <Badge variant="secondary" size="default">
+                            {user.position}
+                          </Badge>
+                        </div>
+                        <IconCheck
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            value === user.value ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
+        <p className="text-sm text-muted-foreground">
+          Experiment with the combobox using the controls above.
+        </p>
       </div>
     );
   },
