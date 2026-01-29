@@ -97,9 +97,7 @@ export const Basic: Story = {
     await expect(progressbar).toHaveAttribute("aria-valuenow", "50");
 
     // Verify progress indicator exists
-    const indicator = canvasElement.querySelector(
-      '[data-slot="progress-indicator"]'
-    );
+    const indicator = canvasElement.querySelector('[data-slot="progress-indicator"]');
     await expect(indicator).toBeInTheDocument();
   },
 };
@@ -238,8 +236,7 @@ export const WithLabel: Story = {
     order: 4,
     docs: {
       description: {
-        story:
-          "Progress bar with a label providing context about what is being tracked.",
+        story: "Progress bar with a label providing context about what is being tracked.",
       },
     },
   },
@@ -263,11 +260,7 @@ export const WithLabel: Story = {
     <div className="space-y-2 w-96">
       <Label>Files uploaded</Label>
       <div className="flex items-center justify-between gap-2">
-        <Progress
-          value={30}
-          className="flex-1"
-          aria-label="Files uploaded: 30%"
-        />
+        <Progress value={30} className="flex-1" aria-label="Files uploaded: 30%" />
         <span className="text-muted-foreground text-sm leading-4.5 tracking-tight whitespace-nowrap">
           30%
         </span>
@@ -311,9 +304,7 @@ export const Animated: Story = {
 
     // Get initial progress value
     const progressbar = canvas.getByRole("progressbar");
-    const initialValue = Number.parseInt(
-      progressbar.getAttribute("aria-valuenow") || "0"
-    );
+    const initialValue = Number.parseInt(progressbar.getAttribute("aria-valuenow") || "0");
 
     // Wait for progress to actually increase
     await waitFor(
@@ -351,10 +342,7 @@ export const Animated: Story = {
           <span>Loading...</span>
           <span className="text-muted-foreground">{progress}%</span>
         </div>
-        <Progress
-          value={progress}
-          aria-label={`Loading progress: ${progress}%`}
-        />
+        <Progress value={progress} aria-label={`Loading progress: ${progress}%`} />
       </div>
     );
   },
@@ -378,9 +366,7 @@ export const FileUpload: Story = {
     const canvas = within(canvasElement);
 
     // Verify all file upload items are rendered
-    await expect(
-      canvas.getByText("Uploading document.pdf")
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Uploading document.pdf")).toBeInTheDocument();
     await expect(canvas.getByText("Uploading image.jpg")).toBeInTheDocument();
     await expect(canvas.getByText("Uploading video.mp4")).toBeInTheDocument();
 
@@ -403,10 +389,7 @@ export const FileUpload: Story = {
           <span>Uploading document.pdf</span>
           <span className="text-muted-foreground">65%</span>
         </div>
-        <Progress
-          value={65}
-          aria-label="Upload progress for document.pdf: 65%"
-        />
+        <Progress value={65} aria-label="Upload progress for document.pdf: 65%" />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
@@ -576,8 +559,7 @@ export const Complete: Story = {
     order: 9,
     docs: {
       description: {
-        story:
-          "Progress bar at 100% completion, indicating the task is finished.",
+        story: "Progress bar at 100% completion, indicating the task is finished.",
       },
     },
   },
@@ -626,15 +608,9 @@ export const Multiple: Story = {
     const canvas = within(canvasElement);
 
     // Verify all task labels are rendered
-    await expect(
-      canvas.getByText("Task 1: Data processing")
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByText("Task 2: Image optimization")
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByText("Task 3: File compression")
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Task 1: Data processing")).toBeInTheDocument();
+    await expect(canvas.getByText("Task 2: Image optimization")).toBeInTheDocument();
+    await expect(canvas.getByText("Task 3: File compression")).toBeInTheDocument();
     await expect(canvas.getByText("Task 4: Finalization")).toBeInTheDocument();
 
     // Verify all percentages are displayed
@@ -658,40 +634,28 @@ export const Multiple: Story = {
           <span>Task 1: Data processing</span>
           <span className="text-muted-foreground">45%</span>
         </div>
-        <Progress
-          value={45}
-          aria-label="Task 1: Data processing progress: 45%"
-        />
+        <Progress value={45} aria-label="Task 1: Data processing progress: 45%" />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 2: Image optimization</span>
           <span className="text-muted-foreground">78%</span>
         </div>
-        <Progress
-          value={78}
-          aria-label="Task 2: Image optimization progress: 78%"
-        />
+        <Progress value={78} aria-label="Task 2: Image optimization progress: 78%" />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 3: File compression</span>
           <span className="text-muted-foreground">12%</span>
         </div>
-        <Progress
-          value={12}
-          aria-label="Task 3: File compression progress: 12%"
-        />
+        <Progress value={12} aria-label="Task 3: File compression progress: 12%" />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 4: Finalization</span>
           <span className="text-muted-foreground">100%</span>
         </div>
-        <Progress
-          value={100}
-          aria-label="Task 4: Finalization progress: 100%"
-        />
+        <Progress value={100} aria-label="Task 4: Finalization progress: 100%" />
       </div>
     </div>
   ),
