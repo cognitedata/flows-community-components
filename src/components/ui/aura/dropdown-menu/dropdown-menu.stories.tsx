@@ -594,7 +594,7 @@ export const KeyboardNavigation: Story = {
       { timeout: 1000 }
     );
   },
-  render: function KeyboardNavigationStory() {
+  render: function KeyboardNavigationStory({ modal = false }) {
     const [selectedItem, setSelectedItem] = useState<string>("");
 
     return (
