@@ -677,3 +677,46 @@ export const MultipleInList: Story = {
     );
   },
 };
+
+/**
+ * Interactive playground
+ * Allows testing all hover card props interactively
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with hover card props.",
+      },
+    },
+  },
+  render: function PlaygroundStory() {
+    return (
+      <div className="flex justify-center items-center min-h-80">
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="outline">Hover me</Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-80">
+            <div className="flex justify-between space-x-4">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>SC</AvatarFallback>
+              </Avatar>
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold">@shadcn</h4>
+                <p className="text-sm">
+                  The React Framework for the Web – created and maintained by Vercel.
+                </p>
+                <div className="flex items-center pt-2">
+                  <span className="text-xs text-muted-foreground">Joined March 2023</span>
+                </div>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
+      </div>
+    );
+  },
+};
