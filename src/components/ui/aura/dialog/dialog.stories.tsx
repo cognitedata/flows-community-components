@@ -480,6 +480,15 @@ export const LongHeader: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /open long header dialog/i });
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+  },
 };
 
 /**
