@@ -1,6 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
-import type { ComponentProps } from "react";
+import { type ComponentProps, forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -60,58 +60,68 @@ const badgeVariants = cva(
  * A versatile badge component for labels, status indicators, and tags.
  * Supports multiple colour variants, outline/background styles, and dot indicators.
  */
-function Badge({
-  className,
-  variant,
-  size,
-  outline,
-  dot,
-  background,
-  urgent = false,
-  asChild = false,
-  children,
-  ...props
-}: ComponentProps<"span"> &
-  VariantProps<typeof badgeVariants> & {
-    asChild?: boolean;
-    urgent?: boolean;
-  }) {
-  const Comp = asChild ? Slot : "span";
-  const isEmpty = !children;
+const Badge = forwardRef<
+  HTMLSpanElement,
+  ComponentProps<"span"> &
+    VariantProps<typeof badgeVariants> & {
+      asChild?: boolean;
+      urgent?: boolean;
+    }
+>(
+  (
+    {
+      className,
+      variant,
+      size,
+      outline,
+      dot,
+      background,
+      urgent = false,
+      asChild = false,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const Comp = asChild ? Slot : "span";
+    const isEmpty = !children;
 
-  // These variants don't support outline - they're filled only
-  const decorativeOnlyVariants = ["mountain", "fjord", "nordic", "aurora", "dusk", "orange"];
-  const canBeOutlined = variant && !decorativeOnlyVariants.includes(variant);
-  const isOutlined = outline === true && canBeOutlined;
+    // These variants don't support outline - they're filled only
+    const decorativeOnlyVariants = ["mountain", "fjord", "nordic", "aurora", "dusk", "orange"];
+    const canBeOutlined = variant && !decorativeOnlyVariants.includes(variant);
+    const isOutlined = outline === true && canBeOutlined;
 
-  return (
-    <Comp
-      data-slot="badge"
-      className={cn(
-        badgeVariants({
-          variant,
-          size,
-          outline: isOutlined,
-          background: isOutlined ? false : background,
-        }),
-        // Override foreground color for outlined variants to use regular (not alternative)
-        isOutlined && variant === "error" && "text-destructive-foreground",
-        isOutlined && variant === "warning" && "text-warning-foreground",
-        isOutlined && variant === "success" && "text-success-foreground",
-        isOutlined && variant === "inProgress" && "text-neutral-foreground",
-        isOutlined && variant === "archived" && "text-undefined-foreground",
-        dot && "rounded-full",
-        dot && isEmpty && "size-2 p-0 border-0",
-        dot && isEmpty && urgent && "bg-destructive-foreground",
-        dot && isEmpty && !urgent && "bg-neutral-foreground",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Comp>
-  );
-}
+    return (
+      <Comp
+        ref={ref}
+        data-slot="badge"
+        className={cn(
+          badgeVariants({
+            variant,
+            size,
+            outline: isOutlined,
+            background: isOutlined ? false : background,
+          }),
+          // Override foreground color for outlined variants to use regular (not alternative)
+          isOutlined && variant === "error" && "text-destructive-foreground",
+          isOutlined && variant === "warning" && "text-warning-foreground",
+          isOutlined && variant === "success" && "text-success-foreground",
+          isOutlined && variant === "inProgress" && "text-neutral-foreground",
+          isOutlined && variant === "archived" && "text-undefined-foreground",
+          dot && "rounded-full",
+          dot && isEmpty && "size-2 p-0 border-0",
+          dot && isEmpty && urgent && "bg-destructive-foreground",
+          dot && isEmpty && !urgent && "bg-neutral-foreground",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </Comp>
+    );
+  }
+);
+Badge.displayName = "Badge";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants };
