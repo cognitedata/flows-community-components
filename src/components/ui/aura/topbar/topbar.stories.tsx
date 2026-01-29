@@ -289,7 +289,7 @@ export const Minimal: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Home")).toBeInTheDocument();
-    await expect(canvas.getByRole("link", { name: /home/i })).toBeInTheDocument();
+    await expect(canvas.getByRole("link", { name: "Go to home" })).toBeInTheDocument();
   },
   render: function TopbarMinimalStory() {
     return (
@@ -608,7 +608,7 @@ export const Interactive: Story = {
     );
 
     // Click Home link
-    const homeLink = canvas.getByRole("link", { name: /home/i });
+    const homeLink = canvas.getByRole("link", { name: "Home" });
     await userEvent.click(homeLink);
   },
   render: function TopbarInteractiveStory() {
