@@ -35,22 +35,12 @@ const meta: Meta<typeof Shimmer> = {
     },
     variant: {
       control: "select",
-      options: [
-        "default",
-        "nordic",
-        "aurora",
-        "dusk",
-        "equinox",
-        "summer",
-        "spring",
-        "fall",
-      ],
+      options: ["default", "nordic", "aurora", "dusk", "equinox", "summer", "spring", "fall"],
       description: "Gradient variant for the shimmer effect",
       table: {
         category: "Display",
         type: {
-          summary:
-            "default | nordic | aurora | dusk | equinox | summer | spring | fall",
+          summary: "default | nordic | aurora | dusk | equinox | summer | spring | fall",
         },
         defaultValue: { summary: "default" },
       },
@@ -66,8 +56,7 @@ const meta: Meta<typeof Shimmer> = {
     },
     spread: {
       control: "number",
-      description:
-        "Spread multiplier for shimmer effect (based on text length)",
+      description: "Spread multiplier for shimmer effect (based on text length)",
       table: {
         category: "Animation",
         type: { summary: "number" },
@@ -152,9 +141,7 @@ export const GradientVariants: Story = {
     ];
 
     await Promise.all(
-      variants.map((variant) =>
-        expect(canvas.getByText(variant)).toBeInTheDocument()
-      )
+      variants.map((variant) => expect(canvas.getByText(variant)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -258,9 +245,7 @@ export const AnimationDurations: Story = {
     ];
 
     await Promise.all(
-      durations.map((duration) =>
-        expect(canvas.getByText(duration)).toBeInTheDocument()
-      )
+      durations.map((duration) => expect(canvas.getByText(duration)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -298,9 +283,7 @@ export const SpreadValues: Story = {
     ];
 
     await Promise.all(
-      spreads.map((spread) =>
-        expect(canvas.getByText(spread)).toBeInTheDocument()
-      )
+      spreads.map((spread) => expect(canvas.getByText(spread)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -346,12 +329,12 @@ export const LongText: Story = {
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <Shimmer>
-        This is a longer piece of text that demonstrates how the shimmer effect
-        works with extended content.
+        This is a longer piece of text that demonstrates how the shimmer effect works with extended
+        content.
       </Shimmer>
       <Shimmer variant="aurora">
-        The shimmer animation smoothly transitions across the entire length of
-        the text, creating an engaging loading effect.
+        The shimmer animation smoothly transitions across the entire length of the text, creating an
+        engaging loading effect.
       </Shimmer>
     </div>
   ),
@@ -384,16 +367,13 @@ export const InlineUsage: Story = {
     ];
 
     await Promise.all(
-      inlineTexts.map((text) =>
-        expect(canvas.getByText(text)).toBeInTheDocument()
-      )
+      inlineTexts.map((text) => expect(canvas.getByText(text)).toBeInTheDocument())
     );
   },
   render: () => (
     <div className="w-full flex flex-col items-start gap-4 max-w-md">
       <p className="text-base">
-        Your request is <Shimmer as="span">processing</Shimmer> and will be
-        ready shortly.
+        Your request is <Shimmer as="span">processing</Shimmer> and will be ready shortly.
       </p>
       <p className="text-base">
         Status:{" "}
@@ -420,8 +400,7 @@ export const CustomStyling: Story = {
     order: 8,
     docs: {
       description: {
-        story:
-          "Shimmer effects with custom CSS classes for additional styling.",
+        story: "Shimmer effects with custom CSS classes for additional styling.",
       },
     },
   },
@@ -429,16 +408,10 @@ export const CustomStyling: Story = {
     const canvas = within(canvasElement);
 
     // Verify custom styled shimmer text is rendered
-    const styledTexts = [
-      "Large bold text",
-      "Small muted text",
-      "Medium semibold text",
-    ];
+    const styledTexts = ["Large bold text", "Small muted text", "Medium semibold text"];
 
     await Promise.all(
-      styledTexts.map((text) =>
-        expect(canvas.getByText(text)).toBeInTheDocument()
-      )
+      styledTexts.map((text) => expect(canvas.getByText(text)).toBeInTheDocument())
     );
   },
   render: () => (
@@ -470,12 +443,8 @@ export const LoadingStates: Story = {
     const canvas = within(canvasElement);
 
     // Verify headings are present
-    await expect(
-      canvas.getByRole("heading", { name: /Processing Request/i })
-    ).toBeInTheDocument();
-    await expect(
-      canvas.getByRole("heading", { name: /System Status/i })
-    ).toBeInTheDocument();
+    await expect(canvas.getByRole("heading", { name: /Processing Request/i })).toBeInTheDocument();
+    await expect(canvas.getByRole("heading", { name: /System Status/i })).toBeInTheDocument();
 
     // Verify shimmer loading states are rendered
     const loadingStates = [
@@ -487,9 +456,7 @@ export const LoadingStates: Story = {
     ];
 
     await Promise.all(
-      loadingStates.map((state) =>
-        expect(canvas.getByText(state)).toBeInTheDocument()
-      )
+      loadingStates.map((state) => expect(canvas.getByText(state)).toBeInTheDocument())
     );
   },
   render: () => (
