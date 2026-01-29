@@ -390,6 +390,35 @@ export const CustomWidth: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    // Open the narrow popover
+    const narrowButton = canvas.getByRole("button", { name: /narrow/i });
+    await userEvent.click(narrowButton);
+
+    await waitFor(
+      async () => {
+        const content = body.getByText(/narrow popover with w-48/i);
+        await expect(content).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+
+    // Close and open wide popover to verify multiple widths
+    await userEvent.click(narrowButton);
+    const wideButton = canvas.getByRole("button", { name: /wide/i });
+    await userEvent.click(wideButton);
+
+    await waitFor(
+      async () => {
+        const content = body.getByText(/wide popover with w-96/i);
+        await expect(content).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+  },
   render: function PopoverCustomWidthStory() {
     return (
       <div className="flex items-center justify-center gap-4 p-12">
