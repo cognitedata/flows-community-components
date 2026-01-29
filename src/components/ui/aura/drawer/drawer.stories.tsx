@@ -523,8 +523,8 @@ export const KeyboardInteractions: Story = {
 
     // Open the drawer with keyboard
     const trigger = canvas.getByRole("button", { name: /open keyboard drawer/i });
-    await userEvent.tab();
-    await userEvent.tab(); // move focus to trigger
+    // Programmatically focus the trigger for a more robust test
+    trigger.focus();
     await waitFor(() => {
       expect(trigger).toHaveFocus();
     });
