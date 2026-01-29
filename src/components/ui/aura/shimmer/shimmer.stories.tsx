@@ -351,28 +351,3 @@ export const LoadingStates: Story = {
     </div>
   ),
 };
-
-/**
- * Interactive playground for experimenting with shimmer props.
- */
-export const Playground: Story = {
-  args: {
-    children: "Shimmer text",
-    variant: "default",
-  },
-  parameters: {
-    order: 99,
-    docs: {
-      description: {
-        story:
-          "Interactive playground for the Shimmer component. Use controls to tweak variant, duration, spread, and element type.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const shimmer = canvas.getByText("Shimmer text");
-    await expect(shimmer).toBeInTheDocument();
-  },
-  render: (args) => <Shimmer {...args} />,
-};
