@@ -462,15 +462,15 @@ export const KeyboardNavigation: Story = {
     const dialog = await screen.findByRole("alertdialog");
     expect(dialog).toBeInTheDocument();
 
-    // Test Tab navigation - should focus on Cancel button first
-    await userEvent.keyboard("{Tab}");
-    const cancelButton = within(dialog).getByRole("button", { name: /cancel/i });
-    await expect(cancelButton).toHaveFocus();
-
-    // Tab to action button
+    // Test Tab navigation - should focus on action button (primary action) first
     await userEvent.keyboard("{Tab}");
     const actionButton = within(dialog).getByRole("button", { name: /confirm/i });
     await expect(actionButton).toHaveFocus();
+
+    // Tab to cancel button
+    await userEvent.keyboard("{Tab}");
+    const cancelButton = within(dialog).getByRole("button", { name: /cancel/i });
+    await expect(cancelButton).toHaveFocus();
 
     // Test ESC to close
     await userEvent.keyboard("{Escape}");
