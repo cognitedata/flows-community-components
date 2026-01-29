@@ -11,6 +11,7 @@ const navItems = [
   { href: "/primitives", label: "Primitives" },
   { href: "/ai", label: "AI" },
   { href: "/patterns", label: "Patterns" },
+  { href: "/cogdocs", label: "CogDocs" },
 ];
 
 function ThemeToggleGroup() {
