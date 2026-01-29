@@ -823,7 +823,7 @@ export const ComplexInteractive: Story = {
           )}
         </div>
 
-        <DropdownMenu modal={false}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-full">
               Preferences
