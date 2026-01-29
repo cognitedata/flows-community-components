@@ -116,6 +116,19 @@ export const WithTextFooter: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify header content
+    await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
+    await expect(canvas.getByText("Pressure over last 24 hours")).toBeInTheDocument();
+
+    // Verify footer text lines
+    await expect(
+      canvas.getByText("Trending up by 5.2% this month", { exact: false })
+    ).toBeInTheDocument();
+    await expect(canvas.getByText("No alerts")).toBeInTheDocument();
+  },
   render: () => (
     <Card className="w-96">
       <CardHeader>
@@ -146,6 +159,23 @@ export const WithBadgeInHeader: Story = {
           "Card with a badge displayed in the header using CardIcon. No wrapper divs needed - the grid layout handles positioning automatically.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify title and description
+    await expect(canvas.getByText("Skarv")).toBeInTheDocument();
+    await expect(canvas.getByText("Point cloud scene")).toBeInTheDocument();
+
+    // Verify header action button is present by its icon button label
+    const actionButtons = canvas.getAllByRole("button");
+    await expect(actionButtons.length).toBeGreaterThan(0);
+
+    // Verify footer action button is present by text
+    const footerButton = canvas.getByRole("button", { name: /view scene/i });
+    await expect(footerButton).toBeInTheDocument();
+
+    await expect(canvas.getByText("Model ID: 4602269428617841")).toBeInTheDocument();
   },
   render: () => (
     <Card className="w-full max-w-sm">
@@ -188,6 +218,19 @@ export const WithHover: Story = {
           "Card with hover effect. The card background changes on hover to indicate interactivity.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Find the card by its title
+    const cardTitle = canvas.getByText("Title");
+    await expect(cardTitle).toBeInTheDocument();
+
+    // Hover the card container to exercise hover styles
+    const card = cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
+    if (card) {
+      await userEvent.hover(card);
+    }
   },
   render: () => (
     <Card className="w-96">
@@ -465,6 +508,14 @@ export const ContentOnly: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Content Only Card")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("This card contains only content without a header or footer section.")
+    ).toBeInTheDocument();
+  },
   render: () => (
     <Card className="w-96">
       <CardContent>
@@ -489,6 +540,14 @@ export const GridLayout: Story = {
           "Multiple cards displayed in a responsive grid using container queries. Cards stack on mobile, display 2 across on tablets, and 3 across on larger containers.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify all three cards are rendered
+    await expect(canvas.getByText("Card 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Card 2")).toBeInTheDocument();
+    await expect(canvas.getByText("Card 3")).toBeInTheDocument();
   },
   render: () => (
     <div className="@container w-full max-w-6xl">
@@ -603,7 +662,7 @@ export const SemanticHeadings: Story = {
  */
 export const Playground: Story = {
   parameters: {
-    order: 13,
+    order: 99,
     docs: {
       description: {
         story:
