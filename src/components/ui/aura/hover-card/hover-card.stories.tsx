@@ -157,7 +157,7 @@ export const Basic: Story = {
   },
   render: function HoverCardBasicStory() {
     return (
-      <div className="flex justify-center items-center min-h-[300px]">
+      <div className="flex justify-center items-center min-h-80">
         <HoverCard>
           <HoverCardTrigger asChild>
             <Button variant="link">@nextjs</Button>
@@ -211,7 +211,7 @@ export const WithBadges: Story = {
     );
   },
   render: () => (
-    <div className="flex justify-center items-center gap-4 min-h-[300px]">
+    <div className="flex justify-center items-center gap-4 min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Product Manager</Button>
@@ -269,7 +269,7 @@ export const TopPosition: Story = {
     await testHoverInteraction(canvasElement, /Hover me - Top/i, /appears above the trigger/i);
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Top</Button>
@@ -307,7 +307,7 @@ export const RightPosition: Story = {
     );
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Right</Button>
@@ -341,7 +341,7 @@ export const BottomPosition: Story = {
     await testHoverInteraction(canvasElement, /Hover me - Bottom/i, /appears below the trigger/i);
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Bottom</Button>
@@ -379,7 +379,7 @@ export const LeftPosition: Story = {
     );
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Left</Button>
@@ -438,7 +438,7 @@ export const AllPositions: Story = {
     );
   },
   render: () => (
-    <div className="flex flex-col items-center justify-center gap-16 min-h-[500px] py-8">
+    <div className="flex flex-col items-center justify-center gap-16 min-h-128 py-8">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Top position</Button>
@@ -540,7 +540,7 @@ export const ControlledWithCustomDelays: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="flex flex-col items-center gap-4 min-h-[300px]">
+      <div className="flex flex-col items-center gap-4 min-h-80">
         <div className="text-sm text-muted-foreground mb-4">
           Hover card is {open ? "open" : "closed"}
         </div>
@@ -590,7 +590,7 @@ export const Minimal: Story = {
     await testHoverInteraction(canvasElement, /Hover for info/i, /Simple contextual information/i);
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="link">Hover for info</Button>
@@ -624,7 +624,7 @@ export const MultipleInList: Story = {
   },
   render: () => {
     return (
-      <div className="flex flex-col gap-3 min-h-[300px] p-4">
+      <div className="flex flex-col gap-3 min-h-80 p-4">
         {SAMPLE_USERS.map((user) => {
           const initials = user.name
             .split(" ")
