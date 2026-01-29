@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import { IconAlertTriangle, IconCheck, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import {
@@ -470,49 +470,36 @@ export const KeyboardNavigation: Story = {
     await userEvent.click(trigger);
 
     // Wait for dialog to appear
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("alertdialog");
+    expect(dialog).toBeInTheDocument();
 
-    // Test Tab navigation - should focus on Cancel button first (in footer, Cancel comes first visually)
+    // Test Tab navigation - should focus on Cancel button first
     await userEvent.keyboard("{Tab}");
-    const cancelButton = document.querySelector('[data-slot="alert-dialog-content"] button');
+    const cancelButton = within(dialog).getByRole("button", { name: /cancel/i });
     await expect(cancelButton).toHaveFocus();
 
     // Tab to action button
     await userEvent.keyboard("{Tab}");
-    const actionButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
-      (btn) => btn.textContent === "Confirm"
-    );
+    const actionButton = within(dialog).getByRole("button", { name: /confirm/i });
     await expect(actionButton).toHaveFocus();
 
     // Test ESC to close
     await userEvent.keyboard("{Escape}");
     await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).not.toBeInTheDocument();
+      expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
     });
 
     // Reopen for Enter key test
     await userEvent.click(trigger);
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const reopenedDialog = await screen.findByRole("alertdialog");
 
     // Focus action button and press Enter
-    const confirmButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
-      (btn) => btn.textContent === "Confirm"
-    );
-    if (confirmButton) {
-      await userEvent.click(confirmButton);
-      // Dialog should close after action
-      await waitFor(() => {
-        const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-        expect(dialog).not.toBeInTheDocument();
-      });
-    }
+    const confirmButton = within(reopenedDialog).getByRole("button", { name: /confirm/i });
+    await userEvent.click(confirmButton);
+    // Dialog should close after action
+    await waitFor(() => {
+      expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+    });
   },
   render: function KeyboardNavigationStory() {
     return (
@@ -560,21 +547,21 @@ export const LongContent: Story = {
     await userEvent.click(trigger);
 
     // Wait for dialog to appear
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("alertdialog");
+    expect(dialog).toBeInTheDocument();
 
     // Verify long content is rendered
-    const title = document.querySelector('[data-slot="alert-dialog-title"]');
-    await expect(title).toHaveTextContent(/This is a very long title/i);
+    await expect(
+      within(dialog).getByRole("heading", { name: /This is a very long title/i })
+    ).toBeInTheDocument();
 
-    const description = document.querySelector('[data-slot="alert-dialog-description"]');
-    await expect(description).toHaveTextContent(/This is an extremely long description/i);
+    await expect(
+      within(dialog).getByText(/This is an extremely long description/i)
+    ).toBeInTheDocument();
 
     // Verify dialog is scrollable if needed
-    const content = document.querySelector('[data-slot="alert-dialog-content"]');
-    await expect(content).toBeInTheDocument();
+    // The original test just checked for presence, which is already confirmed by finding the dialog.
+    await expect(dialog).toBeInTheDocument();
   },
   render: function LongContentStory() {
     return (
@@ -628,23 +615,19 @@ export const NoDescription: Story = {
     await userEvent.click(trigger);
 
     // Wait for dialog to appear
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("alertdialog");
+    expect(dialog).toBeInTheDocument();
 
     // Verify title exists
-    const title = document.querySelector('[data-slot="alert-dialog-title"]');
-    await expect(title).toHaveTextContent("Are you sure?");
+    const title = within(dialog).getByRole("heading", { name: "Are you sure?" });
+    await expect(title).toBeInTheDocument();
 
     // Verify description does NOT exist
-    const description = document.querySelector('[data-slot="alert-dialog-description"]');
+    const description = dialog.querySelector('[data-slot="alert-dialog-description"]');
     await expect(description).not.toBeInTheDocument();
 
     // Verify buttons exist
-    const cancelButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
-      (btn) => btn.textContent === "Cancel"
-    );
+    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
     await expect(cancelButton).toBeInTheDocument();
   },
   render: function NoDescriptionStory() {
@@ -689,21 +672,15 @@ export const DisabledButtons: Story = {
     await userEvent.click(trigger);
 
     // Wait for dialog to appear
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="alert-dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const dialog = await screen.findByRole("alertdialog");
+    expect(dialog).toBeInTheDocument();
 
     // Verify disabled cancel button
-    const cancelButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
-      (btn) => btn.textContent === "Cancel"
-    );
+    const cancelButton = within(dialog).getByRole("button", { name: /Cancel/i });
     await expect(cancelButton).toBeDisabled();
 
     // Verify disabled action button
-    const actionButton = Array.from(document.querySelectorAll('[data-slot="alert-dialog-content"] button')).find(
-      (btn) => btn.textContent === "Save"
-    );
+    const actionButton = within(dialog).getByRole("button", { name: /Save/i });
     await expect(actionButton).toBeDisabled();
 
     // Verify buttons have disabled attribute
