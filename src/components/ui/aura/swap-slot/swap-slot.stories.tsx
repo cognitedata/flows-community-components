@@ -88,7 +88,9 @@ export const Basic: Story = {
     // Verify it's empty by default
     await expect(swapSlot?.textContent).toBe("");
   },
-  render: () => <SwapSlot className="w-100" />,
+  render: function BasicStory() {
+    return <SwapSlot className="w-100" />;
+  },
 };
 
 /**
