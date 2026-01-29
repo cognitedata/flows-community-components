@@ -150,6 +150,11 @@ export const WithCenterContent: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Project Dashboard")).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: /new item/i })).toBeInTheDocument();
+  },
   render: function TopbarWithCenterContentStory() {
     return (
       <div className="w-full overflow-hidden">
@@ -281,6 +286,11 @@ export const Minimal: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Home")).toBeInTheDocument();
+    await expect(canvas.getByRole("link", { name: /home/i })).toBeInTheDocument();
+  },
   render: function TopbarMinimalStory() {
     return (
       <div className="w-full overflow-hidden">
@@ -319,6 +329,12 @@ export const WithMultipleActions: Story = {
         story: "Topbar with multiple action buttons in the right section.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("button", { name: /settings/i })).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: /export/i })).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: /create/i })).toBeInTheDocument();
   },
   render: function TopbarWithMultipleActionsStory() {
     return (
@@ -403,7 +419,7 @@ export const WithSidebar: Story = {
   },
   render: function TopbarWithSidebarStory() {
     return (
-      <div className="relative h-[600px] w-full rounded-lg overflow-hidden">
+      <div className="relative min-h-screen w-full rounded-lg overflow-hidden">
         <SidebarProvider>
           <div className="flex h-full w-full">
             <Sidebar collapsible="icon">
@@ -668,6 +684,12 @@ export const LongBreadcrumb: Story = {
           "Topbar with a long breadcrumb path demonstrating how it handles multiple levels of navigation.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Current Project")).toBeInTheDocument();
+    await expect(canvas.getByText("Workspace")).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: /action/i })).toBeInTheDocument();
   },
   render: function TopbarLongBreadcrumbStory() {
     return (
