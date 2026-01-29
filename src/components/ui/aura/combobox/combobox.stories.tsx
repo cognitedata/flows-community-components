@@ -207,7 +207,7 @@ export const Basic: Story = {
                 <IconSelector className="h-4 w-4 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -221,7 +221,7 @@ export const Basic: Story = {
                           setValue(currentValue === value ? "" : currentValue);
                           setOpen(false);
                         }}
-                        className="flex justify-between h-[36px] pr-0"
+                        className="flex justify-between h-9 pr-0"
                       >
                         <div className="flex items-center">
                           <Avatar sizes="xxsm" variant="fjord" className="mr-2">
@@ -368,7 +368,7 @@ export const WithAddNew: Story = {
                 <IconSelector className="h-4 w-4 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection with add new">
+            <PopoverContent className="w-95 p-0" aria-label="User selection with add new">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search users..."
@@ -387,7 +387,7 @@ export const WithAddNew: Story = {
                             setValue(currentValue === value ? "" : currentValue);
                             setOpen(false);
                           }}
-                          className="flex justify-between h-[36px] pr-0"
+                          className="flex justify-between h-9 pr-0"
                         >
                           <div className="flex items-center">
                             <Avatar sizes="xxsm" variant="fjord" className="mr-2">
@@ -418,7 +418,7 @@ export const WithAddNew: Story = {
                 </CommandList>
                 {canAddUser && (
                   <div className="p-2 border-t">
-                    <Button variant="secondary" className="w-full h-[36px]" onClick={handleAddUser}>
+                    <Button variant="secondary" className="w-full h-9" onClick={handleAddUser}>
                       <IconPlus className="h-3.5 w-3.5 " />
                       Add {searchValue.trim()}
                     </Button>
@@ -523,7 +523,7 @@ export const MultiSelect: Story = {
                 role="combobox"
                 aria-expanded={open}
                 aria-label="Select data types"
-                className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+                className="w-full justify-between min-h-9 h-auto py-1 px-2"
               >
                 <div className="flex items-center gap-1.5 flex-wrap flex-1">
                   {visibleSelected.map((type) => (
@@ -564,7 +564,7 @@ export const MultiSelect: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="Data type selection">
+            <PopoverContent className="w-95 p-0" aria-label="Data type selection">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search data type..."
@@ -581,7 +581,7 @@ export const MultiSelect: Story = {
                           key={type.value}
                           value={type.value}
                           onSelect={() => handleToggle(type.value)}
-                          className="flex justify-between h-[36px] pr-0"
+                          className="flex justify-between h-9 pr-0"
                         >
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {type.label}
@@ -684,7 +684,7 @@ export const WithCheckboxes: Story = {
                 role="combobox"
                 aria-expanded={open}
                 aria-label="Select preferences"
-                className="w-full justify-between min-h-[36px] h-auto py-1 px-2"
+                className="w-full justify-between min-h-9 h-auto py-1 px-2"
               >
                 <span className="text-sm text-muted-foreground">
                   {selectedLabels.length > 0
@@ -694,7 +694,7 @@ export const WithCheckboxes: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="Preferences selection">
+            <PopoverContent className="w-95 p-0" aria-label="Preferences selection">
               <Command shouldFilter={false}>
                 <CommandInput
                   placeholder="Search preferences..."
@@ -711,7 +711,7 @@ export const WithCheckboxes: Story = {
                           key={option.value}
                           value={option.value}
                           onSelect={() => handleToggle(option.value)}
-                          className="flex items-center gap-2 h-[36px]"
+                          className="flex items-center gap-2 h-9"
                         >
                           <Checkbox
                             checked={isSelected}
@@ -805,7 +805,7 @@ export const KeyboardNavigation: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -819,7 +819,7 @@ export const KeyboardNavigation: Story = {
                           setValue(currentValue === value ? "" : currentValue);
                           setOpen(false);
                         }}
-                        className="flex items-center gap-2 h-[36px]"
+                        className="flex items-center gap-2 h-9"
                       >
                         <IconUser className="h-4 w-4" />
                         <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
@@ -888,7 +888,7 @@ export const EmptyState: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -951,7 +951,7 @@ export const Disabled: Story = {
                 <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
                 <CommandList>
@@ -1017,7 +1017,7 @@ export const WithError: Story = {
               <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[380px] p-0" aria-label="User selection">
+          <PopoverContent className="w-95 p-0" aria-label="User selection">
             <Command>
               <CommandInput placeholder="Search users..." />
               <CommandList>
@@ -1031,7 +1031,7 @@ export const WithError: Story = {
                         setValue(currentValue === value ? "" : currentValue);
                         setOpen(false);
                       }}
-                      className="flex items-center gap-2 h-[36px]"
+                      className="flex items-center gap-2 h-9"
                     >
                       <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                         {user.label}
