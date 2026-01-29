@@ -108,6 +108,7 @@ export const Default: Story = {
     </Toggle>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -148,6 +149,7 @@ export const Playground: Story = {
     </Toggle>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story:
@@ -192,6 +194,7 @@ export const Sizes: Story = {
     </div>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -227,6 +230,7 @@ export const DisabledStates: Story = {
     </div>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -276,6 +280,7 @@ export const FormattingToggles: Story = {
     );
   },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -354,6 +359,7 @@ export const FormattingTogglesSmall: Story = {
     );
   },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -424,6 +430,7 @@ export const FilterAndSort: Story = {
     );
   },
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -495,6 +502,7 @@ export const FilterAndSortSmall: Story = {
     );
   },
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -569,6 +577,7 @@ export const ExclusiveGroup: Story = {
     );
   },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -650,6 +659,7 @@ export const ExclusiveGroupSmall: Story = {
     );
   },
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
