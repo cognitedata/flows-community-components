@@ -10,6 +10,7 @@
  * - Focus Rings: Keyboard focus indicators for accessibility
  * - Border Radius: Corner rounding options
  * - Transitions: Common animation timing patterns
+ *
  */
 
 // =============================================================================
