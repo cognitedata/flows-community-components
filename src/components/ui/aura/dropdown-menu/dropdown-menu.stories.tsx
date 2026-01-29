@@ -511,7 +511,7 @@ export const WithDestructiveAction: Story = {
 
     return (
       <div className="space-y-4">
-        <DropdownMenu modal={false}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button>Actions</Button>
           </DropdownMenuTrigger>
