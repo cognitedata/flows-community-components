@@ -144,6 +144,7 @@ const SAMPLE_USERS = [
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -154,10 +155,10 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /@nextjs/i, /The React Framework/i);
   },
-  render: function HoverCardBasicStory(args) {
+  render: function HoverCardBasicStory() {
     return (
-      <div className="flex justify-center items-center min-h-[300px]">
-        <HoverCard {...args}>
+      <div className="flex justify-center items-center min-h-80">
+        <HoverCard>
           <HoverCardTrigger asChild>
             <Button variant="link">@nextjs</Button>
           </HoverCardTrigger>
@@ -187,6 +188,7 @@ export const Basic: Story = {
  */
 export const WithBadges: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Hover cards can include badges to show tags, skills, or categories.",
@@ -209,7 +211,7 @@ export const WithBadges: Story = {
     );
   },
   render: () => (
-    <div className="flex justify-center items-center gap-4 min-h-[300px]">
+    <div className="flex justify-center items-center gap-4 min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Product Manager</Button>
@@ -256,6 +258,7 @@ export const WithBadges: Story = {
  */
 export const TopPosition: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Hover card appearing above the trigger element.",
@@ -266,7 +269,7 @@ export const TopPosition: Story = {
     await testHoverInteraction(canvasElement, /Hover me - Top/i, /appears above the trigger/i);
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Top</Button>
@@ -289,6 +292,7 @@ export const TopPosition: Story = {
  */
 export const RightPosition: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Hover card appearing to the right of the trigger element.",
@@ -303,7 +307,7 @@ export const RightPosition: Story = {
     );
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Right</Button>
@@ -326,6 +330,7 @@ export const RightPosition: Story = {
  */
 export const BottomPosition: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Hover card appearing below the trigger element.",
@@ -336,7 +341,7 @@ export const BottomPosition: Story = {
     await testHoverInteraction(canvasElement, /Hover me - Bottom/i, /appears below the trigger/i);
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Bottom</Button>
@@ -359,6 +364,7 @@ export const BottomPosition: Story = {
  */
 export const LeftPosition: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Hover card appearing to the left of the trigger element.",
@@ -373,7 +379,7 @@ export const LeftPosition: Story = {
     );
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Hover me - Left</Button>
@@ -396,6 +402,7 @@ export const LeftPosition: Story = {
  */
 export const AllPositions: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Hover cards can be positioned on any side of the trigger element.",
@@ -431,7 +438,7 @@ export const AllPositions: Story = {
     );
   },
   render: () => (
-    <div className="flex flex-col items-center justify-center gap-16 min-h-[500px] py-8">
+    <div className="flex flex-col items-center justify-center gap-16 min-h-128 py-8">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="outline">Top position</Button>
@@ -497,11 +504,8 @@ export const AllPositions: Story = {
  * Controlled hover card with custom delays
  */
 export const ControlledWithCustomDelays: Story = {
-  args: {
-    openDelay: 100,
-    closeDelay: 100,
-  },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -532,20 +536,20 @@ export const ControlledWithCustomDelays: Story = {
     await expect(closeButton).toBeInTheDocument();
     await userEvent.click(closeButton);
   },
-  render: function ControlledHoverCardStory(args) {
+  render: function ControlledHoverCardStory() {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="flex flex-col items-center gap-4 min-h-[300px]">
+      <div className="flex flex-col items-center gap-4 min-h-80">
         <div className="text-sm text-muted-foreground mb-4">
           Hover card is {open ? "open" : "closed"}
         </div>
         <HoverCard
-          {...args}
+          openDelay={100}
+          closeDelay={100}
           open={open}
           onOpenChange={(newOpen) => {
             setOpen(newOpen);
-            args.onOpenChange?.(newOpen);
           }}
         >
           <HoverCardTrigger asChild>
@@ -574,11 +578,19 @@ export const ControlledWithCustomDelays: Story = {
  * Minimal hover card with simple text
  */
 export const Minimal: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story: "Minimal hover card with simple text content.",
+      },
+    },
+  },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /Hover for info/i, /Simple contextual information/i);
   },
   render: () => (
-    <div className="flex justify-center items-center min-h-[300px]">
+    <div className="flex justify-center items-center min-h-80">
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button variant="link">Hover for info</Button>
@@ -596,6 +608,7 @@ export const Minimal: Story = {
  */
 export const MultipleInList: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -611,7 +624,7 @@ export const MultipleInList: Story = {
   },
   render: () => {
     return (
-      <div className="flex flex-col gap-3 min-h-[300px] p-4">
+      <div className="flex flex-col gap-3 min-h-80 p-4">
         {SAMPLE_USERS.map((user) => {
           const initials = user.name
             .split(" ")
@@ -660,6 +673,49 @@ export const MultipleInList: Story = {
             </div>
           );
         })}
+      </div>
+    );
+  },
+};
+
+/**
+ * Interactive playground
+ * Allows testing all hover card props interactively
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with hover card props.",
+      },
+    },
+  },
+  render: function PlaygroundStory() {
+    return (
+      <div className="flex justify-center items-center min-h-80">
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="outline">Hover me</Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-80">
+            <div className="flex justify-between space-x-4">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>SC</AvatarFallback>
+              </Avatar>
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold">@shadcn</h4>
+                <p className="text-sm">
+                  The React Framework for the Web – created and maintained by Vercel.
+                </p>
+                <div className="flex items-center pt-2">
+                  <span className="text-xs text-muted-foreground">Joined March 2023</span>
+                </div>
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
       </div>
     );
   },
