@@ -59,7 +59,7 @@ const meta: Meta<typeof Accordion> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[400px]">
+      <div className="w-100">
         <Story />
       </div>
     ),
@@ -70,9 +70,9 @@ export default meta;
 type Story = StoryObj<typeof Accordion>;
 
 /**
- * Default accordion with single item expansion and collapsible behavior.
+ * Basic accordion with single item expansion and collapsible behavior.
  */
-export const Default: Story = {
+export const Basic: Story = {
   render: () => (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="item-1">
@@ -94,9 +94,10 @@ export const Default: Story = {
     </Accordion>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
-        story: "Default accordion with collapsible sections. Only one item can be open at a time.",
+        story: "Basic accordion with collapsible sections. Only one item can be open at a time.",
       },
     },
   },
@@ -163,6 +164,7 @@ export const DefaultExpanded: Story = {
     </Accordion>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Accordion with item-2 expanded by default using the defaultValue prop.",
@@ -205,6 +207,7 @@ export const WithIcons: Story = {
     </Accordion>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Accordion triggers can include icons for visual context.",
@@ -239,6 +242,7 @@ export const Multiple: Story = {
     </Accordion>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -315,6 +319,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Accordion can be controlled externally using value and onValueChange props.",
@@ -353,6 +358,7 @@ export const Disabled: Story = {
     </Accordion>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Disabled accordion prevents all interaction.",
@@ -413,6 +419,7 @@ export const RichContent: Story = {
     </Accordion>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -471,6 +478,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -507,6 +515,7 @@ export const Playground: Story = {
     </Accordion>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with accordion props.",

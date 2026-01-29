@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/aura/button";
 import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
@@ -102,7 +103,7 @@ type Story = StoryObj<typeof Select>;
 export const Default: Story = {
   render: () => (
     <Select>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-50">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
       <SelectContent>
@@ -113,6 +114,7 @@ export const Default: Story = {
     </Select>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default select dropdown for choosing from options.",
@@ -143,7 +145,7 @@ export const WithLabel: Story = {
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="select-label">Choose an option</Label>
       <Select>
-        <SelectTrigger id="select-label" className="w-[200px]">
+        <SelectTrigger id="select-label" className="w-50">
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
@@ -156,6 +158,7 @@ export const WithLabel: Story = {
     </div>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Select with an associated label for accessibility.",
@@ -182,7 +185,7 @@ export const WithIcons: Story = {
       <div className="space-y-4">
         <Label>Category</Label>
         <Select value={value} onValueChange={setValue}>
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-50">
             <SelectValue placeholder="Select..." icon={value ? iconMap[value] : undefined} />
           </SelectTrigger>
           <SelectContent>
@@ -205,6 +208,7 @@ export const WithIcons: Story = {
     );
   },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Select with icons in both trigger and items.",
@@ -219,7 +223,7 @@ export const WithIcons: Story = {
 export const Disabled: Story = {
   render: () => (
     <Select disabled>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-50">
         <SelectValue placeholder="Disabled" />
       </SelectTrigger>
       <SelectContent>
@@ -229,6 +233,7 @@ export const Disabled: Story = {
     </Select>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Disabled select that cannot be interacted with.",
@@ -250,11 +255,7 @@ export const WithError: Story = {
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="select-error">Required field</Label>
       <Select>
-        <SelectTrigger
-          id="select-error"
-          className="w-[200px]"
-          errorMessage="Please select an option"
-        >
+        <SelectTrigger id="select-error" className="w-50" errorMessage="Please select an option">
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
@@ -265,6 +266,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Select with validation error message.",
@@ -279,7 +281,7 @@ export const WithError: Story = {
 export const WithGroups: Story = {
   render: () => (
     <Select>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-50">
         <SelectValue placeholder="Select a file type" />
       </SelectTrigger>
       <SelectContent>
@@ -312,6 +314,7 @@ export const WithGroups: Story = {
     </Select>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Select with grouped items and separators.",
@@ -326,7 +329,7 @@ export const WithGroups: Story = {
 export const WithDefaultValue: Story = {
   render: () => (
     <Select defaultValue="option2">
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-50">
         <SelectValue placeholder="Select..." />
       </SelectTrigger>
       <SelectContent>
@@ -337,6 +340,7 @@ export const WithDefaultValue: Story = {
     </Select>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Select with a pre-selected default value.",
@@ -355,7 +359,7 @@ export const Controlled: Story = {
     return (
       <div className="space-y-4">
         <Select value={value} onValueChange={setValue}>
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-50">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
@@ -365,33 +369,22 @@ export const Controlled: Story = {
           </SelectContent>
         </Select>
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => setValue("red")}
-            className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
-          >
+          <Button size="sm" variant="outline" onClick={() => setValue("red")}>
             Set Red
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("green")}
-            className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
-          >
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => setValue("green")}>
             Set Green
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("")}
-            className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
-          >
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => setValue("")}>
             Clear
-          </button>
+          </Button>
         </div>
         <p className="text-sm text-muted-foreground">Selected: {value || "(none)"}</p>
       </div>
     );
   },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Controlled select with external state management.",
@@ -406,7 +399,7 @@ export const Controlled: Story = {
 export const DisabledItems: Story = {
   render: () => (
     <Select>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-50">
         <SelectValue placeholder="Select..." />
       </SelectTrigger>
       <SelectContent>
@@ -422,6 +415,7 @@ export const DisabledItems: Story = {
     </Select>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Select with some items disabled.",
@@ -437,7 +431,7 @@ export const SmallSize: Story = {
   render: () => (
     <div className="flex gap-4 items-center">
       <Select>
-        <SelectTrigger size="sm" className="w-[150px]">
+        <SelectTrigger size="sm" className="w-37.5">
           <SelectValue placeholder="Small" />
         </SelectTrigger>
         <SelectContent>
@@ -446,7 +440,7 @@ export const SmallSize: Story = {
         </SelectContent>
       </Select>
       <Select>
-        <SelectTrigger size="default" className="w-[150px]">
+        <SelectTrigger size="default" className="w-37.5">
           <SelectValue placeholder="Default" />
         </SelectTrigger>
         <SelectContent>
@@ -457,6 +451,7 @@ export const SmallSize: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Select in different sizes.",
@@ -474,7 +469,7 @@ export const AllStates: Story = {
       <div className="grid w-full items-center gap-1.5">
         <Label>Default</Label>
         <Select>
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-50">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
@@ -485,7 +480,7 @@ export const AllStates: Story = {
       <div className="grid w-full items-center gap-1.5">
         <Label>With Value</Label>
         <Select defaultValue="option1">
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-50">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -496,7 +491,7 @@ export const AllStates: Story = {
       <div className="grid w-full items-center gap-1.5">
         <Label>Disabled</Label>
         <Select disabled>
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-50">
             <SelectValue placeholder="Disabled" />
           </SelectTrigger>
           <SelectContent>
@@ -507,7 +502,7 @@ export const AllStates: Story = {
       <div className="grid w-full items-center gap-1.5">
         <Label>With Error</Label>
         <Select>
-          <SelectTrigger className="w-[200px]" errorMessage="Required">
+          <SelectTrigger className="w-50" errorMessage="Required">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
@@ -518,9 +513,53 @@ export const AllStates: Story = {
     </div>
   ),
   parameters: {
+    order: 11,
     docs: {
       description: {
         story: "All select states for comparison.",
+      },
+    },
+  },
+};
+
+/**
+ * Long option labels and constrained width to demonstrate wrapping and overflow behaviour.
+ */
+export const LongTextAndOverflow: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="w-40">
+        <Label>Long option labels</Label>
+        <Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select an option with long text" />
+          </SelectTrigger>
+          <SelectContent className="max-h-40">
+            <SelectItem value="option1">
+              This is a very long option label that should wrap or truncate when space is limited
+            </SelectItem>
+            <SelectItem value="option2">
+              Another extremely verbose option label demonstrating overflow behaviour in the list
+            </SelectItem>
+            <SelectItem value="option3">Short label</SelectItem>
+            <SelectItem value="option4">
+              Yet another long option label to force vertical scrolling inside the menu content area
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <p className="text-sm text-muted-foreground max-w-md">
+        The trigger is constrained by a narrow container while the dropdown content has a limited
+        max height with scrolling enabled, helping you see how long labels behave in tight layouts.
+      </p>
+    </div>
+  ),
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story:
+          "Select constrained by a narrow container with very long option labels and a scrollable menu to demonstrate text wrapping and overflow behaviour.",
       },
     },
   },
@@ -537,7 +576,7 @@ export const VisualRegression: Story = {
         <h3 className="text-sm font-semibold text-muted-foreground">States</h3>
         <div className="flex flex-wrap gap-4">
           <Select>
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="w-37.5">
               <SelectValue placeholder="Default" />
             </SelectTrigger>
             <SelectContent>
@@ -545,7 +584,7 @@ export const VisualRegression: Story = {
             </SelectContent>
           </Select>
           <Select defaultValue="selected">
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="w-37.5">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -553,7 +592,7 @@ export const VisualRegression: Story = {
             </SelectContent>
           </Select>
           <Select disabled>
-            <SelectTrigger className="w-[150px]">
+            <SelectTrigger className="w-37.5">
               <SelectValue placeholder="Disabled" />
             </SelectTrigger>
             <SelectContent>
@@ -567,7 +606,7 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Select defaultValue="settings">
-          <SelectTrigger className="w-[200px]">
+          <SelectTrigger className="w-50">
             <SelectValue icon={<IconSettings className="size-4" />} />
           </SelectTrigger>
           <SelectContent>
@@ -582,7 +621,7 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Error</h3>
         <Select>
-          <SelectTrigger className="w-[200px]" errorMessage="This is required">
+          <SelectTrigger className="w-50" errorMessage="This is required">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
@@ -593,6 +632,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 13,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -600,6 +640,69 @@ export const VisualRegression: Story = {
     },
     chromatic: {
       disableSnapshot: false,
+    },
+  },
+};
+
+/**
+ * Empty select with no items to demonstrate edge case behavior.
+ */
+export const EdgeCaseEmpty: Story = {
+  render: () => (
+    <div className="space-y-2">
+      <Label>Empty select</Label>
+      <Select>
+        <SelectTrigger className="w-50">
+          <SelectValue placeholder="No options available" />
+        </SelectTrigger>
+        <SelectContent>{/* No items */}</SelectContent>
+      </Select>
+      <p className="text-sm text-muted-foreground">
+        Select with no options demonstrates empty state handling.
+      </p>
+    </div>
+  ),
+  parameters: {
+    order: 14,
+    docs: {
+      description: {
+        story: "Select with no options to demonstrate empty state behavior.",
+      },
+    },
+  },
+};
+
+/**
+ * Select with special characters, emojis, and HTML entities.
+ */
+export const EdgeCaseSpecialCharacters: Story = {
+  render: () => (
+    <div className="space-y-2">
+      <Label>Special characters</Label>
+      <Select>
+        <SelectTrigger className="w-50">
+          <SelectValue placeholder="Select..." />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="emoji1">🎉 Party time!</SelectItem>
+          <SelectItem value="emoji2">🚀 Launch</SelectItem>
+          <SelectItem value="special1">{"Option with <HTML> & 'quotes'"}</SelectItem>
+          <SelectItem value="special2">{"C++ & C# & Java"}</SelectItem>
+          <SelectItem value="unicode">Ü니코드文字</SelectItem>
+        </SelectContent>
+      </Select>
+      <p className="text-sm text-muted-foreground">
+        Tests rendering of emojis, special characters, and HTML entities.
+      </p>
+    </div>
+  ),
+  parameters: {
+    order: 15,
+    docs: {
+      description: {
+        story:
+          "Select with emojis, special characters, and HTML entities to test proper escaping and rendering.",
+      },
     },
   },
 };
@@ -614,7 +717,7 @@ export const Playground: Story = {
   },
   render: (args) => (
     <Select {...args}>
-      <SelectTrigger className="w-[200px]">
+      <SelectTrigger className="w-50">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
       <SelectContent>
@@ -625,6 +728,7 @@ export const Playground: Story = {
     </Select>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with select props.",
