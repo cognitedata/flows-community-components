@@ -36,16 +36,6 @@ const meta: Meta<typeof Card> = {
         category: "Display",
       },
     },
-    // CardTitle Props
-    as: {
-      control: "select",
-      options: ["h1", "h2", "h3", "h4", "h5", "h6"],
-      description: "Semantic heading level for CardTitle (h1-h6)",
-      table: {
-        category: "Content",
-        defaultValue: { summary: "h3" },
-      },
-    },
     children: {
       control: "text",
       description: "Content to render inside the card",
@@ -644,7 +634,7 @@ export const Playground: Story = {
         </p>
       </CardContent>
       <CardFooter className="gap-2">
-        <Button variant="primary" size="sm">
+        <Button variant="default" size="sm">
           Primary Action
         </Button>
         <Button variant="secondary" size="sm">
