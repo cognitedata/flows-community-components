@@ -782,7 +782,7 @@ export const ComplexInteractive: Story = {
     });
     expect(resetButton).toBeInTheDocument();
   },
-  render: function ComplexInteractiveStory() {
+  render: function ComplexInteractiveStory({ modal = false }) {
     const [notifications, setNotifications] = useState({
       email: true,
       push: false,
