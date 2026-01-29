@@ -741,3 +741,58 @@ export const LongBreadcrumb: Story = {
     );
   },
 };
+
+/**
+ * Interactive playground for testing topbar props.
+ */
+export const Playground: Story = {
+  args: {
+    className: "",
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story:
+          "Interactive playground to test different topbar configurations. Use the controls panel to experiment with props.",
+      },
+    },
+  },
+  render: function TopbarPlaygroundStory(args) {
+    return (
+      <div className="flex items-center justify-center p-24">
+        <div className="w-full overflow-hidden border rounded-lg">
+          <Topbar {...args}>
+            <TopbarLeft>
+              <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
+                <IconLayoutSidebar className="h-4.5 w-4.5" />
+              </Button>
+              <TopbarBreadcrumbs>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/" aria-label="Go to home">
+                      <IconHomeFilled className="h-4 w-4" />
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Playground</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </TopbarBreadcrumbs>
+            </TopbarLeft>
+            <TopbarCenter>
+              <div className="text-xs text-muted-foreground">Center content</div>
+            </TopbarCenter>
+            <TopbarRight>
+              <Button size="sm">
+                <IconPlus />
+                Action
+              </Button>
+            </TopbarRight>
+          </Topbar>
+        </div>
+      </div>
+    );
+  },
+};
