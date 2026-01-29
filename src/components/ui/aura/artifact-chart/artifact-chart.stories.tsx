@@ -2,10 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
 import { useState } from "react";
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
+import { Cell, Line, LineChart, Pie, PieChart, type PieLabelRenderProps, XAxis } from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
-import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+} from "@/components/ui/aura/chart";
 import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import {
   ArtifactChart,
@@ -1159,6 +1165,144 @@ export const EdgeCaseNoData: Story = {
         <ArtifactChartFooter className="flex flex-col items-start gap-1">
           <div className="text-sm text-muted-foreground">
             Data will appear once activity is recorded
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+// Line chart configuration
+const lineChartConfig = {
+  strong: { label: "Primary", color: "rgba(47, 85, 234, 0.8)" },
+  muted: { label: "Secondary", color: "rgba(47, 85, 234, 0.5)" },
+} satisfies ChartConfig;
+
+const lineChartData = [
+  { date: "Apr 1", strong: 40, muted: 80 },
+  { date: "", strong: 120, muted: 100 },
+  { date: "Apr 7", strong: 180, muted: 90 },
+  { date: "", strong: 280, muted: 140 },
+  { date: "Apr 14", strong: 160, muted: 180 },
+  { date: "", strong: 220, muted: 160 },
+  { date: "Apr 21", strong: 320, muted: 120 },
+  { date: "", strong: 260, muted: 140 },
+  { date: "Apr 30", strong: 200, muted: 160 },
+];
+
+/**
+ * Line chart showing trends over time with multiple series.
+ * Two lines with different stroke weights - solid and muted.
+ */
+export const MultiLineChart: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Line chart showing trends over time with two series. Features solid and semi-transparent strokes, date-based x-axis, and centered legend.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Performance metrics")).toBeInTheDocument();
+    await expect(canvas.getByText("Last 30 days")).toBeInTheDocument();
+    await expect(canvas.getByText("Apr 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Apr 30")).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function MultiLineChartStory() {
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Performance metrics</ArtifactChartTitle>
+          <ArtifactChartDescription>Last 30 days</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={lineChartConfig} className="h-32 w-full">
+            <LineChart data={lineChartData} margin={{ left: 0, right: 0, top: 10, bottom: 0 }}>
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tick={{ fontSize: 12, fill: "var(--color-muted-foreground)" }}
+                tickMargin={8}
+              />
+              <ChartTooltip
+                cursor={{ stroke: "var(--color-muted-foreground)", strokeWidth: 1 }}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+
+                  return (
+                    <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      {payload.map((entry) => {
+                        const key = entry.dataKey as string;
+                        const config = lineChartConfig[key as keyof typeof lineChartConfig];
+                        return (
+                          <div key={key} className="flex items-center gap-4">
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="h-2 w-2 rounded-sm"
+                                style={{ backgroundColor: config?.color }}
+                              />
+                              <span className="text-sm text-muted-foreground">{config?.label}</span>
+                            </div>
+                            <span className="text-sm text-foreground">{entry.value}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }}
+              />
+              {/* Muted line - rendered first (behind) */}
+              <Line
+                type="monotone"
+                dataKey="muted"
+                stroke="var(--color-muted)"
+                strokeWidth={2}
+                dot={false}
+                activeDot={{
+                  r: 4,
+                  fill: "var(--color-muted)",
+                  stroke: "var(--color-popover)",
+                  strokeWidth: 2,
+                }}
+              />
+              {/* Strong line - rendered second (in front) */}
+              <Line
+                type="monotone"
+                dataKey="strong"
+                stroke="var(--color-strong)"
+                strokeWidth={2}
+                dot={false}
+                activeDot={{
+                  r: 4,
+                  fill: "var(--color-strong)",
+                  stroke: "var(--color-popover)",
+                  strokeWidth: 2,
+                }}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+            </LineChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
           </div>
         </ArtifactChartFooter>
       </ArtifactChart>
