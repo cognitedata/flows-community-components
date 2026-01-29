@@ -331,7 +331,7 @@ export const WithCheckboxItems: Story = {
             )}
           </ul>
         </div>
-        <DropdownMenu modal={false}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               Filters
