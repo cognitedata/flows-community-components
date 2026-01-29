@@ -612,6 +612,14 @@ export const Playground: Story = {
     defaultVisible: true,
     className: "w-100",
   },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with banner props.",
+      },
+    },
+  },
   render: (args) => (
     <Banner {...args}>
       <BannerIcon icon={IconInfoCircle} />
