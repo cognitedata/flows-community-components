@@ -174,3 +174,12 @@ parameters: {
   }
 }
 ```
+
+# Checklist
+
+Before committing changes:
+1. Run `pnpm lint` to check code quality
+2. Run `pnpm tsc -b` to verify TypeScript types
+3. Ensure all stories have `order` parameter
+4. Verify play functions pass with no errors
+5. Test interactive stories manually

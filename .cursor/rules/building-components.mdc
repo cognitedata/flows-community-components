@@ -204,4 +204,9 @@ After creating/updating: Run `pnpm run registry:build` to generate `public/r/*.j
 
 # Checklist
 
-No linter errors, type safety, prop spreading, accessibility (ARIA, keyboard nav, focus), update side navigation.
+Before committing changes:
+1. Run `pnpm lint` to check code quality
+2. Run `pnpm tsc -b` to verify TypeScript types
+3. Ensure no linter errors, type safety, prop spreading
+4. Verify accessibility (ARIA, keyboard nav, focus)
+5. Update side navigation if adding new component
