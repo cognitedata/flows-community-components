@@ -76,10 +76,6 @@ type Story = StoryObj<typeof Progress>;
  */
 export const Basic: Story = {
   render: () => <Progress value={50} className="w-96" />,
-  args: {
-    value: 50,
-    className: "w-96",
-  },
   parameters: {
     order: 1,
     docs: {
