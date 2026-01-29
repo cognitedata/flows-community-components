@@ -67,6 +67,7 @@ type Story = StoryObj<typeof Collapsible>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -128,6 +129,7 @@ export const Basic: Story = {
  */
 export const DefaultOpen: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Collapsible that starts in the open state using the defaultOpen prop.",
@@ -180,6 +182,7 @@ export const DefaultOpen: Story = {
  */
 export const Controlled: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -246,6 +249,7 @@ export const Controlled: Story = {
  */
 export const WithCustomTrigger: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -302,6 +306,7 @@ export const WithCustomTrigger: Story = {
  */
 export const Multiple: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -400,6 +405,7 @@ export const Multiple: Story = {
  */
 export const Disabled: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -445,6 +451,7 @@ export const Disabled: Story = {
  */
 export const WithRichContent: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -500,6 +507,7 @@ export const WithRichContent: Story = {
  */
 export const FAQ: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -576,5 +584,125 @@ export const FAQ: Story = {
         </CollapsibleContent>
       </Collapsible>
     </div>
+  ),
+};
+
+/**
+ * Empty content
+ * Shows collapsible with empty content
+ */
+export const EdgeCaseEmpty: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Collapsible with empty content. Tests how the component handles empty states and maintains proper spacing.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /empty content/i });
+    await expect(trigger).toBeInTheDocument();
+
+    // Content should be present but empty
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
+    await expect(content).toBeInTheDocument();
+
+    // Click to expand
+    await userEvent.click(trigger);
+    await waitFor(
+      () => {
+        expect(content).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+  },
+  render: () => (
+    <Collapsible className="w-[400px] space-y-2">
+      <CollapsibleTrigger asChild>
+        <Button variant="ghost" className="w-full justify-between">
+          <span>Empty Content</span>
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="px-4 py-2" />
+      </CollapsibleContent>
+    </Collapsible>
+  ),
+};
+
+/**
+ * Long text overflow
+ * Shows collapsible with very long text content
+ */
+export const EdgeCaseLongText: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Collapsible with very long text content. Tests overflow handling, text wrapping, and scroll behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", {
+      name: /very long title that might wrap/i,
+    });
+    await expect(trigger).toBeInTheDocument();
+
+    // Click to expand and verify long content
+    await userEvent.click(trigger);
+    await waitFor(
+      () => {
+        const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
+        expect(content).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+
+    // Verify long text is present
+    await expect(
+      canvas.getByText(/this is an extremely long paragraph/i)
+    ).toBeInTheDocument();
+  },
+  render: () => (
+    <Collapsible className="w-[400px] space-y-2">
+      <CollapsibleTrigger asChild>
+        <Button variant="ghost" className="w-full justify-between">
+          <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0" />
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="px-4 py-2 space-y-2">
+          <p className="text-sm">
+            This is an extremely long paragraph that demonstrates how the collapsible component
+            handles extensive text content. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </p>
+          <p className="text-sm">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus
+            error sit voluptatem accusantium doloremque laudantium.
+          </p>
+          <p className="text-sm">
+            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+            beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt.
+          </p>
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
   ),
 };
