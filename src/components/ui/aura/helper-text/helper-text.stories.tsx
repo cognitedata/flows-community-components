@@ -98,7 +98,7 @@ export const Basic: Story = {
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-muted-foreground");
   },
-  render: () => <HelperText size="sm">This is helpful information for the user.</HelperText>,
+  render: () => <HelperText>This is helpful information for the user.</HelperText>,
 };
 
 /**
