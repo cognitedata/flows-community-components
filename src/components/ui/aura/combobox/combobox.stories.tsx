@@ -1172,3 +1172,99 @@ export const ComplexInteractive: Story = {
     );
   },
 };
+
+/**
+ * Interactive playground
+ * Allows testing all combobox props interactively
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with combobox props.",
+      },
+    },
+  },
+  render: function PlaygroundStory() {
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState("michael-jordan");
+
+    const selectedUser = users.find((user) => user.value === value);
+
+    return (
+      <div className="space-y-3">
+        <div className="space-y-2 w-95">
+          <Label className="m-0 p-0">User</Label>
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                className="w-full justify-between"
+              >
+                <div className="flex items-center gap-2">
+                  {selectedUser ? (
+                    <>
+                      <IconUser />
+                      <span className="text-base tracking-tightest font-normal text-foreground">
+                        {selectedUser.label}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">Select user...</span>
+                  )}
+                </div>
+                <IconSelector className="h-4 w-4 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-95 p-0" aria-label="User selection">
+              <Command>
+                <CommandInput placeholder="Search users..." />
+                <CommandList>
+                  <CommandGroup className="px-1 pt-0 pb-1 mt-1">
+                    <CommandEmpty>No user found.</CommandEmpty>
+                    {users.map((user) => (
+                      <CommandItem
+                        key={user.value}
+                        value={user.value}
+                        onSelect={(currentValue) => {
+                          setValue(currentValue === value ? "" : currentValue);
+                          setOpen(false);
+                        }}
+                        className="flex justify-between h-9 pr-0"
+                      >
+                        <div className="flex items-center">
+                          <Avatar sizes="xxsm" variant="fjord" className="mr-2">
+                            <AvatarFallback>{user.initials}</AvatarFallback>
+                          </Avatar>
+                          <span className="flex-1 text-base tracking-tightest font-normal text-foreground pr-1.5">
+                            {user.label}
+                          </span>
+                          <Badge variant="secondary" size="default">
+                            {user.position}
+                          </Badge>
+                        </div>
+                        <IconCheck
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            value === user.value ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
+        <p className="text-sm text-muted-foreground">
+          Experiment with the combobox using the controls above.
+        </p>
+      </div>
+    );
+  },
+};
