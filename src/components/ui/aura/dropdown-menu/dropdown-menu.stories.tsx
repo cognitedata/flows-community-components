@@ -446,7 +446,7 @@ export const WithRadioGroup: Story = {
         <div className="text-sm text-muted-foreground" data-testid="radio-output">
           Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
-        <DropdownMenu modal={false}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               Change View
