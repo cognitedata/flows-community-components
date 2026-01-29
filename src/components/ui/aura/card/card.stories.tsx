@@ -112,8 +112,7 @@ export const WithTextFooter: Story = {
     order: 2,
     docs: {
       description: {
-        story:
-          "Card with text content displayed in the footer instead of badges.",
+        story: "Card with text content displayed in the footer instead of badges.",
       },
     },
   },
@@ -122,9 +121,7 @@ export const WithTextFooter: Story = {
 
     // Verify header content
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
-    await expect(
-      canvas.getByText("Pressure over last 24 hours")
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Pressure over last 24 hours")).toBeInTheDocument();
 
     // Verify footer text lines
     await expect(
@@ -143,9 +140,7 @@ export const WithTextFooter: Story = {
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">
-          No alerts
-        </div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
       </CardFooter>
     </Card>
   ),
@@ -180,9 +175,7 @@ export const WithBadgeInHeader: Story = {
     const footerButton = canvas.getByRole("button", { name: /view scene/i });
     await expect(footerButton).toBeInTheDocument();
 
-    await expect(
-      canvas.getByText("Model ID: 4602269428617841")
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Model ID: 4602269428617841")).toBeInTheDocument();
   },
   render: () => (
     <Card className="w-full max-w-sm">
@@ -234,8 +227,7 @@ export const WithHover: Story = {
     await expect(cardTitle).toBeInTheDocument();
 
     // Hover the card container to exercise hover styles
-    const card =
-      cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
+    const card = cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
     if (card) {
       await userEvent.hover(card);
     }
@@ -252,17 +244,13 @@ export const WithHover: Story = {
         <CardDescription>Subtitle</CardDescription>
       </CardHeader>
       <CardContent className="gap-2">
-        <div className="text-base text-secondary-foreground tracking-tightest">
-          Description
-        </div>
+        <div className="text-base text-secondary-foreground tracking-tightest">Description</div>
       </CardContent>
       <CardFooter className="gap-1 flex-col">
         <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
-        <div className="text-sm font-normal text-muted-foreground tracking-normal">
-          No alerts
-        </div>
+        <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
       </CardFooter>
     </Card>
   ),
@@ -525,9 +513,7 @@ export const ContentOnly: Story = {
 
     await expect(canvas.getByText("Content Only Card")).toBeInTheDocument();
     await expect(
-      canvas.getByText(
-        "This card contains only content without a header or footer section."
-      )
+      canvas.getByText("This card contains only content without a header or footer section.")
     ).toBeInTheDocument();
   },
   render: () => (
@@ -676,7 +662,7 @@ export const SemanticHeadings: Story = {
  */
 export const Playground: Story = {
   parameters: {
-    order: 13,
+    order: 99,
     docs: {
       description: {
         story:
