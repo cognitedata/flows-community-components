@@ -550,8 +550,8 @@ export const KeyboardInteractions: Story = {
     // Press Escape to close
     await userEvent.keyboard("{Escape}");
     await waitFor(() => {
-      const drawer = document.querySelector('[data-slot="drawer-content"]');
-      expect(drawer).not.toBeInTheDocument();
+      // Use screen.queryByRole to robustly check for the dialog in a portal
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
   },
 };
