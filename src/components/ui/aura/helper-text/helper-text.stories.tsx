@@ -176,7 +176,7 @@ export const ErrorState: Story = {
     const icon = canvasElement.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
-  render: () => <HelperText size="sm" isError>This field is required.</HelperText>,
+  render: () => <HelperText isError>This field is required.</HelperText>,
 };
 
 /**
