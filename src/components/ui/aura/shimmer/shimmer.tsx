@@ -93,3 +93,4 @@ const ShimmerComponent = ({
 };
 
 export const Shimmer = memo(ShimmerComponent);
+Shimmer.displayName = "Shimmer";

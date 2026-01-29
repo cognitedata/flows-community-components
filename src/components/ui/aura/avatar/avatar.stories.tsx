@@ -85,23 +85,20 @@ export default meta;
 type Story = StoryObj<typeof Avatar>;
 
 /**
- * Default avatar with initials fallback.
+ * Basic avatar with initials fallback.
  */
-export const Default: Story = {
-  render: (args) => (
-    <Avatar {...args}>
+export const Basic: Story = {
+  render: () => (
+    <Avatar variant="default" sizes="default">
       <AvatarFallback>AB</AvatarFallback>
     </Avatar>
   ),
-  args: {
-    variant: "default",
-    sizes: "default",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
-          "Default avatar displaying user initials. The fallback shows when no image is provided.",
+          "Basic avatar displaying user initials. The fallback shows when no image is provided.",
       },
     },
   },
@@ -120,18 +117,15 @@ export const Default: Story = {
  * Avatar with an icon instead of initials.
  */
 export const WithIcon: Story = {
-  render: (args) => (
-    <Avatar {...args}>
+  render: () => (
+    <Avatar variant="fjord" sizes="default">
       <AvatarIcon>
         <IconWheel />
       </AvatarIcon>
     </Avatar>
   ),
-  args: {
-    variant: "fjord",
-    sizes: "default",
-  },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -153,17 +147,14 @@ export const WithIcon: Story = {
  * Avatar with an image and fallback.
  */
 export const WithImage: Story = {
-  render: (args) => (
-    <Avatar {...args}>
+  render: () => (
+    <Avatar variant="default" sizes="default">
       <AvatarImage src={getImagePath("user-avatar2.png")} alt="User avatar" />
       <AvatarFallback>PJ</AvatarFallback>
     </Avatar>
   ),
-  args: {
-    variant: "default",
-    sizes: "default",
-  },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -231,6 +222,7 @@ export const AllVariants: Story = {
     </div>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -292,6 +284,7 @@ export const AllVariantsWithIcons: Story = {
     </div>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -327,6 +320,7 @@ export const AllSizes: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -370,6 +364,7 @@ export const ImagesAllSizes: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -495,6 +490,7 @@ export const AvatarGroup: Story = {
     </div>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -610,6 +606,7 @@ export const AvatarGroupSmall: Story = {
     </div>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -667,6 +664,7 @@ export const ClickInteraction: Story = {
     );
   },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -721,6 +719,7 @@ export const Accessibility: Story = {
     </div>
   ),
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -768,6 +767,7 @@ export const EdgeCaseEmpty: Story = {
     </div>
   ),
   parameters: {
+    order: 12,
     docs: {
       description: {
         story:
@@ -854,6 +854,7 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
+    order: 13,
     docs: {
       description: {
         story:
@@ -897,6 +898,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
+    order: 14,
     docs: {
       description: {
         story:
@@ -940,6 +942,7 @@ export const EdgeCaseSingleCharacter: Story = {
     </div>
   ),
   parameters: {
+    order: 15,
     docs: {
       description: {
         story:
@@ -979,6 +982,7 @@ export const EdgeCaseNumbers: Story = {
     </div>
   ),
   parameters: {
+    order: 16,
     docs: {
       description: {
         story:
@@ -1016,6 +1020,7 @@ export const EdgeCaseTinyWithText: Story = {
     </div>
   ),
   parameters: {
+    order: 17,
     docs: {
       description: {
         story:
@@ -1054,6 +1059,7 @@ export const EdgeCaseFailedImage: Story = {
     </div>
   ),
   parameters: {
+    order: 18,
     docs: {
       description: {
         story:
@@ -1176,6 +1182,7 @@ export const OverflowAvatarWithMenu: Story = {
     </div>
   ),
   parameters: {
+    order: 19,
     docs: {
       description: {
         story:
@@ -1260,6 +1267,7 @@ export const EdgeCaseComplexIcons: Story = {
     </div>
   ),
   parameters: {
+    order: 20,
     docs: {
       description: {
         story:
@@ -1426,6 +1434,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 21,
     docs: {
       description: {
         story:
@@ -1452,6 +1461,7 @@ export const Playground: Story = {
     sizes: "default",
   },
   parameters: {
+    order: 99,
     docs: {
       description: {
         story:

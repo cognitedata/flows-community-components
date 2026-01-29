@@ -10,27 +10,55 @@ const meta: Meta<typeof Progress> = {
   component: Progress,
   tags: ["autodocs"],
   argTypes: {
+    // State
     value: {
       control: { type: "range", min: 0, max: 100, step: 1 },
-      description: "Progress value from 0 to 100",
+      description: "Current progress value from 0 to 100.",
       table: {
-        category: "Display",
+        category: "State",
         type: { summary: "number" },
-      },
-    },
-    className: {
-      control: "text",
-      description: "CSS classes for styling",
-      table: {
-        category: "Display",
+        defaultValue: { summary: "0" },
       },
     },
     max: {
       control: { type: "number", min: 1 },
-      description: "Maximum value (default: 100)",
+      description: "Maximum value of the progress range (default: 100).",
+      table: {
+        category: "State",
+        type: { summary: "number" },
+        defaultValue: { summary: "100" },
+      },
+    },
+
+    // Display
+    className: {
+      control: "text",
+      description: "Additional CSS classes to apply to the progress track.",
       table: {
         category: "Display",
-        type: { summary: "number" },
+      },
+    },
+
+    // Accessibility
+    "aria-label": {
+      control: "text",
+      description:
+        "Accessible label that describes the progress context (e.g. “Upload progress: 50%”).",
+      table: {
+        category: "Accessibility",
+        type: { summary: "string" },
+      },
+    },
+
+    // Advanced
+    asChild: {
+      control: "boolean",
+      description:
+        "Merge props onto the child component instead of the default Radix primitive (Radix Slot).",
+      table: {
+        category: "Advanced",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
       },
     },
   },
@@ -314,7 +342,7 @@ export const Animated: Story = {
           <span>Loading...</span>
           <span className="text-muted-foreground">{progress}%</span>
         </div>
-        <Progress value={progress} />
+        <Progress value={progress} aria-label={`Loading progress: ${progress}%`} />
       </div>
     );
   },
