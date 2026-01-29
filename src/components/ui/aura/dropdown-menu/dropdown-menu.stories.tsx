@@ -294,7 +294,7 @@ export const WithCheckboxItems: Story = {
       expect(outputDiv?.textContent).toContain("selected");
     });
   },
-  render: function WithCheckboxItemsStory() {
+  render: function WithCheckboxItemsStory({ modal = false }) {
     const [checkedItems, setCheckedItems] = useState({
       emails: true,
       messages: true,
