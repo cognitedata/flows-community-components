@@ -288,7 +288,7 @@ const ListItem = forwardRef<HTMLLIElement, ComponentProps<"li"> & { variant?: Li
           data-slot="list-item"
           data-variant={variant}
           className={cn(
-            "grid w-full items-start rounded p-0.5",
+            "grid w-full items-start gap-x-2 rounded p-0.5",
             // Add row gap only if there's a description (multiple rows)
             hasDescriptionSlot && "gap-y-1",
             // Determine grid columns based on what slots are present
