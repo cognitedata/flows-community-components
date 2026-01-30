@@ -94,6 +94,7 @@ export const Default: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default dialog with title, description, and action buttons.",
@@ -155,6 +156,7 @@ export const WithForm: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Dialog containing a form for user input.",
@@ -188,6 +190,7 @@ export const NoCloseButton: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Dialog without the X close button in the corner.",
@@ -229,6 +232,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Dialog with externally controlled open state.",
@@ -270,11 +274,70 @@ export const ScrollingContent: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Dialog with scrolling content for long text.",
       },
     },
+  },
+};
+
+/**
+ * Non-modal dialog that allows interaction with content behind the overlay.
+ */
+export const NonModal: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <p className="text-sm text-muted-foreground">
+        This button remains interactive even when the dialog is open (non-modal).
+      </p>
+      <Button data-testid="background-button">Background action</Button>
+      <Dialog modal={false}>
+        <DialogTrigger asChild>
+          <Button>Open Non-modal Dialog</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Non-modal Dialog</DialogTitle>
+            <DialogDescription>
+              You can still interact with elements behind this dialog.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Close</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  ),
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story:
+          "Dialog rendered with `modal={false}`, allowing interaction with background content while the dialog is open.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Open the dialog
+    const trigger = canvas.getByRole("button", { name: /open non-modal dialog/i });
+    await userEvent.click(trigger);
+
+    // Ensure dialog content is present
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    // Background button should still be clickable
+    const backgroundButton = canvas.getByTestId("background-button");
+    await expect(backgroundButton).toBeEnabled();
   },
 };
 
@@ -319,11 +382,112 @@ export const Nested: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Dialogs can be nested inside each other.",
       },
     },
+  },
+};
+
+/**
+ * Dialog with title only (no description).
+ */
+export const TitleOnly: Story = {
+  render: () => (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open Title-only Dialog</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Title Only Dialog</DialogTitle>
+        </DialogHeader>
+        <div className="py-4">
+          <p className="text-sm text-muted-foreground">
+            This dialog intentionally omits a description, showing the minimal header configuration.
+          </p>
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Close</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  ),
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "Dialog using only `DialogTitle` without a description to demonstrate minimal headers.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /title-only dialog/i });
+    await userEvent.click(trigger);
+
+    await waitFor(() => {
+      const title = document.querySelector('[data-slot="dialog-title"]');
+      expect(title).toHaveTextContent("Title Only Dialog");
+    });
+
+    // There should be no `dialog-description` element
+    const description = document.querySelector('[data-slot="dialog-description"]');
+    expect(description).toBeNull();
+  },
+};
+
+/**
+ * Dialog with long title and description to test wrapping.
+ */
+export const LongHeader: Story = {
+  render: () => (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open Long Header Dialog</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
+            This is a very long dialog title designed to wrap across multiple lines when space is
+            constrained
+          </DialogTitle>
+          <DialogDescription>
+            Similarly, this description intentionally contains a large amount of text to exercise
+            wrapping behaviour, truncation, and general layout robustness across different viewport
+            sizes and content densities.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Close</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  ),
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Dialog with long title and description text to verify wrapping and layout behaviour for dense headers.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /open long header dialog/i });
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
   },
 };
 
@@ -364,11 +528,88 @@ export const Confirmation: Story = {
     );
   },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Confirmation dialog for destructive actions.",
       },
     },
+  },
+};
+
+/**
+ * Dialog demonstrating async confirmation behaviour with a temporary loading state.
+ */
+export const AsyncAction: Story = {
+  render: function AsyncActionDialog() {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [done, setDone] = useState(false);
+
+    const handleConfirm = () => {
+      setLoading(true);
+      setDone(false);
+      setTimeout(() => {
+        setLoading(false);
+        setDone(true);
+        setOpen(false);
+      }, 500);
+    };
+
+    return (
+      <div className="space-y-4">
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button>Open Async Dialog</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Async Confirmation</DialogTitle>
+              <DialogDescription>
+                Simulates an asynchronous operation when confirming the action.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <DialogClose asChild disabled={loading}>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button onClick={handleConfirm} disabled={loading} data-testid="async-confirm">
+                {loading ? "Saving..." : "Confirm"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+        {done && <p className="text-sm text-green-600">Action completed successfully.</p>}
+      </div>
+    );
+  },
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story:
+          "Dialog that shows a temporary loading state while performing an asynchronous confirmation action.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const openButton = canvas.getByRole("button", { name: /open async dialog/i });
+    await userEvent.click(openButton);
+
+    const confirmButton = await canvas.findByTestId("async-confirm");
+    await userEvent.click(confirmButton);
+
+    // Button should enter loading state
+    await waitFor(() => {
+      expect(confirmButton).toHaveTextContent("Saving...");
+    });
+
+    // After async completes, dialog should close and success text should appear
+    await waitFor(() => {
+      expect(canvas.getByText(/action completed successfully/i)).toBeInTheDocument();
+    });
   },
 };
 
@@ -396,6 +637,7 @@ export const VisualRegression: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Dialog open by default for visual regression testing.",
@@ -437,6 +679,7 @@ export const Playground: Story = {
     </Dialog>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with dialog props.",

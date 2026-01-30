@@ -127,44 +127,13 @@ const meta: Meta<typeof PromptInput> = {
 export default meta;
 type Story = StoryObj<typeof PromptInput>;
 
-function AttachmentTools({
-  model,
-  setModel,
-}: {
-  model: string;
-  setModel: (model: string) => void;
-}) {
-  return (
-    <>
-      <PromptInputButton size="icon-sm" aria-label="Settings">
-        <IconAdjustments />
-      </PromptInputButton>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm">
-            {model}
-            <IconChevronDown />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setModel("GPT-4")}>GPT-4</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setModel("GPT-3.5")}>GPT-3.5</DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setModel("Claude")}>Claude</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
-  );
-}
-
 /**
  * Basic prompt input with attachments and default helper text
  * Matches the basic example from prompt-input.examples.tsx
  */
 export const Basic: Story = {
-  args: {
-    className: "w-[500px]",
-  },
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -204,13 +173,10 @@ export const Basic: Story = {
       { timeout: 500 }
     );
   },
-  render: function PromptInputBasicStory(args) {
+  render: function PromptInputBasicStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      // Call the action logger if provided
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -224,7 +190,7 @@ export const Basic: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type your message..." />
         </PromptInputBody>
@@ -242,16 +208,33 @@ export const Basic: Story = {
  * Matches the noHelperText example from prompt-input.examples.tsx
  */
 export const NoHelperText: Story = {
-  args: {
-    helperText: false,
-    className: "w-[500px]",
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story: "Prompt input without helper text displayed below the input.",
+      },
+    },
   },
-  render: function PromptInputNoHelperTextStory(args) {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify textarea is present
+    const textarea = canvas.getByTestId("prompt-input-textarea");
+    await expect(textarea).toBeInTheDocument();
+
+    // Verify submit button is present
+    const submitButton = canvas.getByTestId("prompt-input-submit");
+    await expect(submitButton).toBeInTheDocument();
+
+    // Verify helper text is NOT present (helperText={false})
+    const helperText = canvas.queryByText(/AI doesn't always get it right/i);
+    await expect(helperText).not.toBeInTheDocument();
+  },
+  render: function PromptInputNoHelperTextStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -265,7 +248,7 @@ export const NoHelperText: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput helperText={false} className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type your message..." />
         </PromptInputBody>
@@ -283,15 +266,33 @@ export const NoHelperText: Story = {
  * Matches the customHelperText example from prompt-input.examples.tsx
  */
 export const CustomHelperText: Story = {
-  args: {
-    className: "w-[500px]",
+  parameters: {
+    order: 3,
+    docs: {
+      description: {
+        story: "Prompt input with custom helper text component.",
+      },
+    },
   },
-  render: function PromptInputCustomHelperTextStory(args) {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify custom helper text is present
+    const customHelperText = canvas.getByText(/This is experimental. Use with caution./i);
+    await expect(customHelperText).toBeInTheDocument();
+
+    // Verify textarea is present
+    const textarea = canvas.getByTestId("prompt-input-textarea");
+    await expect(textarea).toBeInTheDocument();
+
+    // Verify default helper text is NOT present
+    const defaultHelperText = canvas.queryByText(/AI doesn't always get it right/i);
+    await expect(defaultHelperText).not.toBeInTheDocument();
+  },
+  render: function PromptInputCustomHelperTextStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -306,7 +307,7 @@ export const CustomHelperText: Story = {
 
     return (
       <PromptInput
-        {...args}
+        className="w-125"
         onSubmit={handleSubmit}
         helperText={
           <HelperText size="xs" icon={<IconAlertTriangle />}>
@@ -330,8 +331,28 @@ export const CustomHelperText: Story = {
  * Loading/submitted state
  */
 export const SubmittedState: Story = {
+  parameters: {
+    order: 4,
+    docs: {
+      description: {
+        story: "Prompt input in submitted state with disabled textarea and submit button.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify submit button shows submitted state
+    const submitButton = canvas.getByTestId("prompt-input-submit");
+    await expect(submitButton).toHaveAttribute("data-status", "submitted");
+    await expect(submitButton).toBeDisabled();
+
+    // Verify textarea is disabled
+    const textarea = canvas.getByTestId("prompt-input-textarea");
+    await expect(textarea).toBeDisabled();
+  },
   render: () => (
-    <PromptInput onSubmit={() => {}} className="w-[500px]">
+    <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Type a message..." disabled />
       </PromptInputBody>
@@ -347,8 +368,29 @@ export const SubmittedState: Story = {
  * Streaming state
  */
 export const StreamingState: Story = {
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story:
+          "Prompt input in streaming state with disabled textarea and streaming submit button.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify submit button shows streaming state
+    const submitButton = canvas.getByTestId("prompt-input-submit");
+    await expect(submitButton).toHaveAttribute("data-status", "streaming");
+    await expect(submitButton).toBeInTheDocument();
+
+    // Verify textarea is disabled
+    const textarea = canvas.getByTestId("prompt-input-textarea");
+    await expect(textarea).toBeDisabled();
+  },
   render: () => (
-    <PromptInput onSubmit={() => {}} className="w-[500px]">
+    <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Type a message..." disabled />
       </PromptInputBody>
@@ -365,6 +407,7 @@ export const StreamingState: Story = {
  */
 export const ErrorState: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Shows the error state when a submission fails. Submit button displays an X icon.",
@@ -380,7 +423,7 @@ export const ErrorState: Story = {
     await expect(submitButton).toBeInTheDocument();
   },
   render: () => (
-    <PromptInput onSubmit={() => {}} className="w-[500px]">
+    <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Type a message..." />
       </PromptInputBody>
@@ -396,8 +439,31 @@ export const ErrorState: Story = {
  * Minimal prompt input
  */
 export const Minimal: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Minimal prompt input with only textarea and submit button.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify textarea is present
+    const textarea = canvas.getByPlaceholderText(/Message.../i);
+    await expect(textarea).toBeInTheDocument();
+
+    // Verify submit button is present
+    const submitButton = canvas.getByTestId("prompt-input-submit");
+    await expect(submitButton).toBeInTheDocument();
+
+    // Test typing
+    await userEvent.type(textarea, "Minimal test", { delay: 50 });
+    await expect(textarea).toHaveValue("Minimal test");
+  },
   render: () => (
-    <PromptInput onSubmit={(message) => console.log("Submitted:", message)} className="w-[400px]">
+    <PromptInput onSubmit={(message) => console.log("Submitted:", message)} className="w-100">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Message..." />
       </PromptInputBody>
@@ -412,11 +478,8 @@ export const Minimal: Story = {
  * Tests keyboard interactions: Enter to submit, Shift+Enter for newline
  */
 export const KeyboardInteractions: Story = {
-  args: {
-    helperText: false,
-    className: "w-[500px]",
-  },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Tests keyboard shortcuts: Enter to submit, Shift+Enter for new line.",
@@ -449,12 +512,10 @@ export const KeyboardInteractions: Story = {
       { timeout: 300 }
     );
   },
-  render: function KeyboardInteractionsStory(args) {
+  render: function KeyboardInteractionsStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       if (!hasText) return;
 
@@ -464,7 +525,7 @@ export const KeyboardInteractions: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput helperText={false} className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea placeholder="Type your message..." />
         </PromptInputBody>
@@ -482,17 +543,41 @@ export const KeyboardInteractions: Story = {
  * Demonstrates all available features
  */
 export const WithAdvancedTools: Story = {
-  args: {
-    className: "w-[500px]",
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Prompt input with advanced tools including settings button, model selector dropdown, and speech-to-text button.",
+      },
+    },
   },
-  render: function PromptInputWithAdvancedToolsStory(args) {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Verify textarea is present
+    const textarea = canvas.getByTestId("prompt-input-textarea");
+    await expect(textarea).toBeInTheDocument();
+
+    // Verify settings button is present
+    const settingsButton = canvas.getByLabelText(/Settings/i);
+    await expect(settingsButton).toBeInTheDocument();
+
+    // Verify model selector dropdown button is present
+    const modelButton = canvas.getByRole("button", { name: /Agent model/i });
+    await expect(modelButton).toBeInTheDocument();
+    await expect(modelButton).toHaveAttribute("aria-haspopup", "menu");
+
+    // Verify submit button is present
+    const submitButton = canvas.getByTestId("prompt-input-submit");
+    await expect(submitButton).toBeInTheDocument();
+  },
+  render: function PromptInputWithAdvancedToolsStory() {
     const [model, setModel] = useState("Agent model");
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
-      args.onSubmit?.(message, event);
-
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -506,13 +591,28 @@ export const WithAdvancedTools: Story = {
     };
 
     return (
-      <PromptInput {...args} onSubmit={handleSubmit}>
+      <PromptInput className="w-125" onSubmit={handleSubmit}>
         <PromptInputBody>
           <PromptInputTextarea ref={textareaRef} placeholder="Type your message..." />
         </PromptInputBody>
         <PromptInputFooter>
           <PromptInputTools>
-            <AttachmentTools model={model} setModel={setModel} />
+            <PromptInputButton size="icon-sm" aria-label="Settings">
+              <IconAdjustments />
+            </PromptInputButton>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  {model}
+                  <IconChevronDown />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setModel("GPT-4")}>GPT-4</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel("GPT-3.5")}>GPT-3.5</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setModel("Claude")}>Claude</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </PromptInputTools>
           <div className="flex flex-row gap-2">
             <PromptInputSpeechButton textareaRef={textareaRef} />
@@ -520,6 +620,57 @@ export const WithAdvancedTools: Story = {
           </div>
         </PromptInputFooter>
       </PromptInput>
+    );
+  },
+};
+
+/**
+ * Interactive playground for testing prompt input props.
+ */
+export const Playground: Story = {
+  args: {
+    helperText: undefined,
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story:
+          "Interactive playground to test different prompt input configurations. Use the controls panel to experiment with props.",
+      },
+    },
+  },
+  render: function PromptInputPlaygroundStory(args) {
+    const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
+
+    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
+      const hasText = Boolean(message.text);
+      const hasAttachments = Boolean(message.files?.length);
+
+      if (!(hasText || hasAttachments)) {
+        return;
+      }
+
+      setStatus("submitted");
+      setTimeout(() => setStatus("streaming"), 200);
+      setTimeout(() => setStatus("ready"), 2000);
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { onSubmit, ...restArgs } = args;
+
+    return (
+      <div className="flex items-center justify-center p-24">
+        <PromptInput className="w-125" onSubmit={handleSubmit} {...restArgs}>
+          <PromptInputBody>
+            <PromptInputTextarea placeholder="Type your message..." />
+          </PromptInputBody>
+          <PromptInputFooter>
+            <PromptInputTools />
+            <PromptInputSubmit className="size-7" status={status} />
+          </PromptInputFooter>
+        </PromptInput>
+      </div>
     );
   },
 };

@@ -10,7 +10,6 @@ import {
   IconCircleCheck,
   IconClock,
   IconFlask,
-  IconSparkles,
   IconStar,
 } from "@tabler/icons-react";
 
@@ -20,13 +19,16 @@ interface ComponentStatusNotificationProps {
 
 const STATUS_ICONS: Record<ComponentStatusType, typeof IconCircleCheck> = {
   draft: IconAlertCircle,
-  review: IconClock,
-  done: IconCircleCheck,
-  beta: IconFlask,
-  production: IconCircleCheck,
+  planned: IconClock,
+  "shadcn-ui": IconStar,
+  experimental: IconFlask,
   deprecated: IconBan,
-  experimental: IconSparkles,
-  new: IconStar,
+  "in-progress-storybook": IconClock,
+  "in-progress-code-review": IconClock,
+  "in-progress-chromatic": IconClock,
+  "in-progress-design-conformance": IconClock,
+  "ready-for-ga": IconCircleCheck,
+  stable: IconCircleCheck,
 };
 
 export function ComponentStatusNotification({ status }: ComponentStatusNotificationProps) {

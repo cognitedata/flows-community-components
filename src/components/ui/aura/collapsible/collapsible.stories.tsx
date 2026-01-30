@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconChevronDown, IconSelector } from "@tabler/icons-react";
+import { IconSelector } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 
@@ -67,6 +67,7 @@ type Story = StoryObj<typeof Collapsible>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -108,7 +109,7 @@ export const Basic: Story = {
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between">
           <span>What is a collapsible?</span>
-          <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -128,18 +129,33 @@ export const Basic: Story = {
  */
 export const DefaultOpen: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Collapsible that starts in the open state using the defaultOpen prop.",
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Trigger button should be present
+    const trigger = canvas.getByRole("button", {
+      name: /frequently asked questions/i,
+    });
+    await expect(trigger).toBeInTheDocument();
+
+    // Content should start open
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
+    await expect(content).toBeInTheDocument();
+    await expect(content).toHaveAttribute("data-state", "open");
+  },
   render: () => (
     <Collapsible defaultOpen className="w-[400px] space-y-2">
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between">
           <span>Frequently Asked Questions</span>
-          <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -164,6 +180,7 @@ export const DefaultOpen: Story = {
  */
 export const Controlled: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -209,7 +226,7 @@ export const Controlled: Story = {
           <CollapsibleTrigger asChild>
             <Button variant="ghost" className="w-full justify-between">
               <span>Controlled Collapsible</span>
-              <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent>
@@ -230,12 +247,32 @@ export const Controlled: Story = {
  */
 export const WithCustomTrigger: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
           "Collapsible with a custom trigger button. You can style the trigger however you like.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /advanced settings/i });
+    await expect(trigger).toBeInTheDocument();
+
+    // Content should be closed initially
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
+    await expect(content).toHaveAttribute("data-state", "closed");
+
+    // Click to open
+    await userEvent.click(trigger);
+    await waitFor(
+      () => {
+        expect(content).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
@@ -265,6 +302,7 @@ export const WithCustomTrigger: Story = {
  */
 export const Multiple: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -272,13 +310,47 @@ export const Multiple: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const q1 = canvas.getByRole("button", { name: /question 1/i });
+    const q2 = canvas.getByRole("button", { name: /question 2/i });
+
+    await expect(q1).toBeInTheDocument();
+    await expect(q2).toBeInTheDocument();
+
+    const contents = canvasElement.querySelectorAll('[data-slot="collapsible-content"]');
+    await expect(contents.length).toBeGreaterThanOrEqual(2);
+
+    // Open first question
+    await userEvent.click(q1);
+    await waitFor(
+      () => {
+        expect(contents[0]).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+
+    // Open second question without closing the first
+    await userEvent.click(q2);
+    await waitFor(
+      () => {
+        expect(contents[1]).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+
+    // Both can be open at the same time
+    await expect(contents[0]).toHaveAttribute("data-state", "open");
+    await expect(contents[1]).toHaveAttribute("data-state", "open");
+  },
   render: () => (
     <div className="space-y-2 w-[400px]">
       <Collapsible className="space-y-2">
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between">
             <span>Question 1: What is React?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -293,7 +365,7 @@ export const Multiple: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between">
             <span>Question 2: What is TypeScript?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -307,7 +379,7 @@ export const Multiple: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between">
             <span>Question 3: What is Next.js?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -327,6 +399,7 @@ export const Multiple: Story = {
  */
 export const Disabled: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -334,12 +407,25 @@ export const Disabled: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /disabled collapsible/i });
+    await expect(trigger).toBeInTheDocument();
+    await expect(trigger).toBeDisabled();
+
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
+    await expect(content).toBeInTheDocument();
+
+    // Verify it starts and remains in the closed state (no interaction needed)
+    await expect(content).toHaveAttribute("data-state", "closed");
+  },
   render: () => (
     <Collapsible disabled className="w-[400px] space-y-2">
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between" disabled>
           <span>Disabled Collapsible</span>
-          <IconChevronDown className="h-4 w-4" />
+          <IconSelector className="h-4 w-4" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -357,6 +443,7 @@ export const Disabled: Story = {
  */
 export const WithRichContent: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -364,12 +451,26 @@ export const WithRichContent: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /documentation/i });
+    await expect(trigger).toBeInTheDocument();
+
+    await userEvent.click(trigger);
+
+    // Verify rich content appears
+    await expect(canvas.getByText("Getting Started")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Follow these steps to get started with the component library:")
+    ).toBeInTheDocument();
+  },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
       <CollapsibleTrigger asChild>
         <Button variant="ghost" className="w-full justify-between">
           <span>Documentation</span>
-          <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent>
@@ -398,12 +499,32 @@ export const WithRichContent: Story = {
  */
 export const FAQ: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
           "FAQ section using collapsibles. This demonstrates a common use case where multiple questions can be expanded simultaneously.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // First FAQ question should toggle on click
+    const q1 = canvas.getByRole("button", {
+      name: /what's the difference between collapsible and accordion\?/i,
+    });
+    await expect(q1).toBeInTheDocument();
+
+    await userEvent.click(q1);
+    await expect(
+      canvas.getByText(/collapsibles work independently—multiple can be open at once/i)
+    ).toBeInTheDocument();
+
+    // Third FAQ is defaultOpen and should already show content
+    await expect(
+      canvas.getByText(/yes! use the open prop for controlled state/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2 w-[500px]">
@@ -413,7 +534,7 @@ export const FAQ: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">
             <span>What&apos;s the difference between Collapsible and Accordion?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -429,7 +550,7 @@ export const FAQ: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">
             <span>How do I customize the styling?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -444,7 +565,7 @@ export const FAQ: Story = {
         <CollapsibleTrigger asChild>
           <Button variant="ghost" className="w-full justify-between text-left">
             <span>Can I control the open state programmatically?</span>
-            <IconChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
@@ -455,5 +576,123 @@ export const FAQ: Story = {
         </CollapsibleContent>
       </Collapsible>
     </div>
+  ),
+};
+
+/**
+ * Empty content
+ * Shows collapsible with empty content
+ */
+export const EdgeCaseEmpty: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Collapsible with empty content. Tests how the component handles empty states and maintains proper spacing.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", { name: /empty content/i });
+    await expect(trigger).toBeInTheDocument();
+
+    // Content should be present but empty
+    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
+    await expect(content).toBeInTheDocument();
+
+    // Click to expand
+    await userEvent.click(trigger);
+    await waitFor(
+      () => {
+        expect(content).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+  },
+  render: () => (
+    <Collapsible className="w-[400px] space-y-2">
+      <CollapsibleTrigger asChild>
+        <Button variant="ghost" className="w-full justify-between">
+          <span>Empty Content</span>
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="px-4 py-2" />
+      </CollapsibleContent>
+    </Collapsible>
+  ),
+};
+
+/**
+ * Long text overflow
+ * Shows collapsible with very long text content
+ */
+export const EdgeCaseLongText: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Collapsible with very long text content. Tests overflow handling, text wrapping, and scroll behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByRole("button", {
+      name: /very long title that might wrap/i,
+    });
+    await expect(trigger).toBeInTheDocument();
+
+    // Click to expand and verify long content
+    await userEvent.click(trigger);
+    await waitFor(
+      () => {
+        const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
+        expect(content).toHaveAttribute("data-state", "open");
+      },
+      { timeout: 300 }
+    );
+
+    // Verify long text is present
+    await expect(canvas.getByText(/this is an extremely long paragraph/i)).toBeInTheDocument();
+  },
+  render: () => (
+    <Collapsible className="w-[400px] space-y-2">
+      <CollapsibleTrigger asChild>
+        <Button variant="ghost" className="w-full justify-between">
+          <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
+          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0" />
+        </Button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="px-4 py-2 space-y-2">
+          <p className="text-sm">
+            This is an extremely long paragraph that demonstrates how the collapsible component
+            handles extensive text content. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat.
+          </p>
+          <p className="text-sm">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus
+            error sit voluptatem accusantium doloremque laudantium.
+          </p>
+          <p className="text-sm">
+            Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+            beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+            voluptatem sequi nesciunt.
+          </p>
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
   ),
 };
