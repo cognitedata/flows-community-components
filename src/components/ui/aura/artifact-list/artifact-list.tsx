@@ -96,15 +96,8 @@ const ArtifactListOrdered = forwardRef<
 ArtifactListOrdered.displayName = "ArtifactListOrdered";
 
 const ArtifactListItem = forwardRef<ComponentRef<typeof ListItem>, ComponentProps<typeof ListItem>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <ListItem
-        ref={ref}
-        data-slot="artifact-list-item"
-        className={cn("p-0.5 gap-x-2", className)}
-        {...props}
-      />
-    );
+  (props, ref) => {
+    return <ListItem ref={ref} data-slot="artifact-list-item" {...props} />;
   }
 );
 ArtifactListItem.displayName = "ArtifactListItem";

@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, type ElementRef, forwardRef } from "react";
+import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
 
 import {
   Card,
@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
  * The actual chart implementation (PieChart, BarChart, etc.) is composed
  * within the content area using Recharts components directly in your code.
  */
-const ArtifactChart = forwardRef<ElementRef<typeof Card>, ComponentPropsWithoutRef<typeof Card>>(
+const ArtifactChart = forwardRef<ComponentRef<typeof Card>, ComponentPropsWithoutRef<typeof Card>>(
   ({ className, ...props }, ref) => {
     return <Card data-slot="artifact-chart" ref={ref} className={className} {...props} />;
   }
@@ -25,7 +25,7 @@ const ArtifactChart = forwardRef<ElementRef<typeof Card>, ComponentPropsWithoutR
 ArtifactChart.displayName = "ArtifactChart";
 
 const ArtifactChartHeader = forwardRef<
-  ElementRef<typeof CardHeader>,
+  ComponentRef<typeof CardHeader>,
   ComponentPropsWithoutRef<typeof CardHeader>
 >(({ className, ...props }, ref) => {
   return (
@@ -40,7 +40,7 @@ const ArtifactChartHeader = forwardRef<
 ArtifactChartHeader.displayName = "ArtifactChartHeader";
 
 const ArtifactChartTitle = forwardRef<
-  ElementRef<typeof CardTitle>,
+  ComponentRef<typeof CardTitle>,
   ComponentPropsWithoutRef<typeof CardTitle>
 >(({ className, ...props }, ref) => {
   return (
@@ -55,7 +55,7 @@ const ArtifactChartTitle = forwardRef<
 ArtifactChartTitle.displayName = "ArtifactChartTitle";
 
 const ArtifactChartDescription = forwardRef<
-  ElementRef<typeof CardDescription>,
+  ComponentRef<typeof CardDescription>,
   ComponentPropsWithoutRef<typeof CardDescription>
 >(({ className, ...props }, ref) => {
   return (
@@ -73,7 +73,7 @@ const ArtifactChartDescription = forwardRef<
 ArtifactChartDescription.displayName = "ArtifactChartDescription";
 
 const ArtifactChartContent = forwardRef<
-  ElementRef<typeof CardContent>,
+  ComponentRef<typeof CardContent>,
   ComponentPropsWithoutRef<typeof CardContent>
 >(({ className, ...props }, ref) => {
   return (
@@ -88,7 +88,7 @@ const ArtifactChartContent = forwardRef<
 ArtifactChartContent.displayName = "ArtifactChartContent";
 
 const ArtifactChartFooter = forwardRef<
-  ElementRef<typeof CardFooter>,
+  ComponentRef<typeof CardFooter>,
   ComponentPropsWithoutRef<typeof CardFooter>
 >(({ className, ...props }, ref) => {
   return (

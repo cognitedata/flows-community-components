@@ -82,6 +82,7 @@ type Story = StoryObj<typeof Tooltip>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -132,6 +133,7 @@ export const Basic: Story = {
  */
 export const WithButtonVariants: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -222,6 +224,7 @@ export const WithButtonVariants: Story = {
  */
 export const PositionTop: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Tooltip positioned above the trigger element.",
@@ -264,6 +267,7 @@ export const PositionTop: Story = {
  */
 export const PositionRight: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Tooltip positioned to the right of the trigger element.",
@@ -299,6 +303,7 @@ export const PositionRight: Story = {
  */
 export const PositionBottom: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Tooltip positioned below the trigger element.",
@@ -334,6 +339,7 @@ export const PositionBottom: Story = {
  */
 export const PositionLeft: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Tooltip positioned to the left of the trigger element.",
@@ -370,15 +376,42 @@ export const PositionLeft: Story = {
  */
 export const AllPositions: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Tooltips with arrows appearing from all sides.",
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const tooltipBody = within(document.body);
+
+    // Test each position
+    const positions = ["Top", "Right", "Bottom", "Left"];
+
+    for (const position of positions) {
+      const button = canvas.getByRole("button", {
+        name: new RegExp(`hover me - ${position}`, "i"),
+      });
+      await userEvent.hover(button);
+
+      await waitFor(
+        () => {
+          const tooltip = tooltipBody.queryByTestId("tooltip-content");
+          expect(tooltip).toBeVisible();
+          expect(tooltip).toHaveAttribute("data-side", position.toLowerCase());
+        },
+        { timeout: 3000 }
+      );
+
+      // Small delay between positions
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    }
+  },
   render: () => (
     <TooltipProvider>
-      <div className="flex flex-col items-center justify-center gap-16 min-h-[300px]">
+      <div className="flex flex-col items-center justify-center gap-16 min-h-75">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="outline">Hover me - Top</Button>
@@ -417,6 +450,7 @@ export const AllPositions: Story = {
  */
 export const WithIcons: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -505,6 +539,7 @@ export const WithIcons: Story = {
  */
 export const LongContent: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Tooltip with longer content to demonstrate text wrapping and balance.",
@@ -544,6 +579,7 @@ export const LongContent: Story = {
  */
 export const WithOffset: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Tooltip with custom side offset to adjust spacing from the trigger element.",
@@ -581,6 +617,7 @@ export const WithOffset: Story = {
  */
 export const KeyboardInteractions: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -640,6 +677,7 @@ export const KeyboardInteractions: Story = {
  */
 export const DefaultOpen: Story = {
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Tooltip that is open by default when the component mounts. Tests defaultOpen prop.",
@@ -677,39 +715,72 @@ export const DefaultOpen: Story = {
  */
 export const ControlledState: Story = {
   parameters: {
+    order: 13,
     docs: {
       description: {
         story: "Demonstrates a controlled tooltip where the open state is managed externally.",
       },
     },
   },
-  render: () => {
-    function ControlledTooltipExample() {
-      const [isOpen, setIsOpen] = useState(false);
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const tooltipBody = within(document.body);
 
-      return (
-        <div className="flex flex-col gap-4">
-          <TooltipProvider>
-            <Tooltip open={isOpen} onOpenChange={setIsOpen}>
-              <TooltipTrigger asChild>
-                <Button>Controlled tooltip trigger</Button>
-              </TooltipTrigger>
-              <TooltipContent>This tooltip&apos;s state is controlled externally</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <div className="flex gap-2">
-            <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
-              Open tooltip
-            </Button>
-            <Button onClick={() => setIsOpen(false)} variant="outline" size="sm">
-              Close tooltip
-            </Button>
-          </div>
+    // Find the control buttons
+    const openButton = canvas.getByRole("button", { name: /open tooltip/i });
+    const closeButton = canvas.getByRole("button", { name: /close tooltip/i });
+
+    // Initially tooltip should not be visible
+    expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
+
+    // Click open button
+    await userEvent.click(openButton);
+
+    // Wait for tooltip to appear
+    await waitFor(
+      () => {
+        const tooltip = tooltipBody.queryByTestId("tooltip-content");
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toBeVisible();
+        expect(tooltip).toHaveTextContent(/controlled externally/i);
+      },
+      { timeout: 3000 }
+    );
+
+    // Click close button
+    await userEvent.click(closeButton);
+
+    // Wait for tooltip to disappear
+    await waitFor(
+      () => {
+        expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
+  },
+  render: function ControlledState() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div className="flex flex-col gap-4">
+        <TooltipProvider>
+          <Tooltip open={isOpen} onOpenChange={setIsOpen}>
+            <TooltipTrigger asChild>
+              <Button>Controlled tooltip trigger</Button>
+            </TooltipTrigger>
+            <TooltipContent>This tooltip&apos;s state is controlled externally</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <div className="flex gap-2">
+          <Button onClick={() => setIsOpen(true)} variant="outline" size="sm">
+            Open tooltip
+          </Button>
+          <Button onClick={() => setIsOpen(false)} variant="outline" size="sm">
+            Close tooltip
+          </Button>
         </div>
-      );
-    }
-
-    return <ControlledTooltipExample />;
+      </div>
+    );
   },
 };
 
@@ -718,6 +789,7 @@ export const ControlledState: Story = {
  */
 export const WithDelay: Story = {
   parameters: {
+    order: 14,
     docs: {
       description: {
         story: "Tooltip with a 1500ms delay before appearing. Tests delayDuration prop.",
@@ -757,4 +829,41 @@ export const WithDelay: Story = {
       </TooltipProvider>
     );
   },
+};
+
+/**
+ * Visual regression baseline
+ */
+export const VisualRegression: Story = {
+  parameters: {
+    order: 15,
+    docs: {
+      description: {
+        story: "Baseline story for visual regression testing. Shows tooltip in open state.",
+      },
+    },
+  },
+  play: async () => {
+    const tooltipBody = within(document.body);
+
+    // Verify tooltip is visible for visual snapshot
+    await waitFor(
+      () => {
+        const tooltip = tooltipBody.queryByTestId("tooltip-content");
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toBeVisible();
+      },
+      { timeout: 3000 }
+    );
+  },
+  render: () => (
+    <TooltipProvider>
+      <Tooltip defaultOpen>
+        <TooltipTrigger asChild>
+          <Button>Trigger</Button>
+        </TooltipTrigger>
+        <TooltipContent>Visual regression baseline</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  ),
 };

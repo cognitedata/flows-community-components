@@ -1,29 +1,33 @@
 import { cn } from "@/lib/utils";
-import type { ComponentProps } from "react";
+import { type ComponentProps, forwardRef } from "react";
 
-function Kbd({ className, ...props }: ComponentProps<"kbd">) {
+const Kbd = forwardRef<HTMLElement, ComponentProps<"kbd">>(({ className, ...props }, ref) => {
   return (
     <kbd
+      ref={ref}
       data-slot="kbd"
       className={cn(
         "bg-muted text-muted-foreground pointer-events-none inline-flex h-4 w-fit min-w-5 items-center justify-center gap-1 rounded-sm font-sans text-xs font-medium select-none tracking-tightest p-0.5",
         "[&_svg:not([class*='size-'])]:size-3",
-        "[[data-slot=tooltip-content]_&]:bg-background/20 [[data-slot=tooltip-content]_&]:text-background dark:[[data-slot=tooltip-content]_&]:bg-background/10",
+        "in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10",
         className
       )}
       {...props}
     />
   );
-}
+});
+Kbd.displayName = "Kbd";
 
-function KbdGroup({ className, ...props }: ComponentProps<"div">) {
+const KbdGroup = forwardRef<HTMLElement, ComponentProps<"kbd">>(({ className, ...props }, ref) => {
   return (
     <kbd
+      ref={ref}
       data-slot="kbd-group"
       className={cn("inline-flex items-center gap-1", className)}
       {...props}
     />
   );
-}
+});
+KbdGroup.displayName = "KbdGroup";
 
 export { Kbd, KbdGroup };

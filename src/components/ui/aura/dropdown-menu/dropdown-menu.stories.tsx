@@ -91,6 +91,7 @@ type Story = StoryObj<typeof DropdownMenu>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -131,9 +132,9 @@ export const Basic: Story = {
     await expect(menuContent).toHaveTextContent("Settings");
     await expect(menuContent).toHaveTextContent("Help");
   },
-  render: function BasicStory(args) {
+  render: function BasicStory() {
     return (
-      <DropdownMenu {...args}>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button>Open Menu</Button>
         </DropdownMenuTrigger>
@@ -166,6 +167,7 @@ export const Basic: Story = {
  */
 export const WithUserLabel: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Dropdown menu with rich label content including avatar and user information.",
@@ -191,9 +193,9 @@ export const WithUserLabel: Story = {
       { timeout: 1000 }
     );
   },
-  render: function WithUserLabelStory(args) {
+  render: function WithUserLabelStory() {
     return (
-      <DropdownMenu {...args}>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button>User Menu</Button>
         </DropdownMenuTrigger>
@@ -238,6 +240,7 @@ export const WithUserLabel: Story = {
  */
 export const WithCheckboxItems: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -291,7 +294,7 @@ export const WithCheckboxItems: Story = {
       expect(outputDiv?.textContent).toContain("selected");
     });
   },
-  render: function WithCheckboxItemsStory(args) {
+  render: function WithCheckboxItemsStory({ modal = false }) {
     const [checkedItems, setCheckedItems] = useState({
       emails: true,
       messages: true,
@@ -328,7 +331,7 @@ export const WithCheckboxItems: Story = {
             )}
           </ul>
         </div>
-        <DropdownMenu {...args}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               Filters
@@ -384,6 +387,7 @@ export const WithCheckboxItems: Story = {
  */
 export const WithRadioGroup: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -434,7 +438,7 @@ export const WithRadioGroup: Story = {
       expect(outputDiv?.textContent).toContain("list");
     });
   },
-  render: function WithRadioGroupStory(args) {
+  render: function WithRadioGroupStory({ modal = false }) {
     const [viewMode, setViewMode] = useState("grid");
 
     return (
@@ -442,7 +446,7 @@ export const WithRadioGroup: Story = {
         <div className="text-sm text-muted-foreground" data-testid="radio-output">
           Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
-        <DropdownMenu {...args}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               Change View
@@ -470,6 +474,7 @@ export const WithRadioGroup: Story = {
  */
 export const WithDestructiveAction: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -501,13 +506,12 @@ export const WithDestructiveAction: Story = {
       { timeout: 1000 }
     );
   },
-  render: function WithDestructiveActionStory(args) {
+  render: function WithDestructiveActionStory({ modal = false }) {
     const [action, setAction] = useState<string>("");
 
     return (
       <div className="space-y-4">
-        {action && <div className="text-sm text-muted-foreground">Last action: {action}</div>}
-        <DropdownMenu {...args}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button>Actions</Button>
           </DropdownMenuTrigger>
@@ -538,6 +542,7 @@ export const WithDestructiveAction: Story = {
  */
 export const KeyboardNavigation: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -589,7 +594,7 @@ export const KeyboardNavigation: Story = {
       { timeout: 1000 }
     );
   },
-  render: function KeyboardNavigationStory(args) {
+  render: function KeyboardNavigationStory({ modal = false }) {
     const [selectedItem, setSelectedItem] = useState<string>("");
 
     return (
@@ -599,7 +604,7 @@ export const KeyboardNavigation: Story = {
             Selected: <span className="font-medium text-foreground">{selectedItem}</span>
           </div>
         )}
-        <DropdownMenu {...args}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button>Keyboard Test</Button>
           </DropdownMenuTrigger>
@@ -628,6 +633,7 @@ export const KeyboardNavigation: Story = {
  */
 export const EmptyMenu: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Edge case: Dropdown menu with no available items, showing disabled placeholder.",
@@ -652,9 +658,9 @@ export const EmptyMenu: Story = {
       { timeout: 1000 }
     );
   },
-  render: function EmptyMenuStory(args) {
+  render: function EmptyMenuStory() {
     return (
-      <DropdownMenu {...args}>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button>Empty Menu</Button>
         </DropdownMenuTrigger>
@@ -673,6 +679,7 @@ export const EmptyMenu: Story = {
  */
 export const DisabledTrigger: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Edge case: Dropdown menu with disabled trigger button.",
@@ -695,9 +702,9 @@ export const DisabledTrigger: Story = {
     const styles = window.getComputedStyle(trigger);
     expect(styles.pointerEvents).toBe("none");
   },
-  render: function DisabledTriggerStory(args) {
+  render: function DisabledTriggerStory() {
     return (
-      <DropdownMenu {...args}>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button disabled>Disabled Menu</Button>
         </DropdownMenuTrigger>
@@ -717,6 +724,7 @@ export const DisabledTrigger: Story = {
  */
 export const ComplexInteractive: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -773,7 +781,7 @@ export const ComplexInteractive: Story = {
     });
     expect(resetButton).toBeInTheDocument();
   },
-  render: function ComplexInteractiveStory(args) {
+  render: function ComplexInteractiveStory({ modal = false }) {
     const [notifications, setNotifications] = useState({
       email: true,
       push: false,
@@ -814,7 +822,7 @@ export const ComplexInteractive: Story = {
           )}
         </div>
 
-        <DropdownMenu {...args}>
+        <DropdownMenu modal={modal}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="w-full">
               Preferences
@@ -867,6 +875,60 @@ export const ComplexInteractive: Story = {
                 Reset to defaults
               </DropdownMenuItem>
             </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    );
+  },
+};
+
+/**
+ * Interactive playground
+ * Allows testing all dropdown menu props interactively
+ */
+export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with dropdown menu props.",
+      },
+    },
+  },
+  render: function PlaygroundStory({ modal = false }) {
+    const [selectedItem, setSelectedItem] = useState<string>("");
+
+    return (
+      <div className="space-y-4">
+        {selectedItem && (
+          <div className="text-sm text-muted-foreground">
+            Selected: <span className="font-medium text-foreground">{selectedItem}</span>
+          </div>
+        )}
+        <DropdownMenu modal={modal}>
+          <DropdownMenuTrigger asChild>
+            <Button>Open Playground Menu</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setSelectedItem("Profile")}>
+              <IconUser />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setSelectedItem("Settings")}>
+              <IconSettingsFilled />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setSelectedItem("Notifications")}>
+              <IconBell />
+              Notifications
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => setSelectedItem("Help")}>
+              <IconHelp />
+              Help
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
