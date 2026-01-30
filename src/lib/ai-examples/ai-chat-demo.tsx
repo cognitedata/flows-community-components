@@ -61,6 +61,7 @@ import {
   IconFile,
   IconHash,
   IconPhoto,
+  IconPlayerSkipForward,
   IconRefresh,
   IconWheel,
 } from "@tabler/icons-react";
@@ -427,6 +428,8 @@ export interface AIChatDemoProps {
   showReplayButton?: boolean;
   /** Custom height for the container (default: "h-[900px]") */
   height?: string;
+  /** Whether to show the grid overlay (default: false) */
+  showGrid?: boolean;
 }
 
 // ============================================================================
@@ -454,6 +457,7 @@ export function AIChatDemo({
   showPromptBorder = true,
   showReplayButton = true,
   height = "h-[900px]",
+  showGrid = false,
 }: AIChatDemoProps) {
   const [phase, setPhase] = useState<ConversationPhase>("empty");
   const [thinkingSeconds, setThinkingSeconds] = useState(0);
@@ -462,6 +466,7 @@ export function AIChatDemo({
   const [branches, setBranches] = useState<string[]>([""]);
   const [currentBranchIndex, setCurrentBranchIndex] = useState(0);
   const [isRetrying, setIsRetrying] = useState(false);
+  const [fastForward, setFastForward] = useState(false);
 
   // Derive shimmer phrase from thinking seconds (changes every 3 seconds)
   const phraseIndex = Math.min(Math.floor(thinkingSeconds / 3), 2);
@@ -486,6 +491,13 @@ export function AIChatDemo({
   useEffect(() => {
     if (phase !== "thinking") return;
 
+    // Fast-forward: skip thinking phase
+    if (fastForward) {
+      setThinkingSeconds(9);
+      setPhase("streaming");
+      return;
+    }
+
     const interval = setInterval(() => {
       setThinkingSeconds((prev) => {
         const next = prev + 1;
@@ -498,7 +510,7 @@ export function AIChatDemo({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [phase, fastForward]);
 
   // Streaming phase - stream response tokens
   useEffect(() => {
@@ -507,6 +519,21 @@ export function AIChatDemo({
     let currentContent = "";
     let index = 0;
     const tokens = isRetrying ? responseTokens2 : responseTokens;
+
+    // Fast-forward: show all tokens immediately
+    if (fastForward) {
+      const finalContent = tokens.join("");
+      setStreamedContent(finalContent);
+      setBranches((prev) => {
+        const updated = [...prev];
+        updated[currentBranchIndex] = finalContent;
+        return updated;
+      });
+      setPhase("complete");
+      setIsRetrying(false);
+      setFastForward(false);
+      return;
+    }
 
     const interval = setInterval(() => {
       if (index < tokens.length) {
@@ -534,7 +561,7 @@ export function AIChatDemo({
     }, 50);
 
     return () => clearInterval(interval);
-  }, [phase, isRetrying, currentBranchIndex]);
+  }, [phase, isRetrying, currentBranchIndex, fastForward]);
 
   const handleRetry = () => {
     if (branches.length >= 2 || isRetrying || phase !== "complete") return;
@@ -572,26 +599,51 @@ export function AIChatDemo({
     setBranches([""]);
     setCurrentBranchIndex(0);
     setIsRetrying(false);
+    setFastForward(false);
+  };
+
+  const handleFastForward = () => {
+    setFastForward(true);
   };
 
   const showUserMessage = phase !== "empty";
   const showAssistantMessage =
     phase === "thinking" || phase === "streaming" || phase === "complete";
   const isThinking = phase === "thinking";
+  const isStreaming = phase === "streaming";
   const isComplete = phase === "complete";
   const showBranchNav = branches.length > 1 && isComplete && !isRetrying;
+  const showFastForward = (isThinking || isStreaming) && !fastForward;
 
   return (
-    <div
-      className={cn(
-        "w-full relative flex flex-col",
-        height,
-        showBorder && "border rounded-lg",
-        className
-      )}
-    >
-      <Conversation className="flex-1 min-h-0">
-        <ConversationContent>
+    <div className={cn("w-full flex", height)}>
+      <div className="w-64 border-r flex items-center justify-center text-sm text-muted-foreground">
+        Sidebar
+      </div>
+
+      {/* AI Chat Container - THIS IS THE SCROLLABLE AREA */}
+      <div
+        className={cn(
+          "flex-1 relative @container overflow-y-auto",
+          showBorder && "border rounded-lg",
+          className
+        )}
+      >
+        {/* Grid system for layout */}
+        <div className="grid grid-cols-12 gap-3 px-2 py-6 mx-auto max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl relative min-h-full">
+          {/* Grid overlay (Ctrl+G toggle) */}
+          {showGrid && (
+            <div className="absolute inset-x-2 inset-y-6 grid grid-cols-12 gap-3 pointer-events-none z-10">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="bg-blue-500/10 border border-blue-500/30" />
+              ))}
+            </div>
+          )}
+
+          {/* Content area - starts at column 3, spans 8 columns at 5xl+ */}
+          <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8 min-h-full">
+            <Conversation className="min-h-full">
+              <ConversationContent>
           {phase === "empty" ? (
             <ConversationEmptyState title="Start a conversation with Atlas">
               <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
@@ -787,10 +839,15 @@ export function AIChatDemo({
             </>
           )}
         </ConversationContent>
-        <ConversationScrollButton />
-      </Conversation>
+            <ConversationScrollButton />
+          </Conversation>
+          </div>
+        </div>
 
-      <div className={cn(showPromptBorder && "border-t", "p-4")}>
+        {/* Prompt Input - sticky positioned to stay at bottom while scrolling */}
+        <div className="sticky bottom-0 left-0 right-0 grid grid-cols-12 gap-3 px-2 mx-auto max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl pointer-events-none">
+          <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8 pointer-events-auto">
+            <div className={cn("p-6", showPromptBorder && "border-t", "bg-background")}>
         <PromptInputProvider>
           <PromptInput onSubmit={() => {}}>
             <PromptInputBody>
@@ -819,20 +876,36 @@ export function AIChatDemo({
             </PromptInputFooter>
           </PromptInput>
         </PromptInputProvider>
-      </div>
+            </div>
+          </div>
+        </div>
 
-      {/* Restart button overlay */}
-      {showReplayButton && isComplete && (
-        <Button
-          variant="outline"
-          onClick={restartDemo}
-          className="absolute top-4 right-4 flex items-center gap-2 z-10"
-          size="sm"
-        >
-          <IconRefresh className="h-4 w-4" />
-          Replay demo
-        </Button>
-      )}
+        {/* Fast-forward button overlay - positioned at top right of AI Chat Container */}
+        {showFastForward && (
+          <Button
+            variant="outline"
+            onClick={handleFastForward}
+            className="absolute top-4 right-4 flex items-center gap-2 z-10"
+            size="sm"
+          >
+            <IconPlayerSkipForward className="h-4 w-4" />
+            Fast-forward
+          </Button>
+        )}
+
+        {/* Restart button overlay - positioned at top right of AI Chat Container */}
+        {showReplayButton && isComplete && (
+          <Button
+            variant="outline"
+            onClick={restartDemo}
+            className="absolute top-4 right-4 flex items-center gap-2 z-10"
+            size="sm"
+          >
+            <IconRefresh className="h-4 w-4" />
+            Replay demo
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
