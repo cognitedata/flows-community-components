@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/aura/button";
 import { Input } from "@/components/ui/aura/input";
 import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
 import {
   Drawer,
