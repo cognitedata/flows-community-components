@@ -644,203 +644,210 @@ export function AIChatDemo({
           <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8 min-h-full">
             <Conversation className="min-h-full">
               <ConversationContent>
-          {phase === "empty" ? (
-            <ConversationEmptyState title="Start a conversation with Atlas">
-              <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
-                <Suggestion
-                  suggestion="Are there any anomalies, risks, or non-conformances identified?"
-                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
-                />
-                <Suggestion
-                  suggestion="What asset or equipment is being evaluated and what is its operational context?"
-                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
-                />
-                <Suggestion
-                  suggestion="What are the current field conditions and observations recorded?"
-                  className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
-                />
-              </div>
-            </ConversationEmptyState>
-          ) : (
-            <>
-              {showUserMessage && (
-                <Message>
-                  <MessageContent>
-                    <span>
-                      There are abnormal vibration levels on{" "}
-                      <InlineCitation>
-                        <InlineCitationLink
-                          href="https://example.com/pump/21PT1019"
-                          target="_blank"
-                          icon={IconHash}
-                          variant="nordic"
-                        >
-                          21PT1019
-                        </InlineCitationLink>
-                      </InlineCitation>
-                    </span>
-                  </MessageContent>
-                </Message>
-              )}
-
-              {showAssistantMessage && (
-                <MessageBranch
-                  key={branches.length}
-                  defaultBranch={currentBranchIndex}
-                  onBranchChange={(index) => setCurrentBranchIndex(index)}
-                >
-                  <MessageBranchContent>
-                    {branches.map((branch, index) => (
-                      <Message key={index} isResponse={true}>
-                        <MessageAvatar variant="nordic">
-                          <MessageAvatarIcon>
-                            <IconWheel />
-                          </MessageAvatarIcon>
-                        </MessageAvatar>
-                        <MessageContent className="flex flex-col gap-2">
-                          {(isThinking && index === currentBranchIndex) ||
-                          (isRetrying && index === currentBranchIndex && !branch) ? (
-                            <Shimmer variant="nordic">
-                              {isRetrying
-                                ? "Generating alternative response…"
-                                : thinkingPhrases[phraseIndex]}
-                            </Shimmer>
-                          ) : (
-                            <>
-                              <span className="text-muted-foreground text-sm">
-                                Thought for {thinkingSeconds} seconds
-                              </span>
-                              <MessageResponse controls={false}>
-                                {branch || (index === currentBranchIndex ? streamedContent : "")}
-                              </MessageResponse>
-                              {branch &&
-                                !(phase === "streaming" && index === currentBranchIndex) && (
-                                  <Sources className="flex flex-col gap-2 py-3">
-                                    <Source
-                                      href="https://example.com/21PT2019"
-                                      title="21PT1019"
-                                      icon={IconChartLine}
-                                      target="_blank"
-                                    />
-                                    <Source
-                                      href="https://example.com/pumpB.img"
-                                      title="pumpB.img"
-                                      icon={IconPhoto}
-                                      target="_blank"
-                                    />
-                                    <Source
-                                      href="https://example.com/PumpB.pdf"
-                                      title="PumpB.pdf"
-                                      icon={IconFile}
-                                      target="_blank"
-                                    />
-                                    <Source
-                                      href="https://example.com/120_oaoXR"
-                                      title="120_oaoXR"
-                                      icon={IconBriefcase}
-                                      target="_blank"
-                                    />
-                                  </Sources>
-                                )}
-                              {branch &&
-                                showTools &&
-                                !(phase === "streaming" && index === currentBranchIndex) && (
-                                  <div className="flex flex-col gap-2 py-3">
-                                    <Reasoning>
-                                      <ReasoningHeader />
-                                      <ReasoningContent>
-                                        <ReasoningItem>
-                                          <Tool defaultOpen={false}>
-                                            <ToolHeader title="Search database" type="tool-call" />
-                                            <ToolContent>
-                                              <ToolInput input={searchDatabaseInput} />
-                                              <ToolOutput
-                                                output={searchDatabaseOutput}
-                                                errorText={undefined}
-                                              />
-                                            </ToolContent>
-                                          </Tool>
-                                        </ReasoningItem>
-                                        <ReasoningItem>
-                                          <Tool defaultOpen={false}>
-                                            <ToolHeader
-                                              title="Fetch sensor data"
-                                              type="tool-call"
-                                            />
-                                            <ToolContent>
-                                              <ToolInput input={fetchSensorDataInput} />
-                                              <ToolOutput
-                                                output={fetchSensorDataOutput}
-                                                errorText={undefined}
-                                              />
-                                            </ToolContent>
-                                          </Tool>
-                                        </ReasoningItem>
-                                      </ReasoningContent>
-                                    </Reasoning>
-                                  </div>
-                                )}
-                              {branch &&
-                                !(phase === "streaming" && index === currentBranchIndex) && (
-                                  <MessageActions className="justify-between">
-                                    <div className="flex items-center gap-2">
-                                      <MessageAction
-                                        size="icon-sm"
-                                        label="Copy"
-                                        tooltip="Copy"
-                                        onClick={handleCopy}
-                                      >
-                                        <IconCopy className="w-3 h-3" />
-                                      </MessageAction>
-                                      <MessageAction
-                                        size="icon-sm"
-                                        label="Download"
-                                        tooltip="Download"
-                                        onClick={handleDownload}
-                                      >
-                                        <IconDownload className="w-3 h-3" />
-                                      </MessageAction>
-                                      <MessageAction
-                                        size="icon-sm"
-                                        label="Retry"
-                                        tooltip="Retry"
-                                        onClick={handleRetry}
-                                        disabled={branches.length >= 2 || isRetrying}
-                                      >
-                                        <IconRefresh className="w-3 h-3" />
-                                      </MessageAction>
-                                      {showBranchNav && (
-                                        <MessageBranchSelector from="assistant" className="px-0">
-                                          <MessageBranchPrevious />
-                                          <MessageBranchPage />
-                                          <MessageBranchNext />
-                                        </MessageBranchSelector>
-                                      )}
-                                    </div>
-                                    <MessageAction
-                                      size="sm"
-                                      onClick={() => setShowTools(!showTools)}
-                                      data-active={showTools}
-                                      className="data-[active=true]:bg-accent"
-                                    >
-                                      <IconBrain className="w-3.5 h-3.5" />
-                                      {showTools ? "Hide reasoning" : "Show reasoning"}
-                                    </MessageAction>
-                                  </MessageActions>
-                                )}
-                            </>
-                          )}
+                {phase === "empty" ? (
+                  <ConversationEmptyState title="Start a conversation with Atlas">
+                    <div className="flex flex-col flex-wrap gap-4 justify-left px-[3.3675%] md:px-[6.735%] py-2">
+                      <Suggestion
+                        suggestion="Are there any anomalies, risks, or non-conformances identified?"
+                        className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
+                      />
+                      <Suggestion
+                        suggestion="What asset or equipment is being evaluated and what is its operational context?"
+                        className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
+                      />
+                      <Suggestion
+                        suggestion="What are the current field conditions and observations recorded?"
+                        className="block bg-card rounded-lg p-3.75 text-left text-base font-medium whitespace-normal"
+                      />
+                    </div>
+                  </ConversationEmptyState>
+                ) : (
+                  <>
+                    {showUserMessage && (
+                      <Message>
+                        <MessageContent>
+                          <span>
+                            There are abnormal vibration levels on{" "}
+                            <InlineCitation>
+                              <InlineCitationLink
+                                href="https://example.com/pump/21PT1019"
+                                target="_blank"
+                                icon={IconHash}
+                                variant="nordic"
+                              >
+                                21PT1019
+                              </InlineCitationLink>
+                            </InlineCitation>
+                          </span>
                         </MessageContent>
                       </Message>
-                    ))}
-                  </MessageBranchContent>
-                </MessageBranch>
-              )}
-            </>
-          )}
-        </ConversationContent>
-            <ConversationScrollButton />
-          </Conversation>
+                    )}
+
+                    {showAssistantMessage && (
+                      <MessageBranch
+                        key={branches.length}
+                        defaultBranch={currentBranchIndex}
+                        onBranchChange={(index) => setCurrentBranchIndex(index)}
+                      >
+                        <MessageBranchContent>
+                          {branches.map((branch, index) => (
+                            <Message key={index} isResponse={true}>
+                              <MessageAvatar variant="nordic">
+                                <MessageAvatarIcon>
+                                  <IconWheel />
+                                </MessageAvatarIcon>
+                              </MessageAvatar>
+                              <MessageContent className="flex flex-col gap-2">
+                                {(isThinking && index === currentBranchIndex) ||
+                                (isRetrying && index === currentBranchIndex && !branch) ? (
+                                  <Shimmer variant="nordic">
+                                    {isRetrying
+                                      ? "Generating alternative response…"
+                                      : thinkingPhrases[phraseIndex]}
+                                  </Shimmer>
+                                ) : (
+                                  <>
+                                    <span className="text-muted-foreground text-sm">
+                                      Thought for {thinkingSeconds} seconds
+                                    </span>
+                                    <MessageResponse controls={false}>
+                                      {branch ||
+                                        (index === currentBranchIndex ? streamedContent : "")}
+                                    </MessageResponse>
+                                    {branch &&
+                                      !(phase === "streaming" && index === currentBranchIndex) && (
+                                        <Sources className="flex flex-col gap-2 py-3">
+                                          <Source
+                                            href="https://example.com/21PT2019"
+                                            title="21PT1019"
+                                            icon={IconChartLine}
+                                            target="_blank"
+                                          />
+                                          <Source
+                                            href="https://example.com/pumpB.img"
+                                            title="pumpB.img"
+                                            icon={IconPhoto}
+                                            target="_blank"
+                                          />
+                                          <Source
+                                            href="https://example.com/PumpB.pdf"
+                                            title="PumpB.pdf"
+                                            icon={IconFile}
+                                            target="_blank"
+                                          />
+                                          <Source
+                                            href="https://example.com/120_oaoXR"
+                                            title="120_oaoXR"
+                                            icon={IconBriefcase}
+                                            target="_blank"
+                                          />
+                                        </Sources>
+                                      )}
+                                    {branch &&
+                                      showTools &&
+                                      !(phase === "streaming" && index === currentBranchIndex) && (
+                                        <div className="flex flex-col gap-2 py-3">
+                                          <Reasoning>
+                                            <ReasoningHeader />
+                                            <ReasoningContent>
+                                              <ReasoningItem>
+                                                <Tool defaultOpen={false}>
+                                                  <ToolHeader
+                                                    title="Search database"
+                                                    type="tool-call"
+                                                  />
+                                                  <ToolContent>
+                                                    <ToolInput input={searchDatabaseInput} />
+                                                    <ToolOutput
+                                                      output={searchDatabaseOutput}
+                                                      errorText={undefined}
+                                                    />
+                                                  </ToolContent>
+                                                </Tool>
+                                              </ReasoningItem>
+                                              <ReasoningItem>
+                                                <Tool defaultOpen={false}>
+                                                  <ToolHeader
+                                                    title="Fetch sensor data"
+                                                    type="tool-call"
+                                                  />
+                                                  <ToolContent>
+                                                    <ToolInput input={fetchSensorDataInput} />
+                                                    <ToolOutput
+                                                      output={fetchSensorDataOutput}
+                                                      errorText={undefined}
+                                                    />
+                                                  </ToolContent>
+                                                </Tool>
+                                              </ReasoningItem>
+                                            </ReasoningContent>
+                                          </Reasoning>
+                                        </div>
+                                      )}
+                                    {branch &&
+                                      !(phase === "streaming" && index === currentBranchIndex) && (
+                                        <MessageActions className="justify-between">
+                                          <div className="flex items-center gap-2">
+                                            <MessageAction
+                                              size="icon-sm"
+                                              label="Copy"
+                                              tooltip="Copy"
+                                              onClick={handleCopy}
+                                            >
+                                              <IconCopy className="w-3 h-3" />
+                                            </MessageAction>
+                                            <MessageAction
+                                              size="icon-sm"
+                                              label="Download"
+                                              tooltip="Download"
+                                              onClick={handleDownload}
+                                            >
+                                              <IconDownload className="w-3 h-3" />
+                                            </MessageAction>
+                                            <MessageAction
+                                              size="icon-sm"
+                                              label="Retry"
+                                              tooltip="Retry"
+                                              onClick={handleRetry}
+                                              disabled={branches.length >= 2 || isRetrying}
+                                            >
+                                              <IconRefresh className="w-3 h-3" />
+                                            </MessageAction>
+                                            {showBranchNav && (
+                                              <MessageBranchSelector
+                                                from="assistant"
+                                                className="px-0"
+                                              >
+                                                <MessageBranchPrevious />
+                                                <MessageBranchPage />
+                                                <MessageBranchNext />
+                                              </MessageBranchSelector>
+                                            )}
+                                          </div>
+                                          <MessageAction
+                                            size="sm"
+                                            onClick={() => setShowTools(!showTools)}
+                                            data-active={showTools}
+                                            className="data-[active=true]:bg-accent"
+                                          >
+                                            <IconBrain className="w-3.5 h-3.5" />
+                                            {showTools ? "Hide reasoning" : "Show reasoning"}
+                                          </MessageAction>
+                                        </MessageActions>
+                                      )}
+                                  </>
+                                )}
+                              </MessageContent>
+                            </Message>
+                          ))}
+                        </MessageBranchContent>
+                      </MessageBranch>
+                    )}
+                  </>
+                )}
+              </ConversationContent>
+              <ConversationScrollButton />
+            </Conversation>
           </div>
         </div>
 
@@ -848,34 +855,34 @@ export function AIChatDemo({
         <div className="sticky bottom-0 left-0 right-0 grid grid-cols-12 gap-3 px-2 mx-auto max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl pointer-events-none">
           <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8 pointer-events-auto">
             <div className={cn("p-6", showPromptBorder && "border-t", "bg-background")}>
-        <PromptInputProvider>
-          <PromptInput onSubmit={() => {}}>
-            <PromptInputBody>
-              <PromptInputTextarea placeholder="Ask about your assets..." />
-            </PromptInputBody>
-            <PromptInputFooter>
-              <PromptInputTools>
-                <PromptInputButton size="icon-sm">
-                  <IconAdjustments />
-                </PromptInputButton>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm">
-                      Agent model
-                      <IconChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem>GPT-4</DropdownMenuItem>
-                    <DropdownMenuItem>Claude</DropdownMenuItem>
-                    <DropdownMenuItem>Gemini</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </PromptInputTools>
-              <PromptInputSubmit />
-            </PromptInputFooter>
-          </PromptInput>
-        </PromptInputProvider>
+              <PromptInputProvider>
+                <PromptInput onSubmit={() => {}}>
+                  <PromptInputBody>
+                    <PromptInputTextarea placeholder="Ask about your assets..." />
+                  </PromptInputBody>
+                  <PromptInputFooter>
+                    <PromptInputTools>
+                      <PromptInputButton size="icon-sm">
+                        <IconAdjustments />
+                      </PromptInputButton>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="sm">
+                            Agent model
+                            <IconChevronDown />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>GPT-4</DropdownMenuItem>
+                          <DropdownMenuItem>Claude</DropdownMenuItem>
+                          <DropdownMenuItem>Gemini</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </PromptInputTools>
+                    <PromptInputSubmit />
+                  </PromptInputFooter>
+                </PromptInput>
+              </PromptInputProvider>
             </div>
           </div>
         </div>

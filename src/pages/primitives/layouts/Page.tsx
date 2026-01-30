@@ -684,7 +684,12 @@ function InteractiveDemos({
             <>
               {/* AI Chat: Full height container for demo with sidebar */}
               <div className="h-[800px]">
-                <AIChatDemo height="h-full" showBorder={false} showPromptBorder={false} showGrid={showGrid} />
+                <AIChatDemo
+                  height="h-full"
+                  showBorder={false}
+                  showPromptBorder={false}
+                  showGrid={showGrid}
+                />
               </div>
             </>
           )}
