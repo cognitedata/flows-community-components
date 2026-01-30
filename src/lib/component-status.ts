@@ -43,7 +43,7 @@ export function getStatusMessage(status: ComponentStatusType): string {
     case "planned":
       return "This component is planned and not yet implemented.";
     case "shadcn-ui":
-      return "This component is from shadcn/ui and may be customized for Aura.";
+      return "This component is from shadcn/ui and may need tobe customized for Aura.";
     case "experimental":
       return "This component is experimental and may change significantly.";
     case "deprecated":
