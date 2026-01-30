@@ -682,22 +682,14 @@ function InteractiveDemos({
             </>
           ) : (
             <>
-              {/* AI Chat: No TopBar, just grid */}
-              <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl relative">
-                {/* Grid overlay (Ctrl+G toggle) */}
-                {showGrid && (
-                  <div className="absolute inset-x-2 inset-y-6 grid grid-cols-12 gap-3 pointer-events-none z-10">
-                    {Array.from({ length: 12 }).map((_, i) => (
-                      <div key={i} className="bg-blue-500/10 border border-blue-500/30" />
-                    ))}
-                  </div>
-                )}
-
-                {/* AI Chat: Responsive - full width on small screens, centered 8 cols at 5xl+ */}
-                {/* Uses col-span-12 by default, then col-start-3 col-span-8 at @5xl: (1024px) */}
-                <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8 flex flex-col h-[800px]">
-                  <AIChatDemo height="h-full" showBorder={false} showPromptBorder={false} />
-                </div>
+              {/* AI Chat: Full height container for demo with sidebar */}
+              <div className="h-[800px]">
+                <AIChatDemo
+                  height="h-full"
+                  showBorder={false}
+                  showPromptBorder={false}
+                  showGrid={showGrid}
+                />
               </div>
             </>
           )}

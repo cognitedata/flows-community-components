@@ -4,7 +4,7 @@ import { expect } from "@storybook/test";
 import { Loader } from "./loader";
 
 const meta: Meta<typeof Loader> = {
-  title: "Primitives/Loader",
+  title: "AI/Loader",
   component: Loader,
   tags: ["autodocs"],
   argTypes: {

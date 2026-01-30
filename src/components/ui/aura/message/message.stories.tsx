@@ -305,9 +305,14 @@ export const MessageResponseStreamdown: Story = {
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
-    // Verify MessageResponse content is rendered (check for any heading)
-    const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    await expect(headings.length).toBeGreaterThan(0);
+    // Wait for MessageResponse content to be rendered (Streamdown needs time to parse markdown)
+    await waitFor(
+      () => {
+        const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        expect(headings.length).toBeGreaterThan(0);
+      },
+      { timeout: 3000 }
+    );
 
     // Verify message actions exist (wait for them to render)
     const buttons = await canvas.findAllByRole("button");

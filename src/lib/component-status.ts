@@ -40,20 +40,26 @@ export function getStatusMessage(status: ComponentStatusType): string {
   switch (status) {
     case "draft":
       return "This component is currently in draft status and may change before production release.";
-    case "review":
-      return "This component is currently under review and pending approval.";
-    case "done":
-      return "This component has been completed and is ready for use.";
-    case "beta":
-      return "This component is in beta and ready for testing.";
-    case "production":
-      return "This component is production-ready and stable for use.";
-    case "deprecated":
-      return "This component is deprecated and will be removed in a future release.";
+    case "planned":
+      return "This component is planned and not yet implemented.";
+    case "shadcn-ui":
+      return "This component is from shadcn/ui and may need tobe customized for Aura.";
     case "experimental":
       return "This component is experimental and may change significantly.";
-    case "new":
-      return "This component is newly added to the library.";
+    case "deprecated":
+      return "This component is deprecated and will be removed in a future release.";
+    case "in-progress-storybook":
+      return "This component is in progress: Storybook stories are being added or updated.";
+    case "in-progress-code-review":
+      return "This component is in progress: code review is pending.";
+    case "in-progress-chromatic":
+      return "This component is in progress: Chromatic visual testing is pending.";
+    case "in-progress-design-conformance":
+      return "This component is in progress: design conformance review is pending.";
+    case "ready-for-ga":
+      return "This component is ready for general availability release.";
+    case "stable":
+      return "This component is stable and production-ready.";
     default:
       return `Component status: ${config.label}`;
   }
@@ -105,20 +111,23 @@ export function getComponentStatusClasses(status: ComponentStatus): string {
   switch (status) {
     case "draft":
       return "bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800";
-    case "review":
-      return "bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-800";
-    case "done":
-      return "bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800";
-    case "beta":
-      return "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800";
-    case "production":
-      return "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800";
-    case "deprecated":
-      return "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800";
+    case "planned":
+      return "bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-900/20 dark:text-slate-400 dark:border-slate-800";
+    case "shadcn-ui":
+      return "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/20 dark:text-slate-300 dark:border-slate-800";
     case "experimental":
       return "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/20 dark:text-purple-400 dark:border-purple-800";
-    case "new":
-      return "bg-cyan-100 text-cyan-800 border-cyan-200 dark:bg-cyan-900/20 dark:text-cyan-400 dark:border-cyan-800";
+    case "deprecated":
+      return "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800";
+    case "in-progress-storybook":
+    case "in-progress-code-review":
+    case "in-progress-chromatic":
+    case "in-progress-design-conformance":
+      return "bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-800";
+    case "ready-for-ga":
+      return "bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-900/20 dark:text-teal-400 dark:border-teal-800";
+    case "stable":
+      return "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800";
     default:
       return "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/20 dark:text-gray-400 dark:border-gray-800";
   }
