@@ -5,13 +5,12 @@
  * when the element receives keyboard focus or mouse hover,
  * built on Radix Tooltip primitives.
  *
- * @example
- * import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/aura/tooltip';
- *
- * <Tooltip>
- *   <TooltipTrigger>Hover me</TooltipTrigger>
- *   <TooltipContent>Tooltip text</TooltipContent>
- * </Tooltip>
+ * See Storybook for comprehensive examples and documentation.
  */
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip";
 export { TooltipMetadata } from "./tooltip.metadata";
