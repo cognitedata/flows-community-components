@@ -682,6 +682,266 @@ export const SemanticHeadings: Story = {
 };
 
 /**
+ * Edge case: Single item
+ */
+export const EdgeCaseSingleItem: Story = {
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story: "Artifact list with only a single item.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const list = canvas.getByRole("list");
+    await expect(list).toBeInTheDocument();
+    await expect(list.children).toHaveLength(1);
+    await expect(canvas.getByText("Single task")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-96">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Single Item List</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <ArtifactListItem variant="now">
+          <ListItemTitle>Single task</ListItemTitle>
+          <ListItemDescription>This is the only item in the list</ListItemDescription>
+          <ListItemStatus>Active</ListItemStatus>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Edge case: Mixed content structure
+ */
+export const EdgeCaseMixedContent: Story = {
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story:
+          "Items with varying content - some with descriptions, some without, some with status.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Title only")).toBeInTheDocument();
+    await expect(canvas.getByText("Title with description")).toBeInTheDocument();
+    await expect(canvas.getByText("Title with status only")).toBeInTheDocument();
+    await expect(canvas.getByText("Complete item")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-96">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Mixed Content</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <ArtifactListItem>
+          <ListItemTitle>Title only</ListItemTitle>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>Title with description</ListItemTitle>
+          <ListItemDescription>Has a description but no status</ListItemDescription>
+        </ArtifactListItem>
+        <ArtifactListItem variant="now">
+          <ListItemTitle>Title with status only</ListItemTitle>
+          <ListItemStatus>Active</ListItemStatus>
+        </ArtifactListItem>
+        <ArtifactListItem variant="completed">
+          <ListItemTitle>Complete item</ListItemTitle>
+          <ListItemStatus>Done</ListItemStatus>
+          <ListItemDescription>Has both description and status</ListItemDescription>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Edge case: Very short text
+ */
+export const EdgeCaseShortText: Story = {
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story: "Items with very short or minimal text content.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("A")).toBeInTheDocument();
+    await expect(canvas.getByText("B")).toBeInTheDocument();
+    await expect(canvas.getByText("C")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-96">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Short Items</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <ArtifactListItem>
+          <ListItemTitle>A</ListItemTitle>
+          <ListItemDescription>1</ListItemDescription>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>B</ListItemTitle>
+          <ListItemDescription>2</ListItemDescription>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>C</ListItemTitle>
+          <ListItemDescription>3</ListItemDescription>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Edge case: Many items
+ */
+export const EdgeCaseManyItems: Story = {
+  parameters: {
+    order: 14,
+    docs: {
+      description: {
+        story: "List with many items to test performance and scrolling behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const list = canvas.getByRole("list");
+    await expect(list).toBeInTheDocument();
+    await expect(list.children.length).toBeGreaterThanOrEqual(20);
+
+    await expect(canvas.getByText("Task 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Task 20")).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-96 max-h-96">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Many Tasks</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent className="overflow-y-auto max-h-80">
+        {Array.from({ length: 20 }, (_, i) => (
+          <ArtifactListItem
+            key={i}
+            variant={i % 4 === 0 ? "completed" : i % 3 === 0 ? "now" : "upcoming"}
+          >
+            <ListItemTitle>Task {i + 1}</ListItemTitle>
+            <ListItemDescription>Description for task {i + 1}</ListItemDescription>
+            <ListItemStatus>Status {i + 1}</ListItemStatus>
+          </ArtifactListItem>
+        ))}
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Edge case: Special characters
+ */
+export const EdgeCaseSpecialCharacters: Story = {
+  parameters: {
+    order: 15,
+    docs: {
+      description: {
+        story: "Items with special characters, symbols, and Unicode.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Temperature: 85°C")).toBeInTheDocument();
+    await expect(canvas.getByText(/Pressure.*120.*bar/)).toBeInTheDocument();
+    await expect(canvas.getByText(/Flow rate.*45.*m³\/h/)).toBeInTheDocument();
+  },
+  render: () => (
+    <ArtifactList className="w-96">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Measurements & Symbols</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <ArtifactListItem>
+          <ListItemTitle>Temperature: 85°C</ListItemTitle>
+          <ListItemDescription>Celsius measurement with degree symbol</ListItemDescription>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>Pressure: 120 ± 5 bar</ListItemTitle>
+          <ListItemDescription>Plus-minus tolerance notation</ListItemDescription>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>Flow rate: 45 m³/h</ListItemTitle>
+          <ListItemDescription>Cubic meter per hour with superscript</ListItemDescription>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>Status: ✓ Passed</ListItemTitle>
+          <ListItemDescription>Check mark and emoji: ✓ ✗ ⚠️ 🔧</ListItemDescription>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
+ * Edge case: No variant with plain items
+ */
+export const EdgeCaseNoVariant: Story = {
+  parameters: {
+    order: 16,
+    docs: {
+      description: {
+        story: "Items without any variant specified (no automatic icons).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Plain item 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Plain item 2")).toBeInTheDocument();
+
+    // Verify no automatic icons were inserted
+    const icons = canvasElement.querySelectorAll('[data-slot="list-item-icon"]');
+    await expect(icons.length).toBe(0);
+  },
+  render: () => (
+    <ArtifactList className="w-96">
+      <ArtifactListHeader>
+        <ArtifactListTitle>Plain Items</ArtifactListTitle>
+      </ArtifactListHeader>
+      <ArtifactListContent>
+        <ArtifactListItem>
+          <ListItemTitle>Plain item 1</ListItemTitle>
+          <ListItemDescription>No variant, no icon</ListItemDescription>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>Plain item 2</ListItemTitle>
+          <ListItemDescription>Another plain item</ListItemDescription>
+          <ListItemStatus>Status</ListItemStatus>
+        </ArtifactListItem>
+        <ArtifactListItem>
+          <ListItemTitle>Plain item 3</ListItemTitle>
+        </ArtifactListItem>
+      </ArtifactListContent>
+    </ArtifactList>
+  ),
+};
+
+/**
  * Playground for interactive experimentation
  */
 export const Playground: Story = {

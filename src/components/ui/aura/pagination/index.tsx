@@ -3,24 +3,25 @@
  *
  * A pagination component for navigating multi-page content.
  *
- * @example
- * import { Pagination, PaginationContent, PaginationItem, PaginationLink } from '@/components/ui/aura/pagination';
- *
- * <Pagination>
- *   <PaginationContent>
- *     <PaginationItem>
- *       <PaginationLink href="#">1</PaginationLink>
- *     </PaginationItem>
- *   </PaginationContent>
- * </Pagination>
+ * See Storybook for usage examples.
  */
 export {
   Pagination,
   PaginationContent,
-  PaginationLink,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationNext,
   PaginationEllipsis,
+  PaginationFirst,
+  PaginationItem,
+  PaginationLast,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  PaginationResultsPerPage,
+  PaginationResultsPerPageLabel,
+  PaginationSelectTrigger,
+  PaginationStatus,
+  PaginationTeleport,
+  paginationEllipsisVariants,
+  paginationLinkVariants,
+  paginationStatusVariants,
 } from "./pagination";
 export { PaginationMetadata } from "./pagination.metadata";

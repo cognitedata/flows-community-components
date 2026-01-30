@@ -1,5 +1,5 @@
 import { IconCaretUpDown, IconCheck } from "@tabler/icons-react";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 import { Button } from "@/components/ui/aura/button";
 import {
@@ -48,7 +48,7 @@ const frameworks = [
   },
 ];
 
-export function Combobox() {
+export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
@@ -56,10 +56,13 @@ export function Combobox() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          ref={ref}
+          data-slot="combobox-trigger"
           variant="outline"
           role="combobox"
           aria-expanded={open}
           className="w-50 justify-between"
+          {...props}
         >
           {value
             ? frameworks.find((framework) => framework.value === value)?.label
@@ -97,7 +100,8 @@ export function Combobox() {
       </PopoverContent>
     </Popover>
   );
-}
+});
+Combobox.displayName = "Combobox";
 
 export interface ComboboxProps {
   options: Array<{ value: string; label: string }>;
@@ -109,61 +113,71 @@ export interface ComboboxProps {
   className?: string;
 }
 
-export function ComboboxCustom({
-  options,
-  value,
-  onValueChange,
-  placeholder = "Select option...",
-  searchPlaceholder = "Search...",
-  emptyText = "No option found.",
-  className,
-}: ComboboxProps) {
-  const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(value || "");
+export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
+  (
+    {
+      options,
+      value,
+      onValueChange,
+      placeholder = "Select option...",
+      searchPlaceholder = "Search...",
+      emptyText = "No option found.",
+      className,
+      ...props
+    },
+    ref
+  ) => {
+    const [open, setOpen] = useState(false);
+    const [selectedValue, setSelectedValue] = useState(value || "");
 
-  const handleValueChange = (newValue: string) => {
-    const finalValue = newValue === selectedValue ? "" : newValue;
-    setSelectedValue(finalValue);
-    onValueChange?.(finalValue);
-    setOpen(false);
-  };
+    const handleValueChange = (newValue: string) => {
+      const finalValue = newValue === selectedValue ? "" : newValue;
+      setSelectedValue(finalValue);
+      onValueChange?.(finalValue);
+      setOpen(false);
+    };
 
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className={cn("w-50 justify-between", className)}
-        >
-          {selectedValue
-            ? options.find((option) => option.value === selectedValue)?.label
-            : placeholder}
-          <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-50 p-0">
-        <Command>
-          <CommandInput placeholder={searchPlaceholder} />
-          <CommandList>
-            <CommandEmpty>{emptyText}</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => (
-                <CommandItem key={option.value} value={option.value} onSelect={handleValueChange}>
-                  <IconCheck
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      selectedValue === option.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {option.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
-}
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            ref={ref}
+            data-slot="combobox-trigger"
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className={cn("w-50 justify-between", className)}
+            {...props}
+          >
+            {selectedValue
+              ? options.find((option) => option.value === selectedValue)?.label
+              : placeholder}
+            <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-50 p-0">
+          <Command>
+            <CommandInput placeholder={searchPlaceholder} />
+            <CommandList>
+              <CommandEmpty>{emptyText}</CommandEmpty>
+              <CommandGroup>
+                {options.map((option) => (
+                  <CommandItem key={option.value} value={option.value} onSelect={handleValueChange}>
+                    <IconCheck
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        selectedValue === option.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {option.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    );
+  }
+);
+ComboboxCustom.displayName = "ComboboxCustom";

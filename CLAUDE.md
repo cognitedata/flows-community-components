@@ -47,3 +47,4 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 - Use `PaginationSelectTrigger` to inherit pagination size for selects.
 - When `ArtifactListHeader` is present, remove top padding from `ArtifactListContent` and use title margin for spacing.
 - Biome formatting prefers inline JSX for short elements and props.
+- Use `forwardRef` and `displayName` for wrapper components to preserve refs.

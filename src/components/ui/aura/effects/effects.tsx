@@ -6,10 +6,11 @@
  * border radii, and animation patterns.
  *
  * Effect Categories:
- * - Shadows: Elevation levels for depth and hierarchy
+ * - Shadows: Elevation levels for depth and hierarchy (with light and dark mode variants)
  * - Focus Rings: Keyboard focus indicators for accessibility
  * - Border Radius: Corner rounding options
  * - Transitions: Common animation timing patterns
+ *
  */
 
 // =============================================================================
@@ -21,6 +22,7 @@ export interface Shadow {
   cssVar: string;
   tailwindClass: string;
   value: string;
+  valueDark?: string;
   usage: string;
 }
 
@@ -29,35 +31,40 @@ export const shadows: Shadow[] = [
     name: "shadow-sm",
     cssVar: "--shadow-sm",
     tailwindClass: "shadow-sm",
-    value: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+    value: "0 1px 2px 0 rgba(0, 0, 0, 0.04)",
+    valueDark: "0 1px 2px 0 rgba(0, 0, 0, 0.2)",
     usage: "Tooltips, small containers, subtle elevation",
   },
   {
     name: "shadow-default",
     cssVar: "--shadow-default",
     tailwindClass: "shadow-default",
-    value: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+    value: "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.04)",
+    valueDark: "0 1px 3px 0 rgba(0, 0, 0, 0.25), 0 1px 2px 0 rgba(0, 0, 0, 0.2)",
     usage: "Menus, popovers, hover cards, dropdown menus",
   },
   {
     name: "shadow-md",
     cssVar: "--shadow-md",
     tailwindClass: "shadow-md",
-    value: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+    value: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.04)",
+    valueDark: "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)",
     usage: "Toast notifications (sonner), temporary elements",
   },
   {
     name: "shadow-lg",
     cssVar: "--shadow-lg",
     tailwindClass: "shadow-lg",
-    value: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+    value: "0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.04)",
+    valueDark: "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2)",
     usage: "Modals and dialogs without backdrop overlay",
   },
   {
     name: "shadow-xl",
     cssVar: "--shadow-xl",
     tailwindClass: "shadow-xl",
-    value: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+    value: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.06)",
+    valueDark: "0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4)",
     usage: "Modals and dialogs with backdrop overlay, highest elevation",
   },
 ];
@@ -76,57 +83,29 @@ export interface FocusRing {
 export const focusRings: FocusRing[] = [
   {
     name: "focus",
-    tailwindClasses: "focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring",
+    tailwindClasses: "focus-visible:shadow-focus-ring outline-none",
     usage: "Keyboard focus for default interactive elements",
     description:
-      "Standard focus ring using the theme ring colour. Apply to buttons, inputs, links, and other interactive elements.",
+      "Standard focus ring using box-shadow (no box model changes). Creates a 2px inner ring and 4px outer glow (2px visible beyond inner). Apply to buttons, inputs, links, and other interactive elements.",
   },
   {
     name: "focus-destructive",
-    tailwindClasses:
-      "focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring",
+    tailwindClasses: "focus-visible:shadow-focus-ring-destructive outline-none",
     usage: "Keyboard focus for destructive or error state elements",
-    description: "Red-tinted focus ring for destructive actions or elements in error state.",
+    description:
+      "Red-tinted focus ring for destructive actions or elements in error state. Uses 2px inner + 4px outer box-shadow to avoid layout shift.",
   },
 ];
 
 // =============================================================================
-// Ring Widths
+// Ring Width
 // =============================================================================
 
-export interface RingWidth {
-  name: string;
-  tailwindClass: string;
-  width: string;
-  usage: string;
-}
-
-export const ringWidths: RingWidth[] = [
-  {
-    name: "ring-1",
-    tailwindClass: "ring-1",
-    width: "1px",
-    usage: "Subtle focus indicator, select inputs",
-  },
-  {
-    name: "ring-2",
-    tailwindClass: "ring-2",
-    width: "2px",
-    usage: "Textarea focus, medium emphasis",
-  },
-  {
-    name: "ring (default)",
-    tailwindClass: "ring",
-    width: "3px",
-    usage: "Default ring width for buttons, checkboxes, radio buttons",
-  },
-  {
-    name: "ring-4",
-    tailwindClass: "ring-4",
-    width: "4px",
-    usage: "Extra emphasis, high-importance focus states",
-  },
-];
+// The design system uses a single focus ring pattern with two layers:
+// - Inner ring: 2px (darker color)
+// - Outer ring: 4px total (lighter color, 2px visible beyond inner)
+// This is defined in globals.css as --shadow-focus-ring and --shadow-focus-ring-destructive
+// Always use the shadow-focus-ring utility class without modifiers
 
 // =============================================================================
 // Border Radius
@@ -373,34 +352,34 @@ export function getFocusRingClasses(variant: "default" | "destructive" = "defaul
 
 export const effectExamples = {
   shadows: `
-<!-- Tooltip with subtle shadow -->
+<!-- Tooltip with subtle shadow (light and dark mode variants) -->
 <div class="shadow-sm rounded-md p-2 bg-popover">
   Tooltip content
 </div>
 
-<!-- Dropdown menu with default shadow -->
+<!-- Dropdown menu with default shadow (light and dark mode variants) -->
 <div class="shadow-default rounded-lg p-2 bg-popover">
   Menu items...
 </div>
 
-<!-- Modal with large shadow -->
+<!-- Modal with large shadow (light and dark mode variants) -->
 <div class="shadow-xl rounded-xl p-6 bg-card">
   Modal content...
 </div>`,
 
   focusRings: `
-<!-- Button with focus ring -->
-<button class="px-4 py-2 bg-primary text-primary-foreground rounded-md focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring outline-none">
+<!-- Button with focus ring (no box model changes) -->
+<button class="px-4 py-2 bg-primary text-primary-foreground rounded-md focus-visible:shadow-focus-ring outline-none">
   Click me
 </button>
 
-<!-- Destructive button with red focus ring -->
-<button class="px-4 py-2 bg-destructive text-destructive-foreground rounded-md focus-visible:border-destructive-foreground focus-visible:ring-destructive/50 focus-visible:ring outline-none">
+<!-- Destructive button with red focus ring (no box model changes) -->
+<button class="px-4 py-2 bg-destructive text-destructive-foreground rounded-md focus-visible:shadow-focus-ring-destructive outline-none">
   Delete
 </button>
 
-<!-- Input with focus ring -->
-<input class="border border-border rounded-md px-3 py-2 focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring-1 outline-none" />`,
+<!-- Input with focus ring (no box model changes) -->
+<input class="border border-border rounded-md px-3 py-2 focus-visible:shadow-focus-ring outline-none" />`,
 
   borderRadius: `
 <!-- Badge with subtle rounding -->
