@@ -861,7 +861,9 @@ export const Playground: Story = {
       <div className="flex flex-col gap-6 w-full max-w-2xl">
         <div className="flex flex-wrap gap-4 p-4 border rounded-lg">
           <div className="flex flex-col gap-2">
-            <label htmlFor="list-variant" className="text-sm font-medium">Variant</label>
+            <label htmlFor="list-variant" className="text-sm font-medium">
+              Variant
+            </label>
             <select
               id="list-variant"
               className="px-3 py-2 border rounded"
@@ -878,7 +880,9 @@ export const Playground: Story = {
             </select>
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="list-item-count" className="text-sm font-medium">Item Count</label>
+            <label htmlFor="list-item-count" className="text-sm font-medium">
+              Item Count
+            </label>
             <input
               id="list-item-count"
               type="number"
