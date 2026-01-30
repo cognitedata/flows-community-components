@@ -17,7 +17,6 @@ const meta: Meta<typeof Avatar> = {
   component: Avatar,
   tags: ["autodocs"],
   argTypes: {
-    // Appearance
     variant: {
       control: "select",
       options: ["default", "nordic", "aurora", "fjord", "dusk", "orange", "sky", "overflow"],
@@ -46,7 +45,6 @@ const meta: Meta<typeof Avatar> = {
       },
     },
 
-    // Behavior
     onClick: {
       action: "clicked",
       description: "Callback fired when avatar is clicked",
