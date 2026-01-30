@@ -12,12 +12,5 @@
  *   <AvatarFallback>JD</AvatarFallback>
  * </Avatar>
  */
-export {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-  AvatarIcon,
-  // eslint-disable-next-line react-refresh/only-export-components
-  avatarVariants,
-} from "./avatar";
+export { Avatar, AvatarImage, AvatarFallback, AvatarIcon } from "./avatar";
 export { AvatarMetadata } from "./avatar.metadata";

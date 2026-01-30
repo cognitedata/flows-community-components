@@ -85,3 +85,24 @@ export const getPortalContainer = (): HTMLElement | undefined => {
   portalContainer = container;
   return container;
 };
+
+/**
+ * Gets the correct image path for Storybook.
+ * Handles both local development and deployed Storybook with base paths.
+ *
+ * @param filename - The filename of the image
+ * @returns The correct path to the image
+ */
+export function getStorybookImagePath(filename: string): string {
+  if (typeof window === "undefined") return `/${filename}`;
+
+  try {
+    const pathname = (window.parent?.location || window.location).pathname;
+    const match = pathname.match(/^(\/aura\/branches\/[^/]+\/storybook)/);
+    if (match) return `${match[1]}/${filename}`;
+    return `/${filename}`;
+  } catch (error) {
+    console.warn("Failed to determine Storybook image path:", error);
+    return `/${filename}`;
+  }
+}
