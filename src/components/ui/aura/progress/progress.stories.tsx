@@ -75,7 +75,6 @@ type Story = StoryObj<typeof Progress>;
  * Shows a simple progress indicator at 50%
  */
 export const Basic: Story = {
-  render: () => <Progress value={50} className="w-96" />,
   parameters: {
     order: 1,
     docs: {
@@ -85,6 +84,7 @@ export const Basic: Story = {
       },
     },
   },
+  render: () => <Progress value={50} className="w-96" />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
@@ -656,6 +656,36 @@ export const Multiple: Story = {
           <span className="text-muted-foreground">100%</span>
         </div>
         <Progress value={100} aria-label="Task 4: Finalization progress: 100%" />
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Interactive playground for testing progress props.
+ */
+export const Playground: Story = {
+  args: {
+    value: 50,
+    max: 100,
+  },
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story:
+          "Interactive playground to test different progress configurations. Use the controls panel to experiment with props.",
+      },
+    },
+  },
+  render: (args) => (
+    <div className="flex items-center justify-center p-24">
+      <div className="space-y-2 w-96">
+        <div className="flex justify-between text-sm">
+          <span>Progress</span>
+          <span className="text-muted-foreground">{args.value}%</span>
+        </div>
+        <Progress {...args} />
       </div>
     </div>
   ),

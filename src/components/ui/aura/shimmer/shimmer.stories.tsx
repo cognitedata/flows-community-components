@@ -92,7 +92,6 @@ type Story = StoryObj<typeof Shimmer>;
  * Matches the basic example from shimmer.examples.tsx
  */
 export const Basic: Story = {
-  render: () => <Shimmer>Processing...</Shimmer>,
   parameters: {
     order: 1,
     docs: {
@@ -109,6 +108,7 @@ export const Basic: Story = {
     const shimmer = canvas.getByText("Processing...");
     await expect(shimmer).toBeInTheDocument();
   },
+  render: () => <Shimmer>Processing...</Shimmer>,
 };
 
 /**

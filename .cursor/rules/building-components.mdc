@@ -94,13 +94,32 @@ export { badgeVariants }; // Export if reusable
 
 # forwardRef Pattern
 
+**CRITICAL: Use ComponentRef, never React.ElementRef**
+
+`React.ElementRef` is deprecated. Always import and use `ComponentRef` directly from "react":
+
 ```tsx
+// ✅ CORRECT - Import ComponentRef directly
+import { type ComponentRef, type ComponentProps, forwardRef } from "react";
+
 const Badge = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, ...props }, ref) => (
     <div ref={ref} className={cn(badgeVariants(), className)} {...props} />
   )
 );
 Badge.displayName = "Badge";
+
+// For Radix primitives, use ComponentRef
+const AlertDialogTrigger = forwardRef<
+  ComponentRef<typeof AlertDialogPrimitive.Trigger>,
+  ComponentProps<typeof AlertDialogPrimitive.Trigger>
+>((props, ref) => (
+  <AlertDialogPrimitive.Trigger ref={ref} {...props} />
+));
+AlertDialogTrigger.displayName = "AlertDialogTrigger";
+
+// ❌ WRONG - Don't use React.ElementRef
+const Bad = forwardRef<React.ElementRef<typeof Primitive>, Props>(...);
 
 // Sub-components follow parent naming
 const CardHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(...)
