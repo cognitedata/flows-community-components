@@ -64,6 +64,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "#aura": path.resolve(__dirname, "./src"),
     },
   },
 });
