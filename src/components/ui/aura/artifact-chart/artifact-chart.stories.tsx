@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
 import { useState } from "react";
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
+import { Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
 import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
@@ -141,11 +141,11 @@ const sharedChartConfig = {
 } satisfies ChartConfig;
 
 const sharedChartData = [
-  { id: "slice1", value: 225 },
-  { id: "slice2", value: 225 },
-  { id: "slice3", value: 225 },
-  { id: "slice4", value: 225 },
-  { id: "slice5", value: 225 },
+  { id: "slice1", value: 225, fill: "var(--color-slice1)" },
+  { id: "slice2", value: 225, fill: "var(--color-slice2)" },
+  { id: "slice3", value: 225, fill: "var(--color-slice3)" },
+  { id: "slice4", value: 225, fill: "var(--color-slice4)" },
+  { id: "slice5", value: 225, fill: "var(--color-slice5)" },
 ];
 
 const labelColor = "var(--color-fjord-450)";
@@ -264,15 +264,8 @@ export const Basic: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -401,15 +394,8 @@ export const WithHeader: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -522,15 +508,8 @@ export const WithFooter: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -667,15 +646,8 @@ export const WithActions: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -800,15 +772,8 @@ export const MinimalHeader: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -980,15 +945,8 @@ export const InteractiveDataToggle: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -1121,15 +1079,8 @@ export const EdgeCaseLongText: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -1228,15 +1179,8 @@ export const VisualRegression: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
