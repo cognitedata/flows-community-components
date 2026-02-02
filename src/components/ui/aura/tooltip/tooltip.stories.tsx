@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "#aura/components/ui/aura/button";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";

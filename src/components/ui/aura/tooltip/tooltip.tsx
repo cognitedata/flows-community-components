@@ -1,7 +1,7 @@
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { type ComponentProps, forwardRef } from "react";
 
-import { cn, getPortalContainer } from "@/lib/utils";
+import { cn, getPortalContainer } from "#aura/lib/utils";
 
 const TooltipProvider = forwardRef<
   React.ComponentRef<typeof TooltipPrimitive.Provider>,
