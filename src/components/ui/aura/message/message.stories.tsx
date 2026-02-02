@@ -83,6 +83,7 @@ type Story = StoryObj<typeof Message>;
  */
 export const Default: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -93,15 +94,12 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify both messages exist
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
-    // Verify inline citations exist
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(4);
 
-    // Verify message actions exist (4 MessageAction buttons)
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(4);
   },
@@ -205,6 +203,7 @@ export const Default: Story = {
  */
 export const WithCodeBlock: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -215,16 +214,12 @@ export const WithCodeBlock: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify both messages exist
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
-    // Verify code block exists
     const codeBlock = canvasElement.querySelector("[data-code-block]");
     await expect(codeBlock).toBeInTheDocument();
 
-    // Verify message actions exist (4 MessageAction buttons)
-    // Note: Code block buttons (copy, collapse) are hidden until hover
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(4);
   },
@@ -291,6 +286,7 @@ export const WithCodeBlock: Story = {
  */
 export const MessageResponseStreamdown: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -301,11 +297,9 @@ export const MessageResponseStreamdown: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify messages exist
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
 
-    // Wait for MessageResponse content to be rendered (Streamdown needs time to parse markdown)
     await waitFor(
       () => {
         const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
@@ -314,7 +308,6 @@ export const MessageResponseStreamdown: Story = {
       { timeout: 3000 }
     );
 
-    // Verify message actions exist (wait for them to render)
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(2);
   },
@@ -423,6 +416,7 @@ Inline maths example: The sum formula is $$\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}
  */
 export const UserMessage: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Basic user message without avatar icon.",
@@ -448,6 +442,7 @@ export const UserMessage: Story = {
  */
 export const AssistantMessage: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Basic AI assistant response with avatar.",
@@ -481,6 +476,7 @@ export const AssistantMessage: Story = {
  */
 export const ExtendedConversation: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Multi-turn conversation demonstrating message flow and spacing.",
@@ -543,6 +539,7 @@ export const ExtendedConversation: Story = {
  */
 export const VeryLongMessage: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Tests message component with extensive content including multiple paragraphs.",
@@ -553,7 +550,6 @@ export const VeryLongMessage: Story = {
     const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
 
-    // Verify multiple paragraphs exist
     const paragraphs = canvasElement.querySelectorAll("p");
     await expect(paragraphs.length).toBeGreaterThan(2);
   },
@@ -596,6 +592,7 @@ export const VeryLongMessage: Story = {
  */
 export const ManyMessageActions: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Message with numerous action buttons to test layout and overflow behavior.",
@@ -605,7 +602,6 @@ export const ManyMessageActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify many buttons exist (6 MessageAction buttons)
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(6);
   },
@@ -648,6 +644,7 @@ export const ManyMessageActions: Story = {
  */
 export const AvatarVariants: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Comparison of different avatar color variants for assistant messages.",
@@ -658,7 +655,6 @@ export const AvatarVariants: Story = {
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(3);
 
-    // Verify avatars are present
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(3);
   },
@@ -713,6 +709,7 @@ export const AvatarVariants: Story = {
  */
 export const MessageWithoutAvatar: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Tests message rendering without an avatar component.",
@@ -723,7 +720,6 @@ export const MessageWithoutAvatar: Story = {
     const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
 
-    // Verify no avatar exists
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).not.toBeInTheDocument();
   },
@@ -741,6 +737,7 @@ export const MessageWithoutAvatar: Story = {
  */
 export const MessageWithOnlyActions: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
         story: "Edge case where message contains only action buttons without text content.",
@@ -750,7 +747,6 @@ export const MessageWithOnlyActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify buttons exist
     const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
@@ -783,6 +779,7 @@ export const MessageWithOnlyActions: Story = {
  */
 export const EmptyMessage: Story = {
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Edge case of a message with empty or minimal content.",
@@ -807,6 +804,7 @@ export const EmptyMessage: Story = {
  */
 export const SingleCharacterMessage: Story = {
   parameters: {
+    order: 13,
     docs: {
       description: {
         story: "Tests message rendering with minimal single character content.",
@@ -830,6 +828,7 @@ export const SingleCharacterMessage: Story = {
  */
 export const MessageWithSpecialCharacters: Story = {
   parameters: {
+    order: 14,
     docs: {
       description: {
         story: "Tests handling of special characters, symbols, and emojis in messages.",
@@ -862,6 +861,7 @@ export const MessageWithSpecialCharacters: Story = {
  */
 export const VeryLongConversation: Story = {
   parameters: {
+    order: 15,
     docs: {
       description: {
         story:
@@ -906,6 +906,7 @@ export const VeryLongConversation: Story = {
  */
 export const MessageWithLineBreaks: Story = {
   parameters: {
+    order: 16,
     docs: {
       description: {
         story: "Tests message rendering with multiple line breaks and whitespace.",
@@ -941,6 +942,7 @@ export const MessageWithLineBreaks: Story = {
  */
 export const MessageActionsWithoutTooltip: Story = {
   parameters: {
+    order: 17,
     docs: {
       description: {
         story: "Tests message actions rendered without tooltip text.",
@@ -975,4 +977,23 @@ export const MessageActionsWithoutTooltip: Story = {
       </MessageContent>
     </Message>
   ),
+};
+
+export const Playground: Story = {
+  render: (args) => (
+    <Message {...args}>
+      <MessageAvatar variant="nordic">
+        <MessageAvatarIcon>
+          <IconWheel />
+        </MessageAvatarIcon>
+      </MessageAvatar>
+      <MessageContent>
+        <span>Interactive playground message for testing props</span>
+      </MessageContent>
+    </Message>
+  ),
+  args: {
+    isResponse: true,
+  },
+  parameters: { order: 99 },
 };
