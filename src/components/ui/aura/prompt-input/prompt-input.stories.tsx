@@ -21,7 +21,7 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "./prompt-input";
+} from "#aura/components/ui/aura/prompt-input";
 
 const meta: Meta<typeof PromptInput> = {
   title: "AI/Prompt Input",

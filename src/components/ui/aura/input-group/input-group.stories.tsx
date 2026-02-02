@@ -22,7 +22,7 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "./input-group";
+} from "#aura/components/ui/aura/input-group";
 
 const meta: Meta<typeof InputGroup> = {
   title: "Primitives/Input Group",
