@@ -14,7 +14,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o dist/storybook",
     "storybook:test": "test-storybook",
-    "storybook:test:ci": "pnpm run build-storybook && pnpm dlx serve dist/storybook --listen 6006 & pnpm dlx wait-on http://127.0.0.1:6006 && pnpm exec test-storybook --url http://127.0.0.1:6006",
+    "storybook:test:components": "test-storybook --browsers chromium --excludeTags ai-elements",
+    "storybook:test:ai-elements": "test-storybook --browsers chromium --includeTags ai-elements",
+    "storybook:test:components:ci": "pnpm run build-storybook && pnpm dlx serve dist/storybook --listen 6006 & pnpm dlx wait-on http://127.0.0.1:6006 && pnpm exec test-storybook --url http://127.0.0.1:6006 --browsers chromium --excludeTags ai-elements",
+    "storybook:test:ai-elements:ci": "pnpm run build-storybook && pnpm dlx serve dist/storybook --listen 6006 & pnpm dlx wait-on http://127.0.0.1:6006 && pnpm exec test-storybook --url http://127.0.0.1:6006 --browsers chromium --includeTags ai-elements",
     "registry:build": "npx tsx scripts/build-registry.ts && npx shadcn@latest build",
     "registry:clean": "rm -f public/r/*.json"
   },

@@ -17,7 +17,7 @@ import {
 const meta: Meta<typeof Suggestion> = {
   title: "AI/Suggestion",
   component: Suggestion,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   decorators: [
     (Story) => (
       <div className="p-8">

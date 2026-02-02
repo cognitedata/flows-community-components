@@ -6,7 +6,7 @@ import { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem } from "./r
 const meta: Meta<typeof Reasoning> = {
   title: "AI/Reasoning",
   component: Reasoning,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Content
     children: {

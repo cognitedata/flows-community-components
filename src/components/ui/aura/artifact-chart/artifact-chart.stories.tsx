@@ -36,7 +36,7 @@ import {
 const meta: Meta<typeof ArtifactChart> = {
   title: "Primitives/Artifact - Chart",
   component: ArtifactChart,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Content
     children: {
