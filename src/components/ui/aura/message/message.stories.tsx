@@ -1,9 +1,3 @@
-import {
-  CodeBlock,
-  CodeBlockCollapseButton,
-  CodeBlockCopyButton,
-} from "#aura/components/ui/aura/code-block";
-import { InlineCitation, InlineCitationLink } from "#aura/components/ui/aura/inline-citation";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -17,6 +11,12 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from "#aura/components/ui/aura/code-block";
+import { InlineCitation, InlineCitationLink } from "#aura/components/ui/aura/inline-citation";
 import {
   Message,
   MessageAction,
@@ -655,7 +655,7 @@ export const AvatarVariants: Story = {
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(3);
 
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(3);
   },
   render: () => (
@@ -720,7 +720,7 @@ export const MessageWithoutAvatar: Story = {
     const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
 
-    const avatar = canvasElement.querySelector('[data-slot="avatar"]');
+    const avatar = canvasElement.querySelector('[data-slot="message-avatar"]');
     await expect(avatar).not.toBeInTheDocument();
   },
   render: () => (
