@@ -62,3 +62,4 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
 - Storybook interaction tests in CI should build Storybook, serve `dist/storybook`, and run `test-storybook` against the local URL.
 - When the repo uses `"type": "module"`, add `.storybook/package.json` with `"type": "commonjs"` and keep `.storybook/main.js` as CJS so `test-storybook` can read the `stories` field.
+- Split Storybook interaction CI runs with `--includeTags`/`--excludeTags` and run Chromium-only for faster checks.
