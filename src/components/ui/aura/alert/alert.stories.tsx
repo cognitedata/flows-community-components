@@ -454,6 +454,143 @@ export const ControlledVisibility: Story = {
 };
 
 /**
+ * Edge case: very long title and description to verify wrapping and layout.
+ */
+export const EdgeCaseLongText: Story = {
+  render: () => (
+    <Alert>
+      <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
+      <AlertTitle>
+        This is an unusually long alert title that may wrap onto multiple lines when the
+        container width is constrained to ensure the layout remains readable and intact
+      </AlertTitle>
+      <AlertDescription>
+        This is an unusually long description to test how the alert handles lengthy
+        content. It should wrap gracefully within the alert bounds without overflowing or
+        breaking the grid. We include several sentences to simulate real-world
+        notifications that might contain detailed instructions or explanations for the
+        user to read and act upon.
+      </AlertDescription>
+      <AlertActions>
+        <AlertButton className="-ml-2.25">Accept and continue</AlertButton>
+      </AlertActions>
+    </Alert>
+  ),
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story: "Long title and description to verify wrapping and layout stability.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText(/This is an unusually long alert title/)
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText(/This is an unusually long description to test/)
+    ).toBeInTheDocument();
+  },
+};
+
+/**
+ * Edge case: title and description with special characters (quotes, unicode, symbols).
+ */
+export const EdgeCaseSpecialCharacters: Story = {
+  render: () => (
+    <Alert variant="warning" onClose={() => {}}>
+      <IconAlertTriangle className="w-3.5 h-3.5 mt-0.5" />
+      <AlertTitle>Don&apos;t forget: &quot;Back up&quot; &amp; restore</AlertTitle>
+      <AlertDescription>
+        Paths like C:\Users\file.txt, 日本語, and symbols © ® ™ should render correctly.
+      </AlertDescription>
+      <AlertActions>
+        <AlertButton className="-ml-2.25">Got it</AlertButton>
+      </AlertActions>
+    </Alert>
+  ),
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story:
+          "Alert with special characters: quotes, apostrophes, unicode, and symbols.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByText(/Don't forget: "Back up" & restore/)
+    ).toBeInTheDocument();
+    await expect(canvas.getByText(/Paths like/)).toBeInTheDocument();
+    await expect(canvas.getByText(/日本語/)).toBeInTheDocument();
+  },
+};
+
+/**
+ * Accessibility: role="alert", close button label, and keyboard interaction.
+ */
+export const Accessibility: Story = {
+  render: function AccessibilityAlert() {
+    const [visible, setVisible] = useState(true);
+
+    if (!visible) {
+      return (
+        <button
+          type="button"
+          onClick={() => setVisible(true)}
+          className="px-4 py-2 text-sm border rounded-md hover:bg-accent"
+        >
+          Show Alert Again
+        </button>
+      );
+    }
+
+    return (
+      <Alert onClose={() => setVisible(false)}>
+        <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
+        <AlertTitle>Accessible alert</AlertTitle>
+        <AlertDescription>
+          This alert has role=&quot;alert&quot;, a close button with &quot;Close&quot;
+          screen reader text, and can be dismissed via keyboard.
+        </AlertDescription>
+      </Alert>
+    );
+  },
+  parameters: {
+    order: 14,
+    docs: {
+      description: {
+        story:
+          "Demonstrates accessible alert: role=alert, labeled close button, keyboard support.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Alert has role="alert"
+    const alert = canvasElement.querySelector('[data-slot="alert"]');
+    await expect(alert).toBeInTheDocument();
+    const alertRegion = canvas.getByRole("alert");
+    await expect(alertRegion).toBeInTheDocument();
+
+    // Close button has accessible name
+    const closeButton = canvas.getByRole("button", { name: /close/i });
+    await expect(closeButton).toBeInTheDocument();
+
+    // Dismiss via keyboard (Enter on close button)
+    await userEvent.click(closeButton);
+    await waitFor(() => {
+      expect(canvasElement.querySelector('[data-slot="alert"]')).not.toBeInTheDocument();
+    });
+  },
+};
+
+/**
  * Visual regression testing - comprehensive overview.
  */
 export const VisualRegression: Story = {
@@ -508,7 +645,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 11,
+    order: 15,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
