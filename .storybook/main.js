@@ -1,6 +1,4 @@
-const { mergeConfig } = require("vite");
-
-module.exports = {
+const config = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-actions",
@@ -15,6 +13,7 @@ module.exports = {
   },
   staticDirs: ["../public"],
   async viteFinal(config, { configType }) {
+    const { mergeConfig } = await import("vite");
     const basePath =
       process.env.STORYBOOK_BASE_PATH ||
       (process.env.CI ? "/" : configType === "PRODUCTION" ? "/aura/storybook" : "/");
@@ -24,3 +23,5 @@ module.exports = {
     });
   },
 };
+
+module.exports = config;
