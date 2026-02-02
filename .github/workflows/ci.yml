@@ -50,3 +50,12 @@ jobs:
 
       - name: Lint
         run: pnpm run lint
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Build Storybook
+        run: pnpm run build-storybook
+
+      - name: Run Storybook interaction tests
+        run: pnpm dlx serve "dist/storybook" --listen 6006 & pnpm dlx wait-on http://127.0.0.1:6006 && pnpm run storybook:test

@@ -13,6 +13,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o dist/storybook",
+    "storybook:test": "test-storybook --url http://127.0.0.1:6006",
     "registry:build": "npx tsx scripts/build-registry.ts && npx shadcn@latest build",
     "registry:clean": "rm -f public/r/*.json"
   },
@@ -86,6 +87,7 @@
     "@storybook/addon-interactions": "^8.6.14",
     "@storybook/react": "^10.2.1",
     "@storybook/react-vite": "^10.2.1",
+    "@storybook/test-runner": "^0.23.0",
     "@storybook/testing-library": "^0.2.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@testing-library/jest-dom": "^6.9.1",

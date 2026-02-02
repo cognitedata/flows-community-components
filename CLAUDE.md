@@ -60,3 +60,4 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 - Consolidate docs content onto the root page instead of routing under `/docs`.
 - Radix UI's `TooltipPrimitive.Provider` and `TooltipPrimitive.Root` don't support refs - use plain functions, not `forwardRef`.
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
+- Storybook interaction tests in CI should build Storybook, serve `dist/storybook`, and run `test-storybook` against the local URL.
