@@ -25,7 +25,7 @@ import {
   MessageAvatarIcon,
   MessageContent,
   MessageResponse,
-} from "./message";
+} from "#aura/components/ui/aura/message";
 
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
