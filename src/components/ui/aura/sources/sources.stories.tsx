@@ -215,9 +215,9 @@ export const TooManySourcesWithOverflow: Story = {
             <button
               type="button"
               className="inline-flex cursor-default items-center"
-              aria-label="4 more sources"
+              aria-label={`${overflowSources.length} more sources`}
             >
-              <Badge variant="secondary" className="inline-flex items-center gap-1 px-1 text-sm leading-4.5 font-medium">
+              <Badge variant="secondary">
                 +{overflowSources.length}
               </Badge>
             </button>
