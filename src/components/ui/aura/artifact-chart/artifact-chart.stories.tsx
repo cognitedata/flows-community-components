@@ -1153,8 +1153,8 @@ export const MultiLineChart: Story = {
 
     await expect(canvas.getByText("Performance metrics")).toBeInTheDocument();
     await expect(canvas.getByText("Last 30 days")).toBeInTheDocument();
-    await expect(canvas.getByText("Apr 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Apr 30")).toBeInTheDocument();
+    await expect(canvas.getByText("Primary")).toBeInTheDocument();
+    await expect(canvas.getByText("Secondary")).toBeInTheDocument();
     await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function MultiLineChartStory() {
