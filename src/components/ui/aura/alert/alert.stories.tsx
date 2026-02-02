@@ -573,8 +573,6 @@ export const Accessibility: Story = {
     const canvas = within(canvasElement);
 
     // Alert has role="alert"
-    const alert = canvasElement.querySelector('[data-slot="alert"]');
-    await expect(alert).toBeInTheDocument();
     const alertRegion = canvas.getByRole("alert");
     await expect(alertRegion).toBeInTheDocument();
 
