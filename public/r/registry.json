@@ -1001,39 +1001,23 @@
       "type": "registry:component",
       "title": "message",
       "description": "",
-      "dependencies": ["@tabler/icons-react", "ai", "shiki", "streamdown"],
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/avatar",
-        "@aura/button",
-        "@aura/button-group",
-        "@aura/code-block",
-        "@aura/tooltip"
+      "dependencies": [
+        "#aura/components/ui/aura/avatar",
+        "#aura/components/ui/aura/button",
+        "#aura/components/ui/aura/button-group",
+        "#aura/components/ui/aura/code-block",
+        "#aura/components/ui/aura/tooltip",
+        "#aura/lib/utils",
+        "@tabler/icons-react",
+        "ai",
+        "shiki",
+        "streamdown"
       ],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/message/message.tsx",
           "target": "src/components/ui/aura/message.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "tooltip",
-      "type": "registry:component",
-      "title": "tooltip",
-      "description": "",
-      "dependencies": ["@radix-ui/react-tooltip"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/tooltip/tooltip.tsx",
-          "target": "src/components/ui/aura/tooltip.tsx",
           "type": "registry:component"
         },
         {
@@ -1278,6 +1262,26 @@
         {
           "path": "src/components/ui/aura/skeleton/skeleton.tsx",
           "target": "src/components/ui/aura/skeleton.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:component",
+      "title": "tooltip",
+      "description": "",
+      "dependencies": ["@radix-ui/react-tooltip"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/tooltip/tooltip.tsx",
+          "target": "src/components/ui/aura/tooltip.tsx",
           "type": "registry:component"
         },
         {
