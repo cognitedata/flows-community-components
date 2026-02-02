@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "#aura/lib/component-examples";
 
 /**
  * Button Component Metadata
@@ -22,7 +22,7 @@ export const ButtonMetadata: ComponentMeta = {
     {
       title: "Button Variants",
       description: "Different visual styles for various use cases.",
-      code: `import { Button } from "@/components/ui/aura/button"
+      code: `import { Button } from "#aura/components/ui/aura/button"
 import { IconPlus, IconBookmark, IconTrash, IconExternalLink } from "@tabler/icons-react"
 
 export function ButtonVariantsDemo() {
@@ -55,7 +55,7 @@ export function ButtonVariantsDemo() {
     {
       title: "Button Sizes",
       description: "Available size options for different contexts.",
-      code: `import { Button } from "@/components/ui/aura/button"
+      code: `import { Button } from "#aura/components/ui/aura/button"
 import { IconPlus } from "@tabler/icons-react"
 
 export function ButtonSizesDemo() {
@@ -74,7 +74,7 @@ export function ButtonSizesDemo() {
     {
       title: "Button States",
       description: "Disabled and loading states.",
-      code: `import { Button } from "@/components/ui/aura/button"
+      code: `import { Button } from "#aura/components/ui/aura/button"
 import { IconLoader2 } from "@tabler/icons-react"
 
 export function ButtonStatesDemo() {
