@@ -8,6 +8,7 @@
 When you create or update ANY component, run: `pnpm run registry:build`
 
 This command:
+
 1. Scans `src/components/ui/aura/` for all component files
 2. Auto-detects npm dependencies and registry dependencies from imports
 3. Generates `registry.json` in the root
@@ -17,9 +18,12 @@ The registry build process is fully automated - no manual configuration needed.
 
 # Building Components
 
+## SKILLS AVAILABLE
+
 For detailed component building guidelines, use the `/component-builder` skill.
 
-Key principles:
+## Key principles
+
 - Use Radix UI for complex interactions, native HTML for simple elements
 - Always use `ComponentRef` (not `React.ElementRef`)
 - No code comments in component files
@@ -27,23 +31,17 @@ Key principles:
 - Use Tailwind design tokens, not arbitrary values
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 
-# Import Conventions
+## Import Conventions
 
 NEVER use `React.useState`, `React.useEffect`, etc.
 ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
 
-# Message Component Documentation
-
-When you add a new Aura component to `MessageResponse` inside `message.tsx`:
-
-- You MUST document it in the `message.examples.tsx` file under the 'MessageResponse (Streamdown)' example
-
-# Special Files
+## Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
 
-# Learnings
+## Learnings
 
 - Use `PaginationStatus` for inline pagination counters instead of ad hoc spans.
 - Pagination subcomponents inherit size from `PaginationContent`.
@@ -52,16 +50,27 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 - Biome formatting prefers inline JSX for short elements and props.
 - Getting started instructions should link to the Dune creation docs site instead of inline steps.
 - Consolidate docs content onto the root page instead of routing under `/docs`.
+- Use `forwardRef` and `displayName` for wrapper components to preserve refs.
+- Radix UI's `TooltipPrimitive.Provider` and `TooltipPrimitive.Root` don't support refs - use plain functions, not `forwardRef`.
+- Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
+- Form components should import and use utility classes from `@/lib/utils`: `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
+- `formElementBase` includes `bg-background` by default. Override with `bg-transparent` or other backgrounds inline when needed.
+- When form components are used inside compound components (like `InputGroup`), override hover/focus states to prevent conflicts with the parent container's styling.
+- `InputGroup` uses `shadow-focus-ring` for focus state and `shadow-focus-ring-destructive` for error state. The error state selector must target `[data-slot=input-group-control][aria-invalid=true]` to take precedence over normal focus.
+- InputGroup stories should showcase all alignment variants (inline-start, inline-end, block-start, block-end) and how it's used in compound components like PromptInput.
+- When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 
 # Storybook Stories
 
+## SKILLS AVAILABLE:
+
 For detailed story writing guidelines, use the `/story-builder` skill.
 
-Key principles:
+## Key principles
+
 - Stories are the ONLY place for code examples
 - All stories must have `parameters: { order: N }`
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
 - Use `canvas.findByTestId()` for portal content testing
 - Run `pnpm lint` and `pnpm tsc -b` after changes
-
