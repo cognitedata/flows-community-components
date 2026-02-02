@@ -5,7 +5,7 @@
  * informational messages, warnings, and errors.
  *
  * @example
- * import { Alert, AlertTitle, AlertDescription } from '@/components/ui/aura/alert';
+ * import { Alert, AlertTitle, AlertDescription } from '#aura/components/ui/aura/alert';
  *
  * <Alert variant="warning">
  *   <AlertTitle>Warning</AlertTitle>
