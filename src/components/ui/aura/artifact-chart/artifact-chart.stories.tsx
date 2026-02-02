@@ -1127,7 +1127,6 @@ export const EdgeCaseNoData: Story = {
   },
 };
 
-<<<<<<< HEAD
 // Line chart configuration
 const lineChartConfig = {
   strong: { label: "Primary", color: "rgba(47, 85, 234, 0.8)" },
