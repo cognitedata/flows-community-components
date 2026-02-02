@@ -7,11 +7,35 @@ const meta: Meta<typeof Tool> = {
   component: Tool,
   tags: ["autodocs"],
   argTypes: {
+    open: {
+      control: "boolean",
+      description: "Controlled open state of the tool content",
+      table: {
+        category: "State",
+        type: { summary: "boolean" },
+      },
+    },
     defaultOpen: {
       control: "boolean",
-      description: "Whether the tool content is open by default",
+      description: "Default open state (uncontrolled). Whether the tool content is open by default.",
       table: {
-        category: "Behavior",
+        category: "State",
+        type: { summary: "boolean" },
+      },
+    },
+    onOpenChange: {
+      action: "openChanged",
+      description: "Callback when the open state changes",
+      table: {
+        category: "Events",
+        type: { summary: "(open: boolean) => void" },
+      },
+    },
+    disabled: {
+      control: "boolean",
+      description: "Disable the tool collapsible (trigger cannot be clicked)",
+      table: {
+        category: "State",
         type: { summary: "boolean" },
       },
     },
@@ -25,6 +49,9 @@ const meta: Meta<typeof Tool> = {
   },
   parameters: {
     layout: "centered",
+    actions: {
+      handles: ["openChanged"],
+    },
   },
   decorators: [
     (Story) => (
