@@ -10,7 +10,7 @@ import {
   IconPhoto,
   IconWorld,
 } from "@tabler/icons-react";
-import { Source, Sources, SourcesTitle } from "./sources";
+import { Source, Sources, SourcesTitle } from "#aura/components/ui/aura/sources";
 
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",
