@@ -145,7 +145,7 @@ export default function AIComponentPage() {
             </Badge>
           </div>
           <p className="text-lg text-muted-foreground">{description}</p>
-          {componentStatus !== "production" && componentStatus !== "done" && (
+          {componentStatus !== "stable" && componentStatus !== "ready-for-ga" && (
             <div className={`p-4 rounded-lg border ${statusClasses}`}>
               <p className="text-sm">
                 <strong>Note:</strong> {statusMessage}

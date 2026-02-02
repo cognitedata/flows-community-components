@@ -16,16 +16,6 @@ interface SideNavigationProps {
   className?: string;
 }
 
-const docsNavigation: NavigationItem[] = [
-  { href: "/docs/installation", label: "Installation" },
-  { href: "/docs/about", label: "About" },
-  { href: "/docs/getting-started", label: "Getting started" },
-  { href: "/docs/releases", label: "Releases" },
-];
-
-// Keep for backward compatibility during migration
-const overviewNavigation: NavigationItem[] = docsNavigation;
-
 const primitivesNavigation: NavigationItem[] = [
   {
     href: "#",
@@ -180,8 +170,6 @@ const aiNavigation: NavigationItem[] = [
 ];
 
 export const navigationMap = {
-  docs: docsNavigation,
-  overview: overviewNavigation, // Keep for backward compatibility
   primitives: primitivesNavigation,
   patterns: patternsNavigation,
   sandbox: sandboxNavigation,
