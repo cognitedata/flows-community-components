@@ -421,7 +421,8 @@ export const TitleOnly: Story = {
     order: 8,
     docs: {
       description: {
-        story: "Dialog using only `DialogTitle` without a description to demonstrate minimal headers.",
+        story:
+          "Dialog using only `DialogTitle` without a description to demonstrate minimal headers.",
       },
     },
   },
@@ -598,7 +599,15 @@ export const AsyncAction: Story = {
     const openButton = canvas.getByRole("button", { name: /open async dialog/i });
     await userEvent.click(openButton);
 
-    const confirmButton = await canvas.findByTestId("async-confirm");
+    // Wait for dialog to appear in portal
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="dialog-content"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    // Query button from the document (portal content)
+    const confirmButton = document.querySelector('[data-testid="async-confirm"]') as HTMLElement;
+    expect(confirmButton).toBeInTheDocument();
     await userEvent.click(confirmButton);
 
     // Button should enter loading state
