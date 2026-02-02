@@ -24,50 +24,15 @@ Browse all components in the sidebar navigation or see individual component page
 
 ## Installation
 
-### For End Users
+Getting started instructions for Aura now live in the Dune creation docs:
 
-Install components from the published registry:
-
-```bash
-# Install a specific component
-npx shadcn add @aura/button
-
-# The CLI will automatically install dependencies
-```
-
-**Note:** Only production-ready components are published to the registry.
+- https://laughing-adventure-r6kwpyy.pages.github.io/
 
 ## Usage
 
-### Import Pattern
+Follow the Dune creation docs for setup, imports, and usage examples:
 
-Always use the `/cognite` path for imports:
-
-```tsx
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
-```
-
-**Why `/cognite`?** The system automatically resolves to production components when available, or draft components as a fallback. This means:
-
-- No import changes needed when components are promoted to production
-- Consistent import pattern across your entire codebase
-
-### Basic Example
-
-```tsx
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
-
-export function MyComponent() {
-  return (
-    <div>
-      <Badge>New</Badge>
-      <Button>Click me</Button>
-    </div>
-  );
-}
-```
+- https://laughing-adventure-r6kwpyy.pages.github.io/
 
 ## Styling
 

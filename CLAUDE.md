@@ -56,5 +56,7 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 - When `ArtifactListHeader` is present, remove top padding from `ArtifactListContent` and use title margin for spacing.
 - Biome formatting prefers inline JSX for short elements and props.
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
+- Getting started instructions should link to the Dune creation docs site instead of inline steps.
+- Consolidate docs content onto the root page instead of routing under `/docs`.
 - Radix UI's `TooltipPrimitive.Provider` and `TooltipPrimitive.Root` don't support refs - use plain functions, not `forwardRef`.
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".

@@ -9,10 +9,6 @@ import AIComponentPage from "./pages/ai/components/ComponentPage";
 import BlocksPage from "./pages/blocks/Page";
 import CogDocsIndividualPage from "./pages/cogdocs/CogDocsPage";
 import CogDocsPageComponent from "./pages/cogdocs/Page";
-import DocsAboutPage from "./pages/docs/about/Page";
-import DocsGettingStartedPage from "./pages/docs/getting-started/Page";
-import DocsInstallationPage from "./pages/docs/installation/Page";
-import GuidesPage from "./pages/guides/Page";
 import LayoutsPageContent from "./pages/layouts-page/Page";
 import MotionPage from "./pages/motion/Page";
 import PatternsPage from "./pages/patterns/Page";
@@ -99,16 +95,6 @@ export const router = createBrowserRouter(
             { path: ":slug", element: <AIComponentPage /> },
           ],
         },
-        // Docs section
-        {
-          path: "docs",
-          element: <SectionLayoutWrapper />,
-          children: [
-            { path: "installation", element: <DocsInstallationPage /> },
-            { path: "about", element: <DocsAboutPage /> },
-            { path: "getting-started", element: <DocsGettingStartedPage /> },
-          ],
-        },
         // CogDocs section with side navigation
         {
           path: "cogdocs",
@@ -128,7 +114,6 @@ export const router = createBrowserRouter(
         { path: "use-cases", element: <UseCasesPage /> },
         { path: "motion", element: <MotionPage /> },
         { path: "layouts", element: <LayoutsPageContent /> },
-        { path: "guides", element: <GuidesPage /> },
       ],
     },
   ],
