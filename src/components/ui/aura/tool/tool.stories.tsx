@@ -17,7 +17,8 @@ const meta: Meta<typeof Tool> = {
     },
     defaultOpen: {
       control: "boolean",
-      description: "Default open state (uncontrolled). Whether the tool content is open by default.",
+      description:
+        "Default open state (uncontrolled). Whether the tool content is open by default.",
       table: {
         category: "State",
         type: { summary: "boolean" },
