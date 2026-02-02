@@ -2,24 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
 import { useState } from "react";
-import {
-  Cell,
-  Pie,
-  PieChart,
-  type PieLabelRenderProps,
-  PolarAngleAxis,
-  RadialBar,
-  RadialBarChart,
-} from "recharts";
+import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
-import {
-  type ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-} from "@/components/ui/aura/chart";
+import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
 import {
   DropdownMenuItem,
   DropdownMenuSeparator,
@@ -1351,23 +1337,83 @@ export const EdgeCaseNoData: Story = {
   },
 };
 
-// Radial chart configuration - 5 rings from innermost (darkest) to outermost (lightest)
-const radialChartConfig = {
-  ring1: { label: "unit", color: "#2F55EA" },
-  ring2: { label: "unit", color: "rgba(47, 85, 234, 0.8)" },
-  ring3: { label: "unit", color: "rgba(47, 85, 234, 0.65)" },
-  ring4: { label: "unit", color: "rgba(47, 85, 234, 0.5)" },
-  ring5: { label: "unit", color: "rgba(47, 85, 234, 0.35)" },
-} satisfies ChartConfig;
+type RadialRingDatum = {
+  name: string;
+  fill: string;
+  // Arc percentage (0-100) - how much of the ring is filled
+  arcPercent: number;
+};
 
-// Data for concentric rings - each ring has a fill value (percentage)
-const radialChartData = [
-  { name: "ring5", value: 70, fill: "rgba(47, 85, 234, 0.35)" },
-  { name: "ring4", value: 85, fill: "rgba(47, 85, 234, 0.5)" },
-  { name: "ring3", value: 65, fill: "rgba(47, 85, 234, 0.65)" },
-  { name: "ring2", value: 75, fill: "rgba(47, 85, 234, 0.8)" },
-  { name: "ring1", value: 100, fill: "#2F55EA" },
+const radialRingBackground = "#E4E6E8";
+
+// 5 concentric circular rings from outer to inner
+// arcPercent: how much of each ring is filled (0-100), starting from top going clockwise
+const radialRingData: RadialRingDatum[] = [
+  { name: "ring5", fill: "rgba(47, 85, 234, 0.35)", arcPercent: 50 },
+  { name: "ring4", fill: "rgba(47, 85, 234, 0.5)", arcPercent: 72 },
+  { name: "ring3", fill: "rgba(47, 85, 234, 0.65)", arcPercent: 65 },
+  { name: "ring2", fill: "rgba(47, 85, 234, 0.8)", arcPercent: 76 },
+  { name: "ring1", fill: "#2F55EA", arcPercent: 100 },
 ];
+
+function RadialRingSvg() {
+  const viewBoxSize = 100;
+  const cx = viewBoxSize / 2;
+  const cy = viewBoxSize / 2;
+
+  // Ring configuration - thick circular rings with clear gaps
+  // Container is 256px (w-64), so 1 viewBox unit = 2.56px
+  const strokeWidth = 5.5; // ~14px thick rings
+  const gap = 2.5; // ~6px gap between rings
+  const spacing = strokeWidth + gap; // Distance between ring centers
+  // Ensure outer edge fits within viewBox: outerRadius + strokeWidth/2 <= 50
+  const outerRingRadius = viewBoxSize / 2 - strokeWidth / 2; // ~47.25
+
+  return (
+    <svg
+      viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
+      className="h-full w-full"
+      aria-hidden="true"
+    >
+      {radialRingData.map((ring, index) => {
+        // Calculate radius for this ring (outer to inner)
+        const radius = outerRingRadius - index * spacing;
+
+        // Calculate arc path for partial fills
+        const circumference = 2 * Math.PI * radius;
+        const arcLength = (ring.arcPercent / 100) * circumference;
+        const dashArray = `${arcLength} ${circumference}`;
+
+        return (
+          <g key={ring.name}>
+            {/* Background ring (full circle) */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              stroke={radialRingBackground}
+              strokeWidth={strokeWidth}
+            />
+            {/* Filled arc */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              stroke={ring.fill}
+              strokeWidth={strokeWidth}
+              strokeDasharray={ring.arcPercent === 100 ? undefined : dashArray}
+              strokeDashoffset={0}
+              strokeLinecap="round"
+              transform={`rotate(-90 ${cx} ${cy})`}
+            />
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
 
 /**
  * Radial bar chart with concentric rings showing progress/completion data.
@@ -1411,53 +1457,22 @@ export const RadialChart: Story = {
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
-          <ChartContainer
-            config={radialChartConfig}
-            className="mx-auto aspect-square h-52 w-full"
-          >
-            <RadialBarChart
-              data={radialChartData}
-              innerRadius="20%"
-              outerRadius="100%"
-              startAngle={90}
-              endAngle={-270}
-            >
-              <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-              <ChartTooltip
-                cursor={false}
-                content={({ active, payload }) => {
-                  if (!active || !payload?.length) return null;
-                  const data = payload[0];
-                  const value = data.value as number;
-                  const fill = data.payload?.fill as string;
-
-                  return (
-                    <div className="flex items-center gap-4 rounded border border-border bg-popover px-2 py-1 shadow-md">
-                      <div className="flex items-center gap-1.5">
-                        <span
-                          className="h-2 w-2 rounded-sm"
-                          style={{ backgroundColor: fill }}
-                        />
-                        <span className="text-sm text-muted-foreground">
-                          unit
-                        </span>
-                      </div>
-                      <span className="text-sm text-foreground">{value}</span>
-                    </div>
-                  );
-                }}
-              />
-              <RadialBar
-                dataKey="value"
-                background={{ fill: "#E4E6E8" }}
-                cornerRadius={4}
-              />
-              <ChartLegend
-                content={<ChartLegendContent nameKey="name" />}
-                className="flex-wrap gap-2"
-              />
-            </RadialBarChart>
-          </ChartContainer>
+          <div className="mx-auto aspect-square w-64">
+            <RadialRingSvg />
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {radialRingData.map((item) => (
+              <div key={item.name} className="flex items-center gap-1.5">
+                <span
+                  className="h-2 w-2 rounded-sm"
+                  style={{ backgroundColor: item.fill }}
+                />
+                <span className="text-sm leading-4 text-muted-foreground">
+                  unit
+                </span>
+              </div>
+            ))}
+          </div>
         </ArtifactChartContent>
 
         <ArtifactChartFooter className="flex flex-col items-start gap-1">
