@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+import { Badge } from "#aura/components/ui/aura/badge";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "#aura/components/ui/aura/hover-card";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, screen, userEvent, within } from "@storybook/test";
 import {
