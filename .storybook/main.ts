@@ -1,5 +1,9 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from "@storybook/react-vite";
 import { mergeConfig } from "vite";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -24,6 +28,12 @@ const config: StorybookConfig = {
 
     return mergeConfig(config, {
       base: basePath,
+      resolve: {
+        alias: {
+          "@": path.resolve(__dirname, "../src"),
+          "#aura": path.resolve(__dirname, "../src"),
+        },
+      },
     });
   },
 };
