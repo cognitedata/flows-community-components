@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconAlertTriangle, IconHelp, IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "#aura/components/ui/aura/tooltip";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Primitives/Tooltip",
