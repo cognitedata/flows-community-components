@@ -13,6 +13,10 @@ Write comprehensive, tested Storybook stories for Aura components.
 - Updating existing story files
 - User mentions "story", "storybook", "stories", or "examples"
 
+## File References
+
+This skill references actual files in the codebase as examples. To locate a file, use grep or file search (e.g., "find me badge.stories.tsx"). If multiple files match, prompt the user with full paths to confirm which file to use. If a file isn't findable, prompt the user to provide the code example. Update references if better examples emerge.
+
 ## Core Principle
 
 Stories are the ONLY place for code examples. They're tested, interactive, and automatically documented. Never duplicate examples in `index.tsx` or `*.metadata.ts`.
@@ -37,35 +41,7 @@ Include stories that apply, skip others. Keep incrementing order numbers.
 10. **Edge Cases** - Empty, long text, special chars, icon-only, mixed content
 11. **Playground** (optional) - `render: (args) => <Component {...args} />`, `order: 99`. Skip for simple/compositional components.
 
-**Example:**
-
-```tsx
-export const Basic: Story = {
-  render: () => <Badge variant="default">Label</Badge>,
-  parameters: { order: 1 },
-};
-
-export const Fjord: Story = {
-  render: () => <Badge variant="fjord">Observations</Badge>,
-  parameters: { order: 2 },
-};
-
-export const AllVariants: Story = {
-  render: () => (
-    <div className="flex gap-2">
-      <Badge variant="fjord">Fjord</Badge>
-      <Badge variant="aurora">Aurora</Badge>
-    </div>
-  ),
-  parameters: { order: 5 },
-};
-
-export const Playground: Story = {
-  render: (args) => <Badge {...args} />,
-  args: { variant: "fjord", children: "Badge" },
-  parameters: { order: 99 },
-};
-```
+See `badge.stories.tsx` or `button.stories.tsx` for comprehensive story ordering examples.
 
 ## Render Functions
 
@@ -73,46 +49,13 @@ All stories MUST use explicit render functions with hardcoded props. Never use `
 
 **Exception:** Only Playground uses `render: (args) => <Component {...args} />`.
 
-**Never use helper components** - inline all JSX directly:
-
-```tsx
-export const TeleportationMode: Story = {
-  render: function TeleportationMode() {
-    const [currentPage, setCurrentPage] = useState(1);
-    return (
-      <Pagination>
-        <PaginationContent size="default">
-          {/* full implementation */}
-        </PaginationContent>
-      </Pagination>
-    );
-  },
-};
-```
+**Never use helper components** - inline all JSX directly. See `pagination.stories.tsx` for examples of stateful render functions with `useState`.
 
 Duplicate code in each story if needed. Code examples > DRY principle.
 
 ## Polymorphic Title Components
 
-For components with `as` prop for heading levels:
-
-```tsx
-export const SemanticHeadings: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6">
-      <Card>
-        <CardTitle as="h2">Section Title (h2)</CardTitle>
-      </Card>
-      <Card>
-        <CardTitle>Default (h3)</CardTitle>
-      </Card>
-      <Card>
-        <CardTitle as="h4">Subsection (h4)</CardTitle>
-      </Card>
-    </div>
-  ),
-};
-```
+For components with `as` prop for heading levels, see `card.stories.tsx` for semantic heading examples.
 
 ## Play Functions
 
@@ -120,15 +63,7 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
 **NO inline code comments in play functions.** Code should be self-explanatory.
 
-```tsx
-play: async ({ canvasElement }) => {
-  const avatar = canvasElement.querySelector('[data-slot="avatar"]');
-  await expect(avatar).toBeInTheDocument();
-  
-  const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
-  await expect(fallback).toHaveTextContent("AB");
-};
-```
+See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
 
 ### Testing Buttons in Play Functions
 
@@ -138,39 +73,15 @@ play: async ({ canvasElement }) => {
 
 ### Testing Heading Levels
 
-```tsx
-play: async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const h2Title = canvas.getByRole("heading", { level: 2, name: "Section Title" });
-  await expect(h2Title).toBeInTheDocument();
-};
-```
+See `card.stories.tsx` for examples of testing heading levels with `canvas.getByRole("heading", { level: N })`.
 
 ### Testing Portal Content
 
-Storybook's canvas now handles portal content correctly. Use `canvas.findByTestId()` for all queries.
-
-```tsx
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-
-play: async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByRole("button"));
-  
-  const confirmButton = await canvas.findByTestId("confirm");
-  await userEvent.click(confirmButton);
-};
-```
+Storybook's canvas now handles portal content correctly. Use `canvas.findByTestId()` for all queries. See `dialog.stories.tsx` or `drawer.stories.tsx` for portal testing examples.
 
 ## Styling in Stories
 
-Use Tailwind design tokens, not arbitrary values:
-
-```tsx
-<div className="w-90 gap-2 p-4 text-sm leading-4.5">
-```
-
-Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`
+Use Tailwind design tokens, not arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
 
 ## argTypes
 
@@ -178,37 +89,13 @@ Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced.
 
 ## Parameters & Descriptions
 
-```tsx
-parameters: {
-  order: 1,
-  docs: {
-    description: {
-      story: "Clear description"
-    }
-  }
-}
-```
-
-**Story descriptions should be minimal and future-proof.** Avoid mentioning specific counts or implementation details that could become outdated.
-
-```tsx
-story: "Choose available sizes based on context and space constraints."
-
-story: "Dialog using only DialogTitle without a description to demonstrate minimal headers."
-```
+**Story descriptions should be minimal and future-proof.** Avoid mentioning specific counts or implementation details that could become outdated. See story files for examples of clear, timeless descriptions.
 
 **Story-level code comments** (in `/** ... */` above stories or in descriptions) should be minimal and explain WHAT the story demonstrates, not HOW it works internally.
 
 ## Deprecated Components
 
-Avoid deprecated third-party components. Check library docs for deprecation warnings. Use modern alternatives like `shape` or `content` props.
-
-```tsx
-<Pie 
-  data={data}
-  shape={(props) => <CustomShape {...props} />}
-/>
-```
+Avoid deprecated third-party components. Check library docs for deprecation warnings. Use modern alternatives like `shape` or `content` props. See `artifact-chart.stories.tsx` for Recharts examples avoiding deprecated `<Cell>` components.
 
 ## Post-Build Steps
 

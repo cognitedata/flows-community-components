@@ -13,143 +13,50 @@ Build accessible, consistent React components following Aura design system patte
 - Updating existing component files
 - User mentions "component", "create component", "build component", or "update component"
 
+## File References
+
+This skill references actual files in the codebase as examples. To locate a file, use grep or file search (e.g., "find me badge.tsx"). If multiple files match, prompt the user with full paths to confirm which file to use. If a file isn't findable, prompt the user to provide the code example. Update references if better examples emerge.
+
 ## Radix UI & Accessibility
 
-Use Radix for complex interactions (dropdowns, dialogs), keyboard navigation, ARIA states. Use native HTML for simple elements (lists, headings, divs).
-
-```tsx
-<div role="alert" aria-live="polite">Error message</div>
-
-<IconCheck aria-hidden="true" className="size-4" />
-
-<button onClick={handleClick} aria-label="Close dialog">
-  <IconX aria-hidden="true" />
-</button>
-```
+Use Radix for complex interactions (dropdowns, dialogs), keyboard navigation, ARIA states. Use native HTML for simple elements (lists, headings, divs). See `dialog.tsx` and `alert.tsx` for accessibility patterns.
 
 ## Component Structure
 
-**Exports at bottom, one per line:**
-```tsx
-export {
-  Badge,
-  badgeVariants,
-};
-```
+**Exports at bottom, one per line.** See `badge.tsx` for export pattern.
 
-**Inline prop typing, no export unless needed externally:**
-```tsx
-const Badge = ({ className, ...props }: ComponentProps<"div">) => { ... }
-```
+**Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
 ## Composition Over Configuration
 
-```tsx
-<Card>
-  <CardHeader>
-    <CardTitle>Title</CardTitle>
-  </CardHeader>
-  <CardContent>Content</CardContent>
-</Card>
-```
+Use composition patterns for flexibility. See `card.tsx` for component structure and `card.stories.tsx` for usage examples.
 
 ## Styling Conventions
 
-**Always use cn() for className merging:**
-```tsx
-const Badge = ({ className, ...props }: ComponentProps<"div">) => (
-  <div className={cn("inline-flex items-center", className)} {...props} />
-);
-```
+**Always use cn() for className merging.** See any component file like `badge.tsx`.
 
-**All components get data-slot:**
-```tsx
-<div data-slot="badge" className={cn(badgeVariants({ variant }))} />
-```
+**All components get data-slot.** See `button.tsx` for data-slot usage.
 
-**Use design tokens, not arbitrary values:**
-```tsx
-className="leading-4.5 text-sm gap-2"
-```
+**Use design tokens, not arbitrary values** like `leading-4.5`, `text-sm`, `gap-2` instead of `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
 
 ## Variants with CVA
 
-```tsx
-const badgeVariants = cva(
-  "inline-flex items-center rounded-md",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground",
-        secondary: "bg-secondary text-secondary-foreground",
-      },
-      size: {
-        sm: "text-xs px-2",
-        md: "text-sm px-3",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "md",
-    },
-  }
-);
-
-export { badgeVariants };
-```
+Use `class-variance-authority` for variant styling. See `badge.tsx` or `button.tsx` for CVA patterns with variants, defaultVariants, and exports.
 
 ## forwardRef Pattern
 
 **CRITICAL: Use ComponentRef, never React.ElementRef**
 
-`React.ElementRef` is deprecated. Always import and use `ComponentRef` directly from "react":
+`React.ElementRef` is deprecated. Always import and use `ComponentRef` directly from "react".
 
-```tsx
-import { type ComponentRef, type ComponentProps, forwardRef } from "react";
-
-const Badge = forwardRef<HTMLDivElement, ComponentProps<"div">>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn(badgeVariants(), className)} {...props} />
-  )
-);
-Badge.displayName = "Badge";
-
-const AlertDialogTrigger = forwardRef<
-  ComponentRef<typeof AlertDialogPrimitive.Trigger>,
-  ComponentProps<typeof AlertDialogPrimitive.Trigger>
->((props, ref) => (
-  <AlertDialogPrimitive.Trigger ref={ref} {...props} />
-));
-AlertDialogTrigger.displayName = "AlertDialogTrigger";
-
-const CardHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(...)
-CardHeader.displayName = "CardHeader";
-```
+See these files for forwardRef patterns:
+- Native HTML elements: `badge.tsx`, `button.tsx`
+- Radix Primitives: `dialog.tsx`, `alert-dialog.tsx`
+- Always set `displayName` for debugging and dev tools
 
 ## Semantic HTML & Polymorphic Components
 
-Title components support polymorphic heading elements for proper document hierarchy, SEO, and screen reader accessibility.
-
-```tsx
-type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-
-const CardTitle = forwardRef<
-  HTMLHeadingElement,
-  ComponentProps<"h3"> & { as?: HeadingElement }
->(({ className, as: Tag = "h3", ...props }, ref) => (
-  <Tag
-    ref={ref}
-    data-slot="card-title"
-    className={cn("font-semibold text-lg", className)}
-    {...props}
-  />
-));
-CardTitle.displayName = "CardTitle";
-
-<CardTitle as="h2">Section Title</CardTitle>
-<CardTitle>Default (h3)</CardTitle>
-<CardTitle as="h4">Subsection</CardTitle>
-```
+Title components support polymorphic heading elements for proper document hierarchy, SEO, and screen reader accessibility. See `card.tsx` for the `CardTitle` polymorphic pattern with `as` prop. Usage examples in `card.stories.tsx`.
 
 ## Component Naming
 
@@ -157,76 +64,25 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 
 ## File Organization
 
-```tsx
-// 1. React
-import { forwardRef } from "react";
-
-// 2. Third-party
-import { cva } from "class-variance-authority";
-import { IconCheck } from "@tabler/icons-react";
-
-// 3. Local utilities
-import { cn } from "@/lib/utils";
-```
+**Import order:** React → Third-party → Local utilities. See any component file like `button.tsx`.
 
 **Definition order:** Components in dependency order, exports at bottom.
 
-**Helper Functions:** Extract local helper functions to `@/lib/utils.ts` for reusability, testing, and centralized maintenance. Add proper error handling with try-catch.
-
-```tsx
-export function getStorybookImagePath(filename: string): string {
-  if (typeof window === "undefined") return `/${filename}`;
-  
-  try {
-    const pathname = (window.parent?.location || window.location).pathname;
-    const match = pathname.match(/^(\/aura\/branches\/[^/]+\/storybook)/);
-    if (match) return `${match[1]}/${filename}`;
-    return `/${filename}`;
-  } catch (error) {
-    console.warn("Failed to determine path:", error);
-    return `/${filename}`;
-  }
-}
-```
+**Helper Functions:** Extract local helper functions to `utils.ts` (in `src/lib/`) for reusability, testing, and centralized maintenance. Add proper error handling with try-catch. See `getStorybookImagePath` in `utils.ts` for example.
 
 ## Code Comments & Documentation
 
-**CRITICAL: NO code comments in component files**
+**CRITICAL: NO code comments in component files.** Component files (`.tsx`) should contain ZERO comments. See `badge.tsx` for clean, self-documenting code.
 
-Component files (`.tsx`) should contain ZERO comments - no single-line, no multi-line, no JSDoc. Component structure and TypeScript types should be self-documenting.
+**index.tsx - brief description only.** See `index.tsx` in any component folder like badge for minimal JSDoc pattern.
 
-```tsx
-const Badge = forwardRef<HTMLDivElement, BadgeProps>(...)
-```
-
-**index.tsx - brief description only:**
-```tsx
-/**
- * Badge Component
- *
- * A small status indicator component with multiple variants.
- * See Storybook for comprehensive examples and documentation.
- */
-export { Badge, badgeVariants } from "./badge";
-export { BadgeMetadata } from "./badge.metadata";
-```
-
-**Metadata file - LLM guidance only:**
-```tsx
-export const BadgeMetadata: ComponentMeta = {
-  name: "Badge",
-  status: "draft",
-  description: "A small status indicator component.",
-  llmUsage: "Use `<Badge variant='default'>Status</Badge>`. Variants: 'secondary', 'destructive', 'outline'.",
-  importPath: "@/components/ui/aura/badge",
-};
-```
+**Metadata file - LLM guidance only.** See `badge.metadata.ts` for ComponentMeta pattern.
 
 **CRITICAL:** ALL code examples live in Storybook stories only.
 
 ## Side Navigation
 
-Add new components to `src/components/side-navigation.tsx`. Story meta `title` determines category:
+Add new components to `side-navigation.tsx`. Story meta `title` determines category:
 - `Primitives/Colors|Effects|Layouts|Typography` → Foundations subsection
 - `Primitives/[Name]` → Primitives subsection (alphabetically)
 - `AI/[Name]` → AI Chat subsection
