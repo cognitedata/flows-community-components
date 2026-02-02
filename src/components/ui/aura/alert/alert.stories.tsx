@@ -69,7 +69,7 @@ const meta: Meta<typeof Alert> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[400px]">
+      <div className="w-100">
         <Story />
       </div>
     ),
@@ -82,7 +82,7 @@ type Story = StoryObj<typeof Alert>;
 /**
  * Default alert with title, description, and action button.
  */
-export const Default: Story = {
+export const Basic: Story = {
   render: () => (
     <Alert>
       <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
@@ -96,6 +96,7 @@ export const Default: Story = {
     </Alert>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default alert style with informational content.",
@@ -147,6 +148,7 @@ export const Dismissible: Story = {
     );
   },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Alert with a close button. Provide onClose prop to show the close button.",
@@ -197,6 +199,7 @@ export const Secondary: Story = {
     </Alert>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Secondary variant for less prominent notifications.",
@@ -222,6 +225,7 @@ export const Warning: Story = {
     </Alert>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Warning variant for cautionary messages that need attention.",
@@ -245,6 +249,7 @@ export const ErrorAlert: Story = {
     </Alert>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Error variant for critical issues that need immediate attention.",
@@ -282,6 +287,7 @@ export const AllVariants: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "All available alert variants for comparison.",
@@ -305,6 +311,7 @@ export const DescriptionOnly: Story = {
     </Alert>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Alert can be used with just a description when a title is not needed.",
@@ -327,6 +334,7 @@ export const Success: Story = {
     </Alert>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Success-style alert using the default variant with a green check icon.",
@@ -353,6 +361,7 @@ export const MultipleActions: Story = {
     </Alert>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Alert with multiple action buttons for user choice.",
@@ -408,6 +417,7 @@ export const ControlledVisibility: Story = {
     );
   },
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Alert visibility can be controlled externally using the visible prop.",
@@ -448,7 +458,7 @@ export const ControlledVisibility: Story = {
  */
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-4 w-[450px]">
+    <div className="space-y-4 w-100">
       {/* All variants */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
@@ -498,6 +508,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 11,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -537,6 +548,7 @@ export const Playground: Story = {
     </Alert>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with alert props.",
