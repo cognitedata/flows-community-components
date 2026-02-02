@@ -53,6 +53,13 @@ All stories MUST use explicit render functions with hardcoded props. Never use `
 
 Duplicate code in each story if needed. Code examples > DRY principle.
 
+## Import Conventions
+
+**CRITICAL: Use `#aura/` imports for all Aura components and utilities:**
+- Import components: `import { Button } from "#aura/components/ui/aura/button"`
+- Import utilities: `import { cn } from "#aura/lib/utils"`
+- Never use relative imports like `"./button"` or `@/` aliases in story files
+
 ## Polymorphic Title Components
 
 For components with `as` prop for heading levels, see `card.stories.tsx` for semantic heading examples.
@@ -91,7 +98,11 @@ Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced.
 
 **Story descriptions should be minimal and future-proof.** Avoid mentioning specific counts or implementation details that could become outdated. See story files for examples of clear, timeless descriptions.
 
-**Story-level code comments** (in `/** ... */` above stories or in descriptions) should be minimal and explain WHAT the story demonstrates, not HOW it works internally.
+**CRITICAL: ALL stories MUST have a code comment** (in `/** ... */` above the story export). Comments should be:
+- Minimal and future-proof
+- Explain WHAT the story demonstrates, not HOW it works internally
+- Avoid mentioning specific counts (e.g., "three sizes") that could become outdated
+- No inline comments within JSON objects or play functions
 
 ## Deprecated Components
 
@@ -107,8 +118,10 @@ Before committing changes:
 1. Run `pnpm lint` to check code quality
 2. Run `pnpm tsc -b` to verify TypeScript types
 3. Ensure all stories have `order` parameter
-4. Verify play functions pass with no errors
-5. Test interactive stories manually
-6. No inline code comments in play functions
-7. Story descriptions are minimal and future-proof
-8. No deprecated third-party components used
+4. ALL stories have a minimal code comment above them
+5. All imports use `#aura/` prefix
+6. Verify play functions pass with no errors
+7. Test interactive stories manually
+8. No inline code comments in play functions or JSON objects
+9. Story descriptions are minimal and future-proof
+10. No deprecated third-party components used
