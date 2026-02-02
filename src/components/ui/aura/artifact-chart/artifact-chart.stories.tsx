@@ -1116,7 +1116,6 @@ export const EdgeCaseNoData: Story = {
   },
 };
 
-<<<<<<< HEAD
 // Area chart configuration
 const areaChartConfig = {
   r401: { label: "R401", color: "rgba(47, 85, 234, 0.8)" },
