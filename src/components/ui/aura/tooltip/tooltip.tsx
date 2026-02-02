@@ -43,7 +43,7 @@ TooltipTrigger.displayName = "TooltipTrigger";
 const TooltipContent = forwardRef<
   React.ComponentRef<typeof TooltipPrimitive.Content>,
   ComponentProps<typeof TooltipPrimitive.Content>
->(({ className, sideOffset = 0, side = "top", children, ...props }, ref) => (
+>(({ className, sideOffset = 4, side = "top", children, ...props }, ref) => (
   <TooltipPrimitive.Portal container={getPortalContainer()}>
     <TooltipPrimitive.Content
       ref={ref}
@@ -52,32 +52,15 @@ const TooltipContent = forwardRef<
       sideOffset={sideOffset}
       side={side}
       className={cn(
-        "bg-popover text-popover-foreground border border-border animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit origin-(--radix-tooltip-content-transform-origin) rounded-md px-2 py-2 text-sm font-medium leading-4.5 text-balance shadow-sm",
+        "z-50 w-fit max-w-80 origin-(--radix-tooltip-content-transform-origin) rounded-md bg-mountain-900 p-2 text-sm font-medium leading-4.5 text-mountain-50",
+        "animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+        "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         className
       )}
       {...props}
     >
       {children}
-      {/* Border arrow */}
-      <TooltipPrimitive.Arrow
-        className={cn(
-          "bg-border fill-border z-50 size-2.5",
-          side === "bottom" && "rotate-45 translate-y-[calc(-50%_-_1px)]",
-          side === "top" && "rotate-45 translate-y-[calc(-50%_-_1px)] shadow-sm",
-          side === "left" && "rotate-45 translate-y-[calc(-50%_-_1px)]",
-          side === "right" && "rotate-45 translate-y-[calc(-50%_-_1px)]"
-        )}
-      />
-      {/* Background arrow */}
-      <TooltipPrimitive.Arrow
-        className={cn(
-          "bg-popover fill-popover z-50 size-2.5",
-          side === "bottom" && "rotate-45 translate-y-[calc(-50%_-_2px)]",
-          side === "top" && "rotate-45 translate-y-[calc(-50%_-_2px)]",
-          side === "left" && "rotate-45 translate-y-[calc(-50%_-_2px)]",
-          side === "right" && "rotate-45 translate-y-[calc(-50%_-_2px)]"
-        )}
-      />
+      <TooltipPrimitive.Arrow className="z-50 fill-mountain-900" />
     </TooltipPrimitive.Content>
   </TooltipPrimitive.Portal>
 ));
