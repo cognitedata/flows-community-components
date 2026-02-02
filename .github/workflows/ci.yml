@@ -58,4 +58,5 @@ jobs:
         run: pnpm run build-storybook
 
       - name: Run Storybook interaction tests
-        run: pnpm dlx serve "dist/storybook" --listen 6006 & pnpm dlx wait-on http://127.0.0.1:6006 && pnpm run storybook:test -- --url http://127.0.0.1:6006
+        # Builds storybook, serves dist/storybook, then runs test-storybook
+        run: pnpm run storybook:test:ci
