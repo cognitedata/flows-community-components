@@ -39,6 +39,8 @@ Use composition patterns for flexibility. See `card.tsx` for component structure
 
 **Use design tokens, not arbitrary values** like `leading-4.5`, `text-sm`, `gap-2` instead of `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
 
+**Inline prop typing, no type exports.** Define prop types inline (e.g., `type BadgeProps = ...`) but do not export them. Consumers can use `ComponentProps<typeof Component>` if needed. See `badge.tsx`, `card.tsx`, `button.tsx` - none export prop types.
+
 ## Variants with CVA
 
 Use `class-variance-authority` for variant styling. See `badge.tsx` or `button.tsx` for CVA patterns with variants, defaultVariants, and exports.
@@ -50,6 +52,7 @@ Use `class-variance-authority` for variant styling. See `badge.tsx` or `button.t
 `React.ElementRef` is deprecated. Always import and use `ComponentRef` directly from "react".
 
 See these files for forwardRef patterns:
+
 - Native HTML elements: `badge.tsx`, `button.tsx`
 - Radix Primitives: `dialog.tsx`, `alert-dialog.tsx`
 - Always set `displayName` for debugging and dev tools
@@ -83,6 +86,7 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 ## Side Navigation
 
 Add new components to `side-navigation.tsx`. Story meta `title` determines category:
+
 - `Primitives/Colors|Effects|Layouts|Typography` → Foundations subsection
 - `Primitives/[Name]` → Primitives subsection (alphabetically)
 - `AI/[Name]` → AI Chat subsection
@@ -99,6 +103,7 @@ After creating or modifying components:
 ## Checklist
 
 Before committing changes:
+
 1. Run `pnpm lint` to check code quality
 2. Run `pnpm tsc -b` to verify TypeScript types
 3. Ensure no linter errors, type safety, prop spreading
