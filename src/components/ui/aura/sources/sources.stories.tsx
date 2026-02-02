@@ -253,8 +253,8 @@ export const TooManySourcesWithOverflow: Story = {
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     const overflowPill = canvas.getByRole("button", { name: "4 more sources" });
     await userEvent.hover(overflowPill);
-    const hoverCard = await screen.findByRole("dialog");
-    await expect(within(hoverCard).getByText("4 more sources")).toBeInTheDocument();
+    // Radix HoverCard does not use role="dialog"; wait for the card content text to appear (portaled)
+    await screen.findByText("4 more sources", { exact: true }, { timeout: 3000 });
   },
 };
 
