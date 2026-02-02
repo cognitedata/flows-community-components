@@ -1,6 +1,6 @@
 import { type ChangeEvent, type ComponentProps, forwardRef, useState } from "react";
 
-import { HelperText } from "@/components/ui/aura/helper-text";
+import { HelperText } from "#aura/components/ui/aura/helper-text";
 import {
   cn,
   disabledState,
@@ -9,7 +9,7 @@ import {
   formElementBase,
   hoverState,
   invalidState,
-} from "@/lib/utils";
+} from "#aura/lib/utils";
 
 interface TextareaProps extends ComponentProps<"textarea"> {
   maxChars?: number;

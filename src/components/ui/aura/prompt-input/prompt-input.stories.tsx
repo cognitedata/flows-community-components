@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "#aura/components/ui/aura/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HelperText } from "@/components/ui/aura/helper-text";
+} from "#aura/components/ui/aura/dropdown-menu";
+import { HelperText } from "#aura/components/ui/aura/helper-text";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "#aura/components/ui/aura/button";
 import {
   Command,
   CommandEmpty,
@@ -7,29 +7,29 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/aura/command";
+} from "#aura/components/ui/aura/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+} from "#aura/components/ui/aura/dropdown-menu";
+import { HelperText } from "#aura/components/ui/aura/helper-text";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "#aura/components/ui/aura/hover-card";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "@/components/ui/aura/input-group";
+} from "#aura/components/ui/aura/input-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/aura/select";
-import { cn } from "@/lib/utils";
+} from "#aura/components/ui/aura/select";
+import { cn } from "#aura/lib/utils";
 import {
   IconInfoCircle,
   IconLoader2,

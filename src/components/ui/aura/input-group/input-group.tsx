@@ -1,10 +1,10 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Textarea } from "@/components/ui/aura/textarea";
-import { cn } from "@/lib/utils";
+import { Button } from "#aura/components/ui/aura/button";
+import { Input } from "#aura/components/ui/aura/input";
+import { Textarea } from "#aura/components/ui/aura/textarea";
+import { cn } from "#aura/lib/utils";
 
 const InputGroup = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {

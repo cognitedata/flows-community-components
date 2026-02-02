@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "#aura/lib/component-examples";
 
 /**
  * PromptInput Component Metadata

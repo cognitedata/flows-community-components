@@ -1,5 +1,5 @@
 import { type CogDocsPage, cogdocsPages } from "virtual:cogdocs";
-import { cn } from "@/lib/utils";
+import { cn } from "#aura/lib/utils";
 import { IconChevronRight } from "@tabler/icons-react";
 import * as React from "react";
 import { Link, useLocation } from "react-router-dom";
