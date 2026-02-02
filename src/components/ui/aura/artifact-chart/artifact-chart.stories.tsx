@@ -6,10 +6,7 @@ import { Pie, PieChart, type PieLabelRenderProps } from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
 import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
-import {
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@/components/ui/aura/dropdown-menu";
+import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import {
   ArtifactChart,
   ArtifactChartContent,
@@ -201,9 +198,7 @@ export const Basic: Story = {
     await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
     await expect(canvas.getByText("Visitors")).toBeInTheDocument();
     await expect(canvas.getByText("1,125")).toBeInTheDocument();
-    await expect(
-      canvas.getByText("Trending up by 5.2% this month"),
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function BasicPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -212,17 +207,12 @@ export const Basic: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>
-            January - June 2024
-          </ArtifactChartDescription>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -231,24 +221,15 @@ export const Basic: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -270,12 +251,8 @@ export const Basic: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
@@ -287,14 +264,10 @@ export const Basic: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -342,17 +315,12 @@ export const WithHeader: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>
-            January - June 2024
-          </ArtifactChartDescription>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -361,24 +329,15 @@ export const WithHeader: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -400,12 +359,8 @@ export const WithHeader: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
@@ -417,14 +372,10 @@ export const WithHeader: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -443,17 +394,14 @@ export const WithFooter: Story = {
     order: 3,
     docs: {
       description: {
-        story:
-          "Chart artifact with footer only. No header - useful when the visual is primary.",
+        story: "Chart artifact with footer only. No header - useful when the visual is primary.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(
-      canvas.getByText("Trending up by 5.2% this month"),
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
     await expect(canvas.getByText("1,125")).toBeInTheDocument();
   },
   render: function WithFooterPieChart() {
@@ -463,10 +411,7 @@ export const WithFooter: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -475,24 +420,15 @@ export const WithFooter: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -514,12 +450,8 @@ export const WithFooter: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
@@ -531,14 +463,10 @@ export const WithFooter: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -586,9 +514,7 @@ export const WithActions: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>
-            January - June 2024
-          </ArtifactChartDescription>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
           <CardHeaderRight>
             <CardActions>
               <DropdownMenuItem>View details</DropdownMenuItem>
@@ -601,10 +527,7 @@ export const WithActions: Story = {
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -613,24 +536,15 @@ export const WithActions: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -652,12 +566,8 @@ export const WithActions: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
@@ -669,14 +579,10 @@ export const WithActions: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -705,8 +611,7 @@ export const MinimalHeader: Story = {
     order: 5,
     docs: {
       description: {
-        story:
-          "Chart artifact with minimal header containing only a title, no description.",
+        story: "Chart artifact with minimal header containing only a title, no description.",
       },
     },
   },
@@ -727,10 +632,7 @@ export const MinimalHeader: Story = {
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -739,24 +641,15 @@ export const MinimalHeader: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -778,12 +671,8 @@ export const MinimalHeader: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
@@ -795,14 +684,10 @@ export const MinimalHeader: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -868,9 +753,7 @@ export const InteractiveDataToggle: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>
-            Click buttons to switch quarters
-          </ArtifactChartDescription>
+          <ArtifactChartDescription>Click buttons to switch quarters</ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
@@ -900,10 +783,7 @@ export const InteractiveDataToggle: Story = {
           </div>
 
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -912,24 +792,15 @@ export const InteractiveDataToggle: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -968,14 +839,10 @@ export const InteractiveDataToggle: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -1012,9 +879,7 @@ export const EdgeCaseLongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(
-      canvas.getByText(/Quarterly Revenue Distribution/),
-    ).toBeInTheDocument();
+    await expect(canvas.getByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
   },
   render: function LongTextPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1026,18 +891,14 @@ export const EdgeCaseLongText: Story = {
             Quarterly Revenue Distribution Across All Business Units and Regions
           </ArtifactChartTitle>
           <ArtifactChartDescription>
-            This chart shows the breakdown of revenue sources including product
-            sales, professional services, and recurring subscriptions for Q4
-            2024.
+            This chart shows the breakdown of revenue sources including product sales, professional
+            services, and recurring subscriptions for Q4 2024.
           </ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <ChartTooltip
                   cursor={false}
@@ -1046,24 +907,15 @@ export const EdgeCaseLongText: Story = {
                     const data = payload[0];
                     const id = data.payload?.id as string;
                     const value = data.value as number;
-                    const color =
-                      sharedChartConfig[id as keyof typeof sharedChartConfig]
-                        ?.color;
+                    const color = sharedChartConfig[id as keyof typeof sharedChartConfig]?.color;
 
                     return (
                       <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
                         <div className="flex items-center gap-1.5">
-                          <span
-                            className="h-2 w-2 rounded-sm"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="text-sm text-muted-foreground">
-                            unit
-                          </span>
+                          <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: color }} />
+                          <span className="text-sm text-muted-foreground">unit</span>
                         </div>
-                        <span className="text-sm text-foreground">
-                          {value.toLocaleString()}
-                        </span>
+                        <span className="text-sm text-foreground">{value.toLocaleString()}</span>
                       </div>
                     );
                   }}
@@ -1085,12 +937,8 @@ export const EdgeCaseLongText: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
@@ -1102,14 +950,10 @@ export const EdgeCaseLongText: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -1121,8 +965,8 @@ export const EdgeCaseLongText: Story = {
             <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
           </div>
           <div className="text-sm leading-4 text-muted-foreground">
-            Data aggregated from all regional offices and includes both direct
-            and partner channel revenue streams.
+            Data aggregated from all regional offices and includes both direct and partner channel
+            revenue streams.
           </div>
         </ArtifactChartFooter>
       </ArtifactChart>
@@ -1156,17 +1000,12 @@ export const VisualRegression: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>
-            January - June 2024
-          </ArtifactChartDescription>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
           <div className="relative flex items-center justify-center">
-            <ChartContainer
-              config={sharedChartConfig}
-              className="h-70 w-100 overflow-visible"
-            >
+            <ChartContainer config={sharedChartConfig} className="h-70 w-100 overflow-visible">
               <PieChart style={{ overflow: "visible" }}>
                 <Pie
                   data={chartData}
@@ -1185,12 +1024,8 @@ export const VisualRegression: Story = {
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
               <div>
-                <span className="block text-2xl font-medium text-foreground">
-                  1,125
-                </span>
-                <span className="block text-sm font-normal text-muted-foreground">
-                  Visitors
-                </span>
+                <span className="block text-2xl font-medium text-foreground">1,125</span>
+                <span className="block text-sm font-normal text-muted-foreground">Visitors</span>
               </div>
             </div>
           </div>
@@ -1202,14 +1037,10 @@ export const VisualRegression: Story = {
                   className="h-2 w-2 rounded-sm"
                   style={{
                     backgroundColor:
-                      sharedChartConfig[
-                        item.id as keyof typeof sharedChartConfig
-                      ]?.color,
+                      sharedChartConfig[item.id as keyof typeof sharedChartConfig]?.color,
                   }}
                 />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
@@ -1254,9 +1085,7 @@ export const EdgeCaseNoData: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>
-            January - June 2024
-          </ArtifactChartDescription>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
         </ArtifactChartHeader>
 
         <ArtifactChartContent>
@@ -1341,11 +1170,7 @@ function RadialRingSvg({
         const isHovered = hoveredRing?.name === ring.name;
 
         return (
-          <g
-            key={ring.name}
-            onMouseEnter={() => onRingHover(ring)}
-            className="cursor-pointer"
-          >
+          <g key={ring.name} onMouseEnter={() => onRingHover(ring)} className="cursor-pointer">
             {/* Background ring (full circle) */}
             <circle
               cx={cx}
@@ -1411,14 +1236,10 @@ export const RadialChart: Story = {
 
     await expect(canvas.getByText("Chart title")).toBeInTheDocument();
     await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(
-      canvas.getByText("Trending up by 5.2% this month"),
-    ).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function RadialChartStory() {
-    const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(
-      null,
-    );
+    const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -1433,9 +1254,7 @@ export const RadialChart: Story = {
       <ArtifactChart className="w-100">
         <ArtifactChartHeader>
           <ArtifactChartTitle>Chart title</ArtifactChartTitle>
-          <ArtifactChartDescription>
-            January - June 2024
-          </ArtifactChartDescription>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
           <CardHeaderRight>
             <CardActions>
               <DropdownMenuItem>View details</DropdownMenuItem>
@@ -1469,9 +1288,7 @@ export const RadialChart: Story = {
                     />
                     <span className="text-sm text-muted-foreground">unit</span>
                   </div>
-                  <span className="text-sm text-foreground">
-                    {hoveredRing.arcPercent}%
-                  </span>
+                  <span className="text-sm text-foreground">{hoveredRing.arcPercent}%</span>
                 </div>
               </div>
             )}
@@ -1479,13 +1296,8 @@ export const RadialChart: Story = {
           <div className="flex flex-wrap items-center justify-center gap-2">
             {radialRingData.map((item) => (
               <div key={item.name} className="flex items-center gap-1.5">
-                <span
-                  className="h-2 w-2 rounded-sm"
-                  style={{ backgroundColor: item.fill }}
-                />
-                <span className="text-sm leading-4 text-muted-foreground">
-                  unit
-                </span>
+                <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: item.fill }} />
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
               </div>
             ))}
           </div>
