@@ -11,7 +11,7 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import { Button } from "./button";
+import { Button } from "#aura/components/ui/aura/button";
 
 const meta: Meta<typeof Button> = {
   title: "Primitives/Button",
