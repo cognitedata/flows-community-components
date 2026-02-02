@@ -1,6 +1,6 @@
-import { mergeConfig } from "vite";
+const { mergeConfig } = require("vite");
 
-const config = {
+module.exports = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-docs",
@@ -23,5 +23,3 @@ const config = {
     });
   },
 };
-
-export default config;
