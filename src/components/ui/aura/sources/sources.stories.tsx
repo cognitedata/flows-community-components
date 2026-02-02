@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, screen, within } from "@storybook/test";
+import { expect, screen, userEvent, within } from "@storybook/test";
 import {
   IconBrandGithub,
   IconBriefcase,
@@ -217,9 +217,7 @@ export const TooManySourcesWithOverflow: Story = {
               className="inline-flex cursor-default items-center"
               aria-label={`${overflowSources.length} more sources`}
             >
-              <Badge variant="secondary">
-                +{overflowSources.length}
-              </Badge>
+              <Badge variant="secondary">+{overflowSources.length}</Badge>
             </button>
           </HoverCardTrigger>
           <HoverCardContent className="w-auto p-3">
