@@ -59,6 +59,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/helper-text", label: "Helper text" },
       { href: "/primitives/hover-card", label: "Hover card" },
       { href: "/primitives/input", label: "Input" },
+      { href: "/primitives/input-group", label: "Input group" },
       { href: "/primitives/kbd", label: "Kbd" },
       { href: "/primitives/label", label: "Label" },
       { href: "/primitives/list", label: "List" },

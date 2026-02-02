@@ -35,7 +35,6 @@ const meta: Meta<typeof PromptInput> = {
     ),
   ],
   argTypes: {
-    // Display & behavior
     helperText: {
       control: false,
       description: "Helper text below input. Set to false to hide, ReactNode for custom content",
@@ -51,8 +50,6 @@ const meta: Meta<typeof PromptInput> = {
         category: "Display",
       },
     },
-
-    // Events
     onSubmit: {
       action: "submitted",
       description: "Callback when form is submitted",
@@ -63,8 +60,6 @@ const meta: Meta<typeof PromptInput> = {
         },
       },
     },
-
-    // File upload controls (hidden until implemented)
     accept: {
       control: false,
       description: 'File types to accept (e.g., "image/*", "video/*")',
@@ -107,8 +102,6 @@ const meta: Meta<typeof PromptInput> = {
         category: "File Upload (Coming Soon)",
       },
     },
-
-    // Internal
     syncHiddenInput: {
       control: false,
       table: {
@@ -144,20 +137,16 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the textarea
     const textarea = canvas.getByTestId("prompt-input-textarea");
     await expect(textarea).toBeInTheDocument();
 
-    // Type a message
     await userEvent.type(textarea, "Hello, world!", { delay: 50 });
     await expect(textarea).toHaveValue("Hello, world!");
 
-    // Find and click submit button
     const submitButton = canvas.getByTestId("prompt-input-submit");
     await expect(submitButton).toBeInTheDocument();
     await userEvent.click(submitButton);
 
-    // Wait for status change to submitted
     await waitFor(
       () => {
         expect(submitButton).toHaveAttribute("data-status", "submitted");
@@ -165,7 +154,6 @@ export const Basic: Story = {
       { timeout: 300 }
     );
 
-    // Wait for status change to streaming
     await waitFor(
       () => {
         expect(submitButton).toHaveAttribute("data-status", "streaming");
@@ -219,15 +207,12 @@ export const NoHelperText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify textarea is present
     const textarea = canvas.getByTestId("prompt-input-textarea");
     await expect(textarea).toBeInTheDocument();
 
-    // Verify submit button is present
     const submitButton = canvas.getByTestId("prompt-input-submit");
     await expect(submitButton).toBeInTheDocument();
 
-    // Verify helper text is NOT present (helperText={false})
     const helperText = canvas.queryByText(/AI doesn't always get it right/i);
     await expect(helperText).not.toBeInTheDocument();
   },
@@ -277,15 +262,12 @@ export const CustomHelperText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify custom helper text is present
     const customHelperText = canvas.getByText(/This is experimental. Use with caution./i);
     await expect(customHelperText).toBeInTheDocument();
 
-    // Verify textarea is present
     const textarea = canvas.getByTestId("prompt-input-textarea");
     await expect(textarea).toBeInTheDocument();
 
-    // Verify default helper text is NOT present
     const defaultHelperText = canvas.queryByText(/AI doesn't always get it right/i);
     await expect(defaultHelperText).not.toBeInTheDocument();
   },
@@ -342,12 +324,10 @@ export const SubmittedState: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify submit button shows submitted state
     const submitButton = canvas.getByTestId("prompt-input-submit");
     await expect(submitButton).toHaveAttribute("data-status", "submitted");
     await expect(submitButton).toBeDisabled();
 
-    // Verify textarea is disabled
     const textarea = canvas.getByTestId("prompt-input-textarea");
     await expect(textarea).toBeDisabled();
   },
@@ -380,12 +360,10 @@ export const StreamingState: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify submit button shows streaming state
     const submitButton = canvas.getByTestId("prompt-input-submit");
     await expect(submitButton).toHaveAttribute("data-status", "streaming");
     await expect(submitButton).toBeInTheDocument();
 
-    // Verify textarea is disabled
     const textarea = canvas.getByTestId("prompt-input-textarea");
     await expect(textarea).toBeDisabled();
   },
@@ -418,7 +396,6 @@ export const ErrorState: Story = {
     const canvas = within(canvasElement);
     const submitButton = canvas.getByTestId("prompt-input-submit");
 
-    // Verify error state is rendered correctly
     await expect(submitButton).toHaveAttribute("data-status", "error");
     await expect(submitButton).toBeInTheDocument();
   },
@@ -450,15 +427,12 @@ export const Minimal: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify textarea is present
     const textarea = canvas.getByPlaceholderText(/Message.../i);
     await expect(textarea).toBeInTheDocument();
 
-    // Verify submit button is present
     const submitButton = canvas.getByTestId("prompt-input-submit");
     await expect(submitButton).toBeInTheDocument();
 
-    // Test typing
     await userEvent.type(textarea, "Minimal test", { delay: 50 });
     await expect(textarea).toHaveValue("Minimal test");
   },
@@ -490,20 +464,16 @@ export const KeyboardInteractions: Story = {
     const canvas = within(canvasElement);
     const textarea = canvas.getByTestId("prompt-input-textarea");
 
-    // Test Shift+Enter adds newline
     await userEvent.type(textarea, "Line 1", { delay: 50 });
     await userEvent.keyboard("{Shift>}{Enter}{/Shift}");
     await userEvent.type(textarea, "Line 2", { delay: 50 });
     await expect(textarea).toHaveValue("Line 1\nLine 2");
 
-    // Clear for next test
     await userEvent.clear(textarea);
 
-    // Test Enter submits (when not empty)
     await userEvent.type(textarea, "Test message", { delay: 50 });
     await userEvent.keyboard("{Enter}");
 
-    // Check that submit was triggered
     const submitButton = canvas.getByTestId("prompt-input-submit");
     await waitFor(
       () => {
@@ -555,20 +525,16 @@ export const WithAdvancedTools: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify textarea is present
     const textarea = canvas.getByTestId("prompt-input-textarea");
     await expect(textarea).toBeInTheDocument();
 
-    // Verify settings button is present
     const settingsButton = canvas.getByLabelText(/Settings/i);
     await expect(settingsButton).toBeInTheDocument();
 
-    // Verify model selector dropdown button is present
     const modelButton = canvas.getByRole("button", { name: /Agent model/i });
     await expect(modelButton).toBeInTheDocument();
     await expect(modelButton).toHaveAttribute("aria-haspopup", "menu");
 
-    // Verify submit button is present
     const submitButton = canvas.getByTestId("prompt-input-submit");
     await expect(submitButton).toBeInTheDocument();
   },
@@ -656,7 +622,6 @@ export const Playground: Story = {
       setTimeout(() => setStatus("ready"), 2000);
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { onSubmit, ...restArgs } = args;
 
     return (

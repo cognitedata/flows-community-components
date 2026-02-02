@@ -88,6 +88,7 @@ type Story = StoryObj<typeof Textarea>;
 export const Default: Story = {
   render: () => <Textarea placeholder="Enter your message..." />,
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default textarea with placeholder.",
@@ -100,7 +101,6 @@ export const Default: Story = {
 
     await expect(textarea).toBeInTheDocument();
 
-    // Type in textarea
     await userEvent.type(textarea, "Hello World");
     await expect(textarea).toHaveValue("Hello World");
   },
@@ -117,6 +117,7 @@ export const WithLabel: Story = {
     </div>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Textarea with an associated label.",
@@ -136,6 +137,7 @@ export const WithCharacterLimit: Story = {
     </div>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Textarea with a character counter showing remaining characters.",
@@ -146,13 +148,10 @@ export const WithCharacterLimit: Story = {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText("Tell us about yourself...");
 
-    // Initially should show 100 characters left
     await expect(canvas.getByText("100 characters left")).toBeInTheDocument();
 
-    // Type some text
     await userEvent.type(textarea, "Hello");
 
-    // Should now show 95 characters left
     await waitFor(() => {
       expect(canvas.getByText("95 characters left")).toBeInTheDocument();
     });
@@ -174,6 +173,7 @@ export const OverLimit: Story = {
     </div>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Textarea with text exceeding the character limit.",
@@ -197,6 +197,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Textarea with validation error message.",
@@ -231,6 +232,7 @@ export const Disabled: Story = {
     </div>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Disabled textareas prevent user interaction.",
@@ -285,6 +287,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Controlled textarea with external state management.",
@@ -312,6 +315,7 @@ export const CustomMessages: Story = {
     </div>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Textarea with customized character limit messages.",
@@ -349,6 +353,7 @@ export const AllStates: Story = {
     </div>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "All textarea states for comparison.",
@@ -383,6 +388,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -413,6 +419,7 @@ export const Playground: Story = {
   },
   render: (args) => <Textarea {...args} />,
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with textarea props.",

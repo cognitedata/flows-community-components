@@ -407,6 +407,8 @@ export type PromptInputProps = Omit<HTMLAttributes<HTMLFormElement>, "onSubmit" 
   ) => void | Promise<void>;
   // Helper text to show below the input. Set to false to hide, undefined for default, or provide custom ReactNode
   helperText?: ReactNode | false;
+  // Error message to display below the input
+  errorMessage?: string;
 };
 
 /**
@@ -425,6 +427,7 @@ export const PromptInput = ({
   onError,
   onSubmit,
   helperText,
+  errorMessage,
   children,
   ...props
 }: PromptInputProps) => {
@@ -751,7 +754,13 @@ export const PromptInput = ({
         <form className={cn("w-full", className)} onSubmit={handleSubmit} {...props}>
           <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
         </form>
-        {helperTextToRender}
+        {errorMessage ? (
+          <HelperText size="xs" isError>
+            {errorMessage}
+          </HelperText>
+        ) : (
+          helperTextToRender
+        )}
       </div>
     </>
   );
@@ -776,14 +785,16 @@ export const PromptInputBody = forwardRef<HTMLDivElement, PromptInputBodyProps>(
 );
 PromptInputBody.displayName = "PromptInputBody";
 
-export type PromptInputTextareaProps = ComponentProps<typeof InputGroupTextarea>;
+export type PromptInputTextareaProps = ComponentProps<typeof InputGroupTextarea> & {
+  errorMessage?: string;
+};
 
 /**
  * Auto-growing textarea for message input. Supports Enter to submit, Shift+Enter for new line,
  * and Backspace to remove last attachment when empty. Handles image paste automatically.
  */
 export const PromptInputTextarea = forwardRef<HTMLTextAreaElement, PromptInputTextareaProps>(
-  ({ onChange, className, placeholder = "Type your message...", ...props }, ref) => {
+  ({ onChange, className, placeholder = "Type your message...", errorMessage, ...props }, ref) => {
     const controller = useOptionalPromptInputController();
     const attachments = usePromptInputAttachments();
     const [isComposing, setIsComposing] = useState(false);
@@ -849,6 +860,7 @@ export const PromptInputTextarea = forwardRef<HTMLTextAreaElement, PromptInputTe
     return (
       <InputGroupTextarea
         ref={ref}
+        aria-invalid={errorMessage ? true : undefined}
         className={cn(
           "field-sizing-content max-h-48 min-h-18 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5",
           className

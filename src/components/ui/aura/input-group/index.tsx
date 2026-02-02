@@ -1,17 +1,15 @@
 /**
  * Input Group Component
  *
- * A component for grouping inputs with addons and buttons.
- *
- * @example
- * import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/aura/input-group';
+ * A container component that groups form inputs with addons like labels, icons, buttons, and text.
+ * Supports multiple alignment options and provides unified focus management.
+ * See Storybook for comprehensive examples and documentation.
  */
 export {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
-  InputGroupText,
   InputGroupInput,
+  InputGroupText,
   InputGroupTextarea,
 } from "./input-group";
-export { InputGroupMetadata } from "./input-group.metadata";
