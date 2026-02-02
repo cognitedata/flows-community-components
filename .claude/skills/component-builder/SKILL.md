@@ -66,6 +66,10 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 
 **Import order:** React → Third-party → Local utilities. See any component file like `button.tsx`.
 
+**Import conventions:** Use `#aura/` prefix for all Aura imports:
+- Components: `import { Button } from "#aura/components/ui/aura/button"`
+- Utilities: `import { cn } from "#aura/lib/utils"`
+
 **Definition order:** Components in dependency order, exports at bottom.
 
 **Helper Functions:** Extract local helper functions to `utils.ts` (in `src/lib/`) for reusability, testing, and centralized maintenance. Add proper error handling with try-catch. See `getStorybookImagePath` in `utils.ts` for example.
@@ -73,6 +77,8 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 ## Code Comments & Documentation
 
 **CRITICAL: NO code comments in component files.** Component files (`.tsx`) should contain ZERO comments. See `badge.tsx` for clean, self-documenting code.
+
+**NO inline comments in JSON objects** - Keep JSON clean and self-documenting.
 
 **index.tsx - brief description only.** See `index.tsx` in any component folder like badge for minimal JSDoc pattern.
 
@@ -104,8 +110,9 @@ Before committing changes:
 3. Ensure no linter errors, type safety, prop spreading
 4. Verify accessibility (ARIA, keyboard nav, focus)
 5. Update side navigation if adding new component
-6. No code comments in component files
-7. No eslint-disable comments
-8. No !important in Tailwind classes
-9. Proper error handling in all try-catch blocks
-10. Ensure all class names work with Tailwind v4
+6. No code comments in component files or JSON objects
+7. All imports use `#aura/` prefix
+8. No eslint-disable comments
+9. No !important in Tailwind classes
+10. Proper error handling in all try-catch blocks
+11. Ensure all class names work with Tailwind v4
