@@ -1,8 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
-import { useState } from "react";
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
+import { useId, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  Cell,
+  Pie,
+  PieChart,
+  type PieLabelRenderProps,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
 import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
@@ -138,11 +147,11 @@ const sharedChartConfig = {
 } satisfies ChartConfig;
 
 const sharedChartData = [
-  { id: "slice1", value: 225 },
-  { id: "slice2", value: 225 },
-  { id: "slice3", value: 225 },
-  { id: "slice4", value: 225 },
-  { id: "slice5", value: 225 },
+  { id: "slice1", value: 225, fill: "var(--color-slice1)" },
+  { id: "slice2", value: 225, fill: "var(--color-slice2)" },
+  { id: "slice3", value: 225, fill: "var(--color-slice3)" },
+  { id: "slice4", value: 225, fill: "var(--color-slice4)" },
+  { id: "slice5", value: 225, fill: "var(--color-slice5)" },
 ];
 
 const labelColor = "var(--color-fjord-450)";
@@ -245,15 +254,8 @@ export const Basic: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -360,15 +362,8 @@ export const WithHeader: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -458,15 +453,8 @@ export const WithFooter: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -581,15 +569,8 @@ export const WithActions: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -693,15 +674,8 @@ export const MinimalHeader: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -851,15 +825,8 @@ export const InteractiveDataToggle: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -973,15 +940,8 @@ export const EdgeCaseLongText: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -1067,15 +1027,8 @@ export const VisualRegression: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -1159,6 +1112,360 @@ export const EdgeCaseNoData: Story = {
         <ArtifactChartFooter className="flex flex-col items-start gap-1">
           <div className="text-sm text-muted-foreground">
             Data will appear once activity is recorded
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+// Bar chart configuration
+const barChartConfig = {
+  value: { label: "Count", color: "url(#barGradient)" },
+} satisfies ChartConfig;
+
+const barChartData = [
+  { name: "Assets", value: 106 },
+  { name: "Files", value: 305 },
+  { name: "Events", value: 237 },
+  { name: "Work orders", value: 73 },
+  { name: "Time series", value: 209 },
+];
+
+/**
+ * Horizontal bar chart artifact with category labels.
+ * Shows data distribution across different categories with values on bars.
+ * Bars use a gradient fill from lighter to darker blue (fjord color).
+ */
+export const HorizontalBarChart: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Horizontal bar chart showing data distribution across categories. Includes header with actions, gradient-filled bars with value labels, and footer with trend information.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
+    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
+    await expect(canvas.getByText("Assets")).toBeInTheDocument();
+    await expect(canvas.getByText("Files")).toBeInTheDocument();
+    await expect(canvas.getByText("Events")).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function HorizontalBarChartStory() {
+    const chartData = barChartData;
+    const barGradientId = useId();
+    const tooltipGradientId = useId();
+
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Chart title</ArtifactChartTitle>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={barChartConfig} className="h-50 w-full">
+            <BarChart data={chartData} layout="vertical" margin={{ left: 0, right: 40 }}>
+              {/* SVG gradient definitions - use unique IDs to prevent conflicts */}
+              <defs>
+                <linearGradient id={barGradientId} x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.35)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
+                </linearGradient>
+                <linearGradient id={tooltipGradientId} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2F55EA" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
+                </linearGradient>
+              </defs>
+              <YAxis
+                dataKey="name"
+                type="category"
+                tickLine={false}
+                axisLine={false}
+                width={90}
+                tick={{ fontSize: 14, fill: "var(--color-muted-foreground)" }}
+              />
+              <XAxis type="number" hide />
+              <ChartTooltip
+                cursor={{ fill: "var(--color-muted)", opacity: 0.3 }}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+                  const data = payload[0];
+                  const name = data.payload?.name as string;
+                  const value = data.value as number;
+
+                  return (
+                    <div className="flex items-center gap-4 rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      <div className="flex items-center gap-1.5">
+                        {/* Gradient swatch referencing shared gradient definition */}
+                        <svg
+                          width="8"
+                          height="8"
+                          className="shrink-0"
+                          aria-hidden="true"
+                          role="img"
+                        >
+                          <rect width="8" height="8" rx="2" fill={`url(#${tooltipGradientId})`} />
+                        </svg>
+                        <span className="text-sm text-muted-foreground">{name}</span>
+                      </div>
+                      <span className="text-sm text-foreground">{value}</span>
+                    </div>
+                  );
+                }}
+              />
+              <Bar
+                dataKey="value"
+                fill={`url(#${barGradientId})`}
+                radius={[0, 4, 4, 0]}
+                barSize={24}
+                label={{
+                  position: "right",
+                  fill: "var(--color-foreground)",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  offset: 4,
+                }}
+              >
+                {chartData.map((entry) => (
+                  <Cell
+                    key={entry.name}
+                    className="transition-opacity duration-200 hover:opacity-80"
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+          <div className="text-sm leading-4 text-muted-foreground">
+            Total visitors for the last 6 months
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+type RadialRingDatum = {
+  name: string;
+  fill: string;
+  // Arc percentage (0-100) - how much of the ring is filled
+  arcPercent: number;
+};
+
+// Ring background uses the border token (mountain-100 light, mountain-700 dark)
+
+// 5 concentric circular rings from outer to inner
+// Uses chart/fjord color tokens for proper light/dark mode support
+// arcPercent: how much of each ring is filled (0-100), starting from top going clockwise
+const radialRingData: RadialRingDatum[] = [
+  { name: "ring5", fill: "var(--color-chart-fjord-opacity-4)", arcPercent: 50 },
+  { name: "ring4", fill: "var(--color-chart-fjord-opacity-3)", arcPercent: 72 },
+  { name: "ring3", fill: "var(--color-chart-fjord-opacity-2)", arcPercent: 65 },
+  { name: "ring2", fill: "var(--color-chart-fjord-opacity-1)", arcPercent: 76 },
+  { name: "ring1", fill: "var(--color-chart-fjord-solid)", arcPercent: 100 },
+];
+
+function RadialRingSvg({
+  onRingHover,
+  onMouseMove,
+  hoveredRing,
+}: {
+  onRingHover: (ring: RadialRingDatum | null) => void;
+  onMouseMove: (e: React.MouseEvent<SVGSVGElement>) => void;
+  hoveredRing: RadialRingDatum | null;
+}) {
+  const viewBoxSize = 100;
+  const cx = viewBoxSize / 2;
+  const cy = viewBoxSize / 2;
+
+  // Ring configuration - thick circular rings with clear gaps
+  // Container is 200px (w-50), so 1 viewBox unit = 2px
+  const strokeWidth = 5.5; // ~11px thick rings
+  const gap = 2.5; // ~5px gap between rings
+  const spacing = strokeWidth + gap; // Distance between ring centers
+  // Ensure outer edge fits within viewBox: outerRadius + strokeWidth/2 <= 50
+  const outerRingRadius = viewBoxSize / 2 - strokeWidth / 2; // ~47.25
+
+  return (
+    <svg
+      viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
+      className="h-full w-full"
+      aria-hidden="true"
+      onMouseLeave={() => onRingHover(null)}
+      onMouseMove={onMouseMove}
+    >
+      {radialRingData.map((ring, index) => {
+        // Calculate radius for this ring (outer to inner)
+        const radius = outerRingRadius - index * spacing;
+
+        // Calculate arc path for partial fills
+        const circumference = 2 * Math.PI * radius;
+        const arcLength = (ring.arcPercent / 100) * circumference;
+        const dashArray = `${arcLength} ${circumference}`;
+        const isHovered = hoveredRing?.name === ring.name;
+
+        return (
+          <g key={ring.name} onMouseEnter={() => onRingHover(ring)} className="cursor-pointer">
+            {/* Background ring (full circle) */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              strokeWidth={strokeWidth}
+              className="stroke-border"
+              style={{
+                opacity: hoveredRing && !isHovered ? 0.5 : 1,
+                transition: "opacity 150ms",
+              }}
+            />
+            {/* Filled arc */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              stroke={ring.fill}
+              strokeWidth={strokeWidth}
+              strokeDasharray={ring.arcPercent === 100 ? undefined : dashArray}
+              strokeDashoffset={0}
+              strokeLinecap="butt"
+              transform={`rotate(-90 ${cx} ${cy})`}
+              style={{
+                opacity: hoveredRing && !isHovered ? 0.5 : 1,
+                transition: "opacity 150ms",
+              }}
+            />
+            {/* Invisible hit area for better hover detection */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              stroke="transparent"
+              strokeWidth={strokeWidth + 4}
+            />
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+/**
+ * Radial bar chart with concentric rings showing progress/completion data.
+ * Rings go from lightest (outermost) to darkest (innermost).
+ */
+export const RadialChart: Story = {
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story:
+          "Radial bar chart with concentric rings. Each ring represents a different metric with varying fill percentages. Uses a gradient of blue opacities from light (outer) to solid (inner).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
+    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
+    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function RadialChartStory() {
+    const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(null);
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    };
+
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Chart title</ArtifactChartTitle>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <div className="relative mx-auto aspect-square w-50">
+            <RadialRingSvg
+              onRingHover={setHoveredRing}
+              onMouseMove={handleMouseMove}
+              hoveredRing={hoveredRing}
+            />
+            {hoveredRing && (
+              <div
+                className="pointer-events-none absolute z-10"
+                style={{
+                  left: mousePos.x + 12,
+                  top: mousePos.y - 20,
+                }}
+              >
+                <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="h-2 w-2 rounded-sm"
+                      style={{ backgroundColor: hoveredRing.fill }}
+                    />
+                    <span className="text-sm text-muted-foreground">unit</span>
+                  </div>
+                  <span className="text-sm text-foreground">{hoveredRing.arcPercent}%</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {radialRingData.map((item) => (
+              <div key={item.name} className="flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: item.fill }} />
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+              </div>
+            ))}
+          </div>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+          <div className="text-sm leading-4 text-muted-foreground">
+            Total visitors for the last 6 months
           </div>
         </ArtifactChartFooter>
       </ArtifactChart>

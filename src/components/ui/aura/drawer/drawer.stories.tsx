@@ -446,7 +446,15 @@ export const AsyncAction: Story = {
     const openButton = canvas.getByRole("button", { name: /open async drawer/i });
     await userEvent.click(openButton);
 
-    const saveButton = await canvas.findByTestId("async-drawer-save");
+    // Wait for drawer to appear in portal
+    await waitFor(() => {
+      const drawer = document.querySelector('[data-slot="drawer-content"]');
+      expect(drawer).toBeInTheDocument();
+    });
+
+    // Query button from the document (portal content)
+    const saveButton = document.querySelector('[data-testid="async-drawer-save"]') as HTMLElement;
+    expect(saveButton).toBeInTheDocument();
     await userEvent.click(saveButton);
 
     await waitFor(() => {
@@ -530,11 +538,15 @@ export const KeyboardInteractions: Story = {
     });
     await userEvent.keyboard("{Enter}");
 
-    // Focus should move into the drawer; first action button should be reachable
-    const primaryButton = await canvas.findByTestId("keyboard-primary");
+    // Wait for drawer to appear in portal
     await waitFor(() => {
-      expect(primaryButton).toBeInTheDocument();
+      const drawer = document.querySelector('[data-slot="drawer-content"]');
+      expect(drawer).toBeInTheDocument();
     });
+
+    // Query button from the document (portal content)
+    const primaryButton = document.querySelector('[data-testid="keyboard-primary"]') as HTMLElement;
+    expect(primaryButton).toBeInTheDocument();
 
     // Activate via keyboard
     await userEvent.tab();

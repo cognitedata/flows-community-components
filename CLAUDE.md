@@ -24,6 +24,14 @@ When writing new `.stories.tsx` files, use `src/components/ui/aura/prompt-input.
 - Avoid querying by `data-slot="button"` - `TooltipTrigger` with `asChild` can override these attributes
 - Role-based queries are more robust and semantic for testing interactive elements
 
+## Testing Portal Content in Play Functions
+
+Components that use portals (Dialog, Drawer, etc.) render content outside the `canvasElement` scope. When testing these:
+
+- Wait for portal content to appear: `await waitFor(() => expect(document.querySelector('[data-slot="drawer-content"]')).toBeInTheDocument())`
+- Query portal elements from `document`, not `canvas`: `document.querySelector('[data-testid="..."]')`
+- `canvas.findByTestId()` will fail because portal content is outside the canvas scope
+
 # Import Conventions
 
 NEVER use `React.useState`, `React.useEffect`, etc.
@@ -50,3 +58,5 @@ When you add a new Aura component to `MessageResponse` inside `message.tsx`:
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
 - Getting started instructions should link to the Dune creation docs site instead of inline steps.
 - Consolidate docs content onto the root page instead of routing under `/docs`.
+- Radix UI's `TooltipPrimitive.Provider` and `TooltipPrimitive.Root` don't support refs - use plain functions, not `forwardRef`.
+- Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
