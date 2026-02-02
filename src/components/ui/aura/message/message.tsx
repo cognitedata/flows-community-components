@@ -1,9 +1,9 @@
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
-import { Button } from "@/components/ui/aura/button";
-import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
-import { cn, getInitials } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "#aura/components/ui/aura/avatar";
+import { Button } from "#aura/components/ui/aura/button";
+import { ButtonGroup, ButtonGroupText } from "#aura/components/ui/aura/button-group";
+import { CodeBlock, CodeBlockCopyButton } from "#aura/components/ui/aura/code-block";
+import { Tooltip, TooltipContent, TooltipTrigger } from "#aura/components/ui/aura/tooltip";
+import { cn, getInitials } from "#aura/lib/utils";
 import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
 import type { FileUIPart, UIMessage } from "ai";
 import type { ComponentProps, HTMLAttributes, ReactElement, ReactNode } from "react";

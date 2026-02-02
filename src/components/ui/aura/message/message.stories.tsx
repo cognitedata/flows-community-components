@@ -2,8 +2,8 @@ import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
+} from "#aura/components/ui/aura/code-block";
+import { InlineCitation, InlineCitationLink } from "#aura/components/ui/aura/inline-citation";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
