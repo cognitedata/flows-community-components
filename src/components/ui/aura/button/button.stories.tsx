@@ -103,11 +103,10 @@ type Story = StoryObj<typeof Button>;
 /**
  * Default primary button style. Used for primary actions in interfaces.
  */
-export const Default: Story = {
-  args: {
-    children: "Button",
-  },
+export const Basic: Story = {
+  render: () => <Button>Button</Button>,
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -132,11 +131,9 @@ export const Default: Story = {
  * Secondary button for less prominent actions.
  */
 export const Secondary: Story = {
-  args: {
-    variant: "secondary",
-    children: "Secondary",
-  },
+  render: () => <Button variant="secondary">Secondary</Button>,
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -156,11 +153,9 @@ export const Secondary: Story = {
  * Outline button with border.
  */
 export const Outline: Story = {
-  args: {
-    variant: "outline",
-    children: "Outline",
-  },
+  render: () => <Button variant="outline">Outline</Button>,
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -180,11 +175,9 @@ export const Outline: Story = {
  * Ghost button for subtle actions.
  */
 export const Ghost: Story = {
-  args: {
-    variant: "ghost",
-    children: "Ghost",
-  },
+  render: () => <Button variant="ghost">Ghost</Button>,
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -206,11 +199,9 @@ export const Ghost: Story = {
  * Destructive button for dangerous actions.
  */
 export const Destructive: Story = {
-  args: {
-    variant: "destructive",
-    children: "Delete",
-  },
+  render: () => <Button variant="destructive">Delete</Button>,
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -233,11 +224,9 @@ export const Destructive: Story = {
  * Link-styled button.
  */
 export const Link: Story = {
-  args: {
-    variant: "link",
-    children: "Link Button",
-  },
+  render: () => <Button variant="link">Link Button</Button>,
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -283,6 +272,7 @@ export const AllVariants: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -358,6 +348,7 @@ export const MainComponent: Story = {
     );
   },
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -388,6 +379,7 @@ export const ButtonStates: Story = {
     </div>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Disabled and loading states.",
@@ -415,6 +407,7 @@ export const AllSizes: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -445,6 +438,7 @@ export const WithLeftIcon: Story = {
     </Button>
   ),
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -474,6 +468,7 @@ export const WithRightIcon: Story = {
     </Button>
   ),
   parameters: {
+    order: 12,
     docs: {
       description: {
         story:
@@ -506,6 +501,7 @@ export const IconButtons: Story = {
     </div>
   ),
   parameters: {
+    order: 13,
     docs: {
       description: {
         story:
@@ -552,6 +548,7 @@ export const Disabled: Story = {
     </div>
   ),
   parameters: {
+    order: 14,
     docs: {
       description: {
         story:
@@ -588,6 +585,7 @@ export const Loading: Story = {
     </div>
   ),
   parameters: {
+    order: 15,
     docs: {
       description: {
         story:
@@ -639,6 +637,7 @@ export const InContext: Story = {
     </div>
   ),
   parameters: {
+    order: 16,
     docs: {
       description: {
         story:
@@ -680,6 +679,7 @@ export const ClickInteraction: Story = {
     );
   },
   parameters: {
+    order: 17,
     docs: {
       description: {
         story: "Interactive button demonstrating click event handling and state updates.",
@@ -719,6 +719,7 @@ export const KeyboardNavigation: Story = {
     </div>
   ),
   parameters: {
+    order: 18,
     docs: {
       description: {
         story: "Buttons support full keyboard navigation with Tab and Space/Enter keys.",
@@ -771,6 +772,7 @@ export const Accessibility: Story = {
     </div>
   ),
   parameters: {
+    order: 19,
     docs: {
       description: {
         story:
@@ -843,6 +845,7 @@ export const FormButtonTypes: Story = {
     );
   },
   parameters: {
+    order: 20,
     docs: {
       description: {
         story:
@@ -973,6 +976,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 21,
     docs: {
       description: {
         story:
@@ -997,6 +1001,7 @@ export const EdgeCaseEmpty: Story = {
     </div>
   ),
   parameters: {
+    order: 22,
     docs: {
       description: {
         story:
@@ -1025,13 +1030,14 @@ export const EdgeCaseLongText: Story = {
         This is a button with an extremely long text that should demonstrate how the button handles
         overflow and wrapping
       </Button>
-      <Button variant="outline" className="max-w-[200px]">
+      <Button variant="outline" className="max-w-50">
         This text is constrained and will wrap
       </Button>
       <Button size="sm">Small button with really long text content that might cause issues</Button>
     </div>
   ),
   parameters: {
+    order: 23,
     docs: {
       description: {
         story:
@@ -1066,6 +1072,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
+    order: 24,
     docs: {
       description: {
         story:
@@ -1115,6 +1122,7 @@ export const EdgeCaseMultipleIcons: Story = {
     </div>
   ),
   parameters: {
+    order: 25,
     docs: {
       description: {
         story:
@@ -1147,6 +1155,7 @@ export const EdgeCaseWhitespace: Story = {
     </div>
   ),
   parameters: {
+    order: 26,
     docs: {
       description: {
         story:
@@ -1187,6 +1196,7 @@ export const EdgeCaseNestedElements: Story = {
     </div>
   ),
   parameters: {
+    order: 27,
     docs: {
       description: {
         story:
@@ -1216,24 +1226,25 @@ export const EdgeCaseNestedElements: Story = {
 export const EdgeCaseWidthConstraints: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <div className="w-[100px] border border-dashed border-gray-300 p-2">
+      <div className="w-25 border border-dashed border-border p-2">
         <Button className="w-full">Narrow Container</Button>
       </div>
-      <div className="w-[50px] border border-dashed border-gray-300 p-2">
+      <div className="w-12.5 border border-dashed border-border p-2">
         <Button size="icon" className="w-full">
           <IconSettings className="size-4" />
         </Button>
       </div>
-      <div className="w-full max-w-[150px] border border-dashed border-gray-300 p-2">
+      <div className="w-full max-w-37.5 border border-dashed border-border p-2">
         <Button className="w-full truncate">Very long text that will be truncated</Button>
       </div>
-      <div className="flex gap-2 w-[200px] border border-dashed border-gray-300 p-2">
+      <div className="flex w-50 gap-2 border border-dashed border-border p-2">
         <Button className="flex-1">Button 1</Button>
         <Button className="flex-1">Button 2</Button>
       </div>
     </div>
   ),
   parameters: {
+    order: 28,
     docs: {
       description: {
         story:
@@ -1278,6 +1289,7 @@ export const EdgeCaseIconOnly: Story = {
     </div>
   ),
   parameters: {
+    order: 29,
     docs: {
       description: {
         story:
@@ -1335,6 +1347,7 @@ export const EdgeCaseRapidStateChanges: Story = {
     );
   },
   parameters: {
+    order: 30,
     docs: {
       description: {
         story:
@@ -1386,6 +1399,7 @@ export const EdgeCaseInvisibleContent: Story = {
     </div>
   ),
   parameters: {
+    order: 31,
     docs: {
       description: {
         story:
@@ -1422,6 +1436,7 @@ export const Playground: Story = {
     type: "button",
   },
   parameters: {
+    order: 99,
     docs: {
       description: {
         story:
