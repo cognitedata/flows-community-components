@@ -1163,8 +1163,8 @@ export const StackedAreaChart: Story = {
 
     await expect(canvas.getByText("Reactor temperature trend")).toBeInTheDocument();
     await expect(canvas.getByText("Last 24 hours")).toBeInTheDocument();
-    await expect(canvas.getByText("02:00")).toBeInTheDocument();
-    await expect(canvas.getByText("22:00")).toBeInTheDocument();
+    await expect(canvas.getByText("R401")).toBeInTheDocument();
+    await expect(canvas.getByText("R402")).toBeInTheDocument();
     await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function StackedAreaChartStory() {
