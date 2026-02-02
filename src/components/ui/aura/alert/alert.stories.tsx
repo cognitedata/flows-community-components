@@ -9,7 +9,7 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import { Alert, AlertActions, AlertButton, AlertDescription, AlertTitle } from "./alert";
+import { Alert, AlertActions, AlertButton, AlertDescription, AlertTitle } from "#aura/components/ui/aura/alert";
 
 const meta: Meta<typeof Alert> = {
   title: "Primitives/Alert",
