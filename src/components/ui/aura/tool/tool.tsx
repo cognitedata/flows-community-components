@@ -1,15 +1,15 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "#aura/components/ui/aura/button";
 import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
+} from "#aura/components/ui/aura/code-block";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
-import { cn } from "@/lib/utils";
+} from "#aura/components/ui/aura/collapsible";
+import { cn } from "#aura/lib/utils";
 import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
 import type { ToolUIPart } from "ai";
 import type { ComponentProps, ReactNode } from "react";
