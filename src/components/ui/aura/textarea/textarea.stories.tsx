@@ -72,7 +72,7 @@ const meta: Meta<typeof Textarea> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[350px]">
+      <div className="w-88">
         <Story />
       </div>
     ),
@@ -367,7 +367,7 @@ export const AllStates: Story = {
  */
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-6 p-4 w-[400px]">
+    <div className="space-y-6 p-4 w-100">
       {/* States */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">States</h3>

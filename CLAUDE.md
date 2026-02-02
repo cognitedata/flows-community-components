@@ -59,6 +59,7 @@ This applies to ALL React imports.
 - `InputGroup` uses `shadow-focus-ring` for focus state and `shadow-focus-ring-destructive` for error state. The error state selector must target `[data-slot=input-group-control][aria-invalid=true]` to take precedence over normal focus.
 - InputGroup stories should showcase all alignment variants (inline-start, inline-end, block-start, block-end) and how it's used in compound components like PromptInput.
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
+- Always reuse existing design system components (Input, Textarea, Button, etc.) rather than using raw HTML elements, even when styling overrides are needed. Compound components should compose with base components to maintain consistency.
 
 # Storybook Stories
 

@@ -97,7 +97,6 @@ export type PromptInputControllerProps = {
 const PromptInputController = createContext<PromptInputControllerProps | null>(null);
 const ProviderAttachmentsContext = createContext<AttachmentsContext | null>(null);
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const usePromptInputController = () => {
   const ctx = useContext(PromptInputController);
   if (!ctx) {
@@ -111,7 +110,6 @@ export const usePromptInputController = () => {
 // Optional variants (do NOT throw). Useful for dual-mode components.
 const useOptionalPromptInputController = () => useContext(PromptInputController);
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useProviderAttachments = () => {
   const ctx = useContext(ProviderAttachmentsContext);
   if (!ctx) {
@@ -230,7 +228,6 @@ PromptInputProvider.displayName = "PromptInputProvider";
 
 const LocalAttachmentsContext = createContext<AttachmentsContext | null>(null);
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const usePromptInputAttachments = () => {
   // Dual-mode: prefer provider if present, otherwise use local
   const provider = useOptionalProviderAttachments();
@@ -688,7 +685,6 @@ export const PromptInput = ({
     // Convert blob URLs to data URLs asynchronously
     Promise.all(
       files.map(async (file) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id, ...item } = file;
         if (item.url?.startsWith("blob:")) {
           return {

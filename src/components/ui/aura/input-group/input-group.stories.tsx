@@ -588,7 +588,7 @@ export const EdgeCases: Story = {
  */
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-6 p-4 w-[400px]">
+    <div className="space-y-6 p-4 w-100">
       {/* Basic variants */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
