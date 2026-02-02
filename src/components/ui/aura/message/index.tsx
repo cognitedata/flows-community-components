@@ -24,22 +24,4 @@ export {
   MessageAttachments,
   MessageToolbar,
 } from "./message";
-export type {
-  MessageProps,
-  MessageContentProps,
-  MessageAvatarProps,
-  MessageAvatarIconProps,
-  MessageActionsProps,
-  MessageActionProps,
-  MessageBranchProps,
-  MessageBranchContentProps,
-  MessageBranchSelectorProps,
-  MessageBranchPreviousProps,
-  MessageBranchNextProps,
-  MessageBranchPageProps,
-  MessageResponseProps,
-  MessageAttachmentProps,
-  MessageAttachmentsProps,
-  MessageToolbarProps,
-} from "./message";
 export { MessageMetadata } from "./message.metadata";
