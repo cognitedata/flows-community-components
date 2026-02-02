@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, screen, within } from "@storybook/test";
 import {
   IconBrandGithub,
   IconBriefcase,
@@ -255,15 +255,8 @@ export const TooManySourcesWithOverflow: Story = {
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     const overflowPill = canvas.getByRole("button", { name: "4 more sources" });
     await userEvent.hover(overflowPill);
-    const hoverCard = await waitFor(
-      () => {
-        const dialog = canvasElement.ownerDocument.querySelector('[role="dialog"]');
-        if (!dialog) throw new Error("Hover card not found");
-        return dialog;
-      },
-      { timeout: 500 }
-    );
-    await expect(within(hoverCard as HTMLElement).getByText("4 more sources")).toBeInTheDocument();
+    const hoverCard = await screen.findByRole("dialog");
+    await expect(within(hoverCard).getByText("4 more sources")).toBeInTheDocument();
   },
 };
 
