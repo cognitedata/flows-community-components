@@ -3,29 +3,27 @@ import { type ComponentProps, forwardRef } from "react";
 
 import { cn, getPortalContainer } from "@/lib/utils";
 
-const TooltipProvider = forwardRef<
-  React.ComponentRef<typeof TooltipPrimitive.Provider>,
-  ComponentProps<typeof TooltipPrimitive.Provider>
->(({ delayDuration = 0, ...props }, ref) => (
-  <TooltipPrimitive.Provider
-    ref={ref}
-    data-slot="tooltip-provider"
-    data-testid="tooltip-provider"
-    delayDuration={delayDuration}
-    {...props}
-  />
-));
-TooltipProvider.displayName = "TooltipProvider";
+function TooltipProvider({
+  delayDuration = 0,
+  ...props
+}: ComponentProps<typeof TooltipPrimitive.Provider>) {
+  return (
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      data-testid="tooltip-provider"
+      delayDuration={delayDuration}
+      {...props}
+    />
+  );
+}
 
-const Tooltip = forwardRef<
-  React.ComponentRef<typeof TooltipPrimitive.Root>,
-  ComponentProps<typeof TooltipPrimitive.Root>
->(({ ...props }, ref) => (
-  <TooltipProvider>
-    <TooltipPrimitive.Root ref={ref} data-slot="tooltip" data-testid="tooltip" {...props} />
-  </TooltipProvider>
-));
-Tooltip.displayName = "Tooltip";
+function Tooltip({ ...props }: ComponentProps<typeof TooltipPrimitive.Root>) {
+  return (
+    <TooltipProvider>
+      <TooltipPrimitive.Root data-slot="tooltip" data-testid="tooltip" {...props} />
+    </TooltipProvider>
+  );
+}
 
 const TooltipTrigger = forwardRef<
   React.ComponentRef<typeof TooltipPrimitive.Trigger>,
