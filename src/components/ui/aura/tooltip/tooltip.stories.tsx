@@ -1,10 +1,10 @@
-import { Button } from "#aura/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconAlertTriangle, IconHelp, IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "#aura/components/ui/aura/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/aura/tooltip";
 
 const meta: Meta<typeof Tooltip> = {
   title: "Primitives/Tooltip",
