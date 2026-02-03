@@ -26,13 +26,10 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-undefined-alternative text-card-foreground [&>svg]:text-undefined-foreground",
+        default: "bg-undefined-alternative text-card-foreground [&>svg]:text-undefined-foreground",
         secondary: "bg-neutral-alternative text-foreground [&>svg]:text-neutral-foreground",
-        warning:
-          "bg-warning-alternative [&>svg]:text-warning-foreground",
-        error:
-          "bg-destructive-alternative text-foreground [&>svg]:text-destructive-foreground",
+        warning: "bg-warning-alternative [&>svg]:text-warning-foreground",
+        error: "bg-destructive-alternative text-foreground [&>svg]:text-destructive-foreground",
       },
     },
     defaultVariants: {

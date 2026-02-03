@@ -9,7 +9,13 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import { Alert, AlertActions, AlertButton, AlertDescription, AlertTitle } from "#aura/components/ui/aura/alert";
+import {
+  Alert,
+  AlertActions,
+  AlertButton,
+  AlertDescription,
+  AlertTitle,
+} from "#aura/components/ui/aura/alert";
 
 const meta: Meta<typeof Alert> = {
   title: "Primitives/Alert",
@@ -432,15 +438,14 @@ export const EdgeCaseLongText: Story = {
     <Alert>
       <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
       <AlertTitle>
-        This is an unusually long alert title that may wrap onto multiple lines when the
-        container width is constrained to ensure the layout remains readable and intact
+        This is an unusually long alert title that may wrap onto multiple lines when the container
+        width is constrained to ensure the layout remains readable and intact
       </AlertTitle>
       <AlertDescription>
-        This is an unusually long description to test how the alert handles lengthy
-        content. It should wrap gracefully within the alert bounds without overflowing or
-        breaking the grid. We include several sentences to simulate real-world
-        notifications that might contain detailed instructions or explanations for the
-        user to read and act upon.
+        This is an unusually long description to test how the alert handles lengthy content. It
+        should wrap gracefully within the alert bounds without overflowing or breaking the grid. We
+        include several sentences to simulate real-world notifications that might contain detailed
+        instructions or explanations for the user to read and act upon.
       </AlertDescription>
       <AlertActions>
         <AlertButton className="-ml-2.25">Accept and continue</AlertButton>
@@ -457,9 +462,7 @@ export const EdgeCaseLongText: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(
-      canvas.getByText(/This is an unusually long alert title/)
-    ).toBeInTheDocument();
+    await expect(canvas.getByText(/This is an unusually long alert title/)).toBeInTheDocument();
     await expect(
       canvas.getByText(/This is an unusually long description to test/)
     ).toBeInTheDocument();
@@ -486,16 +489,13 @@ export const EdgeCaseSpecialCharacters: Story = {
     order: 13,
     docs: {
       description: {
-        story:
-          "Alert with special characters: quotes, apostrophes, unicode, and symbols.",
+        story: "Alert with special characters: quotes, apostrophes, unicode, and symbols.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(
-      canvas.getByText(/Don't forget: "Back up" & restore/)
-    ).toBeInTheDocument();
+    await expect(canvas.getByText(/Don't forget: "Back up" & restore/)).toBeInTheDocument();
     await expect(canvas.getByText(/Paths like/)).toBeInTheDocument();
     await expect(canvas.getByText(/日本語/)).toBeInTheDocument();
   },
@@ -525,8 +525,8 @@ export const Accessibility: Story = {
         <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
         <AlertTitle>Accessible alert</AlertTitle>
         <AlertDescription>
-          This alert has role=&quot;alert&quot;, a close button with &quot;Close&quot;
-          screen reader text, and can be dismissed via keyboard.
+          This alert has role=&quot;alert&quot;, a close button with &quot;Close&quot; screen reader
+          text, and can be dismissed via keyboard.
         </AlertDescription>
       </Alert>
     );
@@ -535,8 +535,7 @@ export const Accessibility: Story = {
     order: 14,
     docs: {
       description: {
-        story:
-          "Demonstrates accessible alert: role=alert, labeled close button, keyboard support.",
+        story: "Demonstrates accessible alert: role=alert, labeled close button, keyboard support.",
       },
     },
   },
