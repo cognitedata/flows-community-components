@@ -1,7 +1,16 @@
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { cn } from "@/lib/utils";
+
+type SliderProps = Omit<
+  SliderPrimitive.Root.Props<readonly number[]>,
+  "value" | "defaultValue" | "onValueChange"
+> & {
+  value?: number[];
+  defaultValue?: number[];
+  onValueChange?: (value: number[]) => void;
+};
 
 function Slider({
   className,
@@ -9,11 +18,20 @@ function Slider({
   value,
   min = 0,
   max = 100,
+  onValueChange,
   ...props
-}: SliderPrimitive.Root.Props) {
+}: SliderProps) {
   const _values = useMemo(
     () => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
     [value, defaultValue, min, max]
+  );
+
+  const handleValueChange = useCallback(
+    (nextValue: number | readonly number[]) => {
+      const next = Array.isArray(nextValue) ? [...nextValue] : [nextValue];
+      onValueChange?.(next);
+    },
+    [onValueChange]
   );
 
   return (
@@ -25,6 +43,7 @@ function Slider({
       max={max}
       className={cn("data-horizontal:w-full data-vertical:h-full", className)}
       thumbAlignment="edge"
+      onValueChange={handleValueChange as any}
       {...props}
     >
       <SliderPrimitive.Control className="relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-vertical:h-full data-vertical:min-h-44 data-vertical:w-auto data-vertical:flex-col">

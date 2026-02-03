@@ -20,17 +20,23 @@ function TooltipProvider({
 
 function Tooltip({
   delayDuration,
+  disableHoverableContent,
   ...props
-}: TooltipPrimitive.Root.Props & { delayDuration?: number }) {
+}: TooltipPrimitive.Root.Props & { delayDuration?: number; disableHoverableContent?: boolean }) {
   return (
     <TooltipProvider delayDuration={delayDuration}>
-      <TooltipPrimitive.Root data-slot="tooltip" data-testid="tooltip" {...props} />
+      <TooltipPrimitive.Root
+        data-slot="tooltip"
+        data-testid="tooltip"
+        disableHoverablePopup={disableHoverableContent}
+        {...props}
+      />
     </TooltipProvider>
   );
 }
 
 const TooltipTrigger = forwardRef<
-  React.ComponentRef<typeof TooltipPrimitive.Trigger>,
+  HTMLButtonElement,
   TooltipPrimitive.Trigger.Props & { asChild?: boolean }
 >(({ asChild = false, children, ...props }, ref) => {
   const render = getRenderPropFromAsChild(children, asChild);

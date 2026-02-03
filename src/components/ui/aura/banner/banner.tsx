@@ -8,7 +8,6 @@ import {
   type ComponentProps,
   type ComponentType,
   type HTMLAttributes,
-  type MouseEventHandler,
   createContext,
   forwardRef,
   useContext,
@@ -209,7 +208,8 @@ export const BannerClose = forwardRef<HTMLButtonElement, BannerCloseProps>(
   ({ variant = "ghost", onClick, className, ...props }, ref) => {
     const { setShow, variant: bannerVariant } = useContext(BannerContext);
 
-    const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    type ButtonClickHandler = NonNullable<ComponentProps<typeof Button>["onClick"]>;
+    const handleClick = (e: Parameters<ButtonClickHandler>[0]) => {
       setShow(false);
       onClick?.(e);
     };

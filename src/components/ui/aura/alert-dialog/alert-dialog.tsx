@@ -1,11 +1,10 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
-import { Button, buttonVariants } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button";
+import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, getPortalContainer } from "@/lib/utils";
 
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
-
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 
 function AlertDialog(props: AlertDialogPrimitive.Root.Props) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
@@ -13,7 +12,7 @@ function AlertDialog(props: AlertDialogPrimitive.Root.Props) {
 AlertDialog.displayName = "AlertDialog";
 
 const AlertDialogTrigger = forwardRef<
-  ComponentRef<typeof AlertDialogPrimitive.Trigger>,
+  HTMLButtonElement,
   AlertDialogPrimitive.Trigger.Props & { asChild?: boolean }
 >(({ asChild = false, children, ...props }, ref) => {
   const render = getRenderPropFromAsChild(children, asChild);
@@ -141,34 +140,32 @@ const AlertDialogDescription = forwardRef<
 });
 AlertDialogDescription.displayName = "AlertDialogDescription";
 
-const AlertDialogAction = forwardRef<
-  ComponentRef<typeof AlertDialogPrimitive.Close>,
-  AlertDialogPrimitive.Close.Props
->(({ className, ...props }, ref) => {
-  return (
-    <AlertDialogPrimitive.Close
-      ref={ref}
-      data-slot="alert-dialog-action"
-      render={<Button className={cn(buttonVariants(), className)} />}
-      {...props}
-    />
-  );
-});
+const AlertDialogAction = forwardRef<HTMLButtonElement, AlertDialogPrimitive.Close.Props>(
+  ({ className, ...props }, ref) => {
+    return (
+      <AlertDialogPrimitive.Close
+        ref={ref}
+        data-slot="alert-dialog-action"
+        render={<Button className={className} />}
+        {...props}
+      />
+    );
+  }
+);
 AlertDialogAction.displayName = "AlertDialogAction";
 
-const AlertDialogCancel = forwardRef<
-  ComponentRef<typeof AlertDialogPrimitive.Close>,
-  AlertDialogPrimitive.Close.Props
->(({ className, ...props }, ref) => {
-  return (
-    <AlertDialogPrimitive.Close
-      ref={ref}
-      data-slot="alert-dialog-cancel"
-      render={<Button className={cn(buttonVariants({ variant: "outline" }), className)} />}
-      {...props}
-    />
-  );
-});
+const AlertDialogCancel = forwardRef<HTMLButtonElement, AlertDialogPrimitive.Close.Props>(
+  ({ className, ...props }, ref) => {
+    return (
+      <AlertDialogPrimitive.Close
+        ref={ref}
+        data-slot="alert-dialog-cancel"
+        render={<Button variant="outline" className={className} />}
+        {...props}
+      />
+    );
+  }
+);
 AlertDialogCancel.displayName = "AlertDialogCancel";
 
 export {

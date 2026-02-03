@@ -296,12 +296,15 @@ export function ExpandableFeatureCards() {
               {/* Footer */}
               <div className="p-6 border-t bg-muted/30">
                 <motion.div layoutId={`cta-${active.id}-${id}`}>
-                  <Button asChild className="w-full">
-                    <Link to={active.ctaLink} className="flex items-center justify-center gap-2">
-                      {active.ctaText}
-                      <IconArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
+                  <Button
+                    className="w-full"
+                    render={
+                      <Link to={active.ctaLink} className="flex items-center justify-center gap-2">
+                        {active.ctaText}
+                        <IconArrowRight className="h-4 w-4" />
+                      </Link>
+                    }
+                  />
                 </motion.div>
               </div>
             </motion.div>

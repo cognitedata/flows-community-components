@@ -29,7 +29,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/aura/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Slot } from "@/lib/slot";
 import { cn } from "@/lib/utils";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
@@ -355,15 +354,9 @@ function SidebarGroup({ className, ...props }: ComponentProps<"div">) {
   );
 }
 
-function SidebarGroupLabel({
-  className,
-  asChild = false,
-  ...props
-}: ComponentProps<"div"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "div";
-
+function SidebarGroupLabel({ className, ...props }: ComponentProps<"div">) {
   return (
-    <Comp
+    <div
       data-slot="sidebar-group-label"
       data-sidebar="group-label"
       className={cn(
@@ -376,15 +369,9 @@ function SidebarGroupLabel({
   );
 }
 
-function SidebarGroupAction({
-  className,
-  asChild = false,
-  ...props
-}: ComponentProps<"button"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "button";
-
+function SidebarGroupAction({ className, ...props }: ComponentProps<"button">) {
   return (
-    <Comp
+    <button
       data-slot="sidebar-group-action"
       data-sidebar="group-action"
       className={cn(
@@ -463,7 +450,6 @@ const sidebarMenuButtonVariants = cva(
 );
 
 function SidebarMenuButton({
-  asChild = false,
   isActive = false,
   variant = "default",
   size = "default",
@@ -471,15 +457,13 @@ function SidebarMenuButton({
   className,
   ...props
 }: ComponentProps<"button"> & {
-  asChild?: boolean;
   isActive?: boolean;
   tooltip?: string | ComponentProps<typeof TooltipContent>;
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
-  const Comp = asChild ? Slot : "button";
   const { isMobile, state } = useSidebar();
 
   const button = (
-    <Comp
+    <button
       data-slot="sidebar-menu-button"
       data-sidebar="menu-button"
       data-size={size}
@@ -501,7 +485,7 @@ function SidebarMenuButton({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
+      <TooltipTrigger render={button} />
       <TooltipContent
         side="right"
         align="center"
@@ -514,17 +498,13 @@ function SidebarMenuButton({
 
 function SidebarMenuAction({
   className,
-  asChild = false,
   showOnHover = false,
   ...props
 }: ComponentProps<"button"> & {
-  asChild?: boolean;
   showOnHover?: boolean;
 }) {
-  const Comp = asChild ? Slot : "button";
-
   return (
-    <Comp
+    <button
       data-slot="sidebar-menu-action"
       data-sidebar="menu-action"
       className={cn(
@@ -622,20 +602,16 @@ function SidebarMenuSubItem({ className, ...props }: ComponentProps<"div">) {
 }
 
 function SidebarMenuSubButton({
-  asChild = false,
   size = "md",
   isActive = false,
   className,
   ...props
 }: ComponentProps<"a"> & {
-  asChild?: boolean;
   size?: "sm" | "md";
   isActive?: boolean;
 }) {
-  const Comp = asChild ? Slot : "a";
-
   return (
-    <Comp
+    <a
       data-slot="sidebar-menu-sub-button"
       data-sidebar="menu-sub-button"
       data-size={size}
@@ -666,15 +642,9 @@ function SidebarBrand({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 // Sidebar Project Selector component
-function SidebarProjectSelector({
-  className,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "button";
-
+function SidebarProjectSelector({ className, ...props }: React.ComponentProps<"button">) {
   return (
-    <Comp
+    <button
       data-slot="sidebar-project-selector"
       data-sidebar="project-selector"
       className={cn(
@@ -689,15 +659,9 @@ function SidebarProjectSelector({
 }
 
 // Sidebar Search component (copy of ProjectSelector for now)
-function SidebarSearch({
-  className,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "button";
-
+function SidebarSearch({ className, ...props }: React.ComponentProps<"button">) {
   return (
-    <Comp
+    <button
       data-slot="sidebar-search"
       data-sidebar="search"
       className={cn(

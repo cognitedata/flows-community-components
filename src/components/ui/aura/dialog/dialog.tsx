@@ -1,6 +1,6 @@
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { IconX } from "@tabler/icons-react";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
@@ -29,8 +29,17 @@ function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
   );
 }
 
-function DialogClose({ ...props }: DialogPrimitive.Close.Props) {
-  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
+function DialogClose({
+  asChild = false,
+  children,
+  ...props
+}: DialogPrimitive.Close.Props & { asChild?: boolean; children?: ReactNode }) {
+  const render = getRenderPropFromAsChild(children, asChild);
+  return (
+    <DialogPrimitive.Close data-slot="dialog-close" render={render} {...props}>
+      {asChild ? null : children}
+    </DialogPrimitive.Close>
+  );
 }
 
 function DialogOverlay({ className, ...props }: DialogPrimitive.Backdrop.Props) {

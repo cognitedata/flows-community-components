@@ -22,7 +22,7 @@ function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
 DropdownMenuPortal.displayName = "DropdownMenuPortal";
 
 const DropdownMenuTrigger = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.Trigger>,
+  HTMLButtonElement,
   MenuPrimitive.Trigger.Props & { asChild?: boolean }
 >(({ asChild = false, children, ...props }, ref) => {
   const render = getRenderPropFromAsChild(children, asChild);

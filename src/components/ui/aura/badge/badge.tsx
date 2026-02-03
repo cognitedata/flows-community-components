@@ -115,8 +115,8 @@ function Badge({
           dot && isEmpty && !urgent && "bg-neutral-foreground",
           className
         ),
-      },
-      { ...props, children: resolvedChildren } as React.ComponentProps<"span">
+      } as any,
+      { ...props, children: resolvedChildren } as any
     ),
     render: resolvedRender,
     state: {

@@ -1,16 +1,89 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { IconChevronDown } from "@tabler/icons-react";
-import { type ComponentProps, forwardRef } from "react";
+import { type ComponentProps, forwardRef, useMemo } from "react";
 
 import { cn } from "@/lib/utils";
 import type { Icon } from "@tabler/icons-react";
 
-const Accordion = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Root>,
-  ComponentProps<typeof AccordionPrimitive.Root>
->((props, ref) => {
-  return <AccordionPrimitive.Root ref={ref} data-slot="accordion" {...props} />;
-});
+type AccordionType = "single" | "multiple";
+
+type AccordionCommonProps = Omit<
+  ComponentProps<typeof AccordionPrimitive.Root>,
+  "multiple" | "value" | "defaultValue" | "onValueChange"
+>;
+
+type AccordionSingleProps = {
+  type?: "single";
+  collapsible?: boolean;
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+};
+
+type AccordionMultipleProps = {
+  type: "multiple";
+  value?: string[];
+  defaultValue?: string[];
+  onValueChange?: (value: string[]) => void;
+};
+
+type AccordionProps = AccordionCommonProps & (AccordionSingleProps | AccordionMultipleProps);
+
+const Accordion = forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionProps>(
+  (props, ref) => {
+    const { type = "single" } = props;
+    const multiple = type === "multiple";
+
+    const { collapsible = false } = (props as AccordionSingleProps) ?? {};
+    const {
+      type: _type,
+      collapsible: _collapsible,
+      value,
+      defaultValue,
+      onValueChange,
+      ...rootProps
+    } = props as any;
+
+    const controlledValue = useMemo(() => {
+      if (value === undefined) return undefined;
+      if (multiple) return Array.isArray(value) ? value : [value];
+      if (value === "") return [];
+      return [value];
+    }, [multiple, value]);
+
+    const uncontrolledDefaultValue = useMemo(() => {
+      if (defaultValue === undefined) return undefined;
+      if (multiple) return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+      if (defaultValue === "") return [];
+      return [defaultValue];
+    }, [defaultValue, multiple]);
+
+    return (
+      <AccordionPrimitive.Root
+        ref={ref}
+        data-slot="accordion"
+        multiple={multiple}
+        value={controlledValue as any}
+        defaultValue={uncontrolledDefaultValue as any}
+        onValueChange={(nextValue, details) => {
+          if (multiple) {
+            onValueChange?.(nextValue.filter((v: unknown) => v != null) as any);
+            return;
+          }
+
+          if (collapsible === false && nextValue.length === 0) {
+            details.cancel();
+            return;
+          }
+
+          const next = nextValue[0];
+          onValueChange?.((next ?? "") as any);
+        }}
+        {...rootProps}
+      />
+    );
+  }
+);
 Accordion.displayName = "Accordion";
 
 const AccordionItem = forwardRef<

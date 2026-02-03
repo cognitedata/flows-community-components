@@ -161,14 +161,12 @@ function BreadcrumbPage({
 /**
  * Button for the current page when it needs to be interactive (e.g., in a dropdown).
  * Automatically includes aria-current="page" and proper button styling.
- * **Must be used with DropdownMenuTrigger's asChild prop.**
+ * **Must be used with DropdownMenuTrigger's render prop.**
  *
  * @example
  * <BreadcrumbItem>
  *   <DropdownMenu>
- *     <DropdownMenuTrigger asChild>
- *       <BreadcrumbPageButton>Actions</BreadcrumbPageButton>
- *     </DropdownMenuTrigger>
+ *     <DropdownMenuTrigger render={<BreadcrumbPageButton>Actions</BreadcrumbPageButton>} />
  *     <DropdownMenuContent>
  *       <DropdownMenuItem>Rename</DropdownMenuItem>
  *       <DropdownMenuItem>Delete</DropdownMenuItem>
@@ -195,21 +193,15 @@ function BreadcrumbPageButton({ className, ...props }: ComponentProps<"button">)
 /**
  * Button for ellipsis dropdowns showing hidden navigation items.
  * Automatically includes dots icon and "More" screen reader text.
- * **Must be used with DropdownMenuTrigger's asChild prop inside BreadcrumbEllipsis.**
+ * **Must be used with DropdownMenuTrigger's render prop inside BreadcrumbEllipsis.**
  *
  * @example
  * <BreadcrumbEllipsis>
  *   <DropdownMenu>
- *     <DropdownMenuTrigger asChild>
- *       <BreadcrumbEllipsisButton />
- *     </DropdownMenuTrigger>
+ *     <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
  *     <DropdownMenuContent>
- *       <DropdownMenuItem asChild>
- *         <a href="/projects">Projects</a>
- *       </DropdownMenuItem>
- *       <DropdownMenuItem asChild>
- *         <a href="/teams">Teams</a>
- *       </DropdownMenuItem>
+ *       <DropdownMenuItem render={<a href="/projects">Projects</a>} />
+ *       <DropdownMenuItem render={<a href="/teams">Teams</a>} />
  *     </DropdownMenuContent>
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>
@@ -276,13 +268,9 @@ function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"
  * // Interactive ellipsis with dropdown
  * <BreadcrumbEllipsis>
  *   <DropdownMenu>
- *     <DropdownMenuTrigger asChild>
- *       <BreadcrumbEllipsisButton />
- *     </DropdownMenuTrigger>
+ *     <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
  *     <DropdownMenuContent>
- *       <DropdownMenuItem asChild>
- *         <a href="/projects">Projects</a>
- *       </DropdownMenuItem>
+ *       <DropdownMenuItem render={<a href="/projects">Projects</a>} />
  *     </DropdownMenuContent>
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>

@@ -10,7 +10,7 @@ function Popover({ ...props }: PopoverPrimitive.Root.Props) {
 Popover.displayName = "Popover";
 
 const PopoverTrigger = forwardRef<
-  ComponentRef<typeof PopoverPrimitive.Trigger>,
+  HTMLButtonElement,
   PopoverPrimitive.Trigger.Props & { asChild?: boolean }
 >(({ asChild = false, children, ...props }, ref) => {
   const render = getRenderPropFromAsChild(children, asChild);

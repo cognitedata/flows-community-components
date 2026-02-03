@@ -10,7 +10,7 @@ import {
   IconSettings,
   IconUser,
 } from "@tabler/icons-react";
-import { useState } from "react";
+import { type ComponentProps, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -121,7 +121,7 @@ export const Default: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
 
     // Find and click trigger
@@ -240,7 +240,7 @@ export const Disabled: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeDisabled();
@@ -715,7 +715,7 @@ export const Playground: Story = {
     disabled: false,
     defaultOpen: false,
   },
-  render: (args) => (
+  render: (args: ComponentProps<typeof Select>) => (
     <Select {...args}>
       <SelectTrigger className="w-50">
         <SelectValue placeholder="Select an option" />

@@ -108,20 +108,11 @@ const TopbarBreadcrumbs = forwardRef<
 TopbarBreadcrumbs.displayName = "TopbarBreadcrumbs";
 
 // Topbar action button wrapper
-const TopbarAction = forwardRef<
-  HTMLButtonElement,
-  ComponentProps<typeof Button> & { asChild?: boolean }
->(({ className, asChild = false, ...props }, ref) => {
-  return (
-    <Button
-      ref={ref}
-      data-slot="topbar-action"
-      asChild={asChild}
-      className={className}
-      {...props}
-    />
-  );
-});
+const TopbarAction = forwardRef<HTMLButtonElement, ComponentProps<typeof Button>>(
+  ({ className, ...props }, ref) => {
+    return <Button ref={ref} data-slot="topbar-action" className={className} {...props} />;
+  }
+);
 TopbarAction.displayName = "TopbarAction";
 
 export {

@@ -37,11 +37,20 @@ function Select({
   open,
   defaultOpen = false,
   onOpenChange,
+  value,
+  defaultValue,
+  onValueChange,
   ...props
-}: SelectPrimitive.Root.Props & {
+}: Omit<
+  SelectPrimitive.Root.Props<string>,
+  "open" | "defaultOpen" | "onOpenChange" | "value" | "defaultValue" | "onValueChange"
+> & {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
 }) {
   const [isOpen, setIsOpen] = useControllableState({
     prop: open,
@@ -53,7 +62,19 @@ function Select({
 
   return (
     <SelectContext.Provider value={selectContext}>
-      <SelectPrimitive.Root data-slot="select" open={isOpen} onOpenChange={setIsOpen} {...props} />
+      <SelectPrimitive.Root
+        data-slot="select"
+        open={isOpen}
+        onOpenChange={(nextOpen) => setIsOpen(nextOpen)}
+        value={value === undefined ? undefined : value === "" ? null : value}
+        defaultValue={
+          defaultValue === undefined ? undefined : defaultValue === "" ? null : defaultValue
+        }
+        onValueChange={(nextValue, _details) => {
+          onValueChange?.((nextValue ?? "") as string);
+        }}
+        {...props}
+      />
     </SelectContext.Provider>
   );
 }
