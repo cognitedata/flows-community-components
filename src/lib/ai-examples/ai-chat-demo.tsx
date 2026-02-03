@@ -1,19 +1,38 @@
 "use client";
 
-import { Button } from "@/components/ui/aura/button";
+import { cn } from "@/lib/utils";
 import {
   Conversation,
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from "@/components/ui/aura/conversation";
+} from "@cognite/aura-lab/conversation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
+} from "@cognite/aura-lab/dropdown-menu";
+import { InlineCitation, InlineCitationLink } from "@cognite/aura-lab/inline-citation";
+import {
+  PromptInput,
+  PromptInputBody,
+  PromptInputButton,
+  PromptInputFooter,
+  PromptInputProvider,
+  PromptInputSubmit,
+  PromptInputTextarea,
+  PromptInputTools,
+} from "@cognite/aura-lab/prompt-input";
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningHeader,
+  ReasoningItem,
+} from "@cognite/aura-lab/reasoning";
+import { Shimmer } from "@cognite/aura-lab/shimmer";
+import { Suggestion } from "@cognite/aura-lab/suggestion";
+import { Button } from "@cognite/aura/button";
 import {
   Message,
   MessageAction,
@@ -28,28 +47,9 @@ import {
   MessageBranchSelector,
   MessageContent,
   MessageResponse,
-} from "@/components/ui/aura/message";
-import {
-  PromptInput,
-  PromptInputBody,
-  PromptInputButton,
-  PromptInputFooter,
-  PromptInputProvider,
-  PromptInputSubmit,
-  PromptInputTextarea,
-  PromptInputTools,
-} from "@/components/ui/aura/prompt-input";
-import {
-  Reasoning,
-  ReasoningContent,
-  ReasoningHeader,
-  ReasoningItem,
-} from "@/components/ui/aura/reasoning";
-import { Shimmer } from "@/components/ui/aura/shimmer";
-import { Source, Sources } from "@/components/ui/aura/sources";
-import { Suggestion } from "@/components/ui/aura/suggestion";
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@/components/ui/aura/tool";
-import { cn } from "@/lib/utils";
+} from "@cognite/aura/message";
+import { Source, Sources } from "@cognite/aura/sources";
+import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@cognite/aura/tool";
 import {
   IconAdjustments,
   IconBrain,

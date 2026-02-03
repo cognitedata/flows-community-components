@@ -1,26 +1,26 @@
-import { Badge } from "@/components/ui/aura/badge";
+import { AIChatDemo } from "@/lib/ai-examples/ai-chat-demo";
+import { Badge } from "@cognite/aura-lab/badge";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/aura/breadcrumb";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent } from "@/components/ui/aura/card";
+} from "@cognite/aura-lab/breadcrumb";
+import { Card, CardContent } from "@cognite/aura-lab/card";
 import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
+} from "@cognite/aura-lab/code-block";
 import {
   Topbar,
   TopbarBreadcrumbs,
   TopbarCenter,
   TopbarLeft,
   TopbarRight,
-} from "@/components/ui/aura/topbar";
-import { AIChatDemo } from "@/lib/ai-examples/ai-chat-demo";
+} from "@cognite/aura-lab/topbar";
+import { Button } from "@cognite/aura/button";
 import {
   IconAlertCircle,
   IconAlertTriangle,

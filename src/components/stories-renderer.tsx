@@ -17,7 +17,10 @@ interface StoryEntry {
 // Use import.meta.glob to let Vite know about all stories files at build time
 // Using eager: true ensures modules are loaded at build time and included in production bundle
 // This follows Storybook's recommended pattern for portable stories
-const storiesModules = import.meta.glob("@/components/ui/aura/*/*.stories.tsx", { eager: true });
+const storiesModules = import.meta.glob(
+  ["@/components/ui/core/*/*.stories.tsx", "@/components/ui/lab/*/*.stories.tsx"],
+  { eager: true }
+);
 
 // Create slug-to-module mapping at module load time
 const storiesBySlug = new Map<string, Record<string, unknown>>();

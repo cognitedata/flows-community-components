@@ -1,7 +1,5 @@
 import { InstallationCommand } from "@/components/installation-command";
 import { StoriesRenderer } from "@/components/stories-renderer";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
 import type { ComponentMeta } from "@/lib/component-examples";
 import { getComponentMeta } from "@/lib/component-registry";
 import {
@@ -10,6 +8,8 @@ import {
   getStatusMessage,
 } from "@/lib/component-status";
 import { getStatusLabel } from "@/lib/component-status";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Button } from "@cognite/aura/button";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

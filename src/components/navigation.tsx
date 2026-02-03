@@ -1,7 +1,7 @@
 import { useTheme } from "@/components/theme-provider";
-import { Button } from "@/components/ui/aura/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/aura/sheet";
 import { cn } from "@/lib/utils";
+import { Sheet, SheetContent, SheetTrigger } from "@cognite/aura-lab/sheet";
+import { Button } from "@cognite/aura/button";
 import { IconBrandGithub, IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import * as React from "react";

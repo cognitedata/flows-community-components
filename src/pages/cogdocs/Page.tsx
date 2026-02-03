@@ -1,5 +1,5 @@
 import { type CogDocsPage, cogdocsPages } from "virtual:cogdocs";
-import { Card, CardContent } from "@/components/ui/aura/card";
+import { Card, CardContent } from "@cognite/aura-lab/card";
 import { Link } from "react-router-dom";
 
 export default function CogDocsPageComponent() {

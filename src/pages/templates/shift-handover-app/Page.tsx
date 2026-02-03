@@ -1,29 +1,29 @@
 import { useTheme } from "@/components/theme-provider";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Calendar } from "@/components/ui/aura/calendar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Checkbox } from "@/components/ui/aura/checkbox";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Calendar } from "@cognite/aura-lab/calendar";
+import { Card, CardContent, CardHeader, CardTitle } from "@cognite/aura-lab/card";
+import { Checkbox } from "@cognite/aura-lab/checkbox";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/aura/dialog";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
+} from "@cognite/aura-lab/dialog";
+import { Input } from "@cognite/aura-lab/input";
+import { Label } from "@cognite/aura-lab/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@cognite/aura-lab/popover";
+import { Separator } from "@cognite/aura-lab/separator";
+import { Tabs, TabsList, TabsTrigger } from "@cognite/aura-lab/tabs";
+import { Button } from "@cognite/aura/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/aura/select";
-import { Separator } from "@/components/ui/aura/separator";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
-import { Textarea } from "@/components/ui/aura/textarea";
+} from "@cognite/aura/select";
+import { Textarea } from "@cognite/aura/textarea";
 import {
   IconAppWindow as AppWindow,
   IconArrowLeft as ArrowLeft,

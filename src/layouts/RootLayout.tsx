@@ -1,7 +1,7 @@
 import { TopbarVisibility } from "@/components/TopbarVisibility";
 import { Navigation } from "@/components/navigation";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/aura/sonner-toast";
+import { Toaster } from "@cognite/aura-lab/sonner-toast";
 
 interface RootLayoutProps {
   children: React.ReactNode;

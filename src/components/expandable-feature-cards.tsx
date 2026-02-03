@@ -1,6 +1,6 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Button } from "@cognite/aura/button";
 import { IconArrowRight, IconCode, IconPalette, IconSparkles, IconX } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";
 import type React from "react";

@@ -1,10 +1,5 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/aura/tooltip";
+import { Button } from "@cognite/aura/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@cognite/aura/tooltip";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@cognite/aura-lab/card";
 import { Link } from "react-router-dom";
 
 export default function TemplatesPage() {

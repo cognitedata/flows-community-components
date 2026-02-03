@@ -1,14 +1,8 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@cognite/aura-lab/alert";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@cognite/aura-lab/card";
+import { CodeBlock, CodeBlockCopyButton } from "@cognite/aura-lab/code-block";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cognite/aura-lab/tabs";
+import { Button } from "@cognite/aura/button";
 import {
   IconAlertTriangle as AlertTriangle,
   IconArrowRight as ArrowRight,

@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "#aura/*": ["./src/*"]
+      "@cognite/aura/lib/*": ["./src/lib/*"],
+      "@cognite/aura/*": ["./src/components/ui/core/*"],
+      "@cognite/aura-lab/*": ["./src/components/ui/lab/*"]
     }
   }
 }

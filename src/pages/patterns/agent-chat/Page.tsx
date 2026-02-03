@@ -1,7 +1,7 @@
 "use client";
 
-import { Badge } from "@/components/ui/aura/badge";
 import { AIChatDemo } from "@/lib/ai-examples/ai-chat-demo";
+import { Badge } from "@cognite/aura-lab/badge";
 import { IconMessageCircle as MessageSquare } from "@tabler/icons-react";
 
 export default function AgentChatPage() {

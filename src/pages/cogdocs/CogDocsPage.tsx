@@ -1,6 +1,6 @@
 import { type CogDocsPage, cogdocsPages } from "virtual:cogdocs";
-import { Button } from "@/components/ui/aura/button";
-import { MessageResponse } from "@/components/ui/aura/message/message";
+import { Button } from "@cognite/aura/button";
+import { MessageResponse } from "@cognite/aura/message/message";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useNavigate, useParams } from "react-router-dom";
 

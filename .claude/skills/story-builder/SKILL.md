@@ -55,10 +55,21 @@ Duplicate code in each story if needed. Code examples > DRY principle.
 
 ## Import Conventions
 
-**CRITICAL: Use `#aura/` imports for all Aura components and utilities:**
-- Import components: `import { Button } from "#aura/components/ui/aura/button"`
-- Import utilities: `import { cn } from "#aura/lib/utils"`
-- Never use relative imports like `"./button"` or `@/` aliases in story files
+**CRITICAL: Use scoped imports based on component maturity:**
+
+**Ready for Fusion components** (`@cognite/aura/*`):
+- Initial set: Avatar, Button, Message, Select, Sources, Textarea, Tool, Tooltip
+- Expanding: Alert, Badge, Breadcrumb, Button Group, Calendar, Carousel, Code Block, Collapsible, Command, Dialog, Dropdown Menu, Helper Text, HoverCard, Inline Citation, Loader, Popover, Prompt Input, Reasoning, Separator, Sheet, Shimmer, Sidebar, Skeleton, Topbar
+- Example: `import { Button } from "@cognite/aura/button"`
+
+**Experimental components** (`@cognite/aura-lab/*`):
+- Input, Input Group, and all other components not listed above
+- Example: `import { ExperimentalComponent } from "@cognite/aura-lab/experimental"`
+
+**Utilities** (always use `@cognite/aura/*`):
+- `import { cn } from "@cognite/aura/lib/utils"`
+
+**Never use relative imports** like `"./button"` or `@/` aliases in story files
 
 ## Polymorphic Title Components
 
@@ -119,7 +130,7 @@ Before committing changes:
 2. Run `pnpm tsc -b` to verify TypeScript types
 3. Ensure all stories have `order` parameter
 4. ALL stories have a minimal code comment above them
-5. All imports use `#aura/` prefix
+5. All imports use correct scope: `@cognite/aura/*` for ready components, `@cognite/aura-lab/*` for experimental
 6. Verify play functions pass with no errors
 7. Test interactive stories manually
 8. No inline code comments in play functions or JSON objects

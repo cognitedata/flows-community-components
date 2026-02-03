@@ -28,7 +28,7 @@ export interface AIComponentMeta {
  * Pre-load all metadata modules using Vite's glob import.
  */
 const metadataModules = import.meta.glob<{ [key: string]: AIComponentMeta }>(
-  "@/components/ui/aura/*/*.metadata.ts",
+  ["@/components/ui/core/*/*.metadata.ts", "@/components/ui/lab/*/*.metadata.ts"],
   { eager: false }
 );
 
@@ -41,14 +41,16 @@ export async function getAIComponentMeta(slug: string): Promise<AIComponentMeta 
   const pascalCaseSlug = slugToPascalCase(slug);
 
   try {
-    // Load from the folder structure with metadata file
-    const metadataPath = `/src/components/ui/aura/${slug}/${slug}.metadata.ts`;
-    const loader = metadataModules[metadataPath];
-    if (loader) {
-      const metadataModule = await loader();
-      const meta = metadataModule[`${pascalCaseSlug}Metadata`];
-      if (meta) {
-        return meta as AIComponentMeta;
+    // Try core directory first, then lab directory
+    for (const dir of ["core", "lab"]) {
+      const metadataPath = `/src/components/ui/${dir}/${slug}/${slug}.metadata.ts`;
+      const loader = metadataModules[metadataPath];
+      if (loader) {
+        const metadataModule = await loader();
+        const meta = metadataModule[`${pascalCaseSlug}Metadata`];
+        if (meta) {
+          return meta as AIComponentMeta;
+        }
       }
     }
   } catch (error) {

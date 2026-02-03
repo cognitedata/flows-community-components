@@ -1,12 +1,6 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@cognite/aura-lab/card";
+import { Input } from "@cognite/aura-lab/input";
+import { Button } from "@cognite/aura/button";
 import {
   IconArchive as Archive,
   IconBookmark as Bookmark,

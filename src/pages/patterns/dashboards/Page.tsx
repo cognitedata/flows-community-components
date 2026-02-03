@@ -1,20 +1,14 @@
 "use client";
 
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@cognite/aura-lab/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/aura/chart";
+} from "@cognite/aura-lab/chart";
+import { Button } from "@cognite/aura/button";
 import {
   IconChartBar as BarChart3,
   IconRefresh as RefreshCw,

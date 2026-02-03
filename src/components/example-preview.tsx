@@ -1,5 +1,5 @@
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
 import { cn } from "@/lib/utils";
+import { CodeBlock, CodeBlockCopyButton } from "@cognite/aura-lab/code-block";
 import type React from "react";
 
 interface ExamplePreviewProps {

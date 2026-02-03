@@ -1,16 +1,10 @@
 import { CodeCopyButton } from "@/components/code-copy-button";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@cognite/aura-lab/card";
+import { Input } from "@cognite/aura-lab/input";
+import { Label } from "@cognite/aura-lab/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cognite/aura-lab/tabs";
+import { Button } from "@cognite/aura/button";
 import {
   IconEye as Eye,
   IconMoon as Moon,
@@ -346,7 +340,7 @@ export default function App({ children }) {
 Your components will now use the custom theme colors automatically!
 
 \`\`\`jsx
-import { Button } from "@/components/ui/aura/button"
+import { Button } from "@cognite/aura/button"
 
 export function Example() {
   return (

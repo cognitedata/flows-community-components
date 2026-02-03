@@ -1,11 +1,5 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/aura/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@cognite/aura-lab/card";
+import { Button } from "@cognite/aura/button";
 import {
   IconCheck as Check,
   IconCopy as Copy,

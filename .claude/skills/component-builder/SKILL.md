@@ -66,9 +66,13 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 
 **Import order:** React → Third-party → Local utilities. See any component file like `button.tsx`.
 
-**Import conventions:** Use `#aura/` prefix for all Aura imports:
-- Components: `import { Button } from "#aura/components/ui/aura/button"`
-- Utilities: `import { cn } from "#aura/lib/utils"`
+**Import conventions:** Use scoped imports based on component maturity:
+- **Ready for Fusion** (`@cognite/aura/*`): `import { Button } from "@cognite/aura/button"`
+  - Initial set: Avatar, Button, Message, Select, Sources, Textarea, Tool, Tooltip
+  - Expanding: Alert, Badge, Breadcrumb, Button Group, Calendar, Carousel, Code Block, Collapsible, Command, Dialog, Dropdown Menu, Helper Text, HoverCard, Inline Citation, Loader, Popover, Prompt Input, Reasoning, Separator, Sheet, Shimmer, Sidebar, Skeleton, Topbar
+- **Experimental** (`@cognite/aura-lab/*`): `import { ExperimentalComponent } from "@cognite/aura-lab/experimental"`
+  - Input, Input Group, and all other components not listed above
+- **Utilities**: Always `import { cn } from "@cognite/aura/lib/utils"` (shared across both scopes)
 
 **Definition order:** Components in dependency order, exports at bottom.
 
@@ -111,7 +115,7 @@ Before committing changes:
 4. Verify accessibility (ARIA, keyboard nav, focus)
 5. Update side navigation if adding new component
 6. No code comments in component files or JSON objects
-7. All imports use `#aura/` prefix
+7. All imports use correct scope: `@cognite/aura/*` for ready components, `@cognite/aura-lab/*` for experimental
 8. No eslint-disable comments
 9. No !important in Tailwind classes
 10. Proper error handling in all try-catch blocks

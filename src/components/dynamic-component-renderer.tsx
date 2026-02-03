@@ -1,9 +1,9 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@cognite/aura-lab/card";
+import { Input } from "@cognite/aura-lab/input";
+import { Label } from "@cognite/aura-lab/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cognite/aura-lab/tabs";
+import { Button } from "@cognite/aura/button";
 import { IconAlertTriangle, IconPlayerPlay, IconRefresh } from "@tabler/icons-react";
 import React, { useState, useEffect, useMemo } from "react";
 

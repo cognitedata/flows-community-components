@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@cognite/aura-lab/card";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 

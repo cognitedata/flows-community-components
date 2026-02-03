@@ -37,9 +37,21 @@ NEVER use `React.useState`, `React.useEffect`, etc.
 ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
 
-**Use `#aura/` imports for all Aura components and utilities:**
-- `#aura/components/ui/aura/button` for components
-- `#aura/lib/utils` for utilities
+**Component Import Strategy:**
+
+Aura uses scoped imports to signal component maturity:
+
+- `@cognite/aura/*` - For "ready for Fusion" components (beta state)
+  - Initial set: Avatar, Button, Input, Input Group, Message, Select, Sources, Textarea, Tool, Tooltip
+  - Expanding to include: Alert, Badge, Breadcrumb, Button Group, Calendar, Code Block, Collapsible, Command, Dialog, Dropdown Menu, Helper Text, HoverCard, Inline Citation, Loader, Popover, Prompt Input, Reasoning, Separator, Shimmer, Sidebar, Skeleton, Topbar
+
+- `@cognite/aura-lab/*` - For alpha/experimental components
+  - All other components not listed above
+
+**Import Examples:**
+- `@cognite/aura/components/ui/aura/button` for ready components
+- `@cognite/aura-lab/components/ui/aura/experimental-feature` for lab components
+- `@cognite/aura/lib/utils` for shared utilities
 - Never use relative imports like `./button` or `@/` in story files
 
 ## Special Files

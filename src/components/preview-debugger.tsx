@@ -1,7 +1,7 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Badge } from "@cognite/aura-lab/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@cognite/aura-lab/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cognite/aura-lab/tabs";
+import { Button } from "@cognite/aura/button";
 import {
   IconAlertTriangle,
   IconBolt,
