@@ -454,7 +454,20 @@ const messageResponseComponents = {
 export const MessageResponse = memo(
   ({ className, components, ...props }: MessageResponseProps) => (
     <Streamdown
-      className={cn("size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0", className)}
+      className={cn(
+        "size-full",
+        // Mermaid diagram blocks
+        '[&_div[data-streamdown="mermaid-block"]]:bg-card',
+        '[&_div[data-streamdown="mermaid-block"]]:text-card-foreground',
+        '[&_div[data-streamdown="mermaid-block"]]:flex',
+        '[&_div[data-streamdown="mermaid-block"]]:flex-col',
+        '[&_div[data-streamdown="mermaid-block"]]:rounded-lg',
+        '[&_div[data-streamdown="mermaid-block"]]:hover:bg-accent',
+        '[&_div[data-streamdown="mermaid-block"]]:border-0',
+        // First and last child margin resets
+        "[&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+        className
+      )}
       components={{ ...messageResponseComponents, ...components }}
       controls={false}
       {...props}
