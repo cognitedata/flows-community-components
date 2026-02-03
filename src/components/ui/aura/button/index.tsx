@@ -5,7 +5,7 @@
  * built with Radix UI Slot and class-variance-authority.
  *
  * @example
- * import { Button } from '#aura/components/ui/aura/button';
+ * import { Button } from '@/components/ui/aura/button';
  *
  * <Button variant="default">Click me</Button>
  * <Button variant="destructive" size="sm">Delete</Button>
