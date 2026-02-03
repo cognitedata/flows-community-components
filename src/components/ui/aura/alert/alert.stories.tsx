@@ -105,16 +105,10 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify alert is rendered
     const alert = canvasElement.querySelector('[data-slot="alert"]');
     await expect(alert).toBeInTheDocument();
-
-    // Verify title and description
     const title = canvas.getByText("Account verification required");
     await expect(title).toBeInTheDocument();
-
-    // Verify action button
     const button = canvas.getByRole("button", { name: /verify account/i });
     await expect(button).toBeInTheDocument();
   },
@@ -157,25 +151,15 @@ export const Dismissible: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find close button
     const closeButton = canvas.getByRole("button", { name: /close/i });
     await expect(closeButton).toBeInTheDocument();
-
-    // Click close button
     await userEvent.click(closeButton);
-
-    // Verify alert is dismissed
     await waitFor(() => {
       const alert = canvasElement.querySelector('[data-slot="alert"]');
       expect(alert).not.toBeInTheDocument();
     });
-
-    // Click show again button
     const showButton = canvas.getByText("Show Alert Again");
     await userEvent.click(showButton);
-
-    // Verify alert is visible again
     await waitFor(() => {
       const alert = canvasElement.querySelector('[data-slot="alert"]');
       expect(alert).toBeInTheDocument();
@@ -370,11 +354,8 @@ export const MultipleActions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify both action buttons are present
     const extendButton = canvas.getByRole("button", { name: /extend session/i });
     const logoutButton = canvas.getByRole("button", { name: /log out/i });
-
     await expect(extendButton).toBeInTheDocument();
     await expect(logoutButton).toBeInTheDocument();
   },
@@ -426,26 +407,16 @@ export const ControlledVisibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify alert is visible initially
     let alert = canvasElement.querySelector('[data-slot="alert"]');
     await expect(alert).toBeInTheDocument();
-
-    // Click hide button
     const hideButton = canvas.getByText("Hide");
     await userEvent.click(hideButton);
-
-    // Verify alert is hidden
     await waitFor(() => {
       alert = canvasElement.querySelector('[data-slot="alert"]');
       expect(alert).not.toBeInTheDocument();
     });
-
-    // Click show button
     const showButton = canvas.getByText("Show");
     await userEvent.click(showButton);
-
-    // Verify alert is visible again
     await waitFor(() => {
       alert = canvasElement.querySelector('[data-slot="alert"]');
       expect(alert).toBeInTheDocument();
@@ -571,16 +542,10 @@ export const Accessibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Alert has role="alert"
     const alertRegion = canvas.getByRole("alert");
     await expect(alertRegion).toBeInTheDocument();
-
-    // Close button has accessible name
     const closeButton = canvas.getByRole("button", { name: /close/i });
     await expect(closeButton).toBeInTheDocument();
-
-    // Dismiss via keyboard (Enter on close button)
     await userEvent.click(closeButton);
     await waitFor(() => {
       expect(canvasElement.querySelector('[data-slot="alert"]')).not.toBeInTheDocument();
@@ -594,7 +559,6 @@ export const Accessibility: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-4 w-100">
-      {/* All variants */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
         <Alert>
@@ -619,7 +583,6 @@ export const VisualRegression: Story = {
         </Alert>
       </div>
 
-      {/* With actions */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Actions</h3>
         <Alert onClose={() => {}}>
@@ -632,7 +595,6 @@ export const VisualRegression: Story = {
         </Alert>
       </div>
 
-      {/* Description only */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Description Only</h3>
         <Alert variant="secondary">
@@ -666,12 +628,8 @@ export const VisualRegression: Story = {
  * Interactive playground.
  */
 export const Playground: Story = {
-  args: {
-    variant: "default",
-    defaultVisible: true,
-  },
-  render: (args) => (
-    <Alert {...args} onClose={() => {}}>
+  render: () => (
+    <Alert variant="default" defaultVisible={true} onClose={() => {}}>
       <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
       <AlertTitle>Playground Alert</AlertTitle>
       <AlertDescription>
