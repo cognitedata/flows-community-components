@@ -627,8 +627,8 @@ export const VisualRegression: Story = {
  * Interactive playground.
  */
 export const Playground: Story = {
-  render: () => (
-    <Alert variant="default" defaultVisible={true} onClose={() => {}}>
+  render: (args) => (
+    <Alert {...args} onClose={() => {}}>
       <IconInfoCircle className="w-3.5 h-3.5 mt-0.5" />
       <AlertTitle>Playground Alert</AlertTitle>
       <AlertDescription>
