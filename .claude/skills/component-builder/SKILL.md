@@ -39,6 +39,8 @@ Use composition patterns for flexibility. See `card.tsx` for component structure
 
 **Use design tokens, not arbitrary values** like `leading-4.5`, `text-sm`, `gap-2` instead of `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
 
+**Inline prop typing, no type exports.** Define prop types inline (e.g., `type BadgeProps = ...`) but do not export them. Consumers can use `ComponentProps<typeof Component>` if needed. See `badge.tsx`, `card.tsx`, `button.tsx` - none export prop types.
+
 ## Variants with CVA
 
 Use `class-variance-authority` for variant styling. See `badge.tsx` or `button.tsx` for CVA patterns with variants, defaultVariants, and exports.
@@ -50,6 +52,7 @@ Use `class-variance-authority` for variant styling. See `badge.tsx` or `button.t
 `React.ElementRef` is deprecated. Always import and use `ComponentRef` directly from "react".
 
 See these files for forwardRef patterns:
+
 - Native HTML elements: `badge.tsx`, `button.tsx`
 - Radix Primitives: `dialog.tsx`, `alert-dialog.tsx`
 - Always set `displayName` for debugging and dev tools
@@ -66,10 +69,6 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 
 **Import order:** React → Third-party → Local utilities. See any component file like `button.tsx`.
 
-**Import conventions:** Use `#aura/` prefix for all Aura imports:
-- Components: `import { Button } from "#aura/components/ui/aura/button"`
-- Utilities: `import { cn } from "#aura/lib/utils"`
-
 **Definition order:** Components in dependency order, exports at bottom.
 
 **Helper Functions:** Extract local helper functions to `utils.ts` (in `src/lib/`) for reusability, testing, and centralized maintenance. Add proper error handling with try-catch. See `getStorybookImagePath` in `utils.ts` for example.
@@ -77,8 +76,6 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 ## Code Comments & Documentation
 
 **CRITICAL: NO code comments in component files.** Component files (`.tsx`) should contain ZERO comments. See `badge.tsx` for clean, self-documenting code.
-
-**NO inline comments in JSON objects** - Keep JSON clean and self-documenting.
 
 **index.tsx - brief description only.** See `index.tsx` in any component folder like badge for minimal JSDoc pattern.
 
@@ -89,6 +86,7 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 ## Side Navigation
 
 Add new components to `side-navigation.tsx`. Story meta `title` determines category:
+
 - `Primitives/Colors|Effects|Layouts|Typography` → Foundations subsection
 - `Primitives/[Name]` → Primitives subsection (alphabetically)
 - `AI/[Name]` → AI Chat subsection
@@ -105,14 +103,14 @@ After creating or modifying components:
 ## Checklist
 
 Before committing changes:
+
 1. Run `pnpm lint` to check code quality
 2. Run `pnpm tsc -b` to verify TypeScript types
 3. Ensure no linter errors, type safety, prop spreading
 4. Verify accessibility (ARIA, keyboard nav, focus)
 5. Update side navigation if adding new component
-6. No code comments in component files or JSON objects
-7. All imports use `#aura/` prefix
-8. No eslint-disable comments
-9. No !important in Tailwind classes
-10. Proper error handling in all try-catch blocks
-11. Ensure all class names work with Tailwind v4
+6. No code comments in component files
+7. No eslint-disable comments
+8. No !important in Tailwind classes
+9. Proper error handling in all try-catch blocks
+10. Ensure all class names work with Tailwind v4
