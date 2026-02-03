@@ -23,16 +23,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
+} from "@/components/ui/aura/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../breadcrumb";
-import { Button } from "../button";
+} from "@/components/ui/aura/breadcrumb";
+import { Button } from "@/components/ui/aura/button";
 import {
   Sidebar,
   SidebarContent,
@@ -48,7 +48,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "../sidebar";
+} from "@/components/ui/aura/sidebar";
 import { Topbar, TopbarBreadcrumbs, TopbarCenter, TopbarLeft, TopbarRight } from "./topbar";
 
 const meta: Meta<typeof Topbar> = {
