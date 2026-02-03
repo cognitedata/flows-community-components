@@ -4,7 +4,7 @@
  * Components for displaying source references and citations.
  *
  * @example
- * import { Sources, SourcesTitle, Source } from '#aura/components/ui/aura/sources';
+ * import { Sources, SourcesTitle, Source } from '@/components/ui/aura/sources';
  */
 export {
   Sources,

@@ -4,8 +4,8 @@ import {
   InlineCitation,
   InlineCitationLink,
   type InlineCitationLinkProps,
-} from "#aura/components/ui/aura/inline-citation";
-import { cn } from "#aura/lib/utils";
+} from "@/components/ui/aura/inline-citation";
+import { cn } from "@/lib/utils";
 
 export type SourcesProps = Omit<ComponentProps<"div">, "title"> & {
   /**

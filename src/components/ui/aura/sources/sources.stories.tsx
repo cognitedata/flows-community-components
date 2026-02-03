@@ -8,9 +8,9 @@ import {
   IconPhoto,
   IconWorld,
 } from "@tabler/icons-react";
-import { Badge } from "#aura/components/ui/aura/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "#aura/components/ui/aura/hover-card";
-import { Source, Sources, SourcesTitle } from "#aura/components/ui/aura/sources";
+import { Badge } from "@/components/ui/aura/badge";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
 
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",
