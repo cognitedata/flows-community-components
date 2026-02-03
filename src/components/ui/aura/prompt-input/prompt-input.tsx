@@ -1,4 +1,4 @@
-import { Button } from "#aura/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button";
 import {
   Command,
   CommandEmpty,
@@ -7,29 +7,29 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "#aura/components/ui/aura/command";
+} from "@/components/ui/aura/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "#aura/components/ui/aura/dropdown-menu";
-import { HelperText } from "#aura/components/ui/aura/helper-text";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "#aura/components/ui/aura/hover-card";
+} from "@/components/ui/aura/dropdown-menu";
+import { HelperText } from "@/components/ui/aura/helper-text";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "#aura/components/ui/aura/input-group";
+} from "@/components/ui/aura/input-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "#aura/components/ui/aura/select";
-import { cn } from "#aura/lib/utils";
+} from "@/components/ui/aura/select";
+import { cn } from "@/lib/utils";
 import {
   IconInfoCircle,
   IconLoader2,
@@ -68,9 +68,6 @@ import {
   useRef,
   useState,
 } from "react";
-// ============================================================================
-// Provider Context & Types
-// ============================================================================
 
 export type AttachmentsContext = {
   files: (FileUIPart & { id: string })[];
@@ -107,7 +104,6 @@ export const usePromptInputController = () => {
   return ctx;
 };
 
-// Optional variants (do NOT throw). Useful for dual-mode components.
 const useOptionalPromptInputController = () => useContext(PromptInputController);
 
 export const useProviderAttachments = () => {
@@ -134,11 +130,9 @@ export function PromptInputProvider({
   initialInput: initialTextInput = "",
   children,
 }: PromptInputProviderProps) {
-  // ----- textInput state
   const [textInput, setTextInput] = useState(initialTextInput);
   const clearInput = useCallback(() => setTextInput(""), []);
 
-  // ----- attachments state (global when wrapped)
   const [attachements, setAttachements] = useState<(FileUIPart & { id: string })[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const openRef = useRef<() => void>(() => {});
@@ -222,14 +216,9 @@ export function PromptInputProvider({
 }
 PromptInputProvider.displayName = "PromptInputProvider";
 
-// ============================================================================
-// Component Context & Hooks
-// ============================================================================
-
 const LocalAttachmentsContext = createContext<AttachmentsContext | null>(null);
 
 export const usePromptInputAttachments = () => {
-  // Dual-mode: prefer provider if present, otherwise use local
   const provider = useOptionalProviderAttachments();
   const local = useContext(LocalAttachmentsContext);
   const context = provider ?? local;
@@ -385,15 +374,12 @@ export type PromptInputMessage = {
 };
 
 export type PromptInputProps = Omit<HTMLAttributes<HTMLFormElement>, "onSubmit" | "onError"> & {
-  accept?: string; // e.g., "image/*" or leave undefined for any
+  accept?: string;
   multiple?: boolean;
-  // When true, accepts drops anywhere on document. Default false (opt-in).
   globalDrop?: boolean;
-  // Render a hidden input with given name and keep it in sync for native form posts. Default false.
   syncHiddenInput?: boolean;
-  // Minimal constraints
   maxFiles?: number;
-  maxFileSize?: number; // bytes
+  maxFileSize?: number;
   onError?: (err: {
     code: "max_files" | "max_file_size" | "accept";
     message: string;
@@ -402,9 +388,7 @@ export type PromptInputProps = Omit<HTMLAttributes<HTMLFormElement>, "onSubmit" 
     message: PromptInputMessage,
     event: FormEvent<HTMLFormElement>
   ) => void | Promise<void>;
-  // Helper text to show below the input. Set to false to hide, undefined for default, or provide custom ReactNode
   helperText?: ReactNode | false;
-  // Error message to display below the input
   errorMessage?: string;
 };
 
@@ -428,16 +412,13 @@ export const PromptInput = ({
   children,
   ...props
 }: PromptInputProps) => {
-  // Try to use a provider controller if present
   const controller = useOptionalPromptInputController();
   const usingProvider = !!controller;
 
-  // Refs
   const inputRef = useRef<HTMLInputElement | null>(null);
   const anchorRef = useRef<HTMLSpanElement>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  // Find nearest form to scope drag & drop
   useEffect(() => {
     const root = anchorRef.current?.closest("form");
     if (root instanceof HTMLFormElement) {
@@ -445,7 +426,6 @@ export const PromptInput = ({
     }
   }, []);
 
-  // ----- Local attachments (only used when no provider)
   const [items, setItems] = useState<(FileUIPart & { id: string })[]>([]);
   const files = usingProvider ? controller.attachments.files : items;
 
@@ -461,7 +441,6 @@ export const PromptInput = ({
       if (accept.includes("image/*")) {
         return f.type.startsWith("image/");
       }
-      // NOTE: keep simple; expand as needed
       return true;
     },
     [accept]
@@ -561,21 +540,17 @@ export const PromptInput = ({
     [usingProvider, controller, openFileDialogLocal]
   );
 
-  // Let provider know about our hidden file input so external menus can call openFileDialog()
   useEffect(() => {
     if (!usingProvider) return;
     controller.__registerFileInput(inputRef, () => inputRef.current?.click());
   }, [usingProvider, controller]);
 
-  // Note: File input cannot be programmatically set for security reasons
-  // The syncHiddenInput prop is no longer functional
   useEffect(() => {
     if (syncHiddenInput && inputRef.current && files.length === 0) {
       inputRef.current.value = "";
     }
   }, [files, syncHiddenInput]);
 
-  // Attach drop handlers on nearest form and document (opt-in)
   useEffect(() => {
     const form = formRef.current;
     if (!form) return;
@@ -676,13 +651,10 @@ export const PromptInput = ({
           return (formData.get("message") as string) || "";
         })();
 
-    // Reset form immediately after capturing text to avoid race condition
-    // where user input during async blob conversion would be lost
     if (!usingProvider) {
       form.reset();
     }
 
-    // Convert blob URLs to data URLs asynchronously
     Promise.all(
       files.map(async (file) => {
         const { id, ...item } = file;
@@ -698,7 +670,6 @@ export const PromptInput = ({
       try {
         const result = onSubmit({ text, files: convertedFiles }, event);
 
-        // Handle both sync and async onSubmit
         if (result instanceof Promise) {
           result
             .then(() => {
@@ -707,23 +678,17 @@ export const PromptInput = ({
                 controller.textInput.clear();
               }
             })
-            .catch(() => {
-              // Don't clear on error - user may want to retry
-            });
+            .catch(() => {});
         } else {
-          // Sync function completed without throwing, clear attachments
           clear();
           if (usingProvider) {
             controller.textInput.clear();
           }
         }
-      } catch {
-        // Don't clear on error - user may want to retry
-      }
+      } catch {}
     });
   };
 
-  // Determine helper text to render
   const defaultHelperText = (
     <HelperText size="xs" icon={<IconInfoCircle />}>
       AI doesn&apos;t always get it right. Be sure to check results
@@ -732,7 +697,6 @@ export const PromptInput = ({
 
   const helperTextToRender = helperText === false ? null : (helperText ?? defaultHelperText);
 
-  // Render with or without local provider
   const inner = (
     <>
       <span aria-hidden="true" className="hidden" ref={anchorRef} />
@@ -807,7 +771,6 @@ export const PromptInputTextarea = forwardRef<HTMLTextAreaElement, PromptInputTe
         e.currentTarget.form?.requestSubmit();
       }
 
-      // Remove last attachment when Backspace is pressed and textarea is empty
       if (e.key === "Backspace" && e.currentTarget.value === "" && attachments.files.length > 0) {
         e.preventDefault();
         const lastAttachment = attachments.files.at(-1);
@@ -981,9 +944,6 @@ export const PromptInputActionMenuItem = ({
 }: PromptInputActionMenuItemProps) => <DropdownMenuItem className={cn(className)} {...props} />;
 PromptInputActionMenuItem.displayName = "PromptInputActionMenuItem";
 
-// Note: Actions that perform side-effects (like opening a file dialog)
-// are provided in opt-in modules (e.g., prompt-input-attachments).
-
 export type PromptInputSubmitProps = ComponentProps<typeof InputGroupButton> & {
   status?: ChatStatus;
 };
@@ -1140,7 +1100,6 @@ export const PromptInputSpeechButton = ({
 
       recognitionRef.current = speechRecognition;
 
-      // Use startTransition to avoid synchronous setState in effect
       startTransition(() => {
         setRecognition(speechRecognition);
       });

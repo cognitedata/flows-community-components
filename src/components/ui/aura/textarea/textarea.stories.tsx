@@ -1,8 +1,8 @@
-import { Label } from "#aura/components/ui/aura/label";
+import { Label } from "@/components/ui/aura/label";
+import { Textarea } from "@/components/ui/aura/textarea";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
-import { Textarea } from "#aura/components/ui/aura/textarea";
 
 const meta: Meta<typeof Textarea> = {
   title: "Primitives/Textarea",

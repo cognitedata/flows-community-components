@@ -1,15 +1,11 @@
-import { Button } from "#aura/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "#aura/components/ui/aura/dropdown-menu";
-import { HelperText } from "#aura/components/ui/aura/helper-text";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
-import { useRef, useState } from "react";
+} from "@/components/ui/aura/dropdown-menu";
+import { HelperText } from "@/components/ui/aura/helper-text";
 import {
   PromptInput,
   PromptInputBody,
@@ -21,7 +17,11 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "#aura/components/ui/aura/prompt-input";
+} from "@/components/ui/aura/prompt-input";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
+import { useRef, useState } from "react";
 
 const meta: Meta<typeof PromptInput> = {
   title: "AI/Prompt Input",
