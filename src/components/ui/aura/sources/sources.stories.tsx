@@ -220,7 +220,7 @@ export const TooManySourcesWithOverflow: Story = {
               <Badge variant="secondary">+{overflowSources.length}</Badge>
             </button>
           </HoverCardTrigger>
-          <HoverCardContent className="w-auto p-3">
+          <HoverCardContent className="w-auto p-3" data-testid="sources-overflow-hovercard">
             <div className="flex flex-col gap-2">
               <p className="text-xs font-medium text-muted-foreground">
                 {overflowSources.length} more sources
@@ -253,8 +253,8 @@ export const TooManySourcesWithOverflow: Story = {
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     const overflowPill = canvas.getByRole("button", { name: "4 more sources" });
     await userEvent.hover(overflowPill);
-    // Radix HoverCard does not use role="dialog"; wait for the card content text to appear (portaled)
-    await screen.findByText("4 more sources", { exact: true }, { timeout: 3000 });
+    const hovercard = await canvas.findByTestId("sources-overflow-hovercard");
+    await expect(hovercard).toBeInTheDocument();
   },
 };
 
