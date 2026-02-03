@@ -140,6 +140,7 @@
   --color-success-foreground-alternate: var(--success-foreground-alternate);
   --color-neutral-foreground-alternate: var(--neutral-foreground-alternate);
   --color-neutral-alternative: var(--neutral-alternative);
+  --color-undefined-alternative: var(--undefined-alternative);
   --color-undefined-foreground-alternate: var(--undefined-foreground-alternate);
 
   /* Chart tokens */
@@ -643,6 +644,7 @@
   --success-foreground-alternate: var(--green-700);
   --neutral-foreground-alternate: var(--gray-700);
   --neutral-alternative: var(--gray-50);
+  --undefined-alternative: var(--mountain-50);
   --undefined-foreground-alternate: var(--mountain-700);
 
   /* Chart tokens (light mode) */
@@ -848,6 +850,7 @@
   --success-foreground-alternate: var(--green-800);
   --neutral-foreground-alternate: var(--gray-900);
   --neutral-alternative: var(--gray-900);
+  --undefined-alternative: var(--mountain-900);
   --undefined-foreground-alternate: var(--mountain-800);
 
   /* Chart tokens (dark mode) */
