@@ -253,7 +253,9 @@ export const TooManySourcesWithOverflow: Story = {
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     const overflowPill = canvas.getByRole("button", { name: "4 more sources" });
     await userEvent.hover(overflowPill);
-    const hovercard = await screen.findByTestId("sources-overflow-hovercard", { timeout: 3000 });
+    const hovercard = await screen.findByTestId("sources-overflow-hovercard", undefined, {
+      timeout: 3000,
+    });
     await expect(hovercard).toBeInTheDocument();
   },
 };
