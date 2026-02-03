@@ -25,8 +25,7 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "#aura/*": ["./src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]
