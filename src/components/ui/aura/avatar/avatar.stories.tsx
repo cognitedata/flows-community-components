@@ -2,15 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
 import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "#aura/components/ui/aura/avatar";
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "#aura/components/ui/aura/dropdown-menu";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "#aura/components/ui/aura/hover-card";
-import { getStorybookImagePath } from "#aura/lib/utils";
+} from "@/components/ui/aura/dropdown-menu";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+import { getStorybookImagePath } from "@/lib/utils";
 
 const meta: Meta<typeof Avatar> = {
   title: "Primitives/Avatar",
