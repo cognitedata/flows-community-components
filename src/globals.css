@@ -134,9 +134,12 @@
 
   /* Status color -alternate variants */
   --color-destructive-foreground-alternate: var(--destructive-foreground-alternate);
+  --color-destructive-alternative: var(--destructive-alternative);
   --color-warning-foreground-alternate: var(--warning-foreground-alternate);
+  --color-warning-alternative: var(--warning-alternative);
   --color-success-foreground-alternate: var(--success-foreground-alternate);
   --color-neutral-foreground-alternate: var(--neutral-foreground-alternate);
+  --color-neutral-alternative: var(--neutral-alternative);
   --color-undefined-foreground-alternate: var(--undefined-foreground-alternate);
 
   /* Chart tokens */
@@ -634,9 +637,12 @@
 
   /* Status color -alternate variants (light mode) */
   --destructive-foreground-alternate: var(--red-700);
+  --destructive-alternative: var(--red-50);
   --warning-foreground-alternate: var(--amber-700);
+  --warning-alternative: var(--amber-50);
   --success-foreground-alternate: var(--green-700);
   --neutral-foreground-alternate: var(--gray-700);
+  --neutral-alternative: var(--gray-50);
   --undefined-foreground-alternate: var(--mountain-700);
 
   /* Chart tokens (light mode) */
@@ -836,9 +842,12 @@
 
   /* Status color -alternate variants (dark mode) */
   --destructive-foreground-alternate: var(--red-900);
+  --destructive-alternative: var(--red-950);
   --warning-foreground-alternate: var(--amber-800);
+  --warning-alternative: var(--yellow-900);
   --success-foreground-alternate: var(--green-800);
   --neutral-foreground-alternate: var(--gray-900);
+  --neutral-alternative: var(--gray-900);
   --undefined-foreground-alternate: var(--mountain-800);
 
   /* Chart tokens (dark mode) */
@@ -992,6 +1001,10 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-undefined-foreground;
   }
 }
 

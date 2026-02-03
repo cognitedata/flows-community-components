@@ -22,14 +22,17 @@ const AlertContext = createContext<AlertContextProps>({
 });
 
 const alertVariants = cva(
-  "relative w-full rounded-md border pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[var(--alert-icon-width)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:text-current",
+  "relative w-full rounded-md pt-2.5 pr-3 has-[>button[data-slot=alert-close]]:pr-12 pb-2 pl-3 text-sm grid has-[>svg]:grid-cols-[var(--alert-icon-width)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-2 has-[>svg]:gap-y-1 items-start [&>svg]:size-4 [&>svg]:translate-y-0.65 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-card text-card-foreground border-card",
-        secondary: "bg-neutral text-neutral-foreground border-neutral",
-        warning: "bg-warning text-warning-foreground border-warning",
-        error: "bg-destructive text-destructive-foreground border-destructive",
+        default:
+          "bg-undefined-alternative text-card-foreground [&>svg]:text-undefined-foreground",
+        secondary: "bg-neutral-alternative text-foreground [&>svg]:text-neutral-foreground",
+        warning:
+          "bg-warning-alternative [&>svg]:text-warning-foreground",
+        error:
+          "bg-destructive-alternative text-foreground [&>svg]:text-destructive-foreground",
       },
     },
     defaultVariants: {
@@ -79,22 +82,43 @@ function Alert({
   );
 }
 
+const alertTitleVariants: Record<AlertVariant, string> = {
+  default: "text-undefined-foreground",
+  secondary: "text-neutral-foreground",
+  warning: "text-warning-foreground",
+  error: "text-destructive-foreground",
+};
+
 function AlertTitle({ className, ...props }: ComponentProps<"div">) {
+  const { variant } = useContext(AlertContext);
   return (
     <div
       data-slot="alert-title"
-      className={cn("text-base font-medium leading-5 tracking-tightest", className)}
+      className={cn(
+        "text-base font-medium leading-5 tracking-tightest",
+        alertTitleVariants[variant],
+        className
+      )}
       {...props}
     />
   );
 }
 
+const alertDescriptionVariants: Record<AlertVariant, string> = {
+  default: "text-card-foreground",
+  secondary: "text-foreground",
+  warning: "text-card-foreground",
+  error: "text-foreground",
+};
+
 function AlertDescription({ className, ...props }: ComponentProps<"div">) {
+  const { variant } = useContext(AlertContext);
   return (
     <div
       data-slot="alert-description"
       className={cn(
-        "text-card-foreground col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight items-center",
+        "col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight items-center",
+        alertDescriptionVariants[variant],
         className
       )}
       {...props}
