@@ -18,7 +18,6 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ["autodocs"],
   argTypes: {
-    // Appearance
     variant: {
       control: "select",
       options: ["default", "destructive", "secondary", "outline", "ghost", "link"],
@@ -46,8 +45,6 @@ const meta: Meta<typeof Button> = {
         category: "Content",
       },
     },
-
-    // State
     disabled: {
       control: "boolean",
       description: "Whether the button is disabled",
@@ -57,8 +54,6 @@ const meta: Meta<typeof Button> = {
         defaultValue: { summary: "false" },
       },
     },
-
-    // Events
     onClick: {
       action: "clicked",
       description: "Callback fired when button is clicked",
@@ -67,8 +62,6 @@ const meta: Meta<typeof Button> = {
         type: { summary: "(event: MouseEvent) => void" },
       },
     },
-
-    // Advanced
     asChild: {
       control: "boolean",
       description: "Merge props onto immediate child (using Radix Slot)",
@@ -116,12 +109,8 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the button
     const button = canvas.getByRole("button", { name: /button/i });
     await expect(button).toBeInTheDocument();
-
-    // Test click interaction
     await userEvent.click(button);
     await expect(button).toHaveFocus();
   },
@@ -189,8 +178,6 @@ export const Ghost: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: /ghost/i });
     await expect(button).toBeInTheDocument();
-
-    // Test hover interaction
     await userEvent.hover(button);
   },
 };
@@ -214,8 +201,6 @@ export const Destructive: Story = {
     const button = canvas.getByRole("button", { name: /delete/i });
     await expect(button).toBeInTheDocument();
     await expect(button).toHaveClass(/destructive/);
-
-    // Verify it's clickable
     await userEvent.click(button);
   },
 };
@@ -283,11 +268,7 @@ export const AllVariants: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
-    // Verify all 6 variants are present
     await expect(buttons).toHaveLength(6);
-
-    // Test first button is clickable
     await userEvent.click(buttons[0]);
   },
 };
@@ -418,10 +399,7 @@ export const AllSizes: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
     await expect(buttons).toHaveLength(3);
-
-    // Small button should be present
     const smallButton = canvas.getByText("Small");
     await expect(smallButton).toBeInTheDocument();
   },
@@ -450,8 +428,6 @@ export const WithLeftIcon: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: /add item/i });
     await expect(button).toBeInTheDocument();
-
-    // Verify SVG icon is present
     const icon = button.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
@@ -511,17 +487,12 @@ export const IconButtons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all buttons have proper labels
     const smallButton = canvas.getByLabelText("Settings small");
     const defaultButton = canvas.getByLabelText("Settings default");
     const largeButton = canvas.getByLabelText("Settings large");
-
     await expect(smallButton).toBeInTheDocument();
     await expect(defaultButton).toBeInTheDocument();
     await expect(largeButton).toBeInTheDocument();
-
-    // Test click on one
     await userEvent.click(defaultButton);
   },
 };
@@ -559,8 +530,6 @@ export const Disabled: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
-    // Verify all buttons are disabled
     for (const button of buttons) {
       await expect(button).toBeDisabled();
       await expect(button).toHaveClass("disabled:pointer-events-none");
@@ -596,13 +565,9 @@ export const Loading: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
-    // Verify buttons are disabled during loading
     for (const button of buttons) {
       await expect(button).toBeDisabled();
     }
-
-    // Verify spinner is present
     const spinner = buttons[0].querySelector("svg");
     await expect(spinner).toBeInTheDocument();
   },
@@ -647,15 +612,10 @@ export const InContext: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Test dialog pattern (Cancel + Save)
     const cancelButton = canvas.getByText("Cancel");
     const saveButton = canvas.getByText("Save Changes");
-
     await expect(cancelButton).toBeInTheDocument();
     await expect(saveButton).toBeInTheDocument();
-
-    // Verify the toolbar buttons
     const settingsButton = canvas.getByRole("button", { name: /settings/i });
     await userEvent.click(settingsButton);
   },
@@ -688,20 +648,13 @@ export const ClickInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const button = canvas.getByTestId("counter-button");
     const counter = canvas.getByTestId("click-count");
-
-    // Initial state
     await expect(counter).toHaveTextContent("Count: 0");
-
-    // Click and verify state updates
     await userEvent.click(button);
     await waitFor(() => expect(counter).toHaveTextContent("Count: 1"));
-
     await userEvent.click(button);
     await waitFor(() => expect(counter).toHaveTextContent("Count: 2"));
-
     await userEvent.click(button);
     await waitFor(() => expect(counter).toHaveTextContent("Count: 3"));
   },
@@ -728,21 +681,12 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const buttons = canvas.getAllByRole("button");
-
-    // Tab to first button
     await userEvent.tab();
     await expect(buttons[0]).toHaveFocus();
-
-    // Space to activate
     await userEvent.keyboard(" ");
-
-    // Tab to next
     await userEvent.tab();
     await expect(buttons[1]).toHaveFocus();
-
-    // Enter to activate
     await userEvent.keyboard("{Enter}");
   },
 };
@@ -782,21 +726,14 @@ export const Accessibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check ARIA labels exist
     const addButton = canvas.getByLabelText("Add new item");
     const deleteButton = canvas.getByLabelText("Delete item");
     const settingsButton = canvas.getByLabelText("Settings");
     const disabledButton = canvas.getByLabelText("Disabled save button");
-
     await expect(addButton).toBeInTheDocument();
     await expect(deleteButton).toBeInTheDocument();
     await expect(settingsButton).toBeInTheDocument();
-
-    // Check disabled state
     await expect(disabledButton).toBeDisabled();
-
-    // Verify icon buttons are clickable
     await userEvent.click(addButton);
     await expect(addButton).toHaveFocus();
   },
@@ -855,24 +792,15 @@ export const FormButtonTypes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const input = canvas.getByPlaceholderText("Type something...");
     const submitButton = canvas.getByText("Submit");
     const clearButton = canvas.getByText("Clear");
-
-    // Type in input
     await userEvent.clear(input);
     await userEvent.type(input, "Test input");
     await expect(input).toHaveValue("Test input");
-
-    // Click clear button
     await userEvent.click(clearButton);
     await waitFor(() => expect(input).toHaveValue(""));
-
-    // Type again
     await userEvent.type(input, "Another test");
-
-    // Click submit
     await userEvent.click(submitButton);
     await waitFor(() => expect(submitButton).toHaveTextContent("Submitted!"));
   },
@@ -1012,8 +940,6 @@ export const EdgeCaseEmpty: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
-    // Should still render and be clickable
     await expect(buttons).toHaveLength(3);
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
@@ -1048,10 +974,7 @@ export const EdgeCaseLongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
     await expect(buttons).toHaveLength(3);
-
-    // Verify long text is present
     const firstButton = buttons[0];
     await expect(firstButton).toHaveTextContent(/extremely long text/);
   },
@@ -1082,16 +1005,10 @@ export const EdgeCaseSpecialCharacters: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify emoji button exists
     const emojiButton = canvas.getByText(/🚀 Emoji Button/);
     await expect(emojiButton).toBeInTheDocument();
-
-    // Verify special characters render
     const specialButton = canvas.getByText(/Special <Characters>/);
     await expect(specialButton).toBeInTheDocument();
-
-    // Test clicking unicode button
     const chineseButton = canvas.getByText("中文按钮");
     await userEvent.click(chineseButton);
   },
@@ -1133,10 +1050,7 @@ export const EdgeCaseMultipleIcons: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
     await expect(buttons).toHaveLength(3);
-
-    // Verify multiple SVGs exist
     const firstButton = buttons[0];
     const icons = firstButton.querySelectorAll("svg");
     await expect(icons.length).toBeGreaterThanOrEqual(2);
@@ -1166,10 +1080,7 @@ export const EdgeCaseWhitespace: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
     await expect(buttons).toHaveLength(3);
-
-    // Verify buttons are still clickable
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
   },
@@ -1207,15 +1118,10 @@ export const EdgeCaseNestedElements: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
     await expect(buttons).toHaveLength(3);
-
-    // Verify nested elements exist
     const firstButton = buttons[0];
     const boldSpan = firstButton.querySelector("span.font-bold");
     await expect(boldSpan).toBeInTheDocument();
-
-    // Test clicking button with nested div
     await userEvent.click(buttons[1]);
   },
 };
@@ -1255,10 +1161,7 @@ export const EdgeCaseWidthConstraints: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
     await expect(buttons.length).toBeGreaterThanOrEqual(4);
-
-    // Test clicking constrained buttons
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
   },
@@ -1299,15 +1202,10 @@ export const EdgeCaseIconOnly: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find buttons with proper labels
     const labeledIconButton = canvas.getByLabelText("Icon button with label");
     const labeledSettingsButton = canvas.getByLabelText("Settings with proper label");
-
     await expect(labeledIconButton).toBeInTheDocument();
     await expect(labeledSettingsButton).toBeInTheDocument();
-
-    // Test interaction
     await userEvent.click(labeledIconButton);
   },
 };
@@ -1357,24 +1255,15 @@ export const EdgeCaseRapidStateChanges: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const button = canvas.getByTestId("rapid-change-button");
     const toggleDisabled = canvas.getByText("Toggle Disabled");
     const toggleVariant = canvas.getByText("Toggle Variant");
-
-    // Click button multiple times
     await userEvent.click(button);
     await userEvent.click(button);
-
-    // Toggle disabled
     await userEvent.click(toggleDisabled);
     await waitFor(() => expect(button).toBeDisabled());
-
-    // Toggle disabled back
     await userEvent.click(toggleDisabled);
     await waitFor(() => expect(button).not.toBeDisabled());
-
-    // Toggle variant
     await userEvent.click(toggleVariant);
     await waitFor(() => expect(button).toHaveClass(/destructive/));
   },
@@ -1410,14 +1299,9 @@ export const EdgeCaseInvisibleContent: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const buttons = canvas.getAllByRole("button");
-
     await expect(buttons).toHaveLength(3);
-
-    // Verify buttons are still interactive
     await userEvent.click(buttons[0]);
     await expect(buttons[0]).toHaveFocus();
-
-    // Check that screen reader text exists but is visually hidden
     const srButton = buttons[1];
     const srText = srButton.querySelector(".sr-only");
     await expect(srText).toBeInTheDocument();
@@ -1428,13 +1312,11 @@ export const EdgeCaseInvisibleContent: Story = {
  * Interactive playground for testing different configurations.
  */
 export const Playground: Story = {
-  args: {
-    variant: "default",
-    size: "default",
-    children: "Click me",
-    disabled: false,
-    type: "button",
-  },
+  render: () => (
+    <Button variant="default" size="default" type="button">
+      Click me
+    </Button>
+  ),
   parameters: {
     order: 99,
     docs: {
