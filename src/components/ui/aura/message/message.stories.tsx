@@ -15,8 +15,8 @@ import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "#aura/components/ui/aura/code-block";
-import { InlineCitation, InlineCitationLink } from "#aura/components/ui/aura/inline-citation";
+} from "@/components/ui/aura/code-block";
+import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
 import {
   Message,
   MessageAction,
@@ -25,7 +25,7 @@ import {
   MessageAvatarIcon,
   MessageContent,
   MessageResponse,
-} from "#aura/components/ui/aura/message";
+} from "@/components/ui/aura/message";
 
 const meta: Meta<typeof Message> = {
   title: "AI/Message",

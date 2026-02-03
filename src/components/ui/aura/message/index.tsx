@@ -4,7 +4,7 @@
  * Components for displaying AI chat messages with avatars and actions.
  *
  * @example
- * import { Message, MessageContent, MessageAvatar, MessageActions } from '#aura/components/ui/aura/message';
+ * import { Message, MessageContent, MessageAvatar, MessageActions } from '@/components/ui/aura/message';
  */
 export {
   Message,
