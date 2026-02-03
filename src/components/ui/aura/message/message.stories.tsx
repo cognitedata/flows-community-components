@@ -1,16 +1,3 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import {
-  IconCopy,
-  IconDownload,
-  IconFile,
-  IconHash,
-  IconPhoto,
-  IconRefresh,
-  IconTimeline,
-  IconTool,
-  IconWheel,
-} from "@tabler/icons-react";
 import {
   CodeBlock,
   CodeBlockCollapseButton,
@@ -26,6 +13,19 @@ import {
   MessageContent,
   MessageResponse,
 } from "@/components/ui/aura/message";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconCopy,
+  IconDownload,
+  IconFile,
+  IconHash,
+  IconPhoto,
+  IconRefresh,
+  IconTimeline,
+  IconTool,
+  IconWheel,
+} from "@tabler/icons-react";
 
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
