@@ -5,7 +5,7 @@
  * model selection, speech input, command palettes, and rich formatting.
  *
  * @example
- * import { PromptInput, PromptInputProvider, PromptInputTextarea, PromptInputSubmit } from '#aura/components/ui/aura/prompt-input';
+ * import { PromptInput, PromptInputProvider, PromptInputTextarea, PromptInputSubmit } from '@/components/ui/aura/prompt-input';
  *
  * <PromptInputProvider>
  *   <PromptInput>

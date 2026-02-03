@@ -4,7 +4,7 @@
  * A multi-line text input component.
  *
  * @example
- * import { Textarea } from '#aura/components/ui/aura/textarea';
+ * import { Textarea } from '@/components/ui/aura/textarea';
  *
  * <Textarea placeholder="Enter description..." />
  */
