@@ -1,3 +1,7 @@
+import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
+import type { ToolUIPart } from "ai";
+import type { ComponentProps, ReactNode } from "react";
+import { isValidElement } from "react";
 import { Button } from "#aura/components/ui/aura/button";
 import {
   CodeBlock,
@@ -10,10 +14,6 @@ import {
   CollapsibleTrigger,
 } from "#aura/components/ui/aura/collapsible";
 import { cn } from "#aura/lib/utils";
-import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
-import type { ToolUIPart } from "ai";
-import type { ComponentProps, ReactNode } from "react";
-import { isValidElement } from "react";
 
 export type ToolProps = ComponentProps<typeof Collapsible>;
 
