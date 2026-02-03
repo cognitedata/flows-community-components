@@ -37,11 +37,6 @@ NEVER use `React.useState`, `React.useEffect`, etc.
 ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
 
-**Use `#aura/` imports for all Aura components and utilities:**
-- `#aura/components/ui/aura/button` for components
-- `#aura/lib/utils` for utilities
-- Never use relative imports like `./button` or `@/` in story files
-
 ## Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
@@ -64,6 +59,7 @@ This applies to ALL React imports.
 - `InputGroup` uses `shadow-focus-ring` for focus state and `shadow-focus-ring-destructive` for error state. The error state selector must target `[data-slot=input-group-control][aria-invalid=true]` to take precedence over normal focus.
 - InputGroup stories should showcase all alignment variants (inline-start, inline-end, block-start, block-end) and how it's used in compound components like PromptInput.
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
+- Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 
 # Storybook Stories
 
@@ -74,9 +70,8 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 ## Key principles
 
 - Stories are the ONLY place for code examples
-- All stories MUST have a minimal, future-proof code comment above them
 - All stories must have `parameters: { order: N }`
 - Use explicit render functions with hardcoded props
-- No inline code comments in play functions or JSON
+- No inline code comments in play functions
 - Use `canvas.findByTestId()` for portal content testing
 - Run `pnpm lint` and `pnpm tsc -b` after changes
