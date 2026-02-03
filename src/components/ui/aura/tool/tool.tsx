@@ -2,18 +2,18 @@ import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
 import type { ToolUIPart } from "ai";
 import type { ComponentProps, ReactNode } from "react";
 import { isValidElement } from "react";
-import { Button } from "#aura/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button";
 import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "#aura/components/ui/aura/code-block";
+} from "@/components/ui/aura/code-block";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "#aura/components/ui/aura/collapsible";
-import { cn } from "#aura/lib/utils";
+} from "@/components/ui/aura/collapsible";
+import { cn } from "@/lib/utils";
 
 export type ToolProps = ComponentProps<typeof Collapsible>;
 

@@ -6,7 +6,7 @@ import {
   ToolHeader,
   ToolInput,
   ToolOutput,
-} from "#aura/components/ui/aura/tool";
+} from "@/components/ui/aura/tool";
 
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",

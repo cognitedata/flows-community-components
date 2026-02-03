@@ -4,7 +4,7 @@
  * A collapsible component for displaying AI tool invocations.
  *
  * @example
- * import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from '#aura/components/ui/aura/tool';
+ * import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from '@/components/ui/aura/tool';
  */
 export {
   Tool,
