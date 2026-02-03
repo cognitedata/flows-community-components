@@ -1,11 +1,11 @@
+import { IconMist } from "@tabler/icons-react";
+import type { ComponentProps, ReactNode } from "react";
 import {
   InlineCitation,
   InlineCitationLink,
   type InlineCitationLinkProps,
 } from "#aura/components/ui/aura/inline-citation";
 import { cn } from "#aura/lib/utils";
-import { IconMist } from "@tabler/icons-react";
-import type { ComponentProps, ReactNode } from "react";
 
 export type SourcesProps = Omit<ComponentProps<"div">, "title"> & {
   /**

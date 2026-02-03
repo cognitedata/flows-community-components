@@ -1,5 +1,3 @@
-import { Badge } from "#aura/components/ui/aura/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "#aura/components/ui/aura/hover-card";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, screen, userEvent, within } from "@storybook/test";
 import {
@@ -10,6 +8,8 @@ import {
   IconPhoto,
   IconWorld,
 } from "@tabler/icons-react";
+import { Badge } from "#aura/components/ui/aura/badge";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "#aura/components/ui/aura/hover-card";
 import { Source, Sources, SourcesTitle } from "#aura/components/ui/aura/sources";
 
 const meta: Meta<typeof Sources> = {
@@ -253,7 +253,7 @@ export const TooManySourcesWithOverflow: Story = {
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     const overflowPill = canvas.getByRole("button", { name: "4 more sources" });
     await userEvent.hover(overflowPill);
-    const hovercard = await canvas.findByTestId("sources-overflow-hovercard");
+    const hovercard = await screen.findByTestId("sources-overflow-hovercard", { timeout: 3000 });
     await expect(hovercard).toBeInTheDocument();
   },
 };
