@@ -172,7 +172,7 @@ export const WithImage: Story = {
       { timeout: 1000 }
     );
 
-    // Wait for image element to appear (Radix Avatar only renders it when image loads)
+    // Wait for image element to appear (it only renders when the image successfully loads)
     await waitFor(
       () => {
         const found = canvasElement.querySelector('[data-slot="avatar-image"]');
@@ -384,7 +384,7 @@ export const ImagesAllSizes: Story = {
     );
 
     // Wait for images to be in the DOM (they may be loading)
-    // Radix Avatar only renders the image element when the image successfully loads
+    // The image element only renders when the image successfully loads
     const images = await waitFor(
       () => {
         const found = canvasElement.querySelectorAll('[data-slot="avatar-image"]');

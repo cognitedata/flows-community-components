@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/aura/button";
-import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconAlertTriangle, IconHelp, IconInfoCircle } from "@tabler/icons-react";
@@ -817,16 +816,13 @@ export const WithDelay: Story = {
     );
   },
   render: () => {
-    const TooltipRoot = TooltipPrimitive.Root;
     return (
-      <TooltipProvider delayDuration={1500}>
-        <TooltipRoot>
-          <TooltipTrigger asChild>
-            <Button variant="outline">Hover me (with delay)</Button>
-          </TooltipTrigger>
-          <TooltipContent>This tooltip appears after a 1500ms delay</TooltipContent>
-        </TooltipRoot>
-      </TooltipProvider>
+      <Tooltip delayDuration={1500}>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Hover me (with delay)</Button>
+        </TooltipTrigger>
+        <TooltipContent>This tooltip appears after a 1500ms delay</TooltipContent>
+      </Tooltip>
     );
   },
 };

@@ -53,8 +53,7 @@ const meta: Meta<typeof Progress> = {
     // Advanced
     asChild: {
       control: "boolean",
-      description:
-        "Merge props onto the child component instead of the default Radix primitive (Radix Slot).",
+      description: "Merge props onto the child component instead of the default element (asChild).",
       table: {
         category: "Advanced",
         type: { summary: "boolean" },

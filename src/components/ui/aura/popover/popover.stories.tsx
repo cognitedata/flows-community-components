@@ -52,14 +52,14 @@ const meta: Meta<typeof Popover> = {
     docs: {
       description: {
         component:
-          "A popover component built on Radix UI that displays rich content in a portal, triggered by a button. Perfect for contextual information and secondary actions.",
+          "A popover component built on Base UI that displays rich content in a portal, triggered by a button. Perfect for contextual information and secondary actions.",
       },
     },
     a11y: {
       config: {
         rules: [
           {
-            // Radix UI manages aria-controls dynamically - this is a false positive
+            // aria-controls is managed dynamically - this is a false positive
             id: "aria-valid-attr-value",
             selector: '[data-slot="popover-trigger"]',
             enabled: false,

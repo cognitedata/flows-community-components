@@ -3,16 +3,18 @@
   "name": "theme",
   "title": "Theme",
   "description": "Theme component.",
+  "dependencies": [],
+  "registryDependencies": [],
   "files": [
     {
       "path": "src/styleScope.ts",
-      "content": "// used both at runtime and build time\nconst styleScope = {\n  styleScope: \"eos-style-scope\",\n  portalContainer: \"eos-portal-container\",\n};\n\nexport default styleScope;\n",
-      "type": "registry:item"
+      "type": "registry:item",
+      "content": "// used both at runtime and build time\nconst styleScope = {\n  styleScope: \"eos-style-scope\",\n  portalContainer: \"eos-portal-container\",\n};\n\nexport default styleScope;\n"
     },
     {
       "path": "src/styleScope.d.ts",
-      "content": "declare const styleScope: {\n  styleScope: string;\n  portalContainer: string;\n};\n\nexport = styleScope;\n",
-      "type": "registry:item"
+      "type": "registry:item",
+      "content": "declare const styleScope: {\n  styleScope: string;\n  portalContainer: string;\n};\n\nexport = styleScope;\n"
     }
   ],
   "type": "registry:file"

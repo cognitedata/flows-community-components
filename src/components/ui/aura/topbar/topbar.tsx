@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot";
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { Breadcrumb } from "@/components/ui/aura/breadcrumb";
@@ -113,9 +112,15 @@ const TopbarAction = forwardRef<
   HTMLButtonElement,
   ComponentProps<typeof Button> & { asChild?: boolean }
 >(({ className, asChild = false, ...props }, ref) => {
-  const Comp = asChild ? Slot : Button;
-
-  return <Comp ref={ref} data-slot="topbar-action" className={className} {...props} />;
+  return (
+    <Button
+      ref={ref}
+      data-slot="topbar-action"
+      asChild={asChild}
+      className={className}
+      {...props}
+    />
+  );
 });
 TopbarAction.displayName = "TopbarAction";
 

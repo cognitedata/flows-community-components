@@ -1,8 +1,10 @@
-import { Slot } from "@radix-ui/react-slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { IconDots, IconSlash } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 
 import { buttonVariants } from "@/components/ui/aura/button/button";
+import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
 
 /**
@@ -53,7 +55,7 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
       data-slot="breadcrumb-item"
       className={cn(
         "inline-flex items-center text-muted-foreground text-sm tracking-tight",
-        "has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm",
+        "has-[button[data-popup-open]]:bg-accent has-[button[data-popup-open]]:text-foreground has-[button[data-popup-open]]:rounded-sm",
         className
       )}
       {...props}
@@ -71,25 +73,34 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
  * </BreadcrumbItem>
  */
 function BreadcrumbLink({
-  asChild,
   className,
+  asChild,
+  render,
+  children,
   ...props
-}: ComponentProps<"a"> & {
+}: useRender.ComponentProps<"a"> & {
   asChild?: boolean;
 }) {
-  const Comp = asChild ? Slot : "a";
+  const resolvedRender = asChild ? getRenderPropFromAsChild(children, true) : render;
+  const resolvedChildren = asChild ? null : children;
 
-  return (
-    <Comp
-      data-slot="breadcrumb-link"
-      className={cn(
-        buttonVariants({ variant: "ghost", size: "sm" }),
-        "transition-colors",
-        className
-      )}
-      {...props}
-    />
-  );
+  return useRender({
+    defaultTagName: "a",
+    props: mergeProps<"a">(
+      {
+        className: cn(
+          buttonVariants({ variant: "ghost", size: "sm" }),
+          "transition-colors",
+          className
+        ),
+      },
+      { ...props, children: resolvedChildren }
+    ),
+    render: resolvedRender,
+    state: {
+      slot: "breadcrumb-link",
+    },
+  });
 }
 
 /**
@@ -284,7 +295,7 @@ function BreadcrumbEllipsis({ children, className, ...props }: ComponentProps<"l
       aria-hidden="true"
       className={cn(
         "inline-flex items-center",
-        "has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm",
+        "has-[button[data-popup-open]]:bg-accent has-[button[data-popup-open]]:text-foreground has-[button[data-popup-open]]:rounded-sm",
         className
       )}
       {...props}

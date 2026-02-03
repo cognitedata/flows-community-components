@@ -1,11 +1,12 @@
-import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
 import { type ComponentProps, forwardRef } from "react";
 
+import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
 
 const Collapsible = forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.Root>,
-  ComponentProps<typeof CollapsiblePrimitive.Root>
+  CollapsiblePrimitive.Root.Props
 >(({ className, ...props }, ref) => {
   return (
     <CollapsiblePrimitive.Root
@@ -19,26 +20,30 @@ const Collapsible = forwardRef<
 Collapsible.displayName = "Collapsible";
 
 const CollapsibleTrigger = forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.CollapsibleTrigger>,
-  ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>
->(({ className, ...props }, ref) => {
+  React.ElementRef<typeof CollapsiblePrimitive.Trigger>,
+  CollapsiblePrimitive.Trigger.Props & { asChild?: boolean }
+>(({ className, asChild = false, children, ...props }, ref) => {
+  const render = getRenderPropFromAsChild(children, asChild);
   return (
-    <CollapsiblePrimitive.CollapsibleTrigger
+    <CollapsiblePrimitive.Trigger
       ref={ref}
       data-slot="collapsible-trigger"
       className={cn("group/collapsible-trigger text-base", className)}
+      render={render}
       {...props}
-    />
+    >
+      {asChild ? null : children}
+    </CollapsiblePrimitive.Trigger>
   );
 });
 CollapsibleTrigger.displayName = "CollapsibleTrigger";
 
 const CollapsibleContent = forwardRef<
-  React.ElementRef<typeof CollapsiblePrimitive.CollapsibleContent>,
-  ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>
+  React.ElementRef<typeof CollapsiblePrimitive.Panel>,
+  CollapsiblePrimitive.Panel.Props
 >(({ className, ...props }, ref) => {
   return (
-    <CollapsiblePrimitive.CollapsibleContent
+    <CollapsiblePrimitive.Panel
       ref={ref}
       data-slot="collapsible-content"
       className={cn(

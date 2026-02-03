@@ -134,7 +134,7 @@ const meta: Meta<typeof Badge> = {
     // Advanced - Component composition options
     asChild: {
       control: "boolean",
-      description: "Render as child component using Radix Slot",
+      description: "Render as child component using asChild",
       table: {
         category: "Advanced",
         type: { summary: "boolean" },

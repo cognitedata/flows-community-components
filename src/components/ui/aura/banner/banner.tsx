@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
+import { useControllableState } from "@/lib/use-controllable-state";
 import { cn } from "@/lib/utils";
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { type IconProps, IconX } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {

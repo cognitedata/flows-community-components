@@ -32,7 +32,7 @@ const meta: Meta<typeof DropdownMenu> = {
   tags: ["autodocs"],
   args: {
     // Set modal to false for Storybook to avoid aria-hidden violations
-    // In real apps, modal defaults to true (Radix UI default)
+    // In real apps, modal defaults to true
     modal: false,
   },
   argTypes: {

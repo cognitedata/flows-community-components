@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot";
 import { IconLayoutSidebarLeftCollapse } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {
@@ -30,6 +29,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/aura/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Slot } from "@/lib/slot";
 import { cn } from "@/lib/utils";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
