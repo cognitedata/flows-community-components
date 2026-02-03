@@ -4,8 +4,8 @@ import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, createContext, useContext } from "react";
 import type { MouseEventHandler } from "react";
 
-import { Button } from "#aura/components/ui/aura/button";
-import { cn } from "#aura/lib/utils";
+import { Button } from "@/components/ui/aura/button";
+import { cn } from "@/lib/utils";
 
 type AlertVariant = "default" | "secondary" | "warning" | "error";
 
