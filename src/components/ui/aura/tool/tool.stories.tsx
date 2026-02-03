@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "#aura/components/ui/aura/tool";
+import {
+  Tool,
+  ToolContent,
+  ToolHeader,
+  ToolInput,
+  ToolOutput,
+} from "#aura/components/ui/aura/tool";
 
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",
@@ -164,12 +170,8 @@ export const CollapsedByDefault: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click to expand
     const trigger = canvas.getByText("execute_command");
     await userEvent.click(trigger);
-
-    // Parameters should now be visible
     const parametersHeading = canvas.getByText("Parameters");
     await expect(parametersHeading).toBeInTheDocument();
   },
@@ -368,11 +370,8 @@ export const VisualRegression: Story = {
  * Interactive playground.
  */
 export const Playground: Story = {
-  args: {
-    defaultOpen: true,
-  },
-  render: (args) => (
-    <Tool {...args}>
+  render: () => (
+    <Tool defaultOpen>
       <ToolHeader title="playground_tool" type="tool-invocation" />
       <ToolContent>
         <ToolInput
