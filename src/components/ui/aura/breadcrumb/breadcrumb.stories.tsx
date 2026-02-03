@@ -14,7 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../dropdown-menu";
+} from "@/components/ui/aura/dropdown-menu";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,

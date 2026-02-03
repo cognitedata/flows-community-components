@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "../tool/tool";
+import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@/components/ui/aura/tool/tool";
 import { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem } from "./reasoning";
 
 const meta: Meta<typeof Reasoning> = {
