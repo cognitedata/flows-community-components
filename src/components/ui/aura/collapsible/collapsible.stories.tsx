@@ -330,9 +330,7 @@ export const Multiple: Story = {
     await expect(q1).toBeInTheDocument();
     await expect(q2).toBeInTheDocument();
 
-    const collapsibles = Array.from(
-      canvasElement.querySelectorAll('[data-slot="collapsible"]')
-    );
+    const collapsibles = Array.from(canvasElement.querySelectorAll('[data-slot="collapsible"]'));
     await expect(collapsibles.length).toBeGreaterThanOrEqual(2);
 
     // Open first question

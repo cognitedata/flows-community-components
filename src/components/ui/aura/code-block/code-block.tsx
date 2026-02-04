@@ -14,8 +14,8 @@ import {
 import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
 
 const isStorybookTestEnv =
-  typeof window !== "undefined" && (window as Window & { __STORYBOOK_TEST__?: boolean })
-    .__STORYBOOK_TEST__ === true;
+  typeof window !== "undefined" &&
+  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ === true;
 
 const escapeHtml = (value: string) =>
   value

@@ -1144,41 +1144,43 @@ export const OverflowAvatarWithMenu: Story = {
               </DropdownMenuLabel>
               <div className="p-1 space-y-1">
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="aurora" sizes="xsm">
-                  <AvatarFallback>EL</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Emma Liu</span>
-                  <span className="text-xs text-muted-foreground">emma.liu@cognite.com</span>
+                  <Avatar variant="aurora" sizes="xsm">
+                    <AvatarFallback>EL</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Emma Liu</span>
+                    <span className="text-xs text-muted-foreground">emma.liu@cognite.com</span>
+                  </div>
                 </div>
-              </div>
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="dusk" sizes="xsm">
-                  <AvatarFallback>JK</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">James Kim</span>
-                  <span className="text-xs text-muted-foreground">james.kim@cognite.com</span>
+                  <Avatar variant="dusk" sizes="xsm">
+                    <AvatarFallback>JK</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">James Kim</span>
+                    <span className="text-xs text-muted-foreground">james.kim@cognite.com</span>
+                  </div>
                 </div>
-              </div>
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="orange" sizes="xsm">
-                  <AvatarFallback>SB</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Sarah Brown</span>
-                  <span className="text-xs text-muted-foreground">sarah.brown@cognite.com</span>
+                  <Avatar variant="orange" sizes="xsm">
+                    <AvatarFallback>SB</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Sarah Brown</span>
+                    <span className="text-xs text-muted-foreground">sarah.brown@cognite.com</span>
+                  </div>
                 </div>
-              </div>
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="sky" sizes="xsm">
-                  <AvatarFallback>MT</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Michael Torres</span>
-                  <span className="text-xs text-muted-foreground">michael.torres@cognite.com</span>
+                  <Avatar variant="sky" sizes="xsm">
+                    <AvatarFallback>MT</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Michael Torres</span>
+                    <span className="text-xs text-muted-foreground">
+                      michael.torres@cognite.com
+                    </span>
+                  </div>
                 </div>
-              </div>
               </div>
             </DropdownMenuGroup>
           </DropdownMenuContent>
