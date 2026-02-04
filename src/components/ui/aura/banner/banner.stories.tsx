@@ -118,6 +118,8 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Banner title")).toBeInTheDocument();
+    const banner = canvasElement.querySelector('[class*="bg-undefined-alternative"]');
+    await expect(banner).toBeInTheDocument();
     const actionButton = canvas.getByRole("button", { name: /action/i });
     await expect(actionButton).toBeInTheDocument();
   },
@@ -155,6 +157,9 @@ export const Variants: Story = {
     await expect(canvas.getByText("Neutral variant")).toBeInTheDocument();
     await expect(canvas.getByText("Destructive variant")).toBeInTheDocument();
     await expect(canvas.getByText("Warning variant")).toBeInTheDocument();
+
+    const banners = canvasElement.querySelectorAll('[class*="bg-"]');
+    await expect(banners.length).toBeGreaterThanOrEqual(4);
   },
   render: () => (
     <div className="w-100 space-y-4">
