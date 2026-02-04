@@ -33,25 +33,43 @@ const useSelect = () => {
   return context;
 };
 
-function Select({
-  open,
-  defaultOpen = false,
-  onOpenChange,
-  value,
-  defaultValue,
-  onValueChange,
-  ...props
-}: Omit<
+type SelectPropsBase = Omit<
   SelectPrimitive.Root.Props<string>,
-  "open" | "defaultOpen" | "onOpenChange" | "value" | "defaultValue" | "onValueChange"
+  "open" | "defaultOpen" | "onOpenChange" | "value" | "defaultValue" | "onValueChange" | "multiple"
 > & {
   open?: boolean;
   defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+};
+
+type SelectPropsSingle = SelectPropsBase & {
+  multiple?: false;
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
-}) {
+};
+
+type SelectPropsMultiple = SelectPropsBase & {
+  multiple: true;
+  value?: string[];
+  defaultValue?: string[];
+  onValueChange?: (value: string[]) => void;
+};
+
+type SelectProps = SelectPropsSingle | SelectPropsMultiple;
+
+function Select(props: SelectProps) {
+  const {
+    open,
+    defaultOpen = false,
+    onOpenChange,
+    value,
+    defaultValue,
+    onValueChange,
+    multiple = false,
+    ...rest
+  } = props;
+
   const [isOpen, setIsOpen] = useControllableState({
     prop: open,
     defaultProp: defaultOpen,
@@ -66,14 +84,19 @@ function Select({
         data-slot="select"
         open={isOpen}
         onOpenChange={(nextOpen) => setIsOpen(nextOpen)}
-        value={value === undefined ? undefined : value === "" ? null : value}
+        value={value === undefined ? undefined : value === "" ? null : (value as any)}
         defaultValue={
-          defaultValue === undefined ? undefined : defaultValue === "" ? null : defaultValue
+          defaultValue === undefined
+            ? undefined
+            : defaultValue === ""
+              ? null
+              : (defaultValue as any)
         }
         onValueChange={(nextValue, _details) => {
-          onValueChange?.((nextValue ?? "") as string);
+          (onValueChange as any)?.(nextValue);
         }}
-        {...props}
+        multiple={multiple as any}
+        {...rest}
       />
     </SelectContext.Provider>
   );
@@ -170,19 +193,34 @@ function SelectContent({
   // Kept for API compatibility with the previous implementation; Base UI does not use this prop.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   position: _position = "popper",
-  align = "center",
+  align = "start",
+  alignOffset = 0,
+  side = "bottom",
+  sideOffset = 4,
   ...props
 }: SelectPrimitive.Popup.Props & {
   position?: "popper" | "item-aligned";
   align?: SelectPrimitive.Positioner.Props["align"];
+  alignOffset?: SelectPrimitive.Positioner.Props["alignOffset"];
+  side?: SelectPrimitive.Positioner.Props["side"];
+  sideOffset?: SelectPrimitive.Positioner.Props["sideOffset"];
 }) {
   return (
     <SelectPrimitive.Portal container={getPortalContainer()}>
-      <SelectPrimitive.Positioner align={align} className="isolate z-50">
+      <SelectPrimitive.Positioner
+        alignItemWithTrigger={false}
+        align={align}
+        alignOffset={alignOffset}
+        side={side}
+        sideOffset={sideOffset}
+        collisionPadding={10}
+        className="isolate z-50"
+      >
         <SelectPrimitive.Popup
           data-slot="select-content"
           className={cn(
             "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md outline-none",
+            _position === "popper" && "data-[side=bottom]:translate-y-1",
             className
           )}
           {...props}

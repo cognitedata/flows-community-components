@@ -708,6 +708,62 @@ export const EdgeCaseSpecialCharacters: Story = {
 };
 
 /**
+ * Multi-select allowing multiple item selection.
+ */
+export const MultipleSelection: Story = {
+  render: function MultipleSelectionExample() {
+    const [value, setValue] = useState<string[]>(["javascript", "typescript"]);
+
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="languages">Select languages</Label>
+          <Select
+            multiple
+            value={value as any}
+            onValueChange={(newValue: any) => setValue(newValue)}
+          >
+            <SelectTrigger id="languages" className="w-75">
+              <SelectValue placeholder="Select languages">
+                {value.length > 0
+                  ? `${value[0].charAt(0).toUpperCase() + value[0].slice(1)} ${
+                      value.length > 1 ? `(+${value.length - 1} more)` : ""
+                    }`
+                  : "Select languages"}
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="javascript">JavaScript</SelectItem>
+              <SelectItem value="typescript">TypeScript</SelectItem>
+              <SelectItem value="python">Python</SelectItem>
+              <SelectItem value="java">Java</SelectItem>
+              <SelectItem value="csharp">C#</SelectItem>
+              <SelectItem value="php">PHP</SelectItem>
+              <SelectItem value="cpp">C++</SelectItem>
+              <SelectItem value="rust">Rust</SelectItem>
+              <SelectItem value="go">Go</SelectItem>
+              <SelectItem value="swift">Swift</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="text-sm text-muted-foreground">
+          Selected: {value.length > 0 ? value.join(", ") : "None"}
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    order: 98,
+    docs: {
+      description: {
+        story:
+          "Select with multiple selection enabled, allowing users to choose multiple items from the list.",
+      },
+    },
+  },
+};
+
+/**
  * Interactive playground.
  */
 export const Playground: Story = {
