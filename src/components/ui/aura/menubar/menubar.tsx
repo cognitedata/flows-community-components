@@ -94,7 +94,7 @@ function MenubarContent({
       align={align}
       alignOffset={alignOffset}
       sideOffset={sideOffset}
-      className={cn("min-w-32", className)}
+      className={cn("w-63 min-w-32", className)}
       {...props}
     />
   );
