@@ -15,6 +15,7 @@ const Progress = forwardRef<
     <ProgressPrimitive.Root
       ref={ref}
       data-slot="progress"
+      className={cn("w-full", className)}
       value={safeValue}
       max={max}
       aria-label={ariaLabel ?? defaultAriaLabel}
