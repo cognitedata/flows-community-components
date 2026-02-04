@@ -86,5 +86,6 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - All stories must have `parameters: { order: N }`
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
-- Use `canvas.findByTestId()` for portal content testing
+- Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
+- Use `canvas.findByTestId()` only for portal content when semantic queries aren't available
 - Run `pnpm lint` and `pnpm tsc -b` after changes

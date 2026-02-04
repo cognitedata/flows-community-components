@@ -65,6 +65,15 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
 See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
 
+### Query Priority
+
+Prioritize semantic queries over test IDs in play functions:
+
+1. **Prefer:** `getByRole`, `getByLabelText`, `getByText`, `getByPlaceholderText`
+2. **Avoid:** `getByTestId` unless semantic queries are unavailable
+
+Semantic queries improve accessibility and make tests more resilient to implementation changes.
+
 ### Testing Buttons in Play Functions
 
 - Use `await canvas.findAllByRole("button")` instead of `getAllByRole("button")` to wait for buttons to render
