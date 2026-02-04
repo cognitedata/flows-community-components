@@ -65,6 +65,15 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
 See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
 
+### Query Priority
+
+Prioritize semantic queries over test IDs in play functions:
+
+1. **Prefer:** `getByRole`, `getByLabelText`, `getByText`, `getByPlaceholderText`
+2. **Avoid:** `getByTestId` unless semantic queries are unavailable
+
+Semantic queries improve accessibility and make tests more resilient to implementation changes.
+
 ### Testing Buttons in Play Functions
 
 - Use `await canvas.findAllByRole("button")` instead of `getAllByRole("button")` to wait for buttons to render
@@ -82,6 +91,10 @@ Storybook's canvas now handles portal content correctly. Use `canvas.findByTestI
 ## Styling in Stories
 
 Use Tailwind design tokens, not arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
+
+## Fusion Import Strategy
+
+Stories import components using `@/*` for internal development. The `@cognite/aura/*` and `@cognite/aura-lab/*` aliases are configured for component consumption in Fusion, but stories continue to use `@/components/ui/aura/*` for now.
 
 ## argTypes
 

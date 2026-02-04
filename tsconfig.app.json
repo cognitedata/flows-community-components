@@ -25,7 +25,10 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@cognite/aura/*": ["./src/components/ui/core/*"],
+      "@cognite/aura-lab/*": ["./src/components/ui/lab/*"],
+      "@cognite/aura/lib/*": ["./src/lib/*"]
     }
   },
   "include": ["src"]
