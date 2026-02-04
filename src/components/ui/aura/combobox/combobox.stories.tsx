@@ -180,8 +180,8 @@ export const Basic: Story = {
     const selectedUser = users.find((user) => user.value === value);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
@@ -344,8 +344,8 @@ export const WithAddNew: Story = {
     };
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
@@ -519,8 +519,8 @@ export const MultiSelect: Story = {
     };
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">Data type</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
@@ -682,8 +682,8 @@ export const WithCheckboxes: Story = {
       .map((option) => option.label);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">Preferences</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
@@ -799,8 +799,8 @@ export const KeyboardNavigation: Story = {
     const selectedUser = simpleUsers.find((user) => user.value === value);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
@@ -884,8 +884,8 @@ export const EmptyState: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
@@ -948,8 +948,8 @@ export const Disabled: Story = {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
@@ -1130,7 +1130,7 @@ export const ComplexInteractive: Story = {
     const selectedItem = allItems.find((item) => item.value === value);
 
     return (
-      <div className="space-y-3 w-75">
+      <div className="flex flex-col gap-3 w-75">
         <Label className="m-0 p-0">View</Label>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger
@@ -1213,8 +1213,8 @@ export const Playground: Story = {
     const selectedUser = users.find((user) => user.value === value);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger
