@@ -83,6 +83,10 @@ Storybook's canvas now handles portal content correctly. Use `canvas.findByTestI
 
 Use Tailwind design tokens, not arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
 
+## Fusion Import Strategy
+
+Stories import components using `@/*` for internal development. The `@cognite/aura/*` and `@cognite/aura-lab/*` aliases are configured for component consumption in Fusion, but stories continue to use `@/components/ui/aura/*` for now.
+
 ## argTypes
 
 Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced. Include descriptions and control types.
