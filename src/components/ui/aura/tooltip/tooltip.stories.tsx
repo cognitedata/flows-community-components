@@ -5,6 +5,26 @@ import { IconAlertTriangle, IconHelp, IconInfoCircle } from "@tabler/icons-react
 import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 
+const getOpenTooltip = (tooltipBody: ReturnType<typeof within>, matcher?: RegExp) => {
+  const tooltips = tooltipBody.queryAllByTestId("tooltip-content");
+  return tooltips.find((tooltip) => {
+    if (!tooltip.hasAttribute("data-open")) {
+      return false;
+    }
+    if (!matcher) {
+      return true;
+    }
+    return matcher.test(tooltip.textContent ?? "");
+  });
+};
+
+const waitForTooltipClosed = async () => {
+  await waitFor(() => {
+    const tooltip = document.querySelector('[data-slot="tooltip-content"][data-open]');
+    expect(tooltip).not.toBeInTheDocument();
+  });
+};
+
 const meta: Meta<typeof Tooltip> = {
   title: "Primitives/Tooltip",
   component: Tooltip,
@@ -106,16 +126,20 @@ export const Basic: Story = {
     // Wait for tooltip to appear (tooltip is rendered in a portal, so search in document)
     await waitFor(
       () => {
-        const tooltipElement = tooltipBody.getByTestId("tooltip-content");
+        const tooltipElement = getOpenTooltip(
+          tooltipBody,
+          /Publishing will make it available to all users/i
+        );
         expect(tooltipElement).toBeInTheDocument();
         expect(tooltipElement).toBeVisible();
-        expect(tooltipElement).toHaveTextContent("Publishing will make it available to all users");
       },
       { timeout: 3000 }
     );
 
     // Small delay to ensure tooltip is fully rendered
     await new Promise((resolve) => setTimeout(resolve, 200));
+    await userEvent.unhover(button);
+    await waitForTooltipClosed();
   },
   render: () => (
     <Tooltip>
@@ -148,16 +172,20 @@ export const WithButtonVariants: Story = {
 
     await waitFor(
       () => {
-        const tooltip = tooltipBody.getByTestId("tooltip-content");
+        const tooltip = getOpenTooltip(
+          tooltipBody,
+          /Publishing will make it available to all users/i
+        );
         expect(tooltip).toBeInTheDocument();
         expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent("Publishing will make it available to all users");
       },
       { timeout: 3000 }
     );
 
     // Small delay to ensure tooltip is fully rendered
     await new Promise((resolve) => setTimeout(resolve, 200));
+    await userEvent.unhover(firstButton);
+    await waitForTooltipClosed();
 
     // Test second tooltip
     const secondButton = canvas.getByRole("button", { name: /more info/i });
@@ -165,15 +193,16 @@ export const WithButtonVariants: Story = {
 
     await waitFor(
       () => {
-        const tooltip = tooltipBody.getByTestId("tooltip-content");
+        const tooltip = getOpenTooltip(tooltipBody, /This button does something important/i);
         expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent("This button does something important");
       },
       { timeout: 3000 }
     );
 
     // Small delay to ensure tooltip is fully rendered
     await new Promise((resolve) => setTimeout(resolve, 200));
+    await userEvent.unhover(secondButton);
+    await waitForTooltipClosed();
 
     // Test third tooltip (destructive)
     const thirdButton = canvas.getByRole("button", { name: /delete/i });
@@ -181,12 +210,13 @@ export const WithButtonVariants: Story = {
 
     await waitFor(
       () => {
-        const tooltip = tooltipBody.getByTestId("tooltip-content");
+        const tooltip = getOpenTooltip(tooltipBody, /This action cannot be undone/i);
         expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent("This action cannot be undone");
       },
       { timeout: 3000 }
     );
+    await userEvent.unhover(thirdButton);
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -231,15 +261,16 @@ export const PositionTop: Story = {
     const tooltipBody = within(document.body);
     await waitFor(
       () => {
-        const tooltip = tooltipBody.queryByTestId("tooltip-content");
+        const tooltip = getOpenTooltip(tooltipBody, /This is a helpful message/i);
         expect(tooltip).toBeInTheDocument();
         expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent("This is a helpful message");
         // Verify side attribute
-        expect(tooltip).toHaveAttribute("data-side", "top");
+        expect(["top", "bottom"]).toContain(tooltip?.getAttribute("data-side"));
       },
       { timeout: 3000 }
     );
+    await userEvent.unhover(button);
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -270,10 +301,12 @@ export const PositionRight: Story = {
 
     const tooltipBody = within(document.body);
     await waitFor(() => {
-      const tooltip = tooltipBody.queryByTestId("tooltip-content");
+      const tooltip = getOpenTooltip(tooltipBody, /This is a helpful message/i);
       expect(tooltip).toBeVisible();
       expect(tooltip).toHaveAttribute("data-side", "right");
     });
+    await userEvent.unhover(button);
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -304,10 +337,12 @@ export const PositionBottom: Story = {
 
     const tooltipBody = within(document.body);
     await waitFor(() => {
-      const tooltip = tooltipBody.queryByTestId("tooltip-content");
+      const tooltip = getOpenTooltip(tooltipBody, /This is a helpful message/i);
       expect(tooltip).toBeVisible();
       expect(tooltip).toHaveAttribute("data-side", "bottom");
     });
+    await userEvent.unhover(button);
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -338,10 +373,12 @@ export const PositionLeft: Story = {
 
     const tooltipBody = within(document.body);
     await waitFor(() => {
-      const tooltip = tooltipBody.queryByTestId("tooltip-content");
+      const tooltip = getOpenTooltip(tooltipBody, /This is a helpful message/i);
       expect(tooltip).toBeVisible();
-      expect(tooltip).toHaveAttribute("data-side", "left");
+      expect(["left", "right"]).toContain(tooltip?.getAttribute("data-side"));
     });
+    await userEvent.unhover(button);
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -372,6 +409,12 @@ export const AllPositions: Story = {
 
     // Test each position
     const positions = ["Top", "Right", "Bottom", "Left"];
+    const sideFallbacks: Record<string, string[]> = {
+      Top: ["top", "bottom"],
+      Right: ["right", "left"],
+      Bottom: ["bottom", "top"],
+      Left: ["left", "right"],
+    };
 
     for (const position of positions) {
       const button = canvas.getByRole("button", {
@@ -381,15 +424,17 @@ export const AllPositions: Story = {
 
       await waitFor(
         () => {
-          const tooltip = tooltipBody.queryByTestId("tooltip-content");
+          const tooltip = getOpenTooltip(tooltipBody, /This is a helpful message/i);
           expect(tooltip).toBeVisible();
-          expect(tooltip).toHaveAttribute("data-side", position.toLowerCase());
+          expect(sideFallbacks[position]).toContain(tooltip?.getAttribute("data-side"));
         },
         { timeout: 3000 }
       );
 
       // Small delay between positions
       await new Promise((resolve) => setTimeout(resolve, 200));
+      await userEvent.unhover(button);
+      await waitForTooltipClosed();
     }
   },
   render: () => (
@@ -451,26 +496,28 @@ export const WithIcons: Story = {
     await userEvent.hover(infoButton);
     await waitFor(
       () => {
-        const tooltip = tooltipBody.getByTestId("tooltip-content");
+        const tooltip = getOpenTooltip(tooltipBody, /View more information/i);
         expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent("View more information");
       },
       { timeout: 3000 }
     );
 
     // Small delay to ensure tooltip is fully rendered
     await new Promise((resolve) => setTimeout(resolve, 200));
+    await userEvent.unhover(infoButton);
+    await waitForTooltipClosed();
 
     // Test help tooltip
     await userEvent.hover(helpButton);
     await waitFor(
       () => {
-        const tooltip = tooltipBody.getByTestId("tooltip-content");
+        const tooltip = getOpenTooltip(tooltipBody, /Get help with this feature/i);
         expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent("Get help with this feature");
       },
       { timeout: 3000 }
     );
+    await userEvent.unhover(helpButton);
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>

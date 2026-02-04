@@ -12,6 +12,15 @@ export default defineConfig({
   server: {
     host: "127.0.0.1",
   },
+  optimizeDeps: {
+    include: [
+      "react-dom",
+      "react-dom/client",
+      "react-router-dom",
+      "react-syntax-highlighter",
+      "react-syntax-highlighter/dist/esm/styles/prism",
+    ],
+  },
   resolve: {
     alias: {
       "@": path.resolve(dirname, "../src"),

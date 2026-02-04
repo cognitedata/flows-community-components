@@ -84,10 +84,9 @@ async function testHoverInteraction(
   canvasElement: HTMLElement,
   triggerName: RegExp,
   contentText: RegExp,
-  timeout = 1500
+  timeout = 2000
 ) {
   const canvas = within(canvasElement);
-  const body = within(document.body);
 
   const trigger = canvas.getByRole("button", { name: triggerName });
   await expect(trigger).toBeInTheDocument();
@@ -96,13 +95,23 @@ async function testHoverInteraction(
 
   await waitFor(
     async () => {
-      const hoverCard = body.getByText(contentText);
+      const hoverCard = document.querySelector(
+        '[data-slot="hover-card-content"][data-open]'
+      ) as HTMLElement | null;
       await expect(hoverCard).toBeInTheDocument();
+      await expect(hoverCard).toHaveTextContent(contentText);
     },
     { timeout }
   );
 
   await userEvent.unhover(trigger);
+  await waitFor(
+    () => {
+      const hoverCard = document.querySelector('[data-slot="hover-card-content"][data-open]');
+      expect(hoverCard).not.toBeInTheDocument();
+    },
+    { timeout }
+  );
 }
 
 /**

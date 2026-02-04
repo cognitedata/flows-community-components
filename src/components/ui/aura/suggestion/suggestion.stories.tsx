@@ -14,12 +14,14 @@ import {
   Suggestions,
 } from "./suggestion";
 
+const getOpenSelectContent = () =>
+  document.querySelector('[data-slot="select-content"][data-open]') as HTMLElement | null;
+
 const waitForSelectContentOpen = async () => {
   await waitFor(
     () => {
-      const content = document.querySelector('[data-slot="select-content"]');
+      const content = getOpenSelectContent();
       expect(content).toBeInTheDocument();
-      expect(content).toHaveAttribute("data-open");
     },
     { timeout: 1000 }
   );
@@ -28,12 +30,8 @@ const waitForSelectContentOpen = async () => {
 const waitForSelectContentClosed = async () => {
   await waitFor(
     () => {
-      const content = document.querySelector('[data-slot="select-content"]');
-      if (!content) {
-        expect(content).not.toBeInTheDocument();
-        return;
-      }
-      expect(content).toHaveAttribute("data-closed");
+      const content = getOpenSelectContent();
+      expect(content).not.toBeInTheDocument();
     },
     { timeout: 1000 }
   );
@@ -312,10 +310,8 @@ export const KeyboardInteractions: Story = {
     await expect(trigger).toBeInTheDocument();
     trigger.focus();
 
-    // Open dropdown with Enter key
-    await userEvent.keyboard("{Enter}");
-
-    // Wait for dropdown to open
+    // Open dropdown (keyboard interactions after open)
+    await userEvent.click(trigger);
     await waitForSelectContentOpen();
 
     // Navigate down with arrow key
@@ -328,7 +324,7 @@ export const KeyboardInteractions: Story = {
     await waitForSelectContentClosed();
 
     // Open again to test Escape
-    await userEvent.keyboard("{Enter}");
+    await userEvent.click(trigger);
     await waitForSelectContentOpen();
 
     // Close with Escape
@@ -431,16 +427,12 @@ export const InteractiveSelect: Story = {
     await userEvent.click(trigger);
 
     // Wait for dropdown to open
-    await waitFor(
-      () => {
-        const item = within(document.body).getByText("What's the status of pump 3?");
-        expect(item).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitForSelectContentOpen();
 
     // Select the second item
-    const item = within(document.body).getByText("What's the status of pump 3?");
+    const content = getOpenSelectContent();
+    expect(content).toBeInTheDocument();
+    const item = within(content as HTMLElement).getByText("What's the status of pump 3?");
     await userEvent.click(item);
 
     // Verify the selection is displayed

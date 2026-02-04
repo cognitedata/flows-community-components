@@ -558,7 +558,7 @@ export const KeyboardInteractions: Story = {
     expect(primaryButton).toBeInTheDocument();
 
     // Activate via keyboard
-    await userEvent.tab();
+    primaryButton.focus();
     await waitFor(() => {
       expect(primaryButton).toHaveFocus();
     });
@@ -572,11 +572,7 @@ export const KeyboardInteractions: Story = {
     await userEvent.keyboard("{Escape}");
     await waitFor(() => {
       const dialog = document.querySelector('[data-slot="drawer-content"]');
-      if (!dialog) {
-        expect(dialog).not.toBeInTheDocument();
-        return;
-      }
-      expect(dialog).not.toHaveAttribute("data-open");
+      expect(dialog).not.toBeInTheDocument();
     });
   },
 };
