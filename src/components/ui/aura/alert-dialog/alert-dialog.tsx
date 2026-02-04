@@ -1,7 +1,6 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { Button } from "@/components/ui/aura/button";
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, getPortalContainer } from "@/lib/utils";
 
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
@@ -11,22 +10,15 @@ function AlertDialog(props: AlertDialogPrimitive.Root.Props) {
 }
 AlertDialog.displayName = "AlertDialog";
 
-const AlertDialogTrigger = forwardRef<
-  HTMLButtonElement,
-  AlertDialogPrimitive.Trigger.Props & { asChild?: boolean }
->(({ asChild = false, children, ...props }, ref) => {
-  const render = getRenderPropFromAsChild(children, asChild);
-  return (
-    <AlertDialogPrimitive.Trigger
-      ref={ref}
-      data-slot="alert-dialog-trigger"
-      render={render}
-      {...props}
-    >
-      {asChild ? null : children}
-    </AlertDialogPrimitive.Trigger>
-  );
-});
+const AlertDialogTrigger = forwardRef<HTMLButtonElement, AlertDialogPrimitive.Trigger.Props>(
+  ({ children, ...props }, ref) => {
+    return (
+      <AlertDialogPrimitive.Trigger ref={ref} data-slot="alert-dialog-trigger" {...props}>
+        {children}
+      </AlertDialogPrimitive.Trigger>
+    );
+  }
+);
 AlertDialogTrigger.displayName = "AlertDialogTrigger";
 
 function AlertDialogPortal(props: AlertDialogPrimitive.Portal.Props) {

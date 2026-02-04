@@ -2,7 +2,6 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { type VariantProps, cva } from "class-variance-authority";
 import { forwardRef } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, focusRing, focusRingDestructive } from "@/lib/utils";
 
 const buttonVariants = cva(
@@ -36,32 +35,19 @@ const buttonVariants = cva(
   }
 );
 
-type ButtonProps = ButtonPrimitive.Props &
-  VariantProps<typeof buttonVariants> & {
-    /**
-     * Change the default rendered element for the one passed as a child,
-     * merging props/behavior into the child element.
-     * @default false
-     */
-    asChild?: boolean;
-  };
+type ButtonProps = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
-    const render = getRenderPropFromAsChild(children, asChild);
-
-    return (
-      <ButtonPrimitive
-        ref={ref}
-        data-slot="button"
-        className={cn(buttonVariants({ variant, size, className }))}
-        render={render}
-        {...props}
-      >
-        {asChild ? null : children}
-      </ButtonPrimitive>
-    );
-  }
+  ({ className, variant, size, children, ...props }, ref) => (
+    <ButtonPrimitive
+      ref={ref}
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+    </ButtonPrimitive>
+  )
 );
 
 Button.displayName = "Button";

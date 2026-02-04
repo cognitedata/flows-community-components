@@ -135,9 +135,7 @@ export const Basic: Story = {
   render: function BasicStory() {
     return (
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild>
-          <Button>Open Menu</Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger render={<Button>Open Menu</Button>} />
         <DropdownMenuContent className="w-56">
           <DropdownMenuItem>
             <IconUser />
@@ -196,9 +194,7 @@ export const WithUserLabel: Story = {
   render: function WithUserLabelStory() {
     return (
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild>
-          <Button>User Menu</Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger render={<Button>User Menu</Button>} />
         <DropdownMenuContent className="w-72">
           <DropdownMenuHeader>
             <Avatar variant="default">
@@ -332,12 +328,14 @@ export const WithCheckboxItems: Story = {
           </ul>
         </div>
         <DropdownMenu modal={modal}>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Filters
-              <IconChevronDown className="ml-2 size-4" />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline">
+                Filters
+                <IconChevronDown className="ml-2 size-4" />
+              </Button>
+            }
+          />
           <DropdownMenuContent className="w-64">
             <DropdownMenuLabel>Notification Preferences</DropdownMenuLabel>
             <DropdownMenuGroup>
@@ -447,12 +445,14 @@ export const WithRadioGroup: Story = {
           Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
         <DropdownMenu modal={modal}>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Change View
-              <IconChevronDown className="ml-2 size-4" />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline">
+                Change View
+                <IconChevronDown className="ml-2 size-4" />
+              </Button>
+            }
+          />
           <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>Display Mode</DropdownMenuLabel>
             <DropdownMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
@@ -512,9 +512,7 @@ export const WithDestructiveAction: Story = {
     return (
       <div className="space-y-4">
         <DropdownMenu modal={modal}>
-          <DropdownMenuTrigger asChild>
-            <Button>Actions</Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger render={<Button>Actions</Button>} />
           <DropdownMenuContent className="w-48">
             <DropdownMenuItem onClick={() => setAction("Viewed profile")}>
               <IconUser />
@@ -605,9 +603,7 @@ export const KeyboardNavigation: Story = {
           </div>
         )}
         <DropdownMenu modal={modal}>
-          <DropdownMenuTrigger asChild>
-            <Button>Keyboard Test</Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger render={<Button>Keyboard Test</Button>} />
           <DropdownMenuContent className="w-56">
             <DropdownMenuItem onClick={() => setSelectedItem("First Item")}>
               <IconUser />
@@ -661,9 +657,7 @@ export const EmptyMenu: Story = {
   render: function EmptyMenuStory() {
     return (
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild>
-          <Button>Empty Menu</Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger render={<Button>Empty Menu</Button>} />
         <DropdownMenuContent className="w-56">
           <DropdownMenuItem disabled className="justify-center">
             No items available
@@ -705,9 +699,7 @@ export const DisabledTrigger: Story = {
   render: function DisabledTriggerStory() {
     return (
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild>
-          <Button disabled>Disabled Menu</Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger render={<Button disabled>Disabled Menu</Button>} />
         <DropdownMenuContent className="w-56">
           <DropdownMenuItem>
             <IconUser />
@@ -823,12 +815,14 @@ export const ComplexInteractive: Story = {
         </div>
 
         <DropdownMenu modal={modal}>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-full">
-              Preferences
-              <IconChevronDown className="ml-auto size-4" />
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline" className="w-full">
+                Preferences
+                <IconChevronDown className="ml-auto size-4" />
+              </Button>
+            }
+          />
           <DropdownMenuContent className="w-80">
             <DropdownMenuLabel>Notification Settings</DropdownMenuLabel>
             <DropdownMenuGroup>
@@ -906,9 +900,7 @@ export const Playground: Story = {
           </div>
         )}
         <DropdownMenu modal={modal}>
-          <DropdownMenuTrigger asChild>
-            <Button>Open Playground Menu</Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger render={<Button>Open Playground Menu</Button>} />
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />

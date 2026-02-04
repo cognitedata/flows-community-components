@@ -2,22 +2,16 @@ import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
 import { IconX } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, getPortalContainer } from "@/lib/utils";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
 }
 
-function SheetTrigger({
-  asChild = false,
-  children,
-  ...props
-}: SheetPrimitive.Trigger.Props & { asChild?: boolean }) {
-  const render = getRenderPropFromAsChild(children, asChild);
+function SheetTrigger({ children, ...props }: SheetPrimitive.Trigger.Props) {
   return (
-    <SheetPrimitive.Trigger data-slot="sheet-trigger" render={render} {...props}>
-      {asChild ? null : children}
+    <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props}>
+      {children}
     </SheetPrimitive.Trigger>
   );
 }

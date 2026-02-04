@@ -115,9 +115,7 @@ export const Basic: Story = {
     return (
       <div className="flex items-center justify-center p-12">
         <Popover>
-          <PopoverTrigger asChild>
-            <Button>Open Popover</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button>Open Popover</Button>} />
           <PopoverContent aria-label="Get started with Atlas">
             <div className="space-y-2">
               <h3 className="font-medium text-popover-foreground text-base line-height-18 tracking-tighter mb-2">
@@ -173,36 +171,28 @@ export const Sides: Story = {
     return (
       <div className="flex items-center justify-center gap-4 p-24">
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Top</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Top</Button>} />
           <PopoverContent side="top" aria-label="Top positioned popover">
             <p className="text-sm text-popover-foreground">This popover appears on top</p>
           </PopoverContent>
         </Popover>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Right</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Right</Button>} />
           <PopoverContent side="right" aria-label="Right positioned popover">
             <p className="text-sm text-popover-foreground">This popover appears on the right</p>
           </PopoverContent>
         </Popover>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Bottom</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Bottom</Button>} />
           <PopoverContent side="bottom" aria-label="Bottom positioned popover">
             <p className="text-sm text-popover-foreground">This popover appears on the bottom</p>
           </PopoverContent>
         </Popover>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Left</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Left</Button>} />
           <PopoverContent side="left" aria-label="Left positioned popover">
             <p className="text-sm text-popover-foreground">This popover appears on the left</p>
           </PopoverContent>
@@ -247,9 +237,7 @@ export const Alignment: Story = {
     return (
       <div className="flex flex-col items-start gap-4 p-12">
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Align Start</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Align Start</Button>} />
           <PopoverContent align="start" className="w-80" aria-label="Start aligned popover">
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Aligned to start</h4>
@@ -261,9 +249,7 @@ export const Alignment: Story = {
         </Popover>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Align Center</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Align Center</Button>} />
           <PopoverContent align="center" className="w-80" aria-label="Center aligned popover">
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Aligned to center</h4>
@@ -275,9 +261,7 @@ export const Alignment: Story = {
         </Popover>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Align End</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Align End</Button>} />
           <PopoverContent align="end" className="w-80" aria-label="End aligned popover">
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Aligned to end</h4>
@@ -337,9 +321,7 @@ export const WithForm: Story = {
     return (
       <div className="flex items-center justify-center p-12">
         <Popover>
-          <PopoverTrigger asChild>
-            <Button>Create Project</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button>Create Project</Button>} />
           <PopoverContent className="w-80" aria-label="Create new project">
             <div className="flex flex-col gap-4">
               <div className="space-y-1">
@@ -423,9 +405,7 @@ export const CustomWidth: Story = {
     return (
       <div className="flex items-center justify-center gap-4 p-12">
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Narrow</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Narrow</Button>} />
           <PopoverContent className="w-48" aria-label="Narrow width popover">
             <p className="text-sm text-popover-foreground">
               This is a narrow popover with w-48 (12rem) width.
@@ -434,9 +414,7 @@ export const CustomWidth: Story = {
         </Popover>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Default</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Default</Button>} />
           <PopoverContent aria-label="Default width popover">
             <p className="text-sm text-popover-foreground">
               This uses the default width of w-72 (18rem).
@@ -445,9 +423,7 @@ export const CustomWidth: Story = {
         </Popover>
 
         <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline">Wide</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button variant="outline">Wide</Button>} />
           <PopoverContent className="w-96" aria-label="Wide popover">
             <p className="text-sm text-popover-foreground">
               This is a wide popover with w-96 (24rem) width. It can contain more detailed
@@ -502,9 +478,7 @@ export const RichContent: Story = {
     return (
       <div className="flex items-center justify-center p-12">
         <Popover>
-          <PopoverTrigger asChild>
-            <Button>View Actions</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button>View Actions</Button>} />
           <PopoverContent className="w-80" aria-label="Quick actions menu">
             <div className="space-y-3">
               <div>
@@ -592,9 +566,7 @@ export const Controlled: Story = {
           Toggle with external button
         </Button>
         <Popover modal={false} open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button>Popover Trigger</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button>Popover Trigger</Button>} />
           <PopoverContent aria-label="Controlled popover">
             <div className="space-y-2">
               <h4 className="font-medium text-sm">Controlled Popover</h4>
@@ -631,9 +603,7 @@ export const Playground: Story = {
     return (
       <div className="flex items-center justify-center p-24">
         <Popover {...args}>
-          <PopoverTrigger asChild>
-            <Button>Open Popover</Button>
-          </PopoverTrigger>
+          <PopoverTrigger render={<Button>Open Popover</Button>} />
           <PopoverContent aria-label="Popover playground">
             <div className="space-y-2">
               <h3 className="font-medium text-popover-foreground text-base line-height-18 tracking-tighter">

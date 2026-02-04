@@ -1,7 +1,6 @@
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { type ComponentRef, forwardRef } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, getPortalContainer } from "@/lib/utils";
 
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
@@ -9,17 +8,15 @@ function Popover({ ...props }: PopoverPrimitive.Root.Props) {
 }
 Popover.displayName = "Popover";
 
-const PopoverTrigger = forwardRef<
-  HTMLButtonElement,
-  PopoverPrimitive.Trigger.Props & { asChild?: boolean }
->(({ asChild = false, children, ...props }, ref) => {
-  const render = getRenderPropFromAsChild(children, asChild);
-  return (
-    <PopoverPrimitive.Trigger ref={ref} data-slot="popover-trigger" render={render} {...props}>
-      {asChild ? null : children}
-    </PopoverPrimitive.Trigger>
-  );
-});
+const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverPrimitive.Trigger.Props>(
+  ({ children, ...props }, ref) => {
+    return (
+      <PopoverPrimitive.Trigger ref={ref} data-slot="popover-trigger" {...props}>
+        {children}
+      </PopoverPrimitive.Trigger>
+    );
+  }
+);
 PopoverTrigger.displayName = "PopoverTrigger";
 
 const PopoverContent = forwardRef<

@@ -119,9 +119,7 @@ export const Basic: Story = {
   },
   render: () => (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <Button>Hover me</Button>
-      </TooltipTrigger>
+      <TooltipTrigger render={<Button>Hover me</Button>} />
       <TooltipContent>Publishing will make it available to all users</TooltipContent>
     </Tooltip>
   ),
@@ -194,23 +192,17 @@ export const WithButtonVariants: Story = {
     <TooltipProvider>
       <div className="flex justify-center gap-2">
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button>Hover me</Button>
-          </TooltipTrigger>
+          <TooltipTrigger render={<Button>Hover me</Button>} />
           <TooltipContent>Publishing will make it available to all users</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline">More info</Button>
-          </TooltipTrigger>
+          <TooltipTrigger render={<Button variant="outline">More info</Button>} />
           <TooltipContent>This button does something important</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="destructive">Delete</Button>
-          </TooltipTrigger>
+          <TooltipTrigger render={<Button variant="destructive">Delete</Button>} />
           <TooltipContent>This action cannot be undone</TooltipContent>
         </Tooltip>
       </div>
@@ -252,9 +244,7 @@ export const PositionTop: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover me - Top</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Hover me - Top</Button>} />
         <TooltipContent side="top">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -288,9 +278,7 @@ export const PositionRight: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover me - Right</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Hover me - Right</Button>} />
         <TooltipContent side="right">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -324,9 +312,7 @@ export const PositionBottom: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover me - Bottom</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Hover me - Bottom</Button>} />
         <TooltipContent side="bottom">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -360,9 +346,7 @@ export const PositionLeft: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover me - Left</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Hover me - Left</Button>} />
         <TooltipContent side="left">This is a helpful message</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -412,30 +396,22 @@ export const AllPositions: Story = {
     <TooltipProvider>
       <div className="flex flex-col items-center justify-center gap-16 min-h-75">
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline">Hover me - Top</Button>
-          </TooltipTrigger>
+          <TooltipTrigger render={<Button variant="outline">Hover me - Top</Button>} />
           <TooltipContent side="top">This is a helpful message</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline">Hover me - Right</Button>
-          </TooltipTrigger>
+          <TooltipTrigger render={<Button variant="outline">Hover me - Right</Button>} />
           <TooltipContent side="right">This is a helpful message</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline">Hover me - Bottom</Button>
-          </TooltipTrigger>
+          <TooltipTrigger render={<Button variant="outline">Hover me - Bottom</Button>} />
           <TooltipContent side="bottom">This is a helpful message</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline">Hover me - Left</Button>
-          </TooltipTrigger>
+          <TooltipTrigger render={<Button variant="outline">Hover me - Left</Button>} />
           <TooltipContent side="left">This is a helpful message</TooltipContent>
         </Tooltip>
       </div>
@@ -500,32 +476,38 @@ export const WithIcons: Story = {
     <TooltipProvider>
       <div className="flex gap-4">
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <IconInfoCircle className="size-4" />
-              <span className="sr-only">Information</span>
-            </Button>
-          </TooltipTrigger>
+          <TooltipTrigger
+            render={
+              <Button variant="ghost" size="icon">
+                <IconInfoCircle className="size-4" />
+                <span className="sr-only">Information</span>
+              </Button>
+            }
+          />
           <TooltipContent>View more information</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <IconHelp className="size-4" />
-              <span className="sr-only">Help</span>
-            </Button>
-          </TooltipTrigger>
+          <TooltipTrigger
+            render={
+              <Button variant="ghost" size="icon">
+                <IconHelp className="size-4" />
+                <span className="sr-only">Help</span>
+              </Button>
+            }
+          />
           <TooltipContent>Get help with this feature</TooltipContent>
         </Tooltip>
 
         <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <IconAlertTriangle className="size-4" />
-              <span className="sr-only">Warning</span>
-            </Button>
-          </TooltipTrigger>
+          <TooltipTrigger
+            render={
+              <Button variant="ghost" size="icon">
+                <IconAlertTriangle className="size-4" />
+                <span className="sr-only">Warning</span>
+              </Button>
+            }
+          />
           <TooltipContent>This action requires attention</TooltipContent>
         </Tooltip>
       </div>
@@ -561,9 +543,7 @@ export const LongContent: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover for details</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Hover for details</Button>} />
         <TooltipContent className="max-w-xs">
           This is a longer tooltip message that demonstrates how the component handles multiple
           lines of text. The text will wrap naturally and maintain good readability.
@@ -600,9 +580,7 @@ export const WithOffset: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover me (offset)</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Hover me (offset)</Button>} />
         <TooltipContent side="top" sideOffset={12}>
           This tooltip has increased spacing from the button
         </TooltipContent>
@@ -660,9 +638,7 @@ export const KeyboardInteractions: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button>Keyboard focus</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button>Keyboard focus</Button>} />
         <TooltipContent>
           This tooltip is keyboard accessible - press Escape to dismiss
         </TooltipContent>
@@ -700,9 +676,7 @@ export const DefaultOpen: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip defaultOpen>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Pre-opened tooltip</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Pre-opened tooltip</Button>} />
         <TooltipContent>This tooltip is open by default</TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -764,9 +738,7 @@ export const ControlledState: Story = {
       <div className="flex flex-col gap-4">
         <TooltipProvider>
           <Tooltip open={isOpen} onOpenChange={setIsOpen}>
-            <TooltipTrigger asChild>
-              <Button>Controlled tooltip trigger</Button>
-            </TooltipTrigger>
+            <TooltipTrigger render={<Button>Controlled tooltip trigger</Button>} />
             <TooltipContent>This tooltip&apos;s state is controlled externally</TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -818,9 +790,7 @@ export const WithDelay: Story = {
   render: () => {
     return (
       <Tooltip delayDuration={1500}>
-        <TooltipTrigger asChild>
-          <Button variant="outline">Hover me (with delay)</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button variant="outline">Hover me (with delay)</Button>} />
         <TooltipContent>This tooltip appears after a 1500ms delay</TooltipContent>
       </Tooltip>
     );
@@ -855,9 +825,7 @@ export const VisualRegression: Story = {
   render: () => (
     <TooltipProvider>
       <Tooltip defaultOpen>
-        <TooltipTrigger asChild>
-          <Button>Trigger</Button>
-        </TooltipTrigger>
+        <TooltipTrigger render={<Button>Trigger</Button>} />
         <TooltipContent>Visual regression baseline</TooltipContent>
       </Tooltip>
     </TooltipProvider>

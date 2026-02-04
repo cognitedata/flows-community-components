@@ -3,7 +3,6 @@ import { useRender } from "@base-ui/react/use-render";
 import { type VariantProps, cva } from "class-variance-authority";
 import type * as React from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
@@ -64,7 +63,6 @@ const badgeVariants = cva(
  */
 type BadgeProps = useRender.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & {
-    asChild?: boolean;
     urgent?: boolean;
   };
 
@@ -76,7 +74,6 @@ function Badge({
   dot,
   background,
   urgent = false,
-  asChild = false,
   children,
   render,
   ...props
@@ -87,9 +84,6 @@ function Badge({
   const decorativeOnlyVariants = ["mountain", "fjord", "nordic", "aurora", "dusk", "orange"];
   const canBeOutlined = variant && !decorativeOnlyVariants.includes(variant);
   const isOutlined = outline === true && canBeOutlined;
-
-  const resolvedRender = asChild ? getRenderPropFromAsChild(children, true) : render;
-  const resolvedChildren = asChild ? null : children;
 
   return useRender({
     defaultTagName: "span",
@@ -116,9 +110,9 @@ function Badge({
           className
         ),
       } as any,
-      { ...props, children: resolvedChildren } as any
+      { ...props, children } as any
     ),
-    render: resolvedRender,
+    render,
     state: {
       slot: "badge",
       variant,

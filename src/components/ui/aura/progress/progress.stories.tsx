@@ -49,17 +49,6 @@ const meta: Meta<typeof Progress> = {
         type: { summary: "string" },
       },
     },
-
-    // Advanced
-    asChild: {
-      control: "boolean",
-      description: "Merge props onto the child component instead of the default element (asChild).",
-      table: {
-        category: "Advanced",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
   },
   parameters: {
     layout: "centered",

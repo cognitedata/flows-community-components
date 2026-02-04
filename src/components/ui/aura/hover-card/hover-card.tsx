@@ -1,7 +1,6 @@
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 import { type ComponentRef, createContext, forwardRef, useContext } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, getPortalContainer } from "@/lib/utils";
 
 type HoverCardDelay = {
@@ -24,26 +23,23 @@ function HoverCard({
 }
 HoverCard.displayName = "HoverCard";
 
-const HoverCardTrigger = forwardRef<
-  HTMLAnchorElement,
-  PreviewCardPrimitive.Trigger.Props & { asChild?: boolean }
->(({ asChild = false, children, ...props }, ref) => {
-  const delayContext = useContext(HoverCardDelayContext);
-  const { delay, closeDelay, ...triggerProps } = props;
-  const render = getRenderPropFromAsChild(children, asChild);
-  return (
-    <PreviewCardPrimitive.Trigger
-      ref={ref}
-      data-slot="hover-card-trigger"
-      render={render}
-      delay={delay ?? delayContext?.openDelay}
-      closeDelay={closeDelay ?? delayContext?.closeDelay}
-      {...triggerProps}
-    >
-      {asChild ? null : children}
-    </PreviewCardPrimitive.Trigger>
-  );
-});
+const HoverCardTrigger = forwardRef<HTMLAnchorElement, PreviewCardPrimitive.Trigger.Props>(
+  ({ children, ...props }, ref) => {
+    const delayContext = useContext(HoverCardDelayContext);
+    const { delay, closeDelay, ...triggerProps } = props;
+    return (
+      <PreviewCardPrimitive.Trigger
+        ref={ref}
+        data-slot="hover-card-trigger"
+        delay={delay ?? delayContext?.openDelay}
+        closeDelay={closeDelay ?? delayContext?.closeDelay}
+        {...triggerProps}
+      >
+        {children}
+      </PreviewCardPrimitive.Trigger>
+    );
+  }
+);
 HoverCardTrigger.displayName = "HoverCardTrigger";
 
 const HoverCardContent = forwardRef<

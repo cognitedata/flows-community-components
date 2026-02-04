@@ -446,15 +446,17 @@ export const AvatarGroup: Story = {
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
-        <HoverCardTrigger asChild>
-          <Avatar
-            variant="overflow"
-            sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
-        </HoverCardTrigger>
+        <HoverCardTrigger
+          render={
+            <Avatar
+              variant="overflow"
+              sizes="default"
+              className="relative -ml-1 z-5 border-2 border-background"
+            >
+              <AvatarFallback>+4</AvatarFallback>
+            </Avatar>
+          }
+        />
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
             <p className="text-xs text-muted-foreground font-medium">4 more people</p>
@@ -574,15 +576,17 @@ export const AvatarGroupSmall: Story = {
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
-        <HoverCardTrigger asChild>
-          <Avatar
-            variant="overflow"
-            sizes="xsm"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
-        </HoverCardTrigger>
+        <HoverCardTrigger
+          render={
+            <Avatar
+              variant="overflow"
+              sizes="xsm"
+              className="relative -ml-1 z-5 border-2 border-background"
+            >
+              <AvatarFallback>+4</AvatarFallback>
+            </Avatar>
+          }
+        />
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
             <p className="text-xs text-muted-foreground font-medium">4 more people</p>
@@ -1121,15 +1125,17 @@ export const OverflowAvatarWithMenu: Story = {
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Avatar
-              variant="overflow"
-              sizes="default"
-              className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
-            >
-              <AvatarFallback>+4</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Avatar
+                variant="overflow"
+                sizes="default"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            }
+          />
           <DropdownMenuContent align="end" className="w-56">
             <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-2 py-1.5">
               4 more people

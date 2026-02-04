@@ -1,6 +1,5 @@
 import { type ComponentProps, forwardRef } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, getPortalContainer } from "@/lib/utils";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 
@@ -35,23 +34,20 @@ function Tooltip({
   );
 }
 
-const TooltipTrigger = forwardRef<
-  HTMLButtonElement,
-  TooltipPrimitive.Trigger.Props & { asChild?: boolean }
->(({ asChild = false, children, ...props }, ref) => {
-  const render = getRenderPropFromAsChild(children, asChild);
-  return (
-    <TooltipPrimitive.Trigger
-      ref={ref}
-      data-slot="tooltip-trigger"
-      data-testid="tooltip-trigger"
-      render={render}
-      {...props}
-    >
-      {asChild ? null : children}
-    </TooltipPrimitive.Trigger>
-  );
-});
+const TooltipTrigger = forwardRef<HTMLButtonElement, TooltipPrimitive.Trigger.Props>(
+  ({ children, ...props }, ref) => {
+    return (
+      <TooltipPrimitive.Trigger
+        ref={ref}
+        data-slot="tooltip-trigger"
+        data-testid="tooltip-trigger"
+        {...props}
+      >
+        {children}
+      </TooltipPrimitive.Trigger>
+    );
+  }
+);
 TooltipTrigger.displayName = "TooltipTrigger";
 
 const TooltipContent = forwardRef<

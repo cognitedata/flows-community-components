@@ -1,9 +1,10 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button, buttonVariants } from "@/components/ui/aura/button";
 import { Input } from "@/components/ui/aura/input";
 import { Label } from "@/components/ui/aura/label";
+import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
+import { type ComponentProps, useState } from "react";
 import {
   Drawer,
   DrawerClose,
@@ -14,6 +15,46 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "./drawer";
+
+type DrawerButtonProps = ComponentProps<typeof Button>;
+
+function DrawerTriggerButton({
+  className,
+  variant,
+  size,
+  children,
+  type = "button",
+  ...props
+}: DrawerButtonProps) {
+  return (
+    <DrawerTrigger
+      type={type}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+    </DrawerTrigger>
+  );
+}
+
+function DrawerCloseButton({
+  className,
+  variant,
+  size,
+  children,
+  type = "button",
+  ...props
+}: DrawerButtonProps) {
+  return (
+    <DrawerClose
+      type={type}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+    </DrawerClose>
+  );
+}
 
 const meta: Meta<typeof Drawer> = {
   title: "Primitives/Drawer",
@@ -61,9 +102,7 @@ type Story = StoryObj<typeof Drawer>;
 export const Default: Story = {
   render: () => (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button>Open Drawer</Button>
-      </DrawerTrigger>
+      <DrawerTriggerButton>Open Drawer</DrawerTriggerButton>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Drawer Title</DrawerTitle>
@@ -75,9 +114,7 @@ export const Default: Story = {
           </p>
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
+          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
           <Button>Save</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -112,9 +149,7 @@ export const Default: Story = {
 export const RightDrawer: Story = {
   render: () => (
     <Drawer direction="right">
-      <DrawerTrigger asChild>
-        <Button>Open Right Drawer</Button>
-      </DrawerTrigger>
+      <DrawerTriggerButton>Open Right Drawer</DrawerTriggerButton>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Settings</DrawerTitle>
@@ -131,9 +166,7 @@ export const RightDrawer: Story = {
           </div>
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
+          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
           <Button>Save changes</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -155,9 +188,7 @@ export const RightDrawer: Story = {
 export const LeftDrawer: Story = {
   render: () => (
     <Drawer direction="left">
-      <DrawerTrigger asChild>
-        <Button>Open Left Drawer</Button>
-      </DrawerTrigger>
+      <DrawerTriggerButton>Open Left Drawer</DrawerTriggerButton>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Navigation</DrawerTitle>
@@ -180,11 +211,9 @@ export const LeftDrawer: Story = {
           </nav>
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline" className="w-full">
-              Close
-            </Button>
-          </DrawerClose>
+          <DrawerCloseButton variant="outline" className="w-full">
+            Close
+          </DrawerCloseButton>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
@@ -205,9 +234,7 @@ export const LeftDrawer: Story = {
 export const TopDrawer: Story = {
   render: () => (
     <Drawer direction="top">
-      <DrawerTrigger asChild>
-        <Button>Open Top Drawer</Button>
-      </DrawerTrigger>
+      <DrawerTriggerButton>Open Top Drawer</DrawerTriggerButton>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Notifications</DrawerTitle>
@@ -226,9 +253,7 @@ export const TopDrawer: Story = {
           </div>
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline">Dismiss</Button>
-          </DrawerClose>
+          <DrawerCloseButton variant="outline">Dismiss</DrawerCloseButton>
           <Button>View all</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -292,9 +317,7 @@ export const Controlled: Story = {
 export const WithForm: Story = {
   render: () => (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button>Edit Profile</Button>
-      </DrawerTrigger>
+      <DrawerTriggerButton>Edit Profile</DrawerTriggerButton>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Edit Profile</DrawerTitle>
@@ -319,9 +342,7 @@ export const WithForm: Story = {
           </div>
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
+          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
           <Button>Save changes</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -343,9 +364,7 @@ export const WithForm: Story = {
 export const WithScrollingContent: Story = {
   render: () => (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button>Terms & Conditions</Button>
-      </DrawerTrigger>
+      <DrawerTriggerButton>Terms & Conditions</DrawerTriggerButton>
       <DrawerContent className="max-h-[80vh]">
         <DrawerHeader>
           <DrawerTitle>Terms of Service</DrawerTitle>
@@ -361,9 +380,7 @@ export const WithScrollingContent: Story = {
           ))}
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline">Decline</Button>
-          </DrawerClose>
+          <DrawerCloseButton variant="outline">Decline</DrawerCloseButton>
           <Button>Accept</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -401,9 +418,7 @@ export const AsyncAction: Story = {
     return (
       <div className="space-y-4">
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerTrigger asChild>
-            <Button onClick={() => setOpen(true)}>Open Async Drawer</Button>
-          </DrawerTrigger>
+          <DrawerTriggerButton onClick={() => setOpen(true)}>Open Async Drawer</DrawerTriggerButton>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>Async Save</DrawerTitle>
@@ -418,9 +433,7 @@ export const AsyncAction: Story = {
               <Input placeholder="Setting value" />
             </div>
             <DrawerFooter>
-              <DrawerClose asChild disabled={loading}>
-                <Button variant="outline">Cancel</Button>
-              </DrawerClose>
+              <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
               <Button onClick={handleSave} disabled={loading} data-testid="async-drawer-save">
                 {loading ? "Saving..." : "Save"}
               </Button>
@@ -478,9 +491,7 @@ export const KeyboardInteractions: Story = {
     return (
       <div className="space-y-4">
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerTrigger asChild>
-            <Button>Open Keyboard Drawer</Button>
-          </DrawerTrigger>
+          <DrawerTriggerButton>Open Keyboard Drawer</DrawerTriggerButton>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>Keyboard Drawer</DrawerTitle>
@@ -505,9 +516,7 @@ export const KeyboardInteractions: Story = {
               </Button>
             </div>
             <DrawerFooter>
-              <DrawerClose asChild>
-                <Button variant="outline">Close</Button>
-              </DrawerClose>
+              <DrawerCloseButton variant="outline">Close</DrawerCloseButton>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
@@ -575,34 +584,26 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="flex gap-4">
       <Drawer>
-        <DrawerTrigger asChild>
-          <Button>Bottom</Button>
-        </DrawerTrigger>
+        <DrawerTriggerButton>Bottom</DrawerTriggerButton>
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Bottom Drawer</DrawerTitle>
             <DrawerDescription>Visual test for bottom drawer.</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <DrawerClose asChild>
-              <Button>Close</Button>
-            </DrawerClose>
+            <DrawerCloseButton>Close</DrawerCloseButton>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
       <Drawer direction="right">
-        <DrawerTrigger asChild>
-          <Button variant="outline">Right</Button>
-        </DrawerTrigger>
+        <DrawerTriggerButton variant="outline">Right</DrawerTriggerButton>
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Right Drawer</DrawerTitle>
             <DrawerDescription>Visual test for right drawer.</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <DrawerClose asChild>
-              <Button>Close</Button>
-            </DrawerClose>
+            <DrawerCloseButton>Close</DrawerCloseButton>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
@@ -630,9 +631,7 @@ export const Playground: Story = {
   },
   render: (args) => (
     <Drawer {...args}>
-      <DrawerTrigger asChild>
-        <Button>Open Playground Drawer</Button>
-      </DrawerTrigger>
+      <DrawerTriggerButton>Open Playground Drawer</DrawerTriggerButton>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Playground Drawer</DrawerTitle>
@@ -644,9 +643,7 @@ export const Playground: Story = {
           <p className="text-sm text-muted-foreground">Drawer content here.</p>
         </div>
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
+          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
           <Button>Confirm</Button>
         </DrawerFooter>
       </DrawerContent>

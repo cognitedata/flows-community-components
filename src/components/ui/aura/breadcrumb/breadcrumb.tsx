@@ -4,7 +4,6 @@ import { IconDots, IconSlash } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 
 import { buttonVariants } from "@/components/ui/aura/button/button";
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
 
 /**
@@ -72,18 +71,7 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
  *   <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
  * </BreadcrumbItem>
  */
-function BreadcrumbLink({
-  className,
-  asChild,
-  render,
-  children,
-  ...props
-}: useRender.ComponentProps<"a"> & {
-  asChild?: boolean;
-}) {
-  const resolvedRender = asChild ? getRenderPropFromAsChild(children, true) : render;
-  const resolvedChildren = asChild ? null : children;
-
+function BreadcrumbLink({ className, render, children, ...props }: useRender.ComponentProps<"a">) {
   return useRender({
     defaultTagName: "a",
     props: mergeProps<"a">(
@@ -94,9 +82,9 @@ function BreadcrumbLink({
           className
         ),
       },
-      { ...props, children: resolvedChildren }
+      { ...props, children }
     ),
-    render: resolvedRender,
+    render,
     state: {
       slot: "breadcrumb-link",
     },

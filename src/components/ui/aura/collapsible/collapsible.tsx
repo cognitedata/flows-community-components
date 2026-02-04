@@ -1,7 +1,6 @@
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
 import { type ComponentProps, forwardRef } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
 
 const Collapsible = forwardRef<
@@ -21,18 +20,16 @@ Collapsible.displayName = "Collapsible";
 
 const CollapsibleTrigger = forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.Trigger>,
-  CollapsiblePrimitive.Trigger.Props & { asChild?: boolean }
->(({ className, asChild = false, children, ...props }, ref) => {
-  const render = getRenderPropFromAsChild(children, asChild);
+  CollapsiblePrimitive.Trigger.Props
+>(({ className, children, ...props }, ref) => {
   return (
     <CollapsiblePrimitive.Trigger
       ref={ref}
       data-slot="collapsible-trigger"
       className={cn("group/collapsible-trigger text-base", className)}
-      render={render}
       {...props}
     >
-      {asChild ? null : children}
+      {children}
     </CollapsiblePrimitive.Trigger>
   );
 });

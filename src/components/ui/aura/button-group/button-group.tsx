@@ -4,7 +4,6 @@ import { type VariantProps, cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 
 import { Separator } from "@/components/ui/aura/separator";
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
 
 const buttonGroupVariants = cva(
@@ -42,16 +41,10 @@ function ButtonGroup({
 
 function ButtonGroupText({
   className,
-  asChild = false,
   render,
   children,
   ...props
-}: useRender.ComponentProps<"div"> & {
-  asChild?: boolean;
-}) {
-  const resolvedRender = asChild ? getRenderPropFromAsChild(children, true) : render;
-  const resolvedChildren = asChild ? null : children;
-
+}: useRender.ComponentProps<"div">) {
   return useRender({
     defaultTagName: "div",
     props: mergeProps<"div">(
@@ -62,9 +55,9 @@ function ButtonGroupText({
           className
         ),
       } as any,
-      { ...props, children: resolvedChildren } as any
+      { ...props, children } as any
     ),
-    render: resolvedRender,
+    render,
     state: {
       slot: "button-group-text",
     },

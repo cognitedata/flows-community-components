@@ -2,7 +2,6 @@ import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { IconCheck, IconChevronRight } from "@tabler/icons-react";
 import { type HTMLAttributes, forwardRef } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn, getPortalContainer } from "@/lib/utils";
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
@@ -21,17 +20,15 @@ function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
 }
 DropdownMenuPortal.displayName = "DropdownMenuPortal";
 
-const DropdownMenuTrigger = forwardRef<
-  HTMLButtonElement,
-  MenuPrimitive.Trigger.Props & { asChild?: boolean }
->(({ asChild = false, children, ...props }, ref) => {
-  const render = getRenderPropFromAsChild(children, asChild);
-  return (
-    <MenuPrimitive.Trigger ref={ref} data-slot="dropdown-menu-trigger" render={render} {...props}>
-      {asChild ? null : children}
-    </MenuPrimitive.Trigger>
-  );
-});
+const DropdownMenuTrigger = forwardRef<HTMLButtonElement, MenuPrimitive.Trigger.Props>(
+  ({ children, ...props }, ref) => {
+    return (
+      <MenuPrimitive.Trigger ref={ref} data-slot="dropdown-menu-trigger" {...props}>
+        {children}
+      </MenuPrimitive.Trigger>
+    );
+  }
+);
 DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 
 function DropdownMenuContent({
@@ -76,10 +73,8 @@ const DropdownMenuItem = forwardRef<
   MenuPrimitive.Item.Props & {
     inset?: boolean;
     variant?: "default" | "destructive";
-    asChild?: boolean;
   }
->(({ className, inset, variant = "default", asChild = false, children, ...props }, ref) => {
-  const render = getRenderPropFromAsChild(children, asChild);
+>(({ className, inset, variant = "default", children, ...props }, ref) => {
   return (
     <MenuPrimitive.Item
       ref={ref}
@@ -90,10 +85,9 @@ const DropdownMenuItem = forwardRef<
         "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive-hover dark:data-[variant=destructive]:focus:bg-destructive-hover data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground! data-[variant=destructive]:hover:bg-destructive-hover dark:data-[variant=destructive]:hover:bg-destructive-hover [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm p-2 text-base outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
-      render={render}
       {...props}
     >
-      {asChild ? null : children}
+      {children}
     </MenuPrimitive.Item>
   );
 });

@@ -106,12 +106,14 @@ export const Basic: Story = {
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>What is a collapsible?</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>What is a collapsible?</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2">
           A collapsible is an interactive component that expands and collapses to show or hide
@@ -152,12 +154,14 @@ export const DefaultOpen: Story = {
   },
   render: () => (
     <Collapsible defaultOpen className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Frequently Asked Questions</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Frequently Asked Questions</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2">
           <p className="mb-2">
@@ -223,12 +227,14 @@ export const Controlled: Story = {
           </span>
         </div>
         <Collapsible open={isOpen} onOpenChange={setIsOpen} className="space-y-2">
-          <CollapsibleTrigger asChild>
-            <Button variant="ghost" className="w-full justify-between">
-              <span>Controlled Collapsible</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-            </Button>
-          </CollapsibleTrigger>
+          <CollapsibleTrigger
+            render={
+              <Button variant="ghost" className="w-full justify-between">
+                <span>Controlled Collapsible</span>
+                <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+              </Button>
+            }
+          />
           <CollapsibleContent>
             <div className="px-4 py-2">
               This collapsible is controlled externally. The open state is managed by React state,
@@ -276,12 +282,14 @@ export const WithCustomTrigger: Story = {
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="outline" className="w-full justify-between font-semibold">
-          <span>Advanced Settings</span>
-          <IconSelector className="h-4 w-4" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="outline" className="w-full justify-between font-semibold">
+            <span>Advanced Settings</span>
+            <IconSelector className="h-4 w-4" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-2">
           <p>Here are some advanced settings you can configure:</p>
@@ -347,12 +355,14 @@ export const Multiple: Story = {
   render: () => (
     <div className="space-y-2 w-[400px]">
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between">
-            <span>Question 1: What is React?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between">
+              <span>Question 1: What is React?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             React is a JavaScript library for building user interfaces, particularly web
@@ -362,12 +372,14 @@ export const Multiple: Story = {
       </Collapsible>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between">
-            <span>Question 2: What is TypeScript?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between">
+              <span>Question 2: What is TypeScript?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
@@ -376,12 +388,14 @@ export const Multiple: Story = {
       </Collapsible>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between">
-            <span>Question 3: What is Next.js?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between">
+              <span>Question 3: What is Next.js?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             Next.js is a React framework for production with features like server-side rendering and
@@ -422,12 +436,14 @@ export const Disabled: Story = {
   },
   render: () => (
     <Collapsible disabled className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between" disabled>
-          <span>Disabled Collapsible</span>
-          <IconSelector className="h-4 w-4" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between" disabled>
+            <span>Disabled Collapsible</span>
+            <IconSelector className="h-4 w-4" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2">
           This content cannot be accessed because the collapsible is disabled.
@@ -467,12 +483,14 @@ export const WithRichContent: Story = {
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Documentation</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Documentation</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-3">
           <h3 className="font-semibold text-base">Getting Started</h3>
@@ -531,12 +549,14 @@ export const FAQ: Story = {
       <h2 className="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-left">
-            <span>What&apos;s the difference between Collapsible and Accordion?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between text-left">
+              <span>What&apos;s the difference between Collapsible and Accordion?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             Collapsibles work independently—multiple can be open at once. The Collapsible component
@@ -547,12 +567,14 @@ export const FAQ: Story = {
       </Collapsible>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-left">
-            <span>How do I customize the styling?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between text-left">
+              <span>How do I customize the styling?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             You can customize the styling by passing className props to any of the collapsible
@@ -562,12 +584,14 @@ export const FAQ: Story = {
       </Collapsible>
 
       <Collapsible defaultOpen className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-left">
-            <span>Can I control the open state programmatically?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between text-left">
+              <span>Can I control the open state programmatically?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             Yes! Use the open prop for controlled state, or defaultOpen for uncontrolled state with
@@ -614,12 +638,14 @@ export const EdgeCaseEmpty: Story = {
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Empty Content</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Empty Content</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2" />
       </CollapsibleContent>
@@ -664,12 +690,14 @@ export const EdgeCaseLongText: Story = {
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-2">
           <p className="text-sm">

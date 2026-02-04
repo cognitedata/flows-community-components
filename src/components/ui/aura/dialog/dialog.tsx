@@ -2,7 +2,6 @@ import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { IconX } from "@tabler/icons-react";
 import type { ComponentProps, ReactNode } from "react";
 
-import { getRenderPropFromAsChild } from "@/lib/render-as-child";
 import { cn } from "@/lib/utils";
 import { getPortalContainer } from "@/lib/utils";
 
@@ -10,15 +9,10 @@ function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
-function DialogTrigger({
-  asChild = false,
-  children,
-  ...props
-}: DialogPrimitive.Trigger.Props & { asChild?: boolean }) {
-  const render = getRenderPropFromAsChild(children, asChild);
+function DialogTrigger({ children, ...props }: DialogPrimitive.Trigger.Props) {
   return (
-    <DialogPrimitive.Trigger data-slot="dialog-trigger" render={render} {...props}>
-      {asChild ? null : children}
+    <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props}>
+      {children}
     </DialogPrimitive.Trigger>
   );
 }
@@ -30,14 +24,12 @@ function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
 }
 
 function DialogClose({
-  asChild = false,
   children,
   ...props
-}: DialogPrimitive.Close.Props & { asChild?: boolean; children?: ReactNode }) {
-  const render = getRenderPropFromAsChild(children, asChild);
+}: DialogPrimitive.Close.Props & { children?: ReactNode }) {
   return (
-    <DialogPrimitive.Close data-slot="dialog-close" render={render} {...props}>
-      {asChild ? null : children}
+    <DialogPrimitive.Close data-slot="dialog-close" {...props}>
+      {children}
     </DialogPrimitive.Close>
   );
 }
