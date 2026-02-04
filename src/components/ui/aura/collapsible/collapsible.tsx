@@ -38,7 +38,7 @@ CollapsibleTrigger.displayName = "CollapsibleTrigger";
 const CollapsibleContent = forwardRef<
   React.ElementRef<typeof CollapsiblePrimitive.Panel>,
   CollapsiblePrimitive.Panel.Props
->(({ className, ...props }, ref) => {
+>(({ className, style, keepMounted = true, ...props }, ref) => {
   return (
     <CollapsiblePrimitive.Panel
       ref={ref}
@@ -47,6 +47,7 @@ const CollapsibleContent = forwardRef<
         "border-none outline-none text-muted-foreground text-sm leading-4.5 tracking-tight w-full min-w-0 overflow-x-hidden box-border *:max-w-full *:box-border",
         className
       )}
+      keepMounted={keepMounted}
       {...props}
     />
   );
