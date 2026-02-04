@@ -113,7 +113,7 @@ export const Basic: Story = {
 
     // Verify first item is expanded
     await waitFor(() => {
-      const content = canvasElement.querySelector('[data-state="open"]');
+      const content = canvasElement.querySelector('[data-open]');
       expect(content).toBeInTheDocument();
     });
 
@@ -122,7 +122,7 @@ export const Basic: Story = {
 
     await waitFor(() => {
       const openItems = canvasElement.querySelectorAll(
-        '[data-slot="accordion-item"][data-state="open"]'
+        '[data-slot="accordion-item"][data-open]'
       );
       expect(openItems).toHaveLength(1);
     });
@@ -175,7 +175,7 @@ export const DefaultExpanded: Story = {
     // Verify item-2 is open by default
     await waitFor(() => {
       const openItem = canvasElement.querySelector(
-        '[data-slot="accordion-item"][data-state="open"]'
+        '[data-slot="accordion-item"][data-open]'
       );
       expect(openItem).toBeInTheDocument();
     });
@@ -261,7 +261,7 @@ export const Multiple: Story = {
     // Verify both are open
     await waitFor(() => {
       const openItems = canvasElement.querySelectorAll(
-        '[data-slot="accordion-item"][data-state="open"]'
+        '[data-slot="accordion-item"][data-open]'
       );
       expect(openItems).toHaveLength(2);
     });
@@ -371,7 +371,11 @@ export const Disabled: Story = {
 
     // Verify triggers are disabled
     for (const trigger of triggers) {
-      await expect(trigger).toBeDisabled();
+      const isAriaDisabled = trigger.getAttribute("aria-disabled") === "true";
+      const hasDataDisabled = trigger.hasAttribute("data-disabled");
+      expect(isAriaDisabled || hasDataDisabled || (trigger as HTMLButtonElement).disabled).toBe(
+        true
+      );
     }
   },
 };

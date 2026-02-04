@@ -650,9 +650,9 @@ export const WithCheckboxes: Story = {
 
     // Verify checkboxes - first two should be checked (notifications, marketing)
     const checkboxes = canvasElement.ownerDocument.querySelectorAll('[data-slot="checkbox"]');
-    expect(checkboxes[0]).toHaveAttribute("data-state", "checked");
-    expect(checkboxes[1]).toHaveAttribute("data-state", "checked");
-    expect(checkboxes[2]).toHaveAttribute("data-state", "unchecked");
+    expect(checkboxes[0]).toHaveAttribute("data-checked");
+    expect(checkboxes[1]).toHaveAttribute("data-checked");
+    expect(checkboxes[2]).not.toHaveAttribute("data-checked");
 
     // Test toggling a checkbox
     const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');

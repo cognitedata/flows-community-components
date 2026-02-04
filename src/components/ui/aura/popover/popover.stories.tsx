@@ -537,7 +537,7 @@ export const Controlled: Story = {
 
     // Verify the trigger button starts closed
     const trigger = canvas.getByRole("button", { name: /popover trigger/i });
-    await expect(trigger).toHaveAttribute("data-state", "closed");
+    await expect(trigger).not.toHaveAttribute("data-popup-open");
 
     // Click external button to open
     await userEvent.click(toggleButton);
@@ -545,7 +545,7 @@ export const Controlled: Story = {
     // Verify popover opens (content is portaled to body)
     await waitFor(
       async () => {
-        expect(trigger).toHaveAttribute("data-state", "open");
+        expect(trigger).toHaveAttribute("data-popup-open");
       },
       { timeout: 500 }
     );

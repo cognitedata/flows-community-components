@@ -337,8 +337,8 @@ export const WithCheckboxItems: Story = {
             }
           />
           <DropdownMenuContent className="w-64">
-            <DropdownMenuLabel>Notification Preferences</DropdownMenuLabel>
             <DropdownMenuGroup>
+              <DropdownMenuLabel>Notification Preferences</DropdownMenuLabel>
               <DropdownMenuCheckboxItem
                 checked={checkedItems.emails}
                 onCheckedChange={(checked) =>
@@ -454,13 +454,15 @@ export const WithRadioGroup: Story = {
             }
           />
           <DropdownMenuContent className="w-48">
-            <DropdownMenuLabel>Display Mode</DropdownMenuLabel>
-            <DropdownMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
-              <DropdownMenuRadioItem value="grid">Grid view</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="list">List view</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="table">Table view</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="kanban">Kanban board</DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Display Mode</DropdownMenuLabel>
+              <DropdownMenuRadioGroup value={viewMode} onValueChange={setViewMode}>
+                <DropdownMenuRadioItem value="grid">Grid view</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="list">List view</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="table">Table view</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="kanban">Kanban board</DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -824,8 +826,8 @@ export const ComplexInteractive: Story = {
             }
           />
           <DropdownMenuContent className="w-80">
-            <DropdownMenuLabel>Notification Settings</DropdownMenuLabel>
             <DropdownMenuGroup>
+              <DropdownMenuLabel>Notification Settings</DropdownMenuLabel>
               <DropdownMenuCheckboxItem
                 checked={notifications.email}
                 onCheckedChange={(checked) =>
@@ -854,12 +856,14 @@ export const ComplexInteractive: Story = {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuLabel>Theme</DropdownMenuLabel>
-            <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-              <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Theme</DropdownMenuLabel>
+              <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
 
@@ -902,20 +906,21 @@ export const Playground: Story = {
         <DropdownMenu modal={modal}>
           <DropdownMenuTrigger render={<Button>Open Playground Menu</Button>} />
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setSelectedItem("Profile")}>
-              <IconUser />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setSelectedItem("Settings")}>
-              <IconSettingsFilled />
-              Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setSelectedItem("Notifications")}>
-              <IconBell />
-              Notifications
-            </DropdownMenuItem>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => setSelectedItem("Profile")}>
+                <IconUser />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSelectedItem("Settings")}>
+                <IconSettingsFilled />
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSelectedItem("Notifications")}>
+                <IconBell />
+                Notifications
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => setSelectedItem("Help")}>
               <IconHelp />

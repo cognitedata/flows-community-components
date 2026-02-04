@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/aura/input";
 import { Label } from "@/components/ui/aura/label";
 import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { type ComponentProps, useState } from "react";
 import {
   Drawer,
@@ -571,8 +571,12 @@ export const KeyboardInteractions: Story = {
     // Press Escape to close
     await userEvent.keyboard("{Escape}");
     await waitFor(() => {
-      // Use screen.queryByRole to robustly check for the dialog in a portal
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      const dialog = document.querySelector('[data-slot="drawer-content"]');
+      if (!dialog) {
+        expect(dialog).not.toBeInTheDocument();
+        return;
+      }
+      expect(dialog).not.toHaveAttribute("data-open");
     });
   },
 };

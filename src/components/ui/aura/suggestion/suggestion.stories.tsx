@@ -14,6 +14,31 @@ import {
   Suggestions,
 } from "./suggestion";
 
+const waitForSelectContentOpen = async () => {
+  await waitFor(
+    () => {
+      const content = document.querySelector('[data-slot="select-content"]');
+      expect(content).toBeInTheDocument();
+      expect(content).toHaveAttribute("data-open");
+    },
+    { timeout: 1000 }
+  );
+};
+
+const waitForSelectContentClosed = async () => {
+  await waitFor(
+    () => {
+      const content = document.querySelector('[data-slot="select-content"]');
+      if (!content) {
+        expect(content).not.toBeInTheDocument();
+        return;
+      }
+      expect(content).toHaveAttribute("data-closed");
+    },
+    { timeout: 1000 }
+  );
+};
+
 const meta: Meta<typeof Suggestion> = {
   title: "AI/Suggestion",
   component: Suggestion,
@@ -229,25 +254,17 @@ export const SelectMode: Story = {
     await userEvent.click(trigger);
 
     // Wait for dropdown to open and find an item
-    await waitFor(
-      () => {
-        const item = within(document.body).getByText("Show me the pressure on valve 10");
-        expect(item).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitForSelectContentOpen();
+    await expect(
+      within(document.body).getByText("Show me the pressure on valve 10")
+    ).toBeInTheDocument();
 
     // Click the item to select it
     const item = within(document.body).getByText("Show me the pressure on valve 10");
     await userEvent.click(item);
 
     // Dropdown should close automatically after selection
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentClosed();
   },
   render: function SuggestionSelectStory(args) {
     const handleSuggestion = (value: string) => {
@@ -299,12 +316,7 @@ export const KeyboardInteractions: Story = {
     await userEvent.keyboard("{Enter}");
 
     // Wait for dropdown to open
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentOpen();
 
     // Navigate down with arrow key
     await userEvent.keyboard("{ArrowDown}");
@@ -313,30 +325,15 @@ export const KeyboardInteractions: Story = {
     await userEvent.keyboard("{Enter}");
 
     // Dropdown should close
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentClosed();
 
     // Open again to test Escape
     await userEvent.keyboard("{Enter}");
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentOpen();
 
     // Close with Escape
     await userEvent.keyboard("{Escape}");
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentClosed();
   },
   render: function SuggestionKeyboardStory(args) {
     const handleSuggestion = (value: string) => {
