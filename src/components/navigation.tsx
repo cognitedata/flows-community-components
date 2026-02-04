@@ -54,7 +54,7 @@ export function Navigation() {
   const pathname = location.pathname;
 
   // Get base path for assets (handles GitHub Pages subdirectory)
-  const logoPath = `${import.meta.env.BASE_URL}/aura-logo.png`;
+  const logoPath = `${import.meta.env.BASE_URL}aura-logo.png`;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
@@ -103,6 +103,7 @@ export function Navigation() {
             variant="ghost"
             size="icon"
             className="h-10 w-10"
+            nativeButton={false}
             render={
               <a
                 href="https://github.com/cognitedata/aura"
