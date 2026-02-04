@@ -38,7 +38,7 @@
       "type": "registry:component",
       "title": "accordion",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/accordion", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -58,7 +58,7 @@
       "type": "registry:component",
       "title": "alert",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react", "class-variance-authority"],
+      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
       "registryDependencies": ["@aura/css", "@aura/button"],
       "files": [
         {
@@ -77,8 +77,8 @@
       "name": "button",
       "type": "registry:component",
       "title": "button",
-      "description": "* Change the default rendered element for the one passed as a child,",
-      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "description": "",
+      "dependencies": ["@base-ui/react/button", "class-variance-authority"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -98,7 +98,7 @@
       "type": "registry:component",
       "title": "alert-dialog",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/alert-dialog"],
       "registryDependencies": ["@aura/css", "@aura/button"],
       "files": [
         {
@@ -157,7 +157,7 @@
       "type": "registry:component",
       "title": "dropdown-menu",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/menu", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -197,7 +197,7 @@
       "type": "registry:component",
       "title": "separator",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/separator"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -275,7 +275,7 @@
       "type": "registry:component",
       "title": "progress",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/progress"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -295,7 +295,7 @@
       "type": "registry:component",
       "title": "for",
       "description": "* Avatar component for displaying user profile images, initials, or icons.",
-      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "dependencies": ["@base-ui/react/avatar", "class-variance-authority"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -315,7 +315,11 @@
       "type": "registry:component",
       "title": "for",
       "description": "* A versatile badge component for labels, status indicators, and tags.",
-      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "dependencies": [
+        "@base-ui/react/merge-props",
+        "@base-ui/react/use-render",
+        "class-variance-authority"
+      ],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -335,7 +339,7 @@
       "type": "registry:component",
       "title": "banner",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react", "class-variance-authority"],
+      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
       "registryDependencies": ["@aura/css", "@aura/badge", "@aura/button"],
       "files": [
         {
@@ -355,7 +359,11 @@
       "type": "registry:component",
       "title": "breadcrumb",
       "description": "* Root container for breadcrumb navigation.",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": [
+        "@base-ui/react/merge-props",
+        "@base-ui/react/use-render",
+        "@tabler/icons-react"
+      ],
       "registryDependencies": ["@aura/css", "@aura/button"],
       "files": [
         {
@@ -375,7 +383,11 @@
       "type": "registry:component",
       "title": "button-group",
       "description": "",
-      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "dependencies": [
+        "@base-ui/react/merge-props",
+        "@base-ui/react/use-render",
+        "class-variance-authority"
+      ],
       "registryDependencies": ["@aura/css", "@aura/separator"],
       "files": [
         {
@@ -435,7 +447,7 @@
       "type": "registry:component",
       "title": "chain-of-thought",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": ["@aura/css", "@aura/badge", "@aura/collapsible"],
       "files": [
         {
@@ -455,7 +467,7 @@
       "type": "registry:component",
       "title": "collapsible",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/collapsible"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -495,7 +507,7 @@
       "type": "registry:component",
       "title": "checkbox",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/checkbox", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -594,7 +606,7 @@
       "type": "registry:component",
       "title": "dialog",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/dialog", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -614,7 +626,7 @@
       "type": "registry:component",
       "title": "popover",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/popover"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -680,7 +692,7 @@
       "type": "registry:component",
       "title": "context-menu",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/context-menu", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -779,7 +791,7 @@
       "type": "registry:component",
       "title": "hover-card",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/preview-card"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -915,7 +927,6 @@
       "type": "registry:component",
       "title": "label",
       "description": "",
-      "dependencies": ["@base-ui/react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -973,8 +984,8 @@
       "type": "registry:component",
       "title": "menubar",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "dependencies": ["@base-ui/react/menu", "@base-ui/react/menubar", "@tabler/icons-react"],
+      "registryDependencies": ["@aura/css", "@aura/dropdown-menu"],
       "files": [
         {
           "path": "src/components/ui/aura/menubar/menubar.tsx",
@@ -1020,7 +1031,7 @@
       "type": "registry:component",
       "title": "tooltip",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/tooltip"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1060,7 +1071,7 @@
       "type": "registry:component",
       "title": "select",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/select", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1109,7 +1120,7 @@
       "type": "registry:component",
       "title": "radio-group",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/radio", "@base-ui/react/radio-group", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1149,7 +1160,7 @@
       "type": "registry:component",
       "title": "reasoning-original",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react", "streamdown"],
+      "dependencies": ["@tabler/icons-react", "streamdown"],
       "registryDependencies": ["@aura/css", "@aura/collapsible", "@aura/shimmer"],
       "files": [
         {
@@ -1189,7 +1200,7 @@
       "type": "registry:component",
       "title": "scroll-area",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/scroll-area"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1209,7 +1220,7 @@
       "type": "registry:component",
       "title": "sheet",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react"],
+      "dependencies": ["@base-ui/react/dialog", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1229,7 +1240,7 @@
       "type": "registry:component",
       "title": "sidebar",
       "description": "",
-      "dependencies": ["@base-ui/react", "@tabler/icons-react", "class-variance-authority"],
+      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
@@ -1276,7 +1287,7 @@
       "type": "registry:component",
       "title": "slider",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/slider"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1374,7 +1385,7 @@
       "type": "registry:component",
       "title": "switch",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/switch"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1413,7 +1424,7 @@
       "type": "registry:component",
       "title": "tabs",
       "description": "",
-      "dependencies": ["@base-ui/react"],
+      "dependencies": ["@base-ui/react/tabs"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1452,7 +1463,7 @@
       "type": "registry:component",
       "title": "toggle",
       "description": "",
-      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "dependencies": ["@base-ui/react/toggle", "class-variance-authority"],
       "registryDependencies": ["@aura/css"],
       "files": [
         {
@@ -1517,7 +1528,6 @@
       "type": "registry:component",
       "title": "topbar",
       "description": "",
-      "dependencies": ["@base-ui/react"],
       "registryDependencies": ["@aura/css", "@aura/breadcrumb", "@aura/button", "@aura/sidebar"],
       "files": [
         {

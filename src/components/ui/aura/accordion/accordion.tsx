@@ -141,17 +141,10 @@ const AccordionContent = forwardRef<
     <AccordionPrimitive.Panel
       ref={ref}
       data-slot="accordion-content"
-      className="data-closed:animate-accordion-up data-open:animate-accordion-down overflow-hidden text-base leading-5 tracking-tightest"
+      className="h-(--accordion-panel-height) overflow-hidden text-base leading-5 tracking-tightest transition-all duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0"
       {...props}
     >
-      <div
-        className={cn(
-          "h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 px-2 pb-2 pt-0",
-          className
-        )}
-      >
-        {children}
-      </div>
+      <div className={cn("px-2 pb-2 pt-0", className)}>{children}</div>
     </AccordionPrimitive.Panel>
   );
 });
