@@ -25,17 +25,17 @@ type BannerContextProps = {
 // eslint-disable-next-line react-refresh/only-export-components
 export const BannerContext = createContext<BannerContextProps>({
   show: true,
-  setShow: () => {},
+  setShow: () => { },
   variant: "default",
 });
 
 const bannerVariants = cva("flex w-full min-h-11 items-center gap-2 px-3.5 py-2", {
   variants: {
     variant: {
-      default: "bg-mountain text-foreground",
-      neutral: "bg-neutral text-foreground",
-      destructive: "bg-destructive text-foreground",
-      warning: "bg-warning text-foreground",
+      default: "bg-undefined-alternative text-card-foreground",
+      neutral: "bg-neutral-alternative text-foreground",
+      destructive: "bg-destructive-alternative text-foreground",
+      warning: "bg-warning-alternative text-card-foreground",
     },
     inset: {
       true: "rounded-lg",
@@ -109,7 +109,7 @@ export const BannerIcon = forwardRef<HTMLDivElement, BannerIconProps>(
       <div
         ref={ref}
         data-slot="banner-icon"
-        className={cn(variant === "neutral" && "text-neutral-foreground", className)}
+        className={cn(bannerTitleVariants[variant], className)}
         {...props}
       >
         <Icon size={16} />
@@ -121,15 +121,26 @@ BannerIcon.displayName = "BannerIcon";
 
 export type BannerTitleProps = HTMLAttributes<HTMLParagraphElement>;
 
+const bannerTitleVariants: Record<BannerVariant, string> = {
+  default: "text-undefined-foreground",
+  neutral: "text-neutral-foreground",
+  destructive: "text-destructive-foreground",
+  warning: "text-warning-foreground",
+};
+
 export const BannerTitle = forwardRef<HTMLParagraphElement, BannerTitleProps>(
-  ({ className, ...props }, ref) => (
-    <p
-      ref={ref}
-      data-slot="banner-title"
-      className={cn("text-sm tracking-tight", className)}
-      {...props}
-    />
-  )
+  ({ className, ...props }, ref) => {
+    const { variant } = useContext(BannerContext);
+
+    return (
+      <p
+        ref={ref}
+        data-slot="banner-title"
+        className={cn("text-sm tracking-tight", bannerTitleVariants[variant], className)}
+        {...props}
+      />
+    );
+  }
 );
 BannerTitle.displayName = "BannerTitle";
 
@@ -152,7 +163,6 @@ export const BannerStatus = forwardRef<HTMLSpanElement, BannerStatusProps>(
       <Badge
         ref={ref}
         data-slot="banner-status"
-        outline={outline}
         variant={badgeVariant}
         className={cn("shrink-0", className)}
         {...props}
