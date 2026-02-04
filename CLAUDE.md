@@ -37,6 +37,18 @@ NEVER use `React.useState`, `React.useEffect`, etc.
 ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
 
+**Fusion Import Strategy:**
+
+Aura uses a dual-scope import system for migrating components to Fusion:
+
+- **`@cognite/aura/*`** - Beta components ready for Fusion (e.g., `@cognite/aura/button`)
+- **`@cognite/aura-lab/*`** - Alpha/experimental components (e.g., `@cognite/aura-lab/accordion`)
+- **`@cognite/aura/lib/*`** - Shared utilities (e.g., `@cognite/aura/lib/utils`)
+
+Components in `src/components/ui/core/` use `@cognite/aura/*`, components in `src/components/ui/lab/` use `@cognite/aura-lab/*`.
+
+For internal development, continue using `@/*` imports. The `@cognite/*` imports are configured for when components are consumed in Fusion.
+
 ## Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
