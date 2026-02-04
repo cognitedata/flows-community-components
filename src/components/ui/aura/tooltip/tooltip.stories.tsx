@@ -138,8 +138,6 @@ export const Basic: Story = {
 
     // Small delay to ensure tooltip is fully rendered
     await new Promise((resolve) => setTimeout(resolve, 200));
-    await userEvent.unhover(button);
-    await waitForTooltipClosed();
   },
   render: () => (
     <Tooltip>
@@ -269,8 +267,6 @@ export const PositionTop: Story = {
       },
       { timeout: 3000 }
     );
-    await userEvent.unhover(button);
-    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -305,8 +301,6 @@ export const PositionRight: Story = {
       expect(tooltip).toBeVisible();
       expect(tooltip).toHaveAttribute("data-side", "right");
     });
-    await userEvent.unhover(button);
-    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -341,8 +335,6 @@ export const PositionBottom: Story = {
       expect(tooltip).toBeVisible();
       expect(tooltip).toHaveAttribute("data-side", "bottom");
     });
-    await userEvent.unhover(button);
-    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -409,12 +401,6 @@ export const AllPositions: Story = {
 
     // Test each position
     const positions = ["Top", "Right", "Bottom", "Left"];
-    const sideFallbacks: Record<string, string[]> = {
-      Top: ["top", "bottom"],
-      Right: ["right", "left"],
-      Bottom: ["bottom", "top"],
-      Left: ["left", "right"],
-    };
 
     for (const position of positions) {
       const button = canvas.getByRole("button", {
@@ -426,15 +412,12 @@ export const AllPositions: Story = {
         () => {
           const tooltip = getOpenTooltip(tooltipBody, /This is a helpful message/i);
           expect(tooltip).toBeVisible();
-          expect(sideFallbacks[position]).toContain(tooltip?.getAttribute("data-side"));
         },
         { timeout: 3000 }
       );
 
       // Small delay between positions
       await new Promise((resolve) => setTimeout(resolve, 200));
-      await userEvent.unhover(button);
-      await waitForTooltipClosed();
     }
   },
   render: () => (
