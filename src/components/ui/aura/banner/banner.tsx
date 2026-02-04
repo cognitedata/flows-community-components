@@ -22,10 +22,9 @@ type BannerContextProps = {
   variant: BannerVariant;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const BannerContext = createContext<BannerContextProps>({
   show: true,
-  setShow: () => { },
+  setShow: () => {},
   variant: "default",
 });
 
@@ -48,7 +47,7 @@ const bannerVariants = cva("flex w-full min-h-11 items-center gap-2 px-3.5 py-2"
   },
 });
 
-export type BannerProps = HTMLAttributes<HTMLDivElement> &
+type BannerProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof bannerVariants> & {
     visible?: boolean;
     defaultVisible?: boolean;
@@ -97,7 +96,7 @@ Banner.displayName = "Banner";
 
 type TablerIconComponent = ComponentType<IconProps>;
 
-export type BannerIconProps = HTMLAttributes<HTMLDivElement> & {
+type BannerIconProps = HTMLAttributes<HTMLDivElement> & {
   icon: TablerIconComponent;
 };
 
@@ -119,7 +118,7 @@ export const BannerIcon = forwardRef<HTMLDivElement, BannerIconProps>(
 );
 BannerIcon.displayName = "BannerIcon";
 
-export type BannerTitleProps = HTMLAttributes<HTMLParagraphElement>;
+type BannerTitleProps = HTMLAttributes<HTMLParagraphElement>;
 
 const bannerTitleVariants: Record<BannerVariant, string> = {
   default: "text-undefined-foreground",
@@ -144,7 +143,7 @@ export const BannerTitle = forwardRef<HTMLParagraphElement, BannerTitleProps>(
 );
 BannerTitle.displayName = "BannerTitle";
 
-export type BannerStatusProps = ComponentProps<typeof Badge>;
+type BannerStatusProps = ComponentProps<typeof Badge>;
 
 export const BannerStatus = forwardRef<HTMLSpanElement, BannerStatusProps>(
   ({ outline = true, variant, className, ...props }, ref) => {
@@ -172,7 +171,7 @@ export const BannerStatus = forwardRef<HTMLSpanElement, BannerStatusProps>(
 );
 BannerStatus.displayName = "BannerStatus";
 
-export type BannerActionsProps = HTMLAttributes<HTMLDivElement>;
+type BannerActionsProps = HTMLAttributes<HTMLDivElement>;
 
 export const BannerActions = forwardRef<HTMLDivElement, BannerActionsProps>(
   ({ className, ...props }, ref) => (
@@ -193,7 +192,7 @@ const hoverClasses: Record<BannerVariant, string> = {
   warning: "hover:bg-warning-hover",
 };
 
-export type BannerActionProps = ComponentProps<typeof Button>;
+type BannerActionProps = ComponentProps<typeof Button>;
 
 export const BannerAction = forwardRef<HTMLButtonElement, BannerActionProps>(
   ({ variant = "ghost", size = "sm", className, ...props }, ref) => {
@@ -213,7 +212,7 @@ export const BannerAction = forwardRef<HTMLButtonElement, BannerActionProps>(
 );
 BannerAction.displayName = "BannerAction";
 
-export type BannerCloseProps = Omit<ComponentProps<typeof Button>, "size">;
+type BannerCloseProps = Omit<ComponentProps<typeof Button>, "size">;
 
 export const BannerClose = forwardRef<HTMLButtonElement, BannerCloseProps>(
   ({ variant = "ghost", onClick, className, ...props }, ref) => {

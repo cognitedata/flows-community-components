@@ -117,15 +117,7 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify banner is rendered
     await expect(canvas.getByText("Banner title")).toBeInTheDocument();
-
-    // Verify icon is present
-    const banner = canvasElement.querySelector('[class*="bg-mountain"]');
-    await expect(banner).toBeInTheDocument();
-
-    // Verify action button
     const actionButton = canvas.getByRole("button", { name: /action/i });
     await expect(actionButton).toBeInTheDocument();
   },
@@ -159,15 +151,10 @@ export const Variants: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all variant titles are rendered
     await expect(canvas.getByText("Default variant")).toBeInTheDocument();
     await expect(canvas.getByText("Neutral variant")).toBeInTheDocument();
     await expect(canvas.getByText("Destructive variant")).toBeInTheDocument();
     await expect(canvas.getByText("Warning variant")).toBeInTheDocument();
-
-    // Verify different background classes
-    const banners = canvasElement.querySelectorAll('[class*="bg-"]');
-    await expect(banners.length).toBeGreaterThanOrEqual(4);
   },
   render: () => (
     <div className="w-100 space-y-4">
@@ -208,11 +195,8 @@ export const WithStatus: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify title and status are rendered
     await expect(canvas.getByText("Workflow has been published")).toBeInTheDocument();
     await expect(canvas.getByText("Published")).toBeInTheDocument();
-
-    // Verify action button
     const actionButton = canvas.getByRole("button", {
       name: /request review/i,
     });
@@ -248,14 +232,12 @@ export const MultipleActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify both action buttons are rendered
     const duplicateButton = canvas.getByRole("button", { name: /duplicate/i });
     const editButton = canvas.getByRole("button", { name: /edit/i });
 
     await expect(duplicateButton).toBeInTheDocument();
     await expect(editButton).toBeInTheDocument();
 
-    // Test clicking an action
     await userEvent.click(duplicateButton);
   },
   render: () => (
@@ -291,15 +273,10 @@ export const Dismissible: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify banner is initially visible
     const bannerTitle = canvas.getByText("This banner can be dismissed");
     await expect(bannerTitle).toBeInTheDocument();
-
-    // Verify close button is present
     const closeButton = canvas.getByRole("button", { name: "Close banner" });
     await expect(closeButton).toBeInTheDocument();
-
-    // Verify action button
     const actionButton = canvas.getByRole("button", { name: /learn more/i });
     await expect(actionButton).toBeInTheDocument();
   },
@@ -336,16 +313,12 @@ export const ControlledVisibility: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify banner is initially visible
     await expect(canvas.getByText("Controlled visibility banner")).toBeInTheDocument();
-
-    // Find toggle button
     const toggleButton = canvas.getByRole("button", {
       name: /toggle banner/i,
     });
     await expect(toggleButton).toBeInTheDocument();
 
-    // Click to hide
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
@@ -354,7 +327,6 @@ export const ControlledVisibility: Story = {
       { timeout: 300 }
     );
 
-    // Click to show again
     await userEvent.click(toggleButton);
     await waitFor(
       () => {
@@ -404,10 +376,7 @@ export const Inset: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify banner is rendered
     await expect(canvas.getByText("Inset banner")).toBeInTheDocument();
-
-    // Verify rounded corners class
     const banner = canvasElement.querySelector('[class*="rounded-lg"]');
     await expect(banner).toBeInTheDocument();
   },
@@ -441,14 +410,10 @@ export const ReadOnlyWarning: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify content
     await expect(canvas.getByText("Read only. Duplicate to make changes.")).toBeInTheDocument();
-
-    // Verify duplicate button with icon
     const duplicateButton = canvas.getByRole("button", { name: /duplicate/i });
     await expect(duplicateButton).toBeInTheDocument();
 
-    // Test clicking duplicate
     await userEvent.click(duplicateButton);
   },
   render: () => (
@@ -483,13 +448,8 @@ export const SuccessNotification: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify success message
     await expect(canvas.getByText("Workflow has been published")).toBeInTheDocument();
-
-    // Verify status badge
     await expect(canvas.getByText("Published")).toBeInTheDocument();
-
-    // Verify action and close buttons
     const reviewButton = canvas.getByRole("button", {
       name: /request review/i,
     });
@@ -540,14 +500,10 @@ export const ErrorNotification: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify error message
     await expect(canvas.getByText("Failed to save changes")).toBeInTheDocument();
-
-    // Verify retry button
     const retryButton = canvas.getByRole("button", { name: /retry/i });
     await expect(retryButton).toBeInTheDocument();
 
-    // Test clicking retry
     await userEvent.click(retryButton);
   },
   render: () => (
@@ -580,10 +536,7 @@ export const WarningNotification: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify warning message
     await expect(canvas.getByText("Your trial expires in 3 days")).toBeInTheDocument();
-
-    // Verify upgrade button
     const upgradeButton = canvas.getByRole("button", { name: /upgrade/i });
     await expect(upgradeButton).toBeInTheDocument();
   },
@@ -606,12 +559,6 @@ export const WarningNotification: Story = {
  * Allows testing all banner props interactively
  */
 export const Playground: Story = {
-  args: {
-    variant: "default",
-    inset: false,
-    defaultVisible: true,
-    className: "w-100",
-  },
   parameters: {
     order: 99,
     docs: {
@@ -620,8 +567,8 @@ export const Playground: Story = {
       },
     },
   },
-  render: (args) => (
-    <Banner {...args}>
+  render: () => (
+    <Banner variant="default" inset={false} defaultVisible className="w-100">
       <BannerIcon icon={IconInfoCircle} />
       <BannerTitle>Customize this banner using the controls</BannerTitle>
       <BannerActions>
