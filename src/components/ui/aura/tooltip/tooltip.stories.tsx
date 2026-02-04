@@ -6,8 +6,8 @@ import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 
 const getOpenTooltip = (tooltipBody: ReturnType<typeof within>, matcher?: RegExp) => {
-  const tooltips = tooltipBody.queryAllByTestId("tooltip-content");
-  return tooltips.find((tooltip) => {
+  const tooltips = tooltipBody.queryAllByTestId("tooltip-content") as HTMLElement[];
+  return tooltips.find((tooltip: HTMLElement) => {
     if (!tooltip.hasAttribute("data-open")) {
       return false;
     }
