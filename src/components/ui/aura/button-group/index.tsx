@@ -1,16 +1,6 @@
 /**
- * Button Group Component
- *
- * A component for grouping buttons with horizontal or vertical orientation.
- *
- * @example
- * import { ButtonGroup, ButtonGroupSeparator } from '@/components/ui/aura/button-group';
+ * Button group components for grouped controls.
  */
-export {
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-  // eslint-disable-next-line react-refresh/only-export-components
-  buttonGroupVariants,
-} from "./button-group";
+export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
+export { buttonGroupVariants } from "./button-group.variants";
 export { ButtonGroupMetadata } from "./button-group.metadata";

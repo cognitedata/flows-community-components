@@ -1,85 +1,67 @@
+import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+
 import { Slot } from "@radix-ui/react-slot";
-import { type VariantProps, cva } from "class-variance-authority";
-import type { ComponentProps } from "react";
+import type { VariantProps } from "class-variance-authority";
 
 import { Separator } from "@/components/ui/aura/separator";
 import { cn } from "@/lib/utils";
+import { buttonGroupVariants } from "./button-group.variants";
 
-const buttonGroupVariants = cva(
-  "flex w-fit items-stretch [&>*]:focus-visible:z-10 [&>*]:focus-visible:relative [&>[data-slot=select-trigger]:not([class*='w-'])]:w-fit [&>input]:flex-1 has-[select[aria-hidden=true]:last-child]:[&>[data-slot=select-trigger]:last-of-type]:rounded-r-md has-[>[data-slot=button-group]]:gap-2",
-  {
-    variants: {
-      orientation: {
-        horizontal:
-          "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none",
-        vertical:
-          "flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none",
-      },
-    },
-    defaultVariants: {
-      orientation: "horizontal",
-    },
-  }
-);
+type ButtonGroupProps = ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>;
 
-function ButtonGroup({
-  className,
-  orientation,
-  ...props
-}: ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>) {
-  return (
+const ButtonGroup = forwardRef<ComponentRef<"div">, ButtonGroupProps>(
+  ({ className, orientation, ...props }, ref) => (
     <div
+      ref={ref}
       role="group"
       data-slot="button-group"
       data-orientation={orientation}
       className={cn(buttonGroupVariants({ orientation }), className)}
       {...props}
     />
-  );
-}
+  )
+);
+ButtonGroup.displayName = "ButtonGroup";
 
-function ButtonGroupText({
-  className,
-  asChild = false,
-  ...props
-}: ComponentProps<"div"> & {
+type ButtonGroupTextProps = ComponentProps<"div"> & {
   asChild?: boolean;
-}) {
-  const Comp = asChild ? Slot : "div";
+};
 
-  return (
-    <Comp
-      className={cn(
-        "bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
-        className
-      )}
-      {...props}
-    />
-  );
-}
+const ButtonGroupText = forwardRef<ComponentRef<"div">, ButtonGroupTextProps>(
+  ({ className, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "div";
 
-function ButtonGroupSeparator({
-  className,
-  orientation = "vertical",
-  ...props
-}: ComponentProps<typeof Separator>) {
-  return (
+    return (
+      <Comp
+        ref={ref}
+        data-slot="button-group-text"
+        className={cn(
+          "bg-muted flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+ButtonGroupText.displayName = "ButtonGroupText";
+
+type ButtonGroupSeparatorProps = ComponentProps<typeof Separator>;
+
+const ButtonGroupSeparator = forwardRef<ComponentRef<typeof Separator>, ButtonGroupSeparatorProps>(
+  ({ className, orientation = "vertical", ...props }, ref) => (
     <Separator
+      ref={ref}
       data-slot="button-group-separator"
       orientation={orientation}
       className={cn(
-        "bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto",
+        "bg-input relative m-0 self-stretch data-[orientation=vertical]:h-auto",
         className
       )}
       {...props}
     />
-  );
-}
+  )
+);
+ButtonGroupSeparator.displayName = "ButtonGroupSeparator";
 
-export {
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-  // eslint-disable-next-line react-refresh/only-export-components
-  buttonGroupVariants,
-};
+export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText };
