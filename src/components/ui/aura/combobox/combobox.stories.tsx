@@ -725,7 +725,7 @@ export const WithCheckboxes: Story = {
                         >
                           <Checkbox
                             checked={isSelected}
-                            className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:text-background"
+                            className="data-[checked]:bg-foreground data-[checked]:border-foreground data-[checked]:text-background dark:data-[checked]:bg-foreground dark:data-[checked]:text-background"
                           />
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {option.label}

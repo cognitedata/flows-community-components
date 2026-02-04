@@ -95,7 +95,7 @@ export const ConfirmationContentTrigger = ({
         {...props}
       >
         <span className="flex-1 min-w-0 text-left truncate">{children}</span>
-        <IconChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
+        <IconChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[open]/collapsible-trigger:rotate-180" />
       </Button>
     }
   />

@@ -209,13 +209,13 @@ export default function HomePage() {
                   <TabsList className="h-12 p-1 bg-muted/50 backdrop-blur-sm border border-border/50">
                     <TabsTrigger
                       value="dune"
-                      className="h-full px-6 text-base data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Create with Dune
                     </TabsTrigger>
                     <TabsTrigger
                       value="custom"
-                      className="h-full px-6 text-base data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Custom installation
                     </TabsTrigger>
