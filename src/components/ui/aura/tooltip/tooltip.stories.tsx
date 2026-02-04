@@ -611,7 +611,7 @@ export const WithOffset: Story = {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger render={<Button variant="outline">Hover me (offset)</Button>} />
-        <TooltipContent side="top" sideOffset={12}>
+        <TooltipContent side="top" sideOffset={20}>
           This tooltip has increased spacing from the button
         </TooltipContent>
       </Tooltip>
