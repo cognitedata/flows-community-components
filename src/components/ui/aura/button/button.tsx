@@ -1,6 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
-import { type ComponentProps, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { cn, focusRing, focusRingDestructive } from "@/lib/utils";
 
@@ -37,15 +37,10 @@ const buttonVariants = cva(
 
 type ButtonProps = ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
-    /**
-     * Change the default rendered element for the one passed as a child,
-     * merging their props and behavior using Radix UI Slot.
-     * @default false
-     */
     asChild?: boolean;
   };
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<ComponentRef<"button">, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
