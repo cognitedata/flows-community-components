@@ -1,18 +1,3 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import {
-  IconChartBar as BarChart3,
-  IconDownload,
-  IconEdit,
-  IconFileText,
-  IconHomeFilled,
-  IconLayoutSidebar,
-  IconPlus,
-  IconSettings,
-  IconShare,
-  IconUsers,
-} from "@tabler/icons-react";
-import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,6 +34,21 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/aura/sidebar";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconChartBar as BarChart3,
+  IconDownload,
+  IconEdit,
+  IconFileText,
+  IconHomeFilled,
+  IconLayoutSidebar,
+  IconPlus,
+  IconSettings,
+  IconShare,
+  IconUsers,
+} from "@tabler/icons-react";
+import { useState } from "react";
 import { Topbar, TopbarBreadcrumbs, TopbarCenter, TopbarLeft, TopbarRight } from "./topbar";
 
 const meta: Meta<typeof Topbar> = {
@@ -248,12 +248,14 @@ export const EosStyle: Story = {
               Download
             </Button>
             <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button size="sm">
-                  <IconEdit className="h-4 w-4" />
-                  New chat
-                </Button>
-              </AlertDialogTrigger>
+              <AlertDialogTrigger
+                render={
+                  <Button size="sm">
+                    <IconEdit className="h-4 w-4" />
+                    New chat
+                  </Button>
+                }
+              />
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Start a new chat?</AlertDialogTitle>

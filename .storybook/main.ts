@@ -1,13 +1,18 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 import { mergeConfig } from "vite";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const isChromatic = Boolean(process.env.CHROMATIC);
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-docs",
-    "@storybook/addon-interactions",
     "@storybook/addon-a11y",
-    "@chromatic-com/storybook",
+    ...(isChromatic ? ["@chromatic-com/storybook"] : []),
+    "@storybook/addon-vitest",
   ],
   framework: {
     name: "@storybook/react-vite",
@@ -24,6 +29,11 @@ const config: StorybookConfig = {
 
     return mergeConfig(config, {
       base: basePath,
+      resolve: {
+        alias: {
+          "virtual:cogdocs": path.resolve(dirname, "../src/mocks/cogdocs.ts"),
+        },
+      },
     });
   },
 };

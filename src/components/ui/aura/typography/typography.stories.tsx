@@ -1,6 +1,6 @@
+import { CodeBlock } from "@/components/ui/aura/code-block";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
-import { CodeBlock } from "@/components/ui/aura/code-block";
 import { getTypographyBySection, typographyPatterns, typographyScale } from "./typography";
 
 /**

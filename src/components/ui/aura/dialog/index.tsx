@@ -1,7 +1,7 @@
 /**
  * Dialog Component
  *
- * A modal dialog with overlay, content, and close affordances built on Radix Dialog.
+ * A modal dialog with overlay, content, and close affordances built on Base UI Dialog.
  *
  * @example
  * import { Dialog, DialogTrigger, DialogContent, DialogTitle } from '@/components/ui/aura/dialog';

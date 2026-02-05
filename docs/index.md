@@ -58,9 +58,11 @@ For contributors and developers working on this library:
 - See [IMPORT_SYSTEM.md](../IMPORT_SYSTEM.md) - Complete guide to the import and publishing system
 - See [PUBLISHING_WORKFLOW.md](../PUBLISHING_WORKFLOW.md) - How to publish components
 - See [DEVELOPMENT.md](../DEVELOPMENT.md) - Development setup and guidelines
+- See [base-ui-migration.md](./base-ui-migration.md) - Notes for migrating primitives from Radix to Base UI
 
 ## Support
 
 - **Documentation Issues** - File an issue if you find problems with the docs
 - **Component Requests** - Suggest new components or improvements
 - **Bug Reports** - Report issues with specific components on their individual pages
+

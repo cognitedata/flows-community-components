@@ -72,6 +72,10 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - InputGroup stories should showcase all alignment variants (inline-start, inline-end, block-start, block-end) and how it's used in compound components like PromptInput.
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
+- Tooltip delay stories are more stable when waiting for `getOpenTooltip` with a longer timeout.
+- Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
+- Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
+- Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
 
 # Storybook Stories
 
@@ -85,5 +89,6 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - All stories must have `parameters: { order: N }`
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
-- Use `canvas.findByTestId()` for portal content testing
+- Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
+- Use `canvas.findByTestId()` only for portal content when semantic queries aren't available
 - Run `pnpm lint` and `pnpm tsc -b` after changes
