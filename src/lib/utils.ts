@@ -33,7 +33,7 @@ export const invalidState =
 export const disabledState =
   "disabled:bg-disabled disabled:border-transparent disabled:text-disabled-foreground disabled:pointer-events-none disabled:cursor-not-allowed" as const;
 export const readOnlyState =
-  "read-only:border-transparent read-only:text-foreground read-only:cursor-default read-only:hover:border-transparent" as const;
+  "read-only:border-transparent read-only:text-foreground read-only:cursor-default read-only:hover:border-transparent read-only:focus-visible:shadow-none read-only:focus-visible:border-transparent" as const;
 
 export function slugToPascalCase(slug: string): string {
   return slug
