@@ -28,6 +28,15 @@ const meta: Meta<typeof InputGroup> = {
   title: "Primitives/Input Group",
   component: InputGroup,
   tags: ["autodocs"],
+  argTypes: {
+    className: {
+      control: "text",
+      description: "Additional CSS classes",
+      table: {
+        category: "Styling",
+      },
+    },
+  },
   parameters: {
     layout: "centered",
   },
