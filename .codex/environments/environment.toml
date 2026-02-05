@@ -9,3 +9,8 @@ script = ""
 name = "Run"
 icon = "run"
 command = "pnpm dev"
+
+[[actions]]
+name = "Storybook"
+icon = "test"
+command = "pnpm test:storybook:ci"
