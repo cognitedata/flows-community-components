@@ -23,7 +23,16 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
-import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inline-citation";
+import {
+  InlineCitation,
+  InlineCitationCard,
+  InlineCitationCardBody,
+  InlineCitationCardTrigger,
+  InlineCitationGroup,
+  InlineCitationLink,
+  InlineCitationQuote,
+  InlineCitationSource,
+} from "./inline-citation";
 
 const meta: Meta<typeof InlineCitation> = {
   title: "AI/Inline Citation",
@@ -67,6 +76,7 @@ type Story = StoryObj<typeof InlineCitation>;
  */
 export const Default: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -77,11 +87,9 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all 7 citations are rendered
     const citations = canvas.getAllByRole("link");
     await expect(citations).toHaveLength(7);
 
-    // Check first citation has correct attributes
     const firstLink = citations[0];
     await expect(firstLink).toHaveAttribute("href", "https://example.com/image/pumpB.jpg");
     await expect(firstLink).toHaveAttribute("target", "_blank");
@@ -170,6 +178,7 @@ export const Default: Story = {
  */
 export const LinkCitation: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -180,13 +189,11 @@ export const LinkCitation: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the citation link
     const link = canvas.getByRole("link", { name: /pump 21PT1019/i });
     await expect(link).toBeInTheDocument();
     await expect(link).toHaveAttribute("href", "https://cognite.com/assets/pump-21PT1019");
     await expect(link).toHaveAttribute("target", "_blank");
 
-    // Test hover interaction
     await userEvent.hover(link);
     await expect(link).toBeVisible();
   },
@@ -220,6 +227,7 @@ export const LinkCitation: Story = {
  */
 export const InMessageContext: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -230,11 +238,9 @@ export const InMessageContext: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify multiple citations exist (inline + grouped)
     const links = canvas.getAllByRole("link");
     await expect(links.length).toBeGreaterThanOrEqual(4);
 
-    // Verify buttons for message actions exist
     const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
@@ -338,6 +344,7 @@ export const InMessageContext: Story = {
  */
 export const InvalidUrls: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -348,11 +355,9 @@ export const InvalidUrls: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Citations should render without errors (some invalid URLs may not create valid links)
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(3);
 
-    // Component should not have thrown an error
     const errorElements = canvas.queryAllByText(/error/i);
     await expect(errorElements.length).toBe(0);
   },
@@ -390,6 +395,7 @@ export const InvalidUrls: Story = {
  */
 export const LongUrls: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -407,7 +413,6 @@ export const LongUrls: Story = {
       "https://example.com/very/long/path/with/many/segments/and/query/parameters?param1=value1&param2=value2&param3=value3&param4=value4&param5=value5"
     );
 
-    // Verify link renders without overflow issues
     await expect(link).toBeVisible();
   },
   render: () => (
@@ -434,6 +439,7 @@ export const LongUrls: Story = {
  */
 export const LongCitationText: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -447,7 +453,6 @@ export const LongCitationText: Story = {
     const link = canvas.getByRole("link");
     await expect(link).toBeInTheDocument();
 
-    // Verify the link contains the long text
     await expect(link).toHaveTextContent(
       "This is a very long citation text that should not wrap to multiple lines"
     );
@@ -476,6 +481,7 @@ export const LongCitationText: Story = {
  */
 export const ManyCitations: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -486,7 +492,6 @@ export const ManyCitations: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Should render all citations
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThan(10);
   },
@@ -536,6 +541,7 @@ export const ManyCitations: Story = {
  */
 export const ColorVariants: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Comparison of all available colour variants for citations.",
@@ -572,6 +578,125 @@ export const ColorVariants: Story = {
         <InlineCitation>
           <InlineCitationLink href="https://example.com" variant="nordic" icon={IconFile}>
             Nordic
+          </InlineCitationLink>
+        </InlineCitation>
+      </p>
+    </div>
+  ),
+};
+
+/**
+ * Citation badge that opens a hover card with source details and a quote.
+ */
+export const WithCardAndSource: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Inline citation badge that opens a hover card with detailed source information and an optional quote.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const trigger = canvas.getByText("PumpB source");
+    await expect(trigger).toBeInTheDocument();
+    await expect(trigger).toHaveTextContent(/\+1/);
+
+    await userEvent.hover(trigger);
+
+    await expect(
+      canvas.findByText("Pump B vibration trend – 72h window")
+    ).resolves.toBeInTheDocument();
+    await expect(
+      canvas.findByText(/“Vibration levels increased significantly during startup ramps.”/i)
+    ).resolves.toBeInTheDocument();
+  },
+  render: () => (
+    <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
+      <p>
+        The abnormal behaviour is primarily backed by{" "}
+        <InlineCitation>
+          <InlineCitationCard>
+            <InlineCitationCardTrigger
+              sources={[
+                "https://example.com/pumpB/vibration-window",
+                "https://example.com/pumpB/maintenance-log",
+              ]}
+              icon={IconTimeline}
+              className="cursor-pointer"
+            >
+              PumpB source
+            </InlineCitationCardTrigger>
+            <InlineCitationCardBody>
+              <InlineCitationSource
+                title="Pump B vibration trend – 72h window"
+                url="https://example.com/pumpB/vibration-window"
+                description="Time series showing increasing vibration amplitude during high-load operation."
+              />
+              <InlineCitationQuote>
+                “Vibration levels increased significantly during startup ramps.”
+              </InlineCitationQuote>
+            </InlineCitationCardBody>
+          </InlineCitationCard>
+        </InlineCitation>
+        , which correlates with both temperature and RPM changes.
+      </p>
+    </div>
+  ),
+};
+
+/**
+ * Link target and icon variants without hover card.
+ */
+export const LinkTargetAndIconVariants: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Compares InlineCitationLink with and without icons, and with _self vs _blank link targets.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const selfLink = canvas.getByRole("link", { name: /self target/i });
+    const blankLink = canvas.getByRole("link", { name: /blank target/i });
+
+    await expect(selfLink).toBeInTheDocument();
+    await expect(selfLink).toHaveAttribute("href", "/local/report");
+    await expect(selfLink).toHaveAttribute("target", "_self");
+    await expect(selfLink).not.toHaveAttribute("rel");
+
+    await expect(blankLink).toBeInTheDocument();
+    await expect(blankLink).toHaveAttribute("href", "https://example.com/remote/report");
+    await expect(blankLink).toHaveAttribute("target", "_blank");
+    await expect(blankLink).toHaveAttribute("rel", "noopener noreferrer");
+  },
+  render: () => (
+    <div className="space-y-3 text-sm max-w-2xl">
+      <p>
+        Local report (no icon, opens in same tab):{" "}
+        <InlineCitation>
+          <InlineCitationLink href="/local/report" target="_self">
+            Self target
+          </InlineCitationLink>
+        </InlineCitation>
+      </p>
+      <p>
+        Remote report (with icon, opens in new tab):{" "}
+        <InlineCitation>
+          <InlineCitationLink
+            href="https://example.com/remote/report"
+            target="_blank"
+            icon={IconFile}
+            variant="mountain"
+          >
+            Blank target
           </InlineCitationLink>
         </InlineCitation>
       </p>
