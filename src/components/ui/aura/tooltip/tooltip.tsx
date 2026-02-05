@@ -74,7 +74,7 @@ const TooltipContent = forwardRef<
           alignOffset={alignOffset}
           side={side}
           sideOffset={sideOffset}
-          className="isolate z-50"
+          className="isolate z-50 min-w-max"
         >
           <TooltipPrimitive.Popup
             ref={ref}
