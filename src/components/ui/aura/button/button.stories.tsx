@@ -629,12 +629,8 @@ export const ClickInteraction: Story = {
     const [count, setCount] = useState(0);
     return (
       <div className="flex flex-col items-center gap-4">
-        <Button onClick={() => setCount((c) => c + 1)} data-testid="counter-button">
-          Clicked {count} times
-        </Button>
-        <div data-testid="click-count" className="text-sm text-muted-foreground">
-          Count: {count}
-        </div>
+        <Button onClick={() => setCount((c) => c + 1)}>Clicked {count} times</Button>
+        <div className="text-sm text-muted-foreground">Count: {count}</div>
       </div>
     );
   },
@@ -648,8 +644,8 @@ export const ClickInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByTestId("counter-button");
-    const counter = canvas.getByTestId("click-count");
+    const button = canvas.getByRole("button", { name: /clicked \d+ times/i });
+    const counter = canvas.getByText(/^Count: \d+$/);
     await expect(counter).toHaveTextContent("Count: 0");
     await userEvent.click(button);
     await waitFor(() => expect(counter).toHaveTextContent("Count: 1"));
@@ -665,7 +661,7 @@ export const ClickInteraction: Story = {
  */
 export const KeyboardNavigation: Story = {
   render: () => (
-    <div className="flex items-center gap-2" data-testid="button-group">
+    <div className="flex items-center gap-2">
       <Button>First</Button>
       <Button>Second</Button>
       <Button>Third</Button>
@@ -1221,12 +1217,7 @@ export const EdgeCaseRapidStateChanges: Story = {
 
     return (
       <div className="flex flex-col gap-4">
-        <Button
-          variant={variant}
-          disabled={disabled}
-          onClick={() => setCount((c) => c + 1)}
-          data-testid="rapid-change-button"
-        >
+        <Button variant={variant} disabled={disabled} onClick={() => setCount((c) => c + 1)}>
           Clicked {count} times
         </Button>
         <div className="flex gap-2">
@@ -1255,9 +1246,9 @@ export const EdgeCaseRapidStateChanges: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByTestId("rapid-change-button");
-    const toggleDisabled = canvas.getByText("Toggle Disabled");
-    const toggleVariant = canvas.getByText("Toggle Variant");
+    const button = canvas.getByRole("button", { name: /clicked \d+ times/i });
+    const toggleDisabled = canvas.getByRole("button", { name: /toggle disabled/i });
+    const toggleVariant = canvas.getByRole("button", { name: /toggle variant/i });
     await userEvent.click(button);
     await userEvent.click(button);
     await userEvent.click(toggleDisabled);
