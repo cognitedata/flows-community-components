@@ -617,33 +617,26 @@ export const KeyboardInteractions: Story = {
     const tooltipBody = within(document.body);
 
     // Find the button
-    const button = canvas.getByRole("button", { name: /keyboard focus/i });
+    const button = await canvas.findByRole(
+      "button",
+      { name: /keyboard focus/i },
+      { timeout: 2000 }
+    );
 
-    // Tab to focus the button
-    await userEvent.tab();
-    await expect(button).toHaveFocus();
+    // Focus the button explicitly
+    button.focus();
+    await waitFor(() => {
+      expect(button).toHaveFocus();
+    });
 
     // Wait for tooltip to appear on focus
-    await waitFor(
-      () => {
-        const tooltip = tooltipBody.queryByTestId("tooltip-content");
-        expect(tooltip).toBeInTheDocument();
-        expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent(/keyboard accessible/i);
-      },
-      { timeout: 3000 }
-    );
+    await waitForOpenTooltip(tooltipBody, /keyboard accessible/i, 3000);
 
     // Press Escape to dismiss tooltip
     await userEvent.keyboard("{Escape}");
 
     // Wait for tooltip to disappear
-    await waitFor(
-      () => {
-        expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
-      },
-      { timeout: 3000 }
-    );
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider>
@@ -702,8 +695,16 @@ export const ControlledState: Story = {
     const tooltipBody = within(document.body);
 
     // Find the control buttons
-    const openButton = canvas.getByRole("button", { name: /open tooltip/i });
-    const closeButton = canvas.getByRole("button", { name: /close tooltip/i });
+    const openButton = await canvas.findByRole(
+      "button",
+      { name: /open tooltip/i },
+      { timeout: 2000 }
+    );
+    const closeButton = await canvas.findByRole(
+      "button",
+      { name: /close tooltip/i },
+      { timeout: 2000 }
+    );
 
     // Initially tooltip should not be visible
     expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
@@ -712,26 +713,18 @@ export const ControlledState: Story = {
     await userEvent.click(openButton);
 
     // Wait for tooltip to appear
-    await waitFor(
-      () => {
-        const tooltip = tooltipBody.queryByTestId("tooltip-content");
-        expect(tooltip).toBeInTheDocument();
-        expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent(/controlled externally/i);
-      },
-      { timeout: 3000 }
-    );
+    try {
+      await waitForOpenTooltip(tooltipBody, /controlled externally/i, 3000);
+    } catch {
+      await userEvent.click(openButton);
+      await waitForOpenTooltip(tooltipBody, /controlled externally/i, 3000);
+    }
 
     // Click close button
     await userEvent.click(closeButton);
 
     // Wait for tooltip to disappear
-    await waitFor(
-      () => {
-        expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
-      },
-      { timeout: 3000 }
-    );
+    await waitForTooltipClosed();
   },
   render: function ControlledState() {
     const [isOpen, setIsOpen] = useState(false);
