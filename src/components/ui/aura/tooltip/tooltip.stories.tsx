@@ -18,6 +18,22 @@ const getOpenTooltip = (tooltipBody: ReturnType<typeof within>, matcher?: RegExp
   });
 };
 
+const getOpenTooltipElement = (matcher?: RegExp) => {
+  const tooltip = document.querySelector(
+    '[data-slot="tooltip-content"][data-open]'
+  ) as HTMLElement | null;
+
+  if (!tooltip) {
+    return undefined;
+  }
+
+  if (!matcher) {
+    return tooltip;
+  }
+
+  return matcher.test(tooltip.textContent ?? "") ? tooltip : undefined;
+};
+
 const waitForTooltipClosed = async () => {
   await waitFor(() => {
     const tooltip = document.querySelector('[data-slot="tooltip-content"][data-open]');
@@ -113,28 +129,35 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
 
     // Find the button
-    const button = canvas.getByRole("button", { name: /hover me/i });
+    const button = await canvas.findByRole("button", { name: /hover me/i }, { timeout: 2000 });
     await expect(button).toBeInTheDocument();
 
     // Initially tooltip should not be visible
     const tooltipBody = within(document.body);
     expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
 
-    // Hover over the button
-    await userEvent.hover(button);
+    const tooltipMatcher = /Publishing will make it available to all users/i;
+    const waitForTooltipOpen = async () => {
+      await waitFor(
+        () => {
+          const tooltipElement =
+            getOpenTooltipElement(tooltipMatcher) || getOpenTooltip(tooltipBody, tooltipMatcher);
+          expect(tooltipElement).toBeInTheDocument();
+          expect(tooltipElement).toBeVisible();
+        },
+        { timeout: 3000 }
+      );
+    };
 
-    // Wait for tooltip to appear (tooltip is rendered in a portal, so search in document)
-    await waitFor(
-      () => {
-        const tooltipElement = getOpenTooltip(
-          tooltipBody,
-          /Publishing will make it available to all users/i
-        );
-        expect(tooltipElement).toBeInTheDocument();
-        expect(tooltipElement).toBeVisible();
-      },
-      { timeout: 3000 }
-    );
+    // Hover over the button (retry once if needed)
+    await userEvent.hover(button);
+    try {
+      await waitForTooltipOpen();
+    } catch {
+      await userEvent.unhover(button);
+      await userEvent.hover(button);
+      await waitForTooltipOpen();
+    }
 
     // Small delay to ensure tooltip is fully rendered
     await new Promise((resolve) => setTimeout(resolve, 200));

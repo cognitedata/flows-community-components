@@ -62,6 +62,7 @@ This applies to ALL React imports.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable when waiting for `getOpenTooltip` with a longer timeout.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
+- Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
 
 # Storybook Stories
 
