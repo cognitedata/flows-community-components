@@ -607,12 +607,8 @@ export const WithCardAndSource: Story = {
 
     await userEvent.hover(trigger);
 
-    await expect(
-      canvas.findByText("Pump B vibration trend – 72h window")
-    ).resolves.toBeInTheDocument();
-    await expect(
-      canvas.findByText(/“Vibration levels increased significantly during startup ramps.”/i)
-    ).resolves.toBeInTheDocument();
+    await canvas.findByText("Pump B vibration trend – 72h window");
+    await canvas.findByText(/“Vibration levels increased significantly during startup ramps.”/i);
   },
   render: () => (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
