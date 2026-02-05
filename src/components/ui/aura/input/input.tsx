@@ -1,4 +1,4 @@
-import { type ComponentProps, forwardRef, useEffect, useRef, useState } from "react";
+import { type ComponentProps, type ReactNode, forwardRef, useState } from "react";
 
 import { HelperText } from "@/components/ui/aura/helper-text";
 import {
@@ -17,107 +17,28 @@ import {
   invalidState,
   readOnlyState,
 } from "@/lib/utils";
-import { IconCheck, IconCopy, IconEye, IconEyeOff } from "@tabler/icons-react";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 interface InputProps extends ComponentProps<"input"> {
   errorMessage?: string;
-  copy?: boolean;
 }
 
+const InputErrorMessage = ({ errorMessage }: { errorMessage?: ReactNode }) => {
+  if (!errorMessage) return null;
+  return (
+    <HelperText className="pt-1" isError>
+      {errorMessage}
+    </HelperText>
+  );
+};
+
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    { className, type, errorMessage, copy = true, readOnly, value, defaultValue, ...props },
-    ref
-  ) => {
-    const [copied, setCopied] = useState(false);
-    const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-
-    useEffect(() => {
-      setIsClipboardAvailable(
-        typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined"
-      );
-    }, []);
-
-    useEffect(() => {
-      return () => {
-        if (timeoutRef.current !== undefined) {
-          clearTimeout(timeoutRef.current);
-        }
-      };
-    }, []);
-
-    const handleCopy = () => {
-      const inputValue = value || defaultValue;
-      if (inputValue && typeof inputValue === "string") {
-        void navigator.clipboard
-          .writeText(inputValue)
-          .then(() => {
-            setCopied(true);
-            if (timeoutRef.current) {
-              clearTimeout(timeoutRef.current);
-            }
-            timeoutRef.current = setTimeout(() => setCopied(false), 2000);
-          })
-          .catch(() => undefined);
-      }
-    };
-
-    const shouldShowCopy = readOnly && copy && isClipboardAvailable;
-
-    if (shouldShowCopy) {
-      return (
-        <>
-          <InputGroup>
-            <input
-              ref={ref}
-              type={type}
-              readOnly={readOnly}
-              value={value}
-              defaultValue={defaultValue}
-              data-slot="input-group-control"
-              aria-invalid={errorMessage ? true : undefined}
-              className={cn(
-                "w-full flex-1 rounded-md border-0 bg-transparent shadow-none dark:bg-transparent",
-                "focus-visible:shadow-none focus-visible:border-transparent",
-                "aria-invalid:focus-visible:shadow-none aria-invalid:focus-visible:border-transparent",
-                "h-9 px-3 py-2 text-sm placeholder:text-muted-foreground",
-                filledState,
-                focusState,
-                invalidState,
-                disabledState,
-                readOnlyState,
-                className
-              )}
-              {...props}
-            />
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                onClick={handleCopy}
-                aria-label={copied ? "Copied" : "Copy to clipboard"}
-                size="icon-sm"
-              >
-                {copied ? <IconCheck className="size-4" /> : <IconCopy className="size-4" />}
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
-          {errorMessage && (
-            <HelperText className="pt-1" isError>
-              {errorMessage}
-            </HelperText>
-          )}
-        </>
-      );
-    }
-
+  ({ className, type, errorMessage, ...props }, ref) => {
     return (
       <>
         <input
           ref={ref}
           type={type}
-          readOnly={readOnly}
-          value={value}
-          defaultValue={defaultValue}
           data-slot="input"
           aria-invalid={errorMessage ? true : undefined}
           className={cn(
@@ -133,12 +54,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           {...props}
         />
-
-        {errorMessage && (
-          <HelperText className="pt-1" isError>
-            {errorMessage}
-          </HelperText>
-        )}
+        <InputErrorMessage errorMessage={errorMessage} />
       </>
     );
   }
@@ -146,7 +62,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = "Input";
 
-interface PasswordInputProps extends Omit<InputProps, "type" | "copy"> {
+interface PasswordInputProps extends Omit<InputProps, "type"> {
   defaultVisible?: boolean;
 }
 
@@ -174,11 +90,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
-        {errorMessage && (
-          <HelperText className="pt-1" isError>
-            {errorMessage}
-          </HelperText>
-        )}
+        <InputErrorMessage errorMessage={errorMessage} />
       </>
     );
   }

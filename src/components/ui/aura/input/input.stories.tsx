@@ -1,7 +1,14 @@
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/aura/input-group";
 import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
 import { Input, PasswordInput } from "./input";
 
 const meta: Meta<typeof Input> = {
@@ -173,34 +180,107 @@ export const Disabled: Story = {
 };
 
 /**
- * Read-only input with copy button.
+ * Read-only input.
  */
 export const ReadOnly: Story = {
   render: () => (
-    <div className="space-y-4">
-      <div className="grid w-full items-center gap-1">
-        <Label htmlFor="readonly-value">API Key</Label>
-        <Input id="readonly-value" defaultValue="sk-1234567890abcdef" readOnly />
-      </div>
-      <div className="grid w-full items-center gap-1">
-        <Label htmlFor="readonly-no-copy">Read-only without copy</Label>
-        <Input id="readonly-no-copy" defaultValue="Cannot copy this" readOnly copy={false} />
-      </div>
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="readonly-value">User ID</Label>
+      <Input id="readonly-value" defaultValue="user-12345" readOnly />
     </div>
   ),
   parameters: {
     order: 4,
     docs: {
       description: {
-        story:
-          "Read-only inputs display data without allowing user modification. A copy button is shown by default, which can be disabled with copy={false}.",
+        story: "Read-only inputs display data without allowing user modification.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const firstInput = canvas.getByDisplayValue("sk-1234567890abcdef");
-    await expect(firstInput).toHaveAttribute("readonly");
+    const input = canvas.getByDisplayValue("user-12345");
+    await expect(input).toHaveAttribute("readonly");
+  },
+};
+
+/**
+ * Read-only input with copy button using InputGroup composition.
+ */
+export const ReadOnlyWithCopy: Story = {
+  render: function ReadOnlyWithCopyExample() {
+    const [copied, setCopied] = useState(false);
+    const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+    useEffect(() => {
+      setIsClipboardAvailable(
+        typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined"
+      );
+    }, []);
+
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current !== undefined) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
+    }, []);
+
+    const handleCopy = () => {
+      const value = "sk-1234567890abcdef";
+      void navigator.clipboard
+        .writeText(value)
+        .then(() => {
+          setCopied(true);
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+          timeoutRef.current = setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(() => undefined);
+    };
+
+    if (!isClipboardAvailable) {
+      return (
+        <div className="grid w-full items-center gap-1">
+          <Label htmlFor="readonly-api-key">API Key</Label>
+          <Input id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="readonly-api-key">API Key</Label>
+        <InputGroup>
+          <InputGroupInput id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              onClick={handleCopy}
+              aria-label={copied ? "Copied" : "Copy to clipboard"}
+              size="icon-sm"
+            >
+              {copied ? <IconCheck className="size-4" /> : <IconCopy className="size-4" />}
+            </InputGroupButton>
+          </InputGroupAddon>
+        </InputGroup>
+      </div>
+    );
+  },
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story:
+          "Example of a read-only input with copy functionality using InputGroup composition. The copy logic is implemented in the story, not in the Input component itself.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByDisplayValue("sk-1234567890abcdef");
+    await expect(input).toHaveAttribute("readonly");
 
     const copyButton = canvas.getByLabelText("Copy to clipboard");
     await expect(copyButton).toBeInTheDocument();
@@ -226,7 +306,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
-    order: 9,
+    order: 10,
     docs: {
       description: {
         story: "Input with validation error message displayed.",
@@ -251,7 +331,7 @@ export const WithDefaultValue: Story = {
     </div>
   ),
   parameters: {
-    order: 10,
+    order: 11,
     docs: {
       description: {
         story: "Input with a pre-filled default value.",
@@ -299,7 +379,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
-    order: 11,
+    order: 12,
     docs: {
       description: {
         story: "Controlled input with external state management.",
@@ -350,7 +430,7 @@ export const InputTypes: Story = {
     </div>
   ),
   parameters: {
-    order: 12,
+    order: 13,
     docs: {
       description: {
         story: "Various input types for different data formats.",
@@ -388,7 +468,7 @@ export const FormExample: Story = {
     </form>
   ),
   parameters: {
-    order: 13,
+    order: 14,
     docs: {
       description: {
         story: "Complete form example with email and password inputs.",
@@ -426,7 +506,7 @@ export const AllStates: Story = {
     </div>
   ),
   parameters: {
-    order: 14,
+    order: 15,
     docs: {
       description: {
         story: "All input states for comparison.",
@@ -475,7 +555,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 15,
+    order: 16,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -505,7 +585,7 @@ export const PasswordBasic: Story = {
     </div>
   ),
   parameters: {
-    order: 5,
+    order: 6,
     docs: {
       description: {
         story: "Password input with built-in show/hide toggle button.",
@@ -543,7 +623,7 @@ export const PasswordWithValue: Story = {
     </div>
   ),
   parameters: {
-    order: 6,
+    order: 7,
     docs: {
       description: {
         story: "Password input with a pre-filled value.",
@@ -567,7 +647,7 @@ export const PasswordWithError: Story = {
     </div>
   ),
   parameters: {
-    order: 7,
+    order: 8,
     docs: {
       description: {
         story: "Password input with validation error message.",
@@ -606,7 +686,7 @@ export const PasswordStates: Story = {
     </div>
   ),
   parameters: {
-    order: 8,
+    order: 9,
     docs: {
       description: {
         story: "All password input states for comparison.",
