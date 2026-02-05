@@ -47,6 +47,15 @@ const meta: Meta<typeof Input> = {
         defaultValue: { summary: "false" },
       },
     },
+    readOnly: {
+      control: "boolean",
+      description: "Make the input read-only",
+      table: {
+        category: "State",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
+    },
     errorMessage: {
       control: "text",
       description: "Error message to display",
@@ -184,6 +193,39 @@ export const Disabled: Story = {
 };
 
 /**
+ * Read-only input.
+ */
+export const ReadOnly: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="readonly-empty">Read-only (empty)</Label>
+        <Input id="readonly-empty" placeholder="Input text" readOnly />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="readonly-value">Read-only (with value)</Label>
+        <Input id="readonly-value" defaultValue="Input text" readOnly />
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Read-only inputs display data without allowing user modification.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const inputs = canvas.getAllByRole("textbox");
+    for (const input of inputs) {
+      await expect(input).toHaveAttribute("readonly");
+    }
+  },
+};
+
+/**
  * Input with error message.
  */
 export const WithError: Story = {
@@ -194,7 +236,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
-    order: 5,
+    order: 6,
     docs: {
       description: {
         story: "Input with validation error message displayed.",
@@ -219,7 +261,7 @@ export const WithDefaultValue: Story = {
     </div>
   ),
   parameters: {
-    order: 6,
+    order: 7,
     docs: {
       description: {
         story: "Input with a pre-filled default value.",
@@ -267,7 +309,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
-    order: 7,
+    order: 8,
     docs: {
       description: {
         story: "Controlled input with external state management.",
@@ -318,7 +360,7 @@ export const InputTypes: Story = {
     </div>
   ),
   parameters: {
-    order: 8,
+    order: 9,
     docs: {
       description: {
         story: "Various input types for different data formats.",
@@ -356,7 +398,7 @@ export const FormExample: Story = {
     </form>
   ),
   parameters: {
-    order: 9,
+    order: 10,
     docs: {
       description: {
         story: "Complete form example with email and password inputs.",
@@ -384,13 +426,17 @@ export const AllStates: Story = {
         <Input id="state-disabled" placeholder="Input text" disabled />
       </div>
       <div className="grid w-full items-center gap-1">
+        <Label htmlFor="state-readonly">Read-only</Label>
+        <Input id="state-readonly" defaultValue="Input text" readOnly />
+      </div>
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-error">Error</Label>
         <Input id="state-error" placeholder="Input text" errorMessage="Help text" />
       </div>
     </div>
   ),
   parameters: {
-    order: 10,
+    order: 11,
     docs: {
       description: {
         story: "All input states for comparison.",
@@ -412,6 +458,7 @@ export const VisualRegression: Story = {
           <Input placeholder="Input text" />
           <Input defaultValue="Input text" />
           <Input placeholder="Input text" disabled />
+          <Input defaultValue="Input text" readOnly />
           <Input placeholder="Input text" errorMessage="Error message" />
         </div>
       </div>
@@ -438,7 +485,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 11,
+    order: 12,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
