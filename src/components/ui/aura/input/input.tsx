@@ -1,4 +1,4 @@
-import { type ComponentProps, forwardRef, useEffect, useState } from "react";
+import { type ComponentProps, forwardRef, useEffect, useRef, useState } from "react";
 
 import { HelperText } from "@/components/ui/aura/helper-text";
 import {
@@ -31,11 +31,20 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [copied, setCopied] = useState(false);
     const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     useEffect(() => {
       setIsClipboardAvailable(
         typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined"
       );
+    }, []);
+
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current !== undefined) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
     }, []);
 
     const handleCopy = () => {
@@ -45,7 +54,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           .writeText(inputValue)
           .then(() => {
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+            }
+            timeoutRef.current = setTimeout(() => setCopied(false), 2000);
           })
           .catch(() => undefined);
       }
