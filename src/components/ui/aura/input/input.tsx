@@ -78,11 +78,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               data-slot="input-group-control"
               aria-invalid={errorMessage ? true : undefined}
               className={cn(
-                "w-full flex-1 rounded-md border-0 bg-transparent shadow-none hover:bg-transparent hover:text-current dark:bg-transparent",
+                "w-full flex-1 rounded-md border-0 bg-transparent shadow-none dark:bg-transparent",
                 "focus-visible:shadow-none focus-visible:border-transparent",
                 "aria-invalid:focus-visible:shadow-none aria-invalid:focus-visible:border-transparent",
-                formElementBase,
-                hoverState,
+                "h-9 px-3 py-2 text-sm placeholder:text-muted-foreground",
                 filledState,
                 focusState,
                 invalidState,
