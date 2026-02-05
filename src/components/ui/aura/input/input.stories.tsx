@@ -79,7 +79,7 @@ const meta: Meta<typeof Input> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-75">
+      <div className="w-[300px]">
         <Story />
       </div>
     ),

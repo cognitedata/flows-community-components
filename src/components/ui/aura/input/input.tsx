@@ -69,14 +69,27 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       return (
         <>
           <InputGroup>
-            <InputGroupInput
+            <input
               ref={ref}
               type={type}
               readOnly={readOnly}
               value={value}
               defaultValue={defaultValue}
+              data-slot="input-group-control"
               aria-invalid={errorMessage ? true : undefined}
-              className={className}
+              className={cn(
+                "w-full flex-1 rounded-md border-0 bg-transparent shadow-none hover:bg-transparent hover:text-current dark:bg-transparent",
+                "focus-visible:shadow-none focus-visible:border-transparent",
+                "aria-invalid:focus-visible:shadow-none aria-invalid:focus-visible:border-transparent",
+                formElementBase,
+                hoverState,
+                filledState,
+                focusState,
+                invalidState,
+                disabledState,
+                readOnlyState,
+                className
+              )}
               {...props}
             />
             <InputGroupAddon align="inline-end">
