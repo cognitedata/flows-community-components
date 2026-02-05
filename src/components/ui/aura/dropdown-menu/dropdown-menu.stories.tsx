@@ -552,6 +552,7 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     // Find trigger
     const trigger = canvas.getByRole("button");
@@ -562,15 +563,7 @@ export const KeyboardNavigation: Story = {
     await userEvent.keyboard("{Enter}");
 
     // Wait for menu
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await body.findByText("First Item", undefined, { timeout: 1000 });
 
     // Press ArrowDown to navigate
     await userEvent.keyboard("{ArrowDown}");
@@ -584,15 +577,9 @@ export const KeyboardNavigation: Story = {
     await userEvent.keyboard("{Escape}");
 
     // Wait for menu to close
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).not.toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitFor(() => {
+      expect(body.queryByText("First Item")).not.toBeInTheDocument();
+    });
   },
   render: function KeyboardNavigationStory({ modal = false }) {
     const [selectedItem, setSelectedItem] = useState<string>("");

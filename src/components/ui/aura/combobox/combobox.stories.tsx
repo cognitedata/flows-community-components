@@ -130,6 +130,7 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     // Find and verify trigger button
     const trigger = canvas.getByRole("combobox");
@@ -142,29 +143,19 @@ export const Basic: Story = {
     // Click to open combobox
     await userEvent.click(trigger);
 
-    // Wait for popover to open
-    await waitFor(
-      () => {
-        const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-        expect(input).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    const searchInput = (await body.findByPlaceholderText("Search users...", undefined, {
+      timeout: 1000,
+    })) as HTMLInputElement;
 
     // Verify trigger aria-expanded changed
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
 
     // Verify users are listed
     const commandList = canvasElement.ownerDocument.querySelector('[data-slot="command-list"]');
+    await expect(commandList).toBeInTheDocument();
     await expect(commandList).toHaveTextContent("Dennis Rodman");
     await expect(commandList).toHaveTextContent("Michael Jordan");
     await expect(commandList).toHaveTextContent("Scottie Pippen");
-
-    // Verify search input exists
-    const searchInput = canvasElement.ownerDocument.querySelector(
-      '[data-slot="command-input"]'
-    ) as HTMLInputElement;
-    await expect(searchInput).toBeInTheDocument();
 
     // Test search functionality
     await userEvent.type(searchInput, "Dennis");
@@ -275,35 +266,17 @@ export const WithAddNew: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     await userEvent.click(trigger);
 
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-input"]'
-      ) as HTMLInputElement;
-      expect(input).toBeInTheDocument();
-    });
-
-    // Type a search that doesn't match
-    const searchInput = canvasElement.ownerDocument.querySelector(
-      '[data-slot="command-input"]'
-    ) as HTMLInputElement;
+    const searchInput = (await body.findByPlaceholderText("Search users...")) as HTMLInputElement;
     await userEvent.clear(searchInput);
     await userEvent.type(searchInput, "Steve Kerr");
 
     // Wait for "Add" button to appear by checking button text content
-    await waitFor(() => {
-      const buttons = canvasElement.ownerDocument.querySelectorAll("button");
-      let found = false;
-      buttons.forEach((btn) => {
-        if (btn.textContent?.includes("Add Steve Kerr")) {
-          found = true;
-        }
-      });
-      expect(found).toBe(true);
-    });
+    await body.findByRole("button", { name: "Add Steve Kerr" });
   },
   render: function WithAddNewStory() {
     const [open, setOpen] = useState(false);
@@ -463,6 +436,7 @@ export const MultiSelect: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
 
@@ -473,10 +447,7 @@ export const MultiSelect: Story = {
     // Click to open
     await userEvent.click(trigger);
 
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-      expect(input).toBeInTheDocument();
-    });
+    await body.findByPlaceholderText("Search data type...");
 
     // Find and click an unchecked item to select it
     const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
@@ -487,10 +458,7 @@ export const MultiSelect: Story = {
     }
 
     // Verify selection state updated (combobox should still be open for multi-select)
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-      expect(input).toBeInTheDocument();
-    });
+    await body.findByPlaceholderText("Search data type...");
   },
   render: function MultiSelectStory() {
     const [open, setOpen] = useState(false);
@@ -760,6 +728,7 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     trigger.focus();
@@ -768,12 +737,7 @@ export const KeyboardNavigation: Story = {
     // Press Enter to open
     await userEvent.keyboard("{Enter}");
 
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-input"]'
-      ) as HTMLInputElement;
-      expect(input).toBeInTheDocument();
-    });
+    await body.findByPlaceholderText("Search users...");
 
     // Press ArrowDown to navigate items
     await userEvent.keyboard("{ArrowDown}");
@@ -787,8 +751,7 @@ export const KeyboardNavigation: Story = {
     await userEvent.keyboard("{Escape}");
 
     await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-      expect(input).not.toBeInTheDocument();
+      expect(body.queryByPlaceholderText("Search users...")).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory() {
@@ -870,15 +833,12 @@ export const EmptyState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     await userEvent.click(trigger);
 
-    await waitFor(() => {
-      const emptyElement = canvasElement.ownerDocument.querySelector('[data-slot="command-empty"]');
-      expect(emptyElement).toBeInTheDocument();
-      expect(emptyElement).toHaveTextContent("No users available");
-    });
+    await body.findByText("No users available");
   },
   render: function EmptyStateStory() {
     const [open, setOpen] = useState(false);
@@ -931,6 +891,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeDisabled();
@@ -941,8 +902,7 @@ export const Disabled: Story = {
     expect(styles.pointerEvents).toBe("none");
 
     // Verify popover is not open
-    const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-    expect(input).not.toBeInTheDocument();
+    expect(body.queryByPlaceholderText("Search users...")).not.toBeInTheDocument();
   },
   render: function DisabledStory() {
     const [open, setOpen] = useState(false);
