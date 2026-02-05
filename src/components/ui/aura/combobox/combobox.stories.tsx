@@ -737,7 +737,10 @@ export const KeyboardNavigation: Story = {
     // Press Enter to open
     await userEvent.keyboard("{Enter}");
 
-    await body.findByPlaceholderText("Search users...");
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+    await body.findByPlaceholderText("Search users...", undefined, { timeout: 2000 });
 
     // Press ArrowDown to navigate items
     await userEvent.keyboard("{ArrowDown}");
