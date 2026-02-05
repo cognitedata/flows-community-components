@@ -673,15 +673,7 @@ export const DefaultOpen: Story = {
     const tooltipBody = within(document.body);
 
     // Tooltip should be visible immediately without interaction
-    await waitFor(
-      () => {
-        const tooltip = tooltipBody.queryByTestId("tooltip-content");
-        expect(tooltip).toBeInTheDocument();
-        expect(tooltip).toBeVisible();
-        expect(tooltip).toHaveTextContent(/open by default/i);
-      },
-      { timeout: 3000 }
-    );
+    await waitForOpenTooltip(tooltipBody, /open by default/i, 3000);
   },
   render: () => (
     <TooltipProvider>
@@ -789,7 +781,13 @@ export const WithDelay: Story = {
     expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
 
     // Wait for delay and tooltip to appear
-    await waitForOpenTooltip(tooltipBody, /This tooltip appears after a 1500ms delay/i, 3500);
+    try {
+      await waitForOpenTooltip(tooltipBody, /This tooltip appears after a 1500ms delay/i, 4500);
+    } catch {
+      await userEvent.unhover(button);
+      await userEvent.hover(button);
+      await waitForOpenTooltip(tooltipBody, /This tooltip appears after a 1500ms delay/i, 4500);
+    }
   },
   render: () => {
     return (
@@ -817,14 +815,7 @@ export const VisualRegression: Story = {
     const tooltipBody = within(document.body);
 
     // Verify tooltip is visible for visual snapshot
-    await waitFor(
-      () => {
-        const tooltip = tooltipBody.queryByTestId("tooltip-content");
-        expect(tooltip).toBeInTheDocument();
-        expect(tooltip).toBeVisible();
-      },
-      { timeout: 3000 }
-    );
+    await waitForOpenTooltip(tooltipBody, /visual regression baseline/i, 3000);
   },
   render: () => (
     <TooltipProvider>

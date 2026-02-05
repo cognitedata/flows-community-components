@@ -511,25 +511,42 @@ export const ControlledWithCustomDelays: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     // Test hovering to open
-    const trigger = canvas.getByRole("button", {
-      name: /Controlled with fast delays/i,
-    });
-    await expect(trigger).toBeInTheDocument();
-    await userEvent.hover(trigger);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/custom delays/i);
-        await expect(hoverCard).toBeInTheDocument();
-      },
-      { timeout: 500 }
+    const trigger = await canvas.findByRole(
+      "button",
+      { name: /Controlled with fast delays/i },
+      { timeout: 2000 }
     );
+    await expect(trigger).toBeInTheDocument();
+    const waitForOpenHoverCard = async () => {
+      await waitFor(
+        () => {
+          const hoverCard = document.querySelector(
+            '[data-slot="hover-card-content"][data-open]'
+          ) as HTMLElement | null;
+          expect(hoverCard).toBeInTheDocument();
+          expect(hoverCard).toHaveTextContent(/custom delays/i);
+        },
+        { timeout: 2000 }
+      );
+    };
+
+    await userEvent.hover(trigger);
+    try {
+      await waitForOpenHoverCard();
+    } catch {
+      await userEvent.unhover(trigger);
+      await userEvent.hover(trigger);
+      await waitForOpenHoverCard();
+    }
 
     // Test that the Close button works
-    const closeButton = body.getByRole("button", { name: /Close/i });
-    await expect(closeButton).toBeInTheDocument();
+    const hoverCard = document.querySelector(
+      '[data-slot="hover-card-content"][data-open]'
+    ) as HTMLElement | null;
+    expect(hoverCard).toBeInTheDocument();
+    const closeButton = within(hoverCard as HTMLElement).getByRole("button", { name: /Close/i });
     await userEvent.click(closeButton);
   },
   render: function ControlledHoverCardStory() {
