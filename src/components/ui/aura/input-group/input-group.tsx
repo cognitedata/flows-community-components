@@ -22,6 +22,7 @@ const InputGroup = forwardRef<HTMLDivElement, ComponentProps<"div">>(
           "has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3",
           "has-[[data-slot=input-group-control]:focus-visible]:shadow-focus-ring has-[[data-slot=input-group-control]:focus-visible]:border-transparent",
           "has-[[data-slot=input-group-control][aria-invalid=true]]:shadow-focus-ring-destructive has-[[data-slot=input-group-control][aria-invalid=true]]:border-transparent",
+          "has-[[data-slot=input-group-control]:read-only]:border-transparent hover:has-[[data-slot=input-group-control]:read-only]:border-transparent",
           className
         )}
         {...props}
