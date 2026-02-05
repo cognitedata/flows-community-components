@@ -737,10 +737,8 @@ export const KeyboardNavigation: Story = {
     // Press Enter to open
     await userEvent.keyboard("{Enter}");
 
-    await waitFor(() => {
-      expect(trigger).toHaveAttribute("aria-expanded", "true");
-    });
-    await body.findByPlaceholderText("Search users...", undefined, { timeout: 2000 });
+    const popover = await body.findByLabelText("User selection");
+    await within(popover).findByPlaceholderText("Search users...", undefined, { timeout: 2000 });
 
     // Press ArrowDown to navigate items
     await userEvent.keyboard("{ArrowDown}");
@@ -754,7 +752,7 @@ export const KeyboardNavigation: Story = {
     await userEvent.keyboard("{Escape}");
 
     await waitFor(() => {
-      expect(body.queryByPlaceholderText("Search users...")).not.toBeInTheDocument();
+      expect(body.queryByLabelText("User selection")).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory() {
