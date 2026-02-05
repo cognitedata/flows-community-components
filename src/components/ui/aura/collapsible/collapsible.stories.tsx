@@ -78,15 +78,12 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the trigger button
     const trigger = canvas.getByRole("button");
     await expect(trigger).toBeInTheDocument();
 
-    // Verify content is initially hidden
     const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
     await expect(content).toBeInTheDocument();
 
-    // Click to expand
     await userEvent.click(trigger);
     await waitFor(
       () => {
@@ -95,7 +92,6 @@ export const Basic: Story = {
       { timeout: 300 }
     );
 
-    // Click again to collapse
     await userEvent.click(trigger);
     await waitFor(
       () => {
@@ -139,7 +135,6 @@ export const DefaultOpen: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Trigger button should be present
     const trigger = canvas.getByRole("button", {
       name: /frequently asked questions/i,
     });
@@ -191,11 +186,9 @@ export const Controlled: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the toggle button
     const toggleButton = canvas.getByRole("button", { name: /toggle/i });
     await expect(toggleButton).toBeInTheDocument();
 
-    // Find the collapsible trigger
     const trigger = canvas.getByRole("button", { name: /controlled/i });
     await expect(trigger).toBeInTheDocument();
 
@@ -261,11 +254,9 @@ export const WithCustomTrigger: Story = {
     const trigger = canvas.getByRole("button", { name: /advanced settings/i });
     await expect(trigger).toBeInTheDocument();
 
-    // Content should be closed initially
     const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
     await expect(content).toHaveAttribute("data-state", "closed");
 
-    // Click to open
     await userEvent.click(trigger);
     await waitFor(
       () => {
@@ -322,7 +313,6 @@ export const Multiple: Story = {
     const contents = canvasElement.querySelectorAll('[data-slot="collapsible-content"]');
     await expect(contents.length).toBeGreaterThanOrEqual(2);
 
-    // Open first question
     await userEvent.click(q1);
     await waitFor(
       () => {
@@ -331,7 +321,6 @@ export const Multiple: Story = {
       { timeout: 300 }
     );
 
-    // Open second question without closing the first
     await userEvent.click(q2);
     await waitFor(
       () => {
@@ -340,7 +329,6 @@ export const Multiple: Story = {
       { timeout: 300 }
     );
 
-    // Both can be open at the same time
     await expect(contents[0]).toHaveAttribute("data-state", "open");
     await expect(contents[1]).toHaveAttribute("data-state", "open");
   },
@@ -417,7 +405,6 @@ export const Disabled: Story = {
     const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
     await expect(content).toBeInTheDocument();
 
-    // Verify it starts and remains in the closed state (no interaction needed)
     await expect(content).toHaveAttribute("data-state", "closed");
   },
   render: () => (
@@ -459,7 +446,6 @@ export const WithRichContent: Story = {
 
     await userEvent.click(trigger);
 
-    // Verify rich content appears
     await expect(canvas.getByText("Getting Started")).toBeInTheDocument();
     await expect(
       canvas.getByText("Follow these steps to get started with the component library:")
@@ -510,7 +496,6 @@ export const FAQ: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // First FAQ question should toggle on click
     const q1 = canvas.getByRole("button", {
       name: /what's the difference between collapsible and accordion\?/i,
     });
@@ -521,7 +506,6 @@ export const FAQ: Story = {
       canvas.getByText(/collapsibles work independently—multiple can be open at once/i)
     ).toBeInTheDocument();
 
-    // Third FAQ is defaultOpen and should already show content
     await expect(
       canvas.getByText(/yes! use the open prop for controlled state/i)
     ).toBeInTheDocument();
@@ -599,11 +583,9 @@ export const EdgeCaseEmpty: Story = {
     const trigger = canvas.getByRole("button", { name: /empty content/i });
     await expect(trigger).toBeInTheDocument();
 
-    // Content should be present but empty
     const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
     await expect(content).toBeInTheDocument();
 
-    // Click to expand
     await userEvent.click(trigger);
     await waitFor(
       () => {
@@ -649,7 +631,6 @@ export const EdgeCaseLongText: Story = {
     });
     await expect(trigger).toBeInTheDocument();
 
-    // Click to expand and verify long content
     await userEvent.click(trigger);
     await waitFor(
       () => {
@@ -659,7 +640,6 @@ export const EdgeCaseLongText: Story = {
       { timeout: 300 }
     );
 
-    // Verify long text is present
     await expect(canvas.getByText(/this is an extremely long paragraph/i)).toBeInTheDocument();
   },
   render: () => (
