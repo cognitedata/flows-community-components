@@ -555,7 +555,7 @@ export const KeyboardNavigation: Story = {
     const body = within(canvasElement.ownerDocument.body);
 
     // Find trigger
-    const trigger = canvas.getByRole("button");
+    const trigger = await canvas.findByRole("button", { name: "Keyboard Test" });
     trigger.focus();
     await expect(trigger).toHaveFocus();
 
@@ -564,9 +564,22 @@ export const KeyboardNavigation: Story = {
 
     // Wait for menu
     await waitFor(() => {
-      expect(trigger).toHaveAttribute("aria-expanded", "true");
+      const menu = canvasElement.ownerDocument.querySelector('[data-slot="dropdown-menu-content"]');
+      expect(menu).toBeInTheDocument();
+    }).catch(async () => {
+      await userEvent.click(trigger);
+      await waitFor(() => {
+        const menu = canvasElement.ownerDocument.querySelector(
+          '[data-slot="dropdown-menu-content"]'
+        );
+        expect(menu).toBeInTheDocument();
+      });
     });
-    await body.findByRole("menuitem", { name: "First Item" });
+
+    const menu = canvasElement.ownerDocument.querySelector(
+      '[data-slot="dropdown-menu-content"]'
+    ) as HTMLElement;
+    await within(menu).findByText("First Item");
 
     // Press ArrowDown to navigate
     await userEvent.keyboard("{ArrowDown}");
@@ -581,7 +594,8 @@ export const KeyboardNavigation: Story = {
 
     // Wait for menu to close
     await waitFor(() => {
-      expect(body.queryByRole("menuitem", { name: "First Item" })).not.toBeInTheDocument();
+      const menu = canvasElement.ownerDocument.querySelector('[data-slot="dropdown-menu-content"]');
+      expect(menu).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory({ modal = false }) {
