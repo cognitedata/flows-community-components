@@ -32,6 +32,8 @@ export const invalidState =
   "aria-invalid:border-destructive-foreground aria-invalid:focus-visible:shadow-focus-ring-destructive aria-invalid:focus-visible:border-transparent aria-invalid:focus-visible:text-foreground outline-none" as const;
 export const disabledState =
   "disabled:bg-disabled disabled:border-transparent disabled:text-disabled-foreground disabled:pointer-events-none disabled:cursor-not-allowed" as const;
+export const readOnlyState =
+  "read-only:bg-muted read-only:border-border read-only:text-foreground read-only:cursor-default read-only:hover:bg-muted read-only:hover:text-foreground" as const;
 
 export function slugToPascalCase(slug: string): string {
   return slug

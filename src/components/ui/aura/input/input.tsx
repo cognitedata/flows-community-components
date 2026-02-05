@@ -9,6 +9,7 @@ import {
   formElementBase,
   hoverState,
   invalidState,
+  readOnlyState,
 } from "@/lib/utils";
 
 interface InputProps extends ComponentProps<"input"> {
@@ -32,6 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             focusState,
             invalidState,
             disabledState,
+            readOnlyState,
             className
           )}
           {...props}
