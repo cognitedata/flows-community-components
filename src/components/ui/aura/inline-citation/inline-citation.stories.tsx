@@ -7,7 +7,7 @@ import {
   MessageContent,
 } from "@/components/ui/aura/message";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconBrackets,
   IconBriefcase,
@@ -600,15 +600,38 @@ export const WithCardAndSource: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(document.body);
 
-    const trigger = canvas.getByText("PumpB source");
-    await expect(trigger).toBeInTheDocument();
-    await expect(trigger).toHaveTextContent(/\+1/);
+    const trigger = await waitFor(() => {
+      const hoverCardTrigger = canvasElement.querySelector('[data-slot="hover-card-trigger"]');
+      if (!hoverCardTrigger) {
+        throw new Error("Hover card trigger not found");
+      }
+      const text = hoverCardTrigger.textContent || "";
+      if (!text.includes("example.com") || !text.includes("+1")) {
+        throw new Error("Trigger badge text not found");
+      }
+      return hoverCardTrigger as HTMLElement;
+    });
 
+    await expect(trigger).toBeVisible();
     await userEvent.hover(trigger);
 
-    await canvas.findByText("Pump B vibration trend – 72h window");
-    await canvas.findByText(/“Vibration levels increased significantly during startup ramps.”/i);
+    await waitFor(
+      async () => {
+        const title = body.getByText(/Pump B vibration trend/i);
+        await expect(title).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
+
+    await waitFor(
+      async () => {
+        const quote = body.getByText(/Vibration levels increased significantly/i);
+        await expect(quote).toBeInTheDocument();
+      },
+      { timeout: 1500 }
+    );
   },
   render: () => (
     <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
@@ -623,9 +646,7 @@ export const WithCardAndSource: Story = {
               ]}
               icon={IconTimeline}
               className="cursor-pointer"
-            >
-              PumpB source
-            </InlineCitationCardTrigger>
+            />
             <InlineCitationCardBody>
               <InlineCitationSource
                 title="Pump B vibration trend – 72h window"
