@@ -248,12 +248,14 @@ export const EosStyle: Story = {
               Download
             </Button>
             <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button size="sm">
-                  <IconEdit className="h-4 w-4" />
-                  New chat
-                </Button>
-              </AlertDialogTrigger>
+              <AlertDialogTrigger
+                render={
+                  <Button size="sm">
+                    <IconEdit className="h-4 w-4" />
+                    New chat
+                  </Button>
+                }
+              />
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Start a new chat?</AlertDialogTitle>

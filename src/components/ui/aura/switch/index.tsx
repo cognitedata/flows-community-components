@@ -1,7 +1,7 @@
 /**
  * Switch Component
  *
- * A toggle switch component built on Radix Switch.
+ * A toggle switch component built on Base UI Switch.
  *
  * @example
  * import { Switch } from '@/components/ui/aura/switch';

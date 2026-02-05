@@ -31,12 +31,19 @@ export type ToolHeaderProps = {
 };
 
 export const ToolHeader = ({ className, title, type, ...props }: ToolHeaderProps) => (
-  <CollapsibleTrigger className={className} {...props} asChild>
-    <Button variant="ghost" className="w-full justify-between text-base leading-5 tracking-tighter">
-      <span>{title ?? type.split("-").slice(1).join("-")}</span>
-      <ChevronsUpDown className="h-4 w-4" />
-    </Button>
-  </CollapsibleTrigger>
+  <CollapsibleTrigger
+    className={className}
+    {...props}
+    render={
+      <Button
+        variant="ghost"
+        className="w-full justify-between text-base leading-5 tracking-tighter"
+      >
+        <span>{title ?? type.split("-").slice(1).join("-")}</span>
+        <ChevronsUpDown className="h-4 w-4" />
+      </Button>
+    }
+  />
 );
 
 export type ToolContentProps = ComponentProps<typeof CollapsibleContent>;

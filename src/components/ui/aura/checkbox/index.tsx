@@ -1,7 +1,7 @@
 /**
  * Checkbox Component
  *
- * A checkbox component styled with Radix Checkbox and Tabler icons.
+ * A checkbox component styled with Base UI Checkbox and Tabler icons.
  *
  * @example
  * import { Checkbox } from '@/components/ui/aura/checkbox';

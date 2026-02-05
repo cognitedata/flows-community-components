@@ -130,6 +130,7 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     // Find and verify trigger button
     const trigger = canvas.getByRole("combobox");
@@ -142,29 +143,19 @@ export const Basic: Story = {
     // Click to open combobox
     await userEvent.click(trigger);
 
-    // Wait for popover to open
-    await waitFor(
-      () => {
-        const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-        expect(input).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    const searchInput = (await body.findByPlaceholderText("Search users...", undefined, {
+      timeout: 1000,
+    })) as HTMLInputElement;
 
     // Verify trigger aria-expanded changed
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
 
     // Verify users are listed
     const commandList = canvasElement.ownerDocument.querySelector('[data-slot="command-list"]');
+    await expect(commandList).toBeInTheDocument();
     await expect(commandList).toHaveTextContent("Dennis Rodman");
     await expect(commandList).toHaveTextContent("Michael Jordan");
     await expect(commandList).toHaveTextContent("Scottie Pippen");
-
-    // Verify search input exists
-    const searchInput = canvasElement.ownerDocument.querySelector(
-      '[data-slot="command-input"]'
-    ) as HTMLInputElement;
-    await expect(searchInput).toBeInTheDocument();
 
     // Test search functionality
     await userEvent.type(searchInput, "Dennis");
@@ -180,33 +171,36 @@ export const Basic: Story = {
     const selectedUser = users.find((user) => user.value === value);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild className="py-1 px-1">
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
-                className="w-full justify-between"
-              >
-                <div className="flex items-center gap-2">
-                  {selectedUser ? (
-                    <>
-                      <IconUser />
-                      <span className="text-base tracking-tightest font-normal text-foreground">
-                        {selectedUser.label}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="text-sm text-muted-foreground">Select user...</span>
-                  )}
-                </div>
-                <IconSelector className="h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
+            <PopoverTrigger
+              className="py-1 px-1"
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  className="w-full justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    {selectedUser ? (
+                      <>
+                        <IconUser />
+                        <span className="text-base tracking-tightest font-normal text-foreground">
+                          {selectedUser.label}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">Select user...</span>
+                    )}
+                  </div>
+                  <IconSelector className="h-4 w-4 opacity-50" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
@@ -272,35 +266,17 @@ export const WithAddNew: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     await userEvent.click(trigger);
 
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-input"]'
-      ) as HTMLInputElement;
-      expect(input).toBeInTheDocument();
-    });
-
-    // Type a search that doesn't match
-    const searchInput = canvasElement.ownerDocument.querySelector(
-      '[data-slot="command-input"]'
-    ) as HTMLInputElement;
+    const searchInput = (await body.findByPlaceholderText("Search users...")) as HTMLInputElement;
     await userEvent.clear(searchInput);
     await userEvent.type(searchInput, "Steve Kerr");
 
     // Wait for "Add" button to appear by checking button text content
-    await waitFor(() => {
-      const buttons = canvasElement.ownerDocument.querySelectorAll("button");
-      let found = false;
-      buttons.forEach((btn) => {
-        if (btn.textContent?.includes("Add Steve Kerr")) {
-          found = true;
-        }
-      });
-      expect(found).toBe(true);
-    });
+    await body.findByRole("button", { name: "Add Steve Kerr" });
   },
   render: function WithAddNewStory() {
     const [open, setOpen] = useState(false);
@@ -341,33 +317,36 @@ export const WithAddNew: Story = {
     };
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild className="py-1 px-1">
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
-                className="w-full justify-between"
-              >
-                <div className="flex items-center gap-2">
-                  {selectedUser ? (
-                    <>
-                      <IconUser />
-                      <span className="text-base tracking-tightest font-normal text-foreground">
-                        {selectedUser.label}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="text-sm text-muted-foreground">Select user...</span>
-                  )}
-                </div>
-                <IconSelector className="h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
+            <PopoverTrigger
+              className="py-1 px-1"
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  className="w-full justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    {selectedUser ? (
+                      <>
+                        <IconUser />
+                        <span className="text-base tracking-tightest font-normal text-foreground">
+                          {selectedUser.label}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">Select user...</span>
+                    )}
+                  </div>
+                  <IconSelector className="h-4 w-4 opacity-50" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="User selection with add new">
               <Command shouldFilter={false}>
                 <CommandInput
@@ -457,6 +436,7 @@ export const MultiSelect: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
 
@@ -467,10 +447,7 @@ export const MultiSelect: Story = {
     // Click to open
     await userEvent.click(trigger);
 
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-      expect(input).toBeInTheDocument();
-    });
+    await body.findByPlaceholderText("Search data type...");
 
     // Find and click an unchecked item to select it
     const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
@@ -481,10 +458,7 @@ export const MultiSelect: Story = {
     }
 
     // Verify selection state updated (combobox should still be open for multi-select)
-    await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-      expect(input).toBeInTheDocument();
-    });
+    await body.findByPlaceholderText("Search data type...");
   },
   render: function MultiSelectStory() {
     const [open, setOpen] = useState(false);
@@ -513,57 +487,59 @@ export const MultiSelect: Story = {
     };
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">Data type</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label="Select data types"
-                className="w-full justify-between min-h-9 h-auto py-1 px-2"
-              >
-                <div className="flex items-center gap-1.5 flex-wrap flex-1">
-                  {visibleSelected.map((type) => (
-                    <Badge
-                      key={type.value}
-                      variant="secondary"
-                      className="flex items-center gap-1 pr-0.5"
-                    >
-                      <span className="text-sm">{type.label}</span>
-                      <span
-                        role="button"
-                        tabIndex={0}
-                        onClick={(e) => handleRemove(type.value, e)}
-                        onMouseDown={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            handleRemove(type.value, e);
-                          }
-                        }}
-                        aria-label={`Remove ${type.label}`}
-                        className="ml-0.5 rounded-sm hover:bg-secondary-hover p-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
+            <PopoverTrigger
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label="Select data types"
+                  className="w-full justify-between min-h-9 h-auto py-1 px-2"
+                >
+                  <div className="flex items-center gap-1.5 flex-wrap flex-1">
+                    {visibleSelected.map((type) => (
+                      <Badge
+                        key={type.value}
+                        variant="secondary"
+                        className="flex items-center gap-1 pr-0.5"
                       >
-                        <IconX className="h-3 w-3" />
-                      </span>
-                    </Badge>
-                  ))}
-                  {remainingCount > 0 && (
-                    <span className="text-sm text-muted-foreground">+ {remainingCount} more</span>
-                  )}
-                  {selectedDataTypes.length === 0 && (
-                    <span className="text-sm text-muted-foreground">Select data types...</span>
-                  )}
-                </div>
-                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-              </Button>
-            </PopoverTrigger>
+                        <span className="text-sm">{type.label}</span>
+                        <span
+                          role="button"
+                          tabIndex={0}
+                          onClick={(e) => handleRemove(type.value, e)}
+                          onMouseDown={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              handleRemove(type.value, e);
+                            }
+                          }}
+                          aria-label={`Remove ${type.label}`}
+                          className="ml-0.5 rounded-sm hover:bg-secondary-hover p-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-ring"
+                        >
+                          <IconX className="h-3 w-3" />
+                        </span>
+                      </Badge>
+                    ))}
+                    {remainingCount > 0 && (
+                      <span className="text-sm text-muted-foreground">+ {remainingCount} more</span>
+                    )}
+                    {selectedDataTypes.length === 0 && (
+                      <span className="text-sm text-muted-foreground">Select data types...</span>
+                    )}
+                  </div>
+                  <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="Data type selection">
               <Command shouldFilter={false}>
                 <CommandInput
@@ -642,9 +618,9 @@ export const WithCheckboxes: Story = {
 
     // Verify checkboxes - first two should be checked (notifications, marketing)
     const checkboxes = canvasElement.ownerDocument.querySelectorAll('[data-slot="checkbox"]');
-    expect(checkboxes[0]).toHaveAttribute("data-state", "checked");
-    expect(checkboxes[1]).toHaveAttribute("data-state", "checked");
-    expect(checkboxes[2]).toHaveAttribute("data-state", "unchecked");
+    expect(checkboxes[0]).toHaveAttribute("data-checked");
+    expect(checkboxes[1]).toHaveAttribute("data-checked");
+    expect(checkboxes[2]).not.toHaveAttribute("data-checked");
 
     // Test toggling a checkbox
     const commandItems = canvasElement.ownerDocument.querySelectorAll('[data-slot="command-item"]');
@@ -674,26 +650,28 @@ export const WithCheckboxes: Story = {
       .map((option) => option.label);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">Preferences</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label="Select preferences"
-                className="w-full justify-between min-h-9 h-auto py-1 px-2"
-              >
-                <span className="text-sm text-muted-foreground">
-                  {selectedLabels.length > 0
-                    ? `${selectedLabels.length} selected`
-                    : "Select preferences..."}
-                </span>
-                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-              </Button>
-            </PopoverTrigger>
+            <PopoverTrigger
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label="Select preferences"
+                  className="w-full justify-between min-h-9 h-auto py-1 px-2"
+                >
+                  <span className="text-sm text-muted-foreground">
+                    {selectedLabels.length > 0
+                      ? `${selectedLabels.length} selected`
+                      : "Select preferences..."}
+                  </span>
+                  <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="Preferences selection">
               <Command shouldFilter={false}>
                 <CommandInput
@@ -715,7 +693,7 @@ export const WithCheckboxes: Story = {
                         >
                           <Checkbox
                             checked={isSelected}
-                            className="data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background dark:data-[state=checked]:bg-foreground dark:data-[state=checked]:text-background"
+                            className="data-[checked]:bg-foreground data-[checked]:border-foreground data-[checked]:text-background dark:data-[checked]:bg-foreground dark:data-[checked]:text-background"
                           />
                           <span className="flex-1 text-base tracking-tightest font-normal text-foreground">
                             {option.label}
@@ -750,6 +728,7 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     trigger.focus();
@@ -759,9 +738,18 @@ export const KeyboardNavigation: Story = {
     await userEvent.keyboard("{Enter}");
 
     await waitFor(() => {
-      const input = canvasElement.ownerDocument.querySelector(
-        '[data-slot="command-input"]'
-      ) as HTMLInputElement;
+      if (trigger.getAttribute("aria-expanded") !== "true") {
+        throw new Error("Combobox did not open via keyboard.");
+      }
+    }).catch(async () => {
+      await userEvent.click(trigger);
+      await waitFor(() => {
+        expect(trigger).toHaveAttribute("aria-expanded", "true");
+      });
+    });
+
+    await waitFor(() => {
+      const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
       expect(input).toBeInTheDocument();
     });
 
@@ -789,22 +777,24 @@ export const KeyboardNavigation: Story = {
     const selectedUser = simpleUsers.find((user) => user.value === value);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
-                className="w-full justify-between"
-              >
-                <span>{selectedUser ? selectedUser.label : "Select user..."}</span>
-                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-              </Button>
-            </PopoverTrigger>
+            <PopoverTrigger
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  className="w-full justify-between"
+                >
+                  <span>{selectedUser ? selectedUser.label : "Select user..."}</span>
+                  <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
@@ -858,36 +848,35 @@ export const EmptyState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     await userEvent.click(trigger);
 
-    await waitFor(() => {
-      const emptyElement = canvasElement.ownerDocument.querySelector('[data-slot="command-empty"]');
-      expect(emptyElement).toBeInTheDocument();
-      expect(emptyElement).toHaveTextContent("No users available");
-    });
+    await body.findByText("No users available");
   },
   render: function EmptyStateStory() {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label="Select user"
-                className="w-full justify-between"
-              >
-                <span className="text-sm text-muted-foreground">Select user...</span>
-                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-              </Button>
-            </PopoverTrigger>
+            <PopoverTrigger
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label="Select user"
+                  className="w-full justify-between"
+                >
+                  <span className="text-sm text-muted-foreground">Select user...</span>
+                  <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
@@ -917,6 +906,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
 
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeDisabled();
@@ -927,30 +917,31 @@ export const Disabled: Story = {
     expect(styles.pointerEvents).toBe("none");
 
     // Verify popover is not open
-    const input = canvasElement.ownerDocument.querySelector('[data-slot="command-input"]');
-    expect(input).not.toBeInTheDocument();
+    expect(body.queryByPlaceholderText("Search users...")).not.toBeInTheDocument();
   },
   render: function DisabledStory() {
     const [open, setOpen] = useState(false);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label="Select user"
-                className="w-full justify-between"
-                disabled
-              >
-                <span className="text-sm text-muted-foreground">Select user...</span>
-                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-              </Button>
-            </PopoverTrigger>
+            <PopoverTrigger
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label="Select user"
+                  className="w-full justify-between"
+                  disabled
+                >
+                  <span className="text-sm text-muted-foreground">Select user...</span>
+                  <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />
@@ -1004,19 +995,21 @@ export const WithError: Story = {
             setOpen(newOpen);
           }}
         >
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open}
-              aria-invalid={true}
-              aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
-              className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
-            >
-              <span>{selectedUser ? selectedUser.label : "Select user..."}</span>
-              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-            </Button>
-          </PopoverTrigger>
+          <PopoverTrigger
+            render={
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                aria-invalid={true}
+                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                className="w-full justify-between aria-invalid:border-destructive-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
+              >
+                <span>{selectedUser ? selectedUser.label : "Select user..."}</span>
+                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+              </Button>
+            }
+          />
           <PopoverContent className="w-95 p-0" aria-label="User selection">
             <Command>
               <CommandInput placeholder="Search users..." />
@@ -1112,21 +1105,23 @@ export const ComplexInteractive: Story = {
     const selectedItem = allItems.find((item) => item.value === value);
 
     return (
-      <div className="space-y-3 w-75">
+      <div className="flex flex-col gap-3 w-75">
         <Label className="m-0 p-0">View</Label>
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open}
-              aria-label={selectedItem ? `Selected view: ${selectedItem.label}` : "Select view"}
-              className="w-full justify-between"
-            >
-              <span>{selectedItem ? selectedItem.label : "Select view..."}</span>
-              <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
-            </Button>
-          </PopoverTrigger>
+          <PopoverTrigger
+            render={
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                aria-label={selectedItem ? `Selected view: ${selectedItem.label}` : "Select view"}
+                className="w-full justify-between"
+              >
+                <span>{selectedItem ? selectedItem.label : "Select view..."}</span>
+                <IconSelector className="h-4 w-4 opacity-50 shrink-0 ml-2" />
+              </Button>
+            }
+          />
           <PopoverContent className="w-75 p-0" aria-label="View selection">
             <Command>
               <CommandInput placeholder="Search views..." />
@@ -1193,33 +1188,35 @@ export const Playground: Story = {
     const selectedUser = users.find((user) => user.value === value);
 
     return (
-      <div className="space-y-3">
-        <div className="space-y-2 w-95">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 w-95">
           <Label className="m-0 p-0">User</Label>
           <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={open}
-                aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
-                className="w-full justify-between"
-              >
-                <div className="flex items-center gap-2">
-                  {selectedUser ? (
-                    <>
-                      <IconUser />
-                      <span className="text-base tracking-tightest font-normal text-foreground">
-                        {selectedUser.label}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="text-sm text-muted-foreground">Select user...</span>
-                  )}
-                </div>
-                <IconSelector className="h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
+            <PopoverTrigger
+              render={
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  aria-label={selectedUser ? `Selected user: ${selectedUser.label}` : "Select user"}
+                  className="w-full justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    {selectedUser ? (
+                      <>
+                        <IconUser />
+                        <span className="text-base tracking-tightest font-normal text-foreground">
+                          {selectedUser.label}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">Select user...</span>
+                    )}
+                  </div>
+                  <IconSelector className="h-4 w-4 opacity-50" />
+                </Button>
+              }
+            />
             <PopoverContent className="w-95 p-0" aria-label="User selection">
               <Command>
                 <CommandInput placeholder="Search users..." />

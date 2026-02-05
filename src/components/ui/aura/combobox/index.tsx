@@ -2,7 +2,7 @@
  * Combobox Component
  *
  * A searchable dropdown component combining input with a command menu,
- * built with Radix Popover and cmdk.
+ * built with Base UI Popover and cmdk.
  *
  * @example
  * import { Combobox, ComboboxCustom } from '@/components/ui/aura/combobox';

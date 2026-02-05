@@ -181,7 +181,7 @@ export const Disabled: Story = {
     const checkboxes = canvas.getAllByRole("checkbox");
 
     for (const checkbox of checkboxes) {
-      await expect(checkbox).toBeDisabled();
+      await expect(checkbox).toHaveAttribute("data-disabled");
     }
   },
 };

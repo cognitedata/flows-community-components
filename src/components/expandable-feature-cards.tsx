@@ -83,7 +83,7 @@ const featureCards: FeatureCard[] = [
   {
     id: "components",
     title: "ShadCN components",
-    description: "Production-ready components built on Radix UI primitives",
+    description: "Production-ready components built on Base UI primitives",
     icon: <IconCode className="h-6 w-6 text-primary drop-shadow-sm" />,
     badge: "25+ components",
     ctaText: "View components",
@@ -91,7 +91,7 @@ const featureCards: FeatureCard[] = [
     content: () => (
       <div className="space-y-4">
         <p className="text-foreground/80 leading-relaxed">
-          Our component library is built on the solid foundation of ShadCN and Radix UI, providing
+          Our component library is built on the solid foundation of ShadCN and Base UI, providing
           accessible, composable, and customizable components that scale with your project.
         </p>
         <div className="space-y-3">
@@ -120,7 +120,7 @@ const featureCards: FeatureCard[] = [
         <div className="bg-muted/30 rounded-lg p-4 mt-6">
           <h5 className="font-medium text-foreground/90 mb-2">Built with Modern Standards</h5>
           <div className="flex flex-wrap gap-2">
-            {["TypeScript", "Radix UI", "Tailwind CSS", "Framer Motion", "React 18"].map((tech) => (
+            {["TypeScript", "Base UI", "Tailwind CSS", "Framer Motion", "React 19"].map((tech) => (
               <Badge key={tech} variant="secondary" className="text-xs">
                 {tech}
               </Badge>
@@ -296,12 +296,15 @@ export function ExpandableFeatureCards() {
               {/* Footer */}
               <div className="p-6 border-t bg-muted/30">
                 <motion.div layoutId={`cta-${active.id}-${id}`}>
-                  <Button asChild className="w-full">
-                    <Link to={active.ctaLink} className="flex items-center justify-center gap-2">
-                      {active.ctaText}
-                      <IconArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
+                  <Button
+                    className="w-full"
+                    render={
+                      <Link to={active.ctaLink} className="flex items-center justify-center gap-2">
+                        {active.ctaText}
+                        <IconArrowRight className="h-4 w-4" />
+                      </Link>
+                    }
+                  />
                 </motion.div>
               </div>
             </motion.div>
