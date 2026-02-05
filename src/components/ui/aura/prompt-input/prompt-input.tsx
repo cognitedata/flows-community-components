@@ -86,7 +86,6 @@ export type TextInputContext = {
 export type PromptInputControllerProps = {
   textInput: TextInputContext;
   attachments: AttachmentsContext;
-  /** INTERNAL: Allows PromptInput to register its file textInput + "open" callback */
   __registerFileInput: (ref: RefObject<HTMLInputElement | null>, open: () => void) => void;
 };
 
@@ -121,10 +120,6 @@ export type PromptInputProviderProps = PropsWithChildren<{
   initialInput?: string;
 }>;
 
-/**
- * Optional global provider that lifts PromptInput state outside of PromptInput.
- * If you don't use it, PromptInput stays fully self-managed.
- */
 export function PromptInputProvider({
   initialInput: initialTextInput = "",
   children,
@@ -234,10 +229,6 @@ export type PromptInputAttachmentProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
 };
 
-/**
- * Displays a single attachment with preview on hover and remove button.
- * Use as children of PromptInputAttachments render function.
- */
 export const PromptInputAttachment = forwardRef<HTMLDivElement, PromptInputAttachmentProps>(
   ({ data, className, ...props }, ref) => {
     const attachments = usePromptInputAttachments();
@@ -330,10 +321,6 @@ export type PromptInputAttachmentsProps = Omit<HTMLAttributes<HTMLDivElement>, "
   children: (attachment: FileUIPart & { id: string }) => ReactNode;
 };
 
-/**
- * Renders the list of attached files. Takes a render function as children.
- * Place inside PromptInputBody before PromptInputTextarea.
- */
 export function PromptInputAttachments({ children }: PromptInputAttachmentsProps) {
   const attachments = usePromptInputAttachments();
 
@@ -393,11 +380,6 @@ export type PromptInputProps = Omit<HTMLAttributes<HTMLFormElement>, "onSubmit" 
   errorMessage?: string;
 };
 
-/**
- * AI chat input component with file attachments, drag-and-drop, and customizable helper text.
- * Supports image uploads, paste functionality, and integrates with speech-to-text and model selection tools.
- * Must be wrapped in PromptInputProvider for full functionality.
- */
 export const PromptInput = ({
   className,
   accept,
@@ -736,9 +718,6 @@ PromptInput.displayName = "PromptInput";
 
 export type PromptInputBodyProps = HTMLAttributes<HTMLDivElement>;
 
-/**
- * Container for the main input area, including attachments display and textarea.
- */
 export const PromptInputBody = forwardRef<HTMLDivElement, PromptInputBodyProps>(
   ({ className, ...props }, ref) => (
     <div ref={ref} className={cn("contents", className)} {...props} />
@@ -750,10 +729,6 @@ export type PromptInputTextareaProps = ComponentProps<typeof InputGroupTextarea>
   errorMessage?: string;
 };
 
-/**
- * Auto-growing textarea for message input. Supports Enter to submit, Shift+Enter for new line,
- * and Backspace to remove last attachment when empty. Handles image paste automatically.
- */
 export const PromptInputTextarea = forwardRef<HTMLTextAreaElement, PromptInputTextareaProps>(
   ({ onChange, className, placeholder = "Type your message...", errorMessage, ...props }, ref) => {
     const controller = useOptionalPromptInputController();
@@ -856,9 +831,6 @@ PromptInputHeader.displayName = "PromptInputHeader";
 
 export type PromptInputFooterProps = Omit<ComponentProps<typeof InputGroupAddon>, "align">;
 
-/**
- * Footer section for tools and submit button. Use PromptInputTools and PromptInputSubmit as children.
- */
 export const PromptInputFooter = forwardRef<HTMLDivElement, PromptInputFooterProps>(
   ({ className, ...props }, ref) => (
     <InputGroupAddon
@@ -873,10 +845,6 @@ PromptInputFooter.displayName = "PromptInputFooter";
 
 export type PromptInputToolsProps = HTMLAttributes<HTMLDivElement>;
 
-/**
- * Container for tool buttons like settings, model selector, or custom actions.
- * Place on the left side of PromptInputFooter.
- */
 export const PromptInputTools = forwardRef<HTMLDivElement, PromptInputToolsProps>(
   ({ className, ...props }, ref) => (
     <div ref={ref} className={cn("flex items-center gap-2", className)} {...props} />
@@ -886,10 +854,6 @@ PromptInputTools.displayName = "PromptInputTools";
 
 export type PromptInputButtonProps = ComponentProps<typeof InputGroupButton>;
 
-/**
- * Button component for custom tool actions. Use inside PromptInputTools.
- * Automatically sizes based on content (icon-only or with text).
- */
 export const PromptInputButton = forwardRef<HTMLButtonElement, PromptInputButtonProps>(
   ({ variant = "ghost", className, size, ...props }, ref) => {
     const newSize = size ?? (Children.count(props.children) > 1 ? "sm" : "icon-sm");
@@ -951,10 +915,6 @@ export type PromptInputSubmitProps = ComponentProps<typeof InputGroupButton> & {
   status?: ChatStatus;
 };
 
-/**
- * Submit button with loading states. Shows different icons for ready, submitted, streaming, and error states.
- * Use on the right side of PromptInputFooter.
- */
 export const PromptInputSubmit = forwardRef<HTMLButtonElement, PromptInputSubmitProps>(
   ({ className, variant = "default", size = "icon-sm", status, children, ...props }, ref) => {
     let Icon = <IconSend className="size-4" />;
@@ -1041,10 +1001,6 @@ export type PromptInputSpeechButtonProps = ComponentProps<typeof PromptInputButt
   onTranscriptionChange?: (text: string) => void;
 };
 
-/**
- * Speech-to-text button using Web Speech API. Transcribes voice input to the textarea.
- * Requires a ref to the PromptInputTextarea. Button pulses while listening.
- */
 export const PromptInputSpeechButton = ({
   className,
   textareaRef,
