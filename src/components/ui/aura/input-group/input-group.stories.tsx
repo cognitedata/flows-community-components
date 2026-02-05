@@ -598,7 +598,6 @@ export const EdgeCases: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4 w-100">
-      {/* Basic variants */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <InputGroup>
@@ -609,7 +608,6 @@ export const VisualRegression: Story = {
         </InputGroup>
       </div>
 
-      {/* With text */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Text</h3>
         <InputGroup>
@@ -620,7 +618,6 @@ export const VisualRegression: Story = {
         </InputGroup>
       </div>
 
-      {/* With buttons */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Buttons</h3>
         <InputGroup>
@@ -631,7 +628,6 @@ export const VisualRegression: Story = {
         </InputGroup>
       </div>
 
-      {/* Textarea */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Textarea</h3>
         <InputGroup>
@@ -639,7 +635,6 @@ export const VisualRegression: Story = {
         </InputGroup>
       </div>
 
-      {/* Disabled */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
         <InputGroup data-disabled="true">
@@ -647,7 +642,6 @@ export const VisualRegression: Story = {
         </InputGroup>
       </div>
 
-      {/* Error */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Error</h3>
         <InputGroup>

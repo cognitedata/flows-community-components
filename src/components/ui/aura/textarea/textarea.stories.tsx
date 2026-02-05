@@ -363,12 +363,90 @@ export const AllStates: Story = {
 };
 
 /**
+ * Edge cases with long text, special characters, and unicode.
+ */
+export const EdgeCases: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-long-value">Very long value</Label>
+        <Textarea
+          id="edge-long-value"
+          defaultValue="This is a very long textarea value that should demonstrate how the textarea handles overflow and text wrapping behavior in various scenarios and edge cases. The text continues on multiple lines to test the behavior with extensive content that spans several rows and demonstrates proper text handling in the component."
+        />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-special-chars">Special characters</Label>
+        <Textarea
+          id="edge-special-chars"
+          defaultValue="Price: $99.99 €85 ¥1000 & <special> characters"
+        />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-emoji">Emoji</Label>
+        <Textarea
+          id="edge-emoji"
+          defaultValue="🚀 Hello World! 🌍 ✨ Multiline text with emoji on multiple lines. 🎉 More emoji here! 🔥"
+        />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-unicode">Unicode characters</Label>
+        <Textarea id="edge-unicode" defaultValue="中文字符 مرحبا Привет नमस्ते" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-whitespace">Whitespace handling</Label>
+        <Textarea id="edge-whitespace" defaultValue="   Spaces before and after   " />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-placeholder">Very long placeholder</Label>
+        <Textarea
+          id="edge-placeholder"
+          placeholder="This is a very long placeholder text that demonstrates how placeholders are handled when they exceed the textarea width"
+        />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-limit">Over character limit</Label>
+        <Textarea
+          id="edge-limit"
+          maxChars={50}
+          defaultValue="This text is intentionally very long and exceeds the character limit to test the behavior"
+        />
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Edge cases including very long values, special characters, emoji, unicode text, whitespace handling, and character limit overflow.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const longValueTextarea = canvas.getByLabelText("Very long value");
+    await expect(longValueTextarea).toHaveValue(
+      "This is a very long textarea value that should demonstrate how the textarea handles overflow and text wrapping behavior in various scenarios and edge cases. The text continues on multiple lines to test the behavior with extensive content that spans several rows and demonstrates proper text handling in the component."
+    );
+
+    const emojiTextarea = canvas.getByLabelText("Emoji");
+    await expect(emojiTextarea).toHaveValue(
+      "🚀 Hello World! 🌍 ✨ Multiline text with emoji on multiple lines. 🎉 More emoji here! 🔥"
+    );
+
+    const unicodeTextarea = canvas.getByLabelText("Unicode characters");
+    await expect(unicodeTextarea).toHaveValue("中文字符 مرحبا Привет नमस्ते");
+  },
+};
+
+/**
  * Visual regression testing.
  */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4 w-100">
-      {/* States */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">States</h3>
         <div className="space-y-3">
@@ -379,7 +457,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* With character limit */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Limit</h3>
         <Textarea placeholder="Limited..." maxChars={50} />

@@ -29,7 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/aura/select";
-import { cn } from "@/lib/utils";
+import { cn, convertBlobUrlToDataUrl } from "@/lib/utils";
 import {
   IconInfoCircle,
   IconLoader2,
@@ -410,6 +410,7 @@ export const PromptInput = ({
   }, []);
 
   const [items, setItems] = useState<(FileUIPart & { id: string })[]>([]);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
   const files = usingProvider ? controller.attachments.files : items;
 
   const openFileDialogLocal = useCallback(() => {
@@ -600,17 +601,6 @@ export const PromptInput = ({
     }
   };
 
-  const convertBlobUrlToDataUrl = async (url: string): Promise<string> => {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  };
-
   const ctx = useMemo<AttachmentsContext>(
     () => ({
       files: files.map((item) => ({ ...item, id: item.id })),
@@ -656,19 +646,31 @@ export const PromptInput = ({
         if (result instanceof Promise) {
           result
             .then(() => {
+              setSubmissionError(null);
               clear();
               if (usingProvider) {
                 controller.textInput.clear();
               }
             })
-            .catch(() => {});
+            .catch((error) => {
+              console.error("PromptInput: Submission error:", error);
+              setSubmissionError(
+                error instanceof Error ? error.message : "Failed to submit. Please try again."
+              );
+            });
         } else {
+          setSubmissionError(null);
           clear();
           if (usingProvider) {
             controller.textInput.clear();
           }
         }
-      } catch {}
+      } catch (error) {
+        console.error("PromptInput: Submission error:", error);
+        setSubmissionError(
+          error instanceof Error ? error.message : "Failed to submit. Please try again."
+        );
+      }
     });
   };
 
@@ -697,9 +699,9 @@ export const PromptInput = ({
         <form className={cn("w-full", className)} onSubmit={handleSubmit} {...props}>
           <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
         </form>
-        {errorMessage ? (
+        {errorMessage || submissionError ? (
           <HelperText size="xs" isError>
-            {errorMessage}
+            {errorMessage || submissionError}
           </HelperText>
         ) : (
           helperTextToRender

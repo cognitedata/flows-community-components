@@ -65,6 +65,10 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
 See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
 
+## Render Functions
+
+**NO JSX comments in render functions** (e.g., `{/* States */}`). If you need section labels, use semantic HTML headings (`<h3>`) instead. JSX comments clutter the code and don't provide value when proper semantic markup is available.
+
 ### Query Priority
 
 Prioritize semantic queries over test IDs in play functions:

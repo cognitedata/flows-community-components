@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
 import { HelperText } from "@/components/ui/aura/helper-text";
+import { Label } from "@/components/ui/aura/label";
 import {
   PromptInput,
   PromptInputBody,
@@ -122,7 +123,6 @@ type Story = StoryObj<typeof PromptInput>;
 
 /**
  * Basic prompt input with attachments and default helper text
- * Matches the basic example from prompt-input.examples.tsx
  */
 export const Basic: Story = {
   parameters: {
@@ -193,7 +193,6 @@ export const Basic: Story = {
 
 /**
  * Prompt input without helper text
- * Matches the noHelperText example from prompt-input.examples.tsx
  */
 export const NoHelperText: Story = {
   parameters: {
@@ -248,7 +247,6 @@ export const NoHelperText: Story = {
 
 /**
  * Prompt input with custom helper text
- * Matches the customHelperText example from prompt-input.examples.tsx
  */
 export const CustomHelperText: Story = {
   parameters: {
@@ -413,11 +411,113 @@ export const ErrorState: Story = {
 };
 
 /**
+ * Submission error handling with HelperText
+ */
+export const SubmissionError: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story:
+          "Demonstrates error handling when submission fails. The error message is displayed in HelperText below the input, and the user's message is preserved for retry.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const textarea = canvas.getByTestId("prompt-input-textarea");
+    await expect(textarea).toBeInTheDocument();
+
+    await userEvent.type(textarea, "Test error handling", { delay: 50 });
+    await expect(textarea).toHaveValue("Test error handling");
+
+    const submitButton = canvas.getByTestId("prompt-input-submit");
+    await userEvent.click(submitButton);
+
+    await waitFor(
+      () => {
+        const errorText = canvas.getByText("Failed to submit. Please try again.");
+        expect(errorText).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
+
+    await expect(textarea).toHaveValue("Test error handling");
+  },
+  render: () => (
+    <PromptInput
+      onSubmit={() => {
+        throw new Error("Failed to submit. Please try again.");
+      }}
+      className="w-125"
+    >
+      <PromptInputBody>
+        <PromptInputTextarea placeholder="Type a message to see error handling..." />
+      </PromptInputBody>
+      <PromptInputFooter>
+        <PromptInputTools />
+        <PromptInputSubmit />
+      </PromptInputFooter>
+    </PromptInput>
+  ),
+};
+
+/**
+ * Async submission error handling
+ */
+export const AsyncSubmissionError: Story = {
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story:
+          "Demonstrates error handling when async submission fails. Shows how Promise rejection is caught and displayed.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const textarea = canvas.getByTestId("prompt-input-textarea");
+    await userEvent.type(textarea, "Test async error", { delay: 50 });
+
+    const submitButton = canvas.getByTestId("prompt-input-submit");
+    await userEvent.click(submitButton);
+
+    await waitFor(
+      () => {
+        const errorText = canvas.getByText("Network request failed");
+        expect(errorText).toBeInTheDocument();
+      },
+      { timeout: 2000 }
+    );
+  },
+  render: () => (
+    <PromptInput
+      onSubmit={async () => {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        throw new Error("Network request failed");
+      }}
+      className="w-125"
+    >
+      <PromptInputBody>
+        <PromptInputTextarea placeholder="Type a message to see async error handling..." />
+      </PromptInputBody>
+      <PromptInputFooter>
+        <PromptInputTools />
+        <PromptInputSubmit />
+      </PromptInputFooter>
+    </PromptInput>
+  ),
+};
+
+/**
  * Minimal prompt input
  */
 export const Minimal: Story = {
   parameters: {
-    order: 7,
+    order: 9,
     docs: {
       description: {
         story: "Minimal prompt input with only textarea and submit button.",
@@ -453,7 +553,7 @@ export const Minimal: Story = {
  */
 export const KeyboardInteractions: Story = {
   parameters: {
-    order: 8,
+    order: 10,
     docs: {
       description: {
         story: "Tests keyboard shortcuts: Enter to submit, Shift+Enter for new line.",
@@ -514,7 +614,7 @@ export const KeyboardInteractions: Story = {
  */
 export const WithAdvancedTools: Story = {
   parameters: {
-    order: 9,
+    order: 11,
     docs: {
       description: {
         story:
@@ -589,6 +689,92 @@ export const WithAdvancedTools: Story = {
         </PromptInputFooter>
       </PromptInput>
     );
+  },
+};
+
+/**
+ * Edge cases with long text, special characters, and unicode.
+ */
+export const EdgeCases: Story = {
+  render: function EdgeCasesStory() {
+    const handleSubmit = () => {};
+
+    return (
+      <div className="space-y-4">
+        <div className="grid w-full items-center gap-1">
+          <Label htmlFor="edge-long-text">Very long text input</Label>
+          <PromptInput id="edge-long-text" onSubmit={handleSubmit}>
+            <PromptInputBody>
+              <PromptInputTextarea
+                placeholder="This is a very long placeholder text that demonstrates how placeholders are handled when they exceed the textarea width and need to be truncated or wrapped"
+                defaultValue="This is a very long prompt input value that should demonstrate how the prompt input handles overflow and text wrapping behavior in various scenarios and edge cases. The text continues on multiple lines to test the behavior with extensive content that spans several rows and demonstrates proper text handling in the component."
+              />
+            </PromptInputBody>
+            <PromptInputFooter>
+              <PromptInputTools />
+              <PromptInputSubmit />
+            </PromptInputFooter>
+          </PromptInput>
+        </div>
+        <div className="grid w-full items-center gap-1">
+          <Label htmlFor="edge-special-chars">Special characters</Label>
+          <PromptInput id="edge-special-chars" onSubmit={handleSubmit}>
+            <PromptInputBody>
+              <PromptInputTextarea defaultValue="Price: $99.99 €85 ¥1000 & <special> characters" />
+            </PromptInputBody>
+            <PromptInputFooter>
+              <PromptInputTools />
+              <PromptInputSubmit />
+            </PromptInputFooter>
+          </PromptInput>
+        </div>
+        <div className="grid w-full items-center gap-1">
+          <Label htmlFor="edge-emoji">Emoji</Label>
+          <PromptInput id="edge-emoji" onSubmit={handleSubmit}>
+            <PromptInputBody>
+              <PromptInputTextarea defaultValue="🚀 Hello World! 🌍 ✨ Multiline text with emoji 🎉" />
+            </PromptInputBody>
+            <PromptInputFooter>
+              <PromptInputTools />
+              <PromptInputSubmit />
+            </PromptInputFooter>
+          </PromptInput>
+        </div>
+        <div className="grid w-full items-center gap-1">
+          <Label htmlFor="edge-unicode">Unicode characters</Label>
+          <PromptInput id="edge-unicode" onSubmit={handleSubmit}>
+            <PromptInputBody>
+              <PromptInputTextarea defaultValue="中文字符 مرحبا Привет नमस्ते" />
+            </PromptInputBody>
+            <PromptInputFooter>
+              <PromptInputTools />
+              <PromptInputSubmit />
+            </PromptInputFooter>
+          </PromptInput>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story:
+          "Edge cases including very long values, special characters, emoji, and unicode text.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const textareas = canvas.getAllByTestId("prompt-input-textarea");
+    await expect(textareas.length).toBe(4);
+
+    const longTextLabel = canvas.getByText("Very long text input");
+    await expect(longTextLabel).toBeInTheDocument();
+
+    const specialCharsLabel = canvas.getByText("Special characters");
+    await expect(specialCharsLabel).toBeInTheDocument();
   },
 };
 
