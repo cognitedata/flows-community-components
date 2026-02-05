@@ -563,7 +563,10 @@ export const KeyboardNavigation: Story = {
     await userEvent.keyboard("{Enter}");
 
     // Wait for menu
-    await body.findByText("First Item", undefined, { timeout: 1000 });
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "true");
+    });
+    await body.findByRole("menuitem", { name: "First Item" });
 
     // Press ArrowDown to navigate
     await userEvent.keyboard("{ArrowDown}");
@@ -578,7 +581,7 @@ export const KeyboardNavigation: Story = {
 
     // Wait for menu to close
     await waitFor(() => {
-      expect(body.queryByText("First Item")).not.toBeInTheDocument();
+      expect(body.queryByRole("menuitem", { name: "First Item" })).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory({ modal = false }) {
