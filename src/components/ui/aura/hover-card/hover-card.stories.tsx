@@ -1,9 +1,9 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { Badge } from "../badge";
-import { Button } from "../button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
 
 const meta: Meta<typeof HoverCard> = {

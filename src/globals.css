@@ -816,7 +816,7 @@
 
   /* Status tokens */
   --destructive: var(--red-400);
-  --destructive-hover: var(--red-500);
+  --destructive-hover: var(--red-300);
   --destructive-foreground: var(--red-450);
   --warning: var(--amber-100);
   --warning-hover: var(--amber-200);
