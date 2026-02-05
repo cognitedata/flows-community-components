@@ -24,7 +24,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 
 ## Key principles
 
-- Use Radix UI for complex interactions, native HTML for simple elements
+- Use Base UI for complex interactions, native HTML for simple elements
 - Always use `ComponentRef` (not `React.ElementRef`)
 - No code comments in component files
 - Extract helpers to `@/lib/utils.ts`
@@ -63,7 +63,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Getting started instructions should link to the Dune creation docs site instead of inline steps.
 - Consolidate docs content onto the root page instead of routing under `/docs`.
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
-- Radix UI's `TooltipPrimitive.Provider` and `TooltipPrimitive.Root` don't support refs - use plain functions, not `forwardRef`.
+- Base UI's `TooltipProvider` and `TooltipRoot` don't support refs - use plain functions, not `forwardRef`.
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
 - Form components should import and use utility classes from `@/lib/utils`: `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
 - `formElementBase` includes `bg-background` by default. Override with `bg-transparent` or other backgrounds inline when needed.
