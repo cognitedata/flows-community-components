@@ -1,8 +1,8 @@
 import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
-import { Input } from "./input";
+import { Input, PasswordInput } from "./input";
 
 const meta: Meta<typeof Input> = {
   title: "Primitives/Input",
@@ -140,26 +140,6 @@ export const WithLabel: Story = {
 };
 
 /**
- * Password input.
- */
-export const Password: Story = {
-  render: () => (
-    <div className="grid w-full items-center gap-1">
-      <Label htmlFor="password">Password</Label>
-      <Input type="password" id="password" placeholder="Input text" />
-    </div>
-  ),
-  parameters: {
-    order: 3,
-    docs: {
-      description: {
-        story: "Password input with obscured text.",
-      },
-    },
-  },
-};
-
-/**
  * Disabled input.
  */
 export const Disabled: Story = {
@@ -176,7 +156,7 @@ export const Disabled: Story = {
     </div>
   ),
   parameters: {
-    order: 4,
+    order: 3,
     docs: {
       description: {
         story: "Disabled inputs prevent user interaction.",
@@ -193,35 +173,45 @@ export const Disabled: Story = {
 };
 
 /**
- * Read-only input.
+ * Read-only input with copy button.
  */
 export const ReadOnly: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="grid w-full items-center gap-1">
-        <Label htmlFor="readonly-empty">Read-only (empty)</Label>
-        <Input id="readonly-empty" placeholder="Input text" readOnly />
+        <Label htmlFor="readonly-value">API Key</Label>
+        <Input id="readonly-value" defaultValue="sk-1234567890abcdef" readOnly />
       </div>
       <div className="grid w-full items-center gap-1">
-        <Label htmlFor="readonly-value">Read-only (with value)</Label>
-        <Input id="readonly-value" defaultValue="Input text" readOnly />
+        <Label htmlFor="readonly-no-copy">Read-only without copy</Label>
+        <Input id="readonly-no-copy" defaultValue="Cannot copy this" readOnly copy={false} />
       </div>
     </div>
   ),
   parameters: {
-    order: 5,
+    order: 4,
     docs: {
       description: {
-        story: "Read-only inputs display data without allowing user modification.",
+        story:
+          "Read-only inputs display data without allowing user modification. A copy button is shown by default, which can be disabled with copy={false}.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const inputs = canvas.getAllByRole("textbox");
-    for (const input of inputs) {
-      await expect(input).toHaveAttribute("readonly");
-    }
+    const firstInput = canvas.getByDisplayValue("sk-1234567890abcdef");
+    await expect(firstInput).toHaveAttribute("readonly");
+
+    const copyButton = canvas.getByLabelText("Copy to clipboard");
+    await expect(copyButton).toBeInTheDocument();
+
+    await userEvent.click(copyButton);
+    await waitFor(
+      () => {
+        expect(canvas.getByLabelText("Copied")).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
   },
 };
 
@@ -236,7 +226,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
-    order: 6,
+    order: 5,
     docs: {
       description: {
         story: "Input with validation error message displayed.",
@@ -261,7 +251,7 @@ export const WithDefaultValue: Story = {
     </div>
   ),
   parameters: {
-    order: 7,
+    order: 6,
     docs: {
       description: {
         story: "Input with a pre-filled default value.",
@@ -309,7 +299,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
-    order: 8,
+    order: 7,
     docs: {
       description: {
         story: "Controlled input with external state management.",
@@ -360,7 +350,7 @@ export const InputTypes: Story = {
     </div>
   ),
   parameters: {
-    order: 9,
+    order: 8,
     docs: {
       description: {
         story: "Various input types for different data formats.",
@@ -383,11 +373,11 @@ export const FormExample: Story = {
     >
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-email">Email</Label>
-        <Input id="form-email" type="email" placeholder="Input text" required />
+        <Input id="form-email" type="email" placeholder="Enter your email" required />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-password">Password</Label>
-        <Input id="form-password" type="password" placeholder="Input text" required />
+        <PasswordInput id="form-password" placeholder="Enter your password" required />
       </div>
       <button
         type="submit"
@@ -398,7 +388,7 @@ export const FormExample: Story = {
     </form>
   ),
   parameters: {
-    order: 10,
+    order: 9,
     docs: {
       description: {
         story: "Complete form example with email and password inputs.",
@@ -436,7 +426,7 @@ export const AllStates: Story = {
     </div>
   ),
   parameters: {
-    order: 11,
+    order: 10,
     docs: {
       description: {
         story: "All input states for comparison.",
@@ -453,7 +443,7 @@ export const VisualRegression: Story = {
     <div className="space-y-6 p-4 w-[350px]">
       {/* States */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">Input States</h3>
         <div className="space-y-3">
           <Input placeholder="Input text" />
           <Input defaultValue="Input text" />
@@ -463,29 +453,29 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* With labels */}
+      {/* Password */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Labels</h3>
-        <div className="grid items-center gap-1 ">
-          <Label htmlFor="vr-labeled">Labeled input</Label>
-          <Input id="vr-labeled" placeholder="Input text" />
+        <h3 className="text-sm font-semibold text-muted-foreground">Password Input</h3>
+        <div className="space-y-3">
+          <PasswordInput placeholder="Enter password" />
+          <PasswordInput defaultValue="password123" />
+          <PasswordInput defaultValue="password123" disabled />
         </div>
       </div>
 
       {/* Types */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Types</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">Input Types</h3>
         <div className="space-y-3">
-          <Input type="text" placeholder="Input text" />
-          <Input type="email" placeholder="Input text" />
-          <Input type="password" placeholder="Input text" />
-          <Input type="number" placeholder="Input text" />
+          <Input type="text" placeholder="Text input" />
+          <Input type="email" placeholder="Email input" />
+          <Input type="number" placeholder="Number input" />
         </div>
       </div>
     </div>
   ),
   parameters: {
-    order: 12,
+    order: 11,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -502,6 +492,127 @@ export const VisualRegression: Story = {
       </div>
     ),
   ],
+};
+
+/**
+ * Password input with show/hide toggle.
+ */
+export const PasswordBasic: Story = {
+  render: () => (
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="password-input">Password</Label>
+      <PasswordInput id="password-input" placeholder="Enter your password" />
+    </div>
+  ),
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story: "Password input with built-in show/hide toggle button.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Enter your password");
+    await expect(input).toHaveAttribute("type", "password");
+
+    const toggleButton = canvas.getByLabelText("Show password");
+    await expect(toggleButton).toBeInTheDocument();
+
+    await userEvent.click(toggleButton);
+    await waitFor(() => {
+      expect(input).toHaveAttribute("type", "text");
+    });
+
+    await userEvent.click(canvas.getByLabelText("Hide password"));
+    await waitFor(() => {
+      expect(input).toHaveAttribute("type", "password");
+    });
+  },
+};
+
+/**
+ * Password input with value.
+ */
+export const PasswordWithValue: Story = {
+  render: () => (
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="password-filled">Password</Label>
+      <PasswordInput id="password-filled" defaultValue="Xa.$}KJb319" />
+    </div>
+  ),
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story: "Password input with a pre-filled value.",
+      },
+    },
+  },
+};
+
+/**
+ * Password input with error.
+ */
+export const PasswordWithError: Story = {
+  render: () => (
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="password-error">Password</Label>
+      <PasswordInput
+        id="password-error"
+        defaultValue="weak"
+        errorMessage="Password must be at least 8 characters"
+      />
+    </div>
+  ),
+  parameters: {
+    order: 14,
+    docs: {
+      description: {
+        story: "Password input with validation error message.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const errorText = canvas.getByText("Password must be at least 8 characters");
+    await expect(errorText).toBeInTheDocument();
+  },
+};
+
+/**
+ * Password input states.
+ */
+export const PasswordStates: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-default">Default</Label>
+        <PasswordInput id="password-default" placeholder="Enter password" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-filled-state">Filled</Label>
+        <PasswordInput id="password-filled-state" defaultValue="password123" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-disabled">Disabled</Label>
+        <PasswordInput id="password-disabled" defaultValue="password123" disabled />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-error-state">Error</Label>
+        <PasswordInput id="password-error-state" defaultValue="weak" errorMessage="Too weak" />
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 15,
+    docs: {
+      description: {
+        story: "All password input states for comparison.",
+      },
+    },
+  },
 };
 
 /**

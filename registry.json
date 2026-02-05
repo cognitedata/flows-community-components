@@ -850,7 +850,8 @@
       "type": "registry:component",
       "title": "input",
       "description": "",
-      "registryDependencies": ["@aura/css", "@aura/helper-text"],
+      "dependencies": ["@tabler/icons-react"],
+      "registryDependencies": ["@aura/css", "@aura/helper-text", "@aura/input-group"],
       "files": [
         {
           "path": "src/components/ui/aura/input/input.tsx",

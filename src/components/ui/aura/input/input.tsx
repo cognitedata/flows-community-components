@@ -38,14 +38,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       );
     }, []);
 
-    const handleCopy = async () => {
+    const handleCopy = () => {
       const inputValue = value || defaultValue;
       if (inputValue && typeof inputValue === "string") {
-        try {
-          await navigator.clipboard.writeText(inputValue);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        } catch {}
+        void navigator.clipboard
+          .writeText(inputValue)
+          .then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          })
+          .catch(() => undefined);
       }
     };
 
