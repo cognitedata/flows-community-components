@@ -63,6 +63,7 @@ This applies to ALL React imports.
 - Tooltip delay stories are more stable when waiting for `getOpenTooltip` with a longer timeout.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
+- Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
 
 # Storybook Stories
 

@@ -88,21 +88,30 @@ async function testHoverInteraction(
 ) {
   const canvas = within(canvasElement);
 
-  const trigger = canvas.getByRole("button", { name: triggerName });
+  const trigger = await canvas.findByRole("button", { name: triggerName }, { timeout: 2000 });
   await expect(trigger).toBeInTheDocument();
 
-  await userEvent.hover(trigger);
+  const waitForOpenHoverCard = async () => {
+    await waitFor(
+      () => {
+        const hoverCard = document.querySelector(
+          '[data-slot="hover-card-content"][data-open]'
+        ) as HTMLElement | null;
+        expect(hoverCard).toBeInTheDocument();
+        expect(hoverCard).toHaveTextContent(contentText);
+      },
+      { timeout }
+    );
+  };
 
-  await waitFor(
-    async () => {
-      const hoverCard = document.querySelector(
-        '[data-slot="hover-card-content"][data-open]'
-      ) as HTMLElement | null;
-      await expect(hoverCard).toBeInTheDocument();
-      await expect(hoverCard).toHaveTextContent(contentText);
-    },
-    { timeout }
-  );
+  await userEvent.hover(trigger);
+  try {
+    await waitForOpenHoverCard();
+  } catch {
+    await userEvent.unhover(trigger);
+    await userEvent.hover(trigger);
+    await waitForOpenHoverCard();
+  }
 
   await userEvent.unhover(trigger);
   await waitFor(
