@@ -1091,7 +1091,7 @@
       "name": "prompt-input",
       "type": "registry:component",
       "title": "prompt-input",
-      "description": "INTERNAL: Allows PromptInput to register its file textInput + \"open\" callback */",
+      "description": "",
       "dependencies": ["@tabler/icons-react", "ai", "nanoid"],
       "registryDependencies": [
         "@aura/css",
