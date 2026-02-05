@@ -79,6 +79,8 @@ export const getPortalContainer = (): HTMLElement | undefined => {
     container.className = styleScope.styleScope;
     container.style.position = "fixed";
     container.style.zIndex = "1000";
+    container.style.inset = "0";
+    container.style.pointerEvents = "none";
     document.body.appendChild(container);
   }
 
