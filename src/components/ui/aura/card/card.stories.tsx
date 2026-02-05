@@ -69,15 +69,12 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the card title
     const title = canvas.getByText("21PT1019");
     await expect(title).toBeInTheDocument();
 
-    // Find the description
     const description = canvas.getByText("Pressure over last 24 hours");
     await expect(description).toBeInTheDocument();
 
-    // Find badges in footer
     const timeSeriesBadge = canvas.getByText(/Time series/i);
     await expect(timeSeriesBadge).toBeInTheDocument();
   },
@@ -119,11 +116,9 @@ export const WithTextFooter: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify header content
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     await expect(canvas.getByText("Pressure over last 24 hours")).toBeInTheDocument();
 
-    // Verify footer text lines
     await expect(
       canvas.getByText("Trending up by 5.2% this month", { exact: false })
     ).toBeInTheDocument();
@@ -163,15 +158,12 @@ export const WithBadgeInHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify title and description
     await expect(canvas.getByText("Skarv")).toBeInTheDocument();
     await expect(canvas.getByText("Point cloud scene")).toBeInTheDocument();
 
-    // Verify header action button is present by its icon button label
     const actionButtons = canvas.getAllByRole("button");
     await expect(actionButtons.length).toBeGreaterThan(0);
 
-    // Verify footer action button is present by text
     const footerButton = canvas.getByRole("button", { name: /view scene/i });
     await expect(footerButton).toBeInTheDocument();
 
@@ -222,11 +214,9 @@ export const WithHover: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the card by its title
     const cardTitle = canvas.getByText("Title");
     await expect(cardTitle).toBeInTheDocument();
 
-    // Hover the card container to exercise hover styles
     const card = cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
     if (card) {
       await userEvent.hover(card);
@@ -271,11 +261,9 @@ export const Minimal: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify card structure
     const title = canvas.getByRole("heading", { level: 3, name: "Simple Card" });
     await expect(title).toBeInTheDocument();
 
-    // Verify content
     const content = canvas.getByText(/This is a minimal card/i);
     await expect(content).toBeInTheDocument();
   },
@@ -309,22 +297,17 @@ export const WithActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify card title
     const title = canvas.getByRole("heading", { level: 3, name: "Card with Actions" });
     await expect(title).toBeInTheDocument();
 
-    // Find and click the actions button
     const actionsButton = canvas.getByRole("button");
     await expect(actionsButton).toBeInTheDocument();
     await userEvent.click(actionsButton);
 
-    // Verify dropdown menu appears (menu renders in portal, use screen)
-    // Use role="menu" since dropdown renders as a menu element
     await waitFor(async () => {
       const menu = screen.getByRole("menu");
       await expect(menu).toBeInTheDocument();
 
-      // Verify menu items are present
       const viewDetails = screen.getByText(/View details/i);
       await expect(viewDetails).toBeInTheDocument();
 
@@ -375,18 +358,15 @@ export const WithIconAndActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify card structure with icon
     const title = canvas.getByRole("heading", { level: 3, name: "Skarv Model" });
     await expect(title).toBeInTheDocument();
 
     const description = canvas.getByText("Point cloud scene");
     await expect(description).toBeInTheDocument();
 
-    // Verify content
     const modelId = canvas.getByText(/Model ID: 4602269428617841/i);
     await expect(modelId).toBeInTheDocument();
 
-    // Test actions dropdown (menu renders in portal, use screen)
     const actionsButton = canvas.getByRole("button");
     await userEvent.click(actionsButton);
 
@@ -544,7 +524,6 @@ export const GridLayout: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all three cards are rendered
     await expect(canvas.getByText("Card 1")).toBeInTheDocument();
     await expect(canvas.getByText("Card 2")).toBeInTheDocument();
     await expect(canvas.getByText("Card 3")).toBeInTheDocument();
@@ -600,7 +579,6 @@ export const SemanticHeadings: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify different heading levels exist
     const h2Title = canvas.getByRole("heading", { level: 2, name: "Section Title (h2)" });
     await expect(h2Title).toBeInTheDocument();
 
