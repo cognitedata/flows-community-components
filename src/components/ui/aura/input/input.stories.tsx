@@ -226,7 +226,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
-    order: 5,
+    order: 9,
     docs: {
       description: {
         story: "Input with validation error message displayed.",
@@ -251,7 +251,7 @@ export const WithDefaultValue: Story = {
     </div>
   ),
   parameters: {
-    order: 6,
+    order: 10,
     docs: {
       description: {
         story: "Input with a pre-filled default value.",
@@ -299,7 +299,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
-    order: 7,
+    order: 11,
     docs: {
       description: {
         story: "Controlled input with external state management.",
@@ -350,7 +350,7 @@ export const InputTypes: Story = {
     </div>
   ),
   parameters: {
-    order: 8,
+    order: 12,
     docs: {
       description: {
         story: "Various input types for different data formats.",
@@ -388,7 +388,7 @@ export const FormExample: Story = {
     </form>
   ),
   parameters: {
-    order: 9,
+    order: 13,
     docs: {
       description: {
         story: "Complete form example with email and password inputs.",
@@ -426,7 +426,7 @@ export const AllStates: Story = {
     </div>
   ),
   parameters: {
-    order: 10,
+    order: 14,
     docs: {
       description: {
         story: "All input states for comparison.",
@@ -475,7 +475,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 11,
+    order: 15,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -505,7 +505,7 @@ export const PasswordBasic: Story = {
     </div>
   ),
   parameters: {
-    order: 12,
+    order: 5,
     docs: {
       description: {
         story: "Password input with built-in show/hide toggle button.",
@@ -543,7 +543,7 @@ export const PasswordWithValue: Story = {
     </div>
   ),
   parameters: {
-    order: 13,
+    order: 6,
     docs: {
       description: {
         story: "Password input with a pre-filled value.",
@@ -567,7 +567,7 @@ export const PasswordWithError: Story = {
     </div>
   ),
   parameters: {
-    order: 14,
+    order: 7,
     docs: {
       description: {
         story: "Password input with validation error message.",
@@ -606,7 +606,7 @@ export const PasswordStates: Story = {
     </div>
   ),
   parameters: {
-    order: 15,
+    order: 8,
     docs: {
       description: {
         story: "All password input states for comparison.",
