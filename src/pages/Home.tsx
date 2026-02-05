@@ -166,11 +166,9 @@ export default function HomePage() {
             <Button
               variant="outline"
               size="lg"
-              asChild
               className="text-lg px-8 h-14 rounded-full backdrop-blur-sm bg-background/50"
-            >
-              <Link to="/primitives">Explore components</Link>
-            </Button>
+              render={<Link to="/primitives">Explore components</Link>}
+            />
           </div>
         </motion.div>
 
@@ -211,13 +209,13 @@ export default function HomePage() {
                   <TabsList className="h-12 p-1 bg-muted/50 backdrop-blur-sm border border-border/50">
                     <TabsTrigger
                       value="dune"
-                      className="h-full px-6 text-base data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Create with Dune
                     </TabsTrigger>
                     <TabsTrigger
                       value="custom"
-                      className="h-full px-6 text-base data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
                       Custom installation
                     </TabsTrigger>
@@ -242,11 +240,13 @@ export default function HomePage() {
                     </CardHeader>
                     <CardContent className="pl-0 md:pl-22">
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                        <Button asChild>
-                          <a href={duneDocsUrl} target="_blank" rel="noopener noreferrer">
-                            Open Dune creation docs
-                          </a>
-                        </Button>
+                        <Button
+                          render={
+                            <a href={duneDocsUrl} target="_blank" rel="noopener noreferrer">
+                              Open Dune creation docs
+                            </a>
+                          }
+                        />
                         <span className="text-sm text-muted-foreground">
                           All setup steps now live in the Dune creation docs.
                         </span>

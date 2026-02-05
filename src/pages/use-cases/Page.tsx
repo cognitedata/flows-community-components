@@ -150,12 +150,17 @@ export default function UseCasesPage() {
                 </div>
 
                 {/* CTA */}
-                <Button asChild className="w-full" variant="outline" size="sm">
-                  <Link to={useCase.href}>
-                    Try in Sandbox
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                <Button
+                  className="w-full"
+                  variant="outline"
+                  size="sm"
+                  render={
+                    <Link to={useCase.href}>
+                      Try in Sandbox
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  }
+                />
               </CardContent>
             </Card>
           ))}
@@ -171,15 +176,20 @@ export default function UseCasesPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg">
-                <Link to="/sandbox">
-                  Open Sandbox
-                  <Zap className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/primitives">Browse Components</Link>
-              </Button>
+              <Button
+                size="lg"
+                render={
+                  <Link to="/sandbox">
+                    Open Sandbox
+                    <Zap className="ml-2 h-5 w-5" />
+                  </Link>
+                }
+              />
+              <Button
+                variant="outline"
+                size="lg"
+                render={<Link to="/primitives">Browse Components</Link>}
+              />
             </CardContent>
           </Card>
         </div>

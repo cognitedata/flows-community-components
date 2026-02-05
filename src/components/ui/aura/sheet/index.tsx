@@ -1,7 +1,7 @@
 /**
  * Sheet Component
  *
- * A slide-out panel component built on Radix Dialog.
+ * A slide-out panel component built on Base UI Dialog.
  *
  * @example
  * import { Sheet, SheetTrigger, SheetContent, SheetTitle } from '@/components/ui/aura/sheet';

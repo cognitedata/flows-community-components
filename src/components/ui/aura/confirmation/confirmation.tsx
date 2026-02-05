@@ -84,19 +84,21 @@ export const ConfirmationContentTrigger = ({
   children,
   ...props
 }: ConfirmationContentTriggerProps) => (
-  <CollapsibleTrigger asChild>
-    <Button
-      variant="ghost"
-      className={cn(
-        "group/collapsible-trigger w-full justify-between text-base leading-5 tracking-tighter",
-        className
-      )}
-      {...props}
-    >
-      <span className="flex-1 min-w-0 text-left truncate">{children}</span>
-      <IconChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-    </Button>
-  </CollapsibleTrigger>
+  <CollapsibleTrigger
+    render={
+      <Button
+        variant="ghost"
+        className={cn(
+          "group/collapsible-trigger w-full justify-between text-base leading-5 tracking-tighter",
+          className
+        )}
+        {...props}
+      >
+        <span className="flex-1 min-w-0 text-left truncate">{children}</span>
+        <IconChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-data-[open]/collapsible-trigger:rotate-180" />
+      </Button>
+    }
+  />
 );
 
 export type ConfirmationContentProps = ComponentProps<typeof CollapsibleContent>;

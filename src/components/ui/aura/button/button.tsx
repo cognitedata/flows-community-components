@@ -1,6 +1,6 @@
-import { Slot } from "@radix-ui/react-slot";
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { type VariantProps, cva } from "class-variance-authority";
-import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+import { forwardRef } from "react";
 
 import { cn, focusRing, focusRingDestructive } from "@/lib/utils";
 
@@ -35,24 +35,21 @@ const buttonVariants = cva(
   }
 );
 
-type ButtonProps = ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  };
+type ButtonProps = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>;
 
-const Button = forwardRef<ComponentRef<"button">, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
-
-    return (
-      <Comp
-        ref={ref}
-        data-slot="button"
-        className={cn(buttonVariants({ variant, size, className }))}
-        {...props}
-      />
-    );
-  }
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, children, render, nativeButton, ...props }, ref) => (
+    <ButtonPrimitive
+      ref={ref}
+      data-slot="button"
+      render={render}
+      nativeButton={nativeButton ?? (render ? false : undefined)}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+    </ButtonPrimitive>
+  )
 );
 
 Button.displayName = "Button";

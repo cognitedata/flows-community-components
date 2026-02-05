@@ -1,7 +1,7 @@
 /**
  * Select Component
  *
- * A select dropdown component built on Radix Select primitives.
+ * A select dropdown component built on Base UI Select primitives.
  *
  * @example
  * import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/aura/select';
