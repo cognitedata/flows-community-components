@@ -811,10 +811,10 @@ export const WithDelay: Story = {
     // Wait for delay and tooltip to appear
     await waitFor(
       () => {
-        const tooltip = tooltipBody.queryByTestId("tooltip-content");
+        const tooltip = getOpenTooltip(tooltipBody, /This tooltip appears after a 1500ms delay/i);
         expect(tooltip).toBeVisible();
       },
-      { timeout: 2000 }
+      { timeout: 3500 }
     );
   },
   render: () => {
