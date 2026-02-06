@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/aura/select";
 import {
+  type PrimitiveCatalogEntry,
   type PrimitiveProgressStatus,
   getPrimitiveCatalogBySection,
   getPrimitiveFigmaUrl,
@@ -75,6 +76,72 @@ function getGaSummaryBadgeProps(
   return { variant: "warning", outline: true };
 }
 
+function PrimitiveGridCard({ entry }: { entry: PrimitiveCatalogEntry }) {
+  const badgeProps = getPrimitiveProgressBadgeProps(entry.progressStatus);
+  const gaSummaryBadgeProps = getGaSummaryBadgeProps(entry.eosGaRequired, entry.duneGaRequired);
+  const figmaUrl = getPrimitiveFigmaUrl(entry);
+
+  return (
+    <Card className="h-full transition-colors hover:border-primary">
+      <CardContent className="py-4 flex-1">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <Link
+              to={`/primitives/${entry.slug}`}
+              className="text-foreground font-medium hover:underline underline-offset-2"
+            >
+              {entry.name}
+            </Link>
+            <Badge
+              variant={badgeProps.variant}
+              outline={badgeProps.outline}
+              className={badgeProps.className}
+            >
+              {getPrimitiveProgressLabel(entry.progressStatus)}
+            </Badge>
+          </div>
+          {entry.comingSoon && (
+            <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
+              Placeholder
+            </p>
+          )}
+          <p className="text-sm text-muted-foreground">{entry.description}</p>
+        </div>
+      </CardContent>
+      <CardFooter className="border-t border-border/50 pt-3 items-center justify-between gap-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <Badge variant={gaSummaryBadgeProps.variant} outline={gaSummaryBadgeProps.outline}>
+            <span className="inline-flex items-center gap-2">
+              <GaBadgeContent product="Eos" required={entry.eosGaRequired} />
+              <GaBadgeContent product="Dune" required={entry.duneGaRequired} />
+            </span>
+          </Badge>
+        </div>
+        {figmaUrl ? (
+          <a
+            href={figmaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+            title="Open in Figma"
+            aria-label="Open in Figma"
+          >
+            <IconBrandFigma className="size-4" />
+          </a>
+        ) : entry.figmaAvailability === "unknown" ? (
+          <span
+            className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+            title="Figma link unavailable"
+            aria-label="Figma link unavailable"
+          >
+            <IconBrandFigma className="size-4" />
+          </span>
+        ) : null}
+      </CardFooter>
+    </Card>
+  );
+}
+
 export default function PrimitivesPage() {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const foundations = getPrimitiveCatalogBySection("foundation");
@@ -136,80 +203,9 @@ export default function PrimitivesPage() {
             <p className="text-muted-foreground mt-1">Core design tokens and system fundamentals</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {filteredFoundations.map((foundation) => {
-              const badgeProps = getPrimitiveProgressBadgeProps(foundation.progressStatus);
-              const gaSummaryBadgeProps = getGaSummaryBadgeProps(
-                foundation.eosGaRequired,
-                foundation.duneGaRequired
-              );
-              const figmaUrl = getPrimitiveFigmaUrl(foundation);
-
-              return (
-                <Card
-                  key={foundation.slug}
-                  className="h-full transition-colors hover:border-primary"
-                >
-                  <CardContent className="py-4 flex-1">
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <Link
-                          to={`/primitives/${foundation.slug}`}
-                          className="text-foreground font-medium hover:underline underline-offset-2"
-                        >
-                          {foundation.name}
-                        </Link>
-                        <Badge
-                          variant={badgeProps.variant}
-                          outline={badgeProps.outline}
-                          className={badgeProps.className}
-                        >
-                          {getPrimitiveProgressLabel(foundation.progressStatus)}
-                        </Badge>
-                      </div>
-                      {foundation.comingSoon && (
-                        <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
-                          Placeholder
-                        </p>
-                      )}
-                      <p className="text-sm text-muted-foreground">{foundation.description}</p>
-                    </div>
-                  </CardContent>
-                  <CardFooter className="border-t border-border/50 pt-3 items-center justify-between gap-3">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <Badge
-                        variant={gaSummaryBadgeProps.variant}
-                        outline={gaSummaryBadgeProps.outline}
-                      >
-                        <span className="inline-flex items-center gap-2">
-                          <GaBadgeContent product="Eos" required={foundation.eosGaRequired} />
-                          <GaBadgeContent product="Dune" required={foundation.duneGaRequired} />
-                        </span>
-                      </Badge>
-                    </div>
-                    {figmaUrl ? (
-                      <a
-                        href={figmaUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
-                        title="Open in Figma"
-                        aria-label="Open in Figma"
-                      >
-                        <IconBrandFigma className="size-4" />
-                      </a>
-                    ) : foundation.figmaAvailability === "unknown" ? (
-                      <span
-                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
-                        title="Figma link unavailable"
-                        aria-label="Figma link unavailable"
-                      >
-                        <IconBrandFigma className="size-4" />
-                      </span>
-                    ) : null}
-                  </CardFooter>
-                </Card>
-              );
-            })}
+            {filteredFoundations.map((foundation) => (
+              <PrimitiveGridCard key={foundation.slug} entry={foundation} />
+            ))}
           </div>
           {filteredFoundations.length === 0 && (
             <p className="text-sm text-muted-foreground">
@@ -226,80 +222,9 @@ export default function PrimitivesPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {filteredComponents.map((component) => {
-              const badgeProps = getPrimitiveProgressBadgeProps(component.progressStatus);
-              const gaSummaryBadgeProps = getGaSummaryBadgeProps(
-                component.eosGaRequired,
-                component.duneGaRequired
-              );
-              const figmaUrl = getPrimitiveFigmaUrl(component);
-
-              return (
-                <Card
-                  key={component.slug}
-                  className="h-full transition-colors hover:border-primary"
-                >
-                  <CardContent className="py-4 flex-1">
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <Link
-                          to={`/primitives/${component.slug}`}
-                          className="text-foreground font-medium hover:underline underline-offset-2"
-                        >
-                          {component.name}
-                        </Link>
-                        <Badge
-                          variant={badgeProps.variant}
-                          outline={badgeProps.outline}
-                          className={badgeProps.className}
-                        >
-                          {getPrimitiveProgressLabel(component.progressStatus)}
-                        </Badge>
-                      </div>
-                      {component.comingSoon && (
-                        <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
-                          Placeholder
-                        </p>
-                      )}
-                      <p className="text-sm text-muted-foreground">{component.description}</p>
-                    </div>
-                  </CardContent>
-                  <CardFooter className="border-t border-border/50 pt-3 items-center justify-between gap-3">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <Badge
-                        variant={gaSummaryBadgeProps.variant}
-                        outline={gaSummaryBadgeProps.outline}
-                      >
-                        <span className="inline-flex items-center gap-2">
-                          <GaBadgeContent product="Eos" required={component.eosGaRequired} />
-                          <GaBadgeContent product="Dune" required={component.duneGaRequired} />
-                        </span>
-                      </Badge>
-                    </div>
-                    {figmaUrl ? (
-                      <a
-                        href={figmaUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
-                        title="Open in Figma"
-                        aria-label="Open in Figma"
-                      >
-                        <IconBrandFigma className="size-4" />
-                      </a>
-                    ) : component.figmaAvailability === "unknown" ? (
-                      <span
-                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
-                        title="Figma link unavailable"
-                        aria-label="Figma link unavailable"
-                      >
-                        <IconBrandFigma className="size-4" />
-                      </span>
-                    ) : null}
-                  </CardFooter>
-                </Card>
-              );
-            })}
+            {filteredComponents.map((component) => (
+              <PrimitiveGridCard key={component.slug} entry={component} />
+            ))}
           </div>
           {filteredComponents.length === 0 && (
             <p className="text-sm text-muted-foreground">No primitives match this status filter.</p>
