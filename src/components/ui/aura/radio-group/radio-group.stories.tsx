@@ -223,7 +223,7 @@ export const Disabled: Story = {
     const canvas = within(canvasElement);
     const radioItems = canvas.getAllByRole("radio");
     for (const item of radioItems) {
-      await expect(item).toBeDisabled();
+      await expect(item).toHaveAttribute("data-disabled");
     }
   },
 };

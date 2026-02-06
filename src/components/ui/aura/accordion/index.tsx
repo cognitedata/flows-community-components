@@ -1,7 +1,7 @@
 /**
  * Accordion Component
  *
- * An accessible accordion with smooth expand/collapse built on Radix primitives.
+ * An accessible accordion with smooth expand/collapse built on Base UI primitives.
  *
  * @example
  * import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/aura/accordion';

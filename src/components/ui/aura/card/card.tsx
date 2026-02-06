@@ -1,5 +1,5 @@
 import { IconDotsVertical } from "@tabler/icons-react";
-import { type ComponentProps, forwardRef } from "react";
+import { type ComponentProps, type ReactNode, forwardRef } from "react";
 
 import { Button } from "@/components/ui/aura/button";
 import {
@@ -153,17 +153,20 @@ CardHeaderRight.displayName = "CardHeaderRight";
  */
 const CardActions = forwardRef<
   HTMLButtonElement,
-  ComponentProps<typeof DropdownMenu> & {
+  Omit<ComponentProps<typeof DropdownMenu>, "children"> & {
+    children?: ReactNode;
     align?: "start" | "center" | "end";
   }
 >(({ children, align = "end", ...props }, ref) => {
   return (
     <DropdownMenu {...props}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon-sm" ref={ref}>
-          <IconDotsVertical />
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        render={
+          <Button variant="ghost" size="icon-sm" ref={ref}>
+            <IconDotsVertical />
+          </Button>
+        }
+      />
       <DropdownMenuContent align={align}>{children}</DropdownMenuContent>
     </DropdownMenu>
   );

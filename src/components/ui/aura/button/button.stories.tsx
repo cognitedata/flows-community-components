@@ -68,16 +68,6 @@ const meta: Meta<typeof Button> = {
       },
     },
 
-    // Advanced
-    asChild: {
-      control: "boolean",
-      description: "Merge props onto immediate child (using Radix Slot)",
-      table: {
-        category: "Advanced",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
     type: {
       control: "select",
       options: ["button", "submit", "reset"],

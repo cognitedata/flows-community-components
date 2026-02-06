@@ -16,6 +16,16 @@ This command:
 
 The registry build process is fully automated - no manual configuration needed.
 
+# Primitives Progress Metadata Rules
+
+When adding, removing, or renaming primitives/foundations, update `src/lib/primitives-catalog.ts` in the same change.
+
+When the user asks for primitive/foundation progress updates, update the catalog metadata and ensure badges on `/primitives` reflect the new status.
+
+If requested progress status is missing or ambiguous, ask a clarifying question before finalizing status metadata.
+
+If a primitive/foundation is tracked but not implemented, keep or add a `comingSoon` placeholder path via catalog metadata.
+
 # Building Components
 
 ## SKILLS AVAILABLE
@@ -30,6 +40,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Extract helpers to `@/lib/utils.ts`
 - Use Tailwind design tokens, not arbitrary values
 - Run `pnpm lint` and `pnpm tsc -b` after changes
+- Do not include `importPath` in `*.metadata.ts` files
 
 ## Import Conventions
 
@@ -72,6 +83,10 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - InputGroup stories should showcase all alignment variants (inline-start, inline-end, block-start, block-end) and how it's used in compound components like PromptInput.
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
+- Tooltip delay stories are more stable when waiting for `getOpenTooltip` with a longer timeout.
+- Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
+- Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
+- Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
 
 # Storybook Stories
 

@@ -1,10 +1,10 @@
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { IconX } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, createContext, useContext } from "react";
 import type { MouseEventHandler } from "react";
 
 import { Button } from "@/components/ui/aura/button";
+import { useControllableState } from "@/lib/use-controllable-state";
 import { cn } from "@/lib/utils";
 
 type AlertVariant = "default" | "secondary" | "warning" | "error";

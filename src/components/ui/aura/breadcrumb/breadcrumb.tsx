@@ -1,4 +1,5 @@
-import { Slot } from "@radix-ui/react-slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { IconDots, IconSlash } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 
@@ -53,7 +54,7 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
       data-slot="breadcrumb-item"
       className={cn(
         "inline-flex items-center text-muted-foreground text-sm tracking-tight",
-        "has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm",
+        "has-[button[data-popup-open]]:bg-accent has-[button[data-popup-open]]:text-foreground has-[button[data-popup-open]]:rounded-sm",
         className
       )}
       {...props}
@@ -70,26 +71,24 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
  *   <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
  * </BreadcrumbItem>
  */
-function BreadcrumbLink({
-  asChild,
-  className,
-  ...props
-}: ComponentProps<"a"> & {
-  asChild?: boolean;
-}) {
-  const Comp = asChild ? Slot : "a";
-
-  return (
-    <Comp
-      data-slot="breadcrumb-link"
-      className={cn(
-        buttonVariants({ variant: "ghost", size: "sm" }),
-        "transition-colors",
-        className
-      )}
-      {...props}
-    />
-  );
+function BreadcrumbLink({ className, render, children, ...props }: useRender.ComponentProps<"a">) {
+  return useRender({
+    defaultTagName: "a",
+    props: mergeProps<"a">(
+      {
+        className: cn(
+          buttonVariants({ variant: "ghost", size: "sm" }),
+          "transition-colors",
+          className
+        ),
+      },
+      { ...props, children }
+    ),
+    render,
+    state: {
+      slot: "breadcrumb-link",
+    },
+  });
 }
 
 /**
@@ -150,14 +149,12 @@ function BreadcrumbPage({
 /**
  * Button for the current page when it needs to be interactive (e.g., in a dropdown).
  * Automatically includes aria-current="page" and proper button styling.
- * **Must be used with DropdownMenuTrigger's asChild prop.**
+ * **Must be used with DropdownMenuTrigger's render prop.**
  *
  * @example
  * <BreadcrumbItem>
  *   <DropdownMenu>
- *     <DropdownMenuTrigger asChild>
- *       <BreadcrumbPageButton>Actions</BreadcrumbPageButton>
- *     </DropdownMenuTrigger>
+ *     <DropdownMenuTrigger render={<BreadcrumbPageButton>Actions</BreadcrumbPageButton>} />
  *     <DropdownMenuContent>
  *       <DropdownMenuItem>Rename</DropdownMenuItem>
  *       <DropdownMenuItem>Delete</DropdownMenuItem>
@@ -184,21 +181,15 @@ function BreadcrumbPageButton({ className, ...props }: ComponentProps<"button">)
 /**
  * Button for ellipsis dropdowns showing hidden navigation items.
  * Automatically includes dots icon and "More" screen reader text.
- * **Must be used with DropdownMenuTrigger's asChild prop inside BreadcrumbEllipsis.**
+ * **Must be used with DropdownMenuTrigger's render prop inside BreadcrumbEllipsis.**
  *
  * @example
  * <BreadcrumbEllipsis>
  *   <DropdownMenu>
- *     <DropdownMenuTrigger asChild>
- *       <BreadcrumbEllipsisButton />
- *     </DropdownMenuTrigger>
+ *     <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
  *     <DropdownMenuContent>
- *       <DropdownMenuItem asChild>
- *         <a href="/projects">Projects</a>
- *       </DropdownMenuItem>
- *       <DropdownMenuItem asChild>
- *         <a href="/teams">Teams</a>
- *       </DropdownMenuItem>
+ *       <DropdownMenuItem render={<a href="/projects">Projects</a>} />
+ *       <DropdownMenuItem render={<a href="/teams">Teams</a>} />
  *     </DropdownMenuContent>
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>
@@ -265,13 +256,9 @@ function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"
  * // Interactive ellipsis with dropdown
  * <BreadcrumbEllipsis>
  *   <DropdownMenu>
- *     <DropdownMenuTrigger asChild>
- *       <BreadcrumbEllipsisButton />
- *     </DropdownMenuTrigger>
+ *     <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
  *     <DropdownMenuContent>
- *       <DropdownMenuItem asChild>
- *         <a href="/projects">Projects</a>
- *       </DropdownMenuItem>
+ *       <DropdownMenuItem render={<a href="/projects">Projects</a>} />
  *     </DropdownMenuContent>
  *   </DropdownMenu>
  * </BreadcrumbEllipsis>
@@ -284,7 +271,7 @@ function BreadcrumbEllipsis({ children, className, ...props }: ComponentProps<"l
       aria-hidden="true"
       className={cn(
         "inline-flex items-center",
-        "has-[button[data-state=open]]:bg-accent has-[button[data-state=open]]:text-foreground has-[button[data-state=open]]:rounded-sm",
+        "has-[button[data-popup-open]]:bg-accent has-[button[data-popup-open]]:text-foreground has-[button[data-popup-open]]:rounded-sm",
         className
       )}
       {...props}

@@ -54,22 +54,24 @@ export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          ref={ref}
-          data-slot="combobox-trigger"
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-50 justify-between"
-          {...props}
-        >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
-          <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={
+          <Button
+            ref={ref}
+            data-slot="combobox-trigger"
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-50 justify-between"
+            {...props}
+          >
+            {value
+              ? frameworks.find((framework) => framework.value === value)?.label
+              : "Select framework..."}
+            <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        }
+      />
       <PopoverContent className="w-50 p-0">
         <Command>
           <CommandInput placeholder="Search framework..." />
@@ -139,22 +141,24 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
 
     return (
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            ref={ref}
-            data-slot="combobox-trigger"
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className={cn("w-50 justify-between", className)}
-            {...props}
-          >
-            {selectedValue
-              ? options.find((option) => option.value === selectedValue)?.label
-              : placeholder}
-            <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
+        <PopoverTrigger
+          render={
+            <Button
+              ref={ref}
+              data-slot="combobox-trigger"
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className={cn("w-50 justify-between", className)}
+              {...props}
+            >
+              {selectedValue
+                ? options.find((option) => option.value === selectedValue)?.label
+                : placeholder}
+              <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          }
+        />
         <PopoverContent className="w-50 p-0">
           <Command>
             <CommandInput placeholder={searchPlaceholder} />

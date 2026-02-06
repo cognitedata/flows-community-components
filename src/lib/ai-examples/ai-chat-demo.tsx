@@ -866,12 +866,14 @@ export function AIChatDemo({
                         <IconAdjustments />
                       </PromptInputButton>
                       <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm">
-                            Agent model
-                            <IconChevronDown />
-                          </Button>
-                        </DropdownMenuTrigger>
+                        <DropdownMenuTrigger
+                          render={
+                            <Button variant="ghost" size="sm">
+                              Agent model
+                              <IconChevronDown />
+                            </Button>
+                          }
+                        />
                         <DropdownMenuContent>
                           <DropdownMenuItem>GPT-4</DropdownMenuItem>
                           <DropdownMenuItem>Claude</DropdownMenuItem>
