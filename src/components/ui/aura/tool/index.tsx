@@ -13,11 +13,4 @@ export {
   ToolInput,
   ToolOutput,
 } from "./tool";
-export type {
-  ToolProps,
-  ToolHeaderProps,
-  ToolContentProps,
-  ToolInputProps,
-  ToolOutputProps,
-} from "./tool";
 export { ToolMetadata } from "./tool.metadata";

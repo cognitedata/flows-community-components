@@ -1,12 +1,8 @@
+import { Button } from "@/components/ui/aura/button";
+import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@/components/ui/aura/tool";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
-import {
-  Tool,
-  ToolContent,
-  ToolHeader,
-  ToolInput,
-  ToolOutput,
-} from "@/components/ui/aura/tool";
+import { useState } from "react";
 
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",
@@ -17,7 +13,7 @@ const meta: Meta<typeof Tool> = {
       control: "boolean",
       description: "Controlled open state of the tool content",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -26,7 +22,7 @@ const meta: Meta<typeof Tool> = {
       description:
         "Default open state (uncontrolled). Whether the tool content is open by default.",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -42,7 +38,7 @@ const meta: Meta<typeof Tool> = {
       control: "boolean",
       description: "Disable the tool collapsible (trigger cannot be clicked)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -73,7 +69,7 @@ export default meta;
 type Story = StoryObj<typeof Tool>;
 
 /**
- * Default tool invocation.
+ * Default tool invocation with input parameters and output.
  */
 export const Basic: Story = {
   render: () => (
@@ -113,7 +109,7 @@ export const Basic: Story = {
 };
 
 /**
- * Tool with error output.
+ * Tool invocation that resulted in an error.
  */
 export const WithError: Story = {
   render: () => (
@@ -140,10 +136,15 @@ export const WithError: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Error")).toBeInTheDocument();
+    await expect(canvas.getByText(/File not found/)).toBeInTheDocument();
+  },
 };
 
 /**
- * Collapsed by default.
+ * Tool that starts collapsed and can be expanded.
  */
 export const CollapsedByDefault: Story = {
   render: () => (
@@ -178,7 +179,7 @@ export const CollapsedByDefault: Story = {
 };
 
 /**
- * Complex input parameters.
+ * Tool with complex nested input parameters.
  */
 export const ComplexInput: Story = {
   render: () => (
@@ -216,10 +217,16 @@ export const ComplexInput: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("create_pull_request")).toBeInTheDocument();
+    await expect(canvas.getByText("Parameters")).toBeInTheDocument();
+    await expect(canvas.getByText("Result")).toBeInTheDocument();
+  },
 };
 
 /**
- * Multiple tool invocations.
+ * Multiple sequential tool invocations.
  */
 export const MultipleTools: Story = {
   render: () => (
@@ -260,10 +267,16 @@ export const MultipleTools: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("list_directory")).toBeInTheDocument();
+    await expect(canvas.getByText("read_file")).toBeInTheDocument();
+    await expect(canvas.getByText("write_file")).toBeInTheDocument();
+  },
 };
 
 /**
- * Tool with large output.
+ * Tool with large structured output.
  */
 export const LargeOutput: Story = {
   render: () => (
@@ -320,15 +333,95 @@ export const LargeOutput: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("search_codebase")).toBeInTheDocument();
+    await expect(canvas.getByText("Result")).toBeInTheDocument();
+  },
 };
 
 /**
- * Visual regression testing.
+ * Controlled open state using an external toggle.
+ */
+export const Interactive: Story = {
+  render: () => {
+    const [open, setOpen] = useState(false);
+    return (
+      <div className="space-y-4">
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={() => setOpen(!open)}>
+            {open ? "Collapse" : "Expand"}
+          </Button>
+        </div>
+        <Tool open={open} onOpenChange={setOpen}>
+          <ToolHeader title="controlled_tool" type="tool-invocation" />
+          <ToolContent>
+            <ToolInput input={{ query: "test" }} />
+            <ToolOutput output={{ status: "completed" }} errorText={undefined} />
+          </ToolContent>
+        </Tool>
+      </div>
+    );
+  },
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Controlled open state using an external toggle.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const expandButton = await canvas.findByText("Expand");
+    await expect(expandButton).toBeInTheDocument();
+    await userEvent.click(expandButton);
+    await expect(canvas.getByText("Collapse")).toBeInTheDocument();
+    await expect(canvas.getByText("Parameters")).toBeInTheDocument();
+    await userEvent.click(canvas.getByText("Collapse"));
+    await expect(canvas.getByText("Expand")).toBeInTheDocument();
+  },
+};
+
+/**
+ * Keyboard navigation: Tab to focus, Enter or Space to toggle.
+ */
+export const Accessibility: Story = {
+  render: () => (
+    <Tool defaultOpen={false}>
+      <ToolHeader title="accessible_tool" type="tool-invocation" />
+      <ToolContent>
+        <ToolInput input={{ key: "value" }} />
+        <ToolOutput output={{ result: "success" }} errorText={undefined} />
+      </ToolContent>
+    </Tool>
+  ),
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "Keyboard navigation: Tab to focus the trigger, Enter or Space to toggle.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = await canvas.findByRole("button");
+    await expect(trigger).toBeInTheDocument();
+    trigger.focus();
+    await expect(trigger).toHaveFocus();
+    await userEvent.keyboard("{Enter}");
+    await expect(canvas.getByText("Parameters")).toBeInTheDocument();
+    await userEvent.keyboard("{Enter}");
+  },
+};
+
+/**
+ * Visual regression baseline.
  */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {/* Basic tool */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Tool>
@@ -340,7 +433,6 @@ export const VisualRegression: Story = {
         </Tool>
       </div>
 
-      {/* With error */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Error</h3>
         <Tool>
@@ -354,43 +446,14 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 7,
+    order: 9,
     docs: {
       description: {
-        story: "Tools for visual regression testing.",
+        story: "Visual regression baseline for basic and error states.",
       },
     },
     chromatic: {
       disableSnapshot: false,
-    },
-  },
-};
-
-/**
- * Interactive playground.
- */
-export const Playground: Story = {
-  render: () => (
-    <Tool defaultOpen>
-      <ToolHeader title="playground_tool" type="tool-invocation" />
-      <ToolContent>
-        <ToolInput
-          input={{
-            param1: "value1",
-            param2: 123,
-            param3: true,
-          }}
-        />
-        <ToolOutput output={{ status: "completed" }} errorText={undefined} />
-      </ToolContent>
-    </Tool>
-  ),
-  parameters: {
-    order: 99,
-    docs: {
-      description: {
-        story: "Interactive tool example.",
-      },
     },
   },
 };
