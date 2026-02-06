@@ -1,11 +1,15 @@
-import { IconX } from "@tabler/icons-react";
-import { type VariantProps, cva } from "class-variance-authority";
-import { type ComponentProps, createContext, useContext } from "react";
-import type { MouseEventHandler } from "react";
-
 import { Button } from "@/components/ui/aura/button";
 import { useControllableState } from "@/lib/use-controllable-state";
 import { cn } from "@/lib/utils";
+import { IconX } from "@tabler/icons-react";
+import { type VariantProps, cva } from "class-variance-authority";
+import {
+  type ComponentProps,
+  type MouseEventHandler,
+  createContext,
+  forwardRef,
+  useContext,
+} from "react";
 
 type AlertVariant = "default" | "secondary" | "warning" | "error";
 
@@ -45,39 +49,38 @@ type AlertProps = ComponentProps<"div"> &
     onClose?: () => void;
   };
 
-function Alert({
-  className,
-  variant = "default",
-  visible,
-  defaultVisible = true,
-  onClose,
-  children,
-  ...props
-}: AlertProps) {
-  const [show, setShow] = useControllableState({
-    defaultProp: defaultVisible,
-    prop: visible,
-    onChange: onClose,
-  });
+const Alert = forwardRef<HTMLDivElement, AlertProps>(
+  (
+    { className, variant = "default", visible, defaultVisible = true, onClose, children, ...props },
+    ref
+  ) => {
+    const [show, setShow] = useControllableState({
+      defaultProp: defaultVisible,
+      prop: visible,
+      onChange: onClose,
+    });
 
-  if (!show) {
-    return null;
+    if (!show) {
+      return null;
+    }
+
+    return (
+      <AlertContext.Provider value={{ show, setShow, variant: variant as AlertVariant }}>
+        <div
+          ref={ref}
+          data-slot="alert"
+          role="alert"
+          className={cn(alertVariants({ variant }), className)}
+          {...props}
+        >
+          {onClose && <AlertClose />}
+          {children}
+        </div>
+      </AlertContext.Provider>
+    );
   }
-
-  return (
-    <AlertContext.Provider value={{ show, setShow, variant: variant as AlertVariant }}>
-      <div
-        data-slot="alert"
-        role="alert"
-        className={cn(alertVariants({ variant }), className)}
-        {...props}
-      >
-        {onClose && <AlertClose />}
-        {children}
-      </div>
-    </AlertContext.Provider>
-  );
-}
+);
+Alert.displayName = "Alert";
 
 const alertTitleVariants: Record<AlertVariant, string> = {
   default: "text-undefined-foreground",
@@ -86,20 +89,24 @@ const alertTitleVariants: Record<AlertVariant, string> = {
   error: "text-destructive-foreground",
 };
 
-function AlertTitle({ className, ...props }: ComponentProps<"div">) {
-  const { variant } = useContext(AlertContext);
-  return (
-    <div
-      data-slot="alert-title"
-      className={cn(
-        "text-base font-medium leading-5 tracking-tightest",
-        alertTitleVariants[variant],
-        className
-      )}
-      {...props}
-    />
-  );
-}
+const AlertTitle = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    const { variant } = useContext(AlertContext);
+    return (
+      <div
+        ref={ref}
+        data-slot="alert-title"
+        className={cn(
+          "text-base font-medium leading-5 tracking-tightest",
+          alertTitleVariants[variant],
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+AlertTitle.displayName = "AlertTitle";
 
 const alertDescriptionVariants: Record<AlertVariant, string> = {
   default: "text-card-foreground",
@@ -108,76 +115,90 @@ const alertDescriptionVariants: Record<AlertVariant, string> = {
   error: "text-foreground",
 };
 
-function AlertDescription({ className, ...props }: ComponentProps<"div">) {
-  const { variant } = useContext(AlertContext);
-  return (
-    <div
-      data-slot="alert-description"
-      className={cn(
-        "col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight items-center",
-        alertDescriptionVariants[variant],
-        className
-      )}
-      {...props}
-    />
-  );
-}
+const AlertDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => {
+    const { variant } = useContext(AlertContext);
+    return (
+      <div
+        ref={ref}
+        data-slot="alert-description"
+        className={cn(
+          "col-start-2 grid justify-items-start gap-1 text-sm font-normal leading-4.5 tracking-tight items-center",
+          alertDescriptionVariants[variant],
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+AlertDescription.displayName = "AlertDescription";
 
-function AlertActions({ className, ...props }: ComponentProps<"div">) {
-  return (
+const AlertActions = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+  ({ className, ...props }, ref) => (
     <div
+      ref={ref}
       data-slot="alert-actions"
       className={cn("col-start-2 flex flex-wrap items-start gap-2 pt-1", className)}
       {...props}
     />
-  );
-}
+  )
+);
+AlertActions.displayName = "AlertActions";
 
-function AlertButton({ className, ...props }: ComponentProps<"button">) {
-  const { variant } = useContext(AlertContext);
+const AlertButton = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
+  ({ className, ...props }, ref) => {
+    const { variant } = useContext(AlertContext);
 
-  const hoverClasses: Record<AlertVariant, string> = {
-    default: "hover:bg-undefined-hover",
-    secondary: "hover:bg-neutral-hover",
-    warning: "hover:bg-warning-hover",
-    error: "hover:bg-destructive-hover",
-  };
+    const hoverClasses: Record<AlertVariant, string> = {
+      default: "hover:bg-undefined-hover",
+      secondary: "hover:bg-neutral-hover",
+      warning: "hover:bg-warning-hover",
+      error: "hover:bg-destructive-hover",
+    };
 
-  return (
-    <Button
-      data-slot="alert-button"
-      variant="ghost"
-      size="sm"
-      className={cn("text-foreground", hoverClasses[variant], className)}
-      {...props}
-    />
-  );
-}
+    return (
+      <Button
+        ref={ref}
+        data-slot="alert-button"
+        variant="ghost"
+        size="sm"
+        className={cn("text-foreground", hoverClasses[variant], className)}
+        {...props}
+      />
+    );
+  }
+);
+AlertButton.displayName = "AlertButton";
 
-function AlertClose({ className, onClick, ...props }: ComponentProps<"button">) {
-  const { setShow } = useContext(AlertContext);
+const AlertClose = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
+  ({ className, onClick, ...props }, ref) => {
+    const { setShow } = useContext(AlertContext);
 
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-    setShow(false);
-    onClick?.(e);
-  };
+    const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+      setShow(false);
+      onClick?.(e);
+    };
 
-  return (
-    <Button
-      data-slot="alert-close"
-      variant="ghost"
-      size="icon-sm"
-      className={cn(
-        "absolute top-3 right-4 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-foreground",
-        className
-      )}
-      onClick={handleClick}
-      {...props}
-    >
-      <IconX size={14} />
-      <span className="sr-only">Close</span>
-    </Button>
-  );
-}
+    return (
+      <Button
+        ref={ref}
+        data-slot="alert-close"
+        variant="ghost"
+        size="icon-sm"
+        className={cn(
+          "absolute top-3 right-4 h-3.5 w-3.5 p-0 opacity-70 hover:opacity-100 text-foreground",
+          className
+        )}
+        onClick={handleClick}
+        {...props}
+      >
+        <IconX size={14} />
+        <span className="sr-only">Close</span>
+      </Button>
+    );
+  }
+);
+AlertClose.displayName = "AlertClose";
 
 export { Alert, AlertTitle, AlertDescription, AlertActions, AlertButton, AlertClose };

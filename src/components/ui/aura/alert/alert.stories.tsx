@@ -22,13 +22,12 @@ const meta: Meta<typeof Alert> = {
   component: Alert,
   tags: ["autodocs"],
   argTypes: {
-    // Appearance
     variant: {
       control: "select",
       options: ["default", "secondary", "warning", "error"],
       description: "The visual style variant of the alert",
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: { summary: '"default" | "secondary" | "warning" | "error"' },
         defaultValue: { summary: "default" },
       },
@@ -37,16 +36,14 @@ const meta: Meta<typeof Alert> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
-
-    // State
     visible: {
       control: "boolean",
       description: "Controlled visibility state",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -54,13 +51,11 @@ const meta: Meta<typeof Alert> = {
       control: "boolean",
       description: "Default visibility state (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "true" },
       },
     },
-
-    // Events
     onClose: {
       action: "closed",
       description: "Callback fired when alert is closed",
@@ -86,7 +81,7 @@ export default meta;
 type Story = StoryObj<typeof Alert>;
 
 /**
- * Default alert with title, description, and action button.
+ * Default alert style with informational content.
  */
 export const Basic: Story = {
   render: () => (
@@ -121,10 +116,10 @@ export const Basic: Story = {
 };
 
 /**
- * Dismissible alert with close button.
+ * Alert with a close button. Provide onClose to show the close button.
  */
 export const Dismissible: Story = {
-  render: function DismissibleAlert() {
+  render: () => {
     const [visible, setVisible] = useState(true);
 
     if (!visible) {
@@ -174,7 +169,7 @@ export const Dismissible: Story = {
 };
 
 /**
- * Secondary variant for less urgent information.
+ * Secondary variant for less prominent notifications.
  */
 export const Secondary: Story = {
   render: () => (
@@ -196,10 +191,16 @@ export const Secondary: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const alert = canvasElement.querySelector('[data-slot="alert"]');
+    await expect(alert).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: /update/i })).toBeInTheDocument();
+  },
 };
 
 /**
- * Warning variant for cautionary messages.
+ * Warning variant for cautionary messages that need attention.
  */
 export const Warning: Story = {
   render: () => (
@@ -222,10 +223,15 @@ export const Warning: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Storage almost full")).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: /upgrade plan/i })).toBeInTheDocument();
+  },
 };
 
 /**
- * Error variant for critical messages.
+ * Error variant for critical issues that need immediate attention.
  */
 export const ErrorAlert: Story = {
   render: () => (
@@ -246,10 +252,15 @@ export const ErrorAlert: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Unable to connect data")).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: /try again/i })).toBeInTheDocument();
+  },
 };
 
 /**
- * All alert variants displayed together.
+ * All available alert variants for comparison.
  */
 export const AllVariants: Story = {
   render: () => (
@@ -291,7 +302,7 @@ export const AllVariants: Story = {
 };
 
 /**
- * Alert without title (description only).
+ * Alert with just a description when a title is not needed.
  */
 export const DescriptionOnly: Story = {
   render: () => (
@@ -308,10 +319,14 @@ export const DescriptionOnly: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText(/3 new notifications/)).toBeInTheDocument();
+  },
 };
 
 /**
- * Success-style alert using default variant with check icon.
+ * Success-style alert using the default variant with a green check icon.
  */
 export const Success: Story = {
   render: () => (
@@ -331,10 +346,14 @@ export const Success: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Changes saved successfully")).toBeInTheDocument();
+  },
 };
 
 /**
- * Alert with multiple action buttons.
+ * Alert with multiple action buttons for user choice.
  */
 export const MultipleActions: Story = {
   render: () => (
@@ -368,10 +387,10 @@ export const MultipleActions: Story = {
 };
 
 /**
- * Controlled visibility example.
+ * Alert visibility controlled externally using the visible prop.
  */
 export const ControlledVisibility: Story = {
-  render: function ControlledAlert() {
+  render: () => {
     const [visible, setVisible] = useState(true);
 
     return (
@@ -431,7 +450,7 @@ export const ControlledVisibility: Story = {
 };
 
 /**
- * Edge case: very long title and description to verify wrapping and layout.
+ * Long title and description to verify wrapping and layout stability.
  */
 export const EdgeCaseLongText: Story = {
   render: () => (
@@ -453,7 +472,7 @@ export const EdgeCaseLongText: Story = {
     </Alert>
   ),
   parameters: {
-    order: 12,
+    order: 11,
     docs: {
       description: {
         story: "Long title and description to verify wrapping and layout stability.",
@@ -470,7 +489,7 @@ export const EdgeCaseLongText: Story = {
 };
 
 /**
- * Edge case: title and description with special characters (quotes, unicode, symbols).
+ * Alert with special characters: quotes, apostrophes, unicode, and symbols.
  */
 export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
@@ -486,7 +505,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </Alert>
   ),
   parameters: {
-    order: 13,
+    order: 12,
     docs: {
       description: {
         story: "Alert with special characters: quotes, apostrophes, unicode, and symbols.",
@@ -502,10 +521,10 @@ export const EdgeCaseSpecialCharacters: Story = {
 };
 
 /**
- * Accessibility: role="alert", close button label, and keyboard interaction.
+ * Demonstrates accessible alert: role=alert, labeled close button, keyboard support.
  */
 export const Accessibility: Story = {
-  render: function AccessibilityAlert() {
+  render: () => {
     const [visible, setVisible] = useState(true);
 
     if (!visible) {
@@ -532,7 +551,7 @@ export const Accessibility: Story = {
     );
   },
   parameters: {
-    order: 14,
+    order: 13,
     docs: {
       description: {
         story: "Demonstrates accessible alert: role=alert, labeled close button, keyboard support.",
@@ -553,7 +572,7 @@ export const Accessibility: Story = {
 };
 
 /**
- * Visual regression testing - comprehensive overview.
+ * Comprehensive visual overview for regression testing.
  */
 export const VisualRegression: Story = {
   render: () => (
@@ -604,7 +623,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 15,
+    order: 14,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -624,7 +643,7 @@ export const VisualRegression: Story = {
 };
 
 /**
- * Interactive playground.
+ * Interactive playground - use controls to experiment with alert props.
  */
 export const Playground: Story = {
   render: (args) => (
