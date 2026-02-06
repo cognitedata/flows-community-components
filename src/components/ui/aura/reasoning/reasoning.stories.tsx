@@ -599,7 +599,7 @@ export const LongContent: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const toolButton = canvas.getByRole("button");
+    const toolButton = await canvas.findByRole("button");
     await userEvent.click(toolButton);
 
     await waitFor(() => {
