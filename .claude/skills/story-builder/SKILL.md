@@ -65,6 +65,10 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
 See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
 
+## Render Functions
+
+**NO JSX comments in render functions** (e.g., `{/* States */}`). If you need section labels, use semantic HTML headings (`<h3>`) instead. JSX comments clutter the code and don't provide value when proper semantic markup is available.
+
 ### Query Priority
 
 Prioritize semantic queries over test IDs in play functions:
@@ -105,6 +109,7 @@ Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced.
 **Story descriptions should be minimal and future-proof.** Avoid mentioning specific counts or implementation details that could become outdated. See story files for examples of clear, timeless descriptions.
 
 **Story-level code comments** (in `/** ... */` above stories or in descriptions) should be minimal and explain WHAT the story demonstrates, not HOW it works internally.
+**Keep story commentary short and directly relevant to the example.** Avoid long prose or redundant explanations.
 
 ## Deprecated Components
 
@@ -125,3 +130,4 @@ Before committing changes:
 6. No inline code comments in play functions
 7. Story descriptions are minimal and future-proof
 8. No deprecated third-party components used
+9. Keep story comments short and relevant to the example
