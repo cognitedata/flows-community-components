@@ -81,7 +81,7 @@ export const Basic: Story = {
 };
 
 /**
- * Primary button group for main actions.
+ * Primary variant for prominent call-to-action groups.
  */
 export const Primary: Story = {
   render: () => (
@@ -100,10 +100,18 @@ export const Primary: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("group");
+    const buttons = await canvas.findAllByRole("button");
+
+    await expect(group).toBeInTheDocument();
+    await expect(buttons).toHaveLength(2);
+  },
 };
 
 /**
- * Secondary button group for supporting actions.
+ * Secondary variant for less prominent actions.
  */
 export const Secondary: Story = {
   render: () => (
@@ -121,10 +129,15 @@ export const Secondary: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons).toHaveLength(3);
+  },
 };
 
 /**
- * Ghost button group for minimal visual weight.
+ * Ghost variant for toolbars with minimal visual weight.
  */
 export const Ghost: Story = {
   render: () => (
@@ -148,10 +161,15 @@ export const Ghost: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons).toHaveLength(3);
+  },
 };
 
 /**
- * Destructive button group for dangerous actions.
+ * Destructive variant for dangerous actions.
  */
 export const Destructive: Story = {
   render: () => (
@@ -173,10 +191,16 @@ export const Destructive: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons).toHaveLength(2);
+    await expect(canvas.getByText("Delete")).toBeInTheDocument();
+  },
 };
 
 /**
- * Button group with dropdown trigger.
+ * Split button pattern with dropdown trigger in different variants.
  */
 export const SplitButton: Story = {
   render: () => (
@@ -209,10 +233,15 @@ export const SplitButton: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const groups = canvas.getAllByRole("group");
+    await expect(groups).toHaveLength(3);
+  },
 };
 
 /**
- * Vertical stacked button group.
+ * Vertical layout for stacked actions.
  */
 export const Vertical: Story = {
   render: () => (
@@ -238,7 +267,7 @@ export const Vertical: Story = {
 };
 
 /**
- * Multiple button groups in a toolbar layout.
+ * Multiple button groups with mixed variants in a toolbar.
  */
 export const ToolbarLayout: Story = {
   render: () => (
@@ -274,10 +303,18 @@ export const ToolbarLayout: Story = {
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const groups = canvas.getAllByRole("group");
+    await expect(groups).toHaveLength(3);
+    await expect(canvas.getByText("Undo")).toBeInTheDocument();
+    await expect(canvas.getByText("Redo")).toBeInTheDocument();
+    await expect(canvas.getByText("Export")).toBeInTheDocument();
+  },
 };
 
 /**
- * Size variants for button groups.
+ * Button groups work with all button sizes.
  */
 export const Sizes: Story = {
   render: () => (
@@ -319,6 +356,95 @@ export const Sizes: Story = {
       description: {
         story: "Button groups work with all button sizes.",
       },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const groups = canvas.getAllByRole("group");
+    await expect(groups).toHaveLength(3);
+  },
+};
+
+/**
+ * Keyboard navigation: Tab moves between buttons within the group.
+ */
+export const Accessibility: Story = {
+  render: () => (
+    <ButtonGroup>
+      <Button variant="outline">First</Button>
+      <Button variant="outline">Second</Button>
+      <Button variant="outline">Third</Button>
+    </ButtonGroup>
+  ),
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story: "Demonstrates role='group' semantics and keyboard navigation between buttons.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("group");
+    const buttons = await canvas.findAllByRole("button");
+
+    await expect(group).toBeInTheDocument();
+    await expect(group).toHaveAttribute("data-slot", "button-group");
+    await expect(buttons).toHaveLength(3);
+  },
+};
+
+/**
+ * Visual regression baseline for all variants.
+ */
+export const VisualRegression: Story = {
+  render: () => (
+    <div className="flex flex-col items-start gap-6 p-4">
+      <ButtonGroup>
+        <Button>Primary</Button>
+        <Button size="icon">
+          <IconChevronDown className="size-4" />
+        </Button>
+      </ButtonGroup>
+
+      <ButtonGroup>
+        <Button variant="outline">Outline</Button>
+        <ButtonGroupSeparator />
+        <Button variant="outline">Buttons</Button>
+      </ButtonGroup>
+
+      <ButtonGroup>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="secondary">Group</Button>
+      </ButtonGroup>
+
+      <ButtonGroup>
+        <Button variant="destructive">
+          <IconTrash className="size-4" />
+          Delete
+        </Button>
+        <Button variant="destructive" size="icon">
+          <IconChevronDown className="size-4" />
+        </Button>
+      </ButtonGroup>
+
+      <ButtonGroup orientation="vertical">
+        <Button variant="outline">Top</Button>
+        <Button variant="outline">Middle</Button>
+        <Button variant="outline">Bottom</Button>
+      </ButtonGroup>
+    </div>
+  ),
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story: "Visual regression baseline showing all variants and orientations.",
+      },
+    },
+    chromatic: {
+      disableSnapshot: false,
     },
   },
 };
