@@ -1,15 +1,52 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { Card, CardContent } from "@/components/ui/aura/card";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/aura/select";
+import {
+  type PrimitiveProgressStatus,
   getPrimitiveCatalogBySection,
   getPrimitiveProgressBadgeProps,
   getPrimitiveProgressLabel,
 } from "@/lib/primitives-catalog";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
+type StatusFilter = "all" | PrimitiveProgressStatus;
+
+const STATUS_FILTERS: StatusFilter[] = [
+  "all",
+  "ready-for-dc",
+  "in-progress",
+  "dev-check",
+  "needs-discussion",
+  "imported-from-fusion",
+  "coming-soon",
+  "untracked",
+];
+
 export default function PrimitivesPage() {
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const foundations = getPrimitiveCatalogBySection("foundation");
   const components = getPrimitiveCatalogBySection("primitive");
+  const filteredFoundations = useMemo(
+    () =>
+      statusFilter === "all"
+        ? foundations
+        : foundations.filter((foundation) => foundation.progressStatus === statusFilter),
+    [foundations, statusFilter]
+  );
+  const filteredComponents = useMemo(
+    () =>
+      statusFilter === "all"
+        ? components
+        : components.filter((component) => component.progressStatus === statusFilter),
+    [components, statusFilter]
+  );
 
   return (
     <div className="max-w-4xl mx-auto py-10">
@@ -21,13 +58,39 @@ export default function PrimitivesPage() {
           </p>
         </div>
 
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div className="space-y-1">
+            <h2 className="text-base font-semibold">Filter by status</h2>
+            <p className="text-sm text-muted-foreground">
+              Showing {filteredFoundations.length + filteredComponents.length} items
+            </p>
+          </div>
+          <Select
+            value={statusFilter}
+            onValueChange={(value) => {
+              setStatusFilter(value as StatusFilter);
+            }}
+          >
+            <SelectTrigger className="min-w-56">
+              <SelectValue placeholder="All statuses" />
+            </SelectTrigger>
+            <SelectContent>
+              {STATUS_FILTERS.map((status) => (
+                <SelectItem key={status} value={status}>
+                  {status === "all" ? "All statuses" : getPrimitiveProgressLabel(status)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         <div className="space-y-6">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Foundations</h2>
             <p className="text-muted-foreground mt-1">Core design tokens and system fundamentals</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {foundations.map((foundation) => {
+            {filteredFoundations.map((foundation) => {
               const badgeProps = getPrimitiveProgressBadgeProps(foundation.progressStatus);
 
               return (
@@ -58,6 +121,11 @@ export default function PrimitivesPage() {
               );
             })}
           </div>
+          {filteredFoundations.length === 0 && (
+            <p className="text-sm text-muted-foreground">
+              No foundations match this status filter.
+            </p>
+          )}
         </div>
 
         <div className="space-y-6">
@@ -68,7 +136,7 @@ export default function PrimitivesPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {components.map((component) => {
+            {filteredComponents.map((component) => {
               const badgeProps = getPrimitiveProgressBadgeProps(component.progressStatus);
 
               return (
@@ -99,6 +167,9 @@ export default function PrimitivesPage() {
               );
             })}
           </div>
+          {filteredComponents.length === 0 && (
+            <p className="text-sm text-muted-foreground">No primitives match this status filter.</p>
+          )}
         </div>
       </div>
     </div>
