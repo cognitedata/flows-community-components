@@ -7,5 +7,4 @@ export const DialogMetadata: ComponentMeta = {
     "A modal dialog with overlay, content, and close affordances built on Base UI Dialog.",
   llmUsage:
     "Use `<Dialog>` with `<DialogTrigger>`, `<DialogContent>`, and `<DialogTitle>` for modals.",
-  importPath: "@/components/ui/aura/dialog",
 };

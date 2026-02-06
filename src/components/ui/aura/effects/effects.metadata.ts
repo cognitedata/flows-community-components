@@ -13,5 +13,4 @@ export const EffectsMetadata: ComponentMeta = {
     "Effect definitions for the Aura design system including shadows, focus rings, border radii, and animation patterns.",
   llmUsage:
     "Use `getShadow()` for shadow values, `getRadius()` for border radius, and `getFocusRingClasses()` for accessible focus indicators.",
-  importPath: "@/components/ui/aura/effects",
 };

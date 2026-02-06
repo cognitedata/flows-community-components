@@ -5,5 +5,4 @@ export const ProgressMetadata: ComponentMeta = {
   status: "draft",
   description: "A progress bar component for showing completion status.",
   llmUsage: "Use `<Progress value={66}>` to show progress percentage.",
-  importPath: "@/components/ui/aura/progress",
 };
