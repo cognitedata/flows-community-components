@@ -1,7 +1,7 @@
 /**
  * Context Menu Component
  *
- * A right-click context menu built on Radix Context Menu primitives.
+ * A right-click context menu built on Base UI Context Menu primitives.
  *
  * @example
  * import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from '@/components/ui/aura/context-menu';

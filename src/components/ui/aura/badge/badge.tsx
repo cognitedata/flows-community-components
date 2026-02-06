@@ -1,6 +1,7 @@
-import { Slot } from "@radix-ui/react-slot";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { type VariantProps, cva } from "class-variance-authority";
-import { type ComponentProps, forwardRef } from "react";
+import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -60,42 +61,36 @@ const badgeVariants = cva(
  * A versatile badge component for labels, status indicators, and tags.
  * Supports multiple colour variants, outline/background styles, and dot indicators.
  */
-const Badge = forwardRef<
-  HTMLSpanElement,
-  ComponentProps<"span"> &
-    VariantProps<typeof badgeVariants> & {
-      asChild?: boolean;
-      urgent?: boolean;
-    }
->(
-  (
-    {
-      className,
-      variant,
-      size,
-      outline,
-      dot,
-      background,
-      urgent = false,
-      asChild = false,
-      children,
-      ...props
-    },
-    ref
-  ) => {
-    const Comp = asChild ? Slot : "span";
-    const isEmpty = !children;
+type BadgeProps = useRender.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & {
+    urgent?: boolean;
+  };
 
-    // These variants don't support outline - they're filled only
-    const decorativeOnlyVariants = ["mountain", "fjord", "nordic", "aurora", "dusk", "orange"];
-    const canBeOutlined = variant && !decorativeOnlyVariants.includes(variant);
-    const isOutlined = outline === true && canBeOutlined;
+function Badge({
+  className,
+  variant,
+  size,
+  outline,
+  dot,
+  background,
+  urgent = false,
+  children,
+  render,
+  ...props
+}: BadgeProps) {
+  const isEmpty = !children;
 
-    return (
-      <Comp
-        ref={ref}
-        data-slot="badge"
-        className={cn(
+  // These variants don't support outline - they're filled only
+  const decorativeOnlyVariants = ["mountain", "fjord", "nordic", "aurora", "dusk", "orange"];
+  const canBeOutlined = variant && !decorativeOnlyVariants.includes(variant);
+  const isOutlined = outline === true && canBeOutlined;
+
+  return useRender({
+    defaultTagName: "span",
+    props: mergeProps<"span">(
+      {
+        "data-slot": "badge",
+        className: cn(
           badgeVariants({
             variant,
             size,
@@ -113,15 +108,17 @@ const Badge = forwardRef<
           dot && isEmpty && urgent && "bg-destructive-foreground",
           dot && isEmpty && !urgent && "bg-neutral-foreground",
           className
-        )}
-        {...props}
-      >
-        {children}
-      </Comp>
-    );
-  }
-);
-Badge.displayName = "Badge";
+        ),
+      } as any,
+      { ...props, children } as any
+    ),
+    render,
+    state: {
+      slot: "badge",
+      variant,
+    },
+  });
+}
 
 // eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants };

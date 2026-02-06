@@ -1,11 +1,30 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
-import { useState } from "react";
-import { Cell, Pie, PieChart, type PieLabelRenderProps } from "recharts";
+import { useId, useState } from "react";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  Cell,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  type PieLabelRenderProps,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
-import { type ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/aura/chart";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+} from "@/components/ui/aura/chart";
 import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import {
   ArtifactChart,
@@ -138,11 +157,11 @@ const sharedChartConfig = {
 } satisfies ChartConfig;
 
 const sharedChartData = [
-  { id: "slice1", value: 225 },
-  { id: "slice2", value: 225 },
-  { id: "slice3", value: 225 },
-  { id: "slice4", value: 225 },
-  { id: "slice5", value: 225 },
+  { id: "slice1", value: 225, fill: "var(--color-slice1)" },
+  { id: "slice2", value: 225, fill: "var(--color-slice2)" },
+  { id: "slice3", value: 225, fill: "var(--color-slice3)" },
+  { id: "slice4", value: 225, fill: "var(--color-slice4)" },
+  { id: "slice5", value: 225, fill: "var(--color-slice5)" },
 ];
 
 const labelColor = "var(--color-fjord-450)";
@@ -194,11 +213,11 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Visitors")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Visitors")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function BasicPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -245,15 +264,8 @@ export const Basic: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -311,9 +323,9 @@ export const WithHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function WithHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -360,15 +372,8 @@ export const WithHeader: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -415,8 +420,8 @@ export const WithFooter: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function WithFooterPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -458,15 +463,8 @@ export const WithFooter: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -524,7 +522,7 @@ export const WithActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
@@ -581,15 +579,8 @@ export const WithActions: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -646,8 +637,8 @@ export const MinimalHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function MinimalHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -693,15 +684,8 @@ export const MinimalHeader: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -759,9 +743,9 @@ export const InteractiveDataToggle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("Q1")).toBeInTheDocument();
-    await expect(canvas.getByText("Q2")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("Q1")).toBeInTheDocument();
+    await expect(await canvas.findByText("Q2")).toBeInTheDocument();
   },
   render: function InteractiveDataTogglePieChart() {
     const q1Data = [
@@ -851,15 +835,8 @@ export const InteractiveDataToggle: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -921,7 +898,7 @@ export const EdgeCaseLongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
+    await expect(await canvas.findByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
   },
   render: function LongTextPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -973,15 +950,8 @@ export const EdgeCaseLongText: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -1039,8 +1009,8 @@ export const VisualRegression: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function VisualRegressionPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1067,15 +1037,8 @@ export const VisualRegression: Story = {
                   endAngle={-270}
                   label={renderLabel}
                   labelLine={false}
-                >
-                  {chartData.map((entry) => (
-                    <Cell
-                      key={entry.id}
-                      fill={`var(--color-${entry.id})`}
-                      className="transition-opacity duration-200 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
+                  className="[&_.recharts-pie-sector]:transition-opacity [&_.recharts-pie-sector]:duration-200 [&_.recharts-pie-sector:hover]:opacity-80"
+                />
               </PieChart>
             </ChartContainer>
             <div className="pointer-events-none absolute inset-0 grid place-items-center text-center">
@@ -1132,7 +1095,7 @@ export const EdgeCaseNoData: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("No data available")).toBeInTheDocument();
+    await expect(await canvas.findByText("No data available")).toBeInTheDocument();
   },
   render: function NoDataPieChart() {
     const [chartData] = useState<{ id: string; value: number }[]>([]);
@@ -1159,6 +1122,638 @@ export const EdgeCaseNoData: Story = {
         <ArtifactChartFooter className="flex flex-col items-start gap-1">
           <div className="text-sm text-muted-foreground">
             Data will appear once activity is recorded
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+// Area chart configuration
+const areaChartConfig = {
+  r401: { label: "R401", color: "rgba(47, 85, 234, 0.8)" },
+  r402: { label: "R402", color: "rgba(47, 85, 234, 0.5)" },
+} satisfies ChartConfig;
+
+const areaChartData = [
+  { time: "02:00", r401: 280, r402: 120 },
+  { time: "06:00", r401: 300, r402: 140 },
+  { time: "10:00", r401: 350, r402: 160 },
+  { time: "14:00", r401: 320, r402: 150 },
+  { time: "18:00", r401: 290, r402: 130 },
+  { time: "22:00", r401: 310, r402: 145 },
+];
+
+/**
+ * Stacked area chart showing temperature trends over time.
+ * Two series with gradient fills and a time-based x-axis.
+ */
+export const StackedAreaChart: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Stacked area chart showing temperature trends for two reactors over 24 hours. Features gradient fills, time-based x-axis, multi-series tooltip, and centered legend.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(await canvas.findByText("Reactor temperature trend")).toBeInTheDocument();
+    await expect(await canvas.findByText("Last 24 hours")).toBeInTheDocument();
+    await expect(await canvas.findByText("R401")).toBeInTheDocument();
+    await expect(await canvas.findByText("R402")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function StackedAreaChartStory() {
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Reactor temperature trend</ArtifactChartTitle>
+          <ArtifactChartDescription>Last 24 hours</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={areaChartConfig} className="h-40 w-full">
+            <AreaChart data={areaChartData} margin={{ left: 0, right: 0, top: 10, bottom: 0 }}>
+              {/* SVG gradient definitions for area fills */}
+              <defs>
+                {/* R401 gradient - lighter (top series) */}
+                <linearGradient id="areaGradientR401" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.13)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.04)" />
+                </linearGradient>
+                {/* R402 gradient - more opaque (bottom series) */}
+                <linearGradient id="areaGradientR402" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.48)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.3)" />
+                </linearGradient>
+              </defs>
+              <XAxis
+                dataKey="time"
+                tickLine={false}
+                axisLine={false}
+                tick={{ fontSize: 12, fill: "var(--color-muted-foreground)" }}
+                tickMargin={8}
+              />
+              <ChartTooltip
+                cursor={{ stroke: "var(--color-muted-foreground)", strokeWidth: 1 }}
+                content={({ active, payload, label }) => {
+                  if (!active || !payload?.length) return null;
+
+                  return (
+                    <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      {payload.map((entry) => {
+                        const key = entry.dataKey as string;
+                        const config = areaChartConfig[key as keyof typeof areaChartConfig];
+                        return (
+                          <div key={key} className="flex items-center gap-4">
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="h-2 w-2 rounded-sm"
+                                style={{ backgroundColor: config?.color }}
+                              />
+                              <span className="text-sm text-muted-foreground">{config?.label}</span>
+                            </div>
+                            <span className="text-sm text-foreground">{entry.value}°C</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }}
+              />
+              {/* R401 area - higher values, rendered first (behind) */}
+              <Area
+                type="monotone"
+                dataKey="r401"
+                stroke="#2F55EA"
+                strokeWidth={1}
+                fill="url(#areaGradientR401)"
+                dot={false}
+                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+              />
+              {/* R402 area - lower values, rendered second (in front) */}
+              <Area
+                type="monotone"
+                dataKey="r402"
+                stroke="#2F55EA"
+                strokeWidth={1}
+                fill="url(#areaGradientR402)"
+                dot={false}
+                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+            </AreaChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+// Line chart configuration
+const lineChartConfig = {
+  strong: { label: "Primary", color: "rgba(47, 85, 234, 0.8)" },
+  muted: { label: "Secondary", color: "rgba(47, 85, 234, 0.5)" },
+} satisfies ChartConfig;
+
+const lineChartData = [
+  { date: "Apr 1", strong: 40, muted: 80 },
+  { date: "", strong: 120, muted: 100 },
+  { date: "Apr 7", strong: 180, muted: 90 },
+  { date: "", strong: 280, muted: 140 },
+  { date: "Apr 14", strong: 160, muted: 180 },
+  { date: "", strong: 220, muted: 160 },
+  { date: "Apr 21", strong: 320, muted: 120 },
+  { date: "", strong: 260, muted: 140 },
+  { date: "Apr 30", strong: 200, muted: 160 },
+];
+
+/**
+ * Line chart showing trends over time with multiple series.
+ * Two lines with different stroke weights - solid and muted.
+ */
+export const MultiLineChart: Story = {
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story:
+          "Line chart showing trends over time with two series. Features solid and semi-transparent strokes, date-based x-axis, and centered legend.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(await canvas.findByText("Performance metrics")).toBeInTheDocument();
+    await expect(await canvas.findByText("Last 30 days")).toBeInTheDocument();
+    await expect(await canvas.findByText("Primary")).toBeInTheDocument();
+    await expect(await canvas.findByText("Secondary")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function MultiLineChartStory() {
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Performance metrics</ArtifactChartTitle>
+          <ArtifactChartDescription>Last 30 days</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={lineChartConfig} className="h-32 w-full">
+            <LineChart data={lineChartData} margin={{ left: 0, right: 0, top: 10, bottom: 0 }}>
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tick={{ fontSize: 12, fill: "var(--color-muted-foreground)" }}
+                tickMargin={8}
+              />
+              <ChartTooltip
+                cursor={{ stroke: "var(--color-muted-foreground)", strokeWidth: 1 }}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+
+                  return (
+                    <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      {payload.map((entry) => {
+                        const key = entry.dataKey as string;
+                        const config = lineChartConfig[key as keyof typeof lineChartConfig];
+                        return (
+                          <div key={key} className="flex items-center gap-4">
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="h-2 w-2 rounded-sm"
+                                style={{ backgroundColor: config?.color }}
+                              />
+                              <span className="text-sm text-muted-foreground">{config?.label}</span>
+                            </div>
+                            <span className="text-sm text-foreground">{entry.value}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }}
+              />
+              {/* Muted line - rendered first (behind) */}
+              <Line
+                type="monotone"
+                dataKey="muted"
+                stroke="var(--color-muted)"
+                strokeWidth={2}
+                dot={false}
+                activeDot={{
+                  r: 4,
+                  fill: "var(--color-muted)",
+                  stroke: "var(--color-popover)",
+                  strokeWidth: 2,
+                }}
+              />
+              {/* Strong line - rendered second (in front) */}
+              <Line
+                type="monotone"
+                dataKey="strong"
+                stroke="var(--color-strong)"
+                strokeWidth={2}
+                dot={false}
+                activeDot={{
+                  r: 4,
+                  fill: "var(--color-strong)",
+                  stroke: "var(--color-popover)",
+                  strokeWidth: 2,
+                }}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+            </LineChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+// Bar chart configuration
+const barChartConfig = {
+  value: { label: "Count", color: "url(#barGradient)" },
+} satisfies ChartConfig;
+
+const barChartData = [
+  { name: "Assets", value: 106 },
+  { name: "Files", value: 305 },
+  { name: "Events", value: 237 },
+  { name: "Work orders", value: 73 },
+  { name: "Time series", value: 209 },
+];
+
+/**
+ * Horizontal bar chart artifact with category labels.
+ * Shows data distribution across different categories with values on bars.
+ * Bars use a gradient fill from lighter to darker blue (fjord color).
+ */
+export const HorizontalBarChart: Story = {
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story:
+          "Horizontal bar chart showing data distribution across categories. Includes header with actions, gradient-filled bars with value labels, and footer with trend information.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Assets")).toBeInTheDocument();
+    await expect(await canvas.findByText("Files")).toBeInTheDocument();
+    await expect(await canvas.findByText("Events")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function HorizontalBarChartStory() {
+    const chartData = barChartData;
+    const barGradientId = useId();
+    const tooltipGradientId = useId();
+
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Chart title</ArtifactChartTitle>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={barChartConfig} className="h-50 w-full">
+            <BarChart data={chartData} layout="vertical" margin={{ left: 0, right: 40 }}>
+              {/* SVG gradient definitions - use unique IDs to prevent conflicts */}
+              <defs>
+                <linearGradient id={barGradientId} x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.35)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
+                </linearGradient>
+                <linearGradient id={tooltipGradientId} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#2F55EA" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.65)" />
+                </linearGradient>
+              </defs>
+              <YAxis
+                dataKey="name"
+                type="category"
+                tickLine={false}
+                axisLine={false}
+                width={90}
+                tick={{ fontSize: 14, fill: "var(--color-muted-foreground)" }}
+              />
+              <XAxis type="number" hide />
+              <ChartTooltip
+                cursor={{ fill: "var(--color-muted)", opacity: 0.3 }}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+                  const data = payload[0];
+                  const name = data.payload?.name as string;
+                  const value = data.value as number;
+
+                  return (
+                    <div className="flex items-center gap-4 rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      <div className="flex items-center gap-1.5">
+                        {/* Gradient swatch referencing shared gradient definition */}
+                        <svg
+                          width="8"
+                          height="8"
+                          className="shrink-0"
+                          aria-hidden="true"
+                          role="img"
+                        >
+                          <rect width="8" height="8" rx="2" fill={`url(#${tooltipGradientId})`} />
+                        </svg>
+                        <span className="text-sm text-muted-foreground">{name}</span>
+                      </div>
+                      <span className="text-sm text-foreground">{value}</span>
+                    </div>
+                  );
+                }}
+              />
+              <Bar
+                dataKey="value"
+                fill={`url(#${barGradientId})`}
+                radius={[0, 4, 4, 0]}
+                barSize={24}
+                label={{
+                  position: "right",
+                  fill: "var(--color-foreground)",
+                  fontSize: 14,
+                  fontWeight: 400,
+                  offset: 4,
+                }}
+              >
+                {chartData.map((entry) => (
+                  <Cell
+                    key={entry.name}
+                    className="transition-opacity duration-200 hover:opacity-80"
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+          <div className="text-sm leading-4 text-muted-foreground">
+            Total visitors for the last 6 months
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
+type RadialRingDatum = {
+  name: string;
+  fill: string;
+  // Arc percentage (0-100) - how much of the ring is filled
+  arcPercent: number;
+};
+
+// Ring background uses the border token (mountain-100 light, mountain-700 dark)
+
+// 5 concentric circular rings from outer to inner
+// Uses chart/fjord color tokens for proper light/dark mode support
+// arcPercent: how much of each ring is filled (0-100), starting from top going clockwise
+const radialRingData: RadialRingDatum[] = [
+  { name: "ring5", fill: "var(--color-chart-fjord-opacity-4)", arcPercent: 50 },
+  { name: "ring4", fill: "var(--color-chart-fjord-opacity-3)", arcPercent: 72 },
+  { name: "ring3", fill: "var(--color-chart-fjord-opacity-2)", arcPercent: 65 },
+  { name: "ring2", fill: "var(--color-chart-fjord-opacity-1)", arcPercent: 76 },
+  { name: "ring1", fill: "var(--color-chart-fjord-solid)", arcPercent: 100 },
+];
+
+function RadialRingSvg({
+  onRingHover,
+  onMouseMove,
+  hoveredRing,
+}: {
+  onRingHover: (ring: RadialRingDatum | null) => void;
+  onMouseMove: (e: React.MouseEvent<SVGSVGElement>) => void;
+  hoveredRing: RadialRingDatum | null;
+}) {
+  const viewBoxSize = 100;
+  const cx = viewBoxSize / 2;
+  const cy = viewBoxSize / 2;
+
+  // Ring configuration - thick circular rings with clear gaps
+  // Container is 200px (w-50), so 1 viewBox unit = 2px
+  const strokeWidth = 5.5; // ~11px thick rings
+  const gap = 2.5; // ~5px gap between rings
+  const spacing = strokeWidth + gap; // Distance between ring centers
+  // Ensure outer edge fits within viewBox: outerRadius + strokeWidth/2 <= 50
+  const outerRingRadius = viewBoxSize / 2 - strokeWidth / 2; // ~47.25
+
+  return (
+    <svg
+      viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
+      className="h-full w-full"
+      aria-hidden="true"
+      onMouseLeave={() => onRingHover(null)}
+      onMouseMove={onMouseMove}
+    >
+      {radialRingData.map((ring, index) => {
+        // Calculate radius for this ring (outer to inner)
+        const radius = outerRingRadius - index * spacing;
+
+        // Calculate arc path for partial fills
+        const circumference = 2 * Math.PI * radius;
+        const arcLength = (ring.arcPercent / 100) * circumference;
+        const dashArray = `${arcLength} ${circumference}`;
+        const isHovered = hoveredRing?.name === ring.name;
+
+        return (
+          <g key={ring.name} onMouseEnter={() => onRingHover(ring)} className="cursor-pointer">
+            {/* Background ring (full circle) */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              strokeWidth={strokeWidth}
+              className="stroke-border"
+              style={{
+                opacity: hoveredRing && !isHovered ? 0.5 : 1,
+                transition: "opacity 150ms",
+              }}
+            />
+            {/* Filled arc */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              stroke={ring.fill}
+              strokeWidth={strokeWidth}
+              strokeDasharray={ring.arcPercent === 100 ? undefined : dashArray}
+              strokeDashoffset={0}
+              strokeLinecap="butt"
+              transform={`rotate(-90 ${cx} ${cy})`}
+              style={{
+                opacity: hoveredRing && !isHovered ? 0.5 : 1,
+                transition: "opacity 150ms",
+              }}
+            />
+            {/* Invisible hit area for better hover detection */}
+            <circle
+              cx={cx}
+              cy={cy}
+              r={radius}
+              fill="none"
+              stroke="transparent"
+              strokeWidth={strokeWidth + 4}
+            />
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+/**
+ * Radial bar chart with concentric rings showing progress/completion data.
+ * Rings go from lightest (outermost) to darkest (innermost).
+ */
+export const RadialChart: Story = {
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story:
+          "Radial bar chart with concentric rings. Each ring represents a different metric with varying fill percentages. Uses a gradient of blue opacities from light (outer) to solid (inner).",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function RadialChartStory() {
+    const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(null);
+    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+    const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    };
+
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Chart title</ArtifactChartTitle>
+          <ArtifactChartDescription>January - June 2024</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <div className="relative mx-auto aspect-square w-50">
+            <RadialRingSvg
+              onRingHover={setHoveredRing}
+              onMouseMove={handleMouseMove}
+              hoveredRing={hoveredRing}
+            />
+            {hoveredRing && (
+              <div
+                className="pointer-events-none absolute z-10"
+                style={{
+                  left: mousePos.x + 12,
+                  top: mousePos.y - 20,
+                }}
+              >
+                <div className="flex items-center gap-4 rounded-md bg-popover p-2 shadow-md">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="h-2 w-2 rounded-sm"
+                      style={{ backgroundColor: hoveredRing.fill }}
+                    />
+                    <span className="text-sm text-muted-foreground">unit</span>
+                  </div>
+                  <span className="text-sm text-foreground">{hoveredRing.arcPercent}%</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {radialRingData.map((item) => (
+              <div key={item.name} className="flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-sm" style={{ backgroundColor: item.fill }} />
+                <span className="text-sm leading-4 text-muted-foreground">unit</span>
+              </div>
+            ))}
+          </div>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+          <div className="text-sm leading-4 text-muted-foreground">
+            Total visitors for the last 6 months
           </div>
         </ArtifactChartFooter>
       </ArtifactChart>

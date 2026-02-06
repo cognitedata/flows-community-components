@@ -1,10 +1,10 @@
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
 import { HelperText } from "./helper-text";
 
 const meta: Meta<typeof HelperText> = {

@@ -24,50 +24,15 @@ Browse all components in the sidebar navigation or see individual component page
 
 ## Installation
 
-### For End Users
+Getting started instructions for Aura now live in the Dune creation docs:
 
-Install components from the published registry:
-
-```bash
-# Install a specific component
-npx shadcn add @aura/button
-
-# The CLI will automatically install dependencies
-```
-
-**Note:** Only production-ready components are published to the registry.
+- https://laughing-adventure-r6kwpyy.pages.github.io/
 
 ## Usage
 
-### Import Pattern
+Follow the Dune creation docs for setup, imports, and usage examples:
 
-Always use the `/cognite` path for imports:
-
-```tsx
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
-```
-
-**Why `/cognite`?** The system automatically resolves to production components when available, or draft components as a fallback. This means:
-
-- No import changes needed when components are promoted to production
-- Consistent import pattern across your entire codebase
-
-### Basic Example
-
-```tsx
-import { Button } from '@/components/ui/aura/button';
-import { Badge } from '@/components/ui/aura/badge';
-
-export function MyComponent() {
-  return (
-    <div>
-      <Badge>New</Badge>
-      <Button>Click me</Button>
-    </div>
-  );
-}
-```
+- https://laughing-adventure-r6kwpyy.pages.github.io/
 
 ## Styling
 
@@ -93,9 +58,11 @@ For contributors and developers working on this library:
 - See [IMPORT_SYSTEM.md](../IMPORT_SYSTEM.md) - Complete guide to the import and publishing system
 - See [PUBLISHING_WORKFLOW.md](../PUBLISHING_WORKFLOW.md) - How to publish components
 - See [DEVELOPMENT.md](../DEVELOPMENT.md) - Development setup and guidelines
+- See [base-ui-migration.md](./base-ui-migration.md) - Notes for migrating primitives from Radix to Base UI
 
 ## Support
 
 - **Documentation Issues** - File an issue if you find problems with the docs
 - **Component Requests** - Suggest new components or improvements
 - **Bug Reports** - Report issues with specific components on their individual pages
+

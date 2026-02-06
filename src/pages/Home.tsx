@@ -12,97 +12,107 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/t
 import {
   IconAlertTriangle as AlertTriangle,
   IconArrowRight as ArrowRight,
+  IconBook as BookOpen,
   IconChevronDown as ChevronDown,
-  IconDownload as Download,
+  IconCode as Code2,
+  IconGrid3x3 as Grid3X3,
+  IconLayout as Layout,
+  IconPalette as Palette,
   IconSettings as Settings,
   IconSparkles as Sparkles,
   IconTerminal as Terminal,
+  IconBolt as Zap,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import type { BundledLanguage } from "shiki";
+const duneDocsUrl = "https://laughing-adventure-r6kwpyy.pages.github.io/";
 
-interface Step {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  code?: string;
-  language?: BundledLanguage;
-  extra?: React.ReactNode;
-}
-
-const newProjectSteps: Step[] = [
-  {
-    icon: Terminal,
-    title: "Create your project",
-    description:
-      'Start with a new Next.js project. You can name your project by appending the name to the command (e.g. my-app), or use "." to create it in the current directory.',
-    code: "npx cognite-create@latest",
+const componentsJson = `{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "src/styles.css",
+    "baseColor": "zinc",
+    "cssVariables": true,
+    "prefix": ""
   },
-  {
-    icon: Sparkles,
-    title: "Start building with Cursor",
-    description: "Ask Cursor AI to build your features using natural language",
-    code: "Build me a timeseries dashboard",
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
   },
-];
-
-const existingProjectSteps: Step[] = [
-  {
-    icon: Terminal,
-    title: "Initialize shadcn",
-    description: "If you haven't already, initialize shadcn-ui in your project",
-    code: "npx shadcn@latest init",
-  },
-  {
-    icon: Sparkles,
-    title: "Install shadcn MCP for Cursor",
-    description:
-      "Optional, but recommended: install the shadcn MCP server so Cursor can integrate with shadcn tooling.",
-    code: "npx shadcn@latest mcp",
-    extra: (
-      <a
-        href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://cursor.com/deeplink/mcp-install-dark.svg"
-          alt="Add shadcn MCP server to Cursor"
-          height={32}
-        />
-      </a>
-    ),
-  },
-  {
-    icon: Settings,
-    title: "Configure registry",
-    description: "Add the Aura registry to your components.json file",
-    code: `{
   "registries": {
     "@aura": "https://cognitedata.github.io/aura/r/{name}.json"
   }
-}`,
-    language: "json",
+}`;
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
+const features = [
+  {
+    icon: Palette,
+    title: "Design tokens",
+    description: "Colors, typography, and spacing tokens with live previews",
+    href: "/tokens",
   },
   {
-    icon: Download,
-    title: "Install components",
-    description: "Use the shadcn CLI with the @aura prefix to install components",
-    code: "pnpm dlx shadcn@latest add @aura/button",
+    icon: Zap,
+    title: "Motion guidelines",
+    description: "Animation principles and interactive demonstrations",
+    href: "/motion",
+  },
+  {
+    icon: Grid3X3,
+    title: "UI primitives",
+    description: "Core components with live code examples",
+    href: "/primitives",
+  },
+  {
+    icon: Layout,
+    title: "Layout patterns",
+    description: "Responsive layouts with resizable previews",
+    href: "/layouts",
+  },
+  {
+    icon: Code2,
+    title: "Component docs",
+    description: "Comprehensive documentation with live examples and code snippets",
+    href: "/primitives",
+  },
+  {
+    icon: BookOpen,
+    title: "Getting started",
+    description: "Guides for designers and developers",
+    href: "#quick-start",
   },
 ];
 
 export default function HomePage() {
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText("npx cognite-create@latest");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   const scrollToQuickStart = () => {
     const element = document.getElementById("quick-start");
     element?.scrollIntoView({ behavior: "smooth" });
@@ -127,38 +137,6 @@ export default function HomePage() {
               Aura is Cognite&apos;s AI-native design system inspired by fractal intelligence and
               adaptive by nature.
             </p>
-          </div>
-
-          {/* CLI Command */}
-          <div className="max-w-2xl mx-auto w-full">
-            <div
-              className="group relative flex items-center gap-4 bg-muted/50 backdrop-blur-md border border-border/50 rounded-xl px-6 py-5 hover:bg-muted/70 transition-all cursor-pointer shadow-sm"
-              onClick={copyToClipboard}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  copyToClipboard();
-                }
-              }}
-              role="button"
-              tabIndex={0}
-            >
-              <Terminal className="h-6 w-6 text-primary shrink-0" />
-              <code className="flex-1 text-left font-mono text-lg sm:text-xl text-foreground">
-                npx cognite-create@latest
-              </code>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  copyToClipboard();
-                }}
-              >
-                {copied ? "Copied!" : "Copy"}
-              </Button>
-            </div>
           </div>
 
           {/* Alert Banner */}
@@ -188,11 +166,9 @@ export default function HomePage() {
             <Button
               variant="outline"
               size="lg"
-              asChild
               className="text-lg px-8 h-14 rounded-full backdrop-blur-sm bg-background/50"
-            >
-              <Link to="/primitives">Explore components</Link>
-            </Button>
+              render={<Link to="/primitives">Explore components</Link>}
+            />
           </div>
         </motion.div>
 
@@ -216,10 +192,10 @@ export default function HomePage() {
       {/* Quick Start Section */}
       <div
         id="quick-start"
-        className="relative z-10 min-h-screen bg-background/80 backdrop-blur-3xl py-24 sm:py-32"
+        className="relative z-10 bg-background/80 backdrop-blur-3xl py-20 sm:py-24"
       >
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="space-y-16">
+          <div className="space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">Quick Start</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -228,125 +204,217 @@ export default function HomePage() {
             </div>
 
             <div className="max-w-3xl mx-auto">
-              <Tabs defaultValue="new" className="w-full">
+              <Tabs defaultValue="dune" className="w-full">
                 <div className="flex justify-center mb-8">
                   <TabsList className="h-12 p-1 bg-muted/50 backdrop-blur-sm border border-border/50">
                     <TabsTrigger
-                      value="new"
-                      className="h-full px-8 text-base data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                      value="dune"
+                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
-                      New Project
+                      Create with Dune
                     </TabsTrigger>
                     <TabsTrigger
-                      value="existing"
-                      className="h-full px-8 text-base data-[state=active]:bg-background data-[state=active]:shadow-sm"
+                      value="custom"
+                      className="h-full px-6 text-base data-[active]:bg-background data-[active]:shadow-sm"
                     >
-                      Existing Project
+                      Custom installation
                     </TabsTrigger>
                   </TabsList>
                 </div>
 
-                <TabsContent value="new" className="space-y-8 mt-0">
-                  {newProjectSteps.map((step, index) => (
-                    <motion.div
-                      key={step.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors">
-                        <CardHeader>
-                          <div className="flex flex-col md:flex-row md:items-start gap-6">
-                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                              <step.icon className="h-6 w-6 text-primary" />
-                            </div>
-                            <div className="flex-1 space-y-2">
-                              <div className="flex items-center gap-3">
-                                <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-muted px-2 text-xs font-medium text-muted-foreground">
-                                  {index + 1}
-                                </span>
-                                <CardTitle className="text-xl">{step.title}</CardTitle>
-                              </div>
-                              <CardDescription className="text-base">
-                                {step.description}
-                              </CardDescription>
-                            </div>
-                          </div>
-                        </CardHeader>
-                        {(step.code || step.extra) && (
-                          <CardContent className="pl-0 md:pl-22">
-                            {step.code && (
-                              <CodeBlock code={step.code} language={step.language || "bash"}>
-                                <CodeBlockCopyButton />
-                              </CodeBlock>
-                            )}
-                            {step.extra && (
-                              <div className={step.code ? "pt-4" : undefined}>{step.extra}</div>
-                            )}
-                          </CardContent>
-                        )}
-                      </Card>
-                    </motion.div>
-                  ))}
+                <TabsContent value="dune" className="space-y-8 mt-0">
+                  <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
+                    <CardHeader>
+                      <div className="flex flex-col md:flex-row md:items-start gap-6">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                          <Terminal className="h-6 w-6 text-primary" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <CardTitle className="text-xl">Create with Dune</CardTitle>
+                          <CardDescription className="text-base">
+                            Follow the official Dune creation docs to set up Aura quickly and keep
+                            your project aligned with the latest guidance.
+                          </CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pl-0 md:pl-22">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                        <Button
+                          render={
+                            <a href={duneDocsUrl} target="_blank" rel="noopener noreferrer">
+                              Open Dune creation docs
+                            </a>
+                          }
+                        />
+                        <span className="text-sm text-muted-foreground">
+                          All setup steps now live in the Dune creation docs.
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </TabsContent>
 
-                <TabsContent value="existing" className="space-y-8 mt-0">
-                  {existingProjectSteps.map((step, index) => (
-                    <motion.div
-                      key={step.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-colors">
-                        <CardHeader>
-                          <div className="flex flex-col md:flex-row md:items-start gap-6">
-                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                              <step.icon className="h-6 w-6 text-primary" />
-                            </div>
-                            <div className="flex-1 space-y-2">
-                              <div className="flex items-center gap-3">
-                                <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-muted px-2 text-xs font-medium text-muted-foreground">
-                                  {index + 1}
-                                </span>
-                                <CardTitle className="text-xl">{step.title}</CardTitle>
-                              </div>
-                              <CardDescription className="text-base">
-                                {step.description}
-                              </CardDescription>
-                            </div>
-                          </div>
-                        </CardHeader>
-                        {(step.code || step.extra) && (
-                          <CardContent className="pl-0 md:pl-22">
-                            {step.code && (
-                              <CodeBlock code={step.code} language={step.language || "bash"}>
-                                <CodeBlockCopyButton />
-                              </CodeBlock>
-                            )}
-                            {step.extra && (
-                              <div className={step.code ? "pt-4" : undefined}>{step.extra}</div>
-                            )}
-                          </CardContent>
-                        )}
-                      </Card>
-                    </motion.div>
-                  ))}
+                <TabsContent value="custom" className="space-y-8 mt-0">
+                  <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
+                    <CardHeader>
+                      <div className="flex flex-col md:flex-row md:items-start gap-6">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                          <Sparkles className="h-6 w-6 text-primary" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <CardTitle className="text-xl">Add the Cursor MCP server</CardTitle>
+                          <CardDescription className="text-base">
+                            Install the shadcn MCP server so Cursor can integrate with the Aura
+                            tooling.
+                          </CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pl-0 md:pl-22">
+                      <a
+                        href="https://cursor.com/en-US/install-mcp?name=shadcn&config=eyJjb21tYW5kIjoibnB4IHNoYWRjbkBsYXRlc3QgbWNwIn0%3D"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src="https://cursor.com/deeplink/mcp-install-dark.svg"
+                          alt="Add shadcn MCP server to Cursor"
+                          height={32}
+                        />
+                      </a>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
+                    <CardHeader>
+                      <div className="flex flex-col md:flex-row md:items-start gap-6">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                          <Settings className="h-6 w-6 text-primary" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <CardTitle className="text-xl">Add Aura to components.json</CardTitle>
+                          <CardDescription className="text-base">
+                            Copy this into a file named components.json at the root of your project.
+                          </CardDescription>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pl-0 md:pl-22">
+                      <CodeBlock code={componentsJson} language="json">
+                        <CodeBlockCopyButton />
+                      </CodeBlock>
+                    </CardContent>
+                  </Card>
                 </TabsContent>
               </Tabs>
             </div>
-
-            <div className="flex justify-center pt-8">
-              <Button asChild size="lg" variant="secondary">
-                <Link to="/docs/installation">
-                  View Full Installation Guide
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
           </div>
+        </div>
+      </div>
+      <div className="relative z-10 border-t border-border/60 px-4 py-20 sm:py-24">
+        <div className="container mx-auto max-w-5xl">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-12 text-center"
+          >
+            <motion.section variants={itemVariants} className="text-center space-y-6">
+              <div className="space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                  Design system
+                  <span className="block text-primary">guidelines</span>
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                  A comprehensive design system documentation with interactive examples, live code
+                  previews, and guidelines for building consistent digital experiences.
+                </p>
+              </div>
+            </motion.section>
+
+            <motion.section variants={itemVariants} className="space-y-8">
+              <h3 className="text-2xl font-bold text-center">Explore the system</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {features.map((feature) => (
+                  <motion.div
+                    key={feature.title}
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                      {feature.href.startsWith("#") ? (
+                        <a href={feature.href}>
+                          <CardHeader>
+                            <feature.icon className="h-8 w-8 text-primary mb-2" />
+                            <CardTitle>{feature.title}</CardTitle>
+                            <CardDescription>{feature.description}</CardDescription>
+                          </CardHeader>
+                        </a>
+                      ) : (
+                        <Link to={feature.href}>
+                          <CardHeader>
+                            <feature.icon className="h-8 w-8 text-primary mb-2" />
+                            <CardTitle>{feature.title}</CardTitle>
+                            <CardDescription>{feature.description}</CardDescription>
+                          </CardHeader>
+                        </Link>
+                      )}
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.section>
+
+            <motion.section variants={itemVariants} className="text-center space-y-6">
+              <h3 className="text-2xl font-bold">Built for teams</h3>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Our design system bridges the gap between design and development, providing a single
+                source of truth for creating cohesive user experiences.
+              </p>
+            </motion.section>
+
+            <motion.section variants={itemVariants} className="space-y-8">
+              <h3 className="text-2xl font-bold text-center">Core principles</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card className="text-center">
+                  <CardHeader>
+                    <CardTitle>Intentional</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Every element has a purpose. Design choices are grounded in research and
+                      feedback, ensuring clarity in complexity.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="text-center">
+                  <CardHeader>
+                    <CardTitle>Adaptive</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      The system flexes to different contexts and scales, embracing fractal
+                      perspectives that reveal insights at any level.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="text-center">
+                  <CardHeader>
+                    <CardTitle>Intuitive</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      Interactions guide users naturally, letting motion, hierarchy, and structure
+                      feel effortless and transparent.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.section>
+          </motion.div>
         </div>
       </div>
     </div>

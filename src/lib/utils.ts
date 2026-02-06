@@ -57,7 +57,7 @@ export function getHostname(url: string | undefined): string {
 }
 
 /**
- * Gets or creates the portal container for Radix UI components.
+ * Gets or creates the portal container for portalled UI components.
  * Container is created in document.body to avoid positioning issues
  * from the shell app's container query context.
  * The result is cached to avoid side effects on subsequent calls during React renders.
