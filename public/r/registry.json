@@ -1545,6 +1545,26 @@
       ]
     },
     {
+      "name": "tree",
+      "type": "registry:component",
+      "title": "tree",
+      "description": "",
+      "dependencies": ["@radix-ui/react-collapsible", "@tabler/icons-react"],
+      "registryDependencies": ["@aura/css", "@aura/badge"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/tree/tree.tsx",
+          "target": "src/components/ui/aura/tree.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "typography",
       "type": "registry:component",
       "title": "typography",
