@@ -10,6 +10,11 @@ import {
   getStatusMessage,
 } from "@/lib/component-status";
 import { getStatusLabel } from "@/lib/component-status";
+import {
+  getPrimitiveCatalogEntry,
+  getPrimitiveProgressBadgeProps,
+  getPrimitiveProgressLabel,
+} from "@/lib/primitives-catalog";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -26,12 +31,14 @@ export default function ComponentPage() {
   const navigate = useNavigate();
   const [meta, setMeta] = useState<ComponentMeta | null>(null);
   const [loading, setLoading] = useState(true);
+  const catalogEntry = slug ? getPrimitiveCatalogEntry(slug) : null;
+  const resolvedSlug = catalogEntry?.slug || slug || "";
 
   useEffect(() => {
     async function loadMeta() {
-      if (!slug) return;
+      if (!resolvedSlug) return;
       try {
-        const componentMeta = await getComponentMeta(slug);
+        const componentMeta = await getComponentMeta(resolvedSlug);
         setMeta(componentMeta);
       } catch {
         // Component not found
@@ -39,7 +46,7 @@ export default function ComponentPage() {
       setLoading(false);
     }
     loadMeta();
-  }, [slug]);
+  }, [resolvedSlug]);
 
   if (!slug) {
     return null;
@@ -56,12 +63,51 @@ export default function ComponentPage() {
     );
   }
 
-  const componentName = meta?.name || toTitleCase(slug);
+  const componentName = catalogEntry?.name || meta?.name || toTitleCase(slug);
   const componentStatus: ComponentStatusType = meta?.status || "draft";
   const statusClasses = getComponentStatusClasses(componentStatus);
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
-  const description = meta?.description || "Component documentation";
+  const description = catalogEntry?.description || meta?.description || "Component documentation";
+  const progressBadgeProps = catalogEntry
+    ? getPrimitiveProgressBadgeProps(catalogEntry.progressStatus)
+    : null;
+
+  if (catalogEntry && !catalogEntry.implemented) {
+    return (
+      <div className="max-w-4xl mx-auto py-10">
+        <div className="space-y-8">
+          <div className="flex items-center gap-4">
+            <Button variant="secondary" size="sm" onClick={() => navigate("/primitives")}>
+              <IconArrowLeft className="h-4 w-4 mr-2" />
+              Back to Components
+            </Button>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+              <Badge variant="secondary">Primitive</Badge>
+              <Badge
+                variant={progressBadgeProps?.variant}
+                outline={progressBadgeProps?.outline}
+                className={progressBadgeProps?.className}
+              >
+                {getPrimitiveProgressLabel(catalogEntry.progressStatus)}
+              </Badge>
+            </div>
+            <p className="text-lg text-muted-foreground">{description}</p>
+            <div className="p-4 rounded-lg border border-dashed bg-muted/30">
+              <p className="text-sm text-muted-foreground">
+                This primitive is tracked in the progress metadata and is not implemented yet. A
+                placeholder is shown until stories and metadata-backed implementation are available.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto py-10">
@@ -79,6 +125,15 @@ export default function ComponentPage() {
           <div className="flex items-center gap-3 mb-2">
             <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
             <Badge variant="secondary">Component</Badge>
+            {catalogEntry && progressBadgeProps && (
+              <Badge
+                variant={progressBadgeProps.variant}
+                outline={progressBadgeProps.outline}
+                className={progressBadgeProps.className}
+              >
+                {getPrimitiveProgressLabel(catalogEntry.progressStatus)}
+              </Badge>
+            )}
             <Badge variant="secondary" className={statusClasses}>
               {statusLabel}
             </Badge>
@@ -96,13 +151,13 @@ export default function ComponentPage() {
         {/* Examples Section */}
         <section>
           <h2 className="text-2xl font-bold mb-6">Examples</h2>
-          <StoriesRenderer slug={slug} />
+          <StoriesRenderer slug={resolvedSlug} />
         </section>
 
         {/* Installation Section */}
         <section>
           <h2 className="text-2xl font-bold mb-6">Installation</h2>
-          <InstallationCommand component={slug} dependencies={[]} componentCode="" />
+          <InstallationCommand component={resolvedSlug} dependencies={[]} componentCode="" />
         </section>
 
         {/* Guidelines Section */}
