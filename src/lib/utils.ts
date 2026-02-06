@@ -72,29 +72,27 @@ export function getHostname(url: string | undefined): string {
 export const getPortalContainer = (options?: PortalContainerOptions): HTMLElement | undefined => {
   const hasCustomOptions = Boolean(options && Object.keys(options).length > 0);
 
-  if (hasCustomOptions && !hasWarnedAboutCustomPortalContainerProps) {
-    console.warn(
-      "Custom portal container props can lead to unintended behavior. Use with caution."
-    );
-    hasWarnedAboutCustomPortalContainerProps = true;
-  }
-
   const containerId = options?.id ?? styleScope.portalContainer;
   const containerClassName = options?.className ?? styleScope.styleScope;
 
   if (portalContainer) {
     if (hasCustomOptions) {
-      portalContainer.id = containerId;
-      portalContainer.className = containerClassName;
-      portalContainer.style.position = options?.style?.position ?? "fixed";
-      portalContainer.style.zIndex = options?.style?.zIndex ?? "1000";
-      Object.assign(portalContainer.style, options?.style);
+      console.warn(
+        "getPortalContainer: Portal container already exists. Custom options will be ignored to prevent side effects."
+      );
     }
     return portalContainer;
   }
 
   if (typeof window === "undefined") {
     return undefined;
+  }
+
+  if (hasCustomOptions && !hasWarnedAboutCustomPortalContainerProps) {
+    console.warn(
+      "Custom portal container props can lead to unintended behavior. Use with caution."
+    );
+    hasWarnedAboutCustomPortalContainerProps = true;
   }
 
   let container = document?.getElementById(containerId);
