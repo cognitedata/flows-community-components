@@ -5,5 +5,4 @@ export const TextareaMetadata: ComponentMeta = {
   status: "draft",
   description: "A multi-line text input component.",
   llmUsage: "Use `<Textarea>` for multi-line text input fields.",
-  importPath: "@/components/ui/aura/textarea",
 };

@@ -4,5 +4,4 @@ export const ChainOfThoughtMetadata: ComponentMeta = {
   name: "ChainOfThought",
   status: "draft",
   description: "A component for displaying AI reasoning chains and search results.",
-  importPath: "@/components/ui/aura/chain-of-thought",
 };
