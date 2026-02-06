@@ -81,7 +81,7 @@ const meta: Meta<typeof Input> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[300px]">
+      <div className="w-75">
         <Story />
       </div>
     ),
@@ -266,8 +266,7 @@ export const ReadOnlyWithCopy: Story = {
     order: 5,
     docs: {
       description: {
-        story:
-          "Example of a read-only input with copy functionality using InputGroup composition. The copy logic is implemented in the story, not in the Input component itself.",
+        story: "Read-only input with copy action using InputGroup composition.",
       },
     },
   },
@@ -570,7 +569,7 @@ export const EdgeCases: Story = {
  */
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-6 p-4 w-[350px]">
+    <div className="space-y-6 p-4 w-88">
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Input States</h3>
         <div className="space-y-3">

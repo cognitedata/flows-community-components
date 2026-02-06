@@ -76,6 +76,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
 - Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
+- Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 
 # Storybook Stories
 

@@ -442,7 +442,7 @@ export const PromptInputExample: Story = {
         <PromptInputTextarea placeholder="Ask me anything..." />
       </PromptInputBody>
       <PromptInputFooter>
-        <PromptInputTools>{/* Tools can go here */}</PromptInputTools>
+        <PromptInputTools />
         <PromptInputSubmit />
       </PromptInputFooter>
     </PromptInput>

@@ -415,7 +415,7 @@ export const EdgeCases: Story = {
     </div>
   ),
   parameters: {
-    order: 9,
+    order: 10,
     docs: {
       description: {
         story:
@@ -465,7 +465,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 10,
+    order: 11,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",

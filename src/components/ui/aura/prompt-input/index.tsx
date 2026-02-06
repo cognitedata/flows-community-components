@@ -83,7 +83,6 @@ export {
 } from "./prompt-input";
 
 // Hooks
-// eslint-disable-next-line react-refresh/only-export-components
 export { usePromptInputController } from "./prompt-input";
 
 // Types
@@ -91,44 +90,7 @@ export type {
   AttachmentsContext,
   TextInputContext,
   PromptInputControllerProps,
-  PromptInputProviderProps,
-  PromptInputAttachmentProps,
-  PromptInputAttachmentsProps,
-  PromptInputActionAddAttachmentsProps,
   PromptInputMessage,
-  PromptInputProps,
-  PromptInputBodyProps,
-  PromptInputTextareaProps,
-  PromptInputHeaderProps,
-  PromptInputFooterProps,
-  PromptInputToolsProps,
-  PromptInputButtonProps,
-  PromptInputActionMenuProps,
-  PromptInputActionMenuTriggerProps,
-  PromptInputActionMenuContentProps,
-  PromptInputActionMenuItemProps,
-  PromptInputSubmitProps,
-  PromptInputSpeechButtonProps,
-  PromptInputModelSelectProps,
-  PromptInputModelSelectTriggerProps,
-  PromptInputModelSelectContentProps,
-  PromptInputModelSelectItemProps,
-  PromptInputModelSelectValueProps,
-  PromptInputHoverCardProps,
-  PromptInputHoverCardTriggerProps,
-  PromptInputHoverCardContentProps,
-  PromptInputTabsListProps,
-  PromptInputTabProps,
-  PromptInputTabLabelProps,
-  PromptInputTabBodyProps,
-  PromptInputTabItemProps,
-  PromptInputCommandProps,
-  PromptInputCommandInputProps,
-  PromptInputCommandListProps,
-  PromptInputCommandEmptyProps,
-  PromptInputCommandGroupProps,
-  PromptInputCommandItemProps,
-  PromptInputCommandSeparatorProps,
 } from "./prompt-input";
 
 export { PromptInputMetadata } from "./prompt-input.metadata";

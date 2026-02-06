@@ -89,7 +89,7 @@ When building components, use `@/*` for internal imports. The `@cognite/*` alias
 
 **index.tsx - brief description only.** See `index.tsx` in any component folder like badge for minimal JSDoc pattern.
 
-**Metadata file - LLM guidance only.** See `badge.metadata.ts` for ComponentMeta pattern.
+**Metadata file - LLM guidance only.** See `badge.metadata.ts` for ComponentMeta pattern. Keep `*.metadata.ts` files metadata-only—remove any runtime/component code from them.
 
 **CRITICAL:** ALL code examples live in Storybook stories only.
 
@@ -124,3 +124,5 @@ Before committing changes:
 8. No !important in Tailwind classes
 9. Proper error handling in all try-catch blocks
 10. Ensure all class names work with Tailwind v4
+11. Ensure component appears in Docs and Storybook sidebar
+12. Ensure `*.metadata.ts` files contain metadata only (no runtime/component code)
