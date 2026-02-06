@@ -74,6 +74,15 @@ export const getPortalContainer = (options?: PortalContainerOptions): HTMLElemen
 
   const containerId = options?.id ?? styleScope.portalContainer;
   const containerClassName = options?.className ?? styleScope.styleScope;
+  const applyContainerProps = (element: HTMLElement) => {
+    element.id = containerId;
+    element.className = containerClassName;
+    element.style.position = options?.style?.position ?? "fixed";
+    element.style.zIndex = options?.style?.zIndex ?? "1000";
+    if (options?.style) {
+      Object.assign(element.style, options.style);
+    }
+  };
 
   if (portalContainer) {
     if (hasCustomOptions) {
@@ -102,11 +111,7 @@ export const getPortalContainer = (options?: PortalContainerOptions): HTMLElemen
     document.body.appendChild(container);
   }
 
-  container.id = containerId;
-  container.className = containerClassName;
-  container.style.position = options?.style?.position ?? "fixed";
-  container.style.zIndex = options?.style?.zIndex ?? "1000";
-  Object.assign(container.style, options?.style);
+  applyContainerProps(container);
 
   portalContainer = container;
   return container;
