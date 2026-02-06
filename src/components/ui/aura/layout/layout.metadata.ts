@@ -13,5 +13,4 @@ export const LayoutMetadata: ComponentMeta = {
     "Layout and grid definitions for the Aura design system including breakpoints, grid configurations, and container query patterns.",
   llmUsage:
     "Use `getBreakpoint()` for breakpoint info, `gridPatterns` for common grid layouts, and `getResponsiveSpan()` for column spans.",
-  importPath: "@/components/ui/aura/layout",
 };

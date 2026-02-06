@@ -13,5 +13,4 @@ export const TooltipMetadata: ComponentMeta = {
     "A popup that displays information related to an element when the element receives keyboard focus or mouse hover, built on Base UI Tooltip primitives.",
   llmUsage:
     "Use `<Tooltip>` with `<TooltipTrigger>` and `<TooltipContent>` for contextual help text.",
-  importPath: "@/components/ui/aura/tooltip",
 };
