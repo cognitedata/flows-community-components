@@ -10,7 +10,6 @@ import {
   forwardRef,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
@@ -116,31 +115,30 @@ const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
     const [html, setHtml] = useState<string>("");
     const [darkHtml, setDarkHtml] = useState<string>("");
     const [isCollapsed, setIsCollapsed] = useState(collapsed);
-    const mounted = useRef(false);
 
     const lineCount = code.split("\n").length;
     const textToCopy = copyText ?? code;
 
     useEffect(() => {
+      let isCancelled = false;
+
       if (isStorybookTestEnv) {
         const escaped = escapeHtml(code);
         const markup = `<pre><code>${escaped}</code></pre>`;
         setHtml(markup);
         setDarkHtml(markup);
-        mounted.current = true;
         return;
       }
 
       highlightCode(code, language, showLineNumbers).then(([light, dark]) => {
-        if (!mounted.current) {
+        if (!isCancelled) {
           setHtml(light);
           setDarkHtml(dark);
-          mounted.current = true;
         }
       });
 
       return () => {
-        mounted.current = false;
+        isCancelled = true;
       };
     }, [code, language, showLineNumbers]);
 
