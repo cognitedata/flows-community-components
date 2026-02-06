@@ -1005,7 +1005,7 @@
       "type": "registry:component",
       "title": "message",
       "description": "",
-      "dependencies": ["@tabler/icons-react", "ai", "shiki", "streamdown"],
+      "dependencies": ["@tabler/icons-react", "shiki", "streamdown"],
       "registryDependencies": [
         "@aura/css",
         "@aura/avatar",
@@ -1092,7 +1092,7 @@
       "type": "registry:component",
       "title": "prompt-input",
       "description": "",
-      "dependencies": ["@tabler/icons-react", "ai", "nanoid"],
+      "dependencies": ["@tabler/icons-react", "nanoid"],
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
@@ -1484,7 +1484,7 @@
       "type": "registry:component",
       "title": "tool",
       "description": "",
-      "dependencies": ["@tabler/icons-react", "ai"],
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
