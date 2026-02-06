@@ -1,7 +1,3 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
-import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
 import {
   DropdownMenu,
@@ -12,6 +8,10 @@ import {
 } from "@/components/ui/aura/dropdown-menu";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import { getStorybookImagePath } from "@/lib/utils";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
+import { useState } from "react";
 
 const meta: Meta<typeof Avatar> = {
   title: "Primitives/Avatar",
@@ -467,6 +467,10 @@ export const AvatarGroup: Story = {
       const overflowAvatar = overflow.closest('[data-slot="avatar"]');
       if (overflowAvatar) {
         await userEvent.hover(overflowAvatar as Element);
+        await waitFor(() => {
+          const hoverCard = document.querySelector('[data-slot="hover-card-content"][data-open]');
+          expect(hoverCard).toBeInTheDocument();
+        });
       }
     }
   },
@@ -646,6 +650,17 @@ export const Accessibility: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
+    const canvas = within(canvasElement);
+    await waitFor(() => {
+      const images = canvasElement.querySelectorAll("img");
+      const altTexts = Array.from(images).map((image) => image.getAttribute("alt"));
+      expect(altTexts).toContain("John Doe's avatar");
+      expect(altTexts).toContain("Jane Smith's avatar");
+    });
+    const avatarWithEmptyAlt = canvasElement.querySelector(
+      'img[alt=""][data-slot="avatar-image"]'
+    );
+    await expect(avatarWithEmptyAlt).toBeInTheDocument();
   },
 };
 
@@ -964,8 +979,10 @@ export const EdgeCaseFailedImage: Story = {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
 
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    await expect(fallbacks.length).toBeGreaterThanOrEqual(0);
+    const canvas = within(canvasElement);
+    await expect(await canvas.findByText("FL")).toBeInTheDocument();
+    await expect(await canvas.findByText("ER")).toBeInTheDocument();
+    await expect(await canvas.findByText("BR")).toBeInTheDocument();
   },
 };
 
@@ -1094,6 +1111,10 @@ export const OverflowAvatarWithMenu: Story = {
 
     if (trigger) {
       await userEvent.click(trigger as Element);
+      const menu = await within(canvasElement.ownerDocument.body).findByRole("menu");
+      await expect(menu).toBeInTheDocument();
+      await expect(within(menu).getByText("Emma Liu")).toBeInTheDocument();
+      await expect(within(menu).getByText("James Kim")).toBeInTheDocument();
     }
   },
 };
@@ -1153,7 +1174,6 @@ export const EdgeCaseComplexIcons: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
-      {/* All variants */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
         <div className="flex flex-wrap gap-3">
@@ -1184,7 +1204,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* All sizes */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All Sizes</h3>
         <div className="flex flex-wrap items-center gap-3">
@@ -1200,7 +1219,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* With icons */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <div className="flex flex-wrap gap-3">
@@ -1227,7 +1245,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* With images */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Images</h3>
         <div className="flex flex-wrap gap-3">
@@ -1246,7 +1263,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* Avatar group */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Avatar Group</h3>
         <div className="flex items-center">
@@ -1268,7 +1284,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* Edge cases */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Edge Cases</h3>
         <div className="flex flex-wrap gap-3">
