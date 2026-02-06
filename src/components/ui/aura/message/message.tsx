@@ -130,7 +130,7 @@ const MessageAction = ({
   if (tooltip) {
     return (
       <Tooltip>
-        <TooltipTrigger asChild>{button}</TooltipTrigger>
+        <TooltipTrigger render={button} />
         <TooltipContent>
           <p>{tooltip}</p>
         </TooltipContent>
@@ -499,11 +499,13 @@ function MessageAttachment({ data, className, onRemove, ...props }: MessageAttac
       ) : (
         <>
           <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="flex size-full shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                <IconPaperclip className="size-4" />
-              </div>
-            </TooltipTrigger>
+            <TooltipTrigger
+              render={
+                <div className="flex size-full shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                  <IconPaperclip className="size-4" />
+                </div>
+              }
+            />
             <TooltipContent>
               <p>{attachmentLabel}</p>
             </TooltipContent>

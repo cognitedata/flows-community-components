@@ -1,6 +1,16 @@
 import type { Preview } from "@storybook/react";
-import { useEffect } from "react";
+import { type ComponentType, useEffect } from "react";
 import "../src/globals.css";
+
+export const render: Preview["render"] = (args, context) => {
+  const Component = context.component as ComponentType<typeof args> | undefined;
+
+  if (!Component) {
+    return null;
+  }
+
+  return <Component {...args} />;
+};
 
 const preview: Preview = {
   parameters: {

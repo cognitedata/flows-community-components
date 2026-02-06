@@ -3,7 +3,7 @@
  *
  * A popup that displays information related to an element
  * when the element receives keyboard focus or mouse hover,
- * built on Radix Tooltip primitives.
+ * built on Base UI Tooltip primitives.
  *
  * See Storybook for comprehensive examples and documentation.
  */

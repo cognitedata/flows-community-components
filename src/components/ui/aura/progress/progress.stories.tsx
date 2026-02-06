@@ -1,8 +1,8 @@
+import { Button } from "@/components/ui/aura/button";
+import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/aura/button";
-import { Label } from "@/components/ui/aura/label";
 import { Progress } from "./progress";
 
 const meta: Meta<typeof Progress> = {
@@ -47,18 +47,6 @@ const meta: Meta<typeof Progress> = {
       table: {
         category: "Accessibility",
         type: { summary: "string" },
-      },
-    },
-
-    // Advanced
-    asChild: {
-      control: "boolean",
-      description:
-        "Merge props onto the child component instead of the default Radix primitive (Radix Slot).",
-      table: {
-        category: "Advanced",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
       },
     },
   },

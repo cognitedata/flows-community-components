@@ -1,7 +1,7 @@
 /**
  * Tabs Component
  *
- * A tabs component built on Radix Tabs for organizing content.
+ * A tabs component built on Base UI Tabs for organizing content.
  *
  * @example
  * import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/aura/tabs';

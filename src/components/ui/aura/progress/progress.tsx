@@ -1,11 +1,11 @@
-import * as ProgressPrimitive from "@radix-ui/react-progress";
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
+import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 
 const Progress = forwardRef<
   ComponentRef<typeof ProgressPrimitive.Root>,
-  ComponentProps<typeof ProgressPrimitive.Root> & { max?: number }
+  ProgressPrimitive.Root.Props & { max?: number }
 >(({ className, value = 0, max = 100, "aria-label": ariaLabel, ...props }, ref) => {
   const safeValue = value ?? 0;
   const percentage = (safeValue * 100) / max;
@@ -15,20 +15,25 @@ const Progress = forwardRef<
     <ProgressPrimitive.Root
       ref={ref}
       data-slot="progress"
-      className={cn(
-        "bg-accent text-accent-foreground relative h-2 w-full overflow-hidden rounded-full",
-        className
-      )}
-      value={value}
+      className={cn("w-full", className)}
+      value={safeValue}
       max={max}
       aria-label={ariaLabel ?? defaultAriaLabel}
       {...props}
     >
-      <ProgressPrimitive.Indicator
-        data-slot="progress-indicator"
-        className="bg-primary h-full w-full flex-1 transition-all"
-        style={{ transform: `translateX(-${100 - percentage}%)` }}
-      />
+      <ProgressPrimitive.Track
+        data-slot="progress-track"
+        className={cn(
+          "bg-accent text-accent-foreground relative h-2 w-full overflow-hidden rounded-full",
+          className
+        )}
+      >
+        <ProgressPrimitive.Indicator
+          data-slot="progress-indicator"
+          className="bg-primary h-full transition-all"
+          style={{ width: `${percentage}%` }}
+        />
+      </ProgressPrimitive.Track>
     </ProgressPrimitive.Root>
   );
 });

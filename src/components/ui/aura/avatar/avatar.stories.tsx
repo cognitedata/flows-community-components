@@ -1,6 +1,7 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
@@ -172,7 +173,7 @@ export const WithImage: Story = {
       { timeout: 1000 }
     );
 
-    // Wait for image element to appear (Radix Avatar only renders it when image loads)
+    // Wait for image element to appear (it only renders when the image successfully loads)
     await waitFor(
       () => {
         const found = canvasElement.querySelector('[data-slot="avatar-image"]');
@@ -384,7 +385,7 @@ export const ImagesAllSizes: Story = {
     );
 
     // Wait for images to be in the DOM (they may be loading)
-    // Radix Avatar only renders the image element when the image successfully loads
+    // The image element only renders when the image successfully loads
     const images = await waitFor(
       () => {
         const found = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
@@ -446,15 +447,17 @@ export const AvatarGroup: Story = {
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
-        <HoverCardTrigger asChild>
-          <Avatar
-            variant="overflow"
-            sizes="default"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
-        </HoverCardTrigger>
+        <HoverCardTrigger
+          render={
+            <Avatar
+              variant="overflow"
+              sizes="default"
+              className="relative -ml-1 z-5 border-2 border-background"
+            >
+              <AvatarFallback>+4</AvatarFallback>
+            </Avatar>
+          }
+        />
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
             <p className="text-xs text-muted-foreground font-medium">4 more people</p>
@@ -574,15 +577,17 @@ export const AvatarGroupSmall: Story = {
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
-        <HoverCardTrigger asChild>
-          <Avatar
-            variant="overflow"
-            sizes="xsm"
-            className="relative -ml-1 z-5 border-2 border-background"
-          >
-            <AvatarFallback>+4</AvatarFallback>
-          </Avatar>
-        </HoverCardTrigger>
+        <HoverCardTrigger
+          render={
+            <Avatar
+              variant="overflow"
+              sizes="xsm"
+              className="relative -ml-1 z-5 border-2 border-background"
+            >
+              <AvatarFallback>+4</AvatarFallback>
+            </Avatar>
+          }
+        />
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
             <p className="text-xs text-muted-foreground font-medium">4 more people</p>
@@ -1121,57 +1126,63 @@ export const OverflowAvatarWithMenu: Story = {
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Avatar
-              variant="overflow"
-              sizes="default"
-              className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
-            >
-              <AvatarFallback>+4</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Avatar
+                variant="overflow"
+                sizes="default"
+                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
+              >
+                <AvatarFallback>+4</AvatarFallback>
+              </Avatar>
+            }
+          />
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-2 py-1.5">
-              4 more people
-            </DropdownMenuLabel>
-            <div className="p-1 space-y-1">
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="aurora" sizes="xsm">
-                  <AvatarFallback>EL</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Emma Liu</span>
-                  <span className="text-xs text-muted-foreground">emma.liu@cognite.com</span>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-2 py-1.5">
+                4 more people
+              </DropdownMenuLabel>
+              <div className="p-1 space-y-1">
+                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                  <Avatar variant="aurora" sizes="xsm">
+                    <AvatarFallback>EL</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Emma Liu</span>
+                    <span className="text-xs text-muted-foreground">emma.liu@cognite.com</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                  <Avatar variant="dusk" sizes="xsm">
+                    <AvatarFallback>JK</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">James Kim</span>
+                    <span className="text-xs text-muted-foreground">james.kim@cognite.com</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                  <Avatar variant="orange" sizes="xsm">
+                    <AvatarFallback>SB</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Sarah Brown</span>
+                    <span className="text-xs text-muted-foreground">sarah.brown@cognite.com</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
+                  <Avatar variant="sky" sizes="xsm">
+                    <AvatarFallback>MT</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Michael Torres</span>
+                    <span className="text-xs text-muted-foreground">
+                      michael.torres@cognite.com
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="dusk" sizes="xsm">
-                  <AvatarFallback>JK</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">James Kim</span>
-                  <span className="text-xs text-muted-foreground">james.kim@cognite.com</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="orange" sizes="xsm">
-                  <AvatarFallback>SB</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Sarah Brown</span>
-                  <span className="text-xs text-muted-foreground">sarah.brown@cognite.com</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                <Avatar variant="sky" sizes="xsm">
-                  <AvatarFallback>MT</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium">Michael Torres</span>
-                  <span className="text-xs text-muted-foreground">michael.torres@cognite.com</span>
-                </div>
-              </div>
-            </div>
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

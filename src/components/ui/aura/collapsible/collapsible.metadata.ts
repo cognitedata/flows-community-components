@@ -10,8 +10,7 @@ export const CollapsibleMetadata: ComponentMeta = {
   name: "Collapsible",
   status: "draft",
   description:
-    "An interactive component that expands/collapses content, built on Radix Collapsible primitives.",
+    "An interactive component that expands/collapses content, built on Base UI Collapsible primitives.",
   llmUsage:
     "Use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>` for expandable sections.",
-  importPath: "@/components/ui/aura/collapsible",
 };

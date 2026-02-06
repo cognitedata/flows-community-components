@@ -13,5 +13,4 @@ export const SidebarMetadata: ComponentMeta = {
     "A collapsible sidebar navigation component with support for mobile sheets, keyboard shortcuts, and nested menu structures.",
   llmUsage:
     "Use `<SidebarProvider>` to wrap your app, then `<Sidebar>` with `<SidebarContent>`, `<SidebarMenu>`, and `<SidebarMenuItem>` for navigation.",
-  importPath: "@/components/ui/aura/sidebar",
 };
