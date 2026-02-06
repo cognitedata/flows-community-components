@@ -16,6 +16,16 @@ This command:
 
 The registry build process is fully automated - no manual configuration needed.
 
+# Primitives Progress Metadata Rules
+
+When adding, removing, or renaming primitives/foundations, update `src/lib/primitives-catalog.ts` in the same change.
+
+When the user asks for primitive/foundation progress updates, update the catalog metadata and ensure badges on `/primitives` reflect the new status.
+
+If requested progress status is missing or ambiguous, ask a clarifying question before finalizing status metadata.
+
+If a primitive/foundation is tracked but not implemented, keep or add a `comingSoon` placeholder path via catalog metadata.
+
 # Building Components
 
 ## SKILLS AVAILABLE
