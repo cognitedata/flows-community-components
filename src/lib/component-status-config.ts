@@ -5,33 +5,9 @@
  * Status is now defined per-component in each component's metadata file.
  */
 
-export type ComponentStatusType =
-  | "deprecated"
-  | "planned"
-  | "shadcn-ui"
-  | "experimental"
-  | "draft"
-  | "in-progress-storybook"
-  | "in-progress-code-review"
-  | "in-progress-chromatic"
-  | "in-progress-design-conformance"
-  | "ready-for-ga"
-  | "stable";
+import type { StatusConfig, ComponentStatusType } from "./types";
 
-export interface StatusConfig {
-  label: string;
-  color: string; // hex color for light mode text
-  colorDark: string; // hex color for dark mode text
-  bgColor: string; // background hex for light mode
-  bgColorDark: string; // background hex for dark mode
-  borderColor: string; // border hex for light mode
-  borderColorDark: string; // border hex for dark mode
-}
 
-/**
- * Status configuration with colors for each status type.
- * Colors are designed to work in both light and dark modes.
- */
 export const STATUS_CONFIG: Record<ComponentStatusType, StatusConfig> = {
   draft: {
     label: "Draft",
