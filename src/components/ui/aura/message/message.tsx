@@ -356,7 +356,7 @@ const MessageResponseCode = ({ className, children }: MessageResponseCodeProps) 
   }
 
   return (
-    <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+    <code className="relative rounded bg-muted px-1.5 py-0.5 font-mono text-sm font-semibold">
       {children}
     </code>
   );

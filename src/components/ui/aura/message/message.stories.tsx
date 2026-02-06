@@ -32,7 +32,6 @@ const meta: Meta<typeof Message> = {
   component: Message,
   tags: ["autodocs"],
   argTypes: {
-    // Behavior
     isResponse: {
       control: "boolean",
       description: "Whether the message is from the AI assistant (true) or user (false)",
@@ -43,19 +42,18 @@ const meta: Meta<typeof Message> = {
       },
     },
 
-    // Display
     className: {
       control: "text",
       description: "Additional CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
     children: {
       control: false,
       description: "Message content (MessageContent, MessageAvatar, MessageActions, etc.)",
       table: {
-        category: "Display",
+        category: "Content",
         type: { summary: "ReactNode" },
       },
     },
@@ -66,8 +64,10 @@ const meta: Meta<typeof Message> = {
   decorators: [
     (Story) => (
       <div
-        className="w-[700px]"
-        style={{ "--message-content-max-width": "600px" } as React.CSSProperties}
+        className="w-125"
+        style={
+          { "--message-content-max-width": "calc(var(--spacing) * 125)" } as React.CSSProperties
+        }
       >
         <Story />
       </div>
@@ -747,7 +747,7 @@ export const MessageWithOnlyActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const buttons = canvas.getAllByRole("button");
+    const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (
@@ -951,7 +951,7 @@ export const MessageActionsWithoutTooltip: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = canvas.getAllByRole("button");
+    const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (
