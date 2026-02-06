@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
+import type { CSSProperties } from "react";
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
 
 const meta: Meta<typeof CodeBlock> = {
-  title: "Primitives/Code Block",
+  title: "AI/Code Block",
   component: CodeBlock,
   tags: ["autodocs"],
   argTypes: {
@@ -20,7 +21,7 @@ const meta: Meta<typeof CodeBlock> = {
       options: ["typescript", "javascript", "python", "json", "css", "html", "bash", "markdown"],
       description: "Programming language for syntax highlighting",
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: { summary: "BundledLanguage" },
       },
     },
@@ -28,7 +29,7 @@ const meta: Meta<typeof CodeBlock> = {
       control: "boolean",
       description: "Show line numbers",
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -56,7 +57,7 @@ const meta: Meta<typeof CodeBlock> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[600px]">
+      <div className="w-150">
         <Story />
       </div>
     ),
@@ -127,32 +128,29 @@ npm run build
 npm test`,
 };
 
-/**
- * Default code block.
- */
-export const Default: Story = {
+export const Basic: Story = {
   render: () => (
     <CodeBlock code={sampleCode.typescript} language="typescript">
       <CodeBlockCopyButton />
     </CodeBlock>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
-        story: "Default code block with TypeScript syntax highlighting.",
+        story: "Default code block with TypeScript syntax highlighting and copy button.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    // Verify code block renders
-    const codeBlock = canvasElement.querySelector(".group\\/code-block");
+    const canvas = within(canvasElement);
+    const codeBlock = canvasElement.querySelector("[data-slot='code-block']");
     await expect(codeBlock).toBeInTheDocument();
+    const copyButton = await canvas.findByRole("button");
+    await expect(copyButton).toBeInTheDocument();
   },
 };
 
-/**
- * Code block with line numbers.
- */
 export const WithLineNumbers: Story = {
   render: () => (
     <CodeBlock code={sampleCode.typescript} language="typescript" showLineNumbers>
@@ -160,17 +158,19 @@ export const WithLineNumbers: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Code block with line numbers displayed.",
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const codeBlock = canvasElement.querySelector("[data-slot='code-block']");
+    await expect(codeBlock).toBeInTheDocument();
+  },
 };
 
-/**
- * Collapsible code block.
- */
 export const Collapsible: Story = {
   render: () => (
     <CodeBlock
@@ -181,7 +181,7 @@ export const Collapsible: Story = {
         {
           "--code-block-collapsed-height": "100px",
           "--code-block-fade-height": "50px",
-        } as React.CSSProperties
+        } as CSSProperties
       }
     >
       <CodeBlockCollapseButton />
@@ -189,17 +189,20 @@ export const Collapsible: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Code block that starts collapsed and can be expanded.",
       },
     },
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBeGreaterThanOrEqual(1);
+  },
 };
 
-/**
- * JavaScript code.
- */
 export const JavaScript: Story = {
   render: () => (
     <CodeBlock code={sampleCode.javascript} language="javascript">
@@ -207,6 +210,7 @@ export const JavaScript: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "JavaScript code with syntax highlighting.",
@@ -215,9 +219,6 @@ export const JavaScript: Story = {
   },
 };
 
-/**
- * Python code.
- */
 export const Python: Story = {
   render: () => (
     <CodeBlock code={sampleCode.python} language="python">
@@ -225,6 +226,7 @@ export const Python: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Python code with syntax highlighting.",
@@ -233,9 +235,6 @@ export const Python: Story = {
   },
 };
 
-/**
- * JSON code.
- */
 export const JSONExample: Story = {
   render: () => (
     <CodeBlock code={sampleCode.json} language="json">
@@ -243,6 +242,7 @@ export const JSONExample: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "JSON code with syntax highlighting.",
@@ -251,9 +251,6 @@ export const JSONExample: Story = {
   },
 };
 
-/**
- * Bash/Shell code.
- */
 export const Bash: Story = {
   render: () => (
     <CodeBlock code={sampleCode.bash} language="bash">
@@ -261,6 +258,7 @@ export const Bash: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Bash/Shell script with syntax highlighting.",
@@ -269,9 +267,6 @@ export const Bash: Story = {
   },
 };
 
-/**
- * Short code snippet.
- */
 export const ShortSnippet: Story = {
   render: () => (
     <CodeBlock code="const greeting = 'Hello, World!';" language="typescript">
@@ -279,6 +274,7 @@ export const ShortSnippet: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Short single-line code snippet.",
@@ -287,9 +283,6 @@ export const ShortSnippet: Story = {
   },
 };
 
-/**
- * Code with long lines that require horizontal scrolling.
- */
 export const LongLines: Story = {
   render: () => (
     <CodeBlock
@@ -307,20 +300,19 @@ const configurationObject = { apiEndpoint: "https://api.example.com/v1/users/pro
     </CodeBlock>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
-        story: "Code block with long lines that require horizontal scrolling to view completely.",
+        story: "Code block with long lines that require horizontal scrolling.",
       },
     },
   },
 };
 
-/**
- * Without copy button.
- */
 export const WithoutCopyButton: Story = {
   render: () => <CodeBlock code={sampleCode.json} language="json" />,
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Code block without the copy button.",
@@ -329,9 +321,6 @@ export const WithoutCopyButton: Story = {
   },
 };
 
-/**
- * Custom copy text.
- */
 export const CustomCopyText: Story = {
   render: () => (
     <CodeBlock
@@ -343,21 +332,84 @@ export const CustomCopyText: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 11,
     docs: {
       description: {
-        story: "Code block with custom copy text (copies a modified version).",
+        story: "Code block with custom copy text.",
       },
     },
   },
 };
 
-/**
- * Visual regression testing.
- */
+export const CollapsedWithLineNumbers: Story = {
+  render: () => (
+    <CodeBlock
+      code={sampleCode.typescript}
+      language="typescript"
+      collapsed
+      showLineNumbers
+      style={
+        {
+          "--code-block-collapsed-height": "100px",
+          "--code-block-fade-height": "50px",
+        } as CSSProperties
+      }
+    >
+      <CodeBlockCollapseButton />
+      <CodeBlockCopyButton />
+    </CodeBlock>
+  ),
+  parameters: {
+    order: 12,
+    docs: {
+      description: {
+        story: "Collapsed code block with line numbers enabled.",
+      },
+    },
+  },
+};
+
+export const EmptyCode: Story = {
+  render: () => (
+    <CodeBlock code="" language="typescript">
+      <CodeBlockCopyButton />
+    </CodeBlock>
+  ),
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story: "Code block with an empty code string.",
+      },
+    },
+  },
+};
+
+export const SingleLineWithCollapseButton: Story = {
+  render: () => (
+    <CodeBlock code="const x = 42;" language="typescript">
+      <CodeBlockCollapseButton />
+      <CodeBlockCopyButton />
+    </CodeBlock>
+  ),
+  parameters: {
+    order: 14,
+    docs: {
+      description: {
+        story: "Single-line code verifies the collapse button is automatically hidden.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons).toHaveLength(1);
+  },
+};
+
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
-      {/* TypeScript */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">TypeScript</h3>
         <CodeBlock
@@ -370,7 +422,6 @@ export const VisualRegression: Story = {
         </CodeBlock>
       </div>
 
-      {/* With line numbers */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Line Numbers</h3>
         <CodeBlock
@@ -384,7 +435,6 @@ const c = a + b;`}
         </CodeBlock>
       </div>
 
-      {/* JSON */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">JSON</h3>
         <CodeBlock code='{ "key": "value" }' language="json">
@@ -394,6 +444,7 @@ const c = a + b;`}
     </div>
   ),
   parameters: {
+    order: 15,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -405,16 +456,13 @@ const c = a + b;`}
   },
   decorators: [
     (Story) => (
-      <div className="w-[500px] p-4">
+      <div className="p-4">
         <Story />
       </div>
     ),
   ],
 };
 
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     code: sampleCode.typescript,
@@ -429,6 +477,7 @@ export const Playground: Story = {
     </CodeBlock>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with code block props.",
