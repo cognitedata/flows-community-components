@@ -1326,7 +1326,7 @@
       "name": "sources",
       "type": "registry:component",
       "title": "sources",
-      "description": "* Title rendered above the sources list.",
+      "description": "",
       "dependencies": ["@tabler/icons-react"],
       "registryDependencies": ["@aura/css", "@aura/inline-citation"],
       "files": [

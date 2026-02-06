@@ -1,5 +1,8 @@
+import { Badge } from "@/components/ui/aura/badge";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import {
   IconBrandGithub,
   IconBriefcase,
@@ -8,9 +11,6 @@ import {
   IconPhoto,
   IconWorld,
 } from "@tabler/icons-react";
-import { Badge } from "@/components/ui/aura/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
 
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",
@@ -30,7 +30,7 @@ const meta: Meta<typeof Sources> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -211,14 +211,13 @@ export const TooManySourcesWithOverflow: Story = {
           <Source key={s.url} url={s.url} title={s.title} icon={s.icon} />
         ))}
         <HoverCard openDelay={0} closeDelay={0}>
-          <HoverCardTrigger asChild>
-            <button
-              type="button"
-              className="inline-flex cursor-default items-center"
-              aria-label={`${overflowSources.length} more sources`}
-            >
-              <Badge variant="secondary">+{overflowSources.length}</Badge>
-            </button>
+          <HoverCardTrigger
+            href="#sources-overflow"
+            className="inline-flex cursor-default items-center"
+            aria-label={`${overflowSources.length} more sources`}
+            onClick={(event) => event.preventDefault()}
+          >
+            <Badge variant="secondary">+{overflowSources.length}</Badge>
           </HoverCardTrigger>
           <HoverCardContent className="w-auto p-3" data-testid="sources-overflow-hovercard">
             <div className="flex flex-col gap-2">
@@ -251,9 +250,10 @@ export const TooManySourcesWithOverflow: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Sources")).toBeInTheDocument();
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
-    const overflowPill = canvas.getByRole("button", { name: "4 more sources" });
+    const overflowPill = canvas.getByRole("link", { name: "4 more sources" });
     await userEvent.hover(overflowPill);
-    const hovercard = await screen.findByTestId("sources-overflow-hovercard", undefined, {
+    const portal = within(canvasElement.ownerDocument.body);
+    const hovercard = await portal.findByTestId("sources-overflow-hovercard", undefined, {
       timeout: 3000,
     });
     await expect(hovercard).toBeInTheDocument();
