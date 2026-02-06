@@ -1,6 +1,12 @@
+import {
+  Tool,
+  ToolContent,
+  ToolHeader,
+  ToolInput,
+  ToolOutput,
+} from "@/components/ui/aura/tool/tool";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@/components/ui/aura/tool/tool";
 import { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem } from "./reasoning";
 
 const meta: Meta<typeof Reasoning> = {
@@ -144,7 +150,9 @@ export const IndustrialWorkflow: Story = {
     await expect(reasoning).toBeInTheDocument();
 
     // Check that all three tool calls are present
-    const toolButtons = canvas.getAllByRole("button");
+    const toolButtons = canvas.getAllByRole("button", {
+      name: /find assets|get sensor data|analyze trends/i,
+    });
     await expect(toolButtons.length).toBe(3);
 
     // Verify tool names in order
@@ -155,12 +163,17 @@ export const IndustrialWorkflow: Story = {
     // Test collapsible interaction on first tool
     const firstTool = toolButtons[0];
     await userEvent.click(firstTool);
+    const firstToolPanel = firstTool
+      .closest('[data-slot="collapsible"]')
+      ?.querySelector('[data-slot="collapsible-content"]');
 
     // Tool content should be visible after click
     await waitFor(() => {
       const content = canvasElement.textContent || "";
-      expect(canvas.getByText("Parameters")).toBeVisible();
-      expect(canvas.getByText("Result")).toBeVisible();
+      expect(firstTool).toHaveAttribute("data-panel-open");
+      expect(firstToolPanel).toBeVisible();
+      expect(within(firstToolPanel as HTMLElement).getByText("Parameters")).toBeVisible();
+      expect(within(firstToolPanel as HTMLElement).getByText("Result")).toBeVisible();
       // Verify content is present (code appears in both light/dark theme blocks)
       expect(content).toContain("Show all pumps in building A");
       expect(content).toContain("Pump 21PT1019");

@@ -103,14 +103,14 @@ export const Default: Story = {
     const passwordTab = canvas.getByRole("tab", { name: /password/i });
 
     // Verify first tab is selected
-    await expect(accountTab).toHaveAttribute("data-state", "active");
+    await expect(accountTab).toHaveAttribute("data-active");
 
     // Click second tab
     await userEvent.click(passwordTab);
 
     // Verify second tab is selected
-    await expect(passwordTab).toHaveAttribute("data-state", "active");
-    await expect(accountTab).toHaveAttribute("data-state", "inactive");
+    await expect(passwordTab).toHaveAttribute("data-active");
+    await expect(accountTab).not.toHaveAttribute("data-active");
   },
 };
 
@@ -249,7 +249,9 @@ export const DisabledTabs: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const disabledTab = canvas.getAllByRole("tab")[1];
-    await expect(disabledTab).toBeDisabled();
+    const isAriaDisabled = disabledTab.getAttribute("aria-disabled") === "true";
+    const hasDataDisabled = disabledTab.hasAttribute("data-disabled");
+    expect(isAriaDisabled || hasDataDisabled).toBe(true);
   },
 };
 

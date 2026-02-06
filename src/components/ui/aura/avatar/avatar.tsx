@@ -1,4 +1,4 @@
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, type HTMLAttributes, forwardRef } from "react";
 
@@ -43,7 +43,7 @@ const avatarVariants = cva(
  */
 const Avatar = forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
-  ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants>
+  AvatarPrimitive.Root.Props & VariantProps<typeof avatarVariants>
 >(({ className, variant, sizes, ...props }, ref) => {
   return (
     <AvatarPrimitive.Root
@@ -63,7 +63,7 @@ Avatar.displayName = "Avatar";
  */
 const AvatarImage = forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
-  ComponentProps<typeof AvatarPrimitive.Image>
+  AvatarPrimitive.Image.Props
 >(({ className, ...props }, ref) => {
   return (
     <>
@@ -89,7 +89,7 @@ AvatarImage.displayName = "AvatarImage";
  */
 const AvatarFallback = forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  ComponentProps<typeof AvatarPrimitive.Fallback>
+  AvatarPrimitive.Fallback.Props
 >(({ className, ...props }, ref) => {
   return (
     <AvatarPrimitive.Fallback

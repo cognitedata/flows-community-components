@@ -2,7 +2,7 @@
  * Popover Component
  *
  * A floating panel that displays content relative to a trigger,
- * built on Radix Popover primitives.
+ * built on Base UI Popover primitives.
  *
  * @example
  * import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/aura/popover';
@@ -12,5 +12,5 @@
  *   <PopoverContent>Popover content</PopoverContent>
  * </Popover>
  */
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor } from "./popover";
+export { Popover, PopoverTrigger, PopoverContent } from "./popover";
 export { PopoverMetadata } from "./popover.metadata";

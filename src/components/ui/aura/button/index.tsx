@@ -2,7 +2,7 @@
  * Button Component
  *
  * A versatile button component with multiple variants and sizes,
- * built with Radix UI Slot and class-variance-authority.
+ * built with Base UI render props and class-variance-authority.
  *
  * @example
  * import { Button } from '@/components/ui/aura/button';

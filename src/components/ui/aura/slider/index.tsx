@@ -1,7 +1,7 @@
 /**
  * Slider Component
  *
- * A range slider component built on Radix Slider.
+ * A range slider component built on Base UI Slider.
  *
  * @example
  * import { Slider } from '@/components/ui/aura/slider';

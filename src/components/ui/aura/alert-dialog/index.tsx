@@ -1,7 +1,7 @@
 /**
  * Alert Dialog Component
  *
- * A modal dialog for critical confirmations powered by Radix Alert Dialog.
+ * A modal dialog for critical confirmations powered by Base UI Alert Dialog.
  *
  * @example
  * import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogAction } from '@/components/ui/aura/alert-dialog';

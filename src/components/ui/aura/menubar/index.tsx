@@ -1,7 +1,7 @@
 /**
  * Menubar Component
  *
- * A horizontal menu bar component built on Radix Menubar primitives.
+ * A horizontal menu bar component built on Base UI Menubar primitives.
  *
  * @example
  * import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from '@/components/ui/aura/menubar';

@@ -1,6 +1,6 @@
 import { IconSearch } from "@tabler/icons-react";
 import { Command as CommandPrimitive } from "cmdk";
-import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from "react";
 
 import {
   Dialog,
@@ -36,7 +36,8 @@ function CommandDialog({
   className,
   showCloseButton = true,
   ...props
-}: ComponentProps<typeof Dialog> & {
+}: Omit<ComponentProps<typeof Dialog>, "children"> & {
+  children?: ReactNode;
   title?: string;
   description?: string;
   className?: string;
