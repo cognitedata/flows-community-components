@@ -657,9 +657,7 @@ export const Accessibility: Story = {
       expect(altTexts).toContain("John Doe's avatar");
       expect(altTexts).toContain("Jane Smith's avatar");
     });
-    const avatarWithEmptyAlt = canvasElement.querySelector(
-      'img[alt=""][data-slot="avatar-image"]'
-    );
+    const avatarWithEmptyAlt = canvasElement.querySelector('img[alt=""][data-slot="avatar-image"]');
     await expect(avatarWithEmptyAlt).toBeInTheDocument();
   },
 };
