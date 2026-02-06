@@ -886,9 +886,7 @@ const PromptInputButton = forwardRef<HTMLButtonElement, PromptInputButtonProps>(
 PromptInputButton.displayName = "PromptInputButton";
 
 type PromptInputActionMenuProps = ComponentProps<typeof DropdownMenu>;
-const PromptInputActionMenu = (props: PromptInputActionMenuProps) => (
-  <DropdownMenu {...props} />
-);
+const PromptInputActionMenu = (props: PromptInputActionMenuProps) => <DropdownMenu {...props} />;
 PromptInputActionMenu.displayName = "PromptInputActionMenu";
 
 type PromptInputActionMenuTriggerProps = PromptInputButtonProps;
@@ -918,10 +916,9 @@ const PromptInputActionMenuContent = ({
 PromptInputActionMenuContent.displayName = "PromptInputActionMenuContent";
 
 type PromptInputActionMenuItemProps = ComponentProps<typeof DropdownMenuItem>;
-const PromptInputActionMenuItem = ({
-  className,
-  ...props
-}: PromptInputActionMenuItemProps) => <DropdownMenuItem className={cn(className)} {...props} />;
+const PromptInputActionMenuItem = ({ className, ...props }: PromptInputActionMenuItemProps) => (
+  <DropdownMenuItem className={cn(className)} {...props} />
+);
 PromptInputActionMenuItem.displayName = "PromptInputActionMenuItem";
 
 type PromptInputSubmitProps = ComponentProps<typeof InputGroupButton> & {
@@ -1146,18 +1143,16 @@ PromptInputModelSelectContent.displayName = "PromptInputModelSelectContent";
 
 type PromptInputModelSelectItemProps = ComponentProps<typeof SelectItem>;
 
-const PromptInputModelSelectItem = ({
-  className,
-  ...props
-}: PromptInputModelSelectItemProps) => <SelectItem className={cn(className)} {...props} />;
+const PromptInputModelSelectItem = ({ className, ...props }: PromptInputModelSelectItemProps) => (
+  <SelectItem className={cn(className)} {...props} />
+);
 PromptInputModelSelectItem.displayName = "PromptInputModelSelectItem";
 
 type PromptInputModelSelectValueProps = ComponentProps<typeof SelectValue>;
 
-const PromptInputModelSelectValue = ({
-  className,
-  ...props
-}: PromptInputModelSelectValueProps) => <SelectValue className={cn(className)} {...props} />;
+const PromptInputModelSelectValue = ({ className, ...props }: PromptInputModelSelectValueProps) => (
+  <SelectValue className={cn(className)} {...props} />
+);
 PromptInputModelSelectValue.displayName = "PromptInputModelSelectValue";
 
 type PromptInputHoverCardProps = ComponentProps<typeof HoverCard>;
@@ -1290,10 +1285,9 @@ PromptInputCommandItem.displayName = "PromptInputCommandItem";
 
 type PromptInputCommandSeparatorProps = ComponentProps<typeof CommandSeparator>;
 
-const PromptInputCommandSeparator = ({
-  className,
-  ...props
-}: PromptInputCommandSeparatorProps) => <CommandSeparator className={cn(className)} {...props} />;
+const PromptInputCommandSeparator = ({ className, ...props }: PromptInputCommandSeparatorProps) => (
+  <CommandSeparator className={cn(className)} {...props} />
+);
 PromptInputCommandSeparator.displayName = "PromptInputCommandSeparator";
 
 export type {
