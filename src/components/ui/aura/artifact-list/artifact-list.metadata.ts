@@ -15,8 +15,6 @@ export const ArtifactListMetadata: ComponentMeta = {
   llmUsage:
     "When showing list artifacts, compose `<ArtifactList>` with `<ArtifactListHeader>`, `<ArtifactListTitle>`, `<ArtifactListContent>`, and `<ArtifactListItem>`. Use List primitives (`<ListItemTitle>`, `<ListItemDescription>`, `<ListItemStatus>`, `<ListItemIcon>`) for item content. Set `variant` on `<ArtifactListItem>` to apply status colors/icons automatically.",
 
-  importPath: "@/components/ui/aura/artifact-list",
-
   codeExamples: [
     {
       title: "Basic List Artifact",
