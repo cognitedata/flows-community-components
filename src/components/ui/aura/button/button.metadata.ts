@@ -15,6 +15,4 @@ export const ButtonMetadata: ComponentMeta = {
 
   llmUsage:
     "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
-
-  importPath: "@/components/ui/aura/button",
 };
