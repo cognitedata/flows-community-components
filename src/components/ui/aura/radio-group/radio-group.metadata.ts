@@ -5,5 +5,4 @@ export const RadioGroupMetadata: ComponentMeta = {
   status: "draft",
   description: "A radio button group component built on Base UI Radio Group.",
   llmUsage: "Use `<RadioGroup>` with `<RadioGroupItem>` for single selection from options.",
-  importPath: "@/components/ui/aura/radio-group",
 };

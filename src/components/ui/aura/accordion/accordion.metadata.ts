@@ -6,5 +6,4 @@ export const AccordionMetadata: ComponentMeta = {
   description: "An accessible accordion with smooth expand/collapse built on Base UI primitives.",
   llmUsage:
     "Use `<Accordion>` with `<AccordionItem>`, `<AccordionTrigger>`, and `<AccordionContent>` for collapsible sections.",
-  importPath: "@/components/ui/aura/accordion",
 };

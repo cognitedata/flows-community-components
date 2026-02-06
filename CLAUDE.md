@@ -30,6 +30,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Extract helpers to `@/lib/utils.ts`
 - Use Tailwind design tokens, not arbitrary values
 - Run `pnpm lint` and `pnpm tsc -b` after changes
+- Do not include `importPath` in `*.metadata.ts` files
 
 ## Import Conventions
 

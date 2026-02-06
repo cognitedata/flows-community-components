@@ -5,5 +5,4 @@ export const SwitchMetadata: ComponentMeta = {
   status: "draft",
   description: "A toggle switch component built on Base UI Switch.",
   llmUsage: "Use `<Switch checked={checked} onCheckedChange={setChecked}>` for boolean toggles.",
-  importPath: "@/components/ui/aura/switch",
 };

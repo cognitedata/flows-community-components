@@ -6,5 +6,4 @@ export const SelectMetadata: ComponentMeta = {
   description: "A select dropdown component built on Base UI Select primitives.",
   llmUsage:
     "Use `<Select>` with `<SelectTrigger>`, `<SelectContent>`, and `<SelectItem>` for dropdowns.",
-  importPath: "@/components/ui/aura/select",
 };

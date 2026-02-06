@@ -31,7 +31,6 @@ export interface ComponentMeta {
   /** Component status - defaults to 'draft' if not specified */
   status?: ComponentStatusType;
   llmUsage?: string;
-  importPath?: string;
   apiReference?: {
     props: PropDefinition[];
   };

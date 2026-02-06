@@ -13,5 +13,4 @@ export const ComboboxMetadata: ComponentMeta = {
     "A searchable dropdown component combining input with a command menu, built with Base UI Popover and cmdk.",
   llmUsage:
     "Use `<Combobox>` for simple framework selection or `<ComboboxCustom>` with custom options for more control.",
-  importPath: "@/components/ui/aura/combobox",
 };
