@@ -5,8 +5,9 @@
  * Status is now defined per-component in each component's metadata file.
  */
 
-import type { StatusConfig, ComponentStatusType } from "./types";
+import type { ComponentStatusType, StatusConfig } from "./types";
 
+export type { ComponentStatusType, StatusConfig };
 
 export const STATUS_CONFIG: Record<ComponentStatusType, StatusConfig> = {
   draft: {
