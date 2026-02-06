@@ -10,6 +10,16 @@ export type PrimitiveProgressStatus =
   | "untracked"
   | "coming-soon";
 
+export const PRIMITIVE_PROGRESS_STATUS_ORDER: PrimitiveProgressStatus[] = [
+  "ready-for-dc",
+  "in-progress",
+  "dev-check",
+  "needs-discussion",
+  "imported-from-fusion",
+  "untracked",
+  "coming-soon",
+];
+
 export interface PrimitiveCatalogEntry {
   slug: string;
   name: string;
