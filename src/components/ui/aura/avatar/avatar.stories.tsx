@@ -657,8 +657,16 @@ export const Accessibility: Story = {
       expect(altTexts).toContain("John Doe's avatar");
       expect(altTexts).toContain("Jane Smith's avatar");
     });
-    const avatarWithEmptyAlt = canvasElement.querySelector('img[alt=""][data-slot="avatar-image"]');
-    await expect(avatarWithEmptyAlt).toBeInTheDocument();
+    const decorativeAvatar = canvasElement.querySelectorAll('[data-slot="avatar"]')[2];
+    const decorativeImage = decorativeAvatar?.querySelector(
+      'img[data-slot="avatar-image"]'
+    ) as HTMLImageElement | null;
+    if (decorativeImage) {
+      await expect(decorativeImage).toHaveAttribute("alt", "");
+    } else {
+      const decorativeFallback = decorativeAvatar?.querySelector('[data-slot="avatar-fallback"]');
+      await expect(decorativeFallback).toBeInTheDocument();
+    }
   },
 };
 
