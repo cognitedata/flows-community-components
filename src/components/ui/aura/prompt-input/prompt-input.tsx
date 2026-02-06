@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/aura/select";
+import type { ChatStatus, FileUIPart } from "@/lib/ai-types";
 import { cn } from "@/lib/utils";
 import {
   IconInfoCircle,
@@ -41,7 +42,6 @@ import {
   IconSquare,
   IconX,
 } from "@tabler/icons-react";
-import type { ChatStatus, FileUIPart } from "ai";
 import { nanoid } from "nanoid";
 import {
   type ChangeEvent,
