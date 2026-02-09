@@ -23,7 +23,17 @@ import {
   useState,
 } from "react";
 
-import { IconInfoCircle, IconLoader2, IconMicrophone, IconPaperclip, IconPhoto, IconPlus, IconSend, IconSquare, IconX } from "@tabler/icons-react";
+import {
+  IconInfoCircle,
+  IconLoader2,
+  IconMicrophone,
+  IconPaperclip,
+  IconPhoto,
+  IconPlus,
+  IconSend,
+  IconSquare,
+  IconX,
+} from "@tabler/icons-react";
 import { nanoid } from "nanoid";
 
 import { Button } from "@/components/ui/aura/button";
