@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "list",
-  "title": "list",
-  "description": "* List container for unordered content.",
+  "title": "List",
+  "description": "Composable list primitives for unordered, ordered, and description lists with status-ready list items.",
   "dependencies": [
     "class-variance-authority"
   ],

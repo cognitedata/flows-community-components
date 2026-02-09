@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "radio-group",
-  "title": "radio-group",
-  "description": "",
+  "title": "RadioGroup",
+  "description": "A radio button group component built on Base UI Radio Group.",
   "dependencies": [
     "@base-ui/react/radio",
     "@base-ui/react/radio-group",

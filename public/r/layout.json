@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "layout",
-  "title": "layout",
-  "description": "* Aura Layout System",
+  "title": "Layout",
+  "description": "Layout and grid definitions for the Aura design system including breakpoints, grid configurations, and container query patterns.",
   "registryDependencies": [
     "@aura/css"
   ],

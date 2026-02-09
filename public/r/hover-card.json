@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "hover-card",
-  "title": "hover-card",
-  "description": "",
+  "title": "HoverCard",
+  "description": "A card that appears on hover built on Base UI Hover Card.",
   "dependencies": [
     "@base-ui/react/preview-card"
   ],

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sheet",
-  "title": "sheet",
-  "description": "",
+  "title": "Sheet",
+  "description": "A slide-out panel component built on Base UI Dialog.",
   "dependencies": [
     "@base-ui/react/dialog",
     "@tabler/icons-react"

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "alert",
-  "title": "alert",
-  "description": "",
+  "title": "Alert",
+  "description": "A dismissible alert component with multiple variants for displaying messages.",
   "dependencies": [
     "@tabler/icons-react",
     "class-variance-authority"

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "context-menu",
-  "title": "context-menu",
-  "description": "",
+  "title": "ContextMenu",
+  "description": "A right-click context menu built on Base UI Context Menu primitives.",
   "dependencies": [
     "@base-ui/react/context-menu",
     "@tabler/icons-react"

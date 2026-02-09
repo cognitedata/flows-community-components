@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "select",
-  "title": "select",
-  "description": "",
+  "title": "Select",
+  "description": "A select dropdown component built on Base UI Select primitives.",
   "dependencies": [
     "@base-ui/react/select",
     "@tabler/icons-react"

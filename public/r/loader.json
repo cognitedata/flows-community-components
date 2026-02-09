@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "loader",
-  "title": "loader",
-  "description": "",
+  "title": "Loader",
+  "description": "An animated loading indicator component.",
   "registryDependencies": [
     "@aura/css"
   ],

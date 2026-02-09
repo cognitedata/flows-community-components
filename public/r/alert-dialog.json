@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "alert-dialog",
-  "title": "alert-dialog",
-  "description": "",
+  "title": "AlertDialog",
+  "description": "A modal dialog for critical confirmations powered by Base UI Alert Dialog.",
   "dependencies": [
     "@base-ui/react/alert-dialog"
   ],

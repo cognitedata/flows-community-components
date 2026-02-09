@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "prompt-input",
-  "title": "prompt-input",
-  "description": "INTERNAL: Allows PromptInput to register its file textInput + \"open\" callback */",
+  "title": "PromptInput",
+  "description": "A comprehensive AI chat input component with support for attachments, model selection, speech input, command palettes, and rich formatting.",
   "dependencies": [
     "@tabler/icons-react",
     "nanoid"

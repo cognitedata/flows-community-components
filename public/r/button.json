@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
-  "title": "button",
-  "description": "",
+  "title": "Button",
+  "description": "A versatile button component with multiple variants and sizes, built with Base UI render props and class-variance-authority.",
   "dependencies": [
     "@base-ui/react/button",
     "class-variance-authority"

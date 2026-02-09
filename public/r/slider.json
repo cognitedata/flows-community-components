@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "slider",
-  "title": "slider",
-  "description": "",
+  "title": "Slider",
+  "description": "A range slider component built on Base UI Slider.",
   "dependencies": [
     "@base-ui/react/slider"
   ],
