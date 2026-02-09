@@ -31,12 +31,7 @@ type SourcesTitleProps = ComponentProps<"div"> & {
   title?: string;
 };
 
-const SourcesTitle = ({
-  className,
-  title = "Sources",
-  children,
-  ...props
-}: SourcesTitleProps) => (
+const SourcesTitle = ({ className, title = "Sources", children, ...props }: SourcesTitleProps) => (
   <div
     data-slot="sources-title"
     className={cn(
@@ -89,6 +84,8 @@ const Source = ({
   );
 };
 
-export { Sources };
-export { SourcesTitle };
-export { Source };
+export {
+  Sources,
+  SourcesTitle,
+  Source,
+};
