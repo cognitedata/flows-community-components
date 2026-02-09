@@ -1,30 +1,11 @@
 import { forwardRef } from 'react';
 
 import { Button as ButtonPrimitive } from '@base-ui/react/button';
-import { type VariantProps, cva } from 'class-variance-authority';
-import type { ClassValue } from 'clsx';
+import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn, focusRing, focusRingDestructive } from '../../lib/utils';
+import { cn, focusRing, focusRingDestructive } from '../../../../lib/utils';
 
-type ButtonVariant =
-  | 'default'
-  | 'destructive'
-  | 'secondary'
-  | 'outline'
-  | 'ghost'
-  | 'link';
-type ButtonSize = 'default' | 'sm' | 'lg' | 'icon' | 'icon-sm' | 'icon-lg';
-type ButtonStyleProps = {
-  variant?: ButtonVariant | null;
-  size?: ButtonSize | null;
-};
-type ButtonClassProp =
-  | { class?: never; className?: never }
-  | { class: ClassValue; className?: never }
-  | { class?: never; className: ClassValue };
-type ButtonVariantsFn = (props?: ButtonStyleProps & ButtonClassProp) => string;
-
-const buttonVariants: ButtonVariantsFn = cva(
+const buttonVariants = cva(
   `inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-transparent text-sm font-medium transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 ${focusRing} aria-invalid:focus-visible:shadow-focus-ring-destructive`,
   {
     variants: {
@@ -56,34 +37,28 @@ const buttonVariants: ButtonVariantsFn = cva(
   }
 );
 
-type ButtonProps = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>;
+type ButtonProps = Omit<ButtonPrimitive.Props, 'className'> &
+  VariantProps<typeof buttonVariants> & {
+    className?: string;
+  };
 
-const Button: ReturnType<typeof forwardRef<HTMLButtonElement, ButtonProps>> =
-  forwardRef<HTMLButtonElement, ButtonProps>(
-    (
-      { className, variant, size, children, render, nativeButton, ...props },
-      ref
-    ) => {
-      const buttonClassName: ButtonPrimitive.Props['className'] =
-        typeof className === 'function'
-          ? (state: ButtonPrimitive.State) =>
-              cn(buttonVariants({ variant, size }), className(state))
-          : cn(buttonVariants({ variant, size, className }));
-
-      return (
-        <ButtonPrimitive
-          ref={ref}
-          data-slot="button"
-          render={render}
-          nativeButton={nativeButton ?? (render ? false : undefined)}
-          className={buttonClassName}
-          {...props}
-        >
-          {children}
-        </ButtonPrimitive>
-      );
-    }
-  );
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    { className, variant, size, children, render, nativeButton, ...props },
+    ref
+  ) => (
+    <ButtonPrimitive
+      ref={ref}
+      data-slot="button"
+      render={render}
+      nativeButton={nativeButton ?? (render ? false : undefined)}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {children}
+    </ButtonPrimitive>
+  )
+);
 
 Button.displayName = 'Button';
 

@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '../../lib/types';
+import type { ComponentMeta } from '../../../../lib/types';
 
 /**
  * Button Component Metadata

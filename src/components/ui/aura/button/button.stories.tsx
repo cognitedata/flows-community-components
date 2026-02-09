@@ -1095,7 +1095,7 @@ export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
       <Button>
-        <span role="img" aria-label="Rocket">
+        <span role="img" aria-label="rocket">
           🚀
         </span>{' '}
         Emoji Button
@@ -1104,13 +1104,13 @@ export const EdgeCaseSpecialCharacters: Story = {
       <Button variant="secondary">中文按钮</Button>
       <Button variant="ghost">Кнопка</Button>
       <Button>
-        <span role="img" aria-label="Play">
+        <span role="img" aria-label="play">
           ▶️
         </span>{' '}
-        <span role="img" aria-label="Pause">
+        <span role="img" aria-label="pause">
           ⏸️
         </span>{' '}
-        <span role="img" aria-label="Stop">
+        <span role="img" aria-label="stop">
           ⏹️
         </span>
       </Button>
