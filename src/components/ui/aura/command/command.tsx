@@ -122,7 +122,7 @@ const CommandGroup = forwardRef<
       ref={ref}
       data-slot="command-group"
       className={cn(
-        "text-popover-foreground font-normal [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-normal [&_[cmdk-group-heading]]:font-medium ",
+        "text-popover-foreground font-normal [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-base [&_[cmdk-group-heading]]:font-medium ",
         className
       )}
       {...props}
