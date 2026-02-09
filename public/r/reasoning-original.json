@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "reasoning-original",
-  "title": "reasoning-original",
-  "description": "",
+  "title": "ReasoningOriginal",
+  "description": "Original collapsible reasoning component (preserved for future use).",
   "dependencies": [
     "@tabler/icons-react",
     "streamdown"

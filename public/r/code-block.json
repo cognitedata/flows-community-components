@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "code-block",
-  "title": "code-block",
-  "description": "",
+  "title": "CodeBlock",
+  "description": "A syntax-highlighted code block with copy and collapse functionality.",
   "dependencies": [
     "@tabler/icons-react",
     "hast",

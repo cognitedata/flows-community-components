@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "message",
-  "title": "message",
-  "description": "",
+  "title": "Message",
+  "description": "Components for displaying AI chat messages with avatars and actions.",
   "dependencies": [
     "@tabler/icons-react",
     "shiki",

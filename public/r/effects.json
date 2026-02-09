@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "effects",
-  "title": "effects",
-  "description": "* Aura Effects System",
+  "title": "Effects",
+  "description": "Effect definitions for the Aura design system including shadows, focus rings, border radii, and animation patterns.",
   "registryDependencies": [
     "@aura/css"
   ],

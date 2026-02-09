@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dropdown-menu",
-  "title": "dropdown-menu",
-  "description": "",
+  "title": "DropdownMenu",
+  "description": "A dropdown menu with submenus, separators, and selection states, built on Base UI Dropdown Menu primitives.",
   "dependencies": [
     "@base-ui/react/menu",
     "@tabler/icons-react"
