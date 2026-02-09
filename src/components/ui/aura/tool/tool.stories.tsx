@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/aura/button";
 import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@/components/ui/aura/tool";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
 
 const meta: Meta<typeof Tool> = {
@@ -380,6 +380,8 @@ export const Interactive: Story = {
     await expect(canvas.getByText("Parameters")).toBeInTheDocument();
     await userEvent.click(canvas.getByText("Collapse"));
     await expect(canvas.getByText("Expand")).toBeInTheDocument();
+    const toolTrigger = canvas.getByRole("button", { name: "controlled_tool" });
+    await waitFor(() => expect(toolTrigger).not.toHaveAttribute("data-panel-open"));
   },
 };
 
@@ -413,6 +415,7 @@ export const Accessibility: Story = {
     await userEvent.keyboard("{Enter}");
     await expect(canvas.getByText("Parameters")).toBeInTheDocument();
     await userEvent.keyboard("{Enter}");
+    await waitFor(() => expect(trigger).not.toHaveAttribute("data-panel-open"));
   },
 };
 
