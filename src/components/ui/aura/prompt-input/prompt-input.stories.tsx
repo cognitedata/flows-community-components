@@ -12,7 +12,6 @@ import {
   PromptInputBody,
   PromptInputButton,
   PromptInputFooter,
-  type PromptInputMessage,
   PromptInputProvider,
   PromptInputSpeechButton,
   PromptInputSubmit,
@@ -22,7 +21,7 @@ import {
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
-import { useRef, useState } from "react";
+import { type ComponentProps, useRef, useState } from "react";
 
 const meta: Meta<typeof PromptInput> = {
   title: "AI/Prompt Input",
@@ -40,7 +39,7 @@ const meta: Meta<typeof PromptInput> = {
       control: false,
       description: "Helper text below input. Set to false to hide, ReactNode for custom content",
       table: {
-        category: "Display",
+        category: "Content",
         type: { summary: "ReactNode | false" },
       },
     },
@@ -48,7 +47,7 @@ const meta: Meta<typeof PromptInput> = {
       control: "text",
       description: "CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
     onSubmit: {
@@ -57,7 +56,7 @@ const meta: Meta<typeof PromptInput> = {
       table: {
         category: "Events",
         type: {
-          summary: "(message: PromptInputMessage, event: FormEvent) => void",
+          summary: "(message, event) => void",
         },
       },
     },
@@ -65,48 +64,48 @@ const meta: Meta<typeof PromptInput> = {
       control: false,
       description: 'File types to accept (e.g., "image/*", "video/*")',
       table: {
-        category: "File Upload (Coming Soon)",
+        category: "Behavior",
       },
     },
     multiple: {
       control: false,
       description: "Allow multiple file uploads",
       table: {
-        category: "File Upload (Coming Soon)",
+        category: "Behavior",
       },
     },
     globalDrop: {
       control: false,
       description: "Accept drops anywhere on document",
       table: {
-        category: "File Upload (Coming Soon)",
+        category: "Behavior",
       },
     },
     maxFiles: {
       control: false,
       description: "Maximum number of files",
       table: {
-        category: "File Upload (Coming Soon)",
+        category: "Behavior",
       },
     },
     maxFileSize: {
       control: false,
       description: "Maximum file size in bytes",
       table: {
-        category: "File Upload (Coming Soon)",
+        category: "Behavior",
       },
     },
     onError: {
       control: false,
       description: "Callback when file upload error occurs",
       table: {
-        category: "File Upload (Coming Soon)",
+        category: "Events",
       },
     },
     syncHiddenInput: {
       control: false,
       table: {
-        category: "Internal",
+        category: "Advanced",
       },
     },
   },
@@ -120,6 +119,7 @@ const meta: Meta<typeof PromptInput> = {
 
 export default meta;
 type Story = StoryObj<typeof PromptInput>;
+type PromptInputSubmitHandler = ComponentProps<typeof PromptInput>["onSubmit"];
 
 /**
  * Basic prompt input with attachments and default helper text
@@ -164,7 +164,7 @@ export const Basic: Story = {
   render: function PromptInputBasicStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -218,7 +218,7 @@ export const NoHelperText: Story = {
   render: function PromptInputNoHelperTextStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -272,7 +272,7 @@ export const CustomHelperText: Story = {
   render: function PromptInputCustomHelperTextStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -585,7 +585,7 @@ export const KeyboardInteractions: Story = {
   render: function KeyboardInteractionsStory() {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       if (!hasText) return;
 
@@ -643,7 +643,7 @@ export const WithAdvancedTools: Story = {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 
@@ -797,7 +797,7 @@ export const Playground: Story = {
   render: function PromptInputPlaygroundStory(args) {
     const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
 
-    const handleSubmit = (message: PromptInputMessage, event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: PromptInputSubmitHandler = (message, event) => {
       const hasText = Boolean(message.text);
       const hasAttachments = Boolean(message.files?.length);
 

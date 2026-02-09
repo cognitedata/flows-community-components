@@ -21,7 +21,7 @@ const meta: Meta<typeof Input> = {
       options: ["text", "email", "password", "number", "tel", "url", "search"],
       description: "The type of input",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
         defaultValue: { summary: "text" },
       },
@@ -30,7 +30,7 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Placeholder text",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
       },
     },
@@ -38,7 +38,7 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Default value (uncontrolled)",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
       },
     },
@@ -46,7 +46,7 @@ const meta: Meta<typeof Input> = {
       control: "boolean",
       description: "Disable the input",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -55,7 +55,7 @@ const meta: Meta<typeof Input> = {
       control: "boolean",
       description: "Make the input read-only",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -64,7 +64,7 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Error message to display",
       table: {
-        category: "Validation",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
@@ -72,7 +72,7 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },

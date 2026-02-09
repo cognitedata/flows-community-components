@@ -1,5 +1,7 @@
 import { type ComponentProps, type ReactNode, forwardRef, useState } from "react";
 
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
+
 import { HelperText } from "@/components/ui/aura/helper-text";
 import {
   InputGroup,
@@ -17,7 +19,6 @@ import {
   invalidState,
   readOnlyState,
 } from "@/lib/utils";
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 interface InputProps extends ComponentProps<"input"> {
   errorMessage?: string;

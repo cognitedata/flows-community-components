@@ -1,3 +1,31 @@
+import {
+  type ChangeEvent,
+  type ChangeEventHandler,
+  Children,
+  type ClipboardEventHandler,
+  type ComponentProps,
+  type ComponentRef,
+  Fragment,
+  type HTMLAttributes,
+  type KeyboardEventHandler,
+  type PropsWithChildren,
+  type ReactNode,
+  type RefObject,
+  type SyntheticEvent,
+  createContext,
+  forwardRef,
+  startTransition,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
+import { IconInfoCircle, IconLoader2, IconMicrophone, IconPaperclip, IconPhoto, IconPlus, IconSend, IconSquare, IconX } from "@tabler/icons-react";
+import { nanoid } from "nanoid";
+
 import { Button } from "@/components/ui/aura/button";
 import {
   Command,
@@ -31,42 +59,6 @@ import {
 } from "@/components/ui/aura/select";
 import type { ChatStatus, FileUIPart } from "@/lib/ai/types";
 import { cn, convertBlobUrlToDataUrl } from "@/lib/utils";
-import {
-  IconInfoCircle,
-  IconLoader2,
-  IconMicrophone,
-  IconPaperclip,
-  IconPhoto,
-  IconPlus,
-  IconSend,
-  IconSquare,
-  IconX,
-} from "@tabler/icons-react";
-import { nanoid } from "nanoid";
-import {
-  type ChangeEvent,
-  type ChangeEventHandler,
-  Children,
-  type ClipboardEventHandler,
-  type ComponentProps,
-  type ComponentRef,
-  Fragment,
-  type HTMLAttributes,
-  type KeyboardEventHandler,
-  type PropsWithChildren,
-  type ReactNode,
-  type RefObject,
-  type SyntheticEvent,
-  createContext,
-  forwardRef,
-  startTransition,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
 
 type AttachmentsContext = {
   files: (FileUIPart & { id: string })[];
@@ -1265,13 +1257,6 @@ const PromptInputCommandSeparator = ({ className, ...props }: PromptInputCommand
   <CommandSeparator className={cn(className)} {...props} />
 );
 PromptInputCommandSeparator.displayName = "PromptInputCommandSeparator";
-
-export type {
-  AttachmentsContext,
-  TextInputContext,
-  PromptInputControllerProps,
-  PromptInputMessage,
-};
 
 export {
   usePromptInputController,

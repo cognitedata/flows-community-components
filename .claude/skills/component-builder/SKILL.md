@@ -23,7 +23,7 @@ Use Base UI for complex interactions (dropdowns, dialogs), keyboard navigation, 
 
 ## Component Structure
 
-**Exports at bottom, one per line.** See `badge.tsx` for export pattern.
+**Exports at bottom.** Use a single `export { ... }` block with one symbol per line. See `badge.tsx` for export pattern.
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 

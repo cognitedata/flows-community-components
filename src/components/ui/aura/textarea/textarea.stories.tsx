@@ -13,7 +13,7 @@ const meta: Meta<typeof Textarea> = {
       control: "text",
       description: "Placeholder text",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
       },
     },
@@ -21,7 +21,7 @@ const meta: Meta<typeof Textarea> = {
       control: "text",
       description: "Default value (uncontrolled)",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
       },
     },
@@ -29,7 +29,7 @@ const meta: Meta<typeof Textarea> = {
       control: "number",
       description: "Maximum character limit",
       table: {
-        category: "Validation",
+        category: "Behavior",
         type: { summary: "number" },
       },
     },
@@ -37,7 +37,7 @@ const meta: Meta<typeof Textarea> = {
       control: "text",
       description: "Error message to display",
       table: {
-        category: "Validation",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
@@ -45,7 +45,7 @@ const meta: Meta<typeof Textarea> = {
       control: "text",
       description: "Message when over character limit",
       table: {
-        category: "Validation",
+        category: "Behavior",
         type: { summary: "string" },
         defaultValue: { summary: "Too many characters" },
       },
@@ -54,7 +54,7 @@ const meta: Meta<typeof Textarea> = {
       control: "boolean",
       description: "Disable the textarea",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -63,7 +63,7 @@ const meta: Meta<typeof Textarea> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },

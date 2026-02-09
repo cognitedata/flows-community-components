@@ -33,7 +33,7 @@ const meta: Meta<typeof InputGroup> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
