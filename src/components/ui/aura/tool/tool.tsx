@@ -9,7 +9,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
-import type { ToolUIPart } from "@/lib/ai-types";
+import type { ToolUIPart } from "@/lib/ai/types";
 import { cn } from "@/lib/utils";
 import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
 import type { ComponentProps, ReactNode } from "react";

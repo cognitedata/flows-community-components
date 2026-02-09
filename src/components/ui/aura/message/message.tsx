@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/aura/button";
 import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
 import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
-import type { FileUIPart, UIMessage } from "@/lib/ai-types";
+import type { FileUIPart, UIMessage } from "@/lib/ai/types";
 import { cn, getInitials } from "@/lib/utils";
 
 type MessageProps = HTMLAttributes<HTMLDivElement> & {
