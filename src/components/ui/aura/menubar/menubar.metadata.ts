@@ -6,5 +6,4 @@ export const MenubarMetadata: ComponentMeta = {
   description: "A horizontal menu bar component built on Base UI Menubar primitives.",
   llmUsage:
     "Use `<Menubar>` with `<MenubarMenu>`, `<MenubarTrigger>`, and `<MenubarContent>` for app menus.",
-  importPath: "@/components/ui/aura/menubar",
 };

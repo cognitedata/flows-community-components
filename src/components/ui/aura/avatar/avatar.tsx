@@ -1,6 +1,6 @@
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { type VariantProps, cva } from "class-variance-authority";
-import { type ComponentProps, type HTMLAttributes, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -37,13 +37,9 @@ const avatarVariants = cva(
   }
 );
 
-/**
- * Avatar component for displaying user profile images, initials, or icons.
- * Supports multiple color variants, three sizes, and composable sub-components.
- */
 const Avatar = forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
-  AvatarPrimitive.Root.Props & VariantProps<typeof avatarVariants>
+  ComponentRef<typeof AvatarPrimitive.Root>,
+  ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants>
 >(({ className, variant, sizes, ...props }, ref) => {
   return (
     <AvatarPrimitive.Root
@@ -56,14 +52,9 @@ const Avatar = forwardRef<
 });
 Avatar.displayName = "Avatar";
 
-/**
- * AvatarImage displays the user's profile image.
- * Falls back to AvatarFallback if the image fails to load.
- * Includes a hover darkening effect.
- */
 const AvatarImage = forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
-  AvatarPrimitive.Image.Props
+  ComponentRef<typeof AvatarPrimitive.Image>,
+  ComponentProps<typeof AvatarPrimitive.Image>
 >(({ className, ...props }, ref) => {
   return (
     <>
@@ -83,13 +74,9 @@ const AvatarImage = forwardRef<
 });
 AvatarImage.displayName = "AvatarImage";
 
-/**
- * AvatarFallback displays when the image is loading or fails to load.
- * Typically shows user initials or a placeholder.
- */
 const AvatarFallback = forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  AvatarPrimitive.Fallback.Props
+  ComponentRef<typeof AvatarPrimitive.Fallback>,
+  ComponentProps<typeof AvatarPrimitive.Fallback>
 >(({ className, ...props }, ref) => {
   return (
     <AvatarPrimitive.Fallback
@@ -102,10 +89,6 @@ const AvatarFallback = forwardRef<
 });
 AvatarFallback.displayName = "AvatarFallback";
 
-/**
- * AvatarIcon displays an icon instead of an image or initials.
- * Useful for system users, bots, or special entity types.
- */
 const AvatarIcon = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => {
     return (
@@ -120,5 +103,4 @@ const AvatarIcon = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
 );
 AvatarIcon.displayName = "AvatarIcon";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export { Avatar, AvatarImage, AvatarFallback, AvatarIcon, avatarVariants };
+export { Avatar, AvatarImage, AvatarFallback, AvatarIcon };

@@ -102,6 +102,14 @@ Add new components to `side-navigation.tsx`. Story meta `title` determines categ
 - `AI/[Name]` → AI Chat subsection
 - `Patterns/[Name]` → Patterns subsection
 
+## Primitives Progress Metadata
+
+When a component change affects primitive/foundation coverage, update `src/lib/primitives-catalog.ts` in the same PR.
+
+Set and verify `implemented` / `comingSoon` behavior through the catalog entry and aliases.
+
+If delivery progress is unclear, ask the user before assigning a progress status in catalog metadata.
+
 ## Post-Build Steps
 
 After creating or modifying components:
@@ -124,3 +132,5 @@ Before committing changes:
 8. No !important in Tailwind classes
 9. Proper error handling in all try-catch blocks
 10. Ensure all class names work with Tailwind v4
+11. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
+12. Ask the user if progress status is ambiguous before setting it
