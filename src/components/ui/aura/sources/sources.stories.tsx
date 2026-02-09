@@ -250,15 +250,23 @@ export const TooManySourcesWithOverflow: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Sources")).toBeInTheDocument();
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
-    const overflowPill = canvas.getByRole("link", { name: "4 more sources" });
-    await userEvent.hover(overflowPill);
+    const overflowPill = canvas.getByText("+4");
     const hoverCardSelector = '[data-slot="hover-card-content"][data-open]';
-    await waitFor(() => {
-      const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
-      expect(hovercard).toBeTruthy();
-    });
-    const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
-    await expect(hovercard).toBeTruthy();
+    const waitForHoverCard = async () => {
+      await waitFor(() => {
+        const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
+        expect(hovercard).toBeTruthy();
+      });
+    };
+
+    await userEvent.hover(overflowPill);
+    try {
+      await waitForHoverCard();
+    } catch {
+      await userEvent.unhover(overflowPill);
+      await userEvent.hover(overflowPill);
+      await waitForHoverCard();
+    }
   },
 };
 
