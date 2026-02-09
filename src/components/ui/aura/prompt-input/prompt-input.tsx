@@ -866,23 +866,22 @@ PromptInputTools.displayName = "PromptInputTools";
 
 type PromptInputButtonProps = ComponentProps<typeof InputGroupButton>;
 
-const PromptInputButton = forwardRef<
-  ComponentRef<typeof InputGroupButton>,
-  PromptInputButtonProps
->(({ variant = "ghost", className, size, ...props }, ref) => {
-  const newSize = size ?? (Children.count(props.children) > 1 ? "sm" : "icon-sm");
+const PromptInputButton = forwardRef<ComponentRef<typeof InputGroupButton>, PromptInputButtonProps>(
+  ({ variant = "ghost", className, size, ...props }, ref) => {
+    const newSize = size ?? (Children.count(props.children) > 1 ? "sm" : "icon-sm");
 
-  return (
-    <InputGroupButton
-      ref={ref}
-      className={cn(className)}
-      size={newSize}
-      type="button"
-      variant={variant}
-      {...props}
-    />
-  );
-});
+    return (
+      <InputGroupButton
+        ref={ref}
+        className={cn(className)}
+        size={newSize}
+        type="button"
+        variant={variant}
+        {...props}
+      />
+    );
+  }
+);
 PromptInputButton.displayName = "PromptInputButton";
 
 type PromptInputActionMenuProps = ComponentProps<typeof DropdownMenu>;
