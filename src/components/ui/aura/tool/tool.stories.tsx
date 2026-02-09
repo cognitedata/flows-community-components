@@ -5,7 +5,7 @@ import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "./tool";
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",
   component: Tool,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     defaultOpen: {
       control: "boolean",
