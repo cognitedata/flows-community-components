@@ -1,4 +1,4 @@
-import type { ComponentMeta } from '../../../../lib/types';
+import type { ComponentMeta } from "../../../../lib/types";
 
 /**
  * Button Component Metadata
@@ -7,19 +7,19 @@ import type { ComponentMeta } from '../../../../lib/types';
  * component documentation pages and provide context for LLMs.
  */
 export const ButtonMetadata: ComponentMeta = {
-  name: 'Button',
-  status: 'draft',
+  name: "Button",
+  status: "draft",
 
   description:
-    'A versatile button component with multiple variants and sizes, built with Base UI render props and class-variance-authority.',
+    "A versatile button component with multiple variants and sizes, built with Base UI render props and class-variance-authority.",
 
   llmUsage:
     "When asked for a button, use `<Button variant='default'>Click me</Button>` instead of `<button>`. For different styles, use variants like 'destructive', 'outline', 'secondary', 'ghost', or 'link'.",
 
   codeExamples: [
     {
-      title: 'Button Variants',
-      description: 'Different visual styles for various use cases.',
+      title: "Button Variants",
+      description: "Different visual styles for various use cases.",
       code: `import { Button } from "@/components/ui/aura/button"
 import { IconPlus, IconBookmark, IconTrash, IconExternalLink } from "@tabler/icons-react"
 
@@ -51,8 +51,8 @@ export function ButtonVariantsDemo() {
 }`,
     },
     {
-      title: 'Button Sizes',
-      description: 'Available size options for different contexts.',
+      title: "Button Sizes",
+      description: "Available size options for different contexts.",
       code: `import { Button } from "@/components/ui/aura/button"
 import { IconPlus } from "@tabler/icons-react"
 
@@ -70,8 +70,8 @@ export function ButtonSizesDemo() {
 }`,
     },
     {
-      title: 'Button States',
-      description: 'Disabled and loading states.',
+      title: "Button States",
+      description: "Disabled and loading states.",
       code: `import { Button } from "@/components/ui/aura/button"
 import { IconLoader2 } from "@tabler/icons-react"
 
