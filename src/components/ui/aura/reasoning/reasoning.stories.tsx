@@ -27,7 +27,7 @@ const meta: Meta<typeof Reasoning> = {
       control: "text",
       description: "Additional CSS classes for custom styling",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
         type: { summary: "string" },
       },
     },

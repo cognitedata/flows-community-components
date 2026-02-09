@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-import { IconBrain } from "@tabler/icons-react";
 import {
   Children,
   type ComponentProps,
@@ -8,6 +6,9 @@ import {
   forwardRef,
   useContext,
 } from "react";
+
+import { cn } from "@/lib/utils";
+import { IconBrain } from "@tabler/icons-react";
 
 const ReasoningDecorationsContext = createContext<boolean>(true);
 const useReasoningDecorations = () => useContext(ReasoningDecorationsContext);
@@ -70,7 +71,7 @@ const ReasoningContentInner = forwardRef<ComponentRef<"div">, ReasoningContentPr
     <div
       ref={ref}
       data-slot="reasoning-content-inner"
-      className={cn("relative flex flex-col gap-0 pl-3.75", className)}
+      className={cn("relative flex flex-col gap-0 pl-4", className)}
       {...props}
     >
       {children}
@@ -92,7 +93,7 @@ const ReasoningItem = forwardRef<ComponentRef<"div">, ReasoningItemProps>(
         className={cn(
           "relative",
           showDecorations && [
-            "before:absolute before:-left-2.5 before:top-3.75 before:z-10 before:size-1.25 before:rounded-full before:bg-border",
+            "before:absolute before:-left-2.5 before:top-4 before:z-10 before:size-1.5 before:rounded-full before:bg-border",
             "after:absolute after:-left-2 after:top-0 after:bottom-0 after:w-px after:bg-border",
             "first:after:top-4",
             "last:after:bottom-auto last:after:h-4",
@@ -108,4 +109,7 @@ const ReasoningItem = forwardRef<ComponentRef<"div">, ReasoningItemProps>(
 );
 ReasoningItem.displayName = "ReasoningItem";
 
-export { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem };
+export { Reasoning };
+export { ReasoningContent };
+export { ReasoningHeader };
+export { ReasoningItem };

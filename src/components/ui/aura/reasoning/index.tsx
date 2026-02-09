@@ -1,8 +1,4 @@
-/**
- * Reasoning Component
- *
- * Components for displaying AI reasoning and thought processes.
- */
+/** Reasoning Component - displaying AI reasoning and thought processes.. */
 export {
   Reasoning,
   ReasoningHeader,
