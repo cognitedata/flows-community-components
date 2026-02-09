@@ -84,19 +84,16 @@ const singleOption = [{ label: "Option 1", value: "option1" }];
 
 const longTextOptions = [
   {
-    label:
-      "This is a very long option label that should wrap or truncate when space is limited",
+    label: "This is a very long option label that should wrap or truncate when space is limited",
     value: "option1",
   },
   {
-    label:
-      "Another extremely verbose option label demonstrating overflow behaviour in the list",
+    label: "Another extremely verbose option label demonstrating overflow behaviour in the list",
     value: "option2",
   },
   { label: "Short label", value: "option3" },
   {
-    label:
-      "Yet another long option label to force vertical scrolling inside the menu content area",
+    label: "Yet another long option label to force vertical scrolling inside the menu content area",
     value: "option4",
   },
 ];
@@ -289,11 +286,7 @@ export const WithIcons: Story = {
           </SelectTrigger>
           <SelectContent>
             {iconOptions.map((option) => (
-              <SelectItem
-                key={option.value}
-                value={option.value}
-                icon={iconMap[option.value]}
-              >
+              <SelectItem key={option.value} value={option.value} icon={iconMap[option.value]}>
                 {option.label}
               </SelectItem>
             ))}
@@ -534,31 +527,31 @@ export const SmallSize: Story = {
   render: () => (
     <div className="flex gap-4 items-center">
       <Select items={shortOptions}>
-      <SelectTrigger size="sm" className="w-37.5">
-        <SelectValue placeholder="Small" />
-      </SelectTrigger>
-      <SelectContent>
-        {shortOptions.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-    <Select items={shortOptions}>
-      <SelectTrigger size="default" className="w-37.5">
-        <SelectValue placeholder="Default" />
-      </SelectTrigger>
-      <SelectContent>
-        {shortOptions.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  </div>
-),
+        <SelectTrigger size="sm" className="w-37.5">
+          <SelectValue placeholder="Small" />
+        </SelectTrigger>
+        <SelectContent>
+          {shortOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Select items={shortOptions}>
+        <SelectTrigger size="default" className="w-37.5">
+          <SelectValue placeholder="Default" />
+        </SelectTrigger>
+        <SelectContent>
+          {shortOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  ),
   parameters: {
     order: 10,
     docs: {
@@ -656,17 +649,17 @@ export const LongTextAndOverflow: Story = {
       <div className="w-40">
         <Label>Long option labels</Label>
         <Select items={longTextOptions}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select an option with long text" />
-        </SelectTrigger>
-        <SelectContent className="max-h-40">
-          {longTextOptions.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select an option with long text" />
+          </SelectTrigger>
+          <SelectContent className="max-h-40">
+            {longTextOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <p className="text-sm text-muted-foreground max-w-md">
         The trigger is constrained by a narrow container while the dropdown content has a limited
@@ -699,9 +692,7 @@ export const VisualRegression: Story = {
               <SelectValue placeholder="Default" />
             </SelectTrigger>
             <SelectContent>
-              {[
-                { label: "Option", value: "1" },
-              ].map((option) => (
+              {[{ label: "Option", value: "1" }].map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>
@@ -713,9 +704,7 @@ export const VisualRegression: Story = {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {[
-                { label: "Selected", value: "selected" },
-              ].map((option) => (
+              {[{ label: "Selected", value: "selected" }].map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>
@@ -727,9 +716,7 @@ export const VisualRegression: Story = {
               <SelectValue placeholder="Disabled" />
             </SelectTrigger>
             <SelectContent>
-              {[
-                { label: "Option", value: "1" },
-              ].map((option) => (
+              {[{ label: "Option", value: "1" }].map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   {option.label}
                 </SelectItem>
@@ -746,9 +733,7 @@ export const VisualRegression: Story = {
             <SelectValue icon={<IconSettings className="size-4" />} />
           </SelectTrigger>
           <SelectContent>
-            {[
-              { label: "Settings", value: "settings" },
-            ].map((option) => (
+            {[{ label: "Settings", value: "settings" }].map((option) => (
               <SelectItem
                 key={option.value}
                 value={option.value}
@@ -768,9 +753,7 @@ export const VisualRegression: Story = {
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
-            {[
-              { label: "Option", value: "1" },
-            ].map((option) => (
+            {[{ label: "Option", value: "1" }].map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
