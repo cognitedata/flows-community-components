@@ -1,6 +1,14 @@
-import { type ComponentProps, forwardRef } from "react";
+import { type ComponentProps, type ReactNode, forwardRef, useState } from "react";
+
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 import { HelperText } from "@/components/ui/aura/helper-text";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/aura/input-group";
 import {
   cn,
   disabledState,
@@ -9,11 +17,21 @@ import {
   formElementBase,
   hoverState,
   invalidState,
+  readOnlyState,
 } from "@/lib/utils";
 
 interface InputProps extends ComponentProps<"input"> {
   errorMessage?: string;
 }
+
+const InputErrorMessage = ({ errorMessage }: { errorMessage?: ReactNode }) => {
+  if (!errorMessage) return null;
+  return (
+    <HelperText className="pt-1" isError>
+      {errorMessage}
+    </HelperText>
+  );
+};
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, errorMessage, ...props }, ref) => {
@@ -32,16 +50,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             focusState,
             invalidState,
             disabledState,
+            readOnlyState,
             className
           )}
           {...props}
         />
-
-        {errorMessage && (
-          <HelperText className="pt-1" isError>
-            {errorMessage}
-          </HelperText>
-        )}
+        <InputErrorMessage errorMessage={errorMessage} />
       </>
     );
   }
@@ -49,4 +63,40 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = "Input";
 
-export { Input };
+interface PasswordInputProps extends Omit<InputProps, "type"> {
+  defaultVisible?: boolean;
+}
+
+const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
+  ({ className, errorMessage, defaultVisible = false, ...props }, ref) => {
+    const [showPassword, setShowPassword] = useState(defaultVisible);
+
+    return (
+      <>
+        <InputGroup>
+          <InputGroupInput
+            ref={ref}
+            type={showPassword ? "text" : "password"}
+            aria-invalid={errorMessage ? true : undefined}
+            className={className}
+            {...props}
+          />
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              size="icon-sm"
+            >
+              {showPassword ? <IconEyeOff className="size-4" /> : <IconEye className="size-4" />}
+            </InputGroupButton>
+          </InputGroupAddon>
+        </InputGroup>
+        <InputErrorMessage errorMessage={errorMessage} />
+      </>
+    );
+  }
+);
+
+PasswordInput.displayName = "PasswordInput";
+
+export { Input, PasswordInput };

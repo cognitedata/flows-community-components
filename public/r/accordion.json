@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "accordion",
-  "title": "accordion",
-  "description": "",
+  "title": "Accordion",
+  "description": "An accessible accordion with smooth expand/collapse built on Base UI primitives.",
   "dependencies": [
     "@base-ui/react/accordion",
     "@tabler/icons-react"

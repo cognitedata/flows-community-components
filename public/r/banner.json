@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "banner",
-  "title": "banner",
-  "description": "",
+  "title": "Banner",
+  "description": "A banner component for displaying important messages with icon, title, status, and actions.",
   "dependencies": [
     "@tabler/icons-react",
     "class-variance-authority"

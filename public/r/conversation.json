@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "conversation",
-  "title": "conversation",
-  "description": "",
+  "title": "Conversation",
+  "description": "A scrollable container for AI chat conversations with auto-scroll.",
   "dependencies": [
     "@tabler/icons-react",
     "use-stick-to-bottom"

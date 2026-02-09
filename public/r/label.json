@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "label",
-  "title": "label",
-  "description": "",
+  "title": "Label",
+  "description": "An accessible text label for form controls, built on top of Base UI Label. Supports association via `htmlFor` and integrates with disabled states.",
   "registryDependencies": [
     "@aura/css"
   ],

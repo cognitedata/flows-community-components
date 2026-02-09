@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "collapsible",
-  "title": "collapsible",
-  "description": "",
+  "title": "Collapsible",
+  "description": "An interactive component that expands/collapses content, built on Base UI Collapsible primitives.",
   "dependencies": [
     "@base-ui/react/collapsible"
   ],

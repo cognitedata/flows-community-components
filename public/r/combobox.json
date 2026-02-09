@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "combobox",
-  "title": "combobox",
-  "description": "",
+  "title": "Combobox",
+  "description": "A searchable dropdown component combining input with a command menu, built with Base UI Popover and cmdk.",
   "dependencies": [
     "@tabler/icons-react"
   ],

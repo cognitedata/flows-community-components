@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sonner-toast",
-  "title": "sonner-toast",
-  "description": "",
+  "title": "SonnerToast",
+  "description": "A toast notification component using the Sonner library.",
   "dependencies": [
     "@tabler/icons-react",
     "sonner"

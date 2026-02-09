@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "colors",
-  "title": "colors",
-  "description": "* Aura Color System",
+  "title": "Colors",
+  "description": "Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.",
   "registryDependencies": [
     "@aura/css"
   ],

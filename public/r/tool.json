@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tool",
-  "title": "tool",
-  "description": "",
+  "title": "Tool",
+  "description": "A collapsible component for displaying AI tool invocations.",
   "dependencies": [
     "@tabler/icons-react"
   ],
