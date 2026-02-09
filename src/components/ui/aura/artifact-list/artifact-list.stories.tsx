@@ -17,7 +17,7 @@ import {
 const meta: Meta<typeof ArtifactList> = {
   title: "Primitives/Artifact - List",
   component: ArtifactList,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     className: {
       control: "text",

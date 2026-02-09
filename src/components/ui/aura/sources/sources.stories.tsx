@@ -6,7 +6,7 @@ import { Source, Sources, SourcesTitle } from "./sources";
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",
   component: Sources,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     title: {
       control: { type: "select" },

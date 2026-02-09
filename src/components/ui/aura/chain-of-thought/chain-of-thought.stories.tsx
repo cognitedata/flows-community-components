@@ -11,7 +11,7 @@ import {
 const meta: Meta<typeof ChainOfThought> = {
   title: "AI/Chain of Thought",
   component: ChainOfThought,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     defaultOpen: {
       control: "boolean",

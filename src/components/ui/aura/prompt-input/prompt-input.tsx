@@ -29,7 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/aura/select";
-import type { ChatStatus, FileUIPart } from "@/lib/ai-types";
+import type { ChatStatus, FileUIPart } from "@/lib/ai/types";
 import { cn, convertBlobUrlToDataUrl } from "@/lib/utils";
 import {
   IconInfoCircle,
@@ -378,7 +378,6 @@ type PromptInputProps = Omit<HTMLAttributes<HTMLFormElement>, "onSubmit" | "onEr
     event: SyntheticEvent<HTMLFormElement>
   ) => void | Promise<void>;
   helperText?: ReactNode | false;
-  errorMessage?: string;
 };
 
 const PromptInput = ({
@@ -392,7 +391,6 @@ const PromptInput = ({
   onError,
   onSubmit,
   helperText,
-  errorMessage,
   children,
   ...props
 }: PromptInputProps) => {
@@ -411,7 +409,6 @@ const PromptInput = ({
   }, []);
 
   const [items, setItems] = useState<(FileUIPart & { id: string })[]>([]);
-  const [submissionError, setSubmissionError] = useState<string | null>(null);
   const files = usingProvider ? controller.attachments.files : items;
 
   const openFileDialogLocal = useCallback(() => {
@@ -647,30 +644,19 @@ const PromptInput = ({
         if (result instanceof Promise) {
           result
             .then(() => {
-              setSubmissionError(null);
               clear();
               if (usingProvider) {
                 controller.textInput.clear();
               }
             })
-            .catch((error) => {
-              console.error("PromptInput: Submission error:", error);
-              setSubmissionError(
-                error instanceof Error ? error.message : "Failed to submit. Please try again."
-              );
-            });
+            .catch(() => {});
         } else {
-          setSubmissionError(null);
           clear();
           if (usingProvider) {
             controller.textInput.clear();
           }
         }
-      } catch (error) {
-        console.error("PromptInput: Submission error:", error);
-        setSubmissionError(
-          error instanceof Error ? error.message : "Failed to submit. Please try again."
-        );
+      } catch {
       }
     });
   };
@@ -705,13 +691,7 @@ const PromptInput = ({
         >
           <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
         </form>
-        {errorMessage || submissionError ? (
-          <HelperText size="xs" isError>
-            {errorMessage || submissionError}
-          </HelperText>
-        ) : (
-          helperTextToRender
-        )}
+        {helperTextToRender}
       </div>
     </>
   );
@@ -733,12 +713,10 @@ const PromptInputBody = forwardRef<HTMLDivElement, PromptInputBodyProps>(
 );
 PromptInputBody.displayName = "PromptInputBody";
 
-type PromptInputTextareaProps = ComponentProps<typeof InputGroupTextarea> & {
-  errorMessage?: string;
-};
+type PromptInputTextareaProps = ComponentProps<typeof InputGroupTextarea>;
 
 const PromptInputTextarea = forwardRef<HTMLTextAreaElement, PromptInputTextareaProps>(
-  ({ onChange, className, placeholder = "Type your message...", errorMessage, ...props }, ref) => {
+  ({ onChange, className, placeholder = "Type your message...", ...props }, ref) => {
     const controller = useOptionalPromptInputController();
     const attachments = usePromptInputAttachments();
     const [isComposing, setIsComposing] = useState(false);
@@ -803,7 +781,6 @@ const PromptInputTextarea = forwardRef<HTMLTextAreaElement, PromptInputTextareaP
     return (
       <InputGroupTextarea
         ref={ref}
-        aria-invalid={errorMessage ? true : undefined}
         className={cn(
           "field-sizing-content max-h-48 min-h-18 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5",
           className

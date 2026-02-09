@@ -30,7 +30,7 @@ import {
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
   component: Message,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Behavior
     isResponse: {
