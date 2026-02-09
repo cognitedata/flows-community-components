@@ -106,7 +106,7 @@ const CommandEmpty = forwardRef<
     <CommandPrimitive.Empty
       ref={ref}
       data-slot="command-empty"
-      className="py-6 text-center text-normal"
+      className="py-6 text-center text-base"
       {...props}
     />
   );
