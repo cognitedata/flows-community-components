@@ -1661,22 +1661,22 @@ export const ClickInteraction: Story = {
 
     // Find and verify initial state using text content
     const initialLabel = canvas.getByText("Click me");
-    const badge = initialLabel.closest('[data-slot="badge"]') as HTMLElement;
-    await expect(badge).not.toBeNull();
+    const badge = initialLabel.closest('[data-slot="badge"]');
+    await expect(badge).toBeInTheDocument();
     await expect(badge).toHaveClass("cursor-pointer");
 
     // Test hover interaction
-    await userEvent.hover(badge);
+    await userEvent.hover(badge!);
     await expect(badge).toHaveClass("hover:bg-secondary-hover");
 
     // Test click interaction
-    await userEvent.click(badge);
+    await userEvent.click(badge!);
     await waitFor(() => {
       expect(canvas.getByText("Clicked!")).toBeInTheDocument();
     });
 
     // Click again to toggle back
-    await userEvent.click(badge);
+    await userEvent.click(badge!);
     await waitFor(() => {
       expect(canvas.getByText("Click me")).toBeInTheDocument();
     });
