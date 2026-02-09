@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/aura/badge";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconBrandGithub,
   IconBriefcase,
@@ -252,11 +252,13 @@ export const TooManySourcesWithOverflow: Story = {
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     const overflowPill = canvas.getByRole("link", { name: "4 more sources" });
     await userEvent.hover(overflowPill);
-    const portal = within(canvasElement.ownerDocument.body);
-    const hovercard = await portal.findByTestId("sources-overflow-hovercard", undefined, {
-      timeout: 3000,
+    const hoverCardSelector = '[data-slot="hover-card-content"][data-open]';
+    await waitFor(() => {
+      const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
+      expect(hovercard).toBeTruthy();
     });
-    await expect(hovercard).toBeInTheDocument();
+    const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
+    await expect(hovercard).toBeTruthy();
   },
 };
 
