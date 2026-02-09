@@ -1659,9 +1659,10 @@ export const ClickInteraction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find and verify initial state
-    const badge = canvas.getByTestId("closable-badge");
-    await expect(badge).toBeInTheDocument();
+    // Find and verify initial state using text content
+    const initialLabel = canvas.getByText("Click me");
+    const badge = initialLabel.closest('[data-slot="badge"]') as HTMLElement;
+    await expect(badge).not.toBeNull();
     await expect(badge).toHaveClass("cursor-pointer");
 
     // Test hover interaction
@@ -1720,7 +1721,9 @@ export const KeyboardInteractions: Story = {
 
     // Tab to focus the first badge
     await userEvent.tab();
-    const firstBadge = canvas.getByTestId("keyboard-badge-1");
+    const firstBadge = canvas.getByRole("button", {
+      name: "Toggle badge 1",
+    });
     await waitFor(() => {
       expect(firstBadge).toHaveFocus();
     });
@@ -1733,7 +1736,9 @@ export const KeyboardInteractions: Story = {
 
     // Tab to second badge
     await userEvent.tab();
-    const secondBadge = canvas.getByTestId("keyboard-badge-2");
+    const secondBadge = canvas.getByRole("button", {
+      name: "Toggle badge 2",
+    });
     await waitFor(() => {
       expect(secondBadge).toHaveFocus();
     });

@@ -627,7 +627,7 @@
   --neutral-foreground: var(--gray-650);
   --undefined: var(--mountain-100);
   --undefined-hover: var(--mountain-200);
-  --undefined-foreground: var(--mountain-500);
+  --undefined-foreground: var(--mountain-600);
   --disabled: var(--mountain-50);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
@@ -637,7 +637,7 @@
   --warning-foreground-alternate: var(--amber-700);
   --success-foreground-alternate: var(--green-700);
   --neutral-foreground-alternate: var(--gray-700);
-  --undefined-foreground-alternate: var(--mountain-550);
+  --undefined-foreground-alternate: var(--mountain-700);
 
   /* Chart tokens (light mode) */
   --chart-fjord-solid: var(--fjord-600);
@@ -824,10 +824,10 @@
   --success: var(--green-200);
   --success-hover: var(--green-300);
   --success-foreground: var(--green-400);
-  --neutral: var(--gray-200);
+  --neutral: var(--gray-100);
   --neutral-hover: var(--gray-300);
   --neutral-foreground: var(--gray-400);
-  --undefined: var(--mountain-700);
+  --undefined: var(--mountain-200);
   --undefined-hover: var(--mountain-800);
   --undefined-foreground: var(--mountain-400);
   --disabled: var(--mountain-800);
@@ -839,7 +839,7 @@
   --warning-foreground-alternate: var(--amber-800);
   --success-foreground-alternate: var(--green-800);
   --neutral-foreground-alternate: var(--gray-900);
-  --undefined-foreground-alternate: var(--mountain-400);
+  --undefined-foreground-alternate: var(--mountain-800);
 
   /* Chart tokens (dark mode) */
   --chart-fjord-solid: var(--fjord-300);
@@ -888,7 +888,7 @@
   --effect-shadow-xl: rgba(0, 0, 0, 0.6);
 
   /* Toggled tokens (dark mode) */
-  --toggled: var(--gray-650);
+  --toggled: var(--gray-550);
   --toggled-foreground: var(--gray-50);
   --toggled-hover: var(--gray-500);
 
