@@ -464,10 +464,10 @@ export const KeyboardNavigation: Story = {
       expect([actionButton, cancelButton]).toContain(dialog.ownerDocument.activeElement);
     });
 
-    // Tab to cancel button
+    // Tab again; focus should remain within the dialog
     await userEvent.keyboard("{Tab}");
     await waitFor(() => {
-      expect(dialog.ownerDocument.activeElement).not.toBe(actionButton);
+      expect(dialog).toContainElement(dialog.ownerDocument.activeElement as HTMLElement);
     });
 
     // Test ESC to close

@@ -23,7 +23,7 @@ const meta: Meta<typeof Button> = {
       options: ["default", "destructive", "secondary", "outline", "ghost", "link"],
       description: "The visual style variant of the button",
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: { summary: "string" },
         defaultValue: { summary: "default" },
       },
@@ -33,7 +33,7 @@ const meta: Meta<typeof Button> = {
       options: ["default", "sm", "lg", "icon", "icon-sm", "icon-lg"],
       description: "The size of the button",
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: { summary: "string" },
         defaultValue: { summary: "default" },
       },
@@ -50,7 +50,7 @@ const meta: Meta<typeof Button> = {
       control: "boolean",
       description: "Whether the button is disabled",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
