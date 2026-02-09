@@ -59,7 +59,6 @@ Aura uses a dual-scope import system for migrating components to Fusion:
 Components in `src/components/ui/core/` use `@cognite/aura/*`, components in `src/components/ui/lab/` use `@cognite/aura-lab/*`.
 
 For internal development, continue using `@/*` imports. The `@cognite/*` imports are configured for when components are consumed in Fusion.
-
 ## Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
