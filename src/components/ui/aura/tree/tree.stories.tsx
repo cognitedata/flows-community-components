@@ -1,8 +1,10 @@
+import { useState } from "react";
+
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { IconFile, IconFileText, IconFolder, IconSettings } from "@tabler/icons-react";
-import { useState } from "react";
-import { Tree, TreeItem } from "./tree";
+
+import { Tree, TreeItem } from "@/components/ui/aura/tree";
 
 const meta: Meta<typeof Tree> = {
   title: "Primitives/Tree",
@@ -57,7 +59,7 @@ const meta: Meta<typeof Tree> = {
     docs: {
       description: {
         component:
-          "A hierarchical tree view component with collapsible nodes and status indicators that bubble up from children to parents. Supports RTL layouts and responsive indentation for mobile.",
+          "A hierarchical tree view with collapsible nodes and optional status indicators.",
       },
     },
   },
@@ -66,16 +68,12 @@ const meta: Meta<typeof Tree> = {
 export default meta;
 type Story = StoryObj<typeof Tree>;
 
-/**
- * Basic tree with expandable nodes.
- * Tests expand/collapse interaction via clicking.
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story: "Simple tree with expandable nodes. Click to expand/collapse.",
+        story: "Simple tree with expandable nodes.",
       },
     },
   },
@@ -108,33 +106,30 @@ export const Basic: Story = {
   ),
 };
 
-/**
- * Demonstrates warning and error status indicators.
- * Status bubbles up from children to parents automatically.
- */
 export const WithStatusIndicators: Story = {
   parameters: {
     order: 2,
     docs: {
       description: {
-        story:
-          "Status indicators (warning/error) automatically bubble up from children to parents. A parent shows the most severe status of its descendants.",
+        story: "Status indicators bubble up from children to parents.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const processUnit = canvasElement.querySelector('[data-value="process-21"]');
+    const canvas = within(canvasElement);
+    const processUnit = canvas.getByRole("treeitem", { name: "Process unit 21" });
     await expect(processUnit).toHaveAttribute("data-status", "warning");
 
-    const feedSystem = canvasElement.querySelector('[data-value="feed-system"]');
+    const feedSystem = canvas.getByRole("treeitem", { name: "Feed system" });
     await expect(feedSystem).toHaveAttribute("data-status", "warning");
 
-    const pumpA = canvasElement.querySelector('[data-value="pump-a"]');
+    const pumpA = canvas.getByRole("treeitem", { name: "Feed Pump A" });
     await expect(pumpA).toHaveAttribute("data-status", "warning");
 
-    const pumpB = canvasElement.querySelector('[data-value="pump-b"]');
+    const pumpB = canvas.getByRole("treeitem", { name: "Feed Pump B" });
     await expect(pumpB).not.toHaveAttribute("data-status");
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
+
+    const badges = canvas.getAllByLabelText(/warning|error/i);
     await expect(badges.length).toBe(3);
   },
   render: () => (
@@ -151,26 +146,24 @@ export const WithStatusIndicators: Story = {
   ),
 };
 
-/**
- * Error status takes priority over warning when statuses merge.
- * Uses a file explorer to show how mixed leaf statuses bubble up.
- */
 export const ErrorPriority: Story = {
   parameters: {
     order: 3,
     docs: {
       description: {
-        story:
-          "When children have different statuses, the most severe bubbles up to the parent. The `components` folder contains both a warning (`Input.tsx`) and an error (`Modal.tsx`), so it shows the error badge. That error propagates up to `src` as well. Folders with no status descendants (`utils`) remain clean.",
+        story: "Error status takes priority over warning when statuses merge.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const components = canvasElement.querySelector('[data-value="components"]');
+    const canvas = within(canvasElement);
+    const components = canvas.getByRole("treeitem", { name: "components" });
     await expect(components).toHaveAttribute("data-status", "error");
-    const src = canvasElement.querySelector('[data-value="src"]');
+
+    const src = canvas.getByRole("treeitem", { name: "src" });
     await expect(src).toHaveAttribute("data-status", "error");
-    const utils = canvasElement.querySelector('[data-value="utils"]');
+
+    const utils = canvas.getByRole("treeitem", { name: "utils" });
     await expect(utils).not.toHaveAttribute("data-status");
   },
   render: () => (
@@ -194,9 +187,6 @@ export const ErrorPriority: Story = {
   ),
 };
 
-/**
- * Controlled tree with external state management.
- */
 export const Controlled: Story = {
   parameters: {
     order: 4,
@@ -231,9 +221,6 @@ export const Controlled: Story = {
   },
 };
 
-/**
- * Single expand mode (accordion-like behavior).
- */
 export const SingleExpand: Story = {
   parameters: {
     order: 5,
@@ -272,16 +259,12 @@ export const SingleExpand: Story = {
   ),
 };
 
-/**
- * Deep nesting to demonstrate indentation and horizontal scroll.
- */
 export const DeepNesting: Story = {
   parameters: {
     order: 6,
     docs: {
       description: {
-        story:
-          "Deep nesting demonstrates proper indentation. On narrow viewports, the tree scrolls horizontally.",
+        story: "Deep nesting with indentation and horizontal scroll.",
       },
     },
   },
@@ -305,16 +288,12 @@ export const DeepNesting: Story = {
   ),
 };
 
-/**
- * Tree items with icons.
- */
 export const WithIcons: Story = {
   parameters: {
     order: 7,
     docs: {
       description: {
-        story:
-          "Tree items can display an icon via the `icon` prop. Icons render after the chevron and before the label. Any Tabler icon component (or compatible `IconProps` component) can be used.",
+        story: "Tree items with icons.",
       },
     },
   },
@@ -337,16 +316,12 @@ export const WithIcons: Story = {
   ),
 };
 
-/**
- * RTL (Right-to-Left) support demonstration.
- */
 export const RTLSupport: Story = {
   parameters: {
     order: 8,
     docs: {
       description: {
-        story:
-          "Tree component with RTL layout support for languages like Arabic and Hebrew. Indentation, chevron direction, and badge placement adapt automatically across multiple nesting levels.",
+        story: "Tree with right-to-left layout support.",
       },
     },
   },
@@ -374,17 +349,12 @@ export const RTLSupport: Story = {
   ),
 };
 
-/**
- * Clickable leaf nodes with actions.
- * Leaf nodes are hoverable and clickable, similar to parent triggers.
- */
 export const ClickableLeafNodes: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story:
-          "Leaf nodes are interactive — they support hover styles and click handlers. Consumers can attach any action (navigation, opening a sidebar, etc.) via `onClick`.",
+        story: "Clickable leaf nodes with actions.",
       },
     },
   },
@@ -392,7 +362,9 @@ export const ClickableLeafNodes: Story = {
     const canvas = within(canvasElement);
     const triggers = await canvas.findAllByRole("button");
     await userEvent.click(triggers[0]);
-    const leafItems = canvasElement.querySelectorAll('[data-slot="tree-item-leaf"]');
+
+    const treeItems = await canvas.findAllByRole("treeitem");
+    const leafItems = treeItems.filter((item) => !item.hasAttribute("aria-expanded"));
     await expect(leafItems.length).toBe(3);
     await userEvent.click(leafItems[0]);
     await expect(await canvas.findByText("Clicked: dashboard")).toBeInTheDocument();
@@ -430,9 +402,6 @@ export const ClickableLeafNodes: Story = {
   },
 };
 
-/**
- * Disabled items example.
- */
 export const DisabledItems: Story = {
   parameters: {
     order: 10,
@@ -455,16 +424,12 @@ export const DisabledItems: Story = {
   ),
 };
 
-/**
- * Long labels demonstrate truncation behavior.
- */
 export const LongLabels: Story = {
   parameters: {
     order: 11,
     docs: {
       description: {
-        story:
-          "Labels exceeding the container width are truncated with an ellipsis. The `truncate` class ensures text never wraps or breaks the layout.",
+        story: "Long labels truncate within the tree row.",
       },
     },
   },
@@ -472,8 +437,11 @@ export const LongLabels: Story = {
     const canvas = within(canvasElement);
     const triggers = await canvas.findAllByRole("button");
     await userEvent.click(triggers[0]);
-    const labels = canvasElement.querySelectorAll('[data-slot="tree-item"] span.truncate');
-    await expect(labels.length).toBeGreaterThan(0);
+    await expect(
+      canvas.getByText(
+        "extremely-long-file-name-that-goes-on-and-on-and-should-definitely-truncate.tsx"
+      )
+    ).toBeInTheDocument();
   },
   render: () => (
     <Tree defaultExpanded={["long-parent"]} className="w-75">
@@ -496,23 +464,23 @@ export const LongLabels: Story = {
   ),
 };
 
-/**
- * Parent node with its own status and children with different statuses.
- */
 export const ParentWithOwnStatus: Story = {
   parameters: {
     order: 12,
     docs: {
       description: {
-        story:
-          "A parent can have its own `status` alongside children with statuses. The derived status is the most severe across own + children. Here, the parent has `warning` but a child has `error`, so `error` wins.",
+        story: "Parent status merges with child statuses by severity.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const parent = canvasElement.querySelector('[data-value="parent-system"]');
+    const canvas = within(canvasElement);
+    const parent = canvas.getByRole("treeitem", { name: "System (own warning)" });
     await expect(parent).toHaveAttribute("data-status", "error");
-    const standalone = canvasElement.querySelector('[data-value="standalone"]');
+
+    const standalone = canvas.getByRole("treeitem", {
+      name: "System (own warning, children OK)",
+    });
     await expect(standalone).toHaveAttribute("data-status", "warning");
   },
   render: () => (
@@ -529,16 +497,12 @@ export const ParentWithOwnStatus: Story = {
   ),
 };
 
-/**
- * Empty tree with no items.
- */
 export const EmptyTree: Story = {
   parameters: {
     order: 13,
     docs: {
       description: {
-        story:
-          "An empty tree renders the container element with no children. Useful for verifying zero-state behavior.",
+        story: "Empty tree container with no items.",
       },
     },
   },
@@ -546,22 +510,19 @@ export const EmptyTree: Story = {
     const canvas = within(canvasElement);
     const tree = canvas.getByRole("tree");
     await expect(tree).toBeInTheDocument();
-    const items = canvasElement.querySelectorAll('[data-slot="tree-item"]');
+
+    const items = canvas.queryAllByRole("treeitem");
     await expect(items.length).toBe(0);
   },
   render: () => <Tree className="w-75" />,
 };
 
-/**
- * Large number of siblings at one level.
- */
 export const ManySiblings: Story = {
   parameters: {
     order: 14,
     docs: {
       description: {
-        story:
-          "A flat list of 25 items at the same depth to verify scroll behavior and rendering with many siblings.",
+        story: "A flat list of sibling items to verify rendering and scrolling behavior.",
       },
     },
   },
@@ -569,7 +530,9 @@ export const ManySiblings: Story = {
     const canvas = within(canvasElement);
     const triggers = await canvas.findAllByRole("button");
     await userEvent.click(triggers[0]);
-    const leaves = canvasElement.querySelectorAll('[data-slot="tree-item-leaf"]');
+
+    const treeItems = await canvas.findAllByRole("treeitem");
+    const leaves = treeItems.filter((item) => !item.hasAttribute("aria-expanded"));
     await expect(leaves.length).toBe(25);
   },
   render: () => (
@@ -588,26 +551,23 @@ export const ManySiblings: Story = {
   ),
 };
 
-/**
- * Leaf nodes at root level without a parent.
- */
 export const RootLevelLeaves: Story = {
   parameters: {
     order: 15,
     docs: {
       description: {
-        story:
-          "Leaf items can exist at the root level without a parent folder. Validates indentation and rendering for top-level non-collapsible items.",
+        story: "Root-level leaf items without parent folders.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const leaves = canvasElement.querySelectorAll('[data-slot="tree-item-leaf"]');
+
+    const leaves = canvas.getAllByRole("treeitem");
     await expect(leaves.length).toBe(4);
 
     const triggers = canvas.queryAllByRole("button");
-    await expect(triggers.length).toBe(0);
+    await expect(triggers.length).toBe(4);
   },
   render: () => (
     <Tree className="w-75">
@@ -619,16 +579,12 @@ export const RootLevelLeaves: Story = {
   ),
 };
 
-/**
- * Narrow container demonstrating horizontal scroll.
- */
 export const NarrowViewport: Story = {
   parameters: {
     order: 16,
     docs: {
       description: {
-        story:
-          "A deeply nested tree inside a narrow container (12rem) to demonstrate horizontal overflow scrolling. The tree uses `overflow-x-auto` to handle content wider than its container.",
+        story: "Narrow container with horizontal overflow.",
       },
     },
   },
@@ -659,25 +615,21 @@ export const NarrowViewport: Story = {
   ),
 };
 
-/**
- * Disabled items with status badges.
- */
 export const DisabledWithStatus: Story = {
   parameters: {
     order: 17,
     docs: {
       description: {
-        story:
-          "Disabled items that also have status badges. The reduced opacity from `disabled` applies to the entire row including the badge, verifying that visual states compose correctly.",
+        story: "Disabled items with status badges.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const disabledParent = canvasElement.querySelector('[data-value="disabled-parent"]');
+    const disabledParent = canvas.getByRole("treeitem", { name: "Decommissioned system" });
     await expect(disabledParent).toHaveAttribute("data-status", "warning");
-    const triggers = await canvas.findAllByRole("button");
-    const disabledTrigger = triggers.find((t) => t.closest('[data-value="disabled-parent"]'));
+
+    const disabledTrigger = await canvas.findByRole("button", { name: "Decommissioned system" });
     await expect(disabledTrigger).toBeDisabled();
   },
   render: () => (
@@ -693,16 +645,12 @@ export const DisabledWithStatus: Story = {
   ),
 };
 
-/**
- * Clickable parent nodes with onClick handlers.
- */
 export const ClickableParentNodes: Story = {
   parameters: {
     order: 18,
     docs: {
       description: {
-        story:
-          "Parent nodes can accept `onClick` via spread props. Note: `onClick` fires on the wrapper div, so it triggers on both the toggle button click and any click within the child area. Consumers should typically use `onClick` only on leaf nodes.",
+        story: "Clickable parent nodes with onClick handlers.",
       },
     },
   },
@@ -735,38 +683,37 @@ export const ClickableParentNodes: Story = {
   },
 };
 
-/**
- * Dynamic add/remove of tree items at runtime.
- * Verifies that status bubbling cleans up correctly when items are removed.
- */
 export const DynamicItems: Story = {
   parameters: {
     order: 19,
     docs: {
       description: {
-        story:
-          "Items can be added and removed at runtime. When a child with a status is removed, the parent's derived status updates automatically via `unregisterChildStatus`. Add items with the button, then remove them to see the parent badge disappear.",
+        story: "Items can be added and removed at runtime.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    let leaves = canvasElement.querySelectorAll('[data-slot="tree-item-leaf"]');
+    let treeItems = await canvas.findAllByRole("treeitem");
+    let leaves = treeItems.filter((item) => !item.hasAttribute("aria-expanded"));
     await expect(leaves.length).toBe(1);
-    const parent = canvasElement.querySelector('[data-value="sensors"]');
+
+    const parent = canvas.getByRole("treeitem", { name: "Sensor array" });
     await expect(parent).not.toHaveAttribute("data-status");
 
     const addButton = await canvas.findByRole("button", { name: "Add sensor" });
     await userEvent.click(addButton);
 
-    leaves = canvasElement.querySelectorAll('[data-slot="tree-item-leaf"]');
+    treeItems = await canvas.findAllByRole("treeitem");
+    leaves = treeItems.filter((item) => !item.hasAttribute("aria-expanded"));
     await expect(leaves.length).toBe(2);
     await expect(parent).toHaveAttribute("data-status", "warning");
 
-    const removeButton = await canvas.findByRole("button", { name: "Remove" });
+    const removeButton = await canvas.findByRole("button", { name: /click to remove/i });
     await userEvent.click(removeButton);
 
-    leaves = canvasElement.querySelectorAll('[data-slot="tree-item-leaf"]');
+    treeItems = await canvas.findAllByRole("treeitem");
+    leaves = treeItems.filter((item) => !item.hasAttribute("aria-expanded"));
     await expect(leaves.length).toBe(1);
     await expect(parent).not.toHaveAttribute("data-status");
   },

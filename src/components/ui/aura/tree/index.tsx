@@ -1,2 +1,4 @@
-export { Tree, TreeItem } from "./tree";
-export { TreeMetadata } from "./tree.metadata";
+import { Tree, TreeItem } from "./tree";
+import { TreeMetadata } from "./tree.metadata";
+
+export { Tree, TreeItem, TreeMetadata };

@@ -1,7 +1,9 @@
 import {
   type CSSProperties,
   type ComponentProps,
+  type ComponentRef,
   type ComponentType,
+  type KeyboardEvent,
   type ReactNode,
   createContext,
   forwardRef,
@@ -75,7 +77,7 @@ function computeDerivedStatus(
   return undefined;
 }
 
-const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
+const Tree = forwardRef<ComponentRef<"div">, TreeProps>(function Tree(
   {
     expanded,
     defaultExpanded = [],
@@ -145,8 +147,8 @@ const Tree = forwardRef<HTMLDivElement, TreeProps>(function Tree(
   );
 });
 
-const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
-  { value, label, icon: Icon, status, disabled = false, className, children, ...props },
+const TreeItem = forwardRef<ComponentRef<"div">, TreeItemProps>(function TreeItem(
+  { value, label, icon: Icon, status, disabled = false, className, children, onKeyDown, ...props },
   ref
 ) {
   const treeContext = useTree();
@@ -205,6 +207,20 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
     }
   }, [hasChildren, disabled, treeContext, value]);
 
+  const handleLeafKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      if (disabled) {
+        return;
+      }
+
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        event.currentTarget.click();
+      }
+    },
+    [disabled]
+  );
+
   const indentStyle: CSSProperties = {
     paddingInlineStart: `calc(${depth} * var(--tree-indent) + 0.5rem)`,
   };
@@ -222,7 +238,8 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
         aria-expanded={hasChildren ? isOpen : undefined}
         aria-disabled={disabled}
         className={cn("group/tree-item", className)}
-        {...props}
+        onKeyDown={hasChildren ? onKeyDown : undefined}
+        {...(hasChildren ? props : {})}
       >
         {hasChildren ? (
           <CollapsiblePrimitive.Root open={isOpen} onOpenChange={() => handleToggle()}>
@@ -253,7 +270,7 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
                   <Icon className="size-4" />
                 </span>
               )}
-              <span className="flex-1 truncate text-start text-sm font-medium accent-foreground">
+              <span className="flex-1 truncate text-start text-sm font-medium text-accent-foreground">
                 {label}
               </span>
               {derivedStatus && <StatusBadge status={derivedStatus} />}
@@ -272,6 +289,9 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
         ) : (
           <div
             data-slot="tree-item-leaf"
+            role="button"
+            aria-disabled={disabled}
+            tabIndex={disabled ? -1 : 0}
             className={cn(
               "flex w-full min-w-0 items-center gap-2 rounded-md px-2 py-1.5 text-base text-muted-foreground",
               "hover:bg-accent hover:text-foreground",
@@ -280,6 +300,11 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
               "touch-manipulation"
             )}
             style={indentStyle}
+            onKeyDown={(event) => {
+              handleLeafKeyDown(event);
+              onKeyDown?.(event);
+            }}
+            {...(!hasChildren ? props : {})}
           >
             <span className="size-4 shrink-0" aria-hidden="true" />
             {Icon && (
@@ -297,6 +322,9 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
     </TreeItemContext.Provider>
   );
 });
+
+Tree.displayName = "Tree";
+TreeItem.displayName = "TreeItem";
 
 function StatusBadge({ status }: { status: TreeItemStatus }) {
   return (
