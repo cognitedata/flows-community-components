@@ -467,7 +467,9 @@ export const KeyboardNavigation: Story = {
     // Tab again; focus should remain within the dialog
     await userEvent.keyboard("{Tab}");
     await waitFor(() => {
-      expect(dialog).toContainElement(dialog.ownerDocument.activeElement as HTMLElement);
+      const activeElement = dialog.ownerDocument.activeElement;
+      expect(activeElement).not.toBeNull();
+      expect(dialog.contains(activeElement)).toBe(true);
     });
 
     // Test ESC to close
