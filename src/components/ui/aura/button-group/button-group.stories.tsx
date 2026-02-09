@@ -440,7 +440,7 @@ export const VerticalWithIcons: Story = {
  */
 export const Interactive: Story = {
   render: function InteractiveButtonGroup() {
-    const [selected, setSelected] = useState<string>("left");
+    const [selected, setSelected] = useState<"left" | "center" | "right">("left");
 
     return (
       <div className="flex flex-col items-center gap-4">

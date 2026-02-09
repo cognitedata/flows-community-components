@@ -84,4 +84,8 @@ const Source = ({
   );
 };
 
-export { Sources, SourcesTitle, Source };
+export {
+  Sources,
+  SourcesTitle,
+  Source,
+};
