@@ -30,7 +30,7 @@ import {
 const meta: Meta<typeof Conversation> = {
   title: "AI/Conversation",
   component: Conversation,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Display
     className: {
