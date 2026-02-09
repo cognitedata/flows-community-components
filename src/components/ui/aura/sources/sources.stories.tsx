@@ -285,7 +285,6 @@ export const SingleSource: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {/* Default */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Default</h3>
         <Sources>
@@ -294,7 +293,6 @@ export const VisualRegression: Story = {
         </Sources>
       </div>
 
-      {/* Without title */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">No Title</h3>
         <Sources title={false}>
@@ -303,7 +301,6 @@ export const VisualRegression: Story = {
         </Sources>
       </div>
 
-      {/* With icons */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Sources>

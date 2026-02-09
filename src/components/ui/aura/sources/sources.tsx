@@ -1,17 +1,19 @@
+import type { ComponentProps, ReactNode } from "react";
+
+import { IconMist } from "@tabler/icons-react";
+
 import {
   InlineCitation,
   InlineCitationLink,
   type InlineCitationLinkProps,
 } from "@/components/ui/aura/inline-citation";
 import { cn } from "@/lib/utils";
-import { IconMist } from "@tabler/icons-react";
-import type { ComponentProps, ReactNode } from "react";
 
 type SourcesProps = Omit<ComponentProps<"div">, "title"> & {
   title?: ReactNode | boolean;
 };
 
-export const Sources = ({ className, title, children, ...props }: SourcesProps) => {
+const Sources = ({ className, title, children, ...props }: SourcesProps) => {
   const hideTitle = title === false || title === "false";
   const titleNode = title === undefined || title === true ? <SourcesTitle /> : title;
 
@@ -29,7 +31,7 @@ type SourcesTitleProps = ComponentProps<"div"> & {
   title?: string;
 };
 
-export const SourcesTitle = ({
+const SourcesTitle = ({
   className,
   title = "Sources",
   children,
@@ -53,7 +55,7 @@ type SourceProps = InlineCitationLinkProps & {
   url?: string;
 };
 
-export const Source = ({
+const Source = ({
   href,
   url,
   title,
@@ -86,3 +88,7 @@ export const Source = ({
     </InlineCitation>
   );
 };
+
+export { Sources };
+export { SourcesTitle };
+export { Source };
