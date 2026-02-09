@@ -411,7 +411,7 @@ export const ErrorState: Story = {
 };
 
 /**
- * Submission error handling with HelperText
+ * Submission error handling
  */
 export const SubmissionError: Story = {
   parameters: {

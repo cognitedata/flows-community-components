@@ -380,6 +380,7 @@ type PromptInputProps = Omit<HTMLAttributes<HTMLFormElement>, "onSubmit" | "onEr
     event: SyntheticEvent<HTMLFormElement>
   ) => void | Promise<void>;
   helperText?: ReactNode | false;
+  errorMessage?: string;
 };
 
 const PromptInput = ({
@@ -393,6 +394,7 @@ const PromptInput = ({
   onError,
   onSubmit,
   helperText,
+  errorMessage,
   children,
   ...props
 }: PromptInputProps) => {
@@ -411,6 +413,7 @@ const PromptInput = ({
   }, []);
 
   const [items, setItems] = useState<(FileUIPart & { id: string })[]>([]);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
   const files = usingProvider ? controller.attachments.files : items;
 
   const openFileDialogLocal = useCallback(() => {
@@ -646,19 +649,31 @@ const PromptInput = ({
         if (result instanceof Promise) {
           result
             .then(() => {
+              setSubmissionError(null);
               clear();
               if (usingProvider) {
                 controller.textInput.clear();
               }
             })
-            .catch(() => {});
+            .catch((error) => {
+              console.error("PromptInput: Submission error:", error);
+              setSubmissionError(
+                error instanceof Error ? error.message : "Failed to submit. Please try again."
+              );
+            });
         } else {
+          setSubmissionError(null);
           clear();
           if (usingProvider) {
             controller.textInput.clear();
           }
         }
-      } catch {}
+      } catch (error) {
+        console.error("PromptInput: Submission error:", error);
+        setSubmissionError(
+          error instanceof Error ? error.message : "Failed to submit. Please try again."
+        );
+      }
     });
   };
 
@@ -692,7 +707,13 @@ const PromptInput = ({
         >
           <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
         </form>
-        {helperTextToRender}
+        {errorMessage || submissionError ? (
+          <HelperText size="xs" isError>
+            {errorMessage || submissionError}
+          </HelperText>
+        ) : (
+          helperTextToRender
+        )}
       </div>
     </>
   );
