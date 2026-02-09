@@ -9,9 +9,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
+import type { ToolUIPart } from "@/lib/ai/types";
 import { cn } from "@/lib/utils";
 import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
-import type { ToolUIPart } from "ai";
 import type { ComponentProps, ReactNode } from "react";
 import { isValidElement } from "react";
 
@@ -31,12 +31,19 @@ export type ToolHeaderProps = {
 };
 
 export const ToolHeader = ({ className, title, type, ...props }: ToolHeaderProps) => (
-  <CollapsibleTrigger className={className} {...props} asChild>
-    <Button variant="ghost" className="w-full justify-between text-base leading-5 tracking-tighter">
-      <span>{title ?? type.split("-").slice(1).join("-")}</span>
-      <ChevronsUpDown className="h-4 w-4" />
-    </Button>
-  </CollapsibleTrigger>
+  <CollapsibleTrigger
+    className={className}
+    {...props}
+    render={
+      <Button
+        variant="ghost"
+        className="w-full justify-between text-base leading-5 tracking-tighter"
+      >
+        <span>{title ?? type.split("-").slice(1).join("-")}</span>
+        <ChevronsUpDown className="h-4 w-4" />
+      </Button>
+    }
+  />
 );
 
 export type ToolContentProps = ComponentProps<typeof CollapsibleContent>;

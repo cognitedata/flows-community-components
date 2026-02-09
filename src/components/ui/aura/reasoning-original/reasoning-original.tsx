@@ -4,8 +4,8 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
 import { Shimmer } from "@/components/ui/aura/shimmer";
+import { useControllableState } from "@/lib/use-controllable-state";
 import { cn } from "@/lib/utils";
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { IconSelector } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 import { createContext, memo, startTransition, useContext, useEffect, useState } from "react";
@@ -153,7 +153,7 @@ export type ReasoningContentProps = ComponentProps<typeof CollapsibleContent> & 
 export const ReasoningContent = memo(({ className, children, ...props }: ReasoningContentProps) => (
   <CollapsibleContent
     className={cn(
-      "mt-3.5 [&>*:not(:last-child)]:mb-2 text-sm leading-4.5 tracking-tight text-muted-foreground outline-none data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:slide-in-from-top-2 data-[state=closed]:animate-out data-[state=open]:animate-in",
+      "mt-3.5 [&>*:not(:last-child)]:mb-2 text-sm leading-4.5 tracking-tight text-muted-foreground outline-none data-[closed]:fade-out-0 data-[closed]:slide-out-to-top-2 data-[open]:slide-in-from-top-2 data-[closed]:animate-out data-[open]:animate-in",
       className
     )}
     {...props}

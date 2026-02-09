@@ -108,12 +108,17 @@ export default function PatternsPage() {
                 </div>
 
                 {/* CTA */}
-                <Button variant="secondary" asChild className="w-full" size="sm">
-                  <Link to={block.href}>
-                    Explore component
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                <Button
+                  variant="secondary"
+                  className="w-full"
+                  size="sm"
+                  render={
+                    <Link to={block.href}>
+                      Explore component
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  }
+                />
               </CardContent>
             </Card>
           ))}

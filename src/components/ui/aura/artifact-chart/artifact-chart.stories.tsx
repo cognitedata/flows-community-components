@@ -3,6 +3,8 @@ import { expect, within } from "@storybook/test";
 import { IconTrendingUp } from "@tabler/icons-react";
 import { useId, useState } from "react";
 import {
+  Area,
+  AreaChart,
   Bar,
   BarChart,
   Cell,
@@ -211,11 +213,11 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Visitors")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Visitors")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function BasicPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -321,9 +323,9 @@ export const WithHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function WithHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -418,8 +420,8 @@ export const WithFooter: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function WithFooterPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -520,7 +522,7 @@ export const WithActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
@@ -635,8 +637,8 @@ export const MinimalHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function MinimalHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -741,9 +743,9 @@ export const InteractiveDataToggle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("Q1")).toBeInTheDocument();
-    await expect(canvas.getByText("Q2")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("Q1")).toBeInTheDocument();
+    await expect(await canvas.findByText("Q2")).toBeInTheDocument();
   },
   render: function InteractiveDataTogglePieChart() {
     const q1Data = [
@@ -896,7 +898,7 @@ export const EdgeCaseLongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
+    await expect(await canvas.findByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
   },
   render: function LongTextPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1007,8 +1009,8 @@ export const VisualRegression: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function VisualRegressionPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1093,7 +1095,7 @@ export const EdgeCaseNoData: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("No data available")).toBeInTheDocument();
+    await expect(await canvas.findByText("No data available")).toBeInTheDocument();
   },
   render: function NoDataPieChart() {
     const [chartData] = useState<{ id: string; value: number }[]>([]);
@@ -1127,6 +1129,146 @@ export const EdgeCaseNoData: Story = {
   },
 };
 
+// Area chart configuration
+const areaChartConfig = {
+  r401: { label: "R401", color: "rgba(47, 85, 234, 0.8)" },
+  r402: { label: "R402", color: "rgba(47, 85, 234, 0.5)" },
+} satisfies ChartConfig;
+
+const areaChartData = [
+  { time: "02:00", r401: 280, r402: 120 },
+  { time: "06:00", r401: 300, r402: 140 },
+  { time: "10:00", r401: 350, r402: 160 },
+  { time: "14:00", r401: 320, r402: 150 },
+  { time: "18:00", r401: 290, r402: 130 },
+  { time: "22:00", r401: 310, r402: 145 },
+];
+
+/**
+ * Stacked area chart showing temperature trends over time.
+ * Two series with gradient fills and a time-based x-axis.
+ */
+export const StackedAreaChart: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Stacked area chart showing temperature trends for two reactors over 24 hours. Features gradient fills, time-based x-axis, multi-series tooltip, and centered legend.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    await expect(await canvas.findByText("Reactor temperature trend")).toBeInTheDocument();
+    await expect(await canvas.findByText("Last 24 hours")).toBeInTheDocument();
+    await expect(await canvas.findByText("R401")).toBeInTheDocument();
+    await expect(await canvas.findByText("R402")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+  },
+  render: function StackedAreaChartStory() {
+    return (
+      <ArtifactChart className="w-100">
+        <ArtifactChartHeader>
+          <ArtifactChartTitle>Reactor temperature trend</ArtifactChartTitle>
+          <ArtifactChartDescription>Last 24 hours</ArtifactChartDescription>
+          <CardHeaderRight>
+            <CardActions>
+              <DropdownMenuItem>View details</DropdownMenuItem>
+              <DropdownMenuItem>Export data</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive">Remove</DropdownMenuItem>
+            </CardActions>
+          </CardHeaderRight>
+        </ArtifactChartHeader>
+
+        <ArtifactChartContent>
+          <ChartContainer config={areaChartConfig} className="h-40 w-full">
+            <AreaChart data={areaChartData} margin={{ left: 0, right: 0, top: 10, bottom: 0 }}>
+              {/* SVG gradient definitions for area fills */}
+              <defs>
+                {/* R401 gradient - lighter (top series) */}
+                <linearGradient id="areaGradientR401" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.13)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.04)" />
+                </linearGradient>
+                {/* R402 gradient - more opaque (bottom series) */}
+                <linearGradient id="areaGradientR402" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47, 85, 234, 0.48)" />
+                  <stop offset="100%" stopColor="rgba(47, 85, 234, 0.3)" />
+                </linearGradient>
+              </defs>
+              <XAxis
+                dataKey="time"
+                tickLine={false}
+                axisLine={false}
+                tick={{ fontSize: 12, fill: "var(--color-muted-foreground)" }}
+                tickMargin={8}
+              />
+              <ChartTooltip
+                cursor={{ stroke: "var(--color-muted-foreground)", strokeWidth: 1 }}
+                content={({ active, payload, label }) => {
+                  if (!active || !payload?.length) return null;
+
+                  return (
+                    <div className="rounded border border-border bg-popover px-2 py-1 shadow-md">
+                      {payload.map((entry) => {
+                        const key = entry.dataKey as string;
+                        const config = areaChartConfig[key as keyof typeof areaChartConfig];
+                        return (
+                          <div key={key} className="flex items-center gap-4">
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="h-2 w-2 rounded-sm"
+                                style={{ backgroundColor: config?.color }}
+                              />
+                              <span className="text-sm text-muted-foreground">{config?.label}</span>
+                            </div>
+                            <span className="text-sm text-foreground">{entry.value}°C</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }}
+              />
+              {/* R401 area - higher values, rendered first (behind) */}
+              <Area
+                type="monotone"
+                dataKey="r401"
+                stroke="#2F55EA"
+                strokeWidth={1}
+                fill="url(#areaGradientR401)"
+                dot={false}
+                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+              />
+              {/* R402 area - lower values, rendered second (in front) */}
+              <Area
+                type="monotone"
+                dataKey="r402"
+                stroke="#2F55EA"
+                strokeWidth={1}
+                fill="url(#areaGradientR402)"
+                dot={false}
+                activeDot={{ r: 4, fill: "#2F55EA", stroke: "#fff", strokeWidth: 2 }}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+            </AreaChart>
+          </ChartContainer>
+        </ArtifactChartContent>
+
+        <ArtifactChartFooter className="flex flex-col items-start gap-1">
+          <div className="flex items-center gap-1 text-sm font-medium text-card-foreground">
+            Trending up by 5.2% this month
+            <IconTrendingUp aria-hidden="true" className="h-4 w-4" />
+          </div>
+        </ArtifactChartFooter>
+      </ArtifactChart>
+    );
+  },
+};
+
 // Line chart configuration
 const lineChartConfig = {
   strong: { label: "Primary", color: "rgba(47, 85, 234, 0.8)" },
@@ -1151,7 +1293,7 @@ const lineChartData = [
  */
 export const MultiLineChart: Story = {
   parameters: {
-    order: 10,
+    order: 11,
     docs: {
       description: {
         story:
@@ -1162,11 +1304,11 @@ export const MultiLineChart: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Performance metrics")).toBeInTheDocument();
-    await expect(canvas.getByText("Last 30 days")).toBeInTheDocument();
-    await expect(canvas.getByText("Primary")).toBeInTheDocument();
-    await expect(canvas.getByText("Secondary")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Performance metrics")).toBeInTheDocument();
+    await expect(await canvas.findByText("Last 30 days")).toBeInTheDocument();
+    await expect(await canvas.findByText("Primary")).toBeInTheDocument();
+    await expect(await canvas.findByText("Secondary")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function MultiLineChartStory() {
     return (
@@ -1285,7 +1427,7 @@ const barChartData = [
  */
 export const HorizontalBarChart: Story = {
   parameters: {
-    order: 11,
+    order: 12,
     docs: {
       description: {
         story:
@@ -1296,12 +1438,12 @@ export const HorizontalBarChart: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Assets")).toBeInTheDocument();
-    await expect(canvas.getByText("Files")).toBeInTheDocument();
-    await expect(canvas.getByText("Events")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Assets")).toBeInTheDocument();
+    await expect(await canvas.findByText("Files")).toBeInTheDocument();
+    await expect(await canvas.findByText("Events")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function HorizontalBarChartStory() {
     const chartData = barChartData;
@@ -1525,7 +1667,7 @@ function RadialRingSvg({
  */
 export const RadialChart: Story = {
   parameters: {
-    order: 11,
+    order: 13,
     docs: {
       description: {
         story:
@@ -1536,9 +1678,9 @@ export const RadialChart: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function RadialChartStory() {
     const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(null);
