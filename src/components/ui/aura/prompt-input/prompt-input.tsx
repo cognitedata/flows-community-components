@@ -656,8 +656,7 @@ const PromptInput = ({
             controller.textInput.clear();
           }
         }
-      } catch {
-      }
+      } catch {}
     });
   };
 
