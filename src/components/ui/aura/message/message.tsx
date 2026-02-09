@@ -1,4 +1,3 @@
-import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
 import type { ComponentProps, HTMLAttributes, ReactElement, ReactNode } from "react";
 import {
   createContext,
@@ -9,6 +8,8 @@ import {
   useMemo,
   useState,
 } from "react";
+
+import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
 import type { BundledLanguage } from "shiki";
 import { Streamdown } from "streamdown";
 

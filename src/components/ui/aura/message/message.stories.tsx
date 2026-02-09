@@ -26,6 +26,7 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
+import type { CSSProperties } from "react";
 
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
@@ -65,9 +66,7 @@ const meta: Meta<typeof Message> = {
     (Story) => (
       <div
         className="w-125"
-        style={
-          { "--message-content-max-width": "calc(var(--spacing) * 125)" } as React.CSSProperties
-        }
+        style={{ "--message-content-max-width": "calc(var(--spacing) * 125)" } as CSSProperties}
       >
         <Story />
       </div>
