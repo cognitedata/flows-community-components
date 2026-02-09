@@ -20,7 +20,7 @@ const Command = forwardRef<
       ref={ref}
       data-slot="command"
       className={cn(
-        "rounded-lg bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden",
+        "rounded-lg bg-background text-muted-foreground flex h-full w-full flex-col overflow-hidden",
         className
       )}
       {...props}
@@ -106,7 +106,7 @@ const CommandEmpty = forwardRef<
     <CommandPrimitive.Empty
       ref={ref}
       data-slot="command-empty"
-      className="py-6 text-center text-sm"
+      className="py-6 text-center text-normal"
       {...props}
     />
   );
@@ -122,7 +122,7 @@ const CommandGroup = forwardRef<
       ref={ref}
       data-slot="command-group"
       className={cn(
-        "text-popover-foreground font-normal [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium ",
+        "text-popover-foreground font-normal [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-normal [&_[cmdk-group-heading]]:font-medium ",
         className
       )}
       {...props}

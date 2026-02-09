@@ -98,14 +98,11 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the input
     const input = canvas.getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();
 
-    // Type to filter
     await userEvent.type(input, "cal");
 
-    // Verify filtering works
     await waitFor(() => {
       const calendarItem = canvas.getByText("Calendar");
       expect(calendarItem).toBeInTheDocument();
@@ -166,23 +163,18 @@ export const Dialog: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Open the command palette
     const trigger = canvas.getByRole("button", { name: /open command palette/i });
     await userEvent.click(trigger);
 
-    // Wait for dialog to appear
     const dialog = await screen.findByRole("dialog");
     await expect(dialog).toBeInTheDocument();
 
-    // Verify command input is present
     const input = within(dialog).getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();
 
-    // Select an item to close the dialog
     const calendarItem = within(dialog).getByRole("option", { name: /calendar/i });
     await userEvent.click(calendarItem);
 
-    // Verify dialog closed
     await waitFor(() => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
@@ -221,10 +213,8 @@ export const Filtering: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText("Search actions...");
 
-    // Type to filter
     await userEvent.type(input, "settings");
 
-    // Verify only settings item shows
     await waitFor(() => {
       const settingsItem = canvas.getByText("Open settings");
       expect(settingsItem).toBeInTheDocument();
@@ -247,11 +237,9 @@ export const DisabledItems: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify enabled items are present
     await expect(canvas.getByText("View Profile")).toBeInTheDocument();
     await expect(canvas.getByText("Settings")).toBeInTheDocument();
 
-    // Verify disabled items are present and disabled
     const disabledItems = canvas.getAllByText(/disabled/i);
     await expect(disabledItems.length).toBeGreaterThan(0);
   },
@@ -298,12 +286,10 @@ export const MultipleGroups: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all groups are present
     await expect(canvas.getByText("Recently Used")).toBeInTheDocument();
     await expect(canvas.getByText("Applications")).toBeInTheDocument();
     await expect(canvas.getByText("Help")).toBeInTheDocument();
 
-    // Verify items from different groups
     await expect(canvas.getByText("Calendar")).toBeInTheDocument();
     await expect(canvas.getByText("Calculator")).toBeInTheDocument();
     await expect(canvas.getByText("Documentation")).toBeInTheDocument();
@@ -362,12 +348,10 @@ export const CustomStyling: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify custom styled items are rendered
     await expect(canvas.getByText("Custom styled item 1")).toBeInTheDocument();
     await expect(canvas.getByText("Custom styled item 2")).toBeInTheDocument();
     await expect(canvas.getByText("Custom styled item 3")).toBeInTheDocument();
 
-    // Verify search input is present
     const input = canvas.getByPlaceholderText("Search...");
     await expect(input).toBeInTheDocument();
   },
@@ -410,14 +394,11 @@ export const VisualRegression: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify heading is present
     await expect(canvas.getByText("Basic")).toBeInTheDocument();
 
-    // Verify command items are rendered
     await expect(canvas.getByText("Item 1")).toBeInTheDocument();
     await expect(canvas.getByText("Item 2")).toBeInTheDocument();
 
-    // Verify search input
     const input = canvas.getByPlaceholderText("Search...");
     await expect(input).toBeInTheDocument();
   },
@@ -465,20 +446,16 @@ export const NoResultsFound: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText("Search commands...");
 
-    // Type a query that won't match anything
     await userEvent.type(input, "xyz123nonexistent", { delay: 50 });
 
-    // Wait for empty state to appear
     await waitFor(() => {
       const emptyState = canvas.getByText("No results found.");
       expect(emptyState).toBeInTheDocument();
     });
 
-    // Verify no items are visible
     const calendarItem = canvas.queryByText("Calendar");
     expect(calendarItem).not.toBeInTheDocument();
 
-    // Clear and verify items reappear
     await userEvent.clear(input);
     await waitFor(() => {
       const calendarItem = canvas.getByText("Calendar");
@@ -533,31 +510,25 @@ export const KeyboardNavigation: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText("Type a command...");
 
-    // Verify all command items are present initially
     await expect(canvas.getByText("Calendar")).toBeInTheDocument();
     await expect(canvas.getByText("Settings")).toBeInTheDocument();
     await expect(canvas.getByText("Mail")).toBeInTheDocument();
 
-    // Focus the input and verify it's focusable
     await userEvent.click(input);
     await expect(input).toHaveFocus();
 
-    // Type to filter items
     await userEvent.type(input, "cal", { delay: 50 });
 
-    // Verify filtering works - Calendar should still be visible
     await waitFor(() => {
       expect(canvas.getByText("Calendar")).toBeInTheDocument();
     });
 
-    // Clear and verify all items return
     await userEvent.clear(input);
     await waitFor(() => {
       expect(canvas.getByText("Settings")).toBeInTheDocument();
       expect(canvas.getByText("Mail")).toBeInTheDocument();
     });
 
-    // Verify keyboard shortcuts are displayed
     await expect(canvas.getByText("⌘C")).toBeInTheDocument();
     await expect(canvas.getByText("⌘S")).toBeInTheDocument();
     await expect(canvas.getByText("⌘M")).toBeInTheDocument();
@@ -609,11 +580,9 @@ export const LongList: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText("Search items...");
 
-    // Verify first items are visible
     await expect(canvas.getByText("Item 1")).toBeInTheDocument();
     await expect(canvas.getByText("Item 5")).toBeInTheDocument();
 
-    // Type to filter and verify filtering works with many items
     await userEvent.type(input, "item 20", { delay: 50 });
 
     await waitFor(() => {
@@ -621,7 +590,6 @@ export const LongList: Story = {
       expect(item20).toBeInTheDocument();
     });
 
-    // Clear and verify all items are back
     await userEvent.clear(input);
     await waitFor(() => {
       expect(canvas.getByText("Item 1")).toBeInTheDocument();
@@ -666,26 +634,19 @@ export const AsyncSearch: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText("Search users...");
 
-    // Verify input is present
     await expect(input).toBeInTheDocument();
 
-    // Verify empty state initially
     await expect(canvas.getByText("No users found.")).toBeInTheDocument();
 
-    // Type a search query - type all at once to trigger a single async call
     await userEvent.clear(input);
     await userEvent.type(input, "jane");
 
-    // Wait for the async operation to complete and verify loading or results appear
-    // The component shows "Searching..." while loading, then results
     await waitFor(
       () => {
-        // Either loading state appears, or empty state is replaced with results
         const searching = canvas.queryByText("Searching...");
         const noResults = canvas.queryByText("No users found.");
         const hasResults = canvas.queryByText("Jane Smith");
 
-        // Test passes if we see loading state OR if results loaded
         expect(searching || hasResults).toBeTruthy();
       },
       { timeout: 3000 }
@@ -766,16 +727,13 @@ export const Playground: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify search input
     const input = canvas.getByPlaceholderText("Type to search...");
     await expect(input).toBeInTheDocument();
 
-    // Verify command items are present
     await expect(canvas.getByText("Command 1")).toBeInTheDocument();
     await expect(canvas.getByText("Command 2")).toBeInTheDocument();
     await expect(canvas.getByText("Command 3")).toBeInTheDocument();
 
-    // Test filtering by typing
     await userEvent.type(input, "1");
 
     await waitFor(() => {
