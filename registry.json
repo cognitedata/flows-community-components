@@ -293,8 +293,8 @@
     {
       "name": "avatar",
       "type": "registry:component",
-      "title": "for",
-      "description": "* Avatar component for displaying user profile images, initials, or icons.",
+      "title": "avatar",
+      "description": "",
       "dependencies": ["@base-ui/react/avatar", "class-variance-authority"],
       "registryDependencies": ["@aura/css"],
       "files": [
@@ -1004,7 +1004,7 @@
       "type": "registry:component",
       "title": "message",
       "description": "",
-      "dependencies": ["@tabler/icons-react", "ai", "shiki", "streamdown"],
+      "dependencies": ["@tabler/icons-react", "shiki", "streamdown"],
       "registryDependencies": [
         "@aura/css",
         "@aura/avatar",
@@ -1091,7 +1091,7 @@
       "type": "registry:component",
       "title": "prompt-input",
       "description": "INTERNAL: Allows PromptInput to register its file textInput + \"open\" callback */",
-      "dependencies": ["@tabler/icons-react", "ai", "nanoid"],
+      "dependencies": ["@tabler/icons-react", "nanoid"],
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
@@ -1483,7 +1483,7 @@
       "type": "registry:component",
       "title": "tool",
       "description": "",
-      "dependencies": ["@tabler/icons-react", "ai"],
+      "dependencies": ["@tabler/icons-react"],
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
