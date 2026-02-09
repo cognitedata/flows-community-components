@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sources",
-  "title": "sources",
-  "description": "* Title rendered above the sources list.",
+  "title": "Sources",
+  "description": "Components for displaying source references and citations.",
   "dependencies": [
     "@tabler/icons-react"
   ],

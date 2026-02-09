@@ -34,7 +34,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 
 ## Key principles
 
-- Use Radix UI for complex interactions, native HTML for simple elements
+- Use Base UI for complex interactions, native HTML for simple elements
 - Always use `ComponentRef` (not `React.ElementRef`)
 - No code comments in component files
 - Extract helpers to `@/lib/utils.ts`
@@ -59,7 +59,6 @@ Aura uses a dual-scope import system for migrating components to Fusion:
 Components in `src/components/ui/core/` use `@cognite/aura/*`, components in `src/components/ui/lab/` use `@cognite/aura-lab/*`.
 
 For internal development, continue using `@/*` imports. The `@cognite/*` imports are configured for when components are consumed in Fusion.
-
 ## Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
@@ -74,7 +73,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Getting started instructions should link to the Dune creation docs site instead of inline steps.
 - Consolidate docs content onto the root page instead of routing under `/docs`.
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
-- Radix UI's `TooltipPrimitive.Provider` and `TooltipPrimitive.Root` don't support refs - use plain functions, not `forwardRef`.
+- Base UI's `TooltipProvider` and `TooltipRoot` don't support refs - use plain functions, not `forwardRef`.
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
 - Form components should import and use utility classes from `@/lib/utils`: `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
 - `formElementBase` includes `bg-background` by default. Override with `bg-transparent` or other backgrounds inline when needed.
@@ -87,8 +86,12 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
 - Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
+- Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
+- Do not include `importPath` in `*.metadata.ts` files.
+- Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
+- For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 
 # Storybook Stories
 
@@ -102,6 +105,7 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - All stories must have `parameters: { order: N }`
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
+- No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Use `canvas.findByTestId()` only for portal content when semantic queries aren't available
 - Run `pnpm lint` and `pnpm tsc -b` after changes

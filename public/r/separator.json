@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "separator",
-  "title": "separator",
-  "description": "",
+  "title": "Separator",
+  "description": "A visual separator for dividing content.",
   "dependencies": [
     "@base-ui/react/separator"
   ],

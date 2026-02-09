@@ -1,6 +1,7 @@
+import { type ComponentRef, forwardRef } from "react";
+
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { type VariantProps, cva } from "class-variance-authority";
-import { forwardRef } from "react";
 
 import { cn, focusRing, focusRingDestructive } from "@/lib/utils";
 
@@ -37,7 +38,7 @@ const buttonVariants = cva(
 
 type ButtonProps = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>;
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<ComponentRef<typeof ButtonPrimitive>, ButtonProps>(
   ({ className, variant, size, children, render, nativeButton, ...props }, ref) => (
     <ButtonPrimitive
       ref={ref}

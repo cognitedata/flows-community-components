@@ -1,14 +1,8 @@
 import type { ComponentMeta } from "@/lib/component-examples";
 
-/**
- * PromptInput Component Metadata
- *
- * This metadata is used by the documentation system to generate
- * component documentation pages and provide context for LLMs.
- */
 export const PromptInputMetadata: ComponentMeta = {
   name: "PromptInput",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "A comprehensive AI chat input component with support for attachments, model selection, speech input, command palettes, and rich formatting.",
   llmUsage:
