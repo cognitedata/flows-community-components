@@ -1547,9 +1547,9 @@
     {
       "name": "tree",
       "type": "registry:component",
-      "title": "tree",
-      "description": "",
-      "dependencies": ["@radix-ui/react-collapsible", "@tabler/icons-react"],
+      "title": "Tree",
+      "description": "A hierarchical tree view component for displaying nested data structures with collapsible nodes and status indicators that bubble up from children to parents.",
+      "dependencies": ["@base-ui/react/collapsible", "@tabler/icons-react"],
       "registryDependencies": ["@aura/css", "@aura/badge"],
       "files": [
         {

@@ -13,7 +13,7 @@ import {
   useState,
 } from "react";
 
-import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
+import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
 import { IconAlertTriangle, IconChevronDown, type IconProps } from "@tabler/icons-react";
 
 import { Badge } from "@/components/ui/aura/badge";
@@ -228,6 +228,7 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
           <CollapsiblePrimitive.Root open={isOpen} onOpenChange={() => handleToggle()}>
             <CollapsiblePrimitive.Trigger
               data-slot="tree-item-trigger"
+              data-state={isOpen ? "open" : "closed"}
               disabled={disabled}
               className={cn(
                 "group flex w-full min-w-0 items-center gap-2 rounded-md px-2 py-1.5 text-base text-muted-foreground font-medium",
@@ -257,9 +258,6 @@ const TreeItem = forwardRef<HTMLDivElement, TreeItemProps>(function TreeItem(
               </span>
               {derivedStatus && <StatusBadge status={derivedStatus} />}
             </CollapsiblePrimitive.Trigger>
-            {/* Plain div instead of CollapsiblePrimitive.Content: children must always
-                be mounted for status bubbling, and Radix's inline height styles
-                conflict with the CSS grid transition. */}
             <div
               data-slot="tree-item-content"
               role="group"
