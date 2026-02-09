@@ -1,7 +1,3 @@
-import { Button } from "@/components/ui/aura/button";
-import { cn } from "@/lib/utils";
-import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
-import type { Element } from "hast";
 import {
   type ComponentProps,
   type ComponentRef,
@@ -12,7 +8,13 @@ import {
   useEffect,
   useState,
 } from "react";
+
+import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
+import type { Element } from "hast";
 import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
+
+import { Button } from "@/components/ui/aura/button";
+import { cn } from "@/lib/utils";
 
 const isStorybookTestEnv =
   typeof window !== "undefined" &&
@@ -98,7 +100,7 @@ async function highlightCode(code: string, language: BundledLanguage, showLineNu
   ]);
 }
 
-const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
+const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
   (
     {
       code,
@@ -280,4 +282,6 @@ const CodeBlockCollapseButton = forwardRef<
 });
 CodeBlockCollapseButton.displayName = "CodeBlockCollapseButton";
 
-export { CodeBlock, CodeBlockCopyButton, CodeBlockCollapseButton };
+export { CodeBlock };
+export { CodeBlockCopyButton };
+export { CodeBlockCollapseButton };

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
-import type { CSSProperties } from "react";
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
 
 const meta: Meta<typeof CodeBlock> = {
@@ -144,8 +143,8 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const codeBlock = canvasElement.querySelector("[data-slot='code-block']");
-    await expect(codeBlock).toBeInTheDocument();
+    const codeLine = await canvas.findByText("console.log(greet(user));");
+    await expect(codeLine).toBeInTheDocument();
     const copyButton = await canvas.findByRole("button");
     await expect(copyButton).toBeInTheDocument();
   },
@@ -166,24 +165,15 @@ export const WithLineNumbers: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const codeBlock = canvasElement.querySelector("[data-slot='code-block']");
-    await expect(codeBlock).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    const codeLine = await canvas.findByText("console.log(greet(user));");
+    await expect(codeLine).toBeInTheDocument();
   },
 };
 
 export const Collapsible: Story = {
   render: () => (
-    <CodeBlock
-      code={sampleCode.typescript}
-      language="typescript"
-      collapsed
-      style={
-        {
-          "--code-block-collapsed-height": "100px",
-          "--code-block-fade-height": "50px",
-        } as CSSProperties
-      }
-    >
+    <CodeBlock code={sampleCode.typescript} language="typescript" collapsed>
       <CodeBlockCollapseButton />
       <CodeBlockCopyButton />
     </CodeBlock>
@@ -343,18 +333,7 @@ export const CustomCopyText: Story = {
 
 export const CollapsedWithLineNumbers: Story = {
   render: () => (
-    <CodeBlock
-      code={sampleCode.typescript}
-      language="typescript"
-      collapsed
-      showLineNumbers
-      style={
-        {
-          "--code-block-collapsed-height": "100px",
-          "--code-block-fade-height": "50px",
-        } as CSSProperties
-      }
-    >
+    <CodeBlock code={sampleCode.typescript} language="typescript" collapsed showLineNumbers>
       <CodeBlockCollapseButton />
       <CodeBlockCopyButton />
     </CodeBlock>
