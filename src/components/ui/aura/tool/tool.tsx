@@ -1,3 +1,8 @@
+import type { ComponentProps, ComponentRef, ReactNode } from "react";
+import { forwardRef, isValidElement } from "react";
+
+import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
+
 import { Button } from "@/components/ui/aura/button";
 import {
   CodeBlock,
@@ -11,9 +16,6 @@ import {
 } from "@/components/ui/aura/collapsible";
 import type { ToolUIPart } from "@/lib/ai/types";
 import { cn } from "@/lib/utils";
-import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
-import type { ComponentProps, ComponentRef, ReactNode } from "react";
-import { forwardRef, isValidElement } from "react";
 
 type ToolProps = ComponentProps<typeof Collapsible>;
 
@@ -39,15 +41,21 @@ type ToolHeaderProps = Omit<ComponentProps<typeof CollapsibleTrigger>, "type"> &
 
 const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeaderProps>(
   ({ className, title, type, ...props }, ref) => (
-    <CollapsibleTrigger ref={ref} data-slot="tool-header" className={className} {...props} asChild>
-      <Button
-        variant="ghost"
-        className="w-full justify-between text-base leading-5 tracking-tighter"
-      >
-        <span>{title ?? type.split("-").slice(1).join("-")}</span>
-        <ChevronsUpDown className="h-4 w-4" />
-      </Button>
-    </CollapsibleTrigger>
+    <CollapsibleTrigger
+      ref={ref}
+      data-slot="tool-header"
+      className={className}
+      render={
+        <Button
+          variant="ghost"
+          className="w-full justify-between text-base leading-5 tracking-tighter"
+        >
+          <span>{title ?? type.split("-").slice(1).join("-")}</span>
+          <ChevronsUpDown className="h-4 w-4" />
+        </Button>
+      }
+      {...props}
+    />
   )
 );
 ToolHeader.displayName = "ToolHeader";

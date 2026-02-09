@@ -46,7 +46,7 @@ const meta: Meta<typeof Tool> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },

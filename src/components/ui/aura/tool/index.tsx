@@ -1,11 +1,4 @@
-/**
- * Tool Component
- *
- * A collapsible component for displaying AI tool invocations.
- *
- * @example
- * import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from '@/components/ui/aura/tool';
- */
+/** Tool components for AI tool invocations. */
 export {
   Tool,
   ToolHeader,
