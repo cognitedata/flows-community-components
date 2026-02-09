@@ -88,7 +88,10 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
 - Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
+- Do not include `importPath` in `*.metadata.ts` files.
+- Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
+- For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 
 # Storybook Stories
 

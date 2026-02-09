@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "avatar",
-  "title": "avatar",
-  "description": "",
+  "title": "Avatar",
+  "description": "An image element with a fallback for representing users. Supports multiple color variants, sizes, and composable sub-components.",
   "dependencies": [
     "@base-ui/react/avatar",
     "class-variance-authority"

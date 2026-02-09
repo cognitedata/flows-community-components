@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "popover",
-  "title": "popover",
-  "description": "",
+  "title": "Popover",
+  "description": "A floating panel that displays content relative to a trigger, built on Base UI Popover primitives.",
   "dependencies": [
     "@base-ui/react/popover"
   ],

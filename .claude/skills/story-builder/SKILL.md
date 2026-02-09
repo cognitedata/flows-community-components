@@ -132,5 +132,5 @@ Before committing changes:
 6. No inline code comments in play functions
 7. Story descriptions are minimal and future-proof
 8. No deprecated third-party components used
-9. Update or confirm `src/lib/primitives-catalog.ts` progress metadata when readiness changes
-10. Keep story comments short and relevant to the example
+9. Keep story comments short and relevant to the example
+10. Update or confirm `src/lib/primitives-catalog.ts` progress metadata when readiness changes

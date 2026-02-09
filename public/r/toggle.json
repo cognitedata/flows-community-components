@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toggle",
-  "title": "toggle",
-  "description": "",
+  "title": "Toggle",
+  "description": "A toggle button component with multiple variants.",
   "dependencies": [
     "@base-ui/react/toggle",
     "class-variance-authority"

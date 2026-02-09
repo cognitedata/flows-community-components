@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "swap-slot",
-  "title": "swap-slot",
-  "description": "",
+  "title": "SwapSlot",
+  "description": "A container component that swaps between default and active slots, useful for showing different content based on state.",
   "registryDependencies": [
     "@aura/css"
   ],

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "badge",
-  "title": "for",
-  "description": "* A versatile badge component for labels, status indicators, and tags.",
+  "title": "Badge",
+  "description": "A small status indicator component with multiple variants for displaying labels, counts, and statuses.",
   "dependencies": [
     "@base-ui/react/merge-props",
     "@base-ui/react/use-render",

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card",
-  "title": "for",
-  "description": "* Card component for displaying grouped content in a bordered container.",
+  "title": "Card",
+  "description": "A flexible card layout with header, content, action, and footer slots.",
   "dependencies": [
     "@tabler/icons-react"
   ],

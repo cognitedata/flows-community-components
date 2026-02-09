@@ -23,7 +23,7 @@ Use Base UI for complex interactions (dropdowns, dialogs), keyboard navigation, 
 
 ## Component Structure
 
-**Exports at bottom.** Use a single `export { ... }` block with one symbol per line. See `badge.tsx` for export pattern.
+**Exports at bottom, one per line.** See `badge.tsx` for export pattern.
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
@@ -132,7 +132,7 @@ Before committing changes:
 8. No !important in Tailwind classes
 9. Proper error handling in all try-catch blocks
 10. Ensure all class names work with Tailwind v4
-11. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
-12. Ask the user if progress status is ambiguous before setting it
-13. Ensure component appears in Docs and Storybook sidebar
-14. Ensure `*.metadata.ts` files contain metadata only (no runtime/component code)
+11. Ensure component appears in Docs and Storybook sidebar
+12. Ensure `*.metadata.ts` files contain metadata only (no runtime/component code)
+13. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
+14. Ask the user if progress status is ambiguous before setting it

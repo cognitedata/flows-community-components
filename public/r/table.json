@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "table",
-  "title": "table",
-  "description": "",
+  "title": "Table",
+  "description": "A table component for displaying tabular data.",
   "registryDependencies": [
     "@aura/css"
   ],

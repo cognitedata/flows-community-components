@@ -130,6 +130,23 @@ export async function convertBlobUrlToDataUrl(url: string): Promise<string> {
   });
 }
 
+export function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+
+  if (parts.length === 0 || !parts[0]) {
+    return "";
+  }
+
+  if (parts.length === 1) {
+    return parts[0].slice(0, 2).toUpperCase();
+  }
+
+  const firstInitial = parts[0].charAt(0).toUpperCase();
+  const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase();
+
+  return firstInitial + lastInitial;
+}
+
 /**
  * Gets the correct image path for Storybook.
  * Handles both local development and deployed Storybook with base paths.

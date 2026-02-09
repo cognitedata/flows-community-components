@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "input-group",
-  "title": "input-group",
-  "description": "",
+  "title": "InputGroup",
+  "description": "A component for grouping inputs with addons and buttons.",
   "dependencies": [
     "class-variance-authority"
   ],
