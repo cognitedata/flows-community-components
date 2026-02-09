@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "artifact-list",
-  "title": "artifact-list",
-  "description": "* ArtifactList wraps a Card for displaying list content within artifacts.",
+  "title": "ArtifactList",
+  "description": "A compositional list artifact widget component that displays timeline-style items with optional headers. Uses List primitives directly for item content.",
   "registryDependencies": [
     "@aura/css",
     "@aura/card",

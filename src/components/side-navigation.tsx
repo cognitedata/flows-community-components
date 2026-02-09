@@ -59,6 +59,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/helper-text", label: "Helper text" },
       { href: "/primitives/hover-card", label: "Hover card" },
       { href: "/primitives/input", label: "Input" },
+      { href: "/primitives/input-group", label: "Input group" },
       { href: "/primitives/kbd", label: "Kbd" },
       { href: "/primitives/label", label: "Label" },
       { href: "/primitives/list", label: "List" },
@@ -202,7 +203,11 @@ function NavigationGroup({
         {isOpen && item.children && (
           <ul className="space-y-0.5 pl-2 border-l border-border">
             {item.children.map((child) => (
-              <NavigationGroup key={child.href} item={child} level={level + 1} />
+              <NavigationGroup
+                key={child.href === "#" ? child.label : child.href}
+                item={child}
+                level={level + 1}
+              />
             ))}
           </ul>
         )}
@@ -233,7 +238,10 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
     <nav className={cn("", className)}>
       <ul className="space-y-4">
         {items.map((item) => (
-          <NavigationGroup key={item.href || item.label} item={item} />
+          <NavigationGroup
+            key={item.href === "#" ? item.label : item.href || item.label}
+            item={item}
+          />
         ))}
       </ul>
     </nav>

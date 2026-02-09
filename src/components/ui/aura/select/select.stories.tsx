@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/aura/button";
-import { Label } from "@/components/ui/aura/label";
+import { type ComponentProps, useState } from "react";
+
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -10,7 +10,9 @@ import {
   IconSettings,
   IconUser,
 } from "@tabler/icons-react";
-import { type ComponentProps, useState } from "react";
+
+import { Button } from "@/components/ui/aura/button";
+import { Label } from "@/components/ui/aura/label";
 import {
   Select,
   SelectContent,
@@ -22,17 +24,111 @@ import {
   SelectValue,
 } from "./select";
 
+const basicOptions = [
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
+  { label: "Option 3", value: "option3" },
+];
+
+const shortOptions = [
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
+];
+
+const labeledOptions = [
+  { label: "Asset", value: "asset" },
+  { label: "Event", value: "event" },
+  { label: "Time series", value: "timeseries" },
+  { label: "Work order", value: "workorder" },
+];
+
+const iconOptions = [
+  { label: "User", value: "user" },
+  { label: "Mail", value: "mail" },
+  { label: "Settings", value: "settings" },
+  { label: "Home", value: "home" },
+];
+
+const documentOptions = [
+  { label: "PDF", value: "pdf" },
+  { label: "Word Document", value: "doc" },
+  { label: "Excel Spreadsheet", value: "xls" },
+];
+
+const mediaOptions = [
+  { label: "Image", value: "image" },
+  { label: "Video", value: "video" },
+  { label: "Audio", value: "audio" },
+];
+
+const defaultValueOptions = [
+  { label: "First Option", value: "option1" },
+  { label: "Second Option", value: "option2" },
+  { label: "Third Option", value: "option3" },
+];
+
+const colorOptions = [
+  { label: "Red", value: "red" },
+  { label: "Green", value: "green" },
+  { label: "Blue", value: "blue" },
+];
+
+const disabledOptions = [
+  { label: "Available Option", value: "available1" },
+  { label: "Unavailable Option", value: "disabled1", disabled: true },
+  { label: "Another Available", value: "available2" },
+  { label: "Also Unavailable", value: "disabled2", disabled: true },
+];
+
+const singleOption = [{ label: "Option 1", value: "option1" }];
+
+const longTextOptions = [
+  {
+    label: "This is a very long option label that should wrap or truncate when space is limited",
+    value: "option1",
+  },
+  {
+    label: "Another extremely verbose option label demonstrating overflow behaviour in the list",
+    value: "option2",
+  },
+  { label: "Short label", value: "option3" },
+  {
+    label: "Yet another long option label to force vertical scrolling inside the menu content area",
+    value: "option4",
+  },
+];
+
+const specialCharacterOptions = [
+  { label: "🎉 Party time!", value: "emoji1" },
+  { label: "🚀 Launch", value: "emoji2" },
+  { label: "Option with <HTML> & 'quotes'", value: "special1" },
+  { label: "C++ & C# & Java", value: "special2" },
+  { label: "Ü니코드文字", value: "unicode" },
+];
+
+const languageOptions = [
+  { label: "JavaScript", value: "javascript" },
+  { label: "TypeScript", value: "typescript" },
+  { label: "Python", value: "python" },
+  { label: "Java", value: "java" },
+  { label: "C#", value: "csharp" },
+  { label: "PHP", value: "php" },
+  { label: "C++", value: "cpp" },
+  { label: "Rust", value: "rust" },
+  { label: "Go", value: "go" },
+  { label: "Swift", value: "swift" },
+];
+
 const meta: Meta<typeof Select> = {
   title: "Primitives/Select",
   component: Select,
   tags: ["autodocs"],
   argTypes: {
-    // State
     open: {
       control: "boolean",
       description: "Controlled open state",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -40,7 +136,7 @@ const meta: Meta<typeof Select> = {
       control: "boolean",
       description: "Default open state (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -49,7 +145,7 @@ const meta: Meta<typeof Select> = {
       control: "text",
       description: "Controlled selected value",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
@@ -57,7 +153,7 @@ const meta: Meta<typeof Select> = {
       control: "text",
       description: "Default selected value (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
@@ -65,13 +161,12 @@ const meta: Meta<typeof Select> = {
       control: "boolean",
       description: "Disable the select",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
     },
 
-    // Events
     onValueChange: {
       action: "valueChange",
       description: "Callback when value changes",
@@ -102,14 +197,16 @@ type Story = StoryObj<typeof Select>;
  */
 export const Default: Story = {
   render: () => (
-    <Select>
+    <Select items={basicOptions}>
       <SelectTrigger className="w-50">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="option1">Option 1</SelectItem>
-        <SelectItem value="option2">Option 2</SelectItem>
-        <SelectItem value="option3">Option 3</SelectItem>
+        {basicOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   ),
@@ -124,12 +221,10 @@ export const Default: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
 
-    // Find and click trigger
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
 
-    // Wait for content to appear
     await waitFor(() => {
       const content = document.querySelector('[data-slot="select-content"]');
       expect(content).toBeInTheDocument();
@@ -144,15 +239,16 @@ export const WithLabel: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="select-label">Choose an option</Label>
-      <Select>
+      <Select items={labeledOptions}>
         <SelectTrigger id="select-label" className="w-50">
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="asset">Asset</SelectItem>
-          <SelectItem value="event">Event</SelectItem>
-          <SelectItem value="timeseries">Time series</SelectItem>
-          <SelectItem value="workorder">Work order</SelectItem>
+          {labeledOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
@@ -184,23 +280,16 @@ export const WithIcons: Story = {
     return (
       <div className="space-y-4">
         <Label>Category</Label>
-        <Select value={value} onValueChange={setValue}>
+        <Select items={iconOptions} value={value} onValueChange={setValue}>
           <SelectTrigger className="w-50">
             <SelectValue placeholder="Select..." icon={value ? iconMap[value] : undefined} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="user" icon={<IconUser className="size-4" />}>
-              User
-            </SelectItem>
-            <SelectItem value="mail" icon={<IconMail className="size-4" />}>
-              Mail
-            </SelectItem>
-            <SelectItem value="settings" icon={<IconSettings className="size-4" />}>
-              Settings
-            </SelectItem>
-            <SelectItem value="home" icon={<IconHome className="size-4" />}>
-              Home
-            </SelectItem>
+            {iconOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value} icon={iconMap[option.value]}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <p className="text-sm text-muted-foreground">Selected: {value}</p>
@@ -222,13 +311,16 @@ export const WithIcons: Story = {
  */
 export const Disabled: Story = {
   render: () => (
-    <Select disabled>
+    <Select items={shortOptions} disabled>
       <SelectTrigger className="w-50">
         <SelectValue placeholder="Disabled" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="option1">Option 1</SelectItem>
-        <SelectItem value="option2">Option 2</SelectItem>
+        {shortOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   ),
@@ -254,13 +346,16 @@ export const WithError: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1.5">
       <Label htmlFor="select-error">Required field</Label>
-      <Select>
+      <Select items={shortOptions}>
         <SelectTrigger id="select-error" className="w-50" errorMessage="Please select an option">
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="option1">Option 1</SelectItem>
-          <SelectItem value="option2">Option 2</SelectItem>
+          {shortOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
@@ -280,35 +375,35 @@ export const WithError: Story = {
  */
 export const WithGroups: Story = {
   render: () => (
-    <Select>
+    <Select items={[...documentOptions, ...mediaOptions]}>
       <SelectTrigger className="w-50">
         <SelectValue placeholder="Select a file type" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Documents</SelectLabel>
-          <SelectItem value="pdf" icon={<IconFile className="size-4" />}>
-            PDF
-          </SelectItem>
-          <SelectItem value="doc" icon={<IconFile className="size-4" />}>
-            Word Document
-          </SelectItem>
-          <SelectItem value="xls" icon={<IconFile className="size-4" />}>
-            Excel Spreadsheet
-          </SelectItem>
+          {documentOptions.map((option) => (
+            <SelectItem
+              key={option.value}
+              value={option.value}
+              icon={<IconFile className="size-4" />}
+            >
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectGroup>
         <SelectSeparator />
         <SelectGroup>
           <SelectLabel>Media</SelectLabel>
-          <SelectItem value="image" icon={<IconFolder className="size-4" />}>
-            Image
-          </SelectItem>
-          <SelectItem value="video" icon={<IconFolder className="size-4" />}>
-            Video
-          </SelectItem>
-          <SelectItem value="audio" icon={<IconFolder className="size-4" />}>
-            Audio
-          </SelectItem>
+          {mediaOptions.map((option) => (
+            <SelectItem
+              key={option.value}
+              value={option.value}
+              icon={<IconFolder className="size-4" />}
+            >
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>
@@ -328,14 +423,16 @@ export const WithGroups: Story = {
  */
 export const WithDefaultValue: Story = {
   render: () => (
-    <Select defaultValue="option2">
+    <Select items={defaultValueOptions} defaultValue="option2">
       <SelectTrigger className="w-50">
         <SelectValue placeholder="Select..." />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="option1">First Option</SelectItem>
-        <SelectItem value="option2">Second Option</SelectItem>
-        <SelectItem value="option3">Third Option</SelectItem>
+        {defaultValueOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   ),
@@ -358,14 +455,16 @@ export const Controlled: Story = {
 
     return (
       <div className="space-y-4">
-        <Select value={value} onValueChange={setValue}>
+        <Select items={colorOptions} value={value} onValueChange={setValue}>
           <SelectTrigger className="w-50">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="red">Red</SelectItem>
-            <SelectItem value="green">Green</SelectItem>
-            <SelectItem value="blue">Blue</SelectItem>
+            {colorOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <div className="flex gap-2">
@@ -398,19 +497,16 @@ export const Controlled: Story = {
  */
 export const DisabledItems: Story = {
   render: () => (
-    <Select>
+    <Select items={disabledOptions}>
       <SelectTrigger className="w-50">
         <SelectValue placeholder="Select..." />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="available1">Available Option</SelectItem>
-        <SelectItem value="disabled1" disabled>
-          Unavailable Option
-        </SelectItem>
-        <SelectItem value="available2">Another Available</SelectItem>
-        <SelectItem value="disabled2" disabled>
-          Also Unavailable
-        </SelectItem>
+        {disabledOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value} disabled={option.disabled}>
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   ),
@@ -430,22 +526,28 @@ export const DisabledItems: Story = {
 export const SmallSize: Story = {
   render: () => (
     <div className="flex gap-4 items-center">
-      <Select>
+      <Select items={shortOptions}>
         <SelectTrigger size="sm" className="w-37.5">
           <SelectValue placeholder="Small" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="option1">Option 1</SelectItem>
-          <SelectItem value="option2">Option 2</SelectItem>
+          {shortOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
-      <Select>
+      <Select items={shortOptions}>
         <SelectTrigger size="default" className="w-37.5">
           <SelectValue placeholder="Default" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="option1">Option 1</SelectItem>
-          <SelectItem value="option2">Option 2</SelectItem>
+          {shortOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
@@ -468,45 +570,61 @@ export const AllStates: Story = {
     <div className="space-y-4">
       <div className="grid w-full items-center gap-1.5">
         <Label>Default</Label>
-        <Select>
+        <Select items={singleOption}>
           <SelectTrigger className="w-50">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="option1">Option 1</SelectItem>
+            {singleOption.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label>With Value</Label>
-        <Select defaultValue="option1">
+        <Select items={[{ label: "Selected Option", value: "option1" }]} defaultValue="option1">
           <SelectTrigger className="w-50">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="option1">Selected Option</SelectItem>
+            {[{ label: "Selected Option", value: "option1" }].map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label>Disabled</Label>
-        <Select disabled>
+        <Select items={singleOption} disabled>
           <SelectTrigger className="w-50">
             <SelectValue placeholder="Disabled" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="option1">Option 1</SelectItem>
+            {singleOption.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
       <div className="grid w-full items-center gap-1.5">
         <Label>With Error</Label>
-        <Select>
+        <Select items={singleOption}>
           <SelectTrigger className="w-50" errorMessage="Required">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="option1">Option 1</SelectItem>
+            {singleOption.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -530,21 +648,16 @@ export const LongTextAndOverflow: Story = {
     <div className="space-y-4">
       <div className="w-40">
         <Label>Long option labels</Label>
-        <Select>
+        <Select items={longTextOptions}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select an option with long text" />
           </SelectTrigger>
           <SelectContent className="max-h-40">
-            <SelectItem value="option1">
-              This is a very long option label that should wrap or truncate when space is limited
-            </SelectItem>
-            <SelectItem value="option2">
-              Another extremely verbose option label demonstrating overflow behaviour in the list
-            </SelectItem>
-            <SelectItem value="option3">Short label</SelectItem>
-            <SelectItem value="option4">
-              Yet another long option label to force vertical scrolling inside the menu content area
-            </SelectItem>
+            {longTextOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -571,61 +684,80 @@ export const LongTextAndOverflow: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
-      {/* States */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">States</h3>
         <div className="flex flex-wrap gap-4">
-          <Select>
+          <Select items={[{ label: "Option", value: "1" }]}>
             <SelectTrigger className="w-37.5">
               <SelectValue placeholder="Default" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">Option</SelectItem>
+              {[{ label: "Option", value: "1" }].map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
-          <Select defaultValue="selected">
+          <Select items={[{ label: "Selected", value: "selected" }]} defaultValue="selected">
             <SelectTrigger className="w-37.5">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="selected">Selected</SelectItem>
+              {[{ label: "Selected", value: "selected" }].map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
-          <Select disabled>
+          <Select items={[{ label: "Option", value: "1" }]} disabled>
             <SelectTrigger className="w-37.5">
               <SelectValue placeholder="Disabled" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="1">Option</SelectItem>
+              {[{ label: "Option", value: "1" }].map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
       </div>
 
-      {/* With icons */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
-        <Select defaultValue="settings">
+        <Select items={[{ label: "Settings", value: "settings" }]} defaultValue="settings">
           <SelectTrigger className="w-50">
             <SelectValue icon={<IconSettings className="size-4" />} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="settings" icon={<IconSettings className="size-4" />}>
-              Settings
-            </SelectItem>
+            {[{ label: "Settings", value: "settings" }].map((option) => (
+              <SelectItem
+                key={option.value}
+                value={option.value}
+                icon={<IconSettings className="size-4" />}
+              >
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
 
-      {/* Error state */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Error</h3>
-        <Select>
+        <Select items={[{ label: "Option", value: "1" }]}>
           <SelectTrigger className="w-50" errorMessage="This is required">
             <SelectValue placeholder="Select..." />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="1">Option</SelectItem>
+            {[{ label: "Option", value: "1" }].map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
@@ -651,11 +783,11 @@ export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="space-y-2">
       <Label>Empty select</Label>
-      <Select>
+      <Select items={[]}>
         <SelectTrigger className="w-50">
           <SelectValue placeholder="No options available" />
         </SelectTrigger>
-        <SelectContent>{/* No items */}</SelectContent>
+        <SelectContent />
       </Select>
       <p className="text-sm text-muted-foreground">
         Select with no options demonstrates empty state handling.
@@ -679,16 +811,16 @@ export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="space-y-2">
       <Label>Special characters</Label>
-      <Select>
+      <Select items={specialCharacterOptions}>
         <SelectTrigger className="w-50">
           <SelectValue placeholder="Select..." />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="emoji1">🎉 Party time!</SelectItem>
-          <SelectItem value="emoji2">🚀 Launch</SelectItem>
-          <SelectItem value="special1">{"Option with <HTML> & 'quotes'"}</SelectItem>
-          <SelectItem value="special2">{"C++ & C# & Java"}</SelectItem>
-          <SelectItem value="unicode">Ü니코드文字</SelectItem>
+          {specialCharacterOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
       <p className="text-sm text-muted-foreground">
@@ -719,6 +851,7 @@ export const MultipleSelection: Story = {
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="languages">Select languages</Label>
           <Select
+            items={languageOptions}
             multiple
             value={value as any}
             onValueChange={(newValue: any) => setValue(newValue)}
@@ -733,16 +866,11 @@ export const MultipleSelection: Story = {
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="javascript">JavaScript</SelectItem>
-              <SelectItem value="typescript">TypeScript</SelectItem>
-              <SelectItem value="python">Python</SelectItem>
-              <SelectItem value="java">Java</SelectItem>
-              <SelectItem value="csharp">C#</SelectItem>
-              <SelectItem value="php">PHP</SelectItem>
-              <SelectItem value="cpp">C++</SelectItem>
-              <SelectItem value="rust">Rust</SelectItem>
-              <SelectItem value="go">Go</SelectItem>
-              <SelectItem value="swift">Swift</SelectItem>
+              {languageOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -772,14 +900,16 @@ export const Playground: Story = {
     defaultOpen: false,
   },
   render: (args: ComponentProps<typeof Select>) => (
-    <Select {...args}>
+    <Select items={basicOptions} {...args}>
       <SelectTrigger className="w-50">
         <SelectValue placeholder="Select an option" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="option1">Option 1</SelectItem>
-        <SelectItem value="option2">Option 2</SelectItem>
-        <SelectItem value="option3">Option 3</SelectItem>
+        {basicOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   ),

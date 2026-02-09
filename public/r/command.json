@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "command",
-  "title": "command",
-  "description": "",
+  "title": "Command",
+  "description": "A command menu component for searchable command palettes, built with cmdk.",
   "dependencies": [
     "@tabler/icons-react",
     "cmdk"

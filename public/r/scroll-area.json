@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "scroll-area",
-  "title": "scroll-area",
-  "description": "",
+  "title": "ScrollArea",
+  "description": "A custom scrollable area built on Base UI Scroll Area.",
   "dependencies": [
     "@base-ui/react/scroll-area"
   ],

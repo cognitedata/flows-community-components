@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "artifact-count",
-  "title": "artifact-count",
-  "description": "* ArtifactCount container for count-based widgets.",
+  "title": "ArtifactCount",
+  "description": "A compositional count artifact widget component for displaying prominent values with optional content and footer context.",
   "dependencies": [
     "class-variance-authority"
   ],

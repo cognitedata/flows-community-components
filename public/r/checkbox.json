@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "checkbox",
-  "title": "checkbox",
-  "description": "",
+  "title": "Checkbox",
+  "description": "A checkbox component styled with Base UI Checkbox and Tabler icons.",
   "dependencies": [
     "@base-ui/react/checkbox",
     "@tabler/icons-react"

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pagination",
-  "title": "pagination",
-  "description": "* Pagination navigation container.",
+  "title": "Pagination",
+  "description": "A pagination component for navigating multi-page content.",
   "dependencies": [
     "@tabler/icons-react",
     "class-variance-authority"
