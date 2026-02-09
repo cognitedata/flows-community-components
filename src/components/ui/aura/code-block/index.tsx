@@ -1,11 +1,7 @@
-/**
- * Code Block Component
- *
- * A syntax-highlighted code block with copy and collapse functionality.
- */
+/** Code block component . */
 export {
   CodeBlock,
-  CodeBlockCopyButton,
   CodeBlockCollapseButton,
+  CodeBlockCopyButton,
 } from "./code-block";
 export { CodeBlockMetadata } from "./code-block.metadata";

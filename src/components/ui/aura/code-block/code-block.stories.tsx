@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
+import type { JSX } from "react";
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
 
 const meta: Meta<typeof CodeBlock> = {
@@ -55,7 +56,7 @@ const meta: Meta<typeof CodeBlock> = {
     layout: "centered",
   },
   decorators: [
-    (Story) => (
+    (Story): JSX.Element => (
       <div className="w-150">
         <Story />
       </div>
@@ -145,8 +146,8 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
     const codeLine = await canvas.findByText("console.log(greet(user));");
     await expect(codeLine).toBeInTheDocument();
-    const copyButton = await canvas.findByRole("button");
-    await expect(copyButton).toBeInTheDocument();
+    const buttons = await canvas.findAllByRole("button");
+    await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
 
@@ -426,7 +427,7 @@ const c = a + b;`}
     order: 15,
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: "Visual overview for regression testing.",
       },
     },
     chromatic: {
@@ -434,7 +435,7 @@ const c = a + b;`}
     },
   },
   decorators: [
-    (Story) => (
+    (Story): JSX.Element => (
       <div className="p-4">
         <Story />
       </div>

@@ -10,23 +10,10 @@ import {
 } from "react";
 
 import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
-import type { Element } from "hast";
-import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
+import type { BundledLanguage } from "shiki";
 
 import { Button } from "@/components/ui/aura/button";
-import { cn } from "@/lib/utils";
-
-const isStorybookTestEnv =
-  typeof window !== "undefined" &&
-  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ === true;
-
-const escapeHtml = (value: string) =>
-  value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+import { cn, escapeHtml, highlightCode, isStorybookTestEnv } from "@/lib/utils";
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;
@@ -51,54 +38,6 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
   setIsCollapsed: () => {},
   lineCount: 0,
 });
-
-const stripPreStylesTransformer: ShikiTransformer = {
-  name: "strip-pre-styles",
-  pre(node: Element) {
-    node.properties.style = undefined;
-  },
-};
-
-const lineNumberTransformer: ShikiTransformer = {
-  name: "line-numbers",
-  line(node: Element, line: number) {
-    node.children.unshift({
-      type: "element",
-      tagName: "span",
-      properties: {
-        className: [
-          "inline-block",
-          "min-w-10",
-          "mr-4",
-          "text-right",
-          "select-none",
-          "text-muted-foreground",
-        ],
-      },
-      children: [{ type: "text", value: String(line) }],
-    });
-  },
-};
-
-async function highlightCode(code: string, language: BundledLanguage, showLineNumbers = false) {
-  const transformers: ShikiTransformer[] = [
-    stripPreStylesTransformer,
-    ...(showLineNumbers ? [lineNumberTransformer] : []),
-  ];
-
-  return await Promise.all([
-    codeToHtml(code, {
-      lang: language,
-      theme: "one-light",
-      transformers,
-    }),
-    codeToHtml(code, {
-      lang: language,
-      theme: "one-dark-pro",
-      transformers,
-    }),
-  ]);
-}
 
 const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
   (
@@ -132,12 +71,23 @@ const CodeBlock = forwardRef<ComponentRef<"div">, CodeBlockProps>(
         return;
       }
 
-      highlightCode(code, language, showLineNumbers).then(([light, dark]) => {
-        if (!isCancelled) {
-          setHtml(light);
-          setDarkHtml(dark);
-        }
-      });
+      highlightCode(code, language, showLineNumbers)
+        .then(([light, dark]) => {
+          if (!isCancelled) {
+            setHtml(light);
+            setDarkHtml(dark);
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to highlight code:", error);
+
+          if (!isCancelled) {
+            const escaped = escapeHtml(code);
+            const markup = `<pre><code>${escaped}</code></pre>`;
+            setHtml(markup);
+            setDarkHtml(markup);
+          }
+        });
 
       return () => {
         isCancelled = true;
