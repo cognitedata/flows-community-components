@@ -242,7 +242,7 @@ export const TooManySourcesWithOverflow: Story = {
     docs: {
       description: {
         story:
-          "When there are too many sources, show a subset with an overflow indicator (+ N). Hover the + N pill to reveal the remaining sources in a hover card, similar to AvatarGroup.",
+          "When there are too many sources, show a subset with an overflow indicator (+N). Hover the + N pill to reveal the remaining sources in a hover card, similar to AvatarGroup.",
       },
     },
   },
