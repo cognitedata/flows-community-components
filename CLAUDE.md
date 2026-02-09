@@ -16,6 +16,16 @@ This command:
 
 The registry build process is fully automated - no manual configuration needed.
 
+# Primitives Progress Metadata Rules
+
+When adding, removing, or renaming primitives/foundations, update `src/lib/primitives-catalog.ts` in the same change.
+
+When the user asks for primitive/foundation progress updates, update the catalog metadata and ensure badges on `/primitives` reflect the new status.
+
+If requested progress status is missing or ambiguous, ask a clarifying question before finalizing status metadata.
+
+If a primitive/foundation is tracked but not implemented, keep or add a `comingSoon` placeholder path via catalog metadata.
+
 # Building Components
 
 ## SKILLS AVAILABLE
@@ -79,6 +89,8 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 - Do not include `importPath` in `*.metadata.ts` files.
+- `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
+- For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 
 # Storybook Stories
 

@@ -293,8 +293,8 @@
     {
       "name": "avatar",
       "type": "registry:component",
-      "title": "for",
-      "description": "* Avatar component for displaying user profile images, initials, or icons.",
+      "title": "avatar",
+      "description": "",
       "dependencies": ["@base-ui/react/avatar", "class-variance-authority"],
       "registryDependencies": ["@aura/css"],
       "files": [

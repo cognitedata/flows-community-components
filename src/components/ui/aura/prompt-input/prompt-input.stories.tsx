@@ -26,7 +26,7 @@ import {
 const meta: Meta<typeof PromptInput> = {
   title: "AI/Prompt Input",
   component: PromptInput,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   decorators: [
     (Story) => (
       <PromptInputProvider>

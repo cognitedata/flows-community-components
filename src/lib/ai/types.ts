@@ -1,5 +1,10 @@
 export type ChatStatus = "submitted" | "streaming" | "ready" | "error";
 
+export type TextUIPart = {
+  type: "text";
+  value: string;
+};
+
 export type FileUIPart = {
   type: "file";
   /**
@@ -31,6 +36,8 @@ export type ToolUIPart = {
   state?: "input-streaming" | "input-available" | "output-available" | "output-error";
 };
 
+export type MessageUIPart = TextUIPart | FileUIPart | ToolUIPart;
+
 export interface UIMessage<METADATA = unknown> {
   /**
    * A unique identifier for the message.
@@ -47,5 +54,5 @@ export interface UIMessage<METADATA = unknown> {
   /**
    * The parts of the message. Use this for rendering the message in the UI.
    */
-  parts: Array<unknown>;
+  parts: Array<MessageUIPart>;
 }
