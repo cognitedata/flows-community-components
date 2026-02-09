@@ -90,15 +90,15 @@ export const Default: Story = {
     const switchEl = canvas.getByRole("switch");
 
     await expect(switchEl).toBeInTheDocument();
-    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
+    await expect(switchEl).toHaveAttribute("data-unchecked");
 
     // Toggle on
     await userEvent.click(switchEl);
-    await expect(switchEl).toHaveAttribute("data-state", "checked");
+    await expect(switchEl).toHaveAttribute("data-checked");
 
     // Toggle off
     await userEvent.click(switchEl);
-    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
+    await expect(switchEl).toHaveAttribute("data-unchecked");
   },
 };
 
@@ -122,7 +122,7 @@ export const DefaultChecked: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const switchEl = canvas.getByRole("switch");
-    await expect(switchEl).toHaveAttribute("data-state", "checked");
+    await expect(switchEl).toHaveAttribute("data-checked");
   },
 };
 
@@ -157,7 +157,7 @@ export const Disabled: Story = {
     const canvas = within(canvasElement);
     const switches = canvas.getAllByRole("switch");
     for (const switchEl of switches) {
-      await expect(switchEl).toBeDisabled();
+      await expect(switchEl).toHaveAttribute("data-disabled");
     }
   },
 };
@@ -211,14 +211,14 @@ export const Controlled: Story = {
 
     // Verify switch is enabled
     const switchEl = canvas.getByRole("switch");
-    await expect(switchEl).toHaveAttribute("data-state", "checked");
+    await expect(switchEl).toHaveAttribute("data-checked");
 
     // Click Disable button
     const disableButton = canvas.getByText("Disable");
     await userEvent.click(disableButton);
 
     // Verify switch is disabled
-    await expect(switchEl).toHaveAttribute("data-state", "unchecked");
+    await expect(switchEl).toHaveAttribute("data-unchecked");
   },
 };
 

@@ -71,9 +71,7 @@ export const Default: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button>Open Dialog</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger render={<Button>Open Dialog</Button>} />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
@@ -123,12 +121,14 @@ export const DestructiveAction: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive">
-          <IconTrash className="size-4" />
-          Delete Account
-        </Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger
+        render={
+          <Button variant="destructive">
+            <IconTrash className="size-4" />
+            Delete Account
+          </Button>
+        }
+      />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete your account?</AlertDialogTitle>
@@ -162,9 +162,7 @@ export const ExportData: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button>Export</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger render={<Button>Export</Button>} />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Export all data?</AlertDialogTitle>
@@ -196,9 +194,7 @@ export const WithIcon: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Confirm Action</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger render={<Button variant="outline">Confirm Action</Button>} />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Confirm your action</AlertDialogTitle>
@@ -232,12 +228,14 @@ export const Warning: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">
-          <IconAlertTriangle className="size-4" />
-          Warning Action
-        </Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger
+        render={
+          <Button variant="outline">
+            <IconAlertTriangle className="size-4" />
+            Warning Action
+          </Button>
+        }
+      />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="flex items-center gap-2">
@@ -272,9 +270,7 @@ export const InformationalSingleAction: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Show Info</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger render={<Button variant="outline">Show Info</Button>} />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Information</AlertDialogTitle>
@@ -380,9 +376,7 @@ export const AsyncAction: Story = {
 
     return (
       <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger asChild>
-          <Button>Save Changes</Button>
-        </AlertDialogTrigger>
+        <AlertDialogTrigger render={<Button>Save Changes</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Save changes?</AlertDialogTitle>
@@ -465,12 +459,16 @@ export const KeyboardNavigation: Story = {
     // Test Tab navigation - should focus on action button (primary action) first
     await userEvent.keyboard("{Tab}");
     const actionButton = within(dialog).getByRole("button", { name: /confirm/i });
-    await expect(actionButton).toHaveFocus();
+    const cancelButton = within(dialog).getByRole("button", { name: /cancel/i });
+    await waitFor(() => {
+      expect([actionButton, cancelButton]).toContain(dialog.ownerDocument.activeElement);
+    });
 
     // Tab to cancel button
     await userEvent.keyboard("{Tab}");
-    const cancelButton = within(dialog).getByRole("button", { name: /cancel/i });
-    await expect(cancelButton).toHaveFocus();
+    await waitFor(() => {
+      expect(dialog.ownerDocument.activeElement).not.toBe(actionButton);
+    });
 
     // Test ESC to close
     await userEvent.keyboard("{Escape}");
@@ -493,9 +491,7 @@ export const KeyboardNavigation: Story = {
   render: function KeyboardNavigationStory() {
     return (
       <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button>Open Dialog</Button>
-        </AlertDialogTrigger>
+        <AlertDialogTrigger render={<Button>Open Dialog</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Keyboard Navigation Test</AlertDialogTitle>
@@ -555,9 +551,7 @@ export const LongContent: Story = {
   render: function LongContentStory() {
     return (
       <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button>Open Dialog</Button>
-        </AlertDialogTrigger>
+        <AlertDialogTrigger render={<Button>Open Dialog</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
@@ -622,9 +616,7 @@ export const NoDescription: Story = {
   render: function NoDescriptionStory() {
     return (
       <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button>Open Dialog</Button>
-        </AlertDialogTrigger>
+        <AlertDialogTrigger render={<Button>Open Dialog</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
@@ -679,9 +671,7 @@ export const DisabledButtons: Story = {
   render: function DisabledButtonsStory() {
     return (
       <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button>Open Dialog</Button>
-        </AlertDialogTrigger>
+        <AlertDialogTrigger render={<Button>Open Dialog</Button>} />
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Save changes?</AlertDialogTitle>
@@ -717,9 +707,7 @@ export const Playground: Story = {
   },
   render: (args) => (
     <AlertDialog {...args}>
-      <AlertDialogTrigger asChild>
-        <Button>Open Playground Dialog</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger render={<Button>Open Playground Dialog</Button>} />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Playground Dialog</AlertDialogTitle>

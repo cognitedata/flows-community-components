@@ -64,6 +64,9 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@cognite/aura": path.resolve(__dirname, "./src/components/ui/core"),
+      "@cognite/aura-lab": path.resolve(__dirname, "./src/components/ui/lab"),
+      "@cognite/aura/lib": path.resolve(__dirname, "./src/lib"),
     },
   },
 });

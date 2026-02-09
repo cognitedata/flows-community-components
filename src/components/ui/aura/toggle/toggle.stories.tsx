@@ -100,15 +100,15 @@ export const Default: Story = {
     const toggle = canvas.getByRole("button");
 
     await expect(toggle).toBeInTheDocument();
-    await expect(toggle).toHaveAttribute("data-state", "off");
+    await expect(toggle).not.toHaveAttribute("data-pressed");
 
     // Click to toggle on
     await userEvent.click(toggle);
-    await expect(toggle).toHaveAttribute("data-state", "on");
+    await expect(toggle).toHaveAttribute("data-pressed");
 
     // Click to toggle off
     await userEvent.click(toggle);
-    await expect(toggle).toHaveAttribute("data-state", "off");
+    await expect(toggle).not.toHaveAttribute("data-pressed");
   },
 };
 
@@ -194,7 +194,7 @@ export const DefaultPressed: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const toggle = canvas.getByRole("button");
-    await expect(toggle).toHaveAttribute("data-state", "on");
+    await expect(toggle).toHaveAttribute("data-pressed");
   },
 };
 

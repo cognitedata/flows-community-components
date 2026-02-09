@@ -9,16 +9,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
+import type { ToolUIPart } from "@/lib/ai/types";
 import { cn } from "@/lib/utils";
 import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
-import type { ToolUIPart } from "ai";
-import {
-  type ComponentProps,
-  type ComponentRef,
-  type ReactNode,
-  forwardRef,
-  isValidElement,
-} from "react";
+import type { ComponentProps, ComponentRef, ReactNode } from "react";
+import { forwardRef, isValidElement } from "react";
 
 type ToolProps = ComponentProps<typeof Collapsible>;
 

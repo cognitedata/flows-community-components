@@ -7,7 +7,7 @@ import { useState } from "react";
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",
   component: Tool,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     open: {
       control: "boolean",

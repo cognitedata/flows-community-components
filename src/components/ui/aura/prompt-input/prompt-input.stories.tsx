@@ -26,7 +26,7 @@ import {
 const meta: Meta<typeof PromptInput> = {
   title: "AI/Prompt Input",
   component: PromptInput,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   decorators: [
     (Story) => (
       <PromptInputProvider>
@@ -601,12 +601,14 @@ export const WithAdvancedTools: Story = {
               <IconAdjustments />
             </PromptInputButton>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  {model}
-                  <IconChevronDown />
-                </Button>
-              </DropdownMenuTrigger>
+              <DropdownMenuTrigger
+                render={
+                  <Button variant="ghost" size="sm">
+                    {model}
+                    <IconChevronDown />
+                  </Button>
+                }
+              />
               <DropdownMenuContent>
                 <DropdownMenuItem onClick={() => setModel("GPT-4")}>GPT-4</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setModel("GPT-3.5")}>GPT-3.5</DropdownMenuItem>

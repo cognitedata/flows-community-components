@@ -73,6 +73,16 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 
 **Helper Functions:** Extract local helper functions to `utils.ts` (in `src/lib/`) for reusability, testing, and centralized maintenance. Add proper error handling with try-catch. See `getStorybookImagePath` in `utils.ts` for example.
 
+## Fusion Import Strategy
+
+Aura uses a dual-scope import system for migrating components to Fusion:
+
+- **`@cognite/aura/*`** - Beta components in `src/components/ui/core/` ready for Fusion
+- **`@cognite/aura-lab/*`** - Alpha/experimental components in `src/components/ui/lab/`
+- **`@cognite/aura/lib/*`** - Shared utilities from `src/lib/`
+
+When building components, use `@/*` for internal imports. The `@cognite/*` aliases are configured for component consumption in Fusion.
+
 ## Code Comments & Documentation
 
 **CRITICAL: NO code comments in component files.** Component files (`.tsx`) should contain ZERO comments. See `badge.tsx` for clean, self-documenting code.
@@ -91,6 +101,14 @@ Add new components to `side-navigation.tsx`. Story meta `title` determines categ
 - `Primitives/[Name]` → Primitives subsection (alphabetically)
 - `AI/[Name]` → AI Chat subsection
 - `Patterns/[Name]` → Patterns subsection
+
+## Primitives Progress Metadata
+
+When a component change affects primitive/foundation coverage, update `src/lib/primitives-catalog.ts` in the same PR.
+
+Set and verify `implemented` / `comingSoon` behavior through the catalog entry and aliases.
+
+If delivery progress is unclear, ask the user before assigning a progress status in catalog metadata.
 
 ## Post-Build Steps
 
@@ -114,3 +132,5 @@ Before committing changes:
 8. No !important in Tailwind classes
 9. Proper error handling in all try-catch blocks
 10. Ensure all class names work with Tailwind v4
+11. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
+12. Ask the user if progress status is ambiguous before setting it

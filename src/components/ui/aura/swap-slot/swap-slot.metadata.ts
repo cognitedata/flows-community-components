@@ -13,5 +13,4 @@ export const SwapSlotMetadata: ComponentMeta = {
     "A container component that swaps between default and active slots, useful for showing different content based on state.",
   llmUsage:
     "Use `<SwapSlot defaultSlot={<Default />} activeSlot={<Active />} />` to swap content based on state.",
-  importPath: "@/components/ui/aura/swap-slot",
 };

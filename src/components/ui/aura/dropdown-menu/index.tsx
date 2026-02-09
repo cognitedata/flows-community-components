@@ -2,7 +2,7 @@
  * Dropdown Menu Component
  *
  * A dropdown menu with submenus, separators, and selection states,
- * built on Radix Dropdown Menu primitives.
+ * built on Base UI Dropdown Menu primitives.
  *
  * @example
  * import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/aura/dropdown-menu';

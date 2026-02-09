@@ -4,5 +4,4 @@ export const ReasoningOriginalMetadata: ComponentMeta = {
   name: "ReasoningOriginal",
   status: "draft",
   description: "Original collapsible reasoning component (preserved for future use).",
-  importPath: "@/components/ui/aura/reasoning-original",
 };

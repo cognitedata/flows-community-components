@@ -6,5 +6,4 @@ export const TableMetadata: ComponentMeta = {
   description: "A table component for displaying tabular data.",
   llmUsage:
     "Use `<Table>` with `<TableHeader>`, `<TableBody>`, `<TableRow>`, and `<TableCell>` for data tables.",
-  importPath: "@/components/ui/aura/table",
 };

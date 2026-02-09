@@ -130,17 +130,6 @@ const meta: Meta<typeof Badge> = {
         type: { summary: "(event: KeyboardEvent) => void" },
       },
     },
-
-    // Advanced - Component composition options
-    asChild: {
-      control: "boolean",
-      description: "Render as child component using Radix Slot",
-      table: {
-        category: "Advanced",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
   },
   parameters: {
     layout: "centered",

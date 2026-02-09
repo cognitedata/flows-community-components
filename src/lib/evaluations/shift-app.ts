@@ -207,17 +207,19 @@ export default function ShiftHandoverAppPage() {
                 <div className="space-y-2">
                   <Label htmlFor="handover-date" className="text-muted-foreground">Shift date</Label>
                   <Popover>
-                    <PopoverTrigger asChild>
-                      <div className="relative">
-                        <Input
-                          id="handover-date"
-                          readOnly
-                          value={shiftDate ? format(shiftDate, "MM/dd/yyyy") : ""}
-                          className="pr-8 bg-transparent"
-                        />
-                        <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      </div>
-                    </PopoverTrigger>
+                    <PopoverTrigger
+                      render={
+                        <div className="relative">
+                          <Input
+                            id="handover-date"
+                            readOnly
+                            value={shiftDate ? format(shiftDate, "MM/dd/yyyy") : ""}
+                            className="pr-8 bg-transparent"
+                          />
+                          <CalendarIcon className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        </div>
+                      }
+                    />
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
