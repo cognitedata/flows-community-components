@@ -83,4 +83,3 @@ const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
 HelperText.displayName = "HelperText";
 
 export { HelperText };
-export type { HelperTextProps };
