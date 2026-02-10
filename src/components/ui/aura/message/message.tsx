@@ -446,7 +446,22 @@ const MessageResponse = memo(
   ({ className, components, ...props }: MessageResponseProps) => (
     <Streamdown
       data-slot="message-response"
-      className={cn("size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0", className)}
+      className={cn(
+        "size-full",
+        // Mermaid: ensure container is tall enough for the toolbar
+        '[&_div[data-streamdown="mermaid-block"]_.relative.w-full]:min-h-28',
+        // Mermaid fullscreen: boost z-index for overlay
+        '[&_div[data-streamdown="mermaid-block"]_>div>.fixed]:z-[200]',
+        // Mermaid fullscreen toolbar: escape overflow-hidden and position above overlay
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:fixed',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:top-4',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:bottom-auto',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:left-4',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:z-[201]',
+        // First and last child margin resets
+        "[&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+        className
+      )}
       components={{ ...messageResponseComponents, ...components }}
       controls={false}
       {...props}
