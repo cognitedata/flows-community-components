@@ -104,7 +104,6 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the shimmer text
     const shimmer = canvas.getByText("Processing...");
     await expect(shimmer).toBeInTheDocument();
   },
@@ -128,7 +127,6 @@ export const GradientVariants: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all variants are rendered
     const variants = [
       "Default gradient",
       "Nordic gradient",
@@ -174,7 +172,6 @@ export const ElementTypes: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify heading elements are rendered as headings with correct text
     const headings = [
       { level: 1, name: /heading 1 with shimmer/i },
       { level: 2, name: /heading 2 with shimmer/i },
@@ -236,7 +233,6 @@ export const AnimationDurations: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all duration variants are rendered
     const durations = [
       "Fast (1 second)",
       "Default (2 seconds)",
@@ -274,7 +270,6 @@ export const SpreadValues: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all spread variants are rendered
     const spreads = [
       "Narrow spread (1)",
       "Default spread (2)",
@@ -312,7 +307,6 @@ export const LongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify long text content is rendered
     await Promise.all([
       expect(
         canvas.getByText(
@@ -356,7 +350,6 @@ export const InlineUsage: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify inline shimmer text is rendered within paragraphs
     const inlineTexts = [
       /Your request is/i,
       "processing",
@@ -407,7 +400,6 @@ export const CustomStyling: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify custom styled shimmer text is rendered
     const styledTexts = ["Large bold text", "Small muted text", "Medium semibold text"];
 
     await Promise.all(
@@ -442,7 +434,6 @@ export const LoadingStates: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify headings are present
     await expect(canvas.getByRole("heading", { name: /Processing Request/i })).toBeInTheDocument();
     await expect(canvas.getByRole("heading", { name: /System Status/i })).toBeInTheDocument();
 
@@ -510,7 +501,6 @@ export const Playground: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify shimmer text is rendered
     const shimmer = canvas.getByText("Playground shimmer text");
     await expect(shimmer).toBeInTheDocument();
   },
