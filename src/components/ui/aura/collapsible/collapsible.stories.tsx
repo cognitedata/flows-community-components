@@ -13,7 +13,7 @@ const expectCollapsibleOpen = async (container: ParentNode, timeout = 300) => {
     () => {
       const panel = getCollapsiblePanel(container);
       expect(panel).toBeInTheDocument();
-      expect(panel).toHaveAttribute("data-open");
+      expect(panel).toHaveAttribute("data-state", "open");
     },
     { timeout }
   );
@@ -27,7 +27,7 @@ const expectCollapsibleClosed = async (container: ParentNode, timeout = 300) => 
         expect(panel).not.toBeInTheDocument();
         return;
       }
-      expect(panel).toHaveAttribute("data-closed");
+      expect(panel).toHaveAttribute("data-state", "closed");
     },
     { timeout }
   );
@@ -124,7 +124,7 @@ export const Basic: Story = {
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>What is a collapsible?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -160,7 +160,6 @@ export const DefaultOpen: Story = {
     });
     await expect(trigger).toBeInTheDocument();
 
-    // Content should start open
     await expectCollapsibleOpen(canvasElement);
   },
   render: () => (
@@ -169,7 +168,7 @@ export const DefaultOpen: Story = {
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Frequently Asked Questions</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -209,10 +208,9 @@ export const Controlled: Story = {
     const toggleButton = canvas.getByRole("button", { name: /toggle/i });
     await expect(toggleButton).toBeInTheDocument();
 
-    const trigger = canvas.getByRole("button", { name: /controlled/i });
+    const trigger = canvas.getByRole("button", { name: /controlled collapsible/i });
     await expect(trigger).toBeInTheDocument();
 
-    // Click toggle to open
     await userEvent.click(toggleButton);
     await expectCollapsibleOpen(canvasElement);
   },
@@ -234,7 +232,7 @@ export const Controlled: Story = {
             render={
               <Button variant="ghost" className="w-full justify-between">
                 <span>Controlled Collapsible</span>
-                <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+                <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
               </Button>
             }
           />
@@ -323,7 +321,9 @@ export const Multiple: Story = {
     await expect(q1).toBeInTheDocument();
     await expect(q2).toBeInTheDocument();
 
-    const collapsibles = Array.from(canvasElement.querySelectorAll('[data-slot="collapsible"]'));
+    const collapsibles = Array.from(
+      canvasElement.querySelectorAll('[data-slot="collapsible"]')
+    ) as HTMLElement[];
     await expect(collapsibles.length).toBeGreaterThanOrEqual(2);
 
     await userEvent.click(q1);
@@ -332,6 +332,9 @@ export const Multiple: Story = {
     await userEvent.click(q2);
     await expectCollapsibleOpen(collapsibles[1]);
 
+    const contents = Array.from(
+      canvasElement.querySelectorAll('[data-slot="collapsible-content"]')
+    ) as HTMLElement[];
     await expect(contents[0]).toHaveAttribute("data-state", "open");
     await expect(contents[1]).toHaveAttribute("data-state", "open");
   },
@@ -342,7 +345,7 @@ export const Multiple: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between">
               <span>Question 1: What is React?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
             </Button>
           }
         />
@@ -359,7 +362,7 @@ export const Multiple: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between">
               <span>Question 2: What is TypeScript?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
             </Button>
           }
         />
@@ -375,7 +378,7 @@ export const Multiple: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between">
               <span>Question 3: What is Next.js?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
             </Button>
           }
         />
@@ -468,7 +471,7 @@ export const WithRichContent: Story = {
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Documentation</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -532,7 +535,7 @@ export const FAQ: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between text-left">
               <span>What&apos;s the difference between Collapsible and Accordion?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
           }
         />
@@ -550,7 +553,7 @@ export const FAQ: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between text-left">
               <span>How do I customize the styling?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
           }
         />
@@ -567,7 +570,7 @@ export const FAQ: Story = {
           render={
             <Button variant="ghost" className="w-full justify-between text-left">
               <span>Can I control the open state programmatically?</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0 ml-2" />
             </Button>
           }
         />
@@ -614,7 +617,7 @@ export const EdgeCaseEmpty: Story = {
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Empty Content</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180" />
           </Button>
         }
       />
@@ -658,7 +661,7 @@ export const EdgeCaseLongText: Story = {
         render={
           <Button variant="ghost" className="w-full justify-between">
             <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0" />
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-panel-open/collapsible-trigger:rotate-180 shrink-0" />
           </Button>
         }
       />
