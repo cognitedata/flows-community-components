@@ -7,5 +7,4 @@ export const BannerMetadata: ComponentMeta = {
     "A banner component for displaying important messages with icon, title, status, and actions.",
   llmUsage:
     "Use `<Banner>` with `<BannerTitle>`, `<BannerIcon>`, and `<BannerActions>` for notices.",
-  importPath: "@/components/ui/aura/banner",
 };

@@ -1,7 +1,7 @@
 /**
  * Radio Group Component
  *
- * A radio button group component built on Radix Radio Group.
+ * A radio button group component built on Base UI Radio Group.
  *
  * @example
  * import { RadioGroup, RadioGroupItem } from '@/components/ui/aura/radio-group';

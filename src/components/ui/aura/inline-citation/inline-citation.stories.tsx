@@ -28,7 +28,7 @@ import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inlin
 const meta: Meta<typeof InlineCitation> = {
   title: "AI/Inline Citation",
   component: InlineCitation,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Display
     className: {

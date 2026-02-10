@@ -6,5 +6,4 @@ export const BreadcrumbMetadata: ComponentMeta = {
   description: "A navigation component showing the users location in a hierarchy.",
   llmUsage:
     "Use `<Breadcrumb>` with `<BreadcrumbList>`, `<BreadcrumbItem>`, and `<BreadcrumbLink>` for navigation.",
-  importPath: "@/components/ui/aura/breadcrumb",
 };

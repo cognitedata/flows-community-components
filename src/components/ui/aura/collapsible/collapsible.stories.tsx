@@ -5,6 +5,34 @@ import { IconSelector } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 
+const getCollapsiblePanel = (container: ParentNode) =>
+  container.querySelector('[data-slot="collapsible-content"]') as HTMLElement | null;
+
+const expectCollapsibleOpen = async (container: ParentNode, timeout = 300) => {
+  await waitFor(
+    () => {
+      const panel = getCollapsiblePanel(container);
+      expect(panel).toBeInTheDocument();
+      expect(panel).toHaveAttribute("data-open");
+    },
+    { timeout }
+  );
+};
+
+const expectCollapsibleClosed = async (container: ParentNode, timeout = 300) => {
+  await waitFor(
+    () => {
+      const panel = getCollapsiblePanel(container);
+      if (!panel) {
+        expect(panel).not.toBeInTheDocument();
+        return;
+      }
+      expect(panel).toHaveAttribute("data-closed");
+    },
+    { timeout }
+  );
+};
+
 const meta: Meta<typeof Collapsible> = {
   title: "Primitives/Collapsible",
   component: Collapsible,
@@ -85,29 +113,21 @@ export const Basic: Story = {
     await expect(content).toBeInTheDocument();
 
     await userEvent.click(trigger);
-    await waitFor(
-      () => {
-        expect(content).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleOpen(canvasElement);
 
     await userEvent.click(trigger);
-    await waitFor(
-      () => {
-        expect(content).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleClosed(canvasElement);
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>What is a collapsible?</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>What is a collapsible?</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2">
           A collapsible is an interactive component that expands and collapses to show or hide
@@ -141,18 +161,18 @@ export const DefaultOpen: Story = {
     await expect(trigger).toBeInTheDocument();
 
     // Content should start open
-    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
-    await expect(content).toBeInTheDocument();
-    await expect(content).toHaveAttribute("data-state", "open");
+    await expectCollapsibleOpen(canvasElement);
   },
   render: () => (
     <Collapsible defaultOpen className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Frequently Asked Questions</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Frequently Asked Questions</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2">
           <p className="mb-2">
@@ -194,13 +214,7 @@ export const Controlled: Story = {
 
     // Click toggle to open
     await userEvent.click(toggleButton);
-    await waitFor(
-      () => {
-        const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
-        expect(content).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleOpen(canvasElement);
   },
   render: function ControlledCollapsibleStory() {
     const [isOpen, setIsOpen] = useState(false);
@@ -216,12 +230,14 @@ export const Controlled: Story = {
           </span>
         </div>
         <Collapsible open={isOpen} onOpenChange={setIsOpen} className="space-y-2">
-          <CollapsibleTrigger asChild>
-            <Button variant="ghost" className="w-full justify-between">
-              <span>Controlled Collapsible</span>
-              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-            </Button>
-          </CollapsibleTrigger>
+          <CollapsibleTrigger
+            render={
+              <Button variant="ghost" className="w-full justify-between">
+                <span>Controlled Collapsible</span>
+                <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+              </Button>
+            }
+          />
           <CollapsibleContent>
             <div className="px-4 py-2">
               This collapsible is controlled externally. The open state is managed by React state,
@@ -258,21 +274,18 @@ export const WithCustomTrigger: Story = {
     await expect(content).toHaveAttribute("data-state", "closed");
 
     await userEvent.click(trigger);
-    await waitFor(
-      () => {
-        expect(content).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleOpen(canvasElement);
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="outline" className="w-full justify-between font-semibold">
-          <span>Advanced Settings</span>
-          <IconSelector className="h-4 w-4" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="outline" className="w-full justify-between font-semibold">
+            <span>Advanced Settings</span>
+            <IconSelector className="h-4 w-4" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-2">
           <p>Here are some advanced settings you can configure:</p>
@@ -310,24 +323,14 @@ export const Multiple: Story = {
     await expect(q1).toBeInTheDocument();
     await expect(q2).toBeInTheDocument();
 
-    const contents = canvasElement.querySelectorAll('[data-slot="collapsible-content"]');
-    await expect(contents.length).toBeGreaterThanOrEqual(2);
+    const collapsibles = Array.from(canvasElement.querySelectorAll('[data-slot="collapsible"]'));
+    await expect(collapsibles.length).toBeGreaterThanOrEqual(2);
 
     await userEvent.click(q1);
-    await waitFor(
-      () => {
-        expect(contents[0]).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleOpen(collapsibles[0]);
 
     await userEvent.click(q2);
-    await waitFor(
-      () => {
-        expect(contents[1]).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleOpen(collapsibles[1]);
 
     await expect(contents[0]).toHaveAttribute("data-state", "open");
     await expect(contents[1]).toHaveAttribute("data-state", "open");
@@ -335,12 +338,14 @@ export const Multiple: Story = {
   render: () => (
     <div className="space-y-2 w-[400px]">
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between">
-            <span>Question 1: What is React?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between">
+              <span>Question 1: What is React?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             React is a JavaScript library for building user interfaces, particularly web
@@ -350,12 +355,14 @@ export const Multiple: Story = {
       </Collapsible>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between">
-            <span>Question 2: What is TypeScript?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between">
+              <span>Question 2: What is TypeScript?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
@@ -364,12 +371,14 @@ export const Multiple: Story = {
       </Collapsible>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between">
-            <span>Question 3: What is Next.js?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between">
+              <span>Question 3: What is Next.js?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             Next.js is a React framework for production with features like server-side rendering and
@@ -409,12 +418,14 @@ export const Disabled: Story = {
   },
   render: () => (
     <Collapsible disabled className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between" disabled>
-          <span>Disabled Collapsible</span>
-          <IconSelector className="h-4 w-4" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between" disabled>
+            <span>Disabled Collapsible</span>
+            <IconSelector className="h-4 w-4" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2">
           This content cannot be accessed because the collapsible is disabled.
@@ -453,12 +464,14 @@ export const WithRichContent: Story = {
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Documentation</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Documentation</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-3">
           <h3 className="font-semibold text-base">Getting Started</h3>
@@ -515,12 +528,14 @@ export const FAQ: Story = {
       <h2 className="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-left">
-            <span>What&apos;s the difference between Collapsible and Accordion?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between text-left">
+              <span>What&apos;s the difference between Collapsible and Accordion?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             Collapsibles work independently—multiple can be open at once. The Collapsible component
@@ -531,12 +546,14 @@ export const FAQ: Story = {
       </Collapsible>
 
       <Collapsible className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-left">
-            <span>How do I customize the styling?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between text-left">
+              <span>How do I customize the styling?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             You can customize the styling by passing className props to any of the collapsible
@@ -546,12 +563,14 @@ export const FAQ: Story = {
       </Collapsible>
 
       <Collapsible defaultOpen className="space-y-2">
-        <CollapsibleTrigger asChild>
-          <Button variant="ghost" className="w-full justify-between text-left">
-            <span>Can I control the open state programmatically?</span>
-            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
-          </Button>
-        </CollapsibleTrigger>
+        <CollapsibleTrigger
+          render={
+            <Button variant="ghost" className="w-full justify-between text-left">
+              <span>Can I control the open state programmatically?</span>
+              <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0 ml-2" />
+            </Button>
+          }
+        />
         <CollapsibleContent>
           <div className="px-4 py-2">
             Yes! Use the open prop for controlled state, or defaultOpen for uncontrolled state with
@@ -587,21 +606,18 @@ export const EdgeCaseEmpty: Story = {
     await expect(content).toBeInTheDocument();
 
     await userEvent.click(trigger);
-    await waitFor(
-      () => {
-        expect(content).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleOpen(canvasElement);
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Empty Content</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Empty Content</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2" />
       </CollapsibleContent>
@@ -632,24 +648,20 @@ export const EdgeCaseLongText: Story = {
     await expect(trigger).toBeInTheDocument();
 
     await userEvent.click(trigger);
-    await waitFor(
-      () => {
-        const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
-        expect(content).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 300 }
-    );
+    await expectCollapsibleOpen(canvasElement);
 
     await expect(canvas.getByText(/this is an extremely long paragraph/i)).toBeInTheDocument();
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
-      <CollapsibleTrigger asChild>
-        <Button variant="ghost" className="w-full justify-between">
-          <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
-          <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible-trigger:rotate-180 shrink-0" />
-        </Button>
-      </CollapsibleTrigger>
+      <CollapsibleTrigger
+        render={
+          <Button variant="ghost" className="w-full justify-between">
+            <span>Very Long Title That Might Wrap to Multiple Lines in Narrow Viewports</span>
+            <IconSelector className="h-4 w-4 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-180 shrink-0" />
+          </Button>
+        }
+      />
       <CollapsibleContent>
         <div className="px-4 py-2 space-y-2">
           <p className="text-sm">

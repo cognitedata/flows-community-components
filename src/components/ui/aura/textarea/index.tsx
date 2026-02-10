@@ -1,12 +1,3 @@
-/**
- * Textarea Component
- *
- * A multi-line text input component.
- *
- * @example
- * import { Textarea } from '@/components/ui/aura/textarea';
- *
- * <Textarea placeholder="Enter description..." />
- */
+/** Textarea component. */
 export { Textarea } from "./textarea";
 export { TextareaMetadata } from "./textarea.metadata";

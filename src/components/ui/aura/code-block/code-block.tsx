@@ -13,6 +13,18 @@ import {
 } from "react";
 import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
 
+const isStorybookTestEnv =
+  typeof window !== "undefined" &&
+  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ === true;
+
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {
   code: string;
   copyText?: string;
@@ -99,6 +111,15 @@ export const CodeBlock = ({
   const textToCopy = copyText ?? code;
 
   useEffect(() => {
+    if (isStorybookTestEnv) {
+      const escaped = escapeHtml(code);
+      const markup = `<pre><code>${escaped}</code></pre>`;
+      setHtml(markup);
+      setDarkHtml(markup);
+      mounted.current = true;
+      return;
+    }
+
     highlightCode(code, language, showLineNumbers).then(([light, dark]) => {
       if (!mounted.current) {
         setHtml(light);

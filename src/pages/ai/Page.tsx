@@ -1,5 +1,4 @@
-import { Card, CardContent } from "@/components/ui/aura/card";
-import { Link } from "react-router-dom";
+import { CatalogIndex } from "@/pages/components/CatalogIndex";
 
 const components = [
   { name: "Code block", description: "Syntax-highlighted code display" },
@@ -18,32 +17,25 @@ const components = [
 
 export default function AIPage() {
   return (
-    <div className="max-w-4xl mx-auto py-10">
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-4xl font-bold tracking-tight">Components</h1>
-          <p className="text-lg text-muted-foreground mt-2">All available AI element components</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-          {components.map((component) => (
-            <Link
-              key={component.name}
-              to={`/ai/${component.name.toLowerCase().replace(/\s+/g, "-")}`}
-              className="block"
-            >
-              <Card className="h-full transition-colors hover:border-primary">
-                <CardContent className="py-4">
-                  <div className="space-y-1">
-                    <div className="text-foreground font-medium">{component.name}</div>
-                    <p className="text-sm text-muted-foreground">{component.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
+    <CatalogIndex
+      title="Components"
+      description="All available AI element components"
+      storageKey="aura.ai.viewMode"
+      sections={[
+        {
+          id: "ai-components",
+          items: components.map((component) => {
+            const slug = component.name.toLowerCase().replace(/\s+/g, "-");
+            return {
+              id: slug,
+              name: component.name,
+              description: component.description,
+              href: `/ai/${slug}`,
+              progressStatus: "untracked",
+            };
+          }),
+        },
+      ]}
+    />
   );
 }
