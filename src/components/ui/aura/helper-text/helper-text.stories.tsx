@@ -12,7 +12,6 @@ const meta: Meta<typeof HelperText> = {
   component: HelperText,
   tags: ["autodocs"],
   argTypes: {
-    // Display
     size: {
       control: "select",
       options: ["xs", "sm"],
@@ -31,7 +30,6 @@ const meta: Meta<typeof HelperText> = {
       },
     },
 
-    // State
     isError: {
       control: "boolean",
       description: "Show error state with destructive color",
@@ -51,7 +49,6 @@ const meta: Meta<typeof HelperText> = {
       },
     },
 
-    // Content
     icon: {
       control: false,
       description: "Custom icon to display. Defaults to error icon when isError is true",
@@ -94,7 +91,6 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("This is helpful information for the user.");
 
-    // Verify helper text is present and has correct color
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-muted-foreground");
   },
@@ -117,10 +113,8 @@ export const SizeXS: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Compact helper text for tight spaces.");
 
-    // Verify helper text is present
     await expect(helperText).toBeInTheDocument();
 
-    // Verify the parent container has the correct size class
     await expect(helperText.parentElement).toHaveClass("text-xs");
   },
   render: () => <HelperText size="xs">Compact helper text for tight spaces.</HelperText>,
@@ -142,10 +136,8 @@ export const SizeSM: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Standard sized helper text.");
 
-    // Verify helper text is present
     await expect(helperText).toBeInTheDocument();
 
-    // The root element of HelperText should have the 'text-sm' class
     await expect(helperText.parentElement).toHaveClass("text-sm");
   },
   render: () => <HelperText size="sm">Standard sized helper text.</HelperText>,
@@ -168,11 +160,9 @@ export const ErrorState: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("This field is required.");
 
-    // Verify error text is present with destructive color
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-destructive-foreground");
 
-    // Verify error icon is present
     const icon = canvasElement.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
@@ -195,11 +185,9 @@ export const Success: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Password meets all requirements.");
 
-    // Verify success text is present with success color
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-success-foreground");
 
-    // Verify success icon is present
     const icon = canvasElement.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
@@ -226,10 +214,8 @@ export const WithCustomIcon: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Your data is encrypted and secure.");
 
-    // Verify helper text is present
     await expect(helperText).toBeInTheDocument();
 
-    // Verify custom icon is present
     const icon = canvasElement.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
@@ -254,10 +240,8 @@ export const Warning: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Changes cannot be undone after saving.");
 
-    // Verify warning text is present
     await expect(helperText).toBeInTheDocument();
 
-    // Verify warning icon is present
     const icon = canvasElement.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
@@ -282,10 +266,8 @@ export const Tip: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Pro tip: Use keyboard shortcuts to work faster.");
 
-    // Verify tip text is present
     await expect(helperText).toBeInTheDocument();
 
-    // Verify tip icon is present
     const icon = canvasElement.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
@@ -310,10 +292,8 @@ export const NoIcon: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText("Simple text without an icon.");
 
-    // Verify helper text is present
     await expect(helperText).toBeInTheDocument();
 
-    // Verify no icon is present
     const icon = canvasElement.querySelector("svg");
     await expect(icon).not.toBeInTheDocument();
   },
@@ -337,10 +317,8 @@ export const LongText: Story = {
     const canvas = within(canvasElement);
     const helperText = canvas.getByText(/This is a longer piece of helper text/);
 
-    // Verify long text is present
     await expect(helperText).toBeInTheDocument();
 
-    // Verify icon is present
     const icon = canvasElement.querySelector("svg");
     await expect(icon).toBeInTheDocument();
   },
@@ -368,19 +346,16 @@ export const InteractiveFormExample: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByLabelText("Email address");
 
-    // Initial state
     await expect(
       canvas.getByText("Enter your email to receive notifications.")
     ).toBeInTheDocument();
 
-    // Type invalid email
     await userEvent.type(input, "invalid-email", { delay: 50 });
     await expect(canvas.getByText("Please enter a valid email address.")).toBeInTheDocument();
     await expect(
       canvas.queryByText("Enter your email to receive notifications.")
     ).not.toBeInTheDocument();
 
-    // Type valid email
     await userEvent.clear(input);
     await userEvent.type(input, "valid@email.com", { delay: 50 });
     await expect(canvas.getByText("Email format is valid.")).toBeInTheDocument();
@@ -445,14 +420,12 @@ export const SizeComparison: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify both sizes are rendered
     const xsText = canvas.getByText("This is extra small helper text");
     const smText = canvas.getByText("This is small helper text");
 
     await expect(xsText).toBeInTheDocument();
     await expect(smText).toBeInTheDocument();
 
-    // Verify correct size classes
     await expect(xsText.parentElement).toHaveClass("text-xs");
     await expect(smText.parentElement).toHaveClass("text-sm");
   },
@@ -489,7 +462,6 @@ export const AllStates: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all states are rendered
     await expect(canvas.getByText("This is default helper text.")).toBeInTheDocument();
     await expect(canvas.getByText("This field contains an error.")).toBeInTheDocument();
     await expect(canvas.getByText("Successfully validated.")).toBeInTheDocument();
@@ -497,11 +469,9 @@ export const AllStates: Story = {
     await expect(canvas.getByText("Proceed with caution.")).toBeInTheDocument();
     await expect(canvas.getByText("Simple text without an icon.")).toBeInTheDocument();
 
-    // Verify error state has correct color
     const errorText = canvas.getByText("This field contains an error.");
     await expect(errorText).toHaveClass("text-destructive-foreground");
 
-    // Verify success state has correct color
     const successText = canvas.getByText("Successfully validated.");
     await expect(successText).toHaveClass("text-success-foreground");
   },
@@ -552,12 +522,10 @@ export const WithFormFields: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify form fields are rendered with correct labels
     await expect(canvas.getByLabelText("Username")).toBeInTheDocument();
     await expect(canvas.getByLabelText("Password")).toBeInTheDocument();
     await expect(canvas.getByLabelText("Confirm Password")).toBeInTheDocument();
 
-    // Verify helper texts are present
     await expect(
       canvas.getByText("Choose a unique username. Only letters, numbers, and underscores.")
     ).toBeInTheDocument();
@@ -565,7 +533,6 @@ export const WithFormFields: Story = {
       canvas.getByText("Must be at least 8 characters with a mix of letters and numbers.")
     ).toBeInTheDocument();
 
-    // Verify error helper text is present with correct styling
     const errorText = canvas.getByText("Passwords do not match.");
     await expect(errorText).toBeInTheDocument();
     await expect(errorText).toHaveClass("text-destructive-foreground");
@@ -616,19 +583,15 @@ export const StatefulValidation: Story = {
     const input = canvas.getByLabelText("Name");
     const button = canvas.getByRole("button", { name: /Validate/i });
 
-    // Initial state
     await expect(canvas.getByText("Enter your name and click validate.")).toBeInTheDocument();
 
-    // Test validation with empty input
     await userEvent.click(button);
     await expect(canvas.getByText("Name must be at least 5 characters long.")).toBeInTheDocument();
 
-    // Test validation with short input
     await userEvent.type(input, "test", { delay: 50 });
     await userEvent.click(button);
     await expect(canvas.getByText("Name must be at least 5 characters long.")).toBeInTheDocument();
 
-    // Test validation with valid input
     await userEvent.clear(input);
     await userEvent.type(input, "valid name", { delay: 50 });
     await userEvent.click(button);
