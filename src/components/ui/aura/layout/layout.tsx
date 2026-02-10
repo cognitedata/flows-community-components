@@ -276,6 +276,194 @@ export function getResponsiveSpan(base: number, sm: number, md: number): string 
 // Code Examples for LLM Consumption
 // =============================================================================
 
+// =============================================================================
+// Recommended Layout Patterns
+// =============================================================================
+
+/**
+ * Common layout patterns for typical application use cases.
+ * These patterns are used in the Aura documentation and represent
+ * designer-recommended configurations. LLMs and developers can use these
+ * as starting points and adapt them as needed.
+ */
+export interface LayoutPattern {
+  name: string;
+  useCase: string;
+  structure: string;
+  containerClass: string;
+  gridClass: string;
+  characteristics: string[];
+  notes: string;
+  example: string;
+}
+
+export const recommendedLayouts: LayoutPattern[] = [
+  {
+    name: "Dashboard - Unified Grid",
+    useCase: "Metric dashboards with cards that can hide at smaller sizes",
+    structure: "Single 12-column grid containing all cards",
+    containerClass: "@container",
+    gridClass:
+      "grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl",
+    characteristics: [
+      "Status cards: col-span-12 @3xl:col-span-4 (3 equal cards)",
+      "KPI cards: col-span-6 @3xl:col-span-3 (4 cards, some hide at smaller sizes with hidden @breakpoint:block)",
+      "Large chart: col-span-12 @5xl:col-span-8",
+      "Sidebar widget: col-span-12 @5xl:col-span-4 hidden @5xl:block",
+    ],
+    notes:
+      "Simpler structure but may leave gaps when items hide. Best for dashboards where not all metrics need to be visible at all sizes.",
+    example: `<div className="@container">
+  <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl">
+    <Card className="col-span-12 @3xl:col-span-4">{/* Status card 1 */}</Card>
+    <Card className="col-span-12 @3xl:col-span-4">{/* Status card 2 */}</Card>
+    <Card className="col-span-12 @3xl:col-span-4">{/* Status card 3 */}</Card>
+    
+    <Card className="col-span-6 @3xl:col-span-3">{/* KPI 1 */}</Card>
+    <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">{/* KPI 2 */}</Card>
+    <Card className="col-span-6 @3xl:col-span-3">{/* KPI 3 */}</Card>
+    <Card className="col-span-6 @3xl:col-span-3 hidden @2xl:block">{/* KPI 4 */}</Card>
+    
+    <Card className="col-span-12 @5xl:col-span-8">{/* Main chart */}</Card>
+    <Card className="col-span-12 @5xl:col-span-4 hidden @5xl:block">{/* Image widget */}</Card>
+  </div>
+</div>`,
+  },
+  {
+    name: "Dashboard - Main + Sidebar",
+    useCase: "Dashboards with persistent sidebar and main content area",
+    structure: "12-column grid with nested grids in main area (8 cols) and sidebar (4 cols)",
+    containerClass: "@container",
+    gridClass:
+      "grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl",
+    characteristics: [
+      "Main area: col-span-12 @5xl:col-span-8 grid grid-cols-12 gap-3 (nested grid)",
+      "Sidebar: col-span-12 @5xl:col-span-4 space-y-3 (vertical stack)",
+      "Cards inside main use nested 12-col grid (e.g., col-span-12 @3xl:col-span-4 for status cards)",
+      "Sidebar stacks vertically, collapses below main on smaller screens",
+    ],
+    notes:
+      "More predictable responsive behavior with no gaps. Better for layouts with distinct content areas that should stay together.",
+    example: `<div className="@container">
+  <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl">
+    {/* Main area with nested grid */}
+    <div className="col-span-12 @5xl:col-span-8 grid grid-cols-12 gap-3">
+      <Card className="col-span-12 @3xl:col-span-4">{/* Status card 1 */}</Card>
+      <Card className="col-span-12 @3xl:col-span-4">{/* Status card 2 */}</Card>
+      <Card className="col-span-12 @3xl:col-span-4">{/* Status card 3 */}</Card>
+      <Card className="col-span-12">{/* Large chart */}</Card>
+      <Card className="col-span-12 @3xl:col-span-6">{/* Metric A */}</Card>
+      <Card className="col-span-12 @3xl:col-span-6">{/* Metric B */}</Card>
+    </div>
+    
+    {/* Sidebar - collapses below main on smaller screens */}
+    <div className="col-span-12 @5xl:col-span-4 space-y-3">
+      <Card>{/* Recent activity */}</Card>
+      <Card>{/* Quick stats */}</Card>
+      <Card>{/* Alerts */}</Card>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    name: "AI Chat / Focused Reading",
+    useCase: "Conversational interfaces, article content, forms requiring focused reading",
+    structure: "12-column grid with content spanning 8 centered columns at larger sizes",
+    containerClass: "@container",
+    gridClass:
+      "grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl",
+    characteristics: [
+      "Content: col-span-12 @5xl:col-start-3 @5xl:col-span-8",
+      "Full width (12 cols) below 1024px for maximum space on mobile",
+      "Centered 8 columns at 1024px+ for optimal reading width",
+      "Use col-start-3 to center the 8-column span in the 12-column grid",
+    ],
+    notes:
+      "Maintains readable line lengths and focused attention. Prevents content from becoming too wide on large screens, which is important for readability.",
+    example: `<div className="@container">
+  <div className="grid grid-cols-12 gap-3 mx-auto px-2 py-6 max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl">
+    {/* Centered 8-column content area */}
+    <div className="col-span-12 @5xl:col-start-3 @5xl:col-span-8">
+      <Conversation>
+        {/* Your chat messages or article content */}
+      </Conversation>
+    </div>
+  </div>
+</div>`,
+  },
+  {
+    name: "Sidebar Left / Right",
+    useCase: "Navigation panels, settings pages, detail panels, contextual information",
+    structure: "12-column grid with asymmetric split between sidebar and main content",
+    containerClass: "@container",
+    gridClass: "grid grid-cols-12 gap-3",
+    characteristics: [
+      "Sidebar: col-span-4 @sm:col-span-2 @md:col-span-3 (narrow, ~25%)",
+      "Main: col-span-4 @sm:col-span-6 @md:col-span-9 (wide, ~75%)",
+      "Stacks vertically on mobile (both take full width)",
+      "Swap order in markup for right sidebar",
+    ],
+    notes:
+      "Traditional sidebar layout. Consider nested grids inside main area for complex content. Good for navigation or contextual information that should be visible alongside main content.",
+    example: `<div className="@container">
+  <div className="grid grid-cols-12 gap-3">
+    {/* Sidebar */}
+    <aside className="col-span-4 @sm:col-span-2 @md:col-span-3">
+      <nav>{/* Navigation */}</nav>
+    </aside>
+    
+    {/* Main content */}
+    <main className="col-span-4 @sm:col-span-6 @md:col-span-9">
+      <article>{/* Main content */}</article>
+    </main>
+  </div>
+</div>`,
+  },
+  {
+    name: "Two Column Equal",
+    useCase: "Comparison views, side-by-side content, before/after displays",
+    structure: "12-column grid with two equal-width areas",
+    containerClass: "@container",
+    gridClass: "grid grid-cols-12 gap-3",
+    characteristics: [
+      "Each column: col-span-4 @sm:col-span-4 @md:col-span-6 (50% each at tablet+)",
+      "Stacks vertically on mobile (col-span-4 = full width)",
+      "Side-by-side on tablet and above",
+    ],
+    notes:
+      "Simple equal split for comparison layouts. Adjust spans if you need different proportions (e.g., 7/5 split for primary/secondary content).",
+    example: `<div className="@container">
+  <div className="grid grid-cols-12 gap-3">
+    <div className="col-span-4 @sm:col-span-4 @md:col-span-6">
+      {/* Left content */}
+    </div>
+    <div className="col-span-4 @sm:col-span-4 @md:col-span-6">
+      {/* Right content */}
+    </div>
+  </div>
+</div>`,
+  },
+];
+
+/**
+ * Key principles for using the Aura layout system.
+ * These apply to all layout patterns and should guide implementation decisions.
+ */
+export const layoutPrinciples = [
+  "Always use @container wrapper to enable container queries",
+  "Use 12-column grid at all breakpoints (grid-cols-12) for maximum flexibility",
+  "Apply stepped max-widths: max-w-2xl @2xl:max-w-2xl @3xl:max-w-3xl @5xl:max-w-5xl @7xl:max-w-7xl @8xl:max-w-8xl",
+  "Center content with mx-auto and appropriate padding (px-2, py-6 recommended)",
+  "Use col-span-X with @breakpoint:col-span-Y for responsive behavior",
+  "Hide cards at smaller sizes with hidden @breakpoint:block when needed",
+  "Nest grids inside grid items for complex layouts (main+sidebar pattern)",
+  "Container queries respond to parent width, not viewport, enabling component-based responsive design",
+] as const;
+
+// =============================================================================
+// Code Examples for LLM Consumption
+// =============================================================================
+
 export const layoutExamples = {
   basicGrid: `
 <!-- Basic responsive grid -->
@@ -381,3 +569,4 @@ export const layoutExamples = {
 
 export type GridPattern = keyof typeof gridPatterns;
 export type LayoutComposition = keyof typeof layoutCompositions;
+export type RecommendedLayoutName = (typeof recommendedLayouts)[number]["name"];

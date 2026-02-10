@@ -37,4 +37,23 @@ export interface ComponentMeta {
   relatedComponents?: string[];
   notes?: string[];
   codeExamples?: CodeExample[];
+  layoutPatterns?: {
+    description: string;
+    patterns: Array<{
+      name: string;
+      useCase: string;
+      structure: string;
+      classPattern: string;
+      characteristics: string[];
+      notes: string;
+    }>;
+    keyPrinciples: string[];
+    breakpoints: Array<{
+      name: string;
+      min: string;
+      max?: string;
+      columns: number;
+      prefix: string;
+    }>;
+  };
 }

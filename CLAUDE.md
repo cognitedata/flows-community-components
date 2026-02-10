@@ -92,6 +92,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
+- When adding structured data for LLM consumption via the registry, export it directly from the component file (e.g., `layout.tsx`) rather than only in the metadata file. The registry build process includes the full component source code, making exports like `recommendedLayouts` and `layoutPrinciples` available to LLMs. Update the metadata file's `llmUsage` field to guide LLMs to these exports.
 
 # Storybook Stories
 
