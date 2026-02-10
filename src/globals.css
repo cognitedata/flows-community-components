@@ -346,7 +346,6 @@
   --font-source-code-pro: "Source Code Pro", monospace;
   --code-block-collapsed-height: 6.5rem;
   --code-block-fade-height: 0.9375rem;
-  --message-content-max-width: 80%;
 
   /* Component-specific sizing */
   --alert-icon-width: calc(var(--spacing) * 4);

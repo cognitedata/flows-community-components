@@ -85,10 +85,7 @@ const meta: Meta<typeof Conversation> = {
   },
   decorators: [
     (Story) => (
-      <div
-        className="h-[600px] w-full flex flex-col border rounded-lg"
-        style={{ "--message-content-max-width": "600px" } as React.CSSProperties}
-      >
+      <div className="h-[600px] w-full flex flex-col border rounded-lg">
         <Story />
       </div>
     ),
