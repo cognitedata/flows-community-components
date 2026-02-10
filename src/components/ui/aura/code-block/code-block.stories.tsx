@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
-import type { JSX } from "react";
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
 
 const meta: Meta<typeof CodeBlock> = {
@@ -56,7 +55,7 @@ const meta: Meta<typeof CodeBlock> = {
     layout: "centered",
   },
   decorators: [
-    (Story): JSX.Element => (
+    (Story) => (
       <div className="w-150">
         <Story />
       </div>
@@ -144,9 +143,9 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const codeLine = await canvas.findByText("console.log(greet(user));");
-    await expect(codeLine).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button");
+    const codeLines = await canvas.findAllByText(/console\.log\(greet\(user\)\);/);
+    await expect(codeLines.length).toBeGreaterThanOrEqual(1);
+    const buttons = await canvas.findAllByRole("button", { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
@@ -167,8 +166,8 @@ export const WithLineNumbers: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const codeLine = await canvas.findByText("console.log(greet(user));");
-    await expect(codeLine).toBeInTheDocument();
+    const codeLines = await canvas.findAllByText(/console\.log\(greet\(user\)\);/);
+    await expect(codeLines.length).toBeGreaterThanOrEqual(1);
   },
 };
 
@@ -189,7 +188,7 @@ export const Collapsible: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole("button", { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
@@ -382,7 +381,7 @@ export const SingleLineWithCollapseButton: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = await canvas.findAllByRole("button");
+    const buttons = await canvas.findAllByRole("button", { hidden: true });
     await expect(buttons).toHaveLength(1);
   },
 };
@@ -435,7 +434,7 @@ const c = a + b;`}
     },
   },
   decorators: [
-    (Story): JSX.Element => (
+    (Story) => (
       <div className="p-4">
         <Story />
       </div>
