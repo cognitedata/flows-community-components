@@ -85,7 +85,7 @@ const meta: Meta<typeof Conversation> = {
   },
   decorators: [
     (Story) => (
-      <div className="h-[600px] w-full flex flex-col border rounded-lg">
+      <div className="h-150 w-full flex flex-col border rounded-lg">
         <Story />
       </div>
     ),
