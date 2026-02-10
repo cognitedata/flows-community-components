@@ -467,6 +467,17 @@ export const WithBackButton: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /open dialog with back/i });
+    await userEvent.click(trigger);
+
+    const backButton = await canvas.findByRole("button", { name: /go back/i });
+    expect(backButton).toBeInTheDocument();
+
+    const title = await canvas.findByText("Title");
+    expect(title).toBeInTheDocument();
+  },
   parameters: {
     order: 10,
     docs: {
