@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, waitFor, within } from "@storybook/test";
+import { useEffect, useState } from "react";
 import { Shimmer } from "./shimmer";
 
 const meta: Meta<typeof Shimmer> = {
@@ -427,7 +428,8 @@ export const LoadingStates: Story = {
     order: 9,
     docs: {
       description: {
-        story: "Shimmer effects used in realistic loading state scenarios.",
+        story:
+          "Shimmer effects used in realistic loading state scenarios, transitioning to a final state.",
       },
     },
   },
@@ -437,44 +439,72 @@ export const LoadingStates: Story = {
     await expect(canvas.getByRole("heading", { name: /Processing Request/i })).toBeInTheDocument();
     await expect(canvas.getByRole("heading", { name: /System Status/i })).toBeInTheDocument();
 
-    // Verify shimmer loading states are rendered
-    const loadingStates = [
-      "Analyzing input parameters...",
-      "Generating response...",
-      "Finalizing results...",
-      "Data synchronization in progress",
-      "Calculating...",
-    ];
+    await expect(canvas.getByText("Analyzing input parameters...")).toBeInTheDocument();
+    await expect(canvas.getByText("Data synchronization in progress")).toBeInTheDocument();
 
-    await Promise.all(
-      loadingStates.map((state) => expect(canvas.getByText(state)).toBeInTheDocument())
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Input parameters analyzed.")).toBeInTheDocument();
+        expect(canvas.getByText("Data synchronization complete.")).toBeInTheDocument();
+      },
+      { timeout: 4000 }
+    );
+
+    await waitFor(() => {
+      expect(canvas.queryByText("Analyzing input parameters...")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Data synchronization in progress")).not.toBeInTheDocument();
+    });
+  },
+  render: function LoadingStatesStory() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }, []);
+
+    return (
+      <div className="w-full flex flex-col items-start gap-6 max-w-md">
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold">Processing Request</h3>
+          {loading ? (
+            <>
+              <Shimmer>Analyzing input parameters...</Shimmer>
+              <Shimmer variant="aurora">Generating response...</Shimmer>
+              <Shimmer variant="nordic">Finalizing results...</Shimmer>
+            </>
+          ) : (
+            <p className="text-sm text-muted-foreground">Input parameters analyzed.</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold">System Status</h3>
+          <p className="text-sm">
+            Current operation:{" "}
+            {loading ? (
+              <Shimmer as="span" variant="dusk">
+                Data synchronization in progress
+              </Shimmer>
+            ) : (
+              <span className="text-green-500 font-medium">Data synchronization complete.</span>
+            )}
+          </p>
+          <p className="text-sm">
+            Estimated time:{" "}
+            {loading ? (
+              <Shimmer as="span" variant="equinox">
+                Calculating...
+              </Shimmer>
+            ) : (
+              <span>Completed.</span>
+            )}
+          </p>
+        </div>
+      </div>
     );
   },
-  render: () => (
-    <div className="w-full flex flex-col items-start gap-6 max-w-md">
-      <div className="space-y-2">
-        <h3 className="text-lg font-semibold">Processing Request</h3>
-        <Shimmer>Analyzing input parameters...</Shimmer>
-        <Shimmer variant="aurora">Generating response...</Shimmer>
-        <Shimmer variant="nordic">Finalizing results...</Shimmer>
-      </div>
-      <div className="space-y-2">
-        <h3 className="text-lg font-semibold">System Status</h3>
-        <p className="text-sm">
-          Current operation:{" "}
-          <Shimmer as="span" variant="dusk">
-            Data synchronization in progress
-          </Shimmer>
-        </p>
-        <p className="text-sm">
-          Estimated time:{" "}
-          <Shimmer as="span" variant="equinox">
-            Calculating...
-          </Shimmer>
-        </p>
-      </div>
-    </div>
-  ),
 };
 
 /**
