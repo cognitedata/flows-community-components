@@ -453,12 +453,7 @@ export const WithBackButton: Story = {
       <DialogContent>
         <DialogHeader className="items-start text-left">
           <div className="flex items-center gap-3">
-            <Button
-              variant="secondary"
-              size="icon"
-              className="shrink-0"
-              aria-label="Go back"
-            >
+            <Button variant="secondary" size="icon" className="shrink-0" aria-label="Go back">
               <IconChevronLeft className="h-4 w-4" />
             </Button>
             <DialogTitle>Title</DialogTitle>
@@ -588,8 +583,9 @@ export const AsyncAction: Story = {
       expect(dialog).toBeInTheDocument();
     });
 
-    const confirmButton = await canvas.findByTestId("async-confirm");
-    await userEvent.click(confirmButton);
+    const confirmButton = document.querySelector('[data-testid="async-confirm"]');
+    expect(confirmButton).toBeInTheDocument();
+    await userEvent.click(confirmButton!);
 
     await waitFor(() => {
       expect(confirmButton).toHaveTextContent("Saving...");
