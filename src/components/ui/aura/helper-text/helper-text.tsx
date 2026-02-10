@@ -34,7 +34,7 @@ const helperTextIconVariants = cva("shrink-0", {
   },
 });
 
-export interface HelperTextProps
+interface HelperTextProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof helperTextVariants> {
   isError?: boolean;
@@ -48,6 +48,7 @@ const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
     ref
   ) => {
     const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
+    const iconElement = displayIcon as ReactElement<{ className?: string }> | null;
 
     const textColor = isError
       ? "text-destructive-foreground"
@@ -55,13 +56,13 @@ const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
         ? "text-success-foreground"
         : "text-muted-foreground";
 
-    const iconWithClasses = displayIcon
-      ? cloneElement(displayIcon as ReactElement<{ className?: string }>, {
+    const iconWithClasses = iconElement
+      ? cloneElement(iconElement, {
           className: cn(
             helperTextIconVariants({ size }),
             size === "sm" && "mt-0.25",
             textColor,
-            (displayIcon as ReactElement<{ className?: string }>).props?.className
+            iconElement.props?.className
           ),
         })
       : null;
@@ -82,3 +83,4 @@ const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
 HelperText.displayName = "HelperText";
 
 export { HelperText };
+export type { HelperTextProps };
