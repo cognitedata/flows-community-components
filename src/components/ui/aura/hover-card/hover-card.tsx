@@ -54,6 +54,7 @@ const HoverCardContent = forwardRef<
     return (
       <PreviewCardPrimitive.Portal data-slot="hover-card-portal" container={getPortalContainer()}>
         <PreviewCardPrimitive.Positioner
+          data-slot="hover-card-positioner"
           align={align}
           alignOffset={alignOffset}
           side={side}

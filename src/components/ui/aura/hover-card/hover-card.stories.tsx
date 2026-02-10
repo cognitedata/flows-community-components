@@ -11,12 +11,11 @@ const meta: Meta<typeof HoverCard> = {
   component: HoverCard,
   tags: ["autodocs"],
   argTypes: {
-    // Display & behavior
     open: {
       control: "boolean",
       description: "The controlled open state of the hover card",
       table: {
-        category: "Display",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -24,7 +23,7 @@ const meta: Meta<typeof HoverCard> = {
       control: "boolean",
       description: "The open state of the hover card when initially rendered",
       table: {
-        category: "Display",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -32,7 +31,7 @@ const meta: Meta<typeof HoverCard> = {
       control: { type: "number", min: 0, max: 2000, step: 100 },
       description: "The duration from when the mouse enters until the hover card opens (ms)",
       table: {
-        category: "Display",
+        category: "Behavior",
         type: { summary: "number" },
         defaultValue: { summary: "700" },
       },
@@ -41,13 +40,11 @@ const meta: Meta<typeof HoverCard> = {
       control: { type: "number", min: 0, max: 2000, step: 100 },
       description: "The duration from when the mouse leaves until the hover card closes (ms)",
       table: {
-        category: "Display",
+        category: "Behavior",
         type: { summary: "number" },
         defaultValue: { summary: "300" },
       },
     },
-
-    // Events
     onOpenChange: {
       action: "openChanged",
       description: "Callback when the open state changes",
@@ -56,12 +53,10 @@ const meta: Meta<typeof HoverCard> = {
         type: { summary: "(open: boolean) => void" },
       },
     },
-
-    // Internal
     children: {
       control: false,
       table: {
-        category: "Internal",
+        category: "Advanced",
       },
     },
   },
@@ -173,30 +168,28 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /@nextjs/i, /The React Framework/i);
   },
-  render: function HoverCardBasicStory() {
-    return (
-      <div className="flex justify-center items-center min-h-80">
-        <HoverCard>
-          <HoverCardTrigger render={<Button variant="link">@nextjs</Button>} />
-          <HoverCardContent className="w-80">
-            <div className="flex justify-between space-x-4">
-              <Avatar>
-                <AvatarImage src="https://github.com/vercel.png" />
-                <AvatarFallback>VC</AvatarFallback>
-              </Avatar>
-              <div className="space-y-1">
-                <h4 className="text-sm font-semibold">@nextjs</h4>
-                <p className="text-sm">The React Framework – created and maintained by @vercel.</p>
-                <div className="flex items-center pt-2">
-                  <span className="text-xs text-muted-foreground">Joined December 2021</span>
-                </div>
+  render: () => (
+    <div className="flex justify-center items-center min-h-80">
+      <HoverCard>
+        <HoverCardTrigger render={<Button variant="link">@nextjs</Button>} />
+        <HoverCardContent className="w-80">
+          <div className="flex justify-between space-x-4">
+            <Avatar>
+              <AvatarImage src="https://github.com/vercel.png" />
+              <AvatarFallback>VC</AvatarFallback>
+            </Avatar>
+            <div className="space-y-1">
+              <h4 className="text-sm font-semibold">@nextjs</h4>
+              <p className="text-sm">The React Framework – created and maintained by @vercel.</p>
+              <div className="flex items-center pt-2">
+                <span className="text-xs text-muted-foreground">Joined December 2021</span>
               </div>
             </div>
-          </HoverCardContent>
-        </HoverCard>
-      </div>
-    );
-  },
+          </div>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  ),
 };
 
 /**
@@ -212,14 +205,11 @@ export const WithBadges: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Test hovering on Product Manager
     await testHoverInteraction(
       canvasElement,
       /Product Manager/i,
       /Lead product strategy and roadmap/i
     );
-
-    // Test hovering on Senior Developer
     await testHoverInteraction(
       canvasElement,
       /Senior Developer/i,
@@ -415,8 +405,6 @@ export const AllPositions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Test that all four buttons are present
     const topButton = canvas.getByRole("button", { name: /Top position/i });
     const rightButton = canvas.getByRole("button", { name: /Right position/i });
     const bottomButton = canvas.getByRole("button", { name: /Bottom position/i });
@@ -426,8 +414,6 @@ export const AllPositions: Story = {
     await expect(rightButton).toBeInTheDocument();
     await expect(bottomButton).toBeInTheDocument();
     await expect(leftButton).toBeInTheDocument();
-
-    // Test hovering on all four positions
     await testHoverInteraction(canvasElement, /Top position/i, /appears above the trigger/i);
     await testHoverInteraction(
       canvasElement,
@@ -511,8 +497,6 @@ export const ControlledWithCustomDelays: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Test hovering to open
     const trigger = await canvas.findByRole(
       "button",
       { name: /Controlled with fast delays/i },
@@ -540,8 +524,6 @@ export const ControlledWithCustomDelays: Story = {
       await userEvent.hover(trigger);
       await waitForOpenHoverCard();
     }
-
-    // Test that the Close button works
     const hoverCard = document.querySelector(
       '[data-slot="hover-card-content"][data-open]'
     ) as HTMLElement | null;
@@ -549,7 +531,7 @@ export const ControlledWithCustomDelays: Story = {
     const closeButton = within(hoverCard as HTMLElement).getByRole("button", { name: /Close/i });
     await userEvent.click(closeButton);
   },
-  render: function ControlledHoverCardStory() {
+  render: () => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -628,7 +610,6 @@ export const MultipleInList: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Test hovering on all three users
     await testHoverInteraction(canvasElement, /Sarah Johnson/i, /Product Designer/i);
     await testHoverInteraction(canvasElement, /Michael Chen/i, /Frontend Engineer/i);
     await testHoverInteraction(canvasElement, /Emily Rodriguez/i, /UX Researcher/i);
@@ -704,30 +685,28 @@ export const Playground: Story = {
       },
     },
   },
-  render: function PlaygroundStory() {
-    return (
-      <div className="flex justify-center items-center min-h-80">
-        <HoverCard>
-          <HoverCardTrigger render={<Button variant="outline">Hover me</Button>} />
-          <HoverCardContent className="w-80">
-            <div className="flex justify-between space-x-4">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>SC</AvatarFallback>
-              </Avatar>
-              <div className="space-y-1">
-                <h4 className="text-sm font-semibold">@shadcn</h4>
-                <p className="text-sm">
-                  The React Framework for the Web – created and maintained by Vercel.
-                </p>
-                <div className="flex items-center pt-2">
-                  <span className="text-xs text-muted-foreground">Joined March 2023</span>
-                </div>
+  render: (args) => (
+    <div className="flex justify-center items-center min-h-80">
+      <HoverCard {...args}>
+        <HoverCardTrigger render={<Button variant="outline">Hover me</Button>} />
+        <HoverCardContent className="w-80">
+          <div className="flex justify-between space-x-4">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>SC</AvatarFallback>
+            </Avatar>
+            <div className="space-y-1">
+              <h4 className="text-sm font-semibold">@shadcn</h4>
+              <p className="text-sm">
+                The React Framework for the Web – created and maintained by Vercel.
+              </p>
+              <div className="flex items-center pt-2">
+                <span className="text-xs text-muted-foreground">Joined March 2023</span>
               </div>
             </div>
-          </HoverCardContent>
-        </HoverCard>
-      </div>
-    );
-  },
+          </div>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  ),
 };
