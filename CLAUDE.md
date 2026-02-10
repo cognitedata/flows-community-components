@@ -47,6 +47,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 NEVER use `React.useState`, `React.useEffect`, etc.
 ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
+Import ordering should follow Biome `organizeImports` output.
 
 **Fusion Import Strategy:**
 

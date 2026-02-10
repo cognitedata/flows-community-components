@@ -67,7 +67,7 @@ Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components matc
 
 ## File Organization
 
-**Import order:** React → Third-party → Local utilities. See any component file like `button.tsx`.
+**Import order:** Follow Biome `organizeImports` output. Treat formatter output as source of truth.
 
 **Definition order:** Components in dependency order, exports at bottom.
 

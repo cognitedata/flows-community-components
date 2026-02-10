@@ -1,10 +1,7 @@
 import type { ComponentMeta } from "@/lib/component-examples";
 
 /**
- * Popover Component Metadata
- *
- * This metadata is used by the documentation system to generate
- * component documentation pages and provide context for LLMs.
+ * Popover metadata for docs and LLM guidance.
  */
 export const PopoverMetadata: ComponentMeta = {
   name: "Popover",

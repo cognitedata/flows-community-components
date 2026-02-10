@@ -557,6 +557,170 @@ export const Controlled: Story = {
 };
 
 /**
+ * Minimal popover content for empty-state style usage.
+ */
+export const EmptyContent: Story = {
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story:
+          "Popover with minimal content to validate rendering and interaction when content is intentionally sparse.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    const trigger = canvas.getByRole("button", { name: /open empty popover/i });
+    await expect(trigger).toBeInTheDocument();
+
+    await userEvent.click(trigger);
+
+    await waitFor(
+      async () => {
+        const content = body.getByText("No additional details.");
+        await expect(content).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+  },
+  render: function PopoverEmptyContentStory() {
+    return (
+      <div className="flex items-center justify-center p-12">
+        <Popover>
+          <PopoverTrigger render={<Button variant="outline">Open Empty Popover</Button>} />
+          <PopoverContent aria-label="Minimal content popover">
+            <p className="text-sm text-muted-foreground">No additional details.</p>
+          </PopoverContent>
+        </Popover>
+      </div>
+    );
+  },
+};
+
+/**
+ * Popover with long content constrained to a scrollable viewport.
+ */
+export const LongContentScrollable: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story:
+          "Long popover content constrained with max height and scrolling to verify overflow behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    const trigger = canvas.getByRole("button", { name: /open long content/i });
+    await userEvent.click(trigger);
+
+    await waitFor(
+      async () => {
+        const heading = body.getByText("Release notes");
+        await expect(heading).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+
+    const heading = body.getByText("Release notes");
+    const container = heading.closest('[data-slot="popover-content"]');
+    await expect(container).toBeInTheDocument();
+    if (!container) {
+      throw new Error("Popover content container not found");
+    }
+    await expect(container).toHaveClass("max-h-48");
+    await expect(container).toHaveClass("overflow-y-auto");
+  },
+  render: function PopoverLongContentScrollableStory() {
+    return (
+      <div className="flex items-center justify-center p-12">
+        <Popover>
+          <PopoverTrigger render={<Button variant="outline">Open Long Content</Button>} />
+          <PopoverContent
+            aria-label="Long content popover"
+            className="max-h-48 w-96 overflow-y-auto"
+          >
+            <div className="space-y-3">
+              <h4 className="font-medium text-sm">Release notes</h4>
+              <p className="text-sm text-muted-foreground">
+                Bug fixes and improvements are listed below.
+              </p>
+              <ul className="space-y-2 text-sm">
+                <li>Improved keyboard navigation for floating surfaces.</li>
+                <li>Reduced layout shift during open/close animations.</li>
+                <li>Refined positioning behavior near viewport boundaries.</li>
+                <li>Updated interaction handling for nested controls.</li>
+                <li>Improved content readability in dense data layouts.</li>
+                <li>Enhanced performance for repeated open/close interactions.</li>
+                <li>Additional internal cleanup for maintainability.</li>
+              </ul>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
+    );
+  },
+};
+
+/**
+ * Popover behavior in constrained narrow layouts.
+ */
+export const NarrowViewport: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story:
+          "Constrained layout scenario that verifies readable popover content and stable positioning in narrow containers.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(document.body);
+
+    const trigger = canvas.getByRole("button", { name: /open compact popover/i });
+    await userEvent.click(trigger);
+
+    await waitFor(
+      async () => {
+        const text = body.getByText(/content wraps correctly in narrow layouts/i);
+        await expect(text).toBeInTheDocument();
+      },
+      { timeout: 500 }
+    );
+
+    const text = body.getByText(/content wraps correctly in narrow layouts/i);
+    const container = text.closest('[data-slot="popover-content"]');
+    await expect(container).toBeInTheDocument();
+    if (!container) {
+      throw new Error("Popover content container not found");
+    }
+    await expect(container).toHaveClass("max-w-56");
+  },
+  render: function PopoverNarrowViewportStory() {
+    return (
+      <div className="w-64 rounded-lg border p-3">
+        <Popover>
+          <PopoverTrigger render={<Button className="w-full">Open Compact Popover</Button>} />
+          <PopoverContent align="start" aria-label="Compact popover" className="max-w-56">
+            <p className="text-sm text-muted-foreground">
+              Content wraps correctly in narrow layouts while remaining readable.
+            </p>
+          </PopoverContent>
+        </Popover>
+      </div>
+    );
+  },
+};
+
+/**
  * Interactive playground for testing popover props.
  */
 export const Playground: Story = {
