@@ -11,7 +11,6 @@ const meta: Meta<typeof Popover> = {
   component: Popover,
   tags: ["autodocs"],
   argTypes: {
-    // State
     open: {
       control: "boolean",
       description: "Controlled open state",
@@ -59,7 +58,6 @@ const meta: Meta<typeof Popover> = {
       config: {
         rules: [
           {
-            // aria-controls is managed dynamically - this is a false positive
             id: "aria-valid-attr-value",
             selector: '[data-slot="popover-trigger"]',
             enabled: false,
@@ -91,14 +89,11 @@ export const Basic: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    // Find and verify trigger button
     const trigger = canvas.getByRole("button", { name: /open popover/i });
     await expect(trigger).toBeInTheDocument();
 
-    // Click to open popover
     await userEvent.click(trigger);
 
-    // Wait for popover to appear and verify content (portaled to body)
     await waitFor(
       async () => {
         const heading = body.getByText(/get started with atlas/i);
@@ -107,7 +102,6 @@ export const Basic: Story = {
       { timeout: 500 }
     );
 
-    // Verify description text is present
     const description = body.getByText(/cognite atlas ai helps you create and manage/i);
     await expect(description).toBeInTheDocument();
   },
@@ -151,11 +145,9 @@ export const Sides: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    // Test opening the top popover
     const topButton = canvas.getByRole("button", { name: /^top$/i });
     await userEvent.click(topButton);
 
-    // Verify popover appears (portaled to body)
     await waitFor(
       async () => {
         const content = body.getByText(/this popover appears on top/i);
@@ -164,7 +156,6 @@ export const Sides: Story = {
       { timeout: 500 }
     );
 
-    // Close by clicking outside (trigger again)
     await userEvent.click(topButton);
   },
   render: function PopoverSidesStory() {
@@ -220,11 +211,9 @@ export const Alignment: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    // Test opening the start-aligned popover
     const startButton = canvas.getByRole("button", { name: /align start/i });
     await userEvent.click(startButton);
 
-    // Verify popover content appears (portaled to body)
     await waitFor(
       async () => {
         const content = body.getByText(/aligned to start/i);
@@ -294,11 +283,9 @@ export const WithForm: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    // Open the popover
     const trigger = canvas.getByRole("button", { name: /create project/i });
     await userEvent.click(trigger);
 
-    // Wait for form to appear (portaled to body)
     await waitFor(
       async () => {
         const heading = body.getByText(/create new project/i);
@@ -307,13 +294,11 @@ export const WithForm: Story = {
       { timeout: 500 }
     );
 
-    // Test form interaction - type in the input
     const nameInput = body.getByPlaceholderText(/enter project name/i);
     await expect(nameInput).toBeInTheDocument();
     await userEvent.type(nameInput, "My Project", { delay: 50 });
     await expect(nameInput).toHaveValue("My Project");
 
-    // Verify action buttons are present
     const createButton = body.getByRole("button", { name: /^create$/i });
     await expect(createButton).toBeInTheDocument();
   },
@@ -376,7 +361,6 @@ export const CustomWidth: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    // Open the narrow popover
     const narrowButton = canvas.getByRole("button", { name: /narrow/i });
     await userEvent.click(narrowButton);
 
@@ -388,7 +372,6 @@ export const CustomWidth: Story = {
       { timeout: 500 }
     );
 
-    // Close and open wide popover to verify multiple widths
     await userEvent.click(narrowButton);
     const wideButton = canvas.getByRole("button", { name: /wide/i });
     await userEvent.click(wideButton);
@@ -454,11 +437,9 @@ export const RichContent: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    // Open popover
     const trigger = canvas.getByRole("button", { name: /view actions/i });
     await userEvent.click(trigger);
 
-    // Wait for content to appear (portaled to body)
     await waitFor(
       async () => {
         const heading = body.getByText(/quick actions/i);
@@ -467,11 +448,9 @@ export const RichContent: Story = {
       { timeout: 500 }
     );
 
-    // Verify action buttons are present
     const exportButton = body.getByRole("button", { name: /export data/i });
     await expect(exportButton).toBeInTheDocument();
 
-    // Test clicking an action
     await userEvent.click(exportButton);
   },
   render: function PopoverRichContentStory() {
@@ -529,20 +508,16 @@ export const Controlled: Story = {
     const canvas = within(canvasElement);
     const body = within(document.body);
 
-    // Find the external toggle button
     const toggleButton = canvas.getByRole("button", {
       name: /toggle with external button/i,
     });
     await expect(toggleButton).toBeInTheDocument();
 
-    // Verify the trigger button starts closed
     const trigger = canvas.getByRole("button", { name: /popover trigger/i });
     await expect(trigger).not.toHaveAttribute("data-popup-open");
 
-    // Click external button to open
     await userEvent.click(toggleButton);
 
-    // Verify popover opens (content is portaled to body)
     await waitFor(
       async () => {
         expect(trigger).toHaveAttribute("data-popup-open");
@@ -550,7 +525,6 @@ export const Controlled: Story = {
       { timeout: 500 }
     );
 
-    // Verify content is visible
     const heading = body.getByText(/controlled popover/i);
     await expect(heading).toBeInTheDocument();
 
