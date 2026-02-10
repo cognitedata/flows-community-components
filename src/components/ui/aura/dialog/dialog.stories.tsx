@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/aura/input";
 import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconChevronLeft } from "@tabler/icons-react";
 import { useState } from "react";
 import {
   Dialog,
@@ -99,18 +100,12 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click trigger
     const trigger = canvas.getByRole("button", { name: /open dialog/i });
     await userEvent.click(trigger);
-
-    // Wait for dialog
     await waitFor(() => {
       const dialog = document.querySelector('[data-slot="dialog-content"]');
       expect(dialog).toBeInTheDocument();
     });
-
-    // Verify title
     const title = document.querySelector('[data-slot="dialog-title"]');
     expect(title).toHaveTextContent("Dialog Title");
   },
@@ -304,19 +299,13 @@ export const NonModal: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Open the dialog
     const trigger = canvas.getByRole("button", { name: /open non-modal dialog/i });
     await userEvent.click(trigger);
-
-    // Ensure dialog content is present
     await waitFor(() => {
       const dialog = document.querySelector('[data-slot="dialog-content"]');
       expect(dialog).toBeInTheDocument();
     });
-
-    // Background button should still be clickable
-    const backgroundButton = canvas.getByTestId("background-button");
+    const backgroundButton = canvas.getByRole("button", { name: /background action/i });
     await expect(backgroundButton).toBeEnabled();
   },
 };
@@ -404,8 +393,6 @@ export const TitleOnly: Story = {
       const title = document.querySelector('[data-slot="dialog-title"]');
       expect(title).toHaveTextContent("Title Only Dialog");
     });
-
-    // There should be no `dialog-description` element
     const description = document.querySelector('[data-slot="dialog-description"]');
     expect(description).toBeNull();
   },
@@ -457,6 +444,45 @@ export const LongHeader: Story = {
 };
 
 /**
+ * Dialog with a leading back icon button in the header.
+ */
+export const WithBackButton: Story = {
+  render: () => (
+    <Dialog>
+      <DialogTrigger render={<Button>Open Dialog with Back</Button>} />
+      <DialogContent>
+        <DialogHeader className="items-start text-left">
+          <div className="flex items-center gap-3">
+            <Button
+              variant="secondary"
+              size="icon"
+              className="shrink-0"
+              aria-label="Go back"
+            >
+              <IconChevronLeft className="h-4 w-4" />
+            </Button>
+            <DialogTitle>Title</DialogTitle>
+          </div>
+          <DialogDescription>Description</DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline">Cancel</Button>} />
+          <Button>Continue</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  ),
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story: "Dialog header that includes a leading back icon button next to the title.",
+      },
+    },
+  },
+};
+
+/**
  * Confirmation dialog.
  */
 export const Confirmation: Story = {
@@ -491,7 +517,7 @@ export const Confirmation: Story = {
     );
   },
   parameters: {
-    order: 10,
+    order: 11,
     docs: {
       description: {
         story: "Confirmation dialog for destructive actions.",
@@ -543,7 +569,7 @@ export const AsyncAction: Story = {
     );
   },
   parameters: {
-    order: 11,
+    order: 12,
     docs: {
       description: {
         story:
@@ -557,23 +583,18 @@ export const AsyncAction: Story = {
     const openButton = canvas.getByRole("button", { name: /open async dialog/i });
     await userEvent.click(openButton);
 
-    // Wait for dialog to appear in portal
     await waitFor(() => {
       const dialog = document.querySelector('[data-slot="dialog-content"]');
       expect(dialog).toBeInTheDocument();
     });
 
-    // Query button from the document (portal content)
-    const confirmButton = document.querySelector('[data-testid="async-confirm"]') as HTMLElement;
-    expect(confirmButton).toBeInTheDocument();
+    const confirmButton = await canvas.findByTestId("async-confirm");
     await userEvent.click(confirmButton);
 
-    // Button should enter loading state
     await waitFor(() => {
       expect(confirmButton).toHaveTextContent("Saving...");
     });
 
-    // After async completes, dialog should close and success text should appear
     await waitFor(() => {
       expect(canvas.getByText(/action completed successfully/i)).toBeInTheDocument();
     });
@@ -604,7 +625,7 @@ export const VisualRegression: Story = {
     </Dialog>
   ),
   parameters: {
-    order: 12,
+    order: 13,
     docs: {
       description: {
         story: "Dialog open by default for visual regression testing.",
