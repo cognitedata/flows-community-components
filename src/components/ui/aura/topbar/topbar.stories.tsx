@@ -89,11 +89,9 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the sidebar toggle button
     const sidebarButton = canvas.getByRole("button", { name: /sidebar/i });
     await expect(sidebarButton).toBeInTheDocument();
 
-    // Find action buttons
     const actionButtons = canvas.getAllByRole("button");
     await expect(actionButtons.length).toBeGreaterThan(0);
   },
@@ -211,7 +209,6 @@ export const EosStyle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify the New chat button exists and is interactable
     const newChatButton = canvas.getByRole("button", { name: /new chat/i });
     await expect(newChatButton).toBeInTheDocument();
     await expect(newChatButton).toBeEnabled();
@@ -401,22 +398,17 @@ export const WithSidebar: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify topbar is rendered with sidebar trigger
     const sidebarTrigger = canvas.getByRole("button", { name: /toggle sidebar/i });
     await expect(sidebarTrigger).toBeInTheDocument();
 
-    // Verify sidebar content is present
     const sidebarLabel = canvas.getByText("Platform");
     await expect(sidebarLabel).toBeInTheDocument();
 
-    // Find the active menu item text
     const activeItem = canvas.getByText("Overview");
     await expect(activeItem).toBeInTheDocument();
 
-    // Click the sidebar toggle button to collapse
     await userEvent.click(sidebarTrigger);
 
-    // Sidebar content should still exist (just visually hidden/collapsed)
     await expect(sidebarLabel).toBeInTheDocument();
   },
   render: function TopbarWithSidebarStory() {
@@ -577,7 +569,6 @@ export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Wait for component to be ready
     await waitFor(
       () => {
         expect(canvas.getByRole("button", { name: /new item/i })).toBeInTheDocument();
@@ -585,11 +576,9 @@ export const Interactive: Story = {
       { timeout: 5000 }
     );
 
-    // Click New Item button
     const newItemButton = canvas.getByRole("button", { name: /new item/i });
     await userEvent.click(newItemButton);
 
-    // Verify state update
     await waitFor(
       () => {
         expect(canvas.getByText(/last clicked: new-item/i)).toBeInTheDocument();
@@ -597,11 +586,9 @@ export const Interactive: Story = {
       { timeout: 5000 }
     );
 
-    // Click Share button
     const shareButton = canvas.getByRole("button", { name: /share/i });
     await userEvent.click(shareButton);
 
-    // Verify state update
     await waitFor(
       () => {
         expect(canvas.getByText(/last clicked: share/i)).toBeInTheDocument();
@@ -609,7 +596,6 @@ export const Interactive: Story = {
       { timeout: 5000 }
     );
 
-    // Click Home link
     const homeLink = canvas.getByRole("link", { name: "Home" });
     await userEvent.click(homeLink);
   },
