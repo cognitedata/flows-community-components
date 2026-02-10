@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "carousel",
-  "title": "carousel",
-  "description": "",
+  "title": "Carousel",
+  "description": "A carousel component built with Embla Carousel.",
   "dependencies": [
     "@tabler/icons-react",
     "embla-carousel-react"

@@ -1,3 +1,5 @@
+import { type ReactNode, createContext, useContext, useMemo } from "react";
+
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import {
   IconCheck,
@@ -5,7 +7,6 @@ import {
   IconChevronUp,
   IconExclamationCircle,
 } from "@tabler/icons-react";
-import { type ReactNode, createContext, useContext, useMemo } from "react";
 
 import { useControllableState } from "@/lib/use-controllable-state";
 import {
@@ -157,9 +158,7 @@ function SelectTrigger({
           invalidState,
           disabledState,
           "dark:bg-input/30 dark:text-muted-foreground dark:hover:bg-accent",
-          // SVG styling
           "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground",
-          // Select value styling
           "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
           className
         )}
@@ -190,8 +189,6 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  // Kept for API compatibility with the previous implementation; Base UI does not use this prop.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   position: _position = "popper",
   align = "start",
   alignOffset = 0,

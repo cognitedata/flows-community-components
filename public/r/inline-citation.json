@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "inline-citation",
-  "title": "inline-citation",
-  "description": "",
+  "title": "InlineCitation",
+  "description": "Components for displaying inline citations and source references.",
   "dependencies": [
     "@tabler/icons-react"
   ],

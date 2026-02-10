@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "date-picker",
-  "title": "date-picker",
-  "description": "",
+  "title": "DatePicker",
+  "description": "A date picker component combining calendar with popover trigger.",
   "dependencies": [
     "@tabler/icons-react",
     "date-fns"
