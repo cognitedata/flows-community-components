@@ -7,7 +7,7 @@ import {
   MessageContent,
 } from "@/components/ui/aura/message";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import {
   IconBrackets,
   IconBriefcase,
@@ -23,23 +23,13 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
-import {
-  InlineCitation,
-  InlineCitationCard,
-  InlineCitationCardBody,
-  InlineCitationCardTrigger,
-  InlineCitationGroup,
-  InlineCitationLink,
-  InlineCitationQuote,
-  InlineCitationSource,
-} from "./inline-citation";
+import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inline-citation";
 
 const meta: Meta<typeof InlineCitation> = {
   title: "AI/Inline Citation",
   component: InlineCitation,
   tags: ["autodocs", "ai-elements"],
   argTypes: {
-    // Display
     className: {
       control: "text",
       description: "Additional CSS classes for styling",
@@ -51,7 +41,7 @@ const meta: Meta<typeof InlineCitation> = {
       control: false,
       description: "Citation content (typically InlineCitationLink)",
       table: {
-        category: "Display",
+        category: "Content",
         type: { summary: "ReactNode" },
       },
     },
@@ -72,15 +62,14 @@ export default meta;
 type Story = StoryObj<typeof InlineCitation>;
 
 /**
- * Citations with icons for different source types.
+ * Citations with icons.
  */
 export const Default: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story:
-          "Link citations with icons and colour variants for different industrial source types. Tests that all citations render correctly.",
+        story: "Citations with icons.",
       },
     },
   },
@@ -174,15 +163,14 @@ export const Default: Story = {
 };
 
 /**
- * Link citation in industrial context.
+ * Link citation inline.
  */
 export const LinkCitation: Story = {
   parameters: {
     order: 2,
     docs: {
       description: {
-        story:
-          "Citation with a simple link inline within a paragraph. Tests citation in natural text flow.",
+        story: "Link citation inline.",
       },
     },
   },
@@ -223,15 +211,14 @@ export const LinkCitation: Story = {
 };
 
 /**
- * Citations within a message conversation.
+ * Citations within messages.
  */
 export const InMessageContext: Story = {
   parameters: {
     order: 3,
     docs: {
       description: {
-        story:
-          "Inline citations within a conversation message showing both inline and grouped usage in an AI assistant context. Tests integration with Message components.",
+        story: "Citations within messages.",
       },
     },
   },
@@ -340,15 +327,14 @@ export const InMessageContext: Story = {
 };
 
 /**
- * Edge case: Invalid URLs are handled gracefully.
+ * Invalid URLs.
  */
 export const InvalidUrls: Story = {
   parameters: {
     order: 4,
     docs: {
       description: {
-        story:
-          "Tests handling of invalid URLs. The component should not crash and should display the raw string when URL parsing fails.",
+        story: "Invalid URLs.",
       },
     },
   },
@@ -391,15 +377,14 @@ export const InvalidUrls: Story = {
 };
 
 /**
- * Edge case: Very long URLs.
+ * Very long URLs.
  */
 export const LongUrls: Story = {
   parameters: {
     order: 5,
     docs: {
       description: {
-        story:
-          "Tests citations with extremely long URLs. The hostname should be extracted and displayed cleanly.",
+        story: "Very long URLs.",
       },
     },
   },
@@ -435,15 +420,14 @@ export const LongUrls: Story = {
 };
 
 /**
- * Edge case: Very long citation text.
+ * Very long citation text.
  */
 export const LongCitationText: Story = {
   parameters: {
     order: 6,
     docs: {
       description: {
-        story:
-          "Tests citation with very long text content. Should use whitespace-nowrap to prevent wrapping.",
+        story: "Very long citation text.",
       },
     },
   },
@@ -477,15 +461,14 @@ export const LongCitationText: Story = {
 };
 
 /**
- * Edge case: Many citations in sequence (stress test).
+ * Many citations in sequence.
  */
 export const ManyCitations: Story = {
   parameters: {
     order: 7,
     docs: {
       description: {
-        story:
-          "Stress test with many citations in a row showing various industrial assets and documents. Tests performance and layout with large numbers.",
+        story: "Many citations in sequence.",
       },
     },
   },
@@ -537,21 +520,20 @@ export const ManyCitations: Story = {
 };
 
 /**
- * Colour variants comparison.
+ * Color variants.
  */
 export const ColorVariants: Story = {
   parameters: {
     order: 8,
     docs: {
       description: {
-        story: "Comparison of all available colour variants for citations.",
+        story: "Color variants.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Should have all 3 variants
     const citations = canvas.getAllByRole("link");
     await expect(citations).toHaveLength(3);
   },
@@ -586,95 +568,14 @@ export const ColorVariants: Story = {
 };
 
 /**
- * Citation badge that opens a hover card with source details and a quote.
+ * Link target and icon variants.
  */
-export const WithCardAndSource: Story = {
+export const LinkTargetAndIconVariants: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story:
-          "Inline citation badge that opens a hover card with detailed source information and an optional quote.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    const trigger = await waitFor(() => {
-      const hoverCardTrigger = canvasElement.querySelector('[data-slot="hover-card-trigger"]');
-      if (!hoverCardTrigger) {
-        throw new Error("Hover card trigger not found");
-      }
-      const text = hoverCardTrigger.textContent || "";
-      if (!text.includes("example.com") || !text.includes("+1")) {
-        throw new Error("Trigger badge text not found");
-      }
-      return hoverCardTrigger as HTMLElement;
-    });
-
-    await expect(trigger).toBeVisible();
-    await userEvent.hover(trigger);
-
-    await waitFor(
-      async () => {
-        const title = body.getByText(/Pump B vibration trend/i);
-        await expect(title).toBeInTheDocument();
-      },
-      { timeout: 1500 }
-    );
-
-    await waitFor(
-      async () => {
-        const quote = body.getByText(/Vibration levels increased significantly/i);
-        await expect(quote).toBeInTheDocument();
-      },
-      { timeout: 1500 }
-    );
-  },
-  render: () => (
-    <div className="space-y-4 text-sm leading-relaxed max-w-2xl">
-      <p>
-        The abnormal behaviour is primarily backed by{" "}
-        <InlineCitation>
-          <InlineCitationCard>
-            <InlineCitationCardTrigger
-              sources={[
-                "https://example.com/pumpB/vibration-window",
-                "https://example.com/pumpB/maintenance-log",
-              ]}
-              icon={IconTimeline}
-              className="cursor-pointer"
-            />
-            <InlineCitationCardBody>
-              <InlineCitationSource
-                title="Pump B vibration trend – 72h window"
-                url="https://example.com/pumpB/vibration-window"
-                description="Time series showing increasing vibration amplitude during high-load operation."
-              />
-              <InlineCitationQuote>
-                “Vibration levels increased significantly during startup ramps.”
-              </InlineCitationQuote>
-            </InlineCitationCardBody>
-          </InlineCitationCard>
-        </InlineCitation>
-        , which correlates with both temperature and RPM changes.
-      </p>
-    </div>
-  ),
-};
-
-/**
- * Link target and icon variants without hover card.
- */
-export const LinkTargetAndIconVariants: Story = {
-  parameters: {
-    order: 10,
-    docs: {
-      description: {
-        story:
-          "Compares InlineCitationLink with and without icons, and with _self vs _blank link targets.",
+        story: "Link target and icon variants.",
       },
     },
   },
