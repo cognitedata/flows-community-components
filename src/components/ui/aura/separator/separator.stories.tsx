@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
+import { expect, within } from "@storybook/test";
+
 import { Separator } from "./separator";
 
 const meta: Meta<typeof Separator> = {
@@ -12,25 +13,16 @@ const meta: Meta<typeof Separator> = {
       options: ["horizontal", "vertical"],
       description: "Orientation of the separator",
       table: {
-        category: "Layout",
+        category: "Variants/Styling",
         type: { summary: '"horizontal" | "vertical"' },
         defaultValue: { summary: "horizontal" },
-      },
-    },
-    decorative: {
-      control: "boolean",
-      description: "Whether the separator is purely decorative",
-      table: {
-        category: "Accessibility",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "true" },
       },
     },
     className: {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -68,7 +60,8 @@ export const Default: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const separator = canvasElement.querySelector('[data-slot="separator"]');
+    const canvas = within(canvasElement);
+    const separator = canvas.getByRole("separator");
     await expect(separator).toBeInTheDocument();
     await expect(separator).toHaveAttribute("data-orientation", "horizontal");
   },
@@ -96,11 +89,48 @@ export const Vertical: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const separators = canvasElement.querySelectorAll('[data-slot="separator"]');
+    const canvas = within(canvasElement);
+    const separators = canvas.getAllByRole("separator");
     await expect(separators).toHaveLength(2);
     for (const sep of separators) {
       await expect(sep).toHaveAttribute("data-orientation", "vertical");
     }
+  },
+};
+
+/**
+ * All orientations side by side.
+ */
+export const AllOrientations: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div>
+        <h3 className="text-sm font-medium mb-4">Horizontal</h3>
+        <div className="w-75 space-y-4">
+          <p className="text-sm">Content above</p>
+          <Separator orientation="horizontal" />
+          <p className="text-sm">Content below</p>
+        </div>
+      </div>
+      <div>
+        <h3 className="text-sm font-medium mb-4">Vertical</h3>
+        <div className="flex h-5 items-center space-x-4 text-sm">
+          <span>Item 1</span>
+          <Separator orientation="vertical" />
+          <span>Item 2</span>
+          <Separator orientation="vertical" />
+          <span>Item 3</span>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 3,
+    docs: {
+      description: {
+        story: "Comparison of horizontal and vertical separator orientations.",
+      },
+    },
   },
 };
 
@@ -128,7 +158,7 @@ export const InNavigation: Story = {
     </nav>
   ),
   parameters: {
-    order: 3,
+    order: 4,
     docs: {
       description: {
         story: "Vertical separators used in navigation.",
@@ -178,7 +208,7 @@ export const InCard: Story = {
     </div>
   ),
   parameters: {
-    order: 4,
+    order: 5,
     docs: {
       description: {
         story: "Horizontal separators used within a card component.",
@@ -204,7 +234,7 @@ export const WithText: Story = {
     </div>
   ),
   parameters: {
-    order: 5,
+    order: 6,
     docs: {
       description: {
         story: "Separator with centered text overlay.",
@@ -236,7 +266,7 @@ export const InList: Story = {
     </div>
   ),
   parameters: {
-    order: 6,
+    order: 7,
     docs: {
       description: {
         story: "Separators dividing list items.",
@@ -263,17 +293,57 @@ export const CustomStyle: Story = {
         <p className="text-sm text-muted-foreground mb-2">Colored</p>
         <Separator className="bg-primary" />
       </div>
+    </div>
+  ),
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "Separators with custom styles applied.",
+      },
+    },
+  },
+};
+
+/**
+ * Accessible separator usage.
+ */
+export const Accessibility: Story = {
+  render: () => (
+    <div className="w-75 space-y-6">
       <div>
-        <p className="text-sm text-muted-foreground mb-2">Dashed (via border)</p>
-        <div className="border-t border-dashed border-border" />
+        <h3 className="text-sm font-medium mb-2">Semantic role</h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Separators use the ARIA separator role, making them recognizable to assistive
+          technologies.
+        </p>
+        <div className="space-y-2">
+          <p className="text-sm">Content Section 1</p>
+          <Separator aria-label="Content divider" />
+          <p className="text-sm">Content Section 2</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-2">In navigation</h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Screen readers announce vertical separators between navigation items.
+        </p>
+        <nav className="flex h-5 items-center space-x-4 text-sm" aria-label="Main navigation">
+          <a href="/home">Home</a>
+          <Separator orientation="vertical" />
+          <a href="/about">About</a>
+          <Separator orientation="vertical" />
+          <a href="/contact">Contact</a>
+        </nav>
       </div>
     </div>
   ),
   parameters: {
-    order: 7,
+    order: 9,
     docs: {
       description: {
-        story: "Separators with custom styles applied.",
+        story: "Separator accessibility features with proper ARIA attributes.",
       },
     },
   },
@@ -285,7 +355,6 @@ export const CustomStyle: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4 w-88">
-      {/* Horizontal */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Horizontal</h3>
         <div className="space-y-4">
@@ -295,7 +364,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* Vertical */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Vertical</h3>
         <div className="flex h-5 items-center space-x-4 text-sm">
@@ -307,7 +375,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {/* In card */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">In Card</h3>
         <div className="rounded-lg border p-3">
@@ -319,10 +386,10 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 8,
+    order: 10,
     docs: {
       description: {
-        story: "Comprehensive visual overview for regression testing.",
+        story: "Visual overview of separator variations.",
       },
     },
     chromatic: {
@@ -337,7 +404,6 @@ export const VisualRegression: Story = {
 export const Playground: Story = {
   args: {
     orientation: "horizontal",
-    decorative: true,
   },
   render: (args) => (
     <div className={args.orientation === "vertical" ? "h-20" : "w-75"}>

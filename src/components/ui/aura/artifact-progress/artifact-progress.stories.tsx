@@ -15,7 +15,7 @@ import {
 const meta: Meta<typeof ArtifactProgress> = {
   title: "Primitives/Artifact - Progress",
   component: ArtifactProgress,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Display
     className: {

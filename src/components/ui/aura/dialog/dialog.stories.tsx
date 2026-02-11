@@ -69,9 +69,7 @@ type Story = StoryObj<typeof Dialog>;
 export const Default: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>Open Dialog</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Open Dialog</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Dialog Title</DialogTitle>
@@ -85,9 +83,7 @@ export const Default: Story = {
           </p>
         </div>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
+          <DialogClose render={<Button variant="outline">Cancel</Button>} />
           <Button>Save</Button>
         </DialogFooter>
       </DialogContent>
@@ -126,9 +122,7 @@ export const Default: Story = {
 export const WithForm: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>Edit Profile</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Edit Profile</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Profile</DialogTitle>
@@ -147,9 +141,7 @@ export const WithForm: Story = {
           </div>
         </div>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
+          <DialogClose render={<Button variant="outline">Cancel</Button>} />
           <Button>Save changes</Button>
         </DialogFooter>
       </DialogContent>
@@ -171,9 +163,7 @@ export const WithForm: Story = {
 export const NoCloseButton: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>Open</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Open</Button>} />
       <DialogContent showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>Important Notice</DialogTitle>
@@ -182,9 +172,7 @@ export const NoCloseButton: Story = {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button>I understand</Button>
-          </DialogClose>
+          <DialogClose render={<Button>I understand</Button>} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -247,9 +235,7 @@ export const Controlled: Story = {
 export const ScrollingContent: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>Terms & Conditions</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Terms & Conditions</Button>} />
       <DialogContent className="max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Terms of Service</DialogTitle>
@@ -265,9 +251,7 @@ export const ScrollingContent: Story = {
           ))}
         </div>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Decline</Button>
-          </DialogClose>
+          <DialogClose render={<Button variant="outline">Decline</Button>} />
           <Button>Accept</Button>
         </DialogFooter>
       </DialogContent>
@@ -294,9 +278,7 @@ export const NonModal: Story = {
       </p>
       <Button data-testid="background-button">Background action</Button>
       <Dialog modal={false}>
-        <DialogTrigger asChild>
-          <Button>Open Non-modal Dialog</Button>
-        </DialogTrigger>
+        <DialogTrigger render={<Button>Open Non-modal Dialog</Button>} />
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Non-modal Dialog</DialogTitle>
@@ -305,9 +287,7 @@ export const NonModal: Story = {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Close</Button>
-            </DialogClose>
+            <DialogClose render={<Button variant="outline">Close</Button>} />
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -347,9 +327,7 @@ export const NonModal: Story = {
 export const Nested: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>Open First Dialog</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Open First Dialog</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>First Dialog</DialogTitle>
@@ -357,26 +335,20 @@ export const Nested: Story = {
         </DialogHeader>
         <div className="py-4">
           <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline">Open Second Dialog</Button>
-            </DialogTrigger>
+            <DialogTrigger render={<Button variant="outline">Open Second Dialog</Button>} />
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Second Dialog</DialogTitle>
                 <DialogDescription>This is a nested dialog.</DialogDescription>
               </DialogHeader>
               <DialogFooter>
-                <DialogClose asChild>
-                  <Button>Close</Button>
-                </DialogClose>
+                <DialogClose render={<Button>Close</Button>} />
               </DialogFooter>
             </DialogContent>
           </Dialog>
         </div>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button>Close First</Button>
-          </DialogClose>
+          <DialogClose render={<Button>Close First</Button>} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -397,9 +369,7 @@ export const Nested: Story = {
 export const TitleOnly: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>Open Title-only Dialog</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Open Title-only Dialog</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Title Only Dialog</DialogTitle>
@@ -410,9 +380,7 @@ export const TitleOnly: Story = {
           </p>
         </div>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Close</Button>
-          </DialogClose>
+          <DialogClose render={<Button variant="outline">Close</Button>} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -449,9 +417,7 @@ export const TitleOnly: Story = {
 export const LongHeader: Story = {
   render: () => (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>Open Long Header Dialog</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Open Long Header Dialog</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
@@ -465,9 +431,7 @@ export const LongHeader: Story = {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Close</Button>
-          </DialogClose>
+          <DialogClose render={<Button variant="outline">Close</Button>} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -502,9 +466,7 @@ export const Confirmation: Story = {
     return (
       <div className="space-y-4">
         <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="destructive">Delete Item</Button>
-          </DialogTrigger>
+          <DialogTrigger render={<Button variant="destructive">Delete Item</Button>} />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Are you sure?</DialogTitle>
@@ -513,14 +475,14 @@ export const Confirmation: Story = {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <DialogClose asChild>
-                <Button variant="destructive" onClick={() => setConfirmed(true)}>
-                  Delete
-                </Button>
-              </DialogClose>
+              <DialogClose render={<Button variant="outline">Cancel</Button>} />
+              <DialogClose
+                render={
+                  <Button variant="destructive" onClick={() => setConfirmed(true)}>
+                    Delete
+                  </Button>
+                }
+              />
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -560,9 +522,7 @@ export const AsyncAction: Story = {
     return (
       <div className="space-y-4">
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button>Open Async Dialog</Button>
-          </DialogTrigger>
+          <DialogTrigger render={<Button>Open Async Dialog</Button>} />
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Async Confirmation</DialogTitle>
@@ -571,9 +531,7 @@ export const AsyncAction: Story = {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <DialogClose asChild disabled={loading}>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
+              <DialogClose render={<Button variant="outline">Cancel</Button>} />
               <Button onClick={handleConfirm} disabled={loading} data-testid="async-confirm">
                 {loading ? "Saving..." : "Confirm"}
               </Button>
@@ -668,9 +626,7 @@ export const Playground: Story = {
   },
   render: (args) => (
     <Dialog {...args}>
-      <DialogTrigger asChild>
-        <Button>Open Playground Dialog</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button>Open Playground Dialog</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Playground Dialog</DialogTitle>
@@ -679,9 +635,7 @@ export const Playground: Story = {
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
+          <DialogClose render={<Button variant="outline">Cancel</Button>} />
           <Button>Confirm</Button>
         </DialogFooter>
       </DialogContent>

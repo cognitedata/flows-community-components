@@ -12,5 +12,4 @@ export const CardMetadata: ComponentMeta = {
   description: "A flexible card layout with header, content, action, and footer slots.",
   llmUsage:
     "Use `<Card>` with `<CardHeader>`, `<CardTitle>`, `<CardDescription>`, `<CardContent>`, and `<CardFooter>` for structured content containers.",
-  importPath: "@/components/ui/aura/card",
 };

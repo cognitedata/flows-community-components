@@ -297,9 +297,39 @@ function inferComponentType(filePath: string): string {
 }
 
 /**
- * Extract JSDoc metadata (title and description) from a component file.
+ * Extract metadata from .metadata.ts file if it exists, otherwise fall back to JSDoc.
  */
 function extractJSDocMetadata(filePath: string): { title?: string; description?: string } {
+  // First, check for a .metadata.ts file
+  const metadataPath = filePath.replace(/\.tsx?$/, ".metadata.ts");
+  const fullMetadataPath = path.join(__dirname, "..", metadataPath);
+
+  if (fs.existsSync(fullMetadataPath)) {
+    try {
+      const content = fs.readFileSync(fullMetadataPath, "utf8");
+
+      // Extract name and description from metadata file
+      // Look for patterns like: name: "Button", description: "..."
+      const nameMatch = content.match(/name:\s*["']([^"']+)["']/);
+      const descriptionMatch = content.match(/description:\s*["']([^"']+)["']/);
+
+      const metadata: { title?: string; description?: string } = {};
+      if (nameMatch) {
+        metadata.title = nameMatch[1];
+      }
+      if (descriptionMatch) {
+        metadata.description = descriptionMatch[1];
+      }
+
+      if (metadata.title || metadata.description) {
+        return metadata;
+      }
+    } catch {
+      // Fall through to JSDoc extraction
+    }
+  }
+
+  // Fall back to JSDoc extraction from component file
   const fullPath = path.join(__dirname, "..", filePath);
 
   if (!fs.existsSync(fullPath)) {

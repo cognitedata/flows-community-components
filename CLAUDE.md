@@ -16,6 +16,16 @@ This command:
 
 The registry build process is fully automated - no manual configuration needed.
 
+# Primitives Progress Metadata Rules
+
+When adding, removing, or renaming primitives/foundations, update `src/lib/primitives-catalog.ts` in the same change.
+
+When the user asks for primitive/foundation progress updates, update the catalog metadata and ensure badges on `/primitives` reflect the new status.
+
+If requested progress status is missing or ambiguous, ask a clarifying question before finalizing status metadata.
+
+If a primitive/foundation is tracked but not implemented, keep or add a `comingSoon` placeholder path via catalog metadata.
+
 # Building Components
 
 ## SKILLS AVAILABLE
@@ -24,12 +34,13 @@ For detailed component building guidelines, use the `/component-builder` skill.
 
 ## Key principles
 
-- Use Radix UI for complex interactions, native HTML for simple elements
+- Use Base UI for complex interactions, native HTML for simple elements
 - Always use `ComponentRef` (not `React.ElementRef`)
 - No code comments in component files
 - Extract helpers to `@/lib/utils.ts`
 - Use Tailwind design tokens, not arbitrary values
 - Run `pnpm lint` and `pnpm tsc -b` after changes
+- Do not include `importPath` in `*.metadata.ts` files
 
 ## Import Conventions
 
@@ -48,7 +59,6 @@ Aura uses a dual-scope import system for migrating components to Fusion:
 Components in `src/components/ui/core/` use `@cognite/aura/*`, components in `src/components/ui/lab/` use `@cognite/aura-lab/*`.
 
 For internal development, continue using `@/*` imports. The `@cognite/*` imports are configured for when components are consumed in Fusion.
-
 ## Special Files
 
 - `reasoning-original.tsx` is NOT redundant - it will be used in the future, do not remove it
@@ -63,7 +73,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Getting started instructions should link to the Dune creation docs site instead of inline steps.
 - Consolidate docs content onto the root page instead of routing under `/docs`.
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
-- Radix UI's `TooltipPrimitive.Provider` and `TooltipPrimitive.Root` don't support refs - use plain functions, not `forwardRef`.
+- Base UI's `TooltipProvider` and `TooltipRoot` don't support refs - use plain functions, not `forwardRef`.
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
 - Form components should import and use utility classes from `@/lib/utils`: `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
 - `formElementBase` includes `bg-background` by default. Override with `bg-transparent` or other backgrounds inline when needed.
@@ -72,6 +82,17 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - InputGroup stories should showcase all alignment variants (inline-start, inline-end, block-start, block-end) and how it's used in compound components like PromptInput.
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
+- Tooltip delay stories are more stable when waiting for `getOpenTooltip` with a longer timeout.
+- Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
+- Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
+- Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
+- Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
+- Do not include `importPath` in `*.metadata.ts` files.
+- Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
+- Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
+- `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
+- Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
+- For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 
 # Storybook Stories
 
@@ -85,6 +106,7 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - All stories must have `parameters: { order: N }`
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
+- No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Use `canvas.findByTestId()` only for portal content when semantic queries aren't available
 - Run `pnpm lint` and `pnpm tsc -b` after changes
