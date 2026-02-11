@@ -15,7 +15,6 @@ import {
   filledState,
   focusState,
   formElementBase,
-  hoverState,
   invalidState,
   readOnlyState,
 } from "@/lib/utils";
@@ -45,12 +44,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             "w-full",
             formElementBase,
-            hoverState,
+            "p-2 text-sm font-normal leading-normal tracking-normal placeholder:text-muted-foreground",
             filledState,
             focusState,
             invalidState,
             disabledState,
             readOnlyState,
+            type === "number" &&
+              "[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none",
             className
           )}
           {...props}
@@ -73,7 +74,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 
     return (
       <>
-        <InputGroup>
+        <InputGroup className="has-[>[data-align=inline-end]]:[&>input]:pr-1">
           <InputGroupInput
             ref={ref}
             type={showPassword ? "text" : "password"}
@@ -81,7 +82,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             className={className}
             {...props}
           />
-          <InputGroupAddon align="inline-end">
+          <InputGroupAddon align="inline-end" className="py-1 pr-1 has-[>button]:-mr-0">
             <InputGroupButton
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}
