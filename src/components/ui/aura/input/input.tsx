@@ -44,7 +44,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             "w-full",
             formElementBase,
-            "p-2 text-sm font-normal leading-normal tracking-normal placeholder:text-muted-foreground",
+            "p-2 text-sm font-normal leading-normal tracking-normal placeholder:text-foreground-inactive hover:border-border-emphasised",
             filledState,
             focusState,
             invalidState,
@@ -82,7 +82,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             className={className}
             {...props}
           />
-          <InputGroupAddon align="inline-end" className="py-1 pr-1 has-[>button]:-mr-0">
+          <InputGroupAddon align="inline-end" className="py-1 pr-1 has-[>button]:mr-0">
             <InputGroupButton
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}

@@ -17,6 +17,7 @@ const InputGroup = forwardRef<HTMLDivElement, ComponentProps<"div">>(
         className={cn(
           "group/input-group bg-background border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-sm transition-[color,box-shadow] outline-none",
           "h-9 min-w-0 has-[>textarea]:h-auto",
+          "has-[[data-slot=input-group-control]:hover]:border-border-emphasised",
           "has-[>[data-align=inline-start]]:[&>input]:pl-2 has-[>[data-align=inline-start]]:[&>input]:rounded-l-none has-[>[data-align=inline-start]]:[&>textarea]:rounded-l-none",
           "has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=inline-end]]:[&>input]:rounded-r-none has-[>[data-align=inline-end]]:[&>textarea]:rounded-r-none",
           "has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-start]]:[&>input]:pb-3",

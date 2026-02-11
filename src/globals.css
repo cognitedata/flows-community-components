@@ -89,6 +89,7 @@
   --color-ring-destructive-shadow: var(--ring-destructive-shadow);
   --color-input: var(--input);
   --color-border: var(--border);
+  --color-border-emphasised: var(--border-emphasised);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-destructive-hover: var(--destructive-hover);
@@ -97,6 +98,7 @@
   --color-mountain-foreground: var(--mountain-foreground);
   --color-mountain: var(--mountain);
   --color-muted-foreground: var(--muted-foreground);
+  --color-foreground-inactive: var(--foreground-inactive);
   --color-muted: var(--muted);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
@@ -605,7 +607,9 @@
   --mountain-foreground: var(--mountain-950);
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-100);
+  --border-emphasised: var(--mountain-650);
   --input: var(--mountain-100);
+  --foreground-inactive: var(--mountain-450);
   --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
   --ring-destructive: var(--red-500);
@@ -807,7 +811,9 @@
   --mountain-foreground: var(--mountain-50);
   --foreground-link: var(--fjord-550);
   --border: var(--mountain-700);
+  --border-emphasised: var(--mountain-650);
   --input: var(--mountain-900);
+  --foreground-inactive: var(--mountain-450);
   --ring: var(--gray-500);
   --ring-shadow: var(--gray-300);
   --ring-destructive: var(--red-500);
