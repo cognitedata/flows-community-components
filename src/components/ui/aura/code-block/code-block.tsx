@@ -154,21 +154,21 @@ export const CodeBlock = ({
           <div
             className={cn(
               "dark:hidden [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
-              isCollapsed && "max-h-[var(--code-block-collapsed-height)] overflow-y-hidden"
+              isCollapsed && "max-h-26 overflow-y-hidden"
             )}
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: required to render trusted Shiki HTML
             dangerouslySetInnerHTML={{ __html: html }}
           />
           <div
             className={cn(
               "hidden dark:block [&>pre]:m-0 [&>pre]:bg-card! [&>pre]:p-4 [&>pre]:text-foreground! [&>pre]:text-sm [&_code]:font-mono [&_code]:text-sm [&>pre]:overflow-x-auto",
-              isCollapsed && "max-h-[var(--code-block-collapsed-height)] overflow-y-hidden"
+              isCollapsed && "max-h-26 overflow-y-hidden"
             )}
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: "this is needed."
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: required to render trusted Shiki HTML
             dangerouslySetInnerHTML={{ __html: darkHtml }}
           />
           {isCollapsed && (
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[var(--code-block-fade-height)] bg-linear-to-b from-transparent via-card/70 to-card" />
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-15/16 bg-gradient-to-b from-transparent via-card/70 to-card" />
           )}
           {children && (
             <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover/code-block:flex">
