@@ -1,15 +1,16 @@
-import { Button } from "@/components/ui/aura/button";
-import { useControllableState } from "@/lib/use-controllable-state";
-import { cn } from "@/lib/utils";
 import { IconX } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {
+  type ComponentRef,
   type ComponentProps,
   type MouseEventHandler,
   createContext,
   forwardRef,
   useContext,
 } from "react";
+import { Button } from "@/components/ui/aura/button";
+import { useControllableState } from "@/lib/use-controllable-state";
+import { cn } from "@/lib/utils";
 
 type AlertVariant = "default" | "secondary" | "warning" | "error";
 
@@ -49,7 +50,7 @@ type AlertProps = ComponentProps<"div"> &
     onClose?: () => void;
   };
 
-const Alert = forwardRef<HTMLDivElement, AlertProps>(
+const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
   (
     { className, variant = "default", visible, defaultVisible = true, onClose, children, ...props },
     ref
@@ -89,7 +90,7 @@ const alertTitleVariants: Record<AlertVariant, string> = {
   error: "text-destructive-foreground",
 };
 
-const AlertTitle = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+const AlertTitle = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
     const { variant } = useContext(AlertContext);
     return (
@@ -115,7 +116,7 @@ const alertDescriptionVariants: Record<AlertVariant, string> = {
   error: "text-foreground",
 };
 
-const AlertDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+const AlertDescription = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
     const { variant } = useContext(AlertContext);
     return (
@@ -134,7 +135,7 @@ const AlertDescription = forwardRef<HTMLDivElement, ComponentProps<"div">>(
 );
 AlertDescription.displayName = "AlertDescription";
 
-const AlertActions = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+const AlertActions = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -146,7 +147,7 @@ const AlertActions = forwardRef<HTMLDivElement, ComponentProps<"div">>(
 );
 AlertActions.displayName = "AlertActions";
 
-const AlertButton = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
+const AlertButton = forwardRef<ComponentRef<"button">, ComponentProps<"button">>(
   ({ className, ...props }, ref) => {
     const { variant } = useContext(AlertContext);
 
@@ -171,7 +172,7 @@ const AlertButton = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
 );
 AlertButton.displayName = "AlertButton";
 
-const AlertClose = forwardRef<HTMLButtonElement, ComponentProps<"button">>(
+const AlertClose = forwardRef<ComponentRef<"button">, ComponentProps<"button">>(
   ({ className, onClick, ...props }, ref) => {
     const { setShow } = useContext(AlertContext);
 

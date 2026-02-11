@@ -106,11 +106,11 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const alert = canvasElement.querySelector('[data-slot="alert"]');
+    const alert = canvas.getByRole("alert");
     await expect(alert).toBeInTheDocument();
     const title = canvas.getByText("Account verification required");
     await expect(title).toBeInTheDocument();
-    const button = canvas.getByRole("button", { name: /verify account/i });
+    const button = await canvas.findByRole("button", { name: /verify account/i });
     await expect(button).toBeInTheDocument();
   },
 };
@@ -152,17 +152,17 @@ export const Dismissible: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const closeButton = canvas.getByRole("button", { name: /close/i });
+    const closeButton = await canvas.findByRole("button", { name: /close/i });
     await expect(closeButton).toBeInTheDocument();
     await userEvent.click(closeButton);
     await waitFor(() => {
-      const alert = canvasElement.querySelector('[data-slot="alert"]');
+      const alert = canvas.queryByRole("alert");
       expect(alert).not.toBeInTheDocument();
     });
-    const showButton = canvas.getByText("Show Alert Again");
+    const showButton = await canvas.findByRole("button", { name: /show alert again/i });
     await userEvent.click(showButton);
     await waitFor(() => {
-      const alert = canvasElement.querySelector('[data-slot="alert"]');
+      const alert = canvas.queryByRole("alert");
       expect(alert).toBeInTheDocument();
     });
   },
@@ -193,9 +193,9 @@ export const Secondary: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const alert = canvasElement.querySelector('[data-slot="alert"]');
+    const alert = canvas.getByRole("alert");
     await expect(alert).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /update/i })).toBeInTheDocument();
+    await expect(await canvas.findByRole("button", { name: /update/i })).toBeInTheDocument();
   },
 };
 
@@ -226,7 +226,7 @@ export const Warning: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Storage almost full")).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /upgrade plan/i })).toBeInTheDocument();
+    await expect(await canvas.findByRole("button", { name: /upgrade plan/i })).toBeInTheDocument();
   },
 };
 
@@ -255,7 +255,7 @@ export const ErrorAlert: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Unable to connect data")).toBeInTheDocument();
-    await expect(canvas.getByRole("button", { name: /try again/i })).toBeInTheDocument();
+    await expect(await canvas.findByRole("button", { name: /try again/i })).toBeInTheDocument();
   },
 };
 
@@ -296,7 +296,8 @@ export const AllVariants: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const alerts = canvasElement.querySelectorAll('[data-slot="alert"]');
+    const canvas = within(canvasElement);
+    const alerts = await canvas.findAllByRole("alert");
     await expect(alerts).toHaveLength(4);
   },
 };
@@ -379,8 +380,8 @@ export const MultipleActions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const extendButton = canvas.getByRole("button", { name: /extend session/i });
-    const logoutButton = canvas.getByRole("button", { name: /log out/i });
+    const extendButton = await canvas.findByRole("button", { name: /extend session/i });
+    const logoutButton = await canvas.findByRole("button", { name: /log out/i });
     await expect(extendButton).toBeInTheDocument();
     await expect(logoutButton).toBeInTheDocument();
   },
@@ -432,18 +433,18 @@ export const ControlledVisibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    let alert = canvasElement.querySelector('[data-slot="alert"]');
+    let alert = canvas.queryByRole("alert");
     await expect(alert).toBeInTheDocument();
-    const hideButton = canvas.getByText("Hide");
+    const hideButton = await canvas.findByRole("button", { name: "Hide" });
     await userEvent.click(hideButton);
     await waitFor(() => {
-      alert = canvasElement.querySelector('[data-slot="alert"]');
+      alert = canvas.queryByRole("alert");
       expect(alert).not.toBeInTheDocument();
     });
-    const showButton = canvas.getByText("Show");
+    const showButton = await canvas.findByRole("button", { name: "Show" });
     await userEvent.click(showButton);
     await waitFor(() => {
-      alert = canvasElement.querySelector('[data-slot="alert"]');
+      alert = canvas.queryByRole("alert");
       expect(alert).toBeInTheDocument();
     });
   },
@@ -562,11 +563,11 @@ export const Accessibility: Story = {
     const canvas = within(canvasElement);
     const alertRegion = canvas.getByRole("alert");
     await expect(alertRegion).toBeInTheDocument();
-    const closeButton = canvas.getByRole("button", { name: /close/i });
+    const closeButton = await canvas.findByRole("button", { name: /close/i });
     await expect(closeButton).toBeInTheDocument();
     await userEvent.click(closeButton);
     await waitFor(() => {
-      expect(canvasElement.querySelector('[data-slot="alert"]')).not.toBeInTheDocument();
+      expect(canvas.queryByRole("alert")).not.toBeInTheDocument();
     });
   },
 };
