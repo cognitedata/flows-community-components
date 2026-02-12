@@ -2,8 +2,7 @@ import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { IconX } from "@tabler/icons-react";
 import type { ComponentProps, ReactNode } from "react";
 
-import { cn } from "@/lib/utils";
-import { getPortalContainer } from "@/lib/utils";
+import { cn, getPortalContainer } from "@/lib/utils";
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;

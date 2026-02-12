@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { useState } from "react";
+
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 import {
   Dialog,
   DialogClose,
@@ -25,7 +26,7 @@ const meta: Meta<typeof Dialog> = {
       control: "boolean",
       description: "Controlled open state",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -33,7 +34,7 @@ const meta: Meta<typeof Dialog> = {
       control: "boolean",
       description: "Default open state (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -75,10 +76,15 @@ async function openDialogFromTrigger(
   return within(dialog);
 }
 
-/**
- * Default dialog with basic content.
- */
 export const Default: Story = {
+  parameters: {
+    order: 1,
+    docs: {
+      description: {
+        story: "Dialog with title, description, and footer actions.",
+      },
+    },
+  },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Open Dialog</Button>} />
@@ -101,24 +107,21 @@ export const Default: Story = {
       </DialogContent>
     </Dialog>
   ),
-  parameters: {
-    order: 1,
-    docs: {
-      description: {
-        story: "Default dialog with title, description, and action buttons.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const dialog = await openDialogFromTrigger(canvasElement, /open dialog/i);
     await expect(dialog.getByRole("heading", { name: "Dialog Title" })).toBeInTheDocument();
   },
 };
 
-/**
- * Dialog with form content.
- */
 export const WithForm: Story = {
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story: "Dialog containing a form for user input.",
+      },
+    },
+  },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Edit Profile</Button>} />
@@ -146,20 +149,17 @@ export const WithForm: Story = {
       </DialogContent>
     </Dialog>
   ),
+};
+
+export const NoCloseButton: Story = {
   parameters: {
-    order: 2,
+    order: 3,
     docs: {
       description: {
-        story: "Dialog containing a form for user input.",
+        story: "Dialog without the X close button in the corner.",
       },
     },
   },
-};
-
-/**
- * Dialog without close button.
- */
-export const NoCloseButton: Story = {
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Open</Button>} />
@@ -176,19 +176,8 @@ export const NoCloseButton: Story = {
       </DialogContent>
     </Dialog>
   ),
-  parameters: {
-    order: 3,
-    docs: {
-      description: {
-        story: "Dialog without the X close button in the corner.",
-      },
-    },
-  },
 };
 
-/**
- * Controlled dialog.
- */
 export const Controlled: Story = {
   render: function ControlledDialog() {
     const [open, setOpen] = useState(false);
@@ -228,10 +217,15 @@ export const Controlled: Story = {
   },
 };
 
-/**
- * Dialog with scrolling content.
- */
 export const ScrollingContent: Story = {
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Dialog with scrolling content for long text.",
+      },
+    },
+  },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Terms & Conditions</Button>} />
@@ -256,20 +250,17 @@ export const ScrollingContent: Story = {
       </DialogContent>
     </Dialog>
   ),
+};
+
+export const NonModal: Story = {
   parameters: {
-    order: 5,
+    order: 6,
     docs: {
       description: {
-        story: "Dialog with scrolling content for long text.",
+        story: "Non-modal dialog that allows interaction with background content.",
       },
     },
   },
-};
-
-/**
- * Non-modal dialog that allows interaction with content behind the overlay.
- */
-export const NonModal: Story = {
   render: () => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
@@ -292,15 +283,6 @@ export const NonModal: Story = {
       </Dialog>
     </div>
   ),
-  parameters: {
-    order: 6,
-    docs: {
-      description: {
-        story:
-          "Dialog rendered with `modal={false}`, allowing interaction with background content while the dialog is open.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await openDialogFromTrigger(canvasElement, /open non-modal dialog/i);
@@ -309,9 +291,6 @@ export const NonModal: Story = {
   },
 };
 
-/**
- * Nested dialogs.
- */
 export const Nested: Story = {
   render: () => (
     <Dialog>
@@ -351,10 +330,15 @@ export const Nested: Story = {
   },
 };
 
-/**
- * Dialog with title only (no description).
- */
 export const TitleOnly: Story = {
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "Dialog with title only, no description.",
+      },
+    },
+  },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Open Title-only Dialog</Button>} />
@@ -373,25 +357,21 @@ export const TitleOnly: Story = {
       </DialogContent>
     </Dialog>
   ),
-  parameters: {
-    order: 8,
-    docs: {
-      description: {
-        story:
-          "Dialog using only `DialogTitle` without a description to demonstrate minimal headers.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const dialog = await openDialogFromTrigger(canvasElement, /title-only dialog/i);
     await expect(dialog.getByRole("heading", { name: "Title Only Dialog" })).toBeInTheDocument();
   },
 };
 
-/**
- * Dialog with long title and description to test wrapping.
- */
 export const LongHeader: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story: "Dialog with long title and description to test text wrapping.",
+      },
+    },
+  },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Open Long Header Dialog</Button>} />
@@ -413,15 +393,6 @@ export const LongHeader: Story = {
       </DialogContent>
     </Dialog>
   ),
-  parameters: {
-    order: 9,
-    docs: {
-      description: {
-        story:
-          "Dialog with long title and description text to verify wrapping and layout behaviour for dense headers.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const dialog = await openDialogFromTrigger(canvasElement, /open long header dialog/i);
     await expect(
@@ -432,10 +403,15 @@ export const LongHeader: Story = {
   },
 };
 
-/**
- * Dialog with a leading back icon button in the header.
- */
 export const WithBackButton: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story: "Dialog header that includes a leading back icon button next to the title.",
+      },
+    },
+  },
   render: () => (
     <Dialog>
       <DialogTrigger render={<Button>Open Dialog with Back</Button>} />
@@ -461,20 +437,17 @@ export const WithBackButton: Story = {
     await expect(dialog.getByRole("button", { name: /go back/i })).toBeInTheDocument();
     await expect(dialog.getByRole("heading", { name: "Title" })).toBeInTheDocument();
   },
+};
+
+export const Confirmation: Story = {
   parameters: {
-    order: 10,
+    order: 11,
     docs: {
       description: {
-        story: "Dialog header that includes a leading back icon button next to the title.",
+        story: "Confirmation dialog for destructive actions.",
       },
     },
   },
-};
-
-/**
- * Confirmation dialog.
- */
-export const Confirmation: Story = {
   render: function ConfirmationDialog() {
     const [confirmed, setConfirmed] = useState(false);
 
@@ -505,19 +478,8 @@ export const Confirmation: Story = {
       </div>
     );
   },
-  parameters: {
-    order: 11,
-    docs: {
-      description: {
-        story: "Confirmation dialog for destructive actions.",
-      },
-    },
-  },
 };
 
-/**
- * Dialog demonstrating async confirmation behaviour with a temporary loading state.
- */
 export const AsyncAction: Story = {
   render: function AsyncActionDialog() {
     const [open, setOpen] = useState(false);
@@ -561,8 +523,7 @@ export const AsyncAction: Story = {
     order: 12,
     docs: {
       description: {
-        story:
-          "Dialog that shows a temporary loading state while performing an asynchronous confirmation action.",
+        story: "Dialog with async action and loading state.",
       },
     },
   },
@@ -583,10 +544,18 @@ export const AsyncAction: Story = {
   },
 };
 
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
+  parameters: {
+    order: 13,
+    docs: {
+      description: {
+        story: "Dialog open by default for visual regression testing.",
+      },
+    },
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
   render: () => (
     <Dialog defaultOpen>
       <DialogContent>
@@ -606,23 +575,17 @@ export const VisualRegression: Story = {
       </DialogContent>
     </Dialog>
   ),
-  parameters: {
-    order: 13,
-    docs: {
-      description: {
-        story: "Dialog open by default for visual regression testing.",
-      },
-    },
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
 };
 
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground - use controls to experiment with dialog props.",
+      },
+    },
+  },
   args: {
     defaultOpen: false,
     modal: true,
@@ -644,12 +607,4 @@ export const Playground: Story = {
       </DialogContent>
     </Dialog>
   ),
-  parameters: {
-    order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with dialog props.",
-      },
-    },
-  },
 };
