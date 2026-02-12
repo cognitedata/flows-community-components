@@ -1,12 +1,11 @@
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { type VariantProps, cva } from "class-variance-authority";
-import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "inline-flex items-center align-middle justify-center rounded-md border text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none outline-none focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden leading-4.5",
+  "inline-flex items-center align-middle justify-center rounded-md border text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none outline-none focus-visible:border-ring focus-visible:ring-ring-shadow focus-visible:ring aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden leading-4",
   {
     variants: {
       variant: {
@@ -37,7 +36,7 @@ const badgeVariants = cva(
         icon: "px-1.5 py-1 rounded-md",
       },
       outline: {
-        true: "border-border px-1.25",
+        true: "border-border",
       },
       background: {
         false: "bg-transparent",
@@ -46,7 +45,13 @@ const badgeVariants = cva(
         true: "rounded-full",
       },
     },
-
+    compoundVariants: [
+      {
+        outline: true,
+        size: "default",
+        className: "px-1.5",
+      },
+    ],
     defaultVariants: {
       variant: "default",
       size: "default",
@@ -57,10 +62,6 @@ const badgeVariants = cva(
   }
 );
 
-/**
- * A versatile badge component for labels, status indicators, and tags.
- * Supports multiple colour variants, outline/background styles, and dot indicators.
- */
 type BadgeProps = useRender.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & {
     urgent?: boolean;
@@ -80,9 +81,8 @@ function Badge({
 }: BadgeProps) {
   const isEmpty = !children;
 
-  // These variants don't support outline - they're filled only
-  const decorativeOnlyVariants = ["mountain", "fjord", "nordic", "aurora", "dusk", "orange"];
-  const canBeOutlined = variant && !decorativeOnlyVariants.includes(variant);
+  const filledOnlyVariants = new Set(["mountain", "fjord", "nordic", "aurora", "dusk", "orange"]);
+  const canBeOutlined = variant && !filledOnlyVariants.has(variant);
   const isOutlined = outline === true && canBeOutlined;
 
   return useRender({
@@ -96,14 +96,13 @@ function Badge({
             size,
             outline: isOutlined,
             background: isOutlined ? false : background,
+            dot,
           }),
-          // Override foreground color for outlined variants to use regular (not alternative)
           isOutlined && variant === "error" && "text-destructive-foreground",
           isOutlined && variant === "warning" && "text-warning-foreground",
           isOutlined && variant === "success" && "text-success-foreground",
           isOutlined && variant === "inProgress" && "text-neutral-foreground",
           isOutlined && variant === "archived" && "text-undefined-foreground",
-          dot && "rounded-full",
           dot && isEmpty && "size-2 p-0 border-0",
           dot && isEmpty && urgent && "bg-destructive-foreground",
           dot && isEmpty && !urgent && "bg-neutral-foreground",
@@ -120,5 +119,4 @@ function Badge({
   });
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants };
