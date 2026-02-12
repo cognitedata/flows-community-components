@@ -64,10 +64,7 @@ const meta: Meta<typeof Message> = {
   },
   decorators: [
     (Story) => (
-      <div
-        className="w-125"
-        style={{ "--message-content-max-width": "calc(var(--spacing) * 125)" } as CSSProperties}
-      >
+      <div className="w-200">
         <Story />
       </div>
     ),

@@ -1,5 +1,7 @@
+import { IconExclamationCircle } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {
+  type ComponentRef,
   type HTMLAttributes,
   type ReactElement,
   type ReactNode,
@@ -8,7 +10,6 @@ import {
 } from "react";
 
 import { cn } from "@/lib/utils";
-import { IconExclamationCircle } from "@tabler/icons-react";
 
 const helperTextVariants = cva("flex flex-row justify-start items-start", {
   variants: {
@@ -34,7 +35,7 @@ const helperTextIconVariants = cva("shrink-0", {
   },
 });
 
-export interface HelperTextProps
+interface HelperTextProps
   extends HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof helperTextVariants> {
   isError?: boolean;
@@ -42,12 +43,13 @@ export interface HelperTextProps
   icon?: ReactNode;
 }
 
-const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
+const HelperText = forwardRef<ComponentRef<"div">, HelperTextProps>(
   (
     { className, size = "sm", isError = false, isSuccess = false, icon, children, ...props },
     ref
   ) => {
     const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
+    const iconElement = displayIcon as ReactElement<{ className?: string }> | null;
 
     const textColor = isError
       ? "text-destructive-foreground"
@@ -55,13 +57,13 @@ const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
         ? "text-success-foreground"
         : "text-muted-foreground";
 
-    const iconWithClasses = displayIcon
-      ? cloneElement(displayIcon as ReactElement<{ className?: string }>, {
+    const iconWithClasses = iconElement
+      ? cloneElement(iconElement, {
           className: cn(
             helperTextIconVariants({ size }),
             size === "sm" && "mt-0.25",
             textColor,
-            (displayIcon as ReactElement<{ className?: string }>).props?.className
+            iconElement.props?.className
           ),
         })
       : null;
