@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect, waitFor, within } from "@storybook/test";
+import { useEffect, useState } from "react";
 import { Shimmer } from "./shimmer";
 
 const meta: Meta<typeof Shimmer> = {
@@ -14,12 +15,11 @@ const meta: Meta<typeof Shimmer> = {
     ),
   ],
   argTypes: {
-    // Display & behavior
     children: {
       control: "text",
       description: "Text content to display with shimmer effect",
       table: {
-        category: "Display",
+        category: "Content",
         type: { summary: "string" },
       },
     },
@@ -28,7 +28,7 @@ const meta: Meta<typeof Shimmer> = {
       options: ["p", "span", "div", "h1", "h2", "h3"],
       description: "HTML element type to render",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
         type: { summary: "ElementType" },
         defaultValue: { summary: "p" },
       },
@@ -38,7 +38,7 @@ const meta: Meta<typeof Shimmer> = {
       options: ["default", "nordic", "aurora", "dusk", "equinox", "summer", "spring", "fall"],
       description: "Gradient variant for the shimmer effect",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
         type: {
           summary: "default | nordic | aurora | dusk | equinox | summer | spring | fall",
         },
@@ -49,7 +49,7 @@ const meta: Meta<typeof Shimmer> = {
       control: "number",
       description: "Animation duration in seconds",
       table: {
-        category: "Animation",
+        category: "Behavior",
         type: { summary: "number" },
         defaultValue: { summary: "2" },
       },
@@ -58,7 +58,7 @@ const meta: Meta<typeof Shimmer> = {
       control: "number",
       description: "Spread multiplier for shimmer effect (based on text length)",
       table: {
-        category: "Animation",
+        category: "Behavior",
         type: { summary: "number" },
         defaultValue: { summary: "2" },
       },
@@ -67,7 +67,7 @@ const meta: Meta<typeof Shimmer> = {
       control: "text",
       description: "CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
   },
@@ -87,10 +87,6 @@ const meta: Meta<typeof Shimmer> = {
 export default meta;
 type Story = StoryObj<typeof Shimmer>;
 
-/**
- * Basic shimmer effect
- * Matches the basic example from shimmer.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -104,17 +100,12 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the shimmer text
     const shimmer = canvas.getByText("Processing...");
     await expect(shimmer).toBeInTheDocument();
   },
   render: () => <Shimmer>Processing...</Shimmer>,
 };
 
-/**
- * All gradient variants
- * Matches the gradients example from shimmer.examples.tsx
- */
 export const GradientVariants: Story = {
   parameters: {
     order: 2,
@@ -128,7 +119,6 @@ export const GradientVariants: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all variants are rendered
     const variants = [
       "Default gradient",
       "Nordic gradient",
@@ -158,9 +148,6 @@ export const GradientVariants: Story = {
   ),
 };
 
-/**
- * Different HTML element types with appropriate typography
- */
 export const ElementTypes: Story = {
   parameters: {
     order: 3,
@@ -174,7 +161,6 @@ export const ElementTypes: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify heading elements are rendered as headings with correct text
     const headings = [
       { level: 1, name: /heading 1 with shimmer/i },
       { level: 2, name: /heading 2 with shimmer/i },
@@ -220,9 +206,6 @@ export const ElementTypes: Story = {
   ),
 };
 
-/**
- * Different animation durations
- */
 export const AnimationDurations: Story = {
   parameters: {
     order: 4,
@@ -236,7 +219,6 @@ export const AnimationDurations: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all duration variants are rendered
     const durations = [
       "Fast (1 second)",
       "Default (2 seconds)",
@@ -258,9 +240,6 @@ export const AnimationDurations: Story = {
   ),
 };
 
-/**
- * Different spread values
- */
 export const SpreadValues: Story = {
   parameters: {
     order: 5,
@@ -274,7 +253,6 @@ export const SpreadValues: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all spread variants are rendered
     const spreads = [
       "Narrow spread (1)",
       "Default spread (2)",
@@ -296,9 +274,6 @@ export const SpreadValues: Story = {
   ),
 };
 
-/**
- * Long text content
- */
 export const LongText: Story = {
   parameters: {
     order: 6,
@@ -312,7 +287,6 @@ export const LongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify long text content is rendered
     await Promise.all([
       expect(
         canvas.getByText(
@@ -340,9 +314,6 @@ export const LongText: Story = {
   ),
 };
 
-/**
- * Inline usage examples
- */
 export const InlineUsage: Story = {
   parameters: {
     order: 7,
@@ -356,7 +327,6 @@ export const InlineUsage: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify inline shimmer text is rendered within paragraphs
     const inlineTexts = [
       /Your request is/i,
       "processing",
@@ -392,9 +362,6 @@ export const InlineUsage: Story = {
   ),
 };
 
-/**
- * Custom styling
- */
 export const CustomStyling: Story = {
   parameters: {
     order: 8,
@@ -407,7 +374,6 @@ export const CustomStyling: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify custom styled shimmer text is rendered
     const styledTexts = ["Large bold text", "Small muted text", "Medium semibold text"];
 
     await Promise.all(
@@ -427,68 +393,90 @@ export const CustomStyling: Story = {
   ),
 };
 
-/**
- * Loading state simulation
- */
 export const LoadingStates: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story: "Shimmer effects used in realistic loading state scenarios.",
+        story:
+          "Shimmer effects used in realistic loading state scenarios, transitioning to a final state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify headings are present
     await expect(canvas.getByRole("heading", { name: /Processing Request/i })).toBeInTheDocument();
     await expect(canvas.getByRole("heading", { name: /System Status/i })).toBeInTheDocument();
 
-    // Verify shimmer loading states are rendered
-    const loadingStates = [
-      "Analyzing input parameters...",
-      "Generating response...",
-      "Finalizing results...",
-      "Data synchronization in progress",
-      "Calculating...",
-    ];
+    await expect(canvas.getByText("Analyzing input parameters...")).toBeInTheDocument();
+    await expect(canvas.getByText("Data synchronization in progress")).toBeInTheDocument();
 
-    await Promise.all(
-      loadingStates.map((state) => expect(canvas.getByText(state)).toBeInTheDocument())
+    await waitFor(
+      () => {
+        expect(canvas.getByText("Input parameters analyzed.")).toBeInTheDocument();
+        expect(canvas.getByText("Data synchronization complete.")).toBeInTheDocument();
+      },
+      { timeout: 4000 }
+    );
+
+    await waitFor(() => {
+      expect(canvas.queryByText("Analyzing input parameters...")).not.toBeInTheDocument();
+      expect(canvas.queryByText("Data synchronization in progress")).not.toBeInTheDocument();
+    });
+  },
+  render: function LoadingStatesStory() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }, []);
+
+    return (
+      <div className="w-full flex flex-col items-start gap-6 max-w-md">
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold">Processing Request</h3>
+          {loading ? (
+            <>
+              <Shimmer>Analyzing input parameters...</Shimmer>
+              <Shimmer variant="aurora">Generating response...</Shimmer>
+              <Shimmer variant="nordic">Finalizing results...</Shimmer>
+            </>
+          ) : (
+            <p className="text-sm text-muted-foreground">Input parameters analyzed.</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold">System Status</h3>
+          <p className="text-sm">
+            Current operation:{" "}
+            {loading ? (
+              <Shimmer as="span" variant="dusk">
+                Data synchronization in progress
+              </Shimmer>
+            ) : (
+              <span className="text-green-500 font-medium">Data synchronization complete.</span>
+            )}
+          </p>
+          <p className="text-sm">
+            Estimated time:{" "}
+            {loading ? (
+              <Shimmer as="span" variant="equinox">
+                Calculating...
+              </Shimmer>
+            ) : (
+              <span>Completed.</span>
+            )}
+          </p>
+        </div>
+      </div>
     );
   },
-  render: () => (
-    <div className="w-full flex flex-col items-start gap-6 max-w-md">
-      <div className="space-y-2">
-        <h3 className="text-lg font-semibold">Processing Request</h3>
-        <Shimmer>Analyzing input parameters...</Shimmer>
-        <Shimmer variant="aurora">Generating response...</Shimmer>
-        <Shimmer variant="nordic">Finalizing results...</Shimmer>
-      </div>
-      <div className="space-y-2">
-        <h3 className="text-lg font-semibold">System Status</h3>
-        <p className="text-sm">
-          Current operation:{" "}
-          <Shimmer as="span" variant="dusk">
-            Data synchronization in progress
-          </Shimmer>
-        </p>
-        <p className="text-sm">
-          Estimated time:{" "}
-          <Shimmer as="span" variant="equinox">
-            Calculating...
-          </Shimmer>
-        </p>
-      </div>
-    </div>
-  ),
 };
 
-/**
- * Playground story for interactive exploration of shimmer props.
- */
 export const Playground: Story = {
   args: {
     children: "Playground shimmer text",
@@ -502,15 +490,13 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story:
-          "Interactive playground for the shimmer component. Use controls to experiment with different variants, durations, spread values, and element types.",
+        story: "Interactive playground to experiment with shimmer variants and properties.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify shimmer text is rendered
     const shimmer = canvas.getByText("Playground shimmer text");
     await expect(shimmer).toBeInTheDocument();
   },
