@@ -71,38 +71,27 @@ const meta: Meta<typeof Popover> = {
 export default meta;
 type Story = StoryObj<typeof Popover>;
 
-/**
- * Basic popover with title and description.
- * Matches the basic example from popover.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story:
-          "A simple popover with heading and description text. The popover appears centered below the trigger button. Click the button to open.",
+        story: "Default popover with heading and description.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const trigger = canvas.getByRole("button", { name: /open popover/i });
     await expect(trigger).toBeInTheDocument();
 
     await userEvent.click(trigger);
 
-    await waitFor(
-      async () => {
-        const heading = body.getByText(/get started with atlas/i);
-        await expect(heading).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
-
-    const description = body.getByText(/cognite atlas ai helps you create and manage/i);
+    const content = await canvas.findByTestId("popover-content");
+    const heading = within(content).getByText(/get started with atlas/i);
+    await expect(heading).toBeInTheDocument();
+    const description = within(content).getByText(/cognite atlas ai helps you create and manage/i);
     await expect(description).toBeInTheDocument();
   },
   render: function PopoverBasicStory() {
@@ -127,34 +116,23 @@ export const Basic: Story = {
   },
 };
 
-/**
- * Popovers positioned on different sides of the trigger.
- * Demonstrates the `side` prop with top, right, bottom, and left positions.
- */
 export const Sides: Story = {
   parameters: {
     order: 2,
     docs: {
       description: {
-        story:
-          "Popovers can be positioned on any side of the trigger using the `side` prop on PopoverContent. Available options: top, right, bottom (default), left.",
+        story: "Popover side positioning examples.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const topButton = canvas.getByRole("button", { name: /^top$/i });
     await userEvent.click(topButton);
 
-    await waitFor(
-      async () => {
-        const content = body.getByText(/this popover appears on top/i);
-        await expect(content).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    const content = await canvas.findByTestId("popover-content");
+    await expect(within(content).getByText(/this popover appears on top/i)).toBeInTheDocument();
 
     await userEvent.click(topButton);
   },
@@ -193,34 +171,23 @@ export const Sides: Story = {
   },
 };
 
-/**
- * Popovers with different alignment options.
- * Demonstrates the `align` prop with start, center, and end positions.
- */
 export const Alignment: Story = {
   parameters: {
     order: 3,
     docs: {
       description: {
-        story:
-          "Control the alignment of the popover relative to the trigger using the `align` prop on PopoverContent. Options: start, center (default), end.",
+        story: "Popover alignment variants.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const startButton = canvas.getByRole("button", { name: /align start/i });
     await userEvent.click(startButton);
 
-    await waitFor(
-      async () => {
-        const content = body.getByText(/aligned to start/i);
-        await expect(content).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    const content = await canvas.findByTestId("popover-content");
+    await expect(within(content).getByText(/aligned to start/i)).toBeInTheDocument();
   },
   render: function PopoverAlignmentStory() {
     return (
@@ -265,41 +232,29 @@ export const Alignment: Story = {
   },
 };
 
-/**
- * Popover containing a form with inputs and actions.
- * Shows how popovers can contain interactive controls.
- */
 export const WithForm: Story = {
   parameters: {
     order: 4,
     docs: {
       description: {
-        story:
-          "Popovers can contain interactive form controls like inputs and buttons. Perfect for quick actions or data entry without navigating away.",
+        story: "Popover with interactive form controls.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const trigger = canvas.getByRole("button", { name: /create project/i });
     await userEvent.click(trigger);
 
-    await waitFor(
-      async () => {
-        const heading = body.getByText(/create new project/i);
-        await expect(heading).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
-
-    const nameInput = body.getByPlaceholderText(/enter project name/i);
+    const content = await canvas.findByTestId("popover-content");
+    await expect(within(content).getByText(/create new project/i)).toBeInTheDocument();
+    const nameInput = within(content).getByPlaceholderText(/enter project name/i);
     await expect(nameInput).toBeInTheDocument();
     await userEvent.type(nameInput, "My Project", { delay: 50 });
     await expect(nameInput).toHaveValue("My Project");
 
-    const createButton = body.getByRole("button", { name: /^create$/i });
+    const createButton = within(content).getByRole("button", { name: /^create$/i });
     await expect(createButton).toBeInTheDocument();
   },
   render: function PopoverWithFormStory() {
@@ -343,46 +298,28 @@ export const WithForm: Story = {
   },
 };
 
-/**
- * Popover with custom width.
- * The default width is 18rem (w-72), but can be customised using className.
- */
 export const CustomWidth: Story = {
   parameters: {
     order: 5,
     docs: {
       description: {
-        story:
-          "Control the width of the popover content by passing a className with width utilities to PopoverContent. Default width is 18rem (w-72).",
+        story: "Popover width customization examples.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const narrowButton = canvas.getByRole("button", { name: /narrow/i });
     await userEvent.click(narrowButton);
-
-    await waitFor(
-      async () => {
-        const content = body.getByText(/narrow popover with w-48/i);
-        await expect(content).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    let content = await canvas.findByTestId("popover-content");
+    await expect(within(content).getByText(/narrow popover with w-48/i)).toBeInTheDocument();
 
     await userEvent.click(narrowButton);
     const wideButton = canvas.getByRole("button", { name: /wide/i });
     await userEvent.click(wideButton);
-
-    await waitFor(
-      async () => {
-        const content = body.getByText(/wide popover with w-96/i);
-        await expect(content).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    content = await canvas.findByTestId("popover-content");
+    await expect(within(content).getByText(/wide popover with w-96/i)).toBeInTheDocument();
   },
   render: function PopoverCustomWidthStory() {
     return (
@@ -419,36 +356,23 @@ export const CustomWidth: Story = {
   },
 };
 
-/**
- * Popover with rich content including lists and actions.
- * Demonstrates more complex layouts within popovers.
- */
 export const RichContent: Story = {
   parameters: {
     order: 6,
     docs: {
       description: {
-        story:
-          "Popovers can contain rich content including headings, lists, and multiple action buttons. Useful for action menus or quick access panels.",
+        story: "Popover with richer content and actions.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const trigger = canvas.getByRole("button", { name: /view actions/i });
     await userEvent.click(trigger);
-
-    await waitFor(
-      async () => {
-        const heading = body.getByText(/quick actions/i);
-        await expect(heading).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
-
-    const exportButton = body.getByRole("button", { name: /export data/i });
+    const content = await canvas.findByTestId("popover-content");
+    await expect(within(content).getByText(/quick actions/i)).toBeInTheDocument();
+    const exportButton = within(content).getByRole("button", { name: /export data/i });
     await expect(exportButton).toBeInTheDocument();
 
     await userEvent.click(exportButton);
@@ -490,23 +414,17 @@ export const RichContent: Story = {
   },
 };
 
-/**
- * Controlled popover with external state management.
- * Demonstrates programmatic control of popover state.
- */
 export const Controlled: Story = {
   parameters: {
     order: 7,
     docs: {
       description: {
-        story:
-          "A controlled popover where the open state is managed externally. Includes a button to programmatically toggle the popover.",
+        story: "Controlled popover with external open state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const toggleButton = canvas.getByRole("button", {
       name: /toggle with external button/i,
@@ -525,10 +443,11 @@ export const Controlled: Story = {
       { timeout: 500 }
     );
 
-    const heading = body.getByText(/controlled popover/i);
+    const content = await canvas.findByTestId("popover-content");
+    const heading = within(content).getByText(/controlled popover/i);
     await expect(heading).toBeInTheDocument();
 
-    const description = body.getByText(/controlled externally/i);
+    const description = within(content).getByText(/controlled externally/i);
     await expect(description).toBeInTheDocument();
   },
   render: function PopoverControlledStory() {
@@ -556,35 +475,24 @@ export const Controlled: Story = {
   },
 };
 
-/**
- * Minimal popover content for empty-state style usage.
- */
 export const EmptyContent: Story = {
   parameters: {
     order: 8,
     docs: {
       description: {
-        story:
-          "Popover with minimal content to validate rendering and interaction when content is intentionally sparse.",
+        story: "Minimal popover content state.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const trigger = canvas.getByRole("button", { name: /open empty popover/i });
     await expect(trigger).toBeInTheDocument();
 
     await userEvent.click(trigger);
-
-    await waitFor(
-      async () => {
-        const content = body.getByText("No additional details.");
-        await expect(content).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    const content = await canvas.findByTestId("popover-content");
+    await expect(within(content).getByText("No additional details.")).toBeInTheDocument();
   },
   render: function PopoverEmptyContentStory() {
     return (
@@ -600,40 +508,24 @@ export const EmptyContent: Story = {
   },
 };
 
-/**
- * Popover with long content constrained to a scrollable viewport.
- */
 export const LongContentScrollable: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story:
-          "Long popover content constrained with max height and scrolling to verify overflow behavior.",
+        story: "Scrollable long-content popover.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const trigger = canvas.getByRole("button", { name: /open long content/i });
     await userEvent.click(trigger);
-
-    await waitFor(
-      async () => {
-        const heading = body.getByText("Release notes");
-        await expect(heading).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
-
-    const heading = body.getByText("Release notes");
-    const container = heading.closest('[data-slot="popover-content"]');
+    const container = await canvas.findByTestId("popover-content");
+    const heading = within(container).getByText("Release notes");
+    await expect(heading).toBeInTheDocument();
     await expect(container).toBeInTheDocument();
-    if (!container) {
-      throw new Error("Popover content container not found");
-    }
     await expect(container).toHaveClass("max-h-48");
     await expect(container).toHaveClass("overflow-y-auto");
   },
@@ -668,40 +560,24 @@ export const LongContentScrollable: Story = {
   },
 };
 
-/**
- * Popover behavior in constrained narrow layouts.
- */
 export const NarrowViewport: Story = {
   parameters: {
     order: 10,
     docs: {
       description: {
-        story:
-          "Constrained layout scenario that verifies readable popover content and stable positioning in narrow containers.",
+        story: "Narrow-layout popover behavior.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
 
     const trigger = canvas.getByRole("button", { name: /open compact popover/i });
     await userEvent.click(trigger);
-
-    await waitFor(
-      async () => {
-        const text = body.getByText(/content wraps correctly in narrow layouts/i);
-        await expect(text).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
-
-    const text = body.getByText(/content wraps correctly in narrow layouts/i);
-    const container = text.closest('[data-slot="popover-content"]');
+    const container = await canvas.findByTestId("popover-content");
+    const text = within(container).getByText(/content wraps correctly in narrow layouts/i);
+    await expect(text).toBeInTheDocument();
     await expect(container).toBeInTheDocument();
-    if (!container) {
-      throw new Error("Popover content container not found");
-    }
     await expect(container).toHaveClass("max-w-56");
   },
   render: function PopoverNarrowViewportStory() {
@@ -720,9 +596,6 @@ export const NarrowViewport: Story = {
   },
 };
 
-/**
- * Interactive playground for testing popover props.
- */
 export const Playground: Story = {
   args: {
     modal: false,
@@ -732,8 +605,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story:
-          "Interactive playground to test different popover configurations. Use the controls panel to experiment with props.",
+        story: "Interactive playground for popover root props.",
       },
     },
   },
