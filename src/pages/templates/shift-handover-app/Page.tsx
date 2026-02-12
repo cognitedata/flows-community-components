@@ -492,7 +492,7 @@ export default function ShiftHandoverAppPage() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="inline-flex h-5 w-5 items-center justify-center rounded bg-[var(--ns-glacier-900)]">
+                        <div className="inline-flex h-5 w-5 items-center justify-center rounded bg-[--ns-glacier-900]">
                           {report.headerIcon}
                         </div>
                         <CardTitle className="text-base">{report.title}</CardTitle>

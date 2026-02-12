@@ -1,4 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
+import type { Element } from "hast";
+import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
 import { twMerge } from "tailwind-merge";
 
 import styleScope from "@/styleScope";
@@ -14,6 +16,70 @@ type PortalContainerOptions = {
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export const isStorybookTestEnv =
+  typeof window !== "undefined" &&
+  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ === true;
+
+export const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+const stripPreStylesTransformer: ShikiTransformer = {
+  name: "strip-pre-styles",
+  pre(node: Element) {
+    node.properties.style = undefined;
+  },
+};
+
+const lineNumberTransformer: ShikiTransformer = {
+  name: "line-numbers",
+  line(node: Element, line: number) {
+    node.children.unshift({
+      type: "element",
+      tagName: "span",
+      properties: {
+        className: [
+          "inline-block",
+          "min-w-10",
+          "mr-4",
+          "text-right",
+          "select-none",
+          "text-muted-foreground",
+        ],
+      },
+      children: [{ type: "text", value: String(line) }],
+    });
+  },
+};
+
+export async function highlightCode(
+  code: string,
+  language: BundledLanguage,
+  showLineNumbers = false
+): Promise<[string, string]> {
+  const transformers: ShikiTransformer[] = [
+    stripPreStylesTransformer,
+    ...(showLineNumbers ? [lineNumberTransformer] : []),
+  ];
+
+  return await Promise.all([
+    codeToHtml(code, {
+      lang: language,
+      theme: "one-light",
+      transformers,
+    }),
+    codeToHtml(code, {
+      lang: language,
+      theme: "one-dark-pro",
+      transformers,
+    }),
+  ]);
 }
 
 /**
