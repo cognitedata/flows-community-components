@@ -1,20 +1,3 @@
-/**
- * Topbar Component
- *
- * A top navigation bar component for application headers.
- *
- * @example
- * import { Topbar, TopbarLeft, TopbarRight, TopbarBreadcrumbs } from '@/components/ui/aura/topbar';
- *
- * <Topbar>
- *   <TopbarLeft>
- *     <TopbarBreadcrumbs>...</TopbarBreadcrumbs>
- *   </TopbarLeft>
- *   <TopbarRight>
- *     <Button>Action</Button>
- *   </TopbarRight>
- * </Topbar>
- */
 export {
   Topbar,
   TopbarLeft,
