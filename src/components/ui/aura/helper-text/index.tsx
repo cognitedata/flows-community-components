@@ -1,13 +1,5 @@
-/**
- * Helper Text Component
- *
- * A helper text component for form fields with validation states.
- *
- * @example
- * import { HelperText } from '@/components/ui/aura/helper-text';
- *
- * <HelperText variant="error">This field is required</HelperText>
- */
-export { HelperText } from "./helper-text";
-export type { HelperTextProps } from "./helper-text";
+import { HelperText } from "./helper-text";
+
+/** Helper text exports. */
+export { HelperText };
 export { HelperTextMetadata } from "./helper-text.metadata";
