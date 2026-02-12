@@ -60,7 +60,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "bg-popover fixed inset-x-4 top-1/2 z-50 grid -translate-y-1/2 rounded-xl border px-5 py-5 mb-2.5 shadow-xl outline-none transition-opacity duration-200 data-open:opacity-100 data-closed:opacity-0 sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2 sm:inset-x-auto",
+          "bg-popover fixed inset-x-4 top-1/2 z-50 grid -translate-y-1/2 rounded-xl border px-5 py-5 mb-2.5 shadow-xl outline-none transition-opacity duration-200 data-open:opacity-100 data-closed:opacity-0 sm:inset-x-0 sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2",
           className
         )}
         {...props}
