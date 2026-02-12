@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconSelector } from "@tabler/icons-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 
 const meta: Meta<typeof Collapsible> = {
@@ -61,6 +61,18 @@ const meta: Meta<typeof Collapsible> = {
 export default meta;
 type Story = StoryObj<typeof Collapsible>;
 
+function getCollapsiblePanels(canvasElement: HTMLElement): HTMLElement[] {
+  const panels = Array.from(
+    canvasElement.querySelectorAll('[data-slot="collapsible-content"]')
+  ) as HTMLElement[];
+
+  if (panels.length === 0) {
+    throw new Error("No collapsible panels were rendered.");
+  }
+
+  return panels;
+}
+
 /**
  * Basic collapsible
  * Shows a simple collapsible with trigger and content
@@ -81,8 +93,8 @@ export const Basic: Story = {
     const trigger = canvas.getByRole("button");
     await expect(trigger).toBeInTheDocument();
 
-    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
-    await expect(content).toBeInTheDocument();
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(panel).toBeInTheDocument();
 
     await userEvent.click(trigger);
     await waitFor(() => {
@@ -139,6 +151,11 @@ export const DefaultOpen: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute("data-panel-open");
     });
+
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(
+      within(panel).getByText(/this collapsible starts open by default/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <Collapsible defaultOpen className="w-[400px] space-y-2">
@@ -193,6 +210,9 @@ export const Controlled: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute("data-panel-open");
     });
+
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(within(panel).getByText(/this collapsible is controlled externally/i)).toBeInTheDocument();
   },
   render: function ControlledCollapsibleStory() {
     const [isOpen, setIsOpen] = useState(false);
@@ -252,6 +272,9 @@ export const WithCustomTrigger: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute("data-panel-open");
     });
+
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(within(panel).getByText(/here are some advanced settings/i)).toBeInTheDocument();
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
@@ -309,6 +332,10 @@ export const Multiple: Story = {
     await waitFor(() => {
       expect(q2).toHaveAttribute("data-panel-open");
     });
+
+    const panels = getCollapsiblePanels(canvasElement);
+    await expect(within(panels[0]).getByText(/react is a javascript library/i)).toBeInTheDocument();
+    await expect(within(panels[1]).getByText(/typescript is a typed superset/i)).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2 w-[400px]">
@@ -386,8 +413,8 @@ export const Disabled: Story = {
     await expect(trigger).toBeInTheDocument();
     await expect(trigger).toBeDisabled();
 
-    const content = canvasElement.querySelector('[data-slot="collapsible-content"]');
-    await expect(content).toBeInTheDocument();
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(panel).toBeInTheDocument();
   },
   render: () => (
     <Collapsible disabled className="w-[400px] space-y-2">
@@ -430,9 +457,10 @@ export const WithRichContent: Story = {
 
     await userEvent.click(trigger);
 
-    await expect(canvas.getByText("Getting Started")).toBeInTheDocument();
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(within(panel).getByText("Getting Started")).toBeInTheDocument();
     await expect(
-      canvas.getByText("Follow these steps to get started with the component library:")
+      within(panel).getByText("Follow these steps to get started with the component library:")
     ).toBeInTheDocument();
   },
   render: () => (
@@ -488,13 +516,11 @@ export const FAQ: Story = {
     await expect(q1).toBeInTheDocument();
 
     await userEvent.click(q1);
+    const panels = getCollapsiblePanels(canvasElement);
     await expect(
-      canvas.getByText(/collapsibles work independently—multiple can be open at once/i)
+      within(panels[0]).getByText(/collapsibles work independently—multiple can be open at once/i)
     ).toBeInTheDocument();
-
-    await expect(
-      canvas.getByText(/yes! use the open prop for controlled state/i)
-    ).toBeInTheDocument();
+    await expect(within(panels[2]).getByText(/yes! use the open prop for controlled state/i)).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2 w-[500px]">
@@ -579,6 +605,9 @@ export const EdgeCaseEmpty: Story = {
     await waitFor(() => {
       expect(trigger).toHaveAttribute("data-panel-open");
     });
+
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(panel).toBeInTheDocument();
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
@@ -624,7 +653,10 @@ export const EdgeCaseLongText: Story = {
       expect(trigger).toHaveAttribute("data-panel-open");
     });
 
-    await expect(canvas.getByText(/this is an extremely long paragraph/i)).toBeInTheDocument();
+    const [panel] = getCollapsiblePanels(canvasElement);
+    await expect(
+      within(panel).getByText(/this is an extremely long paragraph/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <Collapsible className="w-[400px] space-y-2">
