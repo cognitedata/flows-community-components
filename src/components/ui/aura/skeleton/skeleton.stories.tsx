@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import { expect } from "@storybook/test";
 import { Skeleton } from "./skeleton";
 
 const meta: Meta<typeof Skeleton> = {
@@ -33,8 +33,9 @@ export const Basic: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const skeleton = canvas.getByRole("generic");
+    const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
+    const skeleton = skeletons[0];
+    await expect(skeletons.length).toBe(1);
     await expect(skeleton).toBeInTheDocument();
     await expect(skeleton).toHaveClass("animate-pulse");
   },
@@ -51,8 +52,7 @@ export const Shapes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const skeletons = canvas.getAllByRole("generic");
+    const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
     await expect(skeletons.length).toBe(3);
   },
   render: () => (
@@ -74,8 +74,7 @@ export const TextBlock: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const skeletons = canvas.getAllByRole("generic");
+    const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
     await expect(skeletons.length).toBe(4);
   },
   render: () => (
@@ -98,8 +97,7 @@ export const Card: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const skeletons = canvas.getAllByRole("generic");
+    const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
     await expect(skeletons.length).toBe(4);
   },
   render: () => (
@@ -126,8 +124,7 @@ export const Table: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const rows = canvas.getAllByRole("generic");
+    const rows = canvasElement.querySelectorAll('[data-slot="skeleton"]');
     await expect(rows.length).toBe(4);
   },
   render: () => (
@@ -150,8 +147,7 @@ export const ListItems: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const items = canvas.getAllByRole("generic");
+    const items = canvasElement.querySelectorAll('[data-slot="skeleton"]');
     await expect(items.length).toBe(6);
   },
   render: () => (
@@ -186,8 +182,9 @@ export const Playground: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const skeleton = canvas.getByRole("generic");
+    const skeletons = canvasElement.querySelectorAll('[data-slot="skeleton"]');
+    const skeleton = skeletons[0];
+    await expect(skeletons.length).toBe(1);
     await expect(skeleton).toBeInTheDocument();
   },
 };
