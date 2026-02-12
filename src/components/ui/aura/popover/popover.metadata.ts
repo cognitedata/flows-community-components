@@ -1,8 +1,5 @@
 import type { ComponentMeta } from "@/lib/component-examples";
 
-/**
- * Popover metadata for docs and LLM guidance.
- */
 export const PopoverMetadata: ComponentMeta = {
   name: "Popover",
   status: "draft",

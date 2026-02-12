@@ -35,11 +35,11 @@ For detailed component building guidelines, use the `/component-builder` skill.
 ## Key principles
 
 - Use Base UI for complex interactions, native HTML for simple elements
-- Always use `ComponentRef` (not `React.ElementRef`)
+- Always use `ComponentRef` (not `React.ElementRef`), except for Base UI Trigger components (Dialog, Popover, etc.) which should be plain functions without `forwardRef` as they handle refs internally
 - No code comments in component files
 - Extract helpers to `@/lib/utils.ts`
 - Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
-- Exports should be in a single export block; do not split into one-export-per-line statements.
+- Exports should be in a single export block. Format inline if it fits, or one-per-line if long. Let Biome handle formatting; avoid `// biome-ignore` comments.
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 - Do not include `importPath` in `*.metadata.ts` files
 
