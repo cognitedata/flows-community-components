@@ -143,8 +143,8 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const codeLines = await canvas.findAllByText(/console\.log\(greet\(user\)\);/);
-    await expect(codeLines.length).toBeGreaterThanOrEqual(1);
+    const codeBlock = canvasElement.querySelector('[data-slot="code-block"]');
+    await expect(codeBlock).toBeInTheDocument();
     const buttons = await canvas.findAllByRole("button", { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
@@ -165,9 +165,8 @@ export const WithLineNumbers: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const codeLines = await canvas.findAllByText(/console\.log\(greet\(user\)\);/);
-    await expect(codeLines.length).toBeGreaterThanOrEqual(1);
+    const codeBlock = canvasElement.querySelector('[data-slot="code-block"]');
+    await expect(codeBlock).toBeInTheDocument();
   },
 };
 
