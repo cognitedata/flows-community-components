@@ -51,6 +51,10 @@ All stories MUST use explicit render functions with hardcoded props. Never use `
 
 **Never use helper components** - inline all JSX directly. See `pagination.stories.tsx` for examples of stateful render functions with `useState`.
 
+## Exports
+
+When exporting story helpers or named exports from a file, prefer a single export block rather than multiple single-export statements.
+
 Duplicate code in each story if needed. Code examples > DRY principle.
 
 ## Polymorphic Title Components
@@ -64,6 +68,10 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 **NO inline code comments in play functions.** Code should be self-explanatory.
 
 See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
+
+## Render Functions
+
+**NO JSX comments in render functions** (e.g., `{/* States */}`). If you need section labels, use semantic HTML headings (`<h3>`) instead. JSX comments clutter the code and don't provide value when proper semantic markup is available.
 
 ### Query Priority
 
@@ -90,7 +98,7 @@ Storybook's canvas now handles portal content correctly. Use `canvas.findByTestI
 
 ## Styling in Stories
 
-Use Tailwind design tokens, not arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
+Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
 
 ## Fusion Import Strategy
 
@@ -105,6 +113,7 @@ Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced.
 **Story descriptions should be minimal and future-proof.** Avoid mentioning specific counts or implementation details that could become outdated. See story files for examples of clear, timeless descriptions.
 
 **Story-level code comments** (in `/** ... */` above stories or in descriptions) should be minimal and explain WHAT the story demonstrates, not HOW it works internally.
+**Keep story commentary short and directly relevant to the example.** Avoid long prose or redundant explanations.
 
 ## Deprecated Components
 
@@ -127,4 +136,5 @@ Before committing changes:
 6. No inline code comments in play functions
 7. Story descriptions are minimal and future-proof
 8. No deprecated third-party components used
-9. Update or confirm `src/lib/primitives-catalog.ts` progress metadata when readiness changes
+9. Keep story comments short and relevant to the example
+10. Update or confirm `src/lib/primitives-catalog.ts` progress metadata when readiness changes

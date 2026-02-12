@@ -1,45 +1,35 @@
-import {
-  InlineCitation,
-  InlineCitationLink,
-  type InlineCitationLinkProps,
-} from "@/components/ui/aura/inline-citation";
-import { cn } from "@/lib/utils";
-import { IconMist } from "@tabler/icons-react";
 import type { ComponentProps, ReactNode } from "react";
 
-export type SourcesProps = Omit<ComponentProps<"div">, "title"> & {
-  /**
-   * Title rendered above the sources list.
-   * - Omit to render a default `<SourcesTitle />`
-   * - Pass `false` or `"false"` to hide the title
-   * - Pass any React node (e.g. `<SourcesTitle title="References" />`) to customise
-   */
+import { IconMist } from "@tabler/icons-react";
+
+import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
+import { cn } from "@/lib/utils";
+
+type SourcesProps = Omit<ComponentProps<"div">, "title"> & {
   title?: ReactNode | boolean;
 };
 
-export const Sources = ({ className, title, children, ...props }: SourcesProps) => {
+const Sources = ({ className, title, children, ...props }: SourcesProps) => {
   const hideTitle = title === false || title === "false";
   const titleNode = title === undefined || title === true ? <SourcesTitle /> : title;
 
   return (
-    <div className={cn("flex flex-col gap-2", className)} {...props}>
+    <div data-slot="sources" className={cn("flex flex-col gap-2", className)} {...props}>
       {!hideTitle ? titleNode : null}
-      <div className="flex flex-wrap gap-2">{children}</div>
+      <div data-slot="sources-items" className="flex flex-wrap gap-2">
+        {children}
+      </div>
     </div>
   );
 };
 
-export type SourcesTitleProps = ComponentProps<"div"> & {
+type SourcesTitleProps = ComponentProps<"div"> & {
   title?: string;
 };
 
-export const SourcesTitle = ({
-  className,
-  title = "Sources",
-  children,
-  ...props
-}: SourcesTitleProps) => (
+const SourcesTitle = ({ className, title = "Sources", children, ...props }: SourcesTitleProps) => (
   <div
+    data-slot="sources-title"
     className={cn(
       "flex items-center gap-2 text-base leading-5 tracking-tighter text-muted-foreground",
       className
@@ -51,12 +41,12 @@ export const SourcesTitle = ({
   </div>
 );
 
-export type SourceProps = InlineCitationLinkProps & {
+type SourceProps = ComponentProps<typeof InlineCitationLink> & {
   title?: string;
   url?: string;
 };
 
-export const Source = ({
+const Source = ({
   href,
   url,
   title,
@@ -76,6 +66,7 @@ export const Source = ({
   return (
     <InlineCitation>
       <InlineCitationLink
+        data-slot="source"
         href={sourceHref}
         target={target}
         variant={variant}
@@ -88,3 +79,5 @@ export const Source = ({
     </InlineCitation>
   );
 };
+
+export { Sources, SourcesTitle, Source };

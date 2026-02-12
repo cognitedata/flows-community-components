@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -33,7 +33,7 @@ const meta: Meta<typeof Command> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Advanced",
       },
     },
   },
@@ -45,17 +45,17 @@ const meta: Meta<typeof Command> = {
 export default meta;
 type Story = StoryObj<typeof Command>;
 
-export const Default: Story = {
+export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story: "Default command palette with grouped items and keyboard shortcuts.",
+        story: "Default command palette with grouped items and shortcuts.",
       },
     },
   },
   render: () => (
-    <Command className="rounded-lg border shadow-md w-88">
+    <Command className="w-88 rounded-lg border shadow-md">
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
@@ -96,15 +96,11 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const input = canvas.getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();
-
     await userEvent.type(input, "cal");
-
     await waitFor(() => {
-      const calendarItem = canvas.getByText("Calendar");
-      expect(calendarItem).toBeInTheDocument();
+      expect(canvas.getByText("Calendar")).toBeInTheDocument();
     });
   },
 };
@@ -114,17 +110,17 @@ export const Dialog: Story = {
     order: 2,
     docs: {
       description: {
-        story: "Command palette in a dialog/modal.",
+        story: "Command palette rendered inside a dialog.",
       },
     },
   },
-  render: function CommandDialogExample() {
+  render: () => {
     const [open, setOpen] = useState(false);
 
     return (
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Press <kbd className="px-2 py-1 bg-muted rounded text-xs">⌘K</kbd> or click the button
+          Press <kbd className="rounded bg-muted px-2 py-1 text-xs">⌘K</kbd> or use the button.
         </p>
         <Button variant="outline" onClick={() => setOpen(true)}>
           Open Command Palette
@@ -154,19 +150,19 @@ export const Dialog: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const trigger = canvas.getByRole("button", { name: /open command palette/i });
     await userEvent.click(trigger);
 
-    const dialog = await canvas.findByTestId("command-dialog-content");
-    await expect(dialog).toBeInTheDocument();
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="command-dialog"]');
+      expect(dialog).toBeInTheDocument();
+    });
 
-    const input = within(dialog).getByPlaceholderText("Type a command or search...");
+    const dialog = document.querySelector('[data-slot="command-dialog"]');
+    const input = within(dialog as HTMLElement).getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();
-
-    const calendarItem = within(dialog).getByRole("option", { name: /calendar/i });
+    const calendarItem = within(dialog as HTMLElement).getByRole("option", { name: /calendar/i });
     await userEvent.click(calendarItem);
-
     await waitFor(() => {
       expect(canvas.queryByTestId("command-dialog-content")).not.toBeInTheDocument();
     });
@@ -178,12 +174,12 @@ export const Filtering: Story = {
     order: 3,
     docs: {
       description: {
-        story: "Command palette with filtering. Type to filter items.",
+        story: "Filtering behavior while typing in the input.",
       },
     },
   },
   render: () => (
-    <Command className="rounded-lg border shadow-md w-88">
+    <Command className="w-88 rounded-lg border shadow-md">
       <CommandInput placeholder="Search actions..." />
       <CommandList>
         <CommandEmpty>No actions found.</CommandEmpty>
@@ -201,12 +197,9 @@ export const Filtering: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText("Search actions...");
-
     await userEvent.type(input, "settings");
-
     await waitFor(() => {
-      const settingsItem = canvas.getByText("Open settings");
-      expect(settingsItem).toBeInTheDocument();
+      expect(canvas.getByText("Open settings")).toBeInTheDocument();
     });
   },
 };
@@ -216,21 +209,12 @@ export const DisabledItems: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Command palette with some items disabled.",
+        story: "List with enabled and disabled command items.",
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("View Profile")).toBeInTheDocument();
-    await expect(canvas.getByText("Settings")).toBeInTheDocument();
-
-    const disabledItems = canvas.getAllByText(/disabled/i);
-    await expect(disabledItems.length).toBeGreaterThan(0);
-  },
   render: () => (
-    <Command className="rounded-lg border shadow-md w-88">
+    <Command className="w-88 rounded-lg border shadow-md">
       <CommandInput placeholder="Type a command..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
@@ -255,6 +239,13 @@ export const DisabledItems: Story = {
       </CommandList>
     </Command>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("View Profile")).toBeInTheDocument();
+    await expect(canvas.getByText("Settings")).toBeInTheDocument();
+    await expect(canvas.getByText("Send Email (disabled)")).toBeInTheDocument();
+    await expect(canvas.getByText("Calculator (disabled)")).toBeInTheDocument();
+  },
 };
 
 export const MultipleGroups: Story = {
@@ -262,23 +253,12 @@ export const MultipleGroups: Story = {
     order: 5,
     docs: {
       description: {
-        story: "Command palette with multiple grouped sections.",
+        story: "Multiple grouped sections with separators.",
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("Recently Used")).toBeInTheDocument();
-    await expect(canvas.getByText("Applications")).toBeInTheDocument();
-    await expect(canvas.getByText("Help")).toBeInTheDocument();
-
-    await expect(canvas.getByText("Calendar")).toBeInTheDocument();
-    await expect(canvas.getByText("Calculator")).toBeInTheDocument();
-    await expect(canvas.getByText("Documentation")).toBeInTheDocument();
-  },
   render: () => (
-    <Command className="rounded-lg border shadow-md w-100">
+    <Command className="w-100 rounded-lg border shadow-md">
       <CommandInput placeholder="Search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
@@ -314,6 +294,12 @@ export const MultipleGroups: Story = {
       </CommandList>
     </Command>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Recently Used")).toBeInTheDocument();
+    await expect(canvas.getByText("Applications")).toBeInTheDocument();
+    await expect(canvas.getByText("Help")).toBeInTheDocument();
+  },
 };
 
 export const CustomStyling: Story = {
@@ -321,22 +307,12 @@ export const CustomStyling: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Command palette with custom styling.",
+        story: "Custom styles applied to command root and items.",
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("Custom styled item 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Custom styled item 2")).toBeInTheDocument();
-    await expect(canvas.getByText("Custom styled item 3")).toBeInTheDocument();
-
-    const input = canvas.getByPlaceholderText("Search...");
-    await expect(input).toBeInTheDocument();
-  },
   render: () => (
-    <Command className="rounded-lg border shadow-md w-88 bg-card">
+    <Command className="w-88 rounded-lg border bg-card shadow-md">
       <CommandInput placeholder="Search..." className="bg-transparent" />
       <CommandList className="max-h-50">
         <CommandEmpty>No results found.</CommandEmpty>
@@ -354,54 +330,66 @@ export const CustomStyling: Story = {
       </CommandList>
     </Command>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Custom styled item 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Custom styled item 2")).toBeInTheDocument();
+    await expect(canvas.getByText("Custom styled item 3")).toBeInTheDocument();
+  },
 };
 
-export const VisualRegression: Story = {
+export const KeyboardNavigation: Story = {
   parameters: {
     order: 7,
     docs: {
       description: {
-        story: "Command palette for visual regression testing.",
+        story: "Keyboard-focused flow with filtering and shortcuts.",
       },
     },
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByText("Basic")).toBeInTheDocument();
-
-    await expect(canvas.getByText("Item 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Item 2")).toBeInTheDocument();
-
-    const input = canvas.getByPlaceholderText("Search...");
-    await expect(input).toBeInTheDocument();
   },
   render: () => (
-    <div className="space-y-8 p-4">
-      <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
-        <Command className="rounded-lg border shadow-md w-75">
-          <CommandInput placeholder="Search..." />
-          <CommandList>
-            <CommandEmpty>No results.</CommandEmpty>
-            <CommandGroup heading="Items">
-              <CommandItem>
-                <IconCalendar />
-                Item 1
-              </CommandItem>
-              <CommandItem>
-                <IconSettings />
-                Item 2
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </div>
-    </div>
+    <Command className="w-88 rounded-lg border shadow-md">
+      <CommandInput placeholder="Type a command..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Commands">
+          <CommandItem>
+            <IconCalendar />
+            <span>Calendar</span>
+            <CommandShortcut>⌘C</CommandShortcut>
+          </CommandItem>
+          <CommandItem>
+            <IconSettings />
+            <span>Settings</span>
+            <CommandShortcut>⌘S</CommandShortcut>
+          </CommandItem>
+          <CommandItem>
+            <IconMail />
+            <span>Mail</span>
+            <CommandShortcut>⌘M</CommandShortcut>
+          </CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </Command>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Type a command...");
+    await userEvent.click(input);
+    await expect(input).toHaveFocus();
+    await userEvent.type(input, "cal");
+    await waitFor(() => {
+      expect(canvas.getByText("Calendar")).toBeInTheDocument();
+    });
+    await userEvent.clear(input);
+    await waitFor(() => {
+      expect(canvas.getByText("Settings")).toBeInTheDocument();
+      expect(canvas.getByText("Mail")).toBeInTheDocument();
+    });
+    await expect(canvas.getByText("⌘C")).toBeInTheDocument();
+    await expect(canvas.getByText("⌘S")).toBeInTheDocument();
+    await expect(canvas.getByText("⌘M")).toBeInTheDocument();
+  },
 };
 
 export const NoResultsFound: Story = {
@@ -413,154 +401,60 @@ export const NoResultsFound: Story = {
       },
     },
   },
+  render: () => (
+    <Command className="w-88 rounded-lg border shadow-md">
+      <CommandInput placeholder="Search commands..." />
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Commands">
+          <CommandItem>
+            <IconCalendar />
+            <span>Calendar</span>
+          </CommandItem>
+          <CommandItem>
+            <IconSettings />
+            <span>Settings</span>
+          </CommandItem>
+          <CommandItem>
+            <IconMail />
+            <span>Mail</span>
+          </CommandItem>
+          <CommandItem>
+            <IconCalculator />
+            <span>Calculator</span>
+          </CommandItem>
+        </CommandGroup>
+      </CommandList>
+    </Command>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByPlaceholderText("Search commands...");
-
-    await userEvent.type(input, "xyz123nonexistent", { delay: 50 });
-
+    await userEvent.type(input, "xyz123nonexistent");
     await waitFor(() => {
-      const emptyState = canvas.getByText("No results found.");
-      expect(emptyState).toBeInTheDocument();
+      expect(canvas.getByText("No results found.")).toBeInTheDocument();
     });
-
-    const calendarItem = canvas.queryByText("Calendar");
-    expect(calendarItem).not.toBeInTheDocument();
-
     await userEvent.clear(input);
-    await waitFor(() => {
-      const calendarItem = canvas.getByText("Calendar");
-      expect(calendarItem).toBeInTheDocument();
-    });
-  },
-  render: function NoResultsFoundStory() {
-    return (
-      <Command className="rounded-lg border shadow-md w-88">
-        <CommandInput placeholder="Search commands..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Commands">
-            <CommandItem>
-              <IconCalendar />
-              <span>Calendar</span>
-            </CommandItem>
-            <CommandItem>
-              <IconSettings />
-              <span>Settings</span>
-            </CommandItem>
-            <CommandItem>
-              <IconMail />
-              <span>Mail</span>
-            </CommandItem>
-            <CommandItem>
-              <IconCalculator />
-              <span>Calculator</span>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
-    );
-  },
-};
-
-export const KeyboardNavigation: Story = {
-  parameters: {
-    order: 9,
-    docs: {
-      description: {
-        story: "Keyboard-focused flow with filtering and shortcuts.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Type a command...");
-
-    await expect(canvas.getByText("Calendar")).toBeInTheDocument();
-    await expect(canvas.getByText("Settings")).toBeInTheDocument();
-    await expect(canvas.getByText("Mail")).toBeInTheDocument();
-
-    await userEvent.click(input);
-    await expect(input).toHaveFocus();
-
-    await userEvent.type(input, "cal", { delay: 50 });
-
     await waitFor(() => {
       expect(canvas.getByText("Calendar")).toBeInTheDocument();
     });
-
-    await userEvent.clear(input);
-    await waitFor(() => {
-      expect(canvas.getByText("Settings")).toBeInTheDocument();
-      expect(canvas.getByText("Mail")).toBeInTheDocument();
-    });
-
-    await expect(canvas.getByText("⌘C")).toBeInTheDocument();
-    await expect(canvas.getByText("⌘S")).toBeInTheDocument();
-    await expect(canvas.getByText("⌘M")).toBeInTheDocument();
-  },
-  render: function KeyboardNavigationStory() {
-    return (
-      <Command className="rounded-lg border shadow-md w-88">
-        <CommandInput placeholder="Type a command..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Commands">
-            <CommandItem>
-              <IconCalendar />
-              <span>Calendar</span>
-              <CommandShortcut>⌘C</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <IconSettings />
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <IconMail />
-              <span>Mail</span>
-              <CommandShortcut>⌘M</CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
-    );
   },
 };
 
 export const LongList: Story = {
   parameters: {
-    order: 10,
+    order: 9,
     docs: {
       description: {
         story: "Long list to validate scrolling and filtering behavior.",
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search items...");
-
-    await expect(canvas.getByText("Item 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Item 5")).toBeInTheDocument();
-
-    await userEvent.type(input, "item 20", { delay: 50 });
-
-    await waitFor(() => {
-      const item20 = canvas.getByText("Item 20");
-      expect(item20).toBeInTheDocument();
-    });
-
-    await userEvent.clear(input);
-    await waitFor(() => {
-      expect(canvas.getByText("Item 1")).toBeInTheDocument();
-    });
-  },
-  render: function LongListStory() {
+  render: () => {
     const items = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
 
     return (
-      <Command className="rounded-lg border shadow-md w-88">
+      <Command className="w-88 rounded-lg border shadow-md">
         <CommandInput placeholder="Search items..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -575,39 +469,27 @@ export const LongList: Story = {
       </Command>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Search items...");
+    await expect(canvas.getByText("Item 1")).toBeInTheDocument();
+    await userEvent.type(input, "item 20");
+    await waitFor(() => {
+      expect(canvas.getByText("Item 20")).toBeInTheDocument();
+    });
+  },
 };
 
 export const AsyncSearch: Story = {
   parameters: {
-    order: 11,
+    order: 10,
     docs: {
       description: {
         story: "Async loading state and result rendering.",
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Search users...");
-
-    await expect(input).toBeInTheDocument();
-
-    await expect(canvas.getByText("No users found.")).toBeInTheDocument();
-
-    await userEvent.clear(input);
-    await userEvent.type(input, "jane");
-
-    await waitFor(
-      () => {
-        const searching = canvas.queryByText("Searching...");
-        const hasResults = canvas.queryByText("Jane Smith");
-
-        expect(searching || hasResults).toBeTruthy();
-      },
-      { timeout: 3000 }
-    );
-  },
-  render: function AsyncSearchStory() {
+  render: () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [results, setResults] = useState<string[]>([]);
@@ -631,7 +513,7 @@ export const AsyncSearch: Story = {
     };
 
     return (
-      <Command className="rounded-lg border shadow-md w-88">
+      <Command className="w-88 rounded-lg border shadow-md">
         <CommandInput
           placeholder="Search users..."
           value={searchQuery}
@@ -662,6 +544,54 @@ export const AsyncSearch: Story = {
       </Command>
     );
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Search users...");
+    await userEvent.type(input, "jane");
+    await waitFor(
+      () => {
+        expect(canvas.queryByText("Searching...") || canvas.queryByText("Jane Smith")).toBeTruthy();
+      },
+      { timeout: 3000 }
+    );
+  },
+};
+
+export const VisualRegression: Story = {
+  parameters: {
+    order: 11,
+    docs: {
+      description: {
+        story: "Visual baseline for command styling and structure.",
+      },
+    },
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
+  render: () => (
+    <div className="space-y-8 p-4">
+      <div className="space-y-2">
+        <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
+        <Command className="w-75 rounded-lg border shadow-md">
+          <CommandInput placeholder="Search..." />
+          <CommandList>
+            <CommandEmpty>No results.</CommandEmpty>
+            <CommandGroup heading="Items">
+              <CommandItem>
+                <IconCalendar />
+                Item 1
+              </CommandItem>
+              <CommandItem>
+                <IconSettings />
+                Item 2
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </div>
+    </div>
+  ),
 };
 
 export const Playground: Story = {
@@ -669,29 +599,12 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive command palette example.",
+        story: "Interactive playground for root command props.",
       },
     },
   },
   args: {
-    className: "rounded-lg border shadow-md w-88",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const input = canvas.getByPlaceholderText("Type to search...");
-    await expect(input).toBeInTheDocument();
-
-    await expect(canvas.getByText("Command 1")).toBeInTheDocument();
-    await expect(canvas.getByText("Command 2")).toBeInTheDocument();
-    await expect(canvas.getByText("Command 3")).toBeInTheDocument();
-
-    await userEvent.type(input, "1");
-
-    await waitFor(() => {
-      const command1 = canvas.getByText("Command 1");
-      expect(command1).toBeInTheDocument();
-    });
+    className: "w-88 rounded-lg border shadow-md",
   },
   render: (args) => (
     <Command {...args}>

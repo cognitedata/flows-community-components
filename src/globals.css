@@ -134,9 +134,13 @@
 
   /* Status color -alternate variants */
   --color-destructive-foreground-alternate: var(--destructive-foreground-alternate);
+  --color-destructive-alternative: var(--destructive-alternative);
   --color-warning-foreground-alternate: var(--warning-foreground-alternate);
+  --color-warning-alternative: var(--warning-alternative);
   --color-success-foreground-alternate: var(--success-foreground-alternate);
   --color-neutral-foreground-alternate: var(--neutral-foreground-alternate);
+  --color-neutral-alternative: var(--neutral-alternative);
+  --color-undefined-alternative: var(--undefined-alternative);
   --color-undefined-foreground-alternate: var(--undefined-foreground-alternate);
 
   /* Chart tokens */
@@ -331,11 +335,6 @@
   --radius-3xl: 24px;
   --radius-4xl: 32px;
   --radius-full: 9999px;
-  --ring-width-md: 3px;
-  --avatar-icon-default: 1.09375rem;
-  --avatar-icon-xs: 0.875rem;
-  --avatar-icon-xxs: 0.65625rem;
-  --avatar-image-backdrop: rgba(2, 6, 23, 0.2);
 }
 
 :root {
@@ -344,15 +343,6 @@
   --font-inter: "Inter", sans-serif;
   --font-space-grotesk: "Space Grotesk", sans-serif;
   --font-source-code-pro: "Source Code Pro", monospace;
-  --code-block-collapsed-height: 6.5rem;
-  --code-block-fade-height: 0.9375rem;
-  --message-content-max-width: 80%;
-
-  /* Component-specific sizing */
-  --alert-icon-width: calc(var(--spacing) * 4);
-  /* 16px - width of icon column in alert grid */
-  --drawer-max-height: 80vh;
-  /* Maximum height for top/bottom drawers */
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
@@ -634,9 +624,13 @@
 
   /* Status color -alternate variants (light mode) */
   --destructive-foreground-alternate: var(--red-700);
+  --destructive-alternative: var(--red-50);
   --warning-foreground-alternate: var(--amber-700);
+  --warning-alternative: var(--amber-50);
   --success-foreground-alternate: var(--green-700);
   --neutral-foreground-alternate: var(--gray-700);
+  --neutral-alternative: var(--gray-50);
+  --undefined-alternative: var(--mountain-50);
   --undefined-foreground-alternate: var(--mountain-700);
 
   /* Chart tokens (light mode) */
@@ -836,9 +830,13 @@
 
   /* Status color -alternate variants (dark mode) */
   --destructive-foreground-alternate: var(--red-900);
+  --destructive-alternative: var(--red-950);
   --warning-foreground-alternate: var(--amber-800);
+  --warning-alternative: var(--yellow-900);
   --success-foreground-alternate: var(--green-800);
   --neutral-foreground-alternate: var(--gray-900);
+  --neutral-alternative: var(--gray-900);
+  --undefined-alternative: var(--mountain-900);
   --undefined-foreground-alternate: var(--mountain-800);
 
   /* Chart tokens (dark mode) */
@@ -992,6 +990,15 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-undefined-foreground;
   }
 }
 

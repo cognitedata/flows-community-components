@@ -2,7 +2,6 @@ import type { ComponentMeta } from "@/lib/component-examples";
 
 export const SeparatorMetadata: ComponentMeta = {
   name: "Separator",
-  status: "draft",
+  status: "in-progress-code-review",
   description: "A visual separator for dividing content.",
-  llmUsage: 'Use `<Separator>` with orientation="horizontal" or "vertical" to divide content.',
 };

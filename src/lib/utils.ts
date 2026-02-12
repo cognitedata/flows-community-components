@@ -1,4 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
+import type { Element } from "hast";
+import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
 import { twMerge } from "tailwind-merge";
 
 import styleScope from "@/styleScope";
@@ -14,6 +16,70 @@ type PortalContainerOptions = {
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export const isStorybookTestEnv =
+  typeof window !== "undefined" &&
+  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ === true;
+
+export const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+const stripPreStylesTransformer: ShikiTransformer = {
+  name: "strip-pre-styles",
+  pre(node: Element) {
+    node.properties.style = undefined;
+  },
+};
+
+const lineNumberTransformer: ShikiTransformer = {
+  name: "line-numbers",
+  line(node: Element, line: number) {
+    node.children.unshift({
+      type: "element",
+      tagName: "span",
+      properties: {
+        className: [
+          "inline-block",
+          "min-w-10",
+          "mr-4",
+          "text-right",
+          "select-none",
+          "text-muted-foreground",
+        ],
+      },
+      children: [{ type: "text", value: String(line) }],
+    });
+  },
+};
+
+export async function highlightCode(
+  code: string,
+  language: BundledLanguage,
+  showLineNumbers = false
+): Promise<[string, string]> {
+  const transformers: ShikiTransformer[] = [
+    stripPreStylesTransformer,
+    ...(showLineNumbers ? [lineNumberTransformer] : []),
+  ];
+
+  return await Promise.all([
+    codeToHtml(code, {
+      lang: language,
+      theme: "one-light",
+      transformers,
+    }),
+    codeToHtml(code, {
+      lang: language,
+      theme: "one-dark-pro",
+      transformers,
+    }),
+  ]);
 }
 
 /**
@@ -39,6 +105,8 @@ export const invalidState =
   "aria-invalid:border-destructive-foreground aria-invalid:focus-visible:shadow-focus-ring-destructive aria-invalid:focus-visible:border-transparent aria-invalid:focus-visible:text-foreground outline-none" as const;
 export const disabledState =
   "disabled:bg-disabled disabled:border-transparent disabled:text-disabled-foreground disabled:pointer-events-none disabled:cursor-not-allowed" as const;
+export const readOnlyState =
+  "read-only:border-transparent read-only:text-foreground read-only:cursor-default read-only:hover:border-transparent read-only:focus-visible:shadow-none read-only:focus-visible:border-transparent" as const;
 
 export function slugToPascalCase(slug: string): string {
   return slug
@@ -116,6 +184,34 @@ export const getPortalContainer = (options?: PortalContainerOptions): HTMLElemen
   portalContainer = container;
   return container;
 };
+
+export async function convertBlobUrlToDataUrl(url: string): Promise<string> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+export function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+
+  if (parts.length === 0 || !parts[0]) {
+    return "";
+  }
+
+  if (parts.length === 1) {
+    return parts[0].slice(0, 2).toUpperCase();
+  }
+
+  const firstInitial = parts[0].charAt(0).toUpperCase();
+  const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase();
+
+  return firstInitial + lastInitial;
+}
 
 /**
  * Gets the correct image path for Storybook.

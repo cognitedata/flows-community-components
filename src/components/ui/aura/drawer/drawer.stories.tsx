@@ -27,12 +27,10 @@ function DrawerTriggerButton({
   ...props
 }: DrawerButtonProps) {
   return (
-    <DrawerTrigger
-      type={type}
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    >
-      {children}
+    <DrawerTrigger asChild>
+      <Button type={type} className={cn(buttonVariants({ variant, size, className }))} {...props}>
+        {children}
+      </Button>
     </DrawerTrigger>
   );
 }
@@ -46,12 +44,10 @@ function DrawerCloseButton({
   ...props
 }: DrawerButtonProps) {
   return (
-    <DrawerClose
-      type={type}
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    >
-      {children}
+    <DrawerClose asChild>
+      <Button type={type} className={cn(buttonVariants({ variant, size, className }))} {...props}>
+        {children}
+      </Button>
     </DrawerClose>
   );
 }

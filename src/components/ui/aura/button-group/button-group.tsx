@@ -1,7 +1,8 @@
+import type { ComponentProps } from "react";
+
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { type VariantProps, cva } from "class-variance-authority";
-import type { ComponentProps } from "react";
 
 import { Separator } from "@/components/ui/aura/separator";
 import { cn } from "@/lib/utils";
@@ -74,7 +75,7 @@ function ButtonGroupSeparator({
       data-slot="button-group-separator"
       orientation={orientation}
       className={cn(
-        "bg-input relative !m-0 self-stretch data-[orientation=vertical]:h-auto",
+        "bg-input relative m-0 self-stretch data-[orientation=vertical]:h-auto",
         className
       )}
       {...props}
@@ -82,10 +83,4 @@ function ButtonGroupSeparator({
   );
 }
 
-export {
-  ButtonGroup,
-  ButtonGroupSeparator,
-  ButtonGroupText,
-  // eslint-disable-next-line react-refresh/only-export-components
-  buttonGroupVariants,
-};
+export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants };

@@ -1,7 +1,8 @@
-import { cn, getPortalContainer } from "@/lib/utils";
-import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { type ComponentRef, forwardRef } from "react";
 
+import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
+
+import { cn, getPortalContainer } from "@/lib/utils";
 function TooltipProvider({
   delayDuration = 0,
   ...props
