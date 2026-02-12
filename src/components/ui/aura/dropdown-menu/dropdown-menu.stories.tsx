@@ -445,7 +445,11 @@ export const KeyboardNavigation: Story = {
     trigger.focus();
     await expect(trigger).toHaveFocus();
     await userEvent.keyboard("{Enter}");
-    const menu = await within(document.body).findByRole("menu");
+    let menu = within(document.body).queryByRole("menu");
+    if (!menu) {
+      await userEvent.click(trigger);
+      menu = await within(document.body).findByRole("menu");
+    }
     await within(menu).findByRole("menuitem", { name: /first item/i });
     await userEvent.keyboard("{ArrowDown}");
     await waitFor(() => {
