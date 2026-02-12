@@ -15,12 +15,11 @@ const meta: Meta<typeof Shimmer> = {
     ),
   ],
   argTypes: {
-    // Display & behavior
     children: {
       control: "text",
       description: "Text content to display with shimmer effect",
       table: {
-        category: "Display",
+        category: "Content",
         type: { summary: "string" },
       },
     },
@@ -29,7 +28,7 @@ const meta: Meta<typeof Shimmer> = {
       options: ["p", "span", "div", "h1", "h2", "h3"],
       description: "HTML element type to render",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
         type: { summary: "ElementType" },
         defaultValue: { summary: "p" },
       },
@@ -39,7 +38,7 @@ const meta: Meta<typeof Shimmer> = {
       options: ["default", "nordic", "aurora", "dusk", "equinox", "summer", "spring", "fall"],
       description: "Gradient variant for the shimmer effect",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
         type: {
           summary: "default | nordic | aurora | dusk | equinox | summer | spring | fall",
         },
@@ -50,7 +49,7 @@ const meta: Meta<typeof Shimmer> = {
       control: "number",
       description: "Animation duration in seconds",
       table: {
-        category: "Animation",
+        category: "Behavior",
         type: { summary: "number" },
         defaultValue: { summary: "2" },
       },
@@ -59,7 +58,7 @@ const meta: Meta<typeof Shimmer> = {
       control: "number",
       description: "Spread multiplier for shimmer effect (based on text length)",
       table: {
-        category: "Animation",
+        category: "Behavior",
         type: { summary: "number" },
         defaultValue: { summary: "2" },
       },
@@ -68,7 +67,7 @@ const meta: Meta<typeof Shimmer> = {
       control: "text",
       description: "CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
   },
@@ -88,10 +87,6 @@ const meta: Meta<typeof Shimmer> = {
 export default meta;
 type Story = StoryObj<typeof Shimmer>;
 
-/**
- * Basic shimmer effect
- * Matches the basic example from shimmer.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
@@ -111,10 +106,6 @@ export const Basic: Story = {
   render: () => <Shimmer>Processing...</Shimmer>,
 };
 
-/**
- * All gradient variants
- * Matches the gradients example from shimmer.examples.tsx
- */
 export const GradientVariants: Story = {
   parameters: {
     order: 2,
@@ -157,9 +148,6 @@ export const GradientVariants: Story = {
   ),
 };
 
-/**
- * Different HTML element types with appropriate typography
- */
 export const ElementTypes: Story = {
   parameters: {
     order: 3,
@@ -218,9 +206,6 @@ export const ElementTypes: Story = {
   ),
 };
 
-/**
- * Different animation durations
- */
 export const AnimationDurations: Story = {
   parameters: {
     order: 4,
@@ -255,9 +240,6 @@ export const AnimationDurations: Story = {
   ),
 };
 
-/**
- * Different spread values
- */
 export const SpreadValues: Story = {
   parameters: {
     order: 5,
@@ -292,9 +274,6 @@ export const SpreadValues: Story = {
   ),
 };
 
-/**
- * Long text content
- */
 export const LongText: Story = {
   parameters: {
     order: 6,
@@ -335,9 +314,6 @@ export const LongText: Story = {
   ),
 };
 
-/**
- * Inline usage examples
- */
 export const InlineUsage: Story = {
   parameters: {
     order: 7,
@@ -386,9 +362,6 @@ export const InlineUsage: Story = {
   ),
 };
 
-/**
- * Custom styling
- */
 export const CustomStyling: Story = {
   parameters: {
     order: 8,
@@ -420,9 +393,6 @@ export const CustomStyling: Story = {
   ),
 };
 
-/**
- * Loading state simulation
- */
 export const LoadingStates: Story = {
   parameters: {
     order: 9,
@@ -507,9 +477,6 @@ export const LoadingStates: Story = {
   },
 };
 
-/**
- * Playground story for interactive exploration of shimmer props.
- */
 export const Playground: Story = {
   args: {
     children: "Playground shimmer text",
@@ -523,8 +490,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story:
-          "Interactive playground for the shimmer component. Use controls to experiment with different variants, durations, spread values, and element types.",
+        story: "Interactive playground to experiment with shimmer variants and properties.",
       },
     },
   },

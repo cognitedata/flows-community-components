@@ -1,6 +1,13 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { type CSSProperties, type ElementType, forwardRef, memo, useMemo } from "react";
+import {
+  type CSSProperties,
+  type ComponentRef,
+  type ElementType,
+  forwardRef,
+  memo,
+  useMemo,
+} from "react";
 
 type TextShimmerProps = {
   children: string;
@@ -27,7 +34,7 @@ const motionComponentMap = {
   h3: MotionH3,
 } as const;
 
-const ShimmerComponent = forwardRef<HTMLParagraphElement, TextShimmerProps>(
+const ShimmerComponent = forwardRef<ComponentRef<"p">, TextShimmerProps>(
   (
     { children, as: Component = "p", className, duration = 2, spread = 2, variant = "default" },
     ref
@@ -64,6 +71,7 @@ const ShimmerComponent = forwardRef<HTMLParagraphElement, TextShimmerProps>(
     return (
       <MotionComponent
         ref={ref as any}
+        data-slot="shimmer"
         animate={{
           backgroundPosition: ["100% center, center", "0% center, center"],
         }}
@@ -87,5 +95,7 @@ const ShimmerComponent = forwardRef<HTMLParagraphElement, TextShimmerProps>(
   }
 );
 
-export const Shimmer = memo(ShimmerComponent);
-Shimmer.displayName = "Shimmer";
+const MemoizedShimmer = memo(ShimmerComponent);
+MemoizedShimmer.displayName = "Shimmer";
+
+export { MemoizedShimmer as Shimmer };
