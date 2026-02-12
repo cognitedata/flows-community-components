@@ -1,6 +1,6 @@
-import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from "react";
 import { IconSearch } from "@tabler/icons-react";
 import { Command as CommandPrimitive } from "cmdk";
+import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from "react";
 
 import {
   Dialog,

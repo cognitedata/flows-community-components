@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconCalculator,
   IconCalendar,
@@ -10,6 +9,7 @@ import {
   IconSparkles,
   IconUser,
 } from "@tabler/icons-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/aura/button";
 import {
