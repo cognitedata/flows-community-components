@@ -1,14 +1,5 @@
-/**
- * Shimmer Component
- *
- * An animated text shimmer component for creating eye-catching
- * loading states and progressive reveal effects.
- *
- * @example
- * import { Shimmer } from '@/components/ui/aura/shimmer';
- *
- * <Shimmer variant="nordic">Loading...</Shimmer>
- */
-export { Shimmer } from "./shimmer";
-export type { TextShimmerProps } from "./shimmer";
+import { Shimmer } from "./shimmer";
+
+/** Shimmer exports. */
+export { Shimmer };
 export { ShimmerMetadata } from "./shimmer.metadata";
