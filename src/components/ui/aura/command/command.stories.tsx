@@ -1,5 +1,6 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
   IconCalculator,
   IconCalendar,
@@ -9,7 +10,8 @@ import {
   IconSparkles,
   IconUser,
 } from "@tabler/icons-react";
-import { useState } from "react";
+
+import { Button } from "@/components/ui/aura/button";
 import {
   Command,
   CommandDialog,
@@ -43,9 +45,6 @@ const meta: Meta<typeof Command> = {
 export default meta;
 type Story = StoryObj<typeof Command>;
 
-/**
- * Default command palette.
- */
 export const Default: Story = {
   parameters: {
     order: 1,
@@ -110,9 +109,6 @@ export const Default: Story = {
   },
 };
 
-/**
- * Command dialog (modal).
- */
 export const Dialog: Story = {
   parameters: {
     order: 2,
@@ -130,13 +126,9 @@ export const Dialog: Story = {
         <p className="text-sm text-muted-foreground">
           Press <kbd className="px-2 py-1 bg-muted rounded text-xs">⌘K</kbd> or click the button
         </p>
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="px-4 py-2 rounded-md border hover:bg-accent"
-        >
+        <Button variant="outline" onClick={() => setOpen(true)}>
           Open Command Palette
-        </button>
+        </Button>
         <CommandDialog open={open} onOpenChange={setOpen}>
           <CommandInput placeholder="Type a command or search..." />
           <CommandList>
@@ -166,7 +158,7 @@ export const Dialog: Story = {
     const trigger = canvas.getByRole("button", { name: /open command palette/i });
     await userEvent.click(trigger);
 
-    const dialog = await screen.findByRole("dialog");
+    const dialog = await canvas.findByTestId("command-dialog-content");
     await expect(dialog).toBeInTheDocument();
 
     const input = within(dialog).getByPlaceholderText("Type a command or search...");
@@ -176,14 +168,11 @@ export const Dialog: Story = {
     await userEvent.click(calendarItem);
 
     await waitFor(() => {
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+      expect(canvas.queryByTestId("command-dialog-content")).not.toBeInTheDocument();
     });
   },
 };
 
-/**
- * Filtered command list.
- */
 export const Filtering: Story = {
   parameters: {
     order: 3,
@@ -222,9 +211,6 @@ export const Filtering: Story = {
   },
 };
 
-/**
- * With disabled items.
- */
 export const DisabledItems: Story = {
   parameters: {
     order: 4,
@@ -271,9 +257,6 @@ export const DisabledItems: Story = {
   ),
 };
 
-/**
- * Multiple groups.
- */
 export const MultipleGroups: Story = {
   parameters: {
     order: 5,
@@ -333,9 +316,6 @@ export const MultipleGroups: Story = {
   ),
 };
 
-/**
- * With custom styling.
- */
 export const CustomStyling: Story = {
   parameters: {
     order: 6,
@@ -376,9 +356,6 @@ export const CustomStyling: Story = {
   ),
 };
 
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   parameters: {
     order: 7,
@@ -404,7 +381,6 @@ export const VisualRegression: Story = {
   },
   render: () => (
     <div className="space-y-8 p-4">
-      {/* Basic command */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Command className="rounded-lg border shadow-md w-75">
@@ -428,17 +404,12 @@ export const VisualRegression: Story = {
   ),
 };
 
-/**
- * No results found state.
- * Demonstrates the empty state when search returns no matches.
- */
 export const NoResultsFound: Story = {
   parameters: {
     order: 8,
     docs: {
       description: {
-        story:
-          "Shows the empty state when a search query returns no matching results. Type a query that doesn't match any items to see the CommandEmpty component.",
+        story: "Empty state when search has no matches.",
       },
     },
   },
@@ -492,17 +463,12 @@ export const NoResultsFound: Story = {
   },
 };
 
-/**
- * Keyboard navigation testing.
- * Tests arrow keys, Enter to select, and keyboard shortcuts.
- */
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story:
-          "Tests keyboard accessibility: Arrow keys to navigate, Enter to select, and keyboard shortcuts.",
+        story: "Keyboard-focused flow with filtering and shortcuts.",
       },
     },
   },
@@ -562,17 +528,12 @@ export const KeyboardNavigation: Story = {
   },
 };
 
-/**
- * Long list with many items.
- * Tests scrolling behavior and performance with many items.
- */
 export const LongList: Story = {
   parameters: {
     order: 10,
     docs: {
       description: {
-        story:
-          "Command palette with many items to test scrolling behavior and performance. Scroll through the list to see all items.",
+        story: "Long list to validate scrolling and filtering behavior.",
       },
     },
   },
@@ -616,17 +577,12 @@ export const LongList: Story = {
   },
 };
 
-/**
- * Async search with loading state.
- * Demonstrates loading state while performing async search operations.
- */
 export const AsyncSearch: Story = {
   parameters: {
     order: 11,
     docs: {
       description: {
-        story:
-          "Command palette with async search. Shows loading state while searching and handles async results.",
+        story: "Async loading state and result rendering.",
       },
     },
   },
@@ -644,7 +600,6 @@ export const AsyncSearch: Story = {
     await waitFor(
       () => {
         const searching = canvas.queryByText("Searching...");
-        const noResults = canvas.queryByText("No users found.");
         const hasResults = canvas.queryByText("Jane Smith");
 
         expect(searching || hasResults).toBeTruthy();
@@ -657,7 +612,6 @@ export const AsyncSearch: Story = {
     const [isLoading, setIsLoading] = useState(false);
     const [results, setResults] = useState<string[]>([]);
 
-    // Simulate async search
     const handleSearch = async (query: string) => {
       setSearchQuery(query);
       if (!query.trim()) {
@@ -666,10 +620,8 @@ export const AsyncSearch: Story = {
       }
 
       setIsLoading(true);
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 500));
 
-      // Mock results
       const mockResults = ["John Doe", "Jane Smith", "Johnny Appleseed", "John Johnson"].filter(
         (name) => name.toLowerCase().includes(query.toLowerCase())
       );
@@ -697,7 +649,7 @@ export const AsyncSearch: Story = {
               {results.length > 0 && (
                 <CommandGroup heading="Users">
                   {results.map((user) => (
-                    <CommandItem key={user} onSelect={() => console.log(`Selected: ${user}`)}>
+                    <CommandItem key={user}>
                       <IconUser />
                       <span>{user}</span>
                     </CommandItem>
@@ -712,9 +664,6 @@ export const AsyncSearch: Story = {
   },
 };
 
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
@@ -723,6 +672,9 @@ export const Playground: Story = {
         story: "Interactive command palette example.",
       },
     },
+  },
+  args: {
+    className: "rounded-lg border shadow-md w-88",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -741,8 +693,8 @@ export const Playground: Story = {
       expect(command1).toBeInTheDocument();
     });
   },
-  render: () => (
-    <Command className="rounded-lg border shadow-md w-88">
+  render: (args) => (
+    <Command {...args}>
       <CommandInput placeholder="Type to search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
