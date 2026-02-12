@@ -40,6 +40,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Extract helpers to `@/lib/utils.ts`
 - Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
 - Exports should be in a single export block. Format inline if it fits, or one-per-line if long. Let Biome handle formatting; avoid `// biome-ignore` comments.
+- Component `index.tsx` files should import the main component, then export it separately (not inline). This pattern: `import { Component } from "./component"; export { Component };` is preferred over `export { Component } from "./component";`
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 - Do not include `importPath` in `*.metadata.ts` files
 
