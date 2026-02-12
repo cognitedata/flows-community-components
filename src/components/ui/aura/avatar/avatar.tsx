@@ -24,10 +24,9 @@ const avatarVariants = cva(
         overflow: "bg-secondary text-secondary-foreground hover:bg-secondary-hover",
       },
       sizes: {
-        default:
-          "size-9 text-sm [&_svg]:w-[var(--avatar-icon-default)] [&_svg]:h-[var(--avatar-icon-default)]",
-        xsm: "size-7 text-xs [&_svg]:w-[var(--avatar-icon-xs)] [&_svg]:h-[var(--avatar-icon-xs)]",
-        xxsm: "size-5 text-2xs [&_svg]:w-[var(--avatar-icon-xxs)] [&_svg]:h-[var(--avatar-icon-xxs)]",
+        default: "size-9 text-sm [&_svg]:w-5 [&_svg]:h-5",
+        xsm: "size-7 text-xs [&_svg]:w-4 [&_svg]:h-4",
+        xxsm: "size-5 text-2xs [&_svg]:w-3 [&_svg]:h-3",
       },
     },
     defaultVariants: {
@@ -66,7 +65,7 @@ const AvatarImage = forwardRef<
       />
       <span
         data-slot="avatar-image-backdrop"
-        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
+        className="absolute inset-0 bg-backdrop opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
         aria-hidden="true"
       />
     </>
