@@ -3,6 +3,7 @@ import { forwardRef, isValidElement } from "react";
 
 import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
 
+import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
 import {
   CodeBlock,
@@ -37,10 +38,11 @@ Tool.displayName = "Tool";
 type ToolHeaderProps = Omit<ComponentProps<typeof CollapsibleTrigger>, "type"> & {
   title?: string;
   type: ToolUIPart["type"];
+  hasError?: boolean;
 };
 
 const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeaderProps>(
-  ({ className, title, type, ...props }, ref) => (
+  ({ className, title, type, hasError = false, ...props }, ref) => (
     <CollapsibleTrigger
       ref={ref}
       data-slot="tool-header"
@@ -51,7 +53,14 @@ const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeade
           className="w-full justify-between text-base leading-5 tracking-tighter"
         >
           <span>{title ?? type.split("-").slice(1).join("-")}</span>
-          <ChevronsUpDown className="h-4 w-4" />
+          <div className="flex items-center gap-2">
+            {hasError ? (
+              <Badge outline className="bg-background text-destructive-foreground border-border">
+                Error
+              </Badge>
+            ) : null}
+            <ChevronsUpDown className="h-4 w-4" />
+          </div>
         </Button>
       }
       {...props}
@@ -127,6 +136,22 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
       <div>{output as ReactNode}</div>
     );
 
+    if (errorText) {
+      return (
+        <div
+          ref={ref}
+          data-slot="tool-output"
+          className={cn("space-y-2 px-3.25", className)}
+          {...props}
+        >
+          <div className="flex flex-col gap-2 text-sm">
+            <span className="font-medium text-destructive-foreground">ERROR</span>
+            <span className="text-foreground">{errorText}</span>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div
         ref={ref}
@@ -135,15 +160,9 @@ const ToolOutput = forwardRef<HTMLDivElement, ToolOutputProps>(
         {...props}
       >
         <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          {errorText ? "Error" : "Result"}
+          Result
         </h4>
-        <div
-          className={cn(
-            "overflow-x-auto rounded-md text-xs [&_table]:w-full",
-            errorText ? "bg-destructive/10 text-destructive" : "bg-muted/50 text-foreground"
-          )}
-        >
-          {errorText && <div>{errorText}</div>}
+        <div className="overflow-x-auto rounded-md bg-muted/50 text-xs text-foreground [&_table]:w-full">
           {outputElement}
         </div>
       </div>

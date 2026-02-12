@@ -257,7 +257,7 @@ export const ToolWithError: Story = {
       <ReasoningContent>
         <ReasoningItem>
           <Tool>
-            <ToolHeader title="Query database" type="tool-call" />
+            <ToolHeader title="Query database" type="tool-call" hasError />
             <ToolContent>
               <ToolInput
                 input={{
@@ -828,7 +828,7 @@ export const VisualRegression: Story = {
           <ReasoningContent>
             <ReasoningItem>
               <Tool>
-                <ToolHeader title="Failed tool" type="tool-call" />
+                <ToolHeader title="Failed tool" type="tool-call" hasError />
                 <ToolContent>
                   <ToolInput input={{ test: true }} />
                   <ToolOutput output={undefined} errorText="Connection failed" />

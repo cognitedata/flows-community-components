@@ -1487,6 +1487,7 @@
       "dependencies": ["@tabler/icons-react"],
       "registryDependencies": [
         "@aura/css",
+        "@aura/badge",
         "@aura/button",
         "@aura/code-block",
         "@aura/collapsible"
