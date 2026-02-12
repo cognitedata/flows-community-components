@@ -168,7 +168,7 @@ export const CodeBlock = ({
             dangerouslySetInnerHTML={{ __html: darkHtml }}
           />
           {isCollapsed && (
-            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-15/16 bg-gradient-to-b from-transparent via-card/70 to-card" />
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-full bg-gradient-to-b from-transparent via-card/70 to-card" />
           )}
           {children && (
             <div className="absolute top-2 right-2 hidden items-center gap-2 group-hover/code-block:flex">
