@@ -527,7 +527,7 @@
       "type": "registry:component",
       "title": "CodeBlock",
       "description": "A syntax-highlighted code block with copy and collapse functionality.",
-      "dependencies": ["@tabler/icons-react", "hast", "shiki"],
+      "dependencies": ["@tabler/icons-react", "shiki"],
       "registryDependencies": ["@aura/css", "@aura/button"],
       "files": [
         {

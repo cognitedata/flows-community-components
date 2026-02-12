@@ -3,21 +3,18 @@ import { type ComponentRef, forwardRef } from "react";
 
 import { cn, getPortalContainer } from "@/lib/utils";
 
-function Popover({ ...props }: PopoverPrimitive.Root.Props) {
+function Popover(props: PopoverPrimitive.Root.Props) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
 Popover.displayName = "Popover";
 
-const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverPrimitive.Trigger.Props>(
-  ({ children, ...props }, ref) => {
-    return (
-      <PopoverPrimitive.Trigger ref={ref} data-slot="popover-trigger" {...props}>
-        {children}
-      </PopoverPrimitive.Trigger>
-    );
-  }
-);
-PopoverTrigger.displayName = "PopoverTrigger";
+function PopoverTrigger({ children, ...props }: PopoverPrimitive.Trigger.Props) {
+  return (
+    <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props}>
+      {children}
+    </PopoverPrimitive.Trigger>
+  );
+}
 
 const PopoverContent = forwardRef<
   ComponentRef<typeof PopoverPrimitive.Popup>,
