@@ -151,11 +151,16 @@ export const Dialog: Story = {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole("button", { name: /open command palette/i });
     await userEvent.click(trigger);
-    const dialog = await canvas.findByTestId("command-dialog-content");
-    await expect(dialog).toBeInTheDocument();
-    const input = within(dialog).getByPlaceholderText("Type a command or search...");
+
+    await waitFor(() => {
+      const dialog = document.querySelector('[data-slot="command-dialog"]');
+      expect(dialog).toBeInTheDocument();
+    });
+
+    const dialog = document.querySelector('[data-slot="command-dialog"]');
+    const input = within(dialog as HTMLElement).getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();
-    const calendarItem = within(dialog).getByRole("option", { name: /calendar/i });
+    const calendarItem = within(dialog as HTMLElement).getByRole("option", { name: /calendar/i });
     await userEvent.click(calendarItem);
     await waitFor(() => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
