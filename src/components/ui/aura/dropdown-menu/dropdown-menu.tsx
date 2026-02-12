@@ -1,6 +1,6 @@
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { IconCheck, IconChevronRight } from "@tabler/icons-react";
-import { type HTMLAttributes, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
 
 import { cn, getPortalContainer } from "@/lib/utils";
 
@@ -69,7 +69,7 @@ function DropdownMenuGroup({ ...props }: MenuPrimitive.Group.Props) {
 DropdownMenuGroup.displayName = "DropdownMenuGroup";
 
 const DropdownMenuItem = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.Item>,
+  ComponentRef<typeof MenuPrimitive.Item>,
   MenuPrimitive.Item.Props & {
     inset?: boolean;
     variant?: "default" | "destructive";
@@ -82,7 +82,7 @@ const DropdownMenuItem = forwardRef<
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive-hover dark:data-[variant=destructive]:focus:bg-destructive-hover data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground! data-[variant=destructive]:hover:bg-destructive-hover dark:data-[variant=destructive]:hover:bg-destructive-hover [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm p-2 text-base outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive-foreground data-[variant=destructive]:focus:bg-destructive-hover dark:data-[variant=destructive]:focus:bg-destructive-hover data-[variant=destructive]:focus:text-destructive-foreground data-[variant=destructive]:*:[svg]:text-destructive-foreground data-[variant=destructive]:hover:bg-destructive-hover dark:data-[variant=destructive]:hover:bg-destructive-hover [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm p-2 text-base outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -94,7 +94,7 @@ const DropdownMenuItem = forwardRef<
 DropdownMenuItem.displayName = "DropdownMenuItem";
 
 const DropdownMenuCheckboxItem = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.CheckboxItem>,
+  ComponentRef<typeof MenuPrimitive.CheckboxItem>,
   MenuPrimitive.CheckboxItem.Props
 >(({ className, children, checked, ...props }, ref) => {
   return (
@@ -125,7 +125,7 @@ function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
 DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup";
 
 const DropdownMenuRadioItem = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.RadioItem>,
+  ComponentRef<typeof MenuPrimitive.RadioItem>,
   MenuPrimitive.RadioItem.Props
 >(({ className, children, ...props }, ref) => {
   return (
@@ -150,7 +150,7 @@ const DropdownMenuRadioItem = forwardRef<
 DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
 
 const DropdownMenuLabel = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.GroupLabel>,
+  ComponentRef<typeof MenuPrimitive.GroupLabel>,
   MenuPrimitive.GroupLabel.Props & {
     inset?: boolean;
   }
@@ -161,7 +161,7 @@ const DropdownMenuLabel = forwardRef<
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        "-mx-1 -mt-1 mb-1 px-2 py-1.5 text-sm border-b border-border font-medium data-[inset]:pl-8 text-popover-foreground dark:text-popover-foreground",
+        "-mx-1 -mt-1 mb-1 px-2 py-1.5 text-sm border-b border-border font-medium data-inset:pl-8 text-popover-foreground dark:text-popover-foreground",
         className
       )}
       {...props}
@@ -188,7 +188,7 @@ const DropdownMenuHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElem
 DropdownMenuHeader.displayName = "DropdownMenuHeader";
 
 const DropdownMenuSeparator = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.Separator>,
+  ComponentRef<typeof MenuPrimitive.Separator>,
   MenuPrimitive.Separator.Props
 >(({ className, ...props }, ref) => {
   return (
@@ -222,7 +222,7 @@ function DropdownMenuSub({ ...props }: MenuPrimitive.SubmenuRoot.Props) {
 DropdownMenuSub.displayName = "DropdownMenuSub";
 
 const DropdownMenuSubTrigger = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.SubmenuTrigger>,
+  ComponentRef<typeof MenuPrimitive.SubmenuTrigger>,
   MenuPrimitive.SubmenuTrigger.Props & {
     inset?: boolean;
   }
@@ -233,7 +233,7 @@ const DropdownMenuSubTrigger = forwardRef<
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -252,7 +252,7 @@ function DropdownMenuSubContent({
   sideOffset = 0,
   className,
   ...props
-}: React.ComponentProps<typeof DropdownMenuContent>) {
+}: ComponentProps<typeof DropdownMenuContent>) {
   return (
     <DropdownMenuContent
       data-slot="dropdown-menu-sub-content"

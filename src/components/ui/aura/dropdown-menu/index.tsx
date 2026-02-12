@@ -1,19 +1,3 @@
-/**
- * Dropdown Menu Component
- *
- * A dropdown menu with submenus, separators, and selection states,
- * built on Base UI Dropdown Menu primitives.
- *
- * @example
- * import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/aura/dropdown-menu';
- *
- * <DropdownMenu>
- *   <DropdownMenuTrigger>Open</DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
- */
 export {
   DropdownMenu,
   DropdownMenuPortal,
