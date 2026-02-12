@@ -212,7 +212,9 @@ export const Controlled: Story = {
     });
 
     const [panel] = getCollapsiblePanels(canvasElement);
-    await expect(within(panel).getByText(/this collapsible is controlled externally/i)).toBeInTheDocument();
+    await expect(
+      within(panel).getByText(/this collapsible is controlled externally/i)
+    ).toBeInTheDocument();
   },
   render: function ControlledCollapsibleStory() {
     const [isOpen, setIsOpen] = useState(false);
@@ -335,7 +337,9 @@ export const Multiple: Story = {
 
     const panels = getCollapsiblePanels(canvasElement);
     await expect(within(panels[0]).getByText(/react is a javascript library/i)).toBeInTheDocument();
-    await expect(within(panels[1]).getByText(/typescript is a typed superset/i)).toBeInTheDocument();
+    await expect(
+      within(panels[1]).getByText(/typescript is a typed superset/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2 w-[400px]">
@@ -520,7 +524,9 @@ export const FAQ: Story = {
     await expect(
       within(panels[0]).getByText(/collapsibles work independently—multiple can be open at once/i)
     ).toBeInTheDocument();
-    await expect(within(panels[2]).getByText(/yes! use the open prop for controlled state/i)).toBeInTheDocument();
+    await expect(
+      within(panels[2]).getByText(/yes! use the open prop for controlled state/i)
+    ).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-2 w-[500px]">

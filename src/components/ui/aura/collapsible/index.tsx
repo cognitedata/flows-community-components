@@ -3,6 +3,4 @@ export {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./collapsible";
-export {
-  CollapsibleMetadata,
-} from "./collapsible.metadata";
+export { CollapsibleMetadata } from "./collapsible.metadata";

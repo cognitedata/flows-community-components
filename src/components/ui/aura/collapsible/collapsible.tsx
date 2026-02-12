@@ -54,8 +54,4 @@ const CollapsibleContent = forwardRef<
 });
 CollapsibleContent.displayName = "CollapsibleContent";
 
-export {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-};
+export { Collapsible, CollapsibleContent, CollapsibleTrigger };
