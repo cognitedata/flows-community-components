@@ -38,7 +38,8 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Always use `ComponentRef` (not `React.ElementRef`)
 - No code comments in component files
 - Extract helpers to `@/lib/utils.ts`
-- Use Tailwind design tokens, not arbitrary values
+- Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
+- Exports should be in a single export block; do not split into one-export-per-line statements.
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 - Do not include `importPath` in `*.metadata.ts` files
 
@@ -107,6 +108,7 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
 - No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
+- All stories should have a description that is short and relevant; don't reword existing descriptions that already meet this criteria
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Use `canvas.findByTestId()` only for portal content when semantic queries aren't available
 - Run `pnpm lint` and `pnpm tsc -b` after changes
