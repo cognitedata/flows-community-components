@@ -23,7 +23,7 @@ Use Base UI for complex interactions (dropdowns, dialogs), keyboard navigation, 
 
 ## Component Structure
 
-**Exports at bottom, one per line within a single export block.** See `badge.tsx` for export pattern.
+**Exports at bottom in a single export block (one identifier per line).** Avoid multiple single-export statements like `export { Foo };`. See `badge.tsx` for export pattern.
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
@@ -37,7 +37,7 @@ Use composition patterns for flexibility. See `card.tsx` for component structure
 
 **All components get data-slot.** See `button.tsx` for data-slot usage.
 
-**Use design tokens, not arbitrary values** like `leading-4.5`, `text-sm`, `gap-2` instead of `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
+**Use design tokens, not arbitrary values**. Utilities like `leading-4.5`, `text-sm`, and `gap-2` are fine when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
 
 **Inline prop typing, no type exports.** Define prop types inline (e.g., `type BadgeProps = ...`) but do not export them. Consumers can use `ComponentProps<typeof Component>` if needed. See `badge.tsx`, `card.tsx`, `button.tsx` - none export prop types.
 
@@ -64,24 +64,6 @@ Title components support polymorphic heading elements for proper document hierar
 ## Component Naming
 
 Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components match parent: `Card` → `CardHeader`, `CardTitle`, `CardContent`.
-
-## File Organization
-
-**Import order:** React → Third-party → Local utilities. See any component file like `button.tsx`.
-
-**Definition order:** Components in dependency order, exports at bottom.
-
-**Helper Functions:** Extract local helper functions to `utils.ts` (in `src/lib/`) for reusability, testing, and centralized maintenance. Add proper error handling with try-catch. See `getStorybookImagePath` in `utils.ts` for example.
-
-## Fusion Import Strategy
-
-Aura uses a dual-scope import system for migrating components to Fusion:
-
-- **`@cognite/aura/*`** - Beta components in `src/components/ui/core/` ready for Fusion
-- **`@cognite/aura-lab/*`** - Alpha/experimental components in `src/components/ui/lab/`
-- **`@cognite/aura/lib/*`** - Shared utilities from `src/lib/`
-
-When building components, use `@/*` for internal imports. The `@cognite/*` aliases are configured for component consumption in Fusion.
 
 ## Code Comments & Documentation
 
