@@ -1,3 +1,5 @@
+import { IconExclamationCircle } from "@tabler/icons-react";
+import { type VariantProps, cva } from "class-variance-authority";
 import {
   type ComponentRef,
   type HTMLAttributes,
@@ -6,8 +8,6 @@ import {
   cloneElement,
   forwardRef,
 } from "react";
-import { type VariantProps, cva } from "class-variance-authority";
-import { IconExclamationCircle } from "@tabler/icons-react";
 
 import { cn } from "@/lib/utils";
 

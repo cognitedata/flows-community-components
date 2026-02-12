@@ -1,7 +1,7 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/aura/button";
 import { Input } from "@/components/ui/aura/input";
@@ -18,7 +18,7 @@ const meta: Meta<typeof HelperText> = {
       options: ["xs", "sm"],
       description: "Size of the helper text",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
         type: { summary: '"xs" | "sm"' },
         defaultValue: { summary: "sm" },
       },
@@ -27,7 +27,7 @@ const meta: Meta<typeof HelperText> = {
       control: "text",
       description: "CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
 
@@ -35,7 +35,7 @@ const meta: Meta<typeof HelperText> = {
       control: "boolean",
       description: "Show error state with destructive color",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -44,7 +44,7 @@ const meta: Meta<typeof HelperText> = {
       control: "boolean",
       description: "Show success state with success color",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -150,8 +150,8 @@ export const ErrorState: Story = {
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-destructive-foreground");
 
-    const icon = canvasElement.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
+    const container = canvasElement.querySelector('[data-slot="helper-text"]');
+    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => <HelperText isError>This field is required.</HelperText>,
 };
@@ -172,8 +172,8 @@ export const Success: Story = {
     await expect(helperText).toBeInTheDocument();
     await expect(helperText).toHaveClass("text-success-foreground");
 
-    const icon = canvasElement.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
+    const container = canvasElement.querySelector('[data-slot="helper-text"]');
+    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText isSuccess icon={<IconCircleCheck />}>
@@ -197,8 +197,8 @@ export const WithCustomIcon: Story = {
 
     await expect(helperText).toBeInTheDocument();
 
-    const icon = canvasElement.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
+    const container = canvasElement.querySelector('[data-slot="helper-text"]');
+    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconInfoCircle />}>Your data is encrypted and secure.</HelperText>
@@ -220,8 +220,8 @@ export const Warning: Story = {
 
     await expect(helperText).toBeInTheDocument();
 
-    const icon = canvasElement.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
+    const container = canvasElement.querySelector('[data-slot="helper-text"]');
+    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconAlertTriangle />}>Changes cannot be undone after saving.</HelperText>
@@ -243,8 +243,8 @@ export const Tip: Story = {
 
     await expect(helperText).toBeInTheDocument();
 
-    const icon = canvasElement.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
+    const container = canvasElement.querySelector('[data-slot="helper-text"]');
+    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconBulb />}>Pro tip: Use keyboard shortcuts to work faster.</HelperText>
@@ -266,8 +266,8 @@ export const NoIcon: Story = {
 
     await expect(helperText).toBeInTheDocument();
 
-    const icon = canvasElement.querySelector("svg");
-    await expect(icon).not.toBeInTheDocument();
+    const container = canvasElement.querySelector('[data-slot="helper-text"]');
+    await expect(container?.querySelector("svg")).not.toBeInTheDocument();
   },
   render: () => <HelperText>Simple text without an icon.</HelperText>,
 };
@@ -287,8 +287,8 @@ export const LongText: Story = {
 
     await expect(helperText).toBeInTheDocument();
 
-    const icon = canvasElement.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
+    const container = canvasElement.querySelector('[data-slot="helper-text"]');
+    await expect(container?.querySelector("svg")).toBeInTheDocument();
   },
   render: () => (
     <HelperText icon={<IconInfoCircle />} className="max-w-md">
