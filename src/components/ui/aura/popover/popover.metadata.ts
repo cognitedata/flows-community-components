@@ -1,14 +1,8 @@
 import type { ComponentMeta } from "@/lib/component-examples";
 
-/**
- * Popover Component Metadata
- *
- * This metadata is used by the documentation system to generate
- * component documentation pages and provide context for LLMs.
- */
 export const PopoverMetadata: ComponentMeta = {
   name: "Popover",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "A floating panel that displays content relative to a trigger, built on Base UI Popover primitives.",
   llmUsage:

@@ -31,17 +31,14 @@ const meta: Meta<typeof DropdownMenu> = {
   component: DropdownMenu,
   tags: ["autodocs"],
   args: {
-    // Set modal to false for Storybook to avoid aria-hidden violations
-    // In real apps, modal defaults to true
     modal: false,
   },
   argTypes: {
-    // State
     open: {
       control: "boolean",
       description: "Controlled open state",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -49,7 +46,7 @@ const meta: Meta<typeof DropdownMenu> = {
       control: "boolean",
       description: "Default open state (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -63,8 +60,6 @@ const meta: Meta<typeof DropdownMenu> = {
         defaultValue: { summary: "true" },
       },
     },
-
-    // Events
     onOpenChange: {
       action: "openChanged",
       description: "Callback when open state changes",
@@ -74,6 +69,13 @@ const meta: Meta<typeof DropdownMenu> = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div className="flex flex-col gap-4">
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "centered",
     actions: {
@@ -85,52 +87,35 @@ const meta: Meta<typeof DropdownMenu> = {
 export default meta;
 type Story = StoryObj<typeof DropdownMenu>;
 
-/**
- * Basic dropdown menu with standard menu items
- * Tests basic interactions and structure
- */
+async function openMenu(
+  canvasElement: HTMLElement,
+  triggerName: RegExp | string
+): Promise<ReturnType<typeof within>> {
+  const canvas = within(canvasElement);
+  const trigger = canvas.getByRole("button", { name: triggerName });
+  await userEvent.click(trigger);
+  const menu = await within(document.body).findByRole("menu");
+  return within(menu);
+}
+
 export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story:
-          "Basic dropdown menu with standard action items. Tests opening, clicking items, and accessibility.",
+        story: "Basic dropdown menu with action items.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find and verify trigger button
     const trigger = canvas.getByRole("button", { name: /open menu/i });
     await expect(trigger).toBeInTheDocument();
     await expect(trigger).toHaveAttribute("aria-haspopup");
-
-    // Click to open menu
-    await userEvent.click(trigger);
-
-    // Wait for menu to open (it's in a portal)
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        if (!menu) {
-          throw new Error("Menu not found");
-        }
-        expect(menu).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
-
-    // Verify menu items
-    const menuContent = canvasElement.ownerDocument.querySelector(
-      '[data-slot="dropdown-menu-content"]'
-    );
-    await expect(menuContent).toHaveTextContent("Profile");
-    await expect(menuContent).toHaveTextContent("Settings");
-    await expect(menuContent).toHaveTextContent("Help");
+    const menu = await openMenu(canvasElement, /open menu/i);
+    await expect(menu.getByRole("menuitem", { name: /profile/i })).toBeInTheDocument();
+    await expect(menu.getByRole("menuitem", { name: /settings/i })).toBeInTheDocument();
+    await expect(menu.getByRole("menuitem", { name: /help/i })).toBeInTheDocument();
   },
   render: function BasicStory() {
     return (
@@ -159,10 +144,6 @@ export const Basic: Story = {
   },
 };
 
-/**
- * Dropdown menu with avatar and user info in label
- * Demonstrates complex label content
- */
 export const WithUserLabel: Story = {
   parameters: {
     order: 2,
@@ -173,23 +154,9 @@ export const WithUserLabel: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Open menu
-    const trigger = canvas.getByRole("button");
-    await userEvent.click(trigger);
-
-    // Wait for menu and verify label content
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toHaveTextContent("Jane Smith");
-        expect(menu).toHaveTextContent("jane.smith@cognite.com");
-      },
-      { timeout: 1000 }
-    );
+    const menu = await openMenu(canvasElement, /user menu/i);
+    await expect(menu.getByText("Jane Smith")).toBeInTheDocument();
+    await expect(menu.getByText("jane.smith@cognite.com")).toBeInTheDocument();
   },
   render: function WithUserLabelStory() {
     return (
@@ -230,64 +197,26 @@ export const WithUserLabel: Story = {
   },
 };
 
-/**
- * Interactive checkbox menu showing selected items
- * Demonstrates stateful checkbox interactions
- */
 export const WithCheckboxItems: Story = {
   parameters: {
     order: 3,
     docs: {
       description: {
-        story:
-          "Dropdown menu with checkbox items. Menu stays open when toggling checkboxes. Shows selected items above for better visibility.",
+        story: "Dropdown menu with checkbox items for multi-select.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Open menu
-    const trigger = canvas.getByRole("button", { name: /filters/i });
-    await userEvent.click(trigger);
-
-    // Wait for menu
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
-
-    // Verify initial state shows 2 notifications selected
-    const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
-    expect(outputDiv?.textContent).toContain("2");
-    expect(outputDiv?.textContent).toContain("notification");
-    expect(outputDiv?.textContent).toContain("selected");
-
-    // Find checkbox items in the portal
-    const menuDoc = canvasElement.ownerDocument;
-    const checkboxItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-checkbox-item"]');
+    await expect(canvas.getByText(/2 notifications selected/i)).toBeInTheDocument();
+    const menu = await openMenu(canvasElement, /filters/i);
+    const checkboxItems = menu.getAllByRole("menuitemcheckbox");
     expect(checkboxItems.length).toBeGreaterThanOrEqual(4);
+    await userEvent.click(checkboxItems[0]);
+    await expect(within(document.body).getByRole("menu")).toBeInTheDocument();
 
-    // Click first checkbox (should toggle it)
-    await userEvent.click(checkboxItems[0] as Element);
-
-    // Menu should still be open
     await waitFor(() => {
-      const menu = menuDoc.querySelector('[data-slot="dropdown-menu-content"]');
-      expect(menu).toBeInTheDocument();
-    });
-
-    // Verify count updated to 1 notification selected
-    await waitFor(() => {
-      const outputDiv = canvasElement.querySelector('[data-testid="checkbox-output"]');
-      expect(outputDiv?.textContent).toContain("1");
-      expect(outputDiv?.textContent).toContain("notification");
-      expect(outputDiv?.textContent).toContain("selected");
+      expect(canvas.getByText(/1 notification selected/i)).toBeInTheDocument();
     });
   },
   render: function WithCheckboxItemsStory({ modal = false }) {
@@ -301,8 +230,8 @@ export const WithCheckboxItems: Story = {
     const selectedCount = Object.values(checkedItems).filter(Boolean).length;
 
     return (
-      <div className="space-y-4">
-        <div className="text-sm text-muted-foreground" data-testid="checkbox-output">
+      <div>
+        <div className="text-sm text-muted-foreground">
           {selectedCount} notification{selectedCount !== 1 ? "s" : ""} selected:
           <ul className="mt-2 space-y-1">
             {checkedItems.emails && (
@@ -379,10 +308,6 @@ export const WithCheckboxItems: Story = {
   },
 };
 
-/**
- * Interactive radio group showing selected option
- * Demonstrates stateful radio interactions
- */
 export const WithRadioGroup: Story = {
   parameters: {
     order: 4,
@@ -395,53 +320,24 @@ export const WithRadioGroup: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await expect(canvas.getByText(/current view:/i)).toBeInTheDocument();
+    await expect(canvas.getByText(/grid/i)).toBeInTheDocument();
+    const menu = await openMenu(canvasElement, /change view/i);
+    const radioItems = menu.getAllByRole("menuitemradio");
+    await userEvent.click(radioItems[1]);
+    await expect(within(document.body).getByRole("menu")).toBeInTheDocument();
 
-    // Verify initial selection
-    const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
-    expect(outputDiv?.textContent).toContain("Current view:");
-    expect(outputDiv?.textContent).toContain("grid");
-
-    // Open menu
-    const trigger = canvas.getByRole("button", { name: /change view/i });
-    await userEvent.click(trigger);
-
-    // Wait for menu
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
-
-    // Find and click "List" radio item
-    const menuDoc = canvasElement.ownerDocument;
-    const radioItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-radio-item"]');
-
-    // Click the second radio item (List)
-    await userEvent.click(radioItems[1] as Element);
-
-    // Menu should still be open
     await waitFor(() => {
-      const menu = menuDoc.querySelector('[data-slot="dropdown-menu-content"]');
-      expect(menu).toBeInTheDocument();
-    });
-
-    // Verify selection updated
-    await waitFor(() => {
-      const outputDiv = canvasElement.querySelector('[data-testid="radio-output"]');
-      expect(outputDiv?.textContent).toContain("Current view:");
-      expect(outputDiv?.textContent).toContain("list");
+      expect(canvas.getByText(/current view:/i)).toBeInTheDocument();
+      expect(canvas.getByText(/list/i)).toBeInTheDocument();
     });
   },
   render: function WithRadioGroupStory({ modal = false }) {
     const [viewMode, setViewMode] = useState("grid");
 
     return (
-      <div className="space-y-4">
-        <div className="text-sm text-muted-foreground" data-testid="radio-output">
+      <div>
+        <div className="text-sm text-muted-foreground">
           Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
         <DropdownMenu modal={modal}>
@@ -470,10 +366,6 @@ export const WithRadioGroup: Story = {
   },
 };
 
-/**
- * Dropdown menu with destructive action
- * Tests destructive variant styling
- */
 export const WithDestructiveAction: Story = {
   parameters: {
     order: 5,
@@ -485,34 +377,16 @@ export const WithDestructiveAction: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Open menu
-    const trigger = canvas.getByRole("button");
-    await userEvent.click(trigger);
-
-    // Wait for menu and verify destructive item
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toHaveTextContent("Delete");
-
-        // Verify destructive variant
-        const deleteItem = canvasElement.ownerDocument.querySelector(
-          '[data-variant="destructive"]'
-        );
-        expect(deleteItem).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    const menu = await openMenu(canvasElement, /actions/i);
+    const deleteItem = menu.getByRole("menuitem", { name: /delete/i });
+    await expect(deleteItem).toBeInTheDocument();
+    await expect(deleteItem).toHaveAttribute("data-variant", "destructive");
   },
   render: function WithDestructiveActionStory({ modal = false }) {
     const [action, setAction] = useState<string>("");
 
     return (
-      <div className="space-y-4">
+      <div>
         <DropdownMenu modal={modal}>
           <DropdownMenuTrigger render={<Button>Actions</Button>} />
           <DropdownMenuContent className="w-48">
@@ -536,10 +410,6 @@ export const WithDestructiveAction: Story = {
   },
 };
 
-/**
- * Keyboard navigation test
- * Demonstrates keyboard accessibility
- */
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 6,
@@ -552,57 +422,33 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
-
-    // Find trigger
     const trigger = await canvas.findByRole("button", { name: "Keyboard Test" });
     trigger.focus();
     await expect(trigger).toHaveFocus();
-
-    // Press Enter to open
     await userEvent.keyboard("{Enter}");
-
-    // Wait for menu
-    await waitFor(() => {
-      const menu = canvasElement.ownerDocument.querySelector('[data-slot="dropdown-menu-content"]');
-      expect(menu).toBeInTheDocument();
-    }).catch(async () => {
+    let menu = within(document.body).queryByRole("menu");
+    if (!menu) {
       await userEvent.click(trigger);
-      await waitFor(() => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toBeInTheDocument();
-      });
-    });
-
-    const menu = canvasElement.ownerDocument.querySelector(
-      '[data-slot="dropdown-menu-content"]'
-    ) as HTMLElement;
-    await within(menu).findByText("First Item");
-
-    // Press ArrowDown to navigate
+      menu = await within(document.body).findByRole("menu");
+    }
+    await within(menu).findByRole("menuitem", { name: /first item/i });
     await userEvent.keyboard("{ArrowDown}");
     await waitFor(() => {
       const menuDoc = canvasElement.ownerDocument;
       const focused = menuDoc.activeElement;
       expect(focused).toHaveAttribute("data-slot", "dropdown-menu-item");
     });
-
-    // Press Escape to close
     await userEvent.keyboard("{Escape}");
 
-    // Wait for menu to close
     await waitFor(() => {
-      const menu = canvasElement.ownerDocument.querySelector('[data-slot="dropdown-menu-content"]');
-      expect(menu).not.toBeInTheDocument();
+      expect(within(document.body).queryByRole("menu")).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory({ modal = false }) {
     const [selectedItem, setSelectedItem] = useState<string>("");
 
     return (
-      <div className="space-y-4">
+      <div>
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
             Selected: <span className="font-medium text-foreground">{selectedItem}</span>
@@ -630,9 +476,6 @@ export const KeyboardNavigation: Story = {
   },
 };
 
-/**
- * Edge case: Empty menu
- */
 export const EmptyMenu: Story = {
   parameters: {
     order: 7,
@@ -643,22 +486,8 @@ export const EmptyMenu: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Open menu
-    const trigger = canvas.getByRole("button");
-    await userEvent.click(trigger);
-
-    // Menu should still render (empty)
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    const menu = await openMenu(canvasElement, /empty menu/i);
+    await expect(menu.getByRole("menuitem", { name: /no items available/i })).toBeInTheDocument();
   },
   render: function EmptyMenuStory() {
     return (
@@ -674,31 +503,21 @@ export const EmptyMenu: Story = {
   },
 };
 
-/**
- * Edge case: Disabled trigger
- */
 export const DisabledTrigger: Story = {
   parameters: {
     order: 8,
     docs: {
       description: {
-        story: "Edge case: Dropdown menu with disabled trigger button.",
+        story: "Dropdown menu with disabled trigger.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify button is disabled
     const trigger = canvas.getByRole("button");
     await expect(trigger).toBeDisabled();
     await expect(trigger).toHaveAttribute("aria-haspopup", "menu");
-
-    // Verify menu is not open (disabled buttons cannot be interacted with)
-    const menu = canvasElement.ownerDocument.querySelector('[data-slot="dropdown-menu-content"]');
-    expect(menu).not.toBeInTheDocument();
-
-    // Verify the button has pointer-events: none (expected for disabled state)
+    expect(within(document.body).queryByRole("menu")).not.toBeInTheDocument();
     const styles = window.getComputedStyle(trigger);
     expect(styles.pointerEvents).toBe("none");
   },
@@ -717,67 +536,27 @@ export const DisabledTrigger: Story = {
   },
 };
 
-/**
- * Complex interactive example with multiple features
- */
 export const ComplexInteractive: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story:
-          "Complex example combining checkboxes, radio groups, and actions. Shows full state management.",
+        story: "Complex menu with checkboxes, radio groups, and actions.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Open menu
-    const trigger = canvas.getByRole("button", { name: /preferences/i });
-    await userEvent.click(trigger);
-
-    // Wait for menu to open
-    await waitFor(
-      () => {
-        const menu = canvasElement.ownerDocument.querySelector(
-          '[data-slot="dropdown-menu-content"]'
-        );
-        expect(menu).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
-
-    // Test checkbox interaction - toggle email notification
-    const menuDoc = canvasElement.ownerDocument;
-    const checkboxItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-checkbox-item"]');
+    const menu = await openMenu(canvasElement, /preferences/i);
+    const checkboxItems = menu.getAllByRole("menuitemcheckbox");
     expect(checkboxItems.length).toBeGreaterThanOrEqual(3);
-
-    // Click first checkbox (email)
-    await userEvent.click(checkboxItems[0] as Element);
-
-    // Test radio interaction - change theme
-    const radioItems = menuDoc.querySelectorAll('[data-slot="dropdown-menu-radio-item"]');
+    await userEvent.click(checkboxItems[0]);
+    const radioItems = menu.getAllByRole("menuitemradio");
     expect(radioItems.length).toBeGreaterThanOrEqual(3);
-
-    // Click second radio (dark)
-    await userEvent.click(radioItems[1] as Element);
-
-    // Menu should still be open after interactions
+    await userEvent.click(radioItems[1]);
     await waitFor(() => {
-      const menu = menuDoc.querySelector('[data-slot="dropdown-menu-content"]');
-      expect(menu).toBeInTheDocument();
+      expect(within(document.body).getByRole("menu")).toBeInTheDocument();
     });
-
-    // Verify reset button exists (but don't click it as it closes the menu)
-    const items = menuDoc.querySelectorAll('[data-slot="dropdown-menu-item"]');
-    let resetButton: Element | null = null;
-    items.forEach((item) => {
-      if (item.textContent?.includes("Reset to defaults")) {
-        resetButton = item;
-      }
-    });
-    expect(resetButton).toBeInTheDocument();
+    await expect(menu.getByRole("menuitem", { name: /reset to defaults/i })).toBeInTheDocument();
   },
   render: function ComplexInteractiveStory({ modal = false }) {
     const [notifications, setNotifications] = useState({
@@ -791,7 +570,7 @@ export const ComplexInteractive: Story = {
     const notificationCount = Object.values(notifications).filter(Boolean).length;
 
     return (
-      <div className="space-y-6 w-80">
+      <div className="w-80">
         <div className="space-y-3 text-sm">
           <div>
             <span className="font-medium">Notifications:</span>{" "}
@@ -884,10 +663,6 @@ export const ComplexInteractive: Story = {
   },
 };
 
-/**
- * Interactive playground
- * Allows testing all dropdown menu props interactively
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
@@ -901,7 +676,7 @@ export const Playground: Story = {
     const [selectedItem, setSelectedItem] = useState<string>("");
 
     return (
-      <div className="space-y-4">
+      <div>
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
             Selected: <span className="font-medium text-foreground">{selectedItem}</span>

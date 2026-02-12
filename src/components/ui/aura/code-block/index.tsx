@@ -1,20 +1,7 @@
-/**
- * Code Block Component
- *
- * A syntax-highlighted code block with copy and collapse functionality.
- *
- * @example
- * import { CodeBlock, CodeBlockCopyButton, CodeBlockCollapseButton } from '@/components/ui/aura/code-block';
- */
+/** Code block component . */
 export {
   CodeBlock,
-  CodeBlockCopyButton,
   CodeBlockCollapseButton,
-  // eslint-disable-next-line react-refresh/only-export-components
-  highlightCode,
-} from "./code-block";
-export type {
-  CodeBlockCopyButtonProps,
-  CodeBlockCollapseButtonProps,
+  CodeBlockCopyButton,
 } from "./code-block";
 export { CodeBlockMetadata } from "./code-block.metadata";
