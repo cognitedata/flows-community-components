@@ -1,27 +1,25 @@
-/**
- * Command Component
- *
- * A command menu component for searchable command palettes, built with cmdk.
- *
- * @example
- * import { Command, CommandInput, CommandList, CommandItem } from '@/components/ui/aura/command';
- *
- * <Command>
- *   <CommandInput placeholder="Search..." />
- *   <CommandList>
- *     <CommandItem>Item 1</CommandItem>
- *   </CommandList>
- * </Command>
- */
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "./command";
+
+/** Command exports. */
 export {
   Command,
   CommandDialog,
-  CommandInput,
-  CommandList,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
-  CommandShortcut,
+  CommandList,
   CommandSeparator,
-} from "./command";
+  CommandShortcut,
+};
 export { CommandMetadata } from "./command.metadata";
