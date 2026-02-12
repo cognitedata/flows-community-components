@@ -151,7 +151,7 @@ export const Dialog: Story = {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole("button", { name: /open command palette/i });
     await userEvent.click(trigger);
-    const dialog = await screen.findByRole("dialog");
+    const dialog = await canvas.findByTestId("command-dialog-content");
     await expect(dialog).toBeInTheDocument();
     const input = within(dialog).getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();

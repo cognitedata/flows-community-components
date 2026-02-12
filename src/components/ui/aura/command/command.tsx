@@ -1,6 +1,6 @@
+import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from "react";
 import { IconSearch } from "@tabler/icons-react";
 import { Command as CommandPrimitive } from "cmdk";
-import { type ComponentProps, type ComponentRef, type ReactNode, forwardRef } from "react";
 
 import {
   Dialog,
@@ -50,6 +50,8 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent
+        data-slot="command-dialog"
+        data-testid="command-dialog-content"
         className={cn("overflow-hidden p-0", className)}
         showCloseButton={showCloseButton}
       >
@@ -101,12 +103,12 @@ CommandList.displayName = "CommandList";
 const CommandEmpty = forwardRef<
   ComponentRef<typeof CommandPrimitive.Empty>,
   ComponentProps<typeof CommandPrimitive.Empty>
->((props, ref) => {
+>(({ className, ...props }, ref) => {
   return (
     <CommandPrimitive.Empty
       ref={ref}
       data-slot="command-empty"
-      className="py-6 text-center text-sm"
+      className={cn("py-6 text-center text-sm", className)}
       {...props}
     />
   );
@@ -164,7 +166,7 @@ const CommandItem = forwardRef<
 });
 CommandItem.displayName = "CommandItem";
 
-const CommandShortcut = forwardRef<HTMLSpanElement, ComponentProps<"span">>(
+const CommandShortcut = forwardRef<ComponentRef<"span">, ComponentProps<"span">>(
   ({ className, ...props }, ref) => {
     return (
       <span
