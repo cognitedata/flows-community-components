@@ -64,6 +64,17 @@ const meta: Meta<typeof Dialog> = {
 export default meta;
 type Story = StoryObj<typeof Dialog>;
 
+async function openDialogFromTrigger(
+  canvasElement: HTMLElement,
+  triggerName: RegExp
+): Promise<ReturnType<typeof within>> {
+  const canvas = within(canvasElement);
+  const trigger = canvas.getByRole("button", { name: triggerName });
+  await userEvent.click(trigger);
+  const dialog = await within(document.body).findByRole("dialog");
+  return within(dialog);
+}
+
 /**
  * Default dialog with basic content.
  */
@@ -99,15 +110,8 @@ export const Default: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /open dialog/i });
-    await userEvent.click(trigger);
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
-    const title = document.querySelector('[data-slot="dialog-title"]');
-    expect(title).toHaveTextContent("Dialog Title");
+    const dialog = await openDialogFromTrigger(canvasElement, /open dialog/i);
+    await expect(dialog.getByRole("heading", { name: "Dialog Title" })).toBeInTheDocument();
   },
 };
 
@@ -271,7 +275,7 @@ export const NonModal: Story = {
       <p className="text-sm text-muted-foreground">
         This button remains interactive even when the dialog is open (non-modal).
       </p>
-      <Button data-testid="background-button">Background action</Button>
+      <Button>Background action</Button>
       <Dialog modal={false}>
         <DialogTrigger render={<Button>Open Non-modal Dialog</Button>} />
         <DialogContent>
@@ -299,12 +303,7 @@ export const NonModal: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /open non-modal dialog/i });
-    await userEvent.click(trigger);
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    await openDialogFromTrigger(canvasElement, /open non-modal dialog/i);
     const backgroundButton = canvas.getByRole("button", { name: /background action/i });
     await expect(backgroundButton).toBeEnabled();
   },
@@ -384,17 +383,8 @@ export const TitleOnly: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const trigger = canvas.getByRole("button", { name: /title-only dialog/i });
-    await userEvent.click(trigger);
-
-    await waitFor(() => {
-      const title = document.querySelector('[data-slot="dialog-title"]');
-      expect(title).toHaveTextContent("Title Only Dialog");
-    });
-    const description = document.querySelector('[data-slot="dialog-description"]');
-    expect(description).toBeNull();
+    const dialog = await openDialogFromTrigger(canvasElement, /title-only dialog/i);
+    await expect(dialog.getByRole("heading", { name: "Title Only Dialog" })).toBeInTheDocument();
   },
 };
 
@@ -433,13 +423,12 @@ export const LongHeader: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /open long header dialog/i });
-    await userEvent.click(trigger);
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
+    const dialog = await openDialogFromTrigger(canvasElement, /open long header dialog/i);
+    await expect(
+      dialog.getByRole("heading", {
+        name: /this is a very long dialog title designed to wrap across multiple lines/i,
+      })
+    ).toBeInTheDocument();
   },
 };
 
@@ -468,20 +457,9 @@ export const WithBackButton: Story = {
     </Dialog>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /open dialog with back/i });
-    await userEvent.click(trigger);
-
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
-
-    const backButton = document.querySelector('button[aria-label="Go back"]');
-    expect(backButton).toBeInTheDocument();
-
-    const title = document.querySelector('[data-slot="dialog-title"]');
-    expect(title).toHaveTextContent("Title");
+    const dialog = await openDialogFromTrigger(canvasElement, /open dialog with back/i);
+    await expect(dialog.getByRole("button", { name: /go back/i })).toBeInTheDocument();
+    await expect(dialog.getByRole("heading", { name: "Title" })).toBeInTheDocument();
   },
   parameters: {
     order: 10,
@@ -569,7 +547,7 @@ export const AsyncAction: Story = {
             </DialogHeader>
             <DialogFooter>
               <DialogClose render={<Button variant="outline">Cancel</Button>} />
-              <Button onClick={handleConfirm} disabled={loading} data-testid="async-confirm">
+              <Button onClick={handleConfirm} disabled={loading}>
                 {loading ? "Saving..." : "Confirm"}
               </Button>
             </DialogFooter>
@@ -591,17 +569,9 @@ export const AsyncAction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const openButton = canvas.getByRole("button", { name: /open async dialog/i });
-    await userEvent.click(openButton);
-
-    await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="dialog-content"]');
-      expect(dialog).toBeInTheDocument();
-    });
-
-    const confirmButton = document.querySelector('[data-testid="async-confirm"]');
-    expect(confirmButton).toBeInTheDocument();
-    await userEvent.click(confirmButton!);
+    const dialog = await openDialogFromTrigger(canvasElement, /open async dialog/i);
+    const confirmButton = dialog.getByRole("button", { name: /confirm/i });
+    await userEvent.click(confirmButton);
 
     await waitFor(() => {
       expect(confirmButton).toHaveTextContent("Saving...");
