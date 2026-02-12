@@ -65,24 +65,6 @@ Title components support polymorphic heading elements for proper document hierar
 
 Clear, descriptive names: `InlineCitation`, `MessageAvatar`. Sub-components match parent: `Card` → `CardHeader`, `CardTitle`, `CardContent`.
 
-## File Organization
-
-**Import order:** Follow Biome `organizeImports` output. Treat formatter output as source of truth.
-
-**Definition order:** Components in dependency order, exports at bottom.
-
-**Helper Functions:** Extract local helper functions to `utils.ts` (in `src/lib/`) for reusability, testing, and centralized maintenance. Add proper error handling with try-catch. See `getStorybookImagePath` in `utils.ts` for example.
-
-## Fusion Import Strategy
-
-Aura uses a dual-scope import system for migrating components to Fusion:
-
-- **`@cognite/aura/*`** - Beta components in `src/components/ui/core/` ready for Fusion
-- **`@cognite/aura-lab/*`** - Alpha/experimental components in `src/components/ui/lab/`
-- **`@cognite/aura/lib/*`** - Shared utilities from `src/lib/`
-
-When building components, use `@/*` for internal imports. The `@cognite/*` aliases are configured for component consumption in Fusion.
-
 ## Code Comments & Documentation
 
 **CRITICAL: NO code comments in component files.** Component files (`.tsx`) should contain ZERO comments. See `badge.tsx` for clean, self-documenting code.
