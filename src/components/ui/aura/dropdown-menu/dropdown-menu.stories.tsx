@@ -38,7 +38,7 @@ const meta: Meta<typeof DropdownMenu> = {
       control: "boolean",
       description: "Controlled open state",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -46,7 +46,7 @@ const meta: Meta<typeof DropdownMenu> = {
       control: "boolean",
       description: "Default open state (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -69,6 +69,13 @@ const meta: Meta<typeof DropdownMenu> = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div className="flex flex-col gap-4">
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "centered",
     actions: {
@@ -91,17 +98,12 @@ async function openMenu(
   return within(menu);
 }
 
-/**
- * Basic dropdown menu with standard menu items
- * Tests basic interactions and structure
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story:
-          "Basic dropdown menu with standard action items. Tests opening, clicking items, and accessibility.",
+        story: "Basic dropdown menu with action items.",
       },
     },
   },
@@ -142,10 +144,6 @@ export const Basic: Story = {
   },
 };
 
-/**
- * Dropdown menu with avatar and user info in label
- * Demonstrates complex label content
- */
 export const WithUserLabel: Story = {
   parameters: {
     order: 2,
@@ -199,17 +197,12 @@ export const WithUserLabel: Story = {
   },
 };
 
-/**
- * Interactive checkbox menu showing selected items
- * Demonstrates stateful checkbox interactions
- */
 export const WithCheckboxItems: Story = {
   parameters: {
     order: 3,
     docs: {
       description: {
-        story:
-          "Dropdown menu with checkbox items. Menu stays open when toggling checkboxes. Shows selected items above for better visibility.",
+        story: "Dropdown menu with checkbox items for multi-select.",
       },
     },
   },
@@ -237,7 +230,7 @@ export const WithCheckboxItems: Story = {
     const selectedCount = Object.values(checkedItems).filter(Boolean).length;
 
     return (
-      <div className="space-y-4">
+      <div>
         <div className="text-sm text-muted-foreground">
           {selectedCount} notification{selectedCount !== 1 ? "s" : ""} selected:
           <ul className="mt-2 space-y-1">
@@ -315,10 +308,6 @@ export const WithCheckboxItems: Story = {
   },
 };
 
-/**
- * Interactive radio group showing selected option
- * Demonstrates stateful radio interactions
- */
 export const WithRadioGroup: Story = {
   parameters: {
     order: 4,
@@ -347,7 +336,7 @@ export const WithRadioGroup: Story = {
     const [viewMode, setViewMode] = useState("grid");
 
     return (
-      <div className="space-y-4">
+      <div>
         <div className="text-sm text-muted-foreground">
           Current view: <span className="font-medium text-foreground capitalize">{viewMode}</span>
         </div>
@@ -377,10 +366,6 @@ export const WithRadioGroup: Story = {
   },
 };
 
-/**
- * Dropdown menu with destructive action
- * Tests destructive variant styling
- */
 export const WithDestructiveAction: Story = {
   parameters: {
     order: 5,
@@ -401,7 +386,7 @@ export const WithDestructiveAction: Story = {
     const [action, setAction] = useState<string>("");
 
     return (
-      <div className="space-y-4">
+      <div>
         <DropdownMenu modal={modal}>
           <DropdownMenuTrigger render={<Button>Actions</Button>} />
           <DropdownMenuContent className="w-48">
@@ -425,10 +410,6 @@ export const WithDestructiveAction: Story = {
   },
 };
 
-/**
- * Keyboard navigation test
- * Demonstrates keyboard accessibility
- */
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 6,
@@ -467,7 +448,7 @@ export const KeyboardNavigation: Story = {
     const [selectedItem, setSelectedItem] = useState<string>("");
 
     return (
-      <div className="space-y-4">
+      <div>
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
             Selected: <span className="font-medium text-foreground">{selectedItem}</span>
@@ -495,9 +476,6 @@ export const KeyboardNavigation: Story = {
   },
 };
 
-/**
- * Edge case: Empty menu
- */
 export const EmptyMenu: Story = {
   parameters: {
     order: 7,
@@ -525,15 +503,12 @@ export const EmptyMenu: Story = {
   },
 };
 
-/**
- * Edge case: Disabled trigger
- */
 export const DisabledTrigger: Story = {
   parameters: {
     order: 8,
     docs: {
       description: {
-        story: "Edge case: Dropdown menu with disabled trigger button.",
+        story: "Dropdown menu with disabled trigger.",
       },
     },
   },
@@ -561,16 +536,12 @@ export const DisabledTrigger: Story = {
   },
 };
 
-/**
- * Complex interactive example with multiple features
- */
 export const ComplexInteractive: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story:
-          "Complex example combining checkboxes, radio groups, and actions. Shows full state management.",
+        story: "Complex menu with checkboxes, radio groups, and actions.",
       },
     },
   },
@@ -599,7 +570,7 @@ export const ComplexInteractive: Story = {
     const notificationCount = Object.values(notifications).filter(Boolean).length;
 
     return (
-      <div className="space-y-6 w-80">
+      <div className="w-80">
         <div className="space-y-3 text-sm">
           <div>
             <span className="font-medium">Notifications:</span>{" "}
@@ -692,10 +663,6 @@ export const ComplexInteractive: Story = {
   },
 };
 
-/**
- * Interactive playground
- * Allows testing all dropdown menu props interactively
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
@@ -709,7 +676,7 @@ export const Playground: Story = {
     const [selectedItem, setSelectedItem] = useState<string>("");
 
     return (
-      <div className="space-y-4">
+      <div>
         {selectedItem && (
           <div className="text-sm text-muted-foreground">
             Selected: <span className="font-medium text-foreground">{selectedItem}</span>

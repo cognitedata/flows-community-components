@@ -20,15 +20,13 @@ function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
 }
 DropdownMenuPortal.displayName = "DropdownMenuPortal";
 
-const DropdownMenuTrigger = forwardRef<HTMLButtonElement, MenuPrimitive.Trigger.Props>(
-  ({ children, ...props }, ref) => {
-    return (
-      <MenuPrimitive.Trigger ref={ref} data-slot="dropdown-menu-trigger" {...props}>
-        {children}
-      </MenuPrimitive.Trigger>
-    );
-  }
-);
+function DropdownMenuTrigger({ children, ...props }: MenuPrimitive.Trigger.Props) {
+  return (
+    <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props}>
+      {children}
+    </MenuPrimitive.Trigger>
+  );
+}
 DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 
 function DropdownMenuContent({
@@ -170,7 +168,7 @@ const DropdownMenuLabel = forwardRef<
 });
 DropdownMenuLabel.displayName = "DropdownMenuLabel";
 
-const DropdownMenuHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+const DropdownMenuHeader = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -202,7 +200,7 @@ const DropdownMenuSeparator = forwardRef<
 });
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
 
-const DropdownMenuShortcut = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
+const DropdownMenuShortcut = forwardRef<ComponentRef<"span">, HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => {
     return (
       <span
@@ -267,7 +265,7 @@ function DropdownMenuSubContent({
 }
 DropdownMenuSubContent.displayName = "DropdownMenuSubContent";
 
-const DropdownMenuSectionLabel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+const DropdownMenuSectionLabel = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
     return (
       <div
