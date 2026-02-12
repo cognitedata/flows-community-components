@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { IconAlertTriangle, IconBulb, IconCircleCheck, IconInfoCircle } from "@tabler/icons-react";
-import { useState } from "react";
+
+import { Button } from "@/components/ui/aura/button";
+import { Input } from "@/components/ui/aura/input";
+import { Label } from "@/components/ui/aura/label";
 import { HelperText } from "./helper-text";
 
 const meta: Meta<typeof HelperText> = {
@@ -74,16 +75,12 @@ const meta: Meta<typeof HelperText> = {
 export default meta;
 type Story = StoryObj<typeof HelperText>;
 
-/**
- * Basic helper text with standard size and muted color
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story:
-          "Basic helper text with muted foreground color. Used to provide additional context or instructions.",
+        story: "Default helper text with muted styling.",
       },
     },
   },
@@ -97,9 +94,6 @@ export const Basic: Story = {
   render: () => <HelperText>This is helpful information for the user.</HelperText>,
 };
 
-/**
- * Extra small helper text for compact layouts
- */
 export const SizeXS: Story = {
   parameters: {
     order: 2,
@@ -120,9 +114,6 @@ export const SizeXS: Story = {
   render: () => <HelperText size="xs">Compact helper text for tight spaces.</HelperText>,
 };
 
-/**
- * Small (default) helper text
- */
 export const SizeSM: Story = {
   parameters: {
     order: 3,
@@ -143,16 +134,12 @@ export const SizeSM: Story = {
   render: () => <HelperText size="sm">Standard sized helper text.</HelperText>,
 };
 
-/**
- * Error state with automatic error icon
- */
 export const ErrorState: Story = {
   parameters: {
     order: 4,
     docs: {
       description: {
-        story:
-          "Error state with destructive color. Automatically shows an exclamation icon when no custom icon is provided.",
+        story: "Error state with destructive styling and default icon.",
       },
     },
   },
@@ -169,9 +156,6 @@ export const ErrorState: Story = {
   render: () => <HelperText isError>This field is required.</HelperText>,
 };
 
-/**
- * Success state with custom success icon
- */
 export const Success: Story = {
   parameters: {
     order: 5,
@@ -198,9 +182,6 @@ export const Success: Story = {
   ),
 };
 
-/**
- * Helper text with custom info icon
- */
 export const WithCustomIcon: Story = {
   parameters: {
     order: 6,
@@ -224,9 +205,6 @@ export const WithCustomIcon: Story = {
   ),
 };
 
-/**
- * Warning helper text
- */
 export const Warning: Story = {
   parameters: {
     order: 7,
@@ -250,9 +228,6 @@ export const Warning: Story = {
   ),
 };
 
-/**
- * Helper text with tip icon
- */
 export const Tip: Story = {
   parameters: {
     order: 8,
@@ -276,15 +251,12 @@ export const Tip: Story = {
   ),
 };
 
-/**
- * Helper text without icon
- */
 export const NoIcon: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story: "Helper text without any icon. Useful for simple instructional text.",
+        story: "Helper text without an icon.",
       },
     },
   },
@@ -300,16 +272,12 @@ export const NoIcon: Story = {
   render: () => <HelperText>Simple text without an icon.</HelperText>,
 };
 
-/**
- * Long helper text that wraps to multiple lines
- */
 export const LongText: Story = {
   parameters: {
     order: 10,
     docs: {
       description: {
-        story:
-          "Demonstrates how helper text handles longer content with proper wrapping and icon alignment.",
+        story: "Long helper text wrapping behavior.",
       },
     },
   },
@@ -330,9 +298,6 @@ export const LongText: Story = {
   ),
 };
 
-/**
- * Interactive form example showing different helper text states
- */
 export const InteractiveFormExample: Story = {
   parameters: {
     order: 11,
@@ -405,15 +370,12 @@ export const InteractiveFormExample: Story = {
   },
 };
 
-/**
- * Comparison of different sizes
- */
 export const SizeComparison: Story = {
   parameters: {
     order: 12,
     docs: {
       description: {
-        story: "Side-by-side comparison of extra small and small sizes.",
+        story: "Side-by-side comparison of size variants.",
       },
     },
   },
@@ -432,13 +394,13 @@ export const SizeComparison: Story = {
   render: () => (
     <div className="space-y-4">
       <div>
-        <div className="text-sm font-medium mb-1">Extra Small (xs)</div>
+        <h3 className="mb-1 text-sm font-medium">Extra Small (xs)</h3>
         <HelperText size="xs" icon={<IconInfoCircle />}>
           This is extra small helper text
         </HelperText>
       </div>
       <div>
-        <div className="text-sm font-medium mb-1">Small (sm) - Default</div>
+        <h3 className="mb-1 text-sm font-medium">Small (sm) - Default</h3>
         <HelperText size="sm" icon={<IconInfoCircle />}>
           This is small helper text
         </HelperText>
@@ -447,15 +409,12 @@ export const SizeComparison: Story = {
   ),
 };
 
-/**
- * All states demonstration
- */
 export const AllStates: Story = {
   parameters: {
     order: 13,
     docs: {
       description: {
-        story: "Comprehensive demonstration of all helper text states and variations.",
+        story: "Overview of common helper text states.",
       },
     },
   },
@@ -478,38 +437,35 @@ export const AllStates: Story = {
   render: () => (
     <div className="space-y-4 max-w-md">
       <div>
-        <div className="text-sm font-medium mb-1">Default</div>
+        <h3 className="mb-1 text-sm font-medium">Default</h3>
         <HelperText>This is default helper text.</HelperText>
       </div>
       <div>
-        <div className="text-sm font-medium mb-1">Error</div>
+        <h3 className="mb-1 text-sm font-medium">Error</h3>
         <HelperText isError>This field contains an error.</HelperText>
       </div>
       <div>
-        <div className="text-sm font-medium mb-1">Success</div>
+        <h3 className="mb-1 text-sm font-medium">Success</h3>
         <HelperText isSuccess icon={<IconCircleCheck />}>
           Successfully validated.
         </HelperText>
       </div>
       <div>
-        <div className="text-sm font-medium mb-1">With Info Icon</div>
+        <h3 className="mb-1 text-sm font-medium">With Info Icon</h3>
         <HelperText icon={<IconInfoCircle />}>Additional information is available.</HelperText>
       </div>
       <div>
-        <div className="text-sm font-medium mb-1">With Warning Icon</div>
+        <h3 className="mb-1 text-sm font-medium">With Warning Icon</h3>
         <HelperText icon={<IconAlertTriangle />}>Proceed with caution.</HelperText>
       </div>
       <div>
-        <div className="text-sm font-medium mb-1">Without Icon</div>
+        <h3 className="mb-1 text-sm font-medium">Without Icon</h3>
         <HelperText>Simple text without an icon.</HelperText>
       </div>
     </div>
   ),
 };
 
-/**
- * Integration with form fields
- */
 export const WithFormFields: Story = {
   parameters: {
     order: 14,
@@ -566,9 +522,6 @@ export const WithFormFields: Story = {
   ),
 };
 
-/**
- * Stateful validation example with button interaction
- */
 export const StatefulValidation: Story = {
   parameters: {
     order: 15,
@@ -644,10 +597,6 @@ export const StatefulValidation: Story = {
   },
 };
 
-/**
- * Interactive playground
- * Allows testing all helper text props interactively
- */
 export const Playground: Story = {
   args: {
     size: "sm",
@@ -659,7 +608,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground - use controls to experiment with helper text props.",
+        story: "Interactive playground for helper text props.",
       },
     },
   },

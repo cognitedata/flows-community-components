@@ -1,14 +1,15 @@
-import { type VariantProps, cva } from "class-variance-authority";
 import {
+  type ComponentRef,
   type HTMLAttributes,
   type ReactElement,
   type ReactNode,
   cloneElement,
   forwardRef,
 } from "react";
+import { type VariantProps, cva } from "class-variance-authority";
+import { IconExclamationCircle } from "@tabler/icons-react";
 
 import { cn } from "@/lib/utils";
-import { IconExclamationCircle } from "@tabler/icons-react";
 
 const helperTextVariants = cva("flex flex-row justify-start items-start", {
   variants: {
@@ -42,7 +43,7 @@ interface HelperTextProps
   icon?: ReactNode;
 }
 
-const HelperText = forwardRef<HTMLDivElement, HelperTextProps>(
+const HelperText = forwardRef<ComponentRef<"div">, HelperTextProps>(
   (
     { className, size = "sm", isError = false, isSuccess = false, icon, children, ...props },
     ref
