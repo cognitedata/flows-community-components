@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { type CSSProperties, type ElementType, forwardRef, memo, useMemo } from "react";
 
-export type TextShimmerProps = {
+type TextShimmerProps = {
   children: string;
   as?: ElementType;
   className?: string;
@@ -11,7 +11,6 @@ export type TextShimmerProps = {
   variant?: "default" | "nordic" | "aurora" | "dusk" | "equinox" | "summer" | "spring" | "fall";
 };
 
-// Pre-create commonly used motion components outside of render
 const MotionP = motion.p;
 const MotionSpan = motion.span;
 const MotionDiv = motion.div;
@@ -19,7 +18,6 @@ const MotionH1 = motion.h1;
 const MotionH2 = motion.h2;
 const MotionH3 = motion.h3;
 
-// Map of component types to their motion equivalents
 const motionComponentMap = {
   p: MotionP,
   span: MotionSpan,
@@ -34,7 +32,6 @@ const ShimmerComponent = forwardRef<HTMLParagraphElement, TextShimmerProps>(
     { children, as: Component = "p", className, duration = 2, spread = 2, variant = "default" },
     ref
   ) => {
-    // Use pre-created motion component or fallback to motion.p
     const MotionComponent =
       motionComponentMap[Component as keyof typeof motionComponentMap] || MotionP;
 
@@ -48,7 +45,6 @@ const ShimmerComponent = forwardRef<HTMLParagraphElement, TextShimmerProps>(
         return `${shimmerBg}, linear-gradient(var(--color-muted-foreground), var(--color-muted-foreground))`;
       }
 
-      // Map variants to gradient tokens
       const gradientMap = {
         nordic: "var(--gradient-nordic)",
         aurora: "var(--gradient-aurora)",
