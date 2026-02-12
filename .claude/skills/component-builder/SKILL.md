@@ -17,13 +17,13 @@ Build accessible, consistent React components following Aura design system patte
 
 This skill references actual files in the codebase as examples. To locate a file, use grep or file search (e.g., "find me badge.tsx"). If multiple files match, prompt the user with full paths to confirm which file to use. If a file isn't findable, prompt the user to provide the code example. Update references if better examples emerge.
 
-## Radix UI & Accessibility
+## Base UI & Accessibility
 
-Use Radix for complex interactions (dropdowns, dialogs), keyboard navigation, ARIA states. Use native HTML for simple elements (lists, headings, divs). See `dialog.tsx` and `alert.tsx` for accessibility patterns.
+Use Base UI for complex interactions (dropdowns, dialogs), keyboard navigation, ARIA states. Use native HTML for simple elements (lists, headings, divs). See `dialog.tsx` and `alert.tsx` for accessibility patterns.
 
 ## Component Structure
 
-**Exports at bottom, one per line.** See `badge.tsx` for export pattern.
+**Exports at bottom, one per line within a single export block.** See `badge.tsx` for export pattern.
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
@@ -54,7 +54,7 @@ Use `class-variance-authority` for variant styling. See `badge.tsx` or `button.t
 See these files for forwardRef patterns:
 
 - Native HTML elements: `badge.tsx`, `button.tsx`
-- Radix Primitives: `dialog.tsx`, `alert-dialog.tsx`
+- Base UI Primitives: `dialog.tsx`, `alert-dialog.tsx`
 - Always set `displayName` for debugging and dev tools
 
 ## Semantic HTML & Polymorphic Components
@@ -89,7 +89,7 @@ When building components, use `@/*` for internal imports. The `@cognite/*` alias
 
 **index.tsx - brief description only.** See `index.tsx` in any component folder like badge for minimal JSDoc pattern.
 
-**Metadata file - LLM guidance only.** See `badge.metadata.ts` for ComponentMeta pattern.
+**Metadata file - LLM guidance only.** See `badge.metadata.ts` for ComponentMeta pattern. Keep `*.metadata.ts` files metadata-only—remove any runtime/component code from them.
 
 **CRITICAL:** ALL code examples live in Storybook stories only.
 
@@ -101,6 +101,14 @@ Add new components to `side-navigation.tsx`. Story meta `title` determines categ
 - `Primitives/[Name]` → Primitives subsection (alphabetically)
 - `AI/[Name]` → AI Chat subsection
 - `Patterns/[Name]` → Patterns subsection
+
+## Primitives Progress Metadata
+
+When a component change affects primitive/foundation coverage, update `src/lib/primitives-catalog.ts` in the same PR.
+
+Set and verify `implemented` / `comingSoon` behavior through the catalog entry and aliases.
+
+If delivery progress is unclear, ask the user before assigning a progress status in catalog metadata.
 
 ## Post-Build Steps
 
@@ -124,3 +132,7 @@ Before committing changes:
 8. No !important in Tailwind classes
 9. Proper error handling in all try-catch blocks
 10. Ensure all class names work with Tailwind v4
+11. Ensure component appears in Docs and Storybook sidebar
+12. Ensure `*.metadata.ts` files contain metadata only (no runtime/component code)
+13. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
+14. Ask the user if progress status is ambiguous before setting it

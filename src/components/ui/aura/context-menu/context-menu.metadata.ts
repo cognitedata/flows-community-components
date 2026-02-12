@@ -5,5 +5,4 @@ export const ContextMenuMetadata: ComponentMeta = {
   status: "draft",
   description: "A right-click context menu built on Base UI Context Menu primitives.",
   llmUsage: "Use `<ContextMenu>` with trigger, content, and item components for right-click menus.",
-  importPath: "@/components/ui/aura/context-menu",
 };

@@ -5,5 +5,4 @@ export const SonnerToastMetadata: ComponentMeta = {
   status: "draft",
   description: "A toast notification component using the Sonner library.",
   llmUsage: 'Add `<Toaster />` to app root, then use `toast("Message")` to show notifications.',
-  importPath: "@/components/ui/aura/sonner-toast",
 };

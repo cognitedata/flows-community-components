@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "reasoning",
-  "title": "reasoning",
-  "description": "",
+  "title": "Reasoning",
+  "description": "Components for displaying AI reasoning and thought processes.",
   "dependencies": [
     "@tabler/icons-react"
   ],

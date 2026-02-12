@@ -5,5 +5,4 @@ export const AlertDialogMetadata: ComponentMeta = {
   status: "draft",
   description: "A modal dialog for critical confirmations powered by Base UI Alert Dialog.",
   llmUsage: "Use `<AlertDialog>` with trigger, content, and action components for confirmations.",
-  importPath: "@/components/ui/aura/alert-dialog",
 };

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "drawer",
-  "title": "drawer",
-  "description": "",
+  "title": "Drawer",
+  "description": "A sliding drawer component built with Vaul for mobile-friendly modals.",
   "dependencies": [
     "vaul"
   ],

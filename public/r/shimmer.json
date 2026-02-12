@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "shimmer",
-  "title": "shimmer",
-  "description": "",
+  "title": "Shimmer",
+  "description": "An animated text shimmer component for creating eye-catching loading states and progressive reveal effects.",
   "dependencies": [
     "framer-motion"
   ],

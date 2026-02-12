@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "breadcrumb",
-  "title": "breadcrumb",
-  "description": "* Root container for breadcrumb navigation.",
+  "title": "Breadcrumb",
+  "description": "A navigation component showing the users location in a hierarchy.",
   "dependencies": [
     "@base-ui/react/merge-props",
     "@base-ui/react/use-render",

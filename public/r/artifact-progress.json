@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "artifact-progress",
-  "title": "artifact-progress",
-  "description": "",
+  "title": "ArtifactProgress",
+  "description": "A compositional progress artifact widget component that displays task completion progress with header and footer context.",
   "registryDependencies": [
     "@aura/css",
     "@aura/card",

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "suggestion",
-  "title": "suggestion",
-  "description": "Only ghost and outline variants are supported. Suggestions are designed to have secondary backgrounds with primary text. */",
+  "title": "Suggestion",
+  "description": "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
   "registryDependencies": [
     "@aura/css",
     "@aura/button",

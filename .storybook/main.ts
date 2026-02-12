@@ -5,7 +5,6 @@ import { mergeConfig } from "vite";
 
 const isChromatic = Boolean(process.env.CHROMATIC);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [

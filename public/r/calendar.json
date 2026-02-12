@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "calendar",
-  "title": "calendar",
-  "description": "",
+  "title": "Calendar",
+  "description": "A themable DayPicker calendar with custom navigation controls.",
   "dependencies": [
     "@tabler/icons-react",
     "react-day-picker"

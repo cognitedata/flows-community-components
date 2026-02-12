@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "artifact-chart",
-  "title": "provides",
-  "description": "* Artifact Chart - A compositional card layout for displaying charts.",
+  "title": "ArtifactChart",
+  "description": "A compositional card layout for displaying charts. Provides header, content, and footer primitives that can be composed with any Recharts chart type.",
   "registryDependencies": [
     "@aura/css",
     "@aura/card"

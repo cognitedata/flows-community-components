@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "helper-text",
-  "title": "helper-text",
-  "description": "",
+  "title": "HelperText",
+  "description": "A helper text component for form fields with validation states.",
   "dependencies": [
     "@tabler/icons-react",
     "class-variance-authority"
