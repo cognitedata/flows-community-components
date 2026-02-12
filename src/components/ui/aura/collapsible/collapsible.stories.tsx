@@ -1,8 +1,9 @@
-import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconSelector } from "@tabler/icons-react";
 import { useState } from "react";
+
+import { Button } from "@/components/ui/aura/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 
 const meta: Meta<typeof Collapsible> = {
@@ -14,7 +15,7 @@ const meta: Meta<typeof Collapsible> = {
       control: "boolean",
       description: "Controlled open state",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -22,7 +23,7 @@ const meta: Meta<typeof Collapsible> = {
       control: "boolean",
       description: "Default open state (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -38,7 +39,7 @@ const meta: Meta<typeof Collapsible> = {
       control: "boolean",
       description: "Disable the collapsible",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -46,7 +47,7 @@ const meta: Meta<typeof Collapsible> = {
       control: "text",
       description: "CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
   },
@@ -73,17 +74,12 @@ function getCollapsiblePanels(canvasElement: HTMLElement): HTMLElement[] {
   return panels;
 }
 
-/**
- * Basic collapsible
- * Shows a simple collapsible with trigger and content
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
     docs: {
       description: {
-        story:
-          "Basic collapsible component with a trigger button and expandable content. Click the trigger to expand or collapse.",
+        story: "Basic collapsible component with a trigger button and expandable content.",
       },
     },
   },
@@ -107,7 +103,7 @@ export const Basic: Story = {
     });
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
@@ -127,10 +123,6 @@ export const Basic: Story = {
   ),
 };
 
-/**
- * Default open
- * Collapsible that starts in the open state
- */
 export const DefaultOpen: Story = {
   parameters: {
     order: 2,
@@ -158,7 +150,7 @@ export const DefaultOpen: Story = {
     ).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible defaultOpen className="w-[400px] space-y-2">
+    <Collapsible defaultOpen className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
@@ -183,17 +175,12 @@ export const DefaultOpen: Story = {
   ),
 };
 
-/**
- * Controlled state
- * Demonstrates controlling the open state programmatically
- */
 export const Controlled: Story = {
   parameters: {
     order: 3,
     docs: {
       description: {
-        story:
-          "Controlled collapsible where the open state is managed externally. Use the open prop and onOpenChange callback.",
+        story: "Controlled collapsible using the open prop and onOpenChange callback.",
       },
     },
   },
@@ -220,7 +207,7 @@ export const Controlled: Story = {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <div className="space-y-4 w-[400px]">
+      <div className="space-y-4 w-100">
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={() => setIsOpen(!isOpen)}>
             Toggle Collapsible
@@ -250,17 +237,12 @@ export const Controlled: Story = {
   },
 };
 
-/**
- * With custom trigger
- * Shows collapsible with a custom styled trigger
- */
 export const WithCustomTrigger: Story = {
   parameters: {
     order: 4,
     docs: {
       description: {
-        story:
-          "Collapsible with a custom trigger button. You can style the trigger however you like.",
+        story: "Collapsible with a custom styled trigger button.",
       },
     },
   },
@@ -279,7 +261,7 @@ export const WithCustomTrigger: Story = {
     await expect(within(panel).getByText(/here are some advanced settings/i)).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="outline" className="w-full justify-between font-semibold">
@@ -302,17 +284,12 @@ export const WithCustomTrigger: Story = {
   ),
 };
 
-/**
- * Multiple collapsibles
- * Shows multiple independent collapsibles
- */
 export const Multiple: Story = {
   parameters: {
     order: 5,
     docs: {
       description: {
-        story:
-          "Multiple collapsibles that work independently. Unlike accordions, multiple collapsibles can be open at the same time.",
+        story: "Multiple independent collapsibles that can be open simultaneously.",
       },
     },
   },
@@ -342,7 +319,7 @@ export const Multiple: Story = {
     ).toBeInTheDocument();
   },
   render: () => (
-    <div className="space-y-2 w-[400px]">
+    <div className="space-y-2 w-100">
       <Collapsible className="space-y-2">
         <CollapsibleTrigger
           render={
@@ -396,17 +373,12 @@ export const Multiple: Story = {
   ),
 };
 
-/**
- * Disabled state
- * Shows collapsible in disabled state
- */
 export const Disabled: Story = {
   parameters: {
     order: 6,
     docs: {
       description: {
-        story:
-          "Disabled collapsible that cannot be toggled. The trigger is disabled and the content cannot be expanded.",
+        story: "Disabled collapsible that cannot be toggled.",
       },
     },
   },
@@ -421,7 +393,7 @@ export const Disabled: Story = {
     await expect(panel).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible disabled className="w-[400px] space-y-2">
+    <Collapsible disabled className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between" disabled>
@@ -439,17 +411,12 @@ export const Disabled: Story = {
   ),
 };
 
-/**
- * With rich content
- * Shows collapsible with complex content inside
- */
 export const WithRichContent: Story = {
   parameters: {
     order: 7,
     docs: {
       description: {
-        story:
-          "Collapsible containing rich content including lists, paragraphs, and formatted text.",
+        story: "Collapsible with rich content including lists and formatted text.",
       },
     },
   },
@@ -468,7 +435,7 @@ export const WithRichContent: Story = {
     ).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
@@ -497,17 +464,12 @@ export const WithRichContent: Story = {
   ),
 };
 
-/**
- * FAQ example
- * Real-world FAQ section using collapsibles
- */
 export const FAQ: Story = {
   parameters: {
     order: 8,
     docs: {
       description: {
-        story:
-          "FAQ section using collapsibles. This demonstrates a common use case where multiple questions can be expanded simultaneously.",
+        story: "FAQ section where multiple questions can be expanded simultaneously.",
       },
     },
   },
@@ -529,7 +491,7 @@ export const FAQ: Story = {
     ).toBeInTheDocument();
   },
   render: () => (
-    <div className="space-y-2 w-[500px]">
+    <div className="space-y-2 w-125">
       <h2 className="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
 
       <Collapsible className="space-y-2">
@@ -587,17 +549,12 @@ export const FAQ: Story = {
   ),
 };
 
-/**
- * Empty content
- * Shows collapsible with empty content
- */
 export const EdgeCaseEmpty: Story = {
   parameters: {
     order: 9,
     docs: {
       description: {
-        story:
-          "Collapsible with empty content. Tests how the component handles empty states and maintains proper spacing.",
+        story: "Collapsible with empty content.",
       },
     },
   },
@@ -616,7 +573,7 @@ export const EdgeCaseEmpty: Story = {
     await expect(panel).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">
@@ -632,17 +589,12 @@ export const EdgeCaseEmpty: Story = {
   ),
 };
 
-/**
- * Long text overflow
- * Shows collapsible with very long text content
- */
 export const EdgeCaseLongText: Story = {
   parameters: {
     order: 10,
     docs: {
       description: {
-        story:
-          "Collapsible with very long text content. Tests overflow handling, text wrapping, and scroll behavior.",
+        story: "Collapsible with very long text content.",
       },
     },
   },
@@ -665,7 +617,7 @@ export const EdgeCaseLongText: Story = {
     ).toBeInTheDocument();
   },
   render: () => (
-    <Collapsible className="w-[400px] space-y-2">
+    <Collapsible className="w-100 space-y-2">
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full justify-between">

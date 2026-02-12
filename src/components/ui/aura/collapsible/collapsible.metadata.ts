@@ -1,11 +1,5 @@
 import type { ComponentMeta } from "@/lib/component-examples";
 
-/**
- * Collapsible Component Metadata
- *
- * This metadata is used by the documentation system to generate
- * component documentation pages and provide context for LLMs.
- */
 export const CollapsibleMetadata: ComponentMeta = {
   name: "Collapsible",
   status: "draft",
