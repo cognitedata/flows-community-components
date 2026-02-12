@@ -1,16 +1,5 @@
 /**
- * Alert Component
- *
- * A dismissible alert component with multiple variants for displaying
- * informational messages, warnings, and errors.
- *
- * @example
- * import { Alert, AlertTitle, AlertDescription } from '@/components/ui/aura/alert';
- *
- * <Alert variant="warning">
- *   <AlertTitle>Warning</AlertTitle>
- *   <AlertDescription>This is a warning message.</AlertDescription>
- * </Alert>
+ * Alert component for displaying informational messages, warnings, and errors.
  */
 export {
   Alert,
