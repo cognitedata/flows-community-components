@@ -65,7 +65,7 @@ const AvatarImage = forwardRef<
       />
       <span
         data-slot="avatar-image-backdrop"
-        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
+        className="absolute inset-0 bg-backdrop opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
         aria-hidden="true"
       />
     </>
