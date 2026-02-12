@@ -140,22 +140,6 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-/**
- * All Variants Overview
- *
- * Comprehensive showcase of all available badge variants, styles, and configurations.
- * This story demonstrates:
- * - Decorative variants (filled-only): mountain, fjord, nordic, aurora, dusk, orange
- * - Semantic variants (filled): neutral, success, warning, error, undefined
- * - Semantic variants (outlined): neutral, success, warning, error, undefined
- * - Size variants: default and icon sizes
- * - Dot indicator variant
- *
- * Each variant is designed for specific use cases:
- * - Decorative variants: Visual distinction without semantic meaning
- * - Semantic variants: Convey status, state, or meaning (success, error, etc.)
- * - Outlined variants: Subtle styling for semantic badges on colored backgrounds
- */
 export const AllVariants: Story = {
   render: () => (
     <div className="space-y-6">
@@ -282,16 +266,12 @@ export const AllVariants: Story = {
     order: 1,
     docs: {
       description: {
-        story:
-          "Comprehensive overview of all available badge variants, styles, and configurations. This story demonstrates decorative variants (filled-only), semantic variants (both filled and outlined), size options, and dot indicators. Each section includes explanatory text to help understand when and how to use each variant. The play function verifies that all badges render correctly with proper styling classes and attributes.",
+        story: "Overview of all badge variants, styles, and configurations.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    await expect(badges.length).toBeGreaterThanOrEqual(16);
 
     const mountainBadge = canvas.getByText("Mountain");
     await expect(mountainBadge).toBeInTheDocument();
@@ -308,13 +288,10 @@ export const AllVariants: Story = {
     const successBadges = canvas.getAllByText("Success");
     await expect(successBadges.length).toBeGreaterThanOrEqual(2);
 
-    const allBadgesForSemantic = canvasElement.querySelectorAll('[data-slot="badge"]');
-    const filledSuccessElement = Array.from(allBadgesForSemantic).find((badge) => {
-      const text = badge.textContent || "";
-      const hasSuccess = text.includes("Success");
+    const filledSuccessElement = successBadges.find((badge) => {
       const hasBgSuccess = badge.classList.contains("bg-success");
       const notOutlined = !badge.classList.contains("border-border");
-      return hasSuccess && hasBgSuccess && notOutlined;
+      return hasBgSuccess && notOutlined;
     });
     expect(filledSuccessElement).toBeDefined();
     expect(filledSuccessElement?.classList.contains("bg-success")).toBe(true);
@@ -325,12 +302,10 @@ export const AllVariants: Story = {
     const errorBadges = canvas.getAllByText("Error");
     await expect(errorBadges.length).toBeGreaterThanOrEqual(2);
 
-    const filledErrorElement = Array.from(allBadgesForSemantic).find((badge) => {
-      const text = badge.textContent || "";
-      const hasError = text.includes("Error");
+    const filledErrorElement = errorBadges.find((badge) => {
       const hasBgDestructive = badge.classList.contains("bg-destructive");
       const notOutlined = !badge.classList.contains("border-border");
-      return hasError && hasBgDestructive && notOutlined;
+      return hasBgDestructive && notOutlined;
     });
     expect(filledErrorElement).toBeDefined();
     expect(filledErrorElement?.classList.contains("bg-destructive")).toBe(true);
@@ -338,17 +313,9 @@ export const AllVariants: Story = {
       true
     );
 
-    const allBadgesForOutlined = canvasElement.querySelectorAll('[data-slot="badge"]');
-    const outlinedBadges = Array.from(allBadgesForOutlined).filter((badge) =>
+    const outlinedSuccessElements = successBadges.filter((badge) =>
       badge.classList.contains("border-border")
     );
-    await expect(outlinedBadges.length).toBeGreaterThanOrEqual(5);
-
-    const outlinedSuccessElements = Array.from(allBadgesForOutlined).filter((badge) => {
-      const hasBorder = badge.classList.contains("border-border");
-      const hasSuccessText = badge.textContent?.includes("Success");
-      return hasBorder && hasSuccessText;
-    });
     await expect(outlinedSuccessElements.length).toBeGreaterThan(0);
 
     const outlinedSuccess = outlinedSuccessElements[0];
@@ -356,12 +323,19 @@ export const AllVariants: Story = {
     expect(outlinedSuccess.classList.contains("text-success-foreground")).toBe(true);
     expect(outlinedSuccess.classList.contains("bg-success")).toBe(false);
 
+    const allBadges = canvasElement.querySelectorAll('[data-slot="badge"]');
+    await expect(allBadges.length).toBeGreaterThanOrEqual(16);
+
+    const allOutlinedBadges = Array.from(allBadges).filter((badge) =>
+      badge.classList.contains("border-border")
+    );
+    await expect(allOutlinedBadges.length).toBeGreaterThanOrEqual(5);
+
     const defaultSizeBadges = canvas.getAllByText("Default Size", {
       exact: false,
     });
     await expect(defaultSizeBadges.length).toBeGreaterThanOrEqual(2);
 
-    const allBadges = canvasElement.querySelectorAll('[data-slot="badge"]');
     const iconOnlyBadges = Array.from(allBadges).filter((badge) => {
       const text = badge.textContent?.trim() || "";
       const hasIcon = badge.querySelector("svg");
@@ -369,7 +343,9 @@ export const AllVariants: Story = {
     });
     await expect(iconOnlyBadges.length).toBeGreaterThanOrEqual(2);
 
-    const dotBadges = canvasElement.querySelectorAll('[data-slot="badge"].rounded-full');
+    const dotBadges = Array.from(allBadges).filter((badge) =>
+      badge.classList.contains("rounded-full")
+    );
     await expect(dotBadges.length).toBeGreaterThanOrEqual(4);
 
     const textContent = canvasElement.textContent || "";
@@ -388,24 +364,10 @@ export const AllVariants: Story = {
 };
 
 /**
- * Mountain variant - neutral decorative badge
- *
- * The Mountain variant uses a neutral decorative background color, making it ideal
- * for subtle labels, tags, and non-semantic categorization. This variant is
- * filled-only and does not support outline styling. Use Mountain badges when you
- * need visual distinction without conveying specific meaning or status.
- *
- * Common use cases:
- * - Category labels
- * - Non-semantic tags
- * - Subtle visual grouping
- * - Neutral decorative elements
+ * Mountain variant - neutral decorative badge with mountain color palette.
  */
 export const Mountain: Story = {
-  args: {
-    variant: "mountain",
-    children: "Mountain",
-  },
+  render: () => <Badge variant="mountain">Mountain</Badge>,
   parameters: {
     order: 2,
     docs: {
@@ -437,26 +399,10 @@ export const Mountain: Story = {
 };
 
 /**
- * Fjord variant - cool blue decorative badge
- *
- * The Fjord variant uses a cool blue decorative background color, making it ideal
- * for data visualization, analytics, and cool-toned design accents. This variant
- * is filled-only and does not support outline styling. Use Fjord badges when you
- * need a cool, calming visual element that suggests data, technology, or analytical
- * content.
- *
- * Common use cases:
- * - Data visualization labels
- * - Analytics tags
- * - Technology-related categories
- * - Cool-toned design accents
- * - Information architecture labels
+ * Fjord variant - cool blue decorative badge with fjord color palette.
  */
 export const Fjord: Story = {
-  args: {
-    variant: "fjord",
-    children: "Fjord",
-  },
+  render: () => <Badge variant="fjord">Fjord</Badge>,
   parameters: {
     order: 3,
     docs: {
@@ -488,26 +434,10 @@ export const Fjord: Story = {
 };
 
 /**
- * Nordic variant - cool green decorative badge
- *
- * The Nordic variant uses a cool green decorative background color, making it ideal
- * for nature-themed content, environmental categories, and cool green design accents.
- * This variant is filled-only and does not support outline styling. Use Nordic badges
- * when you need a fresh, natural visual element that suggests growth, environment, or
- * organic content.
- *
- * Common use cases:
- * - Nature and environmental labels
- * - Growth and sustainability tags
- * - Organic content categories
- * - Cool green design accents
- * - Natural resource indicators
+ * Nordic variant - cool green decorative badge with nordic color palette.
  */
 export const Nordic: Story = {
-  args: {
-    variant: "nordic",
-    children: "Nordic",
-  },
+  render: () => <Badge variant="nordic">Nordic</Badge>,
   parameters: {
     order: 4,
     docs: {
@@ -539,26 +469,10 @@ export const Nordic: Story = {
 };
 
 /**
- * Aurora variant - lime green decorative badge
- *
- * The Aurora variant uses a vibrant lime green decorative background color, making it
- * ideal for attention-grabbing highlights, energetic content, and vibrant design accents.
- * This variant is filled-only and does not support outline styling. Use Aurora badges
- * when you need a bold, energetic visual element that stands out and suggests energy,
- * innovation, or high visibility.
- *
- * Common use cases:
- * - Attention-grabbing highlights
- * - Energetic content labels
- * - Innovation and creativity tags
- * - High-visibility indicators
- * - Vibrant design accents
+ * Aurora variant - vibrant lime green decorative badge with aurora color palette.
  */
 export const Aurora: Story = {
-  args: {
-    variant: "aurora",
-    children: "Aurora",
-  },
+  render: () => <Badge variant="aurora">Aurora</Badge>,
   parameters: {
     order: 5,
     docs: {
@@ -590,26 +504,10 @@ export const Aurora: Story = {
 };
 
 /**
- * Dusk variant - magenta decorative badge
- *
- * The Dusk variant uses a magenta decorative background color, making it ideal for
- * creative content, artistic categories, and purple/magenta design accents. This variant
- * is filled-only and does not support outline styling. Use Dusk badges when you need
- * a creative, artistic visual element that suggests innovation, creativity, or artistic
- * content.
- *
- * Common use cases:
- * - Creative content labels
- * - Artistic category tags
- * - Purple/magenta design accents
- * - Innovation indicators
- * - Creative project categories
+ * Dusk variant - magenta decorative badge with dusk color palette.
  */
 export const Dusk: Story = {
-  args: {
-    variant: "dusk",
-    children: "Dusk",
-  },
+  render: () => <Badge variant="dusk">Dusk</Badge>,
   parameters: {
     order: 6,
     docs: {
@@ -641,26 +539,9 @@ export const Dusk: Story = {
 };
 
 /**
- * Orange variant - warm orange decorative badge
- *
- * The Orange variant uses a warm orange decorative background color, making it ideal
- * for warm design accents, data visualization, and attention-grabbing highlights.
- * This variant is filled-only and does not support outline styling. Use Orange badges
- * when you need a warm, energetic visual element that suggests energy, warmth, or
- * data visualization categories.
- *
- * Common use cases:
- * - Warm design accents
- * - Data visualization labels
- * - Energy and activity indicators
- * - Attention-grabbing highlights
- * - Temperature or heat-related categories
+ * Orange variant - warm orange decorative badge with orange color palette.
  */
 export const Orange: Story = {
-  args: {
-    variant: "orange",
-    children: "Orange",
-  },
   parameters: {
     order: 7,
     docs: {
@@ -689,29 +570,14 @@ export const Orange: Story = {
     await expect(badge).toHaveClass("inline-flex");
     await expect(badge).toHaveClass("items-center");
   },
+  render: () => <Badge variant="orange">Orange</Badge>,
 };
 
 /**
- * Secondary variant - subtle neutral badge
- *
- * The Secondary variant uses the secondary background color, making it ideal for
- * subtle labels, tags, and less prominent status indicators. This variant provides
- * a neutral, understated appearance that works well for secondary information or
- * when you need a badge that doesn't compete with primary content. Use Secondary
- * badges when you need a subtle visual distinction without strong emphasis.
- *
- * Common use cases:
- * - Subtle category labels
- * - Secondary status indicators
- * - Less prominent tags
- * - Neutral decorative elements
- * - Supporting information badges
+ * Secondary variant - subtle neutral badge with secondary background.
  */
 export const Secondary: Story = {
-  args: {
-    variant: "secondary",
-    children: "Secondary",
-  },
+  render: () => <Badge variant="secondary">Secondary</Badge>,
   parameters: {
     order: 8,
     docs: {
@@ -743,31 +609,15 @@ export const Secondary: Story = {
 };
 
 /**
- * Neutral variant - informational status badge
- *
- * The Neutral variant (inProgress) represents informational or in-progress states.
- * It uses a gray background with alternative foreground color for optimal contrast.
- * This variant supports both filled and outlined styles, making it versatile for
- * different design contexts. Use Neutral badges to indicate ongoing processes,
- * informational content, or neutral status without positive or negative connotation.
- *
- * Common use cases:
- * - In-progress indicators
- * - Informational status labels
- * - Neutral state indicators
- * - Process status tags
- * - Non-urgent notifications
+ * Neutral variant - informational or in-progress state badge.
  */
 export const Neutral: Story = {
-  args: {
-    variant: "inProgress",
-    children: (
-      <>
-        <IconInnerShadowTopLeft className="size-3" />
-        Neutral
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="inProgress">
+      <IconInnerShadowTopLeft className="size-3" />
+      Neutral
+    </Badge>
+  ),
   parameters: {
     order: 9,
     docs: {
@@ -802,31 +652,15 @@ export const Neutral: Story = {
 };
 
 /**
- * Success variant - positive status badge
- *
- * The Success variant indicates positive outcomes, completed tasks, or successful
- * operations. It uses a green background with alternative foreground color for
- * optimal contrast. This variant supports both filled and outlined styles, making
- * it versatile for different design contexts. Use Success badges to communicate
- * positive states, completion, or successful operations.
- *
- * Common use cases:
- * - Completed task indicators
- * - Successful operation status
- * - Positive state labels
- * - Achievement indicators
- * - Confirmation badges
+ * Success variant - positive outcome or completion state badge.
  */
 export const Success: Story = {
-  args: {
-    variant: "success",
-    children: (
-      <>
-        <IconCircleCheck className="size-3" />
-        Success
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="success">
+      <IconCircleCheck className="size-3" />
+      Success
+    </Badge>
+  ),
   parameters: {
     order: 10,
     docs: {
@@ -861,31 +695,15 @@ export const Success: Story = {
 };
 
 /**
- * Warning variant - caution status badge
- *
- * The Warning variant indicates caution, attention needed, or pending states.
- * It uses an amber background with alternative foreground color for optimal
- * contrast. This variant supports both filled and outlined styles, making it
- * versatile for different design contexts. Use Warning badges to communicate
- * caution, pending states, or situations that require attention.
- *
- * Common use cases:
- * - Caution indicators
- * - Pending state labels
- * - Attention-required status
- * - Warning messages
- * - Alert notifications
+ * Warning variant - caution or attention-needed state badge.
  */
 export const Warning: Story = {
-  args: {
-    variant: "warning",
-    children: (
-      <>
-        <IconAlertTriangle className="size-3" />
-        Warning
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="warning">
+      <IconAlertTriangle className="size-3" />
+      Warning
+    </Badge>
+  ),
   parameters: {
     order: 11,
     docs: {
@@ -920,31 +738,15 @@ export const Warning: Story = {
 };
 
 /**
- * Error variant - negative status badge
- *
- * The Error variant indicates failures, errors, or destructive actions. It uses
- * a red background with alternative foreground color for optimal contrast. This
- * variant supports both filled and outlined styles, making it versatile for
- * different design contexts. Use Error badges to communicate failures, errors,
- * or destructive states that require immediate attention.
- *
- * Common use cases:
- * - Error indicators
- * - Failure status labels
- * - Destructive action warnings
- * - Critical alert notifications
- * - Problem state indicators
+ * Error variant - failure or error state badge.
  */
 export const ErrorState: Story = {
-  args: {
-    variant: "error",
-    children: (
-      <>
-        <IconAlertHexagon className="size-3" />
-        Error
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="error">
+      <IconAlertHexagon className="size-3" />
+      Error
+    </Badge>
+  ),
   parameters: {
     order: 12,
     docs: {
@@ -979,31 +781,15 @@ export const ErrorState: Story = {
 };
 
 /**
- * Undefined variant - unknown/archived status badge
- *
- * The Undefined variant (archived) represents unknown, archived, or undefined states.
- * It uses a mountain background with alternative foreground color for optimal contrast.
- * This variant supports both filled and outlined styles, making it versatile for
- * different design contexts. Use Undefined badges to indicate archived content,
- * unknown states, or undefined status that doesn't fit other semantic categories.
- *
- * Common use cases:
- * - Archived content labels
- * - Unknown state indicators
- * - Undefined status tags
- * - Neutral categorization
- * - Placeholder status
+ * Undefined variant - archived or unknown state badge.
  */
 export const Undefined: Story = {
-  args: {
-    variant: "archived",
-    children: (
-      <>
-        <IconArchive className="size-3" />
-        Undefined
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="archived">
+      <IconArchive className="size-3" />
+      Undefined
+    </Badge>
+  ),
   parameters: {
     order: 13,
     docs: {
@@ -1038,32 +824,15 @@ export const Undefined: Story = {
 };
 
 /**
- * Neutral outlined variant - informational status badge with border
- *
- * The Neutral outlined variant uses a border-only style with transparent background,
- * providing a more subtle appearance while maintaining semantic meaning. It uses standard
- * foreground color (not alternative) for optimal contrast on transparent backgrounds.
- * This style is ideal for dense interfaces, colored backgrounds, or when you want to
- * reduce visual weight while maintaining the informational status indication.
- *
- * Common use cases:
- * - Subtle in-progress indicators
- * - Informational badges on colored backgrounds
- * - Dense interface layouts
- * - Reduced visual weight requirements
- * - Over images or gradients
+ * Neutral outlined variant - informational badge with border and transparent background.
  */
 export const NeutralOutlined: Story = {
-  args: {
-    variant: "inProgress",
-    outline: true,
-    children: (
-      <>
-        <IconInnerShadowTopLeft className="size-3" />
-        Neutral
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="inProgress" outline>
+      <IconInnerShadowTopLeft className="size-3" />
+      Neutral
+    </Badge>
+  ),
   parameters: {
     order: 14,
     docs: {
@@ -1099,32 +868,15 @@ export const NeutralOutlined: Story = {
 };
 
 /**
- * Success outlined variant - positive status badge with border
- *
- * The Success outlined variant uses a border-only style with transparent background,
- * providing a more subtle appearance while maintaining semantic meaning. It uses standard
- * foreground color (not alternative) for optimal contrast on transparent backgrounds.
- * This style is ideal for dense interfaces, colored backgrounds, or when you want to
- * reduce visual weight while maintaining the positive status indication.
- *
- * Common use cases:
- * - Subtle success indicators
- * - Positive badges on colored backgrounds
- * - Dense interface layouts
- * - Reduced visual weight requirements
- * - Over images or gradients
+ * Success outlined variant - positive badge with border and transparent background.
  */
 export const SuccessOutlined: Story = {
-  args: {
-    variant: "success",
-    outline: true,
-    children: (
-      <>
-        <IconCircleCheck className="size-3" />
-        Success
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="success" outline>
+      <IconCircleCheck className="size-3" />
+      Success
+    </Badge>
+  ),
   parameters: {
     order: 15,
     docs: {
@@ -1160,32 +912,15 @@ export const SuccessOutlined: Story = {
 };
 
 /**
- * Warning outlined variant - caution status badge with border
- *
- * The Warning outlined variant uses a border-only style with transparent background,
- * providing a more subtle appearance while maintaining semantic meaning. It uses standard
- * foreground color (not alternative) for optimal contrast on transparent backgrounds.
- * This style is ideal for dense interfaces, colored backgrounds, or when you want to
- * reduce visual weight while maintaining the caution status indication.
- *
- * Common use cases:
- * - Subtle warning indicators
- * - Caution badges on colored backgrounds
- * - Dense interface layouts
- * - Reduced visual weight requirements
- * - Over images or gradients
+ * Warning outlined variant - caution badge with border and transparent background.
  */
 export const WarningOutlined: Story = {
-  args: {
-    variant: "warning",
-    outline: true,
-    children: (
-      <>
-        <IconAlertTriangle className="size-3" />
-        Warning
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="warning" outline>
+      <IconAlertTriangle className="size-3" />
+      Warning
+    </Badge>
+  ),
   parameters: {
     order: 16,
     docs: {
@@ -1221,32 +956,15 @@ export const WarningOutlined: Story = {
 };
 
 /**
- * Error outlined variant - negative status badge with border
- *
- * The Error outlined variant uses a border-only style with transparent background,
- * providing a more subtle appearance while maintaining semantic meaning. It uses standard
- * foreground color (not alternative) for optimal contrast on transparent backgrounds.
- * This style is ideal for dense interfaces, colored backgrounds, or when you want to
- * reduce visual weight while maintaining the error status indication.
- *
- * Common use cases:
- * - Subtle error indicators
- * - Error badges on colored backgrounds
- * - Dense interface layouts
- * - Reduced visual weight requirements
- * - Over images or gradients
+ * Error outlined variant - error badge with border and transparent background.
  */
 export const ErrorOutlined: Story = {
-  args: {
-    variant: "error",
-    outline: true,
-    children: (
-      <>
-        <IconAlertHexagon className="size-3" />
-        Error
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="error" outline>
+      <IconAlertHexagon className="size-3" />
+      Error
+    </Badge>
+  ),
   parameters: {
     order: 17,
     docs: {
@@ -1282,32 +1000,15 @@ export const ErrorOutlined: Story = {
 };
 
 /**
- * Undefined outlined variant - unknown/archived status badge with border
- *
- * The Undefined outlined variant uses a border-only style with transparent background,
- * providing a more subtle appearance while maintaining semantic meaning. It uses standard
- * foreground color (not alternative) for optimal contrast on transparent backgrounds.
- * This style is ideal for dense interfaces, colored backgrounds, or when you want to
- * reduce visual weight while maintaining the undefined/archived status indication.
- *
- * Common use cases:
- * - Subtle archived indicators
- * - Undefined badges on colored backgrounds
- * - Dense interface layouts
- * - Reduced visual weight requirements
- * - Over images or gradients
+ * Undefined outlined variant - archived badge with border and transparent background.
  */
 export const UndefinedOutlined: Story = {
-  args: {
-    variant: "archived",
-    outline: true,
-    children: (
-      <>
-        <IconArchive className="size-3" />
-        Undefined
-      </>
-    ),
-  },
+  render: () => (
+    <Badge variant="archived" outline>
+      <IconArchive className="size-3" />
+      Undefined
+    </Badge>
+  ),
   parameters: {
     order: 18,
     docs: {
