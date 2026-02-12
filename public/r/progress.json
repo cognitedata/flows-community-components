@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "progress",
-  "title": "progress",
-  "description": "",
+  "title": "Progress",
+  "description": "A progress bar component for showing completion status.",
   "dependencies": [
     "@base-ui/react/progress"
   ],

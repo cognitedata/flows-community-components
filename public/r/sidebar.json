@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "sidebar",
-  "title": "sidebar",
-  "description": "",
+  "title": "Sidebar",
+  "description": "A collapsible sidebar navigation component with support for mobile sheets, keyboard shortcuts, and nested menu structures.",
   "dependencies": [
     "@tabler/icons-react",
     "class-variance-authority"

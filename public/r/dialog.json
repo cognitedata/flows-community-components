@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dialog",
-  "title": "dialog",
-  "description": "",
+  "title": "Dialog",
+  "description": "A modal dialog with overlay, content, and close affordances built on Base UI Dialog.",
   "dependencies": [
     "@base-ui/react/dialog",
     "@tabler/icons-react"

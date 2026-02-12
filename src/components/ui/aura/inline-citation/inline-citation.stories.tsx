@@ -28,9 +28,8 @@ import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inlin
 const meta: Meta<typeof InlineCitation> = {
   title: "AI/Inline Citation",
   component: InlineCitation,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
-    // Display
     className: {
       control: "text",
       description: "Additional CSS classes for styling",
@@ -42,7 +41,7 @@ const meta: Meta<typeof InlineCitation> = {
       control: false,
       description: "Citation content (typically InlineCitationLink)",
       table: {
-        category: "Display",
+        category: "Content",
         type: { summary: "ReactNode" },
       },
     },
@@ -63,25 +62,23 @@ export default meta;
 type Story = StoryObj<typeof InlineCitation>;
 
 /**
- * Citations with icons for different source types.
+ * Citations with icons.
  */
 export const Default: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
-        story:
-          "Link citations with icons and colour variants for different industrial source types. Tests that all citations render correctly.",
+        story: "Citations with icons.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify all 7 citations are rendered
     const citations = canvas.getAllByRole("link");
     await expect(citations).toHaveLength(7);
 
-    // Check first citation has correct attributes
     const firstLink = citations[0];
     await expect(firstLink).toHaveAttribute("href", "https://example.com/image/pumpB.jpg");
     await expect(firstLink).toHaveAttribute("target", "_blank");
@@ -166,27 +163,25 @@ export const Default: Story = {
 };
 
 /**
- * Link citation in industrial context.
+ * Link citation inline.
  */
 export const LinkCitation: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
-        story:
-          "Citation with a simple link inline within a paragraph. Tests citation in natural text flow.",
+        story: "Link citation inline.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the citation link
     const link = canvas.getByRole("link", { name: /pump 21PT1019/i });
     await expect(link).toBeInTheDocument();
     await expect(link).toHaveAttribute("href", "https://cognite.com/assets/pump-21PT1019");
     await expect(link).toHaveAttribute("target", "_blank");
 
-    // Test hover interaction
     await userEvent.hover(link);
     await expect(link).toBeVisible();
   },
@@ -216,25 +211,23 @@ export const LinkCitation: Story = {
 };
 
 /**
- * Citations within a message conversation.
+ * Citations within messages.
  */
 export const InMessageContext: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
-        story:
-          "Inline citations within a conversation message showing both inline and grouped usage in an AI assistant context. Tests integration with Message components.",
+        story: "Citations within messages.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify multiple citations exist (inline + grouped)
     const links = canvas.getAllByRole("link");
     await expect(links.length).toBeGreaterThanOrEqual(4);
 
-    // Verify buttons for message actions exist
     const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
@@ -334,25 +327,23 @@ export const InMessageContext: Story = {
 };
 
 /**
- * Edge case: Invalid URLs are handled gracefully.
+ * Invalid URLs.
  */
 export const InvalidUrls: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
-        story:
-          "Tests handling of invalid URLs. The component should not crash and should display the raw string when URL parsing fails.",
+        story: "Invalid URLs.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Citations should render without errors (some invalid URLs may not create valid links)
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(3);
 
-    // Component should not have thrown an error
     const errorElements = canvas.queryAllByText(/error/i);
     await expect(errorElements.length).toBe(0);
   },
@@ -386,14 +377,14 @@ export const InvalidUrls: Story = {
 };
 
 /**
- * Edge case: Very long URLs.
+ * Very long URLs.
  */
 export const LongUrls: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
-        story:
-          "Tests citations with extremely long URLs. The hostname should be extracted and displayed cleanly.",
+        story: "Very long URLs.",
       },
     },
   },
@@ -407,7 +398,6 @@ export const LongUrls: Story = {
       "https://example.com/very/long/path/with/many/segments/and/query/parameters?param1=value1&param2=value2&param3=value3&param4=value4&param5=value5"
     );
 
-    // Verify link renders without overflow issues
     await expect(link).toBeVisible();
   },
   render: () => (
@@ -430,14 +420,14 @@ export const LongUrls: Story = {
 };
 
 /**
- * Edge case: Very long citation text.
+ * Very long citation text.
  */
 export const LongCitationText: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
-        story:
-          "Tests citation with very long text content. Should use whitespace-nowrap to prevent wrapping.",
+        story: "Very long citation text.",
       },
     },
   },
@@ -447,7 +437,6 @@ export const LongCitationText: Story = {
     const link = canvas.getByRole("link");
     await expect(link).toBeInTheDocument();
 
-    // Verify the link contains the long text
     await expect(link).toHaveTextContent(
       "This is a very long citation text that should not wrap to multiple lines"
     );
@@ -472,21 +461,20 @@ export const LongCitationText: Story = {
 };
 
 /**
- * Edge case: Many citations in sequence (stress test).
+ * Many citations in sequence.
  */
 export const ManyCitations: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
-        story:
-          "Stress test with many citations in a row showing various industrial assets and documents. Tests performance and layout with large numbers.",
+        story: "Many citations in sequence.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Should render all citations
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThan(10);
   },
@@ -532,20 +520,20 @@ export const ManyCitations: Story = {
 };
 
 /**
- * Colour variants comparison.
+ * Color variants.
  */
 export const ColorVariants: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
-        story: "Comparison of all available colour variants for citations.",
+        story: "Color variants.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Should have all 3 variants
     const citations = canvas.getAllByRole("link");
     await expect(citations).toHaveLength(3);
   },
@@ -572,6 +560,61 @@ export const ColorVariants: Story = {
         <InlineCitation>
           <InlineCitationLink href="https://example.com" variant="nordic" icon={IconFile}>
             Nordic
+          </InlineCitationLink>
+        </InlineCitation>
+      </p>
+    </div>
+  ),
+};
+
+/**
+ * Link target and icon variants.
+ */
+export const LinkTargetAndIconVariants: Story = {
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story: "Link target and icon variants.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const selfLink = canvas.getByRole("link", { name: /self target/i });
+    const blankLink = canvas.getByRole("link", { name: /blank target/i });
+
+    await expect(selfLink).toBeInTheDocument();
+    await expect(selfLink).toHaveAttribute("href", "/local/report");
+    await expect(selfLink).toHaveAttribute("target", "_self");
+    await expect(selfLink).not.toHaveAttribute("rel");
+
+    await expect(blankLink).toBeInTheDocument();
+    await expect(blankLink).toHaveAttribute("href", "https://example.com/remote/report");
+    await expect(blankLink).toHaveAttribute("target", "_blank");
+    await expect(blankLink).toHaveAttribute("rel", "noopener noreferrer");
+  },
+  render: () => (
+    <div className="space-y-3 text-sm max-w-2xl">
+      <p>
+        Local report (no icon, opens in same tab):{" "}
+        <InlineCitation>
+          <InlineCitationLink href="/local/report" target="_self">
+            Self target
+          </InlineCitationLink>
+        </InlineCitation>
+      </p>
+      <p>
+        Remote report (with icon, opens in new tab):{" "}
+        <InlineCitation>
+          <InlineCitationLink
+            href="https://example.com/remote/report"
+            target="_blank"
+            icon={IconFile}
+            variant="mountain"
+          >
+            Blank target
           </InlineCitationLink>
         </InlineCitation>
       </p>

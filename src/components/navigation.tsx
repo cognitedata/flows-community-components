@@ -1,3 +1,4 @@
+import auraLogo from "@/assets/aura-logo.png";
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/aura/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/aura/sheet";
@@ -53,15 +54,12 @@ export function Navigation() {
   const location = useLocation();
   const pathname = location.pathname;
 
-  // Get base path for assets (handles GitHub Pages subdirectory)
-  const logoPath = `${import.meta.env.BASE_URL}aura-logo.png`;
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center space-x-3">
-            <img src={logoPath} alt="Aura" width={32} height={32} />
+            <img src={auraLogo} alt="Aura" width={32} height={32} />
           </Link>
 
           {/* Desktop Navigation */}

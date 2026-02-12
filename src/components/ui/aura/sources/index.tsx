@@ -1,19 +1,7 @@
-/**
- * Sources Component
- *
- * Components for displaying source references and citations.
- *
- * @example
- * import { Sources, SourcesTitle, Source } from '@/components/ui/aura/sources';
- */
+/** Sources components for references and citations. */
 export {
   Sources,
   SourcesTitle,
   Source,
-} from "./sources";
-export type {
-  SourcesProps,
-  SourcesTitleProps,
-  SourceProps,
 } from "./sources";
 export { SourcesMetadata } from "./sources.metadata";
