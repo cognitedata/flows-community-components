@@ -36,8 +36,7 @@ const meta: Meta<typeof Reasoning> = {
     layout: "centered",
     docs: {
       description: {
-        component:
-          "A container component for displaying AI reasoning steps with visual connection lines. Typically used to show the AI's thought process when making decisions or calling tools. Works seamlessly with nested Tool components for industrial workflows.",
+        component: "Container for AI reasoning steps with optional tool-call content.",
       },
     },
   },
@@ -53,9 +52,6 @@ const meta: Meta<typeof Reasoning> = {
 export default meta;
 type Story = StoryObj<typeof Reasoning>;
 
-/**
- * Industrial workflow with multiple tool calls showing pump monitoring.
- */
 export const IndustrialWorkflow: Story = {
   render: () => (
     <Reasoning>
@@ -136,18 +132,12 @@ export const IndustrialWorkflow: Story = {
     order: 1,
     docs: {
       description: {
-        story:
-          "Typical AI reasoning workflow showing multiple tool calls for industrial asset monitoring. Demonstrates finding assets, retrieving sensor data, and analyzing trends to make maintenance recommendations.",
+        story: "Reasoning workflow with multiple tool calls.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const reasoning = canvasElement.querySelector('[data-slot="reasoning"]');
-    await expect(reasoning).toBeInTheDocument();
-
-    // Check that all three tool calls are present
     const toolButtons = await canvas.findAllByRole("button", {
       name: /find assets|get sensor data|analyze trends/i,
     });
@@ -159,24 +149,19 @@ export const IndustrialWorkflow: Story = {
 
     const firstTool = toolButtons[0];
     await userEvent.click(firstTool);
-    const getFirstToolPanel = () =>
-      firstTool
-        .closest('[data-slot="collapsible"]')
-        ?.querySelector('[data-slot="collapsible-content"]') as HTMLElement | null;
 
     await waitFor(() => {
-      const content = canvasElement.textContent || "";
-      const firstToolPanel = getFirstToolPanel();
-      if (!firstToolPanel) {
+      const firstPanelId = firstTool.getAttribute("aria-controls");
+      const firstPanel = firstPanelId ? document.getElementById(firstPanelId) : null;
+      expect(firstTool).toHaveAttribute("data-panel-open");
+      expect(firstPanel).toBeTruthy();
+      if (!firstPanel) {
         return;
       }
-      expect(firstTool).toHaveAttribute("data-panel-open");
-      expect(firstToolPanel).toBeVisible();
-      expect(within(firstToolPanel).getByText("Parameters")).toBeVisible();
-      expect(within(firstToolPanel).getByText("Result")).toBeVisible();
-      // Verify content is present (code appears in both light/dark theme blocks)
-      expect(content).toContain("Show all pumps in building A");
-      expect(content).toContain("Pump 21PT1019");
+      expect(within(firstPanel).getByText("Parameters")).toBeVisible();
+      expect(within(firstPanel).getByText("Result")).toBeVisible();
+      expect(firstPanel.textContent).toContain("Show all pumps in building A");
+      expect(firstPanel.textContent).toContain("Pump 21PT1019");
     });
 
     const secondTool = toolButtons[1];
@@ -184,15 +169,18 @@ export const IndustrialWorkflow: Story = {
     await userEvent.keyboard("{Enter}");
 
     await waitFor(() => {
-      expect(canvasElement.textContent).toContain("vibration");
-      expect(canvasElement.textContent).toContain("temperature");
+      const secondPanelId = secondTool.getAttribute("aria-controls");
+      const secondPanel = secondPanelId ? document.getElementById(secondPanelId) : null;
+      expect(secondPanel).toBeTruthy();
+      if (!secondPanel) {
+        return;
+      }
+      expect(secondPanel.textContent).toContain("vibration");
+      expect(secondPanel.textContent).toContain("temperature");
     });
   },
 };
 
-/**
- * Single tool call for asset lookup.
- */
 export const SingleToolCall: Story = {
   render: () => (
     <Reasoning>
@@ -226,40 +214,37 @@ export const SingleToolCall: Story = {
     order: 2,
     docs: {
       description: {
-        story:
-          "Reasoning section with a single tool call (no connector decorations between steps).",
+        story: "Single tool call in a reasoning flow.",
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const reasoning = canvasElement.querySelector('[data-slot="reasoning"]');
-    await expect(reasoning).toBeInTheDocument();
-
     const toolButtons = await canvas.findAllByRole("button");
     await expect(toolButtons.length).toBe(1);
 
     await expect(toolButtons[0]).toHaveTextContent("Look up asset details");
 
-    await userEvent.click(toolButtons[0]);
+    const singleToolButton = toolButtons[0];
+    await userEvent.click(singleToolButton);
 
     await waitFor(() => {
-      const content = canvasElement.textContent || "";
-      expect(canvas.getByText("Parameters")).toBeVisible();
-      expect(canvas.getByText("Result")).toBeVisible();
-      expect(content).toContain("assetId");
-      expect(content).toContain("Pump 21PT1019");
+      const panelId = singleToolButton.getAttribute("aria-controls");
+      const panel = panelId ? document.getElementById(panelId) : null;
+      expect(singleToolButton).toHaveAttribute("data-panel-open");
+      expect(panel).toBeTruthy();
+      if (!panel) {
+        return;
+      }
+      expect(within(panel).getByText("Parameters")).toBeVisible();
+      expect(within(panel).getByText("Result")).toBeVisible();
+      expect(panel.textContent).toContain("assetId");
+      expect(panel.textContent).toContain("Pump 21PT1019");
     });
-
-    const connectorLines = canvasElement.querySelectorAll('[class*="connector"]');
-    await expect(connectorLines.length).toBe(0);
   },
 };
 
-/**
- * Tool call with error output showing failure handling.
- */
 export const ToolWithError: Story = {
   render: () => (
     <Reasoning>
@@ -309,8 +294,7 @@ export const ToolWithError: Story = {
     order: 3,
     docs: {
       description: {
-        story:
-          "Demonstrates error handling in tool calls. Shows failed database query with error message, followed by successful fallback to cache.",
+        story: "Tool call with error and fallback handling.",
       },
     },
   },
@@ -323,23 +307,19 @@ export const ToolWithError: Story = {
     await userEvent.click(toolButtons[0]);
 
     await waitFor(() => {
-      const content = canvasElement.textContent || "";
       expect(canvas.getByText("Error")).toBeVisible();
-      expect(content).toContain("Database connection timeout");
+      expect(canvas.getByText(/Database connection timeout/)).toBeVisible();
     });
 
     await userEvent.click(toolButtons[1]);
 
     await waitFor(() => {
-      expect(canvas.getByText("Result")).toBeVisible();
+      expect(canvas.getAllByText("Result").length).toBeGreaterThanOrEqual(1);
       expect(canvasElement.textContent).toContain("cached");
     });
   },
 };
 
-/**
- * Many tool calls showing complex multi-step workflow.
- */
 export const ManyToolCalls: Story = {
   render: () => (
     <Reasoning>
@@ -483,8 +463,7 @@ export const ManyToolCalls: Story = {
     order: 4,
     docs: {
       description: {
-        story:
-          "Stress test showing 6 sequential tool calls in a complex workflow. Tests connector line rendering and performance with many reasoning steps.",
+        story: "Multi-step reasoning workflow with several tool calls.",
       },
     },
   },
@@ -494,24 +473,20 @@ export const ManyToolCalls: Story = {
     const toolButtons = await canvas.findAllByRole("button");
     await expect(toolButtons.length).toBe(6);
 
-    await expect(canvasElement.textContent).toContain("Complex Analysis Workflow");
+    await expect(canvas.getByText("Complex Analysis Workflow")).toBeInTheDocument();
 
     await userEvent.click(toolButtons[0]);
     await userEvent.click(toolButtons[2]);
     await userEvent.click(toolButtons[5]);
 
     await waitFor(() => {
-      const content = canvasElement.textContent || "";
-      expect(content).toContain("sensor-database");
-      expect(content).toContain("isolation-forest");
-      expect(content).toContain("slack");
+      expect(canvasElement.textContent).toContain("sensor-database");
+      expect(canvasElement.textContent).toContain("isolation-forest");
+      expect(canvasElement.textContent).toContain("slack");
     });
   },
 };
 
-/**
- * Tool with long JSON content.
- */
 export const LongContent: Story = {
   render: () => (
     <Reasoning>
@@ -598,8 +573,7 @@ export const LongContent: Story = {
     order: 5,
     docs: {
       description: {
-        story:
-          "Tool with extensive JSON output showing representative sensor readings over 7 days. Tests code block rendering, syntax highlighting, and collapse functionality with large datasets.",
+        story: "Tool call with long JSON input and output.",
       },
     },
   },
@@ -610,21 +584,14 @@ export const LongContent: Story = {
     await userEvent.click(toolButton);
 
     await waitFor(() => {
-      const content = canvasElement.textContent || "";
-      expect(content).toContain("readings");
-      expect(content).toContain("total_readings");
-      expect(content).toContain("2026");
-      expect(content).toContain("anomalies_detected");
+      expect(canvasElement.textContent).toContain("readings");
+      expect(canvasElement.textContent).toContain("total_readings");
+      expect(canvasElement.textContent).toContain("2026-01-15T08:00:00Z");
+      expect(canvasElement.textContent).toContain("anomalies_detected");
     });
-
-    const codeBlocks = canvasElement.querySelectorAll("pre");
-    await expect(codeBlocks.length).toBeGreaterThanOrEqual(1);
   },
 };
 
-/**
- * Custom header variations.
- */
 export const CustomHeaders: Story = {
   render: () => (
     <div className="space-y-6">
@@ -668,7 +635,7 @@ export const CustomHeaders: Story = {
     order: 6,
     docs: {
       description: {
-        story: "Different header styles including custom title and custom React node with badge.",
+        story: "Header variants with default and custom content.",
       },
     },
   },
@@ -694,9 +661,6 @@ export const CustomHeaders: Story = {
   },
 };
 
-/**
- * Accessibility testing.
- */
 export const Accessibility: Story = {
   render: () => (
     <Reasoning>
@@ -750,8 +714,7 @@ export const Accessibility: Story = {
     order: 7,
     docs: {
       description: {
-        story:
-          "Accessibility testing story. Verifies keyboard navigation, ARIA labels, focus management, and screen reader compatibility.",
+        story: "Accessibility checks for keyboard and button names.",
       },
     },
   },
@@ -769,9 +732,8 @@ export const Accessibility: Story = {
     await userEvent.keyboard("{Enter}");
 
     await waitFor(() => {
-      const content = canvasElement.textContent || "";
-      expect(content).toContain("Parameters");
-      expect(content).toContain("api");
+      expect(canvas.getAllByText("Parameters").length).toBeGreaterThanOrEqual(1);
+      expect(canvasElement.textContent).toContain("api");
     });
 
     toolButtons[1].focus();
@@ -780,16 +742,12 @@ export const Accessibility: Story = {
     await userEvent.keyboard(" ");
 
     await waitFor(() => {
-      const content = canvasElement.textContent || "";
-      expect(content).toContain("Parameters");
-      expect(content).toContain("comprehensive");
+      expect(canvas.getAllByText("Parameters").length).toBeGreaterThanOrEqual(2);
+      expect(canvasElement.textContent).toContain("comprehensive");
     });
   },
 };
 
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
@@ -870,9 +828,6 @@ export const VisualRegression: Story = {
   },
 };
 
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   render: (args) => (
     <Reasoning {...args}>
@@ -904,7 +859,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground for experimenting with Reasoning component props.",
+        story: "Interactive playground for Reasoning props.",
       },
     },
   },

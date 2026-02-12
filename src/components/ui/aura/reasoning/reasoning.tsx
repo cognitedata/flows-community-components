@@ -93,7 +93,7 @@ const ReasoningItem = forwardRef<ComponentRef<"div">, ReasoningItemProps>(
         className={cn(
           "relative",
           showDecorations && [
-            "before:absolute before:-left-2.5 before:top-4 before:z-10 before:size-1.5 before:rounded-full before:bg-border",
+            "before:absolute before:-left-2.75 before:top-4 before:z-10 before:size-1.75 before:rounded-full before:bg-border",
             "after:absolute after:-left-2 after:top-0 after:bottom-0 after:w-px after:bg-border",
             "first:after:top-4",
             "last:after:bottom-auto last:after:h-4",
@@ -109,7 +109,4 @@ const ReasoningItem = forwardRef<ComponentRef<"div">, ReasoningItemProps>(
 );
 ReasoningItem.displayName = "ReasoningItem";
 
-export { Reasoning };
-export { ReasoningContent };
-export { ReasoningHeader };
-export { ReasoningItem };
+export { Reasoning, ReasoningContent, ReasoningHeader, ReasoningItem };
