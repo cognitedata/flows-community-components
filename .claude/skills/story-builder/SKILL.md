@@ -51,6 +51,10 @@ All stories MUST use explicit render functions with hardcoded props. Never use `
 
 **Never use helper components** - inline all JSX directly. See `pagination.stories.tsx` for examples of stateful render functions with `useState`.
 
+## Exports
+
+When exporting story helpers or named exports from a file, prefer a single export block rather than multiple single-export statements.
+
 Duplicate code in each story if needed. Code examples > DRY principle.
 
 ## Polymorphic Title Components
@@ -94,7 +98,7 @@ Storybook's canvas now handles portal content correctly. Use `canvas.findByTestI
 
 ## Styling in Stories
 
-Use Tailwind design tokens, not arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
+Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
 
 ## Fusion Import Strategy
 

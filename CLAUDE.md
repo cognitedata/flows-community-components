@@ -35,10 +35,12 @@ For detailed component building guidelines, use the `/component-builder` skill.
 ## Key principles
 
 - Use Base UI for complex interactions, native HTML for simple elements
-- Always use `ComponentRef` (not `React.ElementRef`)
+- Always use `ComponentRef` (not `React.ElementRef`), except for Base UI Trigger components (Dialog, Popover, etc.) which should be plain functions without `forwardRef` as they handle refs internally
 - No code comments in component files
 - Extract helpers to `@/lib/utils.ts`
-- Use Tailwind design tokens, not arbitrary values
+- Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
+- Exports should be in a single export block. Format inline if it fits, or one-per-line if long. Let Biome handle formatting; avoid `// biome-ignore` comments.
+- Component `index.tsx` files should import the main component, then export it separately (not inline). This pattern: `import { Component } from "./component"; export { Component };` is preferred over `export { Component } from "./component";`
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 - Do not include `importPath` in `*.metadata.ts` files
 
@@ -47,6 +49,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 NEVER use `React.useState`, `React.useEffect`, etc.
 ALWAYS import hooks directly: `import { useState, useEffect } from 'react'`
 This applies to ALL React imports.
+Import ordering should follow Biome `organizeImports` output.
 
 **Fusion Import Strategy:**
 
@@ -86,11 +89,14 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
 - Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
+- Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
+- In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 - Do not include `importPath` in `*.metadata.ts` files.
 - Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
 - Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
+- Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 
 # Storybook Stories
@@ -106,6 +112,7 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - Use explicit render functions with hardcoded props
 - No inline code comments in play functions
 - No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
+- All stories should have a description that is short and relevant; don't reword existing descriptions that already meet this criteria
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
 - Use `canvas.findByTestId()` only for portal content when semantic queries aren't available
 - Run `pnpm lint` and `pnpm tsc -b` after changes
