@@ -17,13 +17,13 @@ Build accessible, consistent React components following Aura design system patte
 
 This skill references actual files in the codebase as examples. To locate a file, use grep or file search (e.g., "find me badge.tsx"). If multiple files match, prompt the user with full paths to confirm which file to use. If a file isn't findable, prompt the user to provide the code example. Update references if better examples emerge.
 
-## Radix UI & Accessibility
+## Base UI & Accessibility
 
-Use Radix for complex interactions (dropdowns, dialogs), keyboard navigation, ARIA states. Use native HTML for simple elements (lists, headings, divs). See `dialog.tsx` and `alert.tsx` for accessibility patterns.
+Use Base UI for complex interactions (dropdowns, dialogs), keyboard navigation, ARIA states. Use native HTML for simple elements (lists, headings, divs). See `dialog.tsx` and `alert.tsx` for accessibility patterns.
 
 ## Component Structure
 
-**Exports at bottom, one per line.** See `badge.tsx` for export pattern.
+**Exports at bottom in a single export block (one identifier per line).** Avoid multiple single-export statements like `export { Foo };`. See `badge.tsx` for export pattern.
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
@@ -37,7 +37,7 @@ Use composition patterns for flexibility. See `card.tsx` for component structure
 
 **All components get data-slot.** See `button.tsx` for data-slot usage.
 
-**Use design tokens, not arbitrary values** like `leading-4.5`, `text-sm`, `gap-2` instead of `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
+**Use design tokens, not arbitrary values**. Utilities like `leading-4.5`, `text-sm`, and `gap-2` are fine when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`, `text-[14px]`, `gap-[8px]`.
 
 **Inline prop typing, no type exports.** Define prop types inline (e.g., `type BadgeProps = ...`) but do not export them. Consumers can use `ComponentProps<typeof Component>` if needed. See `badge.tsx`, `card.tsx`, `button.tsx` - none export prop types.
 
@@ -54,7 +54,7 @@ Use `class-variance-authority` for variant styling. See `badge.tsx` or `button.t
 See these files for forwardRef patterns:
 
 - Native HTML elements: `badge.tsx`, `button.tsx`
-- Radix Primitives: `dialog.tsx`, `alert-dialog.tsx`
+- Base UI Primitives: `dialog.tsx`, `alert-dialog.tsx`
 - Always set `displayName` for debugging and dev tools
 
 ## Semantic HTML & Polymorphic Components
@@ -89,7 +89,7 @@ When building components, use `@/*` for internal imports. The `@cognite/*` alias
 
 **index.tsx - brief description only.** See `index.tsx` in any component folder like badge for minimal JSDoc pattern.
 
-**Metadata file - LLM guidance only.** See `badge.metadata.ts` for ComponentMeta pattern.
+**Metadata file - LLM guidance only.** See `badge.metadata.ts` for ComponentMeta pattern. Keep `*.metadata.ts` files metadata-only—remove any runtime/component code from them.
 
 **CRITICAL:** ALL code examples live in Storybook stories only.
 
@@ -132,5 +132,7 @@ Before committing changes:
 8. No !important in Tailwind classes
 9. Proper error handling in all try-catch blocks
 10. Ensure all class names work with Tailwind v4
-11. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
-12. Ask the user if progress status is ambiguous before setting it
+11. Ensure component appears in Docs and Storybook sidebar
+12. Ensure `*.metadata.ts` files contain metadata only (no runtime/component code)
+13. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
+14. Ask the user if progress status is ambiguous before setting it
