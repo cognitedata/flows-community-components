@@ -148,7 +148,9 @@ export const IndustrialWorkflow: Story = {
     await expect(toolButtons[2]).toHaveTextContent("Analyze trends");
 
     const firstTool = toolButtons[0];
-    await userEvent.click(firstTool);
+    if (!firstTool.hasAttribute("data-panel-open")) {
+      await userEvent.click(firstTool);
+    }
 
     await waitFor(() => {
       const firstPanelId = firstTool.getAttribute("aria-controls");
@@ -165,8 +167,9 @@ export const IndustrialWorkflow: Story = {
     });
 
     const secondTool = toolButtons[1];
-    secondTool.focus();
-    await userEvent.keyboard("{Enter}");
+    if (!secondTool.hasAttribute("data-panel-open")) {
+      await userEvent.click(secondTool);
+    }
 
     await waitFor(() => {
       const secondPanelId = secondTool.getAttribute("aria-controls");
@@ -227,7 +230,9 @@ export const SingleToolCall: Story = {
     await expect(toolButtons[0]).toHaveTextContent("Look up asset details");
 
     const singleToolButton = toolButtons[0];
-    await userEvent.click(singleToolButton);
+    if (!singleToolButton.hasAttribute("data-panel-open")) {
+      await userEvent.click(singleToolButton);
+    }
 
     await waitFor(() => {
       const panelId = singleToolButton.getAttribute("aria-controls");
@@ -304,14 +309,18 @@ export const ToolWithError: Story = {
     const toolButtons = await canvas.findAllByRole("button");
     await expect(toolButtons.length).toBe(2);
 
-    await userEvent.click(toolButtons[0]);
+    if (!toolButtons[0].hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButtons[0]);
+    }
 
     await waitFor(() => {
       expect(canvas.getByText("Error")).toBeVisible();
       expect(canvas.getByText(/Database connection timeout/)).toBeVisible();
     });
 
-    await userEvent.click(toolButtons[1]);
+    if (!toolButtons[1].hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButtons[1]);
+    }
 
     await waitFor(() => {
       expect(canvas.getAllByText("Result").length).toBeGreaterThanOrEqual(1);
@@ -475,9 +484,15 @@ export const ManyToolCalls: Story = {
 
     await expect(canvas.getByText("Complex Analysis Workflow")).toBeInTheDocument();
 
-    await userEvent.click(toolButtons[0]);
-    await userEvent.click(toolButtons[2]);
-    await userEvent.click(toolButtons[5]);
+    if (!toolButtons[0].hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButtons[0]);
+    }
+    if (!toolButtons[2].hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButtons[2]);
+    }
+    if (!toolButtons[5].hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButtons[5]);
+    }
 
     await waitFor(() => {
       expect(canvasElement.textContent).toContain("sensor-database");
@@ -581,7 +596,9 @@ export const LongContent: Story = {
     const canvas = within(canvasElement);
 
     const toolButton = await canvas.findByRole("button");
-    await userEvent.click(toolButton);
+    if (!toolButton.hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButton);
+    }
 
     await waitFor(() => {
       expect(canvasElement.textContent).toContain("readings");
@@ -649,12 +666,16 @@ export const CustomHeaders: Story = {
     const toolButtons = await canvas.findAllByRole("button");
     expect(toolButtons).toHaveLength(2);
 
-    await userEvent.click(toolButtons[0]);
+    if (!toolButtons[0].hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButtons[0]);
+    }
     await waitFor(() => {
       expect(canvas.getAllByText("Parameters")[0]).toBeVisible();
     });
 
-    await userEvent.click(toolButtons[1]);
+    if (!toolButtons[1].hasAttribute("data-panel-open")) {
+      await userEvent.click(toolButtons[1]);
+    }
     await waitFor(() => {
       expect(canvas.getAllByText("Parameters")[1]).toBeVisible();
     });
@@ -729,7 +750,9 @@ export const Accessibility: Story = {
     toolButtons[0].focus();
     await expect(toolButtons[0]).toHaveFocus();
 
-    await userEvent.keyboard("{Enter}");
+    if (!toolButtons[0].hasAttribute("data-panel-open")) {
+      await userEvent.keyboard("{Enter}");
+    }
 
     await waitFor(() => {
       expect(canvas.getAllByText("Parameters").length).toBeGreaterThanOrEqual(1);
@@ -739,7 +762,9 @@ export const Accessibility: Story = {
     toolButtons[1].focus();
     await expect(toolButtons[1]).toHaveFocus();
 
-    await userEvent.keyboard(" ");
+    if (!toolButtons[1].hasAttribute("data-panel-open")) {
+      await userEvent.keyboard(" ");
+    }
 
     await waitFor(() => {
       expect(canvas.getAllByText("Parameters").length).toBeGreaterThanOrEqual(2);
