@@ -3,7 +3,7 @@ import { type ComponentProps, forwardRef } from "react";
 
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/aura/card";
 import { Separator } from "@/components/ui/aura/separator";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const artifactCountCountVariants = cva(
   "flex flex-col items-center justify-center rounded px-0.5 text-3xl font-medium leading-8 tracking-tightest min-h-9 min-w-9",

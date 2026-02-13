@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * Avatar Component Metadata
@@ -8,7 +8,7 @@ import type { ComponentMeta } from "@/lib/component-examples";
  */
 export const AvatarMetadata: ComponentMeta = {
   name: "Avatar",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "An image element with a fallback for representing users. Supports multiple color variants, sizes, and composable sub-components.",
   llmUsage:

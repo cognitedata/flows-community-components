@@ -2,7 +2,7 @@ import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { IconCheck, IconChevronRight } from "@tabler/icons-react";
 import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
 
-import { cn, getPortalContainer } from "@/lib/utils";
+import { cn, getPortalContainer } from "../../../../lib/utils";
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
