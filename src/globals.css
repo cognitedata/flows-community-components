@@ -131,9 +131,22 @@
   --color-disabled: var(--disabled);
   --color-disabled-foreground: var(--disabled-foreground);
   --color-hover: var(--hover);
+  --color-notice: var(--notice);
+  --color-sidebar-background: var(--sidebar-background);
+  --color-border-emphasised: var(--border-emphasised);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-muted-inverted: var(--foreground-muted-inverted);
+  --color-foreground-inactive: var(--foreground-inactive);
+  --color-foreground-white: var(--foreground-white);
+  --color-destructive-alternative: var(--destructive-alternative);
+  --color-warning-alternative: var(--warning-alternative);
+  --color-success-alternative: var(--success-alternative);
+  --color-neutral-alternative: var(--neutral-alternative);
+  --color-undefined-alternative: var(--undefined-alternative);
 
   /* Status color -alternate variants */
   --color-destructive-foreground-alternate: var(--destructive-foreground-alternate);
+  --color-destructive-foreground-alternative: var(--destructive-foreground-alternative);
   --color-warning-foreground-alternate: var(--warning-foreground-alternate);
   --color-success-foreground-alternate: var(--success-foreground-alternate);
   --color-neutral-foreground-alternate: var(--neutral-foreground-alternate);
@@ -171,6 +184,7 @@
   --color-chart-orange-opacity-4: var(--chart-orange-opacity-4);
   --color-chart-orange-opacity-5: var(--chart-orange-opacity-5);
   --color-chart-gridlines: var(--chart-gridlines);
+  --color-chart-chart-gridlines: var(--chart-chart-gridlines);
 
   /* Opacity overlays */
   --color-opacity-10: var(--opacity-10);
@@ -585,6 +599,10 @@
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-10);
   --muted-foreground: var(--mountain-600);
+  --foreground-muted: var(--mountain-550);
+  --foreground-muted-inverted: var(--mountain-400);
+  --foreground-inactive: var(--mountain-450);
+  --foreground-white: var(--mountain-50);
   --accent: var(--mountain-50);
   --accent-foreground: var(--mountain-950);
   --mountain: var(--mountain-50);
@@ -617,9 +635,19 @@
   --disabled: var(--mountain-50);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-50);
+  --notice: var(--mountain-800);
+  --border-emphasised: var(--mountain-200);
+  --destructive-alternative: var(--red-50);
+  --warning-alternative: var(--amber-50);
+  --success-alternative: var(--green-50);
+  --neutral-alternative: var(--gray-50);
+  --undefined-alternative: var(--mountain-50);
+  --background-light: 1;
+  --background-dark: 0;
 
   /* Status color -alternate variants (light mode) */
   --destructive-foreground-alternate: var(--red-700);
+  --destructive-foreground-alternative: var(--destructive-foreground-alternate);
   --warning-foreground-alternate: var(--amber-700);
   --success-foreground-alternate: var(--green-700);
   --neutral-foreground-alternate: var(--gray-700);
@@ -657,6 +685,7 @@
   --chart-orange-opacity-4: rgba(173, 69, 6, 0.35);
   --chart-orange-opacity-5: rgba(173, 69, 6, 0.2);
   --chart-gridlines: var(--mountain-50);
+  --chart-chart-gridlines: var(--chart-gridlines);
 
   /* Opacity overlays (light mode - white backgrounds) */
   --opacity-10: rgba(255, 255, 255, 0.1);
@@ -760,6 +789,7 @@
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
+  --sidebar-background: var(--sidebar);
   --sidebar-foreground: var(--mountain-100);
   --sidebar-primary: var(--mountain-600);
   --sidebar-primary-foreground: var(--mountain-white);
@@ -787,6 +817,10 @@
   --tertiary-foreground: var(--mountain-white);
   --muted: var(--mountain-900);
   --muted-foreground: var(--mountain-300);
+  --foreground-muted: var(--mountain-300);
+  --foreground-muted-inverted: var(--mountain-400);
+  --foreground-inactive: var(--mountain-450);
+  --foreground-white: var(--mountain-50);
   --accent: var(--mountain-800);
   --accent-foreground: var(--mountain-50);
   --mountain: var(--mountain-800);
@@ -819,9 +853,19 @@
   --disabled: var(--mountain-800);
   --disabled-foreground: var(--mountain-450);
   --hover: var(--mountain-800);
+  --notice: var(--mountain-650);
+  --border-emphasised: var(--mountain-650);
+  --destructive-alternative: var(--red-950);
+  --warning-alternative: var(--amber-900);
+  --success-alternative: var(--green-900);
+  --neutral-alternative: var(--gray-900);
+  --undefined-alternative: var(--mountain-900);
+  --background-light: 0;
+  --background-dark: 1;
 
   /* Status color -alternate variants (dark mode) */
   --destructive-foreground-alternate: var(--red-900);
+  --destructive-foreground-alternative: var(--destructive-foreground-alternate);
   --warning-foreground-alternate: var(--amber-800);
   --success-foreground-alternate: var(--green-800);
   --neutral-foreground-alternate: var(--gray-900);
@@ -859,6 +903,7 @@
   --chart-orange-opacity-4: rgba(252, 205, 176, 0.35);
   --chart-orange-opacity-5: rgba(252, 205, 176, 0.2);
   --chart-gridlines: var(--mountain-800);
+  --chart-chart-gridlines: var(--chart-gridlines);
 
   /* Opacity overlays (dark mode - dark backgrounds) */
   --opacity-10: rgba(17, 18, 19, 0.1);
@@ -962,6 +1007,7 @@
 
   /* Sidebar */
   --sidebar: var(--mountain-900);
+  --sidebar-background: var(--sidebar);
   --sidebar-foreground: var(--mountain-100);
   --sidebar-primary: var(--mountain-600);
   --sidebar-primary-foreground: var(--mountain-white);
