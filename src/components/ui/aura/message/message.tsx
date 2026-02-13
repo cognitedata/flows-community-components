@@ -73,7 +73,7 @@ const MessageContent = ({
     data-slot="message-content"
     className={cn(
       "is-user:dark flex flex-col gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest",
-      "max-w-full",
+      "max-w-4/5",
       "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
       "group-[.is-assistant]:text-foreground",
       className,
