@@ -331,11 +331,6 @@
   --radius-3xl: 24px;
   --radius-4xl: 32px;
   --radius-full: 9999px;
-  --ring-width-md: 3px;
-  --avatar-icon-default: 1.09375rem;
-  --avatar-icon-xs: 0.875rem;
-  --avatar-icon-xxs: 0.65625rem;
-  --avatar-image-backdrop: rgba(2, 6, 23, 0.2);
 }
 
 :root {
@@ -344,14 +339,6 @@
   --font-inter: "Inter", sans-serif;
   --font-space-grotesk: "Space Grotesk", sans-serif;
   --font-source-code-pro: "Source Code Pro", monospace;
-  --code-block-collapsed-height: 6.5rem;
-  --code-block-fade-height: 0.9375rem;
-
-  /* Component-specific sizing */
-  --alert-icon-width: calc(var(--spacing) * 4);
-  /* 16px - width of icon column in alert grid */
-  --drawer-max-height: 80vh;
-  /* Maximum height for top/bottom drawers */
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
@@ -636,7 +623,7 @@
   --warning-foreground-alternate: var(--amber-700);
   --success-foreground-alternate: var(--green-700);
   --neutral-foreground-alternate: var(--gray-700);
-  --undefined-foreground-alternate: var(--mountain-550);
+  --undefined-foreground-alternate: var(--mountain-700);
 
   /* Chart tokens (light mode) */
   --chart-fjord-solid: var(--fjord-600);
@@ -823,10 +810,10 @@
   --success: var(--green-200);
   --success-hover: var(--green-300);
   --success-foreground: var(--green-400);
-  --neutral: var(--gray-200);
+  --neutral: var(--gray-100);
   --neutral-hover: var(--gray-300);
   --neutral-foreground: var(--gray-400);
-  --undefined: var(--mountain-700);
+  --undefined: var(--mountain-200);
   --undefined-hover: var(--mountain-800);
   --undefined-foreground: var(--mountain-400);
   --disabled: var(--mountain-800);
@@ -838,7 +825,7 @@
   --warning-foreground-alternate: var(--amber-800);
   --success-foreground-alternate: var(--green-800);
   --neutral-foreground-alternate: var(--gray-900);
-  --undefined-foreground-alternate: var(--mountain-400);
+  --undefined-foreground-alternate: var(--mountain-800);
 
   /* Chart tokens (dark mode) */
   --chart-fjord-solid: var(--fjord-300);
@@ -887,7 +874,7 @@
   --effect-shadow-xl: rgba(0, 0, 0, 0.6);
 
   /* Toggled tokens (dark mode) */
-  --toggled: var(--gray-650);
+  --toggled: var(--gray-550);
   --toggled-foreground: var(--gray-50);
   --toggled-hover: var(--gray-500);
 
