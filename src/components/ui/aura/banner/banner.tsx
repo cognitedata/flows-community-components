@@ -1,18 +1,19 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { cn } from "@/lib/utils";
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { type IconProps, IconX } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {
   type ComponentProps,
+  type ComponentRef,
   type ComponentType,
   type HTMLAttributes,
-  type MouseEventHandler,
   createContext,
   forwardRef,
   useContext,
 } from "react";
+
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
+import { useControllableState } from "@/lib/use-controllable-state";
+import { cn } from "@/lib/utils";
 
 type BannerVariant = "default" | "neutral" | "destructive" | "warning";
 
@@ -22,7 +23,7 @@ type BannerContextProps = {
   variant: BannerVariant;
 };
 
-export const BannerContext = createContext<BannerContextProps>({
+const BannerContext = createContext<BannerContextProps>({
   show: true,
   setShow: () => {},
   variant: "default",
@@ -31,10 +32,10 @@ export const BannerContext = createContext<BannerContextProps>({
 const bannerVariants = cva("flex w-full min-h-11 items-center gap-2 px-3.5 py-2", {
   variants: {
     variant: {
-      default: "bg-undefined-alternative text-card-foreground",
-      neutral: "bg-neutral-alternative text-foreground",
-      destructive: "bg-destructive-alternative text-foreground",
-      warning: "bg-warning-alternative text-card-foreground",
+      default: "bg-mountain text-foreground",
+      neutral: "bg-neutral text-foreground",
+      destructive: "bg-destructive text-foreground",
+      warning: "bg-warning text-foreground",
     },
     inset: {
       true: "rounded-lg",
@@ -54,7 +55,7 @@ type BannerProps = HTMLAttributes<HTMLDivElement> &
     onClose?: () => void;
   };
 
-export const Banner = forwardRef<HTMLDivElement, BannerProps>(
+const Banner = forwardRef<ComponentRef<"div">, BannerProps>(
   (
     {
       children,
@@ -100,7 +101,7 @@ type BannerIconProps = HTMLAttributes<HTMLDivElement> & {
   icon: TablerIconComponent;
 };
 
-export const BannerIcon = forwardRef<HTMLDivElement, BannerIconProps>(
+const BannerIcon = forwardRef<ComponentRef<"div">, BannerIconProps>(
   ({ icon: Icon, className, ...props }, ref) => {
     const { variant } = useContext(BannerContext);
 
@@ -108,7 +109,7 @@ export const BannerIcon = forwardRef<HTMLDivElement, BannerIconProps>(
       <div
         ref={ref}
         data-slot="banner-icon"
-        className={cn(bannerTitleVariants[variant], className)}
+        className={cn(variant === "neutral" && "text-neutral-foreground", className)}
         {...props}
       >
         <Icon size={16} />
@@ -120,32 +121,21 @@ BannerIcon.displayName = "BannerIcon";
 
 type BannerTitleProps = HTMLAttributes<HTMLParagraphElement>;
 
-const bannerTitleVariants: Record<BannerVariant, string> = {
-  default: "text-undefined-foreground",
-  neutral: "text-neutral-foreground",
-  destructive: "text-destructive-foreground",
-  warning: "text-warning-foreground",
-};
-
-export const BannerTitle = forwardRef<HTMLParagraphElement, BannerTitleProps>(
-  ({ className, ...props }, ref) => {
-    const { variant } = useContext(BannerContext);
-
-    return (
-      <p
-        ref={ref}
-        data-slot="banner-title"
-        className={cn("text-sm tracking-tight", bannerTitleVariants[variant], className)}
-        {...props}
-      />
-    );
-  }
+const BannerTitle = forwardRef<ComponentRef<"p">, BannerTitleProps>(
+  ({ className, ...props }, ref) => (
+    <p
+      ref={ref}
+      data-slot="banner-title"
+      className={cn("text-sm tracking-tight", className)}
+      {...props}
+    />
+  )
 );
 BannerTitle.displayName = "BannerTitle";
 
 type BannerStatusProps = ComponentProps<typeof Badge>;
 
-export const BannerStatus = forwardRef<HTMLSpanElement, BannerStatusProps>(
+const BannerStatus = forwardRef<ComponentRef<typeof Badge>, BannerStatusProps>(
   ({ outline = true, variant, className, ...props }, ref) => {
     const { variant: bannerVariant } = useContext(BannerContext);
 
@@ -162,6 +152,7 @@ export const BannerStatus = forwardRef<HTMLSpanElement, BannerStatusProps>(
       <Badge
         ref={ref}
         data-slot="banner-status"
+        outline={outline}
         variant={badgeVariant}
         className={cn("shrink-0", className)}
         {...props}
@@ -173,7 +164,7 @@ BannerStatus.displayName = "BannerStatus";
 
 type BannerActionsProps = HTMLAttributes<HTMLDivElement>;
 
-export const BannerActions = forwardRef<HTMLDivElement, BannerActionsProps>(
+const BannerActions = forwardRef<ComponentRef<"div">, BannerActionsProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -194,7 +185,7 @@ const hoverClasses: Record<BannerVariant, string> = {
 
 type BannerActionProps = ComponentProps<typeof Button>;
 
-export const BannerAction = forwardRef<HTMLButtonElement, BannerActionProps>(
+const BannerAction = forwardRef<ComponentRef<typeof Button>, BannerActionProps>(
   ({ variant = "ghost", size = "sm", className, ...props }, ref) => {
     const { variant: bannerVariant } = useContext(BannerContext);
 
@@ -214,11 +205,12 @@ BannerAction.displayName = "BannerAction";
 
 type BannerCloseProps = Omit<ComponentProps<typeof Button>, "size">;
 
-export const BannerClose = forwardRef<HTMLButtonElement, BannerCloseProps>(
+const BannerClose = forwardRef<ComponentRef<typeof Button>, BannerCloseProps>(
   ({ variant = "ghost", onClick, className, ...props }, ref) => {
     const { setShow, variant: bannerVariant } = useContext(BannerContext);
 
-    const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    type ButtonClickHandler = NonNullable<ComponentProps<typeof Button>["onClick"]>;
+    const handleClick = (e: Parameters<ButtonClickHandler>[0]) => {
       setShow(false);
       onClick?.(e);
     };
@@ -244,3 +236,5 @@ export const BannerClose = forwardRef<HTMLButtonElement, BannerCloseProps>(
   }
 );
 BannerClose.displayName = "BannerClose";
+
+export { Banner, BannerIcon, BannerTitle, BannerStatus, BannerActions, BannerAction, BannerClose };

@@ -339,11 +339,7 @@
       "type": "registry:component",
       "title": "banner",
       "description": "",
-      "dependencies": [
-        "@radix-ui/react-use-controllable-state",
-        "@tabler/icons-react",
-        "class-variance-authority"
-      ],
+      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
       "registryDependencies": ["@aura/css", "@aura/badge", "@aura/button"],
       "files": [
         {
