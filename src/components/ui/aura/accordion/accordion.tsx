@@ -1,9 +1,8 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { IconChevronDown } from "@tabler/icons-react";
-import { type ComponentProps, forwardRef, useMemo } from "react";
+import { type Icon, IconChevronDown } from "@tabler/icons-react";
+import { type ComponentProps, type ComponentRef, forwardRef, useMemo } from "react";
 
 import { cn } from "@/lib/utils";
-import type { Icon } from "@tabler/icons-react";
 
 type AccordionType = "single" | "multiple";
 
@@ -29,7 +28,7 @@ type AccordionMultipleProps = {
 
 type AccordionProps = AccordionCommonProps & (AccordionSingleProps | AccordionMultipleProps);
 
-const Accordion = forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, AccordionProps>(
+const Accordion = forwardRef<ComponentRef<typeof AccordionPrimitive.Root>, AccordionProps>(
   (props, ref) => {
     const { type = "single" } = props;
     const multiple = type === "multiple";
@@ -87,7 +86,7 @@ const Accordion = forwardRef<React.ElementRef<typeof AccordionPrimitive.Root>, A
 Accordion.displayName = "Accordion";
 
 const AccordionItem = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
+  ComponentRef<typeof AccordionPrimitive.Item>,
   AccordionPrimitive.Item.Props
 >(({ className, ...props }, ref) => {
   return (
@@ -102,7 +101,7 @@ const AccordionItem = forwardRef<
 AccordionItem.displayName = "AccordionItem";
 
 const AccordionTrigger = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  ComponentRef<typeof AccordionPrimitive.Trigger>,
   AccordionPrimitive.Trigger.Props & {
     icon?: Icon;
   }
@@ -134,7 +133,7 @@ const AccordionTrigger = forwardRef<
 AccordionTrigger.displayName = "AccordionTrigger";
 
 const AccordionContent = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Panel>,
+  ComponentRef<typeof AccordionPrimitive.Panel>,
   AccordionPrimitive.Panel.Props
 >(({ className, children, ...props }, ref) => {
   return (
