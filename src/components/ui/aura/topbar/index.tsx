@@ -1,11 +1,23 @@
-export {
+import {
   Topbar,
-  TopbarLeft,
+  TopbarAction,
+  TopbarBreadcrumbs,
   TopbarCenter,
+  TopbarContent,
+  TopbarLeft,
   TopbarRight,
   TopbarWithSidebar,
-  TopbarContent,
-  TopbarBreadcrumbs,
-  TopbarAction,
 } from "./topbar";
-export { TopbarMetadata } from "./topbar.metadata";
+import { TopbarMetadata } from "./topbar.metadata";
+
+export {
+  Topbar,
+  TopbarAction,
+  TopbarBreadcrumbs,
+  TopbarCenter,
+  TopbarContent,
+  TopbarLeft,
+  TopbarMetadata,
+  TopbarRight,
+  TopbarWithSidebar,
+};
