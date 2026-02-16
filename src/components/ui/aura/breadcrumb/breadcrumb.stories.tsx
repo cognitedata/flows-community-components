@@ -32,7 +32,6 @@ const meta: Meta<typeof Breadcrumb> = {
   component: Breadcrumb,
   tags: ["autodocs"],
   argTypes: {
-    // Display
     className: {
       control: "text",
       description: "CSS classes for styling",
@@ -62,6 +61,7 @@ type Story = StoryObj<typeof Breadcrumb>;
  */
 export const Basic: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Basic breadcrumb navigation showing a simple path with links and separators.",
@@ -70,20 +70,14 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb structure exists
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Check for links
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toBeInTheDocument();
     await expect(homeLink).toHaveAttribute("href", "/");
 
     const projectsLink = canvas.getByText("Projects");
     await expect(projectsLink).toBeInTheDocument();
-
-    // Check current page (not a link)
     const currentPage = canvas.getByText("Project Alpha");
     await expect(currentPage).toBeInTheDocument();
   },
@@ -111,6 +105,7 @@ export const Basic: Story = {
  */
 export const CurrentPageLinked: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -120,15 +115,11 @@ export const CurrentPageLinked: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all items are links
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
     const projectsLink = canvas.getByText("Projects");
     await expect(projectsLink).toHaveAttribute("href", "/projects");
-
-    // Current page should be a link with aria-current="page"
     const currentPageLink = canvas.getByText("Project Alpha");
     await expect(currentPageLink).toHaveAttribute("href", "/projects/alpha");
     await expect(currentPageLink).toHaveAttribute("aria-current", "page");
@@ -158,6 +149,7 @@ export const CurrentPageLinked: Story = {
  */
 export const WithEllipsisDropdown: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -167,23 +159,15 @@ export const WithEllipsisDropdown: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb structure
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Verify links
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
     const canvasLink = canvas.getByText("Canvas");
     await expect(canvasLink).toHaveAttribute("href", "/canvas");
-
-    // Verify ellipsis button exists
     const ellipsisButton = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"] button');
     await expect(ellipsisButton).toBeInTheDocument();
-
-    // Verify current page
     const currentPage = canvas.getByText("Test canvas");
     await expect(currentPage).toBeInTheDocument();
   },
@@ -222,6 +206,7 @@ export const WithEllipsisDropdown: Story = {
  */
 export const StaticEllipsis: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Breadcrumb with a static ellipsis indicator (not interactive).",
@@ -230,23 +215,15 @@ export const StaticEllipsis: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb structure
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Check that ellipsis exists but has no button (static)
     const list = canvas.getByRole("list");
     await expect(list).toBeInTheDocument();
-
-    // Verify links work
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
     const currentFolder = canvas.getByText("Current Folder");
     await expect(currentFolder).toBeInTheDocument();
-
-    // Current page should not be a link
     const currentPage = canvas.getByText("Document.pdf");
     await expect(currentPage).toBeInTheDocument();
   },
@@ -277,6 +254,7 @@ export const StaticEllipsis: Story = {
  */
 export const WithPageActions: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -286,19 +264,13 @@ export const WithPageActions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb structure
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Verify links
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
     const canvasLink = canvas.getByText("Canvas");
     await expect(canvasLink).toHaveAttribute("href", "/canvas");
-
-    // Find the current page button by text content
     const pageButton = canvas.getByText("Test canvas").closest("button");
     await expect(pageButton).toBeInTheDocument();
     await expect(pageButton).toHaveAttribute("aria-current", "page");
@@ -319,7 +291,7 @@ export const WithPageActions: Story = {
             <DropdownMenuTrigger
               render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
             />
-            <DropdownMenuContent align="start" className="w-[280px] p-0">
+            <DropdownMenuContent align="start" className="w-72 p-0">
               <div className="p-1">
                 <DropdownMenuItem className="p-2">
                   <IconPencil /> Rename
@@ -344,10 +316,82 @@ export const WithPageActions: Story = {
 };
 
 /**
+ * Screenshot-matched breadcrumb example with overflow and page actions
+ */
+export const CanvasPageActionsWithOverflow: Story = {
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story:
+          "Breadcrumb example matching the canvas UI pattern: Home / ... / Canvas / Test canvas with actions on the current page.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const homeLink = canvas.getByText("Home");
+    await expect(homeLink).toHaveAttribute("href", "/");
+
+    const canvasLink = canvas.getByText("Canvas");
+    await expect(canvasLink).toHaveAttribute("href", "/canvas");
+
+    const currentPageButton = canvas.getByRole("button", { name: "Test canvas" });
+    await expect(currentPageButton).toBeInTheDocument();
+    await expect(currentPageButton).toHaveAttribute("aria-current", "page");
+  },
+  render: () => (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbEllipsis />
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/canvas">Canvas</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
+            />
+            <DropdownMenuContent align="start" className="w-72 p-0">
+              <div className="p-1">
+                <DropdownMenuItem className="p-2">
+                  <IconPencil />
+                  Rename
+                </DropdownMenuItem>
+                <DropdownMenuItem className="p-2">
+                  <IconTag />
+                  Add tags
+                </DropdownMenuItem>
+                <DropdownMenuItem className="p-2">
+                  <IconCircleArrowDown />
+                  Download as PDF
+                </DropdownMenuItem>
+                <DropdownMenuItem variant="destructive" className="p-2">
+                  <IconTrash />
+                  Delete
+                </DropdownMenuItem>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  ),
+};
+
+/**
  * Short breadcrumb with only two levels
  */
 export const Short: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Minimal breadcrumb with just home and current page.",
@@ -356,16 +400,10 @@ export const Short: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify structure
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Check home link
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
-
-    // Check current page
     const currentPage = canvas.getByText("Dashboard");
     await expect(currentPage).toBeInTheDocument();
     await expect(currentPage).toHaveAttribute("aria-current", "page");
@@ -390,6 +428,7 @@ export const Short: Story = {
  */
 export const LongPath: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Breadcrumb showing a deep navigation path with multiple levels.",
@@ -398,8 +437,6 @@ export const LongPath: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all intermediate links are present
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
@@ -414,8 +451,6 @@ export const LongPath: Story = {
 
     const projectsLink = canvas.getByText("Projects");
     await expect(projectsLink).toHaveAttribute("href", "/organization/teams/engineering/projects");
-
-    // Verify current page
     const currentPage = canvas.getByText("Q1 2024 Planning");
     await expect(currentPage).toBeInTheDocument();
     await expect(currentPage).toHaveAttribute("aria-current", "page");
@@ -456,6 +491,7 @@ export const LongPath: Story = {
  */
 export const CustomSeparator: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Breadcrumb using a custom chevron icon as separator.",
@@ -464,19 +500,13 @@ export const CustomSeparator: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb exists
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Check links
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
     const projectsLink = canvas.getByText("Projects");
     await expect(projectsLink).toHaveAttribute("href", "/projects");
-
-    // Current page
     const currentPage = canvas.getByText("Project Alpha");
     await expect(currentPage).toBeInTheDocument();
   },
@@ -508,6 +538,7 @@ export const CustomSeparator: Story = {
  */
 export const WithIcon: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "Breadcrumb with a home icon in the first item.",
@@ -516,20 +547,12 @@ export const WithIcon: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify navigation exists
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Check home link with icon
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
-
-    // Check other links
     const settingsLink = canvas.getByText("Settings");
     await expect(settingsLink).toHaveAttribute("href", "/settings");
-
-    // Current page
     const currentPage = canvas.getByText("Profile");
     await expect(currentPage).toBeInTheDocument();
     await expect(currentPage).toHaveAttribute("aria-current", "page");
@@ -562,6 +585,7 @@ export const WithIcon: Story = {
  */
 export const Interactive: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -571,23 +595,15 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb navigation exists
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Verify initial breadcrumb has links
     const navLinks = within(nav).getAllByRole("link");
     await expect(navLinks.length).toBeGreaterThan(0);
-
-    // Click the "Settings" navigation button (outside breadcrumb)
     const buttons = canvas.getAllByRole("button");
     const settingsButton = buttons.find((btn) => btn.textContent?.includes("Settings"));
     if (settingsButton) {
       await userEvent.click(settingsButton);
     }
-
-    // Wait for breadcrumb to update
     await waitFor(() => {
       const updatedLinks = within(nav).queryAllByRole("link");
       expect(updatedLinks.length).toBeGreaterThanOrEqual(1);
@@ -666,6 +682,7 @@ export const Interactive: Story = {
  */
 export const StyleComparison: Story = {
   parameters: {
+    order: 12,
     docs: {
       description: {
         story:
@@ -675,17 +692,11 @@ export const StyleComparison: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify BreadcrumbLink is present
     const interactiveLink = canvas.getByText("Hover me");
     await expect(interactiveLink).toHaveAttribute("href", "/test");
-
-    // Verify BreadcrumbPage (non-interactive) exists
     const nonInteractivePage = canvas.getByText("Try hovering");
     await expect(nonInteractivePage).toBeInTheDocument();
     await expect(nonInteractivePage).toHaveAttribute("aria-current", "page");
-
-    // Verify dropdown trigger exists
     const testCanvasElements = canvas.getAllByText("Test canvas");
     const dropdownButton = testCanvasElements[0]?.closest("button");
     await expect(dropdownButton).toBeInTheDocument();
@@ -736,7 +747,7 @@ export const StyleComparison: Story = {
                 <DropdownMenuTrigger
                   render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
                 />
-                <DropdownMenuContent align="start" className="w-[280px] p-0">
+                <DropdownMenuContent align="start" className="w-72 p-0">
                   <div className="p-1">
                     <DropdownMenuItem className="p-2">
                       <IconPencil /> Rename
@@ -764,6 +775,7 @@ export const StyleComparison: Story = {
  */
 export const ConstrainedContainer: Story = {
   parameters: {
+    order: 13,
     docs: {
       description: {
         story: "Tests how breadcrumb wraps and behaves in a small container with a grey border.",
@@ -772,12 +784,8 @@ export const ConstrainedContainer: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb exists
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Check all links are accessible
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
@@ -786,13 +794,11 @@ export const ConstrainedContainer: Story = {
 
     const designLink = canvas.getByText("Design System");
     await expect(designLink).toHaveAttribute("href", "/projects/design");
-
-    // Current page
     const currentPage = canvas.getByText("Components Library");
     await expect(currentPage).toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[300px] border border-muted-foreground/20 p-4 rounded">
+    <div className="w-80 border border-muted-foreground/20 p-4 rounded">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -821,6 +827,7 @@ export const ConstrainedContainer: Story = {
  */
 export const LongItemNames: Story = {
   parameters: {
+    order: 14,
     docs: {
       description: {
         story: "Tests breadcrumb with very long item names to see how text overflow is handled.",
@@ -829,8 +836,6 @@ export const LongItemNames: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify long text items are present
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toBeInTheDocument();
 
@@ -869,6 +874,7 @@ export const LongItemNames: Story = {
  */
 export const ManyItems: Story = {
   parameters: {
+    order: 15,
     docs: {
       description: {
         story: "Tests breadcrumb with many items to see wrapping behavior across multiple lines.",
@@ -877,8 +883,6 @@ export const ManyItems: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all level links exist
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
 
@@ -887,18 +891,14 @@ export const ManyItems: Story = {
 
     const level7 = canvas.getByText("Level 7");
     await expect(level7).toHaveAttribute("href", "/level7");
-
-    // Current page
     const currentPage = canvas.getByText("Level 8");
     await expect(currentPage).toBeInTheDocument();
     await expect(currentPage).toHaveAttribute("aria-current", "page");
-
-    // Verify all links are present (8 actual links + BreadcrumbPage with role="link")
     const allLinks = canvas.getAllByRole("link");
     await expect(allLinks.length).toBe(9);
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -947,6 +947,7 @@ export const ManyItems: Story = {
  */
 export const SingleItem: Story = {
   parameters: {
+    order: 16,
     docs: {
       description: {
         story: "Edge case with only a single breadcrumb item (just home).",
@@ -955,17 +956,11 @@ export const SingleItem: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify navigation exists
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Only one item (current page)
     const homePage = canvas.getByText("Home");
     await expect(homePage).toBeInTheDocument();
     await expect(homePage).toHaveAttribute("aria-current", "page");
-
-    // Should not be a link
     await expect(homePage.tagName).not.toBe("A");
   },
   render: () => (
@@ -984,6 +979,7 @@ export const SingleItem: Story = {
  */
 export const Empty: Story = {
   parameters: {
+    order: 17,
     docs: {
       description: {
         story: "Edge case with an empty breadcrumb list.",
@@ -992,16 +988,10 @@ export const Empty: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify navigation exists even when empty
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // List should exist but be empty
     const list = canvas.getByRole("list");
     await expect(list).toBeInTheDocument();
-
-    // Should have no links or items
     const links = canvas.queryAllByRole("link");
     await expect(links.length).toBe(0);
   },
@@ -1017,6 +1007,7 @@ export const Empty: Story = {
  */
 export const SmallContainerManyLongItems: Story = {
   parameters: {
+    order: 18,
     docs: {
       description: {
         story: "Worst case scenario: many items with long names in a very small container.",
@@ -1025,30 +1016,20 @@ export const SmallContainerManyLongItems: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify breadcrumb exists
     const nav = canvas.getByRole("navigation");
     await expect(nav).toBeInTheDocument();
-
-    // Check home link
     const homeLink = canvas.getByText("Home");
     await expect(homeLink).toHaveAttribute("href", "/");
-
-    // Verify ellipsis button exists
     const ellipsisButton = canvasElement.querySelector('[data-slot="breadcrumb-ellipsis"] button');
     await expect(ellipsisButton).toBeInTheDocument();
-
-    // Verify long link is present
     const longLink = canvas.getByText("Frontend Development Team");
     await expect(longLink).toHaveAttribute("href", "/team");
-
-    // Current page with long name
     const currentPage = canvas.getByText("Component Library Documentation");
     await expect(currentPage).toBeInTheDocument();
     await expect(currentPage).toHaveAttribute("aria-current", "page");
   },
   render: () => (
-    <div className="w-[250px] border border-muted-foreground/20 p-3 rounded">
+    <div className="w-64 border border-muted-foreground/20 p-3 rounded">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

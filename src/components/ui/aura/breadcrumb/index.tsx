@@ -1,19 +1,15 @@
-/**
- * Breadcrumb Component
- *
- * A navigation component showing the user's location in a hierarchy.
- *
- * @example
- * import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from '@/components/ui/aura/breadcrumb';
- *
- * <Breadcrumb>
- *   <BreadcrumbList>
- *     <BreadcrumbItem>
- *       <BreadcrumbLink href="/">Home</BreadcrumbLink>
- *     </BreadcrumbItem>
- *   </BreadcrumbList>
- * </Breadcrumb>
- */
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbEllipsisButton,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbPageButton,
+  BreadcrumbSeparator,
+} from "./breadcrumb";
+
 export {
   Breadcrumb,
   BreadcrumbList,
@@ -24,5 +20,5 @@ export {
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
   BreadcrumbEllipsisButton,
-} from "./breadcrumb";
+};
 export { BreadcrumbMetadata } from "./breadcrumb.metadata";

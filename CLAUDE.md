@@ -102,6 +102,8 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- Breadcrumb examples that mirror product UI can combine a static `BreadcrumbEllipsis` in the path with a `BreadcrumbPageButton` dropdown for current-page actions.
+- Breadcrumb stories should include `parameters.order` for every story and avoid inline `//` comments inside play functions.
 
 # Storybook Stories
 

@@ -6,31 +6,10 @@ import type { ComponentProps } from "react";
 import { buttonVariants } from "@/components/ui/aura/button/button";
 import { cn } from "@/lib/utils";
 
-/**
- * Root container for breadcrumb navigation.
- * Renders a semantic `<nav>` element with aria-label="breadcrumb".
- *
- * @example
- * <Breadcrumb>
- *   <BreadcrumbList>
- *     <BreadcrumbItem>
- *       <BreadcrumbLink href="/">Home</BreadcrumbLink>
- *     </BreadcrumbItem>
- *     <BreadcrumbSeparator />
- *     <BreadcrumbItem>
- *       <BreadcrumbPage>Current Page</BreadcrumbPage>
- *     </BreadcrumbItem>
- *   </BreadcrumbList>
- * </Breadcrumb>
- */
 function Breadcrumb({ ...props }: ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
 }
 
-/**
- * Ordered list container for breadcrumb items.
- * Must be a direct child of `Breadcrumb`.
- */
 function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
   return (
     <ol
@@ -44,10 +23,6 @@ function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
   );
 }
 
-/**
- * Individual breadcrumb item container.
- * Wraps a single breadcrumb link or page. Use between `BreadcrumbSeparator` components.
- */
 function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
   return (
     <li
@@ -62,15 +37,6 @@ function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
   );
 }
 
-/**
- * Clickable link for navigable breadcrumb items.
- * Use for all items except the current page.
- *
- * @example
- * <BreadcrumbItem>
- *   <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
- * </BreadcrumbItem>
- */
 function BreadcrumbLink({ className, render, children, ...props }: useRender.ComponentProps<"a">) {
   return useRender({
     defaultTagName: "a",
@@ -91,30 +57,11 @@ function BreadcrumbLink({ className, render, children, ...props }: useRender.Com
   });
 }
 
-/**
- * Non-interactive indicator for the current page.
- * Automatically includes aria-current="page" for accessibility.
- *
- * @param {string} [href] - Optional href to make the current page clickable (e.g., for refreshing)
- *
- * @example
- * // Non-interactive current page
- * <BreadcrumbItem>
- *   <BreadcrumbPage>Settings</BreadcrumbPage>
- * </BreadcrumbItem>
- *
- * @example
- * // Interactive current page (clickable)
- * <BreadcrumbItem>
- *   <BreadcrumbPage href="/settings">Settings</BreadcrumbPage>
- * </BreadcrumbItem>
- */
 function BreadcrumbPage({
   className,
   href,
   ...props
 }: (ComponentProps<"span"> | ComponentProps<"a">) & { href?: string }) {
-  // If href is provided, render as a link with aria-current
   if (href) {
     return (
       <BreadcrumbLink
@@ -126,7 +73,6 @@ function BreadcrumbPage({
     );
   }
 
-  // Otherwise, render as non-interactive span
   return (
     <span
       data-slot="breadcrumb-page"
@@ -136,7 +82,6 @@ function BreadcrumbPage({
       tabIndex={-1}
       className={cn(
         buttonVariants({ variant: "ghost", size: "sm" }),
-        // Override interactive styles to be non-interactive
         "cursor-default hover:bg-transparent dark:hover:bg-transparent",
         "font-medium tracking-tight text-foreground",
         className
@@ -146,22 +91,6 @@ function BreadcrumbPage({
   );
 }
 
-/**
- * Button for the current page when it needs to be interactive (e.g., in a dropdown).
- * Automatically includes aria-current="page" and proper button styling.
- * **Must be used with DropdownMenuTrigger's render prop.**
- *
- * @example
- * <BreadcrumbItem>
- *   <DropdownMenu>
- *     <DropdownMenuTrigger render={<BreadcrumbPageButton>Actions</BreadcrumbPageButton>} />
- *     <DropdownMenuContent>
- *       <DropdownMenuItem>Rename</DropdownMenuItem>
- *       <DropdownMenuItem>Delete</DropdownMenuItem>
- *     </DropdownMenuContent>
- *   </DropdownMenu>
- * </BreadcrumbItem>
- */
 function BreadcrumbPageButton({ className, ...props }: ComponentProps<"button">) {
   return (
     <button
@@ -178,22 +107,6 @@ function BreadcrumbPageButton({ className, ...props }: ComponentProps<"button">)
   );
 }
 
-/**
- * Button for ellipsis dropdowns showing hidden navigation items.
- * Automatically includes dots icon and "More" screen reader text.
- * **Must be used with DropdownMenuTrigger's render prop inside BreadcrumbEllipsis.**
- *
- * @example
- * <BreadcrumbEllipsis>
- *   <DropdownMenu>
- *     <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
- *     <DropdownMenuContent>
- *       <DropdownMenuItem render={<a href="/projects">Projects</a>} />
- *       <DropdownMenuItem render={<a href="/teams">Teams</a>} />
- *     </DropdownMenuContent>
- *   </DropdownMenu>
- * </BreadcrumbEllipsis>
- */
 function BreadcrumbEllipsisButton({ className, children, ...props }: ComponentProps<"button">) {
   return (
     <button
@@ -216,20 +129,6 @@ function BreadcrumbEllipsisButton({ className, children, ...props }: ComponentPr
   );
 }
 
-/**
- * Visual separator between breadcrumb items.
- * Defaults to a slash icon but accepts custom content.
- *
- * @example
- * // Default slash separator
- * <BreadcrumbSeparator />
- *
- * @example
- * // Custom chevron separator
- * <BreadcrumbSeparator>
- *   <IconChevronRight className="size-4" />
- * </BreadcrumbSeparator>
- */
 function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"li">) {
   return (
     <li
@@ -244,25 +143,6 @@ function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"
   );
 }
 
-/**
- * Container for ellipsis indicator showing collapsed navigation items.
- * Can be used statically (default) or with a dropdown menu to reveal hidden items.
- *
- * @example
- * // Static ellipsis (non-interactive)
- * <BreadcrumbEllipsis />
- *
- * @example
- * // Interactive ellipsis with dropdown
- * <BreadcrumbEllipsis>
- *   <DropdownMenu>
- *     <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
- *     <DropdownMenuContent>
- *       <DropdownMenuItem render={<a href="/projects">Projects</a>} />
- *     </DropdownMenuContent>
- *   </DropdownMenu>
- * </BreadcrumbEllipsis>
- */
 function BreadcrumbEllipsis({ children, className, ...props }: ComponentProps<"li">) {
   return (
     <li
