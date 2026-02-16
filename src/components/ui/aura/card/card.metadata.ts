@@ -8,7 +8,7 @@ import type { ComponentMeta } from "../../../../lib/component-examples";
  */
 export const CardMetadata: ComponentMeta = {
   name: "Card",
-  status: "in-progress-code-review",
+  status: "draft",
   description: "A flexible card layout with header, content, action, and footer slots.",
   llmUsage:
     "Use `<Card>` with `<CardHeader>`, `<CardTitle>`, `<CardDescription>`, `<CardContent>`, and `<CardFooter>` for structured content containers.",

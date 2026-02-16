@@ -8,7 +8,7 @@ import type { ComponentMeta } from "../../../../lib/component-examples";
  */
 export const TooltipMetadata: ComponentMeta = {
   name: "Tooltip",
-  status: "in-progress-code-review",
+  status: "draft",
   description:
     "A popup that displays information related to an element when the element receives keyboard focus or mouse hover, built on Base UI Tooltip primitives.",
   llmUsage:

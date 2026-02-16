@@ -7,7 +7,6 @@ import type { ComponentMeta } from "../../../../lib/component-examples";
  */
 export const LabelMetadata: ComponentMeta = {
   name: "Label",
-  status: "draft",
   description:
     "An accessible text label for form controls, built on top of Base UI Label. Supports association via `htmlFor` and integrates with disabled states.",
 

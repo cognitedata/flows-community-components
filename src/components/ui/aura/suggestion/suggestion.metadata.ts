@@ -8,7 +8,7 @@ import type { ComponentMeta } from "../../../../lib/component-examples";
  */
 export const SuggestionMetadata: ComponentMeta = {
   name: "Suggestion",
-  status: "in-progress-code-review",
+  status: "draft",
   description:
     "A dual-mode suggestion component for AI chat interfaces. Use simple button mode for quick queries, or dropdown mode for organised query options.",
   llmUsage:
