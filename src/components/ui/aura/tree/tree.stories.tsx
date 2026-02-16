@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconFile, IconFileText, IconFolder, IconSettings } from "@tabler/icons-react";
 
 import { Tree, TreeItem } from "@/components/ui/aura/tree";
@@ -117,16 +117,16 @@ export const WithStatusIndicators: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const processUnit = canvas.getByRole("treeitem", { name: "Process unit 21" });
-    await expect(processUnit).toHaveAttribute("data-status", "warning");
+    const processUnit = canvas.getByRole("treeitem", { name: /^Process unit 21\b/i });
+    await waitFor(() => expect(processUnit).toHaveAttribute("data-status", "warning"));
 
-    const feedSystem = canvas.getByRole("treeitem", { name: "Feed system" });
-    await expect(feedSystem).toHaveAttribute("data-status", "warning");
+    const feedSystem = canvas.getByRole("treeitem", { name: /^Feed system\b/i });
+    await waitFor(() => expect(feedSystem).toHaveAttribute("data-status", "warning"));
 
-    const pumpA = canvas.getByRole("treeitem", { name: "Feed Pump A" });
-    await expect(pumpA).toHaveAttribute("data-status", "warning");
+    const pumpA = canvas.getByRole("treeitem", { name: /^Feed Pump A\b/i });
+    await waitFor(() => expect(pumpA).toHaveAttribute("data-status", "warning"));
 
-    const pumpB = canvas.getByRole("treeitem", { name: "Feed Pump B" });
+    const pumpB = canvas.getByRole("treeitem", { name: /^Feed Pump B\b/i });
     await expect(pumpB).not.toHaveAttribute("data-status");
 
     const badges = canvas.getAllByLabelText(/warning|error/i);
@@ -157,13 +157,13 @@ export const ErrorPriority: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const components = canvas.getByRole("treeitem", { name: "components" });
-    await expect(components).toHaveAttribute("data-status", "error");
+    const components = canvas.getByRole("treeitem", { name: /^components\b/i });
+    await waitFor(() => expect(components).toHaveAttribute("data-status", "error"));
 
-    const src = canvas.getByRole("treeitem", { name: "src" });
-    await expect(src).toHaveAttribute("data-status", "error");
+    const src = canvas.getByRole("treeitem", { name: /^src\b/i });
+    await waitFor(() => expect(src).toHaveAttribute("data-status", "error"));
 
-    const utils = canvas.getByRole("treeitem", { name: "utils" });
+    const utils = canvas.getByRole("treeitem", { name: /^utils\b/i });
     await expect(utils).not.toHaveAttribute("data-status");
   },
   render: () => (
@@ -232,9 +232,8 @@ export const SingleExpand: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = await canvas.findAllByRole("button");
-    const folderA = triggers[0];
-    const folderB = triggers[1];
+    const folderA = await canvas.findByRole("button", { name: "Folder A" });
+    const folderB = await canvas.findByRole("button", { name: "Folder B" });
     await userEvent.click(folderA);
     await expect(folderA).toHaveAttribute("data-state", "open");
     await expect(folderB).toHaveAttribute("data-state", "closed");
@@ -360,13 +359,14 @@ export const ClickableLeafNodes: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = await canvas.findAllByRole("button");
-    await userEvent.click(triggers[0]);
+    const navigation = await canvas.findByRole("button", { name: "Navigation" });
+    await userEvent.click(navigation);
 
     const treeItems = await canvas.findAllByRole("treeitem");
     const leafItems = treeItems.filter((item) => !item.hasAttribute("aria-expanded"));
     await expect(leafItems.length).toBe(3);
-    await userEvent.click(leafItems[0]);
+    const dashboard = await canvas.findByRole("button", { name: "Dashboard" });
+    await userEvent.click(dashboard);
     await expect(await canvas.findByText("Clicked: dashboard")).toBeInTheDocument();
   },
   render: function ClickableLeafStory() {
@@ -475,13 +475,13 @@ export const ParentWithOwnStatus: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const parent = canvas.getByRole("treeitem", { name: "System (own warning)" });
-    await expect(parent).toHaveAttribute("data-status", "error");
+    const parent = canvas.getByRole("treeitem", { name: /^System \(own warning\)/i });
+    await waitFor(() => expect(parent).toHaveAttribute("data-status", "error"));
 
     const standalone = canvas.getByRole("treeitem", {
-      name: "System (own warning, children OK)",
+      name: /^System \(own warning, children OK\)/i,
     });
-    await expect(standalone).toHaveAttribute("data-status", "warning");
+    await waitFor(() => expect(standalone).toHaveAttribute("data-status", "warning"));
   },
   render: () => (
     <Tree defaultExpanded={["parent-system", "standalone"]} className="w-75">
@@ -626,11 +626,15 @@ export const DisabledWithStatus: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const disabledParent = canvas.getByRole("treeitem", { name: "Decommissioned system" });
-    await expect(disabledParent).toHaveAttribute("data-status", "warning");
+    const disabledParent = canvas.getByRole("treeitem", {
+      name: /^Decommissioned system\b/i,
+    });
+    await waitFor(() => expect(disabledParent).toHaveAttribute("data-status", "warning"));
 
-    const disabledTrigger = await canvas.findByRole("button", { name: "Decommissioned system" });
-    await expect(disabledTrigger).toBeDisabled();
+    const disabledTrigger = await canvas.findByRole("button", {
+      name: /^Decommissioned system\b/i,
+    });
+    await expect(disabledTrigger).toHaveAttribute("aria-disabled", "true");
   },
   render: () => (
     <Tree defaultExpanded={["enabled-parent"]} className="w-75">
@@ -698,7 +702,7 @@ export const DynamicItems: Story = {
     let leaves = treeItems.filter((item) => !item.hasAttribute("aria-expanded"));
     await expect(leaves.length).toBe(1);
 
-    const parent = canvas.getByRole("treeitem", { name: "Sensor array" });
+    const parent = canvas.getByRole("treeitem", { name: /^Sensor array\b/i });
     await expect(parent).not.toHaveAttribute("data-status");
 
     const addButton = await canvas.findByRole("button", { name: "Add sensor" });
