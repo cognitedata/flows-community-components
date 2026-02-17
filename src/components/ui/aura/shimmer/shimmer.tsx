@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
   type CSSProperties,
@@ -8,6 +7,7 @@ import {
   memo,
   useMemo,
 } from "react";
+import { cn } from "../../../../lib/utils";
 
 type TextShimmerProps = {
   children: string;

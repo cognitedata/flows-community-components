@@ -6,7 +6,6 @@ import {
   CarouselItem,
 } from "@/components/ui/aura/carousel";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { cn, getHostname } from "@/lib/utils";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import {
   type ComponentProps,
@@ -20,6 +19,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { cn, getHostname } from "../../../../lib/utils";
 
 type InlineCitationProps = ComponentProps<"span">;
 

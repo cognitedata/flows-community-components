@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 export const ButtonMetadata: ComponentMeta = {
   name: "Button",

@@ -4,7 +4,7 @@ import { IconDots, IconSlash } from "@tabler/icons-react";
 import type { ComponentProps } from "react";
 
 import { buttonVariants } from "@/components/ui/aura/button/button";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 /**
  * Root container for breadcrumb navigation.

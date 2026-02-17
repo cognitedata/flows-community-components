@@ -11,7 +11,7 @@ import {
   CommandList,
 } from "@/components/ui/aura/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const frameworks = [
   {

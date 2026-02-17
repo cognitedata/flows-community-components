@@ -1,7 +1,7 @@
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
 import { type ComponentRef, forwardRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const Collapsible = forwardRef<
   ComponentRef<typeof CollapsiblePrimitive.Root>,

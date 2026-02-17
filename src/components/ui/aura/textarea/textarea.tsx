@@ -9,7 +9,7 @@ import {
   formElementBase,
   hoverState,
   invalidState,
-} from "@/lib/utils";
+} from "../../../../lib/utils";
 
 interface TextareaProps extends ComponentProps<"textarea"> {
   maxChars?: number;
