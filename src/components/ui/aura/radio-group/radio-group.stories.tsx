@@ -1,8 +1,12 @@
-import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
-import { useState } from "react";
+import { type ComponentProps, useState } from "react";
+
+import { Button } from "@/components/ui/aura/button";
+import { Label } from "@/components/ui/aura/label";
 import { RadioGroup, RadioGroupItem } from "./radio-group";
+
+type StoryPlayContext = { canvasElement: HTMLElement };
 
 const meta: Meta<typeof RadioGroup> = {
   title: "Primitives/Radio Group",
@@ -13,7 +17,7 @@ const meta: Meta<typeof RadioGroup> = {
       control: "text",
       description: "Controlled selected value",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
@@ -21,7 +25,7 @@ const meta: Meta<typeof RadioGroup> = {
       control: "text",
       description: "Default selected value (uncontrolled)",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
@@ -29,7 +33,7 @@ const meta: Meta<typeof RadioGroup> = {
       control: "boolean",
       description: "Disable the entire radio group",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -38,7 +42,7 @@ const meta: Meta<typeof RadioGroup> = {
       control: "boolean",
       description: "Mark as required for form validation",
       table: {
-        category: "Validation",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -48,7 +52,7 @@ const meta: Meta<typeof RadioGroup> = {
       options: ["horizontal", "vertical"],
       description: "Orientation of the radio group",
       table: {
-        category: "Layout",
+        category: "Variants/Styling",
         type: { summary: '"horizontal" | "vertical"' },
         defaultValue: { summary: "vertical" },
       },
@@ -59,13 +63,6 @@ const meta: Meta<typeof RadioGroup> = {
       table: {
         category: "Events",
         type: { summary: "(value: string) => void" },
-      },
-    },
-    className: {
-      control: "text",
-      description: "Additional CSS classes",
-      table: {
-        category: "Styling",
       },
     },
   },
@@ -81,6 +78,25 @@ type Story = StoryObj<typeof RadioGroup>;
  * Default radio group.
  */
 export const Default: Story = {
+  parameters: {
+    order: 1,
+    docs: {
+      description: {
+        story: "Basic radio group usage.",
+      },
+    },
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
+    const canvas = within(canvasElement);
+
+    const option1 = canvas.getByLabelText("Option 1");
+    await expect(option1).toBeChecked();
+
+    const option2 = canvas.getByLabelText("Option 2");
+    await userEvent.click(option2);
+    await expect(option2).toBeChecked();
+    await expect(option1).not.toBeChecked();
+  },
   render: () => (
     <RadioGroup defaultValue="option1">
       <div className="flex items-center space-x-2">
@@ -97,32 +113,20 @@ export const Default: Story = {
       </div>
     </RadioGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Default radio group with vertical layout.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // First option should be selected
-    const option1 = canvas.getByLabelText("Option 1");
-    await expect(option1).toBeChecked();
-
-    // Click option 2
-    const option2 = canvas.getByLabelText("Option 2");
-    await userEvent.click(option2);
-    await expect(option2).toBeChecked();
-    await expect(option1).not.toBeChecked();
-  },
 };
 
 /**
  * Radio group with description.
  */
 export const WithDescription: Story = {
+  parameters: {
+    order: 2,
+    docs: {
+      description: {
+        story: "Radio options with descriptions for additional context.",
+      },
+    },
+  },
   render: () => (
     <RadioGroup defaultValue="comfortable">
       <div className="flex items-start space-x-2">
@@ -148,21 +152,22 @@ export const WithDescription: Story = {
       </div>
     </RadioGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Radio options with descriptions for additional context.",
-      },
-    },
-  },
 };
 
 /**
  * Horizontal radio group.
  */
 export const Horizontal: Story = {
+  parameters: {
+    order: 3,
+    docs: {
+      description: {
+        story: "Radio group with horizontal orientation.",
+      },
+    },
+  },
   render: () => (
-    <RadioGroup defaultValue="medium" className="flex gap-4">
+    <RadioGroup defaultValue="medium" orientation="horizontal">
       <div className="flex items-center space-x-2">
         <RadioGroupItem value="small" id="h1" />
         <Label htmlFor="h1">Small</Label>
@@ -177,19 +182,32 @@ export const Horizontal: Story = {
       </div>
     </RadioGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Radio group with horizontal layout.",
-      },
-    },
-  },
 };
 
 /**
  * Disabled radio group.
  */
 export const Disabled: Story = {
+  parameters: {
+    order: 4,
+    docs: {
+      description: {
+        story: "Disabled radio group prevents interaction.",
+      },
+    },
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
+    const canvas = within(canvasElement);
+
+    const option1 = canvas.getByLabelText("Selected (disabled)");
+    await expect(option1).toBeChecked();
+
+    const option2Label = canvas.getByText("Option 2 (disabled)");
+    await userEvent.click(option2Label);
+
+    const option2 = canvas.getByLabelText("Option 2 (disabled)");
+    await expect(option2).not.toBeChecked();
+  },
   render: () => (
     <RadioGroup defaultValue="option1" disabled>
       <div className="flex items-center space-x-2">
@@ -212,26 +230,20 @@ export const Disabled: Story = {
       </div>
     </RadioGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Disabled radio group prevents interaction.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const radioItems = canvas.getAllByRole("radio");
-    for (const item of radioItems) {
-      await expect(item).toHaveAttribute("data-disabled");
-    }
-  },
 };
 
 /**
  * Individual disabled items.
  */
 export const DisabledItems: Story = {
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Radio group with some items disabled.",
+      },
+    },
+  },
   render: () => (
     <RadioGroup defaultValue="available1">
       <div className="flex items-center space-x-2">
@@ -250,19 +262,29 @@ export const DisabledItems: Story = {
       </div>
     </RadioGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Radio group with some items disabled.",
-      },
-    },
-  },
 };
 
 /**
  * Controlled radio group.
  */
 export const Controlled: Story = {
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story: "Controlled radio group with external state management.",
+      },
+    },
+  },
+  play: async ({ canvasElement }: StoryPlayContext) => {
+    const canvas = within(canvasElement);
+
+    const greenButton = canvas.getByRole("button", { name: "Set Green" });
+    await userEvent.click(greenButton);
+
+    const greenRadio = canvas.getByLabelText("Green");
+    await expect(greenRadio).toBeChecked();
+  },
   render: function ControlledRadioGroup() {
     const [value, setValue] = useState("red");
 
@@ -283,49 +305,19 @@ export const Controlled: Story = {
           </div>
         </RadioGroup>
         <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => setValue("red")}
-            className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
-          >
+          <Button type="button" variant="outline" size="sm" onClick={() => setValue("red")}>
             Set Red
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("green")}
-            className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
-          >
+          </Button>
+          <Button type="button" variant="outline" size="sm" onClick={() => setValue("green")}>
             Set Green
-          </button>
-          <button
-            type="button"
-            onClick={() => setValue("blue")}
-            className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
-          >
+          </Button>
+          <Button type="button" variant="outline" size="sm" onClick={() => setValue("blue")}>
             Set Blue
-          </button>
+          </Button>
         </div>
         <p className="text-sm text-muted-foreground">Selected: {value}</p>
       </div>
     );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Controlled radio group with external state management.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Click "Set Green" button
-    const greenButton = canvas.getByText("Set Green");
-    await userEvent.click(greenButton);
-
-    // Verify green is selected
-    const greenRadio = canvas.getByLabelText("Green");
-    await expect(greenRadio).toBeChecked();
   },
 };
 
@@ -333,6 +325,14 @@ export const Controlled: Story = {
  * Radio group in form.
  */
 export const InForm: Story = {
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Radio group used within a form.",
+      },
+    },
+  },
   render: () => (
     <form
       className="space-y-4"
@@ -367,19 +367,20 @@ export const InForm: Story = {
       </button>
     </form>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Radio group used within a form.",
-      },
-    },
-  },
 };
 
 /**
  * All radio group states.
  */
 export const AllStates: Story = {
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "All radio group states for comparison.",
+      },
+    },
+  },
   render: () => (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -414,22 +415,75 @@ export const AllStates: Story = {
       </div>
     </div>
   ),
+};
+
+/**
+ * Keyboard navigation and ARIA attributes.
+ */
+export const Accessibility: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
-        story: "All radio group states for comparison.",
+        story: "Demonstrates keyboard navigation and ARIA support.",
       },
     },
   },
+  play: async ({ canvasElement }: StoryPlayContext) => {
+    const canvas = within(canvasElement);
+    const group = canvas.getByRole("radiogroup");
+    await expect(group).toHaveAttribute("aria-label", "Accessibility demo");
+
+    const firstOption = canvas.getByLabelText("First option");
+    await expect(firstOption).toBeChecked();
+    await firstOption.focus();
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(canvas.getByLabelText("Second option")).toBeChecked();
+    await userEvent.keyboard("{ArrowDown}");
+    await expect(canvas.getByLabelText("Third option")).toBeChecked();
+    await userEvent.keyboard("{ArrowUp}");
+    await expect(canvas.getByLabelText("Second option")).toBeChecked();
+  },
+  render: () => (
+    <div className="space-y-4">
+      <RadioGroup defaultValue="first" aria-label="Accessibility demo">
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="first" id="a11y-1" />
+          <Label htmlFor="a11y-1">First option</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="second" id="a11y-2" />
+          <Label htmlFor="a11y-2">Second option</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="third" id="a11y-3" />
+          <Label htmlFor="a11y-3">Third option</Label>
+        </div>
+      </RadioGroup>
+      <p className="text-xs text-muted-foreground">
+        Use arrow keys to navigate between options. Tab moves focus in/out of the group.
+      </p>
+    </div>
+  ),
 };
 
 /**
  * Visual regression testing.
  */
 export const VisualRegression: Story = {
+  parameters: {
+    order: 10,
+    docs: {
+      description: {
+        story: "Comprehensive visual overview for regression testing.",
+      },
+    },
+    chromatic: {
+      disableSnapshot: false,
+    },
+  },
   render: () => (
     <div className="space-y-8 p-4">
-      {/* Vertical */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Vertical</h3>
         <RadioGroup defaultValue="opt1">
@@ -444,10 +498,9 @@ export const VisualRegression: Story = {
         </RadioGroup>
       </div>
 
-      {/* Horizontal */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Horizontal</h3>
-        <RadioGroup defaultValue="opt1" className="flex gap-4">
+        <RadioGroup defaultValue="opt1" orientation="horizontal">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="opt1" id="vrh1" />
             <Label htmlFor="vrh1">A</Label>
@@ -463,7 +516,6 @@ export const VisualRegression: Story = {
         </RadioGroup>
       </div>
 
-      {/* Disabled */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
         <RadioGroup defaultValue="opt1" disabled>
@@ -483,28 +535,27 @@ export const VisualRegression: Story = {
       </div>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Comprehensive visual overview for regression testing.",
-      },
-    },
-    chromatic: {
-      disableSnapshot: false,
-    },
-  },
 };
 
 /**
  * Interactive playground.
  */
 export const Playground: Story = {
+  parameters: {
+    order: 99,
+    docs: {
+      description: {
+        story: "Interactive playground.",
+      },
+    },
+  },
   args: {
     defaultValue: "option1",
+    orientation: "vertical",
     disabled: false,
     required: false,
   },
-  render: (args) => (
+  render: (args: ComponentProps<typeof RadioGroup>) => (
     <RadioGroup {...args}>
       <div className="flex items-center space-x-2">
         <RadioGroupItem value="option1" id="p1" />
@@ -520,11 +571,4 @@ export const Playground: Story = {
       </div>
     </RadioGroup>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with radio group props.",
-      },
-    },
-  },
 };

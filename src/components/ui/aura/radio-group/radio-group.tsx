@@ -1,35 +1,46 @@
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 import { IconCircle } from "@tabler/icons-react";
+import { type ComponentRef, forwardRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn, disabledState, focusState, invalidState } from "@/lib/utils";
 
 type Orientation = "horizontal" | "vertical";
 
-function RadioGroup({
-  className,
-  orientation = "vertical",
-  ...props
-}: RadioGroupPrimitive.Props & { orientation?: Orientation }) {
-  return (
-    <RadioGroupPrimitive
-      data-slot="radio-group"
-      data-orientation={orientation}
-      className={cn(
-        orientation === "horizontal" ? "flex items-center gap-3" : "grid gap-3",
-        className
-      )}
-      {...props}
-    />
-  );
-}
+type RadioGroupProps = RadioGroupPrimitive.Props & { orientation?: Orientation };
 
-function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
+const RadioGroup = forwardRef<ComponentRef<typeof RadioGroupPrimitive>, RadioGroupProps>(
+  ({ className, orientation = "vertical", ...props }, ref) => {
+    return (
+      <RadioGroupPrimitive
+        ref={ref}
+        data-slot="radio-group"
+        data-orientation={orientation}
+        aria-orientation={orientation}
+        className={cn(
+          orientation === "horizontal" ? "flex items-center gap-3" : "grid gap-3",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+RadioGroup.displayName = "RadioGroup";
+
+const RadioGroupItem = forwardRef<
+  ComponentRef<typeof RadioPrimitive.Root>,
+  RadioPrimitive.Root.Props
+>(({ className, ...props }, ref) => {
   return (
     <RadioPrimitive.Root
+      ref={ref}
       data-slot="radio-group-item"
       className={cn(
-        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring-shadow aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring disabled:cursor-not-allowed disabled:opacity-50",
+        "border-input text-primary dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none",
+        focusState,
+        invalidState,
+        disabledState,
         className
       )}
       {...props}
@@ -42,6 +53,7 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
       </RadioPrimitive.Indicator>
     </RadioPrimitive.Root>
   );
-}
+});
+RadioGroupItem.displayName = "RadioGroupItem";
 
 export { RadioGroup, RadioGroupItem };
