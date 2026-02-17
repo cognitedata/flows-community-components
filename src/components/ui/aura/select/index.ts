@@ -1,5 +1,5 @@
 /** Select components. */
-export {
+import {
   Select,
   SelectContent,
   SelectGroup,
@@ -11,4 +11,18 @@ export {
   SelectTrigger,
   SelectValue,
 } from "./select";
-export { SelectMetadata } from "./select.metadata";
+import { SelectMetadata } from "./select.metadata";
+
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+  SelectMetadata,
+};
