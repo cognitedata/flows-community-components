@@ -851,7 +851,7 @@
       "title": "Input",
       "description": "A styled text input component with focus and validation states.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/helper-text", "@aura/input-group"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/input/input.tsx",
