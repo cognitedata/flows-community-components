@@ -9,9 +9,12 @@ import {
   getStatusLabel,
   getStatusMessage,
 } from "@/lib/component-status";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconArrowLeft, IconBrandFigma } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+const AI_FIGMA_URL =
+  "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4383-36632&p=f&t=hvBYNAqgOvQH1REf-0";
 
 // List of valid AI component slugs
 const validSlugs = [
@@ -137,6 +140,16 @@ export default function AIComponentPage() {
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-2">
             <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+            <a
+              href={AI_FIGMA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+              title="Open in Figma"
+              aria-label="Open in Figma"
+            >
+              <IconBrandFigma className="size-4" />
+            </a>
             <Badge variant="inProgress" outline>
               AI Element
             </Badge>

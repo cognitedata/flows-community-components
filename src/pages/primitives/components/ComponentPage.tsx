@@ -16,8 +16,6 @@ import {
   getPrimitiveFigmaLabel,
   getPrimitiveFigmaUrl,
   getPrimitiveGaBadgeProps,
-  getPrimitiveProgressBadgeProps,
-  getPrimitiveProgressLabel,
 } from "@/lib/primitives-catalog";
 import {
   IconArrowLeft,
@@ -107,9 +105,6 @@ export default function ComponentPage() {
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
   const description = catalogEntry?.description || meta?.description || "Component documentation";
-  const progressBadgeProps = catalogEntry
-    ? getPrimitiveProgressBadgeProps(catalogEntry.progressStatus)
-    : null;
   const figmaBadgeProps = catalogEntry
     ? getPrimitiveFigmaBadgeProps(catalogEntry.figmaAvailability)
     : null;
@@ -122,10 +117,6 @@ export default function ComponentPage() {
   const figmaUrl = catalogEntry ? getPrimitiveFigmaUrl(catalogEntry) : null;
 
   if (catalogEntry && !catalogEntry.implemented) {
-    const placeholderProgressBadgeProps = getPrimitiveProgressBadgeProps(
-      catalogEntry.progressStatus
-    );
-
     return (
       <div className="max-w-4xl mx-auto py-10">
         <div className="space-y-8">
@@ -152,12 +143,8 @@ export default function ComponentPage() {
                 </a>
               )}
               <Badge variant="secondary">Primitive</Badge>
-              <Badge
-                variant={placeholderProgressBadgeProps.variant}
-                outline={placeholderProgressBadgeProps.outline}
-                className={placeholderProgressBadgeProps.className}
-              >
-                {getPrimitiveProgressLabel(catalogEntry.progressStatus)}
+              <Badge variant="secondary" className={statusClasses}>
+                {statusLabel}
               </Badge>
             </div>
             <p className="text-lg text-muted-foreground">{description}</p>
@@ -186,8 +173,8 @@ export default function ComponentPage() {
             </div>
             <div className="p-4 rounded-lg border border-dashed bg-muted/30">
               <p className="text-sm text-muted-foreground">
-                This primitive is tracked in the progress metadata and is not implemented yet. A
-                placeholder is shown until stories and metadata-backed implementation are available.
+                This primitive is tracked in metadata and is not implemented yet. A placeholder is
+                shown until stories and metadata-backed implementation are available.
               </p>
             </div>
           </div>
@@ -224,15 +211,6 @@ export default function ComponentPage() {
               </a>
             )}
             <Badge variant="secondary">Component</Badge>
-            {catalogEntry && progressBadgeProps && (
-              <Badge
-                variant={progressBadgeProps!.variant}
-                outline={progressBadgeProps!.outline}
-                className={progressBadgeProps!.className}
-              >
-                {getPrimitiveProgressLabel(catalogEntry.progressStatus)}
-              </Badge>
-            )}
             <Badge variant="secondary" className={statusClasses}>
               {statusLabel}
             </Badge>

@@ -2,7 +2,7 @@ import type { ComponentMeta } from "@/lib/component-examples";
 
 export const BannerMetadata: ComponentMeta = {
   name: "Banner",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "A banner component for displaying important messages with icon, title, status, and actions.",
   llmUsage:

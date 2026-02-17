@@ -97,6 +97,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 - Do not include `importPath` in `*.metadata.ts` files.
 - Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
+- Catalog grouping/filtering should rely on metadata `status`; do not use legacy `progressStatus`.
 - Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
