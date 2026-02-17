@@ -101,6 +101,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Consolidate docs content onto the root page instead of routing under `/docs`.
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
 - Base UI's `TooltipProvider` and `TooltipRoot` don't support refs - use plain functions, not `forwardRef`.
+- When using Base UI's `useRender`, set the slot via `state.slot` instead of adding `data-slot` in `mergeProps` (avoids type casts).
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
 - Form components should import and use utility classes from relative Aura lib paths (for example `../../../../lib/utils`): `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
 - `formElementBase` includes `bg-background` by default. Override with `bg-transparent` or other backgrounds inline when needed.
