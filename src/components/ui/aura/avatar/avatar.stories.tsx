@@ -64,7 +64,7 @@ type Story = StoryObj<typeof Avatar>;
  */
 export const Basic: Story = {
   render: () => (
-    <Avatar variant="default" sizes="default">
+    <Avatar variant="default" sizes="default" aria-label="Default avatar with initials AB">
       <AvatarFallback>AB</AvatarFallback>
     </Avatar>
   ),
@@ -144,28 +144,28 @@ export const WithImage: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="default">
+      <Avatar variant="default" aria-label="Default avatar with initials AB">
         <AvatarFallback>AB</AvatarFallback>
       </Avatar>
-      <Avatar variant="nordic">
+      <Avatar variant="nordic" aria-label="Nordic avatar with initials NC">
         <AvatarFallback>NC</AvatarFallback>
       </Avatar>
-      <Avatar variant="fjord">
+      <Avatar variant="fjord" aria-label="Fjord avatar with initials FJ">
         <AvatarFallback>FJ</AvatarFallback>
       </Avatar>
-      <Avatar variant="aurora">
+      <Avatar variant="aurora" aria-label="Aurora avatar with initials AR">
         <AvatarFallback>AR</AvatarFallback>
       </Avatar>
-      <Avatar variant="dusk">
+      <Avatar variant="dusk" aria-label="Dusk avatar with initials DK">
         <AvatarFallback>DK</AvatarFallback>
       </Avatar>
-      <Avatar variant="orange">
+      <Avatar variant="orange" aria-label="Orange avatar with initials OR">
         <AvatarFallback>OR</AvatarFallback>
       </Avatar>
-      <Avatar variant="sky">
+      <Avatar variant="sky" aria-label="Sky avatar with initials SK">
         <AvatarFallback>SK</AvatarFallback>
       </Avatar>
-      <Avatar variant="overflow">
+      <Avatar variant="overflow" aria-label="Overflow avatar showing plus four">
         <AvatarFallback>+4</AvatarFallback>
       </Avatar>
     </div>
@@ -198,37 +198,37 @@ export const AllVariants: Story = {
 export const AllVariantsWithIcons: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="default">
+      <Avatar variant="default" aria-label="Default avatar with user icon">
         <AvatarIcon>
           <IconUser role="img" aria-label="Default user icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="nordic">
+      <Avatar variant="nordic" aria-label="Nordic avatar with robot icon">
         <AvatarIcon>
           <IconRobot role="img" aria-label="Nordic robot icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="fjord">
+      <Avatar variant="fjord" aria-label="Fjord avatar with wheel icon">
         <AvatarIcon>
           <IconWheel role="img" aria-label="Fjord wheel icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="aurora">
+      <Avatar variant="aurora" aria-label="Aurora avatar with star icon">
         <AvatarIcon>
           <IconStar role="img" aria-label="Aurora star icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="dusk">
+      <Avatar variant="dusk" aria-label="Dusk avatar with heart icon">
         <AvatarIcon>
           <IconHeart role="img" aria-label="Dusk heart icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="orange">
+      <Avatar variant="orange" aria-label="Orange avatar with user icon">
         <AvatarIcon>
           <IconUser role="img" aria-label="Orange user icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="sky">
+      <Avatar variant="sky" aria-label="Sky avatar with robot icon">
         <AvatarIcon>
           <IconRobot role="img" aria-label="Sky robot icon" />
         </AvatarIcon>
@@ -262,13 +262,13 @@ export const AllVariantsWithIcons: Story = {
 export const AllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="nordic" sizes="default">
+      <Avatar variant="nordic" sizes="default" aria-label="Large nordic avatar with initials LG">
         <AvatarFallback>LG</AvatarFallback>
       </Avatar>
-      <Avatar variant="nordic" sizes="xsm">
+      <Avatar variant="nordic" sizes="xsm" aria-label="Extra-small nordic avatar with initials MD">
         <AvatarFallback>MD</AvatarFallback>
       </Avatar>
-      <Avatar variant="nordic" sizes="xxsm">
+      <Avatar variant="nordic" sizes="xxsm" aria-label="Tiny nordic avatar with initials SM">
         <AvatarFallback>SM</AvatarFallback>
       </Avatar>
     </div>
@@ -295,17 +295,17 @@ export const AllSizes: Story = {
 export const IconAllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="nordic" sizes="default">
+      <Avatar variant="nordic" sizes="default" aria-label="Large nordic avatar with user icon">
         <AvatarIcon>
           <IconUser role="img" aria-label="Large user icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="nordic" sizes="xsm">
+      <Avatar variant="nordic" sizes="xsm" aria-label="Extra-small nordic avatar with user icon">
         <AvatarIcon>
           <IconUser role="img" aria-label="Medium user icon" />
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="nordic" sizes="xxsm">
+      <Avatar variant="nordic" sizes="xxsm" aria-label="Tiny nordic avatar with user icon">
         <AvatarIcon>
           <IconUser role="img" aria-label="Small user icon" />
         </AvatarIcon>
@@ -334,15 +334,15 @@ export const IconAllSizes: Story = {
 export const ImagesAllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="fjord" sizes="default">
+      <Avatar variant="fjord" sizes="default" aria-label="Large fjord avatar with profile image">
         <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Large avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
-      <Avatar variant="fjord" sizes="xsm">
+      <Avatar variant="fjord" sizes="xsm" aria-label="Extra-small fjord avatar with profile image">
         <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Medium avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
-      <Avatar variant="fjord" sizes="xxsm">
+      <Avatar variant="fjord" sizes="xxsm" aria-label="Tiny fjord avatar with profile image">
         <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Small avatar" />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
@@ -425,15 +425,15 @@ export const Accessibility: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
-        <Avatar variant="nordic">
+        <Avatar variant="nordic" aria-label="John Doe nordic avatar">
           <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="John Doe's avatar" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
-        <Avatar variant="fjord">
+        <Avatar variant="fjord" aria-label="Jane Smith fjord avatar">
           <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="Jane Smith's avatar" />
           <AvatarFallback>JS</AvatarFallback>
         </Avatar>
-        <Avatar variant="aurora">
+        <Avatar variant="aurora" aria-label="Decorative aurora avatar">
           <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
@@ -514,31 +514,31 @@ export const EdgeCaseLongText: Story = {
         </p>
         <div className="flex items-center gap-4">
           <div className="flex flex-col items-center gap-1">
-            <Avatar variant="default">
+            <Avatar variant="default" aria-label="Default avatar with one-character fallback A">
               <AvatarFallback className="text-sm">A</AvatarFallback>
             </Avatar>
             <span className="text-xs text-muted-foreground">1 char</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Avatar variant="nordic">
+            <Avatar variant="nordic" aria-label="Nordic avatar with two-character fallback AB">
               <AvatarFallback className="text-sm">AB</AvatarFallback>
             </Avatar>
             <span className="text-xs text-muted-foreground">2 chars</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Avatar variant="fjord">
+            <Avatar variant="fjord" aria-label="Fjord avatar with three-character fallback ABC">
               <AvatarFallback className="text-xs">ABC</AvatarFallback>
             </Avatar>
             <span className="text-xs text-muted-foreground">3 chars (smaller)</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Avatar variant="aurora">
+            <Avatar variant="aurora" aria-label="Aurora avatar with four-character fallback ABCD">
               <AvatarFallback className="text-xs">ABCD</AvatarFallback>
             </Avatar>
             <span className="text-xs text-muted-foreground">4 chars (overflow)</span>
           </div>
           <div className="flex flex-col items-center gap-1">
-            <Avatar variant="dusk">
+            <Avatar variant="dusk" aria-label="Dusk avatar with five-character fallback ABCDE">
               <AvatarFallback className="text-xs">ABCDE</AvatarFallback>
             </Avatar>
             <span className="text-xs text-muted-foreground">5+ chars (clipped)</span>
@@ -550,13 +550,24 @@ export const EdgeCaseLongText: Story = {
           Without font size adjustment (text overflows)
         </p>
         <div className="flex items-center gap-4">
-          <Avatar variant="default">
+          <Avatar
+            variant="default"
+            aria-label="Default avatar with overflowing fallback text ABCDEFGH"
+          >
             <AvatarFallback>ABCDEFGH</AvatarFallback>
           </Avatar>
-          <Avatar variant="nordic" sizes="xsm">
+          <Avatar
+            variant="nordic"
+            sizes="xsm"
+            aria-label="Extra-small nordic avatar with overflowing fallback text ABCDEFGH"
+          >
             <AvatarFallback>ABCDEFGH</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord" sizes="xxsm">
+          <Avatar
+            variant="fjord"
+            sizes="xxsm"
+            aria-label="Tiny fjord avatar with overflowing fallback text ABCDEFGH"
+          >
             <AvatarFallback>ABCDEFGH</AvatarFallback>
           </Avatar>
         </div>
@@ -592,7 +603,7 @@ export const EdgeCaseLongText: Story = {
 export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="orange">
+      <Avatar variant="orange" aria-label="Orange avatar with artist palette and fire emoji">
         <AvatarFallback>
           <span role="img" aria-label="artist palette">
             🎨
@@ -602,16 +613,16 @@ export const EdgeCaseSpecialCharacters: Story = {
           </span>
         </AvatarFallback>
       </Avatar>
-      <Avatar variant="sky">
+      <Avatar variant="sky" aria-label="Sky avatar with special characters at hash dollar">
         <AvatarFallback>@#$</AvatarFallback>
       </Avatar>
-      <Avatar variant="default">
+      <Avatar variant="default" aria-label="Default avatar with Chinese characters">
         <AvatarFallback>中文</AvatarFallback>
       </Avatar>
-      <Avatar variant="aurora">
+      <Avatar variant="aurora" aria-label="Aurora avatar with Cyrillic text Kir">
         <AvatarFallback>Кир</AvatarFallback>
       </Avatar>
-      <Avatar variant="dusk">
+      <Avatar variant="dusk" aria-label="Dusk avatar with card suit symbols">
         <AvatarFallback>♥♦♣♠</AvatarFallback>
       </Avatar>
     </div>
@@ -641,13 +652,21 @@ export const EdgeCaseSpecialCharacters: Story = {
 export const EdgeCaseSingleCharacter: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="dusk">
+      <Avatar variant="dusk" aria-label="Dusk avatar with single-character fallback A">
         <AvatarFallback>A</AvatarFallback>
       </Avatar>
-      <Avatar variant="orange" sizes="xsm">
+      <Avatar
+        variant="orange"
+        sizes="xsm"
+        aria-label="Extra-small orange avatar with single-character fallback Z"
+      >
         <AvatarFallback>Z</AvatarFallback>
       </Avatar>
-      <Avatar variant="sky" sizes="xxsm">
+      <Avatar
+        variant="sky"
+        sizes="xxsm"
+        aria-label="Tiny sky avatar with single-character fallback M"
+      >
         <AvatarFallback>M</AvatarFallback>
       </Avatar>
     </div>
@@ -675,16 +694,16 @@ export const EdgeCaseSingleCharacter: Story = {
 export const EdgeCaseNumbers: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="nordic">
+      <Avatar variant="nordic" aria-label="Nordic avatar with numeric fallback one">
         <AvatarFallback>1</AvatarFallback>
       </Avatar>
-      <Avatar variant="fjord">
+      <Avatar variant="fjord" aria-label="Fjord avatar with numeric fallback forty-two">
         <AvatarFallback>42</AvatarFallback>
       </Avatar>
-      <Avatar variant="aurora">
+      <Avatar variant="aurora" aria-label="Aurora avatar with numeric fallback nine nine nine">
         <AvatarFallback>999</AvatarFallback>
       </Avatar>
-      <Avatar variant="overflow">
+      <Avatar variant="overflow" aria-label="Overflow avatar showing plus ninety-nine">
         <AvatarFallback>+99</AvatarFallback>
       </Avatar>
     </div>
@@ -713,13 +732,13 @@ export const EdgeCaseNumbers: Story = {
 export const EdgeCaseTinyWithText: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="nordic" sizes="xxsm">
+      <Avatar variant="nordic" sizes="xxsm" aria-label="Tiny nordic avatar with fallback AB">
         <AvatarFallback>AB</AvatarFallback>
       </Avatar>
-      <Avatar variant="fjord" sizes="xxsm">
+      <Avatar variant="fjord" sizes="xxsm" aria-label="Tiny fjord avatar with fallback ABC">
         <AvatarFallback>ABC</AvatarFallback>
       </Avatar>
-      <Avatar variant="aurora" sizes="xxsm">
+      <Avatar variant="aurora" sizes="xxsm" aria-label="Tiny aurora avatar with fallback ABCD">
         <AvatarFallback>ABCD</AvatarFallback>
       </Avatar>
     </div>
@@ -747,15 +766,15 @@ export const EdgeCaseTinyWithText: Story = {
 export const EdgeCaseFailedImage: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="nordic">
+      <Avatar variant="nordic" aria-label="Nordic avatar with failed image fallback FL">
         <AvatarImage src={getStorybookImagePath("nonexistent-image-1.png")} alt="Failed to load" />
         <AvatarFallback>FL</AvatarFallback>
       </Avatar>
-      <Avatar variant="fjord">
+      <Avatar variant="fjord" aria-label="Fjord avatar with failed image fallback ER">
         <AvatarImage src={getStorybookImagePath("nonexistent-image-2.png")} alt="Failed to load" />
         <AvatarFallback>ER</AvatarFallback>
       </Avatar>
-      <Avatar variant="aurora">
+      <Avatar variant="aurora" aria-label="Aurora avatar with failed image fallback BR">
         <AvatarImage src={getStorybookImagePath("nonexistent-image-3.png")} alt="Failed to load" />
         <AvatarFallback>BR</AvatarFallback>
       </Avatar>
@@ -784,7 +803,7 @@ export const EdgeCaseFailedImage: Story = {
 export const EdgeCaseComplexIcons: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="nordic">
+      <Avatar variant="nordic" aria-label="Nordic avatar with two star icons">
         <AvatarIcon>
           <div className="flex items-center justify-center gap-1">
             <IconStar className="size-2" role="img" aria-label="Star icon" />
@@ -792,7 +811,7 @@ export const EdgeCaseComplexIcons: Story = {
           </div>
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="fjord">
+      <Avatar variant="fjord" aria-label="Fjord avatar with custom SVG icon">
         <AvatarIcon>
           <svg width="20" height="20" viewBox="0 0 20 20" role="img" aria-label="Avatar icon">
             <title>Avatar icon</title>
@@ -801,7 +820,7 @@ export const EdgeCaseComplexIcons: Story = {
           </svg>
         </AvatarIcon>
       </Avatar>
-      <Avatar variant="aurora">
+      <Avatar variant="aurora" aria-label="Aurora avatar with AI text icon">
         <AvatarIcon>
           <span className="text-xs font-bold">AI</span>
         </AvatarIcon>
@@ -836,28 +855,31 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
         <div className="flex flex-wrap gap-3">
-          <Avatar variant="default">
+          <Avatar variant="default" aria-label="Visual regression default avatar with initials DF">
             <AvatarFallback>DF</AvatarFallback>
           </Avatar>
-          <Avatar variant="nordic">
+          <Avatar variant="nordic" aria-label="Visual regression nordic avatar with initials NC">
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord">
+          <Avatar variant="fjord" aria-label="Visual regression fjord avatar with initials FJ">
             <AvatarFallback>FJ</AvatarFallback>
           </Avatar>
-          <Avatar variant="aurora">
+          <Avatar variant="aurora" aria-label="Visual regression aurora avatar with initials AR">
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
-          <Avatar variant="dusk">
+          <Avatar variant="dusk" aria-label="Visual regression dusk avatar with initials DK">
             <AvatarFallback>DK</AvatarFallback>
           </Avatar>
-          <Avatar variant="orange">
+          <Avatar variant="orange" aria-label="Visual regression orange avatar with initials OR">
             <AvatarFallback>OR</AvatarFallback>
           </Avatar>
-          <Avatar variant="sky">
+          <Avatar variant="sky" aria-label="Visual regression sky avatar with initials SK">
             <AvatarFallback>SK</AvatarFallback>
           </Avatar>
-          <Avatar variant="overflow">
+          <Avatar
+            variant="overflow"
+            aria-label="Visual regression overflow avatar showing plus four"
+          >
             <AvatarFallback>+4</AvatarFallback>
           </Avatar>
         </div>
@@ -866,13 +888,25 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All Sizes</h3>
         <div className="flex flex-wrap items-center gap-3">
-          <Avatar variant="nordic" sizes="default">
+          <Avatar
+            variant="nordic"
+            sizes="default"
+            aria-label="Visual regression large nordic avatar with initials LG"
+          >
             <AvatarFallback>LG</AvatarFallback>
           </Avatar>
-          <Avatar variant="nordic" sizes="xsm">
+          <Avatar
+            variant="nordic"
+            sizes="xsm"
+            aria-label="Visual regression extra-small nordic avatar with initials MD"
+          >
             <AvatarFallback>MD</AvatarFallback>
           </Avatar>
-          <Avatar variant="nordic" sizes="xxsm">
+          <Avatar
+            variant="nordic"
+            sizes="xxsm"
+            aria-label="Visual regression tiny nordic avatar with initials SM"
+          >
             <AvatarFallback>SM</AvatarFallback>
           </Avatar>
         </div>
@@ -881,22 +915,22 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <div className="flex flex-wrap gap-3">
-          <Avatar variant="default">
+          <Avatar variant="default" aria-label="Visual regression default avatar with user icon">
             <AvatarIcon>
               <IconUser />
             </AvatarIcon>
           </Avatar>
-          <Avatar variant="nordic">
+          <Avatar variant="nordic" aria-label="Visual regression nordic avatar with robot icon">
             <AvatarIcon>
               <IconRobot />
             </AvatarIcon>
           </Avatar>
-          <Avatar variant="fjord">
+          <Avatar variant="fjord" aria-label="Visual regression fjord avatar with wheel icon">
             <AvatarIcon>
               <IconWheel />
             </AvatarIcon>
           </Avatar>
-          <Avatar variant="aurora">
+          <Avatar variant="aurora" aria-label="Visual regression aurora avatar with star icon">
             <AvatarIcon>
               <IconStar />
             </AvatarIcon>
@@ -907,15 +941,18 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Images</h3>
         <div className="flex flex-wrap gap-3">
-          <Avatar variant="default">
+          <Avatar
+            variant="default"
+            aria-label="Visual regression default avatar with user image PJ"
+          >
             <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="User" />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
-          <Avatar variant="nordic">
+          <Avatar variant="nordic" aria-label="Visual regression nordic avatar with user image NC">
             <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User" />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord">
+          <Avatar variant="fjord" aria-label="Visual regression fjord avatar with user image FJ">
             <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User" />
             <AvatarFallback>FJ</AvatarFallback>
           </Avatar>
@@ -928,16 +965,29 @@ export const VisualRegression: Story = {
           <Avatar
             variant="nordic"
             className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
+            aria-label="Visual regression avatar group user one"
           >
             <AvatarFallback>U1</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord" className="relative -ml-1 z-2 border-2 border-background">
+          <Avatar
+            variant="fjord"
+            className="relative -ml-1 z-2 border-2 border-background"
+            aria-label="Visual regression avatar group user two"
+          >
             <AvatarFallback>U2</AvatarFallback>
           </Avatar>
-          <Avatar variant="aurora" className="relative -ml-1 z-3 border-2 border-background">
+          <Avatar
+            variant="aurora"
+            className="relative -ml-1 z-3 border-2 border-background"
+            aria-label="Visual regression avatar group user three"
+          >
             <AvatarFallback>U3</AvatarFallback>
           </Avatar>
-          <Avatar variant="overflow" className="relative -ml-1 z-4 border-2 border-background">
+          <Avatar
+            variant="overflow"
+            className="relative -ml-1 z-4 border-2 border-background"
+            aria-label="Visual regression avatar group overflow showing plus five"
+          >
             <AvatarFallback>+5</AvatarFallback>
           </Avatar>
         </div>
@@ -946,26 +996,38 @@ export const VisualRegression: Story = {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Edge Cases</h3>
         <div className="flex flex-wrap gap-3">
-          <Avatar variant="default">
+          <Avatar
+            variant="default"
+            aria-label="Visual regression default avatar with empty fallback"
+          >
             <AvatarFallback />
           </Avatar>
-          <Avatar variant="nordic">
+          <Avatar variant="nordic" aria-label="Visual regression nordic avatar with fallback A">
             <AvatarFallback>A</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord">
+          <Avatar
+            variant="fjord"
+            aria-label="Visual regression fjord avatar with fallback ABCDEFGH"
+          >
             <AvatarFallback>ABCDEFGH</AvatarFallback>
           </Avatar>
-          <Avatar variant="aurora">
+          <Avatar
+            variant="aurora"
+            aria-label="Visual regression aurora avatar with artist palette emoji"
+          >
             <AvatarFallback>
               <span role="img" aria-label="artist palette">
                 🎨
               </span>
             </AvatarFallback>
           </Avatar>
-          <Avatar variant="dusk">
+          <Avatar variant="dusk" aria-label="Visual regression dusk avatar with Chinese characters">
             <AvatarFallback>中文</AvatarFallback>
           </Avatar>
-          <Avatar variant="overflow">
+          <Avatar
+            variant="overflow"
+            aria-label="Visual regression overflow avatar showing plus nine hundred ninety-nine"
+          >
             <AvatarFallback>+999</AvatarFallback>
           </Avatar>
         </div>
@@ -989,13 +1051,14 @@ export const VisualRegression: Story = {
 /** Interactive playground for avatar props. */
 export const Playground: Story = {
   render: (args) => (
-    <Avatar {...args}>
+    <Avatar {...args} aria-label={args["aria-label"] ?? "Playground avatar with fallback PJ"}>
       <AvatarFallback>PJ</AvatarFallback>
     </Avatar>
   ),
   args: {
     variant: "nordic",
     sizes: "default",
+    "aria-label": "Playground avatar with fallback PJ",
   },
   parameters: {
     order: 99,
