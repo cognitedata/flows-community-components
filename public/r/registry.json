@@ -890,7 +890,7 @@
       "type": "registry:component",
       "title": "Textarea",
       "description": "A multi-line text input component.",
-      "registryDependencies": ["@aura/css", "@aura/helper-text"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/textarea/textarea.tsx",
