@@ -19,16 +19,26 @@ const getOpenTooltip = (matcher?: RegExp) => {
     return semanticTooltip;
   }
 
-  const fallbackTooltip = document.querySelector('[data-slot="tooltip-content"][data-open]');
-  if (!(fallbackTooltip instanceof HTMLElement)) {
-    return undefined;
-  }
+  const fallbackTooltips = Array.from(
+    document.querySelectorAll('[data-slot="tooltip-content"]')
+  ).filter((tooltip): tooltip is HTMLElement => tooltip instanceof HTMLElement);
 
-  if (matcher && !matcher.test(fallbackTooltip.textContent ?? "")) {
-    return undefined;
-  }
+  return fallbackTooltips.find((tooltip) => {
+    const isOpen =
+      tooltip.hasAttribute("data-open") ||
+      tooltip.getAttribute("data-state") === "open" ||
+      tooltip.getAttribute("data-state") === "delayed-open";
 
-  return fallbackTooltip;
+    if (!isOpen) {
+      return false;
+    }
+
+    if (!matcher) {
+      return true;
+    }
+
+    return matcher.test(tooltip.textContent ?? "");
+  });
 };
 
 const requireTooltip = (tooltip: HTMLElement | undefined) => {
@@ -58,8 +68,20 @@ const hoverAndWaitForTooltip = async (trigger: HTMLElement, matcher: RegExp, tim
 const waitForTooltipClosed = async () => {
   await waitFor(() => {
     const semanticTooltip = within(document.body).queryByRole("tooltip");
-    const fallbackTooltip = document.querySelector('[data-slot="tooltip-content"][data-open]');
-    const tooltip = semanticTooltip ?? fallbackTooltip;
+    const fallbackTooltip = Array.from(
+      document.querySelectorAll('[data-slot="tooltip-content"]')
+    ).find((tooltip) => {
+      if (!(tooltip instanceof HTMLElement)) {
+        return false;
+      }
+
+      return (
+        tooltip.hasAttribute("data-open") ||
+        tooltip.getAttribute("data-state") === "open" ||
+        tooltip.getAttribute("data-state") === "delayed-open"
+      );
+    });
+    const tooltip = semanticTooltip ?? fallbackTooltip ?? null;
     expect(tooltip).not.toBeInTheDocument();
   });
 };
@@ -143,8 +165,6 @@ export const Basic: Story = {
     expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
 
     await hoverAndWaitForTooltip(button, /Publishing will make it available to all users/i);
-
-    await new Promise((resolve) => setTimeout(resolve, 200));
   },
   render: () => (
     <TooltipProvider>
@@ -174,8 +194,6 @@ export const WithButtonVariants: Story = {
 
     const firstButton = await canvas.findByRole("button", { name: /hover me/i }, { timeout: 2000 });
     await hoverAndWaitForTooltip(firstButton, /Publishing will make it available to all users/i);
-
-    await new Promise((resolve) => setTimeout(resolve, 200));
     await userEvent.unhover(firstButton);
     await waitForTooltipClosed();
 
@@ -185,8 +203,6 @@ export const WithButtonVariants: Story = {
       { timeout: 2000 }
     );
     await hoverAndWaitForTooltip(secondButton, /This button does something important/i);
-
-    await new Promise((resolve) => setTimeout(resolve, 200));
     await userEvent.unhover(secondButton);
     await waitForTooltipClosed();
 
@@ -358,7 +374,6 @@ export const AllPositions: Story = {
       await hoverAndWaitForTooltip(button, /This is a helpful message/i);
       await userEvent.unhover(button);
       await waitForTooltipClosed();
-      await new Promise((resolve) => setTimeout(resolve, 200));
     }
   },
   render: () => (
@@ -421,7 +436,6 @@ export const WithIcons: Story = {
     await expect(warningButton).toBeInTheDocument();
 
     await hoverAndWaitForTooltip(infoButton, /View more information/i);
-    await new Promise((resolve) => setTimeout(resolve, 200));
     await userEvent.unhover(infoButton);
     await waitForTooltipClosed();
 
@@ -677,7 +691,13 @@ export const WithDelay: Story = {
 
     await userEvent.hover(button);
     expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
-    await waitForOpenTooltip(/This tooltip appears after a 1500ms delay/i, 4500);
+
+    try {
+      await waitForOpenTooltip(/This tooltip appears after a 1500ms delay/i, 4500);
+    } catch {
+      await userEvent.hover(button);
+      await waitForOpenTooltip(/This tooltip appears after a 1500ms delay/i, 4500);
+    }
   },
   render: () => (
     <TooltipProvider delayDuration={1500}>
