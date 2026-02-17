@@ -102,6 +102,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- When `noImplicitAny` is enabled, type Storybook `play` contexts explicitly (e.g. `({ canvasElement }: { canvasElement: HTMLElement })`) and type Playground `args` with `ComponentProps<typeof Component>`.
 
 # Storybook Stories
 
