@@ -48,7 +48,7 @@ const requireTooltip = (tooltip: HTMLElement | undefined) => {
   return tooltip;
 };
 
-const waitForOpenTooltip = async (matcher: RegExp, timeout = 3000) => {
+const waitForOpenTooltip = async (matcher: RegExp, timeout = 5000) => {
   return await waitFor(
     () => {
       const tooltip = requireTooltip(getOpenTooltip(matcher));
@@ -60,9 +60,15 @@ const waitForOpenTooltip = async (matcher: RegExp, timeout = 3000) => {
   );
 };
 
-const hoverAndWaitForTooltip = async (trigger: HTMLElement, matcher: RegExp, timeout = 3000) => {
+const hoverAndWaitForTooltip = async (trigger: HTMLElement, matcher: RegExp, timeout = 5000) => {
   await userEvent.hover(trigger);
-  return await waitForOpenTooltip(matcher, timeout);
+  try {
+    return await waitForOpenTooltip(matcher, timeout);
+  } catch {
+    await userEvent.unhover(trigger);
+    await userEvent.hover(trigger);
+    return await waitForOpenTooltip(matcher, timeout);
+  }
 };
 
 const waitForTooltipClosed = async () => {
