@@ -36,7 +36,9 @@ import {
 } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
 
-import { Button } from "@/components/ui/aura/button";
+import type { ChatStatus, FileUIPart } from "../../../../lib/ai/types";
+import { cn, convertBlobUrlToDataUrl } from "../../../../lib/utils";
+import { Button } from "../button";
 import {
   Command,
   CommandEmpty,
@@ -45,30 +47,17 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/aura/command";
+} from "../command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupTextarea,
-} from "@/components/ui/aura/input-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/aura/select";
-import type { ChatStatus, FileUIPart } from "../../../../lib/ai/types";
-import { cn, convertBlobUrlToDataUrl } from "../../../../lib/utils";
+} from "../dropdown-menu";
+import { HelperText } from "../helper-text";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../hover-card";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from "../input-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 
 type AttachmentsContext = {
   files: (FileUIPart & { id: string })[];
@@ -139,9 +128,9 @@ function PromptInputProvider({
 
     setAttachements((prev) =>
       prev.concat(
-        incoming.map((file) => ({
+        incoming.map((file): FileUIPart & { id: string } => ({
           id: nanoid(),
-          type: "file" as const,
+          type: "file",
           url: URL.createObjectURL(file),
           mediaType: file.type,
           filename: file.name,
@@ -624,7 +613,8 @@ const PromptInput = ({
       ? controller.textInput.value
       : (() => {
           const formData = new FormData(form);
-          return (formData.get("message") as string) || "";
+          const entry = formData.get("message");
+          return typeof entry === "string" ? entry : "";
         })();
 
     if (!usingProvider) {
@@ -807,7 +797,6 @@ const PromptInputTextarea = forwardRef<HTMLTextAreaElement, PromptInputTextareaP
           "field-sizing-content max-h-48 min-h-18 rounded-t-xl md:text-base tracking-tightest p-2.75 leading-5",
           className
         )}
-        data-testid="prompt-input-textarea"
         name="message"
         onCompositionEnd={() => setIsComposing(false)}
         onCompositionStart={() => setIsComposing(true)}
@@ -942,7 +931,6 @@ const PromptInputSubmit = forwardRef<HTMLButtonElement, PromptInputSubmitProps>(
         aria-label="Submit"
         className={cn(className)}
         data-status={status}
-        data-testid="prompt-input-submit"
         size={size}
         type="submit"
         variant={variant}
