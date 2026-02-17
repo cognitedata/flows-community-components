@@ -695,7 +695,9 @@ const PromptInput = ({
           onSubmit={handleSubmit}
           {...props}
         >
-          <InputGroup className="shadow-none rounded-xl">{children}</InputGroup>
+          <InputGroup className="shadow-none rounded-xl has-[[data-slot=input-group-control]:read-only]:border-input hover:has-[[data-slot=input-group-control]:read-only]:border-input hover:has-[[data-slot=input-group-control]:read-only]:bg-background hover:has-[[data-slot=input-group-control]:read-only]:text-current">
+            {children}
+          </InputGroup>
         </form>
         {errorMessage || submissionError ? (
           <HelperText size="xs" isError>

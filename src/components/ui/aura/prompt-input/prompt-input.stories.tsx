@@ -315,7 +315,8 @@ export const SubmittedState: Story = {
     order: 4,
     docs: {
       description: {
-        story: "Prompt input in submitted state with disabled textarea and submit button.",
+        story:
+          "Prompt input in submitted state with read-only textarea and disabled submit button.",
       },
     },
   },
@@ -327,12 +328,13 @@ export const SubmittedState: Story = {
     await expect(submitButton).toBeDisabled();
 
     const textarea = canvas.getByRole("textbox");
-    await expect(textarea).toBeDisabled();
+    await expect(textarea).toHaveAttribute("readonly");
+    await expect(textarea).toHaveAttribute("aria-disabled", "true");
   },
   render: () => (
     <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
-        <PromptInputTextarea placeholder="Type a message..." disabled />
+        <PromptInputTextarea placeholder="Type a message..." readOnly aria-disabled />
       </PromptInputBody>
       <PromptInputFooter>
         <PromptInputTools />
@@ -351,7 +353,7 @@ export const StreamingState: Story = {
     docs: {
       description: {
         story:
-          "Prompt input in streaming state with disabled textarea and streaming submit button.",
+          "Prompt input in streaming state with read-only textarea and streaming submit button.",
       },
     },
   },
@@ -363,12 +365,13 @@ export const StreamingState: Story = {
     await expect(submitButton).toBeInTheDocument();
 
     const textarea = canvas.getByRole("textbox");
-    await expect(textarea).toBeDisabled();
+    await expect(textarea).toHaveAttribute("readonly");
+    await expect(textarea).toHaveAttribute("aria-disabled", "true");
   },
   render: () => (
     <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
-        <PromptInputTextarea placeholder="Type a message..." disabled />
+        <PromptInputTextarea placeholder="Type a message..." readOnly aria-disabled />
       </PromptInputBody>
       <PromptInputFooter>
         <PromptInputTools />
