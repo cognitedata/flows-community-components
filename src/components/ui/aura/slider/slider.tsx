@@ -1,7 +1,7 @@
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import { useCallback, useMemo } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 type SliderProps = Omit<
   SliderPrimitive.Root.Props<readonly number[]>,

@@ -6,8 +6,8 @@ import {
   CardTitle,
 } from "@/components/ui/aura/card";
 import { Progress } from "@/components/ui/aura/progress";
-import { cn } from "@/lib/utils";
 import { type ComponentProps, forwardRef } from "react";
+import { cn } from "../../../../lib/utils";
 
 type ArtifactProgressProps = ComponentProps<typeof Card>;
 

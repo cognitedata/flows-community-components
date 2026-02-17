@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 

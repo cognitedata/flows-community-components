@@ -8,7 +8,7 @@ import {
   IconExclamationCircle,
 } from "@tabler/icons-react";
 
-import { useControllableState } from "@/lib/use-controllable-state";
+import { useControllableState } from "../../../../lib/use-controllable-state";
 import {
   cn,
   disabledState,
@@ -18,7 +18,7 @@ import {
   getPortalContainer,
   hoverState,
   invalidState,
-} from "@/lib/utils";
+} from "../../../../lib/utils";
 
 type SelectContextValue = {
   isOpen: boolean;
