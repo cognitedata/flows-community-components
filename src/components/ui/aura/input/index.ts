@@ -1,3 +1,5 @@
 /** Input component. */
-export { Input, PasswordInput } from "./input";
-export { InputMetadata } from "./input.metadata";
+import { Input, PasswordInput } from "./input";
+import { InputMetadata } from "./input.metadata";
+
+export { Input, PasswordInput, InputMetadata };
