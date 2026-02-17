@@ -115,7 +115,7 @@ Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` a
 
 ## Fusion Import Strategy
 
-Stories import components using `@/*` for internal development. The `@cognite/aura/*` and `@cognite/aura-lab/*` aliases are configured for component consumption in Fusion, but stories continue to use `@/components/ui/aura/*` for now.
+For stories under `src/components/ui/aura/**`, prefer relative imports for Aura components and shared lib helpers (for example `../button` or `../../../../lib/utils`) instead of `@/*` aliases, to match portable registry/Fusion packaging expectations.
 
 ## argTypes
 

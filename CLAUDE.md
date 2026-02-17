@@ -54,7 +54,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Use Base UI for complex interactions, native HTML for simple elements
 - Always use `ComponentRef` (not `React.ElementRef`), except for Base UI Trigger components (Dialog, Popover, etc.) which should be plain functions without `forwardRef` as they handle refs internally
 - No code comments in component files
-- Extract helpers to `@/lib/utils.ts`
+- Extract helpers to relative Aura lib paths (for example `../../../../lib/utils.ts`)
 - Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
 - Exports should be in a single export block. Format inline if it fits, or one-per-line if long. Let Biome handle formatting; avoid `// biome-ignore` comments.
 - Component `index.tsx` files should import the main component, then export it separately (not inline). This pattern: `import { Component } from "./component"; export { Component };` is preferred over `export { Component } from "./component";`
@@ -78,7 +78,7 @@ Aura uses a dual-scope import system for migrating components to Fusion:
 
 Components in `src/components/ui/core/` use `@cognite/aura/*`, components in `src/components/ui/lab/` use `@cognite/aura-lab/*`.
 
-For internal development, continue using `@/*` imports. The `@cognite/*` imports are configured for when components are consumed in Fusion.
+For files under `src/components/ui/aura/**`, prefer relative imports (for example `../../../../lib/utils`) over `@/*` aliases to keep generated/portable outputs stable. The `@cognite/*` imports are configured for when components are consumed in Fusion.
 
 ## Special Files
 
@@ -96,7 +96,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Use `forwardRef` and `displayName` for wrapper components to preserve refs.
 - Base UI's `TooltipProvider` and `TooltipRoot` don't support refs - use plain functions, not `forwardRef`.
 - Component status checks should use valid `ComponentStatusType` values like "stable" and "ready-for-ga", not "production" or "done".
-- Form components should import and use utility classes from `@/lib/utils`: `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
+- Form components should import and use utility classes from relative Aura lib paths (for example `../../../../lib/utils`): `formElementBase`, `focusState`, `invalidState`, `disabledState`, `hoverState`, `filledState`.
 - `formElementBase` includes `bg-background` by default. Override with `bg-transparent` or other backgrounds inline when needed.
 - When form components are used inside compound components (like `InputGroup`), override hover/focus states to prevent conflicts with the parent container's styling.
 - `InputGroup` uses `shadow-focus-ring` for focus state and `shadow-focus-ring-destructive` for error state. The error state selector must target `[data-slot=input-group-control][aria-invalid=true]` to take precedence over normal focus.
