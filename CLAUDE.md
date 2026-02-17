@@ -3,6 +3,23 @@
 1. Make sure to run `pnpm lint` and `pnpm tsc` after any code changes you make in order to ensure there are no errors.
 2. Record any learnings in the CLAUDE.md file. Make sure to keep a consistent style with the existing content and try to be concise and avoid duplication.
 
+# Fusion Styleguide (Merged)
+
+## Critical checks
+
+- Types: never use `any` or `as` casts. Use `unknown` and type guards. Exception: `Partial<T> as T` is allowed for test mocks only.
+- Tests: use Vitest with `*.test.ts(x)` naming and clear Arrange/Act/Assert structure.
+- DOM queries: use semantic queries (`getByRole`, `getByLabelText`, etc.). Do not add `data-testid` to production code. Exception: a unit test may add a test id in the test file when mocking.
+- Mocking: prefer typed mocks (`vi.fn(() => ...)`, `vi.fn<T>()`, `vi.mocked(...)`, `vi.mock(import(...))`). Avoid `vi.fn().mockReturnValue(...)` and `ReturnType<typeof vi.fn>`.
+- Assertions: prefer `toHaveBeenCalledWith` / `toHaveBeenNthCalledWith` over raw `mock.calls`.
+- Timing: use fake timers for debounce/throttle tests; avoid mocking timer/debounce behavior directly.
+- Components: keep business logic out of UI components; extract to hooks and use context-based dependency injection when needed.
+- Derived state: prefer derived values (or `useMemo`) over `useState` + `useEffect` for computed state.
+- Styles: default to `styled-components`; in `libs/aura/**`, Tailwind utilities plus scoped portal/container imperative styles and required inline style helpers are allowed.
+- Domains in tests: use reserved `.test` domains (for example `https://cognite.test`) to avoid accidental external traffic.
+- TS config: do not add `paths` to `tsconfig*.json`; use relative imports or tool-level aliasing (for example Vite).
+- PR hygiene: prefer smaller changes (ideal <200 lines, max 500) and keep tests fast (<2s each, <2min total).
+
 # Component Registry Rules
 
 When you create or update ANY component, run: `pnpm run registry:build`
@@ -92,10 +109,10 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - InputGroup stories should showcase all alignment variants (inline-start, inline-end, block-start, block-end) and how it's used in compound components like PromptInput.
 - When overriding focus states in InputGroup controls, must override BOTH `focus-visible:shadow-none` AND `aria-invalid:focus-visible:shadow-none` to prevent double focus rings in error states.
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
-- Tooltip delay stories are more stable when waiting for `getOpenTooltip` with a longer timeout.
+- Tooltip delay stories are more stable with deterministic waits and without interaction retries.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
-- Tooltip play tests are more reliable when checking `data-slot="tooltip-content"[data-open]` and retrying hover once.
-- Hover card play tests are more reliable when using `data-slot="hover-card-content"[data-open]` checks with a hover retry.
+- Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
+- Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
 - Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
@@ -107,7 +124,7 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
-- For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
 - Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 
@@ -126,5 +143,5 @@ For detailed story writing guidelines, use the `/story-builder` skill.
 - No JSX comments in render functions (e.g., `{/* comment */}`) - if you need section labels, use semantic HTML headings instead
 - All stories should have a description that is short and relevant; don't reword existing descriptions that already meet this criteria
 - Prioritize semantic queries (`getByRole`, `getByText`, etc.) over `getByTestId` in play functions
-- Use `canvas.findByTestId()` only for portal content when semantic queries aren't available
+- Avoid `getByTestId` in story interactions; reserve test ids for mocked unit-test scenarios only
 - Run `pnpm lint` and `pnpm tsc -b` after changes
