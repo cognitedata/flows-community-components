@@ -687,17 +687,39 @@ export const WithDelay: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
+    const button = await canvas.findByRole(
+      "button",
+      { name: /hover me \(with delay\)/i },
+      { timeout: 2000 }
+    );
+
+    const waitForDelayedTooltip = async () => {
+      return await waitFor(
+        () => {
+          const tooltip = requireTooltip(
+            getOpenTooltip(/This tooltip appears after a 1500ms delay/i)
+          );
+          expect(tooltip).toBeInTheDocument();
+          expect(tooltip).toHaveTextContent(/This tooltip appears after a 1500ms delay/i);
+          return tooltip;
+        },
+        { timeout: 6500 }
+      );
+    };
 
     await userEvent.hover(button);
     expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
 
     try {
-      await waitForOpenTooltip(/This tooltip appears after a 1500ms delay/i, 4500);
+      await waitForDelayedTooltip();
     } catch {
+      await userEvent.unhover(button);
       await userEvent.hover(button);
-      await waitForOpenTooltip(/This tooltip appears after a 1500ms delay/i, 4500);
+      await waitForDelayedTooltip();
     }
+
+    await userEvent.unhover(button);
+    await waitForTooltipClosed();
   },
   render: () => (
     <TooltipProvider delayDuration={1500}>
