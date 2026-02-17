@@ -59,25 +59,49 @@ type SelectPropsMultiple = SelectPropsBase & {
 
 type SelectProps = SelectPropsSingle | SelectPropsMultiple;
 
+function Select(props: SelectPropsSingle): ReactNode;
+function Select(props: SelectPropsMultiple): ReactNode;
 function Select(props: SelectProps) {
-  const {
-    open,
-    defaultOpen = false,
-    onOpenChange,
-    value,
-    defaultValue,
-    onValueChange,
-    multiple = false,
-    ...rest
-  } = props;
-
   const [isOpen, setIsOpen] = useControllableState({
-    prop: open,
-    defaultProp: defaultOpen,
-    onChange: onOpenChange,
+    prop: props.open,
+    defaultProp: props.defaultOpen ?? false,
+    onChange: props.onOpenChange,
   });
 
   const selectContext = useMemo(() => ({ isOpen: isOpen ?? false }), [isOpen]);
+
+  if (props.multiple) {
+    const { multiple: _multiple, value, defaultValue, onValueChange, ...rest } = props;
+
+    return (
+      <SelectContext.Provider value={selectContext}>
+        <SelectPrimitive.Root
+          data-slot="select"
+          open={isOpen}
+          onOpenChange={(nextOpen) => setIsOpen(nextOpen)}
+          value={value}
+          defaultValue={defaultValue}
+          onValueChange={(nextValue, _details) => {
+            if (Array.isArray(nextValue) && nextValue.every((v) => typeof v === "string")) {
+              onValueChange?.(nextValue);
+              return;
+            }
+            if (nextValue === null) {
+              onValueChange?.([]);
+            }
+          }}
+          multiple
+          {...rest}
+        />
+      </SelectContext.Provider>
+    );
+  }
+
+  const { value, defaultValue, onValueChange, ...rest } = props;
+
+  const mappedValue = value === undefined ? undefined : value === "" ? null : value;
+  const mappedDefaultValue =
+    defaultValue === undefined ? undefined : defaultValue === "" ? null : defaultValue;
 
   return (
     <SelectContext.Provider value={selectContext}>
@@ -85,18 +109,11 @@ function Select(props: SelectProps) {
         data-slot="select"
         open={isOpen}
         onOpenChange={(nextOpen) => setIsOpen(nextOpen)}
-        value={value === undefined ? undefined : value === "" ? null : (value as any)}
-        defaultValue={
-          defaultValue === undefined
-            ? undefined
-            : defaultValue === ""
-              ? null
-              : (defaultValue as any)
-        }
+        value={mappedValue}
+        defaultValue={mappedDefaultValue}
         onValueChange={(nextValue, _details) => {
-          (onValueChange as any)?.(nextValue);
+          onValueChange?.(typeof nextValue === "string" ? nextValue : "");
         }}
-        multiple={multiple as any}
         {...rest}
       />
     </SelectContext.Provider>
@@ -150,7 +167,7 @@ function SelectTrigger({
         data-size={size}
         aria-invalid={isInvalid ? true : undefined}
         className={cn(
-          "w-fit min-w-50 min-h-9 flex items-center justify-between gap-2 whitespace-nowrap transition-[color,box-shadow] cursor-pointer",
+          "w-fit min-w-50 min-h-9 flex items-center justify-between gap-2 whitespace-nowrap transition-colors transition-shadow cursor-pointer",
           formElementBase,
           hoverState,
           filledState,
