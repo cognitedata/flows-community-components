@@ -141,6 +141,9 @@ const meta: Meta<typeof Tooltip> = {
   },
   parameters: {
     layout: "centered",
+    chromatic: {
+      viewports: [1200],
+    },
     actions: {
       handles: ["openChanged"],
     },
