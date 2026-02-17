@@ -4,8 +4,6 @@ import { type ComponentProps, type ComponentRef, forwardRef, useMemo } from "rea
 
 import { cn } from "../../../../lib/utils";
 
-type AccordionType = "single" | "multiple";
-
 type AccordionCommonProps = Omit<
   ComponentProps<typeof AccordionPrimitive.Root>,
   "multiple" | "value" | "defaultValue" | "onValueChange"
@@ -28,31 +26,45 @@ type AccordionMultipleProps = {
 
 type AccordionProps = AccordionCommonProps & (AccordionSingleProps | AccordionMultipleProps);
 
+type AccordionMergedProps = AccordionCommonProps & {
+  type?: "single" | "multiple";
+  collapsible?: boolean;
+  value?: string | string[];
+  defaultValue?: string | string[];
+  onValueChange?: ((value: string) => void) | ((value: string[]) => void);
+};
+
 const Accordion = forwardRef<ComponentRef<typeof AccordionPrimitive.Root>, AccordionProps>(
   (props, ref) => {
-    const { type = "single" } = props;
-    const multiple = type === "multiple";
-
-    const { collapsible = false } = (props as AccordionSingleProps) ?? {};
+    const merged = props as AccordionMergedProps;
     const {
-      type: _type,
-      collapsible: _collapsible,
+      type = "single",
+      collapsible = false,
       value,
       defaultValue,
       onValueChange,
       ...rootProps
-    } = props as any;
+    } = merged;
+    const multiple = type === "multiple";
 
-    const controlledValue = useMemo(() => {
+    const controlledValue = useMemo<string[] | undefined>(() => {
       if (value === undefined) return undefined;
-      if (multiple) return Array.isArray(value) ? value : [value];
+      if (multiple) {
+        if (Array.isArray(value)) return value;
+        return [value];
+      }
+      if (Array.isArray(value)) return value;
       if (value === "") return [];
       return [value];
     }, [multiple, value]);
 
-    const uncontrolledDefaultValue = useMemo(() => {
+    const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
       if (defaultValue === undefined) return undefined;
-      if (multiple) return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+      if (multiple) {
+        if (Array.isArray(defaultValue)) return defaultValue;
+        return [defaultValue];
+      }
+      if (Array.isArray(defaultValue)) return defaultValue;
       if (defaultValue === "") return [];
       return [defaultValue];
     }, [defaultValue, multiple]);
@@ -62,21 +74,24 @@ const Accordion = forwardRef<ComponentRef<typeof AccordionPrimitive.Root>, Accor
         ref={ref}
         data-slot="accordion"
         multiple={multiple}
-        value={controlledValue as any}
-        defaultValue={uncontrolledDefaultValue as any}
+        value={controlledValue}
+        defaultValue={uncontrolledDefaultValue}
         onValueChange={(nextValue, details) => {
+          if (!onValueChange) return;
+
           if (multiple) {
-            onValueChange?.(nextValue.filter((v: unknown) => v != null) as any);
+            const filtered = nextValue.filter((v): v is string => v != null);
+            (onValueChange as (value: string[]) => void)(filtered);
             return;
           }
 
-          if (collapsible === false && nextValue.length === 0) {
+          if (!collapsible && nextValue.length === 0) {
             details.cancel();
             return;
           }
 
-          const next = nextValue[0];
-          onValueChange?.((next ?? "") as any);
+          const next = nextValue[0] ?? "";
+          (onValueChange as (value: string) => void)(next);
         }}
         {...rootProps}
       />

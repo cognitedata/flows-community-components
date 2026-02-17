@@ -352,9 +352,8 @@ export const Disabled: Story = {
     for (const trigger of triggers) {
       const isAriaDisabled = trigger.getAttribute("aria-disabled") === "true";
       const hasDataDisabled = trigger.hasAttribute("data-disabled");
-      expect(isAriaDisabled || hasDataDisabled || (trigger as HTMLButtonElement).disabled).toBe(
-        true
-      );
+      const isNativeDisabled = trigger instanceof HTMLButtonElement && trigger.disabled;
+      expect(isAriaDisabled || hasDataDisabled || isNativeDisabled).toBe(true);
     }
   },
 };
