@@ -1,14 +1,10 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/aura/input-group";
-import { Kbd } from "@/components/ui/aura/kbd";
-import { Label } from "@/components/ui/aura/label";
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconCheck, IconSearch, IconSend, IconX } from "@tabler/icons-react";
+import { useState } from "react";
+import { Button } from "../button";
+import { Kbd } from "../kbd";
+import { Label } from "../label";
 import {
   PromptInput,
   PromptInputAttachment,
@@ -18,11 +14,15 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "@/components/ui/aura/prompt-input";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconCheck, IconSearch, IconSend, IconX } from "@tabler/icons-react";
-import { useState } from "react";
+} from "../prompt-input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "./input-group";
 
 const meta: Meta<typeof InputGroup> = {
   title: "Primitives/Input Group",
