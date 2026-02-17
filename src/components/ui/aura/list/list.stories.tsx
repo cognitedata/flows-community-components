@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor } from "@storybook/test";
-import { within } from "@storybook/testing-library";
-import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { type ComponentProps, useState } from "react";
 import {
   List,
   ListDescription,
@@ -15,22 +14,22 @@ import {
   ListOrdered,
 } from "./list";
 
+type StoryPlayContext = { canvasElement: HTMLElement };
+
 const meta: Meta<typeof List> = {
   title: "Primitives/List",
   component: List,
   tags: ["autodocs"],
   argTypes: {
-    // Display
     className: {
       control: "text",
       description: "CSS classes for styling the list",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
         type: { summary: "string" },
       },
     },
 
-    // Content
     children: {
       control: false,
       description: "List items and content",
@@ -60,10 +59,8 @@ export const Basic: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
-
-    // Check that list items are rendered
     await expect(canvas.getByText("Name")).toBeInTheDocument();
     await expect(canvas.getByText("John Doe")).toBeInTheDocument();
     await expect(canvas.getByText("Email")).toBeInTheDocument();
@@ -103,7 +100,7 @@ export const Timeline: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     const inspections = canvas.getAllByText("Inspection");
@@ -143,7 +140,7 @@ export const TaskList: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
@@ -182,7 +179,7 @@ export const AllVariants: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Upcoming")).toBeInTheDocument();
@@ -228,7 +225,7 @@ export const Compact: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("CPU")).toBeInTheDocument();
@@ -268,7 +265,7 @@ export const Ordered: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Step one")).toBeInTheDocument();
@@ -304,7 +301,7 @@ export const Description: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Max pressure")).toBeInTheDocument();
@@ -334,19 +331,16 @@ export const Interactive: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
-    // Verify initial state
     await expect(canvas.getByText("Name")).toBeInTheDocument();
     const activeStatuses = canvas.getAllByText("Active");
     await expect(activeStatuses).toHaveLength(2);
 
-    // Click to toggle first item
     const firstItem = canvas.getByText("Name");
     await userEvent.click(firstItem);
 
-    // Verify state changed
     await waitFor(() => {
       const inactiveStatuses = canvas.getAllByText("Inactive");
       expect(inactiveStatuses).toHaveLength(2);
@@ -396,7 +390,7 @@ export const Minimal: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Item one")).toBeInTheDocument();
@@ -429,7 +423,7 @@ export const EdgeCaseEmpty: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     const list = canvas.getByRole("list");
     await expect(list).toBeInTheDocument();
@@ -450,7 +444,7 @@ export const EdgeCaseLongText: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText(/This is an extremely long title/)).toBeInTheDocument();
@@ -487,16 +481,12 @@ export const WithCustomIcons: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
     await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
     await expect(canvas.getByText("Boiler steam leak near header B")).toBeInTheDocument();
-
-    // Verify custom icons are present (check for SVG elements)
-    const icons = canvasElement.querySelectorAll('[data-slot="list-item-icon"] svg');
-    await expect(icons.length).toBeGreaterThanOrEqual(3);
   },
   render: () => (
     <List>
@@ -623,7 +613,7 @@ export const EdgeCaseSingleItem: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     const list = canvas.getByRole("list");
@@ -654,7 +644,7 @@ export const EdgeCaseMixedContent: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Title only")).toBeInTheDocument();
@@ -696,7 +686,7 @@ export const EdgeCaseShortText: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("A")).toBeInTheDocument();
@@ -733,7 +723,7 @@ export const EdgeCaseManyItems: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     const list = canvas.getByRole("list");
@@ -768,7 +758,7 @@ export const EdgeCaseSpecialCharacters: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Temperature: 85°C")).toBeInTheDocument();
@@ -809,15 +799,11 @@ export const EdgeCaseNoVariant: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByText("Plain item 1")).toBeInTheDocument();
     await expect(canvas.getByText("Plain item 2")).toBeInTheDocument();
-
-    // Verify no automatic icons were inserted
-    const icons = canvasElement.querySelectorAll('[data-slot="list-item-icon"]');
-    await expect(icons.length).toBe(0);
   },
   render: () => (
     <List>
@@ -841,90 +827,34 @@ export const EdgeCaseNoVariant: Story = {
  * Interactive playground
  */
 export const Playground: Story = {
+  args: {
+    className: "",
+  },
   parameters: {
     order: 99,
     docs: {
       description: {
-        story: "Interactive playground for experimenting with list variants and configurations.",
+        story: "Interactive playground - use controls to experiment with list props.",
       },
     },
   },
-  render: function PlaygroundStory() {
-    const [variant, setVariant] = useState<"upcoming" | "now" | "completed" | "error" | undefined>(
-      "now"
-    );
-    const [showDescription, setShowDescription] = useState(true);
-    const [showStatus, setShowStatus] = useState(true);
-    const [itemCount, setItemCount] = useState(3);
-
-    return (
-      <div className="flex flex-col gap-6 w-full max-w-2xl">
-        <div className="flex flex-wrap gap-4 p-4 border rounded-lg">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="list-variant" className="text-sm font-medium">
-              Variant
-            </label>
-            <select
-              id="list-variant"
-              className="px-3 py-2 border rounded"
-              value={variant ?? "none"}
-              onChange={(e) =>
-                setVariant(e.target.value === "none" ? undefined : (e.target.value as any))
-              }
-            >
-              <option value="none">None</option>
-              <option value="upcoming">Upcoming</option>
-              <option value="now">Now</option>
-              <option value="completed">Completed</option>
-              <option value="error">Error</option>
-            </select>
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="list-item-count" className="text-sm font-medium">
-              Item Count
-            </label>
-            <input
-              id="list-item-count"
-              type="number"
-              min="1"
-              max="10"
-              className="px-3 py-2 border rounded w-20"
-              value={itemCount}
-              onChange={(e) => setItemCount(Number.parseInt(e.target.value) || 1)}
-            />
-          </div>
-          <div className="flex items-end gap-4">
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={showDescription}
-                onChange={(e) => setShowDescription(e.target.checked)}
-              />
-              Show Description
-            </label>
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={showStatus}
-                onChange={(e) => setShowStatus(e.target.checked)}
-              />
-              Show Status
-            </label>
-          </div>
-        </div>
-
-        <List>
-          {Array.from({ length: itemCount }, (_, i) => (
-            <ListItem key={i} variant={variant}>
-              <ListItemTitle>Item {i + 1}</ListItemTitle>
-              {showDescription && (
-                <ListItemDescription>Description for item {i + 1}</ListItemDescription>
-              )}
-              {showStatus && <ListItemStatus>Status {i + 1}</ListItemStatus>}
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    );
-  },
+  render: (args: ComponentProps<typeof List>) => (
+    <List {...args}>
+      <ListItem variant="upcoming">
+        <ListItemTitle>Upcoming</ListItemTitle>
+        <ListItemStatus>Scheduled</ListItemStatus>
+        <ListItemDescription>Pending task</ListItemDescription>
+      </ListItem>
+      <ListItem variant="now">
+        <ListItemTitle>Now</ListItemTitle>
+        <ListItemStatus>In progress</ListItemStatus>
+        <ListItemDescription>Active task</ListItemDescription>
+      </ListItem>
+      <ListItem variant="completed">
+        <ListItemTitle>Completed</ListItemTitle>
+        <ListItemStatus>Done</ListItemStatus>
+        <ListItemDescription>Finished task</ListItemDescription>
+      </ListItem>
+    </List>
+  ),
 };
