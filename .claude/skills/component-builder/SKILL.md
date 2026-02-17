@@ -21,15 +21,31 @@ This skill references actual files in the codebase as examples. To locate a file
 
 Use Base UI for complex interactions (dropdowns, dialogs), keyboard navigation, ARIA states. Use native HTML for simple elements (lists, headings, divs). See `dialog.tsx` and `alert.tsx` for accessibility patterns.
 
+Do not add `data-testid` attributes in production component code. Keep tests semantic (`getByRole`, `getByLabelText`, etc.). If a unit test needs a test id for a mocked component, add it in the test file only.
+
 ## Component Structure
 
 **Exports at bottom in a single export block (one identifier per line).** Avoid multiple single-export statements like `export { Foo };`. See `badge.tsx` for export pattern.
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
+## Aura Import Paths
+
+In `src/components/ui/aura/**`, prefer relative imports (for example `../../../../lib/utils`) instead of `@/*` aliases so component outputs stay portable for registry/Fusion usage.
+
+## Fusion Type Safety Rules
+
+- Never use `any` or `as` casts in component code.
+- Use `unknown` and type guards for narrowing.
+- Exception: `Partial<T> as T` is acceptable for test mocks only.
+
 ## Composition Over Configuration
 
 Use composition patterns for flexibility. See `card.tsx` for component structure and `card.stories.tsx` for usage examples.
+
+Keep business logic out of UI components. Move SDK queries/mutations/side effects to hooks and inject dependencies via context when needed.
+
+Prefer derived values over `useState` + `useEffect` for computed state.
 
 ## Styling Conventions
 
@@ -118,3 +134,6 @@ Before committing changes:
 12. Ensure `*.metadata.ts` files contain metadata only (no runtime/component code)
 13. Update `src/lib/primitives-catalog.ts` when primitive/foundation coverage changes
 14. Ask the user if progress status is ambiguous before setting it
+15. No `any` or `as` casts in component code
+16. No `data-testid` in production component code
+17. Keep business logic in hooks/services, not UI components

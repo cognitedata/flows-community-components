@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/aura/dialog";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const Command = forwardRef<
   ComponentRef<typeof CommandPrimitive>,

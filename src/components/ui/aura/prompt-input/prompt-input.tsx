@@ -67,8 +67,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/aura/select";
-import type { ChatStatus, FileUIPart } from "@/lib/ai/types";
-import { cn, convertBlobUrlToDataUrl } from "@/lib/utils";
+import type { ChatStatus, FileUIPart } from "../../../../lib/ai/types";
+import { cn, convertBlobUrlToDataUrl } from "../../../../lib/utils";
 
 type AttachmentsContext = {
   files: (FileUIPart & { id: string })[];

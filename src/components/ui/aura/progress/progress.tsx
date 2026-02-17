@@ -1,7 +1,7 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
-import { cn } from "@/lib/utils";
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
+import { cn } from "../../../../lib/utils";
 
 const Progress = forwardRef<
   ComponentRef<typeof ProgressPrimitive.Root>,

@@ -6,9 +6,9 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
 import { HelperText } from "@/components/ui/aura/helper-text";
-import { cn } from "@/lib/utils";
 import { IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
 import { type ComponentProps, type ReactNode, createContext, useContext } from "react";
+import { cn } from "../../../../lib/utils";
 
 type ApprovalType = {
   approved?: boolean;
