@@ -123,6 +123,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Component `*.metadata.ts` files should include `name`, `status`, and `description` fields for the registry build script.
 - Export blocks should list one export per line within a single `export { ... }` block (no separate `export { X };` lines).
 - `getPortalContainer` supports optional `id`, `className`, and `style` overrides only at first container creation; once cached, custom options are ignored to avoid side effects on subsequent calls.
+- For Base UI tooltip delay tests, avoid mouse-move “keepalive” events during the delay; they can prevent the delayed open from triggering. Prefer `hover` + deterministic wait, with a single hover retry if needed.
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.

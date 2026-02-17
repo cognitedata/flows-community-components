@@ -12,5 +12,5 @@ export const TooltipMetadata: ComponentMeta = {
   description:
     "A popup that displays information related to an element when the element receives keyboard focus or mouse hover, built on Base UI Tooltip primitives.",
   llmUsage:
-    "Use `<Tooltip>` with `<TooltipTrigger>` and `<TooltipContent>` for contextual help text.",
+    "Use `<TooltipProvider>` to configure shared behavior (for example delay), then compose `<Tooltip>`, `<TooltipTrigger>`, and `<TooltipContent>` for contextual help text.",
 };
