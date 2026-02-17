@@ -7,8 +7,8 @@ import {
   useContext,
 } from "react";
 
-import { cn } from "@/lib/utils";
 import { IconBrain } from "@tabler/icons-react";
+import { cn } from "../../../../lib/utils";
 
 const ReasoningDecorationsContext = createContext<boolean>(true);
 const useReasoningDecorations = () => useContext(ReasoningDecorationsContext);
