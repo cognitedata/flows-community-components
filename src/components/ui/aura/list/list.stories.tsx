@@ -780,8 +780,28 @@ export const EdgeCaseSpecialCharacters: Story = {
         <ListItemDescription>Cubic meter per hour with superscript</ListItemDescription>
       </ListItem>
       <ListItem>
-        <ListItemTitle>Status: ✓ Passed</ListItemTitle>
-        <ListItemDescription>Check mark and emoji: ✓ ✗ ⚠️ 🔧</ListItemDescription>
+        <ListItemTitle>
+          Status:{" "}
+          <span role="img" aria-label="check mark">
+            ✓
+          </span>{" "}
+          Passed
+        </ListItemTitle>
+        <ListItemDescription>
+          Check mark and emoji:{" "}
+          <span role="img" aria-label="check mark">
+            ✓
+          </span>{" "}
+          <span role="img" aria-label="cross mark">
+            ✗
+          </span>{" "}
+          <span role="img" aria-label="warning">
+            ⚠️
+          </span>{" "}
+          <span role="img" aria-label="wrench">
+            🔧
+          </span>
+        </ListItemDescription>
       </ListItem>
     </List>
   ),

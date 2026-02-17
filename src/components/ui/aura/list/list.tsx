@@ -78,107 +78,47 @@ const listItemStatusVariants = cva("", {
   },
 });
 
-const isListItemIconElement = (child: ReactNode) => {
-  if (!isValidElement(child)) {
-    return false;
+function isObjectLike(val: unknown): val is Record<string, unknown> {
+  return (typeof val === "object" || typeof val === "function") && val !== null;
+}
+
+function getReactDisplayName(value: unknown): string | undefined {
+  if (!isObjectLike(value)) return undefined;
+  const d = value.displayName ?? value.name;
+  if (typeof d === "string") return d;
+  const render = value.render;
+  if (isObjectLike(render)) {
+    const rd = render.displayName ?? render.name;
+    return typeof rd === "string" ? rd : undefined;
   }
+  return undefined;
+}
 
+const isListItemIconElement = (child: ReactNode) => {
+  if (!isValidElement(child)) return false;
   const childType = child.type;
-  const displayName = (() => {
-    if (typeof childType === "function") {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
-    }
-
-    if (typeof childType === "object" && childType) {
-      const typedChild = childType as {
-        displayName?: string;
-        render?: { displayName?: string; name?: string };
-      };
-
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
-    }
-
-    return undefined;
-  })();
-
+  const displayName = getReactDisplayName(childType);
   return childType === ListItemIcon || displayName === "ListItemIcon";
 };
 
 const isListItemStatusElement = (child: ReactNode) => {
-  if (!isValidElement(child)) {
-    return false;
-  }
-
+  if (!isValidElement(child)) return false;
   const childType = child.type;
-  const displayName = (() => {
-    if (typeof childType === "function") {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
-    }
-
-    if (typeof childType === "object" && childType) {
-      const typedChild = childType as {
-        displayName?: string;
-        render?: { displayName?: string; name?: string };
-      };
-
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
-    }
-
-    return undefined;
-  })();
-
+  const displayName = getReactDisplayName(childType);
   return childType === ListItemStatus || displayName === "ListItemStatus";
 };
 
 const isListItemDescriptionElement = (child: ReactNode) => {
-  if (!isValidElement(child)) {
-    return false;
-  }
-
+  if (!isValidElement(child)) return false;
   const childType = child.type;
-  const displayName = (() => {
-    if (typeof childType === "function") {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
-    }
-
-    if (typeof childType === "object" && childType) {
-      const typedChild = childType as {
-        displayName?: string;
-        render?: { displayName?: string; name?: string };
-      };
-
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
-    }
-
-    return undefined;
-  })();
-
+  const displayName = getReactDisplayName(childType);
   return childType === ListItemDescription || displayName === "ListItemDescription";
 };
 
 const isListItemTitleElement = (child: ReactNode) => {
-  if (!isValidElement(child)) {
-    return false;
-  }
-
+  if (!isValidElement(child)) return false;
   const childType = child.type;
-  const displayName = (() => {
-    if (typeof childType === "function") {
-      return (childType as { displayName?: string; name?: string }).displayName ?? childType.name;
-    }
-
-    if (typeof childType === "object" && childType) {
-      const typedChild = childType as {
-        displayName?: string;
-        render?: { displayName?: string; name?: string };
-      };
-
-      return typedChild.displayName ?? typedChild.render?.displayName ?? typedChild.render?.name;
-    }
-
-    return undefined;
-  })();
-
+  const displayName = getReactDisplayName(childType);
   return childType === ListItemTitle || displayName === "ListItemTitle";
 };
 
