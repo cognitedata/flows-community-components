@@ -1465,13 +1465,7 @@
       "title": "Tool",
       "description": "A collapsible component for displaying AI tool invocations.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/badge",
-        "@aura/button",
-        "@aura/code-block",
-        "@aura/collapsible"
-      ],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/tool/tool.tsx",

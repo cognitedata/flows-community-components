@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/aura/button";
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@/components/ui/aura/tool";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
+import { Button } from "../button";
+import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "./tool";
 
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",
