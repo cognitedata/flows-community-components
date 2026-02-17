@@ -29,6 +29,10 @@ Do not add `data-testid` attributes in production component code. Keep tests sem
 
 **Inline prop typing, no export unless needed externally.** See component files like `button.tsx` for prop typing patterns.
 
+## Aura Import Paths
+
+In `src/components/ui/aura/**`, prefer relative imports (for example `../../../../lib/utils`) instead of `@/*` aliases so component outputs stay portable for registry/Fusion usage.
+
 ## Fusion Type Safety Rules
 
 - Never use `any` or `as` casts in component code.
