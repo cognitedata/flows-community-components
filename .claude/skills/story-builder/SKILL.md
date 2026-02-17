@@ -67,6 +67,8 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
 **NO inline code comments in play functions.** Code should be self-explanatory.
 
+Use deterministic interactions. Do not add retry-style `try/catch` fallback flows to re-run hover/click/tab actions. Fix timing/animation/state synchronization at the source.
+
 See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
 
 ## Render Functions
@@ -78,9 +80,20 @@ See `avatar.stories.tsx` for play function examples with DOM queries and asserti
 Prioritize semantic queries over test IDs in play functions:
 
 1. **Prefer:** `getByRole`, `getByLabelText`, `getByText`, `getByPlaceholderText`
-2. **Avoid:** `getByTestId` unless semantic queries are unavailable
+2. **Avoid:** `getByTestId` in normal story tests
 
 Semantic queries improve accessibility and make tests more resilient to implementation changes.
+
+Exception: in unit tests (not production code or normal story interactions), `getByTestId` is acceptable when the test itself mocks a component and adds the test id locally.
+
+## Fusion Test Type Safety Rules
+
+- Never use `any` or `as` casts in stories/tests.
+- Use `unknown` and type guards for narrowing.
+- Exception: `Partial<T> as T` is acceptable for test mocks.
+- Prefer typed mocks: `vi.fn(() => ...)`, `vi.fn<T>()`, `vi.mocked(...)`, `vi.mock(import(...))`.
+- Prefer `toHaveBeenCalledWith` / `toHaveBeenNthCalledWith` over reading `mock.calls` directly.
+- For debounce/throttle behavior, use fake timers instead of mocking debounce/timer utilities.
 
 ### Testing Buttons in Play Functions
 
@@ -94,7 +107,7 @@ See `card.stories.tsx` for examples of testing heading levels with `canvas.getBy
 
 ### Testing Portal Content
 
-Storybook's canvas now handles portal content correctly. Use `canvas.findByTestId()` for all queries. See `dialog.stories.tsx` or `drawer.stories.tsx` for portal testing examples.
+Storybook's canvas handles portal content correctly. Prefer semantic queries in `canvas` or `within(document.body)` before considering test IDs.
 
 ## Styling in Stories
 
@@ -138,3 +151,6 @@ Before committing changes:
 8. No deprecated third-party components used
 9. Keep story comments short and relevant to the example
 10. Update or confirm `src/lib/primitives-catalog.ts` progress metadata when readiness changes
+11. No retry fallback logic in play functions
+12. No `any` or `as` casts in story/test code (except `Partial<T> as T` for test mocks)
+13. Prefer semantic DOM queries over test IDs
