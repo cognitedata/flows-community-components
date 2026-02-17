@@ -1309,7 +1309,7 @@
       "title": "Sources",
       "description": "Components for displaying source references and citations.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/inline-citation"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/sources/sources.tsx",

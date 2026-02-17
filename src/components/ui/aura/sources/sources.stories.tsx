@@ -1,6 +1,3 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -11,6 +8,9 @@ import {
   IconPhoto,
   IconWorld,
 } from "@tabler/icons-react";
+import { Badge } from "../badge";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../hover-card";
+import { Source, Sources, SourcesTitle } from "./sources";
 
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",
@@ -252,21 +252,11 @@ export const TooManySourcesWithOverflow: Story = {
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     const overflowPill = canvas.getByText("+4");
     const hoverCardSelector = '[data-slot="hover-card-content"][data-open]';
-    const waitForHoverCard = async () => {
-      await waitFor(() => {
-        const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
-        expect(hovercard).toBeTruthy();
-      });
-    };
-
     await userEvent.hover(overflowPill);
-    try {
-      await waitForHoverCard();
-    } catch {
-      await userEvent.unhover(overflowPill);
-      await userEvent.hover(overflowPill);
-      await waitForHoverCard();
-    }
+    await waitFor(() => {
+      const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
+      expect(hovercard).toBeTruthy();
+    });
   },
 };
 

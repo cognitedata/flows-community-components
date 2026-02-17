@@ -2,8 +2,8 @@ import type { ComponentProps, ReactNode } from "react";
 
 import { IconMist } from "@tabler/icons-react";
 
-import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
 import { cn } from "../../../../lib/utils";
+import { InlineCitation, InlineCitationLink } from "../inline-citation";
 
 type SourcesProps = Omit<ComponentProps<"div">, "title"> & {
   title?: ReactNode | boolean;
@@ -80,4 +80,4 @@ const Source = ({
   );
 };
 
-export { Sources, SourcesTitle, Source };
+export { Source, Sources, SourcesTitle };
