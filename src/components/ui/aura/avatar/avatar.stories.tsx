@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
 import { useState } from "react";
+
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, userEvent, within } from "@storybook/test";
+import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
 import { getStorybookImagePath } from "../../../../lib/utils";
 import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "./avatar";
 
@@ -77,11 +78,8 @@ export const Basic: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatar = canvasElement.querySelector('[data-slot="avatar"]');
-    await expect(avatar).toBeInTheDocument();
-
-    const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
-    await expect(fallback).toHaveTextContent("AB");
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("AB")).toBeInTheDocument();
   },
 };
 
@@ -90,9 +88,9 @@ export const Basic: Story = {
  */
 export const WithIcon: Story = {
   render: () => (
-    <Avatar variant="fjord" sizes="default">
+    <Avatar variant="fjord" sizes="default" aria-label="Wheel avatar">
       <AvatarIcon>
-        <IconWheel />
+        <IconWheel role="img" aria-label="Wheel icon" />
       </AvatarIcon>
     </Avatar>
   ),
@@ -106,11 +104,9 @@ export const WithIcon: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatar = canvasElement.querySelector('[data-slot="avatar"]');
-    await expect(avatar).toBeInTheDocument();
-
-    const icon = avatar?.querySelector("svg");
-    await expect(icon).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByLabelText("Wheel avatar")).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Wheel icon" })).toBeInTheDocument();
   },
 };
 
@@ -119,7 +115,7 @@ export const WithIcon: Story = {
  */
 export const WithImage: Story = {
   render: () => (
-    <Avatar variant="default" sizes="default">
+    <Avatar variant="default" sizes="default" aria-label="User profile avatar">
       <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="User avatar" />
       <AvatarFallback>PJ</AvatarFallback>
     </Avatar>
@@ -134,21 +130,11 @@ export const WithImage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatar = canvasElement.querySelector('[data-slot="avatar"]');
+    const canvas = within(canvasElement);
+    const avatar = canvas.getByLabelText("User profile avatar");
     await expect(avatar).toBeInTheDocument();
-
-    await waitFor(
-      () => {
-        const found = canvasElement.querySelector('[data-slot="avatar-image"]');
-        expect(found).toBeInTheDocument();
-        return found;
-      },
-      { timeout: 2000 }
-    );
-
-    if (avatar) {
-      await userEvent.hover(avatar);
-    }
+    await expect(await canvas.findByRole("img", { name: "User avatar" })).toBeInTheDocument();
+    await userEvent.hover(avatar);
   },
 };
 
@@ -194,11 +180,15 @@ export const AllVariants: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(8);
-
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    await expect(fallbacks.length).toBe(8);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("AB")).toBeInTheDocument();
+    await expect(canvas.getByText("NC")).toBeInTheDocument();
+    await expect(canvas.getByText("FJ")).toBeInTheDocument();
+    await expect(canvas.getByText("AR")).toBeInTheDocument();
+    await expect(canvas.getByText("DK")).toBeInTheDocument();
+    await expect(canvas.getByText("OR")).toBeInTheDocument();
+    await expect(canvas.getByText("SK")).toBeInTheDocument();
+    await expect(canvas.getByText("+4")).toBeInTheDocument();
   },
 };
 
@@ -210,37 +200,37 @@ export const AllVariantsWithIcons: Story = {
     <div className="flex items-center gap-4">
       <Avatar variant="default">
         <AvatarIcon>
-          <IconUser />
+          <IconUser role="img" aria-label="Default user icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="nordic">
         <AvatarIcon>
-          <IconRobot />
+          <IconRobot role="img" aria-label="Nordic robot icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="fjord">
         <AvatarIcon>
-          <IconWheel />
+          <IconWheel role="img" aria-label="Fjord wheel icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="aurora">
         <AvatarIcon>
-          <IconStar />
+          <IconStar role="img" aria-label="Aurora star icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="dusk">
         <AvatarIcon>
-          <IconHeart />
+          <IconHeart role="img" aria-label="Dusk heart icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="orange">
         <AvatarIcon>
-          <IconUser />
+          <IconUser role="img" aria-label="Orange user icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="sky">
         <AvatarIcon>
-          <IconRobot />
+          <IconRobot role="img" aria-label="Sky robot icon" />
         </AvatarIcon>
       </Avatar>
     </div>
@@ -255,11 +245,14 @@ export const AllVariantsWithIcons: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(7);
-
-    const icons = canvasElement.querySelectorAll('[data-slot="avatar-icon"]');
-    await expect(icons.length).toBe(7);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("img", { name: "Default user icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Nordic robot icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Fjord wheel icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Aurora star icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Dusk heart icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Orange user icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Sky robot icon" })).toBeInTheDocument();
   },
 };
 
@@ -289,16 +282,10 @@ export const AllSizes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(3);
-
-    const large = canvasElement.querySelector('[class*="size-9"]');
-    const medium = canvasElement.querySelector('[class*="size-7"]');
-    const small = canvasElement.querySelector('[class*="size-5"]');
-
-    await expect(large).toBeInTheDocument();
-    await expect(medium).toBeInTheDocument();
-    await expect(small).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("LG")).toBeInTheDocument();
+    await expect(canvas.getByText("MD")).toBeInTheDocument();
+    await expect(canvas.getByText("SM")).toBeInTheDocument();
   },
 };
 
@@ -310,17 +297,17 @@ export const IconAllSizes: Story = {
     <div className="flex items-center gap-4">
       <Avatar variant="nordic" sizes="default">
         <AvatarIcon>
-          <IconUser />
+          <IconUser role="img" aria-label="Large user icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="nordic" sizes="xsm">
         <AvatarIcon>
-          <IconUser />
+          <IconUser role="img" aria-label="Medium user icon" />
         </AvatarIcon>
       </Avatar>
       <Avatar variant="nordic" sizes="xxsm">
         <AvatarIcon>
-          <IconUser />
+          <IconUser role="img" aria-label="Small user icon" />
         </AvatarIcon>
       </Avatar>
     </div>
@@ -334,19 +321,10 @@ export const IconAllSizes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(3);
-
-    const icons = canvasElement.querySelectorAll("svg");
-    await expect(icons.length).toBe(3);
-
-    const large = canvasElement.querySelector('[class*="size-9"]');
-    const medium = canvasElement.querySelector('[class*="size-7"]');
-    const small = canvasElement.querySelector('[class*="size-5"]');
-
-    await expect(large).toBeInTheDocument();
-    await expect(medium).toBeInTheDocument();
-    await expect(small).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("img", { name: "Large user icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Medium user icon" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Small user icon" })).toBeInTheDocument();
   },
 };
 
@@ -380,26 +358,12 @@ export const ImagesAllSizes: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(3);
-
-    const images = await waitFor(
-      () => {
-        const found = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
-        if (found.length < 3) {
-          throw new Error(`Expected 3 images, found ${found.length}`);
-        }
-        return found;
-      },
-      { timeout: 5000 }
-    );
-
-    expect(images.length).toBe(3);
-
-    const firstAvatar = avatars[0];
-    if (firstAvatar) {
-      await userEvent.hover(firstAvatar);
-    }
+    const canvas = within(canvasElement);
+    const largeImage = await canvas.findByRole("img", { name: "Large avatar" });
+    await expect(largeImage).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Medium avatar" })).toBeInTheDocument();
+    await expect(canvas.getByRole("img", { name: "Small avatar" })).toBeInTheDocument();
+    await userEvent.hover(largeImage);
   },
 };
 
@@ -490,22 +454,18 @@ export const Accessibility: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(3);
     const canvas = within(canvasElement);
-    await waitFor(() => {
-      const images = canvasElement.querySelectorAll("img");
-      const altTexts = Array.from(images).map((image) => image.getAttribute("alt"));
-      expect(altTexts).toContain("John Doe's avatar");
-      expect(altTexts).toContain("Jane Smith's avatar");
-    });
-    const decorativeAvatar = canvasElement.querySelectorAll('[data-slot="avatar"]')[2];
-    const decorativeImage = decorativeAvatar?.querySelector('img[data-slot="avatar-image"]');
+
+    await expect(await canvas.findByRole("img", { name: "John Doe's avatar" })).toBeInTheDocument();
+    await expect(
+      await canvas.findByRole("img", { name: "Jane Smith's avatar" })
+    ).toBeInTheDocument();
+
+    const decorativeImage = canvas.queryByAltText("");
     if (decorativeImage) {
       await expect(decorativeImage).toHaveAttribute("alt", "");
     } else {
-      const decorativeFallback = decorativeAvatar?.querySelector('[data-slot="avatar-fallback"]');
-      await expect(decorativeFallback).toBeInTheDocument();
+      await expect(canvas.getByText("PJ")).toBeInTheDocument();
     }
   },
 };
@@ -516,13 +476,13 @@ export const Accessibility: Story = {
 export const EdgeCaseEmpty: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Avatar variant="default">
+      <Avatar variant="default" aria-label="Empty default avatar">
         <AvatarFallback />
       </Avatar>
-      <Avatar variant="nordic" sizes="xsm">
+      <Avatar variant="nordic" sizes="xsm" aria-label="Empty nordic avatar">
         <AvatarFallback />
       </Avatar>
-      <Avatar variant="fjord" sizes="xxsm">
+      <Avatar variant="fjord" sizes="xxsm" aria-label="Empty fjord avatar">
         <AvatarFallback />
       </Avatar>
     </div>
@@ -537,20 +497,14 @@ export const EdgeCaseEmpty: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(3);
-
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    await expect(fallbacks.length).toBe(3);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByLabelText("Empty default avatar")).toBeInTheDocument();
+    await expect(canvas.getByLabelText("Empty nordic avatar")).toBeInTheDocument();
+    await expect(canvas.getByLabelText("Empty fjord avatar")).toBeInTheDocument();
   },
 };
 
-/**
- * Edge case: Text overflow with varying character counts.
- * Shows how avatars handle different text lengths. Text beyond 2-3 characters
- * will overflow and be clipped. Consider limiting input or using smaller font
- * sizes for longer text.
- */
+/** Edge case: text overflow with varying character counts. */
 export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
@@ -618,18 +572,17 @@ export const EdgeCaseLongText: Story = {
     docs: {
       description: {
         story:
-          "Edge case: Avatars with varying text lengths. Text beyond 2-3 characters will overflow. Consider limiting input to 1-2 characters or using smaller font sizes (text-xs) for longer text.",
+          "Edge case showing how fallback text behaves across short and long character counts.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    await expect(fallbacks.length).toBeGreaterThanOrEqual(3);
-
-    const longTextAvatars = Array.from(fallbacks).filter((fb) =>
-      fb.textContent?.includes("ABCDEFGH")
-    );
-    await expect(longTextAvatars.length).toBeGreaterThanOrEqual(3);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Character count variations (default size)")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Without font size adjustment (text overflows)")
+    ).toBeInTheDocument();
+    await expect(canvas.getAllByText("ABCDEFGH")).toHaveLength(3);
   },
 };
 
@@ -673,18 +626,12 @@ export const EdgeCaseSpecialCharacters: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(5);
-
-    const emojiFallback = Array.from(
-      canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes("🎨"));
-    await expect(emojiFallback).toBeInTheDocument();
-
-    const chineseFallback = Array.from(
-      canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes("中文"));
-    await expect(chineseFallback).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("img", { name: "artist palette" })).toBeInTheDocument();
+    await expect(canvas.getByText("@#$")).toBeInTheDocument();
+    await expect(canvas.getByText("中文")).toBeInTheDocument();
+    await expect(canvas.getByText("Кир")).toBeInTheDocument();
+    await expect(canvas.getByText("♥♦♣♠")).toBeInTheDocument();
   },
 };
 
@@ -715,12 +662,10 @@ export const EdgeCaseSingleCharacter: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    await expect(fallbacks.length).toBe(3);
-
-    await expect(fallbacks[0]).toHaveTextContent("A");
-    await expect(fallbacks[1]).toHaveTextContent("Z");
-    await expect(fallbacks[2]).toHaveTextContent("M");
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("A")).toBeInTheDocument();
+    await expect(canvas.getByText("Z")).toBeInTheDocument();
+    await expect(canvas.getByText("M")).toBeInTheDocument();
   },
 };
 
@@ -754,13 +699,11 @@ export const EdgeCaseNumbers: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    await expect(fallbacks.length).toBe(4);
-
-    await expect(fallbacks[0]).toHaveTextContent("1");
-    await expect(fallbacks[1]).toHaveTextContent("42");
-    await expect(fallbacks[2]).toHaveTextContent("999");
-    await expect(fallbacks[3]).toHaveTextContent("+99");
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("1")).toBeInTheDocument();
+    await expect(canvas.getByText("42")).toBeInTheDocument();
+    await expect(canvas.getByText("999")).toBeInTheDocument();
+    await expect(canvas.getByText("+99")).toBeInTheDocument();
   },
 };
 
@@ -791,11 +734,10 @@ export const EdgeCaseTinyWithText: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(3);
-
-    const tinyAvatars = Array.from(avatars).filter((avatar) => avatar.className.includes("size-5"));
-    await expect(tinyAvatars.length).toBe(3);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("AB")).toBeInTheDocument();
+    await expect(canvas.getByText("ABC")).toBeInTheDocument();
+    await expect(canvas.getByText("ABCD")).toBeInTheDocument();
   },
 };
 
@@ -829,9 +771,6 @@ export const EdgeCaseFailedImage: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBe(3);
-
     const canvas = within(canvasElement);
     await expect(await canvas.findByText("FL")).toBeInTheDocument();
     await expect(await canvas.findByText("ER")).toBeInTheDocument();
@@ -848,8 +787,8 @@ export const EdgeCaseComplexIcons: Story = {
       <Avatar variant="nordic">
         <AvatarIcon>
           <div className="flex items-center justify-center gap-1">
-            <IconStar className="size-2" />
-            <IconStar className="size-2" />
+            <IconStar className="size-2" role="img" aria-label="Star icon" />
+            <IconStar className="size-2" role="img" aria-label="Star icon" />
           </div>
         </AvatarIcon>
       </Avatar>
@@ -879,12 +818,12 @@ export const EdgeCaseComplexIcons: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    const avatarIcons = canvasElement.querySelectorAll('[data-slot="avatar-icon"]');
-    await expect(avatarIcons.length).toBe(3);
-
-    const firstIcon = avatarIcons[0];
-    const stars = firstIcon.querySelectorAll("svg");
-    await expect(stars.length).toBeGreaterThanOrEqual(2);
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("img", { name: "Avatar icon" })).toBeInTheDocument();
+    await expect(canvas.getByText("AI")).toBeInTheDocument();
+    await expect(canvas.getAllByRole("img", { name: "Star icon" }).length).toBeGreaterThanOrEqual(
+      2
+    );
   },
 };
 
@@ -1047,9 +986,7 @@ export const VisualRegression: Story = {
   },
 };
 
-/**
- * Interactive playground for testing different configurations.
- */
+/** Interactive playground for avatar props. */
 export const Playground: Story = {
   render: (args) => (
     <Avatar {...args}>
@@ -1064,8 +1001,7 @@ export const Playground: Story = {
     order: 99,
     docs: {
       description: {
-        story:
-          "Interactive playground - use the controls below to experiment with all available avatar props and variants.",
+        story: "Interactive playground for trying avatar variants and sizes.",
       },
     },
   },

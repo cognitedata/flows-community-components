@@ -1,6 +1,7 @@
+import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
+
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { type VariantProps, cva } from "class-variance-authority";
-import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
 
 import { cn } from "../../../../lib/utils";
 
@@ -81,7 +82,7 @@ const AvatarFallback = forwardRef<
     <AvatarPrimitive.Fallback
       ref={ref}
       data-slot="avatar-fallback"
-      className={cn(" flex size-md items-center justify-center rounded-md", className)}
+      className={cn("flex size-full items-center justify-center rounded-md", className)}
       {...props}
     />
   );
