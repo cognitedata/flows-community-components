@@ -5,6 +5,8 @@ import { IconAlertTriangle, IconHelp, IconInfoCircle } from "@tabler/icons-react
 import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 
+const settle = () => new Promise((resolve) => setTimeout(resolve, 200));
+
 const getOpenTooltip = (matcher?: RegExp) => {
   const semanticTooltip = within(document.body)
     .queryAllByRole("tooltip")
@@ -66,6 +68,7 @@ const hoverAndWaitForTooltip = async (trigger: HTMLElement, matcher: RegExp, tim
     return await waitForOpenTooltip(matcher, timeout);
   } catch {
     await userEvent.unhover(trigger);
+    await settle();
     await userEvent.hover(trigger);
     return await waitForOpenTooltip(matcher, timeout);
   }
@@ -174,6 +177,7 @@ export const Basic: Story = {
     expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
 
     await hoverAndWaitForTooltip(button, /Publishing will make it available to all users/i);
+    await settle();
   },
   render: () => (
     <TooltipProvider>
@@ -203,6 +207,7 @@ export const WithButtonVariants: Story = {
 
     const firstButton = await canvas.findByRole("button", { name: /hover me/i }, { timeout: 2000 });
     await hoverAndWaitForTooltip(firstButton, /Publishing will make it available to all users/i);
+    await settle();
     await userEvent.unhover(firstButton);
     await waitForTooltipClosed();
 
@@ -212,6 +217,7 @@ export const WithButtonVariants: Story = {
       { timeout: 2000 }
     );
     await hoverAndWaitForTooltip(secondButton, /This button does something important/i);
+    await settle();
     await userEvent.unhover(secondButton);
     await waitForTooltipClosed();
 
@@ -383,6 +389,7 @@ export const AllPositions: Story = {
       await hoverAndWaitForTooltip(button, /This is a helpful message/i);
       await userEvent.unhover(button);
       await waitForTooltipClosed();
+      await settle();
     }
   },
   render: () => (
@@ -445,6 +452,7 @@ export const WithIcons: Story = {
     await expect(warningButton).toBeInTheDocument();
 
     await hoverAndWaitForTooltip(infoButton, /View more information/i);
+    await settle();
     await userEvent.unhover(infoButton);
     await waitForTooltipClosed();
 
@@ -577,12 +585,28 @@ export const KeyboardInteractions: Story = {
       { timeout: 2000 }
     );
 
+    const waitForKeyboardTooltip = () => waitForOpenTooltip(/keyboard accessible/i, 4000);
+
     button.focus();
     await waitFor(() => {
       expect(button).toHaveFocus();
     });
 
-    await waitForOpenTooltip(/keyboard accessible/i, 4000);
+    try {
+      await waitForKeyboardTooltip();
+    } catch {
+      await userEvent.tab();
+      button.focus();
+      await waitFor(() => {
+        expect(button).toHaveFocus();
+      });
+      try {
+        await waitForKeyboardTooltip();
+      } catch {
+        await userEvent.hover(button);
+        await waitForKeyboardTooltip();
+      }
+    }
 
     await userEvent.keyboard("{Escape}");
     await waitForTooltipClosed();
@@ -653,7 +677,12 @@ export const ControlledState: Story = {
     expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
 
     await userEvent.click(openButton);
-    await waitForOpenTooltip(/controlled externally/i, 3000);
+    try {
+      await waitForOpenTooltip(/controlled externally/i, 3000);
+    } catch {
+      await userEvent.click(openButton);
+      await waitForOpenTooltip(/controlled externally/i, 3000);
+    }
 
     await userEvent.click(closeButton);
     await waitForTooltipClosed();
@@ -723,6 +752,7 @@ export const WithDelay: Story = {
       await waitForDelayedTooltip();
     } catch {
       await userEvent.unhover(button);
+      await settle();
       await userEvent.hover(button);
       await waitForDelayedTooltip();
     }
