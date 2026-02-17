@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 /**
  * Artifact Chart - A compositional card layout for displaying charts.

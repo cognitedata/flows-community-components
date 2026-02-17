@@ -9,7 +9,7 @@ import {
   forwardRef,
 } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const helperTextVariants = cva("flex flex-row justify-start items-start", {
   variants: {

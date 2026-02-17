@@ -16,6 +16,12 @@ This command:
 
 The registry build process is fully automated - no manual configuration needed.
 
+# Aura Barrel Export Rules
+
+When you add, remove, or rename any export in `src/components/ui/aura/<component>/index.ts` or the component source file, update `src/components/ui/aura/index.ts` in the same change to keep top-level exports in sync.
+
+Before finalizing, verify the new/changed symbol is exported from both the component barrel and the top-level Aura barrel.
+
 # Primitives Progress Metadata Rules
 
 When adding, removing, or renaming primitives/foundations, update `src/lib/primitives-catalog.ts` in the same change.
@@ -40,7 +46,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Extract helpers to `@/lib/utils.ts`
 - Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
 - Exports should be in a single export block. Format inline if it fits, or one-per-line if long. Let Biome handle formatting; avoid `// biome-ignore` comments.
-- Component `index.tsx` files should import the main component, then export it separately (not inline). This pattern: `import { Component } from "./component"; export { Component };` is preferred over `export { Component } from "./component";`
+- Component `index.ts` files in aura re-export from the main component (use `.ts` when no JSX). Prefer `import { Component } from "./component"; export { Component };` over inline export.
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 - Do not include `importPath` in `*.metadata.ts` files
 
@@ -102,6 +108,8 @@ For internal development, continue using `@/*` imports. The `@cognite/*` imports
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer `canvas.findByTestId()` and add a stable `data-testid` on the dialog content wrapper when semantic queries are not practical.
+- Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
+- When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 
 # Storybook Stories
 

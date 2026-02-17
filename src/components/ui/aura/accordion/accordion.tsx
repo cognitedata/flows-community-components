@@ -2,8 +2,8 @@ import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { IconChevronDown } from "@tabler/icons-react";
 import { type ComponentProps, forwardRef, useMemo } from "react";
 
-import { cn } from "@/lib/utils";
 import type { Icon } from "@tabler/icons-react";
+import { cn } from "../../../../lib/utils";
 
 type AccordionType = "single" | "multiple";
 

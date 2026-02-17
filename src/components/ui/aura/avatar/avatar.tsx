@@ -2,7 +2,7 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const avatarVariants = cva(
   "group/avatar relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border",

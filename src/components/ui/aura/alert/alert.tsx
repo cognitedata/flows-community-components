@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/aura/button";
-import { useControllableState } from "@/lib/use-controllable-state";
-import { cn } from "@/lib/utils";
 import { IconX } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {
@@ -11,6 +9,8 @@ import {
   forwardRef,
   useContext,
 } from "react";
+import { useControllableState } from "../../../../lib/use-controllable-state";
+import { cn } from "../../../../lib/utils";
 
 type AlertVariant = "default" | "secondary" | "warning" | "error";
 
