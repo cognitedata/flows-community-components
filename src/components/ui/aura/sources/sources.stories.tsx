@@ -219,7 +219,7 @@ export const TooManySourcesWithOverflow: Story = {
           >
             <Badge variant="secondary">+{overflowSources.length}</Badge>
           </HoverCardTrigger>
-          <HoverCardContent className="w-auto p-3" data-testid="sources-overflow-hovercard">
+          <HoverCardContent className="w-auto p-3">
             <div className="flex flex-col gap-2">
               <p className="text-xs font-medium text-muted-foreground">
                 {overflowSources.length} more sources
@@ -250,13 +250,11 @@ export const TooManySourcesWithOverflow: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText("Sources")).toBeInTheDocument();
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
-    const overflowPill = canvas.getByText("+4");
-    const hoverCardSelector = '[data-slot="hover-card-content"][data-open]';
-    await userEvent.hover(overflowPill);
-    await waitFor(() => {
-      const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
-      expect(hovercard).toBeTruthy();
-    });
+    const overflowTrigger = canvas.getByRole("link", { name: "4 more sources" });
+    await userEvent.hover(overflowTrigger);
+    const body = within(canvasElement.ownerDocument.body);
+    await expect(await body.findByText("4 more sources")).toBeInTheDocument();
+    await expect(await body.findByText("Source 7")).toBeInTheDocument();
   },
 };
 
