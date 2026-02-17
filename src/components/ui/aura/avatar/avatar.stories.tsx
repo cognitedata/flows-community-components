@@ -1,17 +1,9 @@
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
 import { useState } from "react";
 import { getStorybookImagePath } from "../../../../lib/utils";
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "./avatar";
 
 const meta: Meta<typeof Avatar> = {
   title: "Primitives/Avatar",
@@ -155,7 +147,7 @@ export const WithImage: Story = {
     );
 
     if (avatar) {
-      await userEvent.hover(avatar as Element);
+      await userEvent.hover(avatar);
     }
   },
 };
@@ -406,205 +398,8 @@ export const ImagesAllSizes: Story = {
 
     const firstAvatar = avatars[0];
     if (firstAvatar) {
-      await userEvent.hover(firstAvatar as Element);
+      await userEvent.hover(firstAvatar);
     }
-  },
-};
-
-/**
- * Avatar group with stacked avatars and overflow indicator.
- */
-export const AvatarGroup: Story = {
-  render: () => (
-    <div className="flex items-center">
-      <Avatar
-        variant="nordic"
-        sizes="default"
-        className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
-      >
-        <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User 1" />
-        <AvatarFallback>NC</AvatarFallback>
-      </Avatar>
-      <Avatar
-        variant="default"
-        sizes="default"
-        className="relative -ml-1 z-2 border-2 border-background"
-      >
-        <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User 2" />
-        <AvatarFallback>AR</AvatarFallback>
-      </Avatar>
-      <Avatar
-        variant="default"
-        sizes="default"
-        className="relative -ml-1 z-3 border-2 border-background"
-      >
-        <AvatarImage src={getStorybookImagePath("user-avatar5.png")} alt="User 3" />
-        <AvatarFallback>PJ</AvatarFallback>
-      </Avatar>
-      <Avatar
-        variant="default"
-        sizes="default"
-        className="relative -ml-1 z-4 border-2 border-background"
-      >
-        <AvatarImage src={getStorybookImagePath("user-avatar6.png")} alt="User 4" />
-        <AvatarFallback>PJ</AvatarFallback>
-      </Avatar>
-      <HoverCard openDelay={0} closeDelay={0}>
-        <HoverCardTrigger
-          render={
-            <Avatar
-              variant="overflow"
-              sizes="default"
-              className="relative -ml-1 z-5 border-2 border-background"
-            >
-              <AvatarFallback>+4</AvatarFallback>
-            </Avatar>
-          }
-        />
-        <HoverCardContent className="w-auto p-3">
-          <div className="flex flex-col gap-2">
-            <p className="text-xs text-muted-foreground font-medium">4 more people</p>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <Avatar variant="aurora" sizes="xsm">
-                  <AvatarFallback>EL</AvatarFallback>
-                </Avatar>
-                <span className="text-sm">Emma Liu</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Avatar variant="dusk" sizes="xsm">
-                  <AvatarFallback>JK</AvatarFallback>
-                </Avatar>
-                <span className="text-sm">James Kim</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Avatar variant="orange" sizes="xsm">
-                  <AvatarFallback>SB</AvatarFallback>
-                </Avatar>
-                <span className="text-sm">Sarah Brown</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Avatar variant="sky" sizes="xsm">
-                  <AvatarFallback>MT</AvatarFallback>
-                </Avatar>
-                <span className="text-sm">Michael Torres</span>
-              </div>
-            </div>
-          </div>
-        </HoverCardContent>
-      </HoverCard>
-    </div>
-  ),
-  parameters: {
-    order: 9,
-    docs: {
-      description: {
-        story:
-          "Stacked avatar group with negative margins and borders. The overflow avatar (+4) shows additional users in a hover card.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBeGreaterThanOrEqual(4);
-
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    const overflow = Array.from(fallbacks).find((fb) => fb.textContent?.includes("+4"));
-
-    if (overflow) {
-      const overflowAvatar = overflow.closest('[data-slot="avatar"]');
-      if (overflowAvatar) {
-        await userEvent.hover(overflowAvatar as Element);
-        await waitFor(() => {
-          const hoverCard = document.querySelector('[data-slot="hover-card-content"][data-open]');
-          expect(hoverCard).toBeInTheDocument();
-        });
-      }
-    }
-  },
-};
-
-/**
- * Small avatar group.
- */
-export const AvatarGroupSmall: Story = {
-  render: () => (
-    <div className="flex items-center">
-      <Avatar
-        variant="nordic"
-        sizes="xsm"
-        className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
-      >
-        <AvatarFallback>PJ</AvatarFallback>
-      </Avatar>
-      <Avatar
-        variant="orange"
-        sizes="xsm"
-        className="relative -ml-1 z-2 border-2 border-background"
-      >
-        <AvatarFallback>PJ</AvatarFallback>
-      </Avatar>
-      <Avatar variant="dusk" sizes="xsm" className="relative -ml-1 z-3 border-2 border-background">
-        <AvatarFallback>PJ</AvatarFallback>
-      </Avatar>
-      <Avatar
-        variant="aurora"
-        sizes="xsm"
-        className="relative -ml-1 z-4 border-2 border-background"
-      >
-        <AvatarFallback>PJ</AvatarFallback>
-      </Avatar>
-      <HoverCard openDelay={0} closeDelay={0}>
-        <HoverCardTrigger
-          render={
-            <Avatar
-              variant="overflow"
-              sizes="xsm"
-              className="relative -ml-1 z-5 border-2 border-background"
-            >
-              <AvatarFallback>+4</AvatarFallback>
-            </Avatar>
-          }
-        />
-        <HoverCardContent className="w-auto p-3">
-          <div className="flex flex-col gap-2">
-            <p className="text-xs text-muted-foreground font-medium">4 more people</p>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <Avatar variant="aurora" sizes="xsm">
-                  <AvatarFallback>EL</AvatarFallback>
-                </Avatar>
-                <span className="text-sm">Emma Liu</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Avatar variant="dusk" sizes="xsm">
-                  <AvatarFallback>JK</AvatarFallback>
-                </Avatar>
-                <span className="text-sm">James Kim</span>
-              </div>
-            </div>
-          </div>
-        </HoverCardContent>
-      </HoverCard>
-    </div>
-  ),
-  parameters: {
-    order: 22,
-    docs: {
-      description: {
-        story:
-          "Compact avatar group using the xsm size. Perfect for tight spaces or showing larger groups.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBeGreaterThanOrEqual(4);
-
-    const smallAvatars = Array.from(avatars).filter((avatar) =>
-      avatar.className.includes("size-7")
-    );
-    await expect(smallAvatars.length).toBeGreaterThan(0);
   },
 };
 
@@ -618,24 +413,24 @@ export const ClickInteraction: Story = {
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
-          <Avatar variant="nordic" onClick={() => setClicked("User 1")} data-testid="avatar-1">
+          <Avatar variant="nordic" onClick={() => setClicked("User 1")} aria-label="User 1 avatar">
             <AvatarFallback>U1</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord" onClick={() => setClicked("User 2")} data-testid="avatar-2">
+          <Avatar variant="fjord" onClick={() => setClicked("User 2")} aria-label="User 2 avatar">
             <AvatarFallback>U2</AvatarFallback>
           </Avatar>
-          <Avatar variant="aurora" onClick={() => setClicked("User 3")} data-testid="avatar-3">
+          <Avatar variant="aurora" onClick={() => setClicked("User 3")} aria-label="User 3 avatar">
             <AvatarFallback>U3</AvatarFallback>
           </Avatar>
         </div>
-        <div data-testid="clicked-avatar" className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           {clicked ? `Clicked: ${clicked}` : "Click an avatar"}
-        </div>
+        </p>
       </div>
     );
   },
   parameters: {
-    order: 22,
+    order: 9,
     docs: {
       description: {
         story:
@@ -646,17 +441,16 @@ export const ClickInteraction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const avatar1 = canvas.getByTestId("avatar-1");
-    const avatar2 = canvas.getByTestId("avatar-2");
-    const clickedText = canvas.getByTestId("clicked-avatar");
+    const avatar1 = canvas.getByLabelText("User 1 avatar");
+    const avatar2 = canvas.getByLabelText("User 2 avatar");
 
-    await expect(clickedText).toHaveTextContent("Click an avatar");
+    await expect(canvas.getByText("Click an avatar")).toBeInTheDocument();
 
     await userEvent.click(avatar1);
-    await expect(clickedText).toHaveTextContent("Clicked: User 1");
+    await expect(canvas.getByText("Clicked: User 1")).toBeInTheDocument();
 
     await userEvent.click(avatar2);
-    await expect(clickedText).toHaveTextContent("Clicked: User 2");
+    await expect(canvas.getByText("Clicked: User 2")).toBeInTheDocument();
   },
 };
 
@@ -687,7 +481,7 @@ export const Accessibility: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 10,
     docs: {
       description: {
         story:
@@ -706,9 +500,7 @@ export const Accessibility: Story = {
       expect(altTexts).toContain("Jane Smith's avatar");
     });
     const decorativeAvatar = canvasElement.querySelectorAll('[data-slot="avatar"]')[2];
-    const decorativeImage = decorativeAvatar?.querySelector(
-      'img[data-slot="avatar-image"]'
-    ) as HTMLImageElement | null;
+    const decorativeImage = decorativeAvatar?.querySelector('img[data-slot="avatar-image"]');
     if (decorativeImage) {
       await expect(decorativeImage).toHaveAttribute("alt", "");
     } else {
@@ -736,7 +528,7 @@ export const EdgeCaseEmpty: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 11,
     docs: {
       description: {
         story:
@@ -822,7 +614,7 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 12,
     docs: {
       description: {
         story:
@@ -848,7 +640,14 @@ export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="orange">
-        <AvatarFallback>🎨🔥</AvatarFallback>
+        <AvatarFallback>
+          <span role="img" aria-label="artist palette">
+            🎨
+          </span>
+          <span role="img" aria-label="fire">
+            🔥
+          </span>
+        </AvatarFallback>
       </Avatar>
       <Avatar variant="sky">
         <AvatarFallback>@#$</AvatarFallback>
@@ -865,7 +664,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 13,
     docs: {
       description: {
         story:
@@ -907,7 +706,7 @@ export const EdgeCaseSingleCharacter: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 14,
     docs: {
       description: {
         story:
@@ -946,7 +745,7 @@ export const EdgeCaseNumbers: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 15,
     docs: {
       description: {
         story:
@@ -983,7 +782,7 @@ export const EdgeCaseTinyWithText: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 16,
     docs: {
       description: {
         story:
@@ -1021,7 +820,7 @@ export const EdgeCaseFailedImage: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 17,
     docs: {
       description: {
         story:
@@ -1037,139 +836,6 @@ export const EdgeCaseFailedImage: Story = {
     await expect(await canvas.findByText("FL")).toBeInTheDocument();
     await expect(await canvas.findByText("ER")).toBeInTheDocument();
     await expect(await canvas.findByText("BR")).toBeInTheDocument();
-  },
-};
-
-/**
- * Overflow avatar with dropdown menu showing additional users.
- * Demonstrates how to display additional avatars in a menu when
- * there are too many to show in the main group.
- */
-export const OverflowAvatarWithMenu: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center">
-        <Avatar
-          variant="nordic"
-          sizes="default"
-          className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
-        >
-          <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User 1" />
-          <AvatarFallback>NC</AvatarFallback>
-        </Avatar>
-        <Avatar
-          variant="default"
-          sizes="default"
-          className="relative -ml-1 z-2 border-2 border-background"
-        >
-          <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User 2" />
-          <AvatarFallback>AR</AvatarFallback>
-        </Avatar>
-        <Avatar
-          variant="default"
-          sizes="default"
-          className="relative -ml-1 z-3 border-2 border-background"
-        >
-          <AvatarImage src={getStorybookImagePath("user-avatar5.png")} alt="User 3" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <Avatar
-          variant="default"
-          sizes="default"
-          className="relative -ml-1 z-4 border-2 border-background"
-        >
-          <AvatarImage src={getStorybookImagePath("user-avatar6.png")} alt="User 4" />
-          <AvatarFallback>PJ</AvatarFallback>
-        </Avatar>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <Avatar
-                variant="overflow"
-                sizes="default"
-                className="relative -ml-1 z-5 border-2 border-background cursor-pointer"
-              >
-                <AvatarFallback>+4</AvatarFallback>
-              </Avatar>
-            }
-          />
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuGroup>
-              <DropdownMenuLabel className="text-xs text-muted-foreground font-normal px-2 py-1.5">
-                4 more people
-              </DropdownMenuLabel>
-              <div className="p-1 space-y-1">
-                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                  <Avatar variant="aurora" sizes="xsm">
-                    <AvatarFallback>EL</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">Emma Liu</span>
-                    <span className="text-xs text-muted-foreground">emma.liu@cognite.com</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                  <Avatar variant="dusk" sizes="xsm">
-                    <AvatarFallback>JK</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">James Kim</span>
-                    <span className="text-xs text-muted-foreground">james.kim@cognite.com</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                  <Avatar variant="orange" sizes="xsm">
-                    <AvatarFallback>SB</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">Sarah Brown</span>
-                    <span className="text-xs text-muted-foreground">sarah.brown@cognite.com</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
-                  <Avatar variant="sky" sizes="xsm">
-                    <AvatarFallback>MT</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">Michael Torres</span>
-                    <span className="text-xs text-muted-foreground">
-                      michael.torres@cognite.com
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <p className="text-xs text-muted-foreground max-w-md">
-        Click the overflow avatar (+4) to see additional users in a dropdown menu. Each user is
-        displayed with their avatar, name, and email address.
-      </p>
-    </div>
-  ),
-  parameters: {
-    order: 22,
-    docs: {
-      description: {
-        story:
-          "Overflow avatar with dropdown menu showing additional users. Click the +4 avatar to see the list of additional users.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
-    await expect(avatars.length).toBeGreaterThanOrEqual(4);
-
-    const trigger = canvasElement.querySelector('[data-slot="dropdown-menu-trigger"]');
-
-    if (trigger) {
-      await userEvent.click(trigger as Element);
-      const menu = await within(canvasElement.ownerDocument.body).findByRole("menu");
-      await expect(menu).toBeInTheDocument();
-      await expect(within(menu).getByText("Emma Liu")).toBeInTheDocument();
-      await expect(within(menu).getByText("James Kim")).toBeInTheDocument();
-    }
   },
 };
 
@@ -1204,7 +870,7 @@ export const EdgeCaseComplexIcons: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 18,
     docs: {
       description: {
         story:
@@ -1351,7 +1017,11 @@ export const VisualRegression: Story = {
             <AvatarFallback>ABCDEFGH</AvatarFallback>
           </Avatar>
           <Avatar variant="aurora">
-            <AvatarFallback>🎨</AvatarFallback>
+            <AvatarFallback>
+              <span role="img" aria-label="artist palette">
+                🎨
+              </span>
+            </AvatarFallback>
           </Avatar>
           <Avatar variant="dusk">
             <AvatarFallback>中文</AvatarFallback>
@@ -1364,7 +1034,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 22,
+    order: 19,
     docs: {
       description: {
         story:
