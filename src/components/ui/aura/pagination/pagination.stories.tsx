@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 
-import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/aura/select";
+import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/aura/select/select";
 import {
   Pagination,
   PaginationContent,

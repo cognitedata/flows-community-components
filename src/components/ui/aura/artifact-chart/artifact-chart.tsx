@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
+} from "@/components/ui/aura/card/card";
 import { cn } from "../../../../lib/utils";
 
 /**

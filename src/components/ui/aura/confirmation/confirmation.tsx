@@ -1,11 +1,11 @@
-import { Alert } from "@/components/ui/aura/alert";
-import { Button } from "@/components/ui/aura/button";
+import { Alert } from "@/components/ui/aura/alert/alert";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
-import { HelperText } from "@/components/ui/aura/helper-text";
+} from "@/components/ui/aura/collapsible/collapsible";
+import { HelperText } from "@/components/ui/aura/helper-text/helper-text";
 import { IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
 import { type ComponentProps, type ReactNode, createContext, useContext } from "react";
 import { cn } from "../../../../lib/utils";

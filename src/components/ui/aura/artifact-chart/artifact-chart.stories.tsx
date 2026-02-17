@@ -17,15 +17,18 @@ import {
   YAxis,
 } from "recharts";
 
-import { CardActions, CardHeaderRight } from "@/components/ui/aura/card";
+import { CardActions, CardHeaderRight } from "@/components/ui/aura/card/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
-} from "@/components/ui/aura/chart";
-import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
+} from "@/components/ui/aura/chart/chart";
+import {
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/aura/dropdown-menu/dropdown-menu";
 import {
   ArtifactChart,
   ArtifactChartContent,

@@ -2,7 +2,7 @@ import { IconChevronDown, IconChevronLeft, IconChevronRight } from "@tabler/icon
 import { type ComponentProps, useEffect, useRef } from "react";
 import { type DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
 
-import { Button, buttonVariants } from "@/components/ui/aura/button";
+import { Button, buttonVariants } from "@/components/ui/aura/button/button";
 import { cn } from "../../../../lib/utils";
 
 function Calendar({

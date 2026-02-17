@@ -4,8 +4,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import { Progress } from "@/components/ui/aura/progress";
+} from "@/components/ui/aura/card/card";
+import { Progress } from "@/components/ui/aura/progress/progress";
 import { type ComponentProps, forwardRef } from "react";
 import { cn } from "../../../../lib/utils";
 

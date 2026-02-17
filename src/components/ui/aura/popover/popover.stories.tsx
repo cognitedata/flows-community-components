@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
+import { Button } from "@/components/ui/aura/button/button";
+import { Input } from "@/components/ui/aura/input/input";
+import { Label } from "@/components/ui/aura/label/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";

@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card/card";
+import { Input } from "@/components/ui/aura/input/input";
+import { Label } from "@/components/ui/aura/label/label";
 import { IconAlertTriangle, IconPlayerPlay } from "@tabler/icons-react";
 import React from "react";
 

@@ -11,23 +11,23 @@ import {
   useState,
 } from "react";
 
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Separator } from "@/components/ui/aura/separator";
+import { Button } from "@/components/ui/aura/button/button";
+import { Input } from "@/components/ui/aura/input/input";
+import { Separator } from "@/components/ui/aura/separator/separator";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/aura/sheet";
-import { Skeleton } from "@/components/ui/aura/skeleton";
+} from "@/components/ui/aura/sheet/sheet";
+import { Skeleton } from "@/components/ui/aura/skeleton/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/aura/tooltip";
+} from "@/components/ui/aura/tooltip/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "../../../../lib/utils";
 

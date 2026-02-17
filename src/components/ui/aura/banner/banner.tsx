@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
 import { type IconProps, IconX } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {

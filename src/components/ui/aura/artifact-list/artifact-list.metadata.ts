@@ -28,7 +28,7 @@ export const ArtifactListMetadata: ComponentMeta = {
   ListItemDescription,
   ListItemStatus,
   ListItemTitle,
-} from "@/components/ui/aura/artifact-list"
+} from "@/components/ui/aura/artifact-list/artifact-list"
 
 export function BasicDemo() {
   return (
@@ -59,7 +59,7 @@ export function BasicDemo() {
   ListItemDescription,
   ListItemIcon,
   ListItemTitle,
-} from "@/components/ui/aura/artifact-list"
+} from "@/components/ui/aura/artifact-list/artifact-list"
 
 export function CustomIconDemo() {
   return (
@@ -88,7 +88,7 @@ export function CustomIconDemo() {
   ArtifactListItem,
   ListItemDescription,
   ListItemTitle,
-} from "@/components/ui/aura/artifact-list"
+} from "@/components/ui/aura/artifact-list/artifact-list"
 
 export function MinimalDemo() {
   return (

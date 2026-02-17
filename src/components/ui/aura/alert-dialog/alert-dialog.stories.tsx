@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import { IconAlertTriangle, IconCheck, IconTrash } from "@tabler/icons-react";

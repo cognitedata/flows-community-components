@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import { cn } from "../../../../lib/utils";
 
 type CarouselApi = UseEmblaCarouselType[1];

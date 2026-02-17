@@ -5,7 +5,7 @@ import {
   MessageAvatar,
   MessageAvatarIcon,
   MessageContent,
-} from "@/components/ui/aura/message";
+} from "@/components/ui/aura/message/message";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import {

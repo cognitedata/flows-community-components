@@ -1,25 +1,25 @@
-import { Badge } from "@/components/ui/aura/badge";
+import { Badge } from "@/components/ui/aura/badge/badge";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/aura/breadcrumb";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent } from "@/components/ui/aura/card";
+} from "@/components/ui/aura/breadcrumb/breadcrumb";
+import { Button } from "@/components/ui/aura/button/button";
+import { Card, CardContent } from "@/components/ui/aura/card/card";
 import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
+} from "@/components/ui/aura/code-block/code-block";
 import {
   Topbar,
   TopbarBreadcrumbs,
   TopbarCenter,
   TopbarLeft,
   TopbarRight,
-} from "@/components/ui/aura/topbar";
+} from "@/components/ui/aura/topbar/topbar";
 import { AIChatDemo } from "@/lib/ai-examples/ai-chat-demo";
 import {
   IconAlertCircle,

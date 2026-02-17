@@ -36,7 +36,7 @@ import {
 } from "@tabler/icons-react";
 import { nanoid } from "nanoid";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Command,
   CommandEmpty,
@@ -45,28 +45,32 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/aura/command";
+} from "@/components/ui/aura/command/command";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+} from "@/components/ui/aura/dropdown-menu/dropdown-menu";
+import { HelperText } from "@/components/ui/aura/helper-text/helper-text";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/aura/hover-card/hover-card";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "@/components/ui/aura/input-group";
+} from "@/components/ui/aura/input-group/input-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/aura/select";
+} from "@/components/ui/aura/select/select";
 import type { ChatStatus, FileUIPart } from "../../../../lib/ai/types";
 import { cn, convertBlobUrlToDataUrl } from "../../../../lib/utils";
 

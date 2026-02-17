@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/aura/tooltip";
+} from "@/components/ui/aura/tooltip/tooltip";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 import { useState } from "react";
 

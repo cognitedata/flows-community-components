@@ -1,8 +1,8 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import { type ComponentProps, forwardRef } from "react";
 
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/aura/card";
-import { Separator } from "@/components/ui/aura/separator";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/aura/card/card";
+import { Separator } from "@/components/ui/aura/separator/separator";
 import { cn } from "../../../../lib/utils";
 
 const artifactCountCountVariants = cva(

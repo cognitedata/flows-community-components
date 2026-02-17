@@ -1,29 +1,29 @@
 import { useTheme } from "@/components/theme-provider";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Calendar } from "@/components/ui/aura/calendar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Checkbox } from "@/components/ui/aura/checkbox";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
+import { Calendar } from "@/components/ui/aura/calendar/calendar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card/card";
+import { Checkbox } from "@/components/ui/aura/checkbox/checkbox";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/aura/dialog";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
+} from "@/components/ui/aura/dialog/dialog";
+import { Input } from "@/components/ui/aura/input/input";
+import { Label } from "@/components/ui/aura/label/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/aura/select";
-import { Separator } from "@/components/ui/aura/separator";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
-import { Textarea } from "@/components/ui/aura/textarea";
+} from "@/components/ui/aura/select/select";
+import { Separator } from "@/components/ui/aura/separator/separator";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/aura/tabs/tabs";
+import { Textarea } from "@/components/ui/aura/textarea/textarea";
 import {
   IconAppWindow as AppWindow,
   IconArrowLeft as ArrowLeft,

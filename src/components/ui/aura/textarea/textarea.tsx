@@ -1,6 +1,6 @@
 import { type ChangeEvent, type ComponentProps, forwardRef, useState } from "react";
 
-import { HelperText } from "@/components/ui/aura/helper-text";
+import { HelperText } from "@/components/ui/aura/helper-text/helper-text";
 import {
   cn,
   disabledState,

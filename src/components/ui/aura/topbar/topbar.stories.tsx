@@ -8,16 +8,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/aura/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
+} from "@/components/ui/aura/alert-dialog/alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar/avatar";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/aura/breadcrumb";
-import { Button } from "@/components/ui/aura/button";
+} from "@/components/ui/aura/breadcrumb/breadcrumb";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Sidebar,
   SidebarContent,
@@ -33,7 +33,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/aura/sidebar";
+} from "@/components/ui/aura/sidebar/sidebar";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {

@@ -4,13 +4,13 @@ import { type ComponentProps, useEffect, useState } from "react";
 
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/aura/chart";
+} from "@/components/ui/aura/chart/chart";
 import {
   ArtifactCount,
   ArtifactCountContent,

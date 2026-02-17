@@ -5,7 +5,7 @@ import {
   MessageAvatar,
   MessageAvatarIcon,
   MessageContent,
-} from "@/components/ui/aura/message";
+} from "@/components/ui/aura/message/message";
 import {
   PromptInput,
   PromptInputBody,
@@ -14,8 +14,8 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   usePromptInputController,
-} from "@/components/ui/aura/prompt-input";
-import { Suggestion } from "@/components/ui/aura/suggestion";
+} from "@/components/ui/aura/prompt-input/prompt-input";
+import { Suggestion } from "@/components/ui/aura/suggestion/suggestion";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconCopy, IconDownload, IconRefresh, IconTool, IconWheel } from "@tabler/icons-react";

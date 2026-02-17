@@ -2,9 +2,9 @@ import { IconCalendar } from "@tabler/icons-react";
 import { format } from "date-fns";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/aura/button";
-import { Calendar } from "@/components/ui/aura/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
+import { Button } from "@/components/ui/aura/button/button";
+import { Calendar } from "@/components/ui/aura/calendar/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover/popover";
 import { cn } from "../../../../lib/utils";
 
 export function DatePicker() {

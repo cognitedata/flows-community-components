@@ -59,8 +59,8 @@ export const UsageExample: Story = {
     <div className="p-4 border rounded-md space-y-4 max-w-md">
       <h3 className="font-medium">Usage with ReactFlow</h3>
       <div className="bg-muted/50 p-3 rounded-md text-xs font-mono overflow-x-auto">
-        <pre>{`import { Toolbar } from '@/components/ui/aura/toolbar';
-import { Button } from '@/components/ui/aura/button';
+        <pre>{`import { Toolbar } from '@/components/ui/aura/toolbar/toolbar';
+import { Button } from '@/components/ui/aura/button/button';
 
 function CustomNode({ data }) {
   return (

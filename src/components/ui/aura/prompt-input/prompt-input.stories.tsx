@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { Label } from "@/components/ui/aura/label";
+} from "@/components/ui/aura/dropdown-menu/dropdown-menu";
+import { HelperText } from "@/components/ui/aura/helper-text/helper-text";
+import { Label } from "@/components/ui/aura/label/label";
 import {
   PromptInput,
   PromptInputBody,
@@ -17,7 +17,7 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "@/components/ui/aura/prompt-input";
+} from "@/components/ui/aura/prompt-input/prompt-input";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";

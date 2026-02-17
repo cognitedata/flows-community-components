@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Command,
   CommandDialog,

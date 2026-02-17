@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { IconArrowRight, IconCode, IconPalette, IconSparkles, IconX } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "framer-motion";

@@ -12,7 +12,7 @@ import {
 import { IconCheck, IconCopy, IconSelector } from "@tabler/icons-react";
 import type { BundledLanguage } from "shiki";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import { cn, escapeHtml, highlightCode, isStorybookTestEnv } from "../../../../lib/utils";
 
 type CodeBlockProps = HTMLAttributes<HTMLDivElement> & {

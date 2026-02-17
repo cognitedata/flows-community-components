@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { type ChangeEvent, useState } from "react";
 
-import { Input } from "@/components/ui/aura/input";
+import { Input } from "@/components/ui/aura/input/input";
 import { IconAsterisk } from "@tabler/icons-react";
 import { Label } from "./label";
 

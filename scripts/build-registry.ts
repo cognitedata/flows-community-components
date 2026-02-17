@@ -396,13 +396,11 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
     const content = fs.readFileSync(fullPath, "utf8");
     const dependencies = new Set<string>();
 
-    // Match imports from @/components/ui/aura/*
-    // Pattern handles:
-    // - Single line: import { X } from "@/components/ui/aura/button";
-    // - Multi-line: import { X, Y } from "@/components/ui/aura/button";
-    // - Type imports: import type { X } from "@/components/ui/aura/button";
-    // Use [\s\S]*? to match across newlines (handles multi-line imports)
-    // The pattern matches: import [optional: type] { ... } from "..."
+    // Match imports from @/components/ui/aura/<component>/<component>
+    // Examples:
+    // - import { X } from "@/components/ui/aura/button/button";
+    // - import { X, Y } from "@/components/ui/aura/button/button";
+    // - import type { X } from "@/components/ui/aura/button/button";
     const localImportRegex =
       /import\s+(?:type\s+)?(?:[\s\S]*?)\s+from\s+["']@\/components\/ui\/aura\/([^"']+)["']/g;
 

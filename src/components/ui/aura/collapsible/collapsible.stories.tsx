@@ -3,7 +3,7 @@ import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconSelector } from "@tabler/icons-react";
 import { useState } from "react";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible";
 
 const meta: Meta<typeof Collapsible> = {

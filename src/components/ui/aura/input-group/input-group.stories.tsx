@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   InputGroup,
   InputGroupAddon,
@@ -6,9 +6,9 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "@/components/ui/aura/input-group";
-import { Kbd } from "@/components/ui/aura/kbd";
-import { Label } from "@/components/ui/aura/label";
+} from "@/components/ui/aura/input-group/input-group";
+import { Kbd } from "@/components/ui/aura/kbd/kbd";
+import { Label } from "@/components/ui/aura/label/label";
 import {
   PromptInput,
   PromptInputAttachment,
@@ -18,7 +18,7 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "@/components/ui/aura/prompt-input";
+} from "@/components/ui/aura/prompt-input/prompt-input";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconCheck, IconSearch, IconSend, IconX } from "@tabler/icons-react";

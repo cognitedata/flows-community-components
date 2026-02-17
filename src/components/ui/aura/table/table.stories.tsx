@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Checkbox } from "@/components/ui/aura/checkbox";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Checkbox } from "@/components/ui/aura/checkbox/checkbox";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect } from "@storybook/test";
 import {

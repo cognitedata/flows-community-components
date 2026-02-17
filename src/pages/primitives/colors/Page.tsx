@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card/card";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 

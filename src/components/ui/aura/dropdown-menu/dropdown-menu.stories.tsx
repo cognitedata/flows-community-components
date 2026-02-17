@@ -1,5 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
-import { Button } from "@/components/ui/aura/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar/avatar";
+import { Button } from "@/components/ui/aura/button/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {

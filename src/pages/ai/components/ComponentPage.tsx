@@ -1,7 +1,7 @@
 import { InstallationCommand } from "@/components/installation-command";
 import { StoriesRenderer } from "@/components/stories-renderer";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
 import { type AIComponentMeta, getAIComponentMeta } from "@/lib/ai-component-registry";
 import {
   type ComponentStatusType,

@@ -1,14 +1,14 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert";
-import { Button } from "@/components/ui/aura/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/aura/alert/alert";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+} from "@/components/ui/aura/card/card";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block/code-block";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs/tabs";
 import {
   IconAlertTriangle as AlertTriangle,
   IconArrowRight as ArrowRight,

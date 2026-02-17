@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import { IconArrowDown } from "@tabler/icons-react";
 import type { ComponentProps, SVGProps } from "react";
 import { useCallback } from "react";

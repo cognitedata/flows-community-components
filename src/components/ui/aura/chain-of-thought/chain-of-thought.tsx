@@ -1,9 +1,9 @@
-import { Badge } from "@/components/ui/aura/badge";
+import { Badge } from "@/components/ui/aura/badge/badge";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
+} from "@/components/ui/aura/collapsible/collapsible";
 import { IconBrain, IconChevronDown, IconPointFilled, type IconProps } from "@tabler/icons-react";
 import type { ComponentProps, ComponentType } from "react";
 import { createContext, memo, useContext, useMemo } from "react";

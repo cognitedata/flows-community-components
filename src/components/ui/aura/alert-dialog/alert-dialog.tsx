@@ -1,6 +1,6 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import { cn, getPortalContainer } from "../../../../lib/utils";
 
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";

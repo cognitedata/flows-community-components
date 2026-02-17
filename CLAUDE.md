@@ -35,9 +35,11 @@ The registry build process is fully automated - no manual configuration needed.
 
 # Aura Barrel Export Rules
 
-When you add, remove, or rename any export in `src/components/ui/aura/<component>/index.ts` or the component source file, update `src/components/ui/aura/index.ts` in the same change to keep top-level exports in sync.
+Component folders do NOT have `index.ts` files. Each folder contains `<component>.tsx`, `<component>.stories.tsx`, and `<component>.metadata.ts`. The single barrel is `src/components/ui/aura/index.ts`, which imports directly from `./component/component`.
 
-Before finalizing, verify the new/changed symbol is exported from both the component barrel and the top-level Aura barrel.
+When you add, remove, or rename any export in a component source file, update `src/components/ui/aura/index.ts` in the same change to keep top-level exports in sync.
+
+Cross-component imports use `@/components/ui/aura/<component>/<component>` (explicit file path, no index.ts resolution).
 
 # Primitives Progress Metadata Rules
 
@@ -63,7 +65,7 @@ For detailed component building guidelines, use the `/component-builder` skill.
 - Extract helpers to relative Aura lib paths (for example `../../../../lib/utils.ts`)
 - Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values like `leading-[18px]`.
 - Exports should be in a single export block. Format inline if it fits, or one-per-line if long. Let Biome handle formatting; avoid `// biome-ignore` comments.
-- Component `index.ts` files in aura re-export from the main component (use `.ts` when no JSX). Prefer `import { Component } from "./component"; export { Component };` over inline export.
+- Component folders do NOT have `index.ts` files. Cross-component imports use explicit file paths (for example `@/components/ui/aura/button/button`).
 - Run `pnpm lint` and `pnpm tsc -b` after changes
 - Do not include `importPath` in `*.metadata.ts` files
 

@@ -1,19 +1,22 @@
 "use client";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Conversation,
   ConversationContent,
   ConversationEmptyState,
   ConversationScrollButton,
-} from "@/components/ui/aura/conversation";
+} from "@/components/ui/aura/conversation/conversation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
+} from "@/components/ui/aura/dropdown-menu/dropdown-menu";
+import {
+  InlineCitation,
+  InlineCitationLink,
+} from "@/components/ui/aura/inline-citation/inline-citation";
 import {
   Message,
   MessageAction,
@@ -28,7 +31,7 @@ import {
   MessageBranchSelector,
   MessageContent,
   MessageResponse,
-} from "@/components/ui/aura/message";
+} from "@/components/ui/aura/message/message";
 import {
   PromptInput,
   PromptInputBody,
@@ -38,17 +41,23 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from "@/components/ui/aura/prompt-input";
+} from "@/components/ui/aura/prompt-input/prompt-input";
 import {
   Reasoning,
   ReasoningContent,
   ReasoningHeader,
   ReasoningItem,
-} from "@/components/ui/aura/reasoning";
-import { Shimmer } from "@/components/ui/aura/shimmer";
-import { Source, Sources } from "@/components/ui/aura/sources";
-import { Suggestion } from "@/components/ui/aura/suggestion";
-import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "@/components/ui/aura/tool";
+} from "@/components/ui/aura/reasoning/reasoning";
+import { Shimmer } from "@/components/ui/aura/shimmer/shimmer";
+import { Source, Sources } from "@/components/ui/aura/sources/sources";
+import { Suggestion } from "@/components/ui/aura/suggestion/suggestion";
+import {
+  Tool,
+  ToolContent,
+  ToolHeader,
+  ToolInput,
+  ToolOutput,
+} from "@/components/ui/aura/tool/tool";
 import { cn } from "@/lib/utils";
 import {
   IconAdjustments,

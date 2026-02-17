@@ -1,6 +1,6 @@
 import { Children, type ComponentProps, type ComponentRef, forwardRef } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card/card";
 import {
   List,
   ListItem,
@@ -9,7 +9,7 @@ import {
   ListItemStatus,
   ListItemTitle,
   ListOrdered,
-} from "@/components/ui/aura/list";
+} from "@/components/ui/aura/list/list";
 import { cn } from "../../../../lib/utils";
 
 /**

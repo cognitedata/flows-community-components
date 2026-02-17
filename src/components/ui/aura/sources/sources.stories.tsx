@@ -1,6 +1,10 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/aura/hover-card/hover-card";
+import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources/sources";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {

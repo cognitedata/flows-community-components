@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
+} from "@/components/ui/aura/card/card";
+import { Input } from "@/components/ui/aura/input/input";
 import {
   IconArchive as Archive,
   IconBookmark as Bookmark,

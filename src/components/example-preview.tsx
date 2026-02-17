@@ -1,4 +1,4 @@
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block/code-block";
 import { cn } from "@/lib/utils";
 import type React from "react";
 

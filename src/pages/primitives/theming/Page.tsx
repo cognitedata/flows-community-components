@@ -1,16 +1,16 @@
 import { CodeCopyButton } from "@/components/code-copy-button";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+} from "@/components/ui/aura/card/card";
+import { Input } from "@/components/ui/aura/input/input";
+import { Label } from "@/components/ui/aura/label/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs/tabs";
 import {
   IconEye as Eye,
   IconMoon as Moon,
@@ -346,7 +346,7 @@ export default function App({ children }) {
 Your components will now use the custom theme colors automatically!
 
 \`\`\`jsx
-import { Button } from "@/components/ui/aura/button"
+import { Button } from "@/components/ui/aura/button/button"
 
 export function Example() {
   return (

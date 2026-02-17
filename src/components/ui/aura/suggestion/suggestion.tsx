@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/aura/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/aura/scroll-area";
+import { Button } from "@/components/ui/aura/button/button";
+import { ScrollArea, ScrollBar } from "@/components/ui/aura/scroll-area/scroll-area";
 import {
   Select,
   SelectContent as SelectContentPrimitive,
@@ -9,7 +9,7 @@ import {
   SelectSeparator as SelectSeparatorPrimitive,
   SelectTrigger as SelectTriggerPrimitive,
   SelectValue as SelectValuePrimitive,
-} from "@/components/ui/aura/select";
+} from "@/components/ui/aura/select/select";
 import {
   Children,
   type ComponentProps,

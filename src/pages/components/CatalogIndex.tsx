@@ -1,8 +1,8 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { ButtonGroup } from "@/components/ui/aura/button-group";
-import { Card, CardContent, CardFooter } from "@/components/ui/aura/card";
-import { Label } from "@/components/ui/aura/label";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { ButtonGroup } from "@/components/ui/aura/button-group/button-group";
+import { Button } from "@/components/ui/aura/button/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/aura/card/card";
+import { Label } from "@/components/ui/aura/label/label";
 import {
   Select,
   SelectContent,
@@ -12,7 +12,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/aura/select";
+} from "@/components/ui/aura/select/select";
 import {
   PRIMITIVE_PROGRESS_STATUS_ORDER,
   type PrimitiveProgressStatus,

@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback } from "@/components/ui/aura/avatar";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Checkbox } from "@/components/ui/aura/checkbox";
+import { Avatar, AvatarFallback } from "@/components/ui/aura/avatar/avatar";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
+import { Checkbox } from "@/components/ui/aura/checkbox/checkbox";
 import {
   Command,
   CommandEmpty,
@@ -10,10 +10,10 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/aura/command";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { Label } from "@/components/ui/aura/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
+} from "@/components/ui/aura/command/command";
+import { HelperText } from "@/components/ui/aura/helper-text/helper-text";
+import { Label } from "@/components/ui/aura/label/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover/popover";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {

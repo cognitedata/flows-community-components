@@ -3,8 +3,8 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/components/ui/aura/input-group";
-import { Label } from "@/components/ui/aura/label";
+} from "@/components/ui/aura/input-group/input-group";
+import { Label } from "@/components/ui/aura/label/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconCheck, IconCopy } from "@tabler/icons-react";

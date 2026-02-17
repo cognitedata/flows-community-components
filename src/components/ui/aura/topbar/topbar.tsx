@@ -1,8 +1,8 @@
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
-import { Breadcrumb } from "@/components/ui/aura/breadcrumb";
-import { Button } from "@/components/ui/aura/button";
-import { SidebarInset, SidebarProvider } from "@/components/ui/aura/sidebar";
+import { Breadcrumb } from "@/components/ui/aura/breadcrumb/breadcrumb";
+import { Button } from "@/components/ui/aura/button/button";
+import { SidebarInset, SidebarProvider } from "@/components/ui/aura/sidebar/sidebar";
 import { cn } from "../../../../lib/utils";
 
 // Topbar wrapper component

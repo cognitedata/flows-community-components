@@ -13,11 +13,16 @@ import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler
 import type { BundledLanguage } from "shiki";
 import { Streamdown } from "streamdown";
 
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
-import { Button } from "@/components/ui/aura/button";
-import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarIcon,
+  AvatarImage,
+} from "@/components/ui/aura/avatar/avatar";
+import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group/button-group";
+import { Button } from "@/components/ui/aura/button/button";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block/code-block";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip/tooltip";
 import type { FileUIPart, UIMessage } from "../../../../lib/ai/types";
 import { cn, getInitials } from "../../../../lib/utils";
 

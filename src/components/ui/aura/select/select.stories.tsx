@@ -11,8 +11,8 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 
-import { Button } from "@/components/ui/aura/button";
-import { Label } from "@/components/ui/aura/label";
+import { Button } from "@/components/ui/aura/button/button";
+import { Label } from "@/components/ui/aura/label/label";
 import {
   Select,
   SelectContent,

@@ -3,18 +3,18 @@ import { forwardRef, isValidElement } from "react";
 
 import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
 
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
+} from "@/components/ui/aura/code-block/code-block";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
+} from "@/components/ui/aura/collapsible/collapsible";
 import type { ToolUIPart } from "../../../../lib/ai/types";
 import { cn } from "../../../../lib/utils";
 

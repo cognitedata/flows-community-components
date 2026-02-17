@@ -1,5 +1,5 @@
 import { useTheme } from "@/components/theme-provider";
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import { IconCopy } from "@tabler/icons-react";
 import { startTransition, useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";

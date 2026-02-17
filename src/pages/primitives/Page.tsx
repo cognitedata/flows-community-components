@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/aura/badge";
+import { Badge } from "@/components/ui/aura/badge/badge";
 import { getPrimitiveCatalogBySection, getPrimitiveFigmaUrl } from "@/lib/primitives-catalog";
 import { CatalogIndex } from "@/pages/components/CatalogIndex";
 import { IconBrandFigma, IconCheck, IconQuestionMark, IconX } from "@tabler/icons-react";

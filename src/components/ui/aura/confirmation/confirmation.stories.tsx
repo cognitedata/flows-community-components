@@ -1,5 +1,5 @@
-import { CodeBlock } from "@/components/ui/aura/code-block";
-import { HelperText } from "@/components/ui/aura/helper-text";
+import { CodeBlock } from "@/components/ui/aura/code-block/code-block";
+import { HelperText } from "@/components/ui/aura/helper-text/helper-text";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconCheck, IconCircleCheck, IconX } from "@tabler/icons-react";

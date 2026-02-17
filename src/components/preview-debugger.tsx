@@ -1,7 +1,7 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs/tabs";
 import {
   IconAlertTriangle,
   IconBolt,

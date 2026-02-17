@@ -2,8 +2,11 @@ import {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "@/components/ui/aura/code-block";
-import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
+} from "@/components/ui/aura/code-block/code-block";
+import {
+  InlineCitation,
+  InlineCitationLink,
+} from "@/components/ui/aura/inline-citation/inline-citation";
 import {
   Message,
   MessageAction,
@@ -12,7 +15,7 @@ import {
   MessageAvatarIcon,
   MessageContent,
   MessageResponse,
-} from "@/components/ui/aura/message";
+} from "@/components/ui/aura/message/message";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {

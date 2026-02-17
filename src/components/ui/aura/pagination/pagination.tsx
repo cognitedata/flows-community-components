@@ -17,9 +17,14 @@ import {
 } from "@tabler/icons-react";
 import { cva } from "class-variance-authority";
 
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/aura/select";
+import { Button } from "@/components/ui/aura/button/button";
+import { Input } from "@/components/ui/aura/input/input";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/aura/select/select";
 import { cn } from "../../../../lib/utils";
 
 type PaginationSize = "default" | "small";

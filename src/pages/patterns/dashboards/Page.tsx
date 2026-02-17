@@ -1,20 +1,20 @@
 "use client";
 
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
+import { Badge } from "@/components/ui/aura/badge/badge";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
+} from "@/components/ui/aura/card/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/aura/chart";
+} from "@/components/ui/aura/chart/chart";
 import {
   IconChartBar as BarChart3,
   IconRefresh as RefreshCw,

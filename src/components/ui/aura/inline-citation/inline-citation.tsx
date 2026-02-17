@@ -1,11 +1,15 @@
-import { Badge } from "@/components/ui/aura/badge";
+import { Badge } from "@/components/ui/aura/badge/badge";
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/aura/carousel";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+} from "@/components/ui/aura/carousel/carousel";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/aura/hover-card/hover-card";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import {
   type ComponentProps,

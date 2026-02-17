@@ -1,12 +1,12 @@
 import { IconDotsVertical } from "@tabler/icons-react";
 import { type ComponentProps, type ReactNode, forwardRef } from "react";
 
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
+} from "@/components/ui/aura/dropdown-menu/dropdown-menu";
 import { cn } from "../../../../lib/utils";
 
 type HeadingElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";

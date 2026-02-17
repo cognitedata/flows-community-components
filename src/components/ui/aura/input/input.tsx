@@ -2,13 +2,13 @@ import { type ComponentProps, type ReactNode, forwardRef, useState } from "react
 
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
-import { HelperText } from "@/components/ui/aura/helper-text";
+import { HelperText } from "@/components/ui/aura/helper-text/helper-text";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@/components/ui/aura/input-group";
+} from "@/components/ui/aura/input-group/input-group";
 import {
   cn,
   disabledState,

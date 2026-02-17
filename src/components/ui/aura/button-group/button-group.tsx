@@ -4,7 +4,7 @@ import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { type VariantProps, cva } from "class-variance-authority";
 
-import { Separator } from "@/components/ui/aura/separator";
+import { Separator } from "@/components/ui/aura/separator/separator";
 import { cn } from "../../../../lib/utils";
 
 const buttonGroupVariants = cva(

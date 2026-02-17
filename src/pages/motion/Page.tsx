@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/aura/button";
+import { Button } from "@/components/ui/aura/button/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/aura/card";
+} from "@/components/ui/aura/card/card";
 import {
   IconArrowRight as ArrowRight,
   IconPlayerPlay as Play,

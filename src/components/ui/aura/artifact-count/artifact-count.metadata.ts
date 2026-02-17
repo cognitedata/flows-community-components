@@ -24,7 +24,7 @@ export const ArtifactCountMetadata: ComponentMeta = {
   ArtifactCountFooter,
   ArtifactCountFooterLeft,
   ArtifactCountFooterRight,
-} from "@/components/ui/aura/artifact-count"
+} from "@/components/ui/aura/artifact-count/artifact-count"
 
 export function BasicDemo() {
   return (
@@ -53,7 +53,7 @@ export function BasicDemo() {
   ArtifactCountFooter,
   ArtifactCountFooterLeft,
   ArtifactCountFooterRight,
-} from "@/components/ui/aura/artifact-count"
+} from "@/components/ui/aura/artifact-count/artifact-count"
 
 export function FooterDemo() {
   return (

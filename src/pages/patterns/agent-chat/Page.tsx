@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "@/components/ui/aura/badge";
+import { Badge } from "@/components/ui/aura/badge/badge";
 import { AIChatDemo } from "@/lib/ai-examples/ai-chat-demo";
 import { IconMessageCircle as MessageSquare } from "@tabler/icons-react";
 
