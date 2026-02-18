@@ -138,31 +138,11 @@
       "title": "Card",
       "description": "A flexible card layout with header, content, action, and footer slots.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/dropdown-menu"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/card/card.tsx",
           "target": "src/components/ui/aura/card.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "dropdown-menu",
-      "type": "registry:component",
-      "title": "DropdownMenu",
-      "description": "A dropdown menu with submenus, separators, and selection states, built on Base UI Dropdown Menu primitives.",
-      "dependencies": ["@base-ui/react/menu", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
-          "target": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         },
         {
@@ -758,6 +738,26 @@
         {
           "path": "src/components/ui/aura/drawer/drawer.tsx",
           "target": "src/components/ui/aura/drawer.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:component",
+      "title": "DropdownMenu",
+      "description": "A dropdown menu with submenus, separators, and selection states, built on Base UI Dropdown Menu primitives.",
+      "dependencies": ["@base-ui/react/menu", "@tabler/icons-react"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/dropdown-menu/dropdown-menu.tsx",
+          "target": "src/components/ui/aura/dropdown-menu.tsx",
           "type": "registry:component"
         },
         {

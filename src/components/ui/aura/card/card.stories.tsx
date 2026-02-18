@@ -1,9 +1,9 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import { IconChartLine, IconCube, IconGauge, IconReportAnalytics } from "@tabler/icons-react";
+import { Badge } from "../badge";
+import { Button } from "../button";
+import { DropdownMenuItem, DropdownMenuSeparator } from "../dropdown-menu";
 import {
   Card,
   CardActions,
@@ -132,7 +132,7 @@ export const WithTextFooter: Story = {
       </CardHeader>
       <CardContent />
       <CardFooter className="gap-1 flex-col">
-        <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
+        <div className="flex items-center text-sm font-medium text-foreground tracking-normal gap-1">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
         <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
@@ -217,10 +217,7 @@ export const WithHover: Story = {
     const cardTitle = canvas.getByText("Title");
     await expect(cardTitle).toBeInTheDocument();
 
-    const card = cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
-    if (card) {
-      await userEvent.hover(card);
-    }
+    await userEvent.hover(cardTitle);
   },
   render: () => (
     <Card className="w-96">
@@ -237,7 +234,7 @@ export const WithHover: Story = {
         <div className="text-base text-secondary-foreground tracking-tightest">Description</div>
       </CardContent>
       <CardFooter className="gap-1 flex-col">
-        <div className="flex items-center text-sm font-medium text-foreground tracking-normal">
+        <div className="flex items-center text-sm font-medium text-foreground tracking-normal gap-1">
           Trending up by 5.2% this month <IconChartLine size={16} />
         </div>
         <div className="text-sm font-normal text-muted-foreground tracking-normal">No alerts</div>
@@ -590,7 +587,6 @@ export const SemanticHeadings: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-6 w-full max-w-2xl">
-      {/* h2 example - for main sections */}
       <Card>
         <CardHeader>
           <CardTitle as="h2">Section Title (h2)</CardTitle>
@@ -603,8 +599,6 @@ export const SemanticHeadings: Story = {
           </p>
         </CardContent>
       </Card>
-
-      {/* h3 example - default */}
       <Card>
         <CardHeader>
           <CardTitle>Default Heading (h3)</CardTitle>
@@ -617,8 +611,6 @@ export const SemanticHeadings: Story = {
           </p>
         </CardContent>
       </Card>
-
-      {/* h4 example - for subsections */}
       <Card>
         <CardHeader>
           <CardTitle as="h4">Subsection Title (h4)</CardTitle>
@@ -648,8 +640,8 @@ export const Playground: Story = {
       },
     },
   },
-  render: (args) => (
-    <Card {...args}>
+  render: () => (
+    <Card className="w-96">
       <CardHeader>
         <CardIcon>
           <Badge variant="fjord" size="icon">
@@ -680,7 +672,4 @@ export const Playground: Story = {
       </CardFooter>
     </Card>
   ),
-  args: {
-    className: "w-96",
-  },
 };
