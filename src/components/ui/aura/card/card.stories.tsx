@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { IconChartLine, IconCube, IconGauge, IconReportAnalytics } from "@tabler/icons-react";
 import { Badge } from "../badge";
 import { Button } from "../button";
@@ -301,16 +301,14 @@ export const WithActions: Story = {
     await expect(actionsButton).toBeInTheDocument();
     await userEvent.click(actionsButton);
 
-    await waitFor(async () => {
-      const menu = screen.getByRole("menu");
-      await expect(menu).toBeInTheDocument();
+    const menu = await within(document.body).findByRole("menu");
+    await expect(menu).toBeInTheDocument();
 
-      const viewDetails = screen.getByText(/View details/i);
-      await expect(viewDetails).toBeInTheDocument();
+    const viewDetails = await within(menu).findByRole("menuitem", { name: /View details/i });
+    await expect(viewDetails).toBeInTheDocument();
 
-      const deleteOption = screen.getByText(/Delete card/i);
-      await expect(deleteOption).toBeInTheDocument();
-    });
+    const deleteOption = await within(menu).findByRole("menuitem", { name: /Delete card/i });
+    await expect(deleteOption).toBeInTheDocument();
   },
   render: () => (
     <Card className="w-96">
@@ -367,13 +365,11 @@ export const WithIconAndActions: Story = {
     const actionsButton = canvas.getByRole("button");
     await userEvent.click(actionsButton);
 
-    await waitFor(async () => {
-      const menu = screen.getByRole("menu");
-      await expect(menu).toBeInTheDocument();
+    const menu = await within(document.body).findByRole("menu");
+    await expect(menu).toBeInTheDocument();
 
-      const viewDetails = screen.getByText(/View details/i);
-      await expect(viewDetails).toBeInTheDocument();
-    });
+    const viewDetails = await within(menu).findByRole("menuitem", { name: /View details/i });
+    await expect(viewDetails).toBeInTheDocument();
   },
   render: () => (
     <Card className="w-96">

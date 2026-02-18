@@ -1,11 +1,15 @@
-/**
- * Card Component
- *
- * A flexible card container with composable header, icon, content, actions, and footer slots.
- * Supports polymorphic heading elements for semantic HTML structure.
- *
- * See Storybook for comprehensive examples and documentation.
- */
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardHeaderRight,
+  CardIcon,
+  CardTitle,
+} from "./card";
+
 export {
   Card,
   CardHeader,
@@ -16,5 +20,5 @@ export {
   CardActions,
   CardDescription,
   CardContent,
-} from "./card";
+};
 export { CardMetadata } from "./card.metadata";
