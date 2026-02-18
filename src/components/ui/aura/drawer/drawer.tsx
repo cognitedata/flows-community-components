@@ -13,11 +13,7 @@ function DrawerTrigger({ ...props }: ComponentProps<typeof DrawerPrimitive.Trigg
 
 function DrawerPortal({ ...props }: ComponentProps<typeof DrawerPrimitive.Portal>) {
   return (
-    <DrawerPrimitive.Portal
-      data-slot="drawer-portal"
-      {...props}
-      container={getPortalContainer()}
-    />
+    <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} container={getPortalContainer()} />
   );
 }
 
