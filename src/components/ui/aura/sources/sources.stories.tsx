@@ -248,13 +248,21 @@ export const TooManySourcesWithOverflow: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Sources")).toBeInTheDocument();
-    await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
-    const overflowTrigger = canvas.getByRole("link", { name: "4 more sources" });
+    await expect(await canvas.findByText("Sources")).toBeInTheDocument();
+    await expect(await canvas.findByText("21PT1019")).toBeInTheDocument();
+
+    const overflowTrigger = await canvas.findByRole("link", { name: "4 more sources" });
     await userEvent.hover(overflowTrigger);
+    await waitFor(() => {
+      const openContent = canvasElement.ownerDocument.body.querySelector(
+        '[data-slot="hover-card-content"][data-open]'
+      );
+      expect(openContent).toBeTruthy();
+    });
+
     const body = within(canvasElement.ownerDocument.body);
-    await expect(await body.findByText("4 more sources")).toBeInTheDocument();
-    await expect(await body.findByText("Source 7")).toBeInTheDocument();
+    await expect(body.getByText("4 more sources")).toBeInTheDocument();
+    await expect(body.getByText("Source 7")).toBeInTheDocument();
   },
 };
 
