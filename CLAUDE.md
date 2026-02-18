@@ -118,6 +118,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Dialog play tests are more reliable when opening via trigger and querying portal content with `within(document.body).findByRole("dialog")`.
 - Component files should order imports as React, third-party, then local aliases, and use `ComponentRef<...>` in `forwardRef` signatures.
 - In story play functions, prefer semantic alert/button queries (`getByRole`/`findByRole`) over `querySelector('[data-slot=...]')` for more stable interaction tests.
+- In Aura story files, use relative component imports (for example `../button`) instead of `@/components/ui/aura/*` aliases.
 - For emoji shown in JSX text/content, wrap each emoji in `<span role="img" aria-label="...">...</span>` for explicit accessible naming.
 - Keep `*.metadata.ts` files metadata-only; remove any runtime/component code from them.
 - Do not include `importPath` in `*.metadata.ts` files.

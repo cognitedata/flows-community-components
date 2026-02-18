@@ -1,39 +1,3 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/aura/alert-dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
-import {
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/aura/breadcrumb";
-import { Button } from "@/components/ui/aura/button";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarHeaderInsert,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/aura/sidebar";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -49,6 +13,42 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../alert-dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
+import {
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "../breadcrumb";
+import { Button } from "../button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarHeaderInsert,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "../sidebar";
 import { Topbar, TopbarBreadcrumbs, TopbarCenter, TopbarLeft, TopbarRight } from "./topbar";
 
 const meta: Meta<typeof Topbar> = {
@@ -734,9 +734,6 @@ export const LongBreadcrumb: Story = {
  * Interactive playground for testing topbar props.
  */
 export const Playground: Story = {
-  args: {
-    className: "",
-  },
   parameters: {
     order: 99,
     docs: {
@@ -746,11 +743,11 @@ export const Playground: Story = {
       },
     },
   },
-  render: function TopbarPlaygroundStory(args) {
+  render: function TopbarPlaygroundStory() {
     return (
       <div className="flex items-center justify-center p-24">
         <div className="w-full overflow-hidden border rounded-lg">
-          <Topbar {...args}>
+          <Topbar>
             <TopbarLeft>
               <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
                 <IconLayoutSidebar className="h-4.5 w-4.5" />
