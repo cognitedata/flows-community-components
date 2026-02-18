@@ -128,6 +128,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Prefer a closure-scoped cancellation flag in async `useEffect` flows to avoid stale updates after unmount.
 - For static brand images in app code, import from `src/assets` so Vite rewrites URLs correctly for base-path deployments.
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
+- Accordion story play tests are more robust when asserting trigger `aria-expanded` state changes instead of querying open panels by implementation-specific selectors.
 - Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
