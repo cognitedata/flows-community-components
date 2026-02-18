@@ -51,6 +51,10 @@ All stories MUST use explicit render functions with hardcoded props. Never use `
 
 **Never use helper components** - inline all JSX directly. See `pagination.stories.tsx` for examples of stateful render functions with `useState`.
 
+## Exports
+
+When exporting story helpers or named exports from a file, prefer a single export block rather than multiple single-export statements.
+
 Duplicate code in each story if needed. Code examples > DRY principle.
 
 ## Polymorphic Title Components
@@ -63,7 +67,33 @@ Use `@storybook/test` utilities: `within`, `expect`, `userEvent`, `waitFor`.
 
 **NO inline code comments in play functions.** Code should be self-explanatory.
 
+Use deterministic interactions. Do not add retry-style `try/catch` fallback flows to re-run hover/click/tab actions. Fix timing/animation/state synchronization at the source.
+
 See `avatar.stories.tsx` for play function examples with DOM queries and assertions.
+
+## Render Functions
+
+**NO JSX comments in render functions** (e.g., `{/* States */}`). If you need section labels, use semantic HTML headings (`<h3>`) instead. JSX comments clutter the code and don't provide value when proper semantic markup is available.
+
+### Query Priority
+
+Prioritize semantic queries over test IDs in play functions:
+
+1. **Prefer:** `getByRole`, `getByLabelText`, `getByText`, `getByPlaceholderText`
+2. **Avoid:** `getByTestId` in normal story tests
+
+Semantic queries improve accessibility and make tests more resilient to implementation changes.
+
+Exception: in unit tests (not production code or normal story interactions), `getByTestId` is acceptable when the test itself mocks a component and adds the test id locally.
+
+## Fusion Test Type Safety Rules
+
+- Never use `any` or `as` casts in stories/tests.
+- Use `unknown` and type guards for narrowing.
+- Exception: `Partial<T> as T` is acceptable for test mocks.
+- Prefer typed mocks: `vi.fn(() => ...)`, `vi.fn<T>()`, `vi.mocked(...)`, `vi.mock(import(...))`.
+- Prefer `toHaveBeenCalledWith` / `toHaveBeenNthCalledWith` over reading `mock.calls` directly.
+- For debounce/throttle behavior, use fake timers instead of mocking debounce/timer utilities.
 
 ### Testing Buttons in Play Functions
 
@@ -77,11 +107,19 @@ See `card.stories.tsx` for examples of testing heading levels with `canvas.getBy
 
 ### Testing Portal Content
 
-Storybook's canvas now handles portal content correctly. Use `canvas.findByTestId()` for all queries. See `dialog.stories.tsx` or `drawer.stories.tsx` for portal testing examples.
+Storybook's canvas handles portal content correctly. Prefer semantic queries in `canvas` or `within(document.body)` before considering test IDs.
 
 ## Styling in Stories
 
-Use Tailwind design tokens, not arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
+Use Tailwind design tokens, not arbitrary values. Utilities like `leading-4.5` are allowed when defined in our Tailwind config; avoid bracketed arbitrary values. Common conversions: `w-[360px]` → `w-90`, `gap-[8px]` → `gap-2`, `p-[16px]` → `p-4`.
+
+## Emoji Accessibility
+
+When using emoji in story render output, wrap each emoji with semantic labeling, for example: `<span role="img" aria-label="rocket">🚀</span>`.
+
+## Fusion Import Strategy
+
+For stories under `src/components/ui/aura/**`, prefer relative imports for Aura components and shared lib helpers (for example `../button` or `../../../../lib/utils`) instead of `@/*` aliases, to match portable registry/Fusion packaging expectations.
 
 ## argTypes
 
@@ -92,6 +130,7 @@ Organize into categories: Content, Variants/Styling, Behavior, Events, Advanced.
 **Story descriptions should be minimal and future-proof.** Avoid mentioning specific counts or implementation details that could become outdated. See story files for examples of clear, timeless descriptions.
 
 **Story-level code comments** (in `/** ... */` above stories or in descriptions) should be minimal and explain WHAT the story demonstrates, not HOW it works internally.
+**Keep story commentary short and directly relevant to the example.** Avoid long prose or redundant explanations.
 
 ## Deprecated Components
 
@@ -100,6 +139,8 @@ Avoid deprecated third-party components. Check library docs for deprecation warn
 ## Post-Build Steps
 
 After creating or modifying stories, run: `bash scripts/check-quality.sh`
+
+If story work changes primitive/foundation implementation readiness, update `src/lib/primitives-catalog.ts` in the same change or ask the user whether progress metadata should be updated.
 
 ## Checklist
 
@@ -112,3 +153,8 @@ Before committing changes:
 6. No inline code comments in play functions
 7. Story descriptions are minimal and future-proof
 8. No deprecated third-party components used
+9. Keep story comments short and relevant to the example
+10. Update or confirm `src/lib/primitives-catalog.ts` progress metadata when readiness changes
+11. No retry fallback logic in play functions
+12. No `any` or `as` casts in story/test code (except `Partial<T> as T` for test mocks)
+13. Prefer semantic DOM queries over test IDs

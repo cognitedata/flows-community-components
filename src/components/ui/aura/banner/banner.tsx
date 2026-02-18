@@ -1,18 +1,17 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
-import { cn } from "@/lib/utils";
-import { useControllableState } from "@radix-ui/react-use-controllable-state";
 import { type IconProps, IconX } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {
   type ComponentProps,
   type ComponentType,
   type HTMLAttributes,
-  type MouseEventHandler,
   createContext,
   forwardRef,
   useContext,
 } from "react";
+import { useControllableState } from "../../../../lib/use-controllable-state";
+import { cn } from "../../../../lib/utils";
 
 type BannerVariant = "default" | "neutral" | "destructive" | "warning";
 
@@ -209,7 +208,8 @@ export const BannerClose = forwardRef<HTMLButtonElement, BannerCloseProps>(
   ({ variant = "ghost", onClick, className, ...props }, ref) => {
     const { setShow, variant: bannerVariant } = useContext(BannerContext);
 
-    const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    type ButtonClickHandler = NonNullable<ComponentProps<typeof Button>["onClick"]>;
+    const handleClick = (e: Parameters<ButtonClickHandler>[0]) => {
       setShow(false);
       onClick?.(e);
     };

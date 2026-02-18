@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * Artifact - Count Component Metadata
@@ -13,7 +13,6 @@ export const ArtifactCountMetadata: ComponentMeta = {
     "A compositional count artifact widget component for displaying prominent values with optional content and footer context.",
   llmUsage:
     "When showing a key metric, compose `<ArtifactCount>` with `<ArtifactCountHeader>` and `<ArtifactCountCount>`. Use the `variant` prop on `<ArtifactCountCount>` (`default`, `warning`, `critical`) to style the count chip. Add `<ArtifactCountSeparator>`, `<ArtifactCountContent>`, and `<ArtifactCountFooter>` when you need supporting information. Use `<ArtifactCountFooterLeft>`, `<ArtifactCountFooterCenter>`, and `<ArtifactCountFooterRight>` to align footer content, then add class names to style text.",
-  importPath: "@/components/ui/aura/artifact-count",
   codeExamples: [
     {
       title: "Basic Count",

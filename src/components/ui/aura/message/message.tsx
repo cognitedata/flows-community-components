@@ -1,11 +1,3 @@
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
-import { Button } from "@/components/ui/aura/button";
-import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
-import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
-import { cn } from "@/lib/utils";
-import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
-import type { FileUIPart, UIMessage } from "ai";
 import type { ComponentProps, HTMLAttributes, ReactElement, ReactNode } from "react";
 import {
   createContext,
@@ -16,15 +8,26 @@ import {
   useMemo,
   useState,
 } from "react";
+
+import { IconChevronLeft, IconChevronRight, IconPaperclip, IconX } from "@tabler/icons-react";
 import type { BundledLanguage } from "shiki";
 import { Streamdown } from "streamdown";
 
-export type MessageProps = HTMLAttributes<HTMLDivElement> & {
+import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
+import { Button } from "@/components/ui/aura/button";
+import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
+import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
+import type { FileUIPart, UIMessage } from "../../../../lib/ai/types";
+import { cn, getInitials } from "../../../../lib/utils";
+
+type MessageProps = HTMLAttributes<HTMLDivElement> & {
   isResponse?: boolean;
 };
 
-export const Message = ({ className, isResponse = false, ...props }: MessageProps) => (
+const Message = ({ className, isResponse = false, ...props }: MessageProps) => (
   <div
+    data-slot="message"
     className={cn(
       "group flex w-full items-start justify-start gap-3 py-2 mb-0",
       isResponse ? "is-assistant items-start" : "is-user flex-row-reverse",
@@ -34,13 +37,14 @@ export const Message = ({ className, isResponse = false, ...props }: MessageProp
   />
 );
 
-export type MessageContentProps = HTMLAttributes<HTMLDivElement>;
+type MessageContentProps = HTMLAttributes<HTMLDivElement>;
 
-export const MessageContent = ({ children, className, ...props }: MessageContentProps) => (
+const MessageContent = ({ children, className, ...props }: MessageContentProps) => (
   <div
+    data-slot="message-content"
     className={cn(
       "is-user:dark flex flex-col gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest",
-      "max-w-[var(--message-content-max-width)]",
+      "max-w-4/5",
       "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
       "group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1",
       className
@@ -51,21 +55,12 @@ export const MessageContent = ({ children, className, ...props }: MessageContent
   </div>
 );
 
-// Helper function to extract initials from a name
-function getInitials(name: string): string {
-  return name
-    .split(" ")
-    .map((part) => part.charAt(0).toUpperCase())
-    .join("")
-    .slice(0, 2);
-}
-
-export type MessageAvatarProps = ComponentProps<typeof Avatar> & {
+type MessageAvatarProps = ComponentProps<typeof Avatar> & {
   avatarUrl?: string;
   name?: string;
 };
 
-export const MessageAvatar = ({
+const MessageAvatar = ({
   avatarUrl,
   name,
   className,
@@ -78,6 +73,7 @@ export const MessageAvatar = ({
 
   return (
     <Avatar
+      data-slot="message-avatar"
       className={cn("size-7 group-[.is-user]:mt-1", className)}
       variant={variant}
       sizes={sizes}
@@ -93,24 +89,26 @@ export const MessageAvatar = ({
   );
 };
 
-export type MessageAvatarIconProps = ComponentProps<typeof AvatarIcon>;
+type MessageAvatarIconProps = ComponentProps<typeof AvatarIcon>;
 
-export const MessageAvatarIcon = (props: MessageAvatarIconProps) => <AvatarIcon {...props} />;
+const MessageAvatarIcon = (props: MessageAvatarIconProps) => (
+  <AvatarIcon data-slot="message-avatar-icon" {...props} />
+);
 
-export type MessageActionsProps = ComponentProps<"div">;
+type MessageActionsProps = ComponentProps<"div">;
 
-export const MessageActions = ({ className, children, ...props }: MessageActionsProps) => (
-  <div className={cn("flex items-center gap-2", className)} {...props}>
+const MessageActions = ({ className, children, ...props }: MessageActionsProps) => (
+  <div data-slot="message-actions" className={cn("flex items-center gap-2", className)} {...props}>
     {children}
   </div>
 );
 
-export type MessageActionProps = ComponentProps<typeof Button> & {
+type MessageActionProps = ComponentProps<typeof Button> & {
   tooltip?: string;
   label?: string;
 };
 
-export const MessageAction = ({
+const MessageAction = ({
   tooltip,
   children,
   label,
@@ -121,6 +119,7 @@ export const MessageAction = ({
 }: MessageActionProps) => {
   const button = (
     <Button
+      data-slot="message-action"
       className={cn("relative icon-sm text-muted-foreground hover:text-foreground", className)}
       size={size}
       type="button"
@@ -135,7 +134,7 @@ export const MessageAction = ({
   if (tooltip) {
     return (
       <Tooltip>
-        <TooltipTrigger asChild>{button}</TooltipTrigger>
+        <TooltipTrigger render={button} />
         <TooltipContent>
           <p>{tooltip}</p>
         </TooltipContent>
@@ -167,12 +166,12 @@ const useMessageBranch = () => {
   return context;
 };
 
-export type MessageBranchProps = HTMLAttributes<HTMLDivElement> & {
+type MessageBranchProps = HTMLAttributes<HTMLDivElement> & {
   defaultBranch?: number;
   onBranchChange?: (branchIndex: number) => void;
 };
 
-export const MessageBranch = ({
+const MessageBranch = ({
   defaultBranch = 0,
   onBranchChange,
   className,
@@ -207,21 +206,24 @@ export const MessageBranch = ({
 
   return (
     <MessageBranchContext.Provider value={contextValue}>
-      <div className={cn("grid w-full gap-2 [&>div]:pb-0", className)} {...props} />
+      <div
+        data-slot="message-branch"
+        className={cn("grid w-full gap-2 [&>div]:pb-0", className)}
+        {...props}
+      />
     </MessageBranchContext.Provider>
   );
 };
 
-export type MessageBranchContentProps = HTMLAttributes<HTMLDivElement>;
+type MessageBranchContentProps = HTMLAttributes<HTMLDivElement>;
 
-export const MessageBranchContent = ({ children, ...props }: MessageBranchContentProps) => {
+const MessageBranchContent = ({ children, ...props }: MessageBranchContentProps) => {
   const { currentBranch, setBranches, branches } = useMessageBranch();
   const childrenArray = useMemo(
     () => (Array.isArray(children) ? children : [children]),
     [children]
   );
 
-  // Use useEffect to update branches when they change
   useEffect(() => {
     if (branches.length !== childrenArray.length) {
       setBranches(childrenArray);
@@ -230,6 +232,7 @@ export const MessageBranchContent = ({ children, ...props }: MessageBranchConten
 
   return childrenArray.map((branch, index) => (
     <div
+      data-slot="message-branch-content"
       className={cn(
         "grid gap-2 overflow-hidden [&>div]:pb-0",
         index === currentBranch ? "block" : "hidden"
@@ -242,20 +245,20 @@ export const MessageBranchContent = ({ children, ...props }: MessageBranchConten
   ));
 };
 
-export type MessageBranchSelectorProps = HTMLAttributes<HTMLDivElement> & {
+type MessageBranchSelectorProps = HTMLAttributes<HTMLDivElement> & {
   from: UIMessage["role"];
 };
 
-export const MessageBranchSelector = ({ ...props }: MessageBranchSelectorProps) => {
+const MessageBranchSelector = ({ ...props }: MessageBranchSelectorProps) => {
   const { totalBranches } = useMessageBranch();
 
-  // Don't render if there's only one branch
   if (totalBranches <= 1) {
     return null;
   }
 
   return (
     <ButtonGroup
+      data-slot="message-branch-selector"
       className="[&>*:not(:first-child)]:rounded-l-md [&>*:not(:last-child)]:rounded-r-md"
       orientation="horizontal"
       {...props}
@@ -263,13 +266,14 @@ export const MessageBranchSelector = ({ ...props }: MessageBranchSelectorProps) 
   );
 };
 
-export type MessageBranchPreviousProps = ComponentProps<typeof Button>;
+type MessageBranchPreviousProps = ComponentProps<typeof Button>;
 
-export const MessageBranchPrevious = ({ children, ...props }: MessageBranchPreviousProps) => {
+const MessageBranchPrevious = ({ children, ...props }: MessageBranchPreviousProps) => {
   const { goToPrevious, totalBranches } = useMessageBranch();
 
   return (
     <Button
+      data-slot="message-branch-previous"
       aria-label="Previous branch"
       disabled={totalBranches <= 1}
       onClick={goToPrevious}
@@ -283,13 +287,14 @@ export const MessageBranchPrevious = ({ children, ...props }: MessageBranchPrevi
   );
 };
 
-export type MessageBranchNextProps = ComponentProps<typeof Button>;
+type MessageBranchNextProps = ComponentProps<typeof Button>;
 
-export const MessageBranchNext = ({ children, ...props }: MessageBranchNextProps) => {
+const MessageBranchNext = ({ children, ...props }: MessageBranchNextProps) => {
   const { goToNext, totalBranches } = useMessageBranch();
 
   return (
     <Button
+      data-slot="message-branch-next"
       aria-label="Next branch"
       disabled={totalBranches <= 1}
       onClick={goToNext}
@@ -303,13 +308,14 @@ export const MessageBranchNext = ({ children, ...props }: MessageBranchNextProps
   );
 };
 
-export type MessageBranchPageProps = HTMLAttributes<HTMLSpanElement>;
+type MessageBranchPageProps = HTMLAttributes<HTMLSpanElement>;
 
-export const MessageBranchPage = ({ className, ...props }: MessageBranchPageProps) => {
+const MessageBranchPage = ({ className, ...props }: MessageBranchPageProps) => {
   const { currentBranch, totalBranches } = useMessageBranch();
 
   return (
     <ButtonGroupText
+      data-slot="message-branch-page"
       className={cn("border-none bg-transparent text-muted-foreground shadow-none px-2", className)}
       {...props}
     >
@@ -318,20 +324,17 @@ export const MessageBranchPage = ({ className, ...props }: MessageBranchPageProp
   );
 };
 
-export type MessageResponseProps = ComponentProps<typeof Streamdown>;
+type MessageResponseProps = ComponentProps<typeof Streamdown>;
 
-// Custom code component that uses Aura's CodeBlock for code blocks
 type MessageResponseCodeProps = {
   className?: string;
   children?: ReactNode;
 };
 
 const MessageResponseCode = ({ className, children }: MessageResponseCodeProps) => {
-  // Extract language from className (e.g., "language-typescript" -> "typescript")
   const languageMatch = className?.match(/language-(\w+)/);
   const language = languageMatch?.[1] as BundledLanguage | undefined;
 
-  // Extract code text - Streamdown passes either a string or a single nested element
   let codeText = "";
   if (typeof children === "string") {
     codeText = children;
@@ -342,7 +345,6 @@ const MessageResponseCode = ({ className, children }: MessageResponseCodeProps) 
     }
   }
 
-  // Check if this is a code block (has language) or inline code
   const isCodeBlock = !!language;
 
   if (isCodeBlock) {
@@ -357,17 +359,14 @@ const MessageResponseCode = ({ className, children }: MessageResponseCodeProps) 
     );
   }
 
-  // Inline code - render with standard styling
   return (
-    <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+    <code className="relative rounded bg-muted px-1.5 py-0.5 font-mono text-sm font-semibold">
       {children}
     </code>
   );
 };
 
-// Component overrides for Streamdown elements with Aura styling
 const messageResponseComponents = {
-  // Headings
   h1: ({ children }: { children?: ReactNode }) => (
     <h1 className="mt-0 mb-2 scroll-m-20 text-xl font-medium tracking-tightest">{children}</h1>
   ),
@@ -386,16 +385,13 @@ const messageResponseComponents = {
   h6: ({ children }: { children?: ReactNode }) => (
     <h6 className="mt-0 mb-0 scroll-m-20 text-2xs font-medium tracking-tighter">{children}</h6>
   ),
-  // Paragraph
   p: ({ children }: { children?: ReactNode }) => (
     <p className="mt-2 mb-3 text-base font-normal leading-7 tracking-tightest">{children}</p>
   ),
-  // Text formatting
   strong: ({ children }: { children?: ReactNode }) => (
     <strong className="font-medium">{children}</strong>
   ),
   em: ({ children }: { children?: ReactNode }) => <em className="italic">{children}</em>,
-  // Lists
   ul: ({ children }: { children?: ReactNode }) => (
     <ul className="ml-8.25 mb-3 pt-2 pl-0 pb-0 list-disc text-base font-normal tracking-tightest">
       {children}
@@ -407,15 +403,12 @@ const messageResponseComponents = {
     </ol>
   ),
   li: ({ children }: { children?: ReactNode }) => <li className="py-0">{children}</li>,
-  // Blockquote
   blockquote: ({ children }: { children?: ReactNode }) => (
     <blockquote className="my-3 pr-2 pl-2 border-l border-l-border text-sm text-muted-foreground font-normal tracking-tight not-italic">
       {children}
     </blockquote>
   ),
-  // Horizontal rule
   hr: () => <hr className="my-4 border-border" />,
-  // Links
   a: ({
     children,
     href,
@@ -432,7 +425,6 @@ const messageResponseComponents = {
       {children}
     </a>
   ),
-  // Tables
   table: ({ children }: { children?: ReactNode }) => (
     <table className="my-6 w-full">{children}</table>
   ),
@@ -447,16 +439,15 @@ const messageResponseComponents = {
   td: ({ children }: { children?: ReactNode }) => (
     <td className="border px-4 py-2 text-left">{children}</td>
   ),
-  // Code - uses custom CodeBlock component for code blocks, standard styling for inline code
   code: MessageResponseCode,
 };
 
-export const MessageResponse = memo(
+const MessageResponse = memo(
   ({ className, components, ...props }: MessageResponseProps) => (
     <Streamdown
+      data-slot="message-response"
       className={cn(
         "size-full",
-        // Mermaid diagram blocks
         '[&_div[data-streamdown="mermaid-block"]]:bg-card',
         '[&_div[data-streamdown="mermaid-block"]]:text-card-foreground',
         '[&_div[data-streamdown="mermaid-block"]]:flex',
@@ -464,7 +455,13 @@ export const MessageResponse = memo(
         '[&_div[data-streamdown="mermaid-block"]]:rounded-lg',
         '[&_div[data-streamdown="mermaid-block"]]:hover:bg-accent',
         '[&_div[data-streamdown="mermaid-block"]]:border-0',
-        // First and last child margin resets
+        '[&_div[data-streamdown="mermaid-block"]_.relative.w-full]:min-h-28',
+        '[&_div[data-streamdown="mermaid-block"]_>div>.fixed]:z-[200]',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:fixed',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:top-4',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:bottom-auto',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:left-4',
+        '[&_div[data-streamdown="mermaid-block"]_.fixed.inset-0_.flex-col.absolute]:z-[201]',
         "[&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
         className
       )}
@@ -478,20 +475,24 @@ export const MessageResponse = memo(
 
 MessageResponse.displayName = "MessageResponse";
 
-export type MessageAttachmentProps = HTMLAttributes<HTMLDivElement> & {
+type MessageAttachmentProps = HTMLAttributes<HTMLDivElement> & {
   data: FileUIPart;
   className?: string;
   onRemove?: () => void;
 };
 
-export function MessageAttachment({ data, className, onRemove, ...props }: MessageAttachmentProps) {
+function MessageAttachment({ data, className, onRemove, ...props }: MessageAttachmentProps) {
   const filename = data.filename || "";
   const mediaType = data.mediaType?.startsWith("image/") && data.url ? "image" : "file";
   const isImage = mediaType === "image";
   const attachmentLabel = filename || (isImage ? "Image" : "Attachment");
 
   return (
-    <div className={cn("group relative size-24 overflow-hidden rounded-lg", className)} {...props}>
+    <div
+      data-slot="message-attachment"
+      className={cn("group relative size-24 overflow-hidden rounded-lg", className)}
+      {...props}
+    >
       {isImage ? (
         <>
           <img
@@ -520,11 +521,13 @@ export function MessageAttachment({ data, className, onRemove, ...props }: Messa
       ) : (
         <>
           <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="flex size-full shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-                <IconPaperclip className="size-4" />
-              </div>
-            </TooltipTrigger>
+            <TooltipTrigger
+              render={
+                <div className="flex size-full shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                  <IconPaperclip className="size-4" />
+                </div>
+              }
+            />
             <TooltipContent>
               <p>{attachmentLabel}</p>
             </TooltipContent>
@@ -550,24 +553,51 @@ export function MessageAttachment({ data, className, onRemove, ...props }: Messa
   );
 }
 
-export type MessageAttachmentsProps = ComponentProps<"div">;
+type MessageAttachmentsProps = ComponentProps<"div">;
 
-export function MessageAttachments({ children, className, ...props }: MessageAttachmentsProps) {
+function MessageAttachments({ children, className, ...props }: MessageAttachmentsProps) {
   if (!children) {
     return null;
   }
 
   return (
-    <div className={cn("ml-auto flex w-fit flex-wrap items-start gap-2", className)} {...props}>
+    <div
+      data-slot="message-attachments"
+      className={cn("ml-auto flex w-fit flex-wrap items-start gap-2", className)}
+      {...props}
+    >
       {children}
     </div>
   );
 }
 
-export type MessageToolbarProps = ComponentProps<"div">;
+type MessageToolbarProps = ComponentProps<"div">;
 
-export const MessageToolbar = ({ className, children, ...props }: MessageToolbarProps) => (
-  <div className={cn("mt-4 flex w-full items-center justify-between gap-4", className)} {...props}>
+const MessageToolbar = ({ className, children, ...props }: MessageToolbarProps) => (
+  <div
+    data-slot="message-toolbar"
+    className={cn("mt-4 flex w-full items-center justify-between gap-4", className)}
+    {...props}
+  >
     {children}
   </div>
 );
+
+export {
+  Message,
+  MessageContent,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageActions,
+  MessageAction,
+  MessageBranch,
+  MessageBranchContent,
+  MessageBranchSelector,
+  MessageBranchPrevious,
+  MessageBranchNext,
+  MessageBranchPage,
+  MessageResponse,
+  MessageAttachment,
+  MessageAttachments,
+  MessageToolbar,
+};

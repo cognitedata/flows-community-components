@@ -1,8 +1,7 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 export const InlineCitationMetadata: ComponentMeta = {
   name: "InlineCitation",
-  status: "draft",
+  status: "in-progress-code-review",
   description: "Components for displaying inline citations and source references.",
-  importPath: "@/components/ui/aura/inline-citation",
 };

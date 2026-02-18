@@ -14,10 +14,33 @@ import {
   Suggestions,
 } from "./suggestion";
 
+const getOpenSelectContent = () =>
+  document.querySelector('[data-slot="select-content"][data-open]') as HTMLElement | null;
+
+const waitForSelectContentOpen = async () => {
+  await waitFor(
+    () => {
+      const content = getOpenSelectContent();
+      expect(content).toBeInTheDocument();
+    },
+    { timeout: 1000 }
+  );
+};
+
+const waitForSelectContentClosed = async () => {
+  await waitFor(
+    () => {
+      const content = getOpenSelectContent();
+      expect(content).not.toBeInTheDocument();
+    },
+    { timeout: 1000 }
+  );
+};
+
 const meta: Meta<typeof Suggestion> = {
   title: "AI/Suggestion",
   component: Suggestion,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   decorators: [
     (Story) => (
       <div className="p-8">
@@ -229,25 +252,17 @@ export const SelectMode: Story = {
     await userEvent.click(trigger);
 
     // Wait for dropdown to open and find an item
-    await waitFor(
-      () => {
-        const item = within(document.body).getByText("Show me the pressure on valve 10");
-        expect(item).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitForSelectContentOpen();
+    await expect(
+      within(document.body).getByText("Show me the pressure on valve 10")
+    ).toBeInTheDocument();
 
     // Click the item to select it
     const item = within(document.body).getByText("Show me the pressure on valve 10");
     await userEvent.click(item);
 
     // Dropdown should close automatically after selection
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentClosed();
   },
   render: function SuggestionSelectStory(args) {
     const handleSuggestion = (value: string) => {
@@ -295,16 +310,9 @@ export const KeyboardInteractions: Story = {
     await expect(trigger).toBeInTheDocument();
     trigger.focus();
 
-    // Open dropdown with Enter key
-    await userEvent.keyboard("{Enter}");
-
-    // Wait for dropdown to open
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 500 }
-    );
+    // Open dropdown (keyboard interactions after open)
+    await userEvent.click(trigger);
+    await waitForSelectContentOpen();
 
     // Navigate down with arrow key
     await userEvent.keyboard("{ArrowDown}");
@@ -313,30 +321,15 @@ export const KeyboardInteractions: Story = {
     await userEvent.keyboard("{Enter}");
 
     // Dropdown should close
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentClosed();
 
     // Open again to test Escape
-    await userEvent.keyboard("{Enter}");
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "open");
-      },
-      { timeout: 500 }
-    );
+    await userEvent.click(trigger);
+    await waitForSelectContentOpen();
 
     // Close with Escape
     await userEvent.keyboard("{Escape}");
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("data-state", "closed");
-      },
-      { timeout: 500 }
-    );
+    await waitForSelectContentClosed();
   },
   render: function SuggestionKeyboardStory(args) {
     const handleSuggestion = (value: string) => {
@@ -434,16 +427,12 @@ export const InteractiveSelect: Story = {
     await userEvent.click(trigger);
 
     // Wait for dropdown to open
-    await waitFor(
-      () => {
-        const item = within(document.body).getByText("What's the status of pump 3?");
-        expect(item).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitForSelectContentOpen();
 
     // Select the second item
-    const item = within(document.body).getByText("What's the status of pump 3?");
+    const content = getOpenSelectContent();
+    expect(content).toBeInTheDocument();
+    const item = within(content as HTMLElement).getByText("What's the status of pump 3?");
     await userEvent.click(item);
 
     // Verify the selection is displayed

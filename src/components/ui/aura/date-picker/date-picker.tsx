@@ -5,25 +5,27 @@ import { useState } from "react";
 import { Button } from "@/components/ui/aura/button";
 import { Calendar } from "@/components/ui/aura/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 export function DatePicker() {
   const [date, setDate] = useState<Date>();
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-60 justify-start text-left font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <IconCalendar className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={
+          <Button
+            variant={"outline"}
+            className={cn(
+              "w-60 justify-start text-left font-normal",
+              !date && "text-muted-foreground"
+            )}
+          >
+            <IconCalendar className="mr-2 h-4 w-4" />
+            {date ? format(date, "PPP") : <span>Pick a date</span>}
+          </Button>
+        }
+      />
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
       </PopoverContent>
@@ -57,21 +59,23 @@ export function DatePickerCustom({
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          id={id}
-          variant={"outline"}
-          className={cn(
-            "w-60 justify-start text-left font-normal",
-            !selectedDate && "text-muted-foreground",
-            className
-          )}
-          disabled={disabled}
-        >
-          <IconCalendar className="mr-2 h-4 w-4" />
-          {selectedDate ? format(selectedDate, "PPP") : <span>{placeholder}</span>}
-        </Button>
-      </PopoverTrigger>
+      <PopoverTrigger
+        render={
+          <Button
+            id={id}
+            variant={"outline"}
+            className={cn(
+              "w-60 justify-start text-left font-normal",
+              !selectedDate && "text-muted-foreground",
+              className
+            )}
+            disabled={disabled}
+          >
+            <IconCalendar className="mr-2 h-4 w-4" />
+            {selectedDate ? format(selectedDate, "PPP") : <span>{placeholder}</span>}
+          </Button>
+        }
+      />
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar mode="single" selected={selectedDate} onSelect={handleDateChange} initialFocus />
       </PopoverContent>
@@ -114,30 +118,33 @@ export function DateRangePicker({
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-60 justify-start text-left font-normal",
-            !selectedRange.from && "text-muted-foreground",
-            className
-          )}
-          disabled={disabled}
-        >
-          <IconCalendar className="mr-2 h-4 w-4" />
-          {selectedRange.from ? (
-            selectedRange.to ? (
-              <>
-                {format(selectedRange.from, "LLL dd, y")} - {format(selectedRange.to, "LLL dd, y")}
-              </>
+      <PopoverTrigger
+        render={
+          <Button
+            variant={"outline"}
+            className={cn(
+              "w-60 justify-start text-left font-normal",
+              !selectedRange.from && "text-muted-foreground",
+              className
+            )}
+            disabled={disabled}
+          >
+            <IconCalendar className="mr-2 h-4 w-4" />
+            {selectedRange.from ? (
+              selectedRange.to ? (
+                <>
+                  {format(selectedRange.from, "LLL dd, y")} -{" "}
+                  {format(selectedRange.to, "LLL dd, y")}
+                </>
+              ) : (
+                format(selectedRange.from, "LLL dd, y")
+              )
             ) : (
-              format(selectedRange.from, "LLL dd, y")
-            )
-          ) : (
-            <span>{placeholder}</span>
-          )}
-        </Button>
-      </PopoverTrigger>
+              <span>{placeholder}</span>
+            )}
+          </Button>
+        }
+      />
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar mode="range" selected={selectedRange} onSelect={handleRangeChange} initialFocus />
       </PopoverContent>

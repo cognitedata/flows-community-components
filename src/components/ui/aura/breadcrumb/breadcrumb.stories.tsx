@@ -1,3 +1,9 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/aura/dropdown-menu";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -9,12 +15,6 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../dropdown-menu";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -196,19 +196,11 @@ export const WithEllipsisDropdown: Story = {
         <BreadcrumbSeparator />
         <BreadcrumbEllipsis>
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <BreadcrumbEllipsisButton />
-            </DropdownMenuTrigger>
+            <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
             <DropdownMenuContent align="start">
-              <DropdownMenuItem asChild>
-                <a href="/projects">Projects</a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/teams">Teams</a>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <a href="/workspaces">Workspaces</a>
-              </DropdownMenuItem>
+              <DropdownMenuItem render={<a href="/projects">Projects</a>} />
+              <DropdownMenuItem render={<a href="/teams">Teams</a>} />
+              <DropdownMenuItem render={<a href="/workspaces">Workspaces</a>} />
             </DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbEllipsis>
@@ -324,9 +316,9 @@ export const WithPageActions: Story = {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>
-            </DropdownMenuTrigger>
+            <DropdownMenuTrigger
+              render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
+            />
             <DropdownMenuContent align="start" className="w-[280px] p-0">
               <div className="p-1">
                 <DropdownMenuItem className="p-2">
@@ -741,9 +733,9 @@ export const StyleComparison: Story = {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>
-                </DropdownMenuTrigger>
+                <DropdownMenuTrigger
+                  render={<BreadcrumbPageButton>Test canvas</BreadcrumbPageButton>}
+                />
                 <DropdownMenuContent align="start" className="w-[280px] p-0">
                   <div className="p-1">
                     <DropdownMenuItem className="p-2">
@@ -1065,16 +1057,10 @@ export const SmallContainerManyLongItems: Story = {
           <BreadcrumbSeparator />
           <BreadcrumbEllipsis>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <BreadcrumbEllipsisButton />
-              </DropdownMenuTrigger>
+              <DropdownMenuTrigger render={<BreadcrumbEllipsisButton />} />
               <DropdownMenuContent>
-                <DropdownMenuItem asChild>
-                  <a href="/organization">Organization Management</a>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <a href="/department">Engineering Department</a>
-                </DropdownMenuItem>
+                <DropdownMenuItem render={<a href="/organization">Organization Management</a>} />
+                <DropdownMenuItem render={<a href="/department">Engineering Department</a>} />
               </DropdownMenuContent>
             </DropdownMenu>
           </BreadcrumbEllipsis>

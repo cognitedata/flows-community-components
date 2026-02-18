@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
+import { cn } from "../../../../lib/utils";
 import {
   borderRadii,
   effectExamples,

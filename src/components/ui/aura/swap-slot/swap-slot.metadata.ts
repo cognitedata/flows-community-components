@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * SwapSlot Component Metadata
@@ -8,10 +8,9 @@ import type { ComponentMeta } from "@/lib/component-examples";
  */
 export const SwapSlotMetadata: ComponentMeta = {
   name: "SwapSlot",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "A container component that swaps between default and active slots, useful for showing different content based on state.",
   llmUsage:
     "Use `<SwapSlot defaultSlot={<Default />} activeSlot={<Active />} />` to swap content based on state.",
-  importPath: "@/components/ui/aura/swap-slot",
 };

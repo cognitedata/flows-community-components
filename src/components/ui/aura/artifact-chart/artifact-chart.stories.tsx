@@ -38,7 +38,7 @@ import {
 const meta: Meta<typeof ArtifactChart> = {
   title: "Primitives/Artifact - Chart",
   component: ArtifactChart,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Content
     children: {
@@ -213,11 +213,11 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Visitors")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Visitors")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function BasicPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -323,9 +323,9 @@ export const WithHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function WithHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -420,8 +420,8 @@ export const WithFooter: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function WithFooterPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -522,7 +522,7 @@ export const WithActions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
@@ -637,8 +637,8 @@ export const MinimalHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function MinimalHeaderPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -743,9 +743,9 @@ export const InteractiveDataToggle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("Q1")).toBeInTheDocument();
-    await expect(canvas.getByText("Q2")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("Q1")).toBeInTheDocument();
+    await expect(await canvas.findByText("Q2")).toBeInTheDocument();
   },
   render: function InteractiveDataTogglePieChart() {
     const q1Data = [
@@ -898,7 +898,7 @@ export const EdgeCaseLongText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
+    await expect(await canvas.findByText(/Quarterly Revenue Distribution/)).toBeInTheDocument();
   },
   render: function LongTextPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1009,8 +1009,8 @@ export const VisualRegression: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("1,125")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("1,125")).toBeInTheDocument();
   },
   render: function VisualRegressionPieChart() {
     const [chartData] = useState(sharedChartData);
@@ -1095,7 +1095,7 @@ export const EdgeCaseNoData: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("No data available")).toBeInTheDocument();
+    await expect(await canvas.findByText("No data available")).toBeInTheDocument();
   },
   render: function NoDataPieChart() {
     const [chartData] = useState<{ id: string; value: number }[]>([]);
@@ -1161,11 +1161,11 @@ export const StackedAreaChart: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Reactor temperature trend")).toBeInTheDocument();
-    await expect(canvas.getByText("Last 24 hours")).toBeInTheDocument();
-    await expect(canvas.getByText("R401")).toBeInTheDocument();
-    await expect(canvas.getByText("R402")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Reactor temperature trend")).toBeInTheDocument();
+    await expect(await canvas.findByText("Last 24 hours")).toBeInTheDocument();
+    await expect(await canvas.findByText("R401")).toBeInTheDocument();
+    await expect(await canvas.findByText("R402")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function StackedAreaChartStory() {
     return (
@@ -1304,11 +1304,11 @@ export const MultiLineChart: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Performance metrics")).toBeInTheDocument();
-    await expect(canvas.getByText("Last 30 days")).toBeInTheDocument();
-    await expect(canvas.getByText("Primary")).toBeInTheDocument();
-    await expect(canvas.getByText("Secondary")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Performance metrics")).toBeInTheDocument();
+    await expect(await canvas.findByText("Last 30 days")).toBeInTheDocument();
+    await expect(await canvas.findByText("Primary")).toBeInTheDocument();
+    await expect(await canvas.findByText("Secondary")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function MultiLineChartStory() {
     return (
@@ -1438,12 +1438,12 @@ export const HorizontalBarChart: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Assets")).toBeInTheDocument();
-    await expect(canvas.getByText("Files")).toBeInTheDocument();
-    await expect(canvas.getByText("Events")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Assets")).toBeInTheDocument();
+    await expect(await canvas.findByText("Files")).toBeInTheDocument();
+    await expect(await canvas.findByText("Events")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function HorizontalBarChartStory() {
     const chartData = barChartData;
@@ -1678,9 +1678,9 @@ export const RadialChart: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByText("Chart title")).toBeInTheDocument();
-    await expect(canvas.getByText("January - June 2024")).toBeInTheDocument();
-    await expect(canvas.getByText("Trending up by 5.2% this month")).toBeInTheDocument();
+    await expect(await canvas.findByText("Chart title")).toBeInTheDocument();
+    await expect(await canvas.findByText("January - June 2024")).toBeInTheDocument();
+    await expect(await canvas.findByText("Trending up by 5.2% this month")).toBeInTheDocument();
   },
   render: function RadialChartStory() {
     const [hoveredRing, setHoveredRing] = useState<RadialRingDatum | null>(null);
