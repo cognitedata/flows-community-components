@@ -5,6 +5,8 @@ import {
   IconAppsFilled,
   IconBellFilled,
   IconBoltFilled,
+  IconBuilding,
+  IconChartAreaFilled,
   IconChevronLeft,
   IconFileDescription,
   IconFolder,
@@ -13,6 +15,8 @@ import {
   IconMapPinFilled,
   IconPointFilled,
   IconSearch,
+  IconSettingsFilled,
+  IconShieldFilled,
   IconWorld,
 } from "@tabler/icons-react";
 import {
@@ -114,8 +118,8 @@ export const IndustrialToolsExpanded: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const sidebar = canvas.getByTestId("sidebar-header-insert");
-    await expect(sidebar).toBeInTheDocument();
+    const projectLabel = canvas.getByText("AkerBP-DEV");
+    await expect(projectLabel).toBeInTheDocument();
     const atlasButton = canvas.getByText("Atlas");
     await expect(atlasButton).toBeInTheDocument();
     const footer = canvas.getByText("Elizabeth Fitzgerald");
@@ -127,7 +131,7 @@ export const IndustrialToolsExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert data-testid="sidebar-header-insert">
+              <SidebarHeaderInsert>
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
@@ -422,7 +426,7 @@ export const DataManagementExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert data-testid="sidebar-header-insert">
+              <SidebarHeaderInsert>
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
@@ -606,19 +610,19 @@ export const DataManagementCollapsed: Story = {
                   <SidebarMenu>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Data explorer">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconSearch className="h-4.5 w-4.5" />
                         <span>Data explorer</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton isActive tooltip="Data catalog">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconFolder className="h-4 w-4" />
                         <span>Data catalog</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Data models">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconFolder className="h-4 w-4" />
                         <span>Data models</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -630,33 +634,33 @@ export const DataManagementCollapsed: Story = {
                 <SidebarMenuSection title="Contextualize" collapsible defaultOpen>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Diagram parsing">
-                      <IconPointFilled className="h-4 w-4" />
+                      <IconFileDescription className="h-4 w-4" />
                       <span>Diagram parsing</span>
                     </SidebarMenuButton>
                     <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Document parsing">
-                      <IconPointFilled className="h-4 w-4" />
+                      <IconFileDescription className="h-4 w-4" />
                       <span>Document parsing</span>
                     </SidebarMenuButton>
                     <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Entity matching">
-                      <IconPointFilled className="h-4 w-4" />
+                      <IconFileDescription className="h-4 w-4" />
                       <span>Entity matching</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Images and videos">
-                      <IconPointFilled className="h-4 w-4" />
+                      <IconFileDescription className="h-4 w-4" />
                       <span>Images and videos</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Model data with te...">
-                      <IconPointFilled className="h-4 w-4" />
+                      <IconFileDescription className="h-4 w-4" />
                       <span>Model data with te...</span>
                     </SidebarMenuButton>
                     <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
@@ -729,7 +733,7 @@ export const AdminExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert data-testid="sidebar-header-insert">
+              <SidebarHeaderInsert>
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
@@ -752,19 +756,19 @@ export const AdminExpanded: Story = {
                   <SidebarMenu>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Access management">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconShieldFilled className="h-4 w-4" />
                         <span>Access management</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton isActive tooltip="Project settings">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconSettingsFilled className="h-4 w-4" />
                         <span>Project settings</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="My organization">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconBuilding className="h-4 w-4" />
                         <span>My organization</span>
                       </SidebarMenuButton>
                       <SidebarMenuBadge variant="mountain">Badge</SidebarMenuBadge>
@@ -859,19 +863,19 @@ export const AdminCollapsed: Story = {
                   <SidebarMenu>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Access management">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconShieldFilled className="h-4 w-4" />
                         <span>Access management</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton isActive tooltip="Project settings">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconSettingsFilled className="h-4 w-4" />
                         <span>Project settings</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="My organization">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconBuilding className="h-4 w-4" />
                         <span>My organization</span>
                       </SidebarMenuButton>
                       <SidebarMenuBadge variant="mountain">Badge</SidebarMenuBadge>
@@ -936,7 +940,7 @@ export const AtlasAIExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert data-testid="sidebar-header-insert">
+              <SidebarHeaderInsert>
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
@@ -978,7 +982,7 @@ export const AtlasAIExpanded: Story = {
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Consumption">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconChartAreaFilled className="h-4 w-4" />
                         <span>Consumption</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -1091,7 +1095,7 @@ export const AtlasAICollapsed: Story = {
                     </SidebarMenuItem>
                     <SidebarMenuItem>
                       <SidebarMenuButton tooltip="Consumption">
-                        <IconPointFilled className="h-4 w-4" />
+                        <IconChartAreaFilled className="h-4 w-4" />
                         <span>Consumption</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
