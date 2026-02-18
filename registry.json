@@ -851,7 +851,7 @@
       "title": "Input",
       "description": "A styled text input component with focus and validation states.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/helper-text", "@aura/input-group"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/input/input.tsx",
@@ -871,30 +871,11 @@
       "title": "InputGroup",
       "description": "A component for grouping inputs with addons and buttons.",
       "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css", "@aura/button", "@aura/input", "@aura/textarea"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/input-group/input-group.tsx",
           "target": "src/components/ui/aura/input-group.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "textarea",
-      "type": "registry:component",
-      "title": "Textarea",
-      "description": "A multi-line text input component.",
-      "registryDependencies": ["@aura/css", "@aura/helper-text"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/textarea/textarea.tsx",
-          "target": "src/components/ui/aura/textarea.tsx",
           "type": "registry:component"
         },
         {
@@ -1411,6 +1392,25 @@
         {
           "path": "src/components/ui/aura/tabs/tabs.tsx",
           "target": "src/components/ui/aura/tabs.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:component",
+      "title": "Textarea",
+      "description": "A multi-line text input component.",
+      "registryDependencies": ["@aura/css", "@aura/helper-text"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/textarea/textarea.tsx",
+          "target": "src/components/ui/aura/textarea.tsx",
           "type": "registry:component"
         },
         {

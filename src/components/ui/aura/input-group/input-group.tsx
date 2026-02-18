@@ -2,12 +2,12 @@ import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 
 import { type VariantProps, cva } from "class-variance-authority";
 
-import { Button } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Textarea } from "@/components/ui/aura/textarea";
 import { cn } from "../../../../lib/utils";
+import { Button } from "../button";
+import { Input } from "../input";
+import { Textarea } from "../textarea";
 
-const InputGroup = forwardRef<HTMLDivElement, ComponentProps<"div">>(
+const InputGroup = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {
     return (
       <div
@@ -15,7 +15,7 @@ const InputGroup = forwardRef<HTMLDivElement, ComponentProps<"div">>(
         data-slot="input-group"
         role="group"
         className={cn(
-          "group/input-group bg-background border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-sm transition-[color,box-shadow] outline-none",
+          "group/input-group bg-background border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-sm transition-colors transition-shadow outline-none",
           "h-9 min-w-0 has-[>textarea]:h-auto",
           "has-[>[data-align=inline-start]]:[&>input]:pl-2 has-[>[data-align=inline-start]]:[&>input]:rounded-l-none has-[>[data-align=inline-start]]:[&>textarea]:rounded-l-none",
           "has-[>[data-align=inline-end]]:[&>input]:pr-2 has-[>[data-align=inline-end]]:[&>input]:rounded-r-none has-[>[data-align=inline-end]]:[&>textarea]:rounded-r-none",
@@ -65,7 +65,7 @@ const InputGroupAddon = forwardRef<
       data-align={align}
       className={cn(inputGroupAddonVariants({ align }), className)}
       onClick={(e) => {
-        if ((e.target as HTMLElement).closest("button")) {
+        if (e.target instanceof HTMLElement && e.target.closest("button")) {
           return;
         }
         e.currentTarget.parentElement?.querySelector("input")?.focus();
@@ -81,7 +81,7 @@ const inputGroupButtonVariants = cva("text-sm shadow-none flex gap-2 items-cente
     size: {
       xs: "h-6 gap-1 px-2 rounded-sm [&>svg:not([class*='size-'])]:size-3.5 has-[>svg]:px-2",
       sm: "h-7 px-2.5 gap-1.5 rounded-md has-[>svg]:px-2.5",
-      "icon-xs": "size-6 rounded-[calc(var(--radius)-5px)] p-0 has-[>svg]:p-0",
+      "icon-xs": "size-6 rounded-xs p-0 has-[>svg]:p-0",
       "icon-sm": "size-7 p-0 has-[>svg]:p-0",
     },
   },
