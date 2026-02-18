@@ -2,7 +2,7 @@ import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
 import { IconCircle } from "@tabler/icons-react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 type Orientation = "horizontal" | "vertical";
 

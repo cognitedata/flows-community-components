@@ -2,13 +2,6 @@ import { type ComponentProps, type ReactNode, forwardRef, useState } from "react
 
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
-import { HelperText } from "@/components/ui/aura/helper-text";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/aura/input-group";
 import {
   cn,
   disabledState,
@@ -18,7 +11,9 @@ import {
   hoverState,
   invalidState,
   readOnlyState,
-} from "@/lib/utils";
+} from "../../../../lib/utils";
+import { HelperText } from "../helper-text";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "../input-group";
 
 interface InputProps extends ComponentProps<"input"> {
   errorMessage?: string;

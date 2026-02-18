@@ -40,8 +40,14 @@ export function getStatusMessage(status: ComponentStatusType): string {
   switch (status) {
     case "draft":
       return "This component is currently in draft status and may change before production release.";
+    case "needs-discussion":
+      return "This component needs discussion before implementation can continue.";
+    case "imported-from-fusion":
+      return "This component was imported from Fusion and may need Aura-specific adaptation.";
     case "planned":
       return "This component is planned and not yet implemented.";
+    case "pattern":
+      return "This entry is a reusable UI pattern composed from multiple components.";
     case "shadcn-ui":
       return "This component is from shadcn/ui and may need tobe customized for Aura.";
     case "experimental":
@@ -113,6 +119,12 @@ export function getComponentStatusClasses(status: ComponentStatus): string {
       return "bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800";
     case "planned":
       return "bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-900/20 dark:text-slate-400 dark:border-slate-800";
+    case "pattern":
+      return "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800";
+    case "needs-discussion":
+      return "bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-800";
+    case "imported-from-fusion":
+      return "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/20 dark:text-slate-300 dark:border-slate-800";
     case "shadcn-ui":
       return "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-900/20 dark:text-slate-300 dark:border-slate-800";
     case "experimental":

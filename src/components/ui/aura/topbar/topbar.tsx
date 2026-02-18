@@ -3,7 +3,7 @@ import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 import { Breadcrumb } from "@/components/ui/aura/breadcrumb";
 import { Button } from "@/components/ui/aura/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/aura/sidebar";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const Topbar = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
   ({ className, ...props }, ref) => {

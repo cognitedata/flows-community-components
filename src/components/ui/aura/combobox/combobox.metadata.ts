@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * Combobox Component Metadata
@@ -8,7 +8,7 @@ import type { ComponentMeta } from "@/lib/component-examples";
  */
 export const ComboboxMetadata: ComponentMeta = {
   name: "Combobox",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "A searchable dropdown component combining input with a command menu, built with Base UI Popover and cmdk.",
   llmUsage:

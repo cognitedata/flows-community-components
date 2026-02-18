@@ -1,14 +1,9 @@
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/aura/input-group";
-import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "../input-group";
+import { Label } from "../label";
 import { Input, PasswordInput } from "./input";
 
 const meta: Meta<typeof Input> = {

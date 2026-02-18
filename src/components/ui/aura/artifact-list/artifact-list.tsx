@@ -10,7 +10,7 @@ import {
   ListItemTitle,
   ListOrdered,
 } from "@/components/ui/aura/list";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 /**
  * ArtifactList wraps a Card for displaying list content within artifacts.
