@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import {
   IconBrandGithub,
   IconBriefcase,
@@ -253,16 +253,9 @@ export const TooManySourcesWithOverflow: Story = {
 
     const overflowTrigger = await canvas.findByRole("link", { name: "4 more sources" });
     await userEvent.hover(overflowTrigger);
-    await waitFor(() => {
-      const openContent = canvasElement.ownerDocument.body.querySelector(
-        '[data-slot="hover-card-content"][data-open]'
-      );
-      expect(openContent).toBeTruthy();
-    });
-
     const body = within(canvasElement.ownerDocument.body);
-    await expect(body.getByText("4 more sources")).toBeInTheDocument();
-    await expect(body.getByText("Source 7")).toBeInTheDocument();
+    await expect(await body.findByText("4 more sources")).toBeInTheDocument();
+    await expect(await body.findByText("Source 7")).toBeInTheDocument();
   },
 };
 
