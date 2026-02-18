@@ -1245,6 +1245,7 @@
       "registryDependencies": [
         "@aura/css",
         "@aura/button",
+        "@aura/collapsible",
         "@aura/input",
         "@aura/separator",
         "@aura/sheet",

@@ -1,8 +1,9 @@
-import { IconLayoutSidebarLeftCollapse } from "@tabler/icons-react";
+import { IconChevronRight, IconLayoutSidebarLeftCollapse } from "@tabler/icons-react";
 import { type VariantProps, cva } from "class-variance-authority";
 import {
   type CSSProperties,
   type ComponentProps,
+  type ReactNode,
   createContext,
   useCallback,
   useContext,
@@ -12,6 +13,12 @@ import {
 } from "react";
 
 import { Button } from "@/components/ui/aura/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/aura/collapsible";
+import { badgeVariants } from "@/components/ui/aura/badge";
 import { Input } from "@/components/ui/aura/input";
 import { Separator } from "@/components/ui/aura/separator";
 import {
@@ -323,7 +330,7 @@ function SidebarSeparator({ className, ...props }: ComponentProps<typeof Separat
     <Separator
       data-slot="sidebar-separator"
       data-sidebar="separator"
-      className={cn("bg-sidebar-border w-auto", className)}
+      className={cn("bg-sidebar-border/80 my-3 w-auto", className)}
       {...props}
     />
   );
@@ -516,7 +523,7 @@ function SidebarMenuAction({
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[open]:opacity-100 md:opacity-0",
+        "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-open:opacity-100 md:opacity-0",
         className
       )}
       {...props}
@@ -524,20 +531,151 @@ function SidebarMenuAction({
   );
 }
 
-function SidebarMenuBadge({ className, ...props }: ComponentProps<"div">) {
+function SidebarMenuBadge({
+  className,
+  variant,
+  size,
+  outline,
+  background,
+  dot,
+  ...props
+}: ComponentProps<"div"> & VariantProps<typeof badgeVariants>) {
   return (
     <div
       data-slot="sidebar-menu-badge"
       data-sidebar="menu-badge"
       className={cn(
-        "text-sidebar-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center px-1 text-xs font-medium tabular-nums select-none",
-        "peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground",
+        badgeVariants({
+          variant,
+          size,
+          outline,
+          background,
+          dot,
+        }),
+        "pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center px-1 text-xs font-medium tabular-nums select-none",
         "peer-data-[size=sm]/menu-button:top-1",
         "peer-data-[size=default]/menu-button:top-1.5",
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         className
       )}
+      {...props}
+    />
+  );
+}
+
+type SidebarMenuSectionProps = Omit<ComponentProps<typeof Collapsible>, "children"> & {
+  children?: ReactNode;
+  title?: ReactNode;
+  collapsible?: boolean;
+  indicator?: ReactNode;
+  titleClassName?: string;
+  contentClassName?: string;
+};
+
+function SidebarMenuSection({
+  className,
+  children,
+  title,
+  collapsible = false,
+  indicator,
+  titleClassName,
+  contentClassName,
+  open: openProp,
+  onOpenChange,
+  defaultOpen,
+  ...props
+}: SidebarMenuSectionProps) {
+  const { state } = useSidebar();
+  const isSidebarCollapsed = state === "collapsed";
+
+  if (!collapsible) {
+    return (
+      <div
+        data-slot="sidebar-menu-section"
+        data-sidebar="menu-section"
+        className={cn("flex flex-col gap-1", className)}
+      >
+        {!isSidebarCollapsed && title ? (
+          <div
+            data-slot="sidebar-menu-section-label"
+            data-sidebar="menu-section-label"
+            className={cn(
+              "text-sidebar-foreground/70 flex h-4 items-center gap-0.5 text-xs font-medium",
+              titleClassName
+            )}
+          >
+            <span className="truncate">{title}</span>
+          </div>
+        ) : null}
+        <div
+          data-slot="sidebar-menu-section-content"
+          data-sidebar="menu-section-content"
+          className={cn("flex flex-col gap-1 w-full text-sm", contentClassName)}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Collapsible
+      data-slot="sidebar-menu-section"
+      data-sidebar="menu-section"
+      className={cn("flex flex-col gap-1", className)}
+      open={isSidebarCollapsed ? true : openProp}
+      onOpenChange={isSidebarCollapsed ? undefined : onOpenChange}
+      defaultOpen={isSidebarCollapsed ? true : defaultOpen}
+      {...props}
+    >
+      {!isSidebarCollapsed && title ? (
+        <SidebarMenuSectionTrigger className={titleClassName} indicator={indicator}>
+          {title}
+        </SidebarMenuSectionTrigger>
+      ) : null}
+      <SidebarMenuSectionContent className={contentClassName}>
+        {children}
+      </SidebarMenuSectionContent>
+    </Collapsible>
+  );
+}
+
+function SidebarMenuSectionTrigger({
+  className,
+  children,
+  indicator,
+  ...props
+}: ComponentProps<typeof CollapsibleTrigger> & {
+  indicator?: ReactNode;
+}) {
+  return (
+    <CollapsibleTrigger
+      data-slot="sidebar-menu-section-trigger"
+      data-sidebar="menu-section-trigger"
+      className={cn(
+        "group/sidebar-menu-section-trigger text-sidebar-foreground/70 ring-sidebar-ring hover:text-sidebar-accent-foreground flex h-4 w-full items-center rounded-md text-xs font-medium outline-hidden transition-colors",
+        className
+      )}
+      {...props}
+    >
+      <span className="truncate">{children}</span>
+      {indicator ?? (
+        <IconChevronRight className="size-3.5 transition-transform group-data-panel-open/sidebar-menu-section-trigger:rotate-90" />
+      )}
+    </CollapsibleTrigger>
+  );
+}
+
+function SidebarMenuSectionContent({
+  className,
+  ...props
+}: ComponentProps<typeof CollapsibleContent>) {
+  return (
+    <CollapsibleContent
+      data-slot="sidebar-menu-section-content"
+      data-sidebar="menu-section-content"
+      className={cn("text-inherit leading-normal", className)}
       {...props}
     />
   );
@@ -691,7 +829,7 @@ function SidebarPages({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 // Sidebar Section component (base for MainPages, PinnedApps, GeneralPages)
-function SidebarSection({
+function SidebarPagesSection({
   className,
   "data-slot": dataSlot,
   "data-sidebar": dataSidebar,
@@ -712,18 +850,21 @@ function SidebarSection({
 
 // Sidebar Main Pages component
 function SidebarMainPages(props: React.ComponentProps<"div">) {
-  return <SidebarSection data-slot="sidebar-main-pages" data-sidebar="main-pages" {...props} />;
+  return (
+    <SidebarPagesSection data-slot="sidebar-main-pages" data-sidebar="main-pages" {...props} />
+  );
 }
 
-// Sidebar Pinned Apps (Big Swap Slot) component
-function SidebarPinnedApps(props: React.ComponentProps<"div">) {
-  return <SidebarSection data-slot="sidebar-pinned-apps" data-sidebar="pinned-apps" {...props} />;
-}
+const SidebarPinnedApps = SidebarMenuSection;
 
 // Sidebar General Pages component
 function SidebarGeneralPages(props: React.ComponentProps<"div">) {
   return (
-    <SidebarSection data-slot="sidebar-general-pages" data-sidebar="general-pages" {...props} />
+    <SidebarPagesSection
+      data-slot="sidebar-general-pages"
+      data-sidebar="general-pages"
+      {...props}
+    />
   );
 }
 
@@ -785,11 +926,15 @@ export {
   SidebarMenuAction,
   SidebarMenuBadge,
   SidebarMenuButton,
+  SidebarMenuSection,
+  SidebarMenuSectionContent,
+  SidebarMenuSectionTrigger,
   SidebarMenuItem,
   SidebarMenuSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  SidebarPagesSection,
   SidebarPages,
   SidebarPinnedApps,
   SidebarProjectSelector,

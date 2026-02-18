@@ -1,11 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, within } from "@storybook/test";
 import {
   IconAppsFilled,
   IconBellFilled,
   IconBoltFilled,
   IconChevronLeft,
+  IconFileDescription,
+  IconFolder,
   IconHelp,
   IconHomeFilled,
   IconMapPinFilled,
@@ -17,15 +19,15 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarHeaderInsert,
   SidebarMainPages,
+  SidebarMenuBadge,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSection,
   SidebarPages,
-  SidebarPinnedApps,
   SidebarProjectSelector,
   SidebarProvider,
   SidebarSearch,
@@ -101,7 +103,7 @@ type Story = StoryObj<typeof Sidebar>;
  * Complete sidebar with header, scrollable content, and footer.
  * This follows the shadcn pattern with proper flexbox layout.
  */
-export const Basic: Story = {
+export const IndustrialToolsExpanded: Story = {
   parameters: {
     docs: {
       description: {
@@ -127,7 +129,7 @@ export const Basic: Story = {
   },
   render: () => (
     <div className="relative h-[996px] w-full max-w-full rounded-lg overflow-hidden">
-      <SidebarProvider className="h-full">
+      <SidebarProvider defaultOpen className="h-full">
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -144,7 +146,6 @@ export const Basic: Story = {
                   </div>
                 </div>
               </SidebarHeaderInsert>
-
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
                 <span>Valhall</span>
@@ -185,10 +186,7 @@ export const Basic: Story = {
                     </SidebarMenuItem>
                   </SidebarMenu>
                 </SidebarMainPages>
-                <SidebarPinnedApps>
-                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm font-medium text-sidebar-foreground">
-                    Pinned apps
-                  </SidebarGroupLabel>
+                <SidebarMenuSection title="Pinned apps">
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="App" size="default">
                       <IconPointFilled className="h-4 w-4" />
@@ -207,7 +205,7 @@ export const Basic: Story = {
                       <span>App</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                </SidebarPinnedApps>
+                </SidebarMenuSection>
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
@@ -216,7 +214,7 @@ export const Basic: Story = {
                   <SidebarMenuItem>
                     <SidebarMenuButton>
                       <IconAppsFilled className="h-4 w-4" />
-                      <span>App library</span>
+                      <span>Flows</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
@@ -267,7 +265,7 @@ export const Basic: Story = {
  * Collapsed sidebar in icon-only mode with tooltips.
  * Tests tooltip behavior on hover.
  */
-export const Collapsed: Story = {
+export const IndustrialToolsCollapsed: Story = {
   parameters: {
     docs: {
       description: {
@@ -286,12 +284,305 @@ export const Collapsed: Story = {
     // Verify icons are present
     const homeButton = canvas.getByText("Home");
     await expect(homeButton).toBeInTheDocument();
+  },
+  render: () => (
+    <SidebarProvider defaultOpen={false} className="min-h-0 h-[996px]">
+      <div className="flex h-full w-full">
+        <Sidebar collapsible="icon">
+          <SidebarHeader>
+            <SidebarHeaderInsert>
+              <Avatar sizes="default">
+                <AvatarFallback>AK</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col min-w-0">
+                <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
+                  AkerBP-DEV
+                </div>
+                <div className="text-xs text-sidebar-foreground/70 truncate">
+                  Industrial tools
+                </div>
+              </div>
+            </SidebarHeaderInsert>
+            <SidebarProjectSelector>
+              <IconMapPinFilled className="h-4 w-4" />
+              <span>Valhall</span>
+            </SidebarProjectSelector>
+            <SidebarSearch>
+              <IconSearch className="h-4 w-4" />
+              <span>Search</span>
+            </SidebarSearch>
+          </SidebarHeader>
+          <SidebarSeparator />
+          <SidebarContent>
+            <SidebarPages>
+              <SidebarMainPages>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Home" size="default">
+                      <IconHomeFilled className="h-4 w-4" />
+                      <span>Home</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton isActive tooltip="Atlas">
+                      <IconWorld className="h-4 w-4" />
+                      <span>Atlas</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Canvas">
+                      <IconChevronLeft className="h-4 w-4" />
+                      <span>Canvas</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Charts">
+                      <IconBoltFilled className="h-4 w-4" />
+                      <span>Charts</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarMainPages>
+              <SidebarMenuSection title="Pinned apps">
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="App" size="default">
+                    <IconPointFilled className="h-4 w-4" />
+                    <span>App</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="App">
+                    <IconPointFilled className="h-4 w-4" />
+                    <span>App</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="App">
+                    <IconPointFilled className="h-4 w-4" />
+                    <span>App</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenuSection>
+            </SidebarPages>
+          </SidebarContent>
+          <SidebarFooter>
+            <div className="flex flex-col gap-3 w-full">
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Flows">
+                    <IconAppsFilled className="h-4 w-4" />
+                    <span>Flows</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Help">
+                    <IconHelp className="h-4 w-4" />
+                    <span>Help</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Notifications">
+                    <IconBellFilled className="h-4 w-4" />
+                    <span>Notifications</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+              <div className="flex items-center gap-2">
+                <Avatar sizes="default">
+                  <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                  <AvatarFallback>EF</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col min-w-0">
+                  <div className="text-sm font-medium text-sidebar-foreground truncate">
+                    Elizabeth Fitzgerald
+                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                </div>
+              </div>
+            </div>
+          </SidebarFooter>
+        </Sidebar>
+        <div className="flex-1 p-4">
+          <SidebarTrigger />
+          <div className="mt-4">
+            <h1 className="text-2xl font-bold mb-4">Main Content</h1>
+            <p className="text-muted-foreground">
+              This is the main content area. The sidebar header and footer remain visible while
+              the content scrolls.
+            </p>
+          </div>
+        </div>
+      </div>
+    </SidebarProvider>
+  ),
+};
 
-    // Test expand functionality
-    await userEvent.click(trigger);
+export const DataManagementExpanded: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Expanded Data management navigation with mixed section patterns and contextual badges.",
+      },
+    },
+  },
+  render: () => (
+    <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+      <SidebarProvider defaultOpen className="h-full">
+        <div className="flex h-full w-full">
+          <Sidebar collapsible="icon">
+            <SidebarHeader>
+              <SidebarHeaderInsert data-testid="sidebar-header-insert">
+                <Avatar sizes="default">
+                  <AvatarFallback>AK</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col min-w-0">
+                  <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
+                    AkerBP-DEV
+                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">
+                    Data management
+                  </div>
+                </div>
+              </SidebarHeaderInsert>
+              <SidebarProjectSelector>
+                <IconMapPinFilled className="h-4 w-4" />
+                <span>Valhall</span>
+              </SidebarProjectSelector>
+              <SidebarSearch>
+                <IconSearch className="h-4.5 w-4.5" />
+                <span>Search</span>
+              </SidebarSearch>
+            </SidebarHeader>
+            <SidebarSeparator />
+            <SidebarContent>
+              <SidebarPages>
+                <SidebarMainPages>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Data explorer">
+                        <IconSearch className="h-4.5 w-4.5" />
+                        <span>Data explorer</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive tooltip="Data catalog">
+                        <IconFolder className="h-4 w-4" />
+                        <span>Data catalog</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Data models">
+                        <IconFolder className="h-4 w-4" />
+                        <span>Data models</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarMainPages>
 
-    // Wait a moment for the animation
-    await new Promise((resolve) => setTimeout(resolve, 300));
+                <SidebarMenuSection title="Integrate" collapsible defaultOpen />
+
+                <SidebarMenuSection title="Contextualize" collapsible defaultOpen>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Diagram parsing">
+                      <IconFileDescription className="h-4 w-4" />
+                      <span>Diagram parsing</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Document parsing">
+                      <IconFileDescription className="h-4 w-4" />
+                      <span>Document parsing</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Entity matching">
+                      <IconFileDescription className="h-4 w-4" />
+                      <span>Entity matching</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Images and videos">
+                      <IconFileDescription className="h-4 w-4" />
+                      <span>Images and videos</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Model data with te...">
+                      <IconFileDescription className="h-4 w-4" />
+                      <span>Model data with te...</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
+                  </SidebarMenuItem>
+                </SidebarMenuSection>
+
+                <SidebarMenuSection title="Build solutions" collapsible defaultOpen />
+                <SidebarMenuSection title="Configure" collapsible defaultOpen />
+              </SidebarPages>
+            </SidebarContent>
+            <SidebarFooter>
+              <div className="flex flex-col gap-3 w-full">
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <IconHelp className="h-4 w-4" />
+                      <span>Help</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <IconBellFilled className="h-4 w-4" />
+                      <span>Notifications</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+                <div className="flex items-center gap-2">
+                  <Avatar sizes="default">
+                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarFallback>EF</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0">
+                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                      Elizabeth Fitzgerald
+                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                  </div>
+                </div>
+              </div>
+            </SidebarFooter>
+          </Sidebar>
+          <div className="flex-1 p-4">
+            <SidebarTrigger />
+            <div className="mt-4">
+              <h1 className="text-2xl font-bold mb-4">Main Content</h1>
+              <p className="text-muted-foreground">
+                Use the controls to test different sidebar configurations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </SidebarProvider>
+    </div>
+  ),
+};
+
+export const DataManagementCollapsed: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Collapsed Data management navigation in icon mode with identical content to the expanded variant.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /toggle sidebar/i });
+    await expect(trigger).toBeInTheDocument();
+    const dataCatalogButton = canvas.getByText("Data catalog");
+    await expect(dataCatalogButton).toBeInTheDocument();
   },
   render: () => (
     <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
@@ -308,7 +599,7 @@ export const Collapsed: Story = {
                     AkerBP-DEV
                   </div>
                   <div className="text-xs text-sidebar-foreground/70 truncate">
-                    Industrial tools
+                    Data management
                   </div>
                 </div>
               </SidebarHeaderInsert>
@@ -327,65 +618,71 @@ export const Collapsed: Story = {
                 <SidebarMainPages>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Home" size="default">
-                        <IconHomeFilled className="h-4 w-4" />
-                        <span>Home</span>
+                      <SidebarMenuButton tooltip="Data explorer">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Data explorer</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton isActive tooltip="Atlas">
-                        <IconWorld className="h-4 w-4" />
-                        <span>Atlas</span>
+                      <SidebarMenuButton isActive tooltip="Data catalog">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Data catalog</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Canvas">
-                        <IconChevronLeft className="h-4 w-4" />
-                        <span>Canvas</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton tooltip="Charts">
-                        <IconBoltFilled className="h-4 w-4" />
-                        <span>Charts</span>
+                      <SidebarMenuButton tooltip="Data models">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Data models</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   </SidebarMenu>
                 </SidebarMainPages>
-                <SidebarPinnedApps>
-                  <SidebarGroupLabel className="h-auto p-0 pb-1 text-sm font-medium text-sidebar-foreground">
-                    Pinned apps
-                  </SidebarGroupLabel>
+
+                <SidebarMenuSection title="Integrate" collapsible defaultOpen={false} />
+
+                <SidebarMenuSection title="Contextualize" collapsible defaultOpen>
                   <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="App" size="default">
+                    <SidebarMenuButton tooltip="Diagram parsing">
                       <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
+                      <span>Diagram parsing</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Document parsing">
+                      <IconPointFilled className="h-4 w-4" />
+                      <span>Document parsing</span>
+                    </SidebarMenuButton>
+                    <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Entity matching">
+                      <IconPointFilled className="h-4 w-4" />
+                      <span>Entity matching</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="App">
+                    <SidebarMenuButton tooltip="Images and videos">
                       <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
+                      <span>Images and videos</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="App">
+                    <SidebarMenuButton tooltip="Model data with te...">
                       <IconPointFilled className="h-4 w-4" />
-                      <span>App</span>
+                      <span>Model data with te...</span>
                     </SidebarMenuButton>
+                    <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
                   </SidebarMenuItem>
-                </SidebarPinnedApps>
+                </SidebarMenuSection>
+
+                <SidebarMenuSection title="Build solutions" collapsible defaultOpen={false} />
+                <SidebarMenuSection title="Configure" collapsible defaultOpen={false} />
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
               <div className="flex flex-col gap-3 w-full">
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="App library">
-                      <IconAppsFilled className="h-4 w-4" />
-                      <span>App library</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Help">
                       <IconHelp className="h-4 w-4" />
@@ -419,10 +716,431 @@ export const Collapsed: Story = {
             <div className="mt-4">
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
-                This is the main content area. The sidebar header and footer remain visible while
-                the content scrolls.
+                Use the controls to test different sidebar configurations.
               </p>
             </div>
+          </div>
+        </div>
+      </SidebarProvider>
+    </div>
+  ),
+};
+
+export const AdminExpanded: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Expanded Admin navigation with management items, organization badge, and compact footer actions.",
+      },
+    },
+  },
+  render: () => (
+    <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+      <SidebarProvider defaultOpen className="h-full">
+        <div className="flex h-full w-full">
+          <Sidebar collapsible="icon">
+            <SidebarHeader>
+              <SidebarHeaderInsert data-testid="sidebar-header-insert">
+                <Avatar sizes="default">
+                  <AvatarFallback>AK</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col min-w-0">
+                  <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
+                    AkerBP-DEV
+                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">Admin</div>
+                </div>
+              </SidebarHeaderInsert>
+              <SidebarProjectSelector>
+                <IconMapPinFilled className="h-4 w-4" />
+                <span>Valhall</span>
+              </SidebarProjectSelector>
+            </SidebarHeader>
+            <SidebarSeparator />
+            <SidebarContent>
+              <SidebarPages>
+                <SidebarMainPages>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Access management">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Access management</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive tooltip="Project settings">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Project settings</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="My organization">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>My organization</span>
+                      </SidebarMenuButton>
+                      <SidebarMenuBadge variant="mountain">Badge</SidebarMenuBadge>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarMainPages>
+              </SidebarPages>
+            </SidebarContent>
+            <SidebarFooter>
+              <div className="flex flex-col gap-3 w-full">
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <IconHelp className="h-4 w-4" />
+                      <span>Help</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <IconBellFilled className="h-4 w-4" />
+                      <span>Notifications</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+                <div className="flex items-center gap-2">
+                  <Avatar sizes="default">
+                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarFallback>EF</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0">
+                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                      Elizabeth Fitzgerald
+                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                  </div>
+                </div>
+              </div>
+            </SidebarFooter>
+          </Sidebar>
+          <div className="flex-1 p-4">
+            <SidebarTrigger />
+          </div>
+        </div>
+      </SidebarProvider>
+    </div>
+  ),
+};
+
+export const AdminCollapsed: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Collapsed Admin navigation in icon mode with the same content as the expanded variant.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /toggle sidebar/i });
+    await expect(trigger).toBeInTheDocument();
+    const projectSettingsButton = canvas.getByText("Project settings");
+    await expect(projectSettingsButton).toBeInTheDocument();
+  },
+  render: () => (
+    <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+      <SidebarProvider defaultOpen={false} className="min-h-0 h-[996px]">
+        <div className="flex h-full w-full">
+          <Sidebar collapsible="icon">
+            <SidebarHeader>
+              <SidebarHeaderInsert>
+                <Avatar sizes="default">
+                  <AvatarFallback>AK</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col min-w-0">
+                  <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
+                    AkerBP-DEV
+                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">Admin</div>
+                </div>
+              </SidebarHeaderInsert>
+              <SidebarProjectSelector>
+                <IconMapPinFilled className="h-4 w-4" />
+                <span>Valhall</span>
+              </SidebarProjectSelector>
+            </SidebarHeader>
+            <SidebarSeparator />
+            <SidebarContent>
+              <SidebarPages>
+                <SidebarMainPages>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Access management">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Access management</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive tooltip="Project settings">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Project settings</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="My organization">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>My organization</span>
+                      </SidebarMenuButton>
+                      <SidebarMenuBadge variant="mountain">Badge</SidebarMenuBadge>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarMainPages>
+              </SidebarPages>
+            </SidebarContent>
+            <SidebarFooter>
+              <div className="flex flex-col gap-3 w-full">
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Help">
+                      <IconHelp className="h-4 w-4" />
+                      <span>Help</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Notifications">
+                      <IconBellFilled className="h-4 w-4" />
+                      <span>Notifications</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+                <div className="flex items-center gap-2">
+                  <Avatar sizes="default">
+                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarFallback>EF</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0">
+                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                      Elizabeth Fitzgerald
+                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                  </div>
+                </div>
+              </div>
+            </SidebarFooter>
+          </Sidebar>
+          <div className="flex-1 p-4">
+            <SidebarTrigger />
+          </div>
+        </div>
+      </SidebarProvider>
+    </div>
+  ),
+};
+
+export const AtlasAIExpanded: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Expanded Atlas AI navigation with model library badge and compact application footer actions.",
+      },
+    },
+  },
+  render: () => (
+    <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+      <SidebarProvider defaultOpen className="h-full">
+        <div className="flex h-full w-full">
+          <Sidebar collapsible="icon">
+            <SidebarHeader>
+              <SidebarHeaderInsert data-testid="sidebar-header-insert">
+                <Avatar sizes="default">
+                  <AvatarFallback>AK</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col min-w-0">
+                  <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
+                    AkerBP-DEV
+                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">Atlas AI</div>
+                </div>
+              </SidebarHeaderInsert>
+              <SidebarProjectSelector>
+                <IconMapPinFilled className="h-4 w-4" />
+                <span>Valhall</span>
+              </SidebarProjectSelector>
+            </SidebarHeader>
+            <SidebarSeparator />
+            <SidebarContent>
+              <SidebarPages>
+                <SidebarMainPages>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="AI agents">
+                        <IconAppsFilled className="h-4 w-4" />
+                        <span>AI agents</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Evaluate agents">
+                        <IconBoltFilled className="h-4 w-4" />
+                        <span>Evaluate agents</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive tooltip="Model library">
+                        <IconWorld className="h-4 w-4" />
+                        <span>Model library</span>
+                      </SidebarMenuButton>
+                      <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Consumption">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Consumption</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarMainPages>
+              </SidebarPages>
+            </SidebarContent>
+            <SidebarFooter>
+              <div className="flex flex-col gap-3 w-full">
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <IconHelp className="h-4 w-4" />
+                      <span>Help</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <IconBellFilled className="h-4 w-4" />
+                      <span>Notifications</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+                <div className="flex items-center gap-2">
+                  <Avatar sizes="default">
+                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarFallback>EF</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0">
+                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                      Elizabeth Fitzgerald
+                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                  </div>
+                </div>
+              </div>
+            </SidebarFooter>
+          </Sidebar>
+          <div className="flex-1 p-4">
+            <SidebarTrigger />
+          </div>
+        </div>
+      </SidebarProvider>
+    </div>
+  ),
+};
+
+export const AtlasAICollapsed: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Collapsed Atlas AI navigation in icon mode with the same content as the expanded variant.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button", { name: /toggle sidebar/i });
+    await expect(trigger).toBeInTheDocument();
+    const modelLibraryButton = canvas.getByText("Model library");
+    await expect(modelLibraryButton).toBeInTheDocument();
+  },
+  render: () => (
+    <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
+      <SidebarProvider defaultOpen={false} className="min-h-0 h-[996px]">
+        <div className="flex h-full w-full">
+          <Sidebar collapsible="icon">
+            <SidebarHeader>
+              <SidebarHeaderInsert>
+                <Avatar sizes="default">
+                  <AvatarFallback>AK</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col min-w-0">
+                  <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
+                    AkerBP-DEV
+                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">Atlas AI</div>
+                </div>
+              </SidebarHeaderInsert>
+              <SidebarProjectSelector>
+                <IconMapPinFilled className="h-4 w-4" />
+                <span>Valhall</span>
+              </SidebarProjectSelector>
+            </SidebarHeader>
+            <SidebarSeparator />
+            <SidebarContent>
+              <SidebarPages>
+                <SidebarMainPages>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="AI agents">
+                        <IconAppsFilled className="h-4 w-4" />
+                        <span>AI agents</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Evaluate agents">
+                        <IconBoltFilled className="h-4 w-4" />
+                        <span>Evaluate agents</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive tooltip="Model library">
+                        <IconWorld className="h-4 w-4" />
+                        <span>Model library</span>
+                      </SidebarMenuButton>
+                      <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Consumption">
+                        <IconPointFilled className="h-4 w-4" />
+                        <span>Consumption</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarMainPages>
+              </SidebarPages>
+            </SidebarContent>
+            <SidebarFooter>
+              <div className="flex flex-col gap-3 w-full">
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Help">
+                      <IconHelp className="h-4 w-4" />
+                      <span>Help</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton tooltip="Notifications">
+                      <IconBellFilled className="h-4 w-4" />
+                      <span>Notifications</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+                <div className="flex items-center gap-2">
+                  <Avatar sizes="default">
+                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarFallback>EF</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col min-w-0">
+                    <div className="text-sm font-medium text-sidebar-foreground truncate">
+                      Elizabeth Fitzgerald
+                    </div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                  </div>
+                </div>
+              </div>
+            </SidebarFooter>
+          </Sidebar>
+          <div className="flex-1 p-4">
+            <SidebarTrigger />
           </div>
         </div>
       </SidebarProvider>
