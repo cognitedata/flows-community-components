@@ -26,72 +26,73 @@ type AccordionMultipleProps = {
 
 type AccordionProps = AccordionCommonProps & (AccordionSingleProps | AccordionMultipleProps);
 
-type AccordionMergedProps = AccordionCommonProps & {
-  type?: "single" | "multiple";
-  collapsible?: boolean;
-  value?: string | string[];
-  defaultValue?: string | string[];
-  onValueChange?: ((value: string) => void) | ((value: string[]) => void);
-};
-
 const Accordion = forwardRef<ComponentRef<typeof AccordionPrimitive.Root>, AccordionProps>(
   (props, ref) => {
-    const merged = props as AccordionMergedProps;
+    if (props.type === "multiple") {
+      const { type: _type, value, defaultValue, onValueChange, ...rootProps } = props;
+
+      const controlledValue = useMemo<string[] | undefined>(() => {
+        if (value === undefined) return undefined;
+        return value;
+      }, [value]);
+
+      const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
+        if (defaultValue === undefined) return undefined;
+        return defaultValue;
+      }, [defaultValue]);
+
+      return (
+        <AccordionPrimitive.Root
+          ref={ref}
+          data-slot="accordion"
+          multiple
+          value={controlledValue}
+          defaultValue={uncontrolledDefaultValue}
+          onValueChange={(nextValue) => {
+            if (!onValueChange) return;
+            const filtered = nextValue.filter((next): next is string => next != null);
+            onValueChange(filtered);
+          }}
+          {...rootProps}
+        />
+      );
+    }
+
     const {
-      type = "single",
+      type: _type,
       collapsible = false,
       value,
       defaultValue,
       onValueChange,
       ...rootProps
-    } = merged;
-    const multiple = type === "multiple";
+    } = props;
 
     const controlledValue = useMemo<string[] | undefined>(() => {
       if (value === undefined) return undefined;
-      if (multiple) {
-        if (Array.isArray(value)) return value;
-        return [value];
-      }
-      if (Array.isArray(value)) return value;
       if (value === "") return [];
       return [value];
-    }, [multiple, value]);
+    }, [value]);
 
     const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
       if (defaultValue === undefined) return undefined;
-      if (multiple) {
-        if (Array.isArray(defaultValue)) return defaultValue;
-        return [defaultValue];
-      }
-      if (Array.isArray(defaultValue)) return defaultValue;
       if (defaultValue === "") return [];
       return [defaultValue];
-    }, [defaultValue, multiple]);
+    }, [defaultValue]);
 
     return (
       <AccordionPrimitive.Root
         ref={ref}
         data-slot="accordion"
-        multiple={multiple}
+        multiple={false}
         value={controlledValue}
         defaultValue={uncontrolledDefaultValue}
         onValueChange={(nextValue, details) => {
           if (!onValueChange) return;
-
-          if (multiple) {
-            const filtered = nextValue.filter((v): v is string => v != null);
-            (onValueChange as (value: string[]) => void)(filtered);
-            return;
-          }
-
           if (!collapsible && nextValue.length === 0) {
             details.cancel();
             return;
           }
-
-          const next = nextValue[0] ?? "";
-          (onValueChange as (value: string) => void)(next);
+          onValueChange(nextValue[0] ?? "");
         }}
         {...rootProps}
       />
