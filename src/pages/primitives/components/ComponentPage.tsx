@@ -1,3 +1,5 @@
+import figmaIcon from "@/assets/figma-logo.svg";
+import storybookIcon from "@/assets/icon-storybook-default.svg";
 import { InstallationCommand } from "@/components/installation-command";
 import { StoriesRenderer } from "@/components/stories-renderer";
 import { Badge } from "@/components/ui/aura/badge";
@@ -17,13 +19,7 @@ import {
   getPrimitiveFigmaUrl,
   getPrimitiveGaBadgeProps,
 } from "@/lib/primitives-catalog";
-import {
-  IconArrowLeft,
-  IconBrandFigma,
-  IconCheck,
-  IconQuestionMark,
-  IconX,
-} from "@tabler/icons-react";
+import { IconArrowLeft, IconCheck, IconQuestionMark, IconX } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -33,6 +29,17 @@ function toTitleCase(str: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+function toStorybookSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\s*\(.*?\)\s*/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const externalIconClass =
+  "size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal";
 
 function GaBadgeContent({
   product,
@@ -105,6 +112,16 @@ export default function ComponentPage() {
   const statusLabel = getStatusLabel(componentStatus);
   const statusMessage = getStatusMessage(componentStatus);
   const description = catalogEntry?.description || meta?.description || "Component documentation";
+  const storybookCategory = catalogEntry?.section === "foundation" ? "foundations" : "primitives";
+  const storybookUrl = `https://cognitedata.github.io/aura/storybook/?path=/docs/${storybookCategory}-${toStorybookSlug(componentName)}--docs`;
+  const hasStorybookLink = ![
+    "assets",
+    "icons",
+    "action-toolbar",
+    "file-upload",
+    "select-panel",
+  ].includes(resolvedSlug);
+  const hasDisabledFigma = false;
   const figmaBadgeProps = catalogEntry
     ? getPrimitiveFigmaBadgeProps(catalogEntry.figmaAvailability)
     : null;
@@ -115,6 +132,7 @@ export default function ComponentPage() {
     ? getPrimitiveGaBadgeProps(catalogEntry.duneGaRequired)
     : null;
   const figmaUrl = catalogEntry ? getPrimitiveFigmaUrl(catalogEntry) : null;
+  const hasFigmaControl = Boolean(figmaUrl) || hasDisabledFigma;
 
   if (catalogEntry && !catalogEntry.implemented) {
     return (
@@ -128,24 +146,65 @@ export default function ComponentPage() {
           </div>
 
           <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
-              {figmaUrl && (
-                <a
-                  href={figmaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
-                  title="Open in Figma"
-                  aria-label="Open in Figma"
-                >
-                  <IconBrandFigma className="size-4" />
-                </a>
-              )}
-              <Badge variant="secondary">Primitive</Badge>
-              <Badge variant="secondary" className={statusClasses}>
-                {statusLabel}
-              </Badge>
+            <div className="flex items-start justify-between gap-4 mb-2">
+              <div className="flex min-w-0 flex-wrap items-center gap-3">
+                <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+                <Badge variant="secondary">Primitive</Badge>
+                <Badge variant="secondary" className={statusClasses}>
+                  {statusLabel}
+                </Badge>
+              </div>
+              <div className="inline-flex items-center gap-1 shrink-0">
+                {hasFigmaControl &&
+                  (hasDisabledFigma ? (
+                    <span
+                      className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                      title="Figma link unavailable"
+                      aria-label="Figma link unavailable"
+                    >
+                      <img
+                        src={figmaIcon}
+                        alt=""
+                        className="size-4 grayscale opacity-40 mix-blend-multiply"
+                      />
+                    </span>
+                  ) : (
+                    <a
+                      href={figmaUrl!}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                      title="Open in Figma"
+                      aria-label="Open in Figma"
+                    >
+                      <img src={figmaIcon} alt="" className={externalIconClass} />
+                    </a>
+                  ))}
+                {hasStorybookLink ? (
+                  <a
+                    href={storybookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                    title="Open in Storybook"
+                    aria-label="Open in Storybook"
+                  >
+                    <img src={storybookIcon} alt="" className={externalIconClass} />
+                  </a>
+                ) : (
+                  <span
+                    className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                    title="Storybook link unavailable"
+                    aria-label="Storybook link unavailable"
+                  >
+                    <img
+                      src={storybookIcon}
+                      alt=""
+                      className="size-4 grayscale opacity-40 mix-blend-multiply"
+                    />
+                  </span>
+                )}
+              </div>
             </div>
             <p className="text-lg text-muted-foreground">{description}</p>
             <div className="flex flex-wrap items-center gap-2">
@@ -196,24 +255,65 @@ export default function ComponentPage() {
 
         {/* Header */}
         <div className="space-y-4">
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
-            {figmaUrl && (
-              <a
-                href={figmaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
-                title="Open in Figma"
-                aria-label="Open in Figma"
-              >
-                <IconBrandFigma className="size-4" />
-              </a>
-            )}
-            <Badge variant="secondary">Component</Badge>
-            <Badge variant="secondary" className={statusClasses}>
-              {statusLabel}
-            </Badge>
+          <div className="flex items-start justify-between gap-4 mb-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-3">
+              <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+              <Badge variant="secondary">Component</Badge>
+              <Badge variant="secondary" className={statusClasses}>
+                {statusLabel}
+              </Badge>
+            </div>
+            <div className="inline-flex items-center gap-1 shrink-0">
+              {hasFigmaControl &&
+                (hasDisabledFigma ? (
+                  <span
+                    className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                    title="Figma link unavailable"
+                    aria-label="Figma link unavailable"
+                  >
+                    <img
+                      src={figmaIcon}
+                      alt=""
+                      className="size-4 grayscale opacity-40 mix-blend-multiply"
+                    />
+                  </span>
+                ) : (
+                  <a
+                    href={figmaUrl!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                    title="Open in Figma"
+                    aria-label="Open in Figma"
+                  >
+                    <img src={figmaIcon} alt="" className={externalIconClass} />
+                  </a>
+                ))}
+              {hasStorybookLink ? (
+                <a
+                  href={storybookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                  title="Open in Storybook"
+                  aria-label="Open in Storybook"
+                >
+                  <img src={storybookIcon} alt="" className={externalIconClass} />
+                </a>
+              ) : (
+                <span
+                  className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                  title="Storybook link unavailable"
+                  aria-label="Storybook link unavailable"
+                >
+                  <img
+                    src={storybookIcon}
+                    alt=""
+                    className="size-4 grayscale opacity-40 mix-blend-multiply"
+                  />
+                </span>
+              )}
+            </div>
           </div>
           <p className="text-lg text-muted-foreground">{description}</p>
           {catalogEntry && (

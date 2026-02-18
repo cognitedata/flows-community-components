@@ -153,7 +153,7 @@ export const STATUS_CONFIG: Record<ComponentStatusType, StatusConfig> = {
     borderColorDark: "#C2410C",
   },
   "in-progress-design-conformance": {
-    label: "In progress (Design conformance)",
+    label: "In progress (Design conf.)",
     color: "#C2410C",
     colorDark: "#FB923C",
     bgColor: "#FFEDD5",

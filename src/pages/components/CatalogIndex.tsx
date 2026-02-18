@@ -130,7 +130,7 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
       : "flex flex-col gap-3";
 
   const cardClassName = cn(
-    "transition-colors hover:border-primary",
+    "transition-colors hover:border-primary flex flex-col",
     viewMode === "grid" && "h-full",
     "[&_[data-slot=card-header]]:px-2 [&_[data-slot=card-header]]:pt-2 [&_[data-slot=card-header]]:[.border-b]:pb-3",
     "[&_[data-slot=card-content]]:p-2",
@@ -160,7 +160,7 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
         return (
           <Link key={entry.id} to={entry.href} className="block">
             <Card className={cardClassName}>
-              <CardContent className="p-2">
+              <CardContent className={cn("p-2", viewMode === "grid" && "flex-1")}>
                 {viewMode === "list" ? (
                   <div className="flex items-center gap-3 text-sm">
                     <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -175,6 +175,9 @@ export function CatalogIndex({ title, description, sections, storageKey }: Catal
                     <Badge variant="secondary" className={statusClasses}>
                       {getStatusLabel(status)}
                     </Badge>
+                    {entry.footer && (
+                      <div className="inline-flex items-center gap-1 shrink-0">{entry.footer}</div>
+                    )}
                   </div>
                 ) : (
                   <div className="space-y-2">

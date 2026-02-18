@@ -51,6 +51,8 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     name: "Action toolbar",
     description: "",
     section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=9131-21139&p=f&t=EaagDmzJhhlMjHU8-0",
     eosGaRequired: true,
     duneGaRequired: true,
     implemented: false,
@@ -86,7 +88,7 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     description: "Logos, illustrations, and related brand assets.",
     section: "foundation",
     figmaUrl:
-      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=1711-16008&p=f&m=dev",
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=1711-16008&p=f&t=EaagDmzJhhlMjHU8-0",
     eosGaRequired: true,
     duneGaRequired: true,
     implemented: true,
@@ -363,7 +365,7 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     description: "",
     section: "primitive",
     figmaUrl:
-      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=9131-7927&p=f&t=hvBYNAqgOvQH1REf-0",
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=9131-7927&p=f&t=EaagDmzJhhlMjHU8-0",
     eosGaRequired: true,
     duneGaRequired: true,
     implemented: false,
@@ -398,7 +400,7 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     description: "System iconography and usage guidance",
     section: "foundation",
     figmaUrl:
-      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=256-50354&p=f&m=dev",
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=1711-16008&p=f&t=EaagDmzJhhlMjHU8-0",
     eosGaRequired: true,
     duneGaRequired: true,
     implemented: false,
@@ -453,7 +455,7 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
   },
   {
     slug: "layouts",
-    name: "Layouts",
+    name: "Layout",
     description: "Grid and container systems",
     section: "foundation",
     figmaUrl:
@@ -568,6 +570,8 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     name: "Select panel",
     description: "",
     section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=9131-21635&p=f&t=EaagDmzJhhlMjHU8-0",
     eosGaRequired: false,
     duneGaRequired: true,
     implemented: false,

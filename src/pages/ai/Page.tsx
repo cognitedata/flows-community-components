@@ -1,9 +1,21 @@
+import figmaIcon from "@/assets/figma-logo.svg";
+import storybookIcon from "@/assets/icon-storybook-default.svg";
 import { getPrimitiveCatalogEntry } from "@/lib/primitives-catalog";
 import { CatalogIndex } from "@/pages/components/CatalogIndex";
-import { IconBrandFigma } from "@tabler/icons-react";
 
 const AI_FIGMA_URL =
   "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4383-36632&p=f&t=hvBYNAqgOvQH1REf-0";
+
+function toStorybookSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\s*\(.*?\)\s*/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const externalIconClass =
+  "size-4 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal";
 
 const aiComponents = [
   { slug: "code-block", name: "Code block", description: "Syntax-highlighted code display" },
@@ -31,6 +43,7 @@ export default function AIPage() {
           id: "ai-components",
           items: aiComponents.map((component) => {
             const entry = getPrimitiveCatalogEntry(component.slug);
+            const storybookUrl = `https://cognitedata.github.io/aura/storybook/?path=/docs/ai-${toStorybookSlug(component.name)}--docs`;
             return {
               id: component.slug,
               name: component.name,
@@ -41,16 +54,30 @@ export default function AIPage() {
               eosGaRequired: entry?.eosGaRequired,
               duneGaRequired: entry?.duneGaRequired,
               footer: (
-                <a
-                  href={AI_FIGMA_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
-                  title="Open in Figma"
-                  aria-label="Open in Figma"
-                >
-                  <IconBrandFigma className="size-4" />
-                </a>
+                <div className="ml-auto inline-flex items-center gap-1">
+                  <a
+                    href={AI_FIGMA_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                    className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                    title="Open in Figma"
+                    aria-label="Open in Figma"
+                  >
+                    <img src={figmaIcon} alt="" className={externalIconClass} />
+                  </a>
+                  <a
+                    href={storybookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                    className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                    title="Open in Storybook"
+                    aria-label="Open in Storybook"
+                  >
+                    <img src={storybookIcon} alt="" className={externalIconClass} />
+                  </a>
+                </div>
               ),
             };
           }),
