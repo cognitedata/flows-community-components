@@ -2,7 +2,7 @@ import type { ComponentMeta } from "../../../../lib/component-examples";
 
 export const ListMetadata: ComponentMeta = {
   name: "List",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
     "Composable list primitives for unordered, ordered, and description lists with status-ready list items.",
   llmUsage:

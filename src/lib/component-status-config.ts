@@ -8,15 +8,35 @@
 export type ComponentStatusType =
   | "deprecated"
   | "planned"
+  | "pattern"
   | "shadcn-ui"
   | "experimental"
   | "draft"
+  | "needs-discussion"
+  | "imported-from-fusion"
   | "in-progress-storybook"
   | "in-progress-code-review"
   | "in-progress-chromatic"
   | "in-progress-design-conformance"
   | "ready-for-ga"
   | "stable";
+
+export const COMPONENT_STATUS_ORDER: ComponentStatusType[] = [
+  "deprecated",
+  "planned",
+  "pattern",
+  "shadcn-ui",
+  "experimental",
+  "draft",
+  "needs-discussion",
+  "imported-from-fusion",
+  "in-progress-storybook",
+  "in-progress-code-review",
+  "in-progress-chromatic",
+  "in-progress-design-conformance",
+  "ready-for-ga",
+  "stable",
+];
 
 export interface StatusConfig {
   label: string;
@@ -51,6 +71,15 @@ export const STATUS_CONFIG: Record<ComponentStatusType, StatusConfig> = {
     borderColor: "#CBD5E1",
     borderColorDark: "#475569",
   },
+  pattern: {
+    label: "Pattern",
+    color: "#1D4ED8",
+    colorDark: "#60A5FA",
+    bgColor: "#DBEAFE",
+    bgColorDark: "rgba(59, 130, 246, 0.2)",
+    borderColor: "#93C5FD",
+    borderColorDark: "#1D4ED8",
+  },
   "shadcn-ui": {
     label: "shadcn/ui",
     color: "#334155",
@@ -77,6 +106,24 @@ export const STATUS_CONFIG: Record<ComponentStatusType, StatusConfig> = {
     bgColorDark: "rgba(239, 68, 68, 0.2)",
     borderColor: "#FCA5A5",
     borderColorDark: "#B91C1C",
+  },
+  "needs-discussion": {
+    label: "Needs discussion",
+    color: "#C2410C",
+    colorDark: "#FB923C",
+    bgColor: "#FFEDD5",
+    bgColorDark: "rgba(249, 115, 22, 0.2)",
+    borderColor: "#FDBA74",
+    borderColorDark: "#C2410C",
+  },
+  "imported-from-fusion": {
+    label: "Imported from Fusion",
+    color: "#334155",
+    colorDark: "#94A3B8",
+    bgColor: "#F1F5F9",
+    bgColorDark: "rgba(100, 116, 139, 0.2)",
+    borderColor: "#CBD5E1",
+    borderColorDark: "#334155",
   },
   "in-progress-storybook": {
     label: "In progress (Storybook)",
@@ -106,7 +153,7 @@ export const STATUS_CONFIG: Record<ComponentStatusType, StatusConfig> = {
     borderColorDark: "#C2410C",
   },
   "in-progress-design-conformance": {
-    label: "In progress (Design conformance)",
+    label: "In progress (Design conf.)",
     color: "#C2410C",
     colorDark: "#FB923C",
     bgColor: "#FFEDD5",
