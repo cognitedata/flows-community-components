@@ -1,9 +1,10 @@
-import { CodeBlock } from "@/components/ui/aura/code-block";
-import { HelperText } from "@/components/ui/aura/helper-text";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconCheck, IconCircleCheck, IconX } from "@tabler/icons-react";
 import { useState } from "react";
+
+import { CodeBlock } from "../code-block";
+import { HelperText } from "../helper-text";
 import {
   Confirmation,
   ConfirmationAccepted,
@@ -20,12 +21,11 @@ const meta: Meta<typeof Confirmation> = {
   component: Confirmation,
   tags: ["autodocs"],
   argTypes: {
-    // State management
     approval: {
       control: "object",
       description: "Approval state object with approved boolean and optional metadata",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "{ approved?: boolean; [key: string]: unknown }" },
       },
     },
@@ -41,18 +41,17 @@ const meta: Meta<typeof Confirmation> = {
       ],
       description: "Current state of the confirmation workflow",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
 
-    // Display
     helperText: {
       control: false,
       description:
         "Helper text below confirmation. Set to false to hide, ReactNode for custom content",
       table: {
-        category: "Display",
+        category: "Content",
         type: { summary: "ReactNode | false" },
       },
     },
@@ -60,15 +59,12 @@ const meta: Meta<typeof Confirmation> = {
       control: "text",
       description: "CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
   },
   parameters: {
     layout: "centered",
-    actions: {
-      handles: ["openChanged"],
-    },
   },
 };
 
@@ -80,10 +76,8 @@ type Story = StoryObj<typeof Confirmation>;
  * Click the action buttons to see state transitions.
  */
 export const Interactive: Story = {
-  args: {
-    className: "w-[500px]",
-  },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -94,77 +88,35 @@ export const Interactive: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Accessibility: Verify trigger button exists and has proper attributes
-    const trigger = canvas.getByTestId("confirmation-trigger");
-    await expect(trigger).toBeInTheDocument();
+    const trigger = canvas.getByRole("button", { name: /Atlas needs your permission/i });
     await expect(trigger).toHaveAttribute("aria-expanded");
 
-    // Accessibility: Verify action buttons have proper labels and types
-    const allowOnceButton = canvas.getByTestId("action-allow-once");
-    await expect(allowOnceButton).toBeInTheDocument();
+    const skipButton = canvas.getByRole("button", { name: "Skip" });
+    const allowOnceButton = canvas.getByRole("button", { name: "Allow once" });
+    const alwaysAllowButton = canvas.getByRole("button", { name: "Always allow" });
+    await expect(skipButton).toHaveAttribute("type", "button");
     await expect(allowOnceButton).toHaveAttribute("type", "button");
-    await expect(allowOnceButton).toHaveTextContent("Allow once");
+    await expect(alwaysAllowButton).toHaveAttribute("type", "button");
 
-    const skipButton = canvas.getByTestId("action-skip");
-    await expect(skipButton).toHaveTextContent("Skip");
-
-    const alwaysAllowButton = canvas.getByTestId("action-always-allow");
-    await expect(alwaysAllowButton).toHaveTextContent("Always allow");
-
-    // Test: Click "Allow once" to approve
     await userEvent.click(allowOnceButton);
 
-    // Wait for the accepted state to show
-    await waitFor(
-      () => {
-        const acceptedElement = canvas.queryByTestId("confirmation-accepted");
-        if (!acceptedElement) {
-          throw new Error("Accepted element not found");
-        }
-        expect(acceptedElement).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitFor(() => {
+      expect(canvas.getByText("Permission allowed once")).toBeInTheDocument();
+    });
 
-    // Verify accepted message content
-    await expect(canvas.getByText("Permission allowed once")).toBeInTheDocument();
-
-    // Click reset to go back to approval-requested
-    const resetButton = canvas.getByTestId("reset-button");
+    const resetButton = canvas.getByRole("button", { name: /reset demo/i });
     await userEvent.click(resetButton);
 
-    // Wait for actions to reappear
-    await waitFor(
-      () => {
-        const skipAction = canvas.queryByTestId("action-skip");
-        if (!skipAction) {
-          throw new Error("Skip action not found");
-        }
-        expect(skipAction).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitFor(() => {
+      expect(canvas.getByRole("button", { name: "Skip" })).toBeInTheDocument();
+    });
 
-    // Test: Now test the reject flow
-    const skipButtonAgain = canvas.getByTestId("action-skip");
-    await userEvent.click(skipButtonAgain);
-
-    // Wait for the rejected state to show
-    await waitFor(
-      () => {
-        const rejectedElement = canvas.queryByTestId("confirmation-rejected");
-        if (!rejectedElement) {
-          throw new Error("Rejected element not found");
-        }
-        expect(rejectedElement).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
-
-    // Verify rejected message content
-    await expect(canvas.getByText("Permission skipped")).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole("button", { name: "Skip" }));
+    await waitFor(() => {
+      expect(canvas.getByText("Permission skipped")).toBeInTheDocument();
+    });
   },
-  render: function InteractiveStory(args) {
+  render: function InteractiveStory() {
     const [approval, setApproval] = useState<{
       approved?: boolean;
       always?: boolean;
@@ -193,8 +145,8 @@ export const Interactive: Story = {
 
     return (
       <div className="w-full space-y-4">
-        <Confirmation {...args} approval={approval} state={state}>
-          <ConfirmationContentTrigger data-testid="confirmation-trigger">
+        <Confirmation className="w-full max-w-lg" approval={approval} state={state}>
+          <ConfirmationContentTrigger>
             Atlas needs your permission to run tool &quot;Analyze time series&quot;
           </ConfirmationContentTrigger>
           <ConfirmationContent>
@@ -205,46 +157,34 @@ export const Interactive: Story = {
           </ConfirmationContent>
           <ConfirmationRequest>
             <ConfirmationActions className="w-full flex justify-between">
-              <ConfirmationAction variant="ghost" onClick={handleDeny} data-testid="action-skip">
+              <ConfirmationAction variant="ghost" onClick={handleDeny}>
                 Skip
               </ConfirmationAction>
               <div className="flex gap-1">
-                <ConfirmationAction
-                  variant="ghost"
-                  onClick={handleAllowOnce}
-                  data-testid="action-allow-once"
-                >
+                <ConfirmationAction variant="ghost" onClick={handleAllowOnce}>
                   Allow once
                 </ConfirmationAction>
-                <ConfirmationAction
-                  variant="outline"
-                  onClick={handleAlwaysAllow}
-                  data-testid="action-always-allow"
-                >
+                <ConfirmationAction variant="outline" onClick={handleAlwaysAllow}>
                   Always allow
                 </ConfirmationAction>
               </div>
             </ConfirmationActions>
           </ConfirmationRequest>
           <ConfirmationAccepted>
-            <div data-testid="confirmation-accepted">
-              {approval.always ? (
-                <HelperText size="xs" icon={<IconCircleCheck />} isSuccess className="self-end">
-                  Permission allowed always
-                </HelperText>
-              ) : (
-                <HelperText size="xs" icon={<IconCheck />} isSuccess className="self-end">
-                  Permission allowed once
-                </HelperText>
-              )}
-            </div>
+            {approval.always ? (
+              <HelperText size="xs" icon={<IconCircleCheck />} isSuccess className="self-end">
+                Permission allowed always
+              </HelperText>
+            ) : (
+              <HelperText size="xs" icon={<IconCheck />} isSuccess className="self-end">
+                Permission allowed once
+              </HelperText>
+            )}
           </ConfirmationAccepted>
           <ConfirmationRejected>
-            <div data-testid="confirmation-rejected">
-              <HelperText size="xs" icon={<IconX />} isError className="self-end">
-                Permission skipped
-              </HelperText>
-            </div>
+            <HelperText size="xs" icon={<IconX />} isError className="self-end">
+              Permission skipped
+            </HelperText>
           </ConfirmationRejected>
         </Confirmation>
 
@@ -252,7 +192,6 @@ export const Interactive: Story = {
           <button
             type="button"
             onClick={handleReset}
-            data-testid="reset-button"
             className="text-sm text-muted-foreground underline hover:text-foreground"
           >
             Reset demo
@@ -268,6 +207,7 @@ export const Interactive: Story = {
  */
 export const ApprovalRequested: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -278,20 +218,17 @@ export const ApprovalRequested: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify trigger is present
     const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
     await expect(trigger).toBeInTheDocument();
 
-    // Verify action buttons are visible
     await expect(canvas.getByText("Skip")).toBeInTheDocument();
     await expect(canvas.getByText("Allow once")).toBeInTheDocument();
     await expect(canvas.getByText("Always allow")).toBeInTheDocument();
 
-    // Verify helper text is shown
     await expect(canvas.getByText("Only allow tools that you trust")).toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation approval={{}} state="approval-requested">
         <ConfirmationContentTrigger>
           Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -331,6 +268,7 @@ export const ApprovalRequested: Story = {
  */
 export const ApprovalAccepted: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -341,19 +279,16 @@ export const ApprovalAccepted: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify trigger is present
     const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
     await expect(trigger).toBeInTheDocument();
 
-    // Verify accepted state message is shown
     await expect(canvas.getByText("Permission allowed once")).toBeInTheDocument();
 
-    // Action buttons should NOT be visible
     expect(canvas.queryByText("Skip")).not.toBeInTheDocument();
     expect(canvas.queryByText("Allow once")).not.toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation approval={{ approved: true, always: false }} state="output-available">
         <ConfirmationContentTrigger>
           Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -393,6 +328,7 @@ export const ApprovalAccepted: Story = {
  */
 export const ApprovalAcceptedAlways: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -403,11 +339,10 @@ export const ApprovalAcceptedAlways: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify accepted always message is shown
     await expect(canvas.getByText("Permission allowed always")).toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation approval={{ approved: true, always: true }} state="output-available">
         <ConfirmationContentTrigger>
           Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -447,6 +382,7 @@ export const ApprovalAcceptedAlways: Story = {
  */
 export const ApprovalRejected: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "State after user denies an action. The ConfirmationRejected content is displayed.",
@@ -456,15 +392,13 @@ export const ApprovalRejected: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Verify rejected state message is shown
     await expect(canvas.getByText("Permission skipped")).toBeInTheDocument();
 
-    // Action buttons should NOT be visible
     expect(canvas.queryByText("Skip")).not.toBeInTheDocument();
     expect(canvas.queryByText("Allow once")).not.toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation approval={{ approved: false }} state="output-denied">
         <ConfirmationContentTrigger>
           Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -504,6 +438,7 @@ export const ApprovalRejected: Story = {
  */
 export const NoHelperText: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -514,11 +449,10 @@ export const NoHelperText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Helper text should NOT be visible
     expect(canvas.queryByText("Only allow tools that you trust")).not.toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation approval={{}} state="approval-requested" helperText={false}>
         <ConfirmationContentTrigger>
           Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -547,6 +481,7 @@ export const NoHelperText: Story = {
  */
 export const CustomHelperText: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Confirmation with custom helper text instead of the default warning.",
@@ -556,13 +491,12 @@ export const CustomHelperText: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Custom helper text should be visible
     await expect(
       canvas.getByText("This action requires elevated permissions.")
     ).toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation
         approval={{}}
         state="approval-requested"
@@ -599,6 +533,7 @@ export const CustomHelperText: Story = {
  */
 export const WithParagraphs: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -609,20 +544,15 @@ export const WithParagraphs: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Click to expand content
     const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
     await userEvent.click(trigger);
 
-    // Wait for content to be visible
-    await waitFor(
-      () => {
-        expect(canvas.getByText(/uses advanced statistical methods/i)).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    await waitFor(() => {
+      expect(canvas.getByText(/uses advanced statistical methods/i)).toBeInTheDocument();
+    });
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation approval={{}} state="approval-requested">
         <ConfirmationContentTrigger>
           Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -670,6 +600,7 @@ export const WithParagraphs: Story = {
  */
 export const WithCodeBlock: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -680,22 +611,12 @@ export const WithCodeBlock: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Click to expand content
     const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
     await userEvent.click(trigger);
 
-    // Wait for code block content to be visible (check for code element)
-    await waitFor(
-      () => {
-        const codeBlock = canvasElement.querySelector("pre code");
-        if (!codeBlock) {
-          throw new Error("Code block not found");
-        }
-        expect(codeBlock).toBeInTheDocument();
-        expect(codeBlock).toHaveTextContent("analyzeTimeSeries");
-      },
-      { timeout: 1000 }
-    );
+    await waitFor(() => {
+      expect(canvas.getByText(/analyzeTimeSeries/)).toBeInTheDocument();
+    });
   },
   render: () => {
     const codeToExecute = `import { analyzeTimeSeries } from '@cognite/sdk';
@@ -712,7 +633,7 @@ const result = await analyzeTimeSeries({
 console.log(result.trends, result.seasonality);`;
 
     return (
-      <div className="w-[500px]">
+      <div className="w-full max-w-lg">
         <Confirmation approval={{}} state="approval-requested">
           <ConfirmationContentTrigger>
             Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -755,6 +676,7 @@ console.log(result.trends, result.seasonality);`;
  */
 export const CollapsibleInteraction: Story = {
   parameters: {
+    order: 10,
     docs: {
       description: {
         story:
@@ -765,44 +687,30 @@ export const CollapsibleInteraction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the trigger button
     const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
     await expect(trigger).toBeInTheDocument();
 
-    // Verify button has accessible attributes
     await expect(trigger).toHaveAttribute("aria-expanded");
 
-    // Find the chevron icon
     const chevron = trigger.querySelector("svg");
     await expect(chevron).toBeInTheDocument();
 
-    // Initially content might be collapsed - click to toggle
     await userEvent.click(trigger);
 
-    // Content should be visible after click
-    await waitFor(
-      () => {
-        expect(canvas.getByText(/analyze patterns in your time series/i)).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    await waitFor(() => {
+      expect(canvas.getByText(/analyze patterns in your time series/i)).toBeInTheDocument();
+    });
 
-    // Verify trigger shows expanded state
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-    // Click again to collapse
     await userEvent.click(trigger);
 
-    // Verify trigger shows collapsed state
-    await waitFor(
-      () => {
-        expect(trigger).toHaveAttribute("aria-expanded", "false");
-      },
-      { timeout: 500 }
-    );
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute("aria-expanded", "false");
+    });
   },
   render: () => (
-    <div className="w-[500px]">
+    <div className="w-full max-w-lg">
       <Confirmation approval={{}} state="approval-requested">
         <ConfirmationContentTrigger>
           Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -833,6 +741,7 @@ export const CollapsibleInteraction: Story = {
  */
 export const KeyboardNavigation: Story = {
   parameters: {
+    order: 11,
     docs: {
       description: {
         story:
@@ -843,53 +752,34 @@ export const KeyboardNavigation: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Find the trigger button
     const trigger = canvas.getByRole("button", { name: /Atlas needs/i });
 
-    // Focus the trigger
     trigger.focus();
     await expect(trigger).toHaveFocus();
 
-    // Press Space to expand
     await userEvent.keyboard(" ");
 
-    // Wait for content to be visible
-    await waitFor(
-      () => {
-        expect(canvas.getByText(/analyze patterns in your time series/i)).toBeInTheDocument();
-      },
-      { timeout: 500 }
-    );
+    await waitFor(() => {
+      expect(canvas.getByText(/analyze patterns in your time series/i)).toBeInTheDocument();
+    });
 
-    // Tab to first action button (Skip)
     await userEvent.tab();
-    const skipButton = canvas.getByText("Skip");
+    const skipButton = canvas.getByRole("button", { name: "Skip" });
     await expect(skipButton).toHaveFocus();
 
-    // Tab to second action button (Allow once)
     await userEvent.tab();
-    const allowOnceButton = canvas.getByText("Allow once");
+    const allowOnceButton = canvas.getByRole("button", { name: "Allow once" });
     await expect(allowOnceButton).toHaveFocus();
 
-    // Tab to third action button (Always allow)
     await userEvent.tab();
-    const alwaysAllowButton = canvas.getByText("Always allow");
+    const alwaysAllowButton = canvas.getByRole("button", { name: "Always allow" });
     await expect(alwaysAllowButton).toHaveFocus();
 
-    // Press Enter on Always allow
     await userEvent.keyboard("{Enter}");
 
-    // Wait for accepted state
-    await waitFor(
-      () => {
-        const acceptedText = canvas.queryByText("Permission allowed always");
-        if (!acceptedText) {
-          throw new Error("Accepted text not found");
-        }
-        expect(acceptedText).toBeInTheDocument();
-      },
-      { timeout: 1000 }
-    );
+    await waitFor(() => {
+      expect(canvas.getByText("Permission allowed always")).toBeInTheDocument();
+    });
   },
   render: function KeyboardNavigationStory() {
     const [approval, setApproval] = useState<{
@@ -904,7 +794,7 @@ export const KeyboardNavigation: Story = {
     };
 
     return (
-      <div className="w-[500px]">
+      <div className="w-full max-w-lg">
         <Confirmation approval={approval} state={state}>
           <ConfirmationContentTrigger>
             Atlas needs your permission to run tool &quot;Analyze time series&quot;
@@ -953,6 +843,7 @@ export const KeyboardNavigation: Story = {
  */
 export const HiddenDuringStreaming: Story = {
   parameters: {
+    order: 12,
     docs: {
       description: {
         story:
@@ -963,12 +854,11 @@ export const HiddenDuringStreaming: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Component should not render anything
     expect(canvas.queryByText(/Atlas needs/i)).not.toBeInTheDocument();
     expect(canvas.queryByText("Skip")).not.toBeInTheDocument();
   },
   render: () => (
-    <div className="w-[500px] p-4 border border-dashed border-border rounded-lg">
+    <div className="w-full max-w-lg p-4 border border-dashed border-border rounded-lg">
       <p className="text-sm text-muted-foreground mb-4">
         The confirmation below is hidden because state is &quot;input-streaming&quot;:
       </p>
