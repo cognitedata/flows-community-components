@@ -1222,17 +1222,7 @@
       "title": "Sidebar",
       "description": "A collapsible sidebar navigation component with support for mobile sheets, keyboard shortcuts, and nested menu structures.",
       "dependencies": ["@tabler/icons-react", "class-variance-authority"],
-      "registryDependencies": [
-        "@aura/css",
-        "@aura/badge",
-        "@aura/button",
-        "@aura/collapsible",
-        "@aura/input",
-        "@aura/separator",
-        "@aura/sheet",
-        "@aura/skeleton",
-        "@aura/tooltip"
-      ],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/sidebar/sidebar.tsx",

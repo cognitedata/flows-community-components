@@ -22,8 +22,8 @@ import {
   SidebarHeader,
   SidebarHeaderInsert,
   SidebarMainPages,
-  SidebarMenuBadge,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSection,
@@ -289,9 +289,7 @@ export const IndustrialToolsCollapsed: Story = {
                 <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                   AkerBP-DEV
                 </div>
-                <div className="text-xs text-sidebar-foreground/70 truncate">
-                  Industrial tools
-                </div>
+                <div className="text-xs text-sidebar-foreground/70 truncate">Industrial tools</div>
               </div>
             </SidebarHeaderInsert>
             <SidebarProjectSelector>
@@ -398,8 +396,8 @@ export const IndustrialToolsCollapsed: Story = {
           <div className="mt-4">
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
             <p className="text-muted-foreground">
-              This is the main content area. The sidebar header and footer remain visible while
-              the content scrolls.
+              This is the main content area. The sidebar header and footer remain visible while the
+              content scrolls.
             </p>
           </div>
         </div>
@@ -432,9 +430,7 @@ export const DataManagementExpanded: Story = {
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
-                  <div className="text-xs text-sidebar-foreground/70 truncate">
-                    Data management
-                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">Data management</div>
                 </div>
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
@@ -591,9 +587,7 @@ export const DataManagementCollapsed: Story = {
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
-                  <div className="text-xs text-sidebar-foreground/70 truncate">
-                    Data management
-                  </div>
+                  <div className="text-xs text-sidebar-foreground/70 truncate">Data management</div>
                 </div>
               </SidebarHeaderInsert>
               <SidebarProjectSelector>

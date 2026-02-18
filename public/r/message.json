@@ -3,7 +3,11 @@
   "name": "message",
   "title": "Message",
   "description": "Components for displaying AI chat messages with avatars and actions.",
-  "dependencies": ["@tabler/icons-react", "shiki", "streamdown"],
+  "dependencies": [
+    "@tabler/icons-react",
+    "shiki",
+    "streamdown"
+  ],
   "registryDependencies": [
     "@aura/css",
     "@aura/avatar",

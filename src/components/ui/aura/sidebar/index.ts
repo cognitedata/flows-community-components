@@ -15,6 +15,46 @@
  *   </Sidebar>
  * </SidebarProvider>
  */
+import {
+  Sidebar,
+  SidebarBrand,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGeneralPages,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarHeaderInsert,
+  SidebarInput,
+  SidebarInset,
+  SidebarMainPages,
+  SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSection,
+  SidebarMenuSectionContent,
+  SidebarMenuSectionTrigger,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarPages,
+  SidebarPagesSection,
+  SidebarPinnedApps,
+  SidebarProjectSelector,
+  SidebarProvider,
+  SidebarRail,
+  SidebarSearch,
+  SidebarSeparator,
+  SidebarTrigger,
+  SidebarUserProfile,
+  useSidebar,
+} from "./sidebar";
+
 export {
   Sidebar,
   SidebarBrand,
@@ -52,7 +92,6 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   SidebarUserProfile,
-  // eslint-disable-next-line react-refresh/only-export-components
   useSidebar,
-} from "./sidebar";
+};
 export { SidebarMetadata } from "./sidebar.metadata";

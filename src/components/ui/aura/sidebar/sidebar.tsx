@@ -12,31 +12,16 @@ import {
   useState,
 } from "react";
 
-import { Button } from "@/components/ui/aura/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
-import { badgeVariants } from "@/components/ui/aura/badge";
-import { Input } from "@/components/ui/aura/input";
-import { Separator } from "@/components/ui/aura/separator";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/aura/sheet";
-import { Skeleton } from "@/components/ui/aura/skeleton";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/aura/tooltip";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "../../../../hooks/use-mobile";
 import { cn } from "../../../../lib/utils";
+import { badgeVariants } from "../badge/badge";
+import { Button } from "../button/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../collapsible/collapsible";
+import { Input } from "../input/input";
+import { Separator } from "../separator/separator";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "../sheet/sheet";
+import { Skeleton } from "../skeleton/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip/tooltip";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -44,6 +29,7 @@ const SIDEBAR_WIDTH = "15rem";
 const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3.25rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
+type CSSVariables = Record<`--${string}`, string | number>;
 
 type SidebarContextProps = {
   state: "expanded" | "collapsed";
@@ -129,18 +115,18 @@ function SidebarProvider({
     [state, open, setOpen, isMobile, openMobile, toggleSidebar]
   );
 
+  const wrapperStyle: CSSProperties & CSSVariables = {
+    "--sidebar-width": SIDEBAR_WIDTH,
+    "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
+    ...style,
+  };
+
   return (
     <SidebarContext.Provider value={contextValue}>
       <TooltipProvider delayDuration={0}>
         <div
           data-slot="sidebar-wrapper"
-          style={
-            {
-              "--sidebar-width": SIDEBAR_WIDTH,
-              "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
-              ...style,
-            } as CSSProperties
-          }
+          style={wrapperStyle}
           className={cn(
             "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
             className
@@ -167,6 +153,9 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none";
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const mobileStyle: CSSProperties & CSSVariables = {
+    "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+  };
 
   if (collapsible === "none") {
     return (
@@ -191,11 +180,7 @@ function Sidebar({
           data-slot="sidebar"
           data-mobile="true"
           className="bg-sidebar border-none text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
-          style={
-            {
-              "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-            } as CSSProperties
-          }
+          style={mobileStyle}
           side={side}
         >
           <SheetHeader className="sr-only">
@@ -513,7 +498,7 @@ function SidebarMenuAction({
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-        "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-open:opacity-100 md:opacity-0",
+          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-open:opacity-100 md:opacity-0",
         className
       )}
       {...props}
@@ -624,9 +609,7 @@ function SidebarMenuSection({
           {title}
         </SidebarMenuSectionTrigger>
       ) : null}
-      <SidebarMenuSectionContent className={contentClassName}>
-        {children}
-      </SidebarMenuSectionContent>
+      <SidebarMenuSectionContent className={contentClassName}>{children}</SidebarMenuSectionContent>
     </Collapsible>
   );
 }
@@ -679,6 +662,9 @@ function SidebarMenuSkeleton({
   showIcon?: boolean;
 }) {
   const [width] = useState(() => `${Math.floor(Math.random() * 40) + 50}%`);
+  const skeletonStyle: CSSProperties & CSSVariables = {
+    "--skeleton-width": width,
+  };
 
   return (
     <div
@@ -691,11 +677,7 @@ function SidebarMenuSkeleton({
       <Skeleton
         className="h-4 max-w-(--skeleton-width) flex-1"
         data-sidebar="menu-skeleton-text"
-        style={
-          {
-            "--skeleton-width": width,
-          } as CSSProperties
-        }
+        style={skeletonStyle}
       />
     </div>
   );

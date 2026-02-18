@@ -50,6 +50,7 @@
       "*.min.js",
       "pnpm-lock.yaml",
       ".pnpm-store",
+      ".pnpm-store-local",
       "public/r",
       "tsconfig*.json"
     ]

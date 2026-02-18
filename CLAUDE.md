@@ -129,6 +129,8 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - For portal stories, prefer semantic queries first; use test ids only in test code when mocking and no semantic query is available.
 - Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
+- For CSS custom properties in typed React `style` props, use a `CSSProperties & Record<\`--${string}\`, string | number>` helper type instead of `as` casts.
+- Exclude `.pnpm-store-local` in `biome.json` `files.ignore` so `pnpm lint` does not fail on oversized package index JSON files.
 
 # Storybook Stories
 
