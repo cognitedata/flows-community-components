@@ -76,6 +76,9 @@ type Story = StoryObj<typeof Confirmation>;
  * Click the action buttons to see state transitions.
  */
 export const Interactive: Story = {
+  args: {
+    className: "w-full max-w-lg",
+  },
   parameters: {
     order: 2,
     docs: {
@@ -116,7 +119,7 @@ export const Interactive: Story = {
       expect(canvas.getByText("Permission skipped")).toBeInTheDocument();
     });
   },
-  render: function InteractiveStory() {
+  render: function InteractiveStory(args) {
     const [approval, setApproval] = useState<{
       approved?: boolean;
       always?: boolean;
@@ -145,7 +148,7 @@ export const Interactive: Story = {
 
     return (
       <div className="w-full space-y-4">
-        <Confirmation className="w-full max-w-lg" approval={approval} state={state}>
+        <Confirmation {...args} approval={approval} state={state}>
           <ConfirmationContentTrigger>
             Atlas needs your permission to run tool &quot;Analyze time series&quot;
           </ConfirmationContentTrigger>
@@ -615,7 +618,7 @@ export const WithCodeBlock: Story = {
     await userEvent.click(trigger);
 
     await waitFor(() => {
-      expect(canvas.getByText(/analyzeTimeSeries/)).toBeInTheDocument();
+      expect(canvas.getAllByText(/analyzeTimeSeries/).length).toBeGreaterThan(0);
     });
   },
   render: () => {
