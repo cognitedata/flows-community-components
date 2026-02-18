@@ -25,7 +25,6 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/colors", label: "Colors" },
       { href: "/primitives/effects", label: "Effects" },
       // { href: '/primitives/icons', label: 'Icons' },
-      // { href: '/primitives/illustrations', label: 'Illustrations' },
       { href: "/primitives/layouts", label: "Layouts" },
       // { href: '/primitives/motion-design', label: 'Motion design' },
       // { href: '/primitives/theming', label: 'Theming' },
@@ -45,6 +44,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/banner", label: "Banner" },
       { href: "/primitives/breadcrumb", label: "Breadcrumb" },
       { href: "/primitives/button", label: "Button" },
+      { href: "/primitives/button-group", label: "Button group" },
       { href: "/primitives/calendar", label: "Calendar" },
       { href: "/primitives/card", label: "Card" },
       { href: "/primitives/checkbox", label: "Checkbox" },
@@ -59,6 +59,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/helper-text", label: "Helper text" },
       { href: "/primitives/hover-card", label: "Hover card" },
       { href: "/primitives/input", label: "Input" },
+      { href: "/primitives/input-group", label: "Input group" },
       { href: "/primitives/kbd", label: "Kbd" },
       { href: "/primitives/label", label: "Label" },
       { href: "/primitives/list", label: "List" },
@@ -69,6 +70,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: "/primitives/radio-group", label: "Radio group" },
       { href: "/primitives/select", label: "Select" },
       { href: "/primitives/separator", label: "Separator" },
+      { href: "/primitives/skeleton", label: "Skeleton" },
       { href: "/primitives/sidebar", label: "Sidebar" },
       { href: "/primitives/slider", label: "Slider" },
       { href: "/primitives/sonner", label: "Sonner" },
@@ -202,7 +204,11 @@ function NavigationGroup({
         {isOpen && item.children && (
           <ul className="space-y-0.5 pl-2 border-l border-border">
             {item.children.map((child) => (
-              <NavigationGroup key={child.href} item={child} level={level + 1} />
+              <NavigationGroup
+                key={child.href === "#" ? child.label : child.href}
+                item={child}
+                level={level + 1}
+              />
             ))}
           </ul>
         )}
@@ -233,7 +239,10 @@ export function SideNavigation({ items, className }: SideNavigationProps) {
     <nav className={cn("", className)}>
       <ul className="space-y-4">
         {items.map((item) => (
-          <NavigationGroup key={item.href || item.label} item={item} />
+          <NavigationGroup
+            key={item.href === "#" ? item.label : item.href || item.label}
+            item={item}
+          />
         ))}
       </ul>
     </nav>

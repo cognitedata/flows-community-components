@@ -27,7 +27,7 @@ import {
 const meta: Meta<typeof ArtifactCount> = {
   title: "Primitives/Artifact - Count",
   component: ArtifactCount,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Display
     className: {

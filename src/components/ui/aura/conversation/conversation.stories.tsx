@@ -30,7 +30,7 @@ import {
 const meta: Meta<typeof Conversation> = {
   title: "AI/Conversation",
   component: Conversation,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     // Display
     className: {
@@ -85,10 +85,7 @@ const meta: Meta<typeof Conversation> = {
   },
   decorators: [
     (Story) => (
-      <div
-        className="h-[600px] w-full flex flex-col border rounded-lg"
-        style={{ "--message-content-max-width": "600px" } as React.CSSProperties}
-      >
+      <div className="h-150 w-full flex flex-col border rounded-lg">
         <Story />
       </div>
     ),
@@ -130,7 +127,7 @@ export const Default: Story = {
     await expect(firstUserMessage).toBeInTheDocument();
 
     // Verify assistant avatars are present
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
     await expect(avatars.length).toBeGreaterThan(0);
 
     // Test scroll-to-bottom button functionality (optional - depends on overflow)
@@ -549,7 +546,7 @@ export const MixedMessageTypes: Story = {
     await expect(messages.length).toBeGreaterThanOrEqual(4);
 
     // Verify avatars only on assistant messages
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
     await expect(avatars.length).toBeGreaterThan(0);
     await expect(avatars.length).toBeLessThan(messages.length);
 
@@ -859,7 +856,7 @@ export const ShortContainer: Story = {
     await expect(conversationContainer).toBeInTheDocument();
 
     // Verify avatars and message structure
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
     await expect(avatars.length).toBeGreaterThan(0);
 
     // Test scroll button in shorter container (optional - depends on overflow)

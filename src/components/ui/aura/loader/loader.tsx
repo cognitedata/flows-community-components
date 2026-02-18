@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "react";
+
+import { cn } from "../../../../lib/utils";
 
 type LoaderIconProps = {
   size?: number;
@@ -74,12 +75,20 @@ const LoaderIcon = ({ size = 16 }: LoaderIconProps) => (
   </svg>
 );
 
-export type LoaderProps = HTMLAttributes<HTMLDivElement> & {
+type LoaderProps = HTMLAttributes<HTMLDivElement> & {
   size?: number;
 };
 
-export const Loader = ({ className, size = 16, ...props }: LoaderProps) => (
-  <div className={cn("inline-flex animate-spin items-center justify-center", className)} {...props}>
+const Loader = ({ className, size = 16, ...props }: LoaderProps) => (
+  <div
+    data-slot="loader"
+    className={cn("inline-flex animate-spin items-center justify-center", className)}
+    {...props}
+  >
     <LoaderIcon size={size} />
   </div>
 );
+
+Loader.displayName = "Loader";
+
+export { Loader };

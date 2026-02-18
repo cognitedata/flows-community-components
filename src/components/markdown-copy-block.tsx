@@ -35,16 +35,18 @@ export function MarkdownCopyBlock({ content }: MarkdownCopyBlockProps) {
           {/* Copy Button with Tooltip */}
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute top-2 right-2 h-8 w-8"
-                  onClick={handleCopy}
-                >
-                  {copied ? <IconCheck className="h-4 w-4" /> : <IconCopy className="h-4 w-4" />}
-                </Button>
-              </TooltipTrigger>
+              <TooltipTrigger
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2 h-8 w-8"
+                    onClick={handleCopy}
+                  >
+                    {copied ? <IconCheck className="h-4 w-4" /> : <IconCopy className="h-4 w-4" />}
+                  </Button>
+                }
+              />
               <TooltipContent>
                 <p>{copied ? "Copied to clipboard" : "Click to copy"}</p>
               </TooltipContent>

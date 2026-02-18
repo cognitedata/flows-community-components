@@ -1,17 +1,10 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
-/**
- * Collapsible Component Metadata
- *
- * This metadata is used by the documentation system to generate
- * component documentation pages and provide context for LLMs.
- */
 export const CollapsibleMetadata: ComponentMeta = {
   name: "Collapsible",
-  status: "draft",
+  status: "in-progress-code-review",
   description:
-    "An interactive component that expands/collapses content, built on Radix Collapsible primitives.",
+    "An interactive component that expands/collapses content, built on Base UI Collapsible primitives.",
   llmUsage:
     "Use `<Collapsible>` with `<CollapsibleTrigger>` and `<CollapsibleContent>` for expandable sections.",
-  importPath: "@/components/ui/aura/collapsible",
 };

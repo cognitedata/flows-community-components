@@ -1,21 +1,22 @@
-import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
-import { useState } from "react";
-import { Input } from "./input";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "../input-group";
+import { Label } from "../label";
+import { Input, PasswordInput } from "./input";
 
 const meta: Meta<typeof Input> = {
   title: "Primitives/Input",
   component: Input,
   tags: ["autodocs"],
   argTypes: {
-    // Form
     type: {
       control: "select",
       options: ["text", "email", "password", "number", "tel", "url", "search"],
       description: "The type of input",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
         defaultValue: { summary: "text" },
       },
@@ -24,7 +25,7 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Placeholder text",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
       },
     },
@@ -32,17 +33,24 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Default value (uncontrolled)",
       table: {
-        category: "Form",
+        category: "Content",
         type: { summary: "string" },
       },
     },
-
-    // State
     disabled: {
       control: "boolean",
       description: "Disable the input",
       table: {
-        category: "State",
+        category: "Behavior",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
+    },
+    readOnly: {
+      control: "boolean",
+      description: "Make the input read-only",
+      table: {
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -51,17 +59,15 @@ const meta: Meta<typeof Input> = {
       control: "text",
       description: "Error message to display",
       table: {
-        category: "Validation",
+        category: "Behavior",
         type: { summary: "string" },
       },
     },
-
-    // Styling
     className: {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -99,7 +105,6 @@ export const Default: Story = {
 
     await expect(input).toBeInTheDocument();
 
-    // Type in input
     await userEvent.type(input, "Input text");
     await expect(input).toHaveValue("Input text");
   },
@@ -131,26 +136,6 @@ export const WithLabel: Story = {
 };
 
 /**
- * Password input.
- */
-export const Password: Story = {
-  render: () => (
-    <div className="grid w-full items-center gap-1">
-      <Label htmlFor="password">Password</Label>
-      <Input type="password" id="password" placeholder="Input text" />
-    </div>
-  ),
-  parameters: {
-    order: 3,
-    docs: {
-      description: {
-        story: "Password input with obscured text.",
-      },
-    },
-  },
-};
-
-/**
  * Disabled input.
  */
 export const Disabled: Story = {
@@ -167,7 +152,7 @@ export const Disabled: Story = {
     </div>
   ),
   parameters: {
-    order: 4,
+    order: 3,
     docs: {
       description: {
         story: "Disabled inputs prevent user interaction.",
@@ -184,6 +169,116 @@ export const Disabled: Story = {
 };
 
 /**
+ * Read-only input.
+ */
+export const ReadOnly: Story = {
+  render: () => (
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="readonly-value">User ID</Label>
+      <Input id="readonly-value" defaultValue="user-12345" readOnly />
+    </div>
+  ),
+  parameters: {
+    order: 4,
+    docs: {
+      description: {
+        story: "Read-only inputs display data without allowing user modification.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByDisplayValue("user-12345");
+    await expect(input).toHaveAttribute("readonly");
+  },
+};
+
+/**
+ * Read-only input with copy button using InputGroup composition.
+ */
+export const ReadOnlyWithCopy: Story = {
+  render: function ReadOnlyWithCopyExample() {
+    const [copied, setCopied] = useState(false);
+    const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+    useEffect(() => {
+      setIsClipboardAvailable(
+        typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined"
+      );
+    }, []);
+
+    useEffect(() => {
+      return () => {
+        if (timeoutRef.current !== undefined) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
+    }, []);
+
+    const handleCopy = () => {
+      const value = "sk-1234567890abcdef";
+      void navigator.clipboard
+        .writeText(value)
+        .then(() => {
+          setCopied(true);
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+          timeoutRef.current = setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(() => undefined);
+    };
+
+    if (!isClipboardAvailable) {
+      return (
+        <div className="grid w-full items-center gap-1">
+          <Label htmlFor="readonly-api-key">API Key</Label>
+          <Input id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="readonly-api-key">API Key</Label>
+        <InputGroup>
+          <InputGroupInput id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              onClick={handleCopy}
+              aria-label={copied ? "Copied" : "Copy to clipboard"}
+              size="icon-sm"
+            >
+              {copied ? <IconCheck className="size-4" /> : <IconCopy className="size-4" />}
+            </InputGroupButton>
+          </InputGroupAddon>
+        </InputGroup>
+      </div>
+    );
+  },
+  parameters: {
+    order: 5,
+    docs: {
+      description: {
+        story: "Read-only input with copy action using InputGroup composition.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByDisplayValue("sk-1234567890abcdef");
+    await expect(input).toHaveAttribute("readonly");
+
+    const copyButton = canvas.getByLabelText("Copy to clipboard");
+    await expect(copyButton).toBeInTheDocument();
+
+    const label = canvas.getByText("API Key");
+    await expect(label).toBeInTheDocument();
+  },
+};
+
+/**
  * Input with error message.
  */
 export const WithError: Story = {
@@ -194,7 +289,7 @@ export const WithError: Story = {
     </div>
   ),
   parameters: {
-    order: 5,
+    order: 10,
     docs: {
       description: {
         story: "Input with validation error message displayed.",
@@ -219,7 +314,7 @@ export const WithDefaultValue: Story = {
     </div>
   ),
   parameters: {
-    order: 6,
+    order: 11,
     docs: {
       description: {
         story: "Input with a pre-filled default value.",
@@ -267,7 +362,7 @@ export const Controlled: Story = {
     );
   },
   parameters: {
-    order: 7,
+    order: 12,
     docs: {
       description: {
         story: "Controlled input with external state management.",
@@ -278,11 +373,9 @@ export const Controlled: Story = {
     const canvas = within(canvasElement);
     const input = canvas.getByLabelText("Controlled input");
 
-    // Type in input
     await userEvent.type(input, "Test");
     await expect(input).toHaveValue("Test");
 
-    // Clear using button
     const clearButton = canvas.getByText("Clear");
     await userEvent.click(clearButton);
     await expect(input).toHaveValue("");
@@ -318,7 +411,7 @@ export const InputTypes: Story = {
     </div>
   ),
   parameters: {
-    order: 8,
+    order: 13,
     docs: {
       description: {
         story: "Various input types for different data formats.",
@@ -341,11 +434,11 @@ export const FormExample: Story = {
     >
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-email">Email</Label>
-        <Input id="form-email" type="email" placeholder="Input text" required />
+        <Input id="form-email" type="email" placeholder="Enter your email" required />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-password">Password</Label>
-        <Input id="form-password" type="password" placeholder="Input text" required />
+        <PasswordInput id="form-password" placeholder="Enter your password" required />
       </div>
       <button
         type="submit"
@@ -356,7 +449,7 @@ export const FormExample: Story = {
     </form>
   ),
   parameters: {
-    order: 9,
+    order: 14,
     docs: {
       description: {
         story: "Complete form example with email and password inputs.",
@@ -384,13 +477,17 @@ export const AllStates: Story = {
         <Input id="state-disabled" placeholder="Input text" disabled />
       </div>
       <div className="grid w-full items-center gap-1">
+        <Label htmlFor="state-readonly">Read-only</Label>
+        <Input id="state-readonly" defaultValue="Input text" readOnly />
+      </div>
+      <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-error">Error</Label>
         <Input id="state-error" placeholder="Input text" errorMessage="Help text" />
       </div>
     </div>
   ),
   parameters: {
-    order: 10,
+    order: 15,
     docs: {
       description: {
         story: "All input states for comparison.",
@@ -400,45 +497,106 @@ export const AllStates: Story = {
 };
 
 /**
+ * Edge cases with long text, special characters, and unicode.
+ */
+export const EdgeCases: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-long-value">Very long value</Label>
+        <Input
+          id="edge-long-value"
+          defaultValue="This is a very long input value that should demonstrate how the input handles overflow and text wrapping behavior in various scenarios and edge cases"
+        />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-special-chars">Special characters</Label>
+        <Input id="edge-special-chars" defaultValue="Price: $99.99 €85 ¥1000 & <special>" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-emoji">Emoji</Label>
+        <Input id="edge-emoji" defaultValue="🚀 Hello World! 🌍 ✨" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-unicode">Unicode characters</Label>
+        <Input id="edge-unicode" defaultValue="中文字符 مرحبا Привет नमस्ते" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-whitespace">Whitespace handling</Label>
+        <Input id="edge-whitespace" defaultValue="   Spaces before and after   " />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="edge-placeholder">Very long placeholder</Label>
+        <Input
+          id="edge-placeholder"
+          placeholder="This is a very long placeholder text that demonstrates how placeholders are handled when they exceed the input width"
+        />
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 16,
+    docs: {
+      description: {
+        story:
+          "Edge cases including very long values, special characters, emoji, unicode text, and whitespace handling.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const longValueInput = canvas.getByLabelText("Very long value");
+    await expect(longValueInput).toHaveValue(
+      "This is a very long input value that should demonstrate how the input handles overflow and text wrapping behavior in various scenarios and edge cases"
+    );
+
+    const emojiInput = canvas.getByLabelText("Emoji");
+    await expect(emojiInput).toHaveValue("🚀 Hello World! 🌍 ✨");
+
+    const unicodeInput = canvas.getByLabelText("Unicode characters");
+    await expect(unicodeInput).toHaveValue("中文字符 مرحبا Привет नमस्ते");
+  },
+};
+
+/**
  * Visual regression testing.
  */
 export const VisualRegression: Story = {
   render: () => (
-    <div className="space-y-6 p-4 w-[350px]">
-      {/* States */}
+    <div className="space-y-6 p-4 w-88">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">Input States</h3>
         <div className="space-y-3">
           <Input placeholder="Input text" />
           <Input defaultValue="Input text" />
           <Input placeholder="Input text" disabled />
+          <Input defaultValue="Input text" readOnly />
           <Input placeholder="Input text" errorMessage="Error message" />
         </div>
       </div>
 
-      {/* With labels */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Labels</h3>
-        <div className="grid items-center gap-1 ">
-          <Label htmlFor="vr-labeled">Labeled input</Label>
-          <Input id="vr-labeled" placeholder="Input text" />
+        <h3 className="text-sm font-semibold text-muted-foreground">Password Input</h3>
+        <div className="space-y-3">
+          <PasswordInput placeholder="Enter password" />
+          <PasswordInput defaultValue="password123" />
+          <PasswordInput defaultValue="password123" disabled />
         </div>
       </div>
 
-      {/* Types */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Types</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">Input Types</h3>
         <div className="space-y-3">
-          <Input type="text" placeholder="Input text" />
-          <Input type="email" placeholder="Input text" />
-          <Input type="password" placeholder="Input text" />
-          <Input type="number" placeholder="Input text" />
+          <Input type="text" placeholder="Text input" />
+          <Input type="email" placeholder="Email input" />
+          <Input type="number" placeholder="Number input" />
         </div>
       </div>
     </div>
   ),
   parameters: {
-    order: 11,
+    order: 17,
     docs: {
       description: {
         story: "Comprehensive visual overview for regression testing.",
@@ -455,6 +613,127 @@ export const VisualRegression: Story = {
       </div>
     ),
   ],
+};
+
+/**
+ * Password input with show/hide toggle.
+ */
+export const PasswordBasic: Story = {
+  render: () => (
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="password-input">Password</Label>
+      <PasswordInput id="password-input" placeholder="Enter your password" />
+    </div>
+  ),
+  parameters: {
+    order: 6,
+    docs: {
+      description: {
+        story: "Password input with built-in show/hide toggle button.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Enter your password");
+    await expect(input).toHaveAttribute("type", "password");
+
+    const toggleButton = canvas.getByLabelText("Show password");
+    await expect(toggleButton).toBeInTheDocument();
+
+    await userEvent.click(toggleButton);
+    await waitFor(() => {
+      expect(input).toHaveAttribute("type", "text");
+    });
+
+    await userEvent.click(canvas.getByLabelText("Hide password"));
+    await waitFor(() => {
+      expect(input).toHaveAttribute("type", "password");
+    });
+  },
+};
+
+/**
+ * Password input with value.
+ */
+export const PasswordWithValue: Story = {
+  render: () => (
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="password-filled">Password</Label>
+      <PasswordInput id="password-filled" defaultValue="Xa.$}KJb319" />
+    </div>
+  ),
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Password input with a pre-filled value.",
+      },
+    },
+  },
+};
+
+/**
+ * Password input with error.
+ */
+export const PasswordWithError: Story = {
+  render: () => (
+    <div className="grid w-full items-center gap-1">
+      <Label htmlFor="password-error">Password</Label>
+      <PasswordInput
+        id="password-error"
+        defaultValue="weak"
+        errorMessage="Password must be at least 8 characters"
+      />
+    </div>
+  ),
+  parameters: {
+    order: 8,
+    docs: {
+      description: {
+        story: "Password input with validation error message.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const errorText = canvas.getByText("Password must be at least 8 characters");
+    await expect(errorText).toBeInTheDocument();
+  },
+};
+
+/**
+ * Password input states.
+ */
+export const PasswordStates: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-default">Default</Label>
+        <PasswordInput id="password-default" placeholder="Enter password" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-filled-state">Filled</Label>
+        <PasswordInput id="password-filled-state" defaultValue="password123" />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-disabled">Disabled</Label>
+        <PasswordInput id="password-disabled" defaultValue="password123" disabled />
+      </div>
+      <div className="grid w-full items-center gap-1">
+        <Label htmlFor="password-error-state">Error</Label>
+        <PasswordInput id="password-error-state" defaultValue="weak" errorMessage="Too weak" />
+      </div>
+    </div>
+  ),
+  parameters: {
+    order: 9,
+    docs: {
+      description: {
+        story: "All password input states for comparison.",
+      },
+    },
+  },
 };
 
 /**

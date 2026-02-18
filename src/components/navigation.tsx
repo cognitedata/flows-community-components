@@ -1,3 +1,4 @@
+import auraLogo from "@/assets/aura-logo.png";
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/aura/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/aura/sheet";
@@ -53,15 +54,12 @@ export function Navigation() {
   const location = useLocation();
   const pathname = location.pathname;
 
-  // Get base path for assets (handles GitHub Pages subdirectory)
-  const logoPath = `${import.meta.env.BASE_URL}/aura-logo.png`;
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="flex h-16 items-center justify-between px-3 w-full max-w-none">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center space-x-3">
-            <img src={logoPath} alt="Aura" width={32} height={32} />
+            <img src={auraLogo} alt="Aura" width={32} height={32} />
           </Link>
 
           {/* Desktop Navigation */}
@@ -99,27 +97,35 @@ export function Navigation() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" asChild className="h-10 w-10">
-            <a
-              href="https://github.com/cognitedata/aura"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="View on GitHub"
-            >
-              <IconBrandGithub className="h-5 w-5" />
-              <span className="sr-only">GitHub repository</span>
-            </a>
-          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-10 w-10"
+            nativeButton={false}
+            render={
+              <a
+                href="https://github.com/cognitedata/aura"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="View on GitHub"
+              >
+                <IconBrandGithub className="h-5 w-5" />
+                <span className="sr-only">GitHub repository</span>
+              </a>
+            }
+          />
           <ThemeToggleGroup />
 
           {/* Mobile Navigation */}
           <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <IconMenu2 className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </SheetTrigger>
+            <SheetTrigger
+              render={
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <IconMenu2 className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              }
+            />
             <SheetContent side="right" className="w-80">
               <div className="flex flex-col space-y-4 mt-8">
                 {navItems.map((item) => {
@@ -143,16 +149,20 @@ export function Navigation() {
                   <ThemeToggleGroup />
                 </div>
                 <div className="pt-4 border-t">
-                  <Button variant="outline" className="w-full" asChild>
-                    <a
-                      href="https://github.com/cognitedata/aura"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <IconBrandGithub className="h-4 w-4 mr-2" />
-                      View on GitHub
-                    </a>
-                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    render={
+                      <a
+                        href="https://github.com/cognitedata/aura"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <IconBrandGithub className="h-4 w-4 mr-2" />
+                        View on GitHub
+                      </a>
+                    }
+                  />
                 </div>
               </div>
             </SheetContent>

@@ -1,8 +1,7 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 export const LoaderMetadata: ComponentMeta = {
   name: "Loader",
-  status: "draft",
+  status: "in-progress-code-review",
   description: "An animated loading indicator component.",
-  importPath: "@/components/ui/aura/loader",
 };
