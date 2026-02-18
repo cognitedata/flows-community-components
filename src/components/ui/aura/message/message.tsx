@@ -18,8 +18,8 @@ import { Button } from "@/components/ui/aura/button";
 import { ButtonGroup, ButtonGroupText } from "@/components/ui/aura/button-group";
 import { CodeBlock, CodeBlockCopyButton } from "@/components/ui/aura/code-block";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/aura/tooltip";
-import type { FileUIPart, UIMessage } from "@/lib/ai/types";
-import { cn, getInitials } from "@/lib/utils";
+import type { FileUIPart, UIMessage } from "../../../../lib/ai/types";
+import { cn, getInitials } from "../../../../lib/utils";
 
 type MessageProps = HTMLAttributes<HTMLDivElement> & {
   isResponse?: boolean;
@@ -44,7 +44,7 @@ const MessageContent = ({ children, className, ...props }: MessageContentProps) 
     data-slot="message-content"
     className={cn(
       "is-user:dark flex flex-col gap-1 overflow-hidden rounded-md text-base leading-tight tracking-tightest",
-      "max-w-[var(--message-content-max-width)]",
+      "max-w-4/5",
       "group-[.is-user]:bg-accent group-[.is-user]:p-2 group-[.is-user]:text-accent-foreground",
       "group-[.is-assistant]:text-foreground group-[.is-assistant]:pt-1",
       className

@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/aura/button";
-import { cn } from "@/lib/utils";
 import { IconArrowDown } from "@tabler/icons-react";
 import type { ComponentProps, SVGProps } from "react";
 import { useCallback } from "react";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
+import { cn } from "../../../../lib/utils";
 
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
 

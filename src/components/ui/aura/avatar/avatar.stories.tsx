@@ -7,11 +7,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import { getStorybookImagePath } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
 import { useState } from "react";
+import { getStorybookImagePath } from "../../../../lib/utils";
 
 const meta: Meta<typeof Avatar> = {
   title: "Primitives/Avatar",
@@ -311,6 +311,54 @@ export const AllSizes: Story = {
 };
 
 /**
+ * Avatars with icons at different sizes.
+ */
+export const IconAllSizes: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Avatar variant="nordic" sizes="default">
+        <AvatarIcon>
+          <IconUser />
+        </AvatarIcon>
+      </Avatar>
+      <Avatar variant="nordic" sizes="xsm">
+        <AvatarIcon>
+          <IconUser />
+        </AvatarIcon>
+      </Avatar>
+      <Avatar variant="nordic" sizes="xxsm">
+        <AvatarIcon>
+          <IconUser />
+        </AvatarIcon>
+      </Avatar>
+    </div>
+  ),
+  parameters: {
+    order: 7,
+    docs: {
+      description: {
+        story: "Icons scale appropriately across all avatar sizes.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    await expect(avatars.length).toBe(3);
+
+    const icons = canvasElement.querySelectorAll("svg");
+    await expect(icons.length).toBe(3);
+
+    const large = canvasElement.querySelector('[class*="size-9"]');
+    const medium = canvasElement.querySelector('[class*="size-7"]');
+    const small = canvasElement.querySelector('[class*="size-5"]');
+
+    await expect(large).toBeInTheDocument();
+    await expect(medium).toBeInTheDocument();
+    await expect(small).toBeInTheDocument();
+  },
+};
+
+/**
  * Avatars with images at different sizes.
  */
 export const ImagesAllSizes: Story = {
@@ -331,7 +379,7 @@ export const ImagesAllSizes: Story = {
     </div>
   ),
   parameters: {
-    order: 7,
+    order: 8,
     docs: {
       description: {
         story:
@@ -448,7 +496,7 @@ export const AvatarGroup: Story = {
     </div>
   ),
   parameters: {
-    order: 8,
+    order: 9,
     docs: {
       description: {
         story:
@@ -541,7 +589,7 @@ export const AvatarGroupSmall: Story = {
     </div>
   ),
   parameters: {
-    order: 9,
+    order: 22,
     docs: {
       description: {
         story:
@@ -587,7 +635,7 @@ export const ClickInteraction: Story = {
     );
   },
   parameters: {
-    order: 10,
+    order: 22,
     docs: {
       description: {
         story:
@@ -639,7 +687,7 @@ export const Accessibility: Story = {
     </div>
   ),
   parameters: {
-    order: 11,
+    order: 22,
     docs: {
       description: {
         story:
@@ -688,7 +736,7 @@ export const EdgeCaseEmpty: Story = {
     </div>
   ),
   parameters: {
-    order: 12,
+    order: 22,
     docs: {
       description: {
         story:
@@ -774,7 +822,7 @@ export const EdgeCaseLongText: Story = {
     </div>
   ),
   parameters: {
-    order: 13,
+    order: 22,
     docs: {
       description: {
         story:
@@ -817,7 +865,7 @@ export const EdgeCaseSpecialCharacters: Story = {
     </div>
   ),
   parameters: {
-    order: 14,
+    order: 22,
     docs: {
       description: {
         story:
@@ -859,7 +907,7 @@ export const EdgeCaseSingleCharacter: Story = {
     </div>
   ),
   parameters: {
-    order: 15,
+    order: 22,
     docs: {
       description: {
         story:
@@ -898,7 +946,7 @@ export const EdgeCaseNumbers: Story = {
     </div>
   ),
   parameters: {
-    order: 16,
+    order: 22,
     docs: {
       description: {
         story:
@@ -935,7 +983,7 @@ export const EdgeCaseTinyWithText: Story = {
     </div>
   ),
   parameters: {
-    order: 17,
+    order: 22,
     docs: {
       description: {
         story:
@@ -973,7 +1021,7 @@ export const EdgeCaseFailedImage: Story = {
     </div>
   ),
   parameters: {
-    order: 18,
+    order: 22,
     docs: {
       description: {
         story:
@@ -1101,7 +1149,7 @@ export const OverflowAvatarWithMenu: Story = {
     </div>
   ),
   parameters: {
-    order: 19,
+    order: 22,
     docs: {
       description: {
         story:
@@ -1156,7 +1204,7 @@ export const EdgeCaseComplexIcons: Story = {
     </div>
   ),
   parameters: {
-    order: 20,
+    order: 22,
     docs: {
       description: {
         story:
@@ -1316,7 +1364,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    order: 21,
+    order: 22,
     docs: {
       description: {
         story:

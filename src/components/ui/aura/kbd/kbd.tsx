@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { type ComponentProps, forwardRef } from "react";
+import { cn } from "../../../../lib/utils";
 
 const Kbd = forwardRef<HTMLElement, ComponentProps<"kbd">>(({ className, ...props }, ref) => {
   return (

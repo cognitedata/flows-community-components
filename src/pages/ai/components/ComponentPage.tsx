@@ -137,7 +137,7 @@ export default function AIComponentPage() {
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-2">
             <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
-            <Badge variant="default" outline>
+            <Badge variant="inProgress" outline>
               AI Element
             </Badge>
             <Badge variant="secondary" className={statusClasses}>
