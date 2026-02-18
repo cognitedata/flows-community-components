@@ -1,10 +1,9 @@
-import { Button, buttonVariants } from "@/components/ui/aura/button";
-import { Input } from "@/components/ui/aura/input";
-import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { type ComponentProps, useState } from "react";
-import { cn } from "../../../../lib/utils";
+import { useState } from "react";
+import { Button } from "../button";
+import { Input } from "../input";
+import { Label } from "../label";
 import {
   Drawer,
   DrawerClose,
@@ -16,42 +15,6 @@ import {
   DrawerTrigger,
 } from "./drawer";
 
-type DrawerButtonProps = ComponentProps<typeof Button>;
-
-function DrawerTriggerButton({
-  className,
-  variant,
-  size,
-  children,
-  type = "button",
-  ...props
-}: DrawerButtonProps) {
-  return (
-    <DrawerTrigger asChild>
-      <Button type={type} className={cn(buttonVariants({ variant, size, className }))} {...props}>
-        {children}
-      </Button>
-    </DrawerTrigger>
-  );
-}
-
-function DrawerCloseButton({
-  className,
-  variant,
-  size,
-  children,
-  type = "button",
-  ...props
-}: DrawerButtonProps) {
-  return (
-    <DrawerClose asChild>
-      <Button type={type} className={cn(buttonVariants({ variant, size, className }))} {...props}>
-        {children}
-      </Button>
-    </DrawerClose>
-  );
-}
-
 const meta: Meta<typeof Drawer> = {
   title: "Primitives/Drawer",
   component: Drawer,
@@ -61,7 +24,7 @@ const meta: Meta<typeof Drawer> = {
       control: "boolean",
       description: "Controlled open state",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
       },
     },
@@ -70,7 +33,7 @@ const meta: Meta<typeof Drawer> = {
       options: ["top", "bottom", "left", "right"],
       description: "Direction the drawer opens from",
       table: {
-        category: "Layout",
+        category: "Variants/Styling",
         type: { summary: '"top" | "bottom" | "left" | "right"' },
         defaultValue: { summary: "bottom" },
       },
@@ -98,7 +61,9 @@ type Story = StoryObj<typeof Drawer>;
 export const Default: Story = {
   render: () => (
     <Drawer>
-      <DrawerTriggerButton>Open Drawer</DrawerTriggerButton>
+      <DrawerTrigger asChild>
+        <Button>Open Drawer</Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Drawer Title</DrawerTitle>
@@ -110,7 +75,9 @@ export const Default: Story = {
           </p>
         </div>
         <DrawerFooter>
-          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
+          <DrawerClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DrawerClose>
           <Button>Save</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -126,16 +93,12 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(document.body);
 
-    // Click trigger
     const trigger = canvas.getByRole("button", { name: /open drawer/i });
     await userEvent.click(trigger);
 
-    // Wait for drawer to appear
-    await waitFor(() => {
-      const drawer = document.querySelector('[data-slot="drawer-content"]');
-      expect(drawer).toBeInTheDocument();
-    });
+    await body.findByRole("dialog", { name: /drawer title/i });
   },
 };
 
@@ -145,7 +108,9 @@ export const Default: Story = {
 export const RightDrawer: Story = {
   render: () => (
     <Drawer direction="right">
-      <DrawerTriggerButton>Open Right Drawer</DrawerTriggerButton>
+      <DrawerTrigger asChild>
+        <Button>Open Right Drawer</Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Settings</DrawerTitle>
@@ -162,7 +127,9 @@ export const RightDrawer: Story = {
           </div>
         </div>
         <DrawerFooter>
-          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
+          <DrawerClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DrawerClose>
           <Button>Save changes</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -184,7 +151,9 @@ export const RightDrawer: Story = {
 export const LeftDrawer: Story = {
   render: () => (
     <Drawer direction="left">
-      <DrawerTriggerButton>Open Left Drawer</DrawerTriggerButton>
+      <DrawerTrigger asChild>
+        <Button>Open Left Drawer</Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Navigation</DrawerTitle>
@@ -207,9 +176,11 @@ export const LeftDrawer: Story = {
           </nav>
         </div>
         <DrawerFooter>
-          <DrawerCloseButton variant="outline" className="w-full">
-            Close
-          </DrawerCloseButton>
+          <DrawerClose asChild>
+            <Button variant="outline" className="w-full">
+              Close
+            </Button>
+          </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
@@ -230,7 +201,9 @@ export const LeftDrawer: Story = {
 export const TopDrawer: Story = {
   render: () => (
     <Drawer direction="top">
-      <DrawerTriggerButton>Open Top Drawer</DrawerTriggerButton>
+      <DrawerTrigger asChild>
+        <Button>Open Top Drawer</Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Notifications</DrawerTitle>
@@ -249,7 +222,9 @@ export const TopDrawer: Story = {
           </div>
         </div>
         <DrawerFooter>
-          <DrawerCloseButton variant="outline">Dismiss</DrawerCloseButton>
+          <DrawerClose asChild>
+            <Button variant="outline">Dismiss</Button>
+          </DrawerClose>
           <Button>View all</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -313,7 +288,9 @@ export const Controlled: Story = {
 export const WithForm: Story = {
   render: () => (
     <Drawer>
-      <DrawerTriggerButton>Edit Profile</DrawerTriggerButton>
+      <DrawerTrigger asChild>
+        <Button>Edit Profile</Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Edit Profile</DrawerTitle>
@@ -338,7 +315,9 @@ export const WithForm: Story = {
           </div>
         </div>
         <DrawerFooter>
-          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
+          <DrawerClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DrawerClose>
           <Button>Save changes</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -360,8 +339,10 @@ export const WithForm: Story = {
 export const WithScrollingContent: Story = {
   render: () => (
     <Drawer>
-      <DrawerTriggerButton>Terms & Conditions</DrawerTriggerButton>
-      <DrawerContent className="max-h-[80vh]">
+      <DrawerTrigger asChild>
+        <Button>Terms & Conditions</Button>
+      </DrawerTrigger>
+      <DrawerContent className="max-h-screen">
         <DrawerHeader>
           <DrawerTitle>Terms of Service</DrawerTitle>
           <DrawerDescription>Please read and accept our terms.</DrawerDescription>
@@ -376,7 +357,9 @@ export const WithScrollingContent: Story = {
           ))}
         </div>
         <DrawerFooter>
-          <DrawerCloseButton variant="outline">Decline</DrawerCloseButton>
+          <DrawerClose asChild>
+            <Button variant="outline">Decline</Button>
+          </DrawerClose>
           <Button>Accept</Button>
         </DrawerFooter>
       </DrawerContent>
@@ -414,7 +397,9 @@ export const AsyncAction: Story = {
     return (
       <div className="space-y-4">
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerTriggerButton onClick={() => setOpen(true)}>Open Async Drawer</DrawerTriggerButton>
+          <DrawerTrigger asChild>
+            <Button onClick={() => setOpen(true)}>Open Async Drawer</Button>
+          </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>Async Save</DrawerTitle>
@@ -429,8 +414,10 @@ export const AsyncAction: Story = {
               <Input placeholder="Setting value" />
             </div>
             <DrawerFooter>
-              <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
-              <Button onClick={handleSave} disabled={loading} data-testid="async-drawer-save">
+              <DrawerClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DrawerClose>
+              <Button onClick={handleSave} disabled={loading}>
                 {loading ? "Saving..." : "Save"}
               </Button>
             </DrawerFooter>
@@ -451,19 +438,13 @@ export const AsyncAction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(document.body);
 
     const openButton = canvas.getByRole("button", { name: /open async drawer/i });
     await userEvent.click(openButton);
 
-    // Wait for drawer to appear in portal
-    await waitFor(() => {
-      const drawer = document.querySelector('[data-slot="drawer-content"]');
-      expect(drawer).toBeInTheDocument();
-    });
-
-    // Query button from the document (portal content)
-    const saveButton = document.querySelector('[data-testid="async-drawer-save"]') as HTMLElement;
-    expect(saveButton).toBeInTheDocument();
+    const dialog = await body.findByRole("dialog", { name: /async save/i });
+    const saveButton = within(dialog).getByRole("button", { name: /^save$/i });
     await userEvent.click(saveButton);
 
     await waitFor(() => {
@@ -487,7 +468,9 @@ export const KeyboardInteractions: Story = {
     return (
       <div className="space-y-4">
         <Drawer open={open} onOpenChange={setOpen}>
-          <DrawerTriggerButton>Open Keyboard Drawer</DrawerTriggerButton>
+          <DrawerTrigger asChild>
+            <Button>Open Keyboard Drawer</Button>
+          </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
               <DrawerTitle>Keyboard Drawer</DrawerTitle>
@@ -496,23 +479,17 @@ export const KeyboardInteractions: Story = {
               </DrawerDescription>
             </DrawerHeader>
             <div className="p-4 flex flex-col gap-2">
-              <Button
-                variant="outline"
-                data-testid="keyboard-primary"
-                onClick={() => setActivated(true)}
-              >
+              <Button variant="outline" onClick={() => setActivated(true)}>
                 Keyboard Action
               </Button>
-              <Button
-                variant="outline"
-                onClick={() => setActivated(false)}
-                data-testid="keyboard-reset"
-              >
+              <Button variant="outline" onClick={() => setActivated(false)}>
                 Reset
               </Button>
             </div>
             <DrawerFooter>
-              <DrawerCloseButton variant="outline">Close</DrawerCloseButton>
+              <DrawerClose asChild>
+                <Button variant="outline">Close</Button>
+              </DrawerClose>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
@@ -533,27 +510,17 @@ export const KeyboardInteractions: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(document.body);
 
-    // Open the drawer with keyboard
     const trigger = canvas.getByRole("button", { name: /open keyboard drawer/i });
-    // Programmatically focus the trigger for a more robust test
     trigger.focus();
     await waitFor(() => {
       expect(trigger).toHaveFocus();
     });
     await userEvent.keyboard("{Enter}");
 
-    // Wait for drawer to appear in portal
-    await waitFor(() => {
-      const drawer = document.querySelector('[data-slot="drawer-content"]');
-      expect(drawer).toBeInTheDocument();
-    });
-
-    // Query button from the document (portal content)
-    const primaryButton = document.querySelector('[data-testid="keyboard-primary"]') as HTMLElement;
-    expect(primaryButton).toBeInTheDocument();
-
-    // Activate via keyboard
+    const dialog = await body.findByRole("dialog", { name: /keyboard drawer/i });
+    const primaryButton = within(dialog).getByRole("button", { name: /keyboard action/i });
     primaryButton.focus();
     await waitFor(() => {
       expect(primaryButton).toHaveFocus();
@@ -564,11 +531,9 @@ export const KeyboardInteractions: Story = {
       expect(canvas.getByText(/status: activated/i)).toBeInTheDocument();
     });
 
-    // Press Escape to close
     await userEvent.keyboard("{Escape}");
     await waitFor(() => {
-      const dialog = document.querySelector('[data-slot="drawer-content"]');
-      expect(dialog).not.toBeInTheDocument();
+      expect(body.queryByRole("dialog", { name: /keyboard drawer/i })).not.toBeInTheDocument();
     });
   },
 };
@@ -580,26 +545,34 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="flex gap-4">
       <Drawer>
-        <DrawerTriggerButton>Bottom</DrawerTriggerButton>
+        <DrawerTrigger asChild>
+          <Button>Bottom</Button>
+        </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Bottom Drawer</DrawerTitle>
             <DrawerDescription>Visual test for bottom drawer.</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <DrawerCloseButton>Close</DrawerCloseButton>
+            <DrawerClose asChild>
+              <Button>Close</Button>
+            </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
       <Drawer direction="right">
-        <DrawerTriggerButton variant="outline">Right</DrawerTriggerButton>
+        <DrawerTrigger asChild>
+          <Button variant="outline">Right</Button>
+        </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>Right Drawer</DrawerTitle>
             <DrawerDescription>Visual test for right drawer.</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
-            <DrawerCloseButton>Close</DrawerCloseButton>
+            <DrawerClose asChild>
+              <Button>Close</Button>
+            </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
@@ -627,7 +600,9 @@ export const Playground: Story = {
   },
   render: (args) => (
     <Drawer {...args}>
-      <DrawerTriggerButton>Open Playground Drawer</DrawerTriggerButton>
+      <DrawerTrigger asChild>
+        <Button>Open Playground Drawer</Button>
+      </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Playground Drawer</DrawerTitle>
@@ -639,7 +614,9 @@ export const Playground: Story = {
           <p className="text-sm text-muted-foreground">Drawer content here.</p>
         </div>
         <DrawerFooter>
-          <DrawerCloseButton variant="outline">Cancel</DrawerCloseButton>
+          <DrawerClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DrawerClose>
           <Button>Confirm</Button>
         </DrawerFooter>
       </DrawerContent>
