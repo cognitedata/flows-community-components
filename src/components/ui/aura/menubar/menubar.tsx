@@ -18,7 +18,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/aura/dropdown-menu";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 type MenubarSize = "default" | "sm";
 

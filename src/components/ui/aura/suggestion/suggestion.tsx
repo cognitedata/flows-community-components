@@ -10,7 +10,6 @@ import {
   SelectTrigger as SelectTriggerPrimitive,
   SelectValue as SelectValuePrimitive,
 } from "@/components/ui/aura/select";
-import { cn } from "@/lib/utils";
 import {
   Children,
   type ComponentProps,
@@ -22,6 +21,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { cn } from "../../../../lib/utils";
 
 export type SuggestionsProps = ComponentProps<typeof ScrollArea>;
 

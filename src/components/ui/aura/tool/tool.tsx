@@ -15,8 +15,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
-import type { ToolUIPart } from "@/lib/ai/types";
-import { cn } from "@/lib/utils";
+import type { ToolUIPart } from "../../../../lib/ai/types";
+import { cn } from "../../../../lib/utils";
 
 type ToolProps = ComponentProps<typeof Collapsible>;
 

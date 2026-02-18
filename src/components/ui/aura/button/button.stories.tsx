@@ -1010,11 +1010,27 @@ export const EdgeCaseLongText: Story = {
 export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button>🚀 Emoji Button</Button>
+      <Button>
+        <span role="img" aria-label="rocket">
+          🚀
+        </span>
+        {"  "}
+        Emoji Button
+      </Button>
       <Button variant="outline">{"Button & Special <Characters>"}</Button>
       <Button variant="secondary">中文按钮</Button>
       <Button variant="ghost">Кнопка</Button>
-      <Button>▶️ ⏸️ ⏹️</Button>
+      <Button>
+        <span role="img" aria-label="play">
+          ▶️
+        </span>{" "}
+        <span role="img" aria-label="pause">
+          ⏸️
+        </span>{" "}
+        <span role="img" aria-label="stop">
+          ⏹️
+        </span>
+      </Button>
       <Button variant="outline">{"Price: $99.99 €85"}</Button>
     </div>
   ),
@@ -1030,7 +1046,7 @@ export const EdgeCaseSpecialCharacters: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const emojiButton = canvas.getByText(/🚀 Emoji Button/);
+    const emojiButton = canvas.getByRole("button", { name: /emoji button/i });
     await expect(emojiButton).toBeInTheDocument();
 
     const specialButton = canvas.getByText(/Special <Characters>/);

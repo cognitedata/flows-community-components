@@ -4,11 +4,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/aura/collapsible";
-import { useControllableState } from "@/lib/use-controllable-state";
-import { cn } from "@/lib/utils";
 import { IconBrain, IconChevronDown, IconPointFilled, type IconProps } from "@tabler/icons-react";
 import type { ComponentProps, ComponentType } from "react";
 import { createContext, memo, useContext, useMemo } from "react";
+import { useControllableState } from "../../../../lib/use-controllable-state";
+import { cn } from "../../../../lib/utils";
 
 type ChainOfThoughtContextValue = {
   isOpen: boolean;
