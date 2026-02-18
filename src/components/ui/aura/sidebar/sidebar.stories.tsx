@@ -40,7 +40,6 @@ const meta: Meta<typeof Sidebar> = {
   component: Sidebar,
   tags: ["autodocs"],
   argTypes: {
-    // Structure
     side: {
       control: "select",
       options: ["left", "right"],
@@ -105,6 +104,7 @@ type Story = StoryObj<typeof Sidebar>;
  */
 export const IndustrialToolsExpanded: Story = {
   parameters: {
+    order: 1,
     docs: {
       description: {
         story:
@@ -114,16 +114,10 @@ export const IndustrialToolsExpanded: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify sidebar is rendered
     const sidebar = canvas.getByTestId("sidebar-header-insert");
     await expect(sidebar).toBeInTheDocument();
-
-    // Verify navigation items exist
     const atlasButton = canvas.getByText("Atlas");
     await expect(atlasButton).toBeInTheDocument();
-
-    // Verify footer is visible
     const footer = canvas.getByText("Elizabeth Fitzgerald");
     await expect(footer).toBeInTheDocument();
   },
@@ -267,6 +261,7 @@ export const IndustrialToolsExpanded: Story = {
  */
 export const IndustrialToolsCollapsed: Story = {
   parameters: {
+    order: 2,
     docs: {
       description: {
         story:
@@ -276,12 +271,8 @@ export const IndustrialToolsCollapsed: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify collapsed state
     const trigger = canvas.getByRole("button", { name: /toggle sidebar/i });
     await expect(trigger).toBeInTheDocument();
-
-    // Verify icons are present
     const homeButton = canvas.getByText("Home");
     await expect(homeButton).toBeInTheDocument();
   },
@@ -419,6 +410,7 @@ export const IndustrialToolsCollapsed: Story = {
 
 export const DataManagementExpanded: Story = {
   parameters: {
+    order: 3,
     docs: {
       description: {
         story:
@@ -570,6 +562,7 @@ export const DataManagementExpanded: Story = {
 
 export const DataManagementCollapsed: Story = {
   parameters: {
+    order: 4,
     docs: {
       description: {
         story:
@@ -728,6 +721,7 @@ export const DataManagementCollapsed: Story = {
 
 export const AdminExpanded: Story = {
   parameters: {
+    order: 5,
     docs: {
       description: {
         story:
@@ -827,6 +821,7 @@ export const AdminExpanded: Story = {
 
 export const AdminCollapsed: Story = {
   parameters: {
+    order: 6,
     docs: {
       description: {
         story:
@@ -933,6 +928,7 @@ export const AdminCollapsed: Story = {
 
 export const AtlasAIExpanded: Story = {
   parameters: {
+    order: 7,
     docs: {
       description: {
         story:
@@ -1038,6 +1034,7 @@ export const AtlasAIExpanded: Story = {
 
 export const AtlasAICollapsed: Story = {
   parameters: {
+    order: 8,
     docs: {
       description: {
         story:
@@ -1154,6 +1151,7 @@ export const AtlasAICollapsed: Story = {
  */
 export const MinimalContent: Story = {
   parameters: {
+    order: 9,
     docs: {
       description: {
         story:
@@ -1265,6 +1263,9 @@ export const MinimalContent: Story = {
  * Interactive playground for testing sidebar props
  */
 export const Playground: Story = {
+  parameters: {
+    order: 10,
+  },
   args: {
     side: "left",
     variant: "sidebar",
