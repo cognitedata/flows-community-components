@@ -1093,7 +1093,16 @@
       "title": "PromptInput",
       "description": "A comprehensive AI chat input component with support for attachments, model selection, speech input, command palettes, and rich formatting.",
       "dependencies": ["@tabler/icons-react", "nanoid"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/button",
+        "@aura/command",
+        "@aura/dropdown-menu",
+        "@aura/helper-text",
+        "@aura/hover-card",
+        "@aura/input-group",
+        "@aura/select"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/prompt-input/prompt-input.tsx",
