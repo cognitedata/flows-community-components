@@ -643,7 +643,7 @@ export { SkeletonMetadata } from "./skeleton/skeleton.metadata";
 export { Slider } from "./slider/slider";
 export { SliderMetadata } from "./slider/slider.metadata";
 
-export { toast, Toaster } from "./sonner-toast/sonner-toast";
+export { toast, Toaster } from "./sonner-toast";
 export { SonnerToastMetadata } from "./sonner-toast/sonner-toast.metadata";
 
 export { Sources, SourcesTitle, Source } from "./sources/sources";

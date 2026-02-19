@@ -1,12 +1,20 @@
-import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
-import { Toaster, toast } from "./sonner-toast";
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { useRef } from "react";
+import { toast } from "sonner";
+import { Button } from "../button";
+import { Toaster } from "./sonner-toast";
 
 const meta: Meta<typeof Toaster> = {
   title: "Primitives/Sonner Toast",
   component: Toaster,
   tags: ["autodocs"],
+  args: {
+    position: "bottom-right",
+    richColors: false,
+    expand: false,
+    closeButton: false,
+  },
   argTypes: {
     position: {
       control: "select",
@@ -20,16 +28,16 @@ const meta: Meta<typeof Toaster> = {
       ],
       description: "Position of the toasts",
       table: {
-        category: "Layout",
+        category: "Variants/Styling",
         type: { summary: "string" },
         defaultValue: { summary: "bottom-right" },
       },
     },
     richColors: {
-      control: "boolean",
+      control: { type: "boolean" },
       description: "Use rich colors for toast types",
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: { summary: "boolean" },
       },
     },
@@ -54,10 +62,10 @@ const meta: Meta<typeof Toaster> = {
     layout: "centered",
   },
   decorators: [
-    (Story) => (
+    (Story, context) => (
       <>
         <Story />
-        <Toaster />
+        <Toaster {...context.args} />
       </>
     ),
   ],
@@ -72,6 +80,7 @@ type Story = StoryObj<typeof Toaster>;
 export const Default: Story = {
   render: () => <Button onClick={() => toast("Event has been created")}>Show Toast</Button>,
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default toast notification.",
@@ -82,6 +91,8 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
     await userEvent.click(button);
+    const body = within(document.body);
+    await body.findByText("Event has been created");
   },
 };
 
@@ -101,11 +112,19 @@ export const WithDescription: Story = {
     </Button>
   ),
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Toast with title and description.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+    await userEvent.click(button);
+    const body = within(document.body);
+    await body.findByText("Monday, January 3rd at 6:00pm");
   },
 };
 
@@ -125,11 +144,19 @@ export const Success: Story = {
     </Button>
   ),
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Success variant toast.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+    await userEvent.click(button);
+    const body = within(document.body);
+    await body.findByText("Profile updated");
   },
 };
 
@@ -150,11 +177,19 @@ export const ErrorState: Story = {
     </Button>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Error variant toast.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+    await userEvent.click(button);
+    const body = within(document.body);
+    await body.findByText("Something went wrong");
   },
 };
 
@@ -175,11 +210,19 @@ export const Warning: Story = {
     </Button>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Warning variant toast.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+    await userEvent.click(button);
+    const body = within(document.body);
+    await body.findByText("This action cannot be undone.");
   },
 };
 
@@ -200,11 +243,19 @@ export const Info: Story = {
     </Button>
   ),
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Info variant toast.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+    await userEvent.click(button);
+    const body = within(document.body);
+    await body.findByText("Did you know?");
   },
 };
 
@@ -222,7 +273,7 @@ export const LoadingWithPromise: Story = {
 
         toast.promise(promise, {
           loading: "Loading...",
-          success: (data) => `${data.name} toast has been added`,
+          success: (data: { name: string }) => `${data.name} toast has been added`,
           error: "Error",
         });
       }}
@@ -231,11 +282,23 @@ export const LoadingWithPromise: Story = {
     </Button>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Toast that shows loading state and resolves with success/error.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+    await userEvent.click(button);
+    const body = within(document.body);
+    expect(body.getByText("Loading...")).toBeInTheDocument();
+    expect(body.queryByText("Sonner toast has been added")).not.toBeInTheDocument();
+    await waitFor(() => expect(body.getByText("Sonner toast has been added")).toBeInTheDocument(), {
+      timeout: 2000,
+    });
   },
 };
 
@@ -259,11 +322,21 @@ export const WithAction: Story = {
     </Button>
   ),
   parameters: {
+    order: 8,
     docs: {
       description: {
         story: "Toast with an action button.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole("button");
+    await userEvent.click(trigger);
+    const body = within(document.body);
+    const undo = await body.findByRole("button", { name: "Undo" });
+    await userEvent.click(undo);
+    await body.findByText("Undo successful");
   },
 };
 
@@ -306,6 +379,7 @@ export const CustomDuration: Story = {
     </div>
   ),
   parameters: {
+    order: 9,
     docs: {
       description: {
         story: "Toasts with different durations.",
@@ -329,6 +403,7 @@ export const AllTypes: Story = {
     </div>
   ),
   parameters: {
+    order: 10,
     docs: {
       description: {
         story: "All available toast types.",
@@ -342,13 +417,13 @@ export const AllTypes: Story = {
  */
 export const Dismiss: Story = {
   render: () => {
-    let toastId: string | number;
+    const toastId = useRef<string | number | undefined>(undefined);
 
     return (
       <div className="flex gap-4">
         <Button
           onClick={() => {
-            toastId = toast("Dismissible toast", {
+            toastId.current = toast("Dismissible toast", {
               duration: Number.POSITIVE_INFINITY,
               description: "Click the other button to dismiss",
             });
@@ -356,18 +431,38 @@ export const Dismiss: Story = {
         >
           Show Toast
         </Button>
-        <Button variant="outline" onClick={() => toast.dismiss(toastId)}>
+        <Button
+          variant="outline"
+          onClick={() => {
+            if (toastId.current !== undefined) {
+              toast.dismiss(toastId.current);
+            }
+          }}
+        >
           Dismiss Toast
         </Button>
       </div>
     );
   },
   parameters: {
+    order: 11,
     docs: {
       description: {
         story: "Programmatically dismiss a specific toast.",
       },
     },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const show = canvas.getByRole("button", { name: "Show Toast" });
+    await userEvent.click(show);
+    const body = within(document.body);
+    await body.findByText("Dismissible toast");
+    const dismiss = canvas.getByRole("button", { name: "Dismiss Toast" });
+    await userEvent.click(dismiss);
+    await waitFor(() => {
+      expect(body.queryByText("Dismissible toast")).toBeNull();
+    });
   },
 };
 
@@ -398,6 +493,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 12,
     docs: {
       description: {
         story: "Toast triggers for visual regression testing.",
@@ -425,6 +521,7 @@ export const Playground: Story = {
     </Button>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive toast example.",

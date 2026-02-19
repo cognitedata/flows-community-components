@@ -1,4 +1,3 @@
-import { useTheme } from "@/components/theme-provider";
 import {
   IconAlertOctagon,
   IconAlertTriangle,
@@ -8,17 +7,15 @@ import {
 } from "@tabler/icons-react";
 import type { CSSProperties } from "react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
-
-// Re-export the toast function from sonner
-// eslint-disable-next-line react-refresh/only-export-components
-export { toast } from "sonner";
+import { useTheme } from "../../../theme-provider";
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { resolvedTheme } = useTheme();
 
   return (
     <Sonner
-      theme={resolvedTheme as ToasterProps["theme"]}
+      data-slot="toaster"
+      theme={resolvedTheme}
       className="toaster group"
       icons={{
         success: <IconCircleCheck className="size-4" />,
