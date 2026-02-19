@@ -1,14 +1,16 @@
-import { Button } from "@/components/ui/aura/button";
 import { IconArrowDown } from "@tabler/icons-react";
 import type { ComponentProps, SVGProps } from "react";
 import { useCallback } from "react";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
+
 import { cn } from "../../../../lib/utils";
+import { Button } from "../button";
 
-export type ConversationProps = ComponentProps<typeof StickToBottom>;
+type ConversationProps = ComponentProps<typeof StickToBottom>;
 
-export const Conversation = ({ className, ...props }: ConversationProps) => (
+const Conversation = ({ className, ...props }: ConversationProps) => (
   <StickToBottom
+    data-slot="conversation"
     className={cn("relative flex-1 overflow-y-hidden", className)}
     initial="smooth"
     resize="smooth"
@@ -17,10 +19,14 @@ export const Conversation = ({ className, ...props }: ConversationProps) => (
   />
 );
 
-export type ConversationContentProps = ComponentProps<typeof StickToBottom.Content>;
+type ConversationContentProps = ComponentProps<typeof StickToBottom.Content>;
 
-export const ConversationContent = ({ className, ...props }: ConversationContentProps) => (
-  <StickToBottom.Content className={cn("flex flex-col gap-8 p-3", className)} {...props} />
+const ConversationContent = ({ className, ...props }: ConversationContentProps) => (
+  <StickToBottom.Content
+    data-slot="conversation-content"
+    className={cn("flex flex-col gap-8 p-3", className)}
+    {...props}
+  />
 );
 
 const ConversationEmptyStateIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -59,19 +65,23 @@ const ConversationEmptyStateIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export type ConversationEmptyStateProps = ComponentProps<"div"> & {
+type ConversationEmptyStateProps = ComponentProps<"div"> & {
   title?: string;
   description?: string;
 };
 
-export const ConversationEmptyState = ({
+const ConversationEmptyState = ({
   className,
   title = "No messages yet",
   description = "",
   children,
   ...props
 }: ConversationEmptyStateProps) => (
-  <div className={cn("flex flex-col items-center gap-3 size-full p-10", className)} {...props}>
+  <div
+    data-slot="conversation-empty-state"
+    className={cn("flex flex-col items-center gap-3 size-full p-10", className)}
+    {...props}
+  >
     <div className="max-w-150 w-full flex flex-col items-center justify-center text-center">
       <ConversationEmptyStateIcon className="size-20 mb-14" />
       <div className="space-y-1 mb-14">
@@ -83,12 +93,9 @@ export const ConversationEmptyState = ({
   </div>
 );
 
-export type ConversationScrollButtonProps = ComponentProps<typeof Button>;
+type ConversationScrollButtonProps = ComponentProps<typeof Button>;
 
-export const ConversationScrollButton = ({
-  className,
-  ...props
-}: ConversationScrollButtonProps) => {
+const ConversationScrollButton = ({ className, ...props }: ConversationScrollButtonProps) => {
   const { isAtBottom, scrollToBottom } = useStickToBottomContext();
 
   const handleScrollToBottom = useCallback(() => {
@@ -98,6 +105,7 @@ export const ConversationScrollButton = ({
   return (
     !isAtBottom && (
       <Button
+        data-slot="conversation-scroll-button"
         className={cn("absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full", className)}
         onClick={handleScrollToBottom}
         size="icon"
@@ -110,3 +118,5 @@ export const ConversationScrollButton = ({
     )
   );
 };
+
+export { Conversation, ConversationContent, ConversationEmptyState, ConversationScrollButton };
