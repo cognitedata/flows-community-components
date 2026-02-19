@@ -9,7 +9,8 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/separator"
   ],
   "files": [
     {
