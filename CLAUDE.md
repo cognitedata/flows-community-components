@@ -111,6 +111,8 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Don't export prop types from components. Use inline typing (`type MessageProps = ...`) instead of `export type`. Consumers can use `ComponentProps<typeof Component>` if they need access to types. Follow the pattern used by Badge, Card, Button, Dialog, and AlertDialog components.
 - Tooltip delay stories are more stable with deterministic waits and without interaction retries.
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
+- Sidebar item badges are vertically centered more reliably with `top-1/2 -translate-y-1/2` than per-size top offsets.
+- Sidebar menu buttons should reserve right padding when a sibling `SidebarMenuBadge` is present (`group-has-data-[sidebar=menu-badge]/menu-item:pr-8`) so badges render inside the button hit area.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.

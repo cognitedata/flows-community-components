@@ -207,7 +207,7 @@ export const IndustrialToolsExpanded: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton>
@@ -228,7 +228,7 @@ export const IndustrialToolsExpanded: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -359,7 +359,7 @@ export const IndustrialToolsCollapsed: Story = {
             </SidebarPages>
           </SidebarContent>
           <SidebarFooter>
-            <div className="flex flex-col gap-3 w-full">
+            <div className="flex flex-col gap-1 w-full">
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton tooltip="Flows">
@@ -380,7 +380,7 @@ export const IndustrialToolsCollapsed: Story = {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 p-0.5">
                 <Avatar sizes="default">
                   <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                   <AvatarFallback>EF</AvatarFallback>
@@ -479,8 +479,8 @@ export const DataManagementExpanded: Story = {
                     <SidebarMenuButton tooltip="Diagram parsing">
                       <IconFileDescription className="h-4 w-4" />
                       <span>Diagram parsing</span>
+                      <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
                     </SidebarMenuButton>
-                    <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Document parsing">
@@ -515,7 +515,7 @@ export const DataManagementExpanded: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton>
@@ -530,7 +530,7 @@ export const DataManagementExpanded: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -672,7 +672,7 @@ export const DataManagementCollapsed: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Help">
@@ -687,7 +687,7 @@ export const DataManagementCollapsed: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -771,14 +771,14 @@ export const AdminExpanded: Story = {
                         <IconBuilding className="h-4 w-4" />
                         <span>My organization</span>
                       </SidebarMenuButton>
-                      <SidebarMenuBadge variant="mountain">Badge</SidebarMenuBadge>
+                      <SidebarMenuBadge variant="fjord">Beta</SidebarMenuBadge>
                     </SidebarMenuItem>
                   </SidebarMenu>
                 </SidebarMainPages>
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton>
@@ -793,7 +793,7 @@ export const AdminExpanded: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -885,7 +885,7 @@ export const AdminCollapsed: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Help">
@@ -900,7 +900,7 @@ export const AdminCollapsed: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -991,7 +991,7 @@ export const AtlasAIExpanded: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton>
@@ -1006,7 +1006,7 @@ export const AtlasAIExpanded: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -1104,7 +1104,7 @@ export const AtlasAICollapsed: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Help">
@@ -1119,7 +1119,7 @@ export const AtlasAICollapsed: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -1207,7 +1207,7 @@ export const MinimalContent: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton>
@@ -1228,7 +1228,7 @@ export const MinimalContent: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
                     <AvatarFallback>EF</AvatarFallback>
@@ -1315,7 +1315,7 @@ export const Playground: Story = {
               </SidebarPages>
             </SidebarContent>
             <SidebarFooter>
-              <div className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-1 w-full">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton>
@@ -1324,7 +1324,7 @@ export const Playground: Story = {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </SidebarMenu>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 p-0.5">
                   <Avatar sizes="default">
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
