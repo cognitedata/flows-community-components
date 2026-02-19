@@ -4,7 +4,8 @@
   "title": "Textarea",
   "description": "A multi-line text input component.",
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/helper-text"
   ],
   "files": [
     {
