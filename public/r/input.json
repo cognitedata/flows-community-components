@@ -7,7 +7,9 @@
     "@tabler/icons-react"
   ],
   "registryDependencies": [
-    "@aura/css"
+    "@aura/css",
+    "@aura/helper-text",
+    "@aura/input-group"
   ],
   "files": [
     {

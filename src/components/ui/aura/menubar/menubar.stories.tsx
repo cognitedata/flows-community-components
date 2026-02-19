@@ -16,7 +16,6 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "./menubar";
-
 const meta: Meta<typeof Menubar> = {
   title: "Primitives/Menubar",
   component: Menubar,
@@ -25,16 +24,18 @@ const meta: Meta<typeof Menubar> = {
     size: {
       control: "select",
       options: ["default", "sm"],
-      description: "Size of the menubar",
       table: {
         category: "Variants/Styling",
-        type: { summary: '"default" | "sm"' },
-        defaultValue: { summary: "sm" },
+        type: { 
+          summary: '"default" | "sm"'
+         },
+        defaultValue: { 
+          summary: "sm" 
+        },
       },
     },
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
         category: "Variants/Styling",
       },
@@ -44,13 +45,8 @@ const meta: Meta<typeof Menubar> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Menubar>;
-
-/**
- * Default menubar.
- */
 export const Default: Story = {
   render: () => (
     <Menubar>
@@ -110,11 +106,6 @@ export const Default: Story = {
   ),
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default menubar with multiple menus.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -124,15 +115,10 @@ export const Default: Story = {
     expect(menu).toBeInTheDocument();
   },
 };
-
-/**
- * Menubar with checkbox items.
- */
 export const WithCheckboxItems: Story = {
   render: function CheckboxMenubar() {
     const [showBookmarks, setShowBookmarks] = useState(true);
     const [showUrls, setShowUrls] = useState(false);
-
     return (
       <Menubar>
         <MenubarMenu>
@@ -155,21 +141,11 @@ export const WithCheckboxItems: Story = {
   },
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Menubar with checkbox items for toggle options.",
-      },
-    },
   },
 };
-
-/**
- * Menubar with radio group.
- */
 export const WithRadioGroup: Story = {
   render: function RadioMenubar() {
     const [theme, setTheme] = useState("system");
-
     return (
       <Menubar>
         <MenubarMenu>
@@ -187,17 +163,8 @@ export const WithRadioGroup: Story = {
   },
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Menubar with radio group for single selection.",
-      },
-    },
   },
 };
-
-/**
- * Menubar with submenus.
- */
 export const WithSubmenus: Story = {
   render: () => (
     <Menubar>
@@ -225,17 +192,8 @@ export const WithSubmenus: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Menubar with nested submenus.",
-      },
-    },
   },
 };
-
-/**
- * Menubar with destructive item.
- */
 export const WithDestructiveItem: Story = {
   render: () => (
     <Menubar>
@@ -253,23 +211,13 @@ export const WithDestructiveItem: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Menubar with a destructive action item.",
-      },
-    },
   },
 };
-
-/**
- * Full application menubar.
- */
 export const FullExample: Story = {
   render: function FullMenubar() {
     const [showBookmarks, setShowBookmarks] = useState(true);
     const [showUrls, setShowUrls] = useState(false);
     const [theme, setTheme] = useState("system");
-
     return (
       <Menubar>
         <MenubarMenu>
@@ -346,17 +294,8 @@ export const FullExample: Story = {
   },
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Complete application menubar example.",
-      },
-    },
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
@@ -383,20 +322,11 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Menubar for visual regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     size: "sm",
@@ -423,10 +353,5 @@ export const Playground: Story = {
   ),
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with menubar props.",
-      },
-    },
   },
 };
