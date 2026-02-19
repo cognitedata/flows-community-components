@@ -1,3 +1,5 @@
+import figmaIcon from "@/assets/figma-logo.svg";
+import storybookIcon from "@/assets/icon-storybook-default.svg";
 import { InstallationCommand } from "@/components/installation-command";
 import { StoriesRenderer } from "@/components/stories-renderer";
 import { Badge } from "@/components/ui/aura/badge";
@@ -12,6 +14,20 @@ import {
 import { IconArrowLeft } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+const AI_FIGMA_URL =
+  "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4383-36632&p=f&t=hvBYNAqgOvQH1REf-0";
+
+function toStorybookSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\s*\(.*?\)\s*/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const externalIconClass =
+  "size-6 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal";
 
 // List of valid AI component slugs
 const validSlugs = [
@@ -121,6 +137,7 @@ export default function AIComponentPage() {
   const statusMessage = getStatusMessage(componentStatus);
   const description =
     meta?.description || "AI element component for building conversational interfaces";
+  const storybookUrl = `https://cognitedata.github.io/aura/storybook/?path=/docs/ai-${toStorybookSlug(componentName)}--docs`;
 
   return (
     <div className="max-w-4xl mx-auto py-10">
@@ -135,14 +152,38 @@ export default function AIComponentPage() {
 
         {/* Header */}
         <div className="space-y-4">
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
-            <Badge variant="inProgress" outline>
-              AI Element
-            </Badge>
-            <Badge variant="secondary" className={statusClasses}>
-              {statusLabel}
-            </Badge>
+          <div className="flex items-start justify-between gap-4 mb-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-3">
+              <h1 className="text-3xl font-bold tracking-tight">{componentName}</h1>
+              <Badge variant="inProgress" outline>
+                AI Element
+              </Badge>
+              <Badge variant="secondary" className={statusClasses}>
+                {statusLabel}
+              </Badge>
+            </div>
+            <div className="inline-flex items-center gap-1 shrink-0">
+              <a
+                href={AI_FIGMA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                title="Open in Figma"
+                aria-label="Open in Figma"
+              >
+                <img src={figmaIcon} alt="" className={externalIconClass} />
+              </a>
+              <a
+                href={storybookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                title="Open in Storybook"
+                aria-label="Open in Storybook"
+              >
+                <img src={storybookIcon} alt="" className={externalIconClass} />
+              </a>
+            </div>
           </div>
           <p className="text-lg text-muted-foreground">{description}</p>
           {componentStatus !== "stable" && componentStatus !== "ready-for-ga" && (

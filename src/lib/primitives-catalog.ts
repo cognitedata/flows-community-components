@@ -1,31 +1,14 @@
+import type { ComponentStatusType } from "./component-status-config";
+
 export type PrimitiveCatalogSection = "foundation" | "primitive";
-export type PrimitiveFigmaAvailability = "yes" | "no" | "in-progress" | "unknown";
-
-export type PrimitiveProgressStatus =
-  | "ready-for-dc"
-  | "in-progress"
-  | "dev-check"
-  | "needs-discussion"
-  | "imported-from-fusion"
-  | "untracked"
-  | "coming-soon";
-
-export const PRIMITIVE_PROGRESS_STATUS_ORDER: PrimitiveProgressStatus[] = [
-  "ready-for-dc",
-  "in-progress",
-  "dev-check",
-  "needs-discussion",
-  "imported-from-fusion",
-  "untracked",
-  "coming-soon",
-];
+export type PrimitiveFigmaAvailability = "yes" | "unknown";
 
 export interface PrimitiveCatalogEntry {
   slug: string;
   name: string;
   description: string;
   section: PrimitiveCatalogSection;
-  progressStatus: PrimitiveProgressStatus;
+  status: ComponentStatusType;
   figmaAvailability: PrimitiveFigmaAvailability;
   figmaUrl?: string;
   eosGaRequired: boolean | null;
@@ -40,39 +23,447 @@ interface PrimitiveCatalogSeed {
   name: string;
   description: string;
   section: PrimitiveCatalogSection;
-  progressStatus: Exclude<PrimitiveProgressStatus, "coming-soon">;
   figmaUrl?: string;
+  eosGaRequired: boolean | null;
+  duneGaRequired: boolean | null;
+  implemented: boolean;
+  comingSoon: boolean;
   aliases?: string[];
 }
 
-type PrimitiveBadgeVariant = "success" | "inProgress" | "warning" | "gray";
-
-const AURA_FIGMA_FALLBACK_URL =
-  "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=2253-40628&p=f&t=brWPskYTnahu9phr-0";
+type PrimitiveBadgeVariant = "success" | "warning" | "gray";
 
 const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
+  {
+    slug: "accordion",
+    name: "Accordion",
+    description: "Collapsible content sections",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=3620-25275&p=f&t=xt4XWsicLCdF8Uu1-0",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "action-toolbar",
+    name: "Action toolbar",
+    description: "",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=9131-21139&p=f&t=EaagDmzJhhlMjHU8-0",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
+  },
+  {
+    slug: "alert",
+    name: "Alert",
+    description: "Display important messages",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=3772-28021&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "alert-dialog",
+    name: "Alert dialog",
+    description: "Modal confirmation dialogs",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=3772-28244&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "assets",
+    name: "Assets",
+    description: "Logos, illustrations, and related brand assets.",
+    section: "foundation",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=1711-16008&p=f&t=EaagDmzJhhlMjHU8-0",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "avatar",
+    name: "Avatar",
+    description: "User profile images",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=2029-42286&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "badge",
+    name: "Badge",
+    description: "Small status indicators",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-3107&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "banner",
+    name: "Banner",
+    description: "Full-width notifications",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4631-19225&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "breadcrumb",
+    name: "Breadcrumb",
+    description: "Navigation hierarchy",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4644-31870&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+    aliases: ["breadcrumb-topbar"],
+  },
+  {
+    slug: "button",
+    name: "Button",
+    description: "Clickable action elements",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-15440&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "button-group",
+    name: "Button group",
+    description: "Grouped button actions",
+    section: "primitive",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "calendar",
+    name: "Calendar",
+    description: "Date selection interface",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4592-23048&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "card",
+    name: "Card",
+    description: "Grouped content container",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5179-22207&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+    aliases: ["card-artifact-widget"],
+  },
+  {
+    slug: "checkbox",
+    name: "Checkbox",
+    description: "Multi-select input",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-19596&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "collapsible",
+    name: "Collapsible",
+    description: "Expandable content",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5848-12094&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
   {
     slug: "colors",
     name: "Colors",
     description: "Color palette and tokens",
     section: "foundation",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6494-23804&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
     aliases: ["color-tokens"],
+  },
+  {
+    slug: "combobox",
+    name: "Combobox",
+    description: "Searchable select input",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-19783&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "command",
+    name: "Command",
+    description: "Command palette menu",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-19094&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "context-menu",
+    name: "Context menu",
+    description: "Right-click action menu",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-20850&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "count",
+    name: "Count",
+    description: "Numeric counter primitives",
+    section: "primitive",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
+  },
+  {
+    slug: "date-picker",
+    name: "Date picker",
+    description: "Calendar date selector",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4598-4912&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "datetime-picker",
+    name: "DateTime picker",
+    description: "Combined date and time selector",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4598-4912&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
+    aliases: ["datetime-input", "datetime-picker-range"],
+  },
+  {
+    slug: "dialog",
+    name: "Dialog",
+    description: "Modal overlay windows",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-22085&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "drawer",
+    name: "Drawer",
+    description: "Slide-in side panel",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=430-2779&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "dropdown-menu",
+    name: "Dropdown menu",
+    description: "Action menu list",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-20850&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "effects",
     name: "Effects",
     description: "Shadows and visual effects",
     section: "foundation",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=2236-53188&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
     aliases: ["shadow-effects"],
   },
   {
+    slug: "empty-state",
+    name: "Empty state",
+    description: "Empty-state illustrations and messaging",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4652-32441&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
+  },
+  {
+    slug: "file-upload",
+    name: "File upload",
+    description: "",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=9131-7927&p=f&t=EaagDmzJhhlMjHU8-0",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
+  },
+  {
+    slug: "helper-text",
+    name: "Helper text",
+    description: "Input guidance text",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5242-17162&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "hover-card",
+    name: "Hover card",
+    description: "Preview content on hover",
+    section: "primitive",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+    aliases: ["hovercard"],
+  },
+  {
+    slug: "icons",
+    name: "Icons",
+    description: "System iconography and usage guidance",
+    section: "foundation",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=1711-16008&p=f&t=EaagDmzJhhlMjHU8-0",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
+  },
+  {
+    slug: "input",
+    name: "Input",
+    description: "Text input field",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-14086&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "input-group",
+    name: "Input group",
+    description: "Composed input with controls",
+    section: "primitive",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+    aliases: ["input-group?"],
+  },
+  {
+    slug: "kbd",
+    name: "Kbd",
+    description: "Keyboard shortcut display",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5296-21337&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "label",
+    name: "Label",
+    description: "Form field labels",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5296-18977&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
     slug: "layouts",
-    name: "Layouts",
+    name: "Layout",
     description: "Grid and container systems",
     section: "foundation",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5240-31641&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
     aliases: [
       "layout-default",
       "layout-dashboard",
@@ -81,298 +472,26 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     ],
   },
   {
-    slug: "typography",
-    name: "Typography",
-    description: "Text styles and scales",
-    section: "foundation",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "icons",
-    name: "Icons",
-    description: "System iconography and usage guidance",
-    section: "foundation",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "illustrations",
-    name: "Illustrations",
-    description: "Illustration assets and guidance",
-    section: "foundation",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "document-icons",
-    name: "Document icons",
-    description: "File and document icon primitives",
-    section: "foundation",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "flex",
-    name: "Flex",
-    description: "Flex layout helpers and primitives",
-    section: "foundation",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "focus-and-focus-destructive-rings",
-    name: "Focus rings",
-    description: "Focus and destructive focus-ring tokens",
-    section: "foundation",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "logos",
-    name: "Logos",
-    description: "Product logos and brand marks",
-    section: "foundation",
-    progressStatus: "untracked",
-  },
-
-  {
-    slug: "accordion",
-    name: "Accordion",
-    description: "Collapsible content sections",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "action-toolbar",
-    name: "Action toolbar",
-    description: "A compact toolbar for grouped actions",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "alert",
-    name: "Alert",
-    description: "Display important messages",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "alert-dialog",
-    name: "Alert dialog",
-    description: "Modal confirmation dialogs",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "avatar",
-    name: "Avatar",
-    description: "User profile images",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "badge",
-    name: "Badge",
-    description: "Small status indicators",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "banner",
-    name: "Banner",
-    description: "Full-width notifications",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "breadcrumb",
-    name: "Breadcrumb",
-    description: "Navigation hierarchy",
-    section: "primitive",
-    progressStatus: "in-progress",
-    aliases: ["breadcrumb-topbar"],
-  },
-  {
-    slug: "topbar",
-    name: "Topbar",
-    description: "Application top bar",
-    section: "primitive",
-    progressStatus: "in-progress",
-    aliases: ["breadcrumb-topbar"],
-  },
-  {
-    slug: "button",
-    name: "Button",
-    description: "Clickable action elements",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "button-group",
-    name: "Button group",
-    description: "Grouped button actions",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "calendar",
-    name: "Calendar",
-    description: "Date selection interface",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "card",
-    name: "Card",
-    description: "Grouped content container",
-    section: "primitive",
-    progressStatus: "untracked",
-    aliases: ["card-artifact-widget"],
-  },
-  {
-    slug: "checkbox",
-    name: "Checkbox",
-    description: "Multi-select input",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "collapsible",
-    name: "Collapsible",
-    description: "Expandable content",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "combobox",
-    name: "Combobox",
-    description: "Searchable select input",
-    section: "primitive",
-    progressStatus: "ready-for-dc",
-  },
-  {
-    slug: "command",
-    name: "Command",
-    description: "Command palette menu",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "context-menu",
-    name: "Context menu",
-    description: "Right-click action menu",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "count",
-    name: "Count",
-    description: "Numeric counter primitives",
-    section: "primitive",
-    progressStatus: "ready-for-dc",
-  },
-  {
-    slug: "date-picker",
-    name: "Date picker",
-    description: "Calendar date selector",
-    section: "primitive",
-    progressStatus: "imported-from-fusion",
-  },
-  {
-    slug: "datetime-picker",
-    name: "DateTime picker",
-    description: "Combined date and time selector",
-    section: "primitive",
-    progressStatus: "untracked",
-    aliases: ["datetime-input", "datetime-picker-range"],
-  },
-  {
-    slug: "dialog",
-    name: "Dialog",
-    description: "Modal overlay windows",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "drawer",
-    name: "Drawer",
-    description: "Slide-in side panel",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "dropdown-menu",
-    name: "Dropdown menu",
-    description: "Action menu list",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "empty-state",
-    name: "Empty state",
-    description: "Empty-state illustrations and messaging",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "helper-text",
-    name: "Helper text",
-    description: "Input guidance text",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "hover-card",
-    name: "Hover card",
-    description: "Preview content on hover",
-    section: "primitive",
-    progressStatus: "in-progress",
-    aliases: ["hovercard"],
-  },
-  {
-    slug: "input",
-    name: "Input",
-    description: "Text input field",
-    section: "primitive",
-    progressStatus: "in-progress",
-  },
-  {
-    slug: "input-group",
-    name: "Input group",
-    description: "Composed input with controls",
-    section: "primitive",
-    progressStatus: "in-progress",
-    aliases: ["input-group?"],
-  },
-  {
-    slug: "item",
-    name: "Item",
-    description: "List item primitive",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "kbd",
-    name: "Kbd",
-    description: "Keyboard shortcut display",
-    section: "primitive",
-    progressStatus: "untracked",
-  },
-  {
-    slug: "label",
-    name: "Label",
-    description: "Form field labels",
-    section: "primitive",
-    progressStatus: "dev-check",
-  },
-  {
     slug: "list",
     name: "List",
     description: "Structured list layouts",
     section: "primitive",
-    progressStatus: "ready-for-dc",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "menubar",
     name: "Menubar",
     description: "Application menu bar",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6245-20850&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
     aliases: ["menu-bar"],
   },
   {
@@ -380,92 +499,141 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     name: "Page loader",
     description: "Loading state for full-page transitions",
     section: "primitive",
-    progressStatus: "needs-discussion",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
   },
   {
     slug: "pagination",
     name: "Pagination",
     description: "Page navigation controls",
     section: "primitive",
-    progressStatus: "ready-for-dc",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-15085&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "popover",
     name: "Popover",
     description: "Floating content panel",
     section: "primitive",
-    progressStatus: "in-progress",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-15276&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "progress",
     name: "Progress",
     description: "Progress indicator bar",
     section: "primitive",
-    progressStatus: "ready-for-dc",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-15343&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "radio-group",
     name: "Radio group",
     description: "Single-select options",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-15426&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
     aliases: ["radio"],
-  },
-  {
-    slug: "segmented-control",
-    name: "Segmented control",
-    description: "Exclusive segmented option control",
-    section: "primitive",
-    progressStatus: "untracked",
   },
   {
     slug: "select",
     name: "Select",
     description: "Dropdown selection",
     section: "primitive",
-    progressStatus: "in-progress",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-15573&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "select-panel",
     name: "Select panel",
-    description: "Selection panel variant",
+    description: "",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=9131-21635&p=f&t=EaagDmzJhhlMjHU8-0",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
   },
   {
     slug: "separator",
     name: "Separator",
     description: "Visual content divider",
     section: "primitive",
-    progressStatus: "in-progress",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-16069&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "sidebar",
     name: "Sidebar",
     description: "Navigation side panel",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-16171&p=f&m=dev",
+    eosGaRequired: null,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "skeleton",
     name: "Skeleton",
     description: "Loading placeholders",
     section: "primitive",
-    progressStatus: "in-progress",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "slider",
     name: "Slider",
     description: "Range input control",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-21430&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "sonner-toast",
     name: "Sonner",
     description: "Toast notifications",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-21307&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
     aliases: ["sonner"],
   },
   {
@@ -473,7 +641,12 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     name: "Swap slot",
     description: "Content transition primitive",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-21178&p=f&m=dev",
+    eosGaRequired: null,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
     aliases: ["swapslot", "swapslot-all-components"],
   },
   {
@@ -481,35 +654,60 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     name: "Switch",
     description: "Toggle on/off control",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-21063&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "table",
     name: "Table",
     description: "Structured data display",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5840-14746&p=f&m=dev",
+    eosGaRequired: null,
+    duneGaRequired: null,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "tabs",
     name: "Tabs",
     description: "Tabbed content panels",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-20783&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "textarea",
     name: "Textarea",
     description: "Multi-line text input",
     section: "primitive",
-    progressStatus: "in-progress",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6328-19593&p=f&m=dev",
+    eosGaRequired: false,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "time-input",
     name: "Time input",
     description: "Time selection field",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4598-4912&p=f&m=dev",
+    eosGaRequired: null,
+    duneGaRequired: null,
+    implemented: true,
+    comingSoon: false,
     aliases: ["time-picker", "time-picker-single"],
   },
   {
@@ -517,301 +715,121 @@ const RAW_PRIMITIVES_CATALOG: PrimitiveCatalogSeed[] = [
     name: "Time picker (range)",
     description: "Range-based time selection",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=4598-4912&p=f&m=dev",
+    eosGaRequired: null,
+    duneGaRequired: null,
+    implemented: false,
+    comingSoon: true,
   },
   {
     slug: "toggle",
     name: "Toggle",
     description: "Binary state button",
     section: "primitive",
-    progressStatus: "dev-check",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-20464&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "toolbar",
     name: "Toolbar",
     description: "Action toolbar with grouped controls",
     section: "primitive",
-    progressStatus: "untracked",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6985-10104&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
   {
     slug: "tooltip",
     name: "Tooltip",
     description: "Contextual help text",
     section: "primitive",
-    progressStatus: "in-progress",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-20385&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+  },
+  {
+    slug: "topbar",
+    name: "Topbar",
+    description: "Application top bar",
+    section: "primitive",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=5291-14625&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
+    aliases: ["breadcrumb-topbar"],
   },
   {
     slug: "tree-view",
     name: "Tree view",
     description: "Hierarchical tree navigation",
     section: "primitive",
-    progressStatus: "in-progress",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=6331-19698&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: false,
+    comingSoon: true,
+  },
+  {
+    slug: "typography",
+    name: "Typography",
+    description: "Text styles and scales",
+    section: "foundation",
+    figmaUrl:
+      "https://www.figma.com/design/pMnMQvfErZDJzWgrcWCIwZ/WIP---Aura-library?node-id=2236-53187&p=f&m=dev",
+    eosGaRequired: true,
+    duneGaRequired: true,
+    implemented: true,
+    comingSoon: false,
   },
 ];
 
-const FIGMA_AVAILABILITY_BY_SLUG: Partial<Record<string, PrimitiveFigmaAvailability>> = {
-  colors: "yes",
-  effects: "yes",
-  layouts: "in-progress",
-  typography: "yes",
-  icons: "yes",
-  illustrations: "yes",
-  "document-icons": "yes",
-  flex: "no",
-  "focus-and-focus-destructive-rings": "yes",
-  logos: "yes",
-  accordion: "yes",
-  "action-toolbar": "no",
-  alert: "yes",
-  "alert-dialog": "yes",
-  avatar: "yes",
-  badge: "yes",
-  banner: "yes",
-  breadcrumb: "yes",
-  topbar: "yes",
-  button: "yes",
-  "button-group": "yes",
-  calendar: "yes",
-  card: "unknown",
-  checkbox: "yes",
-  collapsible: "yes",
-  combobox: "yes",
-  command: "yes",
-  "context-menu": "yes",
-  count: "yes",
-  "date-picker": "yes",
-  "datetime-picker": "yes",
-  dialog: "yes",
-  drawer: "yes",
-  "dropdown-menu": "yes",
-  "empty-state": "yes",
-  "helper-text": "yes",
-  "hover-card": "no",
-  input: "yes",
-  "input-group": "yes",
-  item: "yes",
-  kbd: "yes",
-  label: "yes",
-  list: "yes",
-  menubar: "yes",
-  "page-loader": "no",
-  pagination: "yes",
-  popover: "yes",
-  progress: "yes",
-  "radio-group": "yes",
-  "segmented-control": "in-progress",
-  select: "yes",
-  "select-panel": "no",
-  separator: "yes",
-  sidebar: "unknown",
-  skeleton: "no",
-  slider: "yes",
-  "sonner-toast": "yes",
-  "swap-slot": "yes",
-  switch: "yes",
-  table: "unknown",
-  tabs: "yes",
-  textarea: "yes",
-  "time-input": "unknown",
-  "time-picker-range": "unknown",
-  toggle: "yes",
-  toolbar: "in-progress",
-  tooltip: "yes",
-  "tree-view": "yes",
-};
+const metadataModules = import.meta.glob<{ [key: string]: { status?: ComponentStatusType } }>(
+  "@/components/ui/aura/*/*.metadata.ts",
+  { eager: true }
+);
 
-const EOS_GA_REQUIRED_BY_SLUG: Partial<Record<string, boolean | null>> = {
-  colors: true,
-  effects: true,
-  layouts: true,
-  typography: true,
-  icons: true,
-  illustrations: true,
-  "document-icons": false,
-  flex: true,
-  "focus-and-focus-destructive-rings": true,
-  logos: true,
-  accordion: true,
-  "action-toolbar": true,
-  alert: true,
-  "alert-dialog": false,
-  avatar: true,
-  badge: true,
-  banner: true,
-  breadcrumb: true,
-  topbar: true,
-  button: true,
-  "button-group": null,
-  calendar: true,
-  card: null,
-  checkbox: false,
-  collapsible: true,
-  combobox: true,
-  command: false,
-  "context-menu": false,
-  count: true,
-  "date-picker": false,
-  "datetime-picker": false,
-  dialog: true,
-  drawer: false,
-  "dropdown-menu": true,
-  "empty-state": true,
-  "helper-text": true,
-  "hover-card": true,
-  input: false,
-  "input-group": true,
-  item: false,
-  kbd: false,
-  label: true,
-  list: null,
-  menubar: false,
-  "page-loader": true,
-  pagination: true,
-  popover: true,
-  progress: true,
-  "radio-group": false,
-  "segmented-control": null,
-  select: true,
-  "select-panel": false,
-  separator: true,
-  sidebar: null,
-  skeleton: true,
-  slider: false,
-  "sonner-toast": true,
-  "swap-slot": null,
-  switch: true,
-  table: null,
-  tabs: false,
-  textarea: false,
-  "time-input": null,
-  "time-picker-range": null,
-  toggle: true,
-  toolbar: true,
-  tooltip: true,
-  "tree-view": true,
-};
-
-const DUNE_GA_REQUIRED_BY_SLUG: Partial<Record<string, boolean | null>> = {
-  colors: true,
-  effects: true,
-  layouts: true,
-  typography: true,
-  icons: true,
-  illustrations: true,
-  "document-icons": true,
-  flex: true,
-  "focus-and-focus-destructive-rings": true,
-  logos: true,
-  accordion: true,
-  "action-toolbar": true,
-  alert: true,
-  "alert-dialog": true,
-  avatar: true,
-  badge: true,
-  banner: true,
-  breadcrumb: true,
-  topbar: true,
-  button: true,
-  "button-group": null,
-  calendar: true,
-  card: null,
-  checkbox: true,
-  collapsible: true,
-  combobox: true,
-  command: true,
-  "context-menu": true,
-  count: null,
-  "date-picker": true,
-  "datetime-picker": true,
-  dialog: true,
-  drawer: true,
-  "dropdown-menu": true,
-  "empty-state": true,
-  "helper-text": true,
-  "hover-card": true,
-  input: true,
-  "input-group": true,
-  item: true,
-  kbd: true,
-  label: true,
-  list: null,
-  menubar: true,
-  "page-loader": true,
-  pagination: true,
-  popover: true,
-  progress: true,
-  "radio-group": true,
-  "segmented-control": null,
-  select: true,
-  "select-panel": true,
-  separator: true,
-  sidebar: null,
-  skeleton: true,
-  slider: true,
-  "sonner-toast": true,
-  "swap-slot": true,
-  switch: true,
-  table: null,
-  tabs: true,
-  textarea: true,
-  "time-input": null,
-  "time-picker-range": null,
-  toggle: true,
-  toolbar: true,
-  tooltip: true,
-  "tree-view": true,
-};
-
-const metadataModules = import.meta.glob("@/components/ui/aura/*/*.metadata.ts", { eager: false });
-const storyModules = import.meta.glob("@/components/ui/aura/*/*.stories.tsx", { eager: false });
-
-function slugFromPath(path: string, extension: "metadata" | "stories"): string | null {
-  const regex =
-    extension === "metadata" ? /\/([^/]+)\/\1\.metadata\.ts$/ : /\/([^/]+)\/\1\.stories\.tsx$/;
-  const match = path.match(regex);
-  return match ? match[1] : null;
+function toPascalCase(slug: string): string {
+  return slug
+    .split("-")
+    .filter((part) => part.length > 0)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
 }
 
-function getImplementedSlugs(): Set<string> {
-  const metadataSlugs = Object.keys(metadataModules)
-    .map((path) => slugFromPath(path, "metadata"))
-    .filter((slug): slug is string => Boolean(slug));
-
-  const storySlugs = Object.keys(storyModules)
-    .map((path) => slugFromPath(path, "stories"))
-    .filter((slug): slug is string => Boolean(slug));
-
-  return new Set([...metadataSlugs, ...storySlugs]);
-}
-
-const IMPLEMENTED_SLUGS = getImplementedSlugs();
-
-function isImplemented(seed: PrimitiveCatalogSeed): boolean {
-  if (IMPLEMENTED_SLUGS.has(seed.slug)) {
-    return true;
+function getStatusFromMetadata(seed: PrimitiveCatalogSeed): ComponentStatusType {
+  const candidates = [seed.slug, ...(seed.aliases ?? [])];
+  for (const candidate of candidates) {
+    const metadataPath = `/src/components/ui/aura/${candidate}/${candidate}.metadata.ts`;
+    const metadataModule = metadataModules[metadataPath];
+    if (!metadataModule) continue;
+    const exportName = `${toPascalCase(candidate)}Metadata`;
+    const meta = metadataModule[exportName as keyof typeof metadataModule] as
+      | { status?: ComponentStatusType }
+      | undefined;
+    if (meta?.status) return meta.status;
   }
-
-  return seed.aliases?.some((alias) => IMPLEMENTED_SLUGS.has(alias)) ?? false;
+  return "draft";
 }
 
-export const PRIMITIVES_CATALOG: PrimitiveCatalogEntry[] = RAW_PRIMITIVES_CATALOG.map((seed) => {
-  const implemented = isImplemented(seed);
-  const resolvedProgressStatus: PrimitiveProgressStatus = !implemented
-    ? "coming-soon"
-    : seed.progressStatus === "untracked"
-      ? "in-progress"
-      : seed.progressStatus;
-
-  return {
-    ...seed,
-    implemented,
-    comingSoon: !implemented,
-    progressStatus: resolvedProgressStatus,
-    figmaAvailability: FIGMA_AVAILABILITY_BY_SLUG[seed.slug] || "unknown",
-    eosGaRequired: EOS_GA_REQUIRED_BY_SLUG[seed.slug] ?? null,
-    duneGaRequired: DUNE_GA_REQUIRED_BY_SLUG[seed.slug] ?? null,
-  };
-});
+export const PRIMITIVES_CATALOG: PrimitiveCatalogEntry[] = RAW_PRIMITIVES_CATALOG.map((seed) => ({
+  ...seed,
+  status: getStatusFromMetadata(seed),
+  figmaAvailability: seed.figmaUrl ? "yes" : "unknown",
+}));
 
 export function getPrimitiveCatalogBySection(
   section: PrimitiveCatalogSection
@@ -823,74 +841,18 @@ export function getPrimitiveCatalogBySection(
 
 export function getPrimitiveCatalogEntry(slug: string): PrimitiveCatalogEntry | null {
   const normalizedSlug = slug.toLowerCase();
-
   return (
     PRIMITIVES_CATALOG.find((entry) => {
-      if (entry.slug === normalizedSlug) {
-        return true;
-      }
-
+      if (entry.slug === normalizedSlug) return true;
       return entry.aliases?.some((alias) => alias.toLowerCase() === normalizedSlug) ?? false;
     }) || null
   );
-}
-
-export function getPrimitiveProgressLabel(status: PrimitiveProgressStatus): string {
-  switch (status) {
-    case "ready-for-dc":
-      return "Ready for DC";
-    case "in-progress":
-      return "In progress";
-    case "dev-check":
-      return "Dev check";
-    case "needs-discussion":
-      return "Needs discussion";
-    case "imported-from-fusion":
-      return "Imported from Fusion";
-    case "untracked":
-      return "Untracked";
-    case "coming-soon":
-      return "Coming soon";
-    default:
-      return "Untracked";
-  }
-}
-
-export function getPrimitiveProgressBadgeProps(status: PrimitiveProgressStatus): {
-  variant: PrimitiveBadgeVariant;
-  outline: boolean;
-  className?: string;
-} {
-  switch (status) {
-    case "ready-for-dc":
-      return { variant: "success", outline: false };
-    case "in-progress":
-      return { variant: "warning", outline: false };
-    case "dev-check":
-      return { variant: "inProgress", outline: false };
-    case "needs-discussion":
-      return { variant: "warning", outline: false, className: "ring-1 ring-inset" };
-    case "imported-from-fusion":
-      return { variant: "gray", outline: true };
-    case "coming-soon":
-      return {
-        variant: "gray",
-        outline: true,
-        className: "border-dashed font-medium text-muted-foreground",
-      };
-    default:
-      return { variant: "gray", outline: true };
-  }
 }
 
 export function getPrimitiveFigmaLabel(availability: PrimitiveFigmaAvailability): string {
   switch (availability) {
     case "yes":
       return "Figma";
-    case "no":
-      return "No Figma";
-    case "in-progress":
-      return "Figma in progress";
     default:
       return "Figma unknown";
   }
@@ -901,25 +863,15 @@ export function getPrimitiveFigmaBadgeProps(availability: PrimitiveFigmaAvailabi
   outline: boolean;
   className?: string;
 } {
-  switch (availability) {
-    case "yes":
-      return { variant: "gray", outline: true };
-    case "in-progress":
-      return { variant: "warning", outline: true };
-    case "no":
-      return { variant: "gray", outline: true, className: "opacity-75" };
-    default:
-      return { variant: "gray", outline: true, className: "border-dashed opacity-75" };
+  if (availability === "yes") {
+    return { variant: "gray", outline: true };
   }
+  return { variant: "gray", outline: true, className: "border-dashed opacity-75" };
 }
 
 export function getPrimitiveGaLabel(required: boolean | null, product: "Eos" | "Dune"): string {
-  if (required === true) {
-    return `${product} GA: Required`;
-  }
-  if (required === false) {
-    return `${product} GA: Not required`;
-  }
+  if (required === true) return `${product} GA: Required`;
+  if (required === false) return `${product} GA: Not required`;
   return `${product} GA: Unknown`;
 }
 
@@ -928,21 +880,11 @@ export function getPrimitiveGaBadgeProps(required: boolean | null): {
   outline: boolean;
   className?: string;
 } {
-  if (required === true) {
-    return { variant: "success", outline: true };
-  }
-  if (required === false) {
-    return { variant: "gray", outline: true, className: "opacity-80" };
-  }
+  if (required === true) return { variant: "success", outline: true };
+  if (required === false) return { variant: "gray", outline: true, className: "opacity-80" };
   return { variant: "gray", outline: true, className: "border-dashed opacity-80" };
 }
 
 export function getPrimitiveFigmaUrl(entry: PrimitiveCatalogEntry): string | null {
-  if (entry.figmaUrl) {
-    return entry.figmaUrl;
-  }
-  if (entry.figmaAvailability === "yes") {
-    return AURA_FIGMA_FALLBACK_URL;
-  }
-  return null;
+  return entry.figmaUrl || null;
 }

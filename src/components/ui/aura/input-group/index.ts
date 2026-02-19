@@ -1,5 +1,5 @@
 /** Input group component. */
-export {
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
@@ -7,3 +7,14 @@ export {
   InputGroupText,
   InputGroupTextarea,
 } from "./input-group";
+import { InputGroupMetadata } from "./input-group.metadata";
+
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+  InputGroupMetadata,
+};
