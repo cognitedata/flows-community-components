@@ -1,7 +1,24 @@
+import figmaIcon from "@/assets/figma-logo.svg";
+import storybookIcon from "@/assets/icon-storybook-default.svg";
 import { Badge } from "@/components/ui/aura/badge";
 import { getPrimitiveCatalogBySection, getPrimitiveFigmaUrl } from "@/lib/primitives-catalog";
 import { CatalogIndex } from "@/pages/components/CatalogIndex";
-import { IconBrandFigma, IconCheck, IconQuestionMark, IconX } from "@tabler/icons-react";
+import { IconCheck, IconQuestionMark, IconX } from "@tabler/icons-react";
+
+function toStorybookSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\s*\(.*?\)\s*/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function getStorybookUrl(category: "foundations" | "primitives", name: string): string {
+  return `https://cognitedata.github.io/aura/storybook/?path=/docs/${category}-${toStorybookSlug(name)}--docs`;
+}
+
+const externalIconClass =
+  "size-4 grayscale opacity-70 mix-blend-multiply transition-all duration-150 group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal";
 
 type GaBadgeContentProps = {
   product: "Eos" | "Dune";
@@ -66,13 +83,22 @@ export default function PrimitivesPage() {
               entry.duneGaRequired
             );
             const figmaUrl = getPrimitiveFigmaUrl(entry);
+            const hasDisabledFigma = false;
+            const storybookUrl = getStorybookUrl("foundations", entry.name);
+            const hasStorybookLink = ![
+              "assets",
+              "icons",
+              "action-toolbar",
+              "file-upload",
+              "select-panel",
+            ].includes(entry.slug);
 
             return {
               id: entry.slug,
               name: entry.name,
               description: entry.description,
               href: `/primitives/${entry.slug}`,
-              progressStatus: entry.progressStatus,
+              status: entry.status,
               comingSoon: entry.comingSoon,
               eosGaRequired: entry.eosGaRequired,
               duneGaRequired: entry.duneGaRequired,
@@ -89,26 +115,72 @@ export default function PrimitivesPage() {
                       </span>
                     </Badge>
                   </div>
-                  {figmaUrl ? (
-                    <a
-                      href={figmaUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
-                      title="Open in Figma"
-                      aria-label="Open in Figma"
-                    >
-                      <IconBrandFigma className="size-4" />
-                    </a>
-                  ) : entry.figmaAvailability === "unknown" ? (
-                    <span
-                      className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
-                      title="Figma link unavailable"
-                      aria-label="Figma link unavailable"
-                    >
-                      <IconBrandFigma className="size-4" />
-                    </span>
-                  ) : null}
+                  <div className="inline-flex items-center gap-1">
+                    {figmaUrl ? (
+                      hasDisabledFigma ? (
+                        <span
+                          className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                          title="Figma link unavailable"
+                          aria-label="Figma link unavailable"
+                        >
+                          <img
+                            src={figmaIcon}
+                            alt=""
+                            className="size-4 grayscale opacity-40 mix-blend-multiply"
+                          />
+                        </span>
+                      ) : (
+                        <a
+                          href={figmaUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(event) => event.stopPropagation()}
+                          className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                          title="Open in Figma"
+                          aria-label="Open in Figma"
+                        >
+                          <img src={figmaIcon} alt="" className={externalIconClass} />
+                        </a>
+                      )
+                    ) : entry.figmaAvailability === "unknown" ? (
+                      <span
+                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                        title="Figma link unavailable"
+                        aria-label="Figma link unavailable"
+                      >
+                        <img
+                          src={figmaIcon}
+                          alt=""
+                          className="size-4 grayscale opacity-40 mix-blend-multiply"
+                        />
+                      </span>
+                    ) : null}
+                    {hasStorybookLink ? (
+                      <a
+                        href={storybookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) => event.stopPropagation()}
+                        className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                        title="Open in Storybook"
+                        aria-label="Open in Storybook"
+                      >
+                        <img src={storybookIcon} alt="" className={externalIconClass} />
+                      </a>
+                    ) : (
+                      <span
+                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                        title="Storybook link unavailable"
+                        aria-label="Storybook link unavailable"
+                      >
+                        <img
+                          src={storybookIcon}
+                          alt=""
+                          className="size-4 grayscale opacity-40 mix-blend-multiply"
+                        />
+                      </span>
+                    )}
+                  </div>
                 </>
               ),
             };
@@ -124,13 +196,21 @@ export default function PrimitivesPage() {
               entry.duneGaRequired
             );
             const figmaUrl = getPrimitiveFigmaUrl(entry);
+            const storybookUrl = getStorybookUrl("primitives", entry.name);
+            const hasStorybookLink = ![
+              "assets",
+              "icons",
+              "action-toolbar",
+              "file-upload",
+              "select-panel",
+            ].includes(entry.slug);
 
             return {
               id: entry.slug,
               name: entry.name,
               description: entry.description,
               href: `/primitives/${entry.slug}`,
-              progressStatus: entry.progressStatus,
+              status: entry.status,
               comingSoon: entry.comingSoon,
               eosGaRequired: entry.eosGaRequired,
               duneGaRequired: entry.duneGaRequired,
@@ -147,26 +227,58 @@ export default function PrimitivesPage() {
                       </span>
                     </Badge>
                   </div>
-                  {figmaUrl ? (
-                    <a
-                      href={figmaUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
-                      title="Open in Figma"
-                      aria-label="Open in Figma"
-                    >
-                      <IconBrandFigma className="size-4" />
-                    </a>
-                  ) : entry.figmaAvailability === "unknown" ? (
-                    <span
-                      className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
-                      title="Figma link unavailable"
-                      aria-label="Figma link unavailable"
-                    >
-                      <IconBrandFigma className="size-4" />
-                    </span>
-                  ) : null}
+                  <div className="inline-flex items-center gap-1">
+                    {figmaUrl ? (
+                      <a
+                        href={figmaUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) => event.stopPropagation()}
+                        className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                        title="Open in Figma"
+                        aria-label="Open in Figma"
+                      >
+                        <img src={figmaIcon} alt="" className={externalIconClass} />
+                      </a>
+                    ) : entry.figmaAvailability === "unknown" ? (
+                      <span
+                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                        title="Figma link unavailable"
+                        aria-label="Figma link unavailable"
+                      >
+                        <img
+                          src={figmaIcon}
+                          alt=""
+                          className="size-4 grayscale opacity-40 mix-blend-multiply"
+                        />
+                      </span>
+                    ) : null}
+                    {hasStorybookLink ? (
+                      <a
+                        href={storybookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(event) => event.stopPropagation()}
+                        className="group inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground hover:text-foreground hover:bg-accent"
+                        title="Open in Storybook"
+                        aria-label="Open in Storybook"
+                      >
+                        <img src={storybookIcon} alt="" className={externalIconClass} />
+                      </a>
+                    ) : (
+                      <span
+                        className="inline-flex items-center justify-center rounded-sm p-1 text-muted-foreground/40 cursor-not-allowed"
+                        title="Storybook link unavailable"
+                        aria-label="Storybook link unavailable"
+                      >
+                        <img
+                          src={storybookIcon}
+                          alt=""
+                          className="size-4 grayscale opacity-40 mix-blend-multiply"
+                        />
+                      </span>
+                    )}
+                  </div>
                 </>
               ),
             };
