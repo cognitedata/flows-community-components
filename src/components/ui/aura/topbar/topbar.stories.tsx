@@ -100,9 +100,6 @@ export const Basic: Story = {
       <div className="w-full overflow-hidden">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -158,9 +155,6 @@ export const WithCenterContent: Story = {
       <div className="w-full overflow-hidden">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -218,9 +212,6 @@ export const EosStyle: Story = {
       <div className="w-full">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4 w-4" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -340,9 +331,6 @@ export const WithMultipleActions: Story = {
       <div className="w-full overflow-hidden">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -496,7 +484,6 @@ export const WithSidebar: Story = {
             <SidebarInset>
               <Topbar>
                 <TopbarLeft>
-                  <SidebarTrigger />
                   <TopbarBreadcrumbs>
                     <BreadcrumbList>
                       <BreadcrumbItem>
@@ -606,14 +593,6 @@ export const Interactive: Story = {
       <div className="w-full overflow-hidden">
         <Topbar>
           <TopbarLeft>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Toggle sidebar"
-              onClick={() => setClicked("sidebar")}
-            >
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -684,9 +663,6 @@ export const LongBreadcrumb: Story = {
       <div className="w-full overflow-hidden">
         <Topbar>
           <TopbarLeft>
-            <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-              <IconLayoutSidebar className="h-4.5 w-4.5" />
-            </Button>
             <TopbarBreadcrumbs>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -749,9 +725,6 @@ export const Playground: Story = {
         <div className="w-full overflow-hidden border rounded-lg">
           <Topbar>
             <TopbarLeft>
-              <Button variant="ghost" size="icon-sm" aria-label="Toggle sidebar">
-                <IconLayoutSidebar className="h-4.5 w-4.5" />
-              </Button>
               <TopbarBreadcrumbs>
                 <BreadcrumbList>
                   <BreadcrumbItem>
