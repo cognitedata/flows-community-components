@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -10,8 +11,6 @@ import {
   IconUser,
 } from "@tabler/icons-react";
 import { useState } from "react";
-
-import { Button } from "@/components/ui/aura/button";
 import {
   Command,
   CommandDialog,
@@ -23,7 +22,6 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "./command";
-
 const meta: Meta<typeof Command> = {
   title: "Primitives/Command",
   component: Command,
@@ -31,7 +29,6 @@ const meta: Meta<typeof Command> = {
   argTypes: {
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
         category: "Advanced",
       },
@@ -41,18 +38,11 @@ const meta: Meta<typeof Command> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Command>;
-
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default command palette with grouped items and shortcuts.",
-      },
-    },
   },
   render: () => (
     <Command className="w-88 rounded-lg border shadow-md">
@@ -104,19 +94,12 @@ export const Basic: Story = {
     });
   },
 };
-
 export const Dialog: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Command palette rendered inside a dialog.",
-      },
-    },
   },
   render: () => {
     const [open, setOpen] = useState(false);
-
     return (
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">
@@ -150,33 +133,29 @@ export const Dialog: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", { name: /open command palette/i });
+    const trigger = canvas.getByRole("button", {
+      name: /open command palette/i,
+    });
     await userEvent.click(trigger);
-
     await waitFor(() => {
       const dialog = document.querySelector('[data-slot="command-dialog"]');
       expect(dialog).toBeInTheDocument();
     });
-
     const dialog = document.querySelector('[data-slot="command-dialog"]');
     const input = within(dialog as HTMLElement).getByPlaceholderText("Type a command or search...");
     await expect(input).toBeInTheDocument();
-    const calendarItem = within(dialog as HTMLElement).getByRole("option", { name: /calendar/i });
+    const calendarItem = within(dialog as HTMLElement).getByRole("option", {
+      name: /calendar/i,
+    });
     await userEvent.click(calendarItem);
     await waitFor(() => {
       expect(canvas.queryByTestId("command-dialog-content")).not.toBeInTheDocument();
     });
   },
 };
-
 export const Filtering: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Filtering behavior while typing in the input.",
-      },
-    },
   },
   render: () => (
     <Command className="w-88 rounded-lg border shadow-md">
@@ -203,15 +182,9 @@ export const Filtering: Story = {
     });
   },
 };
-
 export const DisabledItems: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "List with enabled and disabled command items.",
-      },
-    },
   },
   render: () => (
     <Command className="w-88 rounded-lg border shadow-md">
@@ -247,15 +220,9 @@ export const DisabledItems: Story = {
     await expect(canvas.getByText("Calculator (disabled)")).toBeInTheDocument();
   },
 };
-
 export const MultipleGroups: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Multiple grouped sections with separators.",
-      },
-    },
   },
   render: () => (
     <Command className="w-100 rounded-lg border shadow-md">
@@ -301,15 +268,9 @@ export const MultipleGroups: Story = {
     await expect(canvas.getByText("Help")).toBeInTheDocument();
   },
 };
-
 export const CustomStyling: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Custom styles applied to command root and items.",
-      },
-    },
   },
   render: () => (
     <Command className="w-88 rounded-lg border bg-card shadow-md">
@@ -337,15 +298,9 @@ export const CustomStyling: Story = {
     await expect(canvas.getByText("Custom styled item 3")).toBeInTheDocument();
   },
 };
-
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Keyboard-focused flow with filtering and shortcuts.",
-      },
-    },
   },
   render: () => (
     <Command className="w-88 rounded-lg border shadow-md">
@@ -391,15 +346,9 @@ export const KeyboardNavigation: Story = {
     await expect(canvas.getByText("⌘M")).toBeInTheDocument();
   },
 };
-
 export const NoResultsFound: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Empty state when search has no matches.",
-      },
-    },
   },
   render: () => (
     <Command className="w-88 rounded-lg border shadow-md">
@@ -440,19 +389,17 @@ export const NoResultsFound: Story = {
     });
   },
 };
-
 export const LongList: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Long list to validate scrolling and filtering behavior.",
-      },
-    },
   },
   render: () => {
-    const items = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
-
+    const items = Array.from(
+      {
+        length: 30,
+      },
+      (_, i) => `Item ${i + 1}`
+    );
     return (
       <Command className="w-88 rounded-lg border shadow-md">
         <CommandInput placeholder="Search items..." />
@@ -479,39 +426,28 @@ export const LongList: Story = {
     });
   },
 };
-
 export const AsyncSearch: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Async loading state and result rendering.",
-      },
-    },
   },
   render: () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [results, setResults] = useState<string[]>([]);
-
     const handleSearch = async (query: string) => {
       setSearchQuery(query);
       if (!query.trim()) {
         setResults([]);
         return;
       }
-
       setIsLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 500));
-
       const mockResults = ["John Doe", "Jane Smith", "Johnny Appleseed", "John Johnson"].filter(
         (name) => name.toLowerCase().includes(query.toLowerCase())
       );
-
       setResults(mockResults);
       setIsLoading(false);
     };
-
     return (
       <Command className="w-88 rounded-lg border shadow-md">
         <CommandInput
@@ -552,19 +488,15 @@ export const AsyncSearch: Story = {
       () => {
         expect(canvas.queryByText("Searching...") || canvas.queryByText("Jane Smith")).toBeTruthy();
       },
-      { timeout: 3000 }
+      {
+        timeout: 3000,
+      }
     );
   },
 };
-
 export const VisualRegression: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Visual baseline for command styling and structure.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -593,15 +525,9 @@ export const VisualRegression: Story = {
     </div>
   ),
 };
-
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground for root command props.",
-      },
-    },
   },
   args: {
     className: "w-88 rounded-lg border shadow-md",

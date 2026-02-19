@@ -7,41 +7,6 @@ import {
   layoutCompositions,
   layoutExamples,
 } from "./layout";
-
-/**
- * # Aura Layout System
- *
- * The layout system provides a responsive grid built on CSS Grid and Container Queries.
- * Unlike media queries which respond to viewport width, container queries respond to
- * the container's width—perfect for components that may appear in various contexts.
- *
- * ## Key Concepts
- *
- * 1. **Container Query Context**: Wrap content with `@container` to enable responsive behaviour
- * 2. **Responsive Grid**: Use `grid grid-cols-4 @sm:grid-cols-8 @md:grid-cols-12`
- * 3. **Column Spanning**: Use responsive spans like `col-span-4 @md:col-span-6`
- *
- * ## Breakpoints
- *
- * | Name | Range         | Columns | Prefix |
- * |------|---------------|---------|--------|
- * | base | 0-639px       | 4       | (none) |
- * | sm   | 640-767px     | 8       | @sm:   |
- * | md   | 768-1023px    | 12      | @md:   |
- * | lg   | 1024-1280px   | 12      | @lg:   |
- * | xl   | 1281-1536px   | 12      | @xl:   |
- *
- * ## Usage
- *
- * ```tsx
- * <div className="@container">
- *   <div className="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
- *     <div className="col-span-4 @md:col-span-8">Main</div>
- *     <div className="col-span-4 @md:col-span-4">Sidebar</div>
- *   </div>
- * </div>
- * ```
- */
 const meta: Meta = {
   title: "Foundations/Layout",
   tags: ["autodocs"],
@@ -49,32 +14,12 @@ const meta: Meta = {
     layout: "padded",
   },
 };
-
 export default meta;
 type Story = StoryObj;
-
-// =============================================================================
-// Breakpoint Stories
-// =============================================================================
-
-/**
- * The four responsive breakpoints with their grid configurations.
- * Container queries use these breakpoints to adapt layouts.
- */
 export const Breakpoints: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Layout breakpoints define how the grid adapts at different container widths. Each breakpoint specifies columns, gutters, and margins.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(layoutBreakpoints.length).toBe(5);
-
     await expect(canvas.getByTestId("breakpoint-base")).toBeInTheDocument();
     await expect(canvas.getByTestId("breakpoint-sm")).toBeInTheDocument();
     await expect(canvas.getByTestId("breakpoint-md")).toBeInTheDocument();
@@ -122,27 +67,10 @@ export const Breakpoints: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Container Query Stories
-// =============================================================================
-
-/**
- * Container query class prefixes for each breakpoint.
- */
 export const ContainerQueries: Story = {
   name: "Container Query Classes",
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Container queries allow styles to respond to the container width rather than viewport. Use these prefixes with any Tailwind class.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(layoutBreakpoints.length).toBe(5);
     await expect(canvas.getByTestId("container-queries")).toBeInTheDocument();
   },
@@ -187,29 +115,13 @@ export const ContainerQueries: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Interactive Grid Demo
-// =============================================================================
-
-/**
- * Interactive demo showing how the grid adapts to container width.
- * Resize the container to see breakpoints in action.
- */
 export const InteractiveDemo: Story = {
   name: "Interactive: Resize Demo",
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        story:
-          "Drag the resize handle to see how the grid responds to different container widths. The grid columns change based on container queries, not viewport.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByTestId("resize-container")).toBeInTheDocument();
     await expect(canvas.getByTestId("grid-demo")).toBeInTheDocument();
   },
@@ -224,10 +136,12 @@ export const InteractiveDemo: Story = {
       <div
         data-testid="resize-container"
         className="resize-x overflow-auto border-2 border-dashed border-border rounded-lg bg-background min-w-[320px] max-w-full"
-        style={{ width: "800px" }}
+        style={{
+          width: "800px",
+        }}
       >
         <div className="@container p-4" data-testid="grid-demo">
-          {/* Current breakpoint indicator */}
+          {}
           <div className="mb-4 p-2 bg-muted rounded text-sm font-mono">
             <span className="@sm:hidden">Base (&lt;640px) — 4 columns</span>
             <span className="hidden @sm:inline @md:hidden">sm (640-767px) — 8 columns</span>
@@ -235,9 +149,11 @@ export const InteractiveDemo: Story = {
             <span className="hidden @lg:inline">lg+ (≥1024px) — 12 columns</span>
           </div>
 
-          {/* Responsive grid */}
+          {}
           <div className="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
-            {Array.from({ length: 12 }).map((_, i) => (
+            {Array.from({
+              length: 12,
+            }).map((_, i) => (
               <div
                 key={i}
                 className="bg-indigo-100 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded p-2 text-center text-sm font-medium text-indigo-700 dark:text-indigo-300"
@@ -251,27 +167,10 @@ export const InteractiveDemo: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Column Span Stories
-// =============================================================================
-
-/**
- * Common column span patterns for responsive layouts.
- */
 export const ColumnSpans: Story = {
   name: "Pattern: Column Spans",
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Pre-defined column span patterns that maintain proportions across breakpoints. Use these for consistent responsive behaviour.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(columnSpans.length).toBe(7);
     await expect(canvas.getByTestId("column-spans")).toBeInTheDocument();
   },
@@ -298,27 +197,10 @@ export const ColumnSpans: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Layout Composition Stories
-// =============================================================================
-
-/**
- * Common layout compositions using the grid system.
- */
 export const Compositions: Story = {
   name: "Pattern: Layout Compositions",
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Pre-built layout patterns for common UI structures. Each composition adapts responsively using container queries.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const compositionCount = Object.keys(layoutCompositions).length;
     await expect(compositionCount).toBe(6);
     await expect(canvas.getByTestId("layout-compositions")).toBeInTheDocument();
@@ -357,34 +239,20 @@ export const Compositions: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Visual Layout Examples
-// =============================================================================
-
-/**
- * Visual demonstration of the sidebar left layout.
- */
 export const SidebarLeftLayout: Story = {
   name: "Example: Sidebar Left",
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        story: "A common layout with navigation sidebar on the left and main content on the right.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByTestId("sidebar")).toBeInTheDocument();
     await expect(canvas.getByTestId("main-content")).toBeInTheDocument();
   },
   render: () => (
     <div className="@container min-h-screen bg-background">
       <div className="grid grid-cols-4 gap-2 px-4 py-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3">
-        {/* Sidebar */}
+        {}
         <aside
           data-testid="sidebar"
           className="col-span-4 @sm:col-span-2 @md:col-span-3 bg-muted rounded-lg p-4"
@@ -403,7 +271,7 @@ export const SidebarLeftLayout: Story = {
           </nav>
         </aside>
 
-        {/* Main content */}
+        {}
         <main data-testid="main-content" className="col-span-4 @sm:col-span-6 @md:col-span-9">
           <div className="border border-border rounded-lg p-6">
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
@@ -417,24 +285,13 @@ export const SidebarLeftLayout: Story = {
     </div>
   ),
 };
-
-/**
- * Visual demonstration of a card grid layout.
- */
 export const CardGridLayout: Story = {
   name: "Example: Card Grid",
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        story:
-          "A responsive card grid that adapts from 1 column on mobile to 3 columns on desktop.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByTestId("card-grid")).toBeInTheDocument();
     const cards = canvas.getAllByTestId(/^card-\d+$/);
     await expect(cards.length).toBe(6);
@@ -462,36 +319,41 @@ export const CardGridLayout: Story = {
     </div>
   ),
 };
-
-/**
- * Visual demonstration of a dashboard metrics layout.
- */
 export const DashboardLayout: Story = {
   name: "Example: Dashboard",
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        story:
-          "A dashboard layout with metric cards and a main chart area, all responsive to container width.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByTestId("dashboard")).toBeInTheDocument();
     await expect(canvas.getByTestId("chart-area")).toBeInTheDocument();
   },
   render: () => (
     <div className="@container min-h-screen bg-background p-4" data-testid="dashboard">
       <div className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
-        {/* Metrics row */}
+        {}
         {[
-          { label: "Users", value: "12,345", change: "+12%" },
-          { label: "Revenue", value: "$45,678", change: "+8%" },
-          { label: "Orders", value: "890", change: "+23%" },
-          { label: "Growth", value: "15.2%", change: "+5%" },
+          {
+            label: "Users",
+            value: "12,345",
+            change: "+12%",
+          },
+          {
+            label: "Revenue",
+            value: "$45,678",
+            change: "+8%",
+          },
+          {
+            label: "Orders",
+            value: "890",
+            change: "+23%",
+          },
+          {
+            label: "Growth",
+            value: "15.2%",
+            change: "+5%",
+          },
         ].map((metric, i) => (
           <div key={i} className="col-span-2 @sm:col-span-2 @md:col-span-3 bg-card rounded-lg p-4">
             <p className="text-sm text-muted-foreground">{metric.label}</p>
@@ -500,7 +362,7 @@ export const DashboardLayout: Story = {
           </div>
         ))}
 
-        {/* Chart area */}
+        {}
         <div
           data-testid="chart-area"
           className="col-span-4 @sm:col-span-8 @md:col-span-12 bg-card rounded-lg p-4 min-h-64"
@@ -514,25 +376,13 @@ export const DashboardLayout: Story = {
     </div>
   ),
 };
-
-/**
- * Comprehensive dashboard with various widget sizes.
- * Demonstrates how a real dashboard with mixed card sizes adapts across breakpoints.
- */
 export const ComprehensiveDashboard: Story = {
   name: "Example: Comprehensive Dashboard",
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        story:
-          "A realistic dashboard layout with status cards, metrics, charts, and widgets of varying sizes. Resize to see how the grid adapts.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByTestId("comprehensive-dashboard")).toBeInTheDocument();
     await expect(canvas.getByTestId("status-cards")).toBeInTheDocument();
     await expect(canvas.getByTestId("main-chart")).toBeInTheDocument();
@@ -540,24 +390,42 @@ export const ComprehensiveDashboard: Story = {
   render: () => (
     <div className="@container min-h-screen p-4" data-testid="comprehensive-dashboard">
       <div className="grid grid-cols-4 gap-3 @sm:grid-cols-8 @md:grid-cols-12 @lg:gap-4">
-        {/* Row 1: Status cards - 5 small cards across on desktop */}
+        {}
         <div
           data-testid="status-cards"
           className="col-span-4 @sm:col-span-8 @md:col-span-12 grid grid-cols-2 gap-3 @sm:grid-cols-3 @md:grid-cols-5 @lg:gap-4"
         >
           {[
-            { status: "Critical", id: "P-401", variant: "destructive" },
-            { status: "Critical", id: "P-401", variant: "destructive" },
-            { status: "Warning", id: "P-401", variant: "warning" },
-            { status: "Warning", id: "P-401", variant: "warning" },
-            { status: "Warning", id: "P-401", variant: "warning" },
+            {
+              status: "Critical",
+              id: "P-401",
+              variant: "destructive",
+            },
+            {
+              status: "Critical",
+              id: "P-401",
+              variant: "destructive",
+            },
+            {
+              status: "Warning",
+              id: "P-401",
+              variant: "warning",
+            },
+            {
+              status: "Warning",
+              id: "P-401",
+              variant: "warning",
+            },
+            {
+              status: "Warning",
+              id: "P-401",
+              variant: "warning",
+            },
           ].map((item, i) => (
             <div key={i} className="bg-card rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
                 <div
-                  className={`w-2 h-2 rounded-full ${
-                    item.variant === "destructive" ? "bg-destructive" : "bg-warning"
-                  }`}
+                  className={`w-2 h-2 rounded-full ${item.variant === "destructive" ? "bg-destructive" : "bg-warning"}`}
                 />
                 <span className="text-sm font-medium">{item.status}</span>
               </div>
@@ -566,7 +434,7 @@ export const ComprehensiveDashboard: Story = {
           ))}
         </div>
 
-        {/* Row 2: OK status cards - 4 across */}
+        {}
         {[1, 2, 3, 4].map((i) => (
           <div
             key={`ok-${i}`}
@@ -580,7 +448,7 @@ export const ComprehensiveDashboard: Story = {
           </div>
         ))}
 
-        {/* Row 3: Large metric card + more OK cards */}
+        {}
         <div className="col-span-4 @sm:col-span-4 @md:col-span-3 bg-card rounded-lg p-4">
           <div className="flex items-baseline gap-2 mb-2">
             <span className="text-4xl font-bold">4.2</span>
@@ -592,7 +460,13 @@ export const ComprehensiveDashboard: Story = {
           <p className="text-xs text-muted-foreground mb-3">Since 2hrs ago</p>
           <div className="h-12 bg-muted rounded flex items-end justify-around px-1">
             {[40, 60, 45, 70, 55, 80, 65, 50, 75, 60, 85, 70].map((h, i) => (
-              <div key={i} className="w-1.5 bg-primary/60 rounded-t" style={{ height: `${h}%` }} />
+              <div
+                key={i}
+                className="w-1.5 bg-primary/60 rounded-t"
+                style={{
+                  height: `${h}%`,
+                }}
+              />
             ))}
           </div>
         </div>
@@ -610,8 +484,8 @@ export const ComprehensiveDashboard: Story = {
           </div>
         ))}
 
-        {/* Main content area: Heatmap + Chart + Sidebar widgets */}
-        {/* Heatmap - left column */}
+        {}
+        {}
         <div className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-4">
             <h3 className="font-medium">Heatmap title</h3>
@@ -652,7 +526,7 @@ export const ComprehensiveDashboard: Story = {
           </div>
         </div>
 
-        {/* Main chart - center */}
+        {}
         <div
           data-testid="main-chart"
           className="col-span-4 @sm:col-span-4 @md:col-span-5 bg-card rounded-lg p-4"
@@ -706,9 +580,9 @@ export const ComprehensiveDashboard: Story = {
           </div>
         </div>
 
-        {/* Right sidebar widgets */}
+        {}
         <div className="col-span-4 @sm:col-span-8 @md:col-span-3 space-y-3 @lg:space-y-4">
-          {/* Progress card */}
+          {}
           <div className="bg-card rounded-lg p-4">
             <h3 className="font-medium">Progress title</h3>
             <p className="text-xs text-muted-foreground mb-3">8 of 12 tasks complete</p>
@@ -721,7 +595,7 @@ export const ComprehensiveDashboard: Story = {
             </div>
           </div>
 
-          {/* Tree view card */}
+          {}
           <div className="bg-card rounded-lg p-4">
             <div className="flex justify-between items-start mb-2">
               <div>
@@ -759,7 +633,7 @@ export const ComprehensiveDashboard: Story = {
           </div>
         </div>
 
-        {/* Bottom row: Large chart + Image widget */}
+        {}
         <div className="col-span-4 @sm:col-span-8 @md:col-span-8 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-2">
             <div>
@@ -829,26 +703,10 @@ export const ComprehensiveDashboard: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Reference Stories
-// =============================================================================
-
-/**
- * Complete reference of all grid patterns.
- */
 export const GridPatternsReference: Story = {
   name: "Reference: Grid Patterns",
-  parameters: {
-    docs: {
-      description: {
-        story: "All available grid pattern classes for quick reference.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const patternCount = Object.keys(gridPatterns).length;
     await expect(patternCount).toBe(4);
     await expect(canvas.getByTestId("grid-patterns-ref")).toBeInTheDocument();
@@ -874,22 +732,10 @@ export const GridPatternsReference: Story = {
     </div>
   ),
 };
-
-/**
- * Code examples for common layout patterns.
- */
 export const CodeExamples: Story = {
   name: "Reference: Code Examples",
-  parameters: {
-    docs: {
-      description: {
-        story: "Copy-paste ready code examples for common layout patterns.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByTestId("code-example-basicGrid")).toBeInTheDocument();
     await expect(canvas.getByTestId("code-example-sidebarLayout")).toBeInTheDocument();
     await expect(canvas.getByTestId("code-example-cardGrid")).toBeInTheDocument();

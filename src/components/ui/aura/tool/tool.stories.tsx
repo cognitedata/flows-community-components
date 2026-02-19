@@ -3,7 +3,6 @@ import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
 import { Button } from "../button";
 import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from "./tool";
-
 const meta: Meta<typeof Tool> = {
   title: "AI/Tool",
   component: Tool,
@@ -11,40 +10,42 @@ const meta: Meta<typeof Tool> = {
   argTypes: {
     open: {
       control: "boolean",
-      description: "Controlled open state of the tool content",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     defaultOpen: {
       control: "boolean",
-      description:
-        "Default open state (uncontrolled). Whether the tool content is open by default.",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     onOpenChange: {
       action: "openChanged",
-      description: "Callback when the open state changes",
       table: {
         category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        type: {
+          summary: "(open: boolean) => void",
+        },
       },
     },
     disabled: {
       control: "boolean",
-      description: "Disable the tool collapsible (trigger cannot be clicked)",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
         category: "Variants/Styling",
       },
@@ -64,13 +65,8 @@ const meta: Meta<typeof Tool> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Tool>;
-
-/**
- * Default tool invocation with input parameters and output.
- */
 export const Basic: Story = {
   render: () => (
     <Tool>
@@ -85,8 +81,14 @@ export const Basic: Story = {
         />
         <ToolOutput
           output={[
-            { file: "src/components/Button.tsx", matches: 5 },
-            { file: "src/components/IconButton.tsx", matches: 2 },
+            {
+              file: "src/components/Button.tsx",
+              matches: 5,
+            },
+            {
+              file: "src/components/IconButton.tsx",
+              matches: 2,
+            },
           ]}
           errorText={undefined}
         />
@@ -95,11 +97,6 @@ export const Basic: Story = {
   ),
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default tool invocation with input parameters and output.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -107,10 +104,6 @@ export const Basic: Story = {
     await expect(header).toBeInTheDocument();
   },
 };
-
-/**
- * Tool invocation that resulted in an error.
- */
 export const WithError: Story = {
   render: () => (
     <Tool>
@@ -130,11 +123,6 @@ export const WithError: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Tool invocation that resulted in an error.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -142,10 +130,6 @@ export const WithError: Story = {
     await expect(canvas.getByText(/File not found/)).toBeInTheDocument();
   },
 };
-
-/**
- * Tool that starts collapsed and can be expanded.
- */
 export const CollapsedByDefault: Story = {
   render: () => (
     <Tool defaultOpen={false}>
@@ -157,17 +141,18 @@ export const CollapsedByDefault: Story = {
             workingDirectory: "/project",
           }}
         />
-        <ToolOutput output={{ success: true, duration: "2.5s" }} errorText={undefined} />
+        <ToolOutput
+          output={{
+            success: true,
+            duration: "2.5s",
+          }}
+          errorText={undefined}
+        />
       </ToolContent>
     </Tool>
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Tool that starts collapsed.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -177,10 +162,6 @@ export const CollapsedByDefault: Story = {
     await expect(parametersHeading).toBeInTheDocument();
   },
 };
-
-/**
- * Tool with complex nested input parameters.
- */
 export const ComplexInput: Story = {
   render: () => (
     <Tool>
@@ -211,11 +192,6 @@ export const ComplexInput: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Tool with complex nested input parameters.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -224,24 +200,28 @@ export const ComplexInput: Story = {
     await expect(canvas.getByText("Result")).toBeInTheDocument();
   },
 };
-
-/**
- * Multiple sequential tool invocations.
- */
 export const MultipleTools: Story = {
   render: () => (
     <div className="space-y-4">
       <Tool defaultOpen={false}>
         <ToolHeader title="list_directory" type="tool-invocation" />
         <ToolContent>
-          <ToolInput input={{ path: "src/" }} />
+          <ToolInput
+            input={{
+              path: "src/",
+            }}
+          />
           <ToolOutput output={["components/", "utils/", "hooks/"]} errorText={undefined} />
         </ToolContent>
       </Tool>
       <Tool defaultOpen={false}>
         <ToolHeader title="read_file" type="tool-invocation" />
         <ToolContent>
-          <ToolInput input={{ path: "src/index.ts" }} />
+          <ToolInput
+            input={{
+              path: "src/index.ts",
+            }}
+          />
           <ToolOutput output="export * from './components';" errorText={undefined} />
         </ToolContent>
       </Tool>
@@ -254,18 +234,19 @@ export const MultipleTools: Story = {
               content: "export const NewComponent = () => <div>Hello</div>;",
             }}
           />
-          <ToolOutput output={{ success: true, bytesWritten: 52 }} errorText={undefined} />
+          <ToolOutput
+            output={{
+              success: true,
+              bytesWritten: 52,
+            }}
+            errorText={undefined}
+          />
         </ToolContent>
       </Tool>
     </div>
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Multiple sequential tool invocations.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -274,10 +255,6 @@ export const MultipleTools: Story = {
     await expect(canvas.getByText("write_file")).toBeInTheDocument();
   },
 };
-
-/**
- * Tool with large structured output.
- */
 export const LargeOutput: Story = {
   render: () => (
     <Tool>
@@ -327,11 +304,6 @@ export const LargeOutput: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Tool with large structured output.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -339,10 +311,6 @@ export const LargeOutput: Story = {
     await expect(canvas.getByText("Result")).toBeInTheDocument();
   },
 };
-
-/**
- * Controlled open state using an external toggle.
- */
 export const Interactive: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
@@ -356,8 +324,17 @@ export const Interactive: Story = {
         <Tool open={open} onOpenChange={setOpen}>
           <ToolHeader title="controlled_tool" type="tool-invocation" />
           <ToolContent>
-            <ToolInput input={{ query: "test" }} />
-            <ToolOutput output={{ status: "completed" }} errorText={undefined} />
+            <ToolInput
+              input={{
+                query: "test",
+              }}
+            />
+            <ToolOutput
+              output={{
+                status: "completed",
+              }}
+              errorText={undefined}
+            />
           </ToolContent>
         </Tool>
       </div>
@@ -365,11 +342,6 @@ export const Interactive: Story = {
   },
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Controlled open state using an external toggle.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -380,31 +352,33 @@ export const Interactive: Story = {
     await expect(canvas.getByText("Parameters")).toBeInTheDocument();
     await userEvent.click(canvas.getByText("Collapse"));
     await expect(canvas.getByText("Expand")).toBeInTheDocument();
-    const toolTrigger = canvas.getByRole("button", { name: "controlled_tool" });
+    const toolTrigger = canvas.getByRole("button", {
+      name: "controlled_tool",
+    });
     await waitFor(() => expect(toolTrigger).not.toHaveAttribute("data-panel-open"));
   },
 };
-
-/**
- * Keyboard navigation: Tab to focus, Enter or Space to toggle.
- */
 export const Accessibility: Story = {
   render: () => (
     <Tool defaultOpen={false}>
       <ToolHeader title="accessible_tool" type="tool-invocation" />
       <ToolContent>
-        <ToolInput input={{ key: "value" }} />
-        <ToolOutput output={{ result: "success" }} errorText={undefined} />
+        <ToolInput
+          input={{
+            key: "value",
+          }}
+        />
+        <ToolOutput
+          output={{
+            result: "success",
+          }}
+          errorText={undefined}
+        />
       </ToolContent>
     </Tool>
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Keyboard navigation: Tab to focus the trigger, Enter or Space to toggle.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -418,10 +392,6 @@ export const Accessibility: Story = {
     await waitFor(() => expect(trigger).not.toHaveAttribute("data-panel-open"));
   },
 };
-
-/**
- * Visual regression baseline.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
@@ -430,8 +400,17 @@ export const VisualRegression: Story = {
         <Tool>
           <ToolHeader title="sample_tool" type="tool-invocation" />
           <ToolContent>
-            <ToolInput input={{ key: "value" }} />
-            <ToolOutput output={{ result: "success" }} errorText={undefined} />
+            <ToolInput
+              input={{
+                key: "value",
+              }}
+            />
+            <ToolOutput
+              output={{
+                result: "success",
+              }}
+              errorText={undefined}
+            />
           </ToolContent>
         </Tool>
       </div>
@@ -441,7 +420,11 @@ export const VisualRegression: Story = {
         <Tool>
           <ToolHeader title="error_tool" type="tool-invocation" hasError />
           <ToolContent>
-            <ToolInput input={{ invalid: true }} />
+            <ToolInput
+              input={{
+                invalid: true,
+              }}
+            />
             <ToolOutput output={undefined} errorText="Error occurred" />
           </ToolContent>
         </Tool>
@@ -450,11 +433,6 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Visual regression baseline for basic and error states.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },

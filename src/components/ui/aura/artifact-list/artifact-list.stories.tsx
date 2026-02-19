@@ -13,7 +13,6 @@ import {
   ListItemStatus,
   ListItemTitle,
 } from "./artifact-list";
-
 const meta: Meta<typeof ArtifactList> = {
   title: "Primitives/Artifact - List",
   component: ArtifactList,
@@ -21,14 +20,12 @@ const meta: Meta<typeof ArtifactList> = {
   argTypes: {
     className: {
       control: "text",
-      description: "CSS classes for styling the card wrapper",
       table: {
         category: "Display",
       },
     },
     children: {
       control: false,
-      description: "Compositional children (Header, Content)",
       table: {
         category: "Content",
       },
@@ -38,38 +35,26 @@ const meta: Meta<typeof ArtifactList> = {
     layout: "centered",
   },
 };
-
-// ArtifactListTitle argTypes for stories that use it
 const titleArgTypes = {
   as: {
     control: "select",
     options: ["h1", "h2", "h3", "h4", "h5", "h6"],
-    description: "Semantic heading level for ArtifactListTitle (h1-h6)",
     table: {
       category: "Content",
-      defaultValue: { summary: "h3" },
-    },
-  },
-};
-
-export default meta;
-type Story = StoryObj<typeof ArtifactList>;
-
-/**
- * Basic artifact list without header
- */
-export const Basic: Story = {
-  parameters: {
-    order: 1,
-    docs: {
-      description: {
-        story: "Basic task list with status indicators, icons, and descriptions.",
+      defaultValue: {
+        summary: "h3",
       },
     },
   },
+};
+export default meta;
+type Story = StoryObj<typeof ArtifactList>;
+export const Basic: Story = {
+  parameters: {
+    order: 1,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
     await expect(canvas.getByText("Overdue")).toBeInTheDocument();
   },
@@ -97,22 +82,12 @@ export const Basic: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Artifact list with header
- */
 export const WithHeader: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Task list with an optional header section for context.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Maintenance Tasks")).toBeInTheDocument();
     await expect(canvas.getByText("Pump seal replacement")).toBeInTheDocument();
     await expect(canvas.getByText("Overdue")).toBeInTheDocument();
@@ -144,22 +119,12 @@ export const WithHeader: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * All variants displayed for comparison
- */
 export const AllVariants: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "All list item variants side by side for comparison.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Upcoming task")).toBeInTheDocument();
     await expect(canvas.getByText("Current task")).toBeInTheDocument();
     await expect(canvas.getByText("Completed task")).toBeInTheDocument();
@@ -195,28 +160,17 @@ export const AllVariants: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Timeline with custom icons
- */
 export const WithCustomIcons: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "List items with custom icons instead of default variant icons.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Pump 3 cavitation detected")).toBeInTheDocument();
     await expect(canvas.getByText("Compressor C-5 surge events")).toBeInTheDocument();
     await expect(canvas.getByText("Boiler steam leak near header B")).toBeInTheDocument();
   },
   render: () => (
-    //design requires arbitrary width as example
     <ArtifactList className="w-100">
       <ArtifactListHeader>
         <ArtifactListTitle>Recent chat summary</ArtifactListTitle>
@@ -333,22 +287,12 @@ export const WithCustomIcons: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Ordered list with numbered items
- */
 export const OrderedList: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Uses ArtifactListOrdered for numbered/ordered list items.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Verify pump pressure")).toBeInTheDocument();
     await expect(canvas.getByText("Check valve alignment")).toBeInTheDocument();
     await expect(canvas.getByText("Run diagnostics")).toBeInTheDocument();
@@ -375,22 +319,12 @@ export const OrderedList: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Compact timeline list
- */
 export const Timeline: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Compact timeline list with dates and status indicators.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const inspections = canvas.getAllByText("Inspection");
     await expect(inspections.length).toBeGreaterThan(1);
     await expect(canvas.getByText("Event")).toBeInTheDocument();
@@ -421,48 +355,34 @@ export const Timeline: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Interactive list with stateful item updates
- */
 export const Interactive: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Demonstrates stateful list items that toggle completion when clicked.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify initial state - first two items should be "In progress"
     const inProgressItems = canvas.getAllByText("In progress");
     await expect(inProgressItems).toHaveLength(2);
-
-    // Click the first item to toggle it to completed
     const firstItem = canvas.getByText("Pump seal replacement");
     await userEvent.click(firstItem);
-
-    // Wait for the state change
     await waitFor(
       () => {
         const completedItems = canvas.getAllByText("Completed");
         expect(completedItems).toHaveLength(2);
       },
-      { timeout: 300 }
+      {
+        timeout: 300,
+      }
     );
-
-    // Click it again to toggle back
     await userEvent.click(firstItem);
-
     await waitFor(
       () => {
         const inProgressItemsAfter = canvas.getAllByText("In progress");
         expect(inProgressItemsAfter).toHaveLength(2);
       },
-      { timeout: 300 }
+      {
+        timeout: 300,
+      }
     );
   },
   render: function ArtifactListInteractiveStory() {
@@ -486,21 +406,23 @@ export const Interactive: Story = {
         status: "done",
       },
     ]);
-
     const toggleStatus = (id: string) => {
       setItems((prev) =>
         prev.map((item) =>
-          item.id === id ? { ...item, status: item.status === "done" ? "open" : "done" } : item
+          item.id === id
+            ? {
+                ...item,
+                status: item.status === "done" ? "open" : "done",
+              }
+            : item
         )
       );
     };
-
     return (
       <ArtifactList className="w-100">
         <ArtifactListContent>
           {items.map((item) => {
             const isDone = item.status === "done";
-
             return (
               <ArtifactListItem
                 key={item.id}
@@ -519,18 +441,9 @@ export const Interactive: Story = {
     );
   },
 };
-
-/**
- * Edge case: Empty list
- */
 export const EdgeCaseEmpty: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Empty artifact list with no items.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const list = canvasElement.querySelector("[data-slot='artifact-list']");
@@ -545,22 +458,12 @@ export const EdgeCaseEmpty: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Edge case: Long text overflow
- */
 export const EdgeCaseLongText: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "List items with very long text to test overflow behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText(/This is an extremely long task title/)).toBeInTheDocument();
   },
   render: () => (
@@ -591,46 +494,46 @@ export const EdgeCaseLongText: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Demonstrates semantic heading levels for proper document hierarchy
- */
 export const SemanticHeadings: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story:
-          "Both ArtifactListTitle and ListItemTitle support polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document hierarchy where ListItemTitle headings are subordinate to ArtifactListTitle. Defaults: ArtifactListTitle (h3), ListItemTitle (h3).",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify ArtifactListTitle heading levels
-    const h2Title = canvas.getByRole("heading", { level: 2, name: "Main Section Tasks (h2)" });
+    const h2Title = canvas.getByRole("heading", {
+      level: 2,
+      name: "Main Section Tasks (h2)",
+    });
     await expect(h2Title).toBeInTheDocument();
-
-    const h3Title = canvas.getByRole("heading", { level: 3, name: "Default Heading (h3)" });
+    const h3Title = canvas.getByRole("heading", {
+      level: 3,
+      name: "Default Heading (h3)",
+    });
     await expect(h3Title).toBeInTheDocument();
-
-    const h4Title = canvas.getByRole("heading", { level: 4, name: "Subsection Tasks (h4)" });
+    const h4Title = canvas.getByRole("heading", {
+      level: 4,
+      name: "Subsection Tasks (h4)",
+    });
     await expect(h4Title).toBeInTheDocument();
-
-    // Verify ListItemTitle heading levels maintain proper hierarchy
-    const h3ItemTitle = canvas.getByRole("heading", { level: 3, name: "High-level task" });
+    const h3ItemTitle = canvas.getByRole("heading", {
+      level: 3,
+      name: "High-level task",
+    });
     await expect(h3ItemTitle).toBeInTheDocument();
-
-    const h4ItemTitle = canvas.getByRole("heading", { level: 4, name: "Standard task" });
+    const h4ItemTitle = canvas.getByRole("heading", {
+      level: 4,
+      name: "Standard task",
+    });
     await expect(h4ItemTitle).toBeInTheDocument();
-
-    const h5ItemTitle = canvas.getByRole("heading", { level: 5, name: "Nested task" });
+    const h5ItemTitle = canvas.getByRole("heading", {
+      level: 5,
+      name: "Nested task",
+    });
     await expect(h5ItemTitle).toBeInTheDocument();
   },
   render: () => (
     <div className="flex flex-col gap-6 w-full max-w-2xl">
-      {/* h2 example - for main sections */}
+      {}
       <ArtifactList>
         <ArtifactListHeader>
           <ArtifactListTitle as="h2">Main Section Tasks (h2)</ArtifactListTitle>
@@ -646,7 +549,7 @@ export const SemanticHeadings: Story = {
         </ArtifactListContent>
       </ArtifactList>
 
-      {/* h3 example - default */}
+      {}
       <ArtifactList>
         <ArtifactListHeader>
           <ArtifactListTitle>Default Heading (h3)</ArtifactListTitle>
@@ -662,7 +565,7 @@ export const SemanticHeadings: Story = {
         </ArtifactListContent>
       </ArtifactList>
 
-      {/* h4 example - for subsections */}
+      {}
       <ArtifactList>
         <ArtifactListHeader>
           <ArtifactListTitle as="h4">Subsection Tasks (h4)</ArtifactListTitle>
@@ -680,22 +583,12 @@ export const SemanticHeadings: Story = {
     </div>
   ),
 };
-
-/**
- * Edge case: Single item
- */
 export const EdgeCaseSingleItem: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Artifact list with only a single item.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const list = canvas.getByRole("list");
     await expect(list).toBeInTheDocument();
     await expect(list.children).toHaveLength(1);
@@ -716,23 +609,12 @@ export const EdgeCaseSingleItem: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Edge case: Mixed content structure
- */
 export const EdgeCaseMixedContent: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story:
-          "Items with varying content - some with descriptions, some without, some with status.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Title only")).toBeInTheDocument();
     await expect(canvas.getByText("Title with description")).toBeInTheDocument();
     await expect(canvas.getByText("Title with status only")).toBeInTheDocument();
@@ -764,22 +646,12 @@ export const EdgeCaseMixedContent: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Edge case: Very short text
- */
 export const EdgeCaseShortText: Story = {
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: "Items with very short or minimal text content.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("A")).toBeInTheDocument();
     await expect(canvas.getByText("B")).toBeInTheDocument();
     await expect(canvas.getByText("C")).toBeInTheDocument();
@@ -806,26 +678,15 @@ export const EdgeCaseShortText: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Edge case: Many items
- */
 export const EdgeCaseManyItems: Story = {
   parameters: {
     order: 14,
-    docs: {
-      description: {
-        story: "List with many items to test performance and scrolling behavior.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const list = canvas.getByRole("list");
     await expect(list).toBeInTheDocument();
     await expect(list.children.length).toBeGreaterThanOrEqual(20);
-
     await expect(canvas.getByText("Task 1")).toBeInTheDocument();
     await expect(canvas.getByText("Task 20")).toBeInTheDocument();
   },
@@ -835,36 +696,31 @@ export const EdgeCaseManyItems: Story = {
         <ArtifactListTitle>Many Tasks</ArtifactListTitle>
       </ArtifactListHeader>
       <ArtifactListContent className="overflow-y-auto max-h-80">
-        {Array.from({ length: 20 }, (_, i) => (
-          <ArtifactListItem
-            key={i}
-            variant={i % 4 === 0 ? "completed" : i % 3 === 0 ? "now" : "upcoming"}
-          >
-            <ListItemTitle>Task {i + 1}</ListItemTitle>
-            <ListItemDescription>Description for task {i + 1}</ListItemDescription>
-            <ListItemStatus>Status {i + 1}</ListItemStatus>
-          </ArtifactListItem>
-        ))}
+        {Array.from(
+          {
+            length: 20,
+          },
+          (_, i) => (
+            <ArtifactListItem
+              key={i}
+              variant={i % 4 === 0 ? "completed" : i % 3 === 0 ? "now" : "upcoming"}
+            >
+              <ListItemTitle>Task {i + 1}</ListItemTitle>
+              <ListItemDescription>Description for task {i + 1}</ListItemDescription>
+              <ListItemStatus>Status {i + 1}</ListItemStatus>
+            </ArtifactListItem>
+          )
+        )}
       </ArtifactListContent>
     </ArtifactList>
   ),
 };
-
-/**
- * Edge case: Special characters
- */
 export const EdgeCaseSpecialCharacters: Story = {
   parameters: {
     order: 15,
-    docs: {
-      description: {
-        story: "Items with special characters, symbols, and Unicode.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Temperature: 85°C")).toBeInTheDocument();
     await expect(canvas.getByText(/Pressure.*120.*bar/)).toBeInTheDocument();
     await expect(canvas.getByText(/Flow rate.*45.*m³\/h/)).toBeInTheDocument();
@@ -895,26 +751,14 @@ export const EdgeCaseSpecialCharacters: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Edge case: No variant with plain items
- */
 export const EdgeCaseNoVariant: Story = {
   parameters: {
     order: 16,
-    docs: {
-      description: {
-        story: "Items without any variant specified (no automatic icons).",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Plain item 1")).toBeInTheDocument();
     await expect(canvas.getByText("Plain item 2")).toBeInTheDocument();
-
-    // Verify no automatic icons were inserted
     const icons = canvasElement.querySelectorAll('[data-slot="list-item-icon"]');
     await expect(icons.length).toBe(0);
   },
@@ -940,18 +784,9 @@ export const EdgeCaseNoVariant: Story = {
     </ArtifactList>
   ),
 };
-
-/**
- * Playground for interactive experimentation
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground for experimenting with the ArtifactList component.",
-      },
-    },
   },
   render: (args) => (
     <ArtifactList {...args}>
