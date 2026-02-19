@@ -388,7 +388,7 @@
         "@base-ui/react/use-render",
         "class-variance-authority"
       ],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": ["@aura/css", "@aura/separator"],
       "files": [
         {
           "path": "src/components/ui/aura/button-group/button-group.tsx",
@@ -851,7 +851,7 @@
       "title": "Input",
       "description": "A styled text input component with focus and validation states.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": ["@aura/css", "@aura/helper-text", "@aura/input-group"],
       "files": [
         {
           "path": "src/components/ui/aura/input/input.tsx",
@@ -871,11 +871,30 @@
       "title": "InputGroup",
       "description": "A component for grouping inputs with addons and buttons.",
       "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": ["@aura/css", "@aura/button", "@aura/input", "@aura/textarea"],
       "files": [
         {
           "path": "src/components/ui/aura/input-group/input-group.tsx",
           "target": "src/components/ui/aura/input-group.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:component",
+      "title": "Textarea",
+      "description": "A multi-line text input component.",
+      "registryDependencies": ["@aura/css", "@aura/helper-text"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/textarea/textarea.tsx",
+          "target": "src/components/ui/aura/textarea.tsx",
           "type": "registry:component"
         },
         {
@@ -1402,25 +1421,6 @@
       ]
     },
     {
-      "name": "textarea",
-      "type": "registry:component",
-      "title": "Textarea",
-      "description": "A multi-line text input component.",
-      "registryDependencies": ["@aura/css", "@aura/helper-text"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/textarea/textarea.tsx",
-          "target": "src/components/ui/aura/textarea.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "time-input",
       "type": "registry:component",
       "title": "TimeInput",
@@ -1465,7 +1465,13 @@
       "title": "Tool",
       "description": "A collapsible component for displaying AI tool invocations.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/badge",
+        "@aura/button",
+        "@aura/code-block",
+        "@aura/collapsible"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/tool/tool.tsx",
