@@ -26,35 +26,44 @@ const meta: Meta<typeof Toaster> = {
         "bottom-center",
         "bottom-right",
       ],
-      description: "Position of the toasts",
       table: {
         category: "Variants/Styling",
-        type: { summary: "string" },
-        defaultValue: { summary: "bottom-right" },
+        type: {
+          summary: "string",
+        },
+        defaultValue: {
+          summary: "bottom-right",
+        },
       },
     },
     richColors: {
-      control: { type: "boolean" },
+      control: {
+        type: "boolean",
+      },
       description: "Use rich colors for toast types",
       table: {
         category: "Variants/Styling",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     expand: {
       control: "boolean",
-      description: "Expand toasts by default",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     closeButton: {
       control: "boolean",
-      description: "Show close button on toasts",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
   },
@@ -74,18 +83,10 @@ const meta: Meta<typeof Toaster> = {
 export default meta;
 type Story = StoryObj<typeof Toaster>;
 
-/**
- * Default toast.
- */
 export const Default: Story = {
   render: () => <Button onClick={() => toast("Event has been created")}>Show Toast</Button>,
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Default toast notification.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -96,9 +97,6 @@ export const Default: Story = {
   },
 };
 
-/**
- * Toast with description.
- */
 export const WithDescription: Story = {
   render: () => (
     <Button
@@ -113,11 +111,6 @@ export const WithDescription: Story = {
   ),
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Toast with title and description.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -128,9 +121,6 @@ export const WithDescription: Story = {
   },
 };
 
-/**
- * Success toast.
- */
 export const Success: Story = {
   render: () => (
     <Button
@@ -145,11 +135,6 @@ export const Success: Story = {
   ),
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Success variant toast.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -160,9 +145,6 @@ export const Success: Story = {
   },
 };
 
-/**
- * Error toast.
- */
 export const ErrorState: Story = {
   render: () => (
     <Button
@@ -178,11 +160,6 @@ export const ErrorState: Story = {
   ),
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Error variant toast.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -193,9 +170,6 @@ export const ErrorState: Story = {
   },
 };
 
-/**
- * Warning toast.
- */
 export const Warning: Story = {
   render: () => (
     <Button
@@ -211,11 +185,6 @@ export const Warning: Story = {
   ),
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Warning variant toast.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -226,9 +195,6 @@ export const Warning: Story = {
   },
 };
 
-/**
- * Info toast.
- */
 export const Info: Story = {
   render: () => (
     <Button
@@ -244,11 +210,6 @@ export const Info: Story = {
   ),
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Info variant toast.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -259,18 +220,22 @@ export const Info: Story = {
   },
 };
 
-/**
- * Loading toast with promise.
- */
 export const LoadingWithPromise: Story = {
   render: () => (
     <Button
       onClick={() => {
         const promise = () =>
-          new Promise<{ name: string }>((resolve) =>
-            setTimeout(() => resolve({ name: "Sonner" }), 2000)
+          new Promise<{
+            name: string;
+          }>((resolve) =>
+            setTimeout(
+              () =>
+                resolve({
+                  name: "Sonner",
+                }),
+              2000
+            )
           );
-
         toast.promise(promise, {
           loading: "Loading...",
           success: (data: { name: string }) => `${data.name} toast has been added`,
@@ -283,11 +248,6 @@ export const LoadingWithPromise: Story = {
   ),
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Toast that shows loading state and resolves with success/error.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -302,9 +262,6 @@ export const LoadingWithPromise: Story = {
   },
 };
 
-/**
- * Toast with action.
- */
 export const WithAction: Story = {
   render: () => (
     <Button
@@ -323,11 +280,6 @@ export const WithAction: Story = {
   ),
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Toast with an action button.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -340,9 +292,6 @@ export const WithAction: Story = {
   },
 };
 
-/**
- * Toast with custom duration.
- */
 export const CustomDuration: Story = {
   render: () => (
     <div className="flex gap-4">
@@ -380,17 +329,9 @@ export const CustomDuration: Story = {
   ),
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Toasts with different durations.",
-      },
-    },
   },
 };
 
-/**
- * All toast types.
- */
 export const AllTypes: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
@@ -404,17 +345,9 @@ export const AllTypes: Story = {
   ),
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "All available toast types.",
-      },
-    },
   },
 };
 
-/**
- * Dismiss toast.
- */
 export const Dismiss: Story = {
   render: () => {
     const toastId = useRef<string | number | undefined>(undefined);
@@ -446,11 +379,6 @@ export const Dismiss: Story = {
   },
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Programmatically dismiss a specific toast.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -466,9 +394,6 @@ export const Dismiss: Story = {
   },
 };
 
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-4">
@@ -494,20 +419,12 @@ export const VisualRegression: Story = {
   ),
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: "Toast triggers for visual regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
 
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   render: () => (
     <Button
@@ -522,10 +439,5 @@ export const Playground: Story = {
   ),
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive toast example.",
-      },
-    },
   },
 };
