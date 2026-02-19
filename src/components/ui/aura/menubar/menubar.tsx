@@ -1,8 +1,15 @@
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
 import { IconCheck, IconChevronRight, IconCircle } from "@tabler/icons-react";
-import { type ComponentProps, createContext, forwardRef, useContext } from "react";
+import {
+  type ComponentProps,
+  type ComponentRef,
+  createContext,
+  forwardRef,
+  useContext,
+} from "react";
 
+import { cn } from "../../../../lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,8 +24,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { cn } from "../../../../lib/utils";
+} from "../dropdown-menu";
 
 type MenubarSize = "default" | "sm";
 
@@ -72,7 +78,7 @@ function MenubarTrigger({
     <DropdownMenuTrigger
       data-slot="menubar-trigger"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:rounded-sm data-popup-open:bg-accent data-popup-open:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:text-disabled-foreground hover:bg-accent hover:text-accent-foreground flex items-center rounded-sm text-sm font-medium outline-hidden select-none leading-5 tracking-normal",
+        "focus:bg-accent focus:text-accent-foreground focus:rounded-sm data-popup-open:bg-accent data-popup-open:text-accent-foreground data-disabled:pointer-events-none data-disabled:text-disabled-foreground hover:bg-accent hover:text-accent-foreground flex items-center rounded-sm text-sm font-medium outline-hidden select-none leading-5 tracking-normal",
         appliedSize === "default" ? "p-2" : "px-2 py-1",
         className
       )}
@@ -121,7 +127,7 @@ function MenubarItem({
 }
 
 const MenubarCheckboxItem = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.CheckboxItem>,
+  ComponentRef<typeof MenuPrimitive.CheckboxItem>,
   MenuPrimitive.CheckboxItem.Props
 >(({ className, children, checked, ...props }, ref) => {
   return (
@@ -147,7 +153,7 @@ const MenubarCheckboxItem = forwardRef<
 MenubarCheckboxItem.displayName = "MenubarCheckboxItem";
 
 const MenubarRadioItem = forwardRef<
-  React.ElementRef<typeof MenuPrimitive.RadioItem>,
+  ComponentRef<typeof MenuPrimitive.RadioItem>,
   MenuPrimitive.RadioItem.Props
 >(({ className, children, ...props }, ref) => {
   return (
@@ -176,7 +182,7 @@ function MenubarLabel({ className, inset, ...props }: ComponentProps<typeof Drop
     <DropdownMenuLabel
       data-slot="menubar-label"
       data-inset={inset}
-      className={cn("px-2 py-1.5 text-sm font-medium data-[inset]:pl-8", className)}
+      className={cn("px-2 py-1.5 text-sm font-medium data-inset:pl-8", className)}
       {...props}
     />
   );

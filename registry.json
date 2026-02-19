@@ -967,7 +967,7 @@
       "title": "Menubar",
       "description": "A horizontal menu bar component built on Base UI Menubar primitives.",
       "dependencies": ["@base-ui/react/menu", "@base-ui/react/menubar", "@tabler/icons-react"],
-      "registryDependencies": ["@aura/css", "@aura/dropdown-menu"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/menubar/menubar.tsx",

@@ -1,20 +1,23 @@
-/**
- * Menubar Component
- *
- * A horizontal menu bar component built on Base UI Menubar primitives.
- *
- * @example
- * import { Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem } from '@/components/ui/aura/menubar';
- *
- * <Menubar>
- *   <MenubarMenu>
- *     <MenubarTrigger>File</MenubarTrigger>
- *     <MenubarContent>
- *       <MenubarItem>New</MenubarItem>
- *     </MenubarContent>
- *   </MenubarMenu>
- * </Menubar>
- */
+import {
+  Menubar,
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarGroup,
+  MenubarItem,
+  MenubarLabel,
+  MenubarMenu,
+  MenubarPortal,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "./menubar";
+import { MenubarMetadata } from "./menubar.metadata";
+
 export {
   Menubar,
   MenubarPortal,
@@ -32,5 +35,5 @@ export {
   MenubarSub,
   MenubarSubTrigger,
   MenubarSubContent,
-} from "./menubar";
-export { MenubarMetadata } from "./menubar.metadata";
+  MenubarMetadata,
+};

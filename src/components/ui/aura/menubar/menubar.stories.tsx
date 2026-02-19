@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
 import {
   Menubar,
@@ -27,7 +27,7 @@ const meta: Meta<typeof Menubar> = {
       options: ["default", "sm"],
       description: "Size of the menubar",
       table: {
-        category: "Appearance",
+        category: "Variants/Styling",
         type: { summary: '"default" | "sm"' },
         defaultValue: { summary: "sm" },
       },
@@ -36,7 +36,7 @@ const meta: Meta<typeof Menubar> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -109,6 +109,7 @@ export const Default: Story = {
     </Menubar>
   ),
   parameters: {
+    order: 1,
     docs: {
       description: {
         story: "Default menubar with multiple menus.",
@@ -117,16 +118,10 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click File menu
-    const fileTrigger = canvas.getByText("File");
+    const fileTrigger = canvas.getByRole("menuitem", { name: "File" });
     await userEvent.click(fileTrigger);
-
-    // Wait for menu content
-    await waitFor(() => {
-      const menuContent = document.querySelector('[data-slot="menubar-content"]');
-      expect(menuContent).toBeInTheDocument();
-    });
+    const menu = await within(document.body).findByRole("menu");
+    expect(menu).toBeInTheDocument();
   },
 };
 
@@ -159,6 +154,7 @@ export const WithCheckboxItems: Story = {
     );
   },
   parameters: {
+    order: 2,
     docs: {
       description: {
         story: "Menubar with checkbox items for toggle options.",
@@ -190,6 +186,7 @@ export const WithRadioGroup: Story = {
     );
   },
   parameters: {
+    order: 3,
     docs: {
       description: {
         story: "Menubar with radio group for single selection.",
@@ -227,6 +224,7 @@ export const WithSubmenus: Story = {
     </Menubar>
   ),
   parameters: {
+    order: 4,
     docs: {
       description: {
         story: "Menubar with nested submenus.",
@@ -254,6 +252,7 @@ export const WithDestructiveItem: Story = {
     </Menubar>
   ),
   parameters: {
+    order: 5,
     docs: {
       description: {
         story: "Menubar with a destructive action item.",
@@ -346,6 +345,7 @@ export const FullExample: Story = {
     );
   },
   parameters: {
+    order: 6,
     docs: {
       description: {
         story: "Complete application menubar example.",
@@ -360,7 +360,6 @@ export const FullExample: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {/* Basic menubar */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Menubar>
@@ -383,6 +382,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     docs: {
       description: {
         story: "Menubar for visual regression testing.",
@@ -422,6 +422,7 @@ export const Playground: Story = {
     </Menubar>
   ),
   parameters: {
+    order: 99,
     docs: {
       description: {
         story: "Interactive playground - use controls to experiment with menubar props.",
