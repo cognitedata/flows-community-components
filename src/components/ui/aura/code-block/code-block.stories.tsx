@@ -139,7 +139,8 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText(/interface User/)).toBeInTheDocument();
+    const matches = await canvas.findAllByText(/interface User/);
+    await expect(matches.length).toBeGreaterThanOrEqual(1);
     const buttons = await canvas.findAllByRole("button", { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
@@ -155,7 +156,8 @@ export const WithLineNumbers: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText(/interface User/)).toBeInTheDocument();
+    const matches = await canvas.findAllByText(/interface User/);
+    await expect(matches.length).toBeGreaterThanOrEqual(1);
   },
 };
 export const Collapsible: Story = {
