@@ -26,11 +26,11 @@ const meta: Meta<typeof Menubar> = {
       options: ["default", "sm"],
       table: {
         category: "Variants/Styling",
-        type: { 
-          summary: '"default" | "sm"'
-         },
-        defaultValue: { 
-          summary: "sm" 
+        type: {
+          summary: '"default" | "sm"',
+        },
+        defaultValue: {
+          summary: "sm",
         },
       },
     },
