@@ -1,6 +1,7 @@
-import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
+
+import { Button } from "../button";
 import { Loader } from "./loader";
 const meta: Meta<typeof Loader> = {
   title: "AI/Loader",

@@ -1,2 +1,4 @@
-export { Loader } from "./loader";
-export { LoaderMetadata } from "./loader.metadata";
+import { Loader } from "./loader";
+import { LoaderMetadata } from "./loader.metadata";
+
+export { Loader, LoaderMetadata };
