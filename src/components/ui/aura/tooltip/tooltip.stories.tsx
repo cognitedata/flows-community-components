@@ -7,6 +7,16 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tool
 
 type StoryUser = ReturnType<(typeof userEvent)["setup"]>;
 
+const settle = () => new Promise((resolve) => setTimeout(resolve, 200));
+
+const getTooltipTrigger = (element: HTMLElement) => {
+  const trigger = element.closest('[data-slot="tooltip-trigger"]');
+  if (trigger instanceof HTMLElement) {
+    return trigger;
+  }
+  return element;
+};
+
 const getOpenTooltip = (matcher?: RegExp) => {
   const semanticTooltip = within(document.body)
     .queryAllByRole("tooltip")
@@ -64,15 +74,17 @@ const waitForOpenTooltip = async (matcher: RegExp, timeout = 5000) => {
 
 const hoverAndWaitForTooltip = async (
   user: StoryUser,
-  trigger: HTMLElement,
+  element: HTMLElement,
   matcher: RegExp,
   timeout = 5000
 ) => {
+  const trigger = getTooltipTrigger(element);
   await user.hover(trigger);
   try {
     return await waitForOpenTooltip(matcher, timeout);
   } catch {
     await user.unhover(trigger);
+    await settle();
     await user.hover(trigger);
     return await waitForOpenTooltip(matcher, timeout);
   }
@@ -216,7 +228,7 @@ export const WithButtonVariants: Story = {
       firstButton,
       /Publishing will make it available to all users/i
     );
-    await user.unhover(firstButton);
+    await user.unhover(getTooltipTrigger(firstButton));
     await waitForTooltipClosed();
 
     const secondButton = await canvas.findByRole(
@@ -225,12 +237,12 @@ export const WithButtonVariants: Story = {
       { timeout: 2000 }
     );
     await hoverAndWaitForTooltip(user, secondButton, /This button does something important/i);
-    await user.unhover(secondButton);
+    await user.unhover(getTooltipTrigger(secondButton));
     await waitForTooltipClosed();
 
     const thirdButton = await canvas.findByRole("button", { name: /delete/i }, { timeout: 2000 });
     await hoverAndWaitForTooltip(user, thirdButton, /This action cannot be undone/i);
-    await user.unhover(thirdButton);
+    await user.unhover(getTooltipTrigger(thirdButton));
     await waitForTooltipClosed();
   },
   render: () => (
@@ -360,7 +372,7 @@ export const PositionLeft: Story = {
     const button = await canvas.findByRole("button", {}, { timeout: 2000 });
     const tooltip = await hoverAndWaitForTooltip(user, button, /This is a helpful message/i);
     expect(["left", "right"]).toContain(tooltip.getAttribute("data-side"));
-    await user.unhover(button);
+    await user.unhover(getTooltipTrigger(button));
     await waitForTooltipClosed();
   },
   render: () => (
@@ -399,7 +411,7 @@ export const AllPositions: Story = {
         { timeout: 2000 }
       );
       await hoverAndWaitForTooltip(user, button, /This is a helpful message/i);
-      await user.unhover(button);
+      await user.unhover(getTooltipTrigger(button));
       await waitForTooltipClosed();
     }
   },
@@ -464,11 +476,11 @@ export const WithIcons: Story = {
     await expect(warningButton).toBeInTheDocument();
 
     await hoverAndWaitForTooltip(user, infoButton, /View more information/i);
-    await user.unhover(infoButton);
+    await user.unhover(getTooltipTrigger(infoButton));
     await waitForTooltipClosed();
 
     await hoverAndWaitForTooltip(user, helpButton, /Get help with this feature/i);
-    await user.unhover(helpButton);
+    await user.unhover(getTooltipTrigger(helpButton));
     await waitForTooltipClosed();
   },
   render: () => (
@@ -617,7 +629,7 @@ export const KeyboardInteractions: Story = {
       try {
         await waitForKeyboardTooltip();
       } catch {
-        await user.hover(button);
+        await user.hover(getTooltipTrigger(button));
         await waitForKeyboardTooltip();
       }
     }
@@ -761,18 +773,20 @@ export const WithDelay: Story = {
       );
     };
 
-    await user.hover(button);
+    const trigger = getTooltipTrigger(button);
+    await user.hover(trigger);
     expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
 
     try {
       await waitForDelayedTooltip();
     } catch {
-      await user.unhover(button);
-      await user.hover(button);
+      await user.unhover(trigger);
+      await settle();
+      await user.hover(trigger);
       await waitForDelayedTooltip();
     }
 
-    await user.unhover(button);
+    await user.unhover(trigger);
     await waitForTooltipClosed();
   },
   render: () => (
