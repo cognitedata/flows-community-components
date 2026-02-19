@@ -131,11 +131,11 @@ export const IndustrialToolsExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert>
+              <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
@@ -143,6 +143,7 @@ export const IndustrialToolsExpanded: Story = {
                     Industrial tools
                   </div>
                 </div>
+                <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
@@ -184,6 +185,7 @@ export const IndustrialToolsExpanded: Story = {
                     </SidebarMenuItem>
                   </SidebarMenu>
                 </SidebarMainPages>
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Pinned apps">
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="App" size="default">
@@ -244,8 +246,7 @@ export const IndustrialToolsExpanded: Story = {
             </SidebarFooter>
           </Sidebar>
           <div className="flex-1 p-4">
-            <SidebarTrigger />
-            <div className="mt-4">
+            <div>
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
                 This is the main content area. The sidebar header and footer remain visible while
@@ -285,16 +286,17 @@ export const IndustrialToolsCollapsed: Story = {
       <div className="flex h-full w-full">
         <Sidebar collapsible="icon">
           <SidebarHeader>
-            <SidebarHeaderInsert>
+            <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
               <Avatar sizes="default">
                 <AvatarFallback>AK</AvatarFallback>
               </Avatar>
-              <div className="flex flex-col min-w-0">
+              <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                 <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                   AkerBP-DEV
                 </div>
                 <div className="text-xs text-sidebar-foreground/70 truncate">Industrial tools</div>
               </div>
+              <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
             </SidebarHeaderInsert>
             <SidebarProjectSelector>
               <IconMapPinFilled className="h-4 w-4" />
@@ -396,8 +398,7 @@ export const IndustrialToolsCollapsed: Story = {
           </SidebarFooter>
         </Sidebar>
         <div className="flex-1 p-4">
-          <SidebarTrigger />
-          <div className="mt-4">
+          <div>
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
             <p className="text-muted-foreground">
               This is the main content area. The sidebar header and footer remain visible while the
@@ -426,16 +427,17 @@ export const DataManagementExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert>
+              <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
                   <div className="text-xs text-sidebar-foreground/70 truncate">Data management</div>
                 </div>
+                <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
@@ -472,8 +474,10 @@ export const DataManagementExpanded: Story = {
                   </SidebarMenu>
                 </SidebarMainPages>
 
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Integrate" collapsible defaultOpen />
 
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Contextualize" collapsible defaultOpen>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Diagram parsing">
@@ -510,7 +514,9 @@ export const DataManagementExpanded: Story = {
                   </SidebarMenuItem>
                 </SidebarMenuSection>
 
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Build solutions" collapsible defaultOpen />
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Configure" collapsible defaultOpen />
               </SidebarPages>
             </SidebarContent>
@@ -546,8 +552,7 @@ export const DataManagementExpanded: Story = {
             </SidebarFooter>
           </Sidebar>
           <div className="flex-1 p-4">
-            <SidebarTrigger />
-            <div className="mt-4">
+            <div>
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
                 Use the controls to test different sidebar configurations.
@@ -583,16 +588,17 @@ export const DataManagementCollapsed: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert>
+              <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
                   <div className="text-xs text-sidebar-foreground/70 truncate">Data management</div>
                 </div>
+                <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
@@ -629,8 +635,10 @@ export const DataManagementCollapsed: Story = {
                   </SidebarMenu>
                 </SidebarMainPages>
 
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Integrate" collapsible defaultOpen={false} />
 
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Contextualize" collapsible defaultOpen>
                   <SidebarMenuItem>
                     <SidebarMenuButton tooltip="Diagram parsing">
@@ -667,7 +675,9 @@ export const DataManagementCollapsed: Story = {
                   </SidebarMenuItem>
                 </SidebarMenuSection>
 
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Build solutions" collapsible defaultOpen={false} />
+                <SidebarSeparator className="hidden group-data-[collapsible=icon]:block" />
                 <SidebarMenuSection title="Configure" collapsible defaultOpen={false} />
               </SidebarPages>
             </SidebarContent>
@@ -703,8 +713,7 @@ export const DataManagementCollapsed: Story = {
             </SidebarFooter>
           </Sidebar>
           <div className="flex-1 p-4">
-            <SidebarTrigger />
-            <div className="mt-4">
+            <div>
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
                 Use the controls to test different sidebar configurations.
@@ -733,16 +742,17 @@ export const AdminExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert>
+              <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
                   <div className="text-xs text-sidebar-foreground/70 truncate">Admin</div>
                 </div>
+                <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
@@ -809,7 +819,7 @@ export const AdminExpanded: Story = {
             </SidebarFooter>
           </Sidebar>
           <div className="flex-1 p-4">
-            <SidebarTrigger />
+
           </div>
         </div>
       </SidebarProvider>
@@ -840,16 +850,17 @@ export const AdminCollapsed: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert>
+              <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
                   <div className="text-xs text-sidebar-foreground/70 truncate">Admin</div>
                 </div>
+                <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
@@ -916,7 +927,7 @@ export const AdminCollapsed: Story = {
             </SidebarFooter>
           </Sidebar>
           <div className="flex-1 p-4">
-            <SidebarTrigger />
+
           </div>
         </div>
       </SidebarProvider>
@@ -940,16 +951,17 @@ export const AtlasAIExpanded: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert>
+              <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
                   <div className="text-xs text-sidebar-foreground/70 truncate">Atlas AI</div>
                 </div>
+                <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
@@ -1022,7 +1034,6 @@ export const AtlasAIExpanded: Story = {
             </SidebarFooter>
           </Sidebar>
           <div className="flex-1 p-4">
-            <SidebarTrigger />
           </div>
         </div>
       </SidebarProvider>
@@ -1053,16 +1064,17 @@ export const AtlasAICollapsed: Story = {
         <div className="flex h-full w-full">
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <SidebarHeaderInsert>
+              <SidebarHeaderInsert className="group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center">
                 <Avatar sizes="default">
                   <AvatarFallback>AK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-1 min-w-0 flex-col group-data-[collapsible=icon]:hidden">
                   <div className="text-xs font-medium tracking-tightest text-sidebar-foreground truncate">
                     AkerBP-DEV
                   </div>
                   <div className="text-xs text-sidebar-foreground/70 truncate">Atlas AI</div>
                 </div>
+                <SidebarTrigger className="ml-auto shrink-0 group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0" />
               </SidebarHeaderInsert>
               <SidebarProjectSelector>
                 <IconMapPinFilled className="h-4 w-4" />
@@ -1135,7 +1147,6 @@ export const AtlasAICollapsed: Story = {
             </SidebarFooter>
           </Sidebar>
           <div className="flex-1 p-4">
-            <SidebarTrigger />
           </div>
         </div>
       </SidebarProvider>

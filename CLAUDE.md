@@ -113,6 +113,10 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Collapsible play tests are more stable when asserting `data-panel-open` and scoping queries to the panel.
 - Sidebar item badges are vertically centered more reliably with `top-1/2 -translate-y-1/2` than per-size top offsets.
 - Sidebar menu buttons should reserve right padding when a sibling `SidebarMenuBadge` is present (`group-has-data-[sidebar=menu-badge]/menu-item:pr-8`) so badges render inside the button hit area.
+- In sidebar stories, use `SidebarSeparator` with `hidden group-data-[collapsible=icon]:block` before collapsible sections for collapsed-only dividers.
+- In sidebar stories, apply the same collapsed-only `SidebarSeparator` pattern to non-collapsible sections (for example `Pinned apps`) when they should read as separate sections in icon mode.
+- In sidebar stories, keep `SidebarTrigger` in `SidebarHeaderInsert` and hide header title text with `group-data-[collapsible=icon]:hidden` so the trigger remains visible in collapsed mode.
+- For collapsed sidebar story headers, stack trigger above avatar with `SidebarHeaderInsert` collapsed-only `flex-col items-center`, and set trigger classes `group-data-[collapsible=icon]:order-first group-data-[collapsible=icon]:ml-0`.
 - Tooltip play tests should avoid retry-based interaction fallbacks; fix root causes and prefer deterministic semantic checks.
 - Hover card play tests are more reliable when asserting open-state attributes with deterministic waits (no retry fallbacks).
 - Dropdown menu play tests are more reliable when querying portal content with `within(document.body).findByRole("menu")` and semantic menu item roles.
