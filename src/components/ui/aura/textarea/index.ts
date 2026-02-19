@@ -1,3 +1,5 @@
 /** Textarea component. */
-export { Textarea } from "./textarea";
-export { TextareaMetadata } from "./textarea.metadata";
+import { Textarea } from "./textarea";
+import { TextareaMetadata } from "./textarea.metadata";
+
+export { Textarea, TextareaMetadata };

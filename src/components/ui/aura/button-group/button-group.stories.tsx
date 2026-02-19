@@ -1,11 +1,3 @@
-import { Button } from "@/components/ui/aura/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/aura/select";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import {
@@ -22,6 +14,8 @@ import {
   IconUnderline,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { Button } from "../button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 import { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-group";
 
 const meta: Meta<typeof ButtonGroup> = {

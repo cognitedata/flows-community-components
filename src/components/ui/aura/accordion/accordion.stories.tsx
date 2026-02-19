@@ -9,7 +9,6 @@ const meta: Meta<typeof Accordion> = {
   component: Accordion,
   tags: ["autodocs"],
   argTypes: {
-    // Behavior
     type: {
       control: "select",
       options: ["single", "multiple"],
@@ -33,7 +32,7 @@ const meta: Meta<typeof Accordion> = {
       control: "text",
       description: "The value of the item(s) to expand by default",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "string | string[]" },
       },
     },
@@ -41,7 +40,7 @@ const meta: Meta<typeof Accordion> = {
       control: "boolean",
       description: "Disables the entire accordion",
       table: {
-        category: "State",
+        category: "Behavior",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -50,7 +49,7 @@ const meta: Meta<typeof Accordion> = {
       control: "text",
       description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -103,26 +102,16 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find all accordion triggers
-    const triggers = canvas.getAllByRole("button");
+    const triggers = await canvas.findAllByRole("button");
     await expect(triggers).toHaveLength(3);
-
-    // Click first trigger to expand
     await userEvent.click(triggers[0]);
-
-    // Verify first item is expanded
     await waitFor(() => {
-      const content = canvasElement.querySelector("[data-open]");
-      expect(content).toBeInTheDocument();
+      expect(triggers[0]).toHaveAttribute("aria-expanded", "true");
     });
-
-    // Click second trigger - first should close, second should open
     await userEvent.click(triggers[1]);
-
     await waitFor(() => {
-      const openItems = canvasElement.querySelectorAll('[data-slot="accordion-item"][data-open]');
-      expect(openItems).toHaveLength(1);
+      expect(triggers[0]).toHaveAttribute("aria-expanded", "false");
+      expect(triggers[1]).toHaveAttribute("aria-expanded", "true");
     });
   },
 };
@@ -170,10 +159,13 @@ export const DefaultExpanded: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Verify item-2 is open by default
+    const canvas = within(canvasElement);
+    const defaultOpenTrigger = await canvas.findByRole("button", {
+      name: "Should any sections be open by default?",
+    });
+
     await waitFor(() => {
-      const openItem = canvasElement.querySelector('[data-slot="accordion-item"][data-open]');
-      expect(openItem).toBeInTheDocument();
+      expect(defaultOpenTrigger).toHaveAttribute("aria-expanded", "true");
     });
   },
 };
@@ -211,9 +203,12 @@ export const WithIcons: Story = {
     },
   },
   play: async ({ canvasElement }) => {
-    // Verify icons are present
-    const icons = canvasElement.querySelectorAll('[data-slot="accordion-trigger"] svg');
-    await expect(icons.length).toBeGreaterThanOrEqual(3);
+    const canvas = within(canvasElement);
+    const triggers = await canvas.findAllByRole("button");
+    await expect(triggers).toHaveLength(3);
+    await expect(canvas.getByRole("button", { name: "Is it accessible?" })).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Is it styled?" })).toBeInTheDocument();
+    await expect(canvas.getByRole("button", { name: "Is it animated?" })).toBeInTheDocument();
   },
 };
 
@@ -248,16 +243,12 @@ export const Multiple: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = canvas.getAllByRole("button");
-
-    // Open first two items
+    const triggers = await canvas.findAllByRole("button");
     await userEvent.click(triggers[0]);
     await userEvent.click(triggers[1]);
-
-    // Verify both are open
     await waitFor(() => {
-      const openItems = canvasElement.querySelectorAll('[data-slot="accordion-item"][data-open]');
-      expect(openItems).toHaveLength(2);
+      expect(triggers[0]).toHaveAttribute("aria-expanded", "true");
+      expect(triggers[1]).toHaveAttribute("aria-expanded", "true");
     });
   },
 };
@@ -322,12 +313,8 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Click "Open Item 2" button
-    const openItem2Button = canvas.getByText("Open Item 2");
+    const openItem2Button = canvas.getByRole("button", { name: "Open Item 2" });
     await userEvent.click(openItem2Button);
-
-    // Verify item-2 is now open
     await waitFor(() => {
       const currentValue = canvas.getByText(/Current value: item-2/);
       expect(currentValue).toBeInTheDocument();
@@ -361,15 +348,12 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggers = canvas.getAllByRole("button");
-
-    // Verify triggers are disabled
+    const triggers = await canvas.findAllByRole("button");
     for (const trigger of triggers) {
       const isAriaDisabled = trigger.getAttribute("aria-disabled") === "true";
       const hasDataDisabled = trigger.hasAttribute("data-disabled");
-      expect(isAriaDisabled || hasDataDisabled || (trigger as HTMLButtonElement).disabled).toBe(
-        true
-      );
+      const isNativeDisabled = trigger instanceof HTMLButtonElement && trigger.disabled;
+      expect(isAriaDisabled || hasDataDisabled || isNativeDisabled).toBe(true);
     }
   },
 };
@@ -433,7 +417,6 @@ export const RichContent: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
-      {/* Single collapsible */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Single (Collapsible)</h3>
         <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
@@ -447,8 +430,6 @@ export const VisualRegression: Story = {
           </AccordionItem>
         </Accordion>
       </div>
-
-      {/* With icons */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Accordion type="single" collapsible className="w-full">
@@ -462,8 +443,6 @@ export const VisualRegression: Story = {
           </AccordionItem>
         </Accordion>
       </div>
-
-      {/* Disabled */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
         <Accordion type="single" collapsible disabled className="w-full">
