@@ -388,7 +388,7 @@
         "@base-ui/react/use-render",
         "class-variance-authority"
       ],
-      "registryDependencies": ["@aura/css", "@aura/separator"],
+      "registryDependencies": ["@aura/css"],
       "files": [
         {
           "path": "src/components/ui/aura/button-group/button-group.tsx",
