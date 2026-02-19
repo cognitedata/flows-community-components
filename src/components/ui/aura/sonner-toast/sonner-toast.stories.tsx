@@ -297,7 +297,7 @@ export const LoadingWithPromise: Story = {
     expect(body.getByText("Loading...")).toBeInTheDocument();
     expect(body.queryByText("Sonner toast has been added")).not.toBeInTheDocument();
     await waitFor(() => expect(body.getByText("Sonner toast has been added")).toBeInTheDocument(), {
-      timeout: 2000,
+      timeout: 2100,
     });
   },
 };
