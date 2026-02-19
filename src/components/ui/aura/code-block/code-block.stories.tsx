@@ -139,11 +139,8 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const codeBlock = canvasElement.querySelector('[data-slot="code-block"]');
-    await expect(codeBlock).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button", {
-      hidden: true,
-    });
+    await expect(canvas.getByText(/interface User/)).toBeInTheDocument();
+    const buttons = await canvas.findAllByRole("button", { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
@@ -157,8 +154,8 @@ export const WithLineNumbers: Story = {
     order: 2,
   },
   play: async ({ canvasElement }) => {
-    const codeBlock = canvasElement.querySelector('[data-slot="code-block"]');
-    await expect(codeBlock).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText(/interface User/)).toBeInTheDocument();
   },
 };
 export const Collapsible: Story = {
