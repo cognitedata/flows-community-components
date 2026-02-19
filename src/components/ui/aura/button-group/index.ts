@@ -1,8 +1,16 @@
 /** Button group components. */
-export {
+import {
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
   buttonGroupVariants,
 } from "./button-group";
-export { ButtonGroupMetadata } from "./button-group.metadata";
+import { ButtonGroupMetadata } from "./button-group.metadata";
+
+export {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+  buttonGroupVariants,
+  ButtonGroupMetadata,
+};

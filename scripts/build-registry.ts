@@ -383,7 +383,11 @@ function extractJSDocMetadata(filePath: string): { title?: string; description?:
 
 /**
  * Parse local imports to find registry dependencies (component-to-component dependencies).
- * Looks for imports from @/components/ui/aura/* and maps them to registry component names.
+ * Looks for imports from:
+ * - @/components/ui/aura/*
+ * - relative paths that resolve into src/components/ui/aura/*
+ *
+ * Then maps them to registry component names.
  */
 function extractRegistryDependenciesFromFile(filePath: string): string[] {
   const fullPath = path.join(__dirname, "..", filePath);
@@ -395,6 +399,8 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
   try {
     const content = fs.readFileSync(fullPath, "utf8");
     const dependencies = new Set<string>();
+
+    const currentComponent = filePath.match(/src\/components\/ui\/aura\/([^\/]+)/)?.[1];
 
     // Match imports from @/components/ui/aura/*
     // Pattern handles:
@@ -416,12 +422,60 @@ function extractRegistryDependenciesFromFile(filePath: string): string[] {
 
       // Skip if it's the same component (self-import)
       // Handle both flat files (button.tsx) and subfolder files (prompt-input/prompt-input.tsx)
-      const currentComponent = filePath.match(/src\/components\/ui\/aura\/([^\/]+)/)?.[1];
       if (componentName !== currentComponent) {
         dependencies.add(componentName);
       }
 
       match = localImportRegex.exec(content);
+    }
+
+    // Also match relative imports that resolve into src/components/ui/aura/*
+    //
+    // This is important for the Aura registry build because component-to-component imports
+    // often use relative paths (for portability), and those must still be expressed as
+    // registryDependencies so consumers install the required sibling components.
+    const importRegex =
+      /^import\s+(?:type\s+)?(?:\{[^}]*\}|\*\s+as\s+\w+|\w+(?:\s*,\s*\{[^}]*\})?)\s+from\s+["']([^"']+)["']/gm;
+
+    let relativeMatch: RegExpExecArray | null = importRegex.exec(content);
+    while (relativeMatch !== null) {
+      const importPath = relativeMatch[1] as string;
+
+      if (!importPath.startsWith("./") && !importPath.startsWith("../")) {
+        relativeMatch = importRegex.exec(content);
+        continue;
+      }
+
+      const resolved = path.resolve(path.dirname(fullPath), importPath);
+      const relativeToUi = path.relative(uiCogniteDir, resolved);
+
+      // Ignore relative imports that don't resolve under src/components/ui/aura/
+      if (relativeToUi.startsWith("..") || path.isAbsolute(relativeToUi)) {
+        relativeMatch = importRegex.exec(content);
+        continue;
+      }
+
+      const firstSegment = relativeToUi.split(path.sep)[0];
+      const candidateComponent = firstSegment?.replace(/\.(tsx?|jsx?)$/, "");
+      if (!candidateComponent || candidateComponent === currentComponent) {
+        relativeMatch = importRegex.exec(content);
+        continue;
+      }
+
+      const folderComponentPath = path.join(
+        uiCogniteDir,
+        candidateComponent,
+        `${candidateComponent}.tsx`
+      );
+      const flatComponentPath = path.join(uiCogniteDir, `${candidateComponent}.tsx`);
+      const isKnownComponent =
+        fs.existsSync(folderComponentPath) || fs.existsSync(flatComponentPath);
+
+      if (isKnownComponent) {
+        dependencies.add(candidateComponent);
+      }
+
+      relativeMatch = importRegex.exec(content);
     }
 
     return Array.from(dependencies).sort();

@@ -23,7 +23,7 @@ export default function PatternsPage() {
             name: pattern.name,
             description: pattern.description,
             href: pattern.url,
-            progressStatus: "untracked",
+            status: "pattern",
           })),
         },
       ]}
