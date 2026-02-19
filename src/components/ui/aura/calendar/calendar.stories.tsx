@@ -238,7 +238,6 @@ export const OutlineButtons: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Single Selection</h3>
         <div className="rounded-md border w-fit">
@@ -246,7 +245,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Range Selection (2 months)</h3>
         <div className="rounded-md border w-fit">
@@ -254,7 +252,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Dropdowns</h3>
         <div className="rounded-md border w-fit">

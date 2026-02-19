@@ -1317,14 +1317,11 @@ export const StackedAreaChart: Story = {
                 bottom: 0,
               }}
             >
-              {}
               <defs>
-                {}
                 <linearGradient id="areaGradientR401" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="rgba(47, 85, 234, 0.13)" />
                   <stop offset="100%" stopColor="rgba(47, 85, 234, 0.04)" />
                 </linearGradient>
-                {}
                 <linearGradient id="areaGradientR402" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="rgba(47, 85, 234, 0.48)" />
                   <stop offset="100%" stopColor="rgba(47, 85, 234, 0.3)" />
@@ -1371,7 +1368,6 @@ export const StackedAreaChart: Story = {
                   );
                 }}
               />
-              {}
               <Area
                 type="monotone"
                 dataKey="r401"
@@ -1386,7 +1382,6 @@ export const StackedAreaChart: Story = {
                   strokeWidth: 2,
                 }}
               />
-              {}
               <Area
                 type="monotone"
                 dataKey="r402"
@@ -1496,7 +1491,6 @@ export const MultiLineChart: Story = {
                   );
                 }}
               />
-              {}
               <Line
                 type="monotone"
                 dataKey="muted"
@@ -1510,7 +1504,6 @@ export const MultiLineChart: Story = {
                   strokeWidth: 2,
                 }}
               />
-              {}
               <Line
                 type="monotone"
                 dataKey="strong"
@@ -1581,7 +1574,6 @@ export const HorizontalBarChart: Story = {
                 right: 40,
               }}
             >
-              {}
               <defs>
                 <linearGradient id={barGradientId} x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stopColor="rgba(47, 85, 234, 0.35)" />
@@ -1617,7 +1609,6 @@ export const HorizontalBarChart: Story = {
                   return (
                     <div className="flex items-center gap-4 rounded border border-border bg-popover px-2 py-1 shadow-md">
                       <div className="flex items-center gap-1.5">
-                        {}
                         <svg
                           width="8"
                           height="8"
@@ -1703,7 +1694,6 @@ function RadialRingSvg({
         const isHovered = hoveredRing?.name === ring.name;
         return (
           <g key={ring.name} onMouseEnter={() => onRingHover(ring)} className="cursor-pointer">
-            {}
             <circle
               cx={cx}
               cy={cy}
@@ -1716,7 +1706,6 @@ function RadialRingSvg({
                 transition: "opacity 150ms",
               }}
             />
-            {}
             <circle
               cx={cx}
               cy={cy}
@@ -1733,7 +1722,6 @@ function RadialRingSvg({
                 transition: "opacity 150ms",
               }}
             />
-            {}
             <circle
               cx={cx}
               cy={cy}

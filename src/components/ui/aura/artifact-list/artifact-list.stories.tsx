@@ -533,7 +533,6 @@ export const SemanticHeadings: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-6 w-full max-w-2xl">
-      {}
       <ArtifactList>
         <ArtifactListHeader>
           <ArtifactListTitle as="h2">Main Section Tasks (h2)</ArtifactListTitle>
@@ -549,7 +548,6 @@ export const SemanticHeadings: Story = {
         </ArtifactListContent>
       </ArtifactList>
 
-      {}
       <ArtifactList>
         <ArtifactListHeader>
           <ArtifactListTitle>Default Heading (h3)</ArtifactListTitle>
@@ -565,7 +563,6 @@ export const SemanticHeadings: Story = {
         </ArtifactListContent>
       </ArtifactList>
 
-      {}
       <ArtifactList>
         <ArtifactListHeader>
           <ArtifactListTitle as="h4">Subsection Tasks (h4)</ArtifactListTitle>

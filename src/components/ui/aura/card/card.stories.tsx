@@ -457,7 +457,6 @@ export const SemanticHeadings: Story = {
   },
   render: () => (
     <div className="flex flex-col gap-6 w-full max-w-2xl">
-      {}
       <Card>
         <CardHeader>
           <CardTitle as="h2">Section Title (h2)</CardTitle>
@@ -471,7 +470,6 @@ export const SemanticHeadings: Story = {
         </CardContent>
       </Card>
 
-      {}
       <Card>
         <CardHeader>
           <CardTitle>Default Heading (h3)</CardTitle>
@@ -485,7 +483,6 @@ export const SemanticHeadings: Story = {
         </CardContent>
       </Card>
 
-      {}
       <Card>
         <CardHeader>
           <CardTitle as="h4">Subsection Title (h4)</CardTitle>

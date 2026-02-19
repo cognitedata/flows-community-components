@@ -750,7 +750,6 @@ export const VisualRegression: Story = {
     };
     return (
       <div className="space-y-8 p-4">
-        {}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">
             Counter=False, Size=Default
@@ -801,7 +800,6 @@ export const VisualRegression: Story = {
           </Pagination>
         </div>
 
-        {}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">Counter=False, Size=Small</h3>
           <Pagination>
@@ -850,7 +848,6 @@ export const VisualRegression: Story = {
           </Pagination>
         </div>
 
-        {}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">
             Counter=True, Size=Default
@@ -918,7 +915,6 @@ export const VisualRegression: Story = {
           </Pagination>
         </div>
 
-        {}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">Counter=True, Size=Small</h3>
           <Pagination>
@@ -1016,7 +1012,6 @@ export const EdgeCaseLargePageCount: Story = {
     const [resultsPerPage, setResultsPerPage] = useState("25");
     return (
       <div className="space-y-8">
-        {}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">Default Size (5000 pages)</h3>
           <Pagination>
@@ -1082,7 +1077,6 @@ export const EdgeCaseLargePageCount: Story = {
           </Pagination>
         </div>
 
-        {}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground">Small Size (5000 pages)</h3>
           <Pagination>

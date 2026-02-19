@@ -141,7 +141,6 @@ export const InteractiveDemo: Story = {
         }}
       >
         <div className="@container p-4" data-testid="grid-demo">
-          {}
           <div className="mb-4 p-2 bg-muted rounded text-sm font-mono">
             <span className="@sm:hidden">Base (&lt;640px) — 4 columns</span>
             <span className="hidden @sm:inline @md:hidden">sm (640-767px) — 8 columns</span>
@@ -149,7 +148,6 @@ export const InteractiveDemo: Story = {
             <span className="hidden @lg:inline">lg+ (≥1024px) — 12 columns</span>
           </div>
 
-          {}
           <div className="grid grid-cols-4 gap-2 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4">
             {Array.from({
               length: 12,
@@ -252,7 +250,6 @@ export const SidebarLeftLayout: Story = {
   render: () => (
     <div className="@container min-h-screen bg-background">
       <div className="grid grid-cols-4 gap-2 px-4 py-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3">
-        {}
         <aside
           data-testid="sidebar"
           className="col-span-4 @sm:col-span-2 @md:col-span-3 bg-muted rounded-lg p-4"
@@ -271,7 +268,6 @@ export const SidebarLeftLayout: Story = {
           </nav>
         </aside>
 
-        {}
         <main data-testid="main-content" className="col-span-4 @sm:col-span-6 @md:col-span-9">
           <div className="border border-border rounded-lg p-6">
             <h1 className="text-2xl font-bold mb-4">Main Content</h1>
@@ -332,7 +328,6 @@ export const DashboardLayout: Story = {
   render: () => (
     <div className="@container min-h-screen bg-background p-4" data-testid="dashboard">
       <div className="grid grid-cols-4 gap-4 @sm:grid-cols-8 @md:grid-cols-12">
-        {}
         {[
           {
             label: "Users",
@@ -362,7 +357,6 @@ export const DashboardLayout: Story = {
           </div>
         ))}
 
-        {}
         <div
           data-testid="chart-area"
           className="col-span-4 @sm:col-span-8 @md:col-span-12 bg-card rounded-lg p-4 min-h-64"
@@ -390,7 +384,6 @@ export const ComprehensiveDashboard: Story = {
   render: () => (
     <div className="@container min-h-screen p-4" data-testid="comprehensive-dashboard">
       <div className="grid grid-cols-4 gap-3 @sm:grid-cols-8 @md:grid-cols-12 @lg:gap-4">
-        {}
         <div
           data-testid="status-cards"
           className="col-span-4 @sm:col-span-8 @md:col-span-12 grid grid-cols-2 gap-3 @sm:grid-cols-3 @md:grid-cols-5 @lg:gap-4"
@@ -434,7 +427,6 @@ export const ComprehensiveDashboard: Story = {
           ))}
         </div>
 
-        {}
         {[1, 2, 3, 4].map((i) => (
           <div
             key={`ok-${i}`}
@@ -448,7 +440,6 @@ export const ComprehensiveDashboard: Story = {
           </div>
         ))}
 
-        {}
         <div className="col-span-4 @sm:col-span-4 @md:col-span-3 bg-card rounded-lg p-4">
           <div className="flex items-baseline gap-2 mb-2">
             <span className="text-4xl font-bold">4.2</span>
@@ -484,8 +475,6 @@ export const ComprehensiveDashboard: Story = {
           </div>
         ))}
 
-        {}
-        {}
         <div className="col-span-4 @sm:col-span-4 @md:col-span-4 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-4">
             <h3 className="font-medium">Heatmap title</h3>
@@ -526,7 +515,6 @@ export const ComprehensiveDashboard: Story = {
           </div>
         </div>
 
-        {}
         <div
           data-testid="main-chart"
           className="col-span-4 @sm:col-span-4 @md:col-span-5 bg-card rounded-lg p-4"
@@ -580,9 +568,7 @@ export const ComprehensiveDashboard: Story = {
           </div>
         </div>
 
-        {}
         <div className="col-span-4 @sm:col-span-8 @md:col-span-3 space-y-3 @lg:space-y-4">
-          {}
           <div className="bg-card rounded-lg p-4">
             <h3 className="font-medium">Progress title</h3>
             <p className="text-xs text-muted-foreground mb-3">8 of 12 tasks complete</p>
@@ -595,7 +581,6 @@ export const ComprehensiveDashboard: Story = {
             </div>
           </div>
 
-          {}
           <div className="bg-card rounded-lg p-4">
             <div className="flex justify-between items-start mb-2">
               <div>
@@ -633,7 +618,6 @@ export const ComprehensiveDashboard: Story = {
           </div>
         </div>
 
-        {}
         <div className="col-span-4 @sm:col-span-8 @md:col-span-8 bg-card rounded-lg p-4">
           <div className="flex justify-between items-start mb-2">
             <div>

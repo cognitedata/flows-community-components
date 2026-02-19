@@ -344,7 +344,6 @@ export const FunctionKeys: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Single Keys</h3>
         <div className="flex gap-2">
@@ -355,7 +354,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Key Groups</h3>
         <div className="flex gap-4">
@@ -371,7 +369,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <div className="flex gap-2">
@@ -384,7 +381,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Inline Usage</h3>
         <p className="text-sm">

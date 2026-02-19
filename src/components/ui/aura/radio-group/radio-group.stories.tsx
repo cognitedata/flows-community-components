@@ -337,7 +337,6 @@ export const AllStates: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Vertical</h3>
         <RadioGroup defaultValue="opt1">
@@ -352,7 +351,6 @@ export const VisualRegression: Story = {
         </RadioGroup>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Horizontal</h3>
         <RadioGroup defaultValue="opt1" className="flex gap-4">
@@ -371,7 +369,6 @@ export const VisualRegression: Story = {
         </RadioGroup>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
         <RadioGroup defaultValue="opt1" disabled>

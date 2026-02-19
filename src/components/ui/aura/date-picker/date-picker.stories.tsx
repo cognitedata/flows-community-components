@@ -126,25 +126,21 @@ export const FormExample: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Single Date</h3>
         <DatePicker />
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Pre-selected</h3>
         <DatePickerCustom date={new Date()} />
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Date Range</h3>
         <DateRangePicker />
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
         <DatePickerCustom disabled />

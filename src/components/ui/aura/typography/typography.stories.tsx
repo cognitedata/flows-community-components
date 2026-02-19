@@ -468,7 +468,6 @@ export const FullPageExample: Story = {
   },
   render: () => (
     <div className="min-h-screen bg-background">
-      {}
       <header className="border-b border-border bg-muted/30">
         <div className="max-w-5xl mx-auto px-8 py-16 text-center space-y-6">
           <p className="text-2xs font-medium uppercase tracking-widest text-muted-foreground">
@@ -484,7 +483,6 @@ export const FullPageExample: Story = {
         </div>
       </header>
 
-      {}
       <section className="border-b border-border bg-muted/10 py-12">
         <div className="max-w-5xl mx-auto px-8 text-center">
           <h2 className="font-marketing text-4xl font-bold mb-4">
@@ -497,7 +495,6 @@ export const FullPageExample: Story = {
       </section>
 
       <main className="max-w-5xl mx-auto px-8 py-12">
-        {}
         <div className="space-y-8 mb-16">
           <div className="space-y-2">
             <h1 className="text-5xl font-medium">Documentation</h1>
@@ -509,7 +506,6 @@ export const FullPageExample: Story = {
           </div>
         </div>
 
-        {}
         <section className="mb-12 rounded-lg border border-border p-6">
           <h2 className="text-3xl font-medium mb-2">Usage Analytics</h2>
           <p className="text-3xl font-normal text-muted-foreground mb-6">
@@ -550,9 +546,7 @@ export const FullPageExample: Story = {
         </section>
 
         <div className="grid grid-cols-3 gap-12">
-          {}
           <div className="col-span-2 space-y-8">
-            {}
             <article className="space-y-6">
               <section className="space-y-4">
                 <h2 className="text-2xl font-medium">Core Concepts</h2>
@@ -614,7 +608,6 @@ export const FullPageExample: Story = {
                 </ul>
               </section>
 
-              {}
               <section className="space-y-4">
                 <h3 className="text-xl font-medium">Code Examples</h3>
                 <p className="text-sm font-normal text-muted-foreground">
@@ -658,7 +651,6 @@ export const FullPageExample: Story = {
               </section>
             </article>
 
-            {}
             <section className="space-y-4">
               <h2 className="text-2xl font-medium">Recent Updates</h2>
               <div className="rounded-lg border border-border overflow-hidden">
@@ -700,9 +692,7 @@ export const FullPageExample: Story = {
             </section>
           </div>
 
-          {}
           <aside className="space-y-8">
-            {}
             <div className="rounded-lg border border-border p-6 space-y-3">
               <h3 className="text-lg font-medium">Quick Links</h3>
               <p className="text-lg font-normal text-muted-foreground">Jump to a section</p>
@@ -734,7 +724,6 @@ export const FullPageExample: Story = {
               </nav>
             </div>
 
-            {}
             <div
               className="rounded-lg border border-border p-6 space-y-4"
               data-testid="subscribe-form"
@@ -767,7 +756,6 @@ export const FullPageExample: Story = {
               </button>
             </div>
 
-            {}
             <div className="space-y-2">
               <p className="text-2xs font-medium uppercase tracking-wide text-muted-foreground">
                 Last updated
@@ -781,7 +769,6 @@ export const FullPageExample: Story = {
         </div>
       </main>
 
-      {}
       <footer className="border-t border-border mt-16">
         <div className="max-w-5xl mx-auto px-8 py-8">
           <div className="flex items-center justify-between">

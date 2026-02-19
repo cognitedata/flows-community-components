@@ -290,7 +290,6 @@ export const Dense: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4 w-[650px]">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Table>
@@ -316,7 +315,6 @@ export const VisualRegression: Story = {
         </Table>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Footer</h3>
         <Table>

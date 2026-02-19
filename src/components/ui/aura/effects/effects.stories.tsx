@@ -223,7 +223,6 @@ export const InteractiveExamples: Story = {
   },
   render: () => (
     <div className="space-y-8" data-testid="interactive-examples">
-      {}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Buttons</h3>
         <div className="flex gap-4">
@@ -266,7 +265,6 @@ export const InteractiveExamples: Story = {
         </div>
       </section>
 
-      {}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Cards</h3>
         <div className="grid grid-cols-3 gap-4">
@@ -295,7 +293,6 @@ export const InteractiveExamples: Story = {
         </div>
       </section>
 
-      {}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Form Inputs</h3>
         <div className="grid grid-cols-2 gap-4 max-w-lg">
@@ -326,7 +323,6 @@ export const InteractiveExamples: Story = {
         </div>
       </section>
 
-      {}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Border Radius Examples</h3>
         <div className="flex items-center gap-4">

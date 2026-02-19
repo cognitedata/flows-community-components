@@ -352,7 +352,6 @@ export const AllStates: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">All States</h3>
         <div className="flex flex-wrap gap-6">
@@ -379,7 +378,6 @@ export const VisualRegression: Story = {
         </div>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Without Labels</h3>
         <div className="flex gap-4">

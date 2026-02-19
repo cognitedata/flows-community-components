@@ -283,7 +283,6 @@ export const FullExample: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Menubar>

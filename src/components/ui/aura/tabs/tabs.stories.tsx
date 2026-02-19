@@ -269,7 +269,6 @@ export const FullWidth: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Tabs defaultValue="tab1">
@@ -286,7 +285,6 @@ export const VisualRegression: Story = {
         </Tabs>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Tabs defaultValue="settings">
@@ -306,7 +304,6 @@ export const VisualRegression: Story = {
         </Tabs>
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Full Width</h3>
         <Tabs defaultValue="first">

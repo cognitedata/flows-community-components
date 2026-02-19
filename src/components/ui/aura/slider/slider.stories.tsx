@@ -316,7 +316,6 @@ export const MultipleSliders: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4 w-[350px]">
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Single Thumb</h3>
         <Slider defaultValue={[0]} />
@@ -324,13 +323,11 @@ export const VisualRegression: Story = {
         <Slider defaultValue={[100]} />
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Range</h3>
         <Slider defaultValue={[25, 75]} />
       </div>
 
-      {}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
         <Slider defaultValue={[50]} disabled />
