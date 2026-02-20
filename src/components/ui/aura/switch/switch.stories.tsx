@@ -1,8 +1,9 @@
-import { Label } from "@/components/ui/aura/label";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
 import { useState } from "react";
+import { Label } from "../label";
 import { Switch } from "./switch";
+
 const meta: Meta<typeof Switch> = {
   title: "Primitives/Switch",
   component: Switch,
@@ -11,7 +12,7 @@ const meta: Meta<typeof Switch> = {
     checked: {
       control: "boolean",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "boolean",
         },
@@ -20,7 +21,7 @@ const meta: Meta<typeof Switch> = {
     defaultChecked: {
       control: "boolean",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "boolean",
         },
@@ -32,7 +33,7 @@ const meta: Meta<typeof Switch> = {
     disabled: {
       control: "boolean",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "boolean",
         },
@@ -44,7 +45,7 @@ const meta: Meta<typeof Switch> = {
     required: {
       control: "boolean",
       table: {
-        category: "Validation",
+        category: "Behavior",
         type: {
           summary: "boolean",
         },
@@ -65,7 +66,7 @@ const meta: Meta<typeof Switch> = {
     className: {
       control: "text",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -82,6 +83,9 @@ export const Default: Story = {
       <Label htmlFor="default-switch">Toggle me</Label>
     </div>
   ),
+  parameters: {
+    order: 1,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const switchEl = canvas.getByRole("switch");
@@ -100,6 +104,9 @@ export const DefaultChecked: Story = {
       <Label htmlFor="checked-switch">Notifications enabled</Label>
     </div>
   ),
+  parameters: {
+    order: 2,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const switchEl = canvas.getByRole("switch");
@@ -123,9 +130,12 @@ export const Disabled: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    order: 3,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const switches = canvas.getAllByRole("switch");
+    const switches = await canvas.findAllByRole("switch");
     for (const switchEl of switches) {
       await expect(switchEl).toHaveAttribute("data-disabled");
     }
@@ -160,13 +170,16 @@ export const Controlled: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 4,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const enableButton = canvas.getByText("Enable");
+    const enableButton = canvas.getByRole("button", { name: "Enable" });
     await userEvent.click(enableButton);
     const switchEl = canvas.getByRole("switch");
     await expect(switchEl).toHaveAttribute("data-checked");
-    const disableButton = canvas.getByText("Disable");
+    const disableButton = canvas.getByRole("button", { name: "Disable" });
     await userEvent.click(disableButton);
     await expect(switchEl).toHaveAttribute("data-unchecked");
   },
@@ -186,7 +199,7 @@ export const SettingsForm: Story = {
       }));
     };
     return (
-      <div className="w-[300px] space-y-6">
+      <div className="w-72 space-y-6">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="notifications">Push Notifications</Label>
@@ -230,6 +243,9 @@ export const SettingsForm: Story = {
       </div>
     );
   },
+  parameters: {
+    order: 5,
+  },
 };
 export const WithoutVisibleLabel: Story = {
   render: () => (
@@ -239,6 +255,9 @@ export const WithoutVisibleLabel: Story = {
       <Switch aria-label="Toggle feature 3" disabled />
     </div>
   ),
+  parameters: {
+    order: 6,
+  },
 };
 export const AllStates: Story = {
   render: () => (
@@ -265,6 +284,9 @@ export const AllStates: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    order: 7,
+  },
 };
 export const VisualRegression: Story = {
   render: () => (
@@ -306,6 +328,7 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 8,
     chromatic: {
       disableSnapshot: false,
     },
@@ -323,4 +346,7 @@ export const Playground: Story = {
       <Label htmlFor="playground-switch">Playground switch</Label>
     </div>
   ),
+  parameters: {
+    order: 99,
+  },
 };

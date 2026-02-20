@@ -1,12 +1,4 @@
-/**
- * Switch Component
- *
- * A toggle switch component built on Base UI Switch.
- *
- * @example
- * import { Switch } from '@/components/ui/aura/switch';
- *
- * <Switch checked={checked} onCheckedChange={setChecked} />
- */
-export { Switch } from "./switch";
-export { SwitchMetadata } from "./switch.metadata";
+import { Switch } from "./switch";
+import { SwitchMetadata } from "./switch.metadata";
+
+export { Switch, SwitchMetadata };
