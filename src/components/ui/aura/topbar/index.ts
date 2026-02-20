@@ -24,5 +24,5 @@ export {
   TopbarContent,
   TopbarBreadcrumbs,
   TopbarAction,
-} from "./topbar";
-export { TopbarMetadata } from "./topbar.metadata";
+} from './topbar';
+export { TopbarMetadata } from './topbar.metadata';

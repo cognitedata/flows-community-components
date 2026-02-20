@@ -8,5 +8,5 @@
  *
  * <Label htmlFor="email">Email</Label>
  */
-export { Label } from "./label";
-export { LabelMetadata } from "./label.metadata";
+export { Label } from './label';
+export { LabelMetadata } from './label.metadata';

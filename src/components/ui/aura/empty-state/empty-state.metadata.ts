@@ -1,7 +1,7 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const EmptyStateMetadata: ComponentMeta = {
-  name: "Empty state",
-  status: "in-progress-code-review",
-  description: "Empty-state illustrations and messaging",
+  name: 'Empty state',
+  status: 'in-progress-code-review',
+  description: 'Empty-state illustrations and messaging',
 };

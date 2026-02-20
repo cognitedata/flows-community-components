@@ -1,97 +1,99 @@
-import { Label } from "@/components/ui/aura/label";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
-import { useState } from "react";
-import { Checkbox } from "./checkbox";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
+import { Checkbox } from './checkbox';
+
+import { Label } from '@/components/ui/aura/label';
 const meta: Meta<typeof Checkbox> = {
-  title: "Primitives/Checkbox",
+  title: 'Primitives/Checkbox',
   component: Checkbox,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     checked: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
           summary: 'boolean | "indeterminate"',
         },
       },
     },
     defaultChecked: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     required: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Validation",
+        category: 'Validation',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     name: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Form",
+        category: 'Form',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     value: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Form",
+        category: 'Form',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "on",
+          summary: 'on',
         },
       },
     },
     onCheckedChange: {
-      action: "checkedChange",
+      action: 'checkedChange',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
           summary: '(checked: boolean | "indeterminate") => void',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -105,7 +107,7 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole('checkbox');
     await expect(checkbox).toBeInTheDocument();
     await expect(checkbox).not.toBeChecked();
     await userEvent.click(checkbox);
@@ -123,7 +125,7 @@ export const DefaultChecked: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole('checkbox');
     await expect(checkbox).toBeChecked();
   },
 };
@@ -146,9 +148,9 @@ export const Disabled: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkboxes = canvas.getAllByRole("checkbox");
+    const checkboxes = canvas.getAllByRole('checkbox');
     for (const checkbox of checkboxes) {
-      await expect(checkbox).toHaveAttribute("data-disabled");
+      await expect(checkbox).toHaveAttribute('data-disabled');
     }
   },
 };
@@ -188,28 +190,36 @@ export const Controlled: Story = {
             Toggle
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Checked: {checked ? "true" : "false"}</p>
+        <p className="text-sm text-muted-foreground">
+          Checked: {checked ? 'true' : 'false'}
+        </p>
       </div>
     );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkButton = canvas.getByText("Check");
+    const checkButton = canvas.getByText('Check');
     await userEvent.click(checkButton);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole('checkbox');
     await expect(checkbox).toBeChecked();
-    const uncheckButton = canvas.getByText("Uncheck");
+    const uncheckButton = canvas.getByText('Uncheck');
     await userEvent.click(uncheckButton);
     await expect(checkbox).not.toBeChecked();
   },
 };
 export const Indeterminate: Story = {
   render: function IndeterminateCheckbox() {
-    const [checked, setChecked] = useState<boolean | "indeterminate">("indeterminate");
+    const [checked, setChecked] = useState<boolean | 'indeterminate'>(
+      'indeterminate'
+    );
     return (
       <div className="space-y-4">
         <div className="flex items-center space-x-2">
-          <Checkbox id="indeterminate" checked={checked} onCheckedChange={setChecked} />
+          <Checkbox
+            id="indeterminate"
+            checked={checked}
+            onCheckedChange={setChecked}
+          />
           <Label htmlFor="indeterminate">Select all items</Label>
         </div>
         <div className="flex gap-2">
@@ -229,20 +239,22 @@ export const Indeterminate: Story = {
           </button>
           <button
             type="button"
-            onClick={() => setChecked("indeterminate")}
+            onClick={() => setChecked('indeterminate')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Indeterminate
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">State: {String(checked)}</p>
+        <p className="text-sm text-muted-foreground">
+          State: {String(checked)}
+        </p>
       </div>
     );
   },
 };
 export const CheckboxGroup: Story = {
   render: function CheckboxGroupExample() {
-    const [selected, setSelected] = useState<string[]>(["email"]);
+    const [selected, setSelected] = useState<string[]>(['email']);
     const toggleItem = (item: string) => {
       setSelected((prev) =>
         prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
@@ -251,41 +263,45 @@ export const CheckboxGroup: Story = {
     return (
       <div className="space-y-4">
         <fieldset className="space-y-3">
-          <legend className="text-sm font-medium">Notification preferences</legend>
+          <legend className="text-sm font-medium">
+            Notification preferences
+          </legend>
           <div className="flex items-center space-x-2">
             <Checkbox
               id="email"
-              checked={selected.includes("email")}
-              onCheckedChange={() => toggleItem("email")}
+              checked={selected.includes('email')}
+              onCheckedChange={() => toggleItem('email')}
             />
             <Label htmlFor="email">Email notifications</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
               id="sms"
-              checked={selected.includes("sms")}
-              onCheckedChange={() => toggleItem("sms")}
+              checked={selected.includes('sms')}
+              onCheckedChange={() => toggleItem('sms')}
             />
             <Label htmlFor="sms">SMS notifications</Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
               id="push"
-              checked={selected.includes("push")}
-              onCheckedChange={() => toggleItem("push")}
+              checked={selected.includes('push')}
+              onCheckedChange={() => toggleItem('push')}
             />
             <Label htmlFor="push">Push notifications</Label>
           </div>
         </fieldset>
-        <p className="text-sm text-muted-foreground">Selected: {selected.join(", ") || "None"}</p>
+        <p className="text-sm text-muted-foreground">
+          Selected: {selected.join(', ') || 'None'}
+        </p>
       </div>
     );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const emailCheckbox = canvas.getByLabelText("Email notifications");
+    const emailCheckbox = canvas.getByLabelText('Email notifications');
     await expect(emailCheckbox).toBeChecked();
-    const smsCheckbox = canvas.getByLabelText("SMS notifications");
+    const smsCheckbox = canvas.getByLabelText('SMS notifications');
     await userEvent.click(smsCheckbox);
     await expect(smsCheckbox).toBeChecked();
   },
@@ -296,13 +312,14 @@ export const WithValidation: Story = {
       className="space-y-4"
       onSubmit={(e) => {
         e.preventDefault();
-        alert("Form submitted!");
+        alert('Form submitted!');
       }}
     >
       <div className="flex items-center space-x-2">
         <Checkbox id="terms" required />
         <Label htmlFor="terms">
-          I agree to the terms and conditions <span className="text-red-500">*</span>
+          I agree to the terms and conditions{' '}
+          <span className="text-red-500">*</span>
         </Label>
       </div>
       <button
@@ -353,7 +370,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All States
+        </h3>
         <div className="flex flex-wrap gap-6">
           <div className="flex items-center space-x-2">
             <Checkbox id="vr-unchecked" />
@@ -379,7 +398,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Without Labels</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Without Labels
+        </h3>
         <div className="flex gap-4">
           <Checkbox aria-label="Option 1" />
           <Checkbox aria-label="Option 2" defaultChecked />

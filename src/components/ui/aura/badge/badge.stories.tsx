@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconAlertHexagon,
   IconAlertTriangle,
@@ -10,146 +9,148 @@ import {
   IconStar,
   IconUser,
   IconX,
-} from "@tabler/icons-react";
-import { useState } from "react";
-import { Badge } from "./badge";
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Badge } from './badge';
 const meta: Meta<typeof Badge> = {
-  title: "Primitives/Badge",
+  title: 'Primitives/Badge',
   component: Badge,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
+      control: 'select',
       options: [
-        "default",
-        "fjord",
-        "nordic",
-        "aurora",
-        "sky",
-        "dusk",
-        "orange",
-        "gray",
-        "mountain",
-        "secondary",
-        "error",
-        "warning",
-        "success",
-        "inProgress",
-        "archived",
-        "closable",
+        'default',
+        'fjord',
+        'nordic',
+        'aurora',
+        'sky',
+        'dusk',
+        'orange',
+        'gray',
+        'mountain',
+        'secondary',
+        'error',
+        'warning',
+        'success',
+        'inProgress',
+        'archived',
+        'closable',
       ],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     outline: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     background: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "true",
+          summary: 'true',
         },
       },
     },
     dot: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     urgent: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     size: {
-      control: "select",
-      options: ["default", "icon"],
+      control: 'select',
+      options: ['default', 'icon'],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
           summary: "'default' | 'icon'",
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     children: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "ReactNode",
+          summary: 'ReactNode',
         },
       },
     },
     onClick: {
-      action: "clicked",
+      action: 'clicked',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(event: MouseEvent) => void",
+          summary: '(event: MouseEvent) => void',
         },
       },
     },
     onKeyDown: {
-      action: "keydown",
+      action: 'keydown',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(event: KeyboardEvent) => void",
+          summary: '(event: KeyboardEvent) => void',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["click", "keydown"],
+      handles: ['click', 'keydown'],
     },
   },
 };
@@ -163,8 +164,8 @@ export const AllVariants: Story = {
           Decorative Variants (Filled Only)
         </p>
         <p className="text-xs text-muted-foreground mb-3">
-          These variants are decorative and do not convey semantic meaning. They are filled-only and
-          cannot be outlined.
+          These variants are decorative and do not convey semantic meaning. They
+          are filled-only and cannot be outlined.
         </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">Mountain</Badge>
@@ -177,10 +178,12 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Semantic Variants (Filled)</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Semantic Variants (Filled)
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          These variants convey meaning and support both filled and outlined styles. Icons are
-          included to demonstrate common usage patterns.
+          These variants convey meaning and support both filled and outlined
+          styles. Icons are included to demonstrate common usage patterns.
         </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="inProgress">
@@ -207,11 +210,13 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Semantic Variants (Outlined)</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Semantic Variants (Outlined)
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          Outlined variants use borders instead of backgrounds, with standard foreground colors for
-          better contrast on transparent backgrounds. Only semantic variants support outline
-          styling.
+          Outlined variants use borders instead of backgrounds, with standard
+          foreground colors for better contrast on transparent backgrounds. Only
+          semantic variants support outline styling.
         </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="inProgress" outline>
@@ -238,10 +243,12 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Size Variants</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Size Variants
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          Badges support two size variants: default (for text content) and icon (compact size for
-          icon-only badges).
+          Badges support two size variants: default (for text content) and icon
+          (compact size for icon-only badges).
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="success" size="default">
@@ -262,10 +269,12 @@ export const AllVariants: Story = {
       </div>
 
       <div>
-        <p className="text-sm font-medium text-foreground mb-3">Dot Indicator</p>
+        <p className="text-sm font-medium text-foreground mb-3">
+          Dot Indicator
+        </p>
         <p className="text-xs text-muted-foreground mb-3">
-          Dot variant displays as a circular indicator, useful for status indicators and
-          notifications.
+          Dot variant displays as a circular indicator, useful for status
+          indicators and notifications.
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <Badge variant="success" dot />
@@ -282,79 +291,87 @@ export const AllVariants: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const mountainBadge = canvas.getByText("Mountain");
+    const mountainBadge = canvas.getByText('Mountain');
     await expect(mountainBadge).toBeInTheDocument();
-    await expect(mountainBadge).toHaveClass("bg-decorative-background-mountain");
-    const fjordBadge = canvas.getByText("Fjord");
+    await expect(mountainBadge).toHaveClass(
+      'bg-decorative-background-mountain'
+    );
+    const fjordBadge = canvas.getByText('Fjord');
     await expect(fjordBadge).toBeInTheDocument();
-    await expect(fjordBadge).toHaveClass("bg-decorative-background-fjord");
-    const orangeBadge = canvas.getByText("Orange");
+    await expect(fjordBadge).toHaveClass('bg-decorative-background-fjord');
+    const orangeBadge = canvas.getByText('Orange');
     await expect(orangeBadge).toBeInTheDocument();
-    await expect(orangeBadge).toHaveClass("bg-decorative-background-orange");
-    const successBadges = canvas.getAllByText("Success");
+    await expect(orangeBadge).toHaveClass('bg-decorative-background-orange');
+    const successBadges = canvas.getAllByText('Success');
     await expect(successBadges.length).toBeGreaterThanOrEqual(2);
     const filledSuccessElement = successBadges.find((badge) => {
-      const hasBgSuccess = badge.classList.contains("bg-success");
-      const notOutlined = !badge.classList.contains("border-border");
+      const hasBgSuccess = badge.classList.contains('bg-success');
+      const notOutlined = !badge.classList.contains('border-border');
       return hasBgSuccess && notOutlined;
     });
     expect(filledSuccessElement).toBeDefined();
-    expect(filledSuccessElement?.classList.contains("bg-success")).toBe(true);
-    expect(filledSuccessElement?.classList.contains("text-success-foreground-alternate")).toBe(
-      true
-    );
-    const errorBadges = canvas.getAllByText("Error");
+    expect(filledSuccessElement?.classList.contains('bg-success')).toBe(true);
+    expect(
+      filledSuccessElement?.classList.contains(
+        'text-success-foreground-alternate'
+      )
+    ).toBe(true);
+    const errorBadges = canvas.getAllByText('Error');
     await expect(errorBadges.length).toBeGreaterThanOrEqual(2);
     const filledErrorElement = errorBadges.find((badge) => {
-      const hasBgDestructive = badge.classList.contains("bg-destructive");
-      const notOutlined = !badge.classList.contains("border-border");
+      const hasBgDestructive = badge.classList.contains('bg-destructive');
+      const notOutlined = !badge.classList.contains('border-border');
       return hasBgDestructive && notOutlined;
     });
     expect(filledErrorElement).toBeDefined();
-    expect(filledErrorElement?.classList.contains("bg-destructive")).toBe(true);
-    expect(filledErrorElement?.classList.contains("text-destructive-foreground-alternate")).toBe(
-      true
-    );
+    expect(filledErrorElement?.classList.contains('bg-destructive')).toBe(true);
+    expect(
+      filledErrorElement?.classList.contains(
+        'text-destructive-foreground-alternate'
+      )
+    ).toBe(true);
     const outlinedSuccessElements = successBadges.filter((badge) =>
-      badge.classList.contains("border-border")
+      badge.classList.contains('border-border')
     );
     await expect(outlinedSuccessElements.length).toBeGreaterThan(0);
     const outlinedSuccess = outlinedSuccessElements[0];
-    expect(outlinedSuccess.classList.contains("border-border")).toBe(true);
-    expect(outlinedSuccess.classList.contains("text-success-foreground")).toBe(true);
-    expect(outlinedSuccess.classList.contains("bg-success")).toBe(false);
+    expect(outlinedSuccess.classList.contains('border-border')).toBe(true);
+    expect(outlinedSuccess.classList.contains('text-success-foreground')).toBe(
+      true
+    );
+    expect(outlinedSuccess.classList.contains('bg-success')).toBe(false);
     const allBadges = canvasElement.querySelectorAll('[data-slot="badge"]');
     await expect(allBadges.length).toBeGreaterThanOrEqual(16);
     const allOutlinedBadges = Array.from(allBadges).filter((badge) =>
-      badge.classList.contains("border-border")
+      badge.classList.contains('border-border')
     );
     await expect(allOutlinedBadges.length).toBeGreaterThanOrEqual(5);
-    const defaultSizeBadges = canvas.getAllByText("Default Size", {
+    const defaultSizeBadges = canvas.getAllByText('Default Size', {
       exact: false,
     });
     await expect(defaultSizeBadges.length).toBeGreaterThanOrEqual(2);
     const iconOnlyBadges = Array.from(allBadges).filter((badge) => {
-      const text = badge.textContent?.trim() || "";
-      const hasIcon = badge.querySelector("svg");
+      const text = badge.textContent?.trim() || '';
+      const hasIcon = badge.querySelector('svg');
       return hasIcon && text.length < 3;
     });
     await expect(iconOnlyBadges.length).toBeGreaterThanOrEqual(2);
     const dotBadges = Array.from(allBadges).filter((badge) =>
-      badge.classList.contains("rounded-full")
+      badge.classList.contains('rounded-full')
     );
     await expect(dotBadges.length).toBeGreaterThanOrEqual(4);
-    const textContent = canvasElement.textContent || "";
-    expect(textContent).toContain("Mountain");
-    expect(textContent).toContain("Fjord");
-    expect(textContent).toContain("Nordic");
-    expect(textContent).toContain("Aurora");
-    expect(textContent).toContain("Dusk");
-    expect(textContent).toContain("Orange");
-    expect(textContent).toContain("Neutral");
-    expect(textContent).toContain("Success");
-    expect(textContent).toContain("Warning");
-    expect(textContent).toContain("Error");
-    expect(textContent).toContain("Undefined");
+    const textContent = canvasElement.textContent || '';
+    expect(textContent).toContain('Mountain');
+    expect(textContent).toContain('Fjord');
+    expect(textContent).toContain('Nordic');
+    expect(textContent).toContain('Aurora');
+    expect(textContent).toContain('Dusk');
+    expect(textContent).toContain('Orange');
+    expect(textContent).toContain('Neutral');
+    expect(textContent).toContain('Success');
+    expect(textContent).toContain('Warning');
+    expect(textContent).toContain('Error');
+    expect(textContent).toContain('Undefined');
   },
 };
 export const Mountain: Story = {
@@ -364,16 +381,16 @@ export const Mountain: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Mountain");
+    const badge = canvas.getByText('Mountain');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-decorative-background-mountain");
-    await expect(badge).toHaveClass("text-decorative-foreground-mountain");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-decorative-background-mountain');
+    await expect(badge).toHaveClass('text-decorative-foreground-mountain');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
   },
 };
 export const Fjord: Story = {
@@ -383,16 +400,16 @@ export const Fjord: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Fjord");
+    const badge = canvas.getByText('Fjord');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-decorative-background-fjord");
-    await expect(badge).toHaveClass("text-decorative-foreground-fjord");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-decorative-background-fjord');
+    await expect(badge).toHaveClass('text-decorative-foreground-fjord');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
   },
 };
 export const Nordic: Story = {
@@ -402,16 +419,16 @@ export const Nordic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Nordic");
+    const badge = canvas.getByText('Nordic');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-decorative-background-nordic");
-    await expect(badge).toHaveClass("text-decorative-foreground-nordic");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-decorative-background-nordic');
+    await expect(badge).toHaveClass('text-decorative-foreground-nordic');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
   },
 };
 export const Aurora: Story = {
@@ -421,16 +438,16 @@ export const Aurora: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Aurora");
+    const badge = canvas.getByText('Aurora');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-decorative-background-aurora");
-    await expect(badge).toHaveClass("text-decorative-foreground-aurora");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-decorative-background-aurora');
+    await expect(badge).toHaveClass('text-decorative-foreground-aurora');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
   },
 };
 export const Dusk: Story = {
@@ -440,16 +457,16 @@ export const Dusk: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Dusk");
+    const badge = canvas.getByText('Dusk');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-decorative-background-dusk");
-    await expect(badge).toHaveClass("text-decorative-foreground-dusk");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-decorative-background-dusk');
+    await expect(badge).toHaveClass('text-decorative-foreground-dusk');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
   },
 };
 export const Orange: Story = {
@@ -458,16 +475,16 @@ export const Orange: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Orange");
+    const badge = canvas.getByText('Orange');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-decorative-background-orange");
-    await expect(badge).toHaveClass("text-decorative-foreground-orange");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-decorative-background-orange');
+    await expect(badge).toHaveClass('text-decorative-foreground-orange');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
   },
   render: () => <Badge variant="orange">Orange</Badge>,
 };
@@ -478,16 +495,16 @@ export const Secondary: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Secondary");
+    const badge = canvas.getByText('Secondary');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-secondary");
-    await expect(badge).toHaveClass("text-secondary-foreground");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-secondary');
+    await expect(badge).toHaveClass('text-secondary-foreground');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
   },
 };
 export const Neutral: Story = {
@@ -502,17 +519,17 @@ export const Neutral: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Neutral");
+    const badge = canvas.getByText('Neutral');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-neutral");
-    await expect(badge).toHaveClass("text-neutral-foreground-alternate");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-neutral');
+    await expect(badge).toHaveClass('text-neutral-foreground-alternate');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -528,17 +545,17 @@ export const Success: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Success");
+    const badge = canvas.getByText('Success');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-success");
-    await expect(badge).toHaveClass("text-success-foreground-alternate");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-success');
+    await expect(badge).toHaveClass('text-success-foreground-alternate');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -554,17 +571,17 @@ export const Warning: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Warning");
+    const badge = canvas.getByText('Warning');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-warning");
-    await expect(badge).toHaveClass("text-warning-foreground-alternate");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-warning');
+    await expect(badge).toHaveClass('text-warning-foreground-alternate');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -580,17 +597,17 @@ export const ErrorState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Error");
+    const badge = canvas.getByText('Error');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-destructive");
-    await expect(badge).toHaveClass("text-destructive-foreground-alternate");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-destructive');
+    await expect(badge).toHaveClass('text-destructive-foreground-alternate');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -606,17 +623,17 @@ export const Undefined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Undefined");
+    const badge = canvas.getByText('Undefined');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("bg-undefined");
-    await expect(badge).toHaveClass("text-undefined-foreground-alternate");
-    await expect(badge).not.toHaveClass("border-border");
-    await expect(badge).toHaveClass("border-transparent");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('bg-undefined');
+    await expect(badge).toHaveClass('text-undefined-foreground-alternate');
+    await expect(badge).not.toHaveClass('border-border');
+    await expect(badge).toHaveClass('border-transparent');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -632,18 +649,18 @@ export const NeutralOutlined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Neutral");
+    const badge = canvas.getByText('Neutral');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("border-border");
-    await expect(badge).toHaveClass("text-neutral-foreground");
-    await expect(badge).not.toHaveClass("bg-neutral");
-    await expect(badge).toHaveClass("bg-transparent");
-    await expect(badge).toHaveClass("px-1.5");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('border-border');
+    await expect(badge).toHaveClass('text-neutral-foreground');
+    await expect(badge).not.toHaveClass('bg-neutral');
+    await expect(badge).toHaveClass('bg-transparent');
+    await expect(badge).toHaveClass('px-1.5');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -659,18 +676,18 @@ export const SuccessOutlined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Success");
+    const badge = canvas.getByText('Success');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("border-border");
-    await expect(badge).toHaveClass("text-success-foreground");
-    await expect(badge).not.toHaveClass("bg-success");
-    await expect(badge).toHaveClass("bg-transparent");
-    await expect(badge).toHaveClass("px-1.5");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('border-border');
+    await expect(badge).toHaveClass('text-success-foreground');
+    await expect(badge).not.toHaveClass('bg-success');
+    await expect(badge).toHaveClass('bg-transparent');
+    await expect(badge).toHaveClass('px-1.5');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -686,18 +703,18 @@ export const WarningOutlined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Warning");
+    const badge = canvas.getByText('Warning');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("border-border");
-    await expect(badge).toHaveClass("text-warning-foreground");
-    await expect(badge).not.toHaveClass("bg-warning");
-    await expect(badge).toHaveClass("bg-transparent");
-    await expect(badge).toHaveClass("px-1.5");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('border-border');
+    await expect(badge).toHaveClass('text-warning-foreground');
+    await expect(badge).not.toHaveClass('bg-warning');
+    await expect(badge).toHaveClass('bg-transparent');
+    await expect(badge).toHaveClass('px-1.5');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -713,18 +730,18 @@ export const ErrorOutlined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Error");
+    const badge = canvas.getByText('Error');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("border-border");
-    await expect(badge).toHaveClass("text-destructive-foreground");
-    await expect(badge).not.toHaveClass("bg-destructive");
-    await expect(badge).toHaveClass("bg-transparent");
-    await expect(badge).toHaveClass("px-1.5");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('border-border');
+    await expect(badge).toHaveClass('text-destructive-foreground');
+    await expect(badge).not.toHaveClass('bg-destructive');
+    await expect(badge).toHaveClass('bg-transparent');
+    await expect(badge).toHaveClass('px-1.5');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -740,18 +757,18 @@ export const UndefinedOutlined: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const badge = canvas.getByText("Undefined");
+    const badge = canvas.getByText('Undefined');
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveAttribute("data-slot", "badge");
-    await expect(badge).toHaveClass("border-border");
-    await expect(badge).toHaveClass("text-undefined-foreground");
-    await expect(badge).not.toHaveClass("bg-undefined");
-    await expect(badge).toHaveClass("bg-transparent");
-    await expect(badge).toHaveClass("px-1.5");
-    await expect(badge).toHaveClass("rounded-md");
-    await expect(badge).toHaveClass("inline-flex");
-    await expect(badge).toHaveClass("items-center");
-    const icon = badge.querySelector("svg");
+    await expect(badge).toHaveAttribute('data-slot', 'badge');
+    await expect(badge).toHaveClass('border-border');
+    await expect(badge).toHaveClass('text-undefined-foreground');
+    await expect(badge).not.toHaveClass('bg-undefined');
+    await expect(badge).toHaveClass('bg-transparent');
+    await expect(badge).toHaveClass('px-1.5');
+    await expect(badge).toHaveClass('rounded-md');
+    await expect(badge).toHaveClass('inline-flex');
+    await expect(badge).toHaveClass('items-center');
+    const icon = badge.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
@@ -759,7 +776,9 @@ export const IconSizes: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <div>
-        <p className="text-sm text-muted-foreground mb-3">Default size with text + icon</p>
+        <p className="text-sm text-muted-foreground mb-3">
+          Default size with text + icon
+        </p>
         <div className="flex flex-wrap gap-2">
           <Badge variant="mountain">
             <IconHexagon className="size-3" />
@@ -825,21 +844,22 @@ export const IconSizes: Story = {
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
     const iconSizeBadges = Array.from(badges).filter(
-      (badge) => badge.classList.contains("px-1.5") && badge.classList.contains("py-1")
+      (badge) =>
+        badge.classList.contains('px-1.5') && badge.classList.contains('py-1')
     );
-    iconSizeBadges.forEach((badge) => {
-      expect(badge).toHaveClass("px-1.5");
-      expect(badge).toHaveClass("py-1");
-      expect(badge).toHaveClass("rounded-md");
-    });
+    for (const badge of iconSizeBadges) {
+      expect(badge).toHaveClass('px-1.5');
+      expect(badge).toHaveClass('py-1');
+      expect(badge).toHaveClass('rounded-md');
+    }
     await expect(iconSizeBadges.length).toBe(4);
   },
 };
 export const Playground: Story = {
   render: (args) => <Badge {...args} />,
   args: {
-    variant: "fjord",
-    children: "Badge",
+    variant: 'fjord',
+    children: 'Badge',
   },
   parameters: {
     order: 99,
@@ -873,12 +893,16 @@ export const DotIndicators: Story = {
   },
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    badges.forEach((badge) => {
-      expect(badge).toHaveClass("rounded-full");
-    });
-    const firstDot = badges[0] as HTMLElement;
-    await expect(firstDot).toHaveClass("size-2");
-    await expect(firstDot).toHaveClass("bg-destructive-foreground");
+    for (const badge of badges) {
+      expect(badge).toHaveClass('rounded-full');
+    }
+    const firstDot = badges.item(0);
+    expect(firstDot).not.toBeNull();
+    if (!firstDot) {
+      return;
+    }
+    await expect(firstDot).toHaveClass('size-2');
+    await expect(firstDot).toHaveClass('bg-destructive-foreground');
   },
 };
 export const ClickInteraction: Story = {
@@ -887,31 +911,39 @@ export const ClickInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const initialLabel = canvas.getByText("Click me");
+    const initialLabel = canvas.getByText('Click me');
     const badge = initialLabel.closest('[data-slot="badge"]');
+    expect(badge).not.toBeNull();
+    if (!badge) {
+      return;
+    }
     await expect(badge).toBeInTheDocument();
-    await expect(badge).toHaveClass("cursor-pointer");
-    await userEvent.hover(badge!);
-    await expect(badge).toHaveClass("hover:bg-secondary-hover");
-    await userEvent.click(badge!);
+    await expect(badge).toHaveClass('cursor-pointer');
+    await userEvent.hover(badge);
+    await expect(badge).toHaveClass('hover:bg-secondary-hover');
+    await userEvent.click(badge);
     await waitFor(() => {
-      expect(canvas.getByText("Clicked!")).toBeInTheDocument();
+      expect(canvas.getByText('Clicked!')).toBeInTheDocument();
     });
-    await userEvent.click(badge!);
+    await userEvent.click(badge);
     await waitFor(() => {
-      expect(canvas.getByText("Click me")).toBeInTheDocument();
+      expect(canvas.getByText('Click me')).toBeInTheDocument();
     });
   },
   render: function ClickInteractionStory() {
     const [clicked, setClicked] = useState(false);
     return (
       <div className="flex flex-wrap gap-4 items-center">
-        <Badge variant="closable" onClick={() => setClicked(!clicked)} className="cursor-pointer">
-          {clicked ? "Clicked!" : "Click me"}
+        <Badge
+          variant="closable"
+          onClick={() => setClicked(!clicked)}
+          className="cursor-pointer"
+        >
+          {clicked ? 'Clicked!' : 'Click me'}
           <IconX className="size-3" />
         </Badge>
         <span className="text-sm text-muted-foreground">
-          State: {clicked ? "Active" : "Inactive"}
+          State: {clicked ? 'Active' : 'Inactive'}
         </span>
       </div>
     );
@@ -924,26 +956,26 @@ export const KeyboardInteractions: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.tab();
-    const firstBadge = canvas.getByRole("button", {
-      name: "Toggle badge 1",
+    const firstBadge = canvas.getByRole('button', {
+      name: 'Toggle badge 1',
     });
     await waitFor(() => {
       expect(firstBadge).toHaveFocus();
     });
-    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => {
-      expect(canvas.getByText("Badge 1: Active")).toBeInTheDocument();
+      expect(canvas.getByText('Badge 1: Active')).toBeInTheDocument();
     });
     await userEvent.tab();
-    const secondBadge = canvas.getByRole("button", {
-      name: "Toggle badge 2",
+    const secondBadge = canvas.getByRole('button', {
+      name: 'Toggle badge 2',
     });
     await waitFor(() => {
       expect(secondBadge).toHaveFocus();
     });
-    await userEvent.keyboard(" ");
+    await userEvent.keyboard(' ');
     await waitFor(() => {
-      expect(canvas.getByText("Badge 2: Active")).toBeInTheDocument();
+      expect(canvas.getByText('Badge 2: Active')).toBeInTheDocument();
     });
   },
   render: function KeyboardInteractionsStory() {
@@ -954,40 +986,26 @@ export const KeyboardInteractions: Story = {
         <div className="flex flex-wrap gap-2">
           <Badge
             variant="closable"
-            role="button"
-            tabIndex={0}
+            render={<button type="button" />}
             aria-label="Toggle badge 1"
             onClick={() => setBadge1Active(!badge1Active)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setBadge1Active(!badge1Active);
-              }
-            }}
           >
             Badge 1
             <IconX className="size-3" aria-hidden="true" />
           </Badge>
           <Badge
             variant="closable"
-            role="button"
-            tabIndex={0}
+            render={<button type="button" />}
             aria-label="Toggle badge 2"
             onClick={() => setBadge2Active(!badge2Active)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setBadge2Active(!badge2Active);
-              }
-            }}
           >
             Badge 2
             <IconX className="size-3" aria-hidden="true" />
           </Badge>
         </div>
         <div className="text-sm text-muted-foreground">
-          <p>Badge 1: {badge1Active ? "Active" : "Inactive"}</p>
-          <p>Badge 2: {badge2Active ? "Active" : "Inactive"}</p>
+          <p>Badge 1: {badge1Active ? 'Active' : 'Inactive'}</p>
+          <p>Badge 2: {badge2Active ? 'Active' : 'Inactive'}</p>
         </div>
       </div>
     );
@@ -1000,15 +1018,15 @@ export const Accessibility: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await waitFor(() => {
-      expect(canvas.getByLabelText("Status: Completed")).toBeInTheDocument();
-      expect(canvas.getByLabelText("Status: Failed")).toBeInTheDocument();
-      expect(canvas.getByLabelText("Urgent notification")).toBeInTheDocument();
+      expect(canvas.getByLabelText('Status: Completed')).toBeInTheDocument();
+      expect(canvas.getByLabelText('Status: Failed')).toBeInTheDocument();
+      expect(canvas.getByLabelText('Urgent notification')).toBeInTheDocument();
     });
-    const interactiveBadge = canvas.getByRole("button", {
+    const interactiveBadge = canvas.getByRole('button', {
       name: /Remove tag: JavaScript/i,
     });
     await expect(interactiveBadge).toBeInTheDocument();
-    await expect(interactiveBadge).toHaveAttribute("tabIndex", "0");
+    await expect(interactiveBadge).toBeEnabled();
     await userEvent.tab();
     await userEvent.tab();
     await userEvent.tab();
@@ -1036,12 +1054,8 @@ export const Accessibility: Story = {
       </div>
       <Badge
         variant="closable"
-        role="button"
-        tabIndex={0}
+        render={<button type="button" />}
         aria-label="Remove tag: JavaScript"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") e.preventDefault();
-        }}
       >
         JavaScript
         <IconX className="size-3" aria-hidden="true" />
@@ -1103,17 +1117,17 @@ export const EdgeCaseEmpty: Story = {
   play: async ({ canvasElement }) => {
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
     await expect(badges.length).toBe(3);
-    badges.forEach((badge) => {
-      expect(badge).toHaveClass("inline-flex");
-    });
+    for (const badge of badges) {
+      expect(badge).toHaveClass('inline-flex');
+    }
   },
 };
 export const EdgeCaseLongText: Story = {
   render: () => (
     <div className="flex flex-col gap-2 max-w-md">
       <Badge variant="fjord">
-        This is an extremely long badge text that should demonstrate how the component handles
-        lengthy content
+        This is an extremely long badge text that should demonstrate how the
+        component handles lengthy content
       </Badge>
       <Badge variant="aurora" className="max-w-xs">
         Constrained width with very long text that might wrap or truncate
@@ -1127,18 +1141,18 @@ export const EdgeCaseLongText: Story = {
     const canvas = within(canvasElement);
     const longBadge = canvas.getByText(/extremely long badge text/i);
     await expect(longBadge).toBeInTheDocument();
-    await expect(longBadge).toHaveClass("whitespace-nowrap");
+    await expect(longBadge).toHaveClass('whitespace-nowrap');
   },
 };
 export const EdgeCaseSpecialCharacters: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge variant="fjord">{"<HTML/>"}</Badge>
-      <Badge variant="aurora">{"Status: ⚠️"}</Badge>
-      <Badge variant="mountain">{"Quantity: 1,234"}</Badge>
-      <Badge variant="dusk">{"Price: $99.99"}</Badge>
-      <Badge variant="error">{"Error: #404"}</Badge>
-      <Badge variant="secondary">{"User: <script>"}</Badge>
+      <Badge variant="fjord">{'<HTML/>'}</Badge>
+      <Badge variant="aurora">{'Status: ⚠️'}</Badge>
+      <Badge variant="mountain">{'Quantity: 1,234'}</Badge>
+      <Badge variant="dusk">{'Price: $99.99'}</Badge>
+      <Badge variant="error">{'Error: #404'}</Badge>
+      <Badge variant="secondary">{'User: <script>'}</Badge>
     </div>
   ),
   parameters: {
@@ -1146,9 +1160,9 @@ export const EdgeCaseSpecialCharacters: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("<HTML/>")).toBeInTheDocument();
-    await expect(canvas.getByText("Status: ⚠️")).toBeInTheDocument();
-    await expect(canvas.getByText("User: <script>")).toBeInTheDocument();
+    await expect(canvas.getByText('<HTML/>')).toBeInTheDocument();
+    await expect(canvas.getByText('Status: ⚠️')).toBeInTheDocument();
+    await expect(canvas.getByText('User: <script>')).toBeInTheDocument();
   },
 };
 export const EdgeCaseIconOnly: Story = {
@@ -1174,16 +1188,16 @@ export const EdgeCaseIconOnly: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const badges = canvasElement.querySelectorAll('[data-slot="badge"]');
-    badges.forEach((badge) => {
-      const icon = badge.querySelector("svg");
+    for (const badge of badges) {
+      const icon = badge.querySelector('svg');
       expect(icon).toBeInTheDocument();
-      expect(icon).toHaveAttribute("aria-hidden", "true");
-      expect(badge).toHaveAttribute("aria-label");
-    });
-    await expect(canvas.getByLabelText("Success")).toBeInTheDocument();
-    await expect(canvas.getByLabelText("Error")).toBeInTheDocument();
-    await expect(canvas.getByLabelText("Warning")).toBeInTheDocument();
-    await expect(canvas.getByLabelText("In progress")).toBeInTheDocument();
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(badge).toHaveAttribute('aria-label');
+    }
+    await expect(canvas.getByLabelText('Success')).toBeInTheDocument();
+    await expect(canvas.getByLabelText('Error')).toBeInTheDocument();
+    await expect(canvas.getByLabelText('Warning')).toBeInTheDocument();
+    await expect(canvas.getByLabelText('In progress')).toBeInTheDocument();
   },
 };
 export const EdgeCaseMixedContent: Story = {
@@ -1233,9 +1247,9 @@ export const EdgeCaseWidthConstraints: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fullWidthBadge = canvas.getByText("Full Width");
-    await expect(fullWidthBadge).toHaveClass("w-full");
-    await expect(fullWidthBadge).toHaveClass("justify-center");
+    const fullWidthBadge = canvas.getByText('Full Width');
+    await expect(fullWidthBadge).toHaveClass('w-full');
+    await expect(fullWidthBadge).toHaveClass('justify-center');
   },
 };
 export const EdgeCaseGroupedBadges: Story = {
@@ -1288,9 +1302,9 @@ export const EdgeCaseTinyDots: Story = {
   },
   play: async ({ canvasElement }) => {
     const dots = canvasElement.querySelectorAll('[data-slot="badge"]');
-    dots.forEach((dot) => {
-      expect(dot).toHaveClass("size-2");
-      expect(dot).toHaveClass("rounded-full");
-    });
+    for (const dot of dots) {
+      expect(dot).toHaveClass('size-2');
+      expect(dot).toHaveClass('rounded-full');
+    }
   },
 };

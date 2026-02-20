@@ -1,44 +1,52 @@
-import { Alert } from "@/components/ui/aura/alert";
-import { Button } from "@/components/ui/aura/button";
+import { IconAlertTriangle, IconChevronDown } from '@tabler/icons-react';
+import {
+  type ComponentProps,
+  type ReactNode,
+  createContext,
+  useContext,
+} from 'react';
+
+import { cn } from '../../../../lib/utils';
+import { Alert } from '../alert';
+import { Button } from '../button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/aura/collapsible";
-import { HelperText } from "@/components/ui/aura/helper-text";
-import { IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
-import { type ComponentProps, type ReactNode, createContext, useContext } from "react";
-import { cn } from "../../../../lib/utils";
+} from '../collapsible';
+import { HelperText } from '../helper-text';
 
-type ApprovalType = {
+type Approval = {
   approved?: boolean;
   [key: string]: unknown;
 };
 
 type ConfirmationContextValue = {
-  approval: ApprovalType;
+  approval: Approval;
   state: string;
 };
 
-const ConfirmationContext = createContext<ConfirmationContextValue | null>(null);
+const ConfirmationContext = createContext<ConfirmationContextValue | null>(
+  null
+);
 
-const useConfirmation = () => {
+function useConfirmation() {
   const context = useContext(ConfirmationContext);
 
   if (!context) {
-    throw new Error("Confirmation components must be used within Confirmation");
+    throw new Error('Confirmation components must be used within Confirmation');
   }
 
   return context;
-};
+}
 
-export type ConfirmationProps = ComponentProps<typeof Alert> & {
-  approval?: ApprovalType;
+type ConfirmationProps = ComponentProps<typeof Alert> & {
+  approval?: Approval;
   state: string;
   helperText?: ReactNode | false;
 };
 
-export const Confirmation = ({
+const Confirmation = ({
   className,
   approval,
   state,
@@ -46,7 +54,7 @@ export const Confirmation = ({
   children,
   ...props
 }: ConfirmationProps) => {
-  if (!approval || state === "input-streaming" || state === "input-available") {
+  if (!approval || state === 'input-streaming' || state === 'input-available') {
     return null;
   }
 
@@ -57,29 +65,35 @@ export const Confirmation = ({
   );
 
   const helperTextToRender =
-    state !== "approval-requested" || helperText === false
+    state !== 'approval-requested' || helperText === false
       ? null
       : (helperText ?? defaultHelperText);
 
   return (
     <ConfirmationContext.Provider value={{ approval, state }}>
       <Alert
+        data-slot="confirmation"
         className={cn(
-          "flex flex-col gap-2 p-3 bg-background text-foreground border-none",
+          'flex flex-col gap-2 p-3 bg-background text-foreground border-none',
           className
         )}
         {...props}
       >
-        <Collapsible className="flex flex-col gap-2 overflow-hidden">{children}</Collapsible>
+        <Collapsible
+          data-slot="confirmation-collapsible"
+          className="flex flex-col gap-2 overflow-hidden"
+        >
+          {children}
+        </Collapsible>
         {helperTextToRender}
       </Alert>
     </ConfirmationContext.Provider>
   );
 };
 
-export type ConfirmationContentTriggerProps = ComponentProps<typeof Button>;
+type ConfirmationContentTriggerProps = ComponentProps<typeof Button>;
 
-export const ConfirmationContentTrigger = ({
+const ConfirmationContentTrigger = ({
   className,
   children,
   ...props
@@ -87,9 +101,10 @@ export const ConfirmationContentTrigger = ({
   <CollapsibleTrigger
     render={
       <Button
+        data-slot="confirmation-content-trigger"
         variant="ghost"
         className={cn(
-          "group/collapsible-trigger w-full justify-between text-base leading-5 tracking-tighter",
+          'group/collapsible-trigger w-full justify-between text-base leading-5 tracking-tighter',
           className
         )}
         {...props}
@@ -101,80 +116,113 @@ export const ConfirmationContentTrigger = ({
   />
 );
 
-export type ConfirmationContentProps = ComponentProps<typeof CollapsibleContent>;
+type ConfirmationContentProps = ComponentProps<typeof CollapsibleContent>;
 
-export const ConfirmationContent = ({ className, ...props }: ConfirmationContentProps) => (
-  <CollapsibleContent className={cn("px-3", className)} {...props} />
+const ConfirmationContent = ({
+  className,
+  ...props
+}: ConfirmationContentProps) => (
+  <CollapsibleContent
+    data-slot="confirmation-content"
+    className={cn('px-3', className)}
+    {...props}
+  />
 );
 
-export type ConfirmationRequestProps = {
+type ConfirmationRequestProps = {
   children?: ReactNode;
 };
 
-export const ConfirmationRequest = ({ children }: ConfirmationRequestProps) => {
+const ConfirmationRequest = ({ children }: ConfirmationRequestProps) => {
   const { state } = useConfirmation();
 
-  // Only show when approval is requested
-  if (state !== "approval-requested") {
+  if (state !== 'approval-requested') {
     return null;
   }
 
-  return children;
+  return <div data-slot="confirmation-request">{children}</div>;
 };
 
-export type ConfirmationAcceptedProps = {
+type ConfirmationAcceptedProps = {
   children?: ReactNode;
 };
 
-export const ConfirmationAccepted = ({ children }: ConfirmationAcceptedProps) => {
+const ConfirmationAccepted = ({ children }: ConfirmationAcceptedProps) => {
   const { approval, state } = useConfirmation();
 
-  // Only show when approved and in response states
   if (
     !approval?.approved ||
-    (state !== "approval-responded" && state !== "output-denied" && state !== "output-available")
+    (state !== 'approval-responded' &&
+      state !== 'output-denied' &&
+      state !== 'output-available')
   ) {
-    return null;
-  }
-
-  return <div className="flex justify-end">{children}</div>;
-};
-
-export type ConfirmationRejectedProps = {
-  children?: ReactNode;
-};
-
-export const ConfirmationRejected = ({ children }: ConfirmationRejectedProps) => {
-  const { approval, state } = useConfirmation();
-
-  // Only show when rejected and in response states
-  if (
-    approval?.approved !== false ||
-    (state !== "approval-responded" && state !== "output-denied" && state !== "output-available")
-  ) {
-    return null;
-  }
-
-  return <div className="flex justify-end">{children}</div>;
-};
-
-export type ConfirmationActionsProps = ComponentProps<"div">;
-
-export const ConfirmationActions = ({ className, ...props }: ConfirmationActionsProps) => {
-  const { state } = useConfirmation();
-
-  // Only show when approval is requested
-  if (state !== "approval-requested") {
     return null;
   }
 
   return (
-    <div className={cn("flex items-center justify-end gap-2 self-end", className)} {...props} />
+    <div data-slot="confirmation-accepted" className="flex justify-end">
+      {children}
+    </div>
   );
 };
 
-export type ConfirmationActionProps = ComponentProps<typeof Button>;
+type ConfirmationRejectedProps = {
+  children?: ReactNode;
+};
 
-export const ConfirmationAction = (props: ConfirmationActionProps) => (
-  <Button type="button" {...props} />
+const ConfirmationRejected = ({ children }: ConfirmationRejectedProps) => {
+  const { approval, state } = useConfirmation();
+
+  if (
+    approval?.approved !== false ||
+    (state !== 'approval-responded' &&
+      state !== 'output-denied' &&
+      state !== 'output-available')
+  ) {
+    return null;
+  }
+
+  return (
+    <div data-slot="confirmation-rejected" className="flex justify-end">
+      {children}
+    </div>
+  );
+};
+
+type ConfirmationActionsProps = ComponentProps<'div'>;
+
+const ConfirmationActions = ({
+  className,
+  ...props
+}: ConfirmationActionsProps) => {
+  const { state } = useConfirmation();
+
+  if (state !== 'approval-requested') {
+    return null;
+  }
+
+  return (
+    <div
+      data-slot="confirmation-actions"
+      className={cn('flex items-center justify-end gap-2 self-end', className)}
+      {...props}
+    />
+  );
+};
+
+type ConfirmationActionProps = ComponentProps<typeof Button>;
+
+const ConfirmationAction = (props: ConfirmationActionProps) => (
+  <Button data-slot="confirmation-action" type="button" {...props} />
 );
+
+export {
+  Confirmation,
+  ConfirmationAccepted,
+  ConfirmationAction,
+  ConfirmationActions,
+  ConfirmationContent,
+  ConfirmationContentTrigger,
+  ConfirmationRejected,
+  ConfirmationRequest,
+};
