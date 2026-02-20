@@ -6,8 +6,8 @@ import {
   BannerIcon,
   BannerStatus,
   BannerTitle,
-} from "./banner";
-import { BannerMetadata } from "./banner.metadata";
+} from './banner';
+import { BannerMetadata } from './banner.metadata';
 
 export {
   Banner,
