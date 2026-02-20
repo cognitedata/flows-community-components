@@ -647,11 +647,37 @@
       "title": "Confirmation",
       "description": "A confirmation dialog component for AI approval workflows, with support for request, accepted, and rejected states.",
       "dependencies": ["@tabler/icons-react"],
-      "registryDependencies": ["@aura/css"],
+      "registryDependencies": [
+        "@aura/css",
+        "@aura/alert",
+        "@aura/button",
+        "@aura/collapsible",
+        "@aura/helper-text"
+      ],
       "files": [
         {
           "path": "src/components/ui/aura/confirmation/confirmation.tsx",
           "target": "src/components/ui/aura/confirmation.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "src/globals.css",
+          "target": "src/styles.css",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "helper-text",
+      "type": "registry:component",
+      "title": "HelperText",
+      "description": "A helper text component for form fields with validation states.",
+      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
+      "registryDependencies": ["@aura/css"],
+      "files": [
+        {
+          "path": "src/components/ui/aura/helper-text/helper-text.tsx",
+          "target": "src/components/ui/aura/helper-text.tsx",
           "type": "registry:component"
         },
         {
@@ -751,26 +777,6 @@
         {
           "path": "src/components/ui/aura/effects/effects.tsx",
           "target": "src/components/ui/aura/effects.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "src/globals.css",
-          "target": "src/styles.css",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "helper-text",
-      "type": "registry:component",
-      "title": "HelperText",
-      "description": "A helper text component for form fields with validation states.",
-      "dependencies": ["@tabler/icons-react", "class-variance-authority"],
-      "registryDependencies": ["@aura/css"],
-      "files": [
-        {
-          "path": "src/components/ui/aura/helper-text/helper-text.tsx",
-          "target": "src/components/ui/aura/helper-text.tsx",
           "type": "registry:component"
         },
         {

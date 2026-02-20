@@ -67,9 +67,6 @@ export default meta;
 type Story = StoryObj<typeof Confirmation>;
 
 export const Interactive: Story = {
-  args: {
-    className: "w-full max-w-lg",
-  },
   parameters: {
     order: 2,
   },
@@ -108,7 +105,7 @@ export const Interactive: Story = {
       expect(canvas.getByText("Permission skipped")).toBeInTheDocument();
     });
   },
-  render: function InteractiveStory(args) {
+  render: function InteractiveStory() {
     const [approval, setApproval] = useState<{
       approved?: boolean;
       always?: boolean;
@@ -137,7 +134,7 @@ export const Interactive: Story = {
 
     return (
       <div className="w-full space-y-4">
-        <Confirmation {...args} approval={approval} state={state}>
+        <Confirmation className="w-full max-w-lg" approval={approval} state={state}>
           <ConfirmationContentTrigger>
             Atlas needs your permission to run tool &quot;Analyze time series&quot;
           </ConfirmationContentTrigger>
@@ -777,6 +774,51 @@ export const HiddenDuringStreaming: Story = {
       <p className="text-xs text-muted-foreground mt-4">
         (Empty space above - confirmation is not rendered)
       </p>
+    </div>
+  ),
+};
+
+export const Playground: Story = {
+  args: {
+    approval: {},
+    state: "approval-requested",
+    className: "w-full max-w-lg",
+  },
+  parameters: {
+    order: 99,
+  },
+  render: (args) => (
+    <div className="w-full max-w-lg">
+      <Confirmation {...args}>
+        <ConfirmationContentTrigger>
+          Atlas needs your permission to run tool &quot;Analyze time series&quot;
+        </ConfirmationContentTrigger>
+        <ConfirmationContent>
+          <p className="text-sm text-muted-foreground">
+            This tool will analyze patterns in your time series data to identify trends,
+            seasonality, and anomalies.
+          </p>
+        </ConfirmationContent>
+        <ConfirmationRequest>
+          <ConfirmationActions className="w-full flex justify-between">
+            <ConfirmationAction variant="ghost">Skip</ConfirmationAction>
+            <div className="flex gap-1">
+              <ConfirmationAction variant="ghost">Allow once</ConfirmationAction>
+              <ConfirmationAction variant="outline">Always allow</ConfirmationAction>
+            </div>
+          </ConfirmationActions>
+        </ConfirmationRequest>
+        <ConfirmationAccepted>
+          <HelperText size="xs" icon={<IconCheck />} isSuccess className="self-end">
+            Permission allowed once
+          </HelperText>
+        </ConfirmationAccepted>
+        <ConfirmationRejected>
+          <HelperText size="xs" icon={<IconX />} isError className="self-end">
+            Permission skipped
+          </HelperText>
+        </ConfirmationRejected>
+      </Confirmation>
     </div>
   ),
 };
