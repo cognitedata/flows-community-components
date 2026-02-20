@@ -222,7 +222,6 @@ export {
 export { ColorsMetadata } from "./colors/colors.metadata";
 
 export { Combobox, ComboboxCustom } from "./combobox/combobox";
-export type { ComboboxProps } from "./combobox/combobox";
 export { ComboboxMetadata } from "./combobox/combobox.metadata";
 
 export {

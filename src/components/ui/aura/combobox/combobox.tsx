@@ -1,7 +1,7 @@
 import { IconCaretUpDown, IconCheck } from "@tabler/icons-react";
-import { forwardRef, useState } from "react";
-
-import { Button } from "@/components/ui/aura/button";
+import { type ComponentProps, type ComponentRef, forwardRef, useState } from "react";
+import { cn } from "../../../../lib/utils";
+import { Button } from "../button";
 import {
   Command,
   CommandEmpty,
@@ -9,9 +9,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/aura/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import { cn } from "../../../../lib/utils";
+} from "../command";
+import { Popover, PopoverContent, PopoverTrigger } from "../popover";
 
 const frameworks = [
   {
@@ -48,74 +47,75 @@ const frameworks = [
   },
 ];
 
-export const Combobox = forwardRef<HTMLButtonElement>((props, ref) => {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+const Combobox = forwardRef<ComponentRef<typeof Button>, ComponentProps<typeof Button>>(
+  (props, ref) => {
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState("");
 
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        render={
-          <Button
-            ref={ref}
-            data-slot="combobox-trigger"
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-50 justify-between"
-            {...props}
-          >
-            {value
-              ? frameworks.find((framework) => framework.value === value)?.label
-              : "Select framework..."}
-            <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        }
-      />
-      <PopoverContent className="w-50 p-0">
-        <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <IconCheck
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
-});
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger
+          render={
+            <Button
+              ref={ref}
+              data-slot="combobox-trigger"
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              className="w-50 justify-between"
+              {...props}
+            >
+              {value
+                ? frameworks.find((framework) => framework.value === value)?.label
+                : "Select framework..."}
+              <IconCaretUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          }
+        />
+        <PopoverContent className="w-50 p-0">
+          <Command>
+            <CommandInput placeholder="Search framework..." />
+            <CommandList>
+              <CommandEmpty>No framework found.</CommandEmpty>
+              <CommandGroup>
+                {frameworks.map((framework) => (
+                  <CommandItem
+                    key={framework.value}
+                    value={framework.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue);
+                      setOpen(false);
+                    }}
+                  >
+                    <IconCheck
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === framework.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {framework.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    );
+  }
+);
 Combobox.displayName = "Combobox";
 
-export interface ComboboxProps {
+type ComboboxCustomProps = Omit<ComponentProps<typeof Button>, "value" | "onChange"> & {
   options: Array<{ value: string; label: string }>;
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyText?: string;
-  className?: string;
-}
+};
 
-export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
+const ComboboxCustom = forwardRef<ComponentRef<typeof Button>, ComboboxCustomProps>(
   (
     {
       options,
@@ -185,3 +185,5 @@ export const ComboboxCustom = forwardRef<HTMLButtonElement, ComboboxProps>(
   }
 );
 ComboboxCustom.displayName = "ComboboxCustom";
+
+export { Combobox, ComboboxCustom };
