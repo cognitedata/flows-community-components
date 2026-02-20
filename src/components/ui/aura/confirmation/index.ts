@@ -1,35 +1,23 @@
-/**
- * Confirmation Component
- *
- * A confirmation dialog component for AI approval workflows,
- * with support for request, accepted, and rejected states.
- *
- * @example
- * import { Confirmation, ConfirmationRequest, ConfirmationActions } from '@/components/ui/aura/confirmation';
- *
- * <Confirmation state="awaiting-approval" approval={{ approved: undefined }}>
- *   <ConfirmationRequest>Approve this action?</ConfirmationRequest>
- *   <ConfirmationActions>...</ConfirmationActions>
- * </Confirmation>
- */
-export {
+import {
   Confirmation,
+  ConfirmationAccepted,
+  ConfirmationAction,
+  ConfirmationActions,
   ConfirmationContent,
   ConfirmationContentTrigger,
-  ConfirmationRequest,
-  ConfirmationAccepted,
   ConfirmationRejected,
-  ConfirmationActions,
+  ConfirmationRequest,
+} from "./confirmation";
+import { ConfirmationMetadata } from "./confirmation.metadata";
+
+export {
+  Confirmation,
+  ConfirmationAccepted,
   ConfirmationAction,
-} from "./confirmation";
-export type {
-  ConfirmationProps,
-  ConfirmationContentTriggerProps,
-  ConfirmationContentProps,
-  ConfirmationRequestProps,
-  ConfirmationAcceptedProps,
-  ConfirmationRejectedProps,
-  ConfirmationActionsProps,
-  ConfirmationActionProps,
-} from "./confirmation";
-export { ConfirmationMetadata } from "./confirmation.metadata";
+  ConfirmationActions,
+  ConfirmationContent,
+  ConfirmationContentTrigger,
+  ConfirmationMetadata,
+  ConfirmationRejected,
+  ConfirmationRequest,
+};

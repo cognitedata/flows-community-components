@@ -1,11 +1,3 @@
-import { Badge } from "@/components/ui/aura/badge";
-import {
-  Carousel,
-  type CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/aura/carousel";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import {
   type ComponentProps,
@@ -19,7 +11,11 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from "../carousel";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../hover-card";
+
 import { cn, getHostname } from "../../../../lib/utils";
+import { Badge } from "../badge";
 
 type InlineCitationProps = ComponentProps<"span">;
 

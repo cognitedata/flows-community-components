@@ -1,7 +1,7 @@
 import type { ComponentProps, ComponentRef, ReactNode } from "react";
 import { forwardRef } from "react";
 
-import { IconSelector as ChevronsUpDown } from "@tabler/icons-react";
+import { IconSelector } from "@tabler/icons-react";
 
 import type { ToolUIPart } from "../../../../lib/ai/types";
 import { cn } from "../../../../lib/utils";
@@ -51,7 +51,7 @@ const ToolHeader = forwardRef<ComponentRef<typeof CollapsibleTrigger>, ToolHeade
                 Error
               </Badge>
             ) : null}
-            <ChevronsUpDown className="h-4 w-4" />
+            <IconSelector className="h-4 w-4" />
           </div>
         </Button>
       }

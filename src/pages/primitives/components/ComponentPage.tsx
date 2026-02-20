@@ -4,7 +4,6 @@ import { InstallationCommand } from "@/components/installation-command";
 import { StoriesRenderer } from "@/components/stories-renderer";
 import { Badge } from "@/components/ui/aura/badge";
 import { Button } from "@/components/ui/aura/button";
-import type { ComponentMeta } from "@/lib/component-examples";
 import { getComponentMeta } from "@/lib/component-registry";
 import {
   type ComponentStatusType,
@@ -19,6 +18,7 @@ import {
   getPrimitiveFigmaUrl,
   getPrimitiveGaBadgeProps,
 } from "@/lib/primitives-catalog";
+import type { ComponentMeta } from "@/lib/types";
 import { IconArrowLeft, IconCheck, IconQuestionMark, IconX } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

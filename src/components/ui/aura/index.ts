@@ -248,16 +248,6 @@ export {
   ConfirmationActions,
   ConfirmationAction,
 } from "./confirmation/confirmation";
-export type {
-  ConfirmationProps,
-  ConfirmationContentTriggerProps,
-  ConfirmationContentProps,
-  ConfirmationRequestProps,
-  ConfirmationAcceptedProps,
-  ConfirmationRejectedProps,
-  ConfirmationActionsProps,
-  ConfirmationActionProps,
-} from "./confirmation/confirmation";
 export { ConfirmationMetadata } from "./confirmation/confirmation.metadata";
 
 export {
