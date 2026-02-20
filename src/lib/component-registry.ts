@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "./component-examples";
+import type { ComponentMeta } from "./types";
 import { slugToPascalCase } from "./utils";
 
 /**

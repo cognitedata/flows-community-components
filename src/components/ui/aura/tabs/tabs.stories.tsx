@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconBell, IconLock, IconSettings, IconUser } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 const meta: Meta<typeof Tabs> = {
   title: "Primitives/Tabs",

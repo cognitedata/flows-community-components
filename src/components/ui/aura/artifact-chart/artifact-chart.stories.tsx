@@ -7,8 +7,7 @@ import {
   ChartTooltip,
 } from "@/components/ui/aura/chart";
 import { DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/aura/dropdown-menu";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconTrendingUp } from "@tabler/icons-react";
 import { useId, useState } from "react";
 import {
@@ -25,6 +24,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { expect, within } from "storybook/test";
 import {
   ArtifactChart,
   ArtifactChartContent,

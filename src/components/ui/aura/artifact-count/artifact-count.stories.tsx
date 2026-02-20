@@ -5,10 +5,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/aura/chart";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { type ComponentProps, useEffect, useState } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import {
   ArtifactCount,
   ArtifactCountContent,

@@ -8,10 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/aura/card";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconCheck, IconPlus } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { SwapSlot } from "./swap-slot";
 const meta: Meta<typeof SwapSlot> = {
   title: "Primitives/Swap Slot",
