@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 import noOnlyTestsPlugin from 'eslint-plugin-no-only-tests';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
@@ -10,9 +11,15 @@ const sharedRules = {
   'import/first': 'error',
   'import/no-duplicates': 'error',
   'import/order': [
-    'warn',
+    'error',
     {
-      groups: ['builtin', 'external', 'internal', 'parent', ['sibling', 'index']],
+      groups: [
+        'builtin',
+        'external',
+        'internal',
+        'parent',
+        ['sibling', 'index'],
+      ],
       'newlines-between': 'always',
       alphabetize: {
         order: 'asc',
@@ -21,6 +28,15 @@ const sharedRules = {
     },
   ],
   'no-only-tests/no-only-tests': 'error',
+  'prettier/prettier': [
+    'error',
+    {
+      singleQuote: true,
+      trailingComma: 'es5',
+      arrowParens: 'always',
+      endOfLine: 'auto',
+    },
+  ],
   quotes: ['error', 'single', { avoidEscape: true }],
 };
 
@@ -45,6 +61,7 @@ export default tseslint.config(
       'docs/.vitepress/dist/**',
     ],
   },
+  prettierRecommended,
   {
     files: ['**/*.{js,mjs,cjs,ts,tsx}'],
     plugins: {
