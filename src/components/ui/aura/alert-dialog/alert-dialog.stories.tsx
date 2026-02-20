@@ -3,6 +3,8 @@ import { IconAlertTriangle, IconCheck, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
 
+import { Button } from '../button';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +17,6 @@ import {
   AlertDialogTrigger,
 } from './alert-dialog';
 
-import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof AlertDialog> = {
   title: 'Primitives/Alert Dialog',
   component: AlertDialog,
@@ -24,31 +25,24 @@ const meta: Meta<typeof AlertDialog> = {
     open: {
       control: 'boolean',
       table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
       },
     },
     defaultOpen: {
       control: 'boolean',
       table: {
-        category: 'State',
-        type: {
-          summary: 'boolean',
-        },
-        defaultValue: {
-          summary: 'false',
-        },
+        category: 'Behavior',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
+
     onOpenChange: {
       action: 'openChange',
       table: {
         category: 'Events',
-        type: {
-          summary: '(open: boolean) => void',
-        },
+        type: { summary: '(open: boolean) => void' },
       },
     },
   },
@@ -56,8 +50,10 @@ const meta: Meta<typeof AlertDialog> = {
     layout: 'centered',
   },
 };
+
 export default meta;
 type Story = StoryObj<typeof AlertDialog>;
+
 export const Default: Story = {
   parameters: {
     order: 1,
@@ -82,22 +78,25 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', {
-      name: /open dialog/i,
-    });
+
+    const trigger = canvas.getByRole('button', { name: /open dialog/i });
     await userEvent.click(trigger);
+
     const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
+
     const title = within(dialog).getByRole('heading', {
       name: 'Are you sure?',
     });
     await expect(title).toBeInTheDocument();
+
     const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
     await userEvent.click(cancelButton);
   },
 };
+
 export const DestructiveAction: Story = {
   parameters: {
     order: 2,
@@ -130,6 +129,7 @@ export const DestructiveAction: Story = {
     </AlertDialog>
   ),
 };
+
 export const ExportData: Story = {
   parameters: {
     order: 3,
@@ -153,6 +153,7 @@ export const ExportData: Story = {
     </AlertDialog>
   ),
 };
+
 export const WithIcon: Story = {
   parameters: {
     order: 4,
@@ -180,6 +181,7 @@ export const WithIcon: Story = {
     </AlertDialog>
   ),
 };
+
 export const Warning: Story = {
   parameters: {
     order: 5,
@@ -213,6 +215,7 @@ export const Warning: Story = {
     </AlertDialog>
   ),
 };
+
 export const InformationalSingleAction: Story = {
   parameters: {
     order: 6,
@@ -237,12 +240,14 @@ export const InformationalSingleAction: Story = {
     </AlertDialog>
   ),
 };
+
 export const Controlled: Story = {
   parameters: {
     order: 7,
   },
   render: function ControlledAlertDialog() {
     const [open, setOpen] = useState(false);
+
     return (
       <div className="space-y-4">
         <div className="flex gap-2">
@@ -273,21 +278,24 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const openButton = canvas.getByRole('button', {
-      name: /open dialog/i,
-    });
+
+    const openButton = canvas.getByRole('button', { name: /open dialog/i });
     await userEvent.click(openButton);
+
     const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
+
     const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
     await userEvent.click(cancelButton);
+
     await waitFor(() => {
       expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     });
   },
 };
+
 export const AsyncAction: Story = {
   parameters: {
     order: 8,
@@ -295,12 +303,14 @@ export const AsyncAction: Story = {
   render: function AsyncAlertDialog() {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+
     const handleAction = async () => {
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setLoading(false);
       setOpen(false);
     };
+
     return (
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger render={<Button>Save Changes</Button>} />
@@ -322,6 +332,7 @@ export const AsyncAction: Story = {
     );
   },
 };
+
 export const VisualRegression: Story = {
   parameters: {
     order: 9,
@@ -348,18 +359,20 @@ export const VisualRegression: Story = {
     </div>
   ),
 };
+
 export const KeyboardNavigation: Story = {
   parameters: {
     order: 10,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', {
-      name: /open dialog/i,
-    });
+
+    const trigger = canvas.getByRole('button', { name: /open dialog/i });
     await userEvent.click(trigger);
+
     const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
+
     await userEvent.keyboard('{Tab}');
     const actionButton = within(dialog).getByRole('button', {
       name: /confirm/i,
@@ -372,18 +385,22 @@ export const KeyboardNavigation: Story = {
         dialog.ownerDocument.activeElement
       );
     });
+
     await userEvent.keyboard('{Tab}');
     await waitFor(() => {
       const activeElement = dialog.ownerDocument.activeElement;
       expect(activeElement).not.toBeNull();
       expect(dialog.contains(activeElement)).toBe(true);
     });
+
     await userEvent.keyboard('{Escape}');
     await waitFor(() => {
       expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     });
+
     await userEvent.click(trigger);
     const reopenedDialog = await screen.findByRole('alertdialog');
+
     const confirmButton = within(reopenedDialog).getByRole('button', {
       name: /confirm/i,
     });
@@ -413,27 +430,29 @@ export const KeyboardNavigation: Story = {
     );
   },
 };
+
 export const LongContent: Story = {
   parameters: {
     order: 11,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', {
-      name: /open dialog/i,
-    });
+
+    const trigger = canvas.getByRole('button', { name: /open dialog/i });
     await userEvent.click(trigger);
+
     const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
+
     await expect(
       within(dialog).getByRole('heading', {
         name: /This is a very long title/i,
       })
     ).toBeInTheDocument();
+
     await expect(
       within(dialog).getByText(/This is an extremely long description/i)
     ).toBeInTheDocument();
-    await expect(dialog).toBeInTheDocument();
   },
   render: function LongContentStory() {
     return (
@@ -466,26 +485,29 @@ export const LongContent: Story = {
     );
   },
 };
+
 export const NoDescription: Story = {
   parameters: {
     order: 12,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', {
-      name: /open dialog/i,
-    });
+
+    const trigger = canvas.getByRole('button', { name: /open dialog/i });
     await userEvent.click(trigger);
+
     const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
+
     const title = within(dialog).getByRole('heading', {
       name: 'Are you sure?',
     });
     await expect(title).toBeInTheDocument();
-    const description = dialog.querySelector(
-      '[data-slot="alert-dialog-description"]'
-    );
-    await expect(description).not.toBeInTheDocument();
+
+    await expect(
+      within(dialog).queryByText(/This action cannot be undone/i)
+    ).not.toBeInTheDocument();
+
     const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
@@ -508,26 +530,28 @@ export const NoDescription: Story = {
     );
   },
 };
+
 export const DisabledButtons: Story = {
   parameters: {
     order: 13,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', {
-      name: /open dialog/i,
-    });
+
+    const trigger = canvas.getByRole('button', { name: /open dialog/i });
     await userEvent.click(trigger);
+
     const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
+
     const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
     await expect(cancelButton).toBeDisabled();
-    const actionButton = within(dialog).getByRole('button', {
-      name: /Save/i,
-    });
+
+    const actionButton = within(dialog).getByRole('button', { name: /Save/i });
     await expect(actionButton).toBeDisabled();
+
     await expect(cancelButton).toHaveAttribute('disabled');
     await expect(actionButton).toHaveAttribute('disabled');
   },
@@ -552,6 +576,7 @@ export const DisabledButtons: Story = {
     );
   },
 };
+
 export const Playground: Story = {
   args: {
     defaultOpen: false,

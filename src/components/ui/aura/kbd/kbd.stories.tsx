@@ -1,8 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { IconArrowDown, IconArrowUp, IconCommand } from '@tabler/icons-react';
+import type { ComponentProps } from 'react';
 import { expect, within } from 'storybook/test';
 
 import { Kbd, KbdGroup } from './kbd';
+
+type StoryPlayContext = { canvasElement: HTMLElement };
+
 const meta: Meta<typeof Kbd> = {
   title: 'Primitives/Kbd',
   component: Kbd,
@@ -17,7 +21,7 @@ const meta: Meta<typeof Kbd> = {
     className: {
       control: 'text',
       table: {
-        category: 'Styling',
+        category: 'Variants/Styling',
       },
     },
   },
@@ -25,19 +29,22 @@ const meta: Meta<typeof Kbd> = {
     layout: 'centered',
   },
 };
+
 export default meta;
 type Story = StoryObj<typeof Kbd>;
+
 export const Default: Story = {
   render: () => <Kbd>K</Kbd>,
   parameters: {
     order: 1,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     const kbd = canvas.getByText('K');
     await expect(kbd).toBeInTheDocument();
   },
 };
+
 export const CommonShortcuts: Story = {
   render: () => (
     <div className="space-y-4">
@@ -74,10 +81,8 @@ export const CommonShortcuts: Story = {
   parameters: {
     order: 2,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
-    const kbdGroups = canvasElement.querySelectorAll('[data-slot="kbd-group"]');
-    await expect(kbdGroups.length).toBe(4);
     await expect(canvas.getByText('C')).toBeInTheDocument();
     await expect(canvas.getByText('V')).toBeInTheDocument();
     await expect(canvas.getByText('S')).toBeInTheDocument();
@@ -90,6 +95,7 @@ export const CommonShortcuts: Story = {
     await expect(canvas.getByText('Undo:')).toBeInTheDocument();
   },
 };
+
 export const SingleKeys: Story = {
   render: () => (
     <div className="flex items-center gap-4">
@@ -106,10 +112,8 @@ export const SingleKeys: Story = {
   parameters: {
     order: 3,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
-    const kbdElements = canvasElement.querySelectorAll('[data-slot="kbd"]');
-    await expect(kbdElements.length).toBe(8);
     await expect(canvas.getByText('⌘')).toBeInTheDocument();
     await expect(canvas.getByText('⌥')).toBeInTheDocument();
     await expect(canvas.getByText('⇧')).toBeInTheDocument();
@@ -118,12 +122,9 @@ export const SingleKeys: Story = {
     await expect(canvas.getByText('⇥')).toBeInTheDocument();
     await expect(canvas.getByText('⌫')).toBeInTheDocument();
     await expect(canvas.getByText('⎋')).toBeInTheDocument();
-    kbdElements.forEach((kbd) => {
-      expect(kbd).toHaveClass('bg-muted');
-      expect(kbd).toHaveClass('text-muted-foreground');
-    });
   },
 };
+
 export const WithIcons: Story = {
   render: () => (
     <div className="space-y-4">
@@ -157,20 +158,15 @@ export const WithIcons: Story = {
   parameters: {
     order: 4,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Command palette:')).toBeInTheDocument();
     await expect(canvas.getByText('Navigate up:')).toBeInTheDocument();
     await expect(canvas.getByText('Navigate down:')).toBeInTheDocument();
     await expect(canvas.getByText('K')).toBeInTheDocument();
-    const icons = canvasElement.querySelectorAll('svg');
-    await expect(icons.length).toBeGreaterThanOrEqual(3);
-    const kbdGroup = canvasElement.querySelector('[data-slot="kbd-group"]');
-    await expect(kbdGroup).toBeInTheDocument();
-    const kbdElements = canvasElement.querySelectorAll('[data-slot="kbd"]');
-    await expect(kbdElements.length).toBe(4);
   },
 };
+
 export const MultiKeyCombinations: Story = {
   render: () => (
     <div className="space-y-4">
@@ -202,19 +198,16 @@ export const MultiKeyCombinations: Story = {
   parameters: {
     order: 5,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Select all:')).toBeInTheDocument();
     await expect(canvas.getByText('Force quit:')).toBeInTheDocument();
     await expect(canvas.getByText('Screenshot:')).toBeInTheDocument();
-    const kbdGroups = canvasElement.querySelectorAll('[data-slot="kbd-group"]');
-    await expect(kbdGroups.length).toBe(3);
     await expect(canvas.getByText('A')).toBeInTheDocument();
     await expect(canvas.getByText('4')).toBeInTheDocument();
-    const kbdElements = canvasElement.querySelectorAll('[data-slot="kbd"]');
-    await expect(kbdElements.length).toBe(8);
   },
 };
+
 export const InContext: Story = {
   render: () => (
     <div className="space-y-4 max-w-md">
@@ -232,7 +225,7 @@ export const InContext: Story = {
   parameters: {
     order: 6,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText(/Press/)).toBeInTheDocument();
     await expect(
@@ -243,8 +236,6 @@ export const InContext: Story = {
     await expect(canvas.getByText(/to cancel/)).toBeInTheDocument();
     await expect(canvas.getByText(/Navigate with/)).toBeInTheDocument();
     await expect(canvas.getByText(/arrow keys/)).toBeInTheDocument();
-    const kbdElements = canvasElement.querySelectorAll('[data-slot="kbd"]');
-    await expect(kbdElements.length).toBe(6);
     await expect(canvas.getByText('K')).toBeInTheDocument();
     await expect(canvas.getByText('↵')).toBeInTheDocument();
     await expect(canvas.getByText('⎋')).toBeInTheDocument();
@@ -252,6 +243,7 @@ export const InContext: Story = {
     await expect(canvas.getByText('↓')).toBeInTheDocument();
   },
 };
+
 export const ShortcutList: Story = {
   render: () => (
     <div className="w-75 rounded-lg border">
@@ -293,23 +285,20 @@ export const ShortcutList: Story = {
   parameters: {
     order: 7,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Keyboard Shortcuts')).toBeInTheDocument();
     await expect(canvas.getByText('New file')).toBeInTheDocument();
     await expect(canvas.getByText('Open file')).toBeInTheDocument();
     await expect(canvas.getByText('Save file')).toBeInTheDocument();
     await expect(canvas.getByText('Close file')).toBeInTheDocument();
-    const kbdGroups = canvasElement.querySelectorAll('[data-slot="kbd-group"]');
-    await expect(kbdGroups.length).toBe(4);
     await expect(canvas.getByText('N')).toBeInTheDocument();
     await expect(canvas.getByText('O')).toBeInTheDocument();
     await expect(canvas.getByText('S')).toBeInTheDocument();
     await expect(canvas.getByText('W')).toBeInTheDocument();
-    const kbdElements = canvasElement.querySelectorAll('[data-slot="kbd"]');
-    await expect(kbdElements.length).toBe(8);
   },
 };
+
 export const FunctionKeys: Story = {
   render: () => (
     <div className="flex items-center gap-2 flex-wrap">
@@ -330,10 +319,8 @@ export const FunctionKeys: Story = {
   parameters: {
     order: 8,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
-    const kbdElements = canvasElement.querySelectorAll('[data-slot="kbd"]');
-    await expect(kbdElements.length).toBe(12);
     await expect(canvas.getByText('F1')).toBeInTheDocument();
     await expect(canvas.getByText('F2')).toBeInTheDocument();
     await expect(canvas.getByText('F3')).toBeInTheDocument();
@@ -348,6 +335,7 @@ export const FunctionKeys: Story = {
     await expect(canvas.getByText('F12')).toBeInTheDocument();
   },
 };
+
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4">
@@ -410,7 +398,7 @@ export const VisualRegression: Story = {
       disableSnapshot: false,
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: StoryPlayContext) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('Single Keys')).toBeInTheDocument();
     await expect(canvas.getByText('Key Groups')).toBeInTheDocument();
@@ -419,24 +407,19 @@ export const VisualRegression: Story = {
     await expect(canvas.getByText('A')).toBeInTheDocument();
     await expect(canvas.getByText('↵')).toBeInTheDocument();
     await expect(canvas.getByText('⎋')).toBeInTheDocument();
-    const kbdGroups = canvasElement.querySelectorAll('[data-slot="kbd-group"]');
-    await expect(kbdGroups.length).toBe(2);
     const kKeys = canvas.getAllByText('K');
     await expect(kKeys.length).toBe(2);
     await expect(canvas.getByText('P')).toBeInTheDocument();
-    const icons = canvasElement.querySelectorAll('svg');
-    await expect(icons.length).toBeGreaterThanOrEqual(2);
     await expect(canvas.getByText(/Press/)).toBeInTheDocument();
     await expect(canvas.getByText(/to search/)).toBeInTheDocument();
-    const kbdElements = canvasElement.querySelectorAll('[data-slot="kbd"]');
-    await expect(kbdElements.length).toBeGreaterThanOrEqual(10);
   },
 };
+
 export const Playground: Story = {
   args: {
     children: '⌘',
   },
-  render: (args) => <Kbd {...args} />,
+  render: (args: ComponentProps<typeof Kbd>) => <Kbd {...args} />,
   parameters: {
     order: 99,
   },

@@ -84,6 +84,7 @@ const primitivesNavigation: NavigationItem[] = [
       { href: '/primitives/toggle', label: 'Toggle' },
       { href: '/primitives/tooltip', label: 'Tooltip' },
       { href: '/primitives/topbar', label: 'Topbar' },
+      { href: '/primitives/treeview', label: 'TreeView' },
     ],
   },
   {
