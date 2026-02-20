@@ -1,9 +1,9 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
+import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
+import { Badge } from "../badge";
+import { Button } from "../button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
 const meta: Meta<typeof HoverCard> = {
   title: "Primitives/Hover Card",
@@ -94,6 +94,7 @@ async function testHoverInteraction(
   timeout = 2000
 ) {
   const canvas = within(canvasElement);
+  const body = within(canvasElement.ownerDocument.body);
   const trigger = await canvas.findByRole(
     "button",
     {
@@ -104,33 +105,12 @@ async function testHoverInteraction(
     }
   );
   await expect(trigger).toBeInTheDocument();
-  const waitForOpenHoverCard = async () => {
-    await waitFor(
-      () => {
-        const hoverCard = document.querySelector(
-          '[data-slot="hover-card-content"][data-open]'
-        ) as HTMLElement | null;
-        expect(hoverCard).toBeInTheDocument();
-        expect(hoverCard).toHaveTextContent(contentText);
-      },
-      {
-        timeout,
-      }
-    );
-  };
   await userEvent.hover(trigger);
-  try {
-    await waitForOpenHoverCard();
-  } catch {
-    await userEvent.unhover(trigger);
-    await userEvent.hover(trigger);
-    await waitForOpenHoverCard();
-  }
+  await body.findByText(contentText, undefined, { timeout });
   await userEvent.unhover(trigger);
   await waitFor(
     () => {
-      const hoverCard = document.querySelector('[data-slot="hover-card-content"][data-open]');
-      expect(hoverCard).not.toBeInTheDocument();
+      expect(body.queryByText(contentText)).not.toBeInTheDocument();
     },
     {
       timeout,
@@ -447,6 +427,7 @@ export const ControlledWithCustomDelays: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     const trigger = await canvas.findByRole(
       "button",
       {
@@ -457,35 +438,9 @@ export const ControlledWithCustomDelays: Story = {
       }
     );
     await expect(trigger).toBeInTheDocument();
-    const waitForOpenHoverCard = async () => {
-      await waitFor(
-        () => {
-          const hoverCard = document.querySelector(
-            '[data-slot="hover-card-content"][data-open]'
-          ) as HTMLElement | null;
-          expect(hoverCard).toBeInTheDocument();
-          expect(hoverCard).toHaveTextContent(/custom delays/i);
-        },
-        {
-          timeout: 2000,
-        }
-      );
-    };
     await userEvent.hover(trigger);
-    try {
-      await waitForOpenHoverCard();
-    } catch {
-      await userEvent.unhover(trigger);
-      await userEvent.hover(trigger);
-      await waitForOpenHoverCard();
-    }
-    const hoverCard = document.querySelector(
-      '[data-slot="hover-card-content"][data-open]'
-    ) as HTMLElement | null;
-    expect(hoverCard).toBeInTheDocument();
-    const closeButton = within(hoverCard as HTMLElement).getByRole("button", {
-      name: /Close/i,
-    });
+    await body.findByText(/custom delays/i, undefined, { timeout: 2000 });
+    const closeButton = body.getByRole("button", { name: /Close/i });
     await userEvent.click(closeButton);
   },
   render: function ControlledHoverCardStory() {

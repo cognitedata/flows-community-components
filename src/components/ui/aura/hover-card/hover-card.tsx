@@ -23,7 +23,7 @@ function HoverCard({
 }
 HoverCard.displayName = "HoverCard";
 
-const HoverCardTrigger = forwardRef<HTMLAnchorElement, PreviewCardPrimitive.Trigger.Props>(
+const HoverCardTrigger = forwardRef<ComponentRef<"a">, PreviewCardPrimitive.Trigger.Props>(
   ({ children, ...props }, ref) => {
     const delayContext = useContext(HoverCardDelayContext);
     const { delay, closeDelay, ...triggerProps } = props;
