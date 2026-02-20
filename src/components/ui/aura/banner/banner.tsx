@@ -10,10 +10,10 @@ import {
   useContext,
 } from "react";
 
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { useControllableState } from "@/lib/use-controllable-state";
-import { cn } from "@/lib/utils";
+import { useControllableState } from "../../../../lib/use-controllable-state";
+import { cn } from "../../../../lib/utils";
+import { Badge } from "../badge";
+import { Button } from "../button";
 
 type BannerVariant = "default" | "neutral" | "destructive" | "warning";
 
@@ -69,6 +69,7 @@ const Banner = forwardRef<ComponentRef<"div">, BannerProps>(
     },
     ref
   ) => {
+    const resolvedVariant: BannerVariant = variant ?? "default";
     const [show, setShow] = useControllableState({
       defaultProp: defaultVisible,
       prop: visible,
@@ -80,11 +81,11 @@ const Banner = forwardRef<ComponentRef<"div">, BannerProps>(
     }
 
     return (
-      <BannerContext.Provider value={{ show, setShow, variant: variant as BannerVariant }}>
+      <BannerContext.Provider value={{ show, setShow, variant: resolvedVariant }}>
         <div
           ref={ref}
           data-slot="banner"
-          className={cn(bannerVariants({ variant, inset }), className)}
+          className={cn(bannerVariants({ variant: resolvedVariant, inset }), className)}
           {...props}
         >
           {children}
@@ -177,7 +178,7 @@ const BannerActions = forwardRef<ComponentRef<"div">, BannerActionsProps>(
 BannerActions.displayName = "BannerActions";
 
 const hoverClasses: Record<BannerVariant, string> = {
-  default: "hover:bg-undefined-hover",
+  default: "hover:bg-neutral-hover",
   neutral: "hover:bg-neutral-hover",
   destructive: "hover:bg-destructive-hover",
   warning: "hover:bg-warning-hover",

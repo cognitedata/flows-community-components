@@ -26,7 +26,6 @@ const meta: Meta<typeof Banner> = {
     variant: {
       control: "select",
       options: ["default", "neutral", "destructive", "warning"],
-      description: "Visual style variant of the banner",
       table: {
         category: "Variants/Styling",
         type: { summary: '"default" | "neutral" | "destructive" | "warning"' },
@@ -35,7 +34,6 @@ const meta: Meta<typeof Banner> = {
     },
     inset: {
       control: "boolean",
-      description: "Adds rounded corners for inset layouts",
       table: {
         category: "Variants/Styling",
         type: { summary: "boolean" },
@@ -44,7 +42,6 @@ const meta: Meta<typeof Banner> = {
     },
     className: {
       control: "text",
-      description: "CSS classes for styling",
       table: {
         category: "Variants/Styling",
       },
@@ -52,7 +49,6 @@ const meta: Meta<typeof Banner> = {
 
     visible: {
       control: "boolean",
-      description: "Controlled visibility state",
       table: {
         category: "Behavior",
         type: { summary: "boolean" },
@@ -60,7 +56,6 @@ const meta: Meta<typeof Banner> = {
     },
     defaultVisible: {
       control: "boolean",
-      description: "Default visibility state (uncontrolled)",
       table: {
         category: "Behavior",
         type: { summary: "boolean" },
@@ -70,7 +65,6 @@ const meta: Meta<typeof Banner> = {
 
     onClose: {
       action: "closed",
-      description: "Callback when banner is closed",
       table: {
         category: "Events",
         type: { summary: "() => void" },
@@ -86,30 +80,15 @@ const meta: Meta<typeof Banner> = {
   },
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "A flexible banner component for displaying important messages, notifications, or announcements with optional icons, actions, and close functionality.",
-      },
-    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Banner>;
 
-/**
- * Basic banner with icon, title, and action button.
- * Demonstrates the most common banner usage.
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Basic banner with an information icon, title text, and a single action button.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -130,18 +109,9 @@ export const Basic: Story = {
   ),
 };
 
-/**
- * All banner variants
- * Shows the four available visual styles
- */
 export const Variants: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Banner variants for different message intent.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -172,19 +142,9 @@ export const Variants: Story = {
   ),
 };
 
-/**
- * Banner with status badge
- * Shows how to include a status indicator
- */
 export const WithStatus: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          "Banner can include a status badge that automatically matches the banner variant colors.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -209,18 +169,9 @@ export const WithStatus: Story = {
   ),
 };
 
-/**
- * Banner with multiple actions
- * Demonstrates multiple action buttons
- */
 export const MultipleActions: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Banners can contain multiple action buttons grouped together on the right.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -249,18 +200,9 @@ export const MultipleActions: Story = {
   ),
 };
 
-/**
- * Dismissible banner
- * Banner with a close button that can be dismissed
- */
 export const Dismissible: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Banner with a close button. Click the X to dismiss the banner.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -287,19 +229,9 @@ export const Dismissible: Story = {
   },
 };
 
-/**
- * Controlled visibility
- * Banner with controlled visibility state
- */
 export const ControlledVisibility: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          "Banner visibility can be controlled externally. Use the toggle button to show/hide the banner.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -348,19 +280,9 @@ export const ControlledVisibility: Story = {
   },
 };
 
-/**
- * Inset variant
- * Banner with rounded corners for inset layouts
- */
 export const Inset: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story:
-          "Use the inset prop to add rounded corners for banners in contained layouts or cards.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -379,19 +301,9 @@ export const Inset: Story = {
   ),
 };
 
-/**
- * Real-world example: Read-only warning
- * Common use case for read-only states
- */
 export const ReadOnlyWarning: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Real-world example of a banner warning users about read-only mode with a duplicate action.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -416,18 +328,9 @@ export const ReadOnlyWarning: Story = {
   ),
 };
 
-/**
- * Real-world example: Success notification
- * Shows a success state with status badge
- */
 export const SuccessNotification: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Success banner showing a published workflow with status badge and action button.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -467,18 +370,9 @@ export const SuccessNotification: Story = {
   },
 };
 
-/**
- * Real-world example: Error notification
- * Shows an error state with action to retry
- */
 export const ErrorNotification: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Destructive banner showing an error state with retry action.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -501,18 +395,9 @@ export const ErrorNotification: Story = {
   ),
 };
 
-/**
- * Real-world example: Warning notification
- * Shows a warning state with important information
- */
 export const WarningNotification: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story: "Warning banner alerting users about an important update or action required.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -534,10 +419,6 @@ export const WarningNotification: Story = {
   ),
 };
 
-/**
- * Interactive playground
- * Allows testing all banner props interactively
- */
 export const Playground: Story = {
   args: {
     variant: "default",
@@ -547,11 +428,6 @@ export const Playground: Story = {
   },
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with banner props.",
-      },
-    },
   },
   render: (args) => (
     <Banner {...args}>

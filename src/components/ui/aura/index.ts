@@ -90,16 +90,6 @@ export {
   BannerActions,
   BannerAction,
   BannerClose,
-  BannerContext,
-} from "./banner/banner";
-export type {
-  BannerProps,
-  BannerIconProps,
-  BannerTitleProps,
-  BannerStatusProps,
-  BannerActionsProps,
-  BannerActionProps,
-  BannerCloseProps,
 } from "./banner/banner";
 export { BannerMetadata } from "./banner/banner.metadata";
 
