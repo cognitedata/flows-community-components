@@ -11,7 +11,7 @@ const meta: Meta<typeof Tabs> = {
     value: {
       control: "text",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "string",
         },
@@ -20,7 +20,7 @@ const meta: Meta<typeof Tabs> = {
     defaultValue: {
       control: "text",
       table: {
-        category: "State",
+        category: "Behavior",
         type: {
           summary: "string",
         },
@@ -30,7 +30,7 @@ const meta: Meta<typeof Tabs> = {
       control: "select",
       options: ["horizontal", "vertical"],
       table: {
-        category: "Layout",
+        category: "Variants/Styling",
         type: {
           summary: '"horizontal" | "vertical"',
         },
@@ -51,7 +51,7 @@ const meta: Meta<typeof Tabs> = {
     className: {
       control: "text",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -60,7 +60,7 @@ const meta: Meta<typeof Tabs> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[400px]">
+      <div className="w-96">
         <Story />
       </div>
     ),
@@ -69,6 +69,9 @@ const meta: Meta<typeof Tabs> = {
 export default meta;
 type Story = StoryObj<typeof Tabs>;
 export const Default: Story = {
+  parameters: {
+    order: 1,
+  },
   render: () => (
     <Tabs defaultValue="account">
       <TabsList>
@@ -95,13 +98,18 @@ export const Default: Story = {
     const passwordTab = canvas.getByRole("tab", {
       name: /password/i,
     });
-    await expect(accountTab).toHaveAttribute("data-active");
+    await expect(accountTab).toHaveAttribute("aria-selected", "true");
+    await expect(canvas.getByText("Make changes to your account settings here.")).toBeVisible();
     await userEvent.click(passwordTab);
-    await expect(passwordTab).toHaveAttribute("data-active");
-    await expect(accountTab).not.toHaveAttribute("data-active");
+    await expect(passwordTab).toHaveAttribute("aria-selected", "true");
+    await expect(accountTab).toHaveAttribute("aria-selected", "false");
+    await expect(canvas.getByText("Change your password and security settings.")).toBeVisible();
   },
 };
 export const WithIcons: Story = {
+  parameters: {
+    order: 2,
+  },
   render: () => (
     <Tabs defaultValue="profile">
       <TabsList>
@@ -131,6 +139,9 @@ export const WithIcons: Story = {
   ),
 };
 export const Controlled: Story = {
+  parameters: {
+    order: 3,
+  },
   render: function ControlledTabs() {
     const [activeTab, setActiveTab] = useState("tab1");
     return (
@@ -180,6 +191,9 @@ export const Controlled: Story = {
   },
 };
 export const DisabledTabs: Story = {
+  parameters: {
+    order: 4,
+  },
   render: () => (
     <Tabs defaultValue="enabled1">
       <TabsList>
@@ -202,13 +216,17 @@ export const DisabledTabs: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const disabledTab = canvas.getAllByRole("tab")[1];
+    const disabledTab = canvas.getByRole("tab", { name: /disabled/i });
     const isAriaDisabled = disabledTab.getAttribute("aria-disabled") === "true";
     const hasDataDisabled = disabledTab.hasAttribute("data-disabled");
-    expect(isAriaDisabled || hasDataDisabled).toBe(true);
+    const isNativeDisabled = disabledTab.matches(":disabled");
+    expect(isAriaDisabled || hasDataDisabled || isNativeDisabled).toBe(true);
   },
 };
 export const RichContent: Story = {
+  parameters: {
+    order: 5,
+  },
   render: () => (
     <Tabs defaultValue="overview">
       <TabsList>
@@ -241,6 +259,9 @@ export const RichContent: Story = {
   ),
 };
 export const FullWidth: Story = {
+  parameters: {
+    order: 6,
+  },
   render: () => (
     <Tabs defaultValue="all" className="w-full">
       <TabsList className="w-full">
@@ -323,12 +344,16 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
+    order: 7,
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
 export const Playground: Story = {
+  parameters: {
+    order: 99,
+  },
   args: {
     defaultValue: "tab1",
     orientation: "horizontal",
