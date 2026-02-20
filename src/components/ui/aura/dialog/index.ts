@@ -10,12 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './dialog';
+import { DialogMetadata } from './dialog.metadata';
 
-/** Dialog exports. */
 export {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogMetadata,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -24,4 +25,3 @@ export {
   DialogTitle,
   DialogTrigger,
 };
-export { DialogMetadata } from './dialog.metadata';
