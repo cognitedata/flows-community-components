@@ -8,5 +8,5 @@
  *
  * <TimeInput />
  */
-export { TimeInput } from "./time-input";
-export { TimeInputMetadata } from "./time-input.metadata";
+export { TimeInput } from './time-input';
+export { TimeInputMetadata } from './time-input.metadata';

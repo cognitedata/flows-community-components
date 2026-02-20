@@ -42,5 +42,5 @@ export {
   ArtifactCountSeparator,
   ArtifactCountTag,
   artifactCountCountVariants,
-} from "./artifact-count";
-export { ArtifactCountMetadata } from "./artifact-count.metadata";
+} from './artifact-count';
+export { ArtifactCountMetadata } from './artifact-count.metadata';

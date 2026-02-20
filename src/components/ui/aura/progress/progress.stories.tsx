@@ -1,64 +1,66 @@
-import { Button } from "@/components/ui/aura/button";
-import { Label } from "@/components/ui/aura/label";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useEffect, useState } from "react";
-import { Progress } from "./progress";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useEffect, useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Progress } from './progress';
+
+import { Button } from '@/components/ui/aura/button';
+import { Label } from '@/components/ui/aura/label';
 const meta: Meta<typeof Progress> = {
-  title: "Primitives/Progress",
+  title: 'Primitives/Progress',
   component: Progress,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     value: {
       control: {
-        type: "range",
+        type: 'range',
         min: 0,
         max: 100,
         step: 1,
       },
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "number",
+          summary: 'number',
         },
         defaultValue: {
-          summary: "0",
+          summary: '0',
         },
       },
     },
     max: {
       control: {
-        type: "number",
+        type: 'number',
         min: 1,
       },
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "number",
+          summary: 'number',
         },
         defaultValue: {
-          summary: "100",
+          summary: '100',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
-    "aria-label": {
-      control: "text",
+    'aria-label': {
+      control: 'text',
       table: {
-        category: "Accessibility",
+        category: 'Accessibility',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -70,11 +72,13 @@ export const Basic: Story = {
   render: () => <Progress value={50} className="w-96" />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const progressbar = canvas.getByRole("progressbar");
+    const progressbar = canvas.getByRole('progressbar');
     await expect(progressbar).toBeInTheDocument();
-    await expect(progressbar).toHaveAccessibleName("Progress: 50%");
-    await expect(progressbar).toHaveAttribute("aria-valuenow", "50");
-    const indicator = canvasElement.querySelector('[data-slot="progress-indicator"]');
+    await expect(progressbar).toHaveAccessibleName('Progress: 50%');
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '50');
+    const indicator = canvasElement.querySelector(
+      '[data-slot="progress-indicator"]'
+    );
     await expect(indicator).toBeInTheDocument();
   },
 };
@@ -84,7 +88,9 @@ export const CustomAriaLabel: Story = {
       <div className="space-y-2">
         <div className="text-sm font-medium">Auto-generated label:</div>
         <Progress value={60} />
-        <div className="text-xs text-muted-foreground">aria-label: "Progress: 60%"</div>
+        <div className="text-xs text-muted-foreground">
+          aria-label: "Progress: 60%"
+        </div>
       </div>
       <div className="space-y-2">
         <div className="text-sm font-medium">Custom label:</div>
@@ -100,12 +106,14 @@ export const CustomAriaLabel: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const progressbars = canvas.getAllByRole("progressbar");
+    const progressbars = canvas.getAllByRole('progressbar');
     await expect(progressbars).toHaveLength(2);
-    await expect(progressbars[0]).toHaveAccessibleName("Progress: 60%");
-    await expect(progressbars[1]).toHaveAccessibleName("Document upload progress: 60%");
-    await expect(progressbars[0]).toHaveAttribute("aria-valuenow", "60");
-    await expect(progressbars[1]).toHaveAttribute("aria-valuenow", "60");
+    await expect(progressbars[0]).toHaveAccessibleName('Progress: 60%');
+    await expect(progressbars[1]).toHaveAccessibleName(
+      'Document upload progress: 60%'
+    );
+    await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '60');
+    await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '60');
   },
 };
 export const DifferentValues: Story = {
@@ -114,18 +122,18 @@ export const DifferentValues: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const progressbars = canvas.getAllByRole("progressbar");
+    const progressbars = canvas.getAllByRole('progressbar');
     await expect(progressbars).toHaveLength(5);
-    await expect(progressbars[0]).toHaveAttribute("aria-valuenow", "0");
-    await expect(progressbars[1]).toHaveAttribute("aria-valuenow", "25");
-    await expect(progressbars[2]).toHaveAttribute("aria-valuenow", "50");
-    await expect(progressbars[3]).toHaveAttribute("aria-valuenow", "75");
-    await expect(progressbars[4]).toHaveAttribute("aria-valuenow", "100");
-    await expect(canvas.getByText("0% Complete")).toBeInTheDocument();
-    await expect(canvas.getByText("25% Complete")).toBeInTheDocument();
-    await expect(canvas.getByText("50% Complete")).toBeInTheDocument();
-    await expect(canvas.getByText("75% Complete")).toBeInTheDocument();
-    await expect(canvas.getByText("100% Complete")).toBeInTheDocument();
+    await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '0');
+    await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '25');
+    await expect(progressbars[2]).toHaveAttribute('aria-valuenow', '50');
+    await expect(progressbars[3]).toHaveAttribute('aria-valuenow', '75');
+    await expect(progressbars[4]).toHaveAttribute('aria-valuenow', '100');
+    await expect(canvas.getByText('0% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('25% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('50% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('75% Complete')).toBeInTheDocument();
+    await expect(canvas.getByText('100% Complete')).toBeInTheDocument();
   },
   render: () => (
     <div className="space-y-4 w-96">
@@ -173,19 +181,23 @@ export const WithLabel: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Files uploaded")).toBeInTheDocument();
-    await expect(canvas.getByText("30%")).toBeInTheDocument();
-    const progressbar = canvas.getByRole("progressbar", {
-      name: "Files uploaded: 30%",
+    await expect(canvas.getByText('Files uploaded')).toBeInTheDocument();
+    await expect(canvas.getByText('30%')).toBeInTheDocument();
+    const progressbar = canvas.getByRole('progressbar', {
+      name: 'Files uploaded: 30%',
     });
     await expect(progressbar).toBeInTheDocument();
-    await expect(progressbar).toHaveAttribute("aria-valuenow", "30");
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '30');
   },
   render: () => (
     <div className="space-y-2 w-96">
       <Label>Files uploaded</Label>
       <div className="flex items-center justify-between gap-2">
-        <Progress value={30} className="flex-1" aria-label="Files uploaded: 30%" />
+        <Progress
+          value={30}
+          className="flex-1"
+          aria-label="Files uploaded: 30%"
+        />
         <span className="text-muted-foreground text-sm leading-4.5 tracking-tight whitespace-nowrap">
           30%
         </span>
@@ -199,25 +211,27 @@ export const Animated: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Loading...")).toBeInTheDocument();
+    await expect(canvas.getByText('Loading...')).toBeInTheDocument();
     await waitFor(
       () => {
-        const progressbar = canvas.getByRole("progressbar");
+        const progressbar = canvas.getByRole('progressbar');
         expect(progressbar).toBeInTheDocument();
-        const ariaValueNow = progressbar.getAttribute("aria-valuenow");
+        const ariaValueNow = progressbar.getAttribute('aria-valuenow');
         expect(ariaValueNow).not.toBeNull();
-        expect(Number.parseInt(ariaValueNow || "0")).toBeGreaterThanOrEqual(0);
+        expect(Number.parseInt(ariaValueNow || '0')).toBeGreaterThanOrEqual(0);
       },
       {
         timeout: 1000,
       }
     );
-    const progressbar = canvas.getByRole("progressbar");
-    const initialValue = Number.parseInt(progressbar.getAttribute("aria-valuenow") || "0");
+    const progressbar = canvas.getByRole('progressbar');
+    const initialValue = Number.parseInt(
+      progressbar.getAttribute('aria-valuenow') || '0'
+    );
     await waitFor(
       () => {
         const currentValue = Number.parseInt(
-          canvas.getByRole("progressbar").getAttribute("aria-valuenow") || "0"
+          canvas.getByRole('progressbar').getAttribute('aria-valuenow') || '0'
         );
         expect(currentValue).toBeGreaterThan(initialValue);
       },
@@ -225,7 +239,7 @@ export const Animated: Story = {
         timeout: 1000,
       }
     );
-    await expect(canvas.getByText("10%")).toBeInTheDocument();
+    await expect(canvas.getByText('10%')).toBeInTheDocument();
   },
   render: function AnimatedProgressStory() {
     const [progress, setProgress] = useState(0);
@@ -246,7 +260,10 @@ export const Animated: Story = {
           <span>Loading...</span>
           <span className="text-muted-foreground">{progress}%</span>
         </div>
-        <Progress value={progress} aria-label={`Loading progress: ${progress}%`} />
+        <Progress
+          value={progress}
+          aria-label={`Loading progress: ${progress}%`}
+        />
       </div>
     );
   },
@@ -257,17 +274,19 @@ export const FileUpload: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Uploading document.pdf")).toBeInTheDocument();
-    await expect(canvas.getByText("Uploading image.jpg")).toBeInTheDocument();
-    await expect(canvas.getByText("Uploading video.mp4")).toBeInTheDocument();
-    await expect(canvas.getByText("65%")).toBeInTheDocument();
-    await expect(canvas.getByText("30%")).toBeInTheDocument();
-    await expect(canvas.getByText("90%")).toBeInTheDocument();
-    const progressbars = canvas.getAllByRole("progressbar");
+    await expect(
+      canvas.getByText('Uploading document.pdf')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Uploading image.jpg')).toBeInTheDocument();
+    await expect(canvas.getByText('Uploading video.mp4')).toBeInTheDocument();
+    await expect(canvas.getByText('65%')).toBeInTheDocument();
+    await expect(canvas.getByText('30%')).toBeInTheDocument();
+    await expect(canvas.getByText('90%')).toBeInTheDocument();
+    const progressbars = canvas.getAllByRole('progressbar');
     await expect(progressbars).toHaveLength(3);
-    await expect(progressbars[0]).toHaveAttribute("aria-valuenow", "65");
-    await expect(progressbars[1]).toHaveAttribute("aria-valuenow", "30");
-    await expect(progressbars[2]).toHaveAttribute("aria-valuenow", "90");
+    await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '65');
+    await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '30');
+    await expect(progressbars[2]).toHaveAttribute('aria-valuenow', '90');
   },
   render: () => (
     <div className="space-y-4 w-96">
@@ -276,7 +295,10 @@ export const FileUpload: Story = {
           <span>Uploading document.pdf</span>
           <span className="text-muted-foreground">65%</span>
         </div>
-        <Progress value={65} aria-label="Upload progress for document.pdf: 65%" />
+        <Progress
+          value={65}
+          aria-label="Upload progress for document.pdf: 65%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
@@ -301,26 +323,26 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const incrementButton = canvas.getByRole("button", {
+    const incrementButton = canvas.getByRole('button', {
       name: /increment/i,
     });
-    const decrementButton = canvas.getByRole("button", {
+    const decrementButton = canvas.getByRole('button', {
       name: /decrement/i,
     });
-    const resetButton = canvas.getByRole("button", {
+    const resetButton = canvas.getByRole('button', {
       name: /reset/i,
     });
     await expect(incrementButton).toBeInTheDocument();
     await expect(decrementButton).toBeInTheDocument();
     await expect(resetButton).toBeInTheDocument();
-    const progressbar = canvas.getByRole("progressbar");
-    await expect(canvas.getByText("50%")).toBeInTheDocument();
-    await expect(progressbar).toHaveAttribute("aria-valuenow", "50");
+    const progressbar = canvas.getByRole('progressbar');
+    await expect(canvas.getByText('50%')).toBeInTheDocument();
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '50');
     await userEvent.click(incrementButton);
     await waitFor(
       () => {
-        expect(progressbar).toHaveAttribute("aria-valuenow", "60");
-        expect(canvas.getByText("60%")).toBeInTheDocument();
+        expect(progressbar).toHaveAttribute('aria-valuenow', '60');
+        expect(canvas.getByText('60%')).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -329,8 +351,8 @@ export const Interactive: Story = {
     await userEvent.click(decrementButton);
     await waitFor(
       () => {
-        expect(progressbar).toHaveAttribute("aria-valuenow", "50");
-        expect(canvas.getByText("50%")).toBeInTheDocument();
+        expect(progressbar).toHaveAttribute('aria-valuenow', '50');
+        expect(canvas.getByText('50%')).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -339,8 +361,8 @@ export const Interactive: Story = {
     await userEvent.click(resetButton);
     await waitFor(
       () => {
-        expect(progressbar).toHaveAttribute("aria-valuenow", "0");
-        expect(canvas.getByText("0%")).toBeInTheDocument();
+        expect(progressbar).toHaveAttribute('aria-valuenow', '0');
+        expect(canvas.getByText('0%')).toBeInTheDocument();
       },
       {
         timeout: 300,
@@ -387,13 +409,13 @@ export const Indeterminate: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Processing...")).toBeInTheDocument();
-    await expect(canvas.getByText("—")).toBeInTheDocument();
-    const progressbar = canvas.getByRole("progressbar", {
-      name: "Processing progress",
+    await expect(canvas.getByText('Processing...')).toBeInTheDocument();
+    await expect(canvas.getByText('—')).toBeInTheDocument();
+    const progressbar = canvas.getByRole('progressbar', {
+      name: 'Processing progress',
     });
     await expect(progressbar).toBeInTheDocument();
-    await expect(progressbar).toHaveAttribute("aria-valuenow", "0");
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '0');
   },
   render: () => (
     <div className="space-y-4 w-96">
@@ -413,13 +435,13 @@ export const Complete: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Upload complete")).toBeInTheDocument();
-    await expect(canvas.getByText("100%")).toBeInTheDocument();
-    const progressbar = canvas.getByRole("progressbar", {
-      name: "Upload complete: 100%",
+    await expect(canvas.getByText('Upload complete')).toBeInTheDocument();
+    await expect(canvas.getByText('100%')).toBeInTheDocument();
+    const progressbar = canvas.getByRole('progressbar', {
+      name: 'Upload complete: 100%',
     });
     await expect(progressbar).toBeInTheDocument();
-    await expect(progressbar).toHaveAttribute("aria-valuenow", "100");
+    await expect(progressbar).toHaveAttribute('aria-valuenow', '100');
   },
   render: () => (
     <div className="space-y-2 w-96">
@@ -437,20 +459,26 @@ export const Multiple: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText("Task 1: Data processing")).toBeInTheDocument();
-    await expect(canvas.getByText("Task 2: Image optimization")).toBeInTheDocument();
-    await expect(canvas.getByText("Task 3: File compression")).toBeInTheDocument();
-    await expect(canvas.getByText("Task 4: Finalization")).toBeInTheDocument();
-    await expect(canvas.getByText("45%")).toBeInTheDocument();
-    await expect(canvas.getByText("78%")).toBeInTheDocument();
-    await expect(canvas.getByText("12%")).toBeInTheDocument();
-    await expect(canvas.getByText("100%")).toBeInTheDocument();
-    const progressbars = canvas.getAllByRole("progressbar");
+    await expect(
+      canvas.getByText('Task 1: Data processing')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Task 2: Image optimization')
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByText('Task 3: File compression')
+    ).toBeInTheDocument();
+    await expect(canvas.getByText('Task 4: Finalization')).toBeInTheDocument();
+    await expect(canvas.getByText('45%')).toBeInTheDocument();
+    await expect(canvas.getByText('78%')).toBeInTheDocument();
+    await expect(canvas.getByText('12%')).toBeInTheDocument();
+    await expect(canvas.getByText('100%')).toBeInTheDocument();
+    const progressbars = canvas.getAllByRole('progressbar');
     await expect(progressbars).toHaveLength(4);
-    await expect(progressbars[0]).toHaveAttribute("aria-valuenow", "45");
-    await expect(progressbars[1]).toHaveAttribute("aria-valuenow", "78");
-    await expect(progressbars[2]).toHaveAttribute("aria-valuenow", "12");
-    await expect(progressbars[3]).toHaveAttribute("aria-valuenow", "100");
+    await expect(progressbars[0]).toHaveAttribute('aria-valuenow', '45');
+    await expect(progressbars[1]).toHaveAttribute('aria-valuenow', '78');
+    await expect(progressbars[2]).toHaveAttribute('aria-valuenow', '12');
+    await expect(progressbars[3]).toHaveAttribute('aria-valuenow', '100');
   },
   render: () => (
     <div className="space-y-4 w-96">
@@ -459,28 +487,40 @@ export const Multiple: Story = {
           <span>Task 1: Data processing</span>
           <span className="text-muted-foreground">45%</span>
         </div>
-        <Progress value={45} aria-label="Task 1: Data processing progress: 45%" />
+        <Progress
+          value={45}
+          aria-label="Task 1: Data processing progress: 45%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 2: Image optimization</span>
           <span className="text-muted-foreground">78%</span>
         </div>
-        <Progress value={78} aria-label="Task 2: Image optimization progress: 78%" />
+        <Progress
+          value={78}
+          aria-label="Task 2: Image optimization progress: 78%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 3: File compression</span>
           <span className="text-muted-foreground">12%</span>
         </div>
-        <Progress value={12} aria-label="Task 3: File compression progress: 12%" />
+        <Progress
+          value={12}
+          aria-label="Task 3: File compression progress: 12%"
+        />
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
           <span>Task 4: Finalization</span>
           <span className="text-muted-foreground">100%</span>
         </div>
-        <Progress value={100} aria-label="Task 4: Finalization progress: 100%" />
+        <Progress
+          value={100}
+          aria-label="Task 4: Finalization progress: 100%"
+        />
       </div>
     </div>
   ),

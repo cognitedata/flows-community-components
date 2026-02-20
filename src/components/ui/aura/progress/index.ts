@@ -8,5 +8,5 @@
  *
  * <Progress value={66} />
  */
-export { Progress } from "./progress";
-export { ProgressMetadata } from "./progress.metadata";
+export { Progress } from './progress';
+export { ProgressMetadata } from './progress.metadata';

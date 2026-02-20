@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
+
 import {
   Menubar,
   MenubarCheckboxItem,
@@ -15,34 +16,34 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "./menubar";
+} from './menubar';
 const meta: Meta<typeof Menubar> = {
-  title: "Primitives/Menubar",
+  title: 'Primitives/Menubar',
   component: Menubar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["default", "sm"],
+      control: 'select',
+      options: ['default', 'sm'],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
           summary: '"default" | "sm"',
         },
         defaultValue: {
-          summary: "sm",
+          summary: 'sm',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -109,9 +110,9 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const fileTrigger = canvas.getByRole("menuitem", { name: "File" });
+    const fileTrigger = canvas.getByRole('menuitem', { name: 'File' });
     await userEvent.click(fileTrigger);
-    const menu = await within(document.body).findByRole("menu");
+    const menu = await within(document.body).findByRole('menu');
     expect(menu).toBeInTheDocument();
   },
 };
@@ -124,10 +125,16 @@ export const WithCheckboxItems: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
+            <MenubarCheckboxItem
+              checked={showBookmarks}
+              onCheckedChange={setShowBookmarks}
+            >
               Show Bookmarks Bar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
+            <MenubarCheckboxItem
+              checked={showUrls}
+              onCheckedChange={setShowUrls}
+            >
               Show Full URLs
             </MenubarCheckboxItem>
             <MenubarSeparator />
@@ -145,7 +152,7 @@ export const WithCheckboxItems: Story = {
 };
 export const WithRadioGroup: Story = {
   render: function RadioMenubar() {
-    const [theme, setTheme] = useState("system");
+    const [theme, setTheme] = useState('system');
     return (
       <Menubar>
         <MenubarMenu>
@@ -217,7 +224,7 @@ export const FullExample: Story = {
   render: function FullMenubar() {
     const [showBookmarks, setShowBookmarks] = useState(true);
     const [showUrls, setShowUrls] = useState(false);
-    const [theme, setTheme] = useState("system");
+    const [theme, setTheme] = useState('system');
     return (
       <Menubar>
         <MenubarMenu>
@@ -275,10 +282,16 @@ export const FullExample: Story = {
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
-            <MenubarCheckboxItem checked={showBookmarks} onCheckedChange={setShowBookmarks}>
+            <MenubarCheckboxItem
+              checked={showBookmarks}
+              onCheckedChange={setShowBookmarks}
+            >
               Show Bookmarks Bar
             </MenubarCheckboxItem>
-            <MenubarCheckboxItem checked={showUrls} onCheckedChange={setShowUrls}>
+            <MenubarCheckboxItem
+              checked={showUrls}
+              onCheckedChange={setShowUrls}
+            >
               Show Full URLs
             </MenubarCheckboxItem>
             <MenubarSeparator />
@@ -329,7 +342,7 @@ export const VisualRegression: Story = {
 };
 export const Playground: Story = {
   args: {
-    size: "sm",
+    size: 'sm',
   },
   render: (args) => (
     <Menubar {...args}>

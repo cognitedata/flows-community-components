@@ -15,8 +15,8 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "./menubar";
-import { MenubarMetadata } from "./menubar.metadata";
+} from './menubar';
+import { MenubarMetadata } from './menubar.metadata';
 
 export {
   Menubar,

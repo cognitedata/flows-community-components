@@ -1,7 +1,13 @@
-/** Code block component . */
+import {
+  CodeBlock,
+  CodeBlockCollapseButton,
+  CodeBlockCopyButton,
+} from './code-block';
+import { CodeBlockMetadata } from './code-block.metadata';
+
 export {
   CodeBlock,
   CodeBlockCollapseButton,
   CodeBlockCopyButton,
-} from "./code-block";
-export { CodeBlockMetadata } from "./code-block.metadata";
+  CodeBlockMetadata,
+};

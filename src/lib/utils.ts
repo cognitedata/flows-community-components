@@ -1,9 +1,9 @@
-import { type ClassValue, clsx } from "clsx";
-import type { Element } from "hast";
-import { type BundledLanguage, type ShikiTransformer, codeToHtml } from "shiki";
-import { twMerge } from "tailwind-merge";
+import { type ClassValue, clsx } from 'clsx';
+import type { Element } from 'hast';
+import { type BundledLanguage, type ShikiTransformer, codeToHtml } from 'shiki';
+import { twMerge } from 'tailwind-merge';
 
-import styleScope from "@/styleScope";
+import styleScope from '@/styleScope';
 
 let portalContainer: HTMLElement | null = null;
 let hasWarnedAboutCustomPortalContainerProps = false;
@@ -19,41 +19,42 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const isStorybookTestEnv =
-  typeof window !== "undefined" &&
-  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ === true;
+  typeof window !== 'undefined' &&
+  (window as Window & { __STORYBOOK_TEST__?: boolean }).__STORYBOOK_TEST__ ===
+    true;
 
 export const escapeHtml = (value: string) =>
   value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 
 const stripPreStylesTransformer: ShikiTransformer = {
-  name: "strip-pre-styles",
+  name: 'strip-pre-styles',
   pre(node: Element) {
     node.properties.style = undefined;
   },
 };
 
 const lineNumberTransformer: ShikiTransformer = {
-  name: "line-numbers",
+  name: 'line-numbers',
   line(node: Element, line: number) {
     node.children.unshift({
-      type: "element",
-      tagName: "span",
+      type: 'element',
+      tagName: 'span',
       properties: {
         className: [
-          "inline-block",
-          "min-w-10",
-          "mr-4",
-          "text-right",
-          "select-none",
-          "text-muted-foreground",
+          'inline-block',
+          'min-w-10',
+          'mr-4',
+          'text-right',
+          'select-none',
+          'text-muted-foreground',
         ],
       },
-      children: [{ type: "text", value: String(line) }],
+      children: [{ type: 'text', value: String(line) }],
     });
   },
 };
@@ -71,12 +72,12 @@ export async function highlightCode(
   return await Promise.all([
     codeToHtml(code, {
       lang: language,
-      theme: "one-light",
+      theme: 'one-light',
       transformers,
     }),
     codeToHtml(code, {
       lang: language,
-      theme: "one-dark-pro",
+      theme: 'one-dark-pro',
       transformers,
     }),
   ]);
@@ -86,33 +87,35 @@ export async function highlightCode(
  * Focus rings for non-form interactive elements (buttons, etc.).
  * These provide only the shadow-based focus ring without background/border changes.
  */
-export const focusRing = "focus-visible:shadow-focus-ring outline-none" as const;
+export const focusRing =
+  'focus-visible:shadow-focus-ring outline-none' as const;
 export const focusRingDestructive =
-  "focus-visible:shadow-focus-ring-destructive outline-none" as const;
+  'focus-visible:shadow-focus-ring-destructive outline-none' as const;
 
 /**
  * Reusable form element state Tailwind classes.
  * Import these to maintain consistent styling across all form components.
  */
 export const formElementBase =
-  "rounded-md border border-border bg-background p-1.75 text-base leading-5 tracking-tightest text-muted-foreground" as const;
-export const hoverState = "hover:bg-accent hover:text-accent-foreground" as const;
+  'rounded-md border border-border bg-background p-1.75 text-base leading-5 tracking-tightest text-muted-foreground' as const;
+export const hoverState =
+  'hover:bg-accent hover:text-accent-foreground' as const;
 export const filledState =
-  "filled:bg-background filled:border-border filled:text-foreground" as const;
+  'filled:bg-background filled:border-border filled:text-foreground' as const;
 export const focusState =
-  "focus-visible:shadow-focus-ring focus-visible:bg-background focus-visible:border-transparent focus-visible:text-foreground outline-none" as const;
+  'focus-visible:shadow-focus-ring focus-visible:bg-background focus-visible:border-transparent focus-visible:text-foreground outline-none' as const;
 export const invalidState =
-  "aria-invalid:border-destructive-foreground aria-invalid:focus-visible:shadow-focus-ring-destructive aria-invalid:focus-visible:border-transparent aria-invalid:focus-visible:text-foreground outline-none" as const;
+  'aria-invalid:border-destructive-foreground aria-invalid:focus-visible:shadow-focus-ring-destructive aria-invalid:focus-visible:border-transparent aria-invalid:focus-visible:text-foreground outline-none' as const;
 export const disabledState =
-  "disabled:bg-disabled disabled:border-transparent disabled:text-disabled-foreground disabled:pointer-events-none disabled:cursor-not-allowed" as const;
+  'disabled:bg-disabled disabled:border-transparent disabled:text-disabled-foreground disabled:pointer-events-none disabled:cursor-not-allowed' as const;
 export const readOnlyState =
-  "read-only:border-transparent read-only:text-foreground read-only:cursor-default read-only:hover:border-transparent read-only:focus-visible:shadow-none read-only:focus-visible:border-transparent" as const;
+  'read-only:border-transparent read-only:text-foreground read-only:cursor-default read-only:hover:border-transparent read-only:focus-visible:shadow-none read-only:focus-visible:border-transparent' as const;
 
 export function slugToPascalCase(slug: string): string {
   return slug
-    .split("-")
+    .split('-')
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("");
+    .join('');
 }
 
 /**
@@ -123,7 +126,7 @@ export function slugToPascalCase(slug: string): string {
  * @returns The hostname, original string, or "unknown" if url is undefined
  */
 export function getHostname(url: string | undefined): string {
-  if (!url) return "unknown";
+  if (!url) return 'unknown';
   try {
     return new URL(url).hostname;
   } catch {
@@ -137,7 +140,9 @@ export function getHostname(url: string | undefined): string {
  * from the shell app's container query context.
  * The result is cached to avoid side effects on subsequent calls during React renders.
  */
-export const getPortalContainer = (options?: PortalContainerOptions): HTMLElement | undefined => {
+export const getPortalContainer = (
+  options?: PortalContainerOptions
+): HTMLElement | undefined => {
   const hasCustomOptions = Boolean(options && Object.keys(options).length > 0);
 
   const containerId = options?.id ?? styleScope.portalContainer;
@@ -145,8 +150,8 @@ export const getPortalContainer = (options?: PortalContainerOptions): HTMLElemen
   const applyContainerProps = (element: HTMLElement) => {
     element.id = containerId;
     element.className = containerClassName;
-    element.style.position = options?.style?.position ?? "fixed";
-    element.style.zIndex = options?.style?.zIndex ?? "1000";
+    element.style.position = options?.style?.position ?? 'fixed';
+    element.style.zIndex = options?.style?.zIndex ?? '1000';
     if (options?.style) {
       Object.assign(element.style, options.style);
     }
@@ -155,19 +160,19 @@ export const getPortalContainer = (options?: PortalContainerOptions): HTMLElemen
   if (portalContainer) {
     if (hasCustomOptions) {
       console.warn(
-        "getPortalContainer: Portal container already exists. Custom options will be ignored to prevent side effects."
+        'getPortalContainer: Portal container already exists. Custom options will be ignored to prevent side effects.'
       );
     }
     return portalContainer;
   }
 
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return undefined;
   }
 
   if (hasCustomOptions && !hasWarnedAboutCustomPortalContainerProps) {
     console.warn(
-      "Custom portal container props can lead to unintended behavior. Use with caution."
+      'Custom portal container props can lead to unintended behavior. Use with caution.'
     );
     hasWarnedAboutCustomPortalContainerProps = true;
   }
@@ -175,7 +180,7 @@ export const getPortalContainer = (options?: PortalContainerOptions): HTMLElemen
   let container = document?.getElementById(containerId);
 
   if (!container) {
-    container = document.createElement("div");
+    container = document.createElement('div');
     document.body.appendChild(container);
   }
 
@@ -200,7 +205,7 @@ export function getInitials(name: string): string {
   const parts = name.trim().split(/\s+/);
 
   if (parts.length === 0 || !parts[0]) {
-    return "";
+    return '';
   }
 
   if (parts.length === 1) {
@@ -221,7 +226,7 @@ export function getInitials(name: string): string {
  * @returns The correct path to the image
  */
 export function getStorybookImagePath(filename: string): string {
-  if (typeof window === "undefined") return `/${filename}`;
+  if (typeof window === 'undefined') return `/${filename}`;
 
   try {
     const pathname = (window.parent?.location || window.location).pathname;
@@ -229,7 +234,7 @@ export function getStorybookImagePath(filename: string): string {
     if (match) return `${match[1]}/${filename}`;
     return `/${filename}`;
   } catch (error) {
-    console.warn("Failed to determine Storybook image path:", error);
+    console.warn('Failed to determine Storybook image path:', error);
     return `/${filename}`;
   }
 }

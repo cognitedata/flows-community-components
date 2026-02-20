@@ -4,7 +4,7 @@ import {
   type ComponentRef,
   forwardRef,
   useState,
-} from "react";
+} from 'react';
 
 import {
   cn,
@@ -14,23 +14,23 @@ import {
   formElementBase,
   hoverState,
   invalidState,
-} from "../../../../lib/utils";
-import { HelperText } from "../helper-text";
+} from '../../../../lib/utils';
+import { HelperText } from '../helper-text';
 
-interface TextareaProps extends ComponentProps<"textarea"> {
+interface TextareaProps extends ComponentProps<'textarea'> {
   maxChars?: number;
   errorMessage?: string;
   overLimitMessage?: string;
   charactersLeftMessage?: (remaining: number) => string;
 }
 
-const Textarea = forwardRef<ComponentRef<"textarea">, TextareaProps>(
+const Textarea = forwardRef<ComponentRef<'textarea'>, TextareaProps>(
   (
     {
       className,
       maxChars,
       errorMessage,
-      overLimitMessage = "Too many characters",
+      overLimitMessage = 'Too many characters',
       charactersLeftMessage = (remaining) => `${remaining} characters left`,
       ...props
     },
@@ -38,11 +38,13 @@ const Textarea = forwardRef<ComponentRef<"textarea">, TextareaProps>(
   ) => {
     const isControlled = props.value !== undefined;
     const [uncontrolledCharCount, setUncontrolledCharCount] = useState(() => {
-      const initialValue = props.defaultValue ?? "";
+      const initialValue = props.defaultValue ?? '';
       return String(initialValue).length;
     });
 
-    const charCount = isControlled ? String(props.value ?? "").length : uncontrolledCharCount;
+    const charCount = isControlled
+      ? String(props.value ?? '').length
+      : uncontrolledCharCount;
 
     const isOverLimit = maxChars !== undefined && charCount > maxChars;
     const isInvalid = !!errorMessage || isOverLimit;
@@ -63,14 +65,14 @@ const Textarea = forwardRef<ComponentRef<"textarea">, TextareaProps>(
           data-slot="textarea"
           aria-invalid={isInvalid ? true : undefined}
           className={cn(
-            "flex field-sizing-content min-h-16 w-full placeholder:text-muted-foreground transition-colors transition-shadow",
+            'flex field-sizing-content min-h-16 w-full placeholder:text-muted-foreground transition-colors transition-shadow',
             formElementBase,
             hoverState,
             filledState,
             focusState,
             invalidState,
             disabledState,
-            "dark:bg-input/30",
+            'dark:bg-input/30',
             className
           )}
           onChange={handleChange}
@@ -79,13 +81,15 @@ const Textarea = forwardRef<ComponentRef<"textarea">, TextareaProps>(
         {errorMessage && <HelperText isError>{errorMessage}</HelperText>}
         {maxChars !== undefined && (
           <HelperText isError={isOverLimit}>
-            {isOverLimit ? overLimitMessage : charactersLeftMessage(maxChars - charCount)}
+            {isOverLimit
+              ? overLimitMessage
+              : charactersLeftMessage(maxChars - charCount)}
           </HelperText>
         )}
       </>
     );
   }
 );
-Textarea.displayName = "Textarea";
+Textarea.displayName = 'Textarea';
 
 export { Textarea };
