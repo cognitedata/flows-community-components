@@ -139,6 +139,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
 - Conversation stories should keep play assertions semantic (`getByRole`/`findAllByRole`) and avoid helper components inside story render functions.
 - For components that accept a `render` element and forward accessibility props, set the accessible label once on the component to avoid duplicate `aria-label` attributes on both wrapper and inner element.
+- In Aura stories, avoid DOM traversal selectors in play functions; prefer semantic role/text queries for the interacted element.
 
 # Storybook Stories
 
