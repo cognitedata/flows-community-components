@@ -40,8 +40,8 @@ import {
   usePromptInputAttachments,
   usePromptInputController,
   useProviderAttachments,
-} from "./prompt-input";
-import { PromptInputMetadata } from "./prompt-input.metadata";
+} from './prompt-input';
+import { PromptInputMetadata } from './prompt-input.metadata';
 
 export {
   PromptInput,

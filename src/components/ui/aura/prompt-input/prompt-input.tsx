@@ -37,7 +37,7 @@ import {
 
 import type { ChatStatus, FileUIPart } from '../../../../lib/ai/types';
 import { cn, convertBlobUrlToDataUrl } from '../../../../lib/utils';
-import { Button } from "../button";
+import { Button } from '../button';
 import {
   Command,
   CommandEmpty,
@@ -46,17 +46,28 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "../command";
+} from '../command';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../dropdown-menu";
-import { HelperText } from "../helper-text";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../hover-card";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from "../input-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
+} from '../dropdown-menu';
+import { HelperText } from '../helper-text';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../hover-card';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupTextarea,
+} from '../input-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../select';
 
 type AttachmentsContext = {
   files: (FileUIPart & { id: string })[];
@@ -140,7 +151,7 @@ function PromptInputProvider({
       prev.concat(
         incoming.map((file): FileUIPart & { id: string } => ({
           id: nanoid(),
-          type: "file",
+          type: 'file',
           url: URL.createObjectURL(file),
           mediaType: file.type,
           filename: file.name,
@@ -231,7 +242,7 @@ type PromptInputAttachmentProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 const PromptInputAttachment = forwardRef<
-  HTMLDivElement,
+  ComponentRef<'div'>,
   PromptInputAttachmentProps
 >(({ data, className, ...props }, ref) => {
   const attachments = usePromptInputAttachments();
@@ -639,8 +650,8 @@ const PromptInput = ({
       ? controller.textInput.value
       : (() => {
           const formData = new FormData(form);
-          const entry = formData.get("message");
-          return typeof entry === "string" ? entry : "";
+          const entry = formData.get('message');
+          return typeof entry === 'string' ? entry : '';
         })();
 
     if (!usingProvider) {
@@ -753,7 +764,7 @@ PromptInput.displayName = 'PromptInput';
 
 type PromptInputBodyProps = HTMLAttributes<HTMLDivElement>;
 
-const PromptInputBody = forwardRef<HTMLDivElement, PromptInputBodyProps>(
+const PromptInputBody = forwardRef<ComponentRef<'div'>, PromptInputBodyProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -768,7 +779,7 @@ PromptInputBody.displayName = 'PromptInputBody';
 type PromptInputTextareaProps = ComponentProps<typeof InputGroupTextarea>;
 
 const PromptInputTextarea = forwardRef<
-  HTMLTextAreaElement,
+  ComponentRef<typeof InputGroupTextarea>,
   PromptInputTextareaProps
 >(
   (
@@ -866,16 +877,17 @@ type PromptInputHeaderProps = Omit<
   'align'
 >;
 
-const PromptInputHeader = forwardRef<HTMLDivElement, PromptInputHeaderProps>(
-  ({ className, ...props }, ref) => (
-    <InputGroupAddon
-      ref={ref}
-      align="block-end"
-      className={cn('order-first flex-wrap gap-1', className)}
-      {...props}
-    />
-  )
-);
+const PromptInputHeader = forwardRef<
+  ComponentRef<typeof InputGroupAddon>,
+  PromptInputHeaderProps
+>(({ className, ...props }, ref) => (
+  <InputGroupAddon
+    ref={ref}
+    align="block-end"
+    className={cn('order-first flex-wrap gap-1', className)}
+    {...props}
+  />
+));
 PromptInputHeader.displayName = 'PromptInputHeader';
 
 type PromptInputFooterProps = Omit<
@@ -883,21 +895,22 @@ type PromptInputFooterProps = Omit<
   'align'
 >;
 
-const PromptInputFooter = forwardRef<HTMLDivElement, PromptInputFooterProps>(
-  ({ className, ...props }, ref) => (
-    <InputGroupAddon
-      ref={ref}
-      align="block-end"
-      className={cn('justify-between gap-1 p-2.75', className)}
-      {...props}
-    />
-  )
-);
+const PromptInputFooter = forwardRef<
+  ComponentRef<typeof InputGroupAddon>,
+  PromptInputFooterProps
+>(({ className, ...props }, ref) => (
+  <InputGroupAddon
+    ref={ref}
+    align="block-end"
+    className={cn('justify-between gap-1 p-2.75', className)}
+    {...props}
+  />
+));
 PromptInputFooter.displayName = 'PromptInputFooter';
 
 type PromptInputToolsProps = HTMLAttributes<HTMLDivElement>;
 
-const PromptInputTools = forwardRef<HTMLDivElement, PromptInputToolsProps>(
+const PromptInputTools = forwardRef<ComponentRef<'div'>, PromptInputToolsProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -978,7 +991,10 @@ type PromptInputSubmitProps = ComponentProps<typeof InputGroupButton> & {
   status?: ChatStatus;
 };
 
-const PromptInputSubmit = forwardRef<HTMLButtonElement, PromptInputSubmitProps>(
+const PromptInputSubmit = forwardRef<
+  ComponentRef<typeof InputGroupButton>,
+  PromptInputSubmitProps
+>(
   (
     {
       className,
@@ -1266,7 +1282,7 @@ PromptInputHoverCardContent.displayName = 'PromptInputHoverCardContent';
 type PromptInputTabsListProps = HTMLAttributes<HTMLDivElement>;
 
 const PromptInputTabsList = forwardRef<
-  HTMLDivElement,
+  ComponentRef<'div'>,
   PromptInputTabsListProps
 >(({ className, ...props }, ref) => (
   <div
@@ -1280,7 +1296,7 @@ PromptInputTabsList.displayName = 'PromptInputTabsList';
 
 type PromptInputTabProps = HTMLAttributes<HTMLDivElement>;
 
-const PromptInputTab = forwardRef<HTMLDivElement, PromptInputTabProps>(
+const PromptInputTab = forwardRef<ComponentRef<'div'>, PromptInputTabProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -1295,7 +1311,7 @@ PromptInputTab.displayName = 'PromptInputTab';
 type PromptInputTabLabelProps = HTMLAttributes<HTMLHeadingElement>;
 
 const PromptInputTabLabel = forwardRef<
-  HTMLHeadingElement,
+  ComponentRef<'h3'>,
   PromptInputTabLabelProps
 >(({ className, ...props }, ref) => (
   <h3
@@ -1312,33 +1328,35 @@ PromptInputTabLabel.displayName = 'PromptInputTabLabel';
 
 type PromptInputTabBodyProps = HTMLAttributes<HTMLDivElement>;
 
-const PromptInputTabBody = forwardRef<HTMLDivElement, PromptInputTabBodyProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      data-slot="prompt-input-tab-body"
-      className={cn('space-y-1', className)}
-      {...props}
-    />
-  )
-);
+const PromptInputTabBody = forwardRef<
+  ComponentRef<'div'>,
+  PromptInputTabBodyProps
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-slot="prompt-input-tab-body"
+    className={cn('space-y-1', className)}
+    {...props}
+  />
+));
 PromptInputTabBody.displayName = 'PromptInputTabBody';
 
 type PromptInputTabItemProps = HTMLAttributes<HTMLDivElement>;
 
-const PromptInputTabItem = forwardRef<HTMLDivElement, PromptInputTabItemProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      data-slot="prompt-input-tab-item"
-      className={cn(
-        'flex items-center gap-2 px-3 py-2 text-xs hover:bg-accent',
-        className
-      )}
-      {...props}
-    />
-  )
-);
+const PromptInputTabItem = forwardRef<
+  ComponentRef<'div'>,
+  PromptInputTabItemProps
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    data-slot="prompt-input-tab-item"
+    className={cn(
+      'flex items-center gap-2 px-3 py-2 text-xs hover:bg-accent',
+      className
+    )}
+    {...props}
+  />
+));
 PromptInputTabItem.displayName = 'PromptInputTabItem';
 
 type PromptInputCommandProps = ComponentProps<typeof Command>;
