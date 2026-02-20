@@ -10,3 +10,4 @@ export {
   ListItemTitle,
   ListOrdered,
 } from './list';
+export { ListMetadata } from './list.metadata';
