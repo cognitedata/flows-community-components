@@ -7,15 +7,16 @@ import {
 import { type ComponentProps, useRef, useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-import { Button } from '@/components/ui/aura/button';
+import { Button } from '../button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/aura/dropdown-menu';
-import { HelperText } from '@/components/ui/aura/helper-text';
-import { Label } from '@/components/ui/aura/label';
+} from '../dropdown-menu';
+import { HelperText } from '../helper-text';
+import { Label } from '../label';
+
 import {
   PromptInput,
   PromptInputBody,
@@ -26,7 +27,7 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
-} from '@/components/ui/aura/prompt-input';
+} from './prompt-input';
 const meta: Meta<typeof PromptInput> = {
   title: 'AI/Prompt Input',
   component: PromptInput,
@@ -283,12 +284,17 @@ export const SubmittedState: Story = {
     await expect(submitButton).toHaveAttribute('data-status', 'submitted');
     await expect(submitButton).toBeDisabled();
     const textarea = canvas.getByRole('textbox');
-    await expect(textarea).toBeDisabled();
+    await expect(textarea).toHaveAttribute('readonly');
+    await expect(textarea).toHaveAttribute('aria-disabled', 'true');
   },
   render: () => (
     <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
-        <PromptInputTextarea placeholder="Type a message..." disabled />
+        <PromptInputTextarea
+          placeholder="Type a message..."
+          readOnly
+          aria-disabled
+        />
       </PromptInputBody>
       <PromptInputFooter>
         <PromptInputTools />
@@ -309,12 +315,17 @@ export const StreamingState: Story = {
     await expect(submitButton).toHaveAttribute('data-status', 'streaming');
     await expect(submitButton).toBeInTheDocument();
     const textarea = canvas.getByRole('textbox');
-    await expect(textarea).toBeDisabled();
+    await expect(textarea).toHaveAttribute('readonly');
+    await expect(textarea).toHaveAttribute('aria-disabled', 'true');
   },
   render: () => (
     <PromptInput onSubmit={() => {}} className="w-125">
       <PromptInputBody>
-        <PromptInputTextarea placeholder="Type a message..." disabled />
+        <PromptInputTextarea
+          placeholder="Type a message..."
+          readOnly
+          aria-disabled
+        />
       </PromptInputBody>
       <PromptInputFooter>
         <PromptInputTools />
@@ -453,10 +464,7 @@ export const Minimal: Story = {
     await expect(textarea).toHaveValue('Minimal test');
   },
   render: () => (
-    <PromptInput
-      onSubmit={(message) => console.log('Submitted:', message)}
-      className="w-100"
-    >
+    <PromptInput onSubmit={() => {}} className="w-100">
       <PromptInputBody>
         <PromptInputTextarea placeholder="Message..." />
       </PromptInputBody>
