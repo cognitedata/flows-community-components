@@ -3,10 +3,10 @@ import { type VariantProps, cva } from 'class-variance-authority';
 import {
   type ComponentRef,
   type HTMLAttributes,
-  type ReactElement,
   type ReactNode,
   cloneElement,
   forwardRef,
+  isValidElement,
 } from 'react';
 
 import { cn } from '../../../../lib/utils';
@@ -36,7 +36,8 @@ const helperTextIconVariants = cva('shrink-0', {
 });
 
 interface HelperTextProps
-  extends HTMLAttributes<HTMLDivElement>,
+  extends
+    HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof helperTextVariants> {
   isError?: boolean;
   isSuccess?: boolean;
@@ -45,11 +46,21 @@ interface HelperTextProps
 
 const HelperText = forwardRef<ComponentRef<'div'>, HelperTextProps>(
   (
-    { className, size = 'sm', isError = false, isSuccess = false, icon, children, ...props },
+    {
+      className,
+      size = 'sm',
+      isError = false,
+      isSuccess = false,
+      icon,
+      children,
+      ...props
+    },
     ref
   ) => {
     const displayIcon = icon ?? (isError ? <IconExclamationCircle /> : null);
-    const iconElement = displayIcon as ReactElement<{ className?: string }> | null;
+    const iconElement = isValidElement<{ className?: string }>(displayIcon)
+      ? displayIcon
+      : null;
 
     const textColor = isError
       ? 'text-destructive-foreground'
