@@ -275,12 +275,6 @@ export {
   ConversationEmptyState,
   ConversationScrollButton,
 } from "./conversation/conversation";
-export type {
-  ConversationProps,
-  ConversationContentProps,
-  ConversationEmptyStateProps,
-  ConversationScrollButtonProps,
-} from "./conversation/conversation";
 export { ConversationMetadata } from "./conversation/conversation.metadata";
 
 export { DatePicker, DatePickerCustom, DateRangePicker } from "./date-picker/date-picker";
