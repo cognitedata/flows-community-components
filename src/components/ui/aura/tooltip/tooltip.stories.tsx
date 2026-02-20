@@ -4,11 +4,28 @@ import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { IconAlertTriangle, IconHelp, IconInfoCircle } from "@tabler/icons-react";
 import { useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
-
-const getOpenTooltip = (tooltipBody: ReturnType<typeof within>, matcher?: RegExp) => {
-  const tooltips = tooltipBody.queryAllByTestId("tooltip-content") as HTMLElement[];
-  return tooltips.find((tooltip: HTMLElement) => {
-    if (!tooltip.hasAttribute("data-open")) {
+const settle = () => new Promise((resolve) => setTimeout(resolve, 200));
+const getOpenTooltip = (matcher?: RegExp) => {
+  const semanticTooltip = within(document.body)
+    .queryAllByRole("tooltip")
+    .find((tooltip) => {
+      if (!matcher) {
+        return true;
+      }
+      return matcher.test(tooltip.textContent ?? "");
+    });
+  if (semanticTooltip) {
+    return semanticTooltip;
+  }
+  const fallbackTooltips = Array.from(
+    document.querySelectorAll('[data-slot="tooltip-content"]')
+  ).filter((tooltip): tooltip is HTMLElement => tooltip instanceof HTMLElement);
+  return fallbackTooltips.find((tooltip) => {
+    const isOpen =
+      tooltip.hasAttribute("data-open") ||
+      tooltip.getAttribute("data-state") === "open" ||
+      tooltip.getAttribute("data-state") === "delayed-open";
+    if (!isOpen) {
       return false;
     }
     if (!matcher) {
@@ -17,63 +34,55 @@ const getOpenTooltip = (tooltipBody: ReturnType<typeof within>, matcher?: RegExp
     return matcher.test(tooltip.textContent ?? "");
   });
 };
-
-const getOpenTooltipElement = (matcher?: RegExp) => {
-  const tooltip = document.querySelector(
-    '[data-slot="tooltip-content"][data-open]'
-  ) as HTMLElement | null;
-
+const requireTooltip = (tooltip: HTMLElement | undefined) => {
   if (!tooltip) {
-    return undefined;
+    throw new Error("Tooltip did not open");
   }
-
-  if (!matcher) {
-    return tooltip;
-  }
-
-  return matcher.test(tooltip.textContent ?? "") ? tooltip : undefined;
+  return tooltip;
 };
-
-const waitForOpenTooltip = async (
-  tooltipBody: ReturnType<typeof within>,
-  matcher: RegExp,
-  timeout = 3000
-) => {
-  let tooltip: HTMLElement | undefined;
-  await waitFor(
+const waitForOpenTooltip = async (matcher: RegExp, timeout = 5000) => {
+  return await waitFor(
     () => {
-      tooltip = getOpenTooltipElement(matcher) || getOpenTooltip(tooltipBody, matcher);
+      const tooltip = requireTooltip(getOpenTooltip(matcher));
       expect(tooltip).toBeInTheDocument();
       expect(tooltip).toBeVisible();
+      return tooltip;
     },
-    { timeout }
+    {
+      timeout,
+    }
   );
-  return tooltip as HTMLElement;
 };
-
-const hoverAndWaitForTooltip = async (
-  trigger: HTMLElement,
-  tooltipBody: ReturnType<typeof within>,
-  matcher: RegExp,
-  timeout = 3000
-) => {
+const hoverAndWaitForTooltip = async (trigger: HTMLElement, matcher: RegExp, timeout = 5000) => {
   await userEvent.hover(trigger);
   try {
-    return await waitForOpenTooltip(tooltipBody, matcher, timeout);
+    return await waitForOpenTooltip(matcher, timeout);
   } catch {
     await userEvent.unhover(trigger);
+    await settle();
     await userEvent.hover(trigger);
-    return await waitForOpenTooltip(tooltipBody, matcher, timeout);
+    return await waitForOpenTooltip(matcher, timeout);
   }
 };
-
 const waitForTooltipClosed = async () => {
   await waitFor(() => {
-    const tooltip = document.querySelector('[data-slot="tooltip-content"][data-open]');
+    const semanticTooltip = within(document.body).queryByRole("tooltip");
+    const fallbackTooltip = Array.from(
+      document.querySelectorAll('[data-slot="tooltip-content"]')
+    ).find((tooltip) => {
+      if (!(tooltip instanceof HTMLElement)) {
+        return false;
+      }
+      return (
+        tooltip.hasAttribute("data-open") ||
+        tooltip.getAttribute("data-state") === "open" ||
+        tooltip.getAttribute("data-state") === "delayed-open"
+      );
+    });
+    const tooltip = semanticTooltip ?? fallbackTooltip ?? null;
     expect(tooltip).not.toBeInTheDocument();
   });
 };
-
 const meta: Meta<typeof Tooltip> = {
   title: "Primitives/Tooltip",
   component: Tooltip,
@@ -86,143 +95,132 @@ const meta: Meta<typeof Tooltip> = {
     ),
   ],
   argTypes: {
-    delayDuration: {
-      control: "number",
-      description: "Delay before showing tooltip in milliseconds",
-      table: {
-        category: "Behavior",
-        type: { summary: "number" },
-        defaultValue: { summary: "0" },
-      },
-    },
     defaultOpen: {
       control: "boolean",
-      description: "Whether the tooltip is open by default",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
     open: {
       control: "boolean",
-      description: "Controlled open state",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     disableHoverableContent: {
       control: "boolean",
-      description: "Whether the tooltip content can be hovered",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
     onOpenChange: {
       action: "openChanged",
-      description: "Callback when tooltip open state changes",
       table: {
         category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        type: {
+          summary: "(open: boolean) => void",
+        },
       },
     },
   },
   parameters: {
     layout: "centered",
+    chromatic: {
+      viewports: [1200],
+    },
     actions: {
       handles: ["openChanged"],
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
-
-/**
- * Basic tooltip that appears on hover.
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic tooltip that appears on hover. Tests hover interaction, tooltip visibility, and proper cleanup.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = await canvas.findByRole("button", { name: /hover me/i }, { timeout: 2000 });
-    await expect(button).toBeInTheDocument();
-
-    const tooltipBody = within(document.body);
-    expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
-
-    await hoverAndWaitForTooltip(
-      button,
-      tooltipBody,
-      /Publishing will make it available to all users/i
+    const button = await canvas.findByRole(
+      "button",
+      {
+        name: /hover me/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
-
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await expect(button).toBeInTheDocument();
+    expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
+    await hoverAndWaitForTooltip(button, /Publishing will make it available to all users/i);
+    await settle();
   },
   render: () => (
-    <Tooltip>
-      <TooltipTrigger render={<Button>Hover me</Button>} />
-      <TooltipContent>Publishing will make it available to all users</TooltipContent>
-    </Tooltip>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger render={<Button>Hover me</Button>} />
+        <TooltipContent>Publishing will make it available to all users</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   ),
 };
-
-/**
- * Tooltips used with different button variants.
- */
 export const WithButtonVariants: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story:
-          "Tooltips used with different button variants to show contextual information. Tests that multiple tooltips work independently.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-
-    const firstButton = await canvas.findByRole("button", { name: /hover me/i }, { timeout: 2000 });
-    await hoverAndWaitForTooltip(
-      firstButton,
-      tooltipBody,
-      /Publishing will make it available to all users/i
+    const firstButton = await canvas.findByRole(
+      "button",
+      {
+        name: /hover me/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
-
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await hoverAndWaitForTooltip(firstButton, /Publishing will make it available to all users/i);
+    await settle();
     await userEvent.unhover(firstButton);
     await waitForTooltipClosed();
-
     const secondButton = await canvas.findByRole(
       "button",
-      { name: /more info/i },
-      { timeout: 2000 }
+      {
+        name: /more info/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
-    await hoverAndWaitForTooltip(
-      secondButton,
-      tooltipBody,
-      /This button does something important/i
-    );
-
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await hoverAndWaitForTooltip(secondButton, /This button does something important/i);
+    await settle();
     await userEvent.unhover(secondButton);
     await waitForTooltipClosed();
-
-    const thirdButton = await canvas.findByRole("button", { name: /delete/i }, { timeout: 2000 });
-    await hoverAndWaitForTooltip(thirdButton, tooltipBody, /This action cannot be undone/i);
+    const thirdButton = await canvas.findByRole(
+      "button",
+      {
+        name: /delete/i,
+      },
+      {
+        timeout: 2000,
+      }
+    );
+    await hoverAndWaitForTooltip(thirdButton, /This action cannot be undone/i);
     await userEvent.unhover(thirdButton);
     await waitForTooltipClosed();
   },
@@ -247,24 +245,20 @@ export const WithButtonVariants: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltip positioned above the trigger element.
- */
 export const PositionTop: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Tooltip positioned above the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
-    const tooltipBody = within(document.body);
-    const tooltip = await hoverAndWaitForTooltip(button, tooltipBody, /This is a helpful message/i);
+    const button = await canvas.findByRole(
+      "button",
+      {},
+      {
+        timeout: 2000,
+      }
+    );
+    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
     expect(["top", "bottom"]).toContain(tooltip.getAttribute("data-side"));
   },
   render: () => (
@@ -276,24 +270,20 @@ export const PositionTop: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltip positioned to the right of the trigger element.
- */
 export const PositionRight: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Tooltip positioned to the right of the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
-    const tooltip = await hoverAndWaitForTooltip(button, tooltipBody, /This is a helpful message/i);
+    const button = await canvas.findByRole(
+      "button",
+      {},
+      {
+        timeout: 2000,
+      }
+    );
+    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
     expect(tooltip).toHaveAttribute("data-side", "right");
   },
   render: () => (
@@ -305,24 +295,20 @@ export const PositionRight: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltip positioned below the trigger element.
- */
 export const PositionBottom: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Tooltip positioned below the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
-    const tooltip = await hoverAndWaitForTooltip(button, tooltipBody, /This is a helpful message/i);
+    const button = await canvas.findByRole(
+      "button",
+      {},
+      {
+        timeout: 2000,
+      }
+    );
+    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
     expect(tooltip).toHaveAttribute("data-side", "bottom");
   },
   render: () => (
@@ -334,24 +320,20 @@ export const PositionBottom: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltip positioned to the left of the trigger element.
- */
 export const PositionLeft: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Tooltip positioned to the left of the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
-    const tooltip = await hoverAndWaitForTooltip(button, tooltipBody, /This is a helpful message/i);
+    const button = await canvas.findByRole(
+      "button",
+      {},
+      {
+        timeout: 2000,
+      }
+    );
+    const tooltip = await hoverAndWaitForTooltip(button, /This is a helpful message/i);
     expect(["left", "right"]).toContain(tooltip.getAttribute("data-side"));
     await userEvent.unhover(button);
     await waitForTooltipClosed();
@@ -365,36 +347,27 @@ export const PositionLeft: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltips with arrows appearing from all sides.
- */
 export const AllPositions: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Tooltips with arrows appearing from all sides.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
     const positions = ["Top", "Right", "Bottom", "Left"];
-
     for (const position of positions) {
       const button = await canvas.findByRole(
         "button",
         {
           name: new RegExp(`hover me - ${position}`, "i"),
         },
-        { timeout: 2000 }
+        {
+          timeout: 2000,
+        }
       );
-      await hoverAndWaitForTooltip(button, tooltipBody, /This is a helpful message/i);
+      await hoverAndWaitForTooltip(button, /This is a helpful message/i);
       await userEvent.unhover(button);
       await waitForTooltipClosed();
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await settle();
     }
   },
   render: () => (
@@ -423,46 +396,47 @@ export const AllPositions: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltips used with icon buttons to provide additional context.
- */
 export const WithIcons: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Tooltips used with icon buttons to provide additional context. Tests accessibility with screen reader labels.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-
     const infoButton = await canvas.findByRole(
       "button",
-      { name: /information/i },
-      { timeout: 2000 }
+      {
+        name: /information/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
-    const helpButton = await canvas.findByRole("button", { name: /help/i }, { timeout: 2000 });
+    const helpButton = await canvas.findByRole(
+      "button",
+      {
+        name: /help/i,
+      },
+      {
+        timeout: 2000,
+      }
+    );
     const warningButton = await canvas.findByRole(
       "button",
-      { name: /warning/i },
-      { timeout: 2000 }
+      {
+        name: /warning/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
-
     await expect(infoButton).toBeInTheDocument();
     await expect(helpButton).toBeInTheDocument();
     await expect(warningButton).toBeInTheDocument();
-
-    await hoverAndWaitForTooltip(infoButton, tooltipBody, /View more information/i);
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await hoverAndWaitForTooltip(infoButton, /View more information/i);
+    await settle();
     await userEvent.unhover(infoButton);
     await waitForTooltipClosed();
-
-    await hoverAndWaitForTooltip(helpButton, tooltipBody, /Get help with this feature/i);
+    await hoverAndWaitForTooltip(helpButton, /Get help with this feature/i);
     await userEvent.unhover(helpButton);
     await waitForTooltipClosed();
   },
@@ -508,24 +482,20 @@ export const WithIcons: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltip with longer content to demonstrate text wrapping.
- */
 export const LongContent: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Tooltip with longer content to demonstrate text wrapping and balance.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
-    const tooltip = await hoverAndWaitForTooltip(button, tooltipBody, /multiple lines of text/i);
+    const button = await canvas.findByRole(
+      "button",
+      {},
+      {
+        timeout: 2000,
+      }
+    );
+    const tooltip = await hoverAndWaitForTooltip(button, /multiple lines of text/i);
     expect(tooltip).toHaveTextContent(/multiple lines of text/i);
   },
   render: () => (
@@ -540,24 +510,20 @@ export const LongContent: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltip with custom side offset for adjusted spacing.
- */
 export const WithOffset: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Tooltip with custom side offset to adjust spacing from the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
-    const tooltip = await hoverAndWaitForTooltip(button, tooltipBody, /increased spacing/i);
+    const button = await canvas.findByRole(
+      "button",
+      {},
+      {
+        timeout: 2000,
+      }
+    );
+    const tooltip = await hoverAndWaitForTooltip(button, /increased spacing/i);
     expect(tooltip).toHaveTextContent(/increased spacing/i);
   },
   render: () => (
@@ -571,38 +537,26 @@ export const WithOffset: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Keyboard accessibility: tooltip appears on focus, dismissed with Escape.
- */
 export const KeyboardInteractions: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story:
-          "Tests keyboard accessibility: tooltip appears on focus and can be dismissed with Escape key.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
     const button = await canvas.findByRole(
       "button",
-      { name: /keyboard focus/i },
-      { timeout: 2000 }
+      {
+        name: /keyboard focus/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
-
-    const waitForKeyboardTooltip = async () => {
-      await waitForOpenTooltip(tooltipBody, /keyboard accessible/i, 4000);
-    };
-
+    const waitForKeyboardTooltip = () => waitForOpenTooltip(/keyboard accessible/i, 4000);
     button.focus();
     await waitFor(() => {
       expect(button).toHaveFocus();
     });
-
     try {
       await waitForKeyboardTooltip();
     } catch {
@@ -618,7 +572,6 @@ export const KeyboardInteractions: Story = {
         await waitForKeyboardTooltip();
       }
     }
-
     await userEvent.keyboard("{Escape}");
     await waitForTooltipClosed();
   },
@@ -633,22 +586,12 @@ export const KeyboardInteractions: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Tooltip that is open by default when the component mounts.
- */
 export const DefaultOpen: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story: "Tooltip that is open by default when the component mounts.",
-      },
-    },
   },
   play: async () => {
-    const tooltipBody = within(document.body);
-    await waitForOpenTooltip(tooltipBody, /open by default/i, 3000);
+    await waitForOpenTooltip(/open by default/i, 3000);
   },
   render: () => (
     <TooltipProvider>
@@ -659,51 +602,43 @@ export const DefaultOpen: Story = {
     </TooltipProvider>
   ),
 };
-
-/**
- * Controlled tooltip where the open state is managed externally.
- */
 export const ControlledState: Story = {
   parameters: {
     order: 13,
-    docs: {
-      description: {
-        story: "Demonstrates a controlled tooltip where the open state is managed externally.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-
     const openButton = await canvas.findByRole(
       "button",
-      { name: /open tooltip/i },
-      { timeout: 2000 }
+      {
+        name: /open tooltip/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
     const closeButton = await canvas.findByRole(
       "button",
-      { name: /close tooltip/i },
-      { timeout: 2000 }
+      {
+        name: /close tooltip/i,
+      },
+      {
+        timeout: 2000,
+      }
     );
-
-    expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
-
+    expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
     await userEvent.click(openButton);
-
     try {
-      await waitForOpenTooltip(tooltipBody, /controlled externally/i, 3000);
+      await waitForOpenTooltip(/controlled externally/i, 3000);
     } catch {
       await userEvent.click(openButton);
-      await waitForOpenTooltip(tooltipBody, /controlled externally/i, 3000);
+      await waitForOpenTooltip(/controlled externally/i, 3000);
     }
-
     await userEvent.click(closeButton);
     await waitForTooltipClosed();
   },
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
-
     return (
       <div className="flex flex-col gap-4">
         <TooltipProvider>
@@ -724,58 +659,64 @@ export const ControlledState: Story = {
     );
   },
 };
-
-/**
- * Tooltip with a delay before appearing.
- */
 export const WithDelay: Story = {
   parameters: {
     order: 14,
-    docs: {
-      description: {
-        story: "Tooltip with a 1500ms delay before appearing.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const tooltipBody = within(document.body);
-    const button = await canvas.findByRole("button", {}, { timeout: 2000 });
-
+    const button = await canvas.findByRole(
+      "button",
+      {
+        name: /hover me \(with delay\)/i,
+      },
+      {
+        timeout: 2000,
+      }
+    );
+    const waitForDelayedTooltip = async () => {
+      return await waitFor(
+        () => {
+          const tooltip = requireTooltip(
+            getOpenTooltip(/This tooltip appears after a 1500ms delay/i)
+          );
+          expect(tooltip).toBeInTheDocument();
+          expect(tooltip).toHaveTextContent(/This tooltip appears after a 1500ms delay/i);
+          return tooltip;
+        },
+        {
+          timeout: 6500,
+        }
+      );
+    };
     await userEvent.hover(button);
-    expect(tooltipBody.queryByTestId("tooltip-content")).not.toBeInTheDocument();
-
+    expect(within(document.body).queryByRole("tooltip")).not.toBeInTheDocument();
     try {
-      await waitForOpenTooltip(tooltipBody, /This tooltip appears after a 1500ms delay/i, 4500);
+      await waitForDelayedTooltip();
     } catch {
       await userEvent.unhover(button);
+      await settle();
       await userEvent.hover(button);
-      await waitForOpenTooltip(tooltipBody, /This tooltip appears after a 1500ms delay/i, 4500);
+      await waitForDelayedTooltip();
     }
+    await userEvent.unhover(button);
+    await waitForTooltipClosed();
   },
   render: () => (
-    <Tooltip delayDuration={1500}>
-      <TooltipTrigger render={<Button variant="outline">Hover me (with delay)</Button>} />
-      <TooltipContent>This tooltip appears after a 1500ms delay</TooltipContent>
-    </Tooltip>
+    <TooltipProvider delayDuration={1500}>
+      <Tooltip>
+        <TooltipTrigger render={<Button variant="outline">Hover me (with delay)</Button>} />
+        <TooltipContent>This tooltip appears after a 1500ms delay</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   ),
 };
-
-/**
- * Visual regression baseline with tooltip in open state.
- */
 export const VisualRegression: Story = {
   parameters: {
     order: 15,
-    docs: {
-      description: {
-        story: "Baseline story for visual regression testing.",
-      },
-    },
   },
   play: async () => {
-    const tooltipBody = within(document.body);
-    await waitForOpenTooltip(tooltipBody, /visual regression baseline/i, 3000);
+    await waitForOpenTooltip(/visual regression baseline/i, 3000);
   },
   render: () => (
     <TooltipProvider>

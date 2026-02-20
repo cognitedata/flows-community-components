@@ -24,7 +24,6 @@ import {
   IconWheel,
 } from "@tabler/icons-react";
 import { InlineCitation, InlineCitationGroup, InlineCitationLink } from "./inline-citation";
-
 const meta: Meta<typeof InlineCitation> = {
   title: "AI/Inline Citation",
   component: InlineCitation,
@@ -32,17 +31,17 @@ const meta: Meta<typeof InlineCitation> = {
   argTypes: {
     className: {
       control: "text",
-      description: "Additional CSS classes for styling",
       table: {
         category: "Display",
       },
     },
     children: {
       control: false,
-      description: "Citation content (typically InlineCitationLink)",
       table: {
         category: "Content",
-        type: { summary: "ReactNode" },
+        type: {
+          summary: "ReactNode",
+        },
       },
     },
   },
@@ -57,28 +56,16 @@ const meta: Meta<typeof InlineCitation> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof InlineCitation>;
-
-/**
- * Citations with icons.
- */
 export const Default: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story: "Citations with icons.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const citations = canvas.getAllByRole("link");
     await expect(citations).toHaveLength(7);
-
     const firstLink = citations[0];
     await expect(firstLink).toHaveAttribute("href", "https://example.com/image/pumpB.jpg");
     await expect(firstLink).toHaveAttribute("target", "_blank");
@@ -161,27 +148,18 @@ export const Default: Story = {
     </div>
   ),
 };
-
-/**
- * Link citation inline.
- */
 export const LinkCitation: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Link citation inline.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const link = canvas.getByRole("link", { name: /pump 21PT1019/i });
+    const link = canvas.getByRole("link", {
+      name: /pump 21PT1019/i,
+    });
     await expect(link).toBeInTheDocument();
     await expect(link).toHaveAttribute("href", "https://cognite.com/assets/pump-21PT1019");
     await expect(link).toHaveAttribute("target", "_blank");
-
     await userEvent.hover(link);
     await expect(link).toBeVisible();
   },
@@ -209,25 +187,14 @@ export const LinkCitation: Story = {
     </div>
   ),
 };
-
-/**
- * Citations within messages.
- */
 export const InMessageContext: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Citations within messages.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const links = canvas.getAllByRole("link");
     await expect(links.length).toBeGreaterThanOrEqual(4);
-
     const buttons = canvas.getAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
@@ -325,25 +292,14 @@ export const InMessageContext: Story = {
     </div>
   ),
 };
-
-/**
- * Invalid URLs.
- */
 export const InvalidUrls: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Invalid URLs.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(3);
-
     const errorElements = canvas.queryAllByText(/error/i);
     await expect(errorElements.length).toBe(0);
   },
@@ -375,29 +331,18 @@ export const InvalidUrls: Story = {
     </div>
   ),
 };
-
-/**
- * Very long URLs.
- */
 export const LongUrls: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Very long URLs.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const link = canvas.getByRole("link");
     await expect(link).toBeInTheDocument();
     await expect(link).toHaveAttribute(
       "href",
       "https://example.com/very/long/path/with/many/segments/and/query/parameters?param1=value1&param2=value2&param3=value3&param4=value4&param5=value5"
     );
-
     await expect(link).toBeVisible();
   },
   render: () => (
@@ -418,25 +363,14 @@ export const LongUrls: Story = {
     </div>
   ),
 };
-
-/**
- * Very long citation text.
- */
 export const LongCitationText: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Very long citation text.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const link = canvas.getByRole("link");
     await expect(link).toBeInTheDocument();
-
     await expect(link).toHaveTextContent(
       "This is a very long citation text that should not wrap to multiple lines"
     );
@@ -459,41 +393,78 @@ export const LongCitationText: Story = {
     </div>
   ),
 };
-
-/**
- * Many citations in sequence.
- */
 export const ManyCitations: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Many citations in sequence.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThan(10);
   },
   render: () => {
     const citations = [
-      { text: "pump-21PT1019", icon: IconHexagon, variant: "nordic" as const },
-      { text: "valve-34HV2201", icon: IconHexagon, variant: "fjord" as const },
-      { text: "compressor-C401", icon: IconHexagon, variant: "mountain" as const },
-      { text: "MaintenanceLog.pdf", icon: IconFile, variant: "fjord" as const },
-      { text: "sensor-TT1402", icon: IconHexagon, variant: "nordic" as const },
-      { text: "TimeSeries-72h", icon: IconTimeline, variant: "mountain" as const },
-      { text: "motor-M2019", icon: IconHexagon, variant: "fjord" as const },
-      { text: "InspectionReport.pdf", icon: IconFile, variant: "nordic" as const },
-      { text: "turbine-GT501", icon: IconHexagon, variant: "mountain" as const },
-      { text: "bearing-BRG-101", icon: IconHexagon, variant: "fjord" as const },
-      { text: "VibrationAnalysis.jpg", icon: IconPhoto, variant: "nordic" as const },
-      { text: "WO-2024-5421", icon: IconBriefcase, variant: "mountain" as const },
+      {
+        text: "pump-21PT1019",
+        icon: IconHexagon,
+        variant: "nordic" as const,
+      },
+      {
+        text: "valve-34HV2201",
+        icon: IconHexagon,
+        variant: "fjord" as const,
+      },
+      {
+        text: "compressor-C401",
+        icon: IconHexagon,
+        variant: "mountain" as const,
+      },
+      {
+        text: "MaintenanceLog.pdf",
+        icon: IconFile,
+        variant: "fjord" as const,
+      },
+      {
+        text: "sensor-TT1402",
+        icon: IconHexagon,
+        variant: "nordic" as const,
+      },
+      {
+        text: "TimeSeries-72h",
+        icon: IconTimeline,
+        variant: "mountain" as const,
+      },
+      {
+        text: "motor-M2019",
+        icon: IconHexagon,
+        variant: "fjord" as const,
+      },
+      {
+        text: "InspectionReport.pdf",
+        icon: IconFile,
+        variant: "nordic" as const,
+      },
+      {
+        text: "turbine-GT501",
+        icon: IconHexagon,
+        variant: "mountain" as const,
+      },
+      {
+        text: "bearing-BRG-101",
+        icon: IconHexagon,
+        variant: "fjord" as const,
+      },
+      {
+        text: "VibrationAnalysis.jpg",
+        icon: IconPhoto,
+        variant: "nordic" as const,
+      },
+      {
+        text: "WO-2024-5421",
+        icon: IconBriefcase,
+        variant: "mountain" as const,
+      },
     ];
-
     return (
       <div className="space-y-4 text-sm max-w-2xl">
         <p className="leading-relaxed">
@@ -518,22 +489,12 @@ export const ManyCitations: Story = {
     );
   },
 };
-
-/**
- * Color variants.
- */
 export const ColorVariants: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story: "Color variants.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const citations = canvas.getAllByRole("link");
     await expect(citations).toHaveLength(3);
   },
@@ -566,30 +527,22 @@ export const ColorVariants: Story = {
     </div>
   ),
 };
-
-/**
- * Link target and icon variants.
- */
 export const LinkTargetAndIconVariants: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Link target and icon variants.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    const selfLink = canvas.getByRole("link", { name: /self target/i });
-    const blankLink = canvas.getByRole("link", { name: /blank target/i });
-
+    const selfLink = canvas.getByRole("link", {
+      name: /self target/i,
+    });
+    const blankLink = canvas.getByRole("link", {
+      name: /blank target/i,
+    });
     await expect(selfLink).toBeInTheDocument();
     await expect(selfLink).toHaveAttribute("href", "/local/report");
     await expect(selfLink).toHaveAttribute("target", "_self");
     await expect(selfLink).not.toHaveAttribute("rel");
-
     await expect(blankLink).toBeInTheDocument();
     await expect(blankLink).toHaveAttribute("href", "https://example.com/remote/report");
     await expect(blankLink).toHaveAttribute("target", "_blank");
