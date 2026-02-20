@@ -8,7 +8,7 @@ import {
   CardHeaderRight,
   CardIcon,
   CardTitle,
-} from "./card";
+} from './card';
 
 export {
   Card,
@@ -21,4 +21,4 @@ export {
   CardDescription,
   CardContent,
 };
-export { CardMetadata } from "./card.metadata";
+export { CardMetadata } from './card.metadata';

@@ -16,7 +16,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from './dropdown-menu';
 
 /** Dropdown menu exports. */
 export {
@@ -38,4 +38,4 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 };
-export { DropdownMenuMetadata } from "./dropdown-menu.metadata";
+export { DropdownMenuMetadata } from './dropdown-menu.metadata';
