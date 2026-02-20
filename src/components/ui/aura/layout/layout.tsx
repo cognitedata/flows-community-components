@@ -47,54 +47,54 @@ export interface LayoutBreakpoint {
  */
 export const layoutBreakpoints: LayoutBreakpoint[] = [
   {
-    name: "base",
+    name: 'base',
     min: 0,
     max: 639,
     columns: 4,
     gutter: 8,
     margin: 16,
-    prefix: "",
-    description: "Mobile devices, narrow containers. No prefix needed.",
+    prefix: '',
+    description: 'Mobile devices, narrow containers. No prefix needed.',
   },
   {
-    name: "sm",
+    name: 'sm',
     min: 640,
     max: 767,
     columns: 8,
     gutter: 8,
     margin: 16,
-    prefix: "@sm:",
-    description: "Tablets, medium containers.",
+    prefix: '@sm:',
+    description: 'Tablets, medium containers.',
   },
   {
-    name: "md",
+    name: 'md',
     min: 768,
     max: 1023,
     columns: 12,
     gutter: 16,
     margin: 12,
-    prefix: "@md:",
-    description: "Laptops, large containers.",
+    prefix: '@md:',
+    description: 'Laptops, large containers.',
   },
   {
-    name: "lg",
+    name: 'lg',
     min: 1024,
     max: 1280,
     columns: 12,
     gutter: 16,
     margin: 16,
-    prefix: "@lg:",
-    description: "Desktops, large containers.",
+    prefix: '@lg:',
+    description: 'Desktops, large containers.',
   },
   {
-    name: "xl",
+    name: 'xl',
     min: 1281,
     max: 1536,
     columns: 12,
     gutter: 16,
     margin: 16,
-    prefix: "@xl:",
-    description: "Wide desktops, extra large containers.",
+    prefix: '@xl:',
+    description: 'Wide desktops, extra large containers.',
   },
 ];
 
@@ -104,28 +104,29 @@ export const layoutBreakpoints: LayoutBreakpoint[] = [
 
 export const gridPatterns = {
   container: {
-    name: "Container Query Context",
-    description: "Establishes a containment context for container queries",
-    class: "@container",
-    usage: "Wrap any element that should respond to its own width",
+    name: 'Container Query Context',
+    description: 'Establishes a containment context for container queries',
+    class: '@container',
+    usage: 'Wrap any element that should respond to its own width',
   },
   namedContainer: {
-    name: "Named Container",
-    description: "Container with a name for targeted queries",
-    class: "@container/layout",
-    usage: "Use when you need to target a specific container",
+    name: 'Named Container',
+    description: 'Container with a name for targeted queries',
+    class: '@container/layout',
+    usage: 'Use when you need to target a specific container',
   },
   responsiveGrid: {
-    name: "Responsive Grid",
-    description: "Full responsive grid that adapts across all breakpoints",
-    class: "grid grid-cols-4 gap-2 px-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3",
-    usage: "Main content grid that adapts from 4 to 8 to 12 columns",
+    name: 'Responsive Grid',
+    description: 'Full responsive grid that adapts across all breakpoints',
+    class:
+      'grid grid-cols-4 gap-2 px-4 @sm:grid-cols-8 @md:grid-cols-12 @md:gap-4 @md:px-3',
+    usage: 'Main content grid that adapts from 4 to 8 to 12 columns',
   },
   simpleGrid: {
-    name: "Simple 12-Column Grid",
-    description: "Fixed 12-column grid without responsive breakpoints",
-    class: "grid grid-cols-12 gap-4",
-    usage: "When container width is known to be large enough",
+    name: 'Simple 12-Column Grid',
+    description: 'Fixed 12-column grid without responsive breakpoints',
+    class: 'grid grid-cols-12 gap-4',
+    usage: 'When container width is known to be large enough',
   },
 } as const;
 
@@ -144,60 +145,60 @@ export interface ColumnSpan {
 
 export const columnSpans: ColumnSpan[] = [
   {
-    name: "Full Width",
-    fraction: "12/12",
-    base: "col-span-4",
-    sm: "col-span-8",
-    md: "col-span-12",
-    description: "Spans entire width at all breakpoints",
+    name: 'Full Width',
+    fraction: '12/12',
+    base: 'col-span-4',
+    sm: 'col-span-8',
+    md: 'col-span-12',
+    description: 'Spans entire width at all breakpoints',
   },
   {
-    name: "Three Quarters",
-    fraction: "9/12",
-    base: "col-span-3",
-    sm: "col-span-6",
-    md: "col-span-9",
-    description: "Main content area in sidebar layouts",
+    name: 'Three Quarters',
+    fraction: '9/12',
+    base: 'col-span-3',
+    sm: 'col-span-6',
+    md: 'col-span-9',
+    description: 'Main content area in sidebar layouts',
   },
   {
-    name: "Two Thirds",
-    fraction: "8/12",
-    base: "col-span-4",
-    sm: "col-span-5",
-    md: "col-span-8",
-    description: "Primary content with secondary sidebar",
+    name: 'Two Thirds',
+    fraction: '8/12',
+    base: 'col-span-4',
+    sm: 'col-span-5',
+    md: 'col-span-8',
+    description: 'Primary content with secondary sidebar',
   },
   {
-    name: "Half",
-    fraction: "6/12",
-    base: "col-span-4",
-    sm: "col-span-4",
-    md: "col-span-6",
-    description: "Equal two-column layout",
+    name: 'Half',
+    fraction: '6/12',
+    base: 'col-span-4',
+    sm: 'col-span-4',
+    md: 'col-span-6',
+    description: 'Equal two-column layout',
   },
   {
-    name: "One Third",
-    fraction: "4/12",
-    base: "col-span-4",
-    sm: "col-span-3",
-    md: "col-span-4",
-    description: "Three-column layout items",
+    name: 'One Third',
+    fraction: '4/12',
+    base: 'col-span-4',
+    sm: 'col-span-3',
+    md: 'col-span-4',
+    description: 'Three-column layout items',
   },
   {
-    name: "One Quarter",
-    fraction: "3/12",
-    base: "col-span-2",
-    sm: "col-span-2",
-    md: "col-span-3",
-    description: "Four-column layout items, sidebars",
+    name: 'One Quarter',
+    fraction: '3/12',
+    base: 'col-span-2',
+    sm: 'col-span-2',
+    md: 'col-span-3',
+    description: 'Four-column layout items, sidebars',
   },
   {
-    name: "One Sixth",
-    fraction: "2/12",
-    base: "col-span-2",
-    sm: "col-span-2",
-    md: "col-span-2",
-    description: "Six-column layout items, narrow elements",
+    name: 'One Sixth',
+    fraction: '2/12',
+    base: 'col-span-2',
+    sm: 'col-span-2',
+    md: 'col-span-2',
+    description: 'Six-column layout items, narrow elements',
   },
 ];
 
@@ -207,42 +208,43 @@ export const columnSpans: ColumnSpan[] = [
 
 export const layoutCompositions = {
   sidebarLeft: {
-    name: "Sidebar Left",
-    description: "Fixed sidebar on left, flexible main content",
-    sidebar: "col-span-4 @sm:col-span-2 @md:col-span-3",
-    main: "col-span-4 @sm:col-span-6 @md:col-span-9",
-    usage: "Navigation panels, settings pages",
+    name: 'Sidebar Left',
+    description: 'Fixed sidebar on left, flexible main content',
+    sidebar: 'col-span-4 @sm:col-span-2 @md:col-span-3',
+    main: 'col-span-4 @sm:col-span-6 @md:col-span-9',
+    usage: 'Navigation panels, settings pages',
   },
   sidebarRight: {
-    name: "Sidebar Right",
-    description: "Flexible main content, fixed sidebar on right",
-    main: "col-span-4 @sm:col-span-6 @md:col-span-9",
-    sidebar: "col-span-4 @sm:col-span-2 @md:col-span-3",
-    usage: "Detail panels, contextual information",
+    name: 'Sidebar Right',
+    description: 'Flexible main content, fixed sidebar on right',
+    main: 'col-span-4 @sm:col-span-6 @md:col-span-9',
+    sidebar: 'col-span-4 @sm:col-span-2 @md:col-span-3',
+    usage: 'Detail panels, contextual information',
   },
   twoColumn: {
-    name: "Two Column",
-    description: "Equal width columns",
-    column: "col-span-4 @sm:col-span-4 @md:col-span-6",
-    usage: "Comparison views, side-by-side content",
+    name: 'Two Column',
+    description: 'Equal width columns',
+    column: 'col-span-4 @sm:col-span-4 @md:col-span-6',
+    usage: 'Comparison views, side-by-side content',
   },
   threeColumn: {
-    name: "Three Column",
-    description: "Three equal columns, stacked on mobile",
-    column: "col-span-4 @sm:col-span-4 @md:col-span-4",
-    usage: "Card grids, feature lists",
+    name: 'Three Column',
+    description: 'Three equal columns, stacked on mobile',
+    column: 'col-span-4 @sm:col-span-4 @md:col-span-4',
+    usage: 'Card grids, feature lists',
   },
   fourColumn: {
-    name: "Four Column",
-    description: "Four equal columns, two on tablet, stacked on mobile",
-    column: "col-span-4 @sm:col-span-4 @md:col-span-3",
-    usage: "Metric dashboards, icon grids",
+    name: 'Four Column',
+    description: 'Four equal columns, two on tablet, stacked on mobile',
+    column: 'col-span-4 @sm:col-span-4 @md:col-span-3',
+    usage: 'Metric dashboards, icon grids',
   },
   contentCentered: {
-    name: "Centered Content",
-    description: "Narrow centered content with gutters",
-    container: "col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3",
-    usage: "Article content, forms, focused reading",
+    name: 'Centered Content',
+    description: 'Narrow centered content with gutters',
+    container:
+      'col-span-4 @sm:col-span-6 @sm:col-start-2 @md:col-span-8 @md:col-start-3',
+    usage: 'Article content, forms, focused reading',
   },
 } as const;
 
@@ -262,13 +264,17 @@ export function getBreakpoint(name: string): LayoutBreakpoint | undefined {
  */
 export function getContainerPrefix(breakpoint: string): string {
   const bp = layoutBreakpoints.find((b) => b.name === breakpoint);
-  return bp?.prefix ?? "";
+  return bp?.prefix ?? '';
 }
 
 /**
  * Generate responsive column span classes
  */
-export function getResponsiveSpan(base: number, sm: number, md: number): string {
+export function getResponsiveSpan(
+  base: number,
+  sm: number,
+  md: number
+): string {
   return `col-span-${base} @sm:col-span-${sm} @md:col-span-${md}`;
 }
 

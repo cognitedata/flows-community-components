@@ -1,11 +1,11 @@
-import fs from "node:fs";
-import path from "node:path";
+import fs from 'node:fs';
+import path from 'node:path';
 
-const REGISTRY_PATH = path.join(process.cwd(), "registry.json");
-const OUTPUT_DIR = path.join(process.cwd(), "public", "r");
+const REGISTRY_PATH = path.join(process.cwd(), 'registry.json');
+const OUTPUT_DIR = path.join(process.cwd(), 'public', 'r');
 
 function readUtf8(filePath) {
-  return fs.readFileSync(filePath, "utf8");
+  return fs.readFileSync(filePath, 'utf8');
 }
 
 function ensureDir(dir) {
@@ -18,10 +18,10 @@ function stableStringify(value) {
 
 function buildRegistryItem(registryItem) {
   const out = {
-    $schema: "https://ui.shadcn.com/schema/registry-item.json",
+    $schema: 'https://ui.shadcn.com/schema/registry-item.json',
     name: registryItem.name,
     title: registryItem.title,
-    description: registryItem.description ?? "",
+    description: registryItem.description ?? '',
     dependencies: registryItem.dependencies ?? [],
     registryDependencies: registryItem.registryDependencies ?? [],
     files: (registryItem.files ?? []).map((file) => {
@@ -48,7 +48,7 @@ function main() {
     if (!item?.name) continue;
     const built = buildRegistryItem(item);
     const outPath = path.join(OUTPUT_DIR, `${item.name}.json`);
-    fs.writeFileSync(outPath, stableStringify(built), "utf8");
+    fs.writeFileSync(outPath, stableStringify(built), 'utf8');
   }
 }
 

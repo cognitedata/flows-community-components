@@ -1,7 +1,6 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Checkbox } from "@/components/ui/aura/checkbox";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
+
 import {
   Table,
   TableBody,
@@ -11,23 +10,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./table";
+} from './table';
 
+import { Badge } from '@/components/ui/aura/badge';
+import { Checkbox } from '@/components/ui/aura/checkbox';
 const meta: Meta<typeof Table> = {
-  title: "Primitives/Table",
+  title: 'Primitives/Table',
   component: Table,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -37,21 +37,40 @@ const meta: Meta<typeof Table> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Table>;
-
 const invoices = [
-  { id: "INV001", status: "Paid", method: "Credit Card", amount: "$250.00" },
-  { id: "INV002", status: "Pending", method: "PayPal", amount: "$150.00" },
-  { id: "INV003", status: "Unpaid", method: "Bank Transfer", amount: "$350.00" },
-  { id: "INV004", status: "Paid", method: "Credit Card", amount: "$450.00" },
-  { id: "INV005", status: "Paid", method: "PayPal", amount: "$550.00" },
+  {
+    id: 'INV001',
+    status: 'Paid',
+    method: 'Credit Card',
+    amount: '$250.00',
+  },
+  {
+    id: 'INV002',
+    status: 'Pending',
+    method: 'PayPal',
+    amount: '$150.00',
+  },
+  {
+    id: 'INV003',
+    status: 'Unpaid',
+    method: 'Bank Transfer',
+    amount: '$350.00',
+  },
+  {
+    id: 'INV004',
+    status: 'Paid',
+    method: 'Credit Card',
+    amount: '$450.00',
+  },
+  {
+    id: 'INV005',
+    status: 'Paid',
+    method: 'PayPal',
+    amount: '$550.00',
+  },
 ];
-
-/**
- * Default table with data.
- */
 export const Default: Story = {
   render: () => (
     <Table>
@@ -75,25 +94,13 @@ export const Default: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Default table with header and body rows.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const table = canvasElement.querySelector('[data-slot="table"]');
     await expect(table).toBeInTheDocument();
-
     const rows = canvasElement.querySelectorAll('[data-slot="table-row"]');
-    await expect(rows.length).toBe(6); // 1 header + 5 data rows
+    await expect(rows.length).toBe(6);
   },
 };
-
-/**
- * Table with caption.
- */
 export const WithCaption: Story = {
   render: () => (
     <Table>
@@ -118,18 +125,7 @@ export const WithCaption: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Table with a descriptive caption.",
-      },
-    },
-  },
 };
-
-/**
- * Table with footer.
- */
 export const WithFooter: Story = {
   render: () => (
     <Table>
@@ -159,18 +155,7 @@ export const WithFooter: Story = {
       </TableFooter>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Table with a footer row showing totals.",
-      },
-    },
-  },
 };
-
-/**
- * Table with checkboxes for selection.
- */
 export const WithSelection: Story = {
   render: () => (
     <Table>
@@ -198,18 +183,7 @@ export const WithSelection: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Table with row selection via checkboxes.",
-      },
-    },
-  },
 };
-
-/**
- * Table with badges.
- */
 export const WithBadges: Story = {
   render: () => (
     <Table>
@@ -228,11 +202,11 @@ export const WithBadges: Story = {
             <TableCell>
               <Badge
                 variant={
-                  invoice.status === "Paid"
-                    ? "default"
-                    : invoice.status === "Pending"
-                      ? "secondary"
-                      : "error"
+                  invoice.status === 'Paid'
+                    ? 'default'
+                    : invoice.status === 'Pending'
+                      ? 'secondary'
+                      : 'error'
                 }
               >
                 {invoice.status}
@@ -245,18 +219,7 @@ export const WithBadges: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Table with status badges.",
-      },
-    },
-  },
 };
-
-/**
- * Empty state table.
- */
 export const EmptyState: Story = {
   render: () => (
     <Table>
@@ -277,18 +240,7 @@ export const EmptyState: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Table showing empty state.",
-      },
-    },
-  },
 };
-
-/**
- * Striped rows.
- */
 export const StripedRows: Story = {
   render: () => (
     <Table>
@@ -302,7 +254,10 @@ export const StripedRows: Story = {
       </TableHeader>
       <TableBody>
         {invoices.map((invoice, index) => (
-          <TableRow key={invoice.id} className={index % 2 === 0 ? "bg-muted/50" : ""}>
+          <TableRow
+            key={invoice.id}
+            className={index % 2 === 0 ? 'bg-muted/50' : ''}
+          >
             <TableCell className="font-medium">{invoice.id}</TableCell>
             <TableCell>{invoice.status}</TableCell>
             <TableCell>{invoice.method}</TableCell>
@@ -312,18 +267,7 @@ export const StripedRows: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Table with alternating row colors.",
-      },
-    },
-  },
 };
-
-/**
- * Dense table.
- */
 export const Dense: Story = {
   render: () => (
     <Table>
@@ -347,22 +291,10 @@ export const Dense: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Compact table with reduced padding.",
-      },
-    },
-  },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4 w-[650px]">
-      {/* Basic */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Table>
@@ -388,9 +320,10 @@ export const VisualRegression: Story = {
         </Table>
       </div>
 
-      {/* With footer */}
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Footer</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Footer
+        </h3>
         <Table>
           <TableHeader>
             <TableRow>
@@ -415,11 +348,6 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Comprehensive visual overview for regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
@@ -432,10 +360,6 @@ export const VisualRegression: Story = {
     ),
   ],
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   render: () => (
     <Table>
@@ -461,11 +385,4 @@ export const Playground: Story = {
       </TableBody>
     </Table>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive table example.",
-      },
-    },
-  },
 };

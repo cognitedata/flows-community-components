@@ -32,5 +32,5 @@ export {
   MenubarSub,
   MenubarSubTrigger,
   MenubarSubContent,
-} from "./menubar";
-export { MenubarMetadata } from "./menubar.metadata";
+} from './menubar';
+export { MenubarMetadata } from './menubar.metadata';
