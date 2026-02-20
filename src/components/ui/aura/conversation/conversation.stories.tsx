@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
 import { IconCopy, IconDownload, IconRefresh, IconTool, IconWheel } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, within } from "storybook/test";
 
 import {
   Message,
