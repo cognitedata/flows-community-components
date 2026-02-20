@@ -1,88 +1,95 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconCheck, IconCopy } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "../input-group";
-import { Label } from "../label";
-import { Input, PasswordInput } from "./input";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconCheck, IconCopy } from '@tabler/icons-react';
+import { useEffect, useRef, useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '../input-group';
+import { Label } from '../label';
+
+import { Input, PasswordInput } from './input';
 const meta: Meta<typeof Input> = {
-  title: "Primitives/Input",
+  title: 'Primitives/Input',
   component: Input,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     type: {
-      control: "select",
-      options: ["text", "email", "password", "number", "tel", "url", "search"],
+      control: 'select',
+      options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search'],
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "text",
+          summary: 'text',
         },
       },
     },
     placeholder: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     defaultValue: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Content",
+        category: 'Content',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     disabled: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     readOnly: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     errorMessage: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "string",
+          summary: 'string',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story) => (
@@ -101,10 +108,10 @@ export const Default: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Input text");
+    const input = canvas.getByPlaceholderText('Input text');
     await expect(input).toBeInTheDocument();
-    await userEvent.type(input, "Input text");
-    await expect(input).toHaveValue("Input text");
+    await userEvent.type(input, 'Input text');
+    await expect(input).toHaveValue('Input text');
   },
 };
 export const WithLabel: Story = {
@@ -119,7 +126,7 @@ export const WithLabel: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Email address");
+    const input = canvas.getByLabelText('Email address');
     await expect(input).toBeInTheDocument();
   },
 };
@@ -141,7 +148,7 @@ export const Disabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const inputs = canvas.getAllByRole("textbox");
+    const inputs = canvas.getAllByRole('textbox');
     for (const input of inputs) {
       await expect(input).toBeDisabled();
     }
@@ -159,18 +166,21 @@ export const ReadOnly: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByDisplayValue("user-12345");
-    await expect(input).toHaveAttribute("readonly");
+    const input = canvas.getByDisplayValue('user-12345');
+    await expect(input).toHaveAttribute('readonly');
   },
 };
 export const ReadOnlyWithCopy: Story = {
   render: function ReadOnlyWithCopyExample() {
     const [copied, setCopied] = useState(false);
     const [isClipboardAvailable, setIsClipboardAvailable] = useState(true);
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+      undefined
+    );
     useEffect(() => {
       setIsClipboardAvailable(
-        typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined"
+        typeof navigator !== 'undefined' &&
+          typeof navigator.clipboard !== 'undefined'
       );
     }, []);
     useEffect(() => {
@@ -181,7 +191,7 @@ export const ReadOnlyWithCopy: Story = {
       };
     }, []);
     const handleCopy = () => {
-      const value = "sk-1234567890abcdef";
+      const value = 'sk-1234567890abcdef';
       void navigator.clipboard
         .writeText(value)
         .then(() => {
@@ -197,7 +207,11 @@ export const ReadOnlyWithCopy: Story = {
       return (
         <div className="grid w-full items-center gap-1">
           <Label htmlFor="readonly-api-key">API Key</Label>
-          <Input id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+          <Input
+            id="readonly-api-key"
+            defaultValue="sk-1234567890abcdef"
+            readOnly
+          />
         </div>
       );
     }
@@ -205,14 +219,22 @@ export const ReadOnlyWithCopy: Story = {
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="readonly-api-key">API Key</Label>
         <InputGroup>
-          <InputGroupInput id="readonly-api-key" defaultValue="sk-1234567890abcdef" readOnly />
+          <InputGroupInput
+            id="readonly-api-key"
+            defaultValue="sk-1234567890abcdef"
+            readOnly
+          />
           <InputGroupAddon align="inline-end">
             <InputGroupButton
               onClick={handleCopy}
-              aria-label={copied ? "Copied" : "Copy to clipboard"}
+              aria-label={copied ? 'Copied' : 'Copy to clipboard'}
               size="icon-sm"
             >
-              {copied ? <IconCheck className="size-4" /> : <IconCopy className="size-4" />}
+              {copied ? (
+                <IconCheck className="size-4" />
+              ) : (
+                <IconCopy className="size-4" />
+              )}
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
@@ -224,11 +246,11 @@ export const ReadOnlyWithCopy: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByDisplayValue("sk-1234567890abcdef");
-    await expect(input).toHaveAttribute("readonly");
-    const copyButton = canvas.getByLabelText("Copy to clipboard");
+    const input = canvas.getByDisplayValue('sk-1234567890abcdef');
+    await expect(input).toHaveAttribute('readonly');
+    const copyButton = canvas.getByLabelText('Copy to clipboard');
     await expect(copyButton).toBeInTheDocument();
-    const label = canvas.getByText("API Key");
+    const label = canvas.getByText('API Key');
     await expect(label).toBeInTheDocument();
   },
 };
@@ -236,7 +258,12 @@ export const WithError: Story = {
   render: () => (
     <div className="grid w-full items-center gap-1">
       <Label htmlFor="error">Email address</Label>
-      <Input id="error" type="email" placeholder="Input text" errorMessage="Help text" />
+      <Input
+        id="error"
+        type="email"
+        placeholder="Input text"
+        errorMessage="Help text"
+      />
     </div>
   ),
   parameters: {
@@ -244,7 +271,7 @@ export const WithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const errorText = canvas.getByText("Help text");
+    const errorText = canvas.getByText('Help text');
     await expect(errorText).toBeInTheDocument();
   },
 };
@@ -261,7 +288,7 @@ export const WithDefaultValue: Story = {
 };
 export const Controlled: Story = {
   render: function ControlledInput() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState('');
     return (
       <div className="space-y-4">
         <div className="grid w-full items-center gap-1">
@@ -276,20 +303,22 @@ export const Controlled: Story = {
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={() => setValue("")}
+            onClick={() => setValue('')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Clear
           </button>
           <button
             type="button"
-            onClick={() => setValue("Hello!")}
+            onClick={() => setValue('Hello!')}
             className="px-3 py-1 text-sm border rounded-md hover:bg-accent"
           >
             Set "Hello!"
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">Value: {value || "(empty)"}</p>
+        <p className="text-sm text-muted-foreground">
+          Value: {value || '(empty)'}
+        </p>
       </div>
     );
   },
@@ -298,12 +327,12 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText("Controlled input");
-    await userEvent.type(input, "Test");
-    await expect(input).toHaveValue("Test");
-    const clearButton = canvas.getByText("Clear");
+    const input = canvas.getByLabelText('Controlled input');
+    await userEvent.type(input, 'Test');
+    await expect(input).toHaveValue('Test');
+    const clearButton = canvas.getByText('Clear');
     await userEvent.click(clearButton);
-    await expect(input).toHaveValue("");
+    await expect(input).toHaveValue('');
   },
 };
 export const InputTypes: Story = {
@@ -341,16 +370,25 @@ export const FormExample: Story = {
       className="space-y-4"
       onSubmit={(e) => {
         e.preventDefault();
-        alert("Form submitted!");
+        alert('Form submitted!');
       }}
     >
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-email">Email</Label>
-        <Input id="form-email" type="email" placeholder="Enter your email" required />
+        <Input
+          id="form-email"
+          type="email"
+          placeholder="Enter your email"
+          required
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="form-password">Password</Label>
-        <PasswordInput id="form-password" placeholder="Enter your password" required />
+        <PasswordInput
+          id="form-password"
+          placeholder="Enter your password"
+          required
+        />
       </div>
       <button
         type="submit"
@@ -385,7 +423,11 @@ export const AllStates: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="state-error">Error</Label>
-        <Input id="state-error" placeholder="Input text" errorMessage="Help text" />
+        <Input
+          id="state-error"
+          placeholder="Input text"
+          errorMessage="Help text"
+        />
       </div>
     </div>
   ),
@@ -405,7 +447,10 @@ export const EdgeCases: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-special-chars">Special characters</Label>
-        <Input id="edge-special-chars" defaultValue="Price: $99.99 €85 ¥1000 & <special>" />
+        <Input
+          id="edge-special-chars"
+          defaultValue="Price: $99.99 €85 ¥1000 & <special>"
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-emoji">Emoji</Label>
@@ -417,7 +462,10 @@ export const EdgeCases: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-whitespace">Whitespace handling</Label>
-        <Input id="edge-whitespace" defaultValue="   Spaces before and after   " />
+        <Input
+          id="edge-whitespace"
+          defaultValue="   Spaces before and after   "
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="edge-placeholder">Very long placeholder</Label>
@@ -433,21 +481,23 @@ export const EdgeCases: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const longValueInput = canvas.getByLabelText("Very long value");
+    const longValueInput = canvas.getByLabelText('Very long value');
     await expect(longValueInput).toHaveValue(
-      "This is a very long input value that should demonstrate how the input handles overflow and text wrapping behavior in various scenarios and edge cases"
+      'This is a very long input value that should demonstrate how the input handles overflow and text wrapping behavior in various scenarios and edge cases'
     );
-    const emojiInput = canvas.getByLabelText("Emoji");
-    await expect(emojiInput).toHaveValue("🚀 Hello World! 🌍 ✨");
-    const unicodeInput = canvas.getByLabelText("Unicode characters");
-    await expect(unicodeInput).toHaveValue("中文字符 مرحبا Привет नमस्ते");
+    const emojiInput = canvas.getByLabelText('Emoji');
+    await expect(emojiInput).toHaveValue('🚀 Hello World! 🌍 ✨');
+    const unicodeInput = canvas.getByLabelText('Unicode characters');
+    await expect(unicodeInput).toHaveValue('中文字符 مرحبا Привет नमस्ते');
   },
 };
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-6 p-4 w-88">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Input States</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Input States
+        </h3>
         <div className="space-y-3">
           <Input placeholder="Input text" />
           <Input defaultValue="Input text" />
@@ -458,7 +508,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Password Input</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Password Input
+        </h3>
         <div className="space-y-3">
           <PasswordInput placeholder="Enter password" />
           <PasswordInput defaultValue="password123" />
@@ -467,7 +519,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Input Types</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Input Types
+        </h3>
         <div className="space-y-3">
           <Input type="text" placeholder="Text input" />
           <Input type="email" placeholder="Email input" />
@@ -502,17 +556,17 @@ export const PasswordBasic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Enter your password");
-    await expect(input).toHaveAttribute("type", "password");
-    const toggleButton = canvas.getByLabelText("Show password");
+    const input = canvas.getByPlaceholderText('Enter your password');
+    await expect(input).toHaveAttribute('type', 'password');
+    const toggleButton = canvas.getByLabelText('Show password');
     await expect(toggleButton).toBeInTheDocument();
     await userEvent.click(toggleButton);
     await waitFor(() => {
-      expect(input).toHaveAttribute("type", "text");
+      expect(input).toHaveAttribute('type', 'text');
     });
-    await userEvent.click(canvas.getByLabelText("Hide password"));
+    await userEvent.click(canvas.getByLabelText('Hide password'));
     await waitFor(() => {
-      expect(input).toHaveAttribute("type", "password");
+      expect(input).toHaveAttribute('type', 'password');
     });
   },
 };
@@ -543,7 +597,9 @@ export const PasswordWithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const errorText = canvas.getByText("Password must be at least 8 characters");
+    const errorText = canvas.getByText(
+      'Password must be at least 8 characters'
+    );
     await expect(errorText).toBeInTheDocument();
   },
 };
@@ -560,11 +616,19 @@ export const PasswordStates: Story = {
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="password-disabled">Disabled</Label>
-        <PasswordInput id="password-disabled" defaultValue="password123" disabled />
+        <PasswordInput
+          id="password-disabled"
+          defaultValue="password123"
+          disabled
+        />
       </div>
       <div className="grid w-full items-center gap-1">
         <Label htmlFor="password-error-state">Error</Label>
-        <PasswordInput id="password-error-state" defaultValue="weak" errorMessage="Too weak" />
+        <PasswordInput
+          id="password-error-state"
+          defaultValue="weak"
+          errorMessage="Too weak"
+        />
       </div>
     </div>
   ),
@@ -574,10 +638,10 @@ export const PasswordStates: Story = {
 };
 export const Playground: Story = {
   args: {
-    type: "text",
-    placeholder: "Input text",
+    type: 'text',
+    placeholder: 'Input text',
     disabled: false,
-    errorMessage: "",
+    errorMessage: '',
   },
   render: (args) => <Input {...args} />,
   parameters: {

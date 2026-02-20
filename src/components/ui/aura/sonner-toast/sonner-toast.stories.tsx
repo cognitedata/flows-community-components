@@ -1,74 +1,76 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useRef } from "react";
-import { toast } from "sonner";
-import { Button } from "../button";
-import { Toaster } from "./sonner-toast";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef } from 'react';
+import { toast } from 'sonner';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { Button } from '../button';
+
+import { Toaster } from './sonner-toast';
 
 const meta: Meta<typeof Toaster> = {
-  title: "Primitives/Sonner Toast",
+  title: 'Primitives/Sonner Toast',
   component: Toaster,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   args: {
-    position: "bottom-right",
+    position: 'bottom-right',
     richColors: false,
     expand: false,
     closeButton: false,
   },
   argTypes: {
     position: {
-      control: "select",
+      control: 'select',
       options: [
-        "top-left",
-        "top-center",
-        "top-right",
-        "bottom-left",
-        "bottom-center",
-        "bottom-right",
+        'top-left',
+        'top-center',
+        'top-right',
+        'bottom-left',
+        'bottom-center',
+        'bottom-right',
       ],
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "bottom-right",
+          summary: 'bottom-right',
         },
       },
     },
     richColors: {
       control: {
-        type: "boolean",
+        type: 'boolean',
       },
-      description: "Use rich colors for toast types",
+      description: 'Use rich colors for toast types',
       table: {
-        category: "Variants/Styling",
+        category: 'Variants/Styling',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     expand: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     closeButton: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "Behavior",
+        category: 'Behavior',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
   decorators: [
     (Story, context) => (
@@ -84,16 +86,18 @@ export default meta;
 type Story = StoryObj<typeof Toaster>;
 
 export const Default: Story = {
-  render: () => <Button onClick={() => toast("Event has been created")}>Show Toast</Button>,
+  render: () => (
+    <Button onClick={() => toast('Event has been created')}>Show Toast</Button>
+  ),
   parameters: {
     order: 1,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = canvas.getByRole('button');
     await userEvent.click(button);
     const body = within(document.body);
-    await body.findByText("Event has been created");
+    await body.findByText('Event has been created');
   },
 };
 
@@ -101,8 +105,8 @@ export const WithDescription: Story = {
   render: () => (
     <Button
       onClick={() =>
-        toast("Event has been created", {
-          description: "Monday, January 3rd at 6:00pm",
+        toast('Event has been created', {
+          description: 'Monday, January 3rd at 6:00pm',
         })
       }
     >
@@ -114,10 +118,10 @@ export const WithDescription: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = canvas.getByRole('button');
     await userEvent.click(button);
     const body = within(document.body);
-    await body.findByText("Monday, January 3rd at 6:00pm");
+    await body.findByText('Monday, January 3rd at 6:00pm');
   },
 };
 
@@ -125,8 +129,8 @@ export const Success: Story = {
   render: () => (
     <Button
       onClick={() =>
-        toast.success("Profile updated", {
-          description: "Your changes have been saved successfully.",
+        toast.success('Profile updated', {
+          description: 'Your changes have been saved successfully.',
         })
       }
     >
@@ -138,10 +142,10 @@ export const Success: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = canvas.getByRole('button');
     await userEvent.click(button);
     const body = within(document.body);
-    await body.findByText("Profile updated");
+    await body.findByText('Profile updated');
   },
 };
 
@@ -150,8 +154,8 @@ export const ErrorState: Story = {
     <Button
       variant="destructive"
       onClick={() =>
-        toast.error("Something went wrong", {
-          description: "Please try again later.",
+        toast.error('Something went wrong', {
+          description: 'Please try again later.',
         })
       }
     >
@@ -163,10 +167,10 @@ export const ErrorState: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = canvas.getByRole('button');
     await userEvent.click(button);
     const body = within(document.body);
-    await body.findByText("Something went wrong");
+    await body.findByText('Something went wrong');
   },
 };
 
@@ -175,8 +179,8 @@ export const Warning: Story = {
     <Button
       variant="outline"
       onClick={() =>
-        toast.warning("Warning", {
-          description: "This action cannot be undone.",
+        toast.warning('Warning', {
+          description: 'This action cannot be undone.',
         })
       }
     >
@@ -188,10 +192,10 @@ export const Warning: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = canvas.getByRole('button');
     await userEvent.click(button);
     const body = within(document.body);
-    await body.findByText("This action cannot be undone.");
+    await body.findByText('This action cannot be undone.');
   },
 };
 
@@ -200,8 +204,9 @@ export const Info: Story = {
     <Button
       variant="secondary"
       onClick={() =>
-        toast.info("Did you know?", {
-          description: "You can customize your notification preferences in settings.",
+        toast.info('Did you know?', {
+          description:
+            'You can customize your notification preferences in settings.',
         })
       }
     >
@@ -213,10 +218,10 @@ export const Info: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = canvas.getByRole('button');
     await userEvent.click(button);
     const body = within(document.body);
-    await body.findByText("Did you know?");
+    await body.findByText('Did you know?');
   },
 };
 
@@ -231,15 +236,16 @@ export const LoadingWithPromise: Story = {
             setTimeout(
               () =>
                 resolve({
-                  name: "Sonner",
+                  name: 'Sonner',
                 }),
               2000
             )
           );
         toast.promise(promise, {
-          loading: "Loading...",
-          success: (data: { name: string }) => `${data.name} toast has been added`,
-          error: "Error",
+          loading: 'Loading...',
+          success: (data: { name: string }) =>
+            `${data.name} toast has been added`,
+          error: 'Error',
         });
       }}
     >
@@ -251,14 +257,22 @@ export const LoadingWithPromise: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
+    const button = canvas.getByRole('button');
     await userEvent.click(button);
     const body = within(document.body);
-    expect(body.getByText("Loading...")).toBeInTheDocument();
-    expect(body.queryByText("Sonner toast has been added")).not.toBeInTheDocument();
-    await waitFor(() => expect(body.getByText("Sonner toast has been added")).toBeInTheDocument(), {
-      timeout: 2100,
-    });
+    expect(body.getByText('Loading...')).toBeInTheDocument();
+    expect(
+      body.queryByText('Sonner toast has been added')
+    ).not.toBeInTheDocument();
+    await waitFor(
+      () =>
+        expect(
+          body.getByText('Sonner toast has been added')
+        ).toBeInTheDocument(),
+      {
+        timeout: 2100,
+      }
+    );
   },
 };
 
@@ -266,11 +280,11 @@ export const WithAction: Story = {
   render: () => (
     <Button
       onClick={() =>
-        toast("File deleted", {
-          description: "The file has been moved to trash.",
+        toast('File deleted', {
+          description: 'The file has been moved to trash.',
           action: {
-            label: "Undo",
-            onClick: () => toast.success("Undo successful"),
+            label: 'Undo',
+            onClick: () => toast.success('Undo successful'),
           },
         })
       }
@@ -283,12 +297,12 @@ export const WithAction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const trigger = canvas.getByRole('button');
     await userEvent.click(trigger);
     const body = within(document.body);
-    const undo = await body.findByRole("button", { name: "Undo" });
+    const undo = await body.findByRole('button', { name: 'Undo' });
     await userEvent.click(undo);
-    await body.findByText("Undo successful");
+    await body.findByText('Undo successful');
   },
 };
 
@@ -297,9 +311,9 @@ export const CustomDuration: Story = {
     <div className="flex gap-4">
       <Button
         onClick={() =>
-          toast("Quick toast", {
+          toast('Quick toast', {
             duration: 1000,
-            description: "Disappears in 1 second",
+            description: 'Disappears in 1 second',
           })
         }
       >
@@ -307,9 +321,9 @@ export const CustomDuration: Story = {
       </Button>
       <Button
         onClick={() =>
-          toast("Long toast", {
+          toast('Long toast', {
             duration: 10000,
-            description: "Stays for 10 seconds",
+            description: 'Stays for 10 seconds',
           })
         }
       >
@@ -317,9 +331,9 @@ export const CustomDuration: Story = {
       </Button>
       <Button
         onClick={() =>
-          toast("Persistent toast", {
+          toast('Persistent toast', {
             duration: Number.POSITIVE_INFINITY,
-            description: "Must be dismissed manually",
+            description: 'Must be dismissed manually',
           })
         }
       >
@@ -335,12 +349,12 @@ export const CustomDuration: Story = {
 export const AllTypes: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <Button onClick={() => toast("Default toast")}>Default</Button>
-      <Button onClick={() => toast.success("Success!")}>Success</Button>
-      <Button onClick={() => toast.error("Error!")}>Error</Button>
-      <Button onClick={() => toast.warning("Warning!")}>Warning</Button>
-      <Button onClick={() => toast.info("Info!")}>Info</Button>
-      <Button onClick={() => toast.loading("Loading...")}>Loading</Button>
+      <Button onClick={() => toast('Default toast')}>Default</Button>
+      <Button onClick={() => toast.success('Success!')}>Success</Button>
+      <Button onClick={() => toast.error('Error!')}>Error</Button>
+      <Button onClick={() => toast.warning('Warning!')}>Warning</Button>
+      <Button onClick={() => toast.info('Info!')}>Info</Button>
+      <Button onClick={() => toast.loading('Loading...')}>Loading</Button>
     </div>
   ),
   parameters: {
@@ -356,9 +370,9 @@ export const Dismiss: Story = {
       <div className="flex gap-4">
         <Button
           onClick={() => {
-            toastId.current = toast("Dismissible toast", {
+            toastId.current = toast('Dismissible toast', {
               duration: Number.POSITIVE_INFINITY,
-              description: "Click the other button to dismiss",
+              description: 'Click the other button to dismiss',
             });
           }}
         >
@@ -382,14 +396,14 @@ export const Dismiss: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const show = canvas.getByRole("button", { name: "Show Toast" });
+    const show = canvas.getByRole('button', { name: 'Show Toast' });
     await userEvent.click(show);
     const body = within(document.body);
-    await body.findByText("Dismissible toast");
-    const dismiss = canvas.getByRole("button", { name: "Dismiss Toast" });
+    await body.findByText('Dismissible toast');
+    const dismiss = canvas.getByRole('button', { name: 'Dismiss Toast' });
     await userEvent.click(dismiss);
     await waitFor(() => {
-      expect(body.queryByText("Dismissible toast")).toBeNull();
+      expect(body.queryByText('Dismissible toast')).toBeNull();
     });
   },
 };
@@ -397,21 +411,23 @@ export const Dismiss: Story = {
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold text-muted-foreground">Toast Triggers</h3>
+      <h3 className="text-sm font-semibold text-muted-foreground">
+        Toast Triggers
+      </h3>
       <div className="flex flex-wrap gap-2">
-        <Button size="sm" onClick={() => toast("Default")}>
+        <Button size="sm" onClick={() => toast('Default')}>
           Default
         </Button>
-        <Button size="sm" onClick={() => toast.success("Success")}>
+        <Button size="sm" onClick={() => toast.success('Success')}>
           Success
         </Button>
-        <Button size="sm" onClick={() => toast.error("Error")}>
+        <Button size="sm" onClick={() => toast.error('Error')}>
           Error
         </Button>
-        <Button size="sm" onClick={() => toast.warning("Warning")}>
+        <Button size="sm" onClick={() => toast.warning('Warning')}>
           Warning
         </Button>
-        <Button size="sm" onClick={() => toast.info("Info")}>
+        <Button size="sm" onClick={() => toast.info('Info')}>
           Info
         </Button>
       </div>
@@ -429,8 +445,8 @@ export const Playground: Story = {
   render: () => (
     <Button
       onClick={() =>
-        toast("Playground Toast", {
-          description: "This is a toast notification from the playground.",
+        toast('Playground Toast', {
+          description: 'This is a toast notification from the playground.',
         })
       }
     >

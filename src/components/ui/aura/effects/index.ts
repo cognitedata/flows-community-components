@@ -15,7 +15,7 @@ export type {
   BorderRadius,
   Transition,
   EffectPattern,
-} from "./effects";
+} from './effects';
 export {
   shadows,
   focusRings,
@@ -26,5 +26,5 @@ export {
   getRadius,
   getFocusRingClasses,
   effectExamples,
-} from "./effects";
-export { EffectsMetadata } from "./effects.metadata";
+} from './effects';
+export { EffectsMetadata } from './effects.metadata';

@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/aura/button";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
-import { IconAlertTriangle, IconCheck, IconTrash } from "@tabler/icons-react";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { IconAlertTriangle, IconCheck, IconTrash } from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,45 +13,47 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./alert-dialog";
+} from './alert-dialog';
+
+import { Button } from '@/components/ui/aura/button';
 const meta: Meta<typeof AlertDialog> = {
-  title: "Primitives/Alert Dialog",
+  title: 'Primitives/Alert Dialog',
   component: AlertDialog,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     open: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
       },
     },
     defaultOpen: {
-      control: "boolean",
+      control: 'boolean',
       table: {
-        category: "State",
+        category: 'State',
         type: {
-          summary: "boolean",
+          summary: 'boolean',
         },
         defaultValue: {
-          summary: "false",
+          summary: 'false',
         },
       },
     },
     onOpenChange: {
-      action: "openChange",
+      action: 'openChange',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(open: boolean) => void",
+          summary: '(open: boolean) => void',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -67,7 +69,8 @@ export const Default: Story = {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently affect your data.
+            This action cannot be undone. This will permanently affect your
+            data.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -79,17 +82,17 @@ export const Default: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", {
+    const trigger = canvas.getByRole('button', {
       name: /open dialog/i,
     });
     await userEvent.click(trigger);
-    const dialog = await screen.findByRole("alertdialog");
+    const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
-    const title = within(dialog).getByRole("heading", {
-      name: "Are you sure?",
+    const title = within(dialog).getByRole('heading', {
+      name: 'Are you sure?',
     });
     await expect(title).toBeInTheDocument();
-    const cancelButton = within(dialog).getByRole("button", {
+    const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
     await userEvent.click(cancelButton);
@@ -113,8 +116,8 @@ export const DestructiveAction: Story = {
         <AlertDialogHeader>
           <AlertDialogTitle>Delete your account?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account and remove all
-            your data from our servers.
+            This action cannot be undone. This will permanently delete your
+            account and remove all your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -138,8 +141,8 @@ export const ExportData: Story = {
         <AlertDialogHeader>
           <AlertDialogTitle>Export all data?</AlertDialogTitle>
           <AlertDialogDescription>
-            This will export all your data to a CSV file. The process may take a few moments
-            depending on the amount of data.
+            This will export all your data to a CSV file. The process may take a
+            few moments depending on the amount of data.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -156,7 +159,9 @@ export const WithIcon: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="outline">Confirm Action</Button>} />
+      <AlertDialogTrigger
+        render={<Button variant="outline">Confirm Action</Button>}
+      />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Confirm your action</AlertDialogTitle>
@@ -196,8 +201,8 @@ export const Warning: Story = {
             Warning
           </AlertDialogTitle>
           <AlertDialogDescription>
-            This action may have unintended consequences. Please review the details before
-            proceeding.
+            This action may have unintended consequences. Please review the
+            details before proceeding.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -214,13 +219,15 @@ export const InformationalSingleAction: Story = {
   },
   render: () => (
     <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="outline">Show Info</Button>} />
+      <AlertDialogTrigger
+        render={<Button variant="outline">Show Info</Button>}
+      />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Information</AlertDialogTitle>
           <AlertDialogDescription>
-            This is an informational alert dialog. You can use it to display important information
-            to users that requires acknowledgment.
+            This is an informational alert dialog. You can use it to display
+            important information to users that requires acknowledgment.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -244,7 +251,9 @@ export const Controlled: Story = {
             Close Dialog
           </Button>
         </div>
-        <p className="text-sm text-muted-foreground">Dialog is {open ? "open" : "closed"}</p>
+        <p className="text-sm text-muted-foreground">
+          Dialog is {open ? 'open' : 'closed'}
+        </p>
         <AlertDialog open={open} onOpenChange={setOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -264,18 +273,18 @@ export const Controlled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const openButton = canvas.getByRole("button", {
+    const openButton = canvas.getByRole('button', {
       name: /open dialog/i,
     });
     await userEvent.click(openButton);
-    const dialog = await screen.findByRole("alertdialog");
+    const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
-    const cancelButton = within(dialog).getByRole("button", {
+    const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
     await userEvent.click(cancelButton);
     await waitFor(() => {
-      expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     });
   },
 };
@@ -305,7 +314,7 @@ export const AsyncAction: Story = {
           <AlertDialogFooter>
             <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
             <AlertDialogAction onClick={handleAction} disabled={loading}>
-              {loading ? "Saving..." : "Save"}
+              {loading ? 'Saving...' : 'Save'}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -345,40 +354,42 @@ export const KeyboardNavigation: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", {
+    const trigger = canvas.getByRole('button', {
       name: /open dialog/i,
     });
     await userEvent.click(trigger);
-    const dialog = await screen.findByRole("alertdialog");
+    const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
-    await userEvent.keyboard("{Tab}");
-    const actionButton = within(dialog).getByRole("button", {
+    await userEvent.keyboard('{Tab}');
+    const actionButton = within(dialog).getByRole('button', {
       name: /confirm/i,
     });
-    const cancelButton = within(dialog).getByRole("button", {
+    const cancelButton = within(dialog).getByRole('button', {
       name: /cancel/i,
     });
     await waitFor(() => {
-      expect([actionButton, cancelButton]).toContain(dialog.ownerDocument.activeElement);
+      expect([actionButton, cancelButton]).toContain(
+        dialog.ownerDocument.activeElement
+      );
     });
-    await userEvent.keyboard("{Tab}");
+    await userEvent.keyboard('{Tab}');
     await waitFor(() => {
       const activeElement = dialog.ownerDocument.activeElement;
       expect(activeElement).not.toBeNull();
       expect(dialog.contains(activeElement)).toBe(true);
     });
-    await userEvent.keyboard("{Escape}");
+    await userEvent.keyboard('{Escape}');
     await waitFor(() => {
-      expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     });
     await userEvent.click(trigger);
-    const reopenedDialog = await screen.findByRole("alertdialog");
-    const confirmButton = within(reopenedDialog).getByRole("button", {
+    const reopenedDialog = await screen.findByRole('alertdialog');
+    const confirmButton = within(reopenedDialog).getByRole('button', {
       name: /confirm/i,
     });
     await userEvent.click(confirmButton);
     await waitFor(() => {
-      expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     });
   },
   render: function KeyboardNavigationStory() {
@@ -389,8 +400,8 @@ export const KeyboardNavigation: Story = {
           <AlertDialogHeader>
             <AlertDialogTitle>Keyboard Navigation Test</AlertDialogTitle>
             <AlertDialogDescription>
-              Use Tab to navigate, ESC to close, or Enter to confirm. The dialog traps focus
-              internally.
+              Use Tab to navigate, ESC to close, or Enter to confirm. The dialog
+              traps focus internally.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -408,14 +419,14 @@ export const LongContent: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", {
+    const trigger = canvas.getByRole('button', {
       name: /open dialog/i,
     });
     await userEvent.click(trigger);
-    const dialog = await screen.findByRole("alertdialog");
+    const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
     await expect(
-      within(dialog).getByRole("heading", {
+      within(dialog).getByRole('heading', {
         name: /This is a very long title/i,
       })
     ).toBeInTheDocument();
@@ -431,16 +442,19 @@ export const LongContent: Story = {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              This is a very long title that might wrap to multiple lines and test how the dialog
-              handles overflow when the content exceeds the expected width
+              This is a very long title that might wrap to multiple lines and
+              test how the dialog handles overflow when the content exceeds the
+              expected width
             </AlertDialogTitle>
             <AlertDialogDescription>
-              This is an extremely long description that contains a lot of text to test how the
-              alert dialog component handles content that extends beyond the typical length. The
-              description should wrap properly and maintain readability. It should also ensure that
-              the dialog remains accessible and usable even when the content is very lengthy. This
-              tests the component&apos;s ability to handle edge cases where users might provide
-              verbose messages or detailed explanations that require more space than usual.
+              This is an extremely long description that contains a lot of text
+              to test how the alert dialog component handles content that
+              extends beyond the typical length. The description should wrap
+              properly and maintain readability. It should also ensure that the
+              dialog remains accessible and usable even when the content is very
+              lengthy. This tests the component&apos;s ability to handle edge
+              cases where users might provide verbose messages or detailed
+              explanations that require more space than usual.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -458,19 +472,21 @@ export const NoDescription: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", {
+    const trigger = canvas.getByRole('button', {
       name: /open dialog/i,
     });
     await userEvent.click(trigger);
-    const dialog = await screen.findByRole("alertdialog");
+    const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
-    const title = within(dialog).getByRole("heading", {
-      name: "Are you sure?",
+    const title = within(dialog).getByRole('heading', {
+      name: 'Are you sure?',
     });
     await expect(title).toBeInTheDocument();
-    const description = dialog.querySelector('[data-slot="alert-dialog-description"]');
+    const description = dialog.querySelector(
+      '[data-slot="alert-dialog-description"]'
+    );
     await expect(description).not.toBeInTheDocument();
-    const cancelButton = within(dialog).getByRole("button", {
+    const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
     await expect(cancelButton).toBeInTheDocument();
@@ -498,22 +514,22 @@ export const DisabledButtons: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button", {
+    const trigger = canvas.getByRole('button', {
       name: /open dialog/i,
     });
     await userEvent.click(trigger);
-    const dialog = await screen.findByRole("alertdialog");
+    const dialog = await screen.findByRole('alertdialog');
     expect(dialog).toBeInTheDocument();
-    const cancelButton = within(dialog).getByRole("button", {
+    const cancelButton = within(dialog).getByRole('button', {
       name: /Cancel/i,
     });
     await expect(cancelButton).toBeDisabled();
-    const actionButton = within(dialog).getByRole("button", {
+    const actionButton = within(dialog).getByRole('button', {
       name: /Save/i,
     });
     await expect(actionButton).toBeDisabled();
-    await expect(cancelButton).toHaveAttribute("disabled");
-    await expect(actionButton).toHaveAttribute("disabled");
+    await expect(cancelButton).toHaveAttribute('disabled');
+    await expect(actionButton).toHaveAttribute('disabled');
   },
   render: function DisabledButtonsStory() {
     return (
@@ -523,8 +539,8 @@ export const DisabledButtons: Story = {
           <AlertDialogHeader>
             <AlertDialogTitle>Save changes?</AlertDialogTitle>
             <AlertDialogDescription>
-              The buttons are disabled. This might happen during a loading state or when certain
-              conditions aren&apos;t met.
+              The buttons are disabled. This might happen during a loading state
+              or when certain conditions aren&apos;t met.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

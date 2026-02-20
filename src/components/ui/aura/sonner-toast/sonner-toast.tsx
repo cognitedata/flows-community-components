@@ -4,10 +4,11 @@ import {
   IconCircleCheck,
   IconInfoCircle,
   IconLoader2,
-} from "@tabler/icons-react";
-import type { CSSProperties } from "react";
-import { Toaster as Sonner, type ToasterProps } from "sonner";
-import { useTheme } from "../../../theme-provider";
+} from '@tabler/icons-react';
+import type { CSSProperties } from 'react';
+import { Toaster as Sonner, type ToasterProps } from 'sonner';
+
+import { useTheme } from '../../../theme-provider';
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { resolvedTheme } = useTheme();
@@ -26,10 +27,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       style={
         {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
-          "--border-radius": "var(--radius)",
+          '--normal-bg': 'var(--popover)',
+          '--normal-text': 'var(--popover-foreground)',
+          '--normal-border': 'var(--border)',
+          '--border-radius': 'var(--radius)',
         } as CSSProperties
       }
       {...props}

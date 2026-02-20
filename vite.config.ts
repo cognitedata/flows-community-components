@@ -1,10 +1,12 @@
-import path from "node:path";
-import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
-import type { Plugin } from "vite";
-import { defineConfig } from "vite";
-import { cogDocsScraperPlugin } from "./vite-plugin-cogdocs-scraper";
-import { storySourcePlugin } from "./vite-plugin-story-source";
+import path from 'node:path';
+
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
+import type { Plugin } from 'vite';
+import { defineConfig } from 'vite';
+
+import { cogDocsScraperPlugin } from './vite-plugin-cogdocs-scraper';
+import { storySourcePlugin } from './vite-plugin-story-source';
 
 // Plugin to handle history API fallback for SPA routing with custom base paths
 // This ensures that direct access to routes serves index.html, especially important
@@ -13,24 +15,24 @@ import { storySourcePlugin } from "./vite-plugin-story-source";
 // proper handling of base paths in the dev server during development
 function historyApiFallback(): Plugin {
   return {
-    name: "history-api-fallback",
+    name: 'history-api-fallback',
     configureServer(server) {
-      const base = process.env.PAGES_BASE_PATH || "/";
+      const base = process.env.PAGES_BASE_PATH || '/';
 
       server.middlewares.use((req, _res, next) => {
-        const url = req.url || "";
+        const url = req.url || '';
 
         // Skip if it's a Vite internal request, static asset, or API request
         // Check for file extensions (but allow .html files to be handled)
-        const hasFileExtension = /\.\w+$/.test(url.split("?")[0]);
-        const isHtmlFile = url.endsWith(".html");
+        const hasFileExtension = /\.\w+$/.test(url.split('?')[0]);
+        const isHtmlFile = url.endsWith('.html');
 
         if (
           (hasFileExtension && !isHtmlFile) || // Has file extension but not .html
-          url.startsWith("/@") || // Vite internal
-          url.startsWith("/node_modules") ||
-          url.startsWith("/src") ||
-          url.startsWith("/public")
+          url.startsWith('/@') || // Vite internal
+          url.startsWith('/node_modules') ||
+          url.startsWith('/src') ||
+          url.startsWith('/public')
         ) {
           return next();
         }
@@ -38,7 +40,7 @@ function historyApiFallback(): Plugin {
         // For routes that don't correspond to files, serve index.html
         // This allows React Router to handle client-side routing
         if (!hasFileExtension || isHtmlFile) {
-          req.url = base === "/" ? "/index.html" : `${base}/index.html`;
+          req.url = base === '/' ? '/index.html' : `${base}/index.html`;
         }
 
         next();
@@ -49,11 +51,11 @@ function historyApiFallback(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.PAGES_BASE_PATH || "/",
+  base: process.env.PAGES_BASE_PATH || '/',
   plugins: [
     react({
       babel: {
-        plugins: [["babel-plugin-react-compiler"]],
+        plugins: [['babel-plugin-react-compiler']],
       },
     }),
     tailwindcss(),
@@ -63,10 +65,10 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@cognite/aura": path.resolve(__dirname, "./src/components/ui/core"),
-      "@cognite/aura-lab": path.resolve(__dirname, "./src/components/ui/lab"),
-      "@cognite/aura/lib": path.resolve(__dirname, "./src/lib"),
+      '@': path.resolve(__dirname, './src'),
+      '@cognite/aura': path.resolve(__dirname, './src/components/ui/core'),
+      '@cognite/aura-lab': path.resolve(__dirname, './src/components/ui/lab'),
+      '@cognite/aura/lib': path.resolve(__dirname, './src/lib'),
     },
   },
 });

@@ -1,7 +1,3 @@
-import { Badge } from "@/components/ui/aura/badge";
-import { Button } from "@/components/ui/aura/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/aura/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/aura/tabs";
 import {
   IconAlertTriangle,
   IconBolt,
@@ -9,8 +5,23 @@ import {
   IconCircleCheck,
   IconCode,
   IconRefresh,
-} from "@tabler/icons-react";
-import { startTransition, useEffect, useState } from "react";
+} from '@tabler/icons-react';
+import { startTransition, useEffect, useState } from 'react';
+
+import { Badge } from '@/components/ui/aura/badge';
+import { Button } from '@/components/ui/aura/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/aura/card';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/aura/tabs';
 
 interface PreviewDebuggerProps {
   code: string;
@@ -27,7 +38,11 @@ interface CodeAnalysis {
   suggestions: string[];
 }
 
-export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerProps) {
+export function PreviewDebugger({
+  code,
+  errors = [],
+  onRetry,
+}: PreviewDebuggerProps) {
   const [analysis, setAnalysis] = useState<CodeAnalysis | null>(null);
 
   // Analyze the code for common issues and patterns
@@ -55,14 +70,18 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
         analysis.hasValidExport = true;
         analysis.componentName = exportMatch[1];
       } else {
-        analysis.warnings.push("No export function found");
-        analysis.suggestions.push("Add 'export function ComponentName() { ... }'");
+        analysis.warnings.push('No export function found');
+        analysis.suggestions.push(
+          "Add 'export function ComponentName() { ... }'"
+        );
       }
 
       // Extract imports
-      const importMatches = code.matchAll(/import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["']/g);
+      const importMatches = code.matchAll(
+        /import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["']/g
+      );
       for (const match of importMatches) {
-        const components = match[1].split(",").map((c) => c.trim());
+        const components = match[1].split(',').map((c) => c.trim());
         analysis.imports.push(...components);
       }
 
@@ -79,25 +98,29 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
       analysis.usedComponents.forEach((component) => {
         if (
           !analysis.imports.includes(component) &&
-          component !== "div" &&
-          component !== "span" &&
-          component !== "p"
+          component !== 'div' &&
+          component !== 'span' &&
+          component !== 'p'
         ) {
-          analysis.warnings.push(`Component '${component}' may not be imported`);
-          analysis.suggestions.push(`Import ${component} from the appropriate UI library`);
+          analysis.warnings.push(
+            `Component '${component}' may not be imported`
+          );
+          analysis.suggestions.push(
+            `Import ${component} from the appropriate UI library`
+          );
         }
       });
 
       // Check for JSX structure
-      if (!code.includes("return")) {
-        analysis.warnings.push("No return statement found");
+      if (!code.includes('return')) {
+        analysis.warnings.push('No return statement found');
         analysis.suggestions.push("Add 'return (' followed by your JSX");
       }
 
       // Check for common patterns
-      if (code.includes("useState") && !analysis.imports.includes("useState")) {
-        analysis.warnings.push("useState used but not imported");
-        analysis.suggestions.push("useState is available as React.useState");
+      if (code.includes('useState') && !analysis.imports.includes('useState')) {
+        analysis.warnings.push('useState used but not imported');
+        analysis.suggestions.push('useState is available as React.useState');
       }
 
       return analysis;
@@ -157,7 +180,7 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     <span className="text-sm">
                       {analysis.hasValidExport
                         ? `Export found: ${analysis.componentName}`
-                        : "No valid export function"}
+                        : 'No valid export function'}
                     </span>
                   </div>
                 </div>
@@ -168,7 +191,11 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     <h4 className="font-medium">Imported Components</h4>
                     <div className="flex flex-wrap gap-1">
                       {analysis.imports.map((imp) => (
-                        <Badge key={imp} variant="secondary" className="text-xs">
+                        <Badge
+                          key={imp}
+                          variant="secondary"
+                          className="text-xs"
+                        >
                           {imp}
                         </Badge>
                       ))}
@@ -184,7 +211,11 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                       {analysis.usedComponents.map((comp) => (
                         <Badge
                           key={comp}
-                          variant={analysis.imports.includes(comp) ? "default" : "error"}
+                          variant={
+                            analysis.imports.includes(comp)
+                              ? 'default'
+                              : 'error'
+                          }
                           className="text-xs"
                         >
                           {comp}
@@ -237,7 +268,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
             {errors.length > 0 ? (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-medium text-destructive">Runtime Errors</h4>
+                  <h4 className="font-medium text-destructive">
+                    Runtime Errors
+                  </h4>
                   {onRetry && (
                     <Button variant="outline" size="sm" onClick={onRetry}>
                       <IconRefresh className="h-3 w-3 mr-1" />
@@ -259,7 +292,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
             ) : (
               <div className="text-center py-8">
                 <IconCircleCheck className="h-8 w-8 mx-auto text-green-600 mb-2" />
-                <p className="text-sm text-muted-foreground">No errors detected</p>
+                <p className="text-sm text-muted-foreground">
+                  No errors detected
+                </p>
               </div>
             )}
           </TabsContent>
@@ -296,7 +331,9 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
                     </ul>
                   </div>
                   <div>
-                    <p className="font-medium text-muted-foreground">Components</p>
+                    <p className="font-medium text-muted-foreground">
+                      Components
+                    </p>
                     <ul className="space-y-1">
                       <li>Button, Badge</li>
                       <li>Input, Label</li>
@@ -308,7 +345,8 @@ export function PreviewDebugger({ code, errors = [], onRetry }: PreviewDebuggerP
               <div>
                 <h4 className="font-medium mb-2">React Hooks</h4>
                 <p className="text-xs text-muted-foreground">
-                  Use React.useState, React.useEffect, etc. for stateful components
+                  Use React.useState, React.useEffect, etc. for stateful
+                  components
                 </p>
               </div>
             </div>

@@ -1,14 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { useState } from "react";
-import { DatePicker, DatePickerCustom, DateRangePicker } from "./date-picker";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { DatePicker, DatePickerCustom, DateRangePicker } from './date-picker';
 const meta: Meta<typeof DatePicker> = {
-  title: "Primitives/Date Picker",
+  title: 'Primitives/Date Picker',
   component: DatePicker,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
 };
 export default meta;
@@ -17,7 +18,7 @@ export const Default: Story = {
   render: () => <DatePicker />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const trigger = canvas.getByRole('button');
     await expect(trigger).toBeInTheDocument();
     await userEvent.click(trigger);
     await waitFor(() => {
@@ -33,7 +34,7 @@ export const Controlled: Story = {
       <div className="space-y-4">
         <DatePickerCustom date={date} onDateChange={setDate} />
         <p className="text-sm text-muted-foreground">
-          Selected: {date ? date.toLocaleDateString() : "None"}
+          Selected: {date ? date.toLocaleDateString() : 'None'}
         </p>
       </div>
     );
@@ -43,10 +44,12 @@ export const CustomPlaceholder: Story = {
   render: () => <DatePickerCustom placeholder="Select your birthday" />,
 };
 export const Disabled: Story = {
-  render: () => <DatePickerCustom disabled placeholder="Date picker disabled" />,
+  render: () => (
+    <DatePickerCustom disabled placeholder="Date picker disabled" />
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const trigger = canvas.getByRole('button');
     await expect(trigger).toBeDisabled();
   },
 };
@@ -70,11 +73,15 @@ export const ControlledDateRange: Story = {
     });
     return (
       <div className="space-y-4">
-        <DateRangePicker from={range.from} to={range.to} onValueChange={setRange} />
+        <DateRangePicker
+          from={range.from}
+          to={range.to}
+          onValueChange={setRange}
+        />
         <p className="text-sm text-muted-foreground">
-          From: {range.from?.toLocaleDateString() || "None"}
+          From: {range.from?.toLocaleDateString() || 'None'}
           <br />
-          To: {range.to?.toLocaleDateString() || "None"}
+          To: {range.to?.toLocaleDateString() || 'None'}
         </p>
       </div>
     );
@@ -127,22 +134,30 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Single Date</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Single Date
+        </h3>
         <DatePicker />
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Pre-selected</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Pre-selected
+        </h3>
         <DatePickerCustom date={new Date()} />
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Date Range</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Date Range
+        </h3>
         <DateRangePicker />
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Disabled</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Disabled
+        </h3>
         <DatePickerCustom disabled />
       </div>
     </div>

@@ -1,68 +1,94 @@
-import { Avatar, AvatarFallback, AvatarIcon, AvatarImage } from "@/components/ui/aura/avatar";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import {
+  IconHeart,
+  IconRobot,
+  IconStar,
+  IconUser,
+  IconWheel,
+} from '@tabler/icons-react';
+import { useState } from 'react';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+
+import { getStorybookImagePath } from '../../../../lib/utils';
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarIcon,
+  AvatarImage,
+} from '@/components/ui/aura/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/aura/dropdown-menu";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
-import { IconHeart, IconRobot, IconStar, IconUser, IconWheel } from "@tabler/icons-react";
-import { useState } from "react";
-import { getStorybookImagePath } from "../../../../lib/utils";
+} from '@/components/ui/aura/dropdown-menu';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/aura/hover-card';
 const meta: Meta<typeof Avatar> = {
-  title: "Primitives/Avatar",
+  title: 'Primitives/Avatar',
   component: Avatar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["default", "nordic", "aurora", "fjord", "dusk", "orange", "sky", "overflow"],
+      control: 'select',
+      options: [
+        'default',
+        'nordic',
+        'aurora',
+        'fjord',
+        'dusk',
+        'orange',
+        'sky',
+        'overflow',
+      ],
       table: {
-        category: "Appearance",
+        category: 'Appearance',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     sizes: {
-      control: "select",
-      options: ["default", "xsm", "xxsm"],
+      control: 'select',
+      options: ['default', 'xsm', 'xxsm'],
       table: {
-        category: "Appearance",
+        category: 'Appearance',
         type: {
-          summary: "string",
+          summary: 'string',
         },
         defaultValue: {
-          summary: "default",
+          summary: 'default',
         },
       },
     },
     className: {
-      control: "text",
+      control: 'text',
       table: {
-        category: "Styling",
+        category: 'Styling',
       },
     },
     onClick: {
-      action: "clicked",
+      action: 'clicked',
       table: {
-        category: "Events",
+        category: 'Events',
         type: {
-          summary: "(event: MouseEvent) => void",
+          summary: '(event: MouseEvent) => void',
         },
       },
     },
   },
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     actions: {
-      handles: ["click"],
+      handles: ['click'],
     },
   },
 };
@@ -80,8 +106,10 @@ export const Basic: Story = {
   play: async ({ canvasElement }) => {
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
-    const fallback = canvasElement.querySelector('[data-slot="avatar-fallback"]');
-    await expect(fallback).toHaveTextContent("AB");
+    const fallback = canvasElement.querySelector(
+      '[data-slot="avatar-fallback"]'
+    );
+    await expect(fallback).toHaveTextContent('AB');
   },
 };
 export const WithIcon: Story = {
@@ -98,14 +126,17 @@ export const WithIcon: Story = {
   play: async ({ canvasElement }) => {
     const avatar = canvasElement.querySelector('[data-slot="avatar"]');
     await expect(avatar).toBeInTheDocument();
-    const icon = avatar?.querySelector("svg");
+    const icon = avatar?.querySelector('svg');
     await expect(icon).toBeInTheDocument();
   },
 };
 export const WithImage: Story = {
   render: () => (
     <Avatar variant="default" sizes="default">
-      <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="User avatar" />
+      <AvatarImage
+        src={getStorybookImagePath('user-avatar2.png')}
+        alt="User avatar"
+      />
       <AvatarFallback>PJ</AvatarFallback>
     </Avatar>
   ),
@@ -165,7 +196,9 @@ export const AllVariants: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(8);
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
+    const fallbacks = canvasElement.querySelectorAll(
+      '[data-slot="avatar-fallback"]'
+    );
     await expect(fallbacks.length).toBe(8);
   },
 };
@@ -273,7 +306,7 @@ export const IconAllSizes: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-    const icons = canvasElement.querySelectorAll("svg");
+    const icons = canvasElement.querySelectorAll('svg');
     await expect(icons.length).toBe(3);
     const large = canvasElement.querySelector('[class*="size-9"]');
     const medium = canvasElement.querySelector('[class*="size-7"]');
@@ -287,15 +320,24 @@ export const ImagesAllSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="fjord" sizes="default">
-        <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Large avatar" />
+        <AvatarImage
+          src={getStorybookImagePath('user-avatar2.png')}
+          alt="Large avatar"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xsm">
-        <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Medium avatar" />
+        <AvatarImage
+          src={getStorybookImagePath('user-avatar2.png')}
+          alt="Medium avatar"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord" sizes="xxsm">
-        <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="Small avatar" />
+        <AvatarImage
+          src={getStorybookImagePath('user-avatar2.png')}
+          alt="Small avatar"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
     </div>
@@ -308,7 +350,9 @@ export const ImagesAllSizes: Story = {
     await expect(avatars.length).toBe(3);
     const images = await waitFor(
       () => {
-        const found = canvasElement.querySelectorAll('[data-slot="avatar-image"]');
+        const found = canvasElement.querySelectorAll(
+          '[data-slot="avatar-image"]'
+        );
         if (found.length < 3) {
           throw new Error(`Expected 3 images, found ${found.length}`);
         }
@@ -333,7 +377,10 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User 1" />
+        <AvatarImage
+          src={getStorybookImagePath('user-avatar3.png')}
+          alt="User 1"
+        />
         <AvatarFallback>NC</AvatarFallback>
       </Avatar>
       <Avatar
@@ -341,7 +388,10 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-2 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User 2" />
+        <AvatarImage
+          src={getStorybookImagePath('user-avatar4.png')}
+          alt="User 2"
+        />
         <AvatarFallback>AR</AvatarFallback>
       </Avatar>
       <Avatar
@@ -349,7 +399,10 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-3 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar5.png")} alt="User 3" />
+        <AvatarImage
+          src={getStorybookImagePath('user-avatar5.png')}
+          alt="User 3"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar
@@ -357,7 +410,10 @@ export const AvatarGroup: Story = {
         sizes="default"
         className="relative -ml-1 z-4 border-2 border-background"
       >
-        <AvatarImage src={getStorybookImagePath("user-avatar6.png")} alt="User 4" />
+        <AvatarImage
+          src={getStorybookImagePath('user-avatar6.png')}
+          alt="User 4"
+        />
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <HoverCard openDelay={0} closeDelay={0}>
@@ -374,7 +430,9 @@ export const AvatarGroup: Story = {
         />
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
-            <p className="text-xs text-muted-foreground font-medium">4 more people</p>
+            <p className="text-xs text-muted-foreground font-medium">
+              4 more people
+            </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <Avatar variant="aurora" sizes="xsm">
@@ -412,14 +470,20 @@ export const AvatarGroup: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
-    const overflow = Array.from(fallbacks).find((fb) => fb.textContent?.includes("+4"));
+    const fallbacks = canvasElement.querySelectorAll(
+      '[data-slot="avatar-fallback"]'
+    );
+    const overflow = Array.from(fallbacks).find((fb) =>
+      fb.textContent?.includes('+4')
+    );
     if (overflow) {
       const overflowAvatar = overflow.closest('[data-slot="avatar"]');
       if (overflowAvatar) {
         await userEvent.hover(overflowAvatar as Element);
         await waitFor(() => {
-          const hoverCard = document.querySelector('[data-slot="hover-card-content"][data-open]');
+          const hoverCard = document.querySelector(
+            '[data-slot="hover-card-content"][data-open]'
+          );
           expect(hoverCard).toBeInTheDocument();
         });
       }
@@ -443,7 +507,11 @@ export const AvatarGroupSmall: Story = {
       >
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
-      <Avatar variant="dusk" sizes="xsm" className="relative -ml-1 z-3 border-2 border-background">
+      <Avatar
+        variant="dusk"
+        sizes="xsm"
+        className="relative -ml-1 z-3 border-2 border-background"
+      >
         <AvatarFallback>PJ</AvatarFallback>
       </Avatar>
       <Avatar
@@ -467,7 +535,9 @@ export const AvatarGroupSmall: Story = {
         />
         <HoverCardContent className="w-auto p-3">
           <div className="flex flex-col gap-2">
-            <p className="text-xs text-muted-foreground font-medium">4 more people</p>
+            <p className="text-xs text-muted-foreground font-medium">
+              4 more people
+            </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <Avatar variant="aurora" sizes="xsm">
@@ -494,7 +564,7 @@ export const AvatarGroupSmall: Story = {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
     const smallAvatars = Array.from(avatars).filter((avatar) =>
-      avatar.className.includes("size-7")
+      avatar.className.includes('size-7')
     );
     await expect(smallAvatars.length).toBeGreaterThan(0);
   },
@@ -505,18 +575,33 @@ export const ClickInteraction: Story = {
     return (
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
-          <Avatar variant="nordic" onClick={() => setClicked("User 1")} data-testid="avatar-1">
+          <Avatar
+            variant="nordic"
+            onClick={() => setClicked('User 1')}
+            data-testid="avatar-1"
+          >
             <AvatarFallback>U1</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord" onClick={() => setClicked("User 2")} data-testid="avatar-2">
+          <Avatar
+            variant="fjord"
+            onClick={() => setClicked('User 2')}
+            data-testid="avatar-2"
+          >
             <AvatarFallback>U2</AvatarFallback>
           </Avatar>
-          <Avatar variant="aurora" onClick={() => setClicked("User 3")} data-testid="avatar-3">
+          <Avatar
+            variant="aurora"
+            onClick={() => setClicked('User 3')}
+            data-testid="avatar-3"
+          >
             <AvatarFallback>U3</AvatarFallback>
           </Avatar>
         </div>
-        <div data-testid="clicked-avatar" className="text-sm text-muted-foreground">
-          {clicked ? `Clicked: ${clicked}` : "Click an avatar"}
+        <div
+          data-testid="clicked-avatar"
+          className="text-sm text-muted-foreground"
+        >
+          {clicked ? `Clicked: ${clicked}` : 'Click an avatar'}
         </div>
       </div>
     );
@@ -526,14 +611,14 @@ export const ClickInteraction: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const avatar1 = canvas.getByTestId("avatar-1");
-    const avatar2 = canvas.getByTestId("avatar-2");
-    const clickedText = canvas.getByTestId("clicked-avatar");
-    await expect(clickedText).toHaveTextContent("Click an avatar");
+    const avatar1 = canvas.getByTestId('avatar-1');
+    const avatar2 = canvas.getByTestId('avatar-2');
+    const clickedText = canvas.getByTestId('clicked-avatar');
+    await expect(clickedText).toHaveTextContent('Click an avatar');
     await userEvent.click(avatar1);
-    await expect(clickedText).toHaveTextContent("Clicked: User 1");
+    await expect(clickedText).toHaveTextContent('Clicked: User 1');
     await userEvent.click(avatar2);
-    await expect(clickedText).toHaveTextContent("Clicked: User 2");
+    await expect(clickedText).toHaveTextContent('Clicked: User 2');
   },
 };
 export const Accessibility: Story = {
@@ -541,21 +626,27 @@ export const Accessibility: Story = {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
         <Avatar variant="nordic">
-          <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="John Doe's avatar" />
+          <AvatarImage
+            src={getStorybookImagePath('user-avatar2.png')}
+            alt="John Doe's avatar"
+          />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
         <Avatar variant="fjord">
-          <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="Jane Smith's avatar" />
+          <AvatarImage
+            src={getStorybookImagePath('user-avatar3.png')}
+            alt="Jane Smith's avatar"
+          />
           <AvatarFallback>JS</AvatarFallback>
         </Avatar>
         <Avatar variant="aurora">
-          <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="" />
+          <AvatarImage src={getStorybookImagePath('user-avatar4.png')} alt="" />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
       </div>
       <p className="text-xs text-muted-foreground max-w-md">
-        Avatar images should have descriptive alt text for screen readers. If the avatar is
-        decorative, use an empty alt attribute.
+        Avatar images should have descriptive alt text for screen readers. If
+        the avatar is decorative, use an empty alt attribute.
       </p>
     </div>
   ),
@@ -565,21 +656,26 @@ export const Accessibility: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-    const canvas = within(canvasElement);
     await waitFor(() => {
-      const images = canvasElement.querySelectorAll("img");
-      const altTexts = Array.from(images).map((image) => image.getAttribute("alt"));
+      const images = canvasElement.querySelectorAll('img');
+      const altTexts = Array.from(images).map((image) =>
+        image.getAttribute('alt')
+      );
       expect(altTexts).toContain("John Doe's avatar");
       expect(altTexts).toContain("Jane Smith's avatar");
     });
-    const decorativeAvatar = canvasElement.querySelectorAll('[data-slot="avatar"]')[2];
+    const decorativeAvatar = canvasElement.querySelectorAll(
+      '[data-slot="avatar"]'
+    )[2];
     const decorativeImage = decorativeAvatar?.querySelector(
       'img[data-slot="avatar-image"]'
     ) as HTMLImageElement | null;
     if (decorativeImage) {
-      await expect(decorativeImage).toHaveAttribute("alt", "");
+      await expect(decorativeImage).toHaveAttribute('alt', '');
     } else {
-      const decorativeFallback = decorativeAvatar?.querySelector('[data-slot="avatar-fallback"]');
+      const decorativeFallback = decorativeAvatar?.querySelector(
+        '[data-slot="avatar-fallback"]'
+      );
       await expect(decorativeFallback).toBeInTheDocument();
     }
   },
@@ -604,7 +700,9 @@ export const EdgeCaseEmpty: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
+    const fallbacks = canvasElement.querySelectorAll(
+      '[data-slot="avatar-fallback"]'
+    );
     await expect(fallbacks.length).toBe(3);
   },
 };
@@ -632,19 +730,25 @@ export const EdgeCaseLongText: Story = {
             <Avatar variant="fjord">
               <AvatarFallback className="text-xs">ABC</AvatarFallback>
             </Avatar>
-            <span className="text-xs text-muted-foreground">3 chars (smaller)</span>
+            <span className="text-xs text-muted-foreground">
+              3 chars (smaller)
+            </span>
           </div>
           <div className="flex flex-col items-center gap-1">
             <Avatar variant="aurora">
               <AvatarFallback className="text-xs">ABCD</AvatarFallback>
             </Avatar>
-            <span className="text-xs text-muted-foreground">4 chars (overflow)</span>
+            <span className="text-xs text-muted-foreground">
+              4 chars (overflow)
+            </span>
           </div>
           <div className="flex flex-col items-center gap-1">
             <Avatar variant="dusk">
               <AvatarFallback className="text-xs">ABCDE</AvatarFallback>
             </Avatar>
-            <span className="text-xs text-muted-foreground">5+ chars (clipped)</span>
+            <span className="text-xs text-muted-foreground">
+              5+ chars (clipped)
+            </span>
           </div>
         </div>
       </div>
@@ -664,8 +768,8 @@ export const EdgeCaseLongText: Story = {
           </Avatar>
         </div>
         <p className="text-xs text-muted-foreground max-w-md">
-          Long text overflows and gets clipped. Best practice: limit to 1-2 characters or use
-          smaller font size (text-xs) for 3+ characters.
+          Long text overflows and gets clipped. Best practice: limit to 1-2
+          characters or use smaller font size (text-xs) for 3+ characters.
         </p>
       </div>
     </div>
@@ -674,10 +778,12 @@ export const EdgeCaseLongText: Story = {
     order: 22,
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
+    const fallbacks = canvasElement.querySelectorAll(
+      '[data-slot="avatar-fallback"]'
+    );
     await expect(fallbacks.length).toBeGreaterThanOrEqual(3);
     const longTextAvatars = Array.from(fallbacks).filter((fb) =>
-      fb.textContent?.includes("ABCDEFGH")
+      fb.textContent?.includes('ABCDEFGH')
     );
     await expect(longTextAvatars.length).toBeGreaterThanOrEqual(3);
   },
@@ -710,11 +816,11 @@ export const EdgeCaseSpecialCharacters: Story = {
     await expect(avatars.length).toBe(5);
     const emojiFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes("🎨"));
+    ).find((el) => el.textContent?.includes('🎨'));
     await expect(emojiFallback).toBeInTheDocument();
     const chineseFallback = Array.from(
       canvasElement.querySelectorAll('[data-slot="avatar-fallback"]')
-    ).find((el) => el.textContent?.includes("中文"));
+    ).find((el) => el.textContent?.includes('中文'));
     await expect(chineseFallback).toBeInTheDocument();
   },
 };
@@ -736,11 +842,13 @@ export const EdgeCaseSingleCharacter: Story = {
     order: 22,
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
+    const fallbacks = canvasElement.querySelectorAll(
+      '[data-slot="avatar-fallback"]'
+    );
     await expect(fallbacks.length).toBe(3);
-    await expect(fallbacks[0]).toHaveTextContent("A");
-    await expect(fallbacks[1]).toHaveTextContent("Z");
-    await expect(fallbacks[2]).toHaveTextContent("M");
+    await expect(fallbacks[0]).toHaveTextContent('A');
+    await expect(fallbacks[1]).toHaveTextContent('Z');
+    await expect(fallbacks[2]).toHaveTextContent('M');
   },
 };
 export const EdgeCaseNumbers: Story = {
@@ -764,12 +872,14 @@ export const EdgeCaseNumbers: Story = {
     order: 22,
   },
   play: async ({ canvasElement }) => {
-    const fallbacks = canvasElement.querySelectorAll('[data-slot="avatar-fallback"]');
+    const fallbacks = canvasElement.querySelectorAll(
+      '[data-slot="avatar-fallback"]'
+    );
     await expect(fallbacks.length).toBe(4);
-    await expect(fallbacks[0]).toHaveTextContent("1");
-    await expect(fallbacks[1]).toHaveTextContent("42");
-    await expect(fallbacks[2]).toHaveTextContent("999");
-    await expect(fallbacks[3]).toHaveTextContent("+99");
+    await expect(fallbacks[0]).toHaveTextContent('1');
+    await expect(fallbacks[1]).toHaveTextContent('42');
+    await expect(fallbacks[2]).toHaveTextContent('999');
+    await expect(fallbacks[3]).toHaveTextContent('+99');
   },
 };
 export const EdgeCaseTinyWithText: Story = {
@@ -792,7 +902,9 @@ export const EdgeCaseTinyWithText: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
-    const tinyAvatars = Array.from(avatars).filter((avatar) => avatar.className.includes("size-5"));
+    const tinyAvatars = Array.from(avatars).filter((avatar) =>
+      avatar.className.includes('size-5')
+    );
     await expect(tinyAvatars.length).toBe(3);
   },
 };
@@ -800,15 +912,24 @@ export const EdgeCaseFailedImage: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar variant="nordic">
-        <AvatarImage src={getStorybookImagePath("nonexistent-image-1.png")} alt="Failed to load" />
+        <AvatarImage
+          src={getStorybookImagePath('nonexistent-image-1.png')}
+          alt="Failed to load"
+        />
         <AvatarFallback>FL</AvatarFallback>
       </Avatar>
       <Avatar variant="fjord">
-        <AvatarImage src={getStorybookImagePath("nonexistent-image-2.png")} alt="Failed to load" />
+        <AvatarImage
+          src={getStorybookImagePath('nonexistent-image-2.png')}
+          alt="Failed to load"
+        />
         <AvatarFallback>ER</AvatarFallback>
       </Avatar>
       <Avatar variant="aurora">
-        <AvatarImage src={getStorybookImagePath("nonexistent-image-3.png")} alt="Failed to load" />
+        <AvatarImage
+          src={getStorybookImagePath('nonexistent-image-3.png')}
+          alt="Failed to load"
+        />
         <AvatarFallback>BR</AvatarFallback>
       </Avatar>
     </div>
@@ -820,9 +941,9 @@ export const EdgeCaseFailedImage: Story = {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBe(3);
     const canvas = within(canvasElement);
-    await expect(await canvas.findByText("FL")).toBeInTheDocument();
-    await expect(await canvas.findByText("ER")).toBeInTheDocument();
-    await expect(await canvas.findByText("BR")).toBeInTheDocument();
+    await expect(await canvas.findByText('FL')).toBeInTheDocument();
+    await expect(await canvas.findByText('ER')).toBeInTheDocument();
+    await expect(await canvas.findByText('BR')).toBeInTheDocument();
   },
 };
 export const OverflowAvatarWithMenu: Story = {
@@ -834,7 +955,10 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 first:ml-0 z-1 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User 1" />
+          <AvatarImage
+            src={getStorybookImagePath('user-avatar3.png')}
+            alt="User 1"
+          />
           <AvatarFallback>NC</AvatarFallback>
         </Avatar>
         <Avatar
@@ -842,7 +966,10 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-2 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User 2" />
+          <AvatarImage
+            src={getStorybookImagePath('user-avatar4.png')}
+            alt="User 2"
+          />
           <AvatarFallback>AR</AvatarFallback>
         </Avatar>
         <Avatar
@@ -850,7 +977,10 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-3 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar5.png")} alt="User 3" />
+          <AvatarImage
+            src={getStorybookImagePath('user-avatar5.png')}
+            alt="User 3"
+          />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <Avatar
@@ -858,7 +988,10 @@ export const OverflowAvatarWithMenu: Story = {
           sizes="default"
           className="relative -ml-1 z-4 border-2 border-background"
         >
-          <AvatarImage src={getStorybookImagePath("user-avatar6.png")} alt="User 4" />
+          <AvatarImage
+            src={getStorybookImagePath('user-avatar6.png')}
+            alt="User 4"
+          />
           <AvatarFallback>PJ</AvatarFallback>
         </Avatar>
         <DropdownMenu>
@@ -885,7 +1018,9 @@ export const OverflowAvatarWithMenu: Story = {
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">Emma Liu</span>
-                    <span className="text-xs text-muted-foreground">emma.liu@cognite.com</span>
+                    <span className="text-xs text-muted-foreground">
+                      emma.liu@cognite.com
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
@@ -894,7 +1029,9 @@ export const OverflowAvatarWithMenu: Story = {
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">James Kim</span>
-                    <span className="text-xs text-muted-foreground">james.kim@cognite.com</span>
+                    <span className="text-xs text-muted-foreground">
+                      james.kim@cognite.com
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
@@ -903,7 +1040,9 @@ export const OverflowAvatarWithMenu: Story = {
                   </Avatar>
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">Sarah Brown</span>
-                    <span className="text-xs text-muted-foreground">sarah.brown@cognite.com</span>
+                    <span className="text-xs text-muted-foreground">
+                      sarah.brown@cognite.com
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 px-2 py-1.5 rounded-sm hover:bg-accent">
@@ -923,8 +1062,8 @@ export const OverflowAvatarWithMenu: Story = {
         </DropdownMenu>
       </div>
       <p className="text-xs text-muted-foreground max-w-md">
-        Click the overflow avatar (+4) to see additional users in a dropdown menu. Each user is
-        displayed with their avatar, name, and email address.
+        Click the overflow avatar (+4) to see additional users in a dropdown
+        menu. Each user is displayed with their avatar, name, and email address.
       </p>
     </div>
   ),
@@ -934,13 +1073,17 @@ export const OverflowAvatarWithMenu: Story = {
   play: async ({ canvasElement }) => {
     const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(4);
-    const trigger = canvasElement.querySelector('[data-slot="dropdown-menu-trigger"]');
+    const trigger = canvasElement.querySelector(
+      '[data-slot="dropdown-menu-trigger"]'
+    );
     if (trigger) {
       await userEvent.click(trigger as Element);
-      const menu = await within(canvasElement.ownerDocument.body).findByRole("menu");
+      const menu = await within(canvasElement.ownerDocument.body).findByRole(
+        'menu'
+      );
       await expect(menu).toBeInTheDocument();
-      await expect(within(menu).getByText("Emma Liu")).toBeInTheDocument();
-      await expect(within(menu).getByText("James Kim")).toBeInTheDocument();
+      await expect(within(menu).getByText('Emma Liu')).toBeInTheDocument();
+      await expect(within(menu).getByText('James Kim')).toBeInTheDocument();
     }
   },
 };
@@ -957,7 +1100,13 @@ export const EdgeCaseComplexIcons: Story = {
       </Avatar>
       <Avatar variant="fjord">
         <AvatarIcon>
-          <svg width="20" height="20" viewBox="0 0 20 20" role="img" aria-label="Avatar icon">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            role="img"
+            aria-label="Avatar icon"
+          >
             <title>Avatar icon</title>
             <circle cx="10" cy="10" r="8" fill="currentColor" opacity="0.3" />
             <circle cx="10" cy="10" r="4" fill="currentColor" />
@@ -975,10 +1124,12 @@ export const EdgeCaseComplexIcons: Story = {
     order: 22,
   },
   play: async ({ canvasElement }) => {
-    const avatarIcons = canvasElement.querySelectorAll('[data-slot="avatar-icon"]');
+    const avatarIcons = canvasElement.querySelectorAll(
+      '[data-slot="avatar-icon"]'
+    );
     await expect(avatarIcons.length).toBe(3);
     const firstIcon = avatarIcons[0];
-    const stars = firstIcon.querySelectorAll("svg");
+    const stars = firstIcon.querySelectorAll('svg');
     await expect(stars.length).toBeGreaterThanOrEqual(2);
   },
 };
@@ -986,7 +1137,9 @@ export const VisualRegression: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All Variants</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All Variants
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
             <AvatarFallback>DF</AvatarFallback>
@@ -1016,7 +1169,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">All Sizes</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          All Sizes
+        </h3>
         <div className="flex flex-wrap items-center gap-3">
           <Avatar variant="nordic" sizes="default">
             <AvatarFallback>LG</AvatarFallback>
@@ -1031,7 +1186,9 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Icons
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
             <AvatarIcon>
@@ -1057,25 +1214,38 @@ export const VisualRegression: Story = {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">With Images</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          With Images
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
-            <AvatarImage src={getStorybookImagePath("user-avatar2.png")} alt="User" />
+            <AvatarImage
+              src={getStorybookImagePath('user-avatar2.png')}
+              alt="User"
+            />
             <AvatarFallback>PJ</AvatarFallback>
           </Avatar>
           <Avatar variant="nordic">
-            <AvatarImage src={getStorybookImagePath("user-avatar3.png")} alt="User" />
+            <AvatarImage
+              src={getStorybookImagePath('user-avatar3.png')}
+              alt="User"
+            />
             <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar variant="fjord">
-            <AvatarImage src={getStorybookImagePath("user-avatar4.png")} alt="User" />
+            <AvatarImage
+              src={getStorybookImagePath('user-avatar4.png')}
+              alt="User"
+            />
             <AvatarFallback>FJ</AvatarFallback>
           </Avatar>
         </div>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Avatar Group</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Avatar Group
+        </h3>
         <div className="flex items-center">
           <Avatar
             variant="nordic"
@@ -1083,20 +1253,31 @@ export const VisualRegression: Story = {
           >
             <AvatarFallback>U1</AvatarFallback>
           </Avatar>
-          <Avatar variant="fjord" className="relative -ml-1 z-2 border-2 border-background">
+          <Avatar
+            variant="fjord"
+            className="relative -ml-1 z-2 border-2 border-background"
+          >
             <AvatarFallback>U2</AvatarFallback>
           </Avatar>
-          <Avatar variant="aurora" className="relative -ml-1 z-3 border-2 border-background">
+          <Avatar
+            variant="aurora"
+            className="relative -ml-1 z-3 border-2 border-background"
+          >
             <AvatarFallback>U3</AvatarFallback>
           </Avatar>
-          <Avatar variant="overflow" className="relative -ml-1 z-4 border-2 border-background">
+          <Avatar
+            variant="overflow"
+            className="relative -ml-1 z-4 border-2 border-background"
+          >
             <AvatarFallback>+5</AvatarFallback>
           </Avatar>
         </div>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-semibold text-muted-foreground">Edge Cases</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground">
+          Edge Cases
+        </h3>
         <div className="flex flex-wrap gap-3">
           <Avatar variant="default">
             <AvatarFallback />
@@ -1134,8 +1315,8 @@ export const Playground: Story = {
     </Avatar>
   ),
   args: {
-    variant: "nordic",
-    sizes: "default",
+    variant: 'nordic',
+    sizes: 'default',
   },
   parameters: {
     order: 99,
