@@ -1527,8 +1527,8 @@
     {
       "name": "typography",
       "type": "registry:component",
-      "title": "typography",
-      "description": "* Aura Typography System",
+      "title": "Typography",
+      "description": "Text styles and scales",
       "registryDependencies": ["@aura/css"],
       "files": [
         {

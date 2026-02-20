@@ -13,30 +13,30 @@ import {
   SuggestionValue,
   Suggestions,
 } from "./suggestion";
-
 const getOpenSelectContent = () =>
   document.querySelector('[data-slot="select-content"][data-open]') as HTMLElement | null;
-
 const waitForSelectContentOpen = async () => {
   await waitFor(
     () => {
       const content = getOpenSelectContent();
       expect(content).toBeInTheDocument();
     },
-    { timeout: 1000 }
+    {
+      timeout: 1000,
+    }
   );
 };
-
 const waitForSelectContentClosed = async () => {
   await waitFor(
     () => {
       const content = getOpenSelectContent();
       expect(content).not.toBeInTheDocument();
     },
-    { timeout: 1000 }
+    {
+      timeout: 1000,
+    }
   );
 };
-
 const meta: Meta<typeof Suggestion> = {
   title: "AI/Suggestion",
   component: Suggestion,
@@ -49,61 +49,61 @@ const meta: Meta<typeof Suggestion> = {
     ),
   ],
   argTypes: {
-    // Button mode props
     suggestion: {
       control: "text",
-      description: "Suggestion text for button mode",
       table: {
         category: "Button Mode",
-        type: { summary: "string" },
+        type: {
+          summary: "string",
+        },
       },
     },
     onClick: {
       action: "clicked",
-      description: "Callback when suggestion button is clicked",
       table: {
         category: "Button Mode",
-        type: { summary: "(suggestion: string) => void" },
+        type: {
+          summary: "(suggestion: string) => void",
+        },
       },
     },
     variant: {
       control: "select",
       options: ["ghost", "outline"],
-      description:
-        "Button variant (button mode only). Only ghost and outline are supported as Suggestions are designed to have light backgrounds with dark text.",
       table: {
         category: "Button Mode",
         type: {
           summary: "ghost | outline",
         },
-        defaultValue: { summary: "ghost" },
+        defaultValue: {
+          summary: "ghost",
+        },
       },
     },
     size: {
       control: "select",
       options: ["sm", "default", "lg", "icon"],
-      description: "Button size (button mode only)",
       table: {
         category: "Button Mode",
-        type: { summary: "sm | default | lg | icon" },
-        defaultValue: { summary: "sm" },
+        type: {
+          summary: "sm | default | lg | icon",
+        },
+        defaultValue: {
+          summary: "sm",
+        },
       },
     },
-
-    // Select mode props
     onValueChange: {
       action: "value-changed",
-      description: "Callback when suggestion value changes (select mode)",
       table: {
         category: "Select Mode",
-        type: { summary: "(value: string) => void" },
+        type: {
+          summary: "(value: string) => void",
+        },
       },
     },
-
-    // Common props
     className: {
       control: "text",
-      description: "CSS classes for styling",
       table: {
         category: "Display",
       },
@@ -116,36 +116,16 @@ const meta: Meta<typeof Suggestion> = {
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Suggestion>;
-
-/**
- * Basic button-style suggestions
- * Matches the basic example from suggestion.examples.tsx
- */
 export const Basic: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Basic button-style suggestions for quick queries. Tests clicking suggestions and onClick callback.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the first suggestion button
     const suggestion1 = canvas.getByRole("button", {
       name: /AI prompt suggestion 1/i,
     });
     await expect(suggestion1).toBeInTheDocument();
-
-    // Click the suggestion
     await userEvent.click(suggestion1);
-
-    // Verify other suggestions are present
     const suggestion2 = canvas.getByRole("button", {
       name: /AI prompt suggestion 2/i,
     });
@@ -155,7 +135,6 @@ export const Basic: Story = {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
     };
-
     return (
       <div className="flex flex-wrap gap-2 max-w-[80%]">
         <Suggestion suggestion="AI prompt suggestion 1" onClick={handleSuggestion} />
@@ -165,23 +144,11 @@ export const Basic: Story = {
     );
   },
 };
-
-/**
- * Suggestions with horizontal scrolling wrapper
- */
 export const WithScrollableWrapper: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: "Multiple suggestions wrapped in Suggestions component for horizontal scrolling.",
-      },
-    },
-  },
   render: function SuggestionScrollableStory(args) {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
     };
-
     return (
       <Suggestions className="w-[500px]">
         <Suggestion suggestion="Suggestion 1" onClick={handleSuggestion} />
@@ -194,27 +161,11 @@ export const WithScrollableWrapper: Story = {
     );
   },
 };
-
-/**
- * Button variants
- * Only ghost (default) and outline are supported. Other Button variants
- * (default, secondary, destructive) are not supported as Suggestions
- * are designed to have light backgrounds with dark text.
- */
 export const ButtonVariants: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Suggestion buttons with supported variants. Only ghost (default) and outline are available.",
-      },
-    },
-  },
   render: function SuggestionVariantsStory(args) {
     const handleSuggestion = (value: string) => {
       args.onClick?.(value);
     };
-
     return (
       <div className="flex flex-wrap gap-2">
         <Suggestion
@@ -227,48 +178,24 @@ export const ButtonVariants: Story = {
     );
   },
 };
-
-/**
- * Select mode with dropdown
- * Matches the select example from suggestion.examples.tsx
- */
 export const SelectMode: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Dropdown-style suggestions with multiple query options. Tests opening dropdown and selecting items.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the trigger button
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
-
-    // Click to open dropdown
     await userEvent.click(trigger);
-
-    // Wait for dropdown to open and find an item
     await waitForSelectContentOpen();
     await expect(
       within(document.body).getByText("Show me the pressure on valve 10")
     ).toBeInTheDocument();
-
-    // Click the item to select it
     const item = within(document.body).getByText("Show me the pressure on valve 10");
     await userEvent.click(item);
-
-    // Dropdown should close automatically after selection
     await waitForSelectContentClosed();
   },
   render: function SuggestionSelectStory(args) {
     const handleSuggestion = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <Suggestion onValueChange={handleSuggestion}>
         <SuggestionTrigger aria-label="Select a suggestion">
@@ -289,45 +216,19 @@ export const SelectMode: Story = {
     );
   },
 };
-
-/**
- * Tests keyboard interactions for select mode
- */
 export const KeyboardInteractions: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Tests keyboard navigation: Arrow keys to navigate, Enter to select, Escape to close.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find and focus the trigger
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
     trigger.focus();
-
-    // Open dropdown (keyboard interactions after open)
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-
-    // Navigate down with arrow key
     await userEvent.keyboard("{ArrowDown}");
-
-    // Select with Enter
     await userEvent.keyboard("{Enter}");
-
-    // Dropdown should close
     await waitForSelectContentClosed();
-
-    // Open again to test Escape
     await userEvent.click(trigger);
     await waitForSelectContentOpen();
-
-    // Close with Escape
     await userEvent.keyboard("{Escape}");
     await waitForSelectContentClosed();
   },
@@ -335,7 +236,6 @@ export const KeyboardInteractions: Story = {
     const handleSuggestion = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <Suggestion onValueChange={handleSuggestion}>
         <SuggestionTrigger aria-label="Select a suggestion">
@@ -350,24 +250,11 @@ export const KeyboardInteractions: Story = {
     );
   },
 };
-
-/**
- * Grouped suggestions with categories
- * Matches the grouped example from suggestion.examples.tsx
- */
 export const Grouped: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: "Organised suggestions with categories, labels, and separators.",
-      },
-    },
-  },
   render: function SuggestionGroupedStory(args) {
     const handleSuggestion = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <Suggestion onValueChange={handleSuggestion}>
         <SuggestionTrigger aria-label="Select a suggestion">
@@ -400,58 +287,34 @@ export const Grouped: Story = {
     );
   },
 };
-
-/**
- * Interactive select mode with state management
- */
 export const InteractiveSelect: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Select mode suggestion with state management to show selected value. Tests selecting an item and verifying the UI updates.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the trigger button
     const trigger = canvas.getByRole("combobox");
     await expect(trigger).toBeInTheDocument();
-
-    // Verify initial state - no selection message
     expect(canvas.queryByText(/Last selected:/)).not.toBeInTheDocument();
-
-    // Click to open dropdown
     await userEvent.click(trigger);
-
-    // Wait for dropdown to open
     await waitForSelectContentOpen();
-
-    // Select the second item
     const content = getOpenSelectContent();
     expect(content).toBeInTheDocument();
     const item = within(content as HTMLElement).getByText("What's the status of pump 3?");
     await userEvent.click(item);
-
-    // Verify the selection is displayed
     await waitFor(
       () => {
         const selectionText = canvas.getByText(/Last selected: What's the status of pump 3\?/);
         expect(selectionText).toBeInTheDocument();
       },
-      { timeout: 500 }
+      {
+        timeout: 500,
+      }
     );
   },
   render: function SuggestionInteractiveStory(args) {
     const [selectedValue, setSelectedValue] = useState<string>("");
-
     const handleSuggestion = (value: string) => {
       setSelectedValue(value);
       args.onValueChange?.(value);
     };
-
     return (
       <div className="space-y-4">
         <Suggestion onValueChange={handleSuggestion}>
@@ -479,27 +342,14 @@ export const InteractiveSelect: Story = {
     );
   },
 };
-
-/**
- * Multiple select suggestions
- */
 export const MultipleSelects: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: "Multiple select-mode suggestions displayed together.",
-      },
-    },
-  },
   render: function SuggestionMultipleSelectsStory(args) {
     const handleSuggestion1 = (value: string) => {
       args.onValueChange?.(value);
     };
-
     const handleSuggestion2 = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <div className="flex flex-col gap-4">
         <Suggestion onValueChange={handleSuggestion1}>
@@ -533,27 +383,14 @@ export const MultipleSelects: Story = {
     );
   },
 };
-
-/**
- * Mixed button and select suggestions
- */
 export const MixedModes: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: "Combination of button-mode and select-mode suggestions in the same container.",
-      },
-    },
-  },
   render: function SuggestionMixedStory(args) {
     const handleButtonClick = (value: string) => {
       args.onClick?.(value);
     };
-
     const handleSelectChange = (value: string) => {
       args.onValueChange?.(value);
     };
-
     return (
       <div className="flex flex-wrap items-center gap-2">
         <Suggestion suggestion="Quick action 1" onClick={handleButtonClick} />

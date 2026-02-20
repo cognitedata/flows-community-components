@@ -15,7 +15,6 @@ import {
   CardIcon,
   CardTitle,
 } from "./card";
-
 const meta: Meta<typeof Card> = {
   title: "Primitives/Card",
   component: Card,
@@ -28,17 +27,14 @@ const meta: Meta<typeof Card> = {
     ),
   ],
   argTypes: {
-    // Card Props
     className: {
       control: "text",
-      description: "CSS classes for styling the card container",
       table: {
         category: "Display",
       },
     },
     children: {
       control: "text",
-      description: "Content to render inside the card",
       table: {
         category: "Content",
       },
@@ -48,36 +44,18 @@ const meta: Meta<typeof Card> = {
     layout: "centered",
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Card>;
-
-/**
- * Basic card with header, content, and footer
- * Matches the basic example from card.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic card with title, description, and footer badges. Tests card structure and content rendering.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the card title
     const title = canvas.getByText("21PT1019");
     await expect(title).toBeInTheDocument();
-
-    // Find the description
     const description = canvas.getByText("Pressure over last 24 hours");
     await expect(description).toBeInTheDocument();
-
-    // Find badges in footer
     const timeSeriesBadge = canvas.getByText(/Time series/i);
     await expect(timeSeriesBadge).toBeInTheDocument();
   },
@@ -102,30 +80,18 @@ export const Basic: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with text content in footer
- * Matches the withFooter example from card.examples.tsx
- */
 export const WithTextFooter: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Card with text content displayed in the footer instead of badges.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify header content
     await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
     await expect(canvas.getByText("Pressure over last 24 hours")).toBeInTheDocument();
-
-    // Verify footer text lines
     await expect(
-      canvas.getByText("Trending up by 5.2% this month", { exact: false })
+      canvas.getByText("Trending up by 5.2% this month", {
+        exact: false,
+      })
     ).toBeInTheDocument();
     await expect(canvas.getByText("No alerts")).toBeInTheDocument();
   },
@@ -145,36 +111,20 @@ export const WithTextFooter: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with badge in header and image content
- * Matches the badgeInHeader example from card.examples.tsx
- */
 export const WithBadgeInHeader: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story:
-          "Card with a badge displayed in the header using CardIcon. No wrapper divs needed - the grid layout handles positioning automatically.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify title and description
     await expect(canvas.getByText("Skarv")).toBeInTheDocument();
     await expect(canvas.getByText("Point cloud scene")).toBeInTheDocument();
-
-    // Verify header action button is present by its icon button label
     const actionButtons = canvas.getAllByRole("button");
     await expect(actionButtons.length).toBeGreaterThan(0);
-
-    // Verify footer action button is present by text
-    const footerButton = canvas.getByRole("button", { name: /view scene/i });
+    const footerButton = canvas.getByRole("button", {
+      name: /view scene/i,
+    });
     await expect(footerButton).toBeInTheDocument();
-
     await expect(canvas.getByText("Model ID: 4602269428617841")).toBeInTheDocument();
   },
   render: () => (
@@ -204,29 +154,14 @@ export const WithBadgeInHeader: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with hover effect
- * Matches the cardHover example from card.examples.tsx
- */
 export const WithHover: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story:
-          "Card with hover effect. The card background changes on hover to indicate interactivity.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find the card by its title
     const cardTitle = canvas.getByText("Title");
     await expect(cardTitle).toBeInTheDocument();
-
-    // Hover the card container to exercise hover styles
     const card = cardTitle.closest('[data-slot="card"]') ?? cardTitle.parentElement;
     if (card) {
       await userEvent.hover(card);
@@ -255,27 +190,17 @@ export const WithHover: Story = {
     </Card>
   ),
 };
-
-/**
- * Minimal card with just title and content
- */
 export const Minimal: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Minimal card with just a title and content section.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify card structure
-    const title = canvas.getByRole("heading", { level: 3, name: "Simple Card" });
+    const title = canvas.getByRole("heading", {
+      level: 3,
+      name: "Simple Card",
+    });
     await expect(title).toBeInTheDocument();
-
-    // Verify content
     const content = canvas.getByText(/This is a minimal card/i);
     await expect(content).toBeInTheDocument();
   },
@@ -292,42 +217,25 @@ export const Minimal: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with actions dropdown menu in header
- */
 export const WithActions: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story:
-          "Card with CardActions wrapped in CardHeaderRight. CardActions provides a pre-configured dropdown menu.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify card title
-    const title = canvas.getByRole("heading", { level: 3, name: "Card with Actions" });
+    const title = canvas.getByRole("heading", {
+      level: 3,
+      name: "Card with Actions",
+    });
     await expect(title).toBeInTheDocument();
-
-    // Find and click the actions button
     const actionsButton = canvas.getByRole("button");
     await expect(actionsButton).toBeInTheDocument();
     await userEvent.click(actionsButton);
-
-    // Verify dropdown menu appears (menu renders in portal, use screen)
-    // Use role="menu" since dropdown renders as a menu element
     await waitFor(async () => {
       const menu = screen.getByRole("menu");
       await expect(menu).toBeInTheDocument();
-
-      // Verify menu items are present
       const viewDetails = screen.getByText(/View details/i);
       await expect(viewDetails).toBeInTheDocument();
-
       const deleteOption = screen.getByText(/Delete card/i);
       await expect(deleteOption).toBeInTheDocument();
     });
@@ -358,42 +266,26 @@ export const WithActions: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with both icon and actions in header
- */
 export const WithIconAndActions: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story:
-          "Card with both CardIcon and CardHeaderRight (containing CardActions). The grid automatically creates 3 columns: icon, content, right.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify card structure with icon
-    const title = canvas.getByRole("heading", { level: 3, name: "Skarv Model" });
+    const title = canvas.getByRole("heading", {
+      level: 3,
+      name: "Skarv Model",
+    });
     await expect(title).toBeInTheDocument();
-
     const description = canvas.getByText("Point cloud scene");
     await expect(description).toBeInTheDocument();
-
-    // Verify content
     const modelId = canvas.getByText(/Model ID: 4602269428617841/i);
     await expect(modelId).toBeInTheDocument();
-
-    // Test actions dropdown (menu renders in portal, use screen)
     const actionsButton = canvas.getByRole("button");
     await userEvent.click(actionsButton);
-
     await waitFor(async () => {
       const menu = screen.getByRole("menu");
       await expect(menu).toBeInTheDocument();
-
       const viewDetails = screen.getByText(/View details/i);
       await expect(viewDetails).toBeInTheDocument();
     });
@@ -423,19 +315,9 @@ export const WithIconAndActions: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with custom badge in header right slot
- */
 export const WithHeaderRightBadge: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Use CardHeaderRight for custom content in the header corner. Accepts any element - badges, buttons, text, etc.",
-      },
-    },
   },
   render: () => (
     <Card className="w-96">
@@ -457,19 +339,9 @@ export const WithHeaderRightBadge: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with icon and custom header right element (3-column grid)
- */
 export const WithIconAndHeaderRight: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story:
-          "Demonstrates the full 3-column grid: CardIcon + title/description + CardHeaderRight with a custom badge.",
-      },
-    },
   },
   render: () => (
     <Card className="w-96">
@@ -495,22 +367,12 @@ export const WithIconAndHeaderRight: Story = {
     </Card>
   ),
 };
-
-/**
- * Card with only content (no header or footer)
- */
 export const ContentOnly: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story: "Card with only content section, no header or footer.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     await expect(canvas.getByText("Content Only Card")).toBeInTheDocument();
     await expect(
       canvas.getByText("This card contains only content without a header or footer section.")
@@ -527,24 +389,12 @@ export const ContentOnly: Story = {
     </Card>
   ),
 };
-
-/**
- * Multiple cards in a grid layout
- */
 export const GridLayout: Story = {
   parameters: {
     order: 11,
-    docs: {
-      description: {
-        story:
-          "Multiple cards displayed in a responsive grid using container queries. Cards stack on mobile, display 2 across on tablets, and 3 across on larger containers.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all three cards are rendered
     await expect(canvas.getByText("Card 1")).toBeInTheDocument();
     await expect(canvas.getByText("Card 2")).toBeInTheDocument();
     await expect(canvas.getByText("Card 3")).toBeInTheDocument();
@@ -583,36 +433,30 @@ export const GridLayout: Story = {
     </div>
   ),
 };
-
-/**
- * Card with custom heading levels for semantic HTML
- */
 export const SemanticHeadings: Story = {
   parameters: {
     order: 12,
-    docs: {
-      description: {
-        story:
-          "CardTitle supports polymorphic heading elements via the `as` prop. Use h1-h6 to maintain proper document outline and semantic HTML structure. Defaults to h3.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify different heading levels exist
-    const h2Title = canvas.getByRole("heading", { level: 2, name: "Section Title (h2)" });
+    const h2Title = canvas.getByRole("heading", {
+      level: 2,
+      name: "Section Title (h2)",
+    });
     await expect(h2Title).toBeInTheDocument();
-
-    const h3Title = canvas.getByRole("heading", { level: 3, name: "Default Heading (h3)" });
+    const h3Title = canvas.getByRole("heading", {
+      level: 3,
+      name: "Default Heading (h3)",
+    });
     await expect(h3Title).toBeInTheDocument();
-
-    const h4Title = canvas.getByRole("heading", { level: 4, name: "Subsection Title (h4)" });
+    const h4Title = canvas.getByRole("heading", {
+      level: 4,
+      name: "Subsection Title (h4)",
+    });
     await expect(h4Title).toBeInTheDocument();
   },
   render: () => (
     <div className="flex flex-col gap-6 w-full max-w-2xl">
-      {/* h2 example - for main sections */}
       <Card>
         <CardHeader>
           <CardTitle as="h2">Section Title (h2)</CardTitle>
@@ -626,7 +470,6 @@ export const SemanticHeadings: Story = {
         </CardContent>
       </Card>
 
-      {/* h3 example - default */}
       <Card>
         <CardHeader>
           <CardTitle>Default Heading (h3)</CardTitle>
@@ -640,7 +483,6 @@ export const SemanticHeadings: Story = {
         </CardContent>
       </Card>
 
-      {/* h4 example - for subsections */}
       <Card>
         <CardHeader>
           <CardTitle as="h4">Subsection Title (h4)</CardTitle>
@@ -656,19 +498,9 @@ export const SemanticHeadings: Story = {
     </div>
   ),
 };
-
-/**
- * Interactive playground for experimenting with card props
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story:
-          "Interactive playground to experiment with different card configurations. Use the controls panel to customize props.",
-      },
-    },
   },
   render: (args) => (
     <Card {...args}>
