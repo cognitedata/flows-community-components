@@ -8,7 +8,7 @@ import type { ComponentMeta } from '../../../../lib/types';
  */
 export const AvatarMetadata: ComponentMeta = {
   name: 'Avatar',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'An image element with a fallback for representing users. Supports multiple color variants, sizes, and composable sub-components.',
   llmUsage:

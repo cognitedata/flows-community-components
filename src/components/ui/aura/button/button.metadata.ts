@@ -2,7 +2,7 @@ import type { ComponentMeta } from '../../../../lib/types';
 
 export const ButtonMetadata: ComponentMeta = {
   name: 'Button',
-  status: 'in-progress-code-review',
+  status: 'ready-for-ga',
   description:
     'A versatile button component with multiple variants and sizes, built with Base UI render props and class-variance-authority.',
   llmUsage:
