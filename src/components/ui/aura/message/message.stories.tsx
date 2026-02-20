@@ -10,6 +10,7 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import {
   Message,
   MessageAction,
@@ -21,7 +22,6 @@ import {
 } from ".";
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "../code-block";
 import { InlineCitation, InlineCitationLink } from "../inline-citation";
-import { expect, userEvent, waitFor, within } from "storybook/test";
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
   component: Message,
