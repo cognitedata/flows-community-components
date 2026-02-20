@@ -60,7 +60,7 @@
     "@babel/parser": "^7.28.6",
     "@babel/traverse": "^7.28.6",
     "@babel/types": "^7.28.6",
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.0.0",
     "@chromatic-com/storybook": "^5.0.0",
     "@storybook/addon-a11y": "^10.2.5",
     "@storybook/addon-docs": "^10.2.5",
