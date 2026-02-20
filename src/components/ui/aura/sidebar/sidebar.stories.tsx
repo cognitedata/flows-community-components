@@ -1,6 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import {
   IconAppsFilled,
   IconBellFilled,
@@ -12,7 +10,9 @@ import {
   IconPointFilled,
   IconSearch,
   IconWorld,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
+import { expect, userEvent, within } from 'storybook/test';
+
 import {
   Sidebar,
   SidebarContent,
@@ -31,98 +31,84 @@ import {
   SidebarSearch,
   SidebarSeparator,
   SidebarTrigger,
-} from "./sidebar";
+} from './sidebar';
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/aura/avatar';
 const meta: Meta<typeof Sidebar> = {
-  title: "Primitives/Sidebar",
+  title: 'Primitives/Sidebar',
   component: Sidebar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
-    // Structure
     side: {
-      control: "select",
-      options: ["left", "right"],
-      description: "Which side the sidebar appears on",
+      control: 'select',
+      options: ['left', 'right'],
       table: {
-        category: "Structure",
-        type: { summary: '"left" | "right"' },
-        defaultValue: { summary: "left" },
+        category: 'Structure',
+        type: {
+          summary: '"left" | "right"',
+        },
+        defaultValue: {
+          summary: 'left',
+        },
       },
     },
     variant: {
-      control: "select",
-      options: ["sidebar", "floating", "inset"],
-      description: "Visual variant of the sidebar",
+      control: 'select',
+      options: ['sidebar', 'floating', 'inset'],
       table: {
-        category: "Structure",
-        type: { summary: '"sidebar" | "floating" | "inset"' },
-        defaultValue: { summary: "sidebar" },
+        category: 'Structure',
+        type: {
+          summary: '"sidebar" | "floating" | "inset"',
+        },
+        defaultValue: {
+          summary: 'sidebar',
+        },
       },
     },
     collapsible: {
-      control: "select",
-      options: ["offcanvas", "icon", "none"],
-      description: "How the sidebar can be collapsed",
+      control: 'select',
+      options: ['offcanvas', 'icon', 'none'],
       table: {
-        category: "Behavior",
-        type: { summary: '"offcanvas" | "icon" | "none"' },
-        defaultValue: { summary: "offcanvas" },
+        category: 'Behavior',
+        type: {
+          summary: '"offcanvas" | "icon" | "none"',
+        },
+        defaultValue: {
+          summary: 'offcanvas',
+        },
       },
     },
     className: {
-      control: "text",
-      description: "CSS classes for styling",
+      control: 'text',
       table: {
-        category: "Display",
+        category: 'Display',
       },
     },
   },
   parameters: {
-    layout: "fullscreen",
+    layout: 'fullscreen',
     viewport: {
-      defaultViewport: "responsive",
+      defaultViewport: 'responsive',
     },
     chromatic: {
       viewports: [1200],
     },
-    docs: {
-      description: {
-        component:
-          "A composable sidebar component following the shadcn pattern with sticky header/footer and scrollable content.",
-      },
-    },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Sidebar>;
-
-/**
- * Complete sidebar with header, scrollable content, and footer.
- * This follows the shadcn pattern with proper flexbox layout.
- */
 export const Basic: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Full sidebar structure with brand, project selector, search, navigation pages, pinned apps, and footer with user profile. The content scrolls while header and footer remain visible.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify sidebar is rendered
-    const sidebar = canvas.getByTestId("sidebar-header-insert");
+    const sidebar = canvas.getByTestId('sidebar-header-insert');
     await expect(sidebar).toBeInTheDocument();
-
-    // Verify navigation items exist
-    const atlasButton = canvas.getByText("Atlas");
+    const atlasButton = canvas.getByText('Atlas');
     await expect(atlasButton).toBeInTheDocument();
-
-    // Verify footer is visible
-    const footer = canvas.getByText("Elizabeth Fitzgerald");
+    const footer = canvas.getByText('Elizabeth Fitzgerald');
     await expect(footer).toBeInTheDocument();
   },
   render: () => (
@@ -234,14 +220,19 @@ export const Basic: Story = {
                 </SidebarMenu>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </div>
@@ -252,8 +243,8 @@ export const Basic: Story = {
             <div className="mt-4">
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
-                This is the main content area. The sidebar header and footer remain visible while
-                the content scrolls.
+                This is the main content area. The sidebar header and footer
+                remain visible while the content scrolls.
               </p>
             </div>
           </div>
@@ -262,35 +253,16 @@ export const Basic: Story = {
     </div>
   ),
 };
-
-/**
- * Collapsed sidebar in icon-only mode with tooltips.
- * Tests tooltip behavior on hover.
- */
 export const Collapsed: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Sidebar collapsed to icon-only mode. Hover over icons to see tooltips. Click the trigger button to expand.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify collapsed state
-    const trigger = canvas.getByRole("button", { name: /toggle sidebar/i });
+    const trigger = canvas.getByRole('button', {
+      name: /toggle sidebar/i,
+    });
     await expect(trigger).toBeInTheDocument();
-
-    // Verify icons are present
-    const homeButton = canvas.getByText("Home");
+    const homeButton = canvas.getByText('Home');
     await expect(homeButton).toBeInTheDocument();
-
-    // Test expand functionality
     await userEvent.click(trigger);
-
-    // Wait a moment for the animation
     await new Promise((resolve) => setTimeout(resolve, 300));
   },
   render: () => (
@@ -401,14 +373,19 @@ export const Collapsed: Story = {
                 </SidebarMenu>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </div>
@@ -419,8 +396,8 @@ export const Collapsed: Story = {
             <div className="mt-4">
               <h1 className="text-2xl font-bold mb-4">Main Content</h1>
               <p className="text-muted-foreground">
-                This is the main content area. The sidebar header and footer remain visible while
-                the content scrolls.
+                This is the main content area. The sidebar header and footer
+                remain visible while the content scrolls.
               </p>
             </div>
           </div>
@@ -429,20 +406,7 @@ export const Collapsed: Story = {
     </div>
   ),
 };
-
-/**
- * Sidebar with minimal content to show footer positioning
- * Demonstrates that footer stays at bottom with little content.
- */
 export const MinimalContent: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Sidebar with only a few navigation items. Shows that the footer remains at the bottom even with minimal scrollable content.",
-      },
-    },
-  },
   render: () => (
     <div className="relative h-[996px] w-full rounded-lg overflow-hidden">
       <SidebarProvider className="min-h-0 h-[996px]">
@@ -516,14 +480,19 @@ export const MinimalContent: Story = {
                 </SidebarMenu>
                 <div className="flex items-center gap-2">
                   <Avatar sizes="default">
-                    <AvatarImage src="/user-avatar2.png" alt="Elizabeth Fitzgerald" />
+                    <AvatarImage
+                      src="/user-avatar2.png"
+                      alt="Elizabeth Fitzgerald"
+                    />
                     <AvatarFallback>EF</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col min-w-0">
                     <div className="text-sm font-medium text-sidebar-foreground truncate">
                       Elizabeth Fitzgerald
                     </div>
-                    <div className="text-xs text-sidebar-foreground/70 truncate">AkerBP</div>
+                    <div className="text-xs text-sidebar-foreground/70 truncate">
+                      AkerBP
+                    </div>
                   </div>
                 </div>
               </div>
@@ -542,15 +511,11 @@ export const MinimalContent: Story = {
     </div>
   ),
 };
-
-/**
- * Interactive playground for testing sidebar props
- */
 export const Playground: Story = {
   args: {
-    side: "left",
-    variant: "sidebar",
-    collapsible: "icon",
+    side: 'left',
+    variant: 'sidebar',
+    collapsible: 'icon',
   },
   render: (args) => (
     <div className="relative h-[996px] w-full rounded-lg overflow-hidden">

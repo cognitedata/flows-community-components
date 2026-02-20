@@ -9,7 +9,7 @@ import {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-} from "./dialog";
+} from './dialog';
 
 /** Dialog exports. */
 export {
@@ -24,4 +24,4 @@ export {
   DialogTitle,
   DialogTrigger,
 };
-export { DialogMetadata } from "./dialog.metadata";
+export { DialogMetadata } from './dialog.metadata';

@@ -1,14 +1,13 @@
-import { type ReactNode, createContext, useContext, useMemo } from "react";
-
-import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { Select as SelectPrimitive } from '@base-ui/react/select';
 import {
   IconCheck,
   IconChevronDown,
   IconChevronUp,
   IconExclamationCircle,
-} from "@tabler/icons-react";
+} from '@tabler/icons-react';
+import { type ReactNode, createContext, useContext, useMemo } from 'react';
 
-import { useControllableState } from "../../../../lib/use-controllable-state";
+import { useControllableState } from '../../../../lib/use-controllable-state';
 import {
   cn,
   disabledState,
@@ -18,7 +17,7 @@ import {
   getPortalContainer,
   hoverState,
   invalidState,
-} from "../../../../lib/utils";
+} from '../../../../lib/utils';
 
 type SelectContextValue = {
   isOpen: boolean;
@@ -29,14 +28,20 @@ const SelectContext = createContext<SelectContextValue | null>(null);
 const useSelect = () => {
   const context = useContext(SelectContext);
   if (!context) {
-    throw new Error("Select components must be used within Select");
+    throw new Error('Select components must be used within Select');
   }
   return context;
 };
 
 type SelectPropsBase = Omit<
   SelectPrimitive.Root.Props<string>,
-  "open" | "defaultOpen" | "onOpenChange" | "value" | "defaultValue" | "onValueChange" | "multiple"
+  | 'open'
+  | 'defaultOpen'
+  | 'onOpenChange'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'multiple'
 > & {
   open?: boolean;
   defaultOpen?: boolean;
@@ -124,7 +129,7 @@ function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   return (
     <SelectPrimitive.Group
       data-slot="select-group"
-      className={cn("scroll-my-1 p-1", className)}
+      className={cn('scroll-my-1 p-1', className)}
       {...props}
     />
   );
@@ -149,12 +154,12 @@ function SelectValue({
 
 function SelectTrigger({
   className,
-  size = "default",
+  size = 'default',
   children,
   errorMessage,
   ...props
 }: SelectPrimitive.Trigger.Props & {
-  size?: "sm" | "default";
+  size?: 'sm' | 'default';
   errorMessage?: string;
 }) {
   const { isOpen } = useSelect();
@@ -167,16 +172,16 @@ function SelectTrigger({
         data-size={size}
         aria-invalid={isInvalid ? true : undefined}
         className={cn(
-          "w-fit min-w-50 min-h-9 flex items-center justify-between gap-2 whitespace-nowrap transition-colors transition-shadow cursor-pointer",
+          'w-fit min-w-50 min-h-9 flex items-center justify-between gap-2 whitespace-nowrap transition-[color,box-shadow] cursor-pointer',
           formElementBase,
           hoverState,
           filledState,
           focusState,
           invalidState,
           disabledState,
-          "dark:bg-input/30 dark:text-muted-foreground dark:hover:bg-accent",
+          'dark:bg-input/30 dark:text-muted-foreground dark:hover:bg-accent',
           "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground",
-          "*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
+          '*:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2',
           className
         )}
         {...props}
@@ -186,8 +191,8 @@ function SelectTrigger({
           render={
             <IconChevronDown
               className={cn(
-                "size-4 opacity-50 transition-transform",
-                isOpen ? "rotate-180" : "rotate-0"
+                'size-4 opacity-50 transition-transform',
+                isOpen ? 'rotate-180' : 'rotate-0'
               )}
             />
           }
@@ -196,7 +201,9 @@ function SelectTrigger({
       {errorMessage && (
         <div className="flex flex-row gap-1 justify-start items-center p-1">
           <IconExclamationCircle className="text-destructive-foreground text-sm size-4" />
-          <span className="text-destructive-foreground text-sm">{errorMessage}</span>
+          <span className="text-destructive-foreground text-sm">
+            {errorMessage}
+          </span>
         </div>
       )}
     </>
@@ -206,18 +213,18 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position: _position = "popper",
-  align = "start",
+  position: _position = 'popper',
+  align = 'start',
   alignOffset = 0,
-  side = "bottom",
+  side = 'bottom',
   sideOffset = 4,
   ...props
 }: SelectPrimitive.Popup.Props & {
-  position?: "popper" | "item-aligned";
-  align?: SelectPrimitive.Positioner.Props["align"];
-  alignOffset?: SelectPrimitive.Positioner.Props["alignOffset"];
-  side?: SelectPrimitive.Positioner.Props["side"];
-  sideOffset?: SelectPrimitive.Positioner.Props["sideOffset"];
+  position?: 'popper' | 'item-aligned';
+  align?: SelectPrimitive.Positioner.Props['align'];
+  alignOffset?: SelectPrimitive.Positioner.Props['alignOffset'];
+  side?: SelectPrimitive.Positioner.Props['side'];
+  sideOffset?: SelectPrimitive.Positioner.Props['sideOffset'];
 }) {
   return (
     <SelectPrimitive.Portal container={getPortalContainer()}>
@@ -233,8 +240,8 @@ function SelectContent({
         <SelectPrimitive.Popup
           data-slot="select-content"
           className={cn(
-            "bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md outline-none",
-            _position === "popper" && "data-[side=bottom]:translate-y-1",
+            'bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--available-height) min-w-32 origin-(--transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md outline-none',
+            _position === 'popper' && 'data-[side=bottom]:translate-y-1',
             className
           )}
           {...props}
@@ -248,11 +255,14 @@ function SelectContent({
   );
 }
 
-function SelectLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) {
+function SelectLabel({
+  className,
+  ...props
+}: SelectPrimitive.GroupLabel.Props) {
   return (
     <SelectPrimitive.GroupLabel
       data-slot="select-label"
-      className={cn("text-muted-foreground px-2 py-1.5 text-xs", className)}
+      className={cn('text-muted-foreground px-2 py-1.5 text-xs', className)}
       {...props}
     />
   );
@@ -288,22 +298,28 @@ function SelectItem({
   );
 }
 
-function SelectSeparator({ className, ...props }: SelectPrimitive.Separator.Props) {
+function SelectSeparator({
+  className,
+  ...props
+}: SelectPrimitive.Separator.Props) {
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("bg-border pointer-events-none -mx-1 my-1 h-px", className)}
+      className={cn('bg-border pointer-events-none -mx-1 my-1 h-px', className)}
       {...props}
     />
   );
 }
 
-function SelectScrollUpButton({ className, ...props }: SelectPrimitive.ScrollUpArrow.Props) {
+function SelectScrollUpButton({
+  className,
+  ...props
+}: SelectPrimitive.ScrollUpArrow.Props) {
   return (
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"
       className={cn(
-        "bg-popover z-10 flex cursor-default items-center justify-center py-1 top-0 w-full",
+        'bg-popover z-10 flex cursor-default items-center justify-center py-1 top-0 w-full',
         className
       )}
       {...props}
@@ -313,12 +329,15 @@ function SelectScrollUpButton({ className, ...props }: SelectPrimitive.ScrollUpA
   );
 }
 
-function SelectScrollDownButton({ className, ...props }: SelectPrimitive.ScrollDownArrow.Props) {
+function SelectScrollDownButton({
+  className,
+  ...props
+}: SelectPrimitive.ScrollDownArrow.Props) {
   return (
     <SelectPrimitive.ScrollDownArrow
       data-slot="select-scroll-down-button"
       className={cn(
-        "bg-popover z-10 flex cursor-default items-center justify-center py-1 bottom-0 w-full",
+        'bg-popover z-10 flex cursor-default items-center justify-center py-1 bottom-0 w-full',
         className
       )}
       {...props}

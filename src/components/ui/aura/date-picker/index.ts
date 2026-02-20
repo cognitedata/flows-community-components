@@ -8,6 +8,6 @@
  *
  * <DatePickerCustom date={date} onDateChange={setDate} />
  */
-export { DatePicker, DatePickerCustom, DateRangePicker } from "./date-picker";
-export type { DatePickerProps, DateRangePickerProps } from "./date-picker";
-export { DatePickerMetadata } from "./date-picker.metadata";
+export { DatePicker, DatePickerCustom, DateRangePicker } from './date-picker';
+export type { DatePickerProps, DateRangePickerProps } from './date-picker';
+export { DatePickerMetadata } from './date-picker.metadata';

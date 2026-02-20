@@ -1,8 +1,10 @@
-import type { ComponentMeta } from "../../../../lib/component-examples";
+import type { ComponentMeta } from '../../../../lib/types';
 
 export const DatePickerMetadata: ComponentMeta = {
-  name: "DatePicker",
-  status: "imported-from-fusion",
-  description: "A date picker component combining calendar with popover trigger.",
-  llmUsage: "Use `<DatePickerCustom>` for single date selection or `<DateRangePicker>` for ranges.",
+  name: 'DatePicker',
+  status: 'imported-from-fusion',
+  description:
+    'A date picker component combining calendar with popover trigger.',
+  llmUsage:
+    'Use `<DatePickerCustom>` for single date selection or `<DateRangePicker>` for ranges.',
 };
