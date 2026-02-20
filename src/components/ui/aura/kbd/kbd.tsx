@@ -1,8 +1,8 @@
-import { type ComponentProps, forwardRef } from 'react';
+import { type ComponentProps, type ComponentRef, forwardRef } from 'react';
 
 import { cn } from '../../../../lib/utils';
 
-const Kbd = forwardRef<HTMLElement, ComponentProps<'kbd'>>(
+const Kbd = forwardRef<ComponentRef<'kbd'>, ComponentProps<'kbd'>>(
   ({ className, ...props }, ref) => {
     return (
       <kbd
@@ -21,10 +21,10 @@ const Kbd = forwardRef<HTMLElement, ComponentProps<'kbd'>>(
 );
 Kbd.displayName = 'Kbd';
 
-const KbdGroup = forwardRef<HTMLElement, ComponentProps<'kbd'>>(
+const KbdGroup = forwardRef<ComponentRef<'span'>, ComponentProps<'span'>>(
   ({ className, ...props }, ref) => {
     return (
-      <kbd
+      <span
         ref={ref}
         data-slot="kbd-group"
         className={cn('inline-flex items-center gap-1', className)}
