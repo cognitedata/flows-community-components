@@ -1,7 +1,7 @@
 import { CodeBlock } from "@/components/ui/aura/code-block";
 import { HelperText } from "@/components/ui/aura/helper-text";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { IconCheck, IconCircleCheck, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import {

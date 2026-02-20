@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/aura/button";
-import type { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { userEvent, within } from "storybook/test";
 import { Toaster, toast } from "./sonner-toast";
 const meta: Meta<typeof Toaster> = {
   title: "Primitives/Sonner Toast",

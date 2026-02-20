@@ -18,8 +18,8 @@ import {
   PromptInputTextarea,
   PromptInputTools,
 } from "@/components/ui/aura/prompt-input";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { IconAdjustments, IconAlertTriangle, IconChevronDown } from "@tabler/icons-react";
 import { type ComponentProps, useRef, useState } from "react";
 const meta: Meta<typeof PromptInput> = {

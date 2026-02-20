@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/aura/button";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 import { IconAlertTriangle, IconCheck, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import {

@@ -1,6 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor } from "@storybook/test";
-import { within } from "@storybook/testing-library";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { useState } from "react";
 import {
   List,

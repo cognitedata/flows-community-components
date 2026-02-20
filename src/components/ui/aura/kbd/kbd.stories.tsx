@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { IconArrowDown, IconArrowUp, IconCommand } from "@tabler/icons-react";
 import { Kbd, KbdGroup } from "./kbd";
 const meta: Meta<typeof Kbd> = {

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, waitFor, within } from "storybook/test";
 import { useEffect, useState } from "react";
 import { Shimmer } from "./shimmer";
 const meta: Meta<typeof Shimmer> = {
