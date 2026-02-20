@@ -1,4 +1,4 @@
-import { composeStories } from "@storybook/react";
+import { composeStories } from "@storybook/react-vite";
 import type React from "react";
 import { type ComponentType, useEffect, useState } from "react";
 import { ExamplePreview } from "./example-preview";

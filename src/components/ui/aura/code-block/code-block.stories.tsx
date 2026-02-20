@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, within } from "storybook/test";
 import { CodeBlock, CodeBlockCollapseButton, CodeBlockCopyButton } from "./code-block";
 const meta: Meta<typeof CodeBlock> = {
   title: "AI/Code Block",
@@ -139,11 +139,13 @@ export const Basic: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const codeBlock = canvasElement.querySelector('[data-slot="code-block"]');
-    await expect(codeBlock).toBeInTheDocument();
-    const buttons = await canvas.findAllByRole("button", {
-      hidden: true,
-    });
+    const matches = await canvas.findAllByText(
+      (_, element) =>
+        element?.tagName.toLowerCase() === "code" &&
+        element.textContent?.includes("interface User") === true
+    );
+    await expect(matches.length).toBeGreaterThanOrEqual(1);
+    const buttons = await canvas.findAllByRole("button", { hidden: true });
     await expect(buttons.length).toBeGreaterThanOrEqual(1);
   },
 };
@@ -157,8 +159,13 @@ export const WithLineNumbers: Story = {
     order: 2,
   },
   play: async ({ canvasElement }) => {
-    const codeBlock = canvasElement.querySelector('[data-slot="code-block"]');
-    await expect(codeBlock).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    const matches = await canvas.findAllByText(
+      (_, element) =>
+        element?.tagName.toLowerCase() === "code" &&
+        element.textContent?.includes("interface User") === true
+    );
+    await expect(matches.length).toBeGreaterThanOrEqual(1);
   },
 };
 export const Collapsible: Story = {

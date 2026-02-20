@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/aura/badge";
 import { Checkbox } from "@/components/ui/aura/checkbox";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 import {
   Table,
   TableBody,

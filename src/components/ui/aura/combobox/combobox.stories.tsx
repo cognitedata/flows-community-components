@@ -14,8 +14,7 @@ import {
 import { HelperText } from "@/components/ui/aura/helper-text";
 import { Label } from "@/components/ui/aura/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/aura/popover";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconCheck,
   IconGrid3x3,
@@ -25,6 +24,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { useState } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { cn } from "../../../../lib/utils";
 const meta: Meta<typeof Popover> = {
   title: "Primitives/Combobox",

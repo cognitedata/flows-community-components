@@ -1,8 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { IconCheck, IconCircleCheck, IconX } from "@tabler/icons-react";
 import { useState } from "react";
-
+import { expect, userEvent, waitFor, within } from "storybook/test";
 import { CodeBlock } from "../code-block";
 import { HelperText } from "../helper-text";
 import {

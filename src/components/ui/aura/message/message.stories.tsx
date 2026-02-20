@@ -13,8 +13,7 @@ import {
   MessageContent,
   MessageResponse,
 } from "@/components/ui/aura/message";
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   IconCopy,
   IconDownload,
@@ -27,6 +26,7 @@ import {
   IconWheel,
 } from "@tabler/icons-react";
 import type { CSSProperties } from "react";
+import { expect, userEvent, waitFor, within } from "storybook/test";
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
   component: Message,
