@@ -11,8 +11,7 @@ import {
 
 import { useControllableState } from '../../../../lib/use-controllable-state';
 import { cn } from '../../../../lib/utils';
-
-import { Button } from '@/components/ui/aura/button';
+import { Button } from '../button';
 
 type AlertVariant = 'default' | 'secondary' | 'warning' | 'error';
 
@@ -49,7 +48,8 @@ const alertVariants = cva(
 );
 
 type AlertProps = ComponentProps<'div'> &
-  VariantProps<typeof alertVariants> & {
+  Omit<VariantProps<typeof alertVariants>, 'variant'> & {
+    variant?: AlertVariant;
     visible?: boolean;
     defaultVisible?: boolean;
     onClose?: () => void;
@@ -73,20 +73,19 @@ const Alert = forwardRef<ComponentRef<'div'>, AlertProps>(
       prop: visible,
       onChange: onClose,
     });
+    const alertVariant = variant ?? 'default';
 
     if (!show) {
       return null;
     }
 
     return (
-      <AlertContext.Provider
-        value={{ show, setShow, variant: variant as AlertVariant }}
-      >
+      <AlertContext.Provider value={{ show, setShow, variant: alertVariant }}>
         <div
           ref={ref}
           data-slot="alert"
           role="alert"
-          className={cn(alertVariants({ variant }), className)}
+          className={cn(alertVariants({ variant: alertVariant }), className)}
           {...props}
         >
           {onClose && <AlertClose />}

@@ -133,6 +133,7 @@ For files under `src/components/ui/aura/**`, prefer relative imports (for exampl
 - Accordion story play tests are more robust when asserting trigger `aria-expanded` state changes instead of querying open panels by implementation-specific selectors.
 - Aura components use relative paths (`../../../../lib/*`) for lib imports instead of `@/lib/*` to support portable/registry installs.
 - Registry dependency extraction must account for relative component imports (for example `../helper-text`) so `registryDependencies` stays correct.
+- In stories, prefer typed data arrays (for example `ComponentProps<typeof X>`) over `as const` casts for literal variants.
 - When updating component metadata statuses from a list, update only existing `*.metadata.ts` files and skip missing components without creating placeholders.
 - Set per-component Figma links in `src/lib/primitives-catalog.ts`; catalog and component pages use those URLs to enable clickable Figma icons.
 

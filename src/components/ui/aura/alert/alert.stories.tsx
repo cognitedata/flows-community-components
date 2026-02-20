@@ -16,7 +16,7 @@ import {
   AlertButton,
   AlertDescription,
   AlertTitle,
-} from '@/components/ui/aura/alert';
+} from './alert';
 const meta: Meta<typeof Alert> = {
   title: 'Primitives/Alert',
   component: Alert,

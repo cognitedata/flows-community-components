@@ -1,20 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, waitFor, within } from '@storybook/test';
 
+import { Tool, ToolContent, ToolHeader, ToolInput, ToolOutput } from '../tool';
+
 import {
   Reasoning,
   ReasoningContent,
   ReasoningHeader,
   ReasoningItem,
 } from './reasoning';
-
-import {
-  Tool,
-  ToolContent,
-  ToolHeader,
-  ToolInput,
-  ToolOutput,
-} from '@/components/ui/aura/tool/tool';
 const meta: Meta<typeof Reasoning> = {
   title: 'AI/Reasoning',
   component: Reasoning,

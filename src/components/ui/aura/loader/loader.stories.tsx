@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, within } from '@storybook/test';
 
-import { Loader } from './loader';
+import { Button } from '../button';
 
-import { Button } from '@/components/ui/aura/button';
+import { Loader } from './loader';
 const meta: Meta<typeof Loader> = {
   title: 'AI/Loader',
   component: Loader,

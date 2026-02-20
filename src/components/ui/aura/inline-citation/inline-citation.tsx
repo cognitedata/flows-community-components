@@ -13,19 +13,14 @@ import {
 } from 'react';
 
 import { cn, getHostname } from '../../../../lib/utils';
-
-import { Badge } from '@/components/ui/aura/badge';
+import { Badge } from '../badge';
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/aura/carousel';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/aura/hover-card';
+} from '../carousel';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../hover-card';
 
 type InlineCitationProps = ComponentProps<'span'>;
 

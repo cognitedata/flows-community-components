@@ -6,7 +6,6 @@ import {
 } from './reasoning';
 import { ReasoningMetadata } from './reasoning.metadata';
 
-/** Reasoning exports. */
 export {
   Reasoning,
   ReasoningContent,

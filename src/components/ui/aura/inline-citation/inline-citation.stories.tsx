@@ -15,12 +15,7 @@ import {
   IconTool,
   IconWheel,
 } from '@tabler/icons-react';
-
-import {
-  InlineCitation,
-  InlineCitationGroup,
-  InlineCitationLink,
-} from './inline-citation';
+import type { ComponentProps } from 'react';
 
 import {
   Message,
@@ -29,7 +24,13 @@ import {
   MessageAvatar,
   MessageAvatarIcon,
   MessageContent,
-} from '@/components/ui/aura/message';
+} from '../message';
+
+import {
+  InlineCitation,
+  InlineCitationGroup,
+  InlineCitationLink,
+} from './inline-citation';
 const meta: Meta<typeof InlineCitation> = {
   title: 'AI/Inline Citation',
   component: InlineCitation,
@@ -64,6 +65,11 @@ const meta: Meta<typeof InlineCitation> = {
 };
 export default meta;
 type Story = StoryObj<typeof InlineCitation>;
+type CitationItem = {
+  text: string;
+  icon: ComponentProps<typeof InlineCitationLink>['icon'];
+  variant: NonNullable<ComponentProps<typeof InlineCitationLink>['variant']>;
+};
 export const Default: Story = {
   parameters: {
     order: 1,
@@ -418,66 +424,66 @@ export const ManyCitations: Story = {
     await expect(citations.length).toBeGreaterThan(10);
   },
   render: () => {
-    const citations = [
+    const citations: CitationItem[] = [
       {
         text: 'pump-21PT1019',
         icon: IconHexagon,
-        variant: 'nordic' as const,
+        variant: 'nordic',
       },
       {
         text: 'valve-34HV2201',
         icon: IconHexagon,
-        variant: 'fjord' as const,
+        variant: 'fjord',
       },
       {
         text: 'compressor-C401',
         icon: IconHexagon,
-        variant: 'mountain' as const,
+        variant: 'mountain',
       },
       {
         text: 'MaintenanceLog.pdf',
         icon: IconFile,
-        variant: 'fjord' as const,
+        variant: 'fjord',
       },
       {
         text: 'sensor-TT1402',
         icon: IconHexagon,
-        variant: 'nordic' as const,
+        variant: 'nordic',
       },
       {
         text: 'TimeSeries-72h',
         icon: IconTimeline,
-        variant: 'mountain' as const,
+        variant: 'mountain',
       },
       {
         text: 'motor-M2019',
         icon: IconHexagon,
-        variant: 'fjord' as const,
+        variant: 'fjord',
       },
       {
         text: 'InspectionReport.pdf',
         icon: IconFile,
-        variant: 'nordic' as const,
+        variant: 'nordic',
       },
       {
         text: 'turbine-GT501',
         icon: IconHexagon,
-        variant: 'mountain' as const,
+        variant: 'mountain',
       },
       {
         text: 'bearing-BRG-101',
         icon: IconHexagon,
-        variant: 'fjord' as const,
+        variant: 'fjord',
       },
       {
         text: 'VibrationAnalysis.jpg',
         icon: IconPhoto,
-        variant: 'nordic' as const,
+        variant: 'nordic',
       },
       {
         text: 'WO-2024-5421',
         icon: IconBriefcase,
-        variant: 'mountain' as const,
+        variant: 'mountain',
       },
     ];
     return (
