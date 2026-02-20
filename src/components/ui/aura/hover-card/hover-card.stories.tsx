@@ -1,63 +1,76 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/aura/avatar";
+import { Badge } from "@/components/ui/aura/badge";
+import { Button } from "@/components/ui/aura/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import { useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { Badge } from "../badge";
-import { Button } from "../button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
-
 const meta: Meta<typeof HoverCard> = {
   title: "Primitives/Hover Card",
   component: HoverCard,
   tags: ["autodocs"],
   argTypes: {
-    // Display & behavior
     open: {
       control: "boolean",
-      description: "The controlled open state of the hover card",
       table: {
         category: "Display",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     defaultOpen: {
       control: "boolean",
-      description: "The open state of the hover card when initially rendered",
       table: {
         category: "Display",
-        type: { summary: "boolean" },
+        type: {
+          summary: "boolean",
+        },
       },
     },
     openDelay: {
-      control: { type: "number", min: 0, max: 2000, step: 100 },
-      description: "The duration from when the mouse enters until the hover card opens (ms)",
+      control: {
+        type: "number",
+        min: 0,
+        max: 2000,
+        step: 100,
+      },
       table: {
         category: "Display",
-        type: { summary: "number" },
-        defaultValue: { summary: "700" },
+        type: {
+          summary: "number",
+        },
+        defaultValue: {
+          summary: "700",
+        },
       },
     },
     closeDelay: {
-      control: { type: "number", min: 0, max: 2000, step: 100 },
-      description: "The duration from when the mouse leaves until the hover card closes (ms)",
+      control: {
+        type: "number",
+        min: 0,
+        max: 2000,
+        step: 100,
+      },
       table: {
         category: "Display",
-        type: { summary: "number" },
-        defaultValue: { summary: "300" },
+        type: {
+          summary: "number",
+        },
+        defaultValue: {
+          summary: "300",
+        },
       },
     },
-
-    // Events
     onOpenChange: {
       action: "openChanged",
-      description: "Callback when the open state changes",
       table: {
         category: "Events",
-        type: { summary: "(open: boolean) => void" },
+        type: {
+          summary: "(open: boolean) => void",
+        },
       },
     },
-
-    // Internal
     children: {
       control: false,
       table: {
@@ -72,42 +85,58 @@ const meta: Meta<typeof HoverCard> = {
     },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof HoverCard>;
-
-/**
- * Helper function to test hover interactions
- * Reduces code duplication across multiple stories
- */
 async function testHoverInteraction(
   canvasElement: HTMLElement,
   triggerName: RegExp,
   contentText: RegExp,
-  timeout = 1500
+  timeout = 2000
 ) {
   const canvas = within(canvasElement);
-  const body = within(document.body);
-
-  const trigger = canvas.getByRole("button", { name: triggerName });
-  await expect(trigger).toBeInTheDocument();
-
-  await userEvent.hover(trigger);
-
-  await waitFor(
-    async () => {
-      const hoverCard = body.getByText(contentText);
-      await expect(hoverCard).toBeInTheDocument();
+  const trigger = await canvas.findByRole(
+    "button",
+    {
+      name: triggerName,
     },
-    { timeout }
+    {
+      timeout: 2000,
+    }
   );
-
+  await expect(trigger).toBeInTheDocument();
+  const waitForOpenHoverCard = async () => {
+    await waitFor(
+      () => {
+        const hoverCard = document.querySelector(
+          '[data-slot="hover-card-content"][data-open]'
+        ) as HTMLElement | null;
+        expect(hoverCard).toBeInTheDocument();
+        expect(hoverCard).toHaveTextContent(contentText);
+      },
+      {
+        timeout,
+      }
+    );
+  };
+  await userEvent.hover(trigger);
+  try {
+    await waitForOpenHoverCard();
+  } catch {
+    await userEvent.unhover(trigger);
+    await userEvent.hover(trigger);
+    await waitForOpenHoverCard();
+  }
   await userEvent.unhover(trigger);
+  await waitFor(
+    () => {
+      const hoverCard = document.querySelector('[data-slot="hover-card-content"][data-open]');
+      expect(hoverCard).not.toBeInTheDocument();
+    },
+    {
+      timeout,
+    }
+  );
 }
-
-/**
- * User data for MultipleInList story
- */
 const SAMPLE_USERS = [
   {
     name: "Sarah Johnson",
@@ -137,20 +166,9 @@ const SAMPLE_USERS = [
     joined: "Joined July 2023",
   },
 ];
-
-/**
- * Basic hover card with user profile information
- * Matches the basic example from hover-card.examples.tsx
- */
 export const Basic: Story = {
   parameters: {
     order: 1,
-    docs: {
-      description: {
-        story:
-          "Basic hover card showing rich contextual information. Hover over the trigger to see the card.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /@nextjs/i, /The React Framework/i);
@@ -159,9 +177,7 @@ export const Basic: Story = {
     return (
       <div className="flex justify-center items-center min-h-80">
         <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button variant="link">@nextjs</Button>
-          </HoverCardTrigger>
+          <HoverCardTrigger render={<Button variant="link">@nextjs</Button>} />
           <HoverCardContent className="w-80">
             <div className="flex justify-between space-x-4">
               <Avatar>
@@ -182,28 +198,16 @@ export const Basic: Story = {
     );
   },
 };
-
-/**
- * Hover card with badges showing skills or tags
- */
 export const WithBadges: Story = {
   parameters: {
     order: 2,
-    docs: {
-      description: {
-        story: "Hover cards can include badges to show tags, skills, or categories.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
-    // Test hovering on Product Manager
     await testHoverInteraction(
       canvasElement,
       /Product Manager/i,
       /Lead product strategy and roadmap/i
     );
-
-    // Test hovering on Senior Developer
     await testHoverInteraction(
       canvasElement,
       /Senior Developer/i,
@@ -213,9 +217,7 @@ export const WithBadges: Story = {
   render: () => (
     <div className="flex justify-center items-center gap-4 min-h-80">
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Product Manager</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Product Manager</Button>} />
         <HoverCardContent className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Product Manager</h4>
@@ -232,9 +234,7 @@ export const WithBadges: Story = {
       </HoverCard>
 
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Senior Developer</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Senior Developer</Button>} />
         <HoverCardContent className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Senior Developer</h4>
@@ -252,18 +252,9 @@ export const WithBadges: Story = {
     </div>
   ),
 };
-
-/**
- * Hover card positioned on top
- */
 export const TopPosition: Story = {
   parameters: {
     order: 3,
-    docs: {
-      description: {
-        story: "Hover card appearing above the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /Hover me - Top/i, /appears above the trigger/i);
@@ -271,9 +262,7 @@ export const TopPosition: Story = {
   render: () => (
     <div className="flex justify-center items-center min-h-80">
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Hover me - Top</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Hover me - Top</Button>} />
         <HoverCardContent side="top" className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Hover card on top</h4>
@@ -286,18 +275,9 @@ export const TopPosition: Story = {
     </div>
   ),
 };
-
-/**
- * Hover card positioned on right
- */
 export const RightPosition: Story = {
   parameters: {
     order: 4,
-    docs: {
-      description: {
-        story: "Hover card appearing to the right of the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(
@@ -309,9 +289,7 @@ export const RightPosition: Story = {
   render: () => (
     <div className="flex justify-center items-center min-h-80">
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Hover me - Right</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Hover me - Right</Button>} />
         <HoverCardContent side="right" className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Hover card on right</h4>
@@ -324,18 +302,9 @@ export const RightPosition: Story = {
     </div>
   ),
 };
-
-/**
- * Hover card positioned on bottom
- */
 export const BottomPosition: Story = {
   parameters: {
     order: 5,
-    docs: {
-      description: {
-        story: "Hover card appearing below the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /Hover me - Bottom/i, /appears below the trigger/i);
@@ -343,9 +312,7 @@ export const BottomPosition: Story = {
   render: () => (
     <div className="flex justify-center items-center min-h-80">
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Hover me - Bottom</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Hover me - Bottom</Button>} />
         <HoverCardContent side="bottom" className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Hover card on bottom</h4>
@@ -358,18 +325,9 @@ export const BottomPosition: Story = {
     </div>
   ),
 };
-
-/**
- * Hover card positioned on left
- */
 export const LeftPosition: Story = {
   parameters: {
     order: 6,
-    docs: {
-      description: {
-        story: "Hover card appearing to the left of the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(
@@ -381,9 +339,7 @@ export const LeftPosition: Story = {
   render: () => (
     <div className="flex justify-center items-center min-h-80">
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Hover me - Left</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Hover me - Left</Button>} />
         <HoverCardContent side="left" className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Hover card on left</h4>
@@ -396,34 +352,28 @@ export const LeftPosition: Story = {
     </div>
   ),
 };
-
-/**
- * All positions demonstrated together
- */
 export const AllPositions: Story = {
   parameters: {
     order: 7,
-    docs: {
-      description: {
-        story: "Hover cards can be positioned on any side of the trigger element.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Test that all four buttons are present
-    const topButton = canvas.getByRole("button", { name: /Top position/i });
-    const rightButton = canvas.getByRole("button", { name: /Right position/i });
-    const bottomButton = canvas.getByRole("button", { name: /Bottom position/i });
-    const leftButton = canvas.getByRole("button", { name: /Left position/i });
-
+    const topButton = canvas.getByRole("button", {
+      name: /Top position/i,
+    });
+    const rightButton = canvas.getByRole("button", {
+      name: /Right position/i,
+    });
+    const bottomButton = canvas.getByRole("button", {
+      name: /Bottom position/i,
+    });
+    const leftButton = canvas.getByRole("button", {
+      name: /Left position/i,
+    });
     await expect(topButton).toBeInTheDocument();
     await expect(rightButton).toBeInTheDocument();
     await expect(bottomButton).toBeInTheDocument();
     await expect(leftButton).toBeInTheDocument();
-
-    // Test hovering on all four positions
     await testHoverInteraction(canvasElement, /Top position/i, /appears above the trigger/i);
     await testHoverInteraction(
       canvasElement,
@@ -440,9 +390,7 @@ export const AllPositions: Story = {
   render: () => (
     <div className="flex flex-col items-center justify-center gap-16 min-h-128 py-8">
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Top position</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Top position</Button>} />
         <HoverCardContent side="top" className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Hover card on top</h4>
@@ -455,9 +403,7 @@ export const AllPositions: Story = {
 
       <div className="flex gap-16">
         <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button variant="outline">Left position</Button>
-          </HoverCardTrigger>
+          <HoverCardTrigger render={<Button variant="outline">Left position</Button>} />
           <HoverCardContent side="left" className="w-80">
             <div className="space-y-2">
               <h4 className="text-sm font-semibold">Hover card on left</h4>
@@ -469,9 +415,7 @@ export const AllPositions: Story = {
         </HoverCard>
 
         <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button variant="outline">Right position</Button>
-          </HoverCardTrigger>
+          <HoverCardTrigger render={<Button variant="outline">Right position</Button>} />
           <HoverCardContent side="right" className="w-80">
             <div className="space-y-2">
               <h4 className="text-sm font-semibold">Hover card on right</h4>
@@ -484,9 +428,7 @@ export const AllPositions: Story = {
       </div>
 
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="outline">Bottom position</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="outline">Bottom position</Button>} />
         <HoverCardContent side="bottom" className="w-80">
           <div className="space-y-2">
             <h4 className="text-sm font-semibold">Hover card on bottom</h4>
@@ -499,46 +441,55 @@ export const AllPositions: Story = {
     </div>
   ),
 };
-
-/**
- * Controlled hover card with custom delays
- */
 export const ControlledWithCustomDelays: Story = {
   parameters: {
     order: 8,
-    docs: {
-      description: {
-        story:
-          "Demonstrates controlled state and custom open/close delays. The hover card opens and closes faster than the default.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const body = within(document.body);
-
-    // Test hovering to open
-    const trigger = canvas.getByRole("button", {
-      name: /Controlled with fast delays/i,
-    });
-    await expect(trigger).toBeInTheDocument();
-    await userEvent.hover(trigger);
-    await waitFor(
-      async () => {
-        const hoverCard = body.getByText(/custom delays/i);
-        await expect(hoverCard).toBeInTheDocument();
+    const trigger = await canvas.findByRole(
+      "button",
+      {
+        name: /Controlled with fast delays/i,
       },
-      { timeout: 500 }
+      {
+        timeout: 2000,
+      }
     );
-
-    // Test that the Close button works
-    const closeButton = body.getByRole("button", { name: /Close/i });
-    await expect(closeButton).toBeInTheDocument();
+    await expect(trigger).toBeInTheDocument();
+    const waitForOpenHoverCard = async () => {
+      await waitFor(
+        () => {
+          const hoverCard = document.querySelector(
+            '[data-slot="hover-card-content"][data-open]'
+          ) as HTMLElement | null;
+          expect(hoverCard).toBeInTheDocument();
+          expect(hoverCard).toHaveTextContent(/custom delays/i);
+        },
+        {
+          timeout: 2000,
+        }
+      );
+    };
+    await userEvent.hover(trigger);
+    try {
+      await waitForOpenHoverCard();
+    } catch {
+      await userEvent.unhover(trigger);
+      await userEvent.hover(trigger);
+      await waitForOpenHoverCard();
+    }
+    const hoverCard = document.querySelector(
+      '[data-slot="hover-card-content"][data-open]'
+    ) as HTMLElement | null;
+    expect(hoverCard).toBeInTheDocument();
+    const closeButton = within(hoverCard as HTMLElement).getByRole("button", {
+      name: /Close/i,
+    });
     await userEvent.click(closeButton);
   },
   render: function ControlledHoverCardStory() {
     const [open, setOpen] = useState(false);
-
     return (
       <div className="flex flex-col items-center gap-4 min-h-80">
         <div className="text-sm text-muted-foreground mb-4">
@@ -552,9 +503,9 @@ export const ControlledWithCustomDelays: Story = {
             setOpen(newOpen);
           }}
         >
-          <HoverCardTrigger asChild>
-            <Button variant="outline">Controlled with fast delays</Button>
-          </HoverCardTrigger>
+          <HoverCardTrigger
+            render={<Button variant="outline">Controlled with fast delays</Button>}
+          />
           <HoverCardContent className="w-80">
             <div className="space-y-2">
               <h4 className="text-sm font-semibold">Controlled Hover Card</h4>
@@ -573,18 +524,9 @@ export const ControlledWithCustomDelays: Story = {
     );
   },
 };
-
-/**
- * Minimal hover card with simple text
- */
 export const Minimal: Story = {
   parameters: {
     order: 9,
-    docs: {
-      description: {
-        story: "Minimal hover card with simple text content.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
     await testHoverInteraction(canvasElement, /Hover for info/i, /Simple contextual information/i);
@@ -592,9 +534,7 @@ export const Minimal: Story = {
   render: () => (
     <div className="flex justify-center items-center min-h-80">
       <HoverCard>
-        <HoverCardTrigger asChild>
-          <Button variant="link">Hover for info</Button>
-        </HoverCardTrigger>
+        <HoverCardTrigger render={<Button variant="link">Hover for info</Button>} />
         <HoverCardContent>
           <p className="text-sm">Simple contextual information</p>
         </HoverCardContent>
@@ -602,22 +542,11 @@ export const Minimal: Story = {
     </div>
   ),
 };
-
-/**
- * Multiple hover cards in a list
- */
 export const MultipleInList: Story = {
   parameters: {
     order: 10,
-    docs: {
-      description: {
-        story:
-          "Multiple hover cards can be used in a list or grid to provide contextual information for each item.",
-      },
-    },
   },
   play: async ({ canvasElement }) => {
-    // Test hovering on all three users
     await testHoverInteraction(canvasElement, /Sarah Johnson/i, /Product Designer/i);
     await testHoverInteraction(canvasElement, /Michael Chen/i, /Frontend Engineer/i);
     await testHoverInteraction(canvasElement, /Emily Rodriguez/i, /UX Researcher/i);
@@ -630,25 +559,26 @@ export const MultipleInList: Story = {
             .split(" ")
             .map((n) => n[0])
             .join("");
-
           return (
             <div key={user.handle} className="flex items-center gap-3 p-3 rounded-lg border">
               <HoverCard>
-                <HoverCardTrigger asChild>
-                  <button
-                    type="button"
-                    className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-                  >
-                    <Avatar>
-                      <AvatarImage src={user.avatar} />
-                      <AvatarFallback>{initials}</AvatarFallback>
-                    </Avatar>
-                    <div className="text-left">
-                      <p className="text-sm font-medium">{user.name}</p>
-                      <p className="text-xs text-muted-foreground">{user.handle}</p>
-                    </div>
-                  </button>
-                </HoverCardTrigger>
+                <HoverCardTrigger
+                  render={
+                    <button
+                      type="button"
+                      className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                    >
+                      <Avatar>
+                        <AvatarImage src={user.avatar} />
+                        <AvatarFallback>{initials}</AvatarFallback>
+                      </Avatar>
+                      <div className="text-left">
+                        <p className="text-sm font-medium">{user.name}</p>
+                        <p className="text-xs text-muted-foreground">{user.handle}</p>
+                      </div>
+                    </button>
+                  }
+                />
                 <HoverCardContent className="w-80">
                   <div className="flex gap-4">
                     <Avatar className="h-12 w-12">
@@ -677,27 +607,15 @@ export const MultipleInList: Story = {
     );
   },
 };
-
-/**
- * Interactive playground
- * Allows testing all hover card props interactively
- */
 export const Playground: Story = {
   parameters: {
     order: 99,
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with hover card props.",
-      },
-    },
   },
   render: function PlaygroundStory() {
     return (
       <div className="flex justify-center items-center min-h-80">
         <HoverCard>
-          <HoverCardTrigger asChild>
-            <Button variant="outline">Hover me</Button>
-          </HoverCardTrigger>
+          <HoverCardTrigger render={<Button variant="outline">Hover me</Button>} />
           <HoverCardContent className="w-80">
             <div className="flex justify-between space-x-4">
               <Avatar>

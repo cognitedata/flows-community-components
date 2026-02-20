@@ -335,11 +335,6 @@
   --radius-3xl: 24px;
   --radius-4xl: 32px;
   --radius-full: 9999px;
-  --ring-width-md: 3px;
-  --avatar-icon-default: 1.09375rem;
-  --avatar-icon-xs: 0.875rem;
-  --avatar-icon-xxs: 0.65625rem;
-  --avatar-image-backdrop: rgba(2, 6, 23, 0.2);
 }
 
 :root {
@@ -348,15 +343,6 @@
   --font-inter: "Inter", sans-serif;
   --font-space-grotesk: "Space Grotesk", sans-serif;
   --font-source-code-pro: "Source Code Pro", monospace;
-  --code-block-collapsed-height: 6.5rem;
-  --code-block-fade-height: 0.9375rem;
-  --message-content-max-width: 80%;
-
-  /* Component-specific sizing */
-  --alert-icon-width: calc(var(--spacing) * 4);
-  /* 16px - width of icon column in alert grid */
-  --drawer-max-height: 80vh;
-  /* Maximum height for top/bottom drawers */
 
   /* Mountain */
   --mountain-white: rgb(255, 255, 255);
@@ -824,7 +810,7 @@
 
   /* Status tokens */
   --destructive: var(--red-400);
-  --destructive-hover: var(--red-500);
+  --destructive-hover: var(--red-300);
   --destructive-foreground: var(--red-450);
   --warning: var(--amber-100);
   --warning-hover: var(--amber-200);
@@ -1027,13 +1013,13 @@
     }
 
     to {
-      height: var(--radix-accordion-content-height);
+      height: var(--accordion-panel-height);
     }
   }
 
   @keyframes accordion-up {
     from {
-      height: var(--radix-accordion-content-height);
+      height: var(--accordion-panel-height);
     }
 
     to {

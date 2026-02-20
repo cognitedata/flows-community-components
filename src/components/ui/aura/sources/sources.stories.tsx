@@ -1,27 +1,37 @@
+import { Badge } from "@/components/ui/aura/badge";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/aura/hover-card";
+import { Source, Sources, SourcesTitle } from "@/components/ui/aura/sources";
 import type { Meta, StoryObj } from "@storybook/react";
-import { expect, within } from "@storybook/test";
-import { IconBrandGithub, IconFileText, IconWorld } from "@tabler/icons-react";
-import { Source, Sources, SourcesTitle } from "./sources";
-
+import { expect, userEvent, waitFor, within } from "@storybook/test";
+import {
+  IconBrandGithub,
+  IconBriefcase,
+  IconChartLine,
+  IconFileText,
+  IconPhoto,
+  IconWorld,
+} from "@tabler/icons-react";
 const meta: Meta<typeof Sources> = {
   title: "AI/Sources",
   component: Sources,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
     title: {
-      control: { type: "select" },
+      control: {
+        type: "select",
+      },
       options: [undefined, true, false, "Custom Title"],
-      description: "Title above the sources list",
       table: {
         category: "Content",
-        type: { summary: "ReactNode | boolean" },
+        type: {
+          summary: "ReactNode | boolean",
+        },
       },
     },
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
-        category: "Styling",
+        category: "Variants/Styling",
       },
     },
   },
@@ -30,20 +40,15 @@ const meta: Meta<typeof Sources> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[500px]">
+      <div className="w-125">
         <Story />
       </div>
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Sources>;
-
-/**
- * Default sources display.
- */
-export const Default: Story = {
+export const Basic: Story = {
   render: () => (
     <Sources>
       <Source url="https://example.com/docs" title="Documentation" />
@@ -52,11 +57,7 @@ export const Default: Story = {
     </Sources>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Default sources component with default title.",
-      },
-    },
+    order: 1,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -64,11 +65,7 @@ export const Default: Story = {
     await expect(title).toBeInTheDocument();
   },
 };
-
-/**
- * Sources without title.
- */
-export const WithoutTitle: Story = {
+export const NoTitle: Story = {
   render: () => (
     <Sources title={false}>
       <Source url="https://docs.example.com" title="Official Docs" />
@@ -76,17 +73,9 @@ export const WithoutTitle: Story = {
     </Sources>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Sources without the title section.",
-      },
-    },
+    order: 2,
   },
 };
-
-/**
- * Custom title.
- */
 export const CustomTitle: Story = {
   render: () => (
     <Sources title={<SourcesTitle title="References" />}>
@@ -96,17 +85,9 @@ export const CustomTitle: Story = {
     </Sources>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Sources with a custom title.",
-      },
-    },
+    order: 3,
   },
 };
-
-/**
- * Sources with icons.
- */
 export const WithIcons: Story = {
   render: () => (
     <Sources>
@@ -120,17 +101,9 @@ export const WithIcons: Story = {
     </Sources>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Sources with custom icons.",
-      },
-    },
+    order: 4,
   },
 };
-
-/**
- * Many sources.
- */
 export const ManySources: Story = {
   render: () => (
     <Sources>
@@ -143,17 +116,113 @@ export const ManySources: Story = {
     </Sources>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Sources with multiple items that wrap.",
-      },
-    },
+    order: 5,
   },
 };
-
-/**
- * Single source.
- */
+export const TooManySourcesWithOverflow: Story = {
+  render: () => {
+    const visibleSources = [
+      {
+        url: "https://example.com/asset/21PT1019",
+        title: "21PT1019",
+        icon: IconChartLine,
+      },
+      {
+        url: "https://example.com/image/pumpB.jpg",
+        title: "This is a really long source to show how these items will wrap",
+        icon: IconPhoto,
+      },
+      {
+        url: "https://example.com/docs/LER_13FI2418N.Y-1728.pdf",
+        title: "LER_13FI2418N.Y-1728.pdf",
+        icon: IconFileText,
+      },
+      {
+        url: "https://example.com/work-order/120_oaoXR",
+        title: "120_oaoXR",
+        icon: IconBriefcase,
+      },
+      {
+        url: "https://example.com/docs/ORB_1901.pdf",
+        title: "ORB_1901.pdf",
+        icon: IconBriefcase,
+      },
+    ];
+    const overflowSources = [
+      {
+        url: "https://example.com/7",
+        title: "Source 7",
+      },
+      {
+        url: "https://example.com/8",
+        title: "Source 8",
+      },
+      {
+        url: "https://example.com/9",
+        title: "Source 9",
+      },
+      {
+        url: "https://example.com/10",
+        title: "Source 10",
+      },
+    ];
+    return (
+      <Sources>
+        {visibleSources.map((s) => (
+          <Source key={s.url} url={s.url} title={s.title} icon={s.icon} />
+        ))}
+        <HoverCard openDelay={0} closeDelay={0}>
+          <HoverCardTrigger
+            href="#sources-overflow"
+            className="inline-flex cursor-default items-center"
+            aria-label={`${overflowSources.length} more sources`}
+            onClick={(event) => event.preventDefault()}
+          >
+            <Badge variant="secondary">+{overflowSources.length}</Badge>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-auto p-3" data-testid="sources-overflow-hovercard">
+            <div className="flex flex-col gap-2">
+              <p className="text-xs font-medium text-muted-foreground">
+                {overflowSources.length} more sources
+              </p>
+              <ul className="flex flex-col gap-1.5">
+                {overflowSources.map((s) => (
+                  <li key={s.url}>
+                    <Source url={s.url} title={s.title} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
+      </Sources>
+    );
+  },
+  parameters: {
+    order: 6,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Sources")).toBeInTheDocument();
+    await expect(canvas.getByText("21PT1019")).toBeInTheDocument();
+    const overflowPill = canvas.getByText("+4");
+    const hoverCardSelector = '[data-slot="hover-card-content"][data-open]';
+    const waitForHoverCard = async () => {
+      await waitFor(() => {
+        const hovercard = canvasElement.ownerDocument.body.querySelector(hoverCardSelector);
+        expect(hovercard).toBeTruthy();
+      });
+    };
+    await userEvent.hover(overflowPill);
+    try {
+      await waitForHoverCard();
+    } catch {
+      await userEvent.unhover(overflowPill);
+      await userEvent.hover(overflowPill);
+      await waitForHoverCard();
+    }
+  },
+};
 export const SingleSource: Story = {
   render: () => (
     <Sources>
@@ -161,21 +230,12 @@ export const SingleSource: Story = {
     </Sources>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Sources with a single item.",
-      },
-    },
+    order: 7,
   },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8 p-4">
-      {/* Default */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Default</h3>
         <Sources>
@@ -184,7 +244,6 @@ export const VisualRegression: Story = {
         </Sources>
       </div>
 
-      {/* Without title */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">No Title</h3>
         <Sources title={false}>
@@ -193,7 +252,6 @@ export const VisualRegression: Story = {
         </Sources>
       </div>
 
-      {/* With icons */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Sources>
@@ -203,32 +261,9 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Sources for visual regression testing.",
-      },
-    },
+    order: 8,
     chromatic: {
       disableSnapshot: false,
-    },
-  },
-};
-
-/**
- * Interactive playground.
- */
-export const Playground: Story = {
-  render: () => (
-    <Sources>
-      <Source url="https://example.com/playground1" title="Playground Source 1" />
-      <Source url="https://example.com/playground2" title="Playground Source 2" />
-    </Sources>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive sources example.",
-      },
     },
   },
 };

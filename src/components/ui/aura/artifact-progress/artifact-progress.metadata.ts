@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * Artifact - Progress Component Metadata
@@ -14,8 +14,6 @@ export const ArtifactProgressMetadata: ComponentMeta = {
 
   llmUsage:
     "When showing progress for tasks or workflows, compose `<ArtifactProgress>` with `<ArtifactProgressHeader>`, `<ArtifactProgressTitle>`, `<ArtifactProgressDescription>`, `<ArtifactProgressBar>`, and `<ArtifactProgressFooter>` subcomponents. All subcomponents have sensible default styling.",
-
-  importPath: "@/components/ui/aura/artifact-progress/artifact-progress",
 
   codeExamples: [
     {

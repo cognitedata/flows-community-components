@@ -3,7 +3,6 @@ import { expect, userEvent, within } from "@storybook/test";
 import { IconBell, IconLock, IconSettings, IconUser } from "@tabler/icons-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
-
 const meta: Meta<typeof Tabs> = {
   title: "Primitives/Tabs",
   component: Tabs,
@@ -11,41 +10,46 @@ const meta: Meta<typeof Tabs> = {
   argTypes: {
     value: {
       control: "text",
-      description: "Controlled active tab value",
       table: {
         category: "State",
-        type: { summary: "string" },
+        type: {
+          summary: "string",
+        },
       },
     },
     defaultValue: {
       control: "text",
-      description: "Default active tab value (uncontrolled)",
       table: {
         category: "State",
-        type: { summary: "string" },
+        type: {
+          summary: "string",
+        },
       },
     },
     orientation: {
       control: "select",
       options: ["horizontal", "vertical"],
-      description: "Orientation of the tabs",
       table: {
         category: "Layout",
-        type: { summary: '"horizontal" | "vertical"' },
-        defaultValue: { summary: "horizontal" },
+        type: {
+          summary: '"horizontal" | "vertical"',
+        },
+        defaultValue: {
+          summary: "horizontal",
+        },
       },
     },
     onValueChange: {
       action: "valueChange",
-      description: "Callback when active tab changes",
       table: {
         category: "Events",
-        type: { summary: "(value: string) => void" },
+        type: {
+          summary: "(value: string) => void",
+        },
       },
     },
     className: {
       control: "text",
-      description: "Additional CSS classes",
       table: {
         category: "Styling",
       },
@@ -62,13 +66,8 @@ const meta: Meta<typeof Tabs> = {
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Tabs>;
-
-/**
- * Default tabs component.
- */
 export const Default: Story = {
   render: () => (
     <Tabs defaultValue="account">
@@ -88,35 +87,20 @@ export const Default: Story = {
       </TabsContent>
     </Tabs>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Default tabs component with text-only triggers.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Find tabs
-    const accountTab = canvas.getByRole("tab", { name: /account/i });
-    const passwordTab = canvas.getByRole("tab", { name: /password/i });
-
-    // Verify first tab is selected
-    await expect(accountTab).toHaveAttribute("data-state", "active");
-
-    // Click second tab
+    const accountTab = canvas.getByRole("tab", {
+      name: /account/i,
+    });
+    const passwordTab = canvas.getByRole("tab", {
+      name: /password/i,
+    });
+    await expect(accountTab).toHaveAttribute("data-active");
     await userEvent.click(passwordTab);
-
-    // Verify second tab is selected
-    await expect(passwordTab).toHaveAttribute("data-state", "active");
-    await expect(accountTab).toHaveAttribute("data-state", "inactive");
+    await expect(passwordTab).toHaveAttribute("data-active");
+    await expect(accountTab).not.toHaveAttribute("data-active");
   },
 };
-
-/**
- * Tabs with icons.
- */
 export const WithIcons: Story = {
   render: () => (
     <Tabs defaultValue="profile">
@@ -145,22 +129,10 @@ export const WithIcons: Story = {
       </TabsContent>
     </Tabs>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Tabs with icons alongside text labels.",
-      },
-    },
-  },
 };
-
-/**
- * Controlled tabs.
- */
 export const Controlled: Story = {
   render: function ControlledTabs() {
     const [activeTab, setActiveTab] = useState("tab1");
-
     return (
       <div className="space-y-4">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -206,18 +178,7 @@ export const Controlled: Story = {
       </div>
     );
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Tabs with externally controlled state.",
-      },
-    },
-  },
 };
-
-/**
- * Disabled tabs.
- */
 export const DisabledTabs: Story = {
   render: () => (
     <Tabs defaultValue="enabled1">
@@ -239,23 +200,14 @@ export const DisabledTabs: Story = {
       </TabsContent>
     </Tabs>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Tabs with some triggers disabled.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const disabledTab = canvas.getAllByRole("tab")[1];
-    await expect(disabledTab).toBeDisabled();
+    const isAriaDisabled = disabledTab.getAttribute("aria-disabled") === "true";
+    const hasDataDisabled = disabledTab.hasAttribute("data-disabled");
+    expect(isAriaDisabled || hasDataDisabled).toBe(true);
   },
 };
-
-/**
- * Tabs with rich content.
- */
 export const RichContent: Story = {
   render: () => (
     <Tabs defaultValue="overview">
@@ -287,18 +239,7 @@ export const RichContent: Story = {
       </TabsContent>
     </Tabs>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Tabs with rich content including cards and statistics.",
-      },
-    },
-  },
 };
-
-/**
- * Full width tabs.
- */
 export const FullWidth: Story = {
   render: () => (
     <Tabs defaultValue="all" className="w-full">
@@ -324,22 +265,10 @@ export const FullWidth: Story = {
       </TabsContent>
     </Tabs>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Tabs with full-width trigger buttons.",
-      },
-    },
-  },
 };
-
-/**
- * Visual regression testing.
- */
 export const VisualRegression: Story = {
   render: () => (
     <div className="space-y-8">
-      {/* Basic tabs */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Basic</h3>
         <Tabs defaultValue="tab1">
@@ -356,7 +285,6 @@ export const VisualRegression: Story = {
         </Tabs>
       </div>
 
-      {/* With icons */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">With Icons</h3>
         <Tabs defaultValue="settings">
@@ -376,7 +304,6 @@ export const VisualRegression: Story = {
         </Tabs>
       </div>
 
-      {/* Full width */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold text-muted-foreground">Full Width</h3>
         <Tabs defaultValue="first">
@@ -396,20 +323,11 @@ export const VisualRegression: Story = {
     </div>
   ),
   parameters: {
-    docs: {
-      description: {
-        story: "Comprehensive visual overview for regression testing.",
-      },
-    },
     chromatic: {
       disableSnapshot: false,
     },
   },
 };
-
-/**
- * Interactive playground.
- */
 export const Playground: Story = {
   args: {
     defaultValue: "tab1",
@@ -433,11 +351,4 @@ export const Playground: Story = {
       </TabsContent>
     </Tabs>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: "Interactive playground - use controls to experiment with tabs props.",
-      },
-    },
-  },
 };

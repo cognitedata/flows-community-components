@@ -1,8 +1,8 @@
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { type VariantProps, cva } from "class-variance-authority";
-import { type ComponentProps, type HTMLAttributes, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, type HTMLAttributes, forwardRef } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 const avatarVariants = cva(
   "group/avatar relative inline-flex text-base font-medium leading-5 shrink-0 overflow-hidden rounded-md flex-col justify-center items-center hover:cursor-pointer box-border",
@@ -24,10 +24,9 @@ const avatarVariants = cva(
         overflow: "bg-secondary text-secondary-foreground hover:bg-secondary-hover",
       },
       sizes: {
-        default:
-          "size-9 text-sm [&_svg]:w-[var(--avatar-icon-default)] [&_svg]:h-[var(--avatar-icon-default)]",
-        xsm: "size-7 text-xs [&_svg]:w-[var(--avatar-icon-xs)] [&_svg]:h-[var(--avatar-icon-xs)]",
-        xxsm: "size-5 text-2xs [&_svg]:w-[var(--avatar-icon-xxs)] [&_svg]:h-[var(--avatar-icon-xxs)]",
+        default: "size-9 text-sm [&_svg]:w-5 [&_svg]:h-5",
+        xsm: "size-7 text-xs [&_svg]:w-4 [&_svg]:h-4",
+        xxsm: "size-5 text-2xs [&_svg]:w-3 [&_svg]:h-3",
       },
     },
     defaultVariants: {
@@ -37,12 +36,8 @@ const avatarVariants = cva(
   }
 );
 
-/**
- * Avatar component for displaying user profile images, initials, or icons.
- * Supports multiple color variants, three sizes, and composable sub-components.
- */
 const Avatar = forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
+  ComponentRef<typeof AvatarPrimitive.Root>,
   ComponentProps<typeof AvatarPrimitive.Root> & VariantProps<typeof avatarVariants>
 >(({ className, variant, sizes, ...props }, ref) => {
   return (
@@ -56,13 +51,8 @@ const Avatar = forwardRef<
 });
 Avatar.displayName = "Avatar";
 
-/**
- * AvatarImage displays the user's profile image.
- * Falls back to AvatarFallback if the image fails to load.
- * Includes a hover darkening effect.
- */
 const AvatarImage = forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
+  ComponentRef<typeof AvatarPrimitive.Image>,
   ComponentProps<typeof AvatarPrimitive.Image>
 >(({ className, ...props }, ref) => {
   return (
@@ -75,7 +65,7 @@ const AvatarImage = forwardRef<
       />
       <span
         data-slot="avatar-image-backdrop"
-        className="absolute inset-0 bg-(--avatar-image-backdrop) opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
+        className="absolute inset-0 bg-backdrop opacity-0 transition-opacity group-hover/avatar:opacity-100 pointer-events-none"
         aria-hidden="true"
       />
     </>
@@ -83,12 +73,8 @@ const AvatarImage = forwardRef<
 });
 AvatarImage.displayName = "AvatarImage";
 
-/**
- * AvatarFallback displays when the image is loading or fails to load.
- * Typically shows user initials or a placeholder.
- */
 const AvatarFallback = forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
+  ComponentRef<typeof AvatarPrimitive.Fallback>,
   ComponentProps<typeof AvatarPrimitive.Fallback>
 >(({ className, ...props }, ref) => {
   return (
@@ -102,10 +88,6 @@ const AvatarFallback = forwardRef<
 });
 AvatarFallback.displayName = "AvatarFallback";
 
-/**
- * AvatarIcon displays an icon instead of an image or initials.
- * Useful for system users, bots, or special entity types.
- */
 const AvatarIcon = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
   ({ className, ...props }, ref) => {
     return (
@@ -120,5 +102,4 @@ const AvatarIcon = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
 );
 AvatarIcon.displayName = "AvatarIcon";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export { Avatar, AvatarImage, AvatarFallback, AvatarIcon, avatarVariants };
+export { Avatar, AvatarImage, AvatarFallback, AvatarIcon };

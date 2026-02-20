@@ -4,6 +4,15 @@ import {
   CodeBlockCopyButton,
 } from "@/components/ui/aura/code-block";
 import { InlineCitation, InlineCitationLink } from "@/components/ui/aura/inline-citation";
+import {
+  Message,
+  MessageAction,
+  MessageActions,
+  MessageAvatar,
+  MessageAvatarIcon,
+  MessageContent,
+  MessageResponse,
+} from "@/components/ui/aura/message";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, waitFor, within } from "@storybook/test";
 import {
@@ -17,46 +26,37 @@ import {
   IconTool,
   IconWheel,
 } from "@tabler/icons-react";
-import {
-  Message,
-  MessageAction,
-  MessageActions,
-  MessageAvatar,
-  MessageAvatarIcon,
-  MessageContent,
-  MessageResponse,
-} from "./message";
-
+import type { CSSProperties } from "react";
 const meta: Meta<typeof Message> = {
   title: "AI/Message",
   component: Message,
-  tags: ["autodocs"],
+  tags: ["autodocs", "ai-elements"],
   argTypes: {
-    // Behavior
     isResponse: {
       control: "boolean",
-      description: "Whether the message is from the AI assistant (true) or user (false)",
       table: {
         category: "Behavior",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
+        type: {
+          summary: "boolean",
+        },
+        defaultValue: {
+          summary: "false",
+        },
       },
     },
-
-    // Display
     className: {
       control: "text",
-      description: "Additional CSS classes for styling",
       table: {
-        category: "Display",
+        category: "Variants/Styling",
       },
     },
     children: {
       control: false,
-      description: "Message content (MessageContent, MessageAvatar, MessageActions, etc.)",
       table: {
-        category: "Display",
-        type: { summary: "ReactNode" },
+        category: "Content",
+        type: {
+          summary: "ReactNode",
+        },
       },
     },
   },
@@ -65,43 +65,24 @@ const meta: Meta<typeof Message> = {
   },
   decorators: [
     (Story) => (
-      <div
-        className="w-[700px]"
-        style={{ "--message-content-max-width": "600px" } as React.CSSProperties}
-      >
+      <div className="w-200">
         <Story />
       </div>
     ),
   ],
 };
-
 export default meta;
 type Story = StoryObj<typeof Message>;
-
-/**
- * Industrial conversation with inline citations.
- */
 export const Default: Story = {
   parameters: {
-    docs: {
-      description: {
-        story:
-          "Complete conversation showing user query and AI response with inline citations and message actions. Tests industrial use case with pump vibration analysis.",
-      },
-    },
+    order: 1,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify both messages exist
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
-
-    // Verify inline citations exist
     const citations = canvas.getAllByRole("link");
     await expect(citations.length).toBeGreaterThanOrEqual(4);
-
-    // Verify message actions exist (4 MessageAction buttons)
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(4);
   },
@@ -199,32 +180,16 @@ export const Default: Story = {
     </div>
   ),
 };
-
-/**
- * Message with code block.
- */
 export const WithCodeBlock: Story = {
   parameters: {
-    docs: {
-      description: {
-        story:
-          "AI response containing a code block with syntax highlighting, copy button, and collapse functionality.",
-      },
-    },
+    order: 2,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify both messages exist
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
-
-    // Verify code block exists
     const codeBlock = canvasElement.querySelector("[data-code-block]");
     await expect(codeBlock).toBeInTheDocument();
-
-    // Verify message actions exist (4 MessageAction buttons)
-    // Note: Code block buttons (copy, collapse) are hidden until hover
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(4);
   },
@@ -235,7 +200,6 @@ export const WithCodeBlock: Story = {
 
   return anomalies.filter(a => a.severity > 0.8);
 }`;
-
     return (
       <div className="flex flex-col space-y-4 w-full gap-2">
         <Message isResponse={false} data-message>
@@ -285,36 +249,23 @@ export const WithCodeBlock: Story = {
     );
   },
 };
-
-/**
- * MessageResponse with Streamdown formatting.
- */
 export const MessageResponseStreamdown: Story = {
   parameters: {
-    docs: {
-      description: {
-        story:
-          "Full MessageResponse component demonstrating all Streamdown formatting: headings, lists, tables, code blocks (with Shiki highlighting), maths (LaTeX via KaTeX), blockquotes, and links. Optimised for AI streaming responses.",
-      },
-    },
+    order: 3,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify messages exist
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBe(2);
-
-    // Wait for MessageResponse content to be rendered (Streamdown needs time to parse markdown)
     await waitFor(
       () => {
         const headings = canvasElement.querySelectorAll("h1, h2, h3, h4, h5, h6");
         expect(headings.length).toBeGreaterThan(0);
       },
-      { timeout: 3000 }
+      {
+        timeout: 3000,
+      }
     );
-
-    // Verify message actions exist (wait for them to render)
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(2);
   },
@@ -386,7 +337,6 @@ The quadratic formula is: $$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$
 
 Inline maths example: The sum formula is $$\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}$$.
 `;
-
     return (
       <div className="flex flex-col space-y-4 w-full gap-2">
         <Message isResponse={false} data-message>
@@ -417,17 +367,9 @@ Inline maths example: The sum formula is $$\\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}
     );
   },
 };
-
-/**
- * Simple user message.
- */
 export const UserMessage: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Basic user message without avatar icon.",
-      },
-    },
+    order: 4,
   },
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector("[data-message]");
@@ -442,17 +384,9 @@ export const UserMessage: Story = {
     </Message>
   ),
 };
-
-/**
- * Simple assistant message.
- */
 export const AssistantMessage: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Basic AI assistant response with avatar.",
-      },
-    },
+    order: 5,
   },
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector("[data-message]");
@@ -475,17 +409,9 @@ export const AssistantMessage: Story = {
     </Message>
   ),
 };
-
-/**
- * Extended conversation.
- */
 export const ExtendedConversation: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Multi-turn conversation demonstrating message flow and spacing.",
-      },
-    },
+    order: 6,
   },
   play: async ({ canvasElement }) => {
     const messages = canvasElement.querySelectorAll("[data-message]");
@@ -537,23 +463,13 @@ export const ExtendedConversation: Story = {
     </div>
   ),
 };
-
-/**
- * Edge case: Very long message content.
- */
 export const VeryLongMessage: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Tests message component with extensive content including multiple paragraphs.",
-      },
-    },
+    order: 7,
   },
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
-
-    // Verify multiple paragraphs exist
     const paragraphs = canvasElement.querySelectorAll("p");
     await expect(paragraphs.length).toBeGreaterThan(2);
   },
@@ -590,22 +506,12 @@ export const VeryLongMessage: Story = {
     </Message>
   ),
 };
-
-/**
- * Edge case: Many message actions.
- */
 export const ManyMessageActions: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Message with numerous action buttons to test layout and overflow behavior.",
-      },
-    },
+    order: 8,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify many buttons exist (6 MessageAction buttons)
     const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBe(6);
   },
@@ -642,24 +548,14 @@ export const ManyMessageActions: Story = {
     </Message>
   ),
 };
-
-/**
- * Avatar variants comparison.
- */
 export const AvatarVariants: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Comparison of different avatar color variants for assistant messages.",
-      },
-    },
+    order: 9,
   },
   play: async ({ canvasElement }) => {
     const messages = canvasElement.querySelectorAll("[data-message]");
     await expect(messages.length).toBeGreaterThanOrEqual(3);
-
-    // Verify avatars are present
-    const avatars = canvasElement.querySelectorAll('[data-slot="avatar"]');
+    const avatars = canvasElement.querySelectorAll('[data-slot="message-avatar"]');
     await expect(avatars.length).toBeGreaterThanOrEqual(3);
   },
   render: () => (
@@ -707,24 +603,14 @@ export const AvatarVariants: Story = {
     </div>
   ),
 };
-
-/**
- * Edge case: Message without avatar.
- */
 export const MessageWithoutAvatar: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Tests message rendering without an avatar component.",
-      },
-    },
+    order: 10,
   },
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector("[data-message]");
     await expect(message).toBeInTheDocument();
-
-    // Verify no avatar exists
-    const avatar = canvasElement.querySelector('[data-slot="avatar"]');
+    const avatar = canvasElement.querySelector('[data-slot="message-avatar"]');
     await expect(avatar).not.toBeInTheDocument();
   },
   render: () => (
@@ -735,23 +621,13 @@ export const MessageWithoutAvatar: Story = {
     </Message>
   ),
 };
-
-/**
- * Edge case: Message with only actions (no text content).
- */
 export const MessageWithOnlyActions: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Edge case where message contains only action buttons without text content.",
-      },
-    },
+    order: 11,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify buttons exist
-    const buttons = canvas.getAllByRole("button");
+    const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (
@@ -777,17 +653,9 @@ export const MessageWithOnlyActions: Story = {
     </Message>
   ),
 };
-
-/**
- * Edge case: Empty message content.
- */
 export const EmptyMessage: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Edge case of a message with empty or minimal content.",
-      },
-    },
+    order: 12,
   },
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector("[data-message]");
@@ -801,17 +669,9 @@ export const EmptyMessage: Story = {
     </Message>
   ),
 };
-
-/**
- * Edge case: Single character message.
- */
 export const SingleCharacterMessage: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Tests message rendering with minimal single character content.",
-      },
-    },
+    order: 13,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -824,17 +684,9 @@ export const SingleCharacterMessage: Story = {
     </Message>
   ),
 };
-
-/**
- * Edge case: Message with special characters and emojis.
- */
 export const MessageWithSpecialCharacters: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Tests handling of special characters, symbols, and emojis in messages.",
-      },
-    },
+    order: 14,
   },
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector("[data-message]");
@@ -856,18 +708,9 @@ export const MessageWithSpecialCharacters: Story = {
     </Message>
   ),
 };
-
-/**
- * Edge case: Very long conversation thread.
- */
 export const VeryLongConversation: Story = {
   parameters: {
-    docs: {
-      description: {
-        story:
-          "Stress test with many messages in a conversation to test scrolling and performance.",
-      },
-    },
+    order: 15,
   },
   play: async ({ canvasElement }) => {
     const messages = canvasElement.querySelectorAll("[data-message]");
@@ -875,42 +718,38 @@ export const VeryLongConversation: Story = {
   },
   render: () => (
     <div className="space-y-2">
-      {Array.from({ length: 12 }, (_, i) => {
-        const isResponse = i % 2 === 1;
-        const messageNum = Math.floor(i / 2) + 1;
-        const messageId = isResponse ? `assistant-${messageNum}` : `user-${messageNum}`;
-
-        return (
-          <Message key={messageId} isResponse={isResponse} data-message>
-            {isResponse && (
-              <MessageAvatar variant="nordic">
-                <MessageAvatarIcon>
-                  <IconWheel />
-                </MessageAvatarIcon>
-              </MessageAvatar>
-            )}
-            <MessageContent>
-              {isResponse
-                ? `Assistant response ${messageNum}: Analysis of sensor data shows nominal operating conditions.`
-                : `User query ${messageNum}: What's the status of pump 21PT101${messageNum}?`}
-            </MessageContent>
-          </Message>
-        );
-      })}
+      {Array.from(
+        {
+          length: 12,
+        },
+        (_, i) => {
+          const isResponse = i % 2 === 1;
+          const messageNum = Math.floor(i / 2) + 1;
+          const messageId = isResponse ? `assistant-${messageNum}` : `user-${messageNum}`;
+          return (
+            <Message key={messageId} isResponse={isResponse} data-message>
+              {isResponse && (
+                <MessageAvatar variant="nordic">
+                  <MessageAvatarIcon>
+                    <IconWheel />
+                  </MessageAvatarIcon>
+                </MessageAvatar>
+              )}
+              <MessageContent>
+                {isResponse
+                  ? `Assistant response ${messageNum}: Analysis of sensor data shows nominal operating conditions.`
+                  : `User query ${messageNum}: What's the status of pump 21PT101${messageNum}?`}
+              </MessageContent>
+            </Message>
+          );
+        }
+      )}
     </div>
   ),
 };
-
-/**
- * Edge case: Message with multiple line breaks.
- */
 export const MessageWithLineBreaks: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Tests message rendering with multiple line breaks and whitespace.",
-      },
-    },
+    order: 16,
   },
   play: async ({ canvasElement }) => {
     const message = canvasElement.querySelector("[data-message]");
@@ -935,21 +774,13 @@ export const MessageWithLineBreaks: Story = {
     </Message>
   ),
 };
-
-/**
- * Edge case: Message actions without tooltip.
- */
 export const MessageActionsWithoutTooltip: Story = {
   parameters: {
-    docs: {
-      description: {
-        story: "Tests message actions rendered without tooltip text.",
-      },
-    },
+    order: 17,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const buttons = canvas.getAllByRole("button");
+    const buttons = await canvas.findAllByRole("button");
     await expect(buttons.length).toBeGreaterThan(0);
   },
   render: () => (
@@ -975,4 +806,24 @@ export const MessageActionsWithoutTooltip: Story = {
       </MessageContent>
     </Message>
   ),
+};
+export const Playground: Story = {
+  render: (args) => (
+    <Message {...args}>
+      <MessageAvatar variant="nordic">
+        <MessageAvatarIcon>
+          <IconWheel />
+        </MessageAvatarIcon>
+      </MessageAvatar>
+      <MessageContent>
+        <span>Interactive playground message for testing props</span>
+      </MessageContent>
+    </Message>
+  ),
+  args: {
+    isResponse: true,
+  },
+  parameters: {
+    order: 99,
+  },
 };

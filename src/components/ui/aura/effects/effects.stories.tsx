@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, userEvent, within } from "@storybook/test";
+import { cn } from "../../../../lib/utils";
 import {
   borderRadii,
   effectExamples,
@@ -9,41 +9,6 @@ import {
   shadows,
   transitions,
 } from "./effects";
-
-/**
- * # Aura Effects System
- *
- * The effects system provides visual treatments for depth, focus, and animation:
- * - **Shadows**: Elevation levels for depth and hierarchy
- * - **Focus Rings**: Keyboard focus indicators for accessibility
- * - **Border Radius**: Corner rounding options
- * - **Transitions**: Animation timing patterns
- *
- * ## Usage
- *
- * Apply effects using Tailwind classes:
- *
- * ```tsx
- * // Shadows for elevation
- * <div className="shadow-sm">Subtle elevation</div>
- * <div className="shadow-default">Dropdown/popover</div>
- * <div className="shadow-xl">Modal</div>
- *
- * // Focus rings for accessibility (no box model changes)
- * <button className="focus-visible:shadow-focus-ring outline-none">
- *   Focusable
- * </button>
- *
- * // Border radius
- * <div className="rounded-md">Default rounding</div>
- * <div className="rounded-full">Circular</div>
- *
- * // Transitions
- * <button className="transition-colors hover:bg-primary-hover">
- *   Animated hover
- * </button>
- * ```
- */
 const meta: Meta = {
   title: "Foundations/Effects",
   tags: ["autodocs"],
@@ -51,35 +16,12 @@ const meta: Meta = {
     layout: "padded",
   },
 };
-
 export default meta;
 type Story = StoryObj;
-
-// =============================================================================
-// Shadow Stories
-// =============================================================================
-
-/**
- * Shadow/elevation levels for creating depth and visual hierarchy.
- * Use higher elevation for elements that appear above others.
- * Shadows automatically adjust opacity for light and dark modes.
- */
 export const Shadows: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Box shadows create depth and hierarchy with theme-aware opacity. Use shadow-sm for tooltips, shadow-default for menus, and shadow-xl for modals. Shadows use lighter opacity in light mode and stronger opacity in dark mode for better visibility.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all shadows are rendered
     await expect(shadows.length).toBe(5);
-
-    // Check shadow elements are displayed using testids
     await expect(canvas.getByTestId("shadow-shadow-sm")).toBeInTheDocument();
     await expect(canvas.getByTestId("shadow-shadow-default")).toBeInTheDocument();
     await expect(canvas.getByTestId("shadow-shadow-md")).toBeInTheDocument();
@@ -96,7 +38,9 @@ export const Shadows: Story = {
         >
           <div
             className="w-38 h-38 bg-background rounded-lg bg-card shrink-0"
-            style={{ boxShadow: `var(${shadow.cssVar})` }}
+            style={{
+              boxShadow: `var(${shadow.cssVar})`,
+            }}
           />
           <div className="space-y-1">
             <h3 className="text-base font-medium">{shadow.name}</h3>
@@ -110,38 +54,13 @@ export const Shadows: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Focus Ring Stories
-// =============================================================================
-
-/**
- * Focus rings provide visual feedback for keyboard navigation.
- * Essential for accessibility compliance.
- */
 export const FocusRings: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Focus rings indicate keyboard focus for accessibility. Click or tab to the elements to see the rings. Use the default ring for most elements, destructive for error/delete actions.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify focus rings are rendered
     await expect(focusRings.length).toBe(2);
-
-    // Find and focus the first button
     const defaultButton = canvas.getByTestId("focus-ring-focus");
     await userEvent.click(defaultButton);
-
-    // Verify button exists
     await expect(defaultButton).toBeInTheDocument();
-
-    // Find and focus the destructive button
     const destructiveButton = canvas.getByTestId("focus-ring-focus-destructive");
     await expect(destructiveButton).toBeInTheDocument();
   },
@@ -173,30 +92,10 @@ export const FocusRings: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Border Radius Stories
-// =============================================================================
-
-/**
- * Border radius options for corner rounding.
- */
 export const BorderRadius: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Border radius tokens for consistent corner rounding. Use rounded-md for buttons/inputs, rounded-lg for cards, and rounded-full for avatars.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify all radii are rendered
     await expect(borderRadii.length).toBe(10);
-
-    // Check specific radius elements using testids
     await expect(canvas.getByTestId("radius-none")).toBeInTheDocument();
     await expect(canvas.getByTestId("radius-md")).toBeInTheDocument();
     await expect(canvas.getByTestId("radius-full")).toBeInTheDocument();
@@ -234,30 +133,10 @@ export const BorderRadius: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Transition Stories
-// =============================================================================
-
-/**
- * Transition timing patterns for smooth animations.
- */
 export const Transitions: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Transition utilities for smooth state changes. Use transition-colors for hovers, transition-transform for scale effects.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify transitions are rendered
     await expect(transitions.length).toBe(7);
-
-    // Check transition elements using testids
     await expect(canvas.getByTestId("transition-default")).toBeInTheDocument();
     await expect(canvas.getByTestId("transition-fast")).toBeInTheDocument();
     await expect(canvas.getByTestId("transition-colors")).toBeInTheDocument();
@@ -297,31 +176,12 @@ export const Transitions: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Effect Pattern Stories
-// =============================================================================
-
-/**
- * Common effect patterns used throughout the design system.
- */
 export const EffectPatterns: Story = {
   name: "Pattern: Common Effects",
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Pre-defined effect patterns for common UI interactions. Copy these patterns for consistent behaviour across your application.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const patternCount = Object.keys(effectPatterns).length;
     await expect(patternCount).toBe(9);
-
-    // Check pattern elements using testids
     await expect(canvas.getByTestId("pattern-buttonHover")).toBeInTheDocument();
     await expect(canvas.getByTestId("pattern-cardHover")).toBeInTheDocument();
     await expect(canvas.getByTestId("pattern-inputFocus")).toBeInTheDocument();
@@ -351,39 +211,18 @@ export const EffectPatterns: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Interactive Examples
-// =============================================================================
-
-/**
- * Interactive examples demonstrating effects in context.
- */
 export const InteractiveExamples: Story = {
   name: "Pattern: Interactive Demo",
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Interactive demonstration of effects. Hover, focus, and click the elements to see the effects in action.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Verify interactive elements exist
     await expect(canvas.getByText("Primary Button")).toBeInTheDocument();
     await expect(canvas.getByText("Destructive Button")).toBeInTheDocument();
     await expect(canvas.getByText("Interactive Card")).toBeInTheDocument();
-
-    // Test button hover interaction
     const primaryButton = canvas.getByText("Primary Button");
     await userEvent.hover(primaryButton);
   },
   render: () => (
     <div className="space-y-8" data-testid="interactive-examples">
-      {/* Buttons */}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Buttons</h3>
         <div className="flex gap-4">
@@ -426,7 +265,6 @@ export const InteractiveExamples: Story = {
         </div>
       </section>
 
-      {/* Cards */}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Cards</h3>
         <div className="grid grid-cols-3 gap-4">
@@ -455,7 +293,6 @@ export const InteractiveExamples: Story = {
         </div>
       </section>
 
-      {/* Inputs */}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Form Inputs</h3>
         <div className="grid grid-cols-2 gap-4 max-w-lg">
@@ -486,7 +323,6 @@ export const InteractiveExamples: Story = {
         </div>
       </section>
 
-      {/* Badges with different radii */}
       <section className="space-y-4">
         <h3 className="text-lg font-medium">Border Radius Examples</h3>
         <div className="flex items-center gap-4">
@@ -502,29 +338,12 @@ export const InteractiveExamples: Story = {
     </div>
   ),
 };
-
-// =============================================================================
-// Reference Stories
-// =============================================================================
-
-/**
- * Complete reference of all shadow values.
- */
 export const ShadowsReference: Story = {
   name: "Reference: Shadows",
-  parameters: {
-    docs: {
-      description: {
-        story: "Complete reference table of all shadow tokens with their CSS values.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const table = canvas.getByRole("table");
     await expect(table).toBeInTheDocument();
-
     const rows = canvas.getAllByRole("row");
     await expect(rows.length).toBe(shadows.length + 1);
   },
@@ -557,25 +376,12 @@ export const ShadowsReference: Story = {
     </div>
   ),
 };
-
-/**
- * Complete reference of all border radius values.
- */
 export const RadiusReference: Story = {
   name: "Reference: Border Radius",
-  parameters: {
-    docs: {
-      description: {
-        story: "Complete reference table of all border radius tokens.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
     const table = canvas.getByRole("table");
     await expect(table).toBeInTheDocument();
-
     const rows = canvas.getAllByRole("row");
     await expect(rows.length).toBe(borderRadii.length + 1);
   },
@@ -608,23 +414,10 @@ export const RadiusReference: Story = {
     </div>
   ),
 };
-
-/**
- * Code examples for common effect patterns.
- */
 export const CodeExamples: Story = {
   name: "Reference: Code Examples",
-  parameters: {
-    docs: {
-      description: {
-        story: "Copy-paste ready code examples for common effect patterns.",
-      },
-    },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-
-    // Check code example sections using testids
     await expect(canvas.getByTestId("code-example-shadows")).toBeInTheDocument();
     await expect(canvas.getByTestId("code-example-focusRings")).toBeInTheDocument();
     await expect(canvas.getByTestId("code-example-borderRadius")).toBeInTheDocument();

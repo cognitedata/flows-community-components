@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * Effects System Metadata
@@ -8,10 +8,9 @@ import type { ComponentMeta } from "@/lib/component-examples";
  */
 export const EffectsMetadata: ComponentMeta = {
   name: "Effects",
-  status: "draft",
+  status: "in-progress-design-conformance",
   description:
     "Effect definitions for the Aura design system including shadows, focus rings, border radii, and animation patterns.",
   llmUsage:
     "Use `getShadow()` for shadow values, `getRadius()` for border radius, and `getFocusRingClasses()` for accessible focus indicators.",
-  importPath: "@/components/ui/aura/effects",
 };

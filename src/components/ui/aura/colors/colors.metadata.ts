@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 /**
  * Colors System Metadata
@@ -8,10 +8,9 @@ import type { ComponentMeta } from "@/lib/component-examples";
  */
 export const ColorsMetadata: ComponentMeta = {
   name: "Colors",
-  status: "draft",
+  status: "in-progress-design-conformance",
   description:
     "Color palette definitions, semantic tokens, and usage patterns for the Aura design system. Includes structured data for LLM consumption with CSS variables and Tailwind classes.",
   llmUsage:
     "Use `getColorsByCategory()` to get palettes by category (base, decorative, semantic, extended). Use `getCssVar()` and `getTailwindClass()` for programmatic color access.",
-  importPath: "@/components/ui/aura/colors",
 };

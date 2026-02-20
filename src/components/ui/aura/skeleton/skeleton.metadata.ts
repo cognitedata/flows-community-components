@@ -1,8 +1,9 @@
-import type { ComponentMeta } from "@/lib/component-examples";
+import type { ComponentMeta } from "../../../../lib/component-examples";
 
 export const SkeletonMetadata: ComponentMeta = {
   name: "Skeleton",
-  status: "draft",
+  status: "in-progress-code-review",
   description: "A placeholder loading component.",
-  importPath: "@/components/ui/aura/skeleton",
+  llmUsage:
+    "Use `<Skeleton>` with width/height classes for loading states. Combine multiple skeletons to mimic content structure.",
 };

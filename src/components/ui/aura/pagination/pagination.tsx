@@ -20,7 +20,7 @@ import { cva } from "class-variance-authority";
 import { Button } from "@/components/ui/aura/button";
 import { Input } from "@/components/ui/aura/input";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/aura/select";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../lib/utils";
 
 type PaginationSize = "default" | "small";
 
@@ -192,7 +192,6 @@ const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
 
     return (
       <Button
-        asChild
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-link"
@@ -203,15 +202,16 @@ const PaginationLink = forwardRef<HTMLAnchorElement, PaginationLinkProps>(
           isDisabled && "pointer-events-none opacity-50",
           className
         )}
-      >
-        <a
-          ref={ref}
-          aria-current={isActive ? "page" : undefined}
-          aria-disabled={isDisabled || undefined}
-          tabIndex={isDisabled ? -1 : undefined}
-          {...props}
-        />
-      </Button>
+        render={
+          <a
+            ref={ref}
+            aria-current={isActive ? "page" : undefined}
+            aria-disabled={isDisabled || undefined}
+            tabIndex={isDisabled ? -1 : undefined}
+            {...props}
+          />
+        }
+      />
     );
   }
 );
@@ -229,22 +229,22 @@ const PaginationFirst = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, 
 
     return (
       <Button
-        asChild
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-first"
         className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
-      >
-        <a
-          ref={ref}
-          aria-label="Go to first page"
-          aria-disabled={isDisabled || undefined}
-          tabIndex={isDisabled ? -1 : undefined}
-          {...linkProps}
-        >
-          <IconChevronsLeft />
-        </a>
-      </Button>
+        render={
+          <a
+            ref={ref}
+            aria-label="Go to first page"
+            aria-disabled={isDisabled || undefined}
+            tabIndex={isDisabled ? -1 : undefined}
+            {...linkProps}
+          >
+            <IconChevronsLeft />
+          </a>
+        }
+      />
     );
   }
 );
@@ -262,22 +262,22 @@ const PaginationPrevious = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProp
 
     return (
       <Button
-        asChild
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-previous"
         className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
-      >
-        <a
-          ref={ref}
-          aria-label="Go to previous page"
-          aria-disabled={isDisabled || undefined}
-          tabIndex={isDisabled ? -1 : undefined}
-          {...linkProps}
-        >
-          <IconChevronLeft />
-        </a>
-      </Button>
+        render={
+          <a
+            ref={ref}
+            aria-label="Go to previous page"
+            aria-disabled={isDisabled || undefined}
+            tabIndex={isDisabled ? -1 : undefined}
+            {...linkProps}
+          >
+            <IconChevronLeft />
+          </a>
+        }
+      />
     );
   }
 );
@@ -295,22 +295,22 @@ const PaginationNext = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
 
     return (
       <Button
-        asChild
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-next"
         className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
-      >
-        <a
-          ref={ref}
-          aria-label="Go to next page"
-          aria-disabled={isDisabled || undefined}
-          tabIndex={isDisabled ? -1 : undefined}
-          {...linkProps}
-        >
-          <IconChevronRight />
-        </a>
-      </Button>
+        render={
+          <a
+            ref={ref}
+            aria-label="Go to next page"
+            aria-disabled={isDisabled || undefined}
+            tabIndex={isDisabled ? -1 : undefined}
+            {...linkProps}
+          >
+            <IconChevronRight />
+          </a>
+        }
+      />
     );
   }
 );
@@ -328,22 +328,22 @@ const PaginationLast = forwardRef<HTMLAnchorElement, Omit<PaginationLinkProps, "
 
     return (
       <Button
-        asChild
         variant="ghost"
         size={buttonSize}
         data-slot="pagination-last"
         className={cn(radiusClass, isDisabled && "pointer-events-none opacity-50", className)}
-      >
-        <a
-          ref={ref}
-          aria-label="Go to last page"
-          aria-disabled={isDisabled || undefined}
-          tabIndex={isDisabled ? -1 : undefined}
-          {...linkProps}
-        >
-          <IconChevronsRight />
-        </a>
-      </Button>
+        render={
+          <a
+            ref={ref}
+            aria-label="Go to last page"
+            aria-disabled={isDisabled || undefined}
+            tabIndex={isDisabled ? -1 : undefined}
+            {...linkProps}
+          >
+            <IconChevronsRight />
+          </a>
+        }
+      />
     );
   }
 );

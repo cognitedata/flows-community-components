@@ -1,30 +1,115 @@
-import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { IconChevronDown } from "@tabler/icons-react";
-import { type ComponentProps, forwardRef } from "react";
+import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
+import { type Icon, IconChevronDown } from "@tabler/icons-react";
+import { type ComponentProps, type ComponentRef, forwardRef, useMemo } from "react";
 
-import { cn } from "@/lib/utils";
-import type { Icon } from "@tabler/icons-react";
+import { cn } from "../../../../lib/utils";
 
-const Accordion = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Root>,
-  ComponentProps<typeof AccordionPrimitive.Root>
->((props, ref) => {
-  return <AccordionPrimitive.Root ref={ref} data-slot="accordion" {...props} />;
-});
+type AccordionCommonProps = Omit<
+  ComponentProps<typeof AccordionPrimitive.Root>,
+  "multiple" | "value" | "defaultValue" | "onValueChange"
+>;
+
+type AccordionSingleProps = {
+  type?: "single";
+  collapsible?: boolean;
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+};
+
+type AccordionMultipleProps = {
+  type: "multiple";
+  value?: string[];
+  defaultValue?: string[];
+  onValueChange?: (value: string[]) => void;
+};
+
+type AccordionProps = AccordionCommonProps & (AccordionSingleProps | AccordionMultipleProps);
+
+const Accordion = forwardRef<ComponentRef<typeof AccordionPrimitive.Root>, AccordionProps>(
+  (props, ref) => {
+    if (props.type === "multiple") {
+      const { type: _type, value, defaultValue, onValueChange, ...rootProps } = props;
+
+      const controlledValue = useMemo<string[] | undefined>(() => {
+        if (value === undefined) return undefined;
+        return value;
+      }, [value]);
+
+      const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
+        if (defaultValue === undefined) return undefined;
+        return defaultValue;
+      }, [defaultValue]);
+
+      return (
+        <AccordionPrimitive.Root
+          ref={ref}
+          data-slot="accordion"
+          multiple
+          value={controlledValue}
+          defaultValue={uncontrolledDefaultValue}
+          onValueChange={(nextValue) => {
+            if (!onValueChange) return;
+            const filtered = nextValue.filter((next): next is string => next != null);
+            onValueChange(filtered);
+          }}
+          {...rootProps}
+        />
+      );
+    }
+
+    const {
+      type: _type,
+      collapsible = false,
+      value,
+      defaultValue,
+      onValueChange,
+      ...rootProps
+    } = props;
+
+    const controlledValue = useMemo<string[] | undefined>(() => {
+      if (value === undefined) return undefined;
+      if (value === "") return [];
+      return [value];
+    }, [value]);
+
+    const uncontrolledDefaultValue = useMemo<string[] | undefined>(() => {
+      if (defaultValue === undefined) return undefined;
+      if (defaultValue === "") return [];
+      return [defaultValue];
+    }, [defaultValue]);
+
+    return (
+      <AccordionPrimitive.Root
+        ref={ref}
+        data-slot="accordion"
+        multiple={false}
+        value={controlledValue}
+        defaultValue={uncontrolledDefaultValue}
+        onValueChange={(nextValue, details) => {
+          if (!onValueChange) return;
+          if (!collapsible && nextValue.length === 0) {
+            details.cancel();
+            return;
+          }
+          onValueChange(nextValue[0] ?? "");
+        }}
+        {...rootProps}
+      />
+    );
+  }
+);
 Accordion.displayName = "Accordion";
 
 const AccordionItem = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  ComponentProps<typeof AccordionPrimitive.Item>
+  ComponentRef<typeof AccordionPrimitive.Item>,
+  AccordionPrimitive.Item.Props
 >(({ className, ...props }, ref) => {
   return (
     <AccordionPrimitive.Item
       ref={ref}
       data-slot="accordion-item"
-      className={cn(
-        "mt-2 first:mt-0 rounded-md hover:bg-accent data-[state=open]:bg-accent",
-        className
-      )}
+      className={cn("mt-2 first:mt-0 rounded-md hover:bg-accent data-open:bg-accent", className)}
       {...props}
     />
   );
@@ -32,8 +117,8 @@ const AccordionItem = forwardRef<
 AccordionItem.displayName = "AccordionItem";
 
 const AccordionTrigger = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  ComponentProps<typeof AccordionPrimitive.Trigger> & {
+  ComponentRef<typeof AccordionPrimitive.Trigger>,
+  AccordionPrimitive.Trigger.Props & {
     icon?: Icon;
   }
 >(({ className, children, icon, ...props }, ref) => {
@@ -45,7 +130,7 @@ const AccordionTrigger = forwardRef<
         ref={ref}
         data-slot="accordion-trigger"
         className={cn(
-          "focus-visible:border-ring focus-visible:ring-ring-shadow flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+          "focus-visible:border-ring focus-visible:ring-ring-shadow group/accordion-trigger flex flex-1 items-start justify-between gap-4 rounded-md p-2 text-left focus-visible:ring text-base leading-5 tracking-tightest font-medium transition-all outline-none disabled:pointer-events-none disabled:opacity-50",
           className
         )}
         {...props}
@@ -56,7 +141,7 @@ const AccordionTrigger = forwardRef<
           )}
           <span>{children}</span>
         </div>
-        <IconChevronDown className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        <IconChevronDown className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200 group-aria-expanded/accordion-trigger:rotate-180" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
@@ -64,18 +149,18 @@ const AccordionTrigger = forwardRef<
 AccordionTrigger.displayName = "AccordionTrigger";
 
 const AccordionContent = forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  ComponentProps<typeof AccordionPrimitive.Content>
+  ComponentRef<typeof AccordionPrimitive.Panel>,
+  AccordionPrimitive.Panel.Props
 >(({ className, children, ...props }, ref) => {
   return (
-    <AccordionPrimitive.Content
+    <AccordionPrimitive.Panel
       ref={ref}
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-base leading-5 tracking-tightest"
+      className="h-(--accordion-panel-height) overflow-hidden text-base leading-5 tracking-tightest transition-all duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0"
       {...props}
     >
       <div className={cn("px-2 pb-2 pt-0", className)}>{children}</div>
-    </AccordionPrimitive.Content>
+    </AccordionPrimitive.Panel>
   );
 });
 AccordionContent.displayName = "AccordionContent";
